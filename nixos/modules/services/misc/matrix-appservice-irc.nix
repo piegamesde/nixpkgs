@@ -149,74 +149,92 @@ in {
       };
     };
   };
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable (let
+    hardeningOptions = rec {
+#       ProtectHome = true;
+#       PrivateDevices = true;
+#       ProtectKernelTunables = true;
+#       ProtectKernelModules = true;
+#       ProtectControlGroups = true;
+#       StateDirectory = "matrix-appservice-irc";
+#       StateDirectoryMode = "750";
+#
+#       CapabilityBoundingSet = optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
+#       AmbientCapabilities = CapabilityBoundingSet;
+#       NoNewPrivileges = true;
+#
+#       LockPersonality = true;
+#       RestrictRealtime = true;
+#       PrivateMounts = true;
+#       SystemCallFilter = [
+#         "@systemd-service"
+#         "~ @privileged @resources"
+#       ];
+#       SystemCallArchitectures = "native";
+      # AF_UNIX is required to connect to a postgres socket.
+#       RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+    };
+  in {
+    systemd.services.matrix-appservice-irc-pre-start = {
+      description = "Matrix-IRC bridge";
+      before = [ "matrix-synapse.service" ];
+      wantedBy = [ "matrix-appservice-irc.service" ];
+
+      serviceConfig = {
+        Type = "simple";
+        User = "matrix-appservice-irc";
+        Group = ["matrix-appservice-irc"]
+          ++ (optionals (config.users.groups ? "matrix-synapse") ["matrix-synapse"]);
+
+        ExecStart = ''
+          umask 077
+          # Generate key for crypting passwords
+          if ! [ -f "${cfg.settings.ircService.passwordEncryptionKeyPath}" ]; then
+            ${pkgs.openssl}/bin/openssl genpkey \
+                -out "${cfg.settings.ircService.passwordEncryptionKeyPath}" \
+                -outform PEM \
+                -algorithm RSA \
+                -pkeyopt "rsa_keygen_bits:${toString cfg.passwordEncryptionKeyLength}"
+          fi
+          # Generate registration file
+          if ! [ -f "${registrationFile}" ]; then
+            # The easy case: the file has not been generated yet
+            ${bin} --generate-registration --file ${registrationFile} --config ${configFile} --url ${cfg.registrationUrl} --localpart ${cfg.localpart}
+          else
+            # The tricky case: we already have a generation file. Because the NixOS configuration might have changed, we need to
+            # regenerate it. But this would give the service a new random ID and tokens, so we need to back up and restore them.
+            # 1. Backup
+            id=$(grep "^id:.*$" ${registrationFile})
+            hs_token=$(grep "^hs_token:.*$" ${registrationFile})
+            as_token=$(grep "^as_token:.*$" ${registrationFile})
+            # 2. Regenerate
+            ${bin} --generate-registration --file ${registrationFile} --config ${configFile} --url ${cfg.registrationUrl} --localpart ${cfg.localpart}
+            # 3. Restore
+            sed -i "s/^id:.*$/$id/g" ${registrationFile}
+            sed -i "s/^hs_token:.*$/$hs_token/g" ${registrationFile}
+            sed -i "s/^as_token:.*$/$as_token/g" ${registrationFile}
+          fi
+          # Allow synapse access to the registration
+          if ${getBin pkgs.glibc}/bin/getent group matrix-synapse > /dev/null; then
+            chgrp matrix-synapse ${registrationFile}
+            chmod g+r ${registrationFile}
+          fi
+        '';
+      } // hardeningOptions;
+    };
     systemd.services.matrix-appservice-irc = {
       description = "Matrix-IRC bridge";
       before = [ "matrix-synapse.service" ]; # So the registration can be used by Synapse
+      after = [ "matrix-appservice-irc-pre-start.service" ];
       wantedBy = [ "multi-user.target" ];
 
-      preStart = ''
-        umask 077
-        # Generate key for crypting passwords
-        if ! [ -f "${cfg.settings.ircService.passwordEncryptionKeyPath}" ]; then
-          ${pkgs.openssl}/bin/openssl genpkey \
-              -out "${cfg.settings.ircService.passwordEncryptionKeyPath}" \
-              -outform PEM \
-              -algorithm RSA \
-              -pkeyopt "rsa_keygen_bits:${toString cfg.passwordEncryptionKeyLength}"
-        fi
-        # Generate registration file
-        if ! [ -f "${registrationFile}" ]; then
-          # The easy case: the file has not been generated yet
-          ${bin} --generate-registration --file ${registrationFile} --config ${configFile} --url ${cfg.registrationUrl} --localpart ${cfg.localpart}
-        else
-          # The tricky case: we already have a generation file. Because the NixOS configuration might have changed, we need to
-          # regenerate it. But this would give the service a new random ID and tokens, so we need to back up and restore them.
-          # 1. Backup
-          id=$(grep "^id:.*$" ${registrationFile})
-          hs_token=$(grep "^hs_token:.*$" ${registrationFile})
-          as_token=$(grep "^as_token:.*$" ${registrationFile})
-          # 2. Regenerate
-          ${bin} --generate-registration --file ${registrationFile} --config ${configFile} --url ${cfg.registrationUrl} --localpart ${cfg.localpart}
-          # 3. Restore
-          sed -i "s/^id:.*$/$id/g" ${registrationFile}
-          sed -i "s/^hs_token:.*$/$hs_token/g" ${registrationFile}
-          sed -i "s/^as_token:.*$/$as_token/g" ${registrationFile}
-        fi
-        # Allow synapse access to the registration
-        if ${getBin pkgs.glibc}/bin/getent group matrix-synapse > /dev/null; then
-          chgrp matrix-synapse ${registrationFile}
-          chmod g+r ${registrationFile}
-        fi
-      '';
-
-      serviceConfig = rec {
+      serviceConfig = {
         Type = "simple";
         ExecStart = "${bin} --config ${configFile} --file ${registrationFile} --port ${toString cfg.port}";
 
-        ProtectHome = true;
-        PrivateDevices = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        StateDirectory = "matrix-appservice-irc";
-        StateDirectoryMode = "755";
-
         User = "matrix-appservice-irc";
         Group = "matrix-appservice-irc";
-
-        CapabilityBoundingSet = [ "CAP_CHOWN" ] ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
-        AmbientCapabilities = CapabilityBoundingSet;
-        NoNewPrivileges = true;
-
-        LockPersonality = true;
-        RestrictRealtime = true;
-        PrivateMounts = true;
-        SystemCallFilter = "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap";
-        SystemCallArchitectures = "native";
-        # AF_UNIX is required to connect to a postgres socket.
-        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-      };
+      } // hardeningOptions;
     };
 
     users.groups.matrix-appservice-irc = {};
@@ -225,5 +243,5 @@ in {
       group = "matrix-appservice-irc";
       isSystemUser = true;
     };
-  };
+  });
 }
