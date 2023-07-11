@@ -1,8 +1,6 @@
 # Mutable users tests.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

@@ -311,9 +311,7 @@ stdenv.mkDerivation {
     ##
       ## General libc support
       ##
-      optionalString
-      (libc != null)
-      (
+      optionalString (libc != null) (
         ''
           touch "$out/nix-support/libc-ldflags"
           echo "-L${libc_lib}${

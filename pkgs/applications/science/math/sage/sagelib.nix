@@ -81,8 +81,7 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 # find many of its dependencies without `sage-env`, will not be tested without
 # `sage-tests` and will not have html docs without `sagedoc`.
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   version = src.version;
   pname = "sagelib";
   src = sage-src;

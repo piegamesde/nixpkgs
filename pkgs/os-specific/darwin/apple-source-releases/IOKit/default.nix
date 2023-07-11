@@ -8,9 +8,7 @@
 }:
 
 # Someday it'll make sense to split these out into their own packages, but today is not that day.
-appleDerivation'
-stdenv
-{
+appleDerivation' stdenv {
   srcs = lib.attrValues IOKitSrcs;
   sourceRoot = ".";
 

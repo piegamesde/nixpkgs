@@ -15,9 +15,7 @@
    access to that socket. Also, when there is no socket configured, users
    shouldn't be able to access the control socket at all. Not even root.
 */
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

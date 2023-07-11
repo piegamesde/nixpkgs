@@ -10,8 +10,7 @@
 
 # need pkg-config so that libshout installs ${out}/lib/pkgconfig/shout.pc
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libshout";
   version = "2.4.6";
 

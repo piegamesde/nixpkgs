@@ -11,8 +11,7 @@ rec {
     # if builtins.pathExists ./.local
     # then ./.
     # else
-    fetchFromGitHub
-    {
+    fetchFromGitHub {
       owner = "abathur";
       repo = "resholve";
       rev = "v${version}";

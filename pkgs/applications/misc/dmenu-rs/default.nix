@@ -18,8 +18,7 @@
 # only builds the package with the default set of plugins. If you'd like to
 # further customize dmenu-rs you can build it from the source.
 # See: https://github.com/Shizcow/dmenu-rs#plugins
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "dmenu-rs";
   version = "5.5.2";
 

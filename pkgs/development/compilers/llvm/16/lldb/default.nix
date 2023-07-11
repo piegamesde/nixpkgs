@@ -32,8 +32,7 @@
 # TODO: we build the python bindings but don't expose them as a python package
 # TODO: expose the vscode extension?
 
-stdenv.mkDerivation
-(
+stdenv.mkDerivation (
   rec {
     pname = "lldb";
     inherit version;

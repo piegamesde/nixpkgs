@@ -11,8 +11,7 @@
 # * Replace new `package.json`, `yarn.nix`, `yarn.lock` here.
 # * Update `version`+`hash` and rebuild.
 
-mkYarnPackage
-rec {
+mkYarnPackage rec {
   pname = "grafana-image-renderer";
   version = "3.7.0";
 

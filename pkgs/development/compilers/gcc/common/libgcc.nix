@@ -36,9 +36,7 @@ in
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
           # (i.e. libgccjit, gnat, etc) to avoid potential confusion
-          lib.optionalString
-          (!langC)
-          ''
+          lib.optionalString (!langC) ''
             rm -f $out/lib/libgcc_s.so*
           ''
 

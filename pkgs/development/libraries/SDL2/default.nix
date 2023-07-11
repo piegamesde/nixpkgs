@@ -57,8 +57,7 @@
 # NOTE: When editing this expression see if the same change applies to
 # SDL expression too
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "SDL2";
   version = "2.26.5";
 

@@ -10,8 +10,7 @@
 
 # TODO: offer meson as a Python package so we have dist-info folder.
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "mesonpep517";
   version = "0.2";
   format = "pyproject";

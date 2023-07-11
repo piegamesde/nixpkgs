@@ -29,8 +29,7 @@ in
 
 #   nativeBuildInputs = [ cmake ];
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   inherit pname version;
 
   src = fetchurl {

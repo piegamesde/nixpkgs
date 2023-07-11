@@ -9,8 +9,7 @@
 # BUNDLE_FROZEN='1' environment variable set, which broke everything
 # that rely on Bundler that runs under Tmuxinator.
 
-buildRubyGem
-rec {
+buildRubyGem rec {
   inherit ruby;
   name = "${gemName}-${version}";
   gemName = "tmuxinator";

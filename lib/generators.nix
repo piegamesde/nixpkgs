@@ -176,10 +176,7 @@ rec {
         ;
     in
     # map input to ini sections
-    mapAttrsToStringsSep
-    "\n"
-    mkSection
-    attrsOfAttrs
+    mapAttrsToStringsSep "\n" mkSection attrsOfAttrs
     ;
 
   # Generate an INI-style config file from an attrset

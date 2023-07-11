@@ -1,8 +1,6 @@
 # In contrast to systemd-networkd-dhcpserver, this test configures
 # the router with a static DHCP lease for the client's MAC address.
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     lib,
     ...

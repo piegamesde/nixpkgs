@@ -10,8 +10,7 @@
 
 # at runtime, need jdk
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "groovy";
   version = "3.0.11";
 

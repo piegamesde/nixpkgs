@@ -99,19 +99,11 @@ stdenv.mkDerivation rec {
   CCFLAGS =
     # The file contrib/optimizations/slide_hash_neon.h is missing from the
     # upstream distribution. It comes from the Android/Chromium sources.
-    lib.optionals
-    stdenv.isAarch64
-    [
-      "-I${androidZlibContrib}"
-    ];
+    lib.optionals stdenv.isAarch64 [ "-I${androidZlibContrib}" ];
 
   "C++FLAGS" =
     # Avoid a compilation error that only occurs for 4-byte longs.
-      lib.optionals
-      stdenv.isi686
-      [
-        "-Wno-narrowing"
-      ]
+      lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
     # See the "Header dependency changes" section of
     # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
     # information on why we need to include these.

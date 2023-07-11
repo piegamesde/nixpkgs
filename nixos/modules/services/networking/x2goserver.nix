@@ -128,9 +128,7 @@ in
       # x2goclient sends SSH commands with preset PATH set to
         # "/usr/local/bin;/usr/bin;/bin". Since we cannot filter arbitrary ssh
         # commands, we have to make the following executables available.
-        map
-        (f: "L+ /usr/local/bin/${f} - - - - ${x2goserver}/bin/${f}")
-        [
+        map (f: "L+ /usr/local/bin/${f} - - - - ${x2goserver}/bin/${f}") [
           "x2goagent"
           "x2gobasepath"
           "x2gocleansessions"

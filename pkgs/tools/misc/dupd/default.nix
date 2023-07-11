@@ -11,8 +11,7 @@
 # Instead of writing directly into $HOME, we change the default db location
 # from $HOME/.dupd_sqlite to $HOME/.cache/dupd.sqlite3
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "dupd";
   version = "1.7.1";
 

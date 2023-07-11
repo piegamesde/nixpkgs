@@ -22,8 +22,7 @@
 
 # Known issues:
 # - Video playback (upon starting a new game) does not work (screen is black)
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "everspace";
   version = "1.3.5.3655";
 

@@ -1,9 +1,7 @@
 # Regression test for systemd-timesync having moved the state directory without
 # upstream providing a migration path. https://github.com/systemd/systemd/issues/12131
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   let
     common =
       {

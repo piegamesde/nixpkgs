@@ -95,9 +95,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString (
     # qgpgme uses Q_ASSERT which retains build inputs at runtime unless
       # debugging is disabled
-      lib.optional
-      (qtbase != null)
-      "-DQT_NO_DEBUG"
+      lib.optional (qtbase != null) "-DQT_NO_DEBUG"
     # https://www.gnupg.org/documentation/manuals/gpgme/Largefile-Support-_0028LFS_0029.html
     ++ lib.optional stdenv.hostPlatform.is32bit "-D_FILE_OFFSET_BITS=64"
   );

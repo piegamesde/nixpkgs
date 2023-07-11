@@ -7,8 +7,7 @@
 # this package is working only as root
 # in order to work as a non privileged user you would need to suid the bin
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "beep";
   version = "1.4.12";
 

@@ -19,8 +19,7 @@
 }:
 
 # Can also use cuFFT
-stdenv.mkDerivation
-(
+stdenv.mkDerivation (
   finalAttrs: {
     pname = "hipfft";
     version = "5.4.3";

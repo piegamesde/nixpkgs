@@ -1,9 +1,7 @@
 # This test predominantly tests systemd-networkd DHCP server, by
 # setting up a DHCP server and client, and ensuring they are mutually
 # reachable via the DHCP allocated address.
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

@@ -33,8 +33,7 @@ let
 in
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
-runCommand
-"elementary-gsettings-desktop-schemas"
+runCommand "elementary-gsettings-desktop-schemas"
 { preferLocalBuild = true; }
 ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"

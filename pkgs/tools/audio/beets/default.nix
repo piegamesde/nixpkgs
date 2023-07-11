@@ -14,8 +14,7 @@
 #* beets.override { pluginOverrides = {
 #*   alternatives = { enable = true; propagatedBuildInputs = [ beetsPackages.alternatives ]; };
 #* }; }
-lib.makeExtensible
-(
+lib.makeExtensible (
   self: {
     beets = self.beets-stable;
 

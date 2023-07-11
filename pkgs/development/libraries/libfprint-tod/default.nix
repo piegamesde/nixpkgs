@@ -6,8 +6,7 @@
 
 # for the curious, "tod" means "Touch OEM Drivers" meaning it can load
 # external .so's.
-libfprint.overrideAttrs
-(
+libfprint.overrideAttrs (
   {
     postPatch ? "",
     mesonFlags ? [ ],

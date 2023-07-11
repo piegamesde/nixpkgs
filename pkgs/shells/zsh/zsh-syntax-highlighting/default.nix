@@ -7,8 +7,7 @@
 
 # To make use of this derivation, use the `programs.zsh.enableSyntaxHighlighting` option
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   version = "0.7.1";
   pname = "zsh-syntax-highlighting";
 

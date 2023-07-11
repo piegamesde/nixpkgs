@@ -20,8 +20,7 @@
    - fontforge = null (limited functionality)
 */
 
-stdenv.mkDerivation
-(
+stdenv.mkDerivation (
   finalAttrs: rec {
     pname = "mftrace";
     version = "1.2.20";

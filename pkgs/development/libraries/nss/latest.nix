@@ -4,9 +4,7 @@
 #       an update is required do the required changes to the expression.
 #       Example: nix-shell ./maintainers/scripts/update.nix --argstr package cacert
 
-import
-./generic.nix
-{
+import ./generic.nix {
   version = "3.89";
   hash = "sha256-VcN6P02gENBXT7izkmTLHntM6ebClUwcfs+fQe4AvtU=";
 }

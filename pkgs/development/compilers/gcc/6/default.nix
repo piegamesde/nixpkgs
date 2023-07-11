@@ -333,9 +333,7 @@ stdenv.mkDerivation (
     postPatch =
       # This should kill all the stdinc frameworks that gcc and friends like to
         # insert into default search paths.
-        lib.optionalString
-        hostPlatform.isDarwin
-        ''
+        lib.optionalString hostPlatform.isDarwin ''
           substituteInPlace gcc/config/darwin-c.c \
             --replace 'if (stdinc)' 'if (0)'
 

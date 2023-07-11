@@ -103,9 +103,7 @@ with pkgs;
       # thing to to create an earlier thing (leading to infinite recursion) and
       # we also would still respect the stage arguments choices for these
       # things.
-      overrideCC
-      stdenv
-      buildPackages.llvmPackages.clangNoCompilerRt
+      overrideCC stdenv buildPackages.llvmPackages.clangNoCompilerRt
     else
       mkStdenvNoLibs stdenv
     ;
@@ -147,8 +145,8 @@ with pkgs;
 
   defaultPkgConfigPackages =
     # We don't want nix-env -q to enter this, because all of these are aliases.
-    dontRecurseIntoAttrs
-    (import ./pkg-config/defaultPkgConfigPackages.nix pkgs);
+    dontRecurseIntoAttrs (import ./pkg-config/defaultPkgConfigPackages.nix pkgs)
+    ;
 
   ### Nixpkgs maintainer tools
 

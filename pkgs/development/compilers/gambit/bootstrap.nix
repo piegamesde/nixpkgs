@@ -13,8 +13,7 @@
 }:
 # As explained in build.nix, GCC compiles Gambit 10x faster than Clang, for code 3x better
 
-gccStdenv.mkDerivation
-{
+gccStdenv.mkDerivation {
   pname = "gambit-bootstrap";
   version = "4.9.3";
 

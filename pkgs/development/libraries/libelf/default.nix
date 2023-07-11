@@ -13,8 +13,7 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libelf";
   version = "0.8.13";
 

@@ -13,8 +13,7 @@
 # Updating this package will force an update for nodePackages.prisma. The
 # version of prisma-engines and nodePackages.prisma must be the same for them to
 # function correctly.
-rustPlatform.buildRustPackage
-rec {
+rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
   version = "4.13.0";
 

@@ -1,8 +1,6 @@
 # Test configuration switching.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...
@@ -527,7 +525,8 @@ import
           set -o pipefail
           exec env -i "$@" | tee /dev/stderr
         '';
-      in # python
+      in
+      # python
       ''
         def switch_to_specialisation(system, name, action="test", fail=False):
             if name == "":

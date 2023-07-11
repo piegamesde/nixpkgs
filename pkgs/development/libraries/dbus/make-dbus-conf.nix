@@ -14,8 +14,7 @@
 # for suid helper. Unfortunately the latter doesn't support <include>
 # directive. That means that we can't just place our configuration to
 # *-local.conf -- it needs to be in the main configuration file.
-runCommand
-"dbus-1"
+runCommand "dbus-1"
 {
   inherit serviceDirectories suidHelper apparmor;
   preferLocalBuild = true;

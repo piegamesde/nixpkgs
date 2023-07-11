@@ -10,8 +10,7 @@
 }:
 # possible additional dependencies: pulseaudio udev networkmanager immerson qmf
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   version = "1.2.0";
   pname = "qt-mobility";
   src = fetchFromGitHub {

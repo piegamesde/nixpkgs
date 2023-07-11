@@ -187,9 +187,7 @@ let
       prePatchCommon
       +
       # Do not build vim file
-        lib.optionalString
-        stdenv.hostPlatform.isMusl
-        ''
+        lib.optionalString stdenv.hostPlatform.isMusl ''
           sed -i ./utils/Makefile -e "/\<vim\>/d"
         ''
       + ''

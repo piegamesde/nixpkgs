@@ -48,8 +48,7 @@ in
 
 ### Deprecated aliases - for backward compatibility
 
-mapAliases
-({
+mapAliases ({
   abodepy = jaraco-abode; # added 2023-02-01
   aioh2 = throw "aioh2 has been removed because it is abandoned and broken."
     ; # Added 2022-03-30

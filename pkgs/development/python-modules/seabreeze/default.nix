@@ -19,8 +19,7 @@
 # users to get device access permission:
 #    services.udev.packages = [ pkgs.python3Packages.seabreeze ];
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "seabreeze";
   version = "1.3.0";
 

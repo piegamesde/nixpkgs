@@ -98,8 +98,7 @@ let
   };
 in
 # Builds the main `sl` binary and its Python extensions
-python3Packages.buildPythonApplication
-{
+python3Packages.buildPythonApplication {
   pname = "sapling";
   inherit src version;
 

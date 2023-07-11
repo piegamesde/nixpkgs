@@ -13,8 +13,7 @@
 # dependency during bootstrap. Useful when gcc is built from snapshot
 # or from a git tree (flex lexers are not pre-generated there).
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "flex";
   version = "2.6.4";
 

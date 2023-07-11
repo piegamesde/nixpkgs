@@ -73,9 +73,7 @@ in
               builtins.match ".*\\.nix" n != null
               &&
                 # ignore Emacs lock files (.#foo.nix)
-                  builtins.match
-                  "\\.#.*"
-                  n
+                  builtins.match "\\.#.*" n
                 == null
             )
             || builtins.pathExists (path + ("/" + n + "/default.nix"))
@@ -84,8 +82,7 @@ in
         )
       else
         # it's a file, so the result is the contents of the file itself
-        import
-        path
+        import path
       ;
   in
   if pathOverlays != "" && builtins.pathExists pathOverlays then

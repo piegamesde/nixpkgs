@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
           # Fixes a compile error due an ambiguous reference to bind(2) in
           # nping/EchoServer.cc, which is otherwise resolved to std::bind.
           # https://github.com/nmap/nmap/pull/1363
-          fetchpatch
-          {
+          fetchpatch {
             url =
               "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
             includes = [ "nping/EchoServer.cc" ];

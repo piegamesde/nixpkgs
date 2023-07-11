@@ -6,8 +6,7 @@
 }:
 
 # No gems used, so mkDerivation is fine.
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "nix-universal-prefetch";
   version = "0.4.0";
 

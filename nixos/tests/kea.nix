@@ -5,9 +5,7 @@
 # that the nameserver can resolve the clients fqdn to the correct IP
 # address.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

@@ -10,8 +10,7 @@
 #   ${pkgs.dunst}/bin/dunst -shrink -geometry 0x0-50-50 -key space & # ...if don't already have a dbus notification display app
 #   (sleep 3; exec ${pkgs.yeshup}/bin/yeshup ${pkgs.go-upower-notify}/bin/upower-notify) &
 # '';
-buildGoPackage
-rec {
+buildGoPackage rec {
   pname = "upower-notify";
   version = "unstable-2016-03-10";
 

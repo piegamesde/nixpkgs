@@ -18,8 +18,7 @@
 # Note that since gst-libav-1.6, libav is actually ffmpeg. See
 # https://gstreamer.freedesktop.org/releases/1.6/ for more info.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "gst-libav";
   version = "1.22.2";
 

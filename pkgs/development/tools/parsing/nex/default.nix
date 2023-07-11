@@ -5,8 +5,7 @@
 }:
 # upstream is pretty stale, but it still works, so until they merge module
 # support we have to use gopath: see blynn/nex#57
-buildGoPackage
-rec {
+buildGoPackage rec {
   pname = "nex";
   version = "unstable-2021-03-30";
 

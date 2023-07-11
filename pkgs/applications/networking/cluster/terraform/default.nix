@@ -140,9 +140,9 @@ let
             override =
               x: (pluggable (terraform.override x)).withPlugins plugins;
           };
-          # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
-          # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
         in
+        # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
+        # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
         if actualPlugins == [ ] then
           terraform.overrideAttrs (
             orig: { passthru = orig.passthru // passthru; }

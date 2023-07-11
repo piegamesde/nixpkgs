@@ -174,9 +174,7 @@ let
 
           hashesOnly =
             # Filter out all attributes other than hashes.
-            lib.filterAttrsRecursive
-            (name: _value: name != "system")
-            hashes;
+            lib.filterAttrsRecursive (name: _value: name != "system") hashes;
         in
         builtins.listToAttrs
         # Collect all leaf attributes (containing hashes).

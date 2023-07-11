@@ -205,9 +205,7 @@ else
         ''}
         ${
         # ghcjs will read the ghc_libdir file when resolving plugins.
-        lib.optionalString
-        (isGhcjs && ghcLibdir != null)
-        ''
+        lib.optionalString (isGhcjs && ghcLibdir != null) ''
           mkdir -p "${libDir}"
           rm -f "${libDir}/ghc_libdir"
           printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"

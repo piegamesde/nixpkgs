@@ -5,9 +5,7 @@
       always covered, availability isn't)
     - the postgres integration works
 */
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

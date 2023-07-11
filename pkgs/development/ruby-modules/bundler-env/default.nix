@@ -45,18 +45,15 @@ let
   );
 
   inherit (basicEnv) envPaths;
-  # Idea here is a mkDerivation that gen-bin-stubs new stubs "as specified" -
-  # either specific executables or the bin/ for certain gem(s), but
-  # incorporates the basicEnv as a requirement so that its $out is in our path.
-
-  # When stubbing the bins for a gem, we should use the gem expression
-  # directly, which means that basicEnv should somehow make it available.
-
-  # Different use cases should use different variations on this file, rather
-  # than the expression trying to deduce a use case.
-
-  # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
 in
+# Idea here is a mkDerivation that gen-bin-stubs new stubs "as specified" -
+# either specific executables or the bin/ for certain gem(s), but
+# incorporates the basicEnv as a requirement so that its $out is in our path.
+# When stubbing the bins for a gem, we should use the gem expression
+# directly, which means that basicEnv should somehow make it available.
+# Different use cases should use different variations on this file, rather
+# than the expression trying to deduce a use case.
+# The basicEnv should be put into passthru so that e.g. nix-shell can use it.
 if pname == null then
   basicEnv // { inherit name basicEnv; }
 else

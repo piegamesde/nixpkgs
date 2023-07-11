@@ -569,8 +569,7 @@ in
           ;
       in
       # We will generate every possible pair of WM and DM.
-      concatLists
-      (
+      concatLists (
         builtins.map
         (
           {

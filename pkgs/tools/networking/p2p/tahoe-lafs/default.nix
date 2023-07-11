@@ -11,8 +11,7 @@
 # store path. The problem appears to be non-fatal, but there's probably
 # some loss of functionality because of it.
 
-python3Packages.buildPythonApplication
-rec {
+python3Packages.buildPythonApplication rec {
   pname = "tahoe-lafs";
   version = "unstable-2021-07-09";
 

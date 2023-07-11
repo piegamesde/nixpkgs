@@ -8,8 +8,7 @@
 # Please keep in spec order for easier maintenance.
 # When adding a new value, don't forget to update the Version field below!
 # See https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
-lib.makeOverridable
-(
+lib.makeOverridable (
   {
     name, # The name of the desktop file
     type ? "Application"

@@ -26,8 +26,7 @@
 
 # TODO: enable more folks backends
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "folks";
   version = "0.15.6";
 

@@ -255,9 +255,7 @@ rec {
             then
               # But if we don't have a value, just use an empty attribute set
               # as the value, but simplify the code a bit
-              mapAttrs
-              (name: go (prefixLength + 1) false null)
-              nested
+              mapAttrs (name: go (prefixLength + 1) false null) nested
             else if isAttrs value then
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
@@ -281,12 +279,11 @@ rec {
                 + "update an attribute inside of it."
               )
             ;
-
-          # We get the final result by applying all the updates on this level
-          # after having applied all the nested updates
-          # We use foldl instead of foldl' so that in case of multiple updates,
-          # intermediate values aren't evaluated if not needed
         in
+        # We get the final result by applying all the updates on this level
+        # after having applied all the nested updates
+        # We use foldl instead of foldl' so that in case of multiple updates,
+        # intermediate values aren't evaluated if not needed
         foldl (acc: el: el.update acc) withNestedMods split.right
         ;
     in

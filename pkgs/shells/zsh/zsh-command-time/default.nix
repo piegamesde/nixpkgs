@@ -12,8 +12,7 @@
 #     ZSH_COMMAND_TIME_ECHO=1
 #   '';
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   version = "2018-04-30";
   pname = "zsh-command-time";
 

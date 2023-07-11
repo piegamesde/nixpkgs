@@ -89,9 +89,8 @@ let
       defaultBuildInputs = extraBuildInputs;
 
       stdenv = (stdenv-overridable argsStdenv);
-
-      # The stdenv that we are producing.
     in
+    # The stdenv that we are producing.
     derivation (
       lib.optionalAttrs (allowedRequisites != null) {
         allowedRequisites =

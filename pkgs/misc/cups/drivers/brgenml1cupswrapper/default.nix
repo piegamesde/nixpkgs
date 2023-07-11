@@ -61,8 +61,7 @@
         in `PATH`.
 */
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "brgenml1cupswrapper";
   version = "3.1.0-1";
 

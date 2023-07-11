@@ -5,8 +5,7 @@
 args:
 
 # see the substituteAll in the nixpkgs documentation for usage and constaints
-stdenvNoCC.mkDerivation
-(
+stdenvNoCC.mkDerivation (
   {
     name =
       if args ? name then

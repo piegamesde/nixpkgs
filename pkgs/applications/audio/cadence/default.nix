@@ -14,8 +14,7 @@
 #pulseaudio needs fixes (patchShebangs .pa ...)
 #desktop needs icons and exec fixing.
 
-mkDerivation
-rec {
+mkDerivation rec {
   version = "0.9.1";
   pname = "cadence";
 

@@ -137,11 +137,7 @@ stdenv.mkDerivation rec {
       ++
       # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
         # the unRAR compression code is disabled by default
-        lib.optionals
-        enableUnfree
-        [
-          unfree
-        ];
+        lib.optionals enableUnfree [ unfree ];
     maintainers = with maintainers; [
       anna328p
       peterhoeg

@@ -365,9 +365,7 @@ stdenv.mkDerivation rec {
       ''
     +
     # Rename needed libraries and binaries, fix interpreter
-      lib.optionalString
-      stdenv.isLinux
-      ''
+      lib.optionalString stdenv.isLinux ''
         find . -type f -executable -exec patchelf \
             --interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
       ''

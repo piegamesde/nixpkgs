@@ -9,8 +9,7 @@
 }:
 
 # TODO: add a services entry for the /etc/zs-apc-spdu.conf file
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "zs-apc-spdu-ctl";
   version = "0.0.2";
 

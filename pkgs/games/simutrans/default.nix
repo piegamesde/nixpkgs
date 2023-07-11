@@ -173,9 +173,9 @@ let
           OSTYPE = ${platform}
           VERBOSE = 1
         '';
-        #TODO: MULTI_THREAD = 1 is "highly recommended",
-        # but it's roughly doubling CPU usage for me
       in
+      #TODO: MULTI_THREAD = 1 is "highly recommended",
+      # but it's roughly doubling CPU usage for me
       ''
         echo "${config}" > config.default
 

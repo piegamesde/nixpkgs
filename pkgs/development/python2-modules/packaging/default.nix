@@ -11,8 +11,7 @@
 # We keep 20.4 because it uses setuptools instead of flit-core
 # which requires Python 3 to build a universal wheel.
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "packaging";
   version = "20.4";
   format = "setuptools";

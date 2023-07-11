@@ -53,8 +53,7 @@
 # NOTE: enableAllFeatures just purifies the expression, it doesn't actually
 # enable any extra features.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "dblatex${lib.optionalString enableAllFeatures "-full"}";
   version = "0.3.12";
 

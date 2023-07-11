@@ -289,10 +289,9 @@ let
     lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
       _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
     };
-
-  # Build the basic Python interpreter without modules that have
-  # external dependencies.
 in
+# Build the basic Python interpreter without modules that have
+# external dependencies.
 with passthru;
 stdenv.mkDerivation (
   {

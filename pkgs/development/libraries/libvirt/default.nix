@@ -111,8 +111,7 @@ assert enableGlusterfs -> isLinux;
 assert enableZfs -> isLinux;
 
 # if you update, also bump <nixpkgs/pkgs/development/python-modules/libvirt/default.nix> and SysVirt in <nixpkgs/pkgs/top-level/perl-packages.nix>
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libvirt";
   # NOTE: You must also bump:
   # <nixpkgs/pkgs/development/python-modules/libvirt/default.nix>

@@ -7,8 +7,7 @@
 
 # To make use of this derivation, use the `programs.zsh.autosuggestions.enable` option
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "zsh-autosuggestions";
   version = "0.7.0";
 

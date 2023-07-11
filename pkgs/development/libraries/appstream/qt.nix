@@ -8,8 +8,7 @@
 
 # TODO: look into using the libraries from the regular appstream derivation as we keep duplicates here
 
-mkDerivation
-{
+mkDerivation {
   pname = "appstream-qt";
   inherit (appstream) version src;
 

@@ -755,8 +755,8 @@ let
               name: defs:
               let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
-                # mergedValue will trigger an appropriate error when accessed
               in
+              # mergedValue will trigger an appropriate error when accessed
               merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
             )
             # Push down position info.

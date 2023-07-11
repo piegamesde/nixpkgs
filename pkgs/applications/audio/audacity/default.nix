@@ -60,8 +60,7 @@
 # TODO
 # 1. detach sbsms
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "audacity";
   version = "3.3.1";
 

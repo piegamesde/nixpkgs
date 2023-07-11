@@ -9,8 +9,7 @@
 #   localedef -f CP1251 -i ru_RU ru_RU.CP1251
 # The store file mentioned is in "${glibc.out}/lib/locale/locale-archive"
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   pname = "multitran-data";
   version = "0.3";
 

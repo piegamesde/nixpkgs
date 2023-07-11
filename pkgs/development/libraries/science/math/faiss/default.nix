@@ -24,8 +24,7 @@
       ;
   in
   # Choose the maximum available optimization level
-  builtins.head
-  optLevels
+  builtins.head optLevels
   ,
   faiss, # To run demos in the tests
   runCommand,

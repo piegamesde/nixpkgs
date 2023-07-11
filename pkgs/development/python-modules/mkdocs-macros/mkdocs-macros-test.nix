@@ -8,8 +8,7 @@
 }:
 
 # Is required for properly testing mkdocs-macros
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "mkdocs-macros-test";
   version = "0.1.0";
 

@@ -652,8 +652,7 @@ rec {
         inherit depsTargetTargetPropagated;
         propagatedBuildInputs =
           # remove list conditionals before 23.11
-          lib.warnIf
-          (!lib.isList deps)
+          lib.warnIf (!lib.isList deps)
           "'deps' argument to makeSetupHook must be a list. content of deps: ${
             toString deps
           }"
@@ -829,9 +828,7 @@ rec {
               # If the matched path is in `namedOutputPaths`,
                 # it's a partial match of an output path where
                 # the output name isn't `out`
-                lib.all
-                (o: !lib.hasPrefix (lib.head x) o)
-                namedOutputPaths
+                lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
             )
             (
               builtins.split

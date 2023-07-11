@@ -19,26 +19,22 @@ let
   mkExcludeFile =
     cfg:
     # Write each exclude pattern to a new line
-    pkgs.writeText
-    "excludefile"
-    (concatMapStrings (s: s + "\n") cfg.exclude)
+    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude)
     ;
 
   mkPatternsFile =
     cfg:
     # Write each pattern to a new line
-    pkgs.writeText
-    "patternsfile"
-    (concatMapStrings (s: s + "\n") cfg.patterns)
+    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns)
     ;
 
   mkKeepArgs =
     cfg:
     # If cfg.prune.keep e.g. has a yearly attribute,
     # its content is passed on as --keep-yearly
-    concatStringsSep
-    " "
-    (mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep)
+    concatStringsSep " " (
+      mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep
+    )
     ;
 
   mkBackupScript =
@@ -897,9 +893,7 @@ in
 
       systemd.services =
         # A job named "foo" is mapped to systemd.services.borgbackup-job-foo
-        mapAttrs'
-        mkBackupService
-        jobs
+        mapAttrs' mkBackupService jobs
         # A repo named "foo" is mapped to systemd.services.borgbackup-repo-foo
         // mapAttrs' mkRepoService repos;
 

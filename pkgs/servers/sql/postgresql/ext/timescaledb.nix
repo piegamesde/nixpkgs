@@ -20,8 +20,7 @@
 #   settings.shared_preload_libraries = "timescaledb";
 # }
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "timescaledb${lib.optionalString (!enableUnfree) "-apache"}";
   version = "2.10.3";
 

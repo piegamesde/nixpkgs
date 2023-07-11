@@ -3,9 +3,7 @@
 #   2. nexus service can startup on server (creating database and all other initial stuff)
 #   3. the web application is reachable via HTTP
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

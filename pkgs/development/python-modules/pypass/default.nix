@@ -21,8 +21,7 @@
 
 # Use the `pypass` top-level attribute, if you're interested in the
 # application
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "pypass";
   version = "0.2.1";
 

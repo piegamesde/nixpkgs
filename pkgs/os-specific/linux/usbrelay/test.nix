@@ -14,9 +14,7 @@
 # https://discourse.nixos.org/t/hardware-dependent-nixos-tests/18564
 # for discussion of other alternatives).
 
-import
-../../../../nixos/tests/make-test-python.nix
-(
+import ../../../../nixos/tests/make-test-python.nix (
   {
     pkgs,
     ...

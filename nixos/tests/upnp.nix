@@ -5,9 +5,7 @@
 # this succeeds an external client will try to connect to the port
 # mapping.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

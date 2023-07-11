@@ -134,9 +134,7 @@ stdenv.mkDerivation rec {
 
   postInstall =
     # Maintain compat for mdnsresponder
-    lib.optionalString
-    withLibdnssdCompat
-    ''
+    lib.optionalString withLibdnssdCompat ''
       ln -s avahi-compat-libdns_sd/dns_sd.h "$dev/include/dns_sd.h"
     '';
 

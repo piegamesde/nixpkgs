@@ -15,8 +15,7 @@
 #     datadir=/path/to/opendune-data
 # - download dune2 into [datadir] http://www.bestoldgames.net/eng/old-games/dune-2.php
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "opendune";
   version = "0.9";
 

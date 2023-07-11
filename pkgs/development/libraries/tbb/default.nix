@@ -47,11 +47,7 @@ stdenv.mkDerivation rec {
     ++
     # Workaround for gcc-12 ICE when using -O3
       # https://gcc.gnu.org/PR108854
-      lib.optionals
-      (stdenv.cc.isGNU && stdenv.isx86_32)
-      [
-        "-O2"
-      ]
+      lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
     ;
 
   # Disable failing test on musl

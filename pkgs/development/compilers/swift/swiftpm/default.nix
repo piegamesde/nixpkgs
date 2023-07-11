@@ -387,9 +387,8 @@ let
       '';
     }
   );
-
-  # Build the final swiftpm with the bootstrapping swiftpm.
 in
+# Build the final swiftpm with the bootstrapping swiftpm.
 stdenv.mkDerivation (
   commonAttrs // {
     pname = "swiftpm";

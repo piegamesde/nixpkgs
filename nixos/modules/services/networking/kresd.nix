@@ -33,7 +33,8 @@ let
         else
           "{'::', '0.0.0.0'}"
         ;
-    in # freebind is set for compatibility with earlier kresd services;
+    in
+    # freebind is set for compatibility with earlier kresd services;
     # it could be configurable, for example.
     ''
       net.listen(${addrSpec}, ${port}, { kind = '${kind}', freebind = true })

@@ -60,8 +60,7 @@
 #  * move some plugins (e.g., SQL plugins) to dedicated derivations to avoid
 #    false build-time dependencies
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname =
     "qt"
     + lib.optionalString (docs && demos && examples && developerBuild) "-full"

@@ -32,8 +32,7 @@ let
 in
 
 # TODO: loop over targetPrefixed binaries too
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   pname =
     "${targetPrefix}cctools-binutils-darwin"
     + lib.optionalString dualAs "-dualas"

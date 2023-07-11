@@ -177,9 +177,7 @@ let
     # -fexternal-dynamic-refs apparently (because it's not clear from the documentation)
       # makes the GHC RTS able to load static libraries, which may be needed for TemplateHaskell.
       # This solution was described in https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-      lib.optionalString
-      enableRelocatedStaticLibs
-      ''
+      lib.optionalString enableRelocatedStaticLibs ''
         GhcLibHcOpts += -fPIC -fexternal-dynamic-refs
         GhcRtsHcOpts += -fPIC -fexternal-dynamic-refs
       ''

@@ -1,8 +1,6 @@
 # This test runs influxdb and checks if influxdb is up and running
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

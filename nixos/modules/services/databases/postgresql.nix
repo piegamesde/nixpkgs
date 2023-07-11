@@ -527,8 +527,7 @@ in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-      mkDefault
-      (
+      mkDefault (
         if cfg.enableJIT then
           base.withJIT
         else

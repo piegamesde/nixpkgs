@@ -499,9 +499,8 @@ let
       chromiumDeps = { gn = gnChromium; };
     };
   };
-
-  # Remove some extraAttrs we supplied to the base attributes already.
 in
+# Remove some extraAttrs we supplied to the base attributes already.
 stdenv.mkDerivation (
   base // removeAttrs extraAttrs [
     "name"

@@ -46,8 +46,7 @@
 #     };
 #   })
 # ];
-melpaBuild
-rec {
+melpaBuild rec {
   pname = "mind-wave";
   version = "20230322.1348"; # 13:48 UTC
   src = pkgs.fetchFromGitHub {

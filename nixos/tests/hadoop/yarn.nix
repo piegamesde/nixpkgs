@@ -1,7 +1,5 @@
 # This only tests if YARN is able to start its services
-import
-../make-test-python.nix
-(
+import ../make-test-python.nix (
   {
     package,
     ...

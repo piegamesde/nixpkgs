@@ -13,8 +13,7 @@
 
 # TODO: add libopenraw
 
-mkXfceDerivation
-{
+mkXfceDerivation {
   category = "xfce";
   pname = "tumbler";
   version = "4.18.1";

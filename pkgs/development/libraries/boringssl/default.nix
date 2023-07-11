@@ -9,8 +9,7 @@
 }:
 
 # reference: https://boringssl.googlesource.com/boringssl/+/2661/BUILDING.md
-buildGoModule
-{
+buildGoModule {
   pname = "boringssl";
   version = "2021-07-09";
 

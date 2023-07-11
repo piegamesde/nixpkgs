@@ -16,8 +16,7 @@
    file included in the tarball
 */
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   pname = "cnijfilter";
 
   /* important note about versions: cnijfilter packages seem to use

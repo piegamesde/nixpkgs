@@ -5,9 +5,7 @@
 # to show its main application window
 # and verifies some configuration information.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     lib,
     pkgs,

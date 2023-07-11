@@ -5,9 +5,7 @@
 #
 # All interfaces are in OSPF Area 0.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

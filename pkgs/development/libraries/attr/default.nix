@@ -10,8 +10,7 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "attr";
   version = "2.5.1";
 

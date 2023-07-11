@@ -7,8 +7,7 @@
 # this expression is mostly based on debian's packaging
 # https://tracker.debian.org/media/packages/u/udns/rules-0.4-1
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "udns";
   version = "0.4";
 

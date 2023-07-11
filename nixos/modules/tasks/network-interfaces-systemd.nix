@@ -395,8 +395,7 @@ in
                       with kOpts;
                       # we simply take the first set kernel bond option
                       # (one option has multiple names, which is silly)
-                      head
-                      (
+                      head (
                         map
                         (optN: valTransform (do.${optN}))
                         # only map those that exist

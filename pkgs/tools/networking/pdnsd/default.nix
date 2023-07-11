@@ -17,9 +17,7 @@ stdenv.mkDerivation rec {
 
   patches =
     # fix build with linux headers >= 5.13
-    lib.optional
-    stdenv.isLinux
-    (
+    lib.optional stdenv.isLinux (
       fetchpatch {
         name = "fix-build-linux-headers-gte-5.13.patch";
         url =

@@ -1,8 +1,6 @@
 # This test start mongodb, runs a query using mongo shell
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

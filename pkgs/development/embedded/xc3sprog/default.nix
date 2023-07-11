@@ -10,8 +10,7 @@
 # The xc3sprog project doesn't seem to make proper releases, they only put out
 # prebuilt binary subversion snapshots on sourceforge.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   version = "787";
   pname = "xc3sprog";
 
