@@ -575,14 +575,10 @@ rec {
         ;
 
       linkCommands = lib.mapAttrsToList
-        (
-          name: path: ''
-            mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
-            ln -s ${lib.escapeShellArg "${path}"} ${
-              lib.escapeShellArg "${name}"
-            }
-          ''
-        )
+        (name: path: ''
+          mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
+          ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
+        '')
         entries';
     in
     runCommand name
@@ -779,16 +775,14 @@ rec {
       # `builtins.fetch*`ed ones
       sources = lib.attrNames (lib.filterAttrs (n: v: v ? path) context);
       packages = lib.mapAttrs'
-        (
-          name: value: {
-            inherit value;
-            name = lib.head (
-              builtins.match
-              "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
-              name
-            );
-          }
-        )
+        (name: value: {
+          inherit value;
+          name = lib.head (
+            builtins.match
+            "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
+            name
+          );
+        })
         derivations;
       # The syntax of output paths differs between outputs named `out`
       # and other, explicitly named ones. For explicitly named ones,

@@ -11,17 +11,15 @@ let
   cfg = config.services.certmgr;
 
   specs = mapAttrsToList
-    (
-      n: v: rec {
-        name = n + ".json";
-        path =
-          if isAttrs v then
-            pkgs.writeText name (builtins.toJSON v)
-          else
-            v
-          ;
-      }
-    )
+    (n: v: rec {
+      name = n + ".json";
+      path =
+        if isAttrs v then
+          pkgs.writeText name (builtins.toJSON v)
+        else
+          v
+        ;
+    })
     cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;

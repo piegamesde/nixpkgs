@@ -523,12 +523,10 @@ in
           ''
           + concatStringsSep "\n" (
             mapAttrsToList
-            (
-              dataset: config: ''
-                echo Importing znapzend zetup ${config} for dataset ${dataset}
-                ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-              ''
-            )
+            (dataset: config: ''
+              echo Importing znapzend zetup ${config} for dataset ${dataset}
+              ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
+            '')
             files
           )
           + ''

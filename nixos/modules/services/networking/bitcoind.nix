@@ -204,33 +204,31 @@ in
 
     assertions = flatten (
       mapAttrsToList
-      (
-        bitcoindName: cfg: [
-          {
-            assertion =
-              (cfg.prune != null)
-              -> (builtins.elem cfg.prune [
-                "disable"
-                "manual"
-                0
-                1
-              ]
-                || (builtins.isInt cfg.prune && cfg.prune >= 550)
-              )
-              ;
-            message = ''
-              If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.
-            '';
-          }
-          {
-            assertion = (cfg.rpc.users != { }) -> (cfg.configFile == null);
-            message = ''
-              You cannot set both services.bitcoind.${bitcoindName}.rpc.users and services.bitcoind.${bitcoindName}.configFile
-              as they are exclusive. RPC user setting would have no effect if custom configFile would be used.
-            '';
-          }
-        ]
-      )
+      (bitcoindName: cfg: [
+        {
+          assertion =
+            (cfg.prune != null)
+            -> (builtins.elem cfg.prune [
+              "disable"
+              "manual"
+              0
+              1
+            ]
+              || (builtins.isInt cfg.prune && cfg.prune >= 550)
+            )
+            ;
+          message = ''
+            If set, services.bitcoind.${bitcoindName}.prune has to be "disable", "manual", 0 , 1 or >= 550.
+          '';
+        }
+        {
+          assertion = (cfg.rpc.users != { }) -> (cfg.configFile == null);
+          message = ''
+            You cannot set both services.bitcoind.${bitcoindName}.rpc.users and services.bitcoind.${bitcoindName}.configFile
+            as they are exclusive. RPC user setting would have no effect if custom configFile would be used.
+          '';
+        }
+      ])
       eachBitcoind
     );
 
@@ -309,11 +307,9 @@ in
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
-      (
-        bitcoindName: cfg: [
-          "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-        ]
-      )
+      (bitcoindName: cfg: [
+        "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
+      ])
       eachBitcoind
     );
 

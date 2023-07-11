@@ -756,11 +756,9 @@ rec {
           }";
         libStr.concatStrings (
           lib.attrsets.mapAttrsToList
-          (
-            key: value: ''
-              ${indent}${key} = ${toLua innerArgs value}
-            ''
-          )
+          (key: value: ''
+            ${indent}${key} = ${toLua innerArgs value}
+          '')
           v
         )
         ;

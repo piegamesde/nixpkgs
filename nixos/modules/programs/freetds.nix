@@ -52,12 +52,10 @@ in
       text =
         (concatStrings (
           mapAttrsToList
-          (
-            name: value: ''
-              [${name}]
-              ${value}
-            ''
-          )
+          (name: value: ''
+            [${name}]
+            ${value}
+          '')
           cfg
         ));
     };

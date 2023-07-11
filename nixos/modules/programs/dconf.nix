@@ -19,11 +19,9 @@ let
       ''
       + (concatStringsSep "\n" (
         mapAttrsToList
-        (
-          name: path: ''
-            ln -s ${path} $out/profile/${name}
-          ''
-        )
+        (name: path: ''
+          ln -s ${path} $out/profile/${name}
+        '')
         cfg.profiles
       ))
       + ''

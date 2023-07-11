@@ -147,12 +147,10 @@ let
       })
       (subtractLists cfg.suppressedStorePaths cfg.storePaths)
       ++ mapAttrsToList
-        (
-          _: v: {
-            object = v.source;
-            symlink = v.target;
-          }
-        )
+        (_: v: {
+          object = v.source;
+          symlink = v.target;
+        })
         (filterAttrs (_: v: v.enable) cfg.contents)
       ;
   };

@@ -21,15 +21,13 @@ buildPythonApplication rec {
   postPatch =
     (lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (
-        path: submodule: ''
-          # substitute ${path}
-          # remove git submodule placeholder
-          rm -r ${path}
-          # link submodule
-          ln -s ${submodule}/ ${path}
-        ''
-      )
+      (path: submodule: ''
+        # substitute ${path}
+        # remove git submodule placeholder
+        rm -r ${path}
+        # link submodule
+        ln -s ${submodule}/ ${path}
+      '')
       common.submodules
     ))
     + ''

@@ -308,20 +308,16 @@ let
   filterFiles = files: filterAttrs (n: v: v.enable) files;
   rspamdDir = pkgs.linkFarm "etc-rspamd-dir" (
     (mapAttrsToList
-      (
-        name: file: {
-          name = "local.d/${name}";
-          path = file.source;
-        }
-      )
+      (name: file: {
+        name = "local.d/${name}";
+        path = file.source;
+      })
       (filterFiles cfg.locals))
     ++ (mapAttrsToList
-      (
-        name: file: {
-          name = "override.d/${name}";
-          path = file.source;
-        }
-      )
+      (name: file: {
+        name = "override.d/${name}";
+        path = file.source;
+      })
       (filterFiles cfg.overrides))
     ++ (optional (cfg.localLuaRules != null) {
       name = "rspamd.local.lua";

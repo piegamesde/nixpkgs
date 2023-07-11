@@ -89,11 +89,9 @@ stdenv.mkDerivation rec {
   buildPhase =
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (
-        name: dep: ''
-          cp -r ${dep} ${name}
-        ''
-      )
+      (name: dep: ''
+        cp -r ${dep} ${name}
+      '')
       deps
     )
     + ''

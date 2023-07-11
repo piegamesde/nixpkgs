@@ -1030,21 +1030,19 @@ let
       metricProvider = {
         # Mock rtl_433 binary to return a dummy metric stream.
         nixpkgs.overlays = [
-          (
-            self: super: {
-              rtl_433 = self.runCommand "rtl_433" { } ''
-                mkdir -p "$out/bin"
-                cat <<EOF > "$out/bin/rtl_433"
-                #!/bin/sh
-                while true; do
-                  printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
-                  sleep 4
-                done
-                EOF
-                chmod +x "$out/bin/rtl_433"
-              '';
-            }
-          )
+          (self: super: {
+            rtl_433 = self.runCommand "rtl_433" { } ''
+              mkdir -p "$out/bin"
+              cat <<EOF > "$out/bin/rtl_433"
+              #!/bin/sh
+              while true; do
+                printf '{"time" : "2020-04-26 13:37:42", "model" : "zopieux", "id" : 55, "channel" : 3, "temperature_C" : 18.000}\n'
+                sleep 4
+              done
+              EOF
+              chmod +x "$out/bin/rtl_433"
+            '';
+          })
         ];
       };
       exporterTest = ''

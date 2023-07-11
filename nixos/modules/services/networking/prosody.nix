@@ -991,14 +991,12 @@ in
 
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList
-          (
-            n: v: ''
-              VirtualHost "${v.domain}"
-                enabled = ${boolToString v.enabled};
-                ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-                ${v.extraConfig}
-            ''
-          )
+          (n: v: ''
+            VirtualHost "${v.domain}"
+              enabled = ${boolToString v.enabled};
+              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+              ${v.extraConfig}
+          '')
           cfg.virtualHosts
         )}
       ''

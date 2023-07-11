@@ -532,11 +532,9 @@ in
             done
             ${concatStrings (
               mapAttrsToList
-              (
-                exec: target: ''
-                  ln -s ${target} $out/${exec};
-                ''
-              )
+              (exec: target: ''
+                ln -s ${target} $out/${exec};
+              '')
               links
             )}
           ''
@@ -693,12 +691,10 @@ in
 
     # Generate timer units for all services that have a ‘startAt’ value.
     systemd.timers = mapAttrs
-      (
-        name: service: {
-          wantedBy = [ "timers.target" ];
-          timerConfig.OnCalendar = service.startAt;
-        }
-      )
+      (name: service: {
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = service.startAt;
+      })
       (
         filterAttrs
         (name: service: service.enable && service.startAt != [ ])

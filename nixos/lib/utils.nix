@@ -279,12 +279,10 @@ rec {
     ''
     + concatStringsSep "\n" (
       imap1
-      (
-        index: name: ''
-          secret${toString index}=$(<'${secrets.${name}}')
-          export secret${toString index}
-        ''
-      )
+      (index: name: ''
+        secret${toString index}=$(<'${secrets.${name}}')
+        export secret${toString index}
+      '')
       (attrNames secrets)
     )
     + "\n"

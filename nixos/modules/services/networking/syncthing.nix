@@ -15,28 +15,24 @@ let
   defaultGroup = defaultUser;
 
   devices = mapAttrsToList
-    (
-      name: device: {
-        deviceID = device.id;
-        inherit (device) name addresses introducer autoAcceptFolders;
-      }
-    )
+    (name: device: {
+      deviceID = device.id;
+      inherit (device) name addresses introducer autoAcceptFolders;
+    })
     cfg.devices;
 
   folders = mapAttrsToList
-    (
-      _: folder: {
-        inherit (folder) path id label type;
-        devices =
-          map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
-        rescanIntervalS = folder.rescanInterval;
-        fsWatcherEnabled = folder.watch;
-        fsWatcherDelayS = folder.watchDelay;
-        ignorePerms = folder.ignorePerms;
-        ignoreDelete = folder.ignoreDelete;
-        versioning = folder.versioning;
-      }
-    )
+    (_: folder: {
+      inherit (folder) path id label type;
+      devices =
+        map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
+      rescanIntervalS = folder.rescanInterval;
+      fsWatcherEnabled = folder.watch;
+      fsWatcherDelayS = folder.watchDelay;
+      ignorePerms = folder.ignorePerms;
+      ignoreDelete = folder.ignoreDelete;
+      versioning = folder.versioning;
+    })
     (filterAttrs (_: folder: folder.enable) cfg.folders);
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''

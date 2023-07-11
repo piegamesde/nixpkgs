@@ -160,34 +160,32 @@ let
       (
         os: architectures:
         builtins.mapAttrs
-        (
-          architecture: variants: {
-            base = map
+        (architecture: variants: {
+          base = map
+            (
+              args:
+              mkArtifactDerivation (
+                { platform = "${os}-${architecture}"; } // args
+              )
+            )
+            variants.base;
+          variants = builtins.mapAttrs
+            (
+              variant: variantArtifacts:
+              map
               (
                 args:
                 mkArtifactDerivation (
-                  { platform = "${os}-${architecture}"; } // args
+                  {
+                    platform = "${os}-${architecture}";
+                    inherit variant;
+                  } // args
                 )
               )
-              variants.base;
-            variants = builtins.mapAttrs
-              (
-                variant: variantArtifacts:
-                map
-                (
-                  args:
-                  mkArtifactDerivation (
-                    {
-                      platform = "${os}-${architecture}";
-                      inherit variant;
-                    } // args
-                  )
-                )
-                variantArtifacts
-              )
-              variants.variants;
-          }
-        )
+              variantArtifacts
+            )
+            variants.variants;
+        })
         architectures
       )
       artifacts.platform;

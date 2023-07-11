@@ -44,12 +44,10 @@ let
   assertKeysValid =
     prefix: valid: config:
     mapAttrsToList
-    (
-      n: _: {
-        assertion = valid ? ${n};
-        message = "Invalid config key ${prefix}.${n}.";
-      }
-    )
+    (n: _: {
+      assertion = valid ? ${n};
+      message = "Invalid config key ${prefix}.${n}.";
+    })
     config
     ;
 
@@ -123,36 +121,32 @@ let
   userAsserts =
     prefix: users:
     mapAttrsToList
-    (
-      n: _: {
-        assertion =
-          builtins.match
-          ''
-            [^:
-            ]+''
-          n
-          != null
-          ;
-        message = "Invalid user name ${n} in ${prefix}";
-      }
-    )
+    (n: _: {
+      assertion =
+        builtins.match
+        ''
+          [^:
+          ]+''
+        n
+        != null
+        ;
+      message = "Invalid user name ${n} in ${prefix}";
+    })
     users
     ++ mapAttrsToList
-      (
-        n: u: {
-          assertion =
-            count (s: s != null) [
-              u.password
-              u.passwordFile
-              u.hashedPassword
-              u.hashedPasswordFile
-            ]
-            <= 1
-            ;
-          message =
-            "Cannot set more than one password option for user ${n} in ${prefix}";
-        }
-      )
+      (n: u: {
+        assertion =
+          count (s: s != null) [
+            u.password
+            u.passwordFile
+            u.hashedPassword
+            u.hashedPasswordFile
+          ]
+          <= 1
+          ;
+        message =
+          "Cannot set more than one password option for user ${n} in ${prefix}";
+      })
       users
     ;
 
@@ -250,12 +244,10 @@ let
   authAsserts =
     prefix: auth:
     mapAttrsToList
-    (
-      n: _: {
-        assertion = configKey.check n;
-        message = "Invalid auth plugin key ${prefix}.${n}";
-      }
-    )
+    (n: _: {
+      assertion = configKey.check n;
+      message = "Invalid auth plugin key ${prefix}.${n}";
+    })
     auth
     ;
 
@@ -749,14 +741,12 @@ in
                 ])
                 cfg.listeners)
               (mapAttrsToList
-                (
-                  _: b: [
-                    (b.settings.bridge_cafile or null)
-                    (b.settings.bridge_capath or null)
-                    (b.settings.bridge_certfile or null)
-                    (b.settings.bridge_keyfile or null)
-                  ]
-                )
+                (_: b: [
+                  (b.settings.bridge_cafile or null)
+                  (b.settings.bridge_capath or null)
+                  (b.settings.bridge_certfile or null)
+                  (b.settings.bridge_keyfile or null)
+                ])
                 cfg.bridges)
             ]
           )

@@ -20,21 +20,19 @@
 let
   python = python310.override {
     packageOverrides =
-      (
-        self: super: {
-          matplotlib = super.matplotlib.override { enableGtk3 = true; };
-          sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-            old: rec {
-              version = "1.4.46";
-              src = self.fetchPypi {
-                pname = "SQLAlchemy";
-                inherit version;
-                hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-              };
-            }
-          );
-        }
-      );
+      (self: super: {
+        matplotlib = super.matplotlib.override { enableGtk3 = true; };
+        sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+          old: rec {
+            version = "1.4.46";
+            src = self.fetchPypi {
+              pname = "SQLAlchemy";
+              inherit version;
+              hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+            };
+          }
+        );
+      });
   };
 in
 python.pkgs.buildPythonApplication rec {

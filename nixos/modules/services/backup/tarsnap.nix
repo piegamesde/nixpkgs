@@ -324,20 +324,16 @@ in
   config = mkIf gcfg.enable {
     assertions =
       (mapAttrsToList
-        (
-          name: cfg: {
-            assertion = cfg.directories != [ ];
-            message = "Must specify paths for tarsnap to back up";
-          }
-        )
+        (name: cfg: {
+          assertion = cfg.directories != [ ];
+          message = "Must specify paths for tarsnap to back up";
+        })
         gcfg.archives)
       ++ (mapAttrsToList
-        (
-          name: cfg: {
-            assertion = !(cfg.lowmem && cfg.verylowmem);
-            message = "You cannot set both lowmem and verylowmem";
-          }
-        )
+        (name: cfg: {
+          assertion = !(cfg.lowmem && cfg.verylowmem);
+          message = "You cannot set both lowmem and verylowmem";
+        })
         gcfg.archives)
       ;
 

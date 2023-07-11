@@ -19,12 +19,10 @@ let
     let
       nonchars = filter (x: !(elem x.value chars)) (
         imap0
-        (
-          i: v: {
-            ind = i;
-            value = v;
-          }
-        )
+        (i: v: {
+          ind = i;
+          value = v;
+        })
         (stringToCharacters str)
       );
     in
@@ -55,12 +53,10 @@ let
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (
     mapAttrsToList
-    (
-      n: v: ''
-        conn ${n}
-        ${indent v}
-      ''
-    )
+    (n: v: ''
+      conn ${n}
+      ${indent v}
+    '')
     cfg.connections
   );
 
@@ -72,12 +68,10 @@ let
   '';
 
   policyFiles = mapAttrs'
-    (
-      name: text: {
-        name = "ipsec.d/policies/${name}";
-        value.source = pkgs.writeText "ipsec-policy-${name}" text;
-      }
-    )
+    (name: text: {
+      name = "ipsec.d/policies/${name}";
+      value.source = pkgs.writeText "ipsec-policy-${name}" text;
+    })
     cfg.policies;
 in
 

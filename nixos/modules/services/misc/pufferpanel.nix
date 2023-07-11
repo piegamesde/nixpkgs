@@ -123,11 +123,9 @@ in
       script = ''
         ${lib.concatLines (
           lib.mapAttrsToList
-          (
-            name: value: ''
-              export ${name}="''${${name}-${value}}"
-            ''
-          )
+          (name: value: ''
+            export ${name}="''${${name}-${value}}"
+          '')
           {
             PUFFER_LOGS = "$LOGS_DIRECTORY";
             PUFFER_DAEMON_DATA_CACHE = "$CACHE_DIRECTORY";

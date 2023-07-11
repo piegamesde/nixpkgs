@@ -32,34 +32,30 @@ let
   configFile =
     let
       bars = mapAttrsToList
-        (
-          name: cfg: ''
-            ${name}: {
-              font: "${cfg.font}";
-              position: "${cfg.position}";
+        (name: cfg: ''
+          ${name}: {
+            font: "${cfg.font}";
+            position: "${cfg.position}";
 
-              ${mapExtra cfg.extra}
+            ${mapExtra cfg.extra}
 
-              block-list: [${listKeys cfg.indicators}]
+            block-list: [${listKeys cfg.indicators}]
 
-              ${
-                concatStringsSep "\n" (
-                  mapAttrsToList
-                  (
-                    name: cfg: ''
-                      ${name}: {
-                        exec: "${cfg.exec}";
-                        align: "${cfg.align}";
-                        ${mapExtra cfg.extra}
-                      };
-                    ''
-                  )
-                  cfg.indicators
-                )
-              }
-            };
-          ''
-        )
+            ${
+              concatStringsSep "\n" (
+                mapAttrsToList
+                (name: cfg: ''
+                  ${name}: {
+                    exec: "${cfg.exec}";
+                    align: "${cfg.align}";
+                    ${mapExtra cfg.extra}
+                  };
+                '')
+                cfg.indicators
+              )
+            }
+          };
+        '')
         cfg.bars;
     in
     pkgs.writeText "yabar.conf" ''

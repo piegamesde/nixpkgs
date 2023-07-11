@@ -210,12 +210,10 @@ in
 
     # Generate timer units for all services that have a ‘startAt’ value.
     systemd.user.timers = mapAttrs
-      (
-        name: service: {
-          wantedBy = [ "timers.target" ];
-          timerConfig.OnCalendar = service.startAt;
-        }
-      )
+      (name: service: {
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = service.startAt;
+      })
       (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
 
     # Provide the systemd-user PAM service, required to run systemd
@@ -250,16 +248,14 @@ in
     # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
     # we can write a single user's tmpfiles.d rules there
     users.users = mapAttrs
-      (
-        user: cfg': {
-          packages = optional (cfg'.rules != [ ]) (
-            writeTmpfiles {
-              inherit (cfg') rules;
-              inherit user;
-            }
-          );
-        }
-      )
+      (user: cfg': {
+        packages = optional (cfg'.rules != [ ]) (
+          writeTmpfiles {
+            inherit (cfg') rules;
+            inherit user;
+          }
+        );
+      })
       cfg.tmpfiles.users;
   };
 }

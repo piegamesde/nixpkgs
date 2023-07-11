@@ -504,13 +504,11 @@ in
         ];
 
         systemd.timers = mapAttrs
-          (
-            timerName: timer: {
-              description = "sourcehut timer for ${timerName}";
-              wantedBy = [ "timers.target" ];
-              inherit (timer) timerConfig;
-            }
-          )
+          (timerName: timer: {
+            description = "sourcehut timer for ${timerName}";
+            wantedBy = [ "timers.target" ];
+            inherit (timer) timerConfig;
+          })
           extraTimers;
       }
     ]

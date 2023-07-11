@@ -17,11 +17,9 @@ let
         '')
         cfg.storePaths;
       contents = lib.mapAttrsToList
-        (
-          _: v: ''
-            ${v.source}
-            ${v.target}''
-        )
+        (_: v: ''
+          ${v.source}
+          ${v.target}'')
         (lib.filterAttrs (_: v: v.enable) cfg.contents);
     in
     pkgs.writeText "shutdown-ramfs-contents" (

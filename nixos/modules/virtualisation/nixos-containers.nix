@@ -26,28 +26,26 @@ let
       cfg:
       let
         renderExtraVeth =
-          (
-            name: cfg: ''
-              echo "Bringing ${name} up"
-              ip link set dev ${name} up
-              ${optionalString (cfg.localAddress != null) ''
-                echo "Setting ip for ${name}"
-                ip addr add ${cfg.localAddress} dev ${name}
-              ''}
-              ${optionalString (cfg.localAddress6 != null) ''
-                echo "Setting ip6 for ${name}"
-                ip -6 addr add ${cfg.localAddress6} dev ${name}
-              ''}
-              ${optionalString (cfg.hostAddress != null) ''
-                echo "Setting route to host for ${name}"
-                ip route add ${cfg.hostAddress} dev ${name}
-              ''}
-              ${optionalString (cfg.hostAddress6 != null) ''
-                echo "Setting route6 to host for ${name}"
-                ip -6 route add ${cfg.hostAddress6} dev ${name}
-              ''}
-            ''
-          );
+          (name: cfg: ''
+            echo "Bringing ${name} up"
+            ip link set dev ${name} up
+            ${optionalString (cfg.localAddress != null) ''
+              echo "Setting ip for ${name}"
+              ip addr add ${cfg.localAddress} dev ${name}
+            ''}
+            ${optionalString (cfg.localAddress6 != null) ''
+              echo "Setting ip6 for ${name}"
+              ip -6 addr add ${cfg.localAddress6} dev ${name}
+            ''}
+            ${optionalString (cfg.hostAddress != null) ''
+              echo "Setting route to host for ${name}"
+              ip route add ${cfg.hostAddress} dev ${name}
+            ''}
+            ${optionalString (cfg.hostAddress6 != null) ''
+              echo "Setting route6 to host for ${name}"
+              ip -6 route add ${cfg.hostAddress6} dev ${name}
+            ''}
+          '');
       in
       pkgs.writeScript "container-init" ''
         #! ${pkgs.runtimeShell} -e

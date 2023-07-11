@@ -667,26 +667,22 @@ in
       assertions =
         (attrValues (
           mapAttrs
-          (
-            name: value: {
-              assertion =
-                (value.privateKey != null) != (value.privateKeyFile != null);
-              message =
-                "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
-            }
-          )
+          (name: value: {
+            assertion =
+              (value.privateKey != null) != (value.privateKeyFile != null);
+            message =
+              "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
+          })
           cfg.interfaces
         ))
         ++ (attrValues (
           mapAttrs
-          (
-            name: value: {
-              assertion =
-                value.generatePrivateKeyFile -> (value.privateKey == null);
-              message =
-                "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
-            }
-          )
+          (name: value: {
+            assertion =
+              value.generatePrivateKeyFile -> (value.privateKey == null);
+            message =
+              "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
+          })
           cfg.interfaces
         ))
         ++ map

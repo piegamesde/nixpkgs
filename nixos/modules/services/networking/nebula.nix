@@ -275,15 +275,13 @@ in
     # Create the service users and groups.
     users.users = mkMerge (
       mapAttrsToList
-      (
-        netName: netCfg: {
-          ${nameToId netName} = {
-            group = nameToId netName;
-            description = "Nebula service user for network ${netName}";
-            isSystemUser = true;
-          };
-        }
-      )
+      (netName: netCfg: {
+        ${nameToId netName} = {
+          group = nameToId netName;
+          description = "Nebula service user for network ${netName}";
+          isSystemUser = true;
+        };
+      })
       enabledNetworks
     );
 

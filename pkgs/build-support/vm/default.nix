@@ -797,11 +797,9 @@ rec {
     }
     ''
       ${lib.concatImapStrings
-      (
-        i: pl: ''
-          gunzip < ${pl} > ./packages_${toString i}.xml
-        ''
-      )
+      (i: pl: ''
+        gunzip < ${pl} > ./packages_${toString i}.xml
+      '')
       packagesLists}
       perl -w ${rpm/rpm-closure.pl} \
         ${

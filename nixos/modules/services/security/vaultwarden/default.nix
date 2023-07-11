@@ -79,11 +79,9 @@ let
   configFile = pkgs.writeText "vaultwarden.env" (
     concatStrings (
       mapAttrsToList
-      (
-        name: value: ''
-          ${name}=${value}
-        ''
-      )
+      (name: value: ''
+        ${name}=${value}
+      '')
       configEnv
     )
   );

@@ -39,11 +39,9 @@ let
 
       ${toString (
         lib.mapAttrsToList
-        (
-          k: v: ''
-            cp -R --no-preserve=mode ${v} _checkouts/${k}
-          ''
-        )
+        (k: v: ''
+          cp -R --no-preserve=mode ${v} _checkouts/${k}
+        '')
         deps
       )}
 

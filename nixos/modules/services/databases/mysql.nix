@@ -560,11 +560,9 @@ in
               ${
                 concatStringsSep "\n" (
                   mapAttrsToList
-                  (
-                    database: permission: ''
-                      echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                    ''
-                  )
+                  (database: permission: ''
+                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                  '')
                   user.ensurePermissions
                 )
               }

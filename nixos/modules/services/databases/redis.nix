@@ -712,15 +712,13 @@ in
 
     assertions = attrValues (
       mapAttrs
-      (
-        name: conf: {
-          assertion = conf.requirePass != null -> conf.requirePassFile == null;
-          message = ''
-            You can only set one services.redis.servers.${name}.requirePass
-            or services.redis.servers.${name}.requirePassFile
-          '';
-        }
-      )
+      (name: conf: {
+        assertion = conf.requirePass != null -> conf.requirePassFile == null;
+        message = ''
+          You can only set one services.redis.servers.${name}.requirePass
+          or services.redis.servers.${name}.requirePassFile
+        '';
+      })
       enabledServers
     );
 

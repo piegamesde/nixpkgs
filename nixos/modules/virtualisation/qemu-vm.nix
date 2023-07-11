@@ -1152,12 +1152,10 @@ in
           ;
       } ])
       (imap0
-        (
-          idx: _: {
-            file = "$(pwd)/empty${toString idx}.qcow2";
-            driveExtraOpts.werror = "report";
-          }
-        )
+        (idx: _: {
+          file = "$(pwd)/empty${toString idx}.qcow2";
+          driveExtraOpts.werror = "report";
+        })
         cfg.emptyDiskImages)
     ];
 

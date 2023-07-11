@@ -11,11 +11,9 @@ let
     mkdir $out
     ${lib.concatStrings (
       lib.mapAttrsToList
-      (
-        name: path: ''
-          ln -s ${path} $out/${name}
-        ''
-      )
+      (name: path: ''
+        ln -s ${path} $out/${name}
+      '')
       rubies
     )}
   '';

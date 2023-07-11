@@ -141,14 +141,12 @@ in
 
       ${concatStrings (
         mapAttrsToList
-        (
-          plugin: pluginConfig: ''
-            LoadPlugin ${plugin}
-            <Plugin "${plugin}">
-            ${pluginConfig}
-            </Plugin>
-          ''
-        )
+        (plugin: pluginConfig: ''
+          LoadPlugin ${plugin}
+          <Plugin "${plugin}">
+          ${pluginConfig}
+          </Plugin>
+        '')
         cfg.plugins
       )}
 

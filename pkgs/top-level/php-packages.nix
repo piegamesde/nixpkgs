@@ -65,18 +65,16 @@ lib.makeScope pkgs.newScope (
       let
         args = lib.fix (
           lib.extends
-          (
-            _: previousAttrs: {
-              pname = "php-${previousAttrs.pname}";
-              passthru = (previousAttrs.passthru or { }) // {
-                updateScript = nix-update-script { };
-              };
-              meta = (previousAttrs.meta or { }) // {
-                mainProgram =
-                  previousAttrs.meta.mainProgram or previousAttrs.pname;
-              };
-            }
-          )
+          (_: previousAttrs: {
+            pname = "php-${previousAttrs.pname}";
+            passthru = (previousAttrs.passthru or { }) // {
+              updateScript = nix-update-script { };
+            };
+            meta = (previousAttrs.meta or { }) // {
+              mainProgram =
+                previousAttrs.meta.mainProgram or previousAttrs.pname;
+            };
+          })
           (
             if lib.isFunction origArgs then
               origArgs

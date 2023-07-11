@@ -20,17 +20,15 @@ import ./make-test-python.nix (
               enable = true;
               clusterName = "zentralwerk-network";
               nodelist = lib.imap
-                (
-                  i: name: {
-                    nodeid = i;
-                    inherit name;
-                    ring_addrs = [
-                      (builtins.head
-                        nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
-                      .address
-                    ];
-                  }
-                )
+                (i: name: {
+                  nodeid = i;
+                  inherit name;
+                  ring_addrs = [
+                    (builtins.head
+                      nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
+                    .address
+                  ];
+                })
                 (builtins.attrNames nodes);
             };
             environment.etc."corosync/authkey" = {

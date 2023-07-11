@@ -262,15 +262,13 @@ let
       ];
       filesystems = builtins.toJSON {
         fileSystems = lib.mapAttrs'
-          (
-            dataset: attrs: {
-              name = attrs.mount;
-              value = {
-                fsType = "zfs";
-                device = "${dataset}";
-              };
-            }
-          )
+          (dataset: attrs: {
+            name = attrs.mount;
+            value = {
+              fsType = "zfs";
+              device = "${dataset}";
+            };
+          })
           mountable;
       };
       passAsFile = [ "filesystems" ];
