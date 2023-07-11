@@ -16,7 +16,7 @@
   meta ? { },
   port ? "8080",
   postFetch ? "",
-  preferLocalBuild ? true
+  preferLocalBuild ? true,
 }:
 
 let

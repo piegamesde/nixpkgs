@@ -21,11 +21,10 @@
   seatd,
   vulkan-loader,
   glslang,
-  nixosTests
+  nixosTests,
 
-  ,
   enableXWayland ? true,
-  xwayland ? null
+  xwayland ? null,
 }:
 
 let
@@ -35,7 +34,7 @@ let
       hash,
       extraBuildInputs ? [ ],
       extraNativeBuildInputs ? [ ],
-      extraPatch ? ""
+      extraPatch ? "",
     }:
     stdenv.mkDerivation rec {
       pname = "wlroots";

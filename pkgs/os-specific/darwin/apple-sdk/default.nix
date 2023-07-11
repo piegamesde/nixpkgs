@@ -221,7 +221,7 @@ let
   tbdOnlyFramework =
     name:
     {
-      private ? true
+      private ? true,
     }:
     stdenv.mkDerivation {
       name = "apple-framework-${name}";

@@ -3,14 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonRelaxDepsHook,
-  setuptools-scm
+  setuptools-scm,
   # install requirements
-  ,
   fido2,
   keyring,
-  cryptography
+  cryptography,
   # test requirements
-  ,
   pytestCheckHook,
 }:
 

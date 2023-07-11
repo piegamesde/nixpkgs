@@ -14,7 +14,7 @@
   pkg-config,
   cmake,
   pantheon,
-  withPantheon ? false
+  withPantheon ? false,
 }:
 
 stdenv.mkDerivation rec {

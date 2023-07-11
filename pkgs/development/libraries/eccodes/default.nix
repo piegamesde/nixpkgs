@@ -12,7 +12,7 @@
   enablePython ? false,
   pythonPackages,
   enablePosixThreads ? false,
-  enableOpenMPThreads ? false
+  enableOpenMPThreads ? false,
 }:
 
 stdenv.mkDerivation rec {

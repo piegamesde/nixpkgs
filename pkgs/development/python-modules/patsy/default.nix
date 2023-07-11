@@ -4,8 +4,7 @@
   buildPythonPackage,
   six,
   numpy,
-  scipy # optional, allows spline-related features (see patsy's docs)
-  ,
+  scipy, # optional, allows spline-related features (see patsy's docs)
   pytestCheckHook,
 }:
 

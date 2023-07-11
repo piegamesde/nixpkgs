@@ -3,7 +3,7 @@
   makeWrapper,
   symlinkJoin,
   appls ? [ ],
-  name ? "arcan-wrapped"
+  name ? "arcan-wrapped",
 }:
 
 symlinkJoin rec {

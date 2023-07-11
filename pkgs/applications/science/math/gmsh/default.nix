@@ -15,7 +15,7 @@
   xorg,
   opencascade-occt,
   python ? null,
-  enablePython ? false
+  enablePython ? false,
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

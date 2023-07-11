@@ -6,16 +6,14 @@
   lib,
 }:
 {
-  name # name of the desktop file (without .desktop)
-  ,
-  package # package where the desktop file resides in
-  ,
+  name, # name of the desktop file (without .desktop)
+  package, # package where the desktop file resides in
   srcPrefix ?
     "" # additional prefix that the desktop file may have in the 'package'
   ,
   after ? null,
   condition ? null,
-  phase ? "2"
+  phase ? "2",
 }:
 
 # the builder requires that

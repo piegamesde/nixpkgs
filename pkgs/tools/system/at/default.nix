@@ -8,7 +8,7 @@
   pam,
   perl,
   sendmailPath ? "/run/wrappers/bin/sendmail",
-  atWrapperPath ? "/run/wrappers/bin/at"
+  atWrapperPath ? "/run/wrappers/bin/at",
 }:
 
 stdenv.mkDerivation rec {

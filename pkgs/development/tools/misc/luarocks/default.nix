@@ -9,13 +9,11 @@
   unzip,
   lua,
   file,
-  nix-prefetch-git
+  nix-prefetch-git,
   # for 'luarocks pack'
-  ,
   zip,
-  nix-update-script
+  nix-update-script,
   # some packages need to be compiled with cmake
-  ,
   cmake,
   installShellFiles,
 }:

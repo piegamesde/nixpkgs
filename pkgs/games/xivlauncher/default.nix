@@ -13,7 +13,7 @@
   copyDesktopItems,
   makeDesktopItem,
   makeWrapper,
-  useSteamRun ? true
+  useSteamRun ? true,
 }:
 
 let

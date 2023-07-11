@@ -21,7 +21,7 @@
   enableSDL2 ? true,
   enableTerm ? true,
   enableWx ? !stdenv.isDarwin,
-  enableX11 ? !stdenv.isDarwin
+  enableX11 ? !stdenv.isDarwin,
 }:
 
 stdenv.mkDerivation (

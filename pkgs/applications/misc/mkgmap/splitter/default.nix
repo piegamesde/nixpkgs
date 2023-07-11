@@ -8,7 +8,7 @@
   jre,
   ant,
   makeWrapper,
-  doCheck ? true
+  doCheck ? true,
 }:
 let
   deps = import ../deps.nix { inherit fetchurl; };

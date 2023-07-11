@@ -1,20 +1,17 @@
 {
   fetchFromGitHub,
   lib,
-  mkDerivation
+  mkDerivation,
   # nativeBuildInputs
-  ,
   qmake,
   pkg-config,
-  cmake
+  cmake,
   # Qt
-  ,
   qtbase,
   qtsvg,
   qtwebengine,
-  qttools
+  qttools,
   # buildInputs
-  ,
   rizin,
   python3,
   wrapQtAppsHook,

@@ -7,7 +7,7 @@
   unzip,
   jre,
   libXxf86vm,
-  extraJavaOpts ? "-Djosm.restart=true -Djava.net.useSystemProxies=true"
+  extraJavaOpts ? "-Djosm.restart=true -Djava.net.useSystemProxies=true",
 }:
 let
   pname = "josm";

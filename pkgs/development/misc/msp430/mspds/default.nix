@@ -6,7 +6,7 @@
   boost,
   pugixml,
   hidapi,
-  libusb1 ? null
+  libusb1 ? null,
 }:
 
 assert stdenv.isLinux -> libusb1 != null;

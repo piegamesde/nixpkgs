@@ -10,11 +10,9 @@
   python3,
   swig4,
   boost17x,
-  cbc # for clp
-  ,
+  cbc, # for clp
   cimg,
-  clp # for or-tools
-  ,
+  clp, # for or-tools
   eigen,
   glpk,
   gtest,
@@ -25,8 +23,7 @@
   pcre,
   pkg-config,
   qtbase,
-  re2 # for or-tools
-  ,
+  re2, # for or-tools
   readline,
   spdlog,
   tcl,

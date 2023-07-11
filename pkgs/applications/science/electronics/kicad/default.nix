@@ -12,9 +12,8 @@
   callPackage,
   callPackages,
   librsvg,
-  cups
+  cups,
 
-  ,
   pname ? "kicad",
   stable ? true,
   withNgspice ? !stdenv.isDarwin,
@@ -26,7 +25,7 @@
   sanitizeThreads ? false,
   with3d ? true,
   withI18n ? true,
-  srcs ? { }
+  srcs ? { },
 }:
 
 # The `srcs` parameter can be used to override the kicad source code

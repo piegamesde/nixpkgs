@@ -8,7 +8,7 @@
   _7zz,
   darwin,
   validatePkgConfig,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 /* For details on using mkl as a blas provider for python packages such as numpy,

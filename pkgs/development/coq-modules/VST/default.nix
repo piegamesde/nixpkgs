@@ -4,7 +4,7 @@
   coq,
   compcert,
   ITree,
-  version ? null
+  version ? null,
 }:
 
 # A few modules that are not built and installed by default

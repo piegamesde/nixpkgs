@@ -9,12 +9,10 @@
   libarchive,
   libGL,
   xorg,
-  zlib
+  zlib,
   # Conda installs its packages and environments under this directory
-  ,
-  installationPath ? "~/.conda"
+  installationPath ? "~/.conda",
   # Conda manages most pkgs itself, but expects a few to be on the system.
-  ,
   condaDeps ? [
     stdenv.cc
     xorg.libSM
@@ -26,10 +24,9 @@
     libselinux
     libGL
     zlib
-  ]
+  ],
   # Any extra nixpkgs you'd like available in the FHS env for Conda to use
-  ,
-  extraPkgs ? [ ]
+  extraPkgs ? [ ],
 }:
 
 # How to use this package?

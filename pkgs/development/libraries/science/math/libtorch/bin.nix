@@ -3,14 +3,12 @@
   stdenv,
   fetchzip,
   lib,
-  libcxx
+  libcxx,
 
-  ,
   addOpenGLRunpath,
   patchelf,
-  fixDarwinDylibNames
+  fixDarwinDylibNames,
 
-  ,
   cudaSupport,
 }:
 

@@ -14,7 +14,7 @@
   opencc,
   curl,
   fmt,
-  luaSupport ? true
+  luaSupport ? true,
 }:
 
 let

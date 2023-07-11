@@ -81,10 +81,9 @@ in
   gnutls,
   libmaxminddb,
   openssl,
-  mbedtls
+  mbedtls,
   # For a full list of module names, see https://docs.inspircd.org/packaging/
-  ,
-  extraModules ? compatibleModules lib stdenv
+  extraModules ? compatibleModules lib stdenv,
 }:
 
 let

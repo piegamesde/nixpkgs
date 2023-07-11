@@ -3,11 +3,11 @@
   stdenv,
   fetchurl,
   installShellFiles,
-  pkg-config
+  pkg-config,
 
   # Optional dependencies
-  ,
-  enableApp ? with stdenv.hostPlatform; !isWindows && !isStatic,
+  enableApp ? with stdenv.hostPlatform;
+    !isWindows && !isStatic,
   c-aresMinimal,
   libev,
   openssl,
@@ -22,16 +22,14 @@
   jemalloc,
   enablePython ? false,
   python3Packages,
-  ncurses
+  ncurses,
 
   # Unit tests ; we have to set TZDIR, which is a GNUism.
-  ,
   enableTests ? stdenv.hostPlatform.isGnu,
   cunit,
-  tzdata
+  tzdata,
 
   # downstream dependencies, for testing
-  ,
   curl,
   libsoup,
 }:

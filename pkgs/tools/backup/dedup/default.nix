@@ -4,9 +4,8 @@
   fetchurl,
   lz4,
   snappy,
-  libsodium
+  libsodium,
   # For testing
-  ,
   coreutils,
   gawk,
 }:

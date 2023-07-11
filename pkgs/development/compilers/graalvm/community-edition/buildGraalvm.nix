@@ -13,9 +13,8 @@
   setJavaClassPath,
   unzip,
   xorg,
-  zlib
+  zlib,
   # extra params
-  ,
   javaVersion,
   meta ? { },
   products ? [ ],

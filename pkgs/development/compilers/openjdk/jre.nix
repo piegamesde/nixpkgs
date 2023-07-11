@@ -3,7 +3,7 @@
   jdk,
   lib,
   callPackage,
-  modules ? [ "java.base" ]
+  modules ? [ "java.base" ],
 }:
 
 let

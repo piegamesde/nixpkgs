@@ -10,16 +10,14 @@
   libpng,
   libvorbis,
   libogg,
-  libmikmod
+  libmikmod,
 
-  ,
   use3DOVideos ? false,
   requireFile ? null,
   writeText ? null,
-  haskellPackages ? null
+  haskellPackages ? null,
 
-  ,
-  useRemixPacks ? false
+  useRemixPacks ? false,
 }:
 
 assert use3DOVideos

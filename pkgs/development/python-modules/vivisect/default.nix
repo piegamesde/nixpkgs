@@ -3,24 +3,21 @@
   buildPythonPackage,
   pythonOlder,
   fetchPypi,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
   # propagates
-  ,
   pyasn1,
   pyasn1-modules,
   cxxfilt,
   msgpack,
-  pycparser
+  pycparser,
 
   # extras: gui
-  ,
   pyqt5,
-  pyqtwebengine
+  pyqtwebengine,
 
   # knobs
-  ,
-  withGui ? false
+  withGui ? false,
 }:
 
 buildPythonPackage rec {

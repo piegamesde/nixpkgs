@@ -16,7 +16,7 @@
   libinput,
   libGL,
   libX11,
-  xwaylandSupport ? true
+  xwaylandSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

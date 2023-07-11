@@ -2,7 +2,7 @@
   pkgs,
   androidenv,
   xcodeenv,
-  tiVersion ? "8.3.2.GA"
+  tiVersion ? "8.3.2.GA",
 }:
 
 rec {

@@ -23,7 +23,7 @@
   Cocoa,
   lit,
   makeWrapper,
-  enableManpages ? false
+  enableManpages ? false,
 }:
 
 stdenv.mkDerivation (

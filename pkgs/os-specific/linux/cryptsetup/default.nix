@@ -9,14 +9,13 @@
   libuuid,
   pkg-config,
   popt,
-  nixosTests
+  nixosTests,
 
   # The release tarballs contain precomputed manpage files, so we don't need
   # to run asciidoctor on the man sources. By avoiding asciidoctor, we make
   # the bare NixOS build hash independent of changes to the ruby ecosystem,
   # saving mass-rebuilds.
-  ,
-  rebuildMan ? false
+  rebuildMan ? false,
 }:
 
 stdenv.mkDerivation rec {

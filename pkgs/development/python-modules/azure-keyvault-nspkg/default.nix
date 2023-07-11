@@ -1,10 +1,9 @@
 {
   buildPythonPackage,
   fetchPypi,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   azure-nspkg,
 }:
 

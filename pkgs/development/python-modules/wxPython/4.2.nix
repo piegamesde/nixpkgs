@@ -5,20 +5,18 @@
   setuptools,
   pythonOlder,
   fetchPypi,
-  substituteAll
+  substituteAll,
 
   # build
-  ,
   autoPatchelfHook,
   attrdict,
   doxygen,
   pkg-config,
   python,
   sip,
-  which
+  which,
 
   # runtime
-  ,
   cairo,
   gst_all_1,
   gtk3,
@@ -34,10 +32,9 @@
   SDL,
   webkitgtk,
   wxGTK,
-  xorgproto
+  xorgproto,
 
   # propagates
-  ,
   numpy,
   pillow,
   six,

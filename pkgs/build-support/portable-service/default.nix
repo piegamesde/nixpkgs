@@ -17,34 +17,29 @@
   # The name and version of the portable service. The resulting image will be
   # created in result/$pname_$version.raw
   pname,
-  version
+  version,
 
   # Units is a list of derivations for systemd unit files. Those files will be
   # copied to /etc/systemd/system in the resulting image. Note that the unit
   # names must be prefixed with the name of the portable service.
-  ,
-  units
+  units,
 
   # Basic info about the portable service image, used for the generated
   # /etc/os-release
-  ,
   description ? null,
-  homepage ? null
+  homepage ? null,
 
   # A list of attribute sets {object, symlink}. Symlinks will be created
   # in the root filesystem of the image to objects in the nix store.
-  ,
-  symlinks ? [ ]
+  symlinks ? [ ],
 
   # A list of additional derivations to be included in the image as-is.
-  ,
-  contents ? [ ]
+  contents ? [ ],
 
   # mksquashfs options
-  ,
   squashfsTools ? pkgs.squashfsTools,
   squash-compression ? "xz -Xdict-size 100%",
-  squash-block-size ? "1M"
+  squash-block-size ? "1M",
 }:
 
 let

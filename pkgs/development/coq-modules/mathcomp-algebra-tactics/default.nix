@@ -5,7 +5,7 @@
   mathcomp-algebra,
   coq-elpi,
   mathcomp-zify,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

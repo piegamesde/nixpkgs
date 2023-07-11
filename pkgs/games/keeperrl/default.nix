@@ -12,7 +12,7 @@
   zlib,
   clang,
   libtheora,
-  unfree_assets ? false
+  unfree_assets ? false,
 }:
 
 stdenv.mkDerivation rec {

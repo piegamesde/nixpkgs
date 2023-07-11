@@ -9,9 +9,8 @@
   perlPackages,
   lockfileProgs,
   gnupg,
-  coreutils
+  coreutils,
   # For the tests:
-  ,
   openssh,
   which,
   socat,

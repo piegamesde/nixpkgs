@@ -8,7 +8,7 @@
   perl,
   installShellFiles,
   gnumake42,
-  doCheck ? true
+  doCheck ? true,
 }:
 stdenv.mkDerivation rec {
 

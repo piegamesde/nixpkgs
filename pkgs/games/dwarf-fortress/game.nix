@@ -3,15 +3,13 @@
   lib,
   fetchurl,
   SDL,
-  dwarf-fortress-unfuck
+  dwarf-fortress-unfuck,
 
   # Our own "unfuck" libs for macOS
-  ,
   ncurses,
   fmodex,
-  gcc
+  gcc,
 
-  ,
   dfVersion,
   df-hashes,
 }:

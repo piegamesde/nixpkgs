@@ -6,11 +6,10 @@
   jre,
   writeText,
   nixosTests,
-  callPackage
+  callPackage,
 
-  ,
   confFile ? null,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 
 stdenv.mkDerivation rec {

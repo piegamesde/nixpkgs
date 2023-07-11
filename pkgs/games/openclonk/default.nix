@@ -18,6 +18,7 @@
   gcc-unwrapped,
   enableSoundtrack ?
     false # Enable the "Open Clonk Soundtrack - Explorers Journey" by David Oerther
+  ,
 }:
 
 let

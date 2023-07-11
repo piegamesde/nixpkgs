@@ -8,7 +8,7 @@
   ncurses,
   pkg-config,
   zlib,
-  x11Support ? !stdenv.isDarwin
+  x11Support ? !stdenv.isDarwin,
 }:
 
 stdenv.mkDerivation rec {

@@ -14,7 +14,7 @@
   ,
   colorVariants ? [ ] # default: all
   ,
-  tweaks ? [ ]
+  tweaks ? [ ],
 }:
 
 let

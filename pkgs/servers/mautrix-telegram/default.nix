@@ -2,7 +2,7 @@
   lib,
   python3,
   fetchFromGitHub,
-  withE2BE ? true
+  withE2BE ? true,
 }:
 
 let

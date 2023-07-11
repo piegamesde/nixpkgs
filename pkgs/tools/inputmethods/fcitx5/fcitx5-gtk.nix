@@ -23,7 +23,7 @@
   dbus,
   at-spi2-core,
   libXtst,
-  withGTK2 ? false
+  withGTK2 ? false,
 }:
 
 stdenv.mkDerivation rec {

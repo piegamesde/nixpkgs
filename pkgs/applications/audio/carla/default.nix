@@ -19,7 +19,7 @@
   withGtk2 ? true,
   withGtk3 ? true,
   withQt ? true,
-  wrapQtAppsHook ? null
+  wrapQtAppsHook ? null,
 }:
 
 assert withQt -> qtbase != null;

@@ -4,7 +4,7 @@
   fetchgit,
   udev,
   util-linux,
-  mountPath ? "/media/"
+  mountPath ? "/media/",
 }:
 
 assert mountPath != "";

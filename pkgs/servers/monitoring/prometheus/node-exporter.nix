@@ -3,9 +3,8 @@
   stdenv,
   buildGoModule,
   fetchFromGitHub,
-  nixosTests
+  nixosTests,
   # darwin
-  ,
   CoreFoundation,
   IOKit,
 }:

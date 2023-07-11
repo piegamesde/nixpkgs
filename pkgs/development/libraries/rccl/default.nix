@@ -9,7 +9,7 @@
   hip,
   gtest,
   chrpath,
-  buildTests ? false
+  buildTests ? false,
 }:
 
 stdenv.mkDerivation (

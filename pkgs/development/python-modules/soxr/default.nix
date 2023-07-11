@@ -1,22 +1,19 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build-sytem
-  ,
   cython_3,
   numpy,
   setuptools,
   setuptools-scm,
-  gnutar
+  gnutar,
 
   # native
-  ,
-  libsoxr
+  libsoxr,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

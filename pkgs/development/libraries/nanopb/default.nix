@@ -7,7 +7,7 @@
   python3,
   stdenv,
   buildPackages,
-  mallocBuild ? false
+  mallocBuild ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -54,7 +54,7 @@ let
 
   generateElpa = lib.makeOverridable (
     {
-      generated ? ./elpa-generated.nix
+      generated ? ./elpa-generated.nix,
     }:
     let
 

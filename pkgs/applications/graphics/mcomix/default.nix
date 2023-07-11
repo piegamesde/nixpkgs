@@ -7,15 +7,15 @@
   mcomix,
   python3,
   testers,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # Recommended Dependencies:
-  ,
   lhasa,
   mupdf,
   p7zip,
   unrar,
   unrarSupport ? false # unfree software
+  ,
 }:
 
 python3.pkgs.buildPythonApplication rec {

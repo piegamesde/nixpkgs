@@ -6,7 +6,7 @@
   graphviz,
   fontconfig,
   liberation_ttf,
-  experimentalKernel ? true
+  experimentalKernel ? true,
 }:
 
 let

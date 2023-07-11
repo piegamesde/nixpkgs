@@ -1,13 +1,11 @@
 {
   lib,
   mkDerivation,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   cmake,
-  extra-cmake-modules
+  extra-cmake-modules,
 
-  ,
   kauth,
   kconfig,
   kcoreaddons,

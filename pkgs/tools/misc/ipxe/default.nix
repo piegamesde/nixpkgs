@@ -13,7 +13,7 @@
   syslinux ? null,
   embedScript ? null,
   additionalTargets ? { },
-  additionalOptions ? [ ]
+  additionalOptions ? [ ],
 }:
 
 let

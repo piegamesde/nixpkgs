@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. { inherit system config; }
+  pkgs ? import ../.. { inherit system config; },
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
@@ -17,7 +17,7 @@ let
         pkgs.linuxPackages,
       enableUnstable ? false,
       enableSystemdStage1 ? false,
-      extraTest ? ""
+      extraTest ? "",
     }:
     makeTest {
       name = "zfs-" + name;

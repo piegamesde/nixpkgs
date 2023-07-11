@@ -7,13 +7,12 @@
 }:
 ##User Input
 {
-  settings ? { }
+  settings ? { },
   # if marked as true will create an empty json file if does not exist
-  ,
   createIfDoesNotExists ? true,
   vscodeSettingsFile ? ".vscode/settings.json",
   userSettingsFolder ? "",
-  symlinkFromUserSetting ? false
+  symlinkFromUserSetting ? false,
 }:
 let
 

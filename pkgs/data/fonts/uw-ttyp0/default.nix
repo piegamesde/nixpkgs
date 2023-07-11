@@ -7,7 +7,7 @@
   bdf2psf,
   xorg,
   targetsDat ? null,
-  variantsDat ? null
+  variantsDat ? null,
 }:
 
 stdenv.mkDerivation rec {

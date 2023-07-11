@@ -9,7 +9,7 @@
     "sh"
     "posh"
     "codium"
-  ]
+  ],
 }:
 nimPackages.buildNimPackage rec {
   pname = "swaycwd";

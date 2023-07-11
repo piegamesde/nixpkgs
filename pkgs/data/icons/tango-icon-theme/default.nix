@@ -7,8 +7,7 @@
   iconnamingutils,
   imagemagick,
   librsvg,
-  gtk # any version
-  ,
+  gtk, # any version
   gnome-icon-theme,
   hicolor-icon-theme,
 }:

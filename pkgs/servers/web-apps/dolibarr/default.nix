@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   nixosTests,
-  stateDir ? "/var/lib/dolibarr"
+  stateDir ? "/var/lib/dolibarr",
 }:
 
 stdenv.mkDerivation rec {

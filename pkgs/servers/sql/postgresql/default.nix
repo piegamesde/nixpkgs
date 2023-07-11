@@ -19,45 +19,39 @@ let
       pkg-config,
       libxml2,
       tzdata,
-      libkrb5
+      libkrb5,
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
-      ,
       enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
         && !stdenv.hostPlatform.isStatic,
-      gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic
+      gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
-      ,
       this,
       self,
       newScope,
-      buildEnv
+      buildEnv,
 
       # source specification
-      ,
       version,
       hash,
-      psqlSchema
+      psqlSchema,
 
       # for tests
-      ,
       nixosTests,
-      thisAttr
+      thisAttr,
 
       # JIT
-      ,
       jitSupport ? false,
       nukeReferences,
       patchelf,
       llvmPackages,
       makeRustPlatform,
       buildPgxExtension,
-      rustPlatform
+      rustPlatform,
 
       # detection of crypt fails when using llvm stdenv, so we add it manually
       # for <13 (where it got removed: https://github.com/postgres/postgres/commit/c45643d618e35ec2fe91438df15abd4f3c0d85ca)
-      ,
       libxcrypt,
     }:
     let

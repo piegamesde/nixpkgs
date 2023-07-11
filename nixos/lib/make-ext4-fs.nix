@@ -5,17 +5,14 @@
 # that a script resizes the filesystem at boot time.
 {
   pkgs,
-  lib
+  lib,
   # List of derivations to be included
-  ,
-  storePaths
+  storePaths,
   # Whether or not to compress the resulting image with zstd
-  ,
   compressImage ? false,
-  zstd
+  zstd,
   # Shell commands to populate the ./files directory.
   # All files in that directory are copied to the root of the FS.
-  ,
   populateImageCommands ? "",
   volumeLabel,
   uuid ? "44444444-4444-4444-8888-888888888888",

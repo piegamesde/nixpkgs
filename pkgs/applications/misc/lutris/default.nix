@@ -1,10 +1,9 @@
 {
   buildPythonApplication,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build inputs
-  ,
   atk,
   file,
   gdk-pixbuf,
@@ -16,16 +15,14 @@
   libnotify,
   pango,
   webkitgtk,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # check inputs
-  ,
   xvfb-run,
   nose2,
-  flake8
+  flake8,
 
   # python dependencies
-  ,
   certifi,
   dbus-python,
   distro,
@@ -35,10 +32,9 @@
   pygobject3,
   pypresence,
   pyyaml,
-  requests
+  requests,
 
   # commands that lutris needs
-  ,
   xrandr,
   pciutils,
   psmisc,

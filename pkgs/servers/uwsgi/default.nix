@@ -7,9 +7,8 @@
   pcre,
   libxcrypt,
   expat,
-  zlib
+  zlib,
   # plugins: list of strings, eg. [ "python2" "python3" ]
-  ,
   plugins ? [ ],
   pam,
   withPAM ? stdenv.isLinux,

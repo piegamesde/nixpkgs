@@ -7,7 +7,7 @@
   {
     dictlist,
     allowList ? [ "127.0.0.1" ],
-    denyList ? [ ]
+    denyList ? [ ],
   }:
 
   /* dictlist is a list of form

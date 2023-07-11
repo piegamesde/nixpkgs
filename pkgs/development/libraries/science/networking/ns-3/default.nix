@@ -2,46 +2,38 @@
   stdenv,
   fetchFromGitLab,
   python,
-  wafHook
+  wafHook,
 
   # for binding generation
-  ,
-  castxml ? null
+  castxml ? null,
 
   # can take a long time, generates > 30000 images/graphs
-  ,
-  enableDoxygen ? false
+  enableDoxygen ? false,
 
   # e.g. "optimized" or "debug". If not set, use default one
-  ,
-  build_profile ? null
+  build_profile ? null,
 
   # --enable-examples
-  ,
-  withExamples ? false
+  withExamples ? false,
 
   # very long
-  ,
   withManual ? false,
   doxygen ? null,
   graphviz ? null,
-  imagemagick ? null
+  imagemagick ? null,
   # for manual, tetex is used to get the eps2pdf binary
   # texlive to get latexmk. building manual still fails though
-  ,
   dia,
   tetex ? null,
   ghostscript ? null,
-  texlive ? null
+  texlive ? null,
 
   # generates python bindings
-  ,
   pythonSupport ? false,
-  ncurses ? null
+  ncurses ? null,
 
   # All modules can be enabled by choosing 'all_modules'.
   # we include here the DCE mandatory ones
-  ,
   modules ? [
     "core"
     "network"

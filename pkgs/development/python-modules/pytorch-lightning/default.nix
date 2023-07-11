@@ -12,10 +12,9 @@
   torch,
   torchmetrics,
   tqdm,
-  traitlets
+  traitlets,
 
   # tests
-  ,
   psutil,
   pytestCheckHook,
 }:

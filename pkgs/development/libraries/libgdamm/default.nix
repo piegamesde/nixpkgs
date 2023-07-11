@@ -8,7 +8,7 @@
   libxml2,
   gnome,
   mysqlSupport ? false,
-  postgresSupport ? false
+  postgresSupport ? false,
 }:
 
 let

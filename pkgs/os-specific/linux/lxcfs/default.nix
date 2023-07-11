@@ -9,7 +9,7 @@
   fuse,
   util-linux,
   makeWrapper,
-  enableDebugBuild ? config.lxcfs.enableDebugBuild or false
+  enableDebugBuild ? config.lxcfs.enableDebugBuild or false,
 }:
 
 with lib;

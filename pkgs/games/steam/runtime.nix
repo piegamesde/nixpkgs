@@ -1,10 +1,9 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
 
   # for update script
-  ,
   writeShellScript,
   curl,
   nix-update,

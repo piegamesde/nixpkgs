@@ -9,7 +9,7 @@
   mathcomp-fingroup,
   bignums ? null,
   gnuplot_qt,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

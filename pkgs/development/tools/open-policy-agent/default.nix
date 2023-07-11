@@ -3,10 +3,9 @@
   stdenv,
   buildGoModule,
   fetchFromGitHub,
-  installShellFiles
+  installShellFiles,
 
-  ,
-  enableWasmEval ? false
+  enableWasmEval ? false,
 }:
 
 assert enableWasmEval && stdenv.isDarwin

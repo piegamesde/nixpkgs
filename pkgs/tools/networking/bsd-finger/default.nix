@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  buildClient ? true
+  buildClient ? true,
 }:
 
 stdenv.mkDerivation rec {

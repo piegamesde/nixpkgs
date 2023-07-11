@@ -6,7 +6,7 @@
   libelf,
   nasm,
   python3,
-  withDriver ? false
+  withDriver ? false,
 }:
 
 python3.pkgs.buildPythonApplication rec {

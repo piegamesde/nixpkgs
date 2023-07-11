@@ -7,9 +7,8 @@
   extraMeta ? { },
   compileFlags ? [ ],
   postInstall ? "",
-  region ? "us"
+  region ? "us",
 
-  ,
   lib,
   stdenv,
   fetchFromGitHub,
@@ -37,7 +36,7 @@
           "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
       }
       .${region};
-  }
+  },
 }:
 
 stdenv.mkDerivation rec {

@@ -5,7 +5,7 @@
   fetchpatch,
   cmake,
   static ? stdenv.hostPlatform.isStatic,
-  cxxStandard ? null
+  cxxStandard ? null,
 }:
 
 stdenv.mkDerivation rec {

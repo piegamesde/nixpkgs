@@ -8,7 +8,7 @@
   writeTextDir,
   runCommand,
   extraPasswdLines ? [ ],
-  extraGroupLines ? [ ]
+  extraGroupLines ? [ ],
 }:
 symlinkJoin {
   name = "fake-nss";

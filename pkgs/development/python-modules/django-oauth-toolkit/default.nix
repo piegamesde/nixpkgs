@@ -2,17 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonRelaxDepsHook
+  pythonRelaxDepsHook,
 
   # propagates
-  ,
   django,
   jwcrypto,
   requests,
-  oauthlib
+  oauthlib,
 
   # tests
-  ,
   djangorestframework,
   pytest-django,
   pytest-xdist,

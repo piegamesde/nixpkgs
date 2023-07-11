@@ -5,9 +5,8 @@
   pythonOlder,
   rustPlatform,
   fetchFromGitHub,
-  libiconv
+  libiconv,
   # Check inputs
-  ,
   pytestCheckHook,
   fixtures,
   graphviz,

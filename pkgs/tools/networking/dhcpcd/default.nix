@@ -8,7 +8,7 @@
   runtimeShellPackage,
   runtimeShell,
   nixosTests,
-  enablePrivSep ? true
+  enablePrivSep ? true,
 }:
 
 stdenv.mkDerivation rec {

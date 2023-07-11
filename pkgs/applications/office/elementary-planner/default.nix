@@ -19,8 +19,7 @@
   libsoup,
   libgdata,
   gtk3,
-  pantheon # granite, icons, maintainers
-  ,
+  pantheon, # granite, icons, maintainers
   webkitgtk,
   libpeas,
   libhandy,

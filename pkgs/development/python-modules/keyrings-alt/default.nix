@@ -4,9 +4,8 @@
   fetchPypi,
   pythonOlder,
   isPy27,
-  six
+  six,
 
-  ,
   pytestCheckHook,
   keyring,
   setuptools-scm,

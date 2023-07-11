@@ -25,7 +25,7 @@
   qpdf,
   stdenv,
   which,
-  withAvahi ? true
+  withAvahi ? true,
 }:
 
 let

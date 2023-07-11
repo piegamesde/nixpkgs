@@ -2,17 +2,15 @@
   lib,
   pythonOlder,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Python Inputs
-  ,
   decorator,
   docplex,
   networkx,
   numpy,
   qiskit-terra,
-  scipy
+  scipy,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   pylatexenc,

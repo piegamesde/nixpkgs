@@ -3,7 +3,7 @@
   mkCoqDerivation,
   autoreconfHook,
   coq,
-  version ? null
+  version ? null,
 }:
 
 let

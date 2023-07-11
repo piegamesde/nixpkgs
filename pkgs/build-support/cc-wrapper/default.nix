@@ -29,10 +29,9 @@
   isCcache ? cc.isCcache or false,
   gnugrep ? null,
   buildPackages ? { },
-  libcxx ? null
+  libcxx ? null,
 
   # Whether or not to add `-B` and `-L` to `nix-support/cc-{c,ld}flags`
-  ,
   useCcForLibs ?
 
     # Always add these flags for Clang, because in order to compile (most
@@ -74,14 +73,13 @@
     # `-L` flags pointing at the new gcc's libstdc++ headers.  Example failure:
     # https://hydra.nixos.org/build/213125495
     else
-      false
+      false,
 
   # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
-  ,
   gccForLibs ? if useCcForLibs then
     cc
   else
-    null
+    null,
 }:
 
 with lib;

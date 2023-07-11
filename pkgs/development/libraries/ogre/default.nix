@@ -12,9 +12,8 @@
   libpng,
   ois,
   pugixml,
-  zziplib
+  zziplib,
   # linux
-  ,
   freeglut,
   libGL,
   libGLU,
@@ -27,15 +26,13 @@
   libXrender,
   libXt,
   libXxf86vm,
-  xorgproto
+  xorgproto,
   # darwin
-  ,
-  Cocoa
+  Cocoa,
   # optional
-  ,
   withNvidiaCg ? false,
   nvidia_cg_toolkit,
-  withSamples ? false
+  withSamples ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   openssh,
-  debugLevel ? 0
+  debugLevel ? 0,
 }:
 
 stdenv.mkDerivation {

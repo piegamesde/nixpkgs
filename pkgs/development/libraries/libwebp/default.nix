@@ -10,20 +10,15 @@
   openglSupport ? false,
   freeglut,
   libGL,
-  libGLU # OpenGL (required for vwebp)
-  ,
+  libGLU, # OpenGL (required for vwebp)
   pngSupport ? true,
-  libpng # PNG image format
-  ,
+  libpng, # PNG image format
   jpegSupport ? true,
-  libjpeg # JPEG image format
-  ,
+  libjpeg, # JPEG image format
   tiffSupport ? true,
-  libtiff # TIFF image format
-  ,
+  libtiff, # TIFF image format
   gifSupport ? true,
-  giflib # GIF image format
-  ,
+  giflib, # GIF image format
   alignedSupport ? false # Force aligned memory operations
   ,
   swap16bitcspSupport ? false # Byte swap for 16bit color spaces
@@ -35,9 +30,9 @@
   libwebpdemuxSupport ? true # Build libwebpdemux
   ,
   libwebpdecoderSupport ? true # Build libwebpdecoder
+  ,
 
   # for passthru.tests
-  ,
   freeimage,
   gd,
   graphicsmagick,

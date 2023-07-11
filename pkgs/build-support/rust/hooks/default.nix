@@ -10,7 +10,7 @@
   rust,
   rustc,
   stdenv,
-  target ? rust.toRustTargetSpec stdenv.hostPlatform
+  target ? rust.toRustTargetSpec stdenv.hostPlatform,
 }:
 
 let

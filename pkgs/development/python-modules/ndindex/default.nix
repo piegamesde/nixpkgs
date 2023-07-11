@@ -1,18 +1,15 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build-system
-  ,
-  cython
+  cython,
 
   # optional
-  ,
-  numpy
+  numpy,
 
   # tests
-  ,
   hypothesis,
   pytest-cov,
   pytestCheckHook,

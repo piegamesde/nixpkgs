@@ -9,16 +9,15 @@
   docbook_xml_dtd_45,
   python3Packages,
   pam,
-  fetchpatch
+  fetchpatch,
 
   # Optional Dependencies
-  ,
   libapparmor ? null,
   gnutls ? null,
   libselinux ? null,
   libseccomp ? null,
   libcap ? null,
-  systemd ? null
+  systemd ? null,
 }:
 
 with lib;

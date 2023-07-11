@@ -938,7 +938,7 @@ in
           let
             proxy =
               {
-                extraConfig ? ""
+                extraConfig ? "",
               }: {
                 proxyPass = "http://discourse";
                 extraConfig =

@@ -40,7 +40,7 @@
   xfce,
   withXfce4ui ? false,
   totem-pl-parser,
-  withTotemPlParser ? false
+  withTotemPlParser ? false,
 # , grilo, withGrilo ? false
 # , rygel, withRygel ? true
 }:

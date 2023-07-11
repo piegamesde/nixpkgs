@@ -3,14 +3,12 @@
   stdenv,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  setuptools
+  setuptools,
 
   # runtime
-  ,
   aws-xray-sdk,
   boto3,
   botocore,
@@ -32,10 +30,9 @@
   responses,
   sshpubkeys,
   werkzeug,
-  xmltodict
+  xmltodict,
 
   # tests
-  ,
   freezegun,
   pytestCheckHook,
   pytest-xdist,

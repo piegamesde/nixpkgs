@@ -5,7 +5,7 @@
   pname ? "emacs",
   name ? "emacs-${version}${versionModifier}",
   patches ? _: [ ],
-  macportVersion ? null
+  macportVersion ? null,
 }:
 {
   stdenv,
@@ -48,13 +48,11 @@
   recurseIntoAttrs,
   emacsPackagesFor,
   libgccjit,
-  makeWrapper # native-comp params
-  ,
+  makeWrapper, # native-comp params
   fetchFromSavannah,
-  fetchFromBitbucket
+  fetchFromBitbucket,
 
   # macOS dependencies for NS and macPort
-  ,
   AppKit,
   Carbon,
   Cocoa,
@@ -65,9 +63,8 @@
   WebKit,
   ImageCaptureCore,
   GSS,
-  ImageIO # These may be optional
+  ImageIO, # These may be optional
 
-  ,
   withX ? !stdenv.isDarwin && !withPgtk,
   withNS ? stdenv.isDarwin && !withMacport,
   withMacport ? macportVersion != null,
@@ -111,7 +108,7 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
   withTreeSitter ? lib.versionAtLeast version "29",
-  tree-sitter ? null
+  tree-sitter ? null,
 }:
 
 assert (libXft != null) -> libpng != null; # probably a bug

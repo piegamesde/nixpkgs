@@ -16,7 +16,7 @@
   systemd,
   util-linux,
   which,
-  debug ? false
+  debug ? false,
 }:
 stdenv.mkDerivation rec {
   inherit (sgx-sdk) version versionTag src;

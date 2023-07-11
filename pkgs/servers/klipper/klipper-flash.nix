@@ -10,7 +10,7 @@
   stm32flash,
   mcu ? "mcu",
   flashDevice ? "/dev/null",
-  firmwareConfig ? ./simulator.cfg
+  firmwareConfig ? ./simulator.cfg,
 }:
 let
   supportedArches = [

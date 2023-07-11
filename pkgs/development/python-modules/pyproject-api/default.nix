@@ -2,28 +2,24 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build time
-  ,
   hatchling,
   hatch-vcs,
-  setuptools-scm
+  setuptools-scm,
 
   # runtime
-  ,
   packaging,
   toml,
-  tomli
+  tomli,
 
   # docs
-  ,
   sphinxHook,
   furo,
-  sphinx-autodoc-typehints
+  sphinx-autodoc-typehints,
 
   # tests
-  ,
   pytest-mock,
   pytestCheckHook,
   virtualenv,

@@ -4,17 +4,15 @@
   fetchFromGitHub,
   fetchpatch,
   rustPlatform,
-  nixosTests
+  nixosTests,
 
-  ,
   cmake,
   installShellFiles,
   makeWrapper,
   ncurses,
   pkg-config,
-  python3
+  python3,
 
-  ,
   expat,
   fontconfig,
   freetype,
@@ -22,10 +20,9 @@
   xorg,
   libxkbcommon,
   wayland,
-  xdg-utils
+  xdg-utils,
 
   # Darwin Frameworks
-  ,
   AppKit,
   CoreGraphics,
   CoreServices,

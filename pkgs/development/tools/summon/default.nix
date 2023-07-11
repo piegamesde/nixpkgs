@@ -2,7 +2,7 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-  patchResolver ? true
+  patchResolver ? true,
 }:
 
 buildGoModule rec {

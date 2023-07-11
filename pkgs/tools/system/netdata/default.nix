@@ -38,7 +38,7 @@
   snappy,
   withSsl ? true,
   openssl,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation rec {

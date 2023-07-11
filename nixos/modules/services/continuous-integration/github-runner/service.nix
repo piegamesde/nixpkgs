@@ -1,25 +1,19 @@
 {
   config,
   lib,
-  pkgs
+  pkgs,
 
-  ,
   cfg ? config.services.github-runner,
-  svcName
+  svcName,
 
-  ,
-  systemdDir ? "${svcName}/${cfg.name}"
+  systemdDir ? "${svcName}/${cfg.name}",
   # %t: Runtime directory root (usually /run); see systemd.unit(5)
-  ,
-  runtimeDir ? "%t/${systemdDir}"
+  runtimeDir ? "%t/${systemdDir}",
   # %S: State directory root (usually /var/lib); see systemd.unit(5)
-  ,
-  stateDir ? "%S/${systemdDir}"
+  stateDir ? "%S/${systemdDir}",
   # %L: Log directory root (usually /var/log); see systemd.unit(5)
-  ,
-  logsDir ? "%L/${systemdDir}"
+  logsDir ? "%L/${systemdDir}",
   # Name of file stored in service state directory
-  ,
   currentConfigTokenFilename ? ".current-token"
 
   ,

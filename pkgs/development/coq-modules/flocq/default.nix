@@ -5,7 +5,7 @@
   automake,
   mkCoqDerivation,
   coq,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

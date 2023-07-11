@@ -15,8 +15,7 @@
   switchboard,
   gnome-settings-daemon,
   glib,
-  gala # needed for gestures support
-  ,
+  gala, # needed for gestures support
   touchegg,
 }:
 

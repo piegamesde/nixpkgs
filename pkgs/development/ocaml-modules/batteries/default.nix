@@ -9,7 +9,7 @@
   qcheck,
   num,
   camlp-streams,
-  doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64
+  doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64,
 }:
 
 if lib.versionOlder ocaml.version "4.02" then

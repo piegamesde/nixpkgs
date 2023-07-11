@@ -2230,8 +2230,7 @@ final: prev: {
         fetchgit,
         luaOlder,
         lua,
-        lua-resty-openssl # , lua_pack, lua-ffi-zlib
-        ,
+        lua-resty-openssl, # , lua_pack, lua-ffi-zlib
       }:
       buildLuarocksPackage {
         pname = "lua-resty-session";

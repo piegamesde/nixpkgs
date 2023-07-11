@@ -7,11 +7,10 @@
   qtbase,
   qtsvg,
   qttools,
-  perl
+  perl,
 
   # Cantata doesn't build with cdparanoia enabled so we disable that
   # default for now until I (or someone else) figure it out.
-  ,
   withCdda ? false,
   cdparanoia,
   withCddb ? false,
@@ -19,9 +18,8 @@
   withLame ? false,
   lame,
   withMusicbrainz ? false,
-  libmusicbrainz5
+  libmusicbrainz5,
 
-  ,
   withTaglib ? true,
   taglib,
   taglib_extras,
@@ -40,7 +38,7 @@
   withHttpServer ? true,
   withLibVlc ? false,
   libvlc,
-  withStreams ? true
+  withStreams ? true,
 }:
 
 # Inter-dependencies.

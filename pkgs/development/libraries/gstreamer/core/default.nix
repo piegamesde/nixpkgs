@@ -12,16 +12,14 @@
   makeWrapper,
   libcap,
   libunwind,
-  elfutils # for libdw
-  ,
+  elfutils, # for libdw
   bash-completion,
   lib,
   Cocoa,
   CoreServices,
   gobject-introspection,
-  testers
+  testers,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

@@ -12,7 +12,7 @@ let
       description,
       rev,
       hash,
-      zip ? ""
+      zip ? "",
     }:
     let
       Family =

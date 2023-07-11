@@ -7,7 +7,7 @@
   coqPackages,
   coq,
   equations,
-  version ? null
+  version ? null,
 }@args:
 with builtins // lib;
 let

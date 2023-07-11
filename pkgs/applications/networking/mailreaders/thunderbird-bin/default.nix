@@ -60,8 +60,7 @@
   gnupg,
   ffmpeg,
   runtimeShell,
-  mesa # thunderbird wants gbm for drm+dmabuf
-  ,
+  mesa, # thunderbird wants gbm for drm+dmabuf
   systemLocale ? config.i18n.defaultLocale or "en_US",
   generated,
 }:

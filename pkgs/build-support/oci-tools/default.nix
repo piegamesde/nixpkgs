@@ -12,7 +12,7 @@
       mounts ? { },
       os ? "linux",
       arch ? "x86_64",
-      readonly ? false
+      readonly ? false,
     }:
     let
       sysMounts = {
@@ -119,7 +119,7 @@
               {
                 type,
                 source,
-                options ? null
+                options ? null,
               }: {
                 inherit destination type source options;
               }

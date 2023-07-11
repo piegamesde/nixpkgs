@@ -6,7 +6,7 @@
   python3,
   validatePkgConfig,
   secureMemory ? false,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

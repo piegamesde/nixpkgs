@@ -1,10 +1,9 @@
 {
   stdenv,
   pkgs,
-  lib
+  lib,
   # Note: either stdenv.mkDerivation or, for octaveFull, the qt-5 mkDerivation
   # with wrapQtAppsHook (comes from libsForQt5.callPackage)
-  ,
   mkDerivation,
   fetchurl,
   gfortran,
@@ -21,50 +20,43 @@
   pkg-config,
   libGL,
   libGLU,
-  fltk
+  fltk,
   # Both are needed for discrete Fourier transform
-  ,
   fftw,
   fftwSinglePrec,
   zlib,
   curl,
   rapidjson,
   blas,
-  lapack
+  lapack,
   # These two should use the same lapack and blas as the above
-  ,
   qrupdate,
   arpack,
-  suitesparse ? null
+  suitesparse ? null,
   # If set to true, the above 5 deps are overridden to use the blas and lapack
   # with 64 bit indexes support. If all are not compatible, the build will fail.
-  ,
   use64BitIdx ? false,
   libwebp,
   gl2ps,
   ghostscript ? null,
   hdf5 ? null,
   glpk ? null,
-  gnuplot ? null
+  gnuplot ? null,
   # - Include support for GNU readline:
-  ,
   enableReadline ? true,
-  readline ? null
+  readline ? null,
   # - Build Java interface:
-  ,
   enableJava ? true,
   jdk ? null,
   python ? null,
   overridePlatforms ? null,
-  sundials ? null
+  sundials ? null,
   # - Packages required for building extra packages.
-  ,
   newScope,
   callPackage,
   makeSetupHook,
-  makeWrapper
+  makeWrapper,
   # - Build Octave Qt GUI:
-  ,
   enableQt ? false,
   qtbase ? null,
   qtsvg ? null,

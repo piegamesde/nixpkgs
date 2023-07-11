@@ -3,7 +3,7 @@
   lib,
   makeWrapper,
   vdr,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 let
 

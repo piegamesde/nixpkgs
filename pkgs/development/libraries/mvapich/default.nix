@@ -12,21 +12,17 @@
   openssh,
   hwloc,
   zlib,
-  makeWrapper
+  makeWrapper,
   # InfiniBand dependencies
-  ,
   opensm,
-  rdma-core
+  rdma-core,
   # OmniPath dependencies
-  ,
   libpsm2,
-  libfabric
+  libfabric,
   # Compile with slurm as a process manager
-  ,
-  useSlurm ? false
+  useSlurm ? false,
   # Network type for MVAPICH2
-  ,
-  network ? "ethernet"
+  network ? "ethernet",
 }:
 
 assert builtins.elem network [

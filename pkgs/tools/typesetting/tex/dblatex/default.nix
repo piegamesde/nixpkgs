@@ -10,9 +10,8 @@
   fig2dev,
   inkscape,
   fontconfig,
-  ghostscript
+  ghostscript,
 
-  ,
   tex ? texlive.combine { # satisfy all packages that ./configure mentions
     inherit (texlive)
       scheme-basic
@@ -48,7 +47,7 @@
       helvetic
       ly1
       ;
-  }
+  },
 }:
 
 # NOTE: enableAllFeatures just purifies the expression, it doesn't actually

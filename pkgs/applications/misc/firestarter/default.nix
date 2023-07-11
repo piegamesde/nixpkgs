@@ -10,7 +10,7 @@
   git,
   pkg-config,
   cudaPackages ? { },
-  withCuda ? false
+  withCuda ? false,
 }:
 
 let

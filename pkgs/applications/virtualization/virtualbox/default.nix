@@ -42,16 +42,14 @@
   gsoap,
   zlib,
   yasm,
-  glslang
+  glslang,
   # If open-watcom-bin is not passed, VirtualBox will fall back to use
   # the shipped alternative sources (assembly).
-  ,
   open-watcom-bin,
   makeself,
   perl,
   javaBindings ? true,
-  jdk # Almost doesn't affect closure size
-  ,
+  jdk, # Almost doesn't affect closure size
   pythonBindings ? false,
   python3,
   extensionPack ? null,
@@ -61,7 +59,7 @@
   enableHardening ? false,
   headless ? false,
   enable32bitGuests ? true,
-  enableWebService ? false
+  enableWebService ? false,
 }:
 
 with lib;

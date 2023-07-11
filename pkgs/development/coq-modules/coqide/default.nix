@@ -7,7 +7,7 @@
   gnome,
   mkCoqDerivation,
   coq,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

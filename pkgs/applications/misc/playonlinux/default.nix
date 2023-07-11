@@ -24,9 +24,8 @@
   jq,
   xorg,
   libGL,
-  steam-run
+  steam-run,
   # needed for avoiding crash on file selector
-  ,
   gsettings-desktop-schemas,
   glib,
   wrapGAppsHook,

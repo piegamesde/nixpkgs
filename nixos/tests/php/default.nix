@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../../.. { inherit system config; },
-  php ? pkgs.php
+  php ? pkgs.php,
 }:
 
 let

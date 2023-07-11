@@ -12,14 +12,13 @@
   libffi,
   llvmPackages,
   coreutils,
-  targetPackages
+  targetPackages,
 
   # minimal = true; will remove files that aren't strictly necessary for
   # regular builds and GHC bootstrapping.
   # This is "useful" for staying within hydra's output limits for at least the
   # aarch64-linux architecture.
-  ,
-  minimal ? false
+  minimal ? false,
 }:
 
 # Prebuilt only does native

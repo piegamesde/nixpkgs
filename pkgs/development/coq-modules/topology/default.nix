@@ -4,7 +4,7 @@
   coq,
   mathcomp,
   zorns-lemma,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

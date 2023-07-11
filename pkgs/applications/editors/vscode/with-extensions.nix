@@ -7,7 +7,7 @@
   vscode-utils,
   makeWrapper,
   writeTextFile,
-  vscodeExtensions ? [ ]
+  vscodeExtensions ? [ ],
 }:
 
 /* `vscodeExtensions`

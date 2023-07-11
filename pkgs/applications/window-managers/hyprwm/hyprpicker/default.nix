@@ -20,7 +20,7 @@
   wayland-scanner,
   wlroots,
   libXdmcp,
-  debug ? false
+  debug ? false,
 }:
 stdenv.mkDerivation {
   pname = "hyprpicker" + lib.optionalString debug "-debug";

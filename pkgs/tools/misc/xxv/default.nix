@@ -4,7 +4,7 @@
   fetchFromGitHub,
   rustPlatform,
   ncurses ? null,
-  darwin ? null
+  darwin ? null,
 }:
 
 let

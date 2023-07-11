@@ -21,9 +21,8 @@
   pcre,
   libpthreadstubs,
   libXdmcp,
-  unixODBC
+  unixODBC,
 
-  ,
   util-linux,
   libselinux,
   libsepol,
@@ -35,17 +34,15 @@
   at-spi2-core,
   libXtst,
   pcre2,
-  libdeflate
+  libdeflate,
 
-  ,
   swig4,
   python,
   wxPython,
   opencascade-occt,
   libngspice,
-  valgrind
+  valgrind,
 
-  ,
   stable,
   baseName,
   kicadSrc,

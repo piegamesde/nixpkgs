@@ -5,9 +5,8 @@
   cudatoolkit,
   fetchurl,
   autoPatchelfHook,
-  addOpenGLRunpath
+  addOpenGLRunpath,
 
-  ,
   version,
   hash,
 }:

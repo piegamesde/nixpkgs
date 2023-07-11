@@ -4,8 +4,7 @@
   fetchFromGitHub,
   installShellFiles,
   libuuid,
-  lvm2_dmeventd # <libdevmapper-event.h>
-  ,
+  lvm2_dmeventd, # <libdevmapper-event.h>
   zlib,
   python3,
 }:

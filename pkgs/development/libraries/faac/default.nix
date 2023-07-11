@@ -6,6 +6,7 @@
   mp4v2Support ? true,
   mp4v2 ? null,
   drmSupport ? false # Digital Radio Mondiale
+  ,
 }:
 
 assert mp4v2Support -> (mp4v2 != null);

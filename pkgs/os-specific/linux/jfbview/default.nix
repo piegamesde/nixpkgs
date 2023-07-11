@@ -10,11 +10,10 @@
   mupdf_1_17,
   ncurses,
   openjpeg,
-  openssl
+  openssl,
 
-  ,
   imageSupport ? true,
-  imlib2 ? null
+  imlib2 ? null,
 }:
 
 let

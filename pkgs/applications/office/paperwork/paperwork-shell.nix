@@ -1,22 +1,19 @@
 {
   buildPythonPackage,
   lib,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   isPy3k,
-  isPyPy
+  isPyPy,
 
-  ,
   openpaperwork-core,
   openpaperwork-gtk,
   paperwork-backend,
   fabulous,
   getkey,
   psutil,
-  shared-mime-info
+  shared-mime-info,
 
-  ,
   pkgs,
 }:
 

@@ -11,21 +11,18 @@
 {
   vscode ? vscodeDefault,
   nixExtensions ? [ ],
-  vscodeExtsFolderName ? ".vscode-exts"
+  vscodeExtsFolderName ? ".vscode-exts",
   # will add to the command updateSettings (which will run on executing vscode) settings to override in settings.json file
-  ,
   settings ? { },
   createSettingsIfDoesNotExists ? true,
   launch ? { },
-  createLaunchIfDoesNotExists ? true
+  createLaunchIfDoesNotExists ? true,
   # will add to the command updateKeybindings(which will run on executing vscode) keybindings to override in keybinding.json file
-  ,
   keybindings ? { },
   createKeybindingsIfDoesNotExists ? true,
-  user-data-dir ? ''"''${TMP}''${name}"/vscode-data-dir''
+  user-data-dir ? ''"''${TMP}''${name}"/vscode-data-dir'',
   # if file exists will use it and import the extensions in it into this dervation else will use empty extensions list
   # this file will be created/updated by vscodeExts2nix when vscode exists
-  ,
   mutableExtensionsFile,
 }:
 let

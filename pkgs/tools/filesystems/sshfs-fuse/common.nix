@@ -2,7 +2,7 @@
   version,
   sha256,
   platforms,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 {

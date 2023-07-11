@@ -30,7 +30,7 @@ with lib;
   version,
   sha256,
   patches ? [ ],
-  license ? lib.licenses.sspl
+  license ? lib.licenses.sspl,
 }:
 
 let

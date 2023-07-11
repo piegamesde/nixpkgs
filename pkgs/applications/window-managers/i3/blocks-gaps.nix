@@ -18,7 +18,7 @@
     "memory"
     "volume"
     "wifi"
-  ]
+  ],
 }:
 
 with lib;

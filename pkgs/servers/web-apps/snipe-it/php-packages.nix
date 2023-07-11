@@ -4,7 +4,7 @@
   fetchgit ? null,
   fetchhg ? null,
   fetchsvn ? null,
-  noDev ? false
+  noDev ? false,
 }:
 
 let

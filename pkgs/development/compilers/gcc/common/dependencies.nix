@@ -32,7 +32,7 @@
   langAda ? false,
   langGo ? false,
   crossStageStatic ? null,
-  threadsCross ? null
+  threadsCross ? null,
 }:
 
 let

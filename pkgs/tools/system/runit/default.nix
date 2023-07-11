@@ -2,11 +2,10 @@
   lib,
   stdenv,
   fetchurl,
-  darwin
+  darwin,
 
   # Build runit-init as a static binary
-  ,
-  static ? false
+  static ? false,
 }:
 
 stdenv.mkDerivation rec {

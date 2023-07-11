@@ -1,14 +1,12 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   autoreconfHook,
   pkg-config,
-  intltool
+  intltool,
 
-  ,
   glib,
   gtk2,
   dbus-glib,

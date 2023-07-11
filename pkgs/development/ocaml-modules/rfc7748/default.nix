@@ -2,9 +2,8 @@
   lib,
   buildDunePackage,
   fetchFromGitHub,
-  ocaml
+  ocaml,
 
-  ,
   ounit,
   zarith,
 }:

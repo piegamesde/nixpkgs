@@ -9,7 +9,7 @@
   perl,
   readline,
   tex,
-  withThread ? true
+  withThread ? true,
 }:
 
 assert withThread -> libpthreadstubs != null;

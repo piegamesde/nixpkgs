@@ -18,7 +18,7 @@
   addOpenGLRunpath,
   cudatoolkit,
   nvidia_x11,
-  cudnnSupport ? cudaSupport
+  cudnnSupport ? cudaSupport,
 }:
 
 let

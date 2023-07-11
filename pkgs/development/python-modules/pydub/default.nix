@@ -2,10 +2,9 @@
   lib,
   stdenv,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # tests
-  ,
   ffmpeg-full,
   python,
 }:

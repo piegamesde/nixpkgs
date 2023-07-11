@@ -16,6 +16,7 @@
   wrapGAppsHook,
   tesseract4,
   extraOcrEngines ? [ ] # other supported engines are: ocrad gocr cuneiform
+  ,
 }:
 
 stdenv.mkDerivation rec {

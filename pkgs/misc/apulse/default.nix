@@ -7,7 +7,7 @@
   pkg-config,
   glib,
   tracingSupport ? true,
-  logToStderr ? true
+  logToStderr ? true,
 }:
 
 let

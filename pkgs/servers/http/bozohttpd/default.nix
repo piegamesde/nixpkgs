@@ -16,7 +16,7 @@
   sslSupport ? !minimal,
   luaSupport ? !minimal,
   lua,
-  htpasswdSupport ? !minimal
+  htpasswdSupport ? !minimal,
 }:
 
 let

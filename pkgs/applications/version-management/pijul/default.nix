@@ -9,7 +9,7 @@
   xxHash,
   darwin,
   gitImportSupport ? true,
-  libgit2 ? null
+  libgit2 ? null,
 }:
 
 rustPlatform.buildRustPackage rec {

@@ -30,7 +30,7 @@
   python3Packages,
   buildDocs ? true,
   buildTests ? false,
-  useNVIDIA ? false
+  useNVIDIA ? false,
 }:
 
 let

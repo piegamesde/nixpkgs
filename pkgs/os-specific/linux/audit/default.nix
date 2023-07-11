@@ -16,7 +16,7 @@
   enablePython ? stdenv.hostPlatform == stdenv.buildPlatform,
   python3,
   swig,
-  linuxHeaders ? stdenv.cc.libc.linuxHeaders
+  linuxHeaders ? stdenv.cc.libc.linuxHeaders,
 }:
 
 stdenv.mkDerivation rec {

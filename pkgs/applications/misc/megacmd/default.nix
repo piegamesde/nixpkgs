@@ -5,11 +5,10 @@
   c-ares,
   cryptopp,
   curl,
-  fetchFromGitHub
+  fetchFromGitHub,
   # build fails with latest ffmpeg, see https://github.com/meganz/MEGAcmd/issues/523.
   # to be re-enabled when patch available
   # , ffmpeg
-  ,
   freeimage,
   gcc-unwrapped,
   libmediainfo,

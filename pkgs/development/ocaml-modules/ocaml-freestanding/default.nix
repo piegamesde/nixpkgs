@@ -5,7 +5,7 @@
   ocaml,
   pkg-config,
   solo5,
-  target ? "xen"
+  target ? "xen",
 }:
 
 # note: this is not technically an ocaml-module,

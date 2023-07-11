@@ -7,9 +7,8 @@
   six,
   withGraphviz ? true,
   graphviz,
-  fontconfig
+  fontconfig,
   # Tests
-  ,
   pytestCheckHook,
   nose,
 }:

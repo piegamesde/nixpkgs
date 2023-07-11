@@ -5,7 +5,7 @@
   mysql_jdbc ? null,
   enableSSO ? false,
   crowdProperties ? null,
-  withMysql ? true
+  withMysql ? true,
 }:
 
 assert withMysql -> (mysql_jdbc != null);

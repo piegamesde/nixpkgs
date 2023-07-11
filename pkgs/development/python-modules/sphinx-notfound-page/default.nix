@@ -3,17 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   flit-core,
-  pythonImportsCheckHook
+  pythonImportsCheckHook,
   # documentation build dependencies
-  ,
   sphinxHook,
   sphinx-prompt,
   sphinx-rtd-theme,
   sphinx-tabs,
   sphinx-autoapi,
-  sphinxemoji
+  sphinxemoji,
   # runtime dependencies
-  ,
   sphinx,
 }:
 

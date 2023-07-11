@@ -13,7 +13,7 @@
   speex,
   ncurses,
   keymap ? "default",
-  conf ? "unknown"
+  conf ? "unknown",
 }:
 
 stdenv.mkDerivation rec {

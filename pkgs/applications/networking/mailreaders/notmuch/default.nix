@@ -23,7 +23,7 @@
   gdb,
   man,
   withEmacs ? true,
-  withRuby ? true
+  withRuby ? true,
 }:
 
 stdenv.mkDerivation rec {

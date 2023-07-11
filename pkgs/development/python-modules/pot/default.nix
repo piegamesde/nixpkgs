@@ -15,7 +15,7 @@
   scikit-learn,
   scipy,
   enableDimensionalityReduction ? false,
-  enableGPU ? false
+  enableGPU ? false,
 }:
 
 buildPythonPackage rec {

@@ -1,10 +1,9 @@
 {
   buildPythonPackage,
   fetchFromGitHub,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   pytest,
 }:
 

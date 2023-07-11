@@ -17,7 +17,7 @@ let
         {
           version,
           sha256,
-          rev ? version
+          rev ? version,
         }: {
           inherit version;
           src = fetchzip {

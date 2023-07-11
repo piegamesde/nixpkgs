@@ -4,7 +4,7 @@
   nodeEnv,
   fetchurl,
   fetchgit,
-  globalBuildInputs ? [ ]
+  globalBuildInputs ? [ ],
 }:
 
 let

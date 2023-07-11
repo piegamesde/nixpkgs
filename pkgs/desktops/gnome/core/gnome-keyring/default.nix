@@ -20,7 +20,7 @@
   docbook-xsl-nons,
   docbook_xml_dtd_43,
   gnome,
-  useWrappedDaemon ? true
+  useWrappedDaemon ? true,
 }:
 
 stdenv.mkDerivation rec {

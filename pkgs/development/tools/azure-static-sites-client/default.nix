@@ -9,10 +9,9 @@
   lttng-ust,
   openssl_1_1,
   zlib,
-  azure-static-sites-client
+  azure-static-sites-client,
   # "latest", "stable" or "backup"
-  ,
-  versionFlavor ? "stable"
+  versionFlavor ? "stable",
 }:
 let
   versions = lib.importJSON ./versions.json;

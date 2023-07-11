@@ -16,10 +16,9 @@
   ninja,
   pkg-config,
   poppler,
-  python3
+  python3,
   # Building with docs are failing in unstable-2022-12-14
-  ,
-  withDocs ? false
+  withDocs ? false,
 }:
 
 stdenv.mkDerivation {

@@ -13,7 +13,7 @@
   python3Packages,
   buildDocs ? true,
   buildTests ? false,
-  buildBenchmarks ? false
+  buildBenchmarks ? false,
 }:
 
 let

@@ -15,9 +15,8 @@
   wayland,
   libffi,
   libGL,
-  mesa
+  mesa,
   # for passthru.tests
-  ,
   intel-compute-runtime,
   intel-media-driver,
   mpv,

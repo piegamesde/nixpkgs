@@ -32,22 +32,19 @@
   pytest-asyncio,
   python-snappy,
   pytestCheckHook,
-  pythonOlder
+  pythonOlder,
   # , pytrie
-  ,
   rlp,
   service-identity,
   spake2,
   twisted,
   txaio,
-  ujson
+  ujson,
   # , web3
   # , wsaccel
   # , xbr
-  ,
-  yapf
+  yapf,
   # , zlmdb
-  ,
   zope_interface,
 }@args:
 

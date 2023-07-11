@@ -20,8 +20,7 @@
   digestif,
   fpath,
   stdlib-shims,
-  git-binary # pkgs.git
-  ,
+  git-binary, # pkgs.git
 }:
 
 buildDunePackage {

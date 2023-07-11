@@ -22,7 +22,7 @@ let
       localDatabaseUser ? cfg.localDatabaseUser,
       localDatabasePassword ? cfg.localDatabasePassword,
       localDatabaseName ? cfg.localDatabaseName,
-      useSudo ? true
+      useSudo ? true,
     }: ''
       if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
         ${

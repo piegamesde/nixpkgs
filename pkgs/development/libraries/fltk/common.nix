@@ -24,33 +24,28 @@
   libXrender,
   ApplicationServices,
   Carbon,
-  Cocoa
+  Cocoa,
 
-  ,
   withGL ? true,
   libGL,
   libGLU,
   glew,
-  OpenGL
+  OpenGL,
 
-  ,
   withCairo ? true,
-  cairo
+  cairo,
 
-  ,
   withPango ? (
     lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux
   ),
-  pango
+  pango,
 
-  ,
   withDocs ? true,
   doxygen,
-  graphviz
+  graphviz,
 
-  ,
   withExamples ? (stdenv.buildPlatform == stdenv.hostPlatform),
-  withShared ? true
+  withShared ? true,
 }:
 
 let

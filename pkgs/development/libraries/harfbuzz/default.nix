@@ -15,8 +15,7 @@
   withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
   icu,
   graphite2,
-  harfbuzz # The icu variant uses and propagates the non-icu one.
-  ,
+  harfbuzz, # The icu variant uses and propagates the non-icu one.
   ApplicationServices,
   CoreText,
   withCoreText ? false,
@@ -28,9 +27,8 @@
   python3,
   gtk-doc,
   docbook-xsl-nons,
-  docbook_xml_dtd_43
+  docbook_xml_dtd_43,
   # for passthru.tests
-  ,
   gimp,
   gtk3,
   gtk4,

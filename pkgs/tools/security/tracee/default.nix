@@ -1,18 +1,15 @@
 {
   lib,
   buildGoModule,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   clang,
-  pkg-config
+  pkg-config,
 
-  ,
   zlib,
   elfutils,
-  libbpf
+  libbpf,
 
-  ,
   nixosTests,
   testers,
   tracee,

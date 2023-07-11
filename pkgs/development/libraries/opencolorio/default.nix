@@ -9,23 +9,19 @@
   ilmbase,
   pystring,
   imath,
-  minizip-ng
+  minizip-ng,
   # Only required on Linux
-  ,
   glew,
-  freeglut
+  freeglut,
   # Only required on Darwin
-  ,
   Carbon,
   GLUT,
-  Cocoa
+  Cocoa,
   # Python bindings
-  ,
   pythonBindings ? true # Python bindings
   ,
-  python3Packages
+  python3Packages,
   # Build apps
-  ,
   buildApps ? true # Utility applications
   ,
   lcms2,

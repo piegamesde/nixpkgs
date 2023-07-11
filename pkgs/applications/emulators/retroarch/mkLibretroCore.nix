@@ -7,13 +7,11 @@
   zlib,
   makefile ? "Makefile.libretro",
   extraBuildInputs ? [ ],
-  extraNativeBuildInputs ? [ ]
+  extraNativeBuildInputs ? [ ],
   # Location of resulting RetroArch core on $out
-  ,
-  libretroCore ? "/lib/retroarch/cores"
+  libretroCore ? "/lib/retroarch/cores",
   # The core filename is derivated from the core name
   # Setting `normalizeCore` to `true` will convert `-` to `_` on the core filename
-  ,
   normalizeCore ? true,
   ...
 }@args:

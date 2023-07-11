@@ -5,7 +5,7 @@
   ssreflect,
   coq-ext-lib,
   simple-io,
-  version ? null
+  version ? null,
 }:
 
 let

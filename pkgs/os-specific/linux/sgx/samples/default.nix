@@ -4,9 +4,8 @@
   makeWrapper,
   sgx-sdk,
   sgx-psw,
-  which
+  which,
   # "SIM" or "HW"
-  ,
   sgxMode,
 }:
 let

@@ -9,7 +9,7 @@
   pango,
   wayland-protocols,
   wayland-scanner,
-  conf ? null
+  conf ? null,
 }:
 
 let

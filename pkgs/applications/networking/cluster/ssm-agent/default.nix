@@ -10,7 +10,7 @@
   dmidecode,
   util-linux,
   bashInteractive,
-  overrideEtc ? true
+  overrideEtc ? true,
 }:
 
 let

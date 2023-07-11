@@ -12,7 +12,7 @@
   fmt,
   fmtSupport ? lib.versionAtLeast ocaml.version "4.08",
   js_of_ocaml,
-  jsooSupport ? true
+  jsooSupport ? true,
 }:
 let
   pname = "logs";

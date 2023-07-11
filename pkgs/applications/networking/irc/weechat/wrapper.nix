@@ -23,7 +23,7 @@ let
           plugins = builtins.attrValues (
             builtins.removeAttrs availablePlugins [ "php" ]
           );
-        }
+        },
     }:
 
     let

@@ -65,9 +65,8 @@
   libkrb5,
   mesa,
   xkeyboard_config,
-  enableProprietaryCodecs ? true
+  enableProprietaryCodecs ? true,
   # darwin
-  ,
   clang_14,
   bootstrap_cmds,
   cctools,

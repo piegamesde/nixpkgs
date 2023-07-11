@@ -367,7 +367,7 @@ let
       program ? pkg.meta.mainProgram or pkg.pname,
       flags ? [ ],
       asdf ? pkgs.asdf_3_3,
-      packageOverrides ? (self: super: { })
+      packageOverrides ? (self: super: { }),
     }:
     let
       spec = { inherit pkg faslExt program flags asdf; };

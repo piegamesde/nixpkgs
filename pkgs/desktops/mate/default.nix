@@ -14,7 +14,7 @@ let
           pname,
           odd-unstable ? true,
           rev-prefix ? "v",
-          url ? null
+          url ? null,
         }:
         pkgs.gitUpdater {
           inherit odd-unstable rev-prefix;

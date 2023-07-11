@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   runCommand,
-  rubies ? null
+  rubies ? null,
 }:
 
 let

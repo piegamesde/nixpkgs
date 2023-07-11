@@ -2,10 +2,9 @@
   buildPythonPackage,
   fetchPypi,
   lib,
-  pythonOlder
+  pythonOlder,
 
   # Python dependencies
-  ,
   uvloop,
   pytest,
 }:

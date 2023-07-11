@@ -4,7 +4,7 @@
   pkgs ? import ../.. { inherit system config; },
   debug ? false,
   enableUnfree ? false,
-  use64bitGuest ? true
+  use64bitGuest ? true,
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };

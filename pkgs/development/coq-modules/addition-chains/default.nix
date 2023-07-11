@@ -6,7 +6,7 @@
   mathcomp-algebra,
   mathcomp-fingroup,
   paramcoq,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

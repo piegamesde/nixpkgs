@@ -10,8 +10,7 @@
   pcre,
   pkg-config,
   python3,
-  python3Packages # sphinx-build
-  ,
+  python3Packages, # sphinx-build
   lib,
   stdenv,
   xcbproto,
@@ -30,17 +29,16 @@
   wirelesstools,
   libnl,
   i3,
-  jsoncpp
+  jsoncpp,
 
   # override the variables ending in 'Support' to enable or disable modules
-  ,
   alsaSupport ? true,
   githubSupport ? false,
   mpdSupport ? false,
   pulseSupport ? config.pulseaudio or false,
   iwSupport ? false,
   nlSupport ? true,
-  i3Support ? false
+  i3Support ? false,
 }:
 
 stdenv.mkDerivation rec {

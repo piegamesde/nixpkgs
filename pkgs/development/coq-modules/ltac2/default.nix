@@ -3,7 +3,7 @@
   mkCoqDerivation,
   which,
   coq,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

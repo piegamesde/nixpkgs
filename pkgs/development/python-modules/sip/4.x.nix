@@ -5,7 +5,7 @@
   python,
   isPyPy,
   pythonAtLeast,
-  sip-module ? "sip"
+  sip-module ? "sip",
 }:
 
 buildPythonPackage rec {

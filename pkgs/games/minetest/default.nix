@@ -37,7 +37,7 @@
   OpenAL ? openal,
   Carbon,
   Cocoa,
-  withTouchSupport ? false
+  withTouchSupport ? false,
 }:
 
 with lib;
@@ -61,7 +61,7 @@ let
       dataRev ? version,
       dataSha256,
       buildClient ? true,
-      buildServer ? false
+      buildServer ? false,
     }:
     let
       sources = {

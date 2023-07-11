@@ -196,7 +196,7 @@ let
     {
       original,
       name,
-      set ? { }
+      set ? { },
     }:
     pkgs.runCommand "${name}-wrapper"
     { nativeBuildInputs = [ pkgs.makeWrapper ]; }

@@ -10,9 +10,8 @@
   procps,
   which,
   jre,
-  nixosTests
+  nixosTests,
   # generation is the attribute version suffix such as 3_11 in pkgs.cassandra_3_11
-  ,
   generation,
   version,
   sha256,

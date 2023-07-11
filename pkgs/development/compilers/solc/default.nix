@@ -15,7 +15,7 @@
   cvc4Support ? gccStdenv.isLinux,
   cvc4 ? null,
   cln ? null,
-  gmp ? null
+  gmp ? null,
 }:
 
 # compiling source/libsmtutil/CVC4Interface.cpp breaks on clang on Darwin,

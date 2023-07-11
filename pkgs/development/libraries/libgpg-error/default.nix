@@ -4,7 +4,7 @@
   buildPackages,
   fetchurl,
   gettext,
-  genPosixLockObjOnly ? false
+  genPosixLockObjOnly ? false,
 }:
 let
   genPosixLockObjOnlyAttrs = lib.optionalAttrs genPosixLockObjOnly {

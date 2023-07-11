@@ -5,9 +5,8 @@
   buildGoModule,
   ruby,
   bundlerEnv,
-  pkg-config
+  pkg-config,
   # libgit2 + dependencies
-  ,
   libgit2,
   openssl,
   zlib,

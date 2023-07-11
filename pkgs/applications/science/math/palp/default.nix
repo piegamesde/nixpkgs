@@ -7,6 +7,7 @@
   ,
   doSymlink ?
     true # symlink the executables to the default location (without dimension postfix)
+  ,
 }:
 
 let

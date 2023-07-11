@@ -5,9 +5,8 @@
   pythonOlder,
   setuptools-scm,
   importlib-metadata,
-  packaging
+  packaging,
   # Check Inputs
-  ,
   pytestCheckHook,
   pytest-subtests,
   numpy,

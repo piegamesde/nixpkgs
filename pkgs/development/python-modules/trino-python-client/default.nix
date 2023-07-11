@@ -1,22 +1,18 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   # build
-  ,
-  setuptools
+  setuptools,
   # required
-  ,
   pytz,
   requests,
-  tzlocal
+  tzlocal,
   # optional
-  ,
   requests-kerberos,
   sqlalchemy,
-  keyring
+  keyring,
   # tests
-  ,
   pytestCheckHook,
   httpretty,
 }:

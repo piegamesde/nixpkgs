@@ -5,7 +5,7 @@
   cmake,
   pkgconfig,
   python,
-  mpi ? null
+  mpi ? null,
 }:
 
 let

@@ -8,9 +8,8 @@
   lmdb,
   openssl,
   libxcrypt,
-  python3 # for tests only
-  ,
-  cpp11 ? false
+  python3, # for tests only
+  cpp11 ? false,
 }:
 
 let

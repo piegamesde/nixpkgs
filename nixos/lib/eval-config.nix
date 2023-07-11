@@ -34,6 +34,7 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
     [ ]
   else
     [ (import e) ]
+  ,
 }:
 
 let

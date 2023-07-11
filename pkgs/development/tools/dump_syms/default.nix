@@ -4,14 +4,12 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-  openssl
+  openssl,
 
   # darwin
-  ,
-  Security
+  Security,
 
   # tests
-  ,
   firefox-esr-unwrapped,
   firefox-unwrapped,
   thunderbird-unwrapped,

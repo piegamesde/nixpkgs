@@ -10,11 +10,9 @@
 
   # runtime dependencies
   ,
-  nix # for nix-prefetch-url
-  ,
+  nix, # for nix-prefetch-url
   nix-prefetch-git,
-  git # for git ls-remote
-  ,
+  git, # for git ls-remote
 }:
 
 let

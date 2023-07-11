@@ -17,10 +17,9 @@
   python-pae,
   pytest-aiohttp,
   requests-mock,
-  pytestCheckHook
+  pytestCheckHook,
 
   # optionals
-  ,
   defusedxml,
   oscrypto,
   fonttools,

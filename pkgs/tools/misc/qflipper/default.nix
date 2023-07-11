@@ -9,9 +9,8 @@
   qmake,
   wrapGAppsHook,
   wrapQtAppsHook,
-  mkDerivation
+  mkDerivation,
 
-  ,
   qttools,
   qtbase,
   qt3d,

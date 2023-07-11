@@ -6,7 +6,7 @@
   shortenPerlShebang,
   mysqlSupport ? false,
   postgresqlSupport ? false,
-  templateToolkitSupport ? false
+  templateToolkitSupport ? false,
 }:
 
 let

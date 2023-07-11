@@ -18,9 +18,8 @@
   primesieve,
   pagmo2,
   ipopt,
-  Accelerate
+  Accelerate,
   # tests take an hour to build on a 48-core machine
-  ,
   runTests ? false,
   enablePython ? false,
   python3Packages,

@@ -9,10 +9,9 @@
   buildPackages,
   jq,
   xdg-utils,
-  writeText
+  writeText,
 
   ## various stuff that can be plugged in
-  ,
   ffmpeg_5,
   xorg,
   alsa-lib,
@@ -21,8 +20,7 @@
   libglvnd,
   libnotify,
   opensc,
-  gnome # .gnome-shell
-  ,
+  gnome, # .gnome-shell
   browserpass,
   gnome-browser-connector,
   uget-integrator,
@@ -35,8 +33,7 @@
   udev,
   libkrb5,
   libva,
-  mesa # firefox wants gbm for drm+dmabuf
-  ,
+  mesa, # firefox wants gbm for drm+dmabuf
   cups,
   pciutils,
   sndio,
@@ -65,23 +62,21 @@ let
       extraNativeMessagingHosts ? [ ],
       pkcs11Modules ? [ ],
       useGlvnd ? true,
-      cfg ? config.${applicationName} or { }
+      cfg ? config.${applicationName} or { },
 
       ## Following options are needed for extra prefs & policies
       # For more information about anti tracking (german website)
       # visit https://wiki.kairaven.de/open/app/firefox
-      ,
       extraPrefs ? "",
-      extraPrefsFiles ? [ ]
+      extraPrefsFiles ? [ ],
       # For more information about policies visit
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
-      ,
       extraPolicies ? { },
       extraPoliciesFiles ? [ ],
       libName ?
         browser.libName or "firefox" # Important for tor package or the like
       ,
-      nixExtensions ? null
+      nixExtensions ? null,
     }:
 
     let

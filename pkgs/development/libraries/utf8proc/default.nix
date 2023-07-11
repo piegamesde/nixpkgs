@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  cmake
+  cmake,
   # passthru.tests
-  ,
   tmux,
   fcft,
   arrow-cpp,

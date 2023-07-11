@@ -5,7 +5,7 @@
   mathcomp-algebra,
   mathcomp-ssreflect,
   mathcomp-fingroup,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

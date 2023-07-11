@@ -8,7 +8,7 @@
   automake,
   libconfuse,
   pkg-config,
-  gccCross ? null
+  gccCross ? null,
 }:
 
 let

@@ -12,31 +12,26 @@
     "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
     (_: buildRustCrate)
   else
-    pkgs: pkgs.buildRustCrate
+    pkgs: pkgs.buildRustCrate,
   # Deprecated
-  ,
-  buildRustCrate ? null
+  buildRustCrate ? null,
   # This is used as the `crateOverrides` argument for `buildRustCrate`.
-  ,
-  defaultCrateOverrides ? pkgs.defaultCrateOverrides
+  defaultCrateOverrides ? pkgs.defaultCrateOverrides,
   # The features to enable for the root_crate or the workspace_members.
-  ,
-  rootFeatures ? [ "default" ]
+  rootFeatures ? [
+    "default"
+  ],
   # If true, throw errors instead of issueing deprecation warnings.
-  ,
-  strictDeprecation ? false
+  strictDeprecation ? false,
   # Used for conditional compilation based on CPU feature detection.
-  ,
-  targetFeatures ? [ ]
+  targetFeatures ? [ ],
   # Whether to perform release builds: longer compile times, faster binaries.
-  ,
-  release ? true
+  release ? true,
   # Additional crate2nix configuration if it exists.
-  ,
   crateConfig ? if builtins.pathExists ./crate-config.nix then
     pkgs.callPackage ./crate-config.nix { }
   else
-    { }
+    { },
 }:
 
 rec {
@@ -4386,13 +4381,11 @@ rec {
         buildRustCrateForPkgsFunc ? null,
         runTests ? false,
         testCrateFlags ? [ ],
-        testInputs ? [ ]
+        testInputs ? [ ],
         # Any command to run immediatelly before a test is executed.
-        ,
-        testPreRun ? ""
+        testPreRun ? "",
         # Any command run immediatelly after a test is executed.
-        ,
-        testPostRun ? ""
+        testPostRun ? "",
       }:
       lib.makeOverridable
       (
@@ -4468,7 +4461,7 @@ rec {
         crateConfigs ? crates,
         buildRustCrateForPkgsFunc,
         runTests,
-        target ? defaultTarget
+        target ? defaultTarget,
       }@args:
       assert (builtins.isAttrs crateConfigs);
       assert (builtins.isString packageId);
@@ -4653,7 +4646,7 @@ rec {
     debugCrate =
       {
         packageId,
-        target ? defaultTarget
+        target ? defaultTarget,
       }:
       assert (builtins.isString packageId);
       let
@@ -4754,9 +4747,8 @@ rec {
         features ? rootFeatures,
         dependencyPath ? [ crates.${packageId}.crateName ],
         featuresByPackageId ? { },
-        target
+        target,
         # Adds devDependencies to the crate with rootPackageId.
-        ,
         runTests ? false,
         ...
       }@args:

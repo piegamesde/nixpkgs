@@ -12,7 +12,7 @@
   gnuplot,
   fltk,
   GLUT,
-  withGui ? true
+  withGui ? true,
 }:
 
 stdenv.mkDerivation rec {

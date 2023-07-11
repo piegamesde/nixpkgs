@@ -11,7 +11,7 @@
   libxml2,
   ncurses,
   enablePython ? false,
-  python ? null
+  python ? null,
 }:
 let
   isPython3 = enablePython && python.pythonAtLeast "3";

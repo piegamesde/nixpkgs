@@ -10,7 +10,7 @@
   glib,
   ncurses,
   libxml2,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 stdenv.mkDerivation rec {
   pname = "libgnt";

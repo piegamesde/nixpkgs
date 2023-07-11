@@ -34,9 +34,8 @@
   bash,
   python3Packages,
   nixosTests,
-  libiconv
+  libiconv,
 
-  ,
   enableLDAP ? false,
   openldap,
   enablePrinting ? false,

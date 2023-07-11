@@ -4,18 +4,16 @@
   fetchFromGitHub,
   cmake,
   pkg-config,
-  nixosTests
+  nixosTests,
   # required
-  ,
   libiconv,
   libupnp,
   libuuid,
   pugixml,
   spdlog,
   sqlite,
-  zlib
+  zlib,
   # options
-  ,
   enableMysql ? false,
   libmysqlclient,
   enableDuktape ? true,

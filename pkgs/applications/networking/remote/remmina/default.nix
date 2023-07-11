@@ -35,14 +35,13 @@
   json-glib,
   libsodium,
   webkitgtk_4_1,
-  harfbuzz
+  harfbuzz,
   # The themes here are soft dependencies; only icons are missing without them.
-  ,
   gnome,
   withKf5Wallet ? true,
   libsForQt5,
   withLibsecret ? true,
-  withVte ? true
+  withVte ? true,
 }:
 
 stdenv.mkDerivation rec {

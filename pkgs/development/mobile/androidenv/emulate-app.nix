@@ -20,7 +20,7 @@
   androidAvdHome ? avdHomeDir,
   sdkExtraArgs ? { },
   androidAvdFlags ? null,
-  androidEmulatorFlags ? null
+  androidEmulatorFlags ? null,
 }:
 
 let

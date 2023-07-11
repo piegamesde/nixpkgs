@@ -22,7 +22,7 @@
   moltenvk,
   buildScript ? null,
   configureFlags ? [ ],
-  mainProgram ? "wine"
+  mainProgram ? "wine",
 }:
 
 with import ./util.nix { inherit lib; };

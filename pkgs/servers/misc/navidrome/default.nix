@@ -10,7 +10,7 @@
   zlib,
   makeWrapper,
   nixosTests,
-  ffmpegSupport ? true
+  ffmpegSupport ? true,
 }:
 
 let

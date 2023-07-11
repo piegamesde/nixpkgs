@@ -10,9 +10,8 @@
   pulseaudio,
   qtbase,
   qtmultimedia,
-  qtx11extras
+  qtx11extras,
 
-  ,
   gst-plugins-base,
   gst-plugins-good,
   gst-plugins-bad,

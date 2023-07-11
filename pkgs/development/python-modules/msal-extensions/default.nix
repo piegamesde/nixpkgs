@@ -2,10 +2,9 @@
   buildPythonPackage,
   fetchPypi,
   lib,
-  isPy27
+  isPy27,
 
   # pythonPackages
-  ,
   msal,
   pathlib2,
   portalocker,

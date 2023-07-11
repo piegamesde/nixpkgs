@@ -9,7 +9,7 @@
   openjdk11,
   unixODBC,
   withJdbc ? false,
-  withOdbc ? false
+  withOdbc ? false,
 }:
 
 let

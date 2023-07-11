@@ -1,10 +1,9 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # tests
-  ,
   pytestCheckHook,
   pexpect,
 }:

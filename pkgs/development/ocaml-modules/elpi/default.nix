@@ -20,7 +20,7 @@
   else if lib.versionAtLeast ocaml.version "4.07" then
     "1.15.2"
   else
-    "1.14.1"
+    "1.14.1",
 }:
 
 let

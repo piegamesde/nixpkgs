@@ -11,7 +11,7 @@
   portaudio,
   withPulseAudio ? false,
   libpulseaudio,
-  withRodio ? true
+  withRodio ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

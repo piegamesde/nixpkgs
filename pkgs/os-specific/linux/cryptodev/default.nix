@@ -2,7 +2,7 @@
   fetchFromGitHub,
   lib,
   stdenv,
-  kernel ? false
+  kernel ? false,
 }:
 
 stdenv.mkDerivation rec {

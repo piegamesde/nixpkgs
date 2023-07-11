@@ -6,13 +6,12 @@
   fetchFromGitLab,
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableMinimal ? false,
-  enableAppletSymlinks ? true
+  enableAppletSymlinks ? true,
   # Allow forcing musl without switching stdenv itself, e.g. for our bootstrapping:
   # nix build -f pkgs/top-level/release.nix stdenvBootstrapTools.x86_64-linux.dist
-  ,
   useMusl ? stdenv.hostPlatform.libc == "musl",
   musl,
-  extraConfig ? ""
+  extraConfig ? "",
 }:
 
 assert stdenv.hostPlatform.libc == "musl" -> useMusl;

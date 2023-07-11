@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   boca,
   smooth,
   systemd,

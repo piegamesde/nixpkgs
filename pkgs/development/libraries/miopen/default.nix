@@ -30,7 +30,7 @@
   buildDocs ? true,
   buildTests ? false,
   fetchKDBs ? true,
-  useOpenCL ? false
+  useOpenCL ? false,
 }:
 
 let

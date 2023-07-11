@@ -15,13 +15,12 @@
   qt6Packages,
   pythonOlder,
   withMultimedia ? true,
-  withWebSockets ? true
+  withWebSockets ? true,
   # FIXME: Once QtLocation is available for Qt6 enable this
   # https://bugreports.qt.io/browse/QTBUG-96795
   #, withLocation ? true
   # Not currently part of PyQt6
   #, withConnectivity ? true
-  ,
   withPrintSupport ? true,
   cups,
 }:

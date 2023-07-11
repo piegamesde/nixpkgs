@@ -8,9 +8,8 @@
   buildPackages,
   withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
   meson,
-  ninja
+  ninja,
   # just for passthru
-  ,
   gnome,
 }:
 

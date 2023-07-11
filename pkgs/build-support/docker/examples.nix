@@ -539,7 +539,7 @@ rec {
         {
           user,
           uid,
-          gid ? uid
+          gid ? uid,
         }:
         with pkgs; [
           (writeTextDir "etc/shadow" ''

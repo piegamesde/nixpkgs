@@ -22,6 +22,7 @@
   pkg-config,
   useSDL2 ?
     stdenv.isDarwin # TODO: CoreAudio fails to initialize with SDL 1.x for some reason.
+  ,
 }:
 
 stdenv.mkDerivation rec {

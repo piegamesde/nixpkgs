@@ -21,7 +21,7 @@
   docbook-xsl-nons,
   docbook_xml_dtd_43,
   telepathy-glib,
-  telepathySupport ? false
+  telepathySupport ? false,
 }:
 
 # TODO: enable more folks backends

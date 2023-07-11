@@ -4,9 +4,8 @@
   fetchFromGitHub,
   fetchpatch,
   cython,
-  numpy
+  numpy,
   # Check Inputs
-  ,
   pytestCheckHook,
   python,
 }:

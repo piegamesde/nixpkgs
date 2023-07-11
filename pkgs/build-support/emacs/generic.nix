@@ -14,13 +14,11 @@ with lib;
 
 {
   pname,
-  version ? null
+  version ? null,
 
-  ,
   buildInputs ? [ ],
-  packageRequires ? [ ]
+  packageRequires ? [ ],
 
-  ,
   meta ? { }
 
   ,

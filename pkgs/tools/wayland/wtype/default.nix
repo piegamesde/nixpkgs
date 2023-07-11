@@ -1,14 +1,12 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   meson,
   ninja,
-  pkg-config
+  pkg-config,
 
-  ,
   libxkbcommon,
   wayland,
 }:

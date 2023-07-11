@@ -11,7 +11,7 @@
   perl,
   wrapGAppsHook,
   nixosTests,
-  isMobile ? false
+  isMobile ? false,
 }:
 
 stdenv.mkDerivation rec {

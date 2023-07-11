@@ -6,7 +6,7 @@
   enableGoogle ? false,
   enableAWS ? false,
   enableAzure ? false,
-  enableSSH ? false
+  enableSSH ? false,
 }:
 
 python3.pkgs.buildPythonApplication rec {

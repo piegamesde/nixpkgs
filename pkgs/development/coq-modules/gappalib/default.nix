@@ -5,7 +5,7 @@
   autoconf,
   coq,
   flocq,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

@@ -32,17 +32,15 @@
   sparsehash,
   config,
   makeWrapper,
-  gst_plugins
+  gst_plugins,
 
-  ,
   util-linux,
   libunwind,
   libselinux,
   elfutils,
   libsepol,
-  orc
+  orc,
 
-  ,
   alsa-lib,
 }:
 

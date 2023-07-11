@@ -21,7 +21,7 @@
   pango,
   wrapGAppsHook,
   lastFMSupport ? true,
-  youtubeSupport ? true
+  youtubeSupport ? true,
 }:
 
 python3.pkgs.buildPythonApplication rec {

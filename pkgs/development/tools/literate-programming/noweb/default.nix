@@ -5,7 +5,7 @@
   nawk,
   groff,
   icon-lang,
-  useIcon ? true
+  useIcon ? true,
 }:
 
 stdenv.mkDerivation (

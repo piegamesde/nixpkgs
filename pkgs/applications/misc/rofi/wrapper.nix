@@ -8,7 +8,7 @@
   hicolor-icon-theme,
   theme ? null,
   plugins ? [ ],
-  symlink-dmenu ? false
+  symlink-dmenu ? false,
 }:
 
 symlinkJoin {

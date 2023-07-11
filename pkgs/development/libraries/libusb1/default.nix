@@ -11,7 +11,7 @@
   IOKit,
   Security,
   withExamples ? false,
-  withStatic ? false
+  withStatic ? false,
 }:
 
 stdenv.mkDerivation rec {

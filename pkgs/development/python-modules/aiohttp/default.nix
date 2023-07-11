@@ -4,9 +4,8 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch,
-  pythonOlder
+  pythonOlder,
   # install_requires
-  ,
   attrs,
   charset-normalizer,
   multidict,
@@ -19,9 +18,8 @@
   faust-cchardet,
   asynctest,
   typing-extensions,
-  idna-ssl
+  idna-ssl,
   # tests_require
-  ,
   async_generator,
   freezegun,
   gunicorn,

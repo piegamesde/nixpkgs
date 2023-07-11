@@ -30,7 +30,7 @@ let
   baseService =
     serviceName:
     {
-      allowStripe ? false
+      allowStripe ? false,
     }:
     extraService:
     let

@@ -2,7 +2,7 @@
   lib,
   runCommand,
   rustc,
-  minimalContent ? true
+  minimalContent ? true,
 }:
 
 runCommand "rust-src" { } ''

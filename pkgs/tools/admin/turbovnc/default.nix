@@ -2,22 +2,18 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  nixosTests
+  nixosTests,
 
   # Dependencies
-  ,
   bzip2,
   cmake,
   freetype,
   libGL,
   libjpeg_turbo,
   makeWrapper,
-  mesa # for built-in 3D software rendering using swrast
-  ,
-  openjdk # for the client with Java GUI
-  ,
-  openjdk_headless # for the server
-  ,
+  mesa, # for built-in 3D software rendering using swrast
+  openjdk, # for the client with Java GUI
+  openjdk_headless, # for the server
   openssh,
   openssl,
   pam,

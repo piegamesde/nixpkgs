@@ -17,7 +17,7 @@ let
       pname,
       extraBuildInputs ? [ ],
       extraNativeInputs ? [ ],
-      preBuild ? ""
+      preBuild ? "",
     }:
     ocamlPackages.buildDunePackage rec {
       inherit pname preBuild;

@@ -8,7 +8,7 @@
   libXaw,
   libXpm,
   libXext,
-  withNethackLevels ? true
+  withNethackLevels ? true,
 }:
 stdenv.mkDerivation rec {
   pname = "xsok";

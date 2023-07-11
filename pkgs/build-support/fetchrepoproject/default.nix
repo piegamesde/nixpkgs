@@ -10,16 +10,15 @@
   name,
   manifest,
   rev ? "HEAD",
-  sha256
+  sha256,
   # Optional parameters:
-  ,
   repoRepoURL ? "",
   repoRepoRev ? "",
   referenceDir ? "",
   manifestName ? "",
   localManifests ? [ ],
   createMirror ? false,
-  useArchive ? false
+  useArchive ? false,
 }:
 
 assert repoRepoRev != "" -> repoRepoURL != "";

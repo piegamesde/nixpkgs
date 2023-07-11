@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchgit,
-  patches ? null
+  patches ? null,
 }:
 
 stdenv.mkDerivation {

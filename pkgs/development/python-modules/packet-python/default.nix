@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchPypi,
   requests,
-  python
+  python,
 
   # For tests/setup.py
-  ,
   pytest,
   pytest-runner,
   requests-mock,

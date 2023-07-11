@@ -7,7 +7,7 @@
   libbutl,
   libpkgconf,
   enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? !enableShared
+  enableStatic ? !enableShared,
 }:
 let
   configSharedStatic =

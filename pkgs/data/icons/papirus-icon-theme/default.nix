@@ -8,7 +8,7 @@
   gnome-icon-theme,
   hicolor-icon-theme,
   papirus-folders,
-  color ? null
+  color ? null,
 }:
 
 stdenvNoCC.mkDerivation rec {

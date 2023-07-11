@@ -10,9 +10,8 @@
   meson,
   ninja,
   xmlto,
-  python3
+  python3,
 
-  ,
   gitUpdater,
 }:
 

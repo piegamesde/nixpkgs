@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # build
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # runtime
-  ,
   booleanoperations,
   cffsubr,
   compreffor,
@@ -16,10 +14,9 @@
   defcon,
   fonttools,
   skia-pathops,
-  ufoLib2
+  ufoLib2,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

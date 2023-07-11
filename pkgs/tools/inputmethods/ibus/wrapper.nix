@@ -6,7 +6,7 @@
   hicolor-icon-theme,
   ibus,
   librsvg,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 
 buildEnv {

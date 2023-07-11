@@ -19,7 +19,7 @@
   nose,
   pycrypto,
   pyqtgraph,
-  visualizationSupport ? false
+  visualizationSupport ? false,
 }:
 
 buildPythonPackage rec {

@@ -4,7 +4,7 @@
   lutris-unwrapped,
   extraPkgs ? pkgs: [ ],
   extraLibraries ? pkgs: [ ],
-  steamSupport ? true
+  steamSupport ? true,
 }:
 
 let

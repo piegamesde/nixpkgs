@@ -62,7 +62,7 @@ let
       nativeBuildInputs ? [ ],
       buildInputs ? [ ],
       preConfigure ? "",
-      postPatch ? ""
+      postPatch ? "",
     }:
     stdenv.mkDerivation {
       pname = "openfx-${pluginName}";

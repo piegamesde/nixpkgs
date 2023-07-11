@@ -9,9 +9,8 @@
   imageio-ffmpeg,
   proglog,
   requests,
-  tqdm
+  tqdm,
   # Advanced image processing (triples size of output)
-  ,
   advancedProcessing ? false,
   opencv3,
   scikitimage,

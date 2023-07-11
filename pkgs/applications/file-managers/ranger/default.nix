@@ -9,7 +9,7 @@
   imagePreviewSupport ? true,
   neoVimSupport ? true,
   improvedEncodingDetection ? true,
-  rightToLeftTextSupport ? false
+  rightToLeftTextSupport ? false,
 }:
 
 python3Packages.buildPythonApplication rec {

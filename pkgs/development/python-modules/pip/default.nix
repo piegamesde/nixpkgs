@@ -7,10 +7,9 @@
   scripttest,
   virtualenv,
   pretend,
-  pytest
+  pytest,
 
   # coupled downsteam dependencies
-  ,
   pip-tools,
 }:
 

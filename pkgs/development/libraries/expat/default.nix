@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
   # for passthru.tests
-  ,
   python3,
   perlPackages,
   haskellPackages,

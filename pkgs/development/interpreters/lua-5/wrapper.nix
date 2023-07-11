@@ -9,7 +9,7 @@
   postBuild ? "",
   ignoreCollisions ? false,
   requiredLuaModules,
-  makeWrapperArgs ? [ ]
+  makeWrapperArgs ? [ ],
 }:
 
 # Create a lua executable that knows about additional packages.

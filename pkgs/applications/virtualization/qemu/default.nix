@@ -105,8 +105,7 @@
   ),
   nixosTestRunner ? false,
   doCheck ? false,
-  qemu # for passthru.tests
-  ,
+  qemu, # for passthru.tests
 }:
 
 let

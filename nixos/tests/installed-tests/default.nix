@@ -4,7 +4,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../../.. { inherit system config; }
+  pkgs ? import ../../.. { inherit system config; },
 }:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
@@ -16,23 +16,19 @@ let
 
   makeInstalledTest =
     { # Package to test. Needs to have an installedTests output
-      tested
+      tested,
 
       # Config to inject into machine
-      ,
-      testConfig ? { }
+      testConfig ? { },
 
       # Test script snippet to inject before gnome-desktop-testing-runner begins.
       # This is useful for extra setup the environment may need before the runner begins.
-      ,
-      preTestScript ? ""
+      preTestScript ? "",
 
       # Does test need X11?
-      ,
-      withX11 ? false
+      withX11 ? false,
 
       # Extra flags to pass to gnome-desktop-testing-runner.
-      ,
       testRunnerFlags ? [ ]
 
       # Extra attributes to pass to makeTest.

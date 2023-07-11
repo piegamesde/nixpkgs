@@ -3,15 +3,13 @@
   buildPythonPackage,
   pythonOlder,
   isPyPy,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
   cython,
-  setuptools
+  setuptools,
 
   # tests
-  ,
   aiofiles,
   cbor2,
   httpx,

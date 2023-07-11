@@ -4,9 +4,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-  rustPlatform
+  rustPlatform,
   # Python requirements
-  ,
   dill,
   numpy,
   networkx,
@@ -22,22 +21,19 @@
   symengine,
   sympy,
   tweedledum,
-  withVisualization ? false
+  withVisualization ? false,
   # Python visualization requirements, optional
-  ,
   ipywidgets,
   matplotlib,
   pillow,
   pydot,
   pygments,
   pylatexenc,
-  seaborn
+  seaborn,
   # Crosstalk-adaptive layout pass
-  ,
   withCrosstalkPass ? false,
-  z3
+  z3,
   # test requirements
-  ,
   ddt,
   hypothesis,
   nbformat,

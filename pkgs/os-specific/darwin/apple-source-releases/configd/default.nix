@@ -9,7 +9,7 @@
   IOKit,
   eap8021x,
   Security,
-  headersOnly ? false
+  headersOnly ? false,
 }:
 
 appleDerivation' stdenv {

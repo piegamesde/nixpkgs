@@ -27,13 +27,11 @@
   aubio,
   jack2,
   supercollider-with-sc3-plugins,
-  parallel
+  parallel,
 
-  ,
   withTauWidget ? false,
-  qtwebengine
+  qtwebengine,
 
-  ,
   withImGui ? false,
   gl3w,
   SDL2,

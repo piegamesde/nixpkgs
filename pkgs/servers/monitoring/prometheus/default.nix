@@ -29,7 +29,7 @@
   enableUyuni ? true,
   enableVultr ? true,
   enableXDS ? true,
-  enableZookeeper ? true
+  enableZookeeper ? true,
 }:
 
 let

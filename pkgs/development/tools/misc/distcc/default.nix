@@ -17,7 +17,7 @@
   runtimeShell,
   sysconfDir ? "" # set this parameter to override the default value $out/etc
   ,
-  static ? false
+  static ? false,
 }:
 
 let

@@ -2,9 +2,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  pkg-config
+  pkg-config,
   # libgit2-sys doesn't support libgit2 1.6 yet
-  ,
   libgit2_1_5,
   oniguruma,
   zlib,

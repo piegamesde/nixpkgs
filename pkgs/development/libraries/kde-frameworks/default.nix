@@ -51,7 +51,7 @@ let
     (
       {
         stdenv,
-        mkDerivation ? stdenv.mkDerivation
+        mkDerivation ? stdenv.mkDerivation,
       }:
       mkDerivation
     )

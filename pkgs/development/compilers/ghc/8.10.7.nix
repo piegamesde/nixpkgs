@@ -3,10 +3,9 @@
   stdenv,
   pkgsBuildTarget,
   pkgsHostTarget,
-  targetPackages
+  targetPackages,
 
   # build-tools
-  ,
   bootPkgs,
   autoconf,
   automake,
@@ -19,16 +18,14 @@
   sphinx,
   xattr,
   autoSignDarwinBinariesHook,
-  bash
+  bash,
 
-  ,
   libiconv ? null,
   ncurses
 
   , # GHC can be built with system libffi or a bundled one.
-  libffi ? null
+  libffi ? null,
 
-  ,
   useLLVM ? !(
     stdenv.targetPlatform.isx86
     || stdenv.targetPlatform.isPower
@@ -48,10 +45,9 @@
   gmp
 
   , # If enabled, use -fPIC when compiling static libs.
-  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
+  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform,
 
   # aarch64 outputs otherwise exceed 2GB limit
-  ,
   enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
   , # Whether to build dynamic libs for the standard library (on the target
@@ -82,9 +78,8 @@
       stdenv.targetPlatform == stdenv.hostPlatform
     )
     && !stdenv.hostPlatform.isMusl
-  )
+  ),
 
-  ,
   enableHaddockProgram ?
     # Disabled for cross; see note [HADDOCK_DOCS].
     (
@@ -93,7 +88,7 @@
 
   , # Whether to disable the large address space allocator
   # necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
-  disableLargeAddressSpace ? stdenv.targetPlatform.isiOS
+  disableLargeAddressSpace ? stdenv.targetPlatform.isiOS,
 }:
 
 assert !enableIntegerSimple -> gmp != null;

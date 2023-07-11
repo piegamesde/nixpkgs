@@ -6,12 +6,11 @@
   pkg-config,
   Foundation,
   dbusSupport ? stdenv.isLinux,
-  dbus
+  dbus,
   # rustls will be used for TLS if useOpenSSL=false
-  ,
   useOpenSSL ? stdenv.isLinux,
   openssl,
-  notificationSupport ? stdenv.isLinux
+  notificationSupport ? stdenv.isLinux,
 }:
 
 rustPlatform.buildRustPackage rec {

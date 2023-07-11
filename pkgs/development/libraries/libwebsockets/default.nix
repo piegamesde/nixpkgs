@@ -5,10 +5,9 @@
   cmake,
   openssl,
   zlib,
-  libuv
+  libuv,
   # External poll is required for e.g. mosquitto, but discouraged by the maintainer.
-  ,
-  withExternalPoll ? false
+  withExternalPoll ? false,
 }:
 
 stdenv.mkDerivation rec {

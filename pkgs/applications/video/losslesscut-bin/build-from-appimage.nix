@@ -8,7 +8,7 @@
   pname,
   version,
   hash,
-  metaCommon ? { }
+  metaCommon ? { },
 }:
 
 let

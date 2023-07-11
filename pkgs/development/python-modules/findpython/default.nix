@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # build time
-  ,
-  pdm-pep517
+  pdm-pep517,
 
   # runtime
-  ,
-  packaging
+  packaging,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

@@ -44,7 +44,7 @@
   zstd
 
   , # The volume ID.
-  volumeID ? ""
+  volumeID ? "",
 }:
 
 assert bootable -> bootImage != "";

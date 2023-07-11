@@ -3,7 +3,7 @@
   stdenv,
   fetchzip,
   fpc,
-  lang ? "en"
+  lang ? "en",
 }:
 
 assert lib.assertOneOf "lang" lang [

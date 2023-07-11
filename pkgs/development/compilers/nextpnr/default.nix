@@ -9,13 +9,12 @@
   python3Packages,
   icestorm,
   trellis,
-  llvmPackages
+  llvmPackages,
 
-  ,
   enableGui ? false,
   wrapQtAppsHook ? null,
   qtbase ? null,
-  OpenGL ? null
+  OpenGL ? null,
 }:
 
 let

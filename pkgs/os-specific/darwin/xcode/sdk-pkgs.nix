@@ -2,9 +2,8 @@
   stdenv,
   clang-unwrapped,
   binutils-unwrapped,
-  runCommand
+  runCommand,
 
-  ,
   wrapBintoolsWith,
   wrapCCWith,
   buildIosSdk,

@@ -17,7 +17,7 @@
   libXdmcp,
   plasma5Packages,
   plasma-framework,
-  kcmSupport ? true
+  kcmSupport ? true,
 }:
 
 mkDerivation rec {

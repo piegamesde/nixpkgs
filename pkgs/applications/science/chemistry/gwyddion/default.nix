@@ -30,7 +30,7 @@
   libunique,
   libpngSupport ? true,
   libpng,
-  openglSupport ? !stdenv.isDarwin
+  openglSupport ? !stdenv.isDarwin,
 }:
 
 let

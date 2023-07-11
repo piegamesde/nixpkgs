@@ -13,7 +13,7 @@ in
   fetchHex,
   fetchgit,
   fetchFromGitHub,
-  overrides ? (x: y: { })
+  overrides ? (x: y: { }),
 }:
 let
   self = packages // (overrides self packages);

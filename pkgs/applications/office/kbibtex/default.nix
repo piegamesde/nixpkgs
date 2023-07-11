@@ -1,19 +1,16 @@
 {
   lib,
   mkDerivation,
-  fetchurl
+  fetchurl,
   # build-time
-  ,
   extra-cmake-modules,
-  shared-mime-info
+  shared-mime-info,
   # Qt
-  ,
   qtxmlpatterns,
   qtwebengine,
   qca-qt5,
-  qtnetworkauth
+  qtnetworkauth,
   # KDE
-  ,
   ki18n,
   kxmlgui,
   kio,
@@ -25,9 +22,8 @@
   ktexteditor,
   kdoctools,
   kwallet,
-  kcrash
+  kcrash,
   # other
-  ,
   poppler,
   bibutils,
 }:

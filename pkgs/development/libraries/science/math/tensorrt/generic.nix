@@ -14,7 +14,7 @@
   fileVersionCudnn ? null,
   tarball,
   sha256,
-  supportedCudaVersions ? [ ]
+  supportedCudaVersions ? [ ],
 }:
 
 assert fileVersionCudnn == null

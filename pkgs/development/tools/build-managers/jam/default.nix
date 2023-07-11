@@ -13,7 +13,7 @@ let
       pname,
       version,
       src,
-      meta ? { }
+      meta ? { },
     }:
     stdenv.mkDerivation {
       inherit pname version src;

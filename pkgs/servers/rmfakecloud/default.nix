@@ -3,7 +3,7 @@
   fetchFromGitHub,
   buildGoModule,
   callPackage,
-  enableWebui ? true
+  enableWebui ? true,
 }:
 
 buildGoModule rec {

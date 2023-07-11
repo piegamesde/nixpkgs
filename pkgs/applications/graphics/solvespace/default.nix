@@ -25,8 +25,7 @@
   libxkbcommon,
   pangomm,
   pcre,
-  util-linuxMinimal # provides libmount
-  ,
+  util-linuxMinimal, # provides libmount
   xorg,
   zlib,
 }:

@@ -12,7 +12,7 @@
   python3,
   buildLlvmTools,
   fixDarwinDylibNames,
-  enableManpages ? false
+  enableManpages ? false,
 }:
 
 let

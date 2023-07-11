@@ -4,8 +4,7 @@
   fetchurl
   # Build-time dependencies
   ,
-  ncurses # >= 5
-  ,
+  ncurses, # >= 5
   units,
 }:
 

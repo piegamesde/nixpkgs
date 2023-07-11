@@ -1,18 +1,16 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # runtime
-  ,
   portpicker,
   pyserial,
   pyyaml,
   timeout-decorator,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   procps,
   pytestCheckHook,
   pytz,

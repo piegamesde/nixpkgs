@@ -3,10 +3,9 @@
   stdenv,
   fetchurl,
   cmake,
-  gfortran
+  gfortran,
   # Whether to build with ILP64 interface
-  ,
-  blas64 ? false
+  blas64 ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -9,7 +9,7 @@
   batchVersion ? false,
   withJpegLs ? true,
   withOpenJpeg ? true,
-  withCloudflareZlib ? true
+  withCloudflareZlib ? true,
 }:
 
 let

@@ -6,8 +6,7 @@
   alsa-lib,
   babl,
   curl,
-  libdrm # Not documented
-  ,
+  libdrm, # Not documented
   pkg-config,
   enableFb ? false,
   nixosTests,

@@ -12,7 +12,7 @@
   qtbase,
   skk-dicts,
   wrapQtAppsHook,
-  enableQt ? false
+  enableQt ? false,
 }:
 
 stdenv.mkDerivation rec {

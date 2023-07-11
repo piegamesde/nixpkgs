@@ -5,13 +5,12 @@
   pkg-config,
   libgcrypt,
   libgpg-error,
-  libtasn1
+  libtasn1,
 
   # Optional Dependencies
-  ,
   pam ? null,
   libidn ? null,
-  gnutls ? null
+  gnutls ? null,
 }:
 
 let

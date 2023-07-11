@@ -4,21 +4,18 @@
   fetchurl,
   zlib,
   readline,
-  ncurses
+  ncurses,
 
   # for tests
-  ,
   python3Packages,
   sqldiff,
   sqlite-analyzer,
-  tracker
+  tracker,
 
   # uses readline & ncurses for a better interactive experience if set to true
-  ,
-  interactive ? false
+  interactive ? false,
   # TODO: can be removed since 3.36 since it is the default now.
-  ,
-  enableDeserialize ? false
+  enableDeserialize ? false,
 }:
 
 let

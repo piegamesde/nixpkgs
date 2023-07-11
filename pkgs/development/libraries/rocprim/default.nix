@@ -9,7 +9,7 @@
   gtest,
   gbenchmark,
   buildTests ? false,
-  buildBenchmarks ? false
+  buildBenchmarks ? false,
 }:
 
 stdenv.mkDerivation (

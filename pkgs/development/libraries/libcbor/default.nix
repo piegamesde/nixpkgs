@@ -3,10 +3,9 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  cmocka
+  cmocka,
 
   # for passthru.tests
-  ,
   libfido2,
   mysql80,
   openssh,

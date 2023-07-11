@@ -16,7 +16,7 @@ let
     {
       serviceName,
       firewallOption ? true,
-      extraOpts ? null
+      extraOpts ? null,
     }:
     {
       enable = mkEnableOption (lib.mdDoc serviceName);
@@ -65,7 +65,7 @@ let
       allowedTCPPorts ? [ ],
       preStart ? "",
       environment ? { },
-      extraConfig ? { }
+      extraConfig ? { },
     }:
     (
 

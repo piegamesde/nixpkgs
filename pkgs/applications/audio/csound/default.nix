@@ -19,13 +19,12 @@
   libjack2 ? null,
   liblo ? null,
   ladspa-sdk ? null,
-  fluidsynth ? null
+  fluidsynth ? null,
   # , gmm ? null  # opcodes don't build with gmm 5.1
-  ,
   eigen ? null,
   curl ? null,
   tcltk ? null,
-  fltk ? null
+  fltk ? null,
 }:
 
 stdenv.mkDerivation rec {

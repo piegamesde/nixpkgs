@@ -1,19 +1,16 @@
 {
   stdenv,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build time
-  ,
   cmake,
-  pkg-config
+  pkg-config,
 
   # run time
-  ,
-  pcre2
+  pcre2,
 
   # update script
-  ,
   gitUpdater,
 }:
 

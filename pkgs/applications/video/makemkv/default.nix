@@ -8,9 +8,8 @@
   ffmpeg,
   openssl,
   qtbase,
-  zlib
+  zlib,
 
-  ,
   withJava ? true,
   jre_headless,
 }:

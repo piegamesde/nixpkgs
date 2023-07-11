@@ -34,10 +34,9 @@
   fontconfig,
   openjdk19-bootstrap,
   ensureNewerSourcesForZipFilesHook,
-  setJavaClassPath
+  setJavaClassPath,
   # TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
   # which should be fixable, this is a no-rebuild workaround for GHC.
-  ,
   headless ? stdenv.targetPlatform.isGhcjs,
   enableJavaFX ? false,
   openjfx,

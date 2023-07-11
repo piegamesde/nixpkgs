@@ -13,7 +13,7 @@
   libsecret,
   libnotify,
   e2fsprogs,
-  vmopts ? null
+  vmopts ? null,
 }:
 
 {
@@ -26,7 +26,7 @@
   jdk,
   meta,
   extraLdPath ? [ ],
-  extraWrapperArgs ? [ ]
+  extraWrapperArgs ? [ ],
 }@args:
 
 let

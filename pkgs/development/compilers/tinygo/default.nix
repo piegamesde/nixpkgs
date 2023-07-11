@@ -19,7 +19,7 @@
   avrdude,
   gdb,
   openocd,
-  tinygoTests ? [ "smoketest" ]
+  tinygoTests ? [ "smoketest" ],
 }:
 
 let

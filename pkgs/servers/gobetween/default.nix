@@ -3,7 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 buildGoModule rec {

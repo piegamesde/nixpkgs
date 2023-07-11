@@ -4,7 +4,7 @@
   mkCoqDerivation,
   coq,
   coq-ext-lib,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

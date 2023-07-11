@@ -22,8 +22,7 @@
   libpulseaudio,
   perl,
   zlib,
-  udev # for libudev
-  ,
+  udev, # for libudev
 }:
 
 stdenv.mkDerivation rec {

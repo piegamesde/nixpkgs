@@ -36,9 +36,8 @@
   tracker,
   x11Support ? stdenv.isLinux,
   waylandSupport ? stdenv.isLinux,
-  libGL
+  libGL,
   # experimental and can cause crashes in inspector
-  ,
   vulkanSupport ? false,
   vulkan-loader,
   vulkan-headers,
@@ -51,7 +50,7 @@
   AppKit,
   Cocoa,
   libexecinfo,
-  broadwaySupport ? true
+  broadwaySupport ? true,
 }:
 
 let

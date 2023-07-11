@@ -33,7 +33,7 @@
   argp-standalone,
   memorymappingHook,
   withGui ? true,
-  withBitshuffle ? true
+  withBitshuffle ? true,
 }:
 
 let

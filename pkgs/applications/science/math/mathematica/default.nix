@@ -6,7 +6,7 @@
   cudaSupport ? config.cudaSupport or false,
   lang ? "en",
   webdoc ? false,
-  version ? null
+  version ? null,
   /* If you wish to completely override the src, use:
      my_mathematica = mathematica.override {
        source = pkgs.requireFile {
@@ -23,8 +23,7 @@
        };
      }
   */
-  ,
-  source ? null
+  source ? null,
 }:
 
 let

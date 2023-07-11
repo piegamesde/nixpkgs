@@ -9,7 +9,7 @@
   gmp,
   mpfr,
   qtbase,
-  enableGist ? true
+  enableGist ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -8,7 +8,7 @@
   openafs,
   perl,
   pkg-config,
-  enableSetPAG ? false
+  enableSetPAG ? false,
 }:
 
 stdenv.mkDerivation (

@@ -4,13 +4,12 @@
   fetchFromGitHub,
   autoPatchelfHook,
   expat,
-  zlib
+  zlib,
 
   # Pick one of
   # - ipu6 (Tiger Lake)
   # - ipu6ep (Alder Lake)
-  ,
-  ipuVersion ? "ipu6"
+  ipuVersion ? "ipu6",
 }:
 
 stdenv.mkDerivation {

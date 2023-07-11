@@ -6,7 +6,7 @@
   macvim,
   vimPlugins,
   useMacvim ? stdenv.isDarwin && (config.vimacs.macvim or true),
-  vimacsExtraArgs ? ""
+  vimacsExtraArgs ? "",
 }:
 
 stdenv.mkDerivation rec {

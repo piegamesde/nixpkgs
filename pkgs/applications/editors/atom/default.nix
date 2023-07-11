@@ -30,7 +30,7 @@ let
       version,
       sha256,
       beta ? null,
-      broken ? false
+      broken ? false,
     }:
     let
       fullVersion =

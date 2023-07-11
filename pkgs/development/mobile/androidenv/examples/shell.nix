@@ -14,7 +14,7 @@
   # If you want to use the in-tree version of nixpkgs:
   pkgs ? import ../../../../.. { config.allowUnfree = true; },
 
-  config ? pkgs.config
+  config ? pkgs.config,
 }:
 
 # Copy this file to your Android project.

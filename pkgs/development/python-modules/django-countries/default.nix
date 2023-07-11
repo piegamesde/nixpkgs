@@ -1,19 +1,16 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
   asgiref,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   django,
   djangorestframework,
   graphene-django,

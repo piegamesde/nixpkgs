@@ -11,7 +11,7 @@
   libiconv,
   libkrunfw,
   Hypervisor,
-  sevVariant ? false
+  sevVariant ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -36,12 +36,11 @@
   curl ? null,
   openssl ? null,
   withFFI ? true,
-  libffi ? null
+  libffi ? null,
 
   # Things that are clearly an overkill to be enabled by default
-  ,
   withMisc ? false,
-  libeb ? null
+  libeb ? null,
 }:
 
 assert withGtk2 -> gtk2 != null;

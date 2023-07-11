@@ -26,11 +26,10 @@
   lib,
   python,
   scipy,
-  stdenv
+  stdenv,
   # Options:
-  ,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { }
+  cudaPackages ? { },
 }:
 
 let

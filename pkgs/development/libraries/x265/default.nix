@@ -4,26 +4,23 @@
   fetchurl,
   fetchpatch,
   cmake,
-  nasm
+  nasm,
 
   # NUMA support enabled by default on NUMA platforms:
-  ,
   numaSupport ? (
     stdenv.hostPlatform.isLinux
     && (
       stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64
     )
   ),
-  numactl
+  numactl,
 
   # Multi bit-depth support (8bit+10bit+12bit):
-  ,
   multibitdepthSupport ? (
     stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)
-  )
+  ),
 
   # Other options:
-  ,
   cliSupport ? true # Build standalone CLI application
   ,
   custatsSupport ? false # Internal profiling of encoder work
@@ -39,6 +36,7 @@
   vtuneSupport ? false # Vtune profiling instrumentation
   ,
   werrorSupport ? false # Warnings as errors
+  ,
 }:
 
 let

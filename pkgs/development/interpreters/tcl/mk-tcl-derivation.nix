@@ -12,21 +12,17 @@
   nativeBuildInputs ? [ ],
   propagatedBuildInputs ? [ ],
   checkInputs ? [ ],
-  nativeCheckInputs ? [ ]
+  nativeCheckInputs ? [ ],
 
   # true if we should skip the configuration phase altogether
-  ,
-  dontConfigure ? false
+  dontConfigure ? false,
 
   # Extra flags passed to configure step
-  ,
-  configureFlags ? [ ]
+  configureFlags ? [ ],
 
   # Whether or not we should add common Tcl-related configure flags
-  ,
-  addTclConfigureFlags ? true
+  addTclConfigureFlags ? true,
 
-  ,
   meta ? { },
   passthru ? { },
   doCheck ? true,

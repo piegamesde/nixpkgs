@@ -2,80 +2,65 @@
 {
   lib,
   lua,
-  wrapLua
+  wrapLua,
 
   # Whether the derivation provides a lua module or not.
-  ,
   luarocksCheckHook,
   luaLib,
 }:
 
 {
   pname,
-  version
+  version,
   # we need rockspecVersion to find the .rockspec even when version changes
-  ,
-  rockspecVersion ? version
+  rockspecVersion ? version,
 
   # by default prefix `name` e.g. "lua5.2-${name}"
-  ,
-  namePrefix ? "${lua.pname}${lib.versions.majorMinor lua.version}-"
+  namePrefix ? "${lua.pname}${lib.versions.majorMinor lua.version}-",
 
   # Dependencies for building the package
-  ,
-  buildInputs ? [ ]
+  buildInputs ? [ ],
 
   # Dependencies needed for running the checkPhase.
   # These are added to nativeBuildInputs when doCheck = true.
-  ,
-  nativeCheckInputs ? [ ]
+  nativeCheckInputs ? [ ],
 
   # propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
-  ,
-  propagatedBuildInputs ? [ ]
+  propagatedBuildInputs ? [ ],
 
   # used to disable derivation, useful for specific lua versions
   # TODO move from this setting meta.broken to a 'disabled' attribute on the
   # package, then use that to skip/include in each lua${ver}Packages set?
-  ,
-  disabled ? false
+  disabled ? false,
 
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  ,
-  makeWrapperArgs ? [ ]
+  makeWrapperArgs ? [ ],
 
   # Skip wrapping of lua programs altogether
-  ,
   dontWrapLuaPrograms ? false,
-  doCheck ? false
+  doCheck ? false,
   # Non-Lua / system (e.g. C library) dependencies. Is a list of deps, where
   # each dep is either a derivation, or an attribute set like
   # { name = "rockspec external_dependencies key"; dep = derivation; }
   # The latter is used to work-around luarocks having a problem with
   # multiple-output derivations as external deps:
   # https://github.com/luarocks/luarocks/issues/766<Paste>
-  ,
-  externalDeps ? [ ]
+  externalDeps ? [ ],
 
   # Appended to the generated luarocks config
-  ,
-  extraConfig ? ""
+  extraConfig ? "",
   # Inserted into the generated luarocks config in the "variables" table
-  ,
-  extraVariables ? { }
+  extraVariables ? { },
   # The two above arguments have access to builder variables -- e.g. to $out
 
   # relative to srcRoot, path to the rockspec to use when using rocks
-  ,
-  rockspecFilename ? null
+  rockspecFilename ? null,
   # relative to srcRoot, path to folder that contains the expected rockspec
-  ,
-  rockspecDir ? "."
+  rockspecDir ? ".",
 
   # must be set for packages that don't have a rock
-  ,
   knownRockspec ? null
 
   ,

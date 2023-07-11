@@ -49,13 +49,11 @@
   Carbon,
   Cocoa,
   CoreMedia,
-  withUnfree ? false
+  withUnfree ? false,
 
   # tries to compile and run generate_argument_docbook.c
-  ,
-  withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
+  withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 
-  ,
   buildPackages,
 }:
 

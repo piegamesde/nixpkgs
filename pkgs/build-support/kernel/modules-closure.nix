@@ -10,7 +10,7 @@
   nukeReferences,
   rootModules,
   kmod,
-  allowMissing ? false
+  allowMissing ? false,
 }:
 
 stdenvNoCC.mkDerivation {

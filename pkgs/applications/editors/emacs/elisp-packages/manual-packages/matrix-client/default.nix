@@ -3,9 +3,8 @@
   melpaBuild,
   fetchFromGitHub,
   fetchpatch,
-  writeText
+  writeText,
   # Emacs packages
-  ,
   _map,
   a,
   anaphora,

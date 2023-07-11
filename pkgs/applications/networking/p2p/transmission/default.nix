@@ -17,9 +17,8 @@
   miniupnpc,
   dht,
   libnatpmp,
-  libiconv
+  libiconv,
   # Build options
-  ,
   enableGTK3 ? false,
   gtk3,
   xorg,

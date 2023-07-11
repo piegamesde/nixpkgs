@@ -7,10 +7,9 @@
   cython,
   libuv,
   CoreServices,
-  ApplicationServices
+  ApplicationServices,
 
   # Check Inputs
-  ,
   aiohttp,
   psutil,
   pyopenssl,

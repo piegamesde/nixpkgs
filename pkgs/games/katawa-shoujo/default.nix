@@ -8,11 +8,10 @@
   makeDesktopItem,
   makeWrapper,
   libGL,
-  libGLU
+  libGLU,
   # Darwin cannot handle these when devendored:
   # - DYLD_LIBRARY_PATH masks system libraries with similar, differently-cased names and cause missing symbol errors
   # - symlinks cause unrelated BMP image loading to fail(?)
-  ,
   devendorImageLibs ? !stdenvNoCC.hostPlatform.isDarwin,
   libjpeg,
   libpng12,

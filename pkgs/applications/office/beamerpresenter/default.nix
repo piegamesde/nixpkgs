@@ -11,22 +11,19 @@
   qtmultimedia,
   qttools,
   qtwayland,
-  zlib
+  zlib,
   # only required when using poppler
-  ,
-  poppler
+  poppler,
   # only required when using mupdf
-  ,
   freetype,
   gumbo,
   jbig2dec,
   mupdf,
-  openjpeg
+  openjpeg,
   # choose renderer: mupdf or poppler or both (not recommended)
-  ,
   usePoppler ? false,
   useMupdf ? true,
-  useExternalRenderer ? false
+  useExternalRenderer ? false,
 }:
 
 stdenv.mkDerivation rec {

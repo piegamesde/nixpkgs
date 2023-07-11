@@ -2,7 +2,7 @@
   system ? builtins.currentSystem,
   config ? { },
   pkgs ? import ../../.. { inherit system config; },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 let
@@ -16,7 +16,7 @@ let
   makeBackupTest =
     {
       package,
-      name ? mkTestName package
+      name ? mkTestName package,
     }:
     makeTest {
       name = "${name}-backup";

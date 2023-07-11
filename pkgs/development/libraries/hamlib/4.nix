@@ -16,7 +16,7 @@
   perlPackages,
   pythonBindings ? true,
   tclBindings ? true,
-  perlBindings ? true
+  perlBindings ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -18,7 +18,7 @@
   python3,
   ruby,
   withMedia ? true,
-  withWebKit ? false
+  withWebKit ? false,
 }:
 
 let

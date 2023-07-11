@@ -1,11 +1,9 @@
 {
   lib,
-  aiocontextvars
+  aiocontextvars,
   #, aiocarbon
-  ,
-  aiohttp
+  aiohttp,
   #, aiohttp-asgi
-  ,
   async-timeout,
   buildPythonPackage,
   colorlog,
@@ -16,9 +14,8 @@
   poetry-core,
   pytestCheckHook,
   pythonOlder,
-  raven
+  raven,
   #, raven-aiohttp
-  ,
   setproctitle,
   setuptools,
   uvloop,

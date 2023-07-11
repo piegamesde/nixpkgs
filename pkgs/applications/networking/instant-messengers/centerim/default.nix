@@ -8,7 +8,7 @@
   ncurses,
   libjpeg,
   withGpg ? true,
-  gpgme ? null
+  gpgme ? null,
 }:
 
 stdenv.mkDerivation rec {

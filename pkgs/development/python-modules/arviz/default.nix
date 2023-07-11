@@ -23,12 +23,10 @@
   h5py,
   jaxlib,
   torchvision,
-  jax
+  jax,
   # , pymc3 (circular dependency)
-  ,
-  pyro-ppl
+  pyro-ppl,
   #, pystan (not packaged)
-  ,
   numpyro,
 }:
 

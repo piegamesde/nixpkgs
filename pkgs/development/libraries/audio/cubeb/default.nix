@@ -12,7 +12,7 @@
   AudioUnit,
   CoreAudio,
   CoreServices,
-  lazyLoad ? !stdenv.isDarwin
+  lazyLoad ? !stdenv.isDarwin,
 }:
 
 assert lib.assertMsg

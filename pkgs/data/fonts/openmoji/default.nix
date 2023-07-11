@@ -10,6 +10,7 @@
   nodePackages,
   python3Packages,
   variant ? "color" # "color" or "black"
+  ,
 }:
 
 let

@@ -20,7 +20,7 @@
   icu68,
   openjdk11-bootstrap,
   withMedia ? true,
-  withWebKit ? false
+  withWebKit ? false,
 }:
 
 let

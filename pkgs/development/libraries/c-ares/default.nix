@@ -4,13 +4,11 @@
   fetchurl,
   writeTextDir,
   withCMake ? true,
-  cmake
+  cmake,
 
   # sensitive downstream packages
-  ,
   curl,
-  grpc # consumes cmake config
-  ,
+  grpc, # consumes cmake config
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus

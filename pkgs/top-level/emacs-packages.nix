@@ -96,7 +96,7 @@ makeScope pkgs'.newScope (
       nongnuPackages ? mkNongnuPackages { inherit pkgs lib; } self,
       melpaStablePackages ? melpaGeneric { inherit pkgs lib; } "stable" self,
       melpaPackages ? melpaGeneric { inherit pkgs lib; } "unstable" self,
-      manualPackages ? mkManualPackages { inherit pkgs lib; } self
+      manualPackages ? mkManualPackages { inherit pkgs lib; } self,
     }:
     (
       { } // elpaPackages // {

@@ -9,7 +9,7 @@
   openblas ? null,
   blas,
   lapack,
-  withBlas ? true
+  withBlas ? true,
 }:
 
 assert withBlas

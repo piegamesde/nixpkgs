@@ -15,7 +15,7 @@
   nix,
   gnused,
   coreutils,
-  enableDecLocator ? true
+  enableDecLocator ? true,
 }:
 
 stdenv.mkDerivation rec {

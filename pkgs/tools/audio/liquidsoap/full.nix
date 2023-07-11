@@ -16,7 +16,7 @@
     curl
     ffmpeg
     youtube-dl
-  ]
+  ],
 }:
 
 let

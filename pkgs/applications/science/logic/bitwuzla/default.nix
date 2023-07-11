@@ -14,10 +14,9 @@
   picosat,
   cryptominisat,
   zlib,
-  pkg-config
+  pkg-config,
   # "*** internal error in 'lglib.c': watcher stack overflow" on aarch64-linux
-  ,
-  withLingeling ? !stdenv.hostPlatform.isAarch64
+  withLingeling ? !stdenv.hostPlatform.isAarch64,
 }:
 
 stdenv.mkDerivation rec {

@@ -2,18 +2,16 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-  pythonOlder
+  pythonOlder,
 
   # build time
-  ,
   astropy-extension-helpers,
   astropy-helpers,
   cython,
   jinja2,
-  setuptools-scm
+  setuptools-scm,
 
   # runtime
-  ,
   numpy,
   packaging,
   pyerfa,

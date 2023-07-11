@@ -11,7 +11,7 @@
   coq2html,
   stdenv,
   tools ? stdenv.cc,
-  version ? null
+  version ? null,
 }:
 
 let

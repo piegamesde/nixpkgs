@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  isPy27
+  isPy27,
 
   # propagates
-  ,
   click,
   jinja2,
   shellingham,

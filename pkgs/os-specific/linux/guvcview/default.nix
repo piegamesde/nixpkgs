@@ -19,12 +19,11 @@
   libpulseaudio ? null,
   useQt ? false,
   qtbase ? null,
-  wrapQtAppsHook ? null
+  wrapQtAppsHook ? null,
   # can be turned off if used as a library
-  ,
   useGtk ? true,
   gtk3 ? null,
-  wrapGAppsHook ? null
+  wrapGAppsHook ? null,
 }:
 
 assert pulseaudioSupport -> libpulseaudio != null;

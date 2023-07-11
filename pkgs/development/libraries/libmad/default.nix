@@ -3,10 +3,9 @@
   stdenv,
   fetchurl,
   fetchpatch,
-  autoconf
+  autoconf,
 
   # for passthru.tests
-  ,
   audacity,
   mpd,
   mpg321,

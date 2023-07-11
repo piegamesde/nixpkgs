@@ -9,24 +9,20 @@
   systemd,
   boost,
   fmt,
-  buildPackages
+  buildPackages,
   # Darwin inputs
-  ,
   AudioToolbox,
-  AudioUnit
+  AudioUnit,
   # Inputs
-  ,
   curl,
   libmms,
   libnfs,
   liburing,
-  samba
+  samba,
   # Archive support
-  ,
   bzip2,
-  zziplib
+  zziplib,
   # Codecs
-  ,
   audiofile,
   faad2,
   ffmpeg,
@@ -38,42 +34,34 @@
   mpg123,
   libopus,
   libvorbis,
-  lame
+  lame,
   # Filters
-  ,
-  libsamplerate
+  libsamplerate,
   # Outputs
-  ,
   alsa-lib,
   libjack2,
   libpulseaudio,
   libshout,
-  pipewire
+  pipewire,
   # Misc
-  ,
   icu,
   sqlite,
   avahi,
   dbus,
   pcre2,
   libgcrypt,
-  expat
+  expat,
   # Services
-  ,
-  yajl
+  yajl,
   # Client support
-  ,
-  libmpdclient
+  libmpdclient,
   # Tag support
-  ,
   libid3tag,
-  nixosTests
+  nixosTests,
   # For documentation
-  ,
   doxygen,
-  python3Packages # for sphinx-build
+  python3Packages, # for sphinx-build
   # For tests
-  ,
   gtest,
   zip,
 }:
@@ -158,7 +146,7 @@ let
 
   run =
     {
-      features ? null
+      features ? null,
     }:
     let
       # Disable platform specific features if needed

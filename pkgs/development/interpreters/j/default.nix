@@ -5,7 +5,7 @@
   bc,
   libedit,
   readline,
-  avxSupport ? stdenv.hostPlatform.avxSupport
+  avxSupport ? stdenv.hostPlatform.avxSupport,
 }:
 
 stdenv.mkDerivation rec {

@@ -10,10 +10,9 @@
   coreutils,
   perl,
   nixosTests,
-  configFile ? "all"
+  configFile ? "all",
 
   # Userspace dependencies
-  ,
   zlib,
   libuuid,
   python3,
@@ -30,17 +29,15 @@
   enableMail ? false,
   sysstat,
   pkg-config,
-  curl
+  curl,
 
   # Kernel dependencies
-  ,
   kernel ? null,
-  enablePython ? true
+  enablePython ? true,
 
   # for determining the latest compatible linuxPackages
-  ,
   linuxPackages_6_1 ? pkgs.linuxKernel.packages.linux_6_1,
-  linuxPackages_6_2 ? pkgs.linuxKernel.packages.linux_6_2
+  linuxPackages_6_2 ? pkgs.linuxKernel.packages.linux_6_2,
 }:
 
 let
@@ -78,7 +75,7 @@ let
       rev ? "zfs-${version}",
       isUnstable ? false,
       latestCompatibleLinuxPackages,
-      kernelCompatible ? null
+      kernelCompatible ? null,
     }:
 
     stdenv'.mkDerivation {

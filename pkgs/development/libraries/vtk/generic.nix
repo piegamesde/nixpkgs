@@ -2,7 +2,7 @@
   majorVersion,
   minorVersion,
   sourceSha256,
-  patchesToFetch ? [ ]
+  patchesToFetch ? [ ],
 }:
 {
   stdenv,
@@ -25,9 +25,8 @@
   qtEnv,
   enablePython ? false,
   python ?
-    throw "vtk: Python support requested, but no python interpreter was given."
+    throw "vtk: Python support requested, but no python interpreter was given.",
   # Darwin support
-  ,
   AGL,
   Cocoa,
   CoreServices,

@@ -8,7 +8,7 @@
   SDL2,
   libGL,
   glew,
-  withExamples ? true
+  withExamples ? true,
 }:
 
 let

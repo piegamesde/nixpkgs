@@ -11,7 +11,7 @@
   accents ? [ "blue" ],
   size ? "standard",
   tweaks ? [ ],
-  variant ? "frappe"
+  variant ? "frappe",
 }:
 let
   validAccents = [

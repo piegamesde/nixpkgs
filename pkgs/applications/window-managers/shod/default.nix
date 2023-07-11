@@ -9,7 +9,7 @@
   libXinerama,
   libXpm,
   libXrender,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {

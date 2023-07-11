@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
-  enableUnfree ? true
+  enableUnfree ? true,
 }:
 
 buildGoModule rec {

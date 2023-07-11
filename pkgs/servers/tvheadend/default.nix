@@ -2,17 +2,15 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
 
   # buildtime
-  ,
   makeWrapper,
   pkg-config,
   python3,
-  which
+  which,
 
   # runtime
-  ,
   avahi,
   bzip2,
   dbus,

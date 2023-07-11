@@ -16,7 +16,7 @@
   makeWrapper,
   symlinkJoin,
   bison,
-  nixosTests
+  nixosTests,
   #
   # By default unbound will not be built with systemd support. Unbound is a very
   # commmon dependency. The transitive dependency closure of systemd also
@@ -26,29 +26,24 @@
   # systemd integration.
   # For the daemon use-case, that needs to notify systemd, use `unbound-with-systemd`.
   #
-  ,
   withSystemd ? false,
-  systemd ? null
+  systemd ? null,
   # optionally support DNS-over-HTTPS as a server
-  ,
   withDoH ? false,
   withECS ? false,
   withDNSCrypt ? false,
   withDNSTAP ? false,
   withTFO ? false,
-  withRedis ? false
+  withRedis ? false,
   # Avoid .lib depending on lib.getLib openssl
   # The build gets a little hacky, so in some cases we disable this approach.
-  ,
-  withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
+  withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP,
   # enable support for python plugins in unbound: note this is distinct from pyunbound
   # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
-  ,
   withPythonModule ? false,
-  libnghttp2
+  libnghttp2,
 
   # for passthru.tests
-  ,
   gnutls,
 }:
 

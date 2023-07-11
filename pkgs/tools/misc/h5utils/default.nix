@@ -6,7 +6,7 @@
   libpng,
   libjpeg,
   hdf4 ? null,
-  libmatheval ? null
+  libmatheval ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -3,7 +3,7 @@
   lib,
   fetchurl,
   mysql_jdbc,
-  withMysql ? true
+  withMysql ? true,
 }:
 
 stdenvNoCC.mkDerivation rec {

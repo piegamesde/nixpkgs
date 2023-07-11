@@ -19,10 +19,9 @@
   nbdSupport ? !stdenv.isDarwin,
   libnbd,
   textStylingSupport ? true,
-  dejagnu
+  dejagnu,
 
   # update script only
-  ,
   writeScript,
 }:
 

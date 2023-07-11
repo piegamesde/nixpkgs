@@ -13,7 +13,7 @@
   zlib,
   ncurses,
   python3,
-  buildRockCompiler ? false
+  buildRockCompiler ? false,
 }:
 
 # Theoretically, we could have our MLIR have an output

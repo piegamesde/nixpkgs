@@ -17,7 +17,7 @@
   ignoredVersions ? "",
   rev-prefix ? "",
   odd-unstable ? false,
-  patchlevel-unstable ? false
+  patchlevel-unstable ? false,
 }:
 
 let

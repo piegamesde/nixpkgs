@@ -8,6 +8,7 @@
   xclip ? null,
   pbcopy ? null,
   useGeoIP ? false # Require /var/lib/geoip-databases/GeoIP.dat
+  ,
 }:
 let
   wrapperPath = with lib;

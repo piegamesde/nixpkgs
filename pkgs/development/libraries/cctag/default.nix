@@ -1,17 +1,15 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   boost,
   eigen,
   opencv,
-  tbb
+  tbb,
 
-  ,
-  avx2Support ? stdenv.hostPlatform.avx2Support
+  avx2Support ? stdenv.hostPlatform.avx2Support,
 }:
 
 stdenv.mkDerivation rec {

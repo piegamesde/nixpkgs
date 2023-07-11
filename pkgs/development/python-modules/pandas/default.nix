@@ -13,18 +13,16 @@
   sqlalchemy,
   tables,
   xlrd,
-  xlwt
+  xlwt,
   # Test inputs
-  ,
   glibcLocales,
   hypothesis,
   jinja2,
   pytestCheckHook,
   pytest-xdist,
   pytest-asyncio,
-  xlsxwriter
+  xlsxwriter,
   # Darwin inputs
-  ,
   runtimeShell,
   libcxx,
 }:

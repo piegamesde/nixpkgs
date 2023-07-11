@@ -55,7 +55,7 @@
   vamp-plugin-sdk,
   wafHook,
   xjadeo,
-  videoSupport ? true
+  videoSupport ? true,
 }:
 stdenv.mkDerivation rec {
   pname = "ardour";

@@ -20,7 +20,7 @@
   qt5Support ? false,
   withLibdnssdCompat ? false,
   python ? null,
-  withPython ? false
+  withPython ? false,
 }:
 
 stdenv.mkDerivation rec {

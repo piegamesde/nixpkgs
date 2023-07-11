@@ -14,8 +14,7 @@ let
       perlOnHostForHost,
       perlOnTargetForTarget,
       perlAttr ? null,
-      self # is perlOnHostForTarget
-      ,
+      self, # is perlOnHostForTarget
     }:
     let
       perlPackages = callPackage

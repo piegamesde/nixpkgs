@@ -1,10 +1,9 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. { inherit system config; }
+  pkgs ? import ../.. { inherit system config; },
   # bool: whether to use networkd in the tests
-  ,
-  networkd ? false
+  networkd ? false,
 }@args:
 
 # Test whether `avahi-daemon' and `libnss-mdns' work as expected.

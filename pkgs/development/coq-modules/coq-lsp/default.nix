@@ -4,7 +4,7 @@
   coq,
   serapi,
   makeWrapper,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

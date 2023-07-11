@@ -11,10 +11,9 @@
   sox,
   lame,
   flac,
-  vorbis-tools
+  vorbis-tools,
   # https://gitlab.com/uade-music-player/uade/-/issues/38
-  ,
-  withWriteAudio ? !stdenv.hostPlatform.isDarwin
+  withWriteAudio ? !stdenv.hostPlatform.isDarwin,
 }:
 
 stdenv.mkDerivation rec {

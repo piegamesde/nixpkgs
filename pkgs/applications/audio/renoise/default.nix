@@ -9,7 +9,7 @@
   libjack2,
   alsa-lib,
   mpg123,
-  releasePath ? null
+  releasePath ? null,
 }:
 
 # To use the full release version:

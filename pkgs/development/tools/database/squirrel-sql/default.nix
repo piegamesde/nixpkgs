@@ -8,7 +8,7 @@
   makeWrapper,
   unzip,
   jre,
-  drivers ? [ ]
+  drivers ? [ ],
 }:
 stdenv.mkDerivation rec {
   pname = "squirrel-sql";

@@ -2,22 +2,19 @@
   lib,
   stdenv,
   buildEnv,
-  makeBinaryWrapper
+  makeBinaryWrapper,
 
   # manually pased
-  ,
   python,
-  requiredPythonModules
+  requiredPythonModules,
 
   # extra opts
-  ,
   extraLibs ? [ ],
   extraOutputsToInstall ? [ ],
   postBuild ? "",
   ignoreCollisions ? false,
-  permitUserSite ? false
+  permitUserSite ? false,
   # Wrap executables with the given argument.
-  ,
   makeWrapperArgs ? [ ],
 }:
 

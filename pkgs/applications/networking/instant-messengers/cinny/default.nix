@@ -4,7 +4,7 @@
   fetchurl,
   writeText,
   jq,
-  conf ? { }
+  conf ? { },
 }:
 
 let

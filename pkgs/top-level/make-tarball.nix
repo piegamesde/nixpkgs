@@ -9,7 +9,7 @@
   supportedSystems,
   pkgs ? import nixpkgs.outPath { },
   nix ? pkgs.nix,
-  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; }
+  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; },
 }:
 
 pkgs.releaseTools.sourceTarball {

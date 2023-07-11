@@ -3,8 +3,7 @@
   lib,
   fetchurl,
   makeWrapper,
-  ghostscript_headless # for ps2pdf binary
-  ,
+  ghostscript_headless, # for ps2pdf binary
 }:
 
 stdenv.mkDerivation rec {

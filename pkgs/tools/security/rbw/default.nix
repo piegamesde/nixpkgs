@@ -6,22 +6,19 @@
   openssl,
   pkg-config,
   installShellFiles,
-  Security
+  Security,
 
   # rbw-fzf
-  ,
   withFzf ? false,
   fzf,
-  perl
+  perl,
 
   # rbw-rofi
-  ,
   withRofi ? false,
   rofi,
-  xclip
+  xclip,
 
   # pass-import
-  ,
   withPass ? false,
   pass,
 }:

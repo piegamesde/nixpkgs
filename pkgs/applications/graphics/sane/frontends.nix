@@ -6,7 +6,7 @@
   libX11,
   gtk2,
   pkg-config,
-  libusb-compat-0_1 ? null
+  libusb-compat-0_1 ? null,
 }:
 
 stdenv.mkDerivation rec {

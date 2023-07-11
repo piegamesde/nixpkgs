@@ -4,10 +4,9 @@
   fetchurl,
   pkg-config,
   libpng,
-  glib # just passthru
+  glib, # just passthru
 
   # for passthru.tests
-  ,
   cairo,
   qemu,
   scribus,

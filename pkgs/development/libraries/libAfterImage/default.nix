@@ -10,7 +10,7 @@
   libX11,
   zlib,
   static ? stdenv.hostPlatform.isStatic,
-  withX ? !stdenv.isDarwin
+  withX ? !stdenv.isDarwin,
 }:
 
 stdenv.mkDerivation {

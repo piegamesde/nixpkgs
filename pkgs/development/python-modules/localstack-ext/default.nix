@@ -9,10 +9,9 @@
   pyaes,
   python-jose,
   requests,
-  tabulate
+  tabulate,
 
   # Sensitive downstream dependencies
-  ,
   localstack,
 }:
 

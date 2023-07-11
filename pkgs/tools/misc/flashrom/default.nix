@@ -9,7 +9,7 @@
   libusb1,
   pciutils,
   pkg-config,
-  jlinkSupport ? false
+  jlinkSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

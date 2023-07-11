@@ -13,13 +13,11 @@
   outputsSupport ? true # outputs screen
   ,
   visualizerSupport ? false,
-  fftw # visualizer screen
-  ,
+  fftw, # visualizer screen
   clockSupport ? true # clock screen
   ,
   taglibSupport ? true,
-  taglib # tag editor
-  ,
+  taglib, # tag editor
 }:
 
 stdenv.mkDerivation rec {

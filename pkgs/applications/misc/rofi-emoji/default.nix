@@ -2,13 +2,11 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  makeWrapper
+  makeWrapper,
 
-  ,
   autoreconfHook,
-  pkg-config
+  pkg-config,
 
-  ,
   cairo,
   glib,
   libnotify,

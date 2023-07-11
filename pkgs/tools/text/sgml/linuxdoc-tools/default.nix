@@ -14,7 +14,7 @@
   groff,
   texlive,
   texinfo,
-  withLatex ? false
+  withLatex ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -4,7 +4,7 @@
   makeWrapper,
   gimpPlugins,
   gnome,
-  plugins ? null
+  plugins ? null,
 }:
 
 let

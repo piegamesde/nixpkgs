@@ -25,7 +25,7 @@
   libuuid,
   libvpx,
   cmake,
-  dbusSupport ? true
+  dbusSupport ? true,
 }:
 stdenv.mkDerivation rec {
   version = "2.9.0";

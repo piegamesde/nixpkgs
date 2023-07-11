@@ -14,7 +14,7 @@
   zlib,
   binutils,
   gnutls,
-  enableGui ? true
+  enableGui ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -5,7 +5,7 @@
   url,
   sha256,
   configureArgs ? [ ],
-  executable ? false
+  executable ? false,
 }:
 
 let

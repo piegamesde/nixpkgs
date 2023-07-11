@@ -26,7 +26,7 @@
   curl,
   supportAlsa ? false,
   alsa-lib,
-  withGtk3 ? true
+  withGtk3 ? true,
 }:
 
 stdenv.mkDerivation rec {

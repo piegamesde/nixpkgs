@@ -8,7 +8,7 @@
   pkg-config,
   nspr,
   bash,
-  debug ? false
+  debug ? false,
 }:
 
 stdenv.mkDerivation rec {

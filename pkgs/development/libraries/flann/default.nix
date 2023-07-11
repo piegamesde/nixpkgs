@@ -8,7 +8,7 @@
   python3,
   stdenv,
   unzip,
-  enablePython ? false
+  enablePython ? false,
 }:
 
 stdenv.mkDerivation rec {

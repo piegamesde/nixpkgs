@@ -34,7 +34,7 @@
       src,
       srcDir ? ".",
       tagSuffix ? "_tags",
-      createTagFiles ? [ ]
+      createTagFiles ? [ ],
     }:
     stdenv.mkDerivation {
       phases = "unpackPhase buildPhase";

@@ -1,9 +1,8 @@
 {
   stdenv,
   fetchurl,
-  lib
+  lib,
 
-  ,
   autoreconfHook,
   bzip2,
   cfitsio,
@@ -17,10 +16,9 @@
   libtiff,
   perl,
   pkg-config,
-  zlib
+  zlib,
 
-  ,
-  addThumbnailer ? false
+  addThumbnailer ? false,
 }:
 
 stdenv.mkDerivation rec {

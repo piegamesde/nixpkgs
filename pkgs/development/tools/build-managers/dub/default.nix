@@ -6,7 +6,7 @@
   libevent,
   rsync,
   ldc,
-  dcompiler ? ldc
+  dcompiler ? ldc,
 }:
 
 assert dcompiler != null;

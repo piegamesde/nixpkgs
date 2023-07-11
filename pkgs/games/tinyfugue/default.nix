@@ -5,7 +5,7 @@
   ncurses,
   zlib,
   openssl ? null,
-  sslSupport ? true
+  sslSupport ? true,
 }:
 
 with lib;

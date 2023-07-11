@@ -17,7 +17,7 @@
   withMultimedia ? false,
   withWebKit ? false,
   withWebSockets ? false,
-  withLocation ? false
+  withLocation ? false,
 }:
 
 buildPythonPackage rec {

@@ -275,7 +275,7 @@ let
     fstabFileSystems:
     {
       rootPrefix ? "",
-      extraOpts ? (fs: [ ])
+      extraOpts ? (fs: [ ]),
     }:
     concatMapStrings
     (

@@ -23,7 +23,7 @@
   withZmq ? true,
   zeromq,
   util-linux ? null,
-  Cocoa ? null
+  Cocoa ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -10,7 +10,7 @@
   cudatoolkit,
   enableAvx ? stdenv.hostPlatform.avxSupport,
   enableSse41 ? stdenv.hostPlatform.sse4_1Support,
-  enableSse42 ? stdenv.hostPlatform.sse4_2Support
+  enableSse42 ? stdenv.hostPlatform.sse4_2Support,
 }:
 
 stdenv.mkDerivation rec {

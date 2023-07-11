@@ -7,7 +7,7 @@
   makeDesktopItem,
   imagemagick,
   SDL,
-  isStereo ? false
+  isStereo ? false,
 }:
 
 let

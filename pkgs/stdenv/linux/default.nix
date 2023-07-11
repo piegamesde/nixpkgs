@@ -59,9 +59,8 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ]
+  crossOverlays ? [ ],
 
-  ,
   bootstrapFiles ? let
     table = {
       glibc = {
@@ -118,6 +117,7 @@
       );
   in
   files
+  ,
 }:
 
 assert crossSystem == localSystem;
@@ -188,7 +188,7 @@ let
     {
       name,
       overrides ? (self: super: { }),
-      extraNativeBuildInputs ? [ ]
+      extraNativeBuildInputs ? [ ],
     }:
 
     let

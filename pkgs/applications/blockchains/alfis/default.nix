@@ -11,7 +11,7 @@
   Cocoa,
   Security,
   WebKit,
-  withGui ? true
+  withGui ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

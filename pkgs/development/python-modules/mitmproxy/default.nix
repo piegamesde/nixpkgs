@@ -2,9 +2,8 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-  pythonOlder
+  pythonOlder,
   # Mitmproxy requirements
-  ,
   asgiref,
   blinker,
   brotli,
@@ -30,9 +29,8 @@
   tornado,
   urwid,
   wsproto,
-  zstandard
+  zstandard,
   # Additional check requirements
-  ,
   hypothesis,
   parver,
   pytest-asyncio,

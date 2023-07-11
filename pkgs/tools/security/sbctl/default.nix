@@ -4,7 +4,7 @@
   fetchFromGitHub,
   installShellFiles,
   asciidoc,
-  databasePath ? "/etc/secureboot"
+  databasePath ? "/etc/secureboot",
 }:
 
 buildGoModule rec {

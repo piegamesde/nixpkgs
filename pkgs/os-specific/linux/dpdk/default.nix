@@ -28,7 +28,7 @@
       "generic"
     else
       null
-  )
+  ),
 }:
 
 let

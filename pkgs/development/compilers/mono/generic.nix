@@ -27,7 +27,7 @@
   gnumake42,
   enableParallelBuilding ? true,
   srcArchiveSuffix ? "tar.bz2",
-  extraPatches ? [ ]
+  extraPatches ? [ ],
 }:
 
 let

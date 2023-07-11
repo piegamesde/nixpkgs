@@ -7,7 +7,7 @@
   git,
   llvmPackages_11,
   spirv-llvm-translator,
-  buildWithPatches ? true
+  buildWithPatches ? true,
 }:
 
 let

@@ -5,7 +5,7 @@
   libnotify,
   gobject-introspection,
   python3Packages,
-  extraLibs ? [ ]
+  extraLibs ? [ ],
 }:
 
 python3Packages.buildPythonApplication rec {

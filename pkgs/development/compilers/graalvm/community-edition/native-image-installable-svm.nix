@@ -11,7 +11,7 @@
   writeShellScriptBin,
   zlib,
   useMusl ? false,
-  extraCLibs ? [ ]
+  extraCLibs ? [ ],
 }:
 
 assert useMusl -> stdenv.isLinux;

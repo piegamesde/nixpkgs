@@ -16,11 +16,10 @@
   poppler,
   json-glib,
   ninja,
-  python3
+  python3,
 
   # Gtk deps
   # upstream gImagereader supports Qt too
-  ,
   gobject-introspection,
   wrapGAppsHook,
   gtkmm3,

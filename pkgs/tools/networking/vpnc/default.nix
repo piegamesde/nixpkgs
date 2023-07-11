@@ -12,8 +12,7 @@
   openresolv,
   vpnc-scripts,
   opensslSupport ? false,
-  openssl # Distributing this is a GPL violation.
-  ,
+  openssl, # Distributing this is a GPL violation.
 }:
 
 stdenv.mkDerivation {

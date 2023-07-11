@@ -31,7 +31,7 @@
   enableZstd ? true,
   enableMixmaster ? false,
   enableLua ? false,
-  withContrib ? true
+  withContrib ? true,
 }:
 
 stdenv.mkDerivation rec {

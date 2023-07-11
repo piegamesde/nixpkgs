@@ -3,7 +3,7 @@
   mkDerivationWith,
   python3Packages,
   p7zip,
-  archiveSupport ? true
+  archiveSupport ? true,
 }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {

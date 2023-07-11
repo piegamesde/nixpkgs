@@ -11,8 +11,7 @@
   llvmSharedForBuild,
   llvmSharedForHost,
   llvmSharedForTarget,
-  llvmPackages # Exposed through rustc for LTO in Firefox
-  ,
+  llvmPackages, # Exposed through rustc for LTO in Firefox
 }:
 {
   stdenv,

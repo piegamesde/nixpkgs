@@ -15,11 +15,10 @@
   tcpdump,
   traceroute,
   util-linux,
-  whois
+  whois,
 
   # If true, just install FireQOS without FireHOL
-  ,
-  onlyQOS ? false
+  onlyQOS ? false,
 }:
 
 stdenv.mkDerivation rec {

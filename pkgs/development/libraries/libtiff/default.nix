@@ -3,21 +3,18 @@
   stdenv,
   fetchFromGitLab,
   fetchpatch,
-  nix-update-script
+  nix-update-script,
 
-  ,
   autoreconfHook,
   pkg-config,
-  sphinx
+  sphinx,
 
-  ,
   libdeflate,
   libjpeg,
   xz,
-  zlib
+  zlib,
 
   # for passthru.tests
-  ,
   libgeotiff,
   python3Packages,
   imagemagick,

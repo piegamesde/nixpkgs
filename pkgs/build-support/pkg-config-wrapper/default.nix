@@ -9,7 +9,7 @@
   baseBinName ? "pkg-config",
   propagateDoc ? pkg-config != null && pkg-config ? man,
   extraPackages ? [ ],
-  extraBuildCommands ? ""
+  extraBuildCommands ? "",
 }:
 
 with lib;

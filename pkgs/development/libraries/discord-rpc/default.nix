@@ -5,7 +5,7 @@
   cmake,
   rapidjson,
   AppKit,
-  buildExamples ? false
+  buildExamples ? false,
 }:
 
 stdenv.mkDerivation rec {

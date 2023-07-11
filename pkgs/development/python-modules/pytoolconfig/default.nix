@@ -2,33 +2,28 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  pdm-pep517
+  pdm-pep517,
 
   # docs
-  ,
   docutils,
   sphinxHook,
   sphinx-rtd-theme,
-  sphinx-autodoc-typehints
+  sphinx-autodoc-typehints,
 
   # runtime
-  ,
   tomli,
-  packaging
+  packaging,
 
   # optionals
-  ,
   pydantic,
   platformdirs,
   sphinx,
-  tabulate
+  tabulate,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

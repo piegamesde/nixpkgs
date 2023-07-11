@@ -1,10 +1,9 @@
 {
   buildPythonPackage,
   fetchPypi,
-  lib
+  lib,
 
   # pythonPackages
-  ,
   pyasn1-modules,
   pycryptodomex,
   twofish,

@@ -10,7 +10,7 @@
 {
   paks,
   name ? (lib.head paks).name,
-  description ? ""
+  description ? "",
 }:
 
 let

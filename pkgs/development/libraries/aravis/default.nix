@@ -8,22 +8,19 @@
   gi-docgen,
   glib,
   libxml2,
-  gobject-introspection
+  gobject-introspection,
 
-  ,
   enableGstPlugin ? true,
   enableViewer ? true,
   gst_all_1,
   gtk3,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
   enableUsb ? true,
-  libusb1
+  libusb1,
 
-  ,
   enablePacketSocket ? true,
-  enableFastHeartbeat ? false
+  enableFastHeartbeat ? false,
 }:
 
 assert enableGstPlugin -> gst_all_1 != null;

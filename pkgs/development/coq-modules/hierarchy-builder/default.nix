@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   coq-elpi,
-  version ? null
+  version ? null,
 }:
 
 let

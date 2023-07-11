@@ -4,7 +4,7 @@
   fetchFromGitHub,
   jdk,
   makeWrapper,
-  buildNativeImage ? true
+  buildNativeImage ? true,
 }:
 
 stdenv.mkDerivation rec {

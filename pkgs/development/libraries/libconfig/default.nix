@@ -6,7 +6,7 @@
   doCheck ? with stdenv.hostPlatform;
     !(
       isWindows && isStatic
-    )
+    ),
 }:
 
 stdenv.mkDerivation rec {

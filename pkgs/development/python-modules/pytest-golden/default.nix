@@ -2,9 +2,8 @@
   lib,
   atomicwrites,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
   #, hatchling
-  ,
   ruamel-yaml,
   poetry-core,
   pytest,

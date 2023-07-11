@@ -35,7 +35,7 @@ let
     {
       name,
       args,
-      wrapped ? wrappedBinaryVar
+      wrapped ? wrappedBinaryVar,
     }:
     runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir -p $out/bin

@@ -13,7 +13,7 @@
   lapack-reference,
   buildTests ? false,
   buildBenchmarks ? false,
-  buildSamples ? false
+  buildSamples ? false,
 }:
 
 # Can also use cuBLAS

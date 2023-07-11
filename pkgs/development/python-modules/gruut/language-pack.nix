@@ -1,8 +1,7 @@
 {
   lib,
-  buildPythonPackage
+  buildPythonPackage,
 
-  ,
   lang,
   version,
   format,

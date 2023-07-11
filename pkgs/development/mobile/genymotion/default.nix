@@ -14,9 +14,8 @@
   fontconfig,
   freetype,
   systemd,
-  libpulseaudio
+  libpulseaudio,
   # For glewinfo
-  ,
   libXmu,
   libXi,
   libXext,

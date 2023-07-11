@@ -13,7 +13,7 @@
     "it-it"
     "sv-se"
     "sv-fi"
-  ]
+  ],
 }:
 
 let

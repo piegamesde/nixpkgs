@@ -37,10 +37,9 @@
   xhtml1,
   yajl,
   writeScript,
-  nixosTests
+  nixosTests,
 
   # Linux
-  ,
   acl ? null,
   attr ? null,
   audit ? null,
@@ -57,18 +56,16 @@
   numad ? null,
   parted ? null,
   systemd ? null,
-  util-linux ? null
+  util-linux ? null,
 
   # Darwin
-  ,
   gmp,
   libiconv,
   qemu,
   Carbon,
-  AppKit
+  AppKit,
 
   # Options
-  ,
   enableCeph ? false,
   ceph,
   enableGlusterfs ? false,

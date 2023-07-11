@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   which,
-  enableStatic ? stdenv.hostPlatform.isStatic
+  enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

@@ -12,7 +12,7 @@ let
   commonOptions =
     {
       pkgName,
-      flavour ? pkgName
+      flavour ? pkgName,
     }:
     mkOption {
       default = { };

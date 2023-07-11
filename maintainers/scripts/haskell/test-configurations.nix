@@ -54,7 +54,7 @@
   nixpkgsPath ? ../../..,
   config ? { allowBroken = true; },
   skipEvalErrors ? true,
-  skipBinaryGHCs ? true
+  skipBinaryGHCs ? true,
 }:
 
 let

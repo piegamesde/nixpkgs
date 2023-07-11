@@ -1,24 +1,21 @@
 {
   stdenv,
   lib,
-  fetchurl
+  fetchurl,
 
   # build time
-  ,
   autoreconfHook,
-  pkg-config
+  pkg-config,
 
   # runtime
-  ,
   boost,
   libmysqlclient,
   log4cplus,
   openssl,
   postgresql,
-  python3
+  python3,
 
   # tests
-  ,
   nixosTests,
 }:
 

@@ -4,7 +4,7 @@
   fetchurl,
   gmp,
   withEmacsSupport ? true,
-  withContrib ? true
+  withContrib ? true,
 }:
 
 let

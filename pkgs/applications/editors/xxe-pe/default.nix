@@ -8,7 +8,7 @@
   makeDesktopItem,
   icoutils,
   config,
-  acceptLicense ? config.xxe-pe.acceptLicense or false
+  acceptLicense ? config.xxe-pe.acceptLicense or false,
 }:
 
 let

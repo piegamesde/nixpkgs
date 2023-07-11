@@ -1,20 +1,18 @@
 {
   lib,
   stdenv,
-  targetPackages
+  targetPackages,
 
   # Build time
-  ,
   fetchurl,
   fetchpatch,
   pkg-config,
   perl,
   texinfo,
   setupDebugInfoDirs,
-  buildPackages
+  buildPackages,
 
   # Run time
-  ,
   ncurses,
   readline,
   gmp,
@@ -24,9 +22,8 @@
   zlib,
   zstd,
   dejagnu,
-  sourceHighlight
+  sourceHighlight,
 
-  ,
   pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform
     && !stdenv.hostPlatform.isCygwin,
   python3 ? null,

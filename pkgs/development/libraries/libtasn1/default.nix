@@ -4,10 +4,9 @@
   fetchurl,
   fetchpatch,
   perl,
-  texinfo
+  texinfo,
 
   # for passthru.tests
-  ,
   gnutls,
   samba,
   qemu,

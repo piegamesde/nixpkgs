@@ -47,8 +47,7 @@
   cudaSupport ? config.cudaSupport or false,
   cudaPackages ? { },
   hipSupport ? false,
-  hip # comes with a significantly larger closure size
-  ,
+  hip, # comes with a significantly larger closure size
   colladaSupport ? true,
   opencollada,
   spaceNavSupport ? stdenv.isLinux,

@@ -13,7 +13,7 @@ rec {
       compressBlanksInIndex ? true,
       packages ? [ ],
       texPackages ? { },
-      copySources ? false
+      copySources ? false,
     }:
 
     assert generatePDF -> !generatePS;
@@ -195,7 +195,7 @@ rec {
   lhs2tex =
     {
       source,
-      flags ? null
+      flags ? null,
     }:
     pkgs.stdenv.mkDerivation {
       name = "tex";
@@ -230,7 +230,7 @@ rec {
     {
       preamble ? null,
       body,
-      name ? baseNameOf (toString body)
+      name ? baseNameOf (toString body),
     }:
 
     pkgs.stdenv.mkDerivation {
@@ -290,7 +290,7 @@ rec {
     {
       preamble ? null,
       body,
-      packages ? [ ]
+      packages ? [ ],
     }:
 
     postscriptToPNG {
@@ -308,7 +308,7 @@ rec {
     {
       preamble ? null,
       body,
-      packages ? [ ]
+      packages ? [ ],
     }:
 
     runLaTeX {

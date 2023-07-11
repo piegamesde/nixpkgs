@@ -4,7 +4,7 @@
   coq,
   hydra-battles,
   pocklington,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

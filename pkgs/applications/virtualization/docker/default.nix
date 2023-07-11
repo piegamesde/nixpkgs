@@ -19,9 +19,8 @@ rec {
       tiniRev,
       tiniHash,
       buildxSupport ? true,
-      composeSupport ? true
+      composeSupport ? true,
       # package dependencies
-      ,
       stdenv,
       fetchFromGitHub,
       fetchpatch,

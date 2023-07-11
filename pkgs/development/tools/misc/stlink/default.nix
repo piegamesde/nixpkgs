@@ -8,7 +8,7 @@
   gtk3,
   pkg-config,
   wrapGAppsHook,
-  withGUI ? false
+  withGUI ? false,
 }:
 
 let

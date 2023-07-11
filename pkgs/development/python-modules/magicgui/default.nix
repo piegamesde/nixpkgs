@@ -10,8 +10,7 @@
   pyside2,
   psygnal,
   docstring-parser,
-  napari # a reverse-dependency, for tests
-  ,
+  napari, # a reverse-dependency, for tests
 }:
 buildPythonPackage rec {
   pname = "magicgui";

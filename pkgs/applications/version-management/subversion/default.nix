@@ -31,7 +31,7 @@
   py3c ? null,
   perl ? null,
   sasl ? null,
-  serf ? null
+  serf ? null,
 }:
 
 assert bdbSupport -> aprutil.bdbSupport;
@@ -50,7 +50,7 @@ let
     {
       version,
       sha256,
-      extraPatches ? [ ]
+      extraPatches ? [ ],
     }:
     stdenv.mkDerivation (
       rec {

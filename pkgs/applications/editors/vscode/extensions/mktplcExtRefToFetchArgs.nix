@@ -3,7 +3,7 @@
   name,
   version,
   arch ? "",
-  sha256 ? ""
+  sha256 ? "",
 }:
 let
   archurl =

@@ -1,8 +1,7 @@
 {
   lib,
-  stdenv
+  stdenv,
 
-  ,
   coreutils,
   makeWrapper,
   sway-unwrapped,
@@ -12,9 +11,8 @@
   slurp,
   grim,
   jq,
-  bash
+  bash,
 
-  ,
   python3Packages,
 }:
 

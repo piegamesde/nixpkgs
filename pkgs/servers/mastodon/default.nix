@@ -15,14 +15,14 @@
   writeShellScript,
   fetchYarnDeps,
   fixup_yarn_lock,
-  brotli
+  brotli,
 
   # Allow building a fork or custom version of Mastodon:
-  ,
   pname ? "mastodon",
   version ? import ./version.nix,
   srcOverride ? null,
   dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
+  ,
 }:
 
 stdenv.mkDerivation rec {

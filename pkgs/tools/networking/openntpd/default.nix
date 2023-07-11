@@ -4,7 +4,7 @@
   fetchurl,
   libressl,
   privsepPath ? "/var/empty",
-  privsepUser ? "ntp"
+  privsepUser ? "ntp",
 }:
 
 stdenv.mkDerivation rec {

@@ -11,7 +11,7 @@
   writeScriptBin,
   runtimeShell,
   primusLib_i686 ? null,
-  useNvidia ? true
+  useNvidia ? true,
 }:
 
 let

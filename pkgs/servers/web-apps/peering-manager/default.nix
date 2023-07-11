@@ -2,10 +2,9 @@
   python3,
   fetchFromGitHub,
   fetchpatch,
-  nixosTests
+  nixosTests,
 
-  ,
-  plugins ? ps: [ ]
+  plugins ? ps: [ ],
 }:
 
 let

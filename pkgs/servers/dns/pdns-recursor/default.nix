@@ -10,7 +10,7 @@
   lua,
   luajit,
   protobuf,
-  enableProtoBuf ? false
+  enableProtoBuf ? false,
 }:
 
 stdenv.mkDerivation rec {

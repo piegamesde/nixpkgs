@@ -19,9 +19,8 @@
   qrencode,
   makeWrapper,
   pass,
-  symlinkJoin
+  symlinkJoin,
 
-  ,
   xclip ? null,
   xdotool ? null,
   dmenu ? null,
@@ -30,11 +29,10 @@
   waylandSupport ? false,
   wl-clipboard ? null,
   ydotool ? null,
-  dmenu-wayland ? null
+  dmenu-wayland ? null,
 
   # For backwards-compatibility
-  ,
-  tombPluginSupport ? false
+  tombPluginSupport ? false,
 }:
 
 assert x11Support -> xclip != null;

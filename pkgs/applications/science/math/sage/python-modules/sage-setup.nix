@@ -4,8 +4,7 @@
   sage-src,
   cython,
   jinja2,
-  pkgconfig # the python module, not the pkg-config alias
-  ,
+  pkgconfig, # the python module, not the pkg-config alias
 }:
 
 buildPythonPackage rec {

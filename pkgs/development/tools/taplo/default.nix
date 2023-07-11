@@ -4,7 +4,7 @@
   fetchCrate,
   stdenv,
   Security,
-  withLsp ? true
+  withLsp ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

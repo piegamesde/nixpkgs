@@ -1,19 +1,16 @@
 {
   lib,
-  callPackage
+  callPackage,
 
-  ,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   appstream,
   gobject-introspection,
   meson,
   ninja,
   pkg-config,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
   glib,
   glib-networking,
   gtk3,

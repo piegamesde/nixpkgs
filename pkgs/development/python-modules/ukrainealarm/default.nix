@@ -1,18 +1,15 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build time
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # propagates
-  ,
-  aiohttp
+  aiohttp,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

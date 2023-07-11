@@ -19,7 +19,7 @@
   qtbase ? null,
   wrapQtAppsHook ? null,
   curl ? null,
-  gdb ? null
+  gdb ? null,
 }:
 
 with lib;

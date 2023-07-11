@@ -5,9 +5,8 @@
   makeDesktopItem,
   unzip,
   ant,
-  jdk8
+  jdk8,
   # Optional, Jitsi still runs without, but you may pass null:
-  ,
   alsa-lib,
   dbus,
   gtk2,

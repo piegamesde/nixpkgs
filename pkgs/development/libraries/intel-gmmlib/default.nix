@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  cmake
+  cmake,
   # for passthru.tests
-  ,
   intel-compute-runtime,
   intel-media-driver,
 }:

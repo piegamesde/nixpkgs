@@ -297,7 +297,7 @@ let
     }:
     {
       reason,
-      errormsg ? ""
+      errormsg ? "",
     }:
     let
       msg =
@@ -330,7 +330,7 @@ let
     }:
     {
       reason,
-      errormsg ? ""
+      errormsg ? "",
     }:
     let
       remediationMsg = (builtins.getAttr reason remediation) attrs;
@@ -609,7 +609,7 @@ let
       validity,
       attrs,
       pos ? null,
-      references ? [ ]
+      references ? [ ],
     }:
     let
       outputs = attrs.outputs or [ "out" ];

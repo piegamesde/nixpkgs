@@ -22,13 +22,11 @@
   c-blosc,
   gtk3,
   pcre,
-  doxygen
+  doxygen,
   # OpenCL Support
-  ,
   withOpenCL ? true,
-  ocl-icd
+  ocl-icd,
   # Cuda Support
-  ,
   withCuda ? config.cudaSupport or false,
   cudatoolkit,
 }:

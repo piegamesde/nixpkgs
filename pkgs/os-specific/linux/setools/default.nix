@@ -5,7 +5,7 @@
   libsepol,
   libselinux,
   checkpolicy,
-  withGraphics ? false
+  withGraphics ? false,
 }:
 
 with lib;

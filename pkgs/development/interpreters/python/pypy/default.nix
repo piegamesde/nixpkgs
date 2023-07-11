@@ -23,10 +23,11 @@
   gdbm,
   db,
   xz,
-  python-setup-hook
+  python-setup-hook,
   # For the Python package set
-  ,
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (
+    self: super: { }
+  ),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -37,7 +38,7 @@
   hash,
   passthruFun,
   pythonAttr ?
-    "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}"
+    "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}",
 }:
 
 assert zlibSupport -> zlib != null;

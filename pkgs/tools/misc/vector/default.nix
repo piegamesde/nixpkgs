@@ -18,15 +18,13 @@
   tzdata,
   cmake,
   perl,
-  git
+  git,
   # nix has a problem with the `?` in the feature list
   # enabling kafka will produce a vector with no features at all
-  ,
-  enableKafka ? false
+  enableKafka ? false,
   # TODO investigate adding "vrl-cli" and various "vendor-*"
   # "disk-buffer" is using leveldb TODO: investigate how useful
   # it would be, perhaps only for massive scale?
-  ,
   features ? (
     [
       "api"

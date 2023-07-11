@@ -13,7 +13,7 @@
   opensslSupport ? true,
   openssl,
   trustUdsCredSupport ? false,
-  udsSupport ? false
+  udsSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

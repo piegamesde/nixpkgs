@@ -11,7 +11,7 @@
   osName ? null,
   osVersion ? null,
   topColor ? "black",
-  bottomColor ? "black"
+  bottomColor ? "black",
 }:
 
 let

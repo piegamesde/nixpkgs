@@ -31,11 +31,10 @@
   freetypeSupport ? true,
   freetype ? null # it's small and almost everywhere
   ,
-  SDL # only for avplay in $bin, adds nontrivial closure to it
-  ,
+  SDL, # only for avplay in $bin, adds nontrivial closure to it
   enableGPL ? true # ToDo: some additional default stuff may need GPL
   ,
-  enableUnfree ? faacSupport
+  enableUnfree ? faacSupport,
 }:
 
 assert faacSupport -> enableUnfree;

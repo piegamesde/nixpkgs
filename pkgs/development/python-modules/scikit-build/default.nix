@@ -7,9 +7,8 @@
   python,
   setuptools,
   setuptools-scm,
-  wheel
+  wheel,
   # Test Inputs
-  ,
   cmake,
   cython,
   flake8,

@@ -12,12 +12,11 @@
   gnused,
   openldap ? null,
   buildPackages,
-  lib
+  lib,
 
   # client and relay are end of life, remove after 4.4.3
-  ,
   withClient ? false,
-  withRelay ? false
+  withRelay ? false,
 }:
 
 stdenv.mkDerivation rec {

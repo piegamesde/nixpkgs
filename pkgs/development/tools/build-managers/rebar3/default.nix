@@ -122,7 +122,7 @@ let
     {
       plugins ? [ ],
       globalPlugins ? [ ],
-      rebar3 ? _rebar3
+      rebar3 ? _rebar3,
     }:
     let
       pluginLibDirs =

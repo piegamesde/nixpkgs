@@ -1,16 +1,14 @@
 {
   lib,
   stdenv,
-  fetchFromGitLab
+  fetchFromGitLab,
 
-  ,
   pkg-config,
   gettext,
   povray,
   imagemagick,
-  gimp
+  gimp,
 
-  ,
   SDL2,
   SDL2_mixer,
   SDL2_image,

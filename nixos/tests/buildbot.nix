@@ -3,7 +3,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. { inherit system config; }
+  pkgs ? import ../.. { inherit system config; },
 }:
 
 import ./make-test-python.nix

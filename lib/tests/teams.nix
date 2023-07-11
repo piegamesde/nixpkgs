@@ -3,7 +3,7 @@
 # If it builds, all tests passed
 {
   pkgs ? import ../.. { },
-  lib ? pkgs.lib
+  lib ? pkgs.lib,
 }:
 
 let

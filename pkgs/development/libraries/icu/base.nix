@@ -2,15 +2,14 @@
   version,
   sha256,
   patches ? [ ],
-  patchFlags ? [ ]
+  patchFlags ? [ ],
 }:
 {
   stdenv,
   lib,
   fetchurl,
-  fixDarwinDylibNames
+  fixDarwinDylibNames,
   # Cross-compiled icu4c requires a build-root of a native compile
-  ,
   buildRootOnly ? false,
   nativeBuildRoot,
   testers,

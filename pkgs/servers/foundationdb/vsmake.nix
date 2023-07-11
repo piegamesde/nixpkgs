@@ -5,9 +5,8 @@
   gcc6Stdenv,
   lib,
   fetchurl,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   which,
   m4,
   python2,
@@ -38,23 +37,19 @@ let
     {
       version,
       branch,
-      sha256
+      sha256,
 
       # the revision can be inferred from the fdb tagging policy
-      ,
-      rev ? "refs/tags/${version}"
+      rev ? "refs/tags/${version}",
 
       # in theory newer versions of fdb support newer boost versions, but they
       # don't :( maybe one day
-      ,
-      boost ? boost152
+      boost ? boost152,
 
       # if an release is unofficial/a prerelease, then make sure this is set
-      ,
-      officialRelease ? true
+      officialRelease ? true,
 
-      ,
-      patches ? [ ]
+      patches ? [ ],
     }:
     gcc6Stdenv.mkDerivation {
       pname = "foundationdb";

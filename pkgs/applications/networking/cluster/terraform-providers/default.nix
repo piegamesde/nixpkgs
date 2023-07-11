@@ -9,8 +9,7 @@
   writeShellScript
 
   ,
-  cdrtools # libvirt
-  ,
+  cdrtools, # libvirt
 }:
 let
   # Our generic constructor to build new providers.
@@ -31,12 +30,10 @@ let
       deleteVendor ? false,
       proxyVendor ? false,
       mkProviderFetcher ? fetchFromGitHub,
-      mkProviderGoModule ? buildGoModule
+      mkProviderGoModule ? buildGoModule,
       # "https://registry.terraform.io/providers/vancluever/acme"
-      ,
-      homepage ? ""
+      homepage ? "",
       # "registry.terraform.io/vancluever/acme"
-      ,
       provider-source-address ? lib.replaceStrings
         [
           "https://registry"

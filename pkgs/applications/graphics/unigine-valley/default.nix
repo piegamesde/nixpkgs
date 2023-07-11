@@ -1,18 +1,16 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
 
   # Build-time dependencies
-  ,
   makeWrapper,
   file,
   makeDesktopItem,
   imagemagick,
-  copyDesktopItems
+  copyDesktopItems,
 
   # Runtime dependencies
-  ,
   fontconfig,
   freetype,
   libX11,

@@ -9,7 +9,7 @@
   pkg-config,
   pythonSupport ? false,
   swig ? null,
-  python ? null
+  python ? null,
 }:
 
 stdenv.mkDerivation rec {

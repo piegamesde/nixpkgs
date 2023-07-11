@@ -5,10 +5,9 @@
   lib,
   nixosTests,
   python,
-  pythonOlder
+  pythonOlder,
 
   # pythonPackages
-  ,
   hatchling,
   dnspython,
   expiringdict,

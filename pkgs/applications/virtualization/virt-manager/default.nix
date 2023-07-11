@@ -25,7 +25,7 @@
   xorriso,
   fetchpatch,
   spiceSupport ? true,
-  spice-gtk ? null
+  spice-gtk ? null,
 }:
 
 python3.pkgs.buildPythonApplication rec {

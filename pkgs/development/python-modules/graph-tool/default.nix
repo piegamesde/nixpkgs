@@ -1,9 +1,8 @@
 {
   buildPythonPackage,
   lib,
-  fetchurl
+  fetchurl,
 
-  ,
   autoreconfHook,
   boost,
   cairomm,

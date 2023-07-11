@@ -6,7 +6,7 @@
   libXinerama,
   libXft,
   zlib,
-  patches ? null
+  patches ? null,
 }:
 
 stdenv.mkDerivation rec {

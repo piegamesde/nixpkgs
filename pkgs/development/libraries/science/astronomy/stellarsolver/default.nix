@@ -7,7 +7,7 @@
   cfitsio,
   gsl,
   wcslib,
-  withTester ? false
+  withTester ? false,
 }:
 
 mkDerivation rec {

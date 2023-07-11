@@ -3,7 +3,7 @@
   buildFHSEnv,
   arduino-core-unwrapped,
   withGui ? false,
-  withTeensyduino ? false
+  withTeensyduino ? false,
 }:
 let
   arduino-unwrapped =

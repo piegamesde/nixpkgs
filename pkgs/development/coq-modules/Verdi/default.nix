@@ -5,7 +5,7 @@
   Cheerios,
   InfSeqExt,
   ssreflect,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

@@ -3,17 +3,15 @@
   mkDerivation,
   cmake,
   extra-cmake-modules,
-  makeWrapper
+  makeWrapper,
 
-  ,
   qtbase,
   qtquickcontrols2,
   qtsvg,
   qtlocation,
   qtdeclarative,
-  qqc2-desktop-style
+  qqc2-desktop-style,
 
-  ,
   kirigami2,
   kirigami-addons,
   kdbusaddons,
@@ -31,9 +29,8 @@
   kmime,
   kpackage,
   eventviews,
-  calendarsupport
+  calendarsupport,
 
-  ,
   akonadi,
   akonadi-search,
   akonadi-contacts,

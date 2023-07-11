@@ -10,7 +10,7 @@
   librime,
   rime-data,
   symlinkJoin,
-  rimeDataPkgs ? [ rime-data ]
+  rimeDataPkgs ? [ rime-data ],
 }:
 
 stdenv.mkDerivation rec {

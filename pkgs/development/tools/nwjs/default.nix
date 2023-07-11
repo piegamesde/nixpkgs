@@ -3,9 +3,8 @@
   lib,
   fetchurl,
   buildEnv,
-  makeWrapper
+  makeWrapper,
 
-  ,
   xorg,
   alsa-lib,
   at-spi2-core,
@@ -33,7 +32,7 @@
   sqlite,
   udev,
   libuuid,
-  sdk ? false
+  sdk ? false,
 }:
 let
   bits =

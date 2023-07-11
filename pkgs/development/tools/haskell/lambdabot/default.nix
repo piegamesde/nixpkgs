@@ -8,7 +8,7 @@
   aspell ? null,
   packages ? (pkgs: [ ]),
   modules ? "oldDefaultModules",
-  configuration ? "[]"
+  configuration ? "[]",
 }:
 
 let

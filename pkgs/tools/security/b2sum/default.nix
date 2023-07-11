@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  openmp ? null
+  openmp ? null,
 }:
 
 stdenv.mkDerivation (

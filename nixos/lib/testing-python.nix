@@ -1,18 +1,14 @@
 args@{
   system,
-  pkgs ? import ../.. { inherit system config; }
+  pkgs ? import ../.. { inherit system config; },
   # Use a minimal kernel?
-  ,
-  minimal ? false
+  minimal ? false,
   # Ignored
-  ,
-  config ? { }
+  config ? { },
   # !!! See comment about args in lib/modules.nix
-  ,
-  specialArgs ? throw "legacy - do not use, see error below"
+  specialArgs ? throw "legacy - do not use, see error below",
   # Modules to add to each VM
-  ,
-  extraConfigurations ? [ ]
+  extraConfigurations ? [ ],
 }:
 let
   nixos-lib = import ./default.nix { inherit (pkgs) lib; };
@@ -61,9 +57,8 @@ rec {
       testScript,
       enableOCR ? false,
       name ? "unnamed",
-      skipTypeCheck ? false
+      skipTypeCheck ? false,
       # Skip linting (mainly intended for faster dev cycles)
-      ,
       skipLint ? false,
       passthru ? { },
       meta ? { }, # For meta.position
@@ -75,7 +70,7 @@ rec {
             builtins.unsafeGetAttrPos "testScript" t
         ),
       extraPythonPackages ? (_: [ ]),
-      interactive ? { }
+      interactive ? { },
     }@t:
     let
       testConfig =

@@ -8,7 +8,7 @@
   luajit,
   readline,
   useLuaJit ? false,
-  extraLibraries ? [ ]
+  extraLibraries ? [ ],
 }:
 
 let

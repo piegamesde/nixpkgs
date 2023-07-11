@@ -1,15 +1,13 @@
 {
   lib,
   buildPythonPackage,
-  larynx
+  larynx,
 
   # build
-  ,
   cython,
-  python
+  python,
 
   # propagates
-  ,
   espeak-phonemizer,
   librosa,
   numpy,

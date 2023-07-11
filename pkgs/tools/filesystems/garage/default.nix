@@ -19,7 +19,7 @@ let
       sha256,
       cargoSha256,
       eol ? false,
-      broken ? false
+      broken ? false,
     }:
     rustPlatform.buildRustPackage {
       pname = "garage";

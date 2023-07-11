@@ -7,7 +7,7 @@
   perl,
   sgx-sdk,
   which,
-  debug ? false
+  debug ? false,
 }:
 let
   sgxVersion = sgx-sdk.versionTag;

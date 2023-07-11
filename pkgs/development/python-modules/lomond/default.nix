@@ -3,14 +3,12 @@
   fetchFromGitHub,
   lib,
   pythonAtLeast,
-  pythonOlder
+  pythonOlder,
 
   # runtime
-  ,
-  six
+  six,
 
   # tests
-  ,
   freezegun,
   pytest-mock,
   pytestCheckHook,

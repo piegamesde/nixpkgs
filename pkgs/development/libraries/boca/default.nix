@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pkg-config
+  pkg-config,
 
-  ,
   expat,
   libcdio,
   libcdio-paranoia,

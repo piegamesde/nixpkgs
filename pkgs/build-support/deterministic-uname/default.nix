@@ -5,7 +5,7 @@
   substituteAll,
   coreutils,
   getopt,
-  modDirVersion ? ""
+  modDirVersion ? "",
 }:
 
 substituteAll {

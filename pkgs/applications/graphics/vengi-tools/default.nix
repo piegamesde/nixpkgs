@@ -2,16 +2,14 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  writeText
+  writeText,
 
-  ,
   cmake,
   pkg-config,
   ninja,
   python3,
-  makeWrapper
+  makeWrapper,
 
-  ,
   glm,
   lua5_4,
   SDL2,
@@ -21,13 +19,11 @@
   libuuid,
   wayland-protocols,
   Carbon,
-  CoreServices
+  CoreServices,
   # optionals
-  ,
   opencl-headers,
-  OpenCL
+  OpenCL,
 
-  ,
   callPackage,
   nixosTests,
 }:

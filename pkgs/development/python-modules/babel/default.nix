@@ -3,10 +3,9 @@
   buildPythonPackage,
   fetchPypi,
   pythonAtLeast,
-  pythonOlder
+  pythonOlder,
 
   # tests
-  ,
   freezegun,
   pytestCheckHook,
   pytz,

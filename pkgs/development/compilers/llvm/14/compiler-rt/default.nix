@@ -11,7 +11,7 @@
   libllvm,
   libcxxabi,
   libxcrypt,
-  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
+  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD,
 }:
 
 let

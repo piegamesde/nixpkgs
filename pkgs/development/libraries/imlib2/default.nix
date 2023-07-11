@@ -1,18 +1,16 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
   # Image file formats
-  ,
   libjpeg,
   libtiff,
   giflib,
   libpng,
   libwebp,
   libjxl,
-  libspectre
+  libspectre,
   # imlib2 can load images from ID3 tags.
-  ,
   libid3tag,
   librsvg,
   libheif,
@@ -24,10 +22,9 @@
   svgSupport ? false,
   heifSupport ? false,
   jxlSupport ? false,
-  psSupport ? false
+  psSupport ? false,
 
   # for passthru.tests
-  ,
   libcaca,
   diffoscopeMinimal,
   feh,

@@ -19,7 +19,7 @@ nvidia_x11: sha256:
   librsvg,
   wrapGAppsHook,
   withGtk2 ? false,
-  withGtk3 ? true
+  withGtk3 ? true,
 }:
 
 let

@@ -14,7 +14,7 @@
       plugins = builtins.attrValues availablePlugins;
       extraDeps = [ ];
       perlDeps = [ ];
-    }
+    },
 }:
 
 let

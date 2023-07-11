@@ -1,7 +1,7 @@
 {
   lib,
   callPackage,
-  build ? null
+  build ? null,
 }:
 
 let

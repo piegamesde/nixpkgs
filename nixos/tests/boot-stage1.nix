@@ -119,7 +119,7 @@ import ./make-test-python.nix (
               {
                 name,
                 cmdline ? "",
-                source ? ""
+                source ? "",
               }:
               (daemonize name ''
                 char *argv[] = {"${cmdline}", NULL};

@@ -5,7 +5,7 @@
   python3,
   enableE2be ? true,
   enableMetrics ? true,
-  enableSqlite ? true
+  enableSqlite ? true,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "mautrix-googlechat";

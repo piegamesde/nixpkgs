@@ -39,8 +39,7 @@
   libdecorSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libdecor,
   pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
-  pipewire # NOTE: must be built with SDL2 without pipewire support
-  ,
+  pipewire, # NOTE: must be built with SDL2 without pipewire support
   pulseaudioSupport ?
     config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
@@ -52,7 +51,7 @@
   OpenGL,
   audiofile,
   libiconv,
-  withStatic ? false
+  withStatic ? false,
 }:
 
 # NOTE: When editing this expression see if the same change applies to

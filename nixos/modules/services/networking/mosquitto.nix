@@ -55,7 +55,7 @@ let
 
   formatFreeform =
     {
-      prefix ? ""
+      prefix ? "",
     }:
     mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}")
     ;

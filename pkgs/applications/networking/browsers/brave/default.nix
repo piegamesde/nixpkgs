@@ -45,32 +45,27 @@
   xorg,
   zlib,
   xdg-utils,
-  snappy
+  snappy,
 
   # command line arguments which are always set e.g "--disable-gpu"
-  ,
-  commandLineArgs ? ""
+  commandLineArgs ? "",
 
   # Necessary for USB audio devices.
-  ,
   pulseSupport ? stdenv.isLinux,
-  libpulseaudio
+  libpulseaudio,
 
   # For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
-  ,
-  libGL
+  libGL,
 
   # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
-  ,
   libvaSupport ? stdenv.isLinux,
   libva,
-  enableVideoAcceleration ? libvaSupport
+  enableVideoAcceleration ? libvaSupport,
 
   # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
-  ,
   vulkanSupport ? false,
   addOpenGLRunpath,
-  enableVulkan ? vulkanSupport
+  enableVulkan ? vulkanSupport,
 }:
 
 let

@@ -28,7 +28,7 @@
   copyDesktopItems,
   csdp ? null,
   version,
-  coq-version ? null
+  coq-version ? null,
 }@args:
 let
   lib' = lib;

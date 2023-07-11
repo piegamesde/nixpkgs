@@ -17,6 +17,7 @@
   wallpapers ? false,
   withGrub ? false,
   grubScreens ? [ ] # default: 1080p
+  ,
 }:
 
 let

@@ -8,7 +8,7 @@
   coreutils,
   curl,
   bash,
-  debugInfo ? false
+  debugInfo ? false,
 }:
 
 {
@@ -21,7 +21,7 @@
     inherit rev sha256;
     owner = "elixir-lang";
     repo = "elixir";
-  }
+  },
 }@args:
 
 let

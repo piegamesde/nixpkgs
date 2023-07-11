@@ -13,7 +13,7 @@
   avrdude,
   stm32flash,
   mcu ? "mcu",
-  firmwareConfig ? ./simulator.cfg
+  firmwareConfig ? ./simulator.cfg,
 }:
 stdenv.mkDerivation rec {
   name = "klipper-firmware-${mcu}-${version}";

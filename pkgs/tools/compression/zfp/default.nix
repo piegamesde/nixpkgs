@@ -13,7 +13,7 @@
     builtins.elem stdenv.targetPlatform.system gfortran.meta.platforms,
   enableOpenMP ? true,
   enablePython ? true,
-  enableUtilities ? true
+  enableUtilities ? true,
 }:
 
 stdenv.mkDerivation rec {

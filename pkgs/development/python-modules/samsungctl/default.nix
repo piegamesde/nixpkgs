@@ -1,10 +1,9 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # extra: websocket
-  ,
   websocket-client,
 }:
 

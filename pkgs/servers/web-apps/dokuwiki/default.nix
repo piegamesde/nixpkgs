@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
         localConfig ? null,
         pluginsConfig ? null,
         aclConfig ? null,
-        pname ? (p: "${p.pname}-combined")
+        pname ? (p: "${p.pname}-combined"),
       }:
       let
         isNotEmpty =

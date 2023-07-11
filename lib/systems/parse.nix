@@ -836,7 +836,7 @@ rec {
       vendor ? assert false;
         null,
       kernel, # Also inferred below
-      abi ? assert false; null
+      abi ? assert false; null,
     }@args:
     let
       getCpu = name: cpuTypes.${name} or (throw "Unknown CPU type: ${name}");

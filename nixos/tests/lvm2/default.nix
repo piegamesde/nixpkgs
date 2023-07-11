@@ -9,7 +9,7 @@
     "5.10"
     "5.15"
     "latest"
-  ]
+  ],
 }:
 
 # For quickly running a test, the nixosTests.lvm2.lvm-thinpool-linux-latest attribute is recommended

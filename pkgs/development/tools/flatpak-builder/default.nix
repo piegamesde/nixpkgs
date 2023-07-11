@@ -3,9 +3,8 @@
   stdenv,
   fetchurl,
   substituteAll,
-  nixosTests
+  nixosTests,
 
-  ,
   autoreconfHook,
   docbook_xml_dtd_412,
   docbook_xml_dtd_42,
@@ -15,9 +14,8 @@
   libxml2,
   libxslt,
   pkg-config,
-  xmlto
+  xmlto,
 
-  ,
   acl,
   breezy,
   binutils,

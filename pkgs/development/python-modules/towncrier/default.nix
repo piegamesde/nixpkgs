@@ -12,8 +12,7 @@
   toml,
   twisted,
   setuptools,
-  git # shells out to git
-  ,
+  git, # shells out to git
 }:
 
 buildPythonPackage rec {

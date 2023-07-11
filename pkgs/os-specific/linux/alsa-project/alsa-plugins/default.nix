@@ -6,7 +6,7 @@
   alsa-lib,
   libogg,
   libpulseaudio ? null,
-  libjack2 ? null
+  libjack2 ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -8,19 +8,17 @@
   libgpg-error,
   pkg-config,
   gettext,
-  which
+  which,
 
   # GUI support
-  ,
   gtk2,
   gtk3,
-  qt5
+  qt5,
 
-  ,
   pluginSearchPaths ? [
     "/run/current-system/sw/lib/gwenhywfar/plugins"
     ".nix-profile/lib/gwenhywfar/plugins"
-  ]
+  ],
 }:
 
 let

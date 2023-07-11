@@ -5,7 +5,7 @@
   cmake,
   icu,
   pkg-config,
-  enableUnicodeHelp ? true
+  enableUnicodeHelp ? true,
 }:
 
 stdenv.mkDerivation rec {

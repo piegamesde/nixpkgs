@@ -17,7 +17,7 @@
   gnused,
   coreutils,
   gst_all_1,
-  patches ? null
+  patches ? null,
 }:
 
 stdenv.mkDerivation rec {

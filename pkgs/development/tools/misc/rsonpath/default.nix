@@ -3,7 +3,7 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-  withSimd ? stdenv.isx86_64
+  withSimd ? stdenv.isx86_64,
 }:
 
 rustPlatform.buildRustPackage rec {

@@ -1,22 +1,19 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build deps
-  ,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   cbor2,
   python-dateutil,
   pyyaml,
   tomlkit,
-  u-msgpack-python
+  u-msgpack-python,
 
   # tested using
-  ,
   pytestCheckHook,
 }:
 

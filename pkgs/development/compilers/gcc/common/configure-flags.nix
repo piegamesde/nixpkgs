@@ -1,30 +1,26 @@
 {
   lib,
   stdenv,
-  targetPackages
+  targetPackages,
 
-  ,
   crossStageStatic,
   libcCross,
   threadsCross,
-  version
+  version,
 
-  ,
   binutils,
   gmp,
   mpfr,
   libmpc,
   isl,
-  cloog ? null
+  cloog ? null,
 
-  ,
   enableLTO,
   enableMultilib,
   enablePlugin,
   disableGdbPlugin ? !enablePlugin,
-  enableShared
+  enableShared,
 
-  ,
   langC,
   langCC,
   langD ? false,
@@ -38,7 +34,7 @@
   langObjC,
   langObjCpp,
   langJit,
-  disableBootstrap ? stdenv.targetPlatform != stdenv.hostPlatform
+  disableBootstrap ? stdenv.targetPlatform != stdenv.hostPlatform,
 }:
 
 assert !enablePlugin -> disableGdbPlugin;

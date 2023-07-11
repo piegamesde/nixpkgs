@@ -6,7 +6,7 @@
   makeDesktopItem,
   makeWrapper,
   unzip,
-  language ? "en_US"
+  language ? "en_US",
 }:
 let
   pname = "geogebra";

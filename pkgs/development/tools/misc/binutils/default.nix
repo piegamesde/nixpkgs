@@ -23,14 +23,12 @@ in
   noSysDirs,
   perl,
   substitute,
-  zlib
+  zlib,
 
-  ,
   enableGold ? withGold stdenv.targetPlatform,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
   # WARN: Enabling all targets increases output size to a multiple.
-  ,
-  withAllTargets ? false
+  withAllTargets ? false,
 }:
 
 # WARN: configure silently disables ld.gold if it's unsupported, so we need to

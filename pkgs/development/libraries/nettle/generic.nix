@@ -3,10 +3,9 @@
   stdenv,
   buildPackages,
   gmp,
-  gnum4
+  gnum4,
 
   # Version specific args
-  ,
   version,
   src,
 }:

@@ -9,7 +9,7 @@
   cliSupport ? true,
   linenoiseSupport ? cliSupport,
   linenoise,
-  enableLTO ? stdenv.cc.isGNU
+  enableLTO ? stdenv.cc.isGNU,
 }:
 
 assert enableLTO -> stdenv.cc.isGNU;

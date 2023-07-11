@@ -11,27 +11,23 @@
   readline,
   eigen,
   celt,
-  wafHook
+  wafHook,
   # Darwin Dependencies
-  ,
   aften,
   AudioUnit,
   CoreAudio,
   libobjc,
-  Accelerate
+  Accelerate,
 
   # Optional Dependencies
-  ,
   dbus ? null,
   libffado ? null,
   alsa-lib ? null,
-  libopus ? null
+  libopus ? null,
 
   # Extra options
-  ,
-  prefix ? ""
+  prefix ? "",
 
-  ,
   testers,
 }:
 

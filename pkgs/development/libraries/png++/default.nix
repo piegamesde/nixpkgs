@@ -4,7 +4,7 @@
   fetchurl,
   libpng,
   docSupport ? true,
-  doxygen ? null
+  doxygen ? null,
 }:
 assert docSupport -> doxygen != null;
 

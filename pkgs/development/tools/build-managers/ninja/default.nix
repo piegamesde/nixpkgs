@@ -11,7 +11,7 @@
   python3,
   re2c,
   buildPackages,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 
 stdenv.mkDerivation rec {

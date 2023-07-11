@@ -4,9 +4,8 @@
   fetchFromGitHub,
   fetchpatch,
   lib,
-  stdenv
+  stdenv,
   # the following are non-haskell dependencies
-  ,
   makeWrapper,
   which,
   maude,

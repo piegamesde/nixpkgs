@@ -19,7 +19,7 @@ let
       buildAndTestSubdir,
       cargoHash,
       extraNativeBuildInputs ? [ ],
-      extraBuildInputs ? [ ]
+      extraBuildInputs ? [ ],
     }:
     buildPythonPackage rec {
       inherit pname;

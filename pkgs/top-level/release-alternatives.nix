@@ -2,7 +2,7 @@
   pkgsFun ? import ../..,
   lib ? import ../../lib,
   supportedSystems ? [ "x86_64-linux" ],
-  allowUnfree ? false
+  allowUnfree ? false,
 }:
 
 let

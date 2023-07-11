@@ -2,16 +2,14 @@
   lib,
   fetchFromGitHub,
   fetchpatch,
-  tag ? ""
+  tag ? "",
 
   # build time
-  ,
   gettext,
   gobject-introspection,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # runtime
-  ,
   adwaita-icon-theme,
   gdk-pixbuf,
   glib,
@@ -24,27 +22,24 @@
   libmodplug,
   librsvg,
   libsoup,
-  webkitgtk
+  webkitgtk,
 
   # optional features
-  ,
   withDbusPython ? false,
   withPypresence ? false,
   withPyInotify ? false,
   withMusicBrainzNgs ? false,
   withPahoMqtt ? false,
-  withSoco ? false
+  withSoco ? false,
 
   # backends
-  ,
   withGstreamerBackend ? true,
   gst_all_1,
   withGstPlugins ? withGstreamerBackend,
   withXineBackend ? true,
-  xine-lib
+  xine-lib,
 
   # tests
-  ,
   dbus,
   glibcLocales,
   hicolor-icon-theme,

@@ -118,7 +118,7 @@ rec {
         { }, # This would be remove in the future, Prefer _module.args option instead.
       args ?
         { }, # This would be remove in the future, Prefer _module.check option instead.
-      check ? true
+      check ? true,
     }:
     let
       withWarnings =
@@ -1664,7 +1664,7 @@ rec {
       warn,
       use,
       withPriority ? true,
-      markdown ? false
+      markdown ? false,
     }:
     {
       config,

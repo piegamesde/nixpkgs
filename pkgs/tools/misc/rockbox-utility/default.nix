@@ -8,7 +8,7 @@
   pkg-config,
   qt5,
   withEspeak ? false,
-  espeak ? null
+  espeak ? null,
 }:
 
 stdenv.mkDerivation rec {

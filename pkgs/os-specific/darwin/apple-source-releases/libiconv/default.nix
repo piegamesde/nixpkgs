@@ -3,7 +3,7 @@
   appleDerivation,
   lib,
   enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 appleDerivation {

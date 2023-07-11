@@ -4,9 +4,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
   # C Inputs
-  ,
   blas,
   catch2,
   cmake,
@@ -15,15 +14,13 @@
   muparserx,
   ninja,
   nlohmann_json,
-  spdlog
+  spdlog,
   # Python Inputs
-  ,
   cvxpy,
   numpy,
   pybind11,
-  scikit-build
+  scikit-build,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   fixtures,

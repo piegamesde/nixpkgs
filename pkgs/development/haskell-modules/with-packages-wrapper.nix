@@ -3,19 +3,18 @@
   stdenv,
   haskellPackages,
   symlinkJoin,
-  makeWrapper
+  makeWrapper,
   # GHC will have LLVM available if necessary for the respective target,
   # so useLLVM only needs to be changed if -fllvm is to be used for a
   # platform that has NCG support
-  ,
   useLLVM ? false,
-  withHoogle ? false
+  withHoogle ? false,
   # Whether to install `doc` outputs for GHC and all included libraries.
-  ,
   installDocumentation ? true,
   hoogleWithPackages,
   postBuild ? "",
   ghcLibdir ? null # only used by ghcjs, when resolving plugins
+  ,
 }:
 
 # This argument is a function which selects a list of Haskell packages from any

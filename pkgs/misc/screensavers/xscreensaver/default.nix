@@ -26,7 +26,7 @@
   pkg-config,
   systemd,
   forceInstallAllHacks ? false,
-  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
 
 stdenv.mkDerivation (

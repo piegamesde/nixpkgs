@@ -3,24 +3,21 @@
   fetchurl,
   fetchFromGitLab,
   gettext,
-  wrapGAppsHook
+  wrapGAppsHook,
 
   # Native dependencies
-  ,
   python3,
   gtk3,
   gobject-introspection,
   gnome,
   gtksourceview4,
-  glib-networking
+  glib-networking,
 
   # Test dependencies
-  ,
   xvfb-run,
-  dbus
+  dbus,
 
   # Optional dependencies
-  ,
   enableJingle ? true,
   farstream,
   gstreamer,
@@ -40,7 +37,7 @@
   enableOmemoPluginDependencies ? true,
   enableAppIndicator ? true,
   libappindicator-gtk3,
-  extraPythonPackages ? ps: [ ]
+  extraPythonPackages ? ps: [ ],
 }:
 
 python3.pkgs.buildPythonApplication rec {

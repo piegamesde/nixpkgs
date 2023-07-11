@@ -4,7 +4,7 @@
   fetchFromGitHub,
   autoreconfHook,
   c-ares,
-  openssl ? null
+  openssl ? null,
 }:
 
 stdenv.mkDerivation rec {

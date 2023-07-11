@@ -1,5 +1,5 @@
 {
-  pkgs ? import ../. { }
+  pkgs ? import ../. { },
 }:
 (import ./default.nix { }).overrideAttrs (
   x: {

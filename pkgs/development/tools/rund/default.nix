@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   ldc ? null,
-  dcompiler ? ldc
+  dcompiler ? ldc,
 }:
 
 assert dcompiler != null;

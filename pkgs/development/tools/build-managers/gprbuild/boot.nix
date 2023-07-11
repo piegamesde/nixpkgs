@@ -4,8 +4,7 @@
   fetchFromGitHub,
   gnat,
   which,
-  xmlada # for src
-  ,
+  xmlada, # for src
 }:
 
 let

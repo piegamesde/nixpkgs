@@ -68,7 +68,7 @@
             name,
             src,
             hash,
-            forceGitDeps ? false
+            forceGitDeps ? false,
           }:
           testers.invalidateFetcherByDrvHash fetchNpmDeps {
             inherit name hash forceGitDeps;

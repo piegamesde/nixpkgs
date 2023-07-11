@@ -8,14 +8,12 @@
   qtsvg,
   qttools,
   wrapQtAppsHook,
-  icoutils # build and runtime deps.
-  ,
+  icoutils, # build and runtime deps.
   wget,
   fuseiso,
   wine,
   sudo,
-  which # runtime deps.
-  ,
+  which, # runtime deps.
 }:
 
 mkDerivation rec {

@@ -18,12 +18,11 @@
   qqc2-desktop-style,
   qtwebengine,
   rustPlatform,
-  srcs
+  srcs,
 
   # These must be updated in tandem with package updates.
-  ,
   cargoShaForVersion ? "23.04.0",
-  cargoSha256 ? "sha256-96Qe8zdLZdOrU/t6J+JJ6V0PXyFOnJF18qDrk4PZGsA="
+  cargoSha256 ? "sha256-96Qe8zdLZdOrU/t6J+JJ6V0PXyFOnJF18qDrk4PZGsA=",
 }:
 
 # Guard against incomplete updates.

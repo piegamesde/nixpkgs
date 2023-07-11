@@ -8,7 +8,7 @@
   ncurses,
   cairo ? null,
   pango ? null,
-  enableCairo ? stdenv.isLinux
+  enableCairo ? stdenv.isLinux,
 }:
 
 assert enableCairo -> cairo != null && pango != null;

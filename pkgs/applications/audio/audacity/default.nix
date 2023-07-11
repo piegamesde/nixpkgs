@@ -33,8 +33,7 @@
   ffmpeg_4,
   soundtouch,
   pcre,
-  portaudio # given up fighting their portaudio.patch?
-  ,
+  portaudio, # given up fighting their portaudio.patch?
   portmidi,
   linuxHeaders,
   alsa-lib,

@@ -1,12 +1,10 @@
 {
   buildOctavePackage,
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Octave Dependencies
-  ,
-  splines
+  splines,
   # Other Dependencies
-  ,
   gmsh,
   gawk,
   pkg-config,

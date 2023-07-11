@@ -8,8 +8,7 @@
   libXext,
   libXt,
   xorgproto,
-  perl # For building web manuals
-  ,
+  perl, # For building web manuals
   which,
   ed,
   Carbon,
@@ -17,8 +16,7 @@
   IOKit,
   Metal,
   QuartzCore,
-  DarwinTools # For building on Darwin
-  ,
+  DarwinTools, # For building on Darwin
 }:
 
 stdenv.mkDerivation rec {

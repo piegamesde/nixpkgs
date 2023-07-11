@@ -15,7 +15,7 @@
   callPackage,
   gettext ? null,
   enableNls ? true,
-  enableTiny ? false
+  enableTiny ? false,
 }:
 
 assert enableNls -> (gettext != null);

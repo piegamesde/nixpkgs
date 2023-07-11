@@ -9,7 +9,7 @@
   libxcrypt,
   pkg-config,
   withBluez ? false,
-  withRemote ? false
+  withRemote ? false,
 }:
 
 stdenv.mkDerivation rec {

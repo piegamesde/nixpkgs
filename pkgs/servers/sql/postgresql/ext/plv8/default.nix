@@ -4,9 +4,8 @@
   fetchFromGitHub,
   v8,
   perl,
-  postgresql
+  postgresql,
   # For test
-  ,
   runCommand,
   coreutils,
   gnugrep,

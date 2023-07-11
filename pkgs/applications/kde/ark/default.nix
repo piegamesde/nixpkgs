@@ -18,13 +18,11 @@
   kservice,
   kwidgetsaddons,
   libarchive,
-  libzip
+  libzip,
   # Archive tools
-  ,
   p7zip,
-  lrzip
+  lrzip,
   # Unfree tools
-  ,
   unfreeEnableUnrar ? false,
   unrar,
 }:

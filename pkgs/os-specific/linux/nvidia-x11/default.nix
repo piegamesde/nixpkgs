@@ -27,7 +27,7 @@ let
     (
       {
         kernel,
-        libsOnly ? false
+        libsOnly ? false,
       }:
       if libsOnly then
         { }

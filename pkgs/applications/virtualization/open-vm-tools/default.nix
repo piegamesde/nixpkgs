@@ -37,7 +37,7 @@
   udev,
   util-linux,
   xmlsec,
-  withX ? true
+  withX ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -12,6 +12,7 @@
   psutils,
   patchPpdFilesHook,
   withNonfreeDb ? false # include foomatic-db-nonfree ppd files
+  ,
 }:
 
 let

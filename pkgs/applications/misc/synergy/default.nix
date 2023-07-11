@@ -3,9 +3,8 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
-  ,
   cmake,
   openssl,
   pcre,
@@ -26,10 +25,9 @@
   libXinerama,
   xkeyboardconfig,
   xinput,
-  avahi-compat
+  avahi-compat,
 
   # MacOS / darwin
-  ,
   darwin,
   ApplicationServices,
   Carbon,

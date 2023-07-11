@@ -9,7 +9,7 @@
   veriT,
   zchaff,
   fetchurl,
-  version ? null
+  version ? null,
 }:
 
 let

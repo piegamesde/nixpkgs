@@ -16,12 +16,10 @@ in
 wrapDerivation (
   {
     buildInputs ? [ ],
-    nativeBuildInputs ? [ ]
+    nativeBuildInputs ? [ ],
 
-    ,
-    enableParallelBuilding ? true
+    enableParallelBuilding ? true,
 
-    ,
     meta ? { },
     ...
   }@args:

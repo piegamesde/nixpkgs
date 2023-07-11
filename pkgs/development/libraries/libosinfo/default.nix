@@ -20,7 +20,7 @@
   hwdata,
   osinfo-db,
   substituteAll,
-  vala ? null
+  vala ? null,
 }:
 
 stdenv.mkDerivation rec {

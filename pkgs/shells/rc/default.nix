@@ -8,7 +8,7 @@
   readline,
   pkgsStatic,
   historySupport ? false,
-  readlineSupport ? true
+  readlineSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

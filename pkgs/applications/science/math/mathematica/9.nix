@@ -2,16 +2,14 @@
   lib,
   patchelf,
   requireFile,
-  stdenv
+  stdenv,
   # arguments from default.nix
-  ,
   lang,
   meta,
   name,
   src,
-  version
+  version,
   # dependencies
-  ,
   alsa-lib,
   coreutils,
   cudaPackages,
@@ -23,9 +21,8 @@
   opencv2,
   openssl,
   unixODBC,
-  xorg
+  xorg,
   # options
-  ,
   cudaSupport,
 }:
 

@@ -20,7 +20,7 @@
   qttools ? null,
   python3,
   withGui,
-  withWallet ? true
+  withWallet ? true,
 }:
 
 stdenv.mkDerivation rec {

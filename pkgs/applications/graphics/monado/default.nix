@@ -21,9 +21,8 @@
   libXrandr,
   libbsd,
   libffi,
-  libjpeg
+  libjpeg,
   # , librealsense
-  ,
   libsurvive,
   libusb1,
   libuv,
@@ -39,13 +38,12 @@
   wayland-protocols,
   wayland-scanner,
   libdrm,
-  zlib
+  zlib,
   # Set as 'false' to build monado without service support, i.e. allow VR
   # applications linking against libopenxr_monado.so to use OpenXR standalone
   # instead of via the monado-service program. For more information see:
   # https://gitlab.freedesktop.org/monado/monado/-/blob/master/doc/targets.md#xrt_feature_service-disabled
-  ,
-  serviceSupport ? true
+  serviceSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

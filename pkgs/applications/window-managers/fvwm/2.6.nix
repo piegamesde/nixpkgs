@@ -20,7 +20,7 @@
   pkg-config,
   python3Packages,
   readline,
-  enableGestures ? false
+  enableGestures ? false,
 }:
 
 stdenv.mkDerivation rec {

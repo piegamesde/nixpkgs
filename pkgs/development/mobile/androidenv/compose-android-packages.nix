@@ -5,7 +5,7 @@
   fetchurl,
   ruby,
   writeText,
-  licenseAccepted ? false
+  licenseAccepted ? false,
 }:
 
 {
@@ -32,7 +32,7 @@
   includeExtras ? [ ],
   repoJson ? ./repo.json,
   repoXmls ? null,
-  extraLicenses ? [ ]
+  extraLicenses ? [ ],
 }:
 
 let
@@ -52,7 +52,7 @@ let
     {
       packages ? [ ],
       images ? [ ],
-      addons ? [ ]
+      addons ? [ ],
     }:
     let
       mkRepoRuby =
@@ -430,7 +430,7 @@ rec {
     {
       name,
       plugins,
-      rootName ? name
+      rootName ? name,
     }:
     lib.optionalString (plugins != [ ]) ''
       mkdir -p ${rootName}
@@ -459,7 +459,7 @@ rec {
     {
       name,
       plugin,
-      check ? true
+      check ? true,
     }:
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}

@@ -9,7 +9,7 @@
   libsixel,
   xorg,
   AppKit,
-  withSki ? true
+  withSki ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

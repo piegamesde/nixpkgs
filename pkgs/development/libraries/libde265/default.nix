@@ -4,13 +4,11 @@
   fetchFromGitHub,
   fetchpatch,
   autoreconfHook,
-  pkg-config
+  pkg-config,
 
-  ,
-  callPackage
+  callPackage,
 
   # for passthru.tests
-  ,
   imagemagick,
   libheif,
   imlib2Full,

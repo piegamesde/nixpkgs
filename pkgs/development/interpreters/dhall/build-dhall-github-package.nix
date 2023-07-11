@@ -15,13 +15,11 @@ lib.makePackageOverridable
     , # The directory containing the Dhall files, if other than the root of the
     # repository
     directory ? "", # The file to import, relative to the above directory
-    file ? "package.dhall"
+    file ? "package.dhall",
     # Set to `true` to generate documentation for the package
-    ,
-    document ? false
+    document ? false,
 
     # Arguments passed through to `fetchFromGitHub`
-    ,
     owner,
     repo,
     rev

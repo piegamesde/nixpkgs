@@ -4,8 +4,7 @@
   bundlerUpdateScript,
   makeWrapper,
   withJava ? true,
-  jre # Used by asciidoctor-diagram for ditaa and PlantUML
-  ,
+  jre, # Used by asciidoctor-diagram for ditaa and PlantUML
 }:
 
 let

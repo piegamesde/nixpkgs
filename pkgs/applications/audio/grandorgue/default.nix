@@ -16,7 +16,7 @@
   libicns,
   makeWrapper,
   Cocoa,
-  includeDemo ? true
+  includeDemo ? true,
 }:
 
 stdenv.mkDerivation rec {

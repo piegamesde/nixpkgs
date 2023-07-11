@@ -4,18 +4,16 @@
   pythonAtLeast,
   buildPythonPackage,
   fetchFromGitHub,
-  fetchpatch
+  fetchpatch,
   # Python Inputs
-  ,
   fastdtw,
   numpy,
   psutil,
   qiskit-terra,
   scikit-learn,
   sparse,
-  torch
+  torch,
   # Check Inputs
-  ,
   pytestCheckHook,
   ddt,
   pytest-timeout,

@@ -25,8 +25,7 @@
   vulkan-loader,
   webrtc-audio-processing,
   ncurses,
-  readline # meson can't find <7 as those versions don't have a .pc file
-  ,
+  readline, # meson can't find <7 as those versions don't have a .pc file
   lilv,
   makeFontsConf,
   callPackage,

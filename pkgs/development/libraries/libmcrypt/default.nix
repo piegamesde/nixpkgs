@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   darwin,
-  disablePosixThreads ? false
+  disablePosixThreads ? false,
 }:
 
 stdenv.mkDerivation rec {

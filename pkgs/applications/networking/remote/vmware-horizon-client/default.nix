@@ -8,7 +8,7 @@
   makeWrapper,
   opensc,
   writeTextDir,
-  configText ? ""
+  configText ? "",
 }:
 let
   version = "2303";

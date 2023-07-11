@@ -6,7 +6,7 @@
   tex,
   ghostscript,
   colm,
-  build-manual ? false
+  build-manual ? false,
 }:
 
 let

@@ -12,10 +12,8 @@
   fetchurl,
   overrideCC,
   wrapCCWith,
-  buildLlvmTools # tools, but from the previous stage, for cross
-  ,
-  targetLlvmLibraries # libraries, but from the next stage, for cross
-  ,
+  buildLlvmTools, # tools, but from the previous stage, for cross
+  targetLlvmLibraries, # libraries, but from the next stage, for cross
   targetLlvm,
 }:
 

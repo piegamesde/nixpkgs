@@ -4,24 +4,21 @@
   tesseractBase,
   languages,
   runCommand,
-  imagemagick
+  imagemagick,
 
   # A list of languages like [ "eng" "spa" … ] or `null` for all available languages
-  ,
-  enableLanguages ? null
+  enableLanguages ? null,
 
   # A list of files or a directory containing files
-  ,
   tessdata ? (
     if enableLanguages == null then
       languages.all
     else
       map (lang: languages.${lang}) enableLanguages
-  )
+  ),
 
   # This argument is obsolete
-  ,
-  enableLanguagesHash ? null
+  enableLanguagesHash ? null,
 }:
 
 let

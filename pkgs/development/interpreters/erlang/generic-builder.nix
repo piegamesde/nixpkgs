@@ -26,8 +26,8 @@
   wxSupport ? true,
   systemdSupport ?
     lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
-  # updateScript deps
   ,
+  # updateScript deps
   writeScript,
   common-updater-scripts,
   coreutils,
@@ -85,7 +85,7 @@
   fixupPhase ? "",
   preFixup ? "",
   postFixup ? "",
-  meta ? { }
+  meta ? { },
 }:
 
 assert wxSupport

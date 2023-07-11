@@ -23,7 +23,7 @@
   python3,
   fltk,
   exiv2,
-  withXorg ? true
+  withXorg ? true,
 }:
 
 let

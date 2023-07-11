@@ -2,7 +2,7 @@
   writeScriptBin,
   writeText,
   python3,
-  connectTo ? "localhost"
+  connectTo ? "localhost",
 }:
 let
   dummyFile = writeText "dummy-file" ''

@@ -14,14 +14,12 @@
   ,
   withOVMF ? false,
   OVMF,
-  withLibHVM ? false
+  withLibHVM ? false,
 
   # xen
-  ,
-  python3Packages
+  python3Packages,
 
   # qemu
-  ,
   udev,
   pciutils,
   xorg,

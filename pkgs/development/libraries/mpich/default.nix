@@ -6,14 +6,12 @@
   gfortran,
   openssh,
   hwloc,
-  python3
+  python3,
   # either libfabric or ucx work for ch4backend on linux. On darwin, neither of
   # these libraries currently build so this argument is ignored on Darwin.
-  ,
-  ch4backend
+  ch4backend,
   # Process manager to build
-  ,
-  withPm ? "hydra:gforker"
+  withPm ? "hydra:gforker",
 }:
 
 assert (ch4backend.pname == "ucx" || ch4backend.pname == "libfabric");

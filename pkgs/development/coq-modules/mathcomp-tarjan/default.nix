@@ -4,7 +4,7 @@
   mathcomp-ssreflect,
   mathcomp-fingroup,
   lib,
-  version ? null
+  version ? null,
 }@args:
 
 mkCoqDerivation {

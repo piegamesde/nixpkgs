@@ -6,7 +6,7 @@
   postgresql,
   openssl,
   libkrb5,
-  enableUnfree ? true
+  enableUnfree ? true,
 }:
 
 # # To enable on NixOS:

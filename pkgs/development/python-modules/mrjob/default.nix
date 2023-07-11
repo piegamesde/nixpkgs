@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagates
-  ,
-  pyyaml
+  pyyaml,
 
   # optionals
-  ,
   boto3,
   botocore,
   google-cloud-dataproc,
@@ -16,10 +14,9 @@
   google-cloud-storage,
   python-rapidjson,
   simplejson,
-  ujson
+  ujson,
 
   # tests
-  ,
   pyspark,
   unittestCheckHook,
   warcio,

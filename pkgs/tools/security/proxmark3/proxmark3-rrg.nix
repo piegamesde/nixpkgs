@@ -5,13 +5,11 @@
   pkg-config,
   gcc-arm-embedded,
   bluez5,
-  readline
+  readline,
 
-  ,
-  hardwarePlatform ? "PM3RDV4"
+  hardwarePlatform ? "PM3RDV4",
 
-  ,
-  hardwarePlatformExtras ? ""
+  hardwarePlatformExtras ? "",
 }:
 
 mkDerivation rec {

@@ -13,9 +13,8 @@
   boost,
   gflags,
   protobuf,
-  config
+  config,
 
-  ,
   enableJPEG ? true,
   libjpeg,
   enablePNG ? true,
@@ -33,9 +32,8 @@
   openblas,
   blas,
   lapack,
-  enableContrib ? true
+  enableContrib ? true,
 
-  ,
   enableCuda ? (config.cudaSupport or false) && stdenv.hostPlatform.isx86_64,
   cudaPackages ? { },
   enableUnfree ? false,
@@ -65,9 +63,8 @@
   libdc1394,
   enableDocs ? false,
   doxygen,
-  graphviz-nox
+  graphviz-nox,
 
-  ,
   AVFoundation,
   Cocoa,
   VideoDecodeAcceleration,

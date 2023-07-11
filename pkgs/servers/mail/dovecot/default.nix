@@ -20,9 +20,8 @@
   libstemmer,
   cyrus_sasl,
   nixosTests,
-  fetchpatch
+  fetchpatch,
   # Auth modules
-  ,
   withMySQL ? false,
   libmysqlclient,
   withPgSQL ? false,

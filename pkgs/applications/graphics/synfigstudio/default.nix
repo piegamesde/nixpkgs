@@ -4,9 +4,8 @@
   fetchFromGitHub,
   pkg-config,
   autoreconfHook,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
   boost,
   cairo,
   gettext,

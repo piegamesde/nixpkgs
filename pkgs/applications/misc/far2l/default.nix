@@ -26,10 +26,9 @@
   withGUI ? true,
   wxGTK32,
   withUCD ? true,
-  libuchardet
+  libuchardet,
 
   # Plugins
-  ,
   withColorer ? true,
   spdlog,
   xercesc,

@@ -8,16 +8,14 @@
   bluez,
   glib,
   sbc,
-  dbus
+  dbus,
 
   # optional, but useful utils
-  ,
   readline,
   libbsd,
-  ncurses
+  ncurses,
 
   # optional codecs
-  ,
   aacSupport ? true,
   fdk_aac,
 # TODO: aptxSupport

@@ -11,7 +11,7 @@
   asciidoc,
   doxygen,
   withTLS ? true,
-  withDocs ? true
+  withDocs ? true,
 }:
 stdenv.mkDerivation rec {
   pname = "libcoap";

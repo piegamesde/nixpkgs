@@ -4,7 +4,7 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ]
+  crossOverlays ? [ ],
 }:
 
 assert crossSystem == localSystem;
@@ -102,7 +102,7 @@ let
       fetchurl,
       extraPath ? [ ],
       overrides ? (self: super: { }),
-      extraNativeBuildInputs ? [ ]
+      extraNativeBuildInputs ? [ ],
     }:
 
     import ../generic {

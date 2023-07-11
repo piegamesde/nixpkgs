@@ -15,7 +15,7 @@ args@{
   bazelTargets,
   bazelTestTargets ? [ ],
   buildAttrs,
-  fetchAttrs
+  fetchAttrs,
 
   # Newer versions of Bazel are moving away from built-in rules_cc and instead
   # allow fetching it as an external dependency in a WORKSPACE file[1]. If
@@ -26,24 +26,21 @@ args@{
   # project depends on it via an external dependency.
   #
   # [1]: https://github.com/bazelbuild/rules_cc
-  ,
   removeRulesCC ? true,
   removeLocalConfigCc ? true,
-  removeLocal ? true
+  removeLocal ? true,
 
   # Use build --nobuild instead of fetch. This allows fetching the dependencies
   # required for the build as configured, rather than fetching all the dependencies
   # which may not work in some situations (e.g. Java code which ends up relying on
   # Debian-specific /usr/share/java paths, but doesn't in the configured build).
-  ,
-  fetchConfigured ? true
+  fetchConfigured ? true,
 
   # Don’t add Bazel --copt and --linkopt from NIX_CFLAGS_COMPILE /
   # NIX_LDFLAGS. This is necessary when using a custom toolchain which
   # Bazel wants all headers / libraries to come from, like when using
   # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
   # compiler.
-  ,
   dontAddBazelOpts ? false,
   ...
 }:

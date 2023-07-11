@@ -9,10 +9,9 @@
   sqlite,
   file,
   makeWrapper,
-  notmuch
+  notmuch,
   # Build with support for notmuch backend
-  ,
-  withNotmuch ? true
+  withNotmuch ? true,
 }:
 
 rustPlatform.buildRustPackage rec {

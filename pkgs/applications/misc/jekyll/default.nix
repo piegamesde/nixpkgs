@@ -4,7 +4,7 @@
   ruby,
   writeShellScriptBin,
   makeWrapper,
-  withOptionalDependencies ? false
+  withOptionalDependencies ? false,
 }:
 
 let

@@ -14,7 +14,7 @@
     libcxxabi,
   libcxxabi,
   libcxxrt,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";

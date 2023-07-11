@@ -2,9 +2,8 @@
   stdenv,
   lib,
   buildPythonApplication,
-  fetchFromGitHub
+  fetchFromGitHub,
   # python requirements
-  ,
   beautifulsoup4,
   boto3,
   faker,
@@ -37,9 +36,8 @@
   xlrd,
   xlwt,
   zstandard,
-  zulip
+  zulip,
   # other
-  ,
   git,
   withPcap ? true,
   dpkt,

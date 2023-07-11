@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  setuptools
+  setuptools,
   # documentation build dependencies
-  ,
   sphinxHook,
   sphinx-rtd-theme,
   matplotlib,
-  ipython
+  ipython,
   # runtime dependencies
-  ,
   sphinx,
-  beautifulsoup4
+  beautifulsoup4,
   # check dependencies
-  ,
   pytest,
 }:
 

@@ -11,7 +11,7 @@
   pkg-config,
   portaudio,
   which,
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
 }:
 
 stdenv.mkDerivation (

@@ -8,7 +8,7 @@
   avro3k,
   avro ? null,
   futures ? null,
-  enum34 ? null
+  enum34 ? null,
 }:
 
 buildPythonPackage rec {

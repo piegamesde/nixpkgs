@@ -23,7 +23,7 @@
   qttools,
   wrapQtAppsHook,
   llvm,
-  withServer ? true
+  withServer ? true,
 }:
 
 let

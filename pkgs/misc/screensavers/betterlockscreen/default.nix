@@ -2,10 +2,9 @@
   fetchFromGitHub,
   lib,
   makeWrapper,
-  stdenv
+  stdenv,
 
   # Dependencies (@see https://github.com/pavanjadhaw/betterlockscreen/blob/master/shell.nix)
-  ,
   bc,
   coreutils,
   dbus,

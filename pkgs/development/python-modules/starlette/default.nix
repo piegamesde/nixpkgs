@@ -3,10 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  hatchling
+  hatchling,
 
   # runtime
-  ,
   ApplicationServices,
   anyio,
   itsdangerous,
@@ -14,10 +13,9 @@
   python-multipart,
   pyyaml,
   httpx,
-  typing-extensions
+  typing-extensions,
 
   # tests
-  ,
   pytestCheckHook,
   pythonOlder,
   trio,

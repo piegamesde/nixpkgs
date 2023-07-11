@@ -3,9 +3,8 @@
   qtdeclarative,
   qtquickcontrols,
   qtlocation,
-  qtwebchannel
+  qtwebchannel,
 
-  ,
   bison,
   flex,
   git,
@@ -16,9 +15,8 @@
   which,
   nodejs,
   qtbase,
-  perl
+  perl,
 
-  ,
   xorg,
   libXcursor,
   libXScrnSaver,
@@ -89,7 +87,7 @@
   qtCompatVersion,
   pipewireSupport ? stdenv.isLinux,
   pipewire_0_2,
-  postPatch ? ""
+  postPatch ? "",
 }:
 
 qtModule {

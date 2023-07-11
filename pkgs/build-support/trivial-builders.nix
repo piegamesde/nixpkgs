@@ -85,15 +85,12 @@ rec {
     in
     {
       # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
-      stdenv ? defaultStdenv
+      stdenv ? defaultStdenv,
       # whether to build this derivation locally instead of substituting
-      ,
-      runLocal ? false
+      runLocal ? false,
       # extra arguments to pass to stdenv.mkDerivation
-      ,
-      derivationArgs ? { }
+      derivationArgs ? { },
       # name of the resulting derivation
-      ,
       name,
     # TODO(@Artturin): enable strictDeps always
     }:
@@ -137,8 +134,7 @@ rec {
   */
   writeTextFile =
     {
-      name # the name of the derivation
-      ,
+      name, # the name of the derivation
       text,
       executable ? false # run chmod +x ?
       ,
@@ -148,7 +144,7 @@ rec {
       ,
       meta ? { },
       allowSubstitutes ? false,
-      preferLocalBuild ? true
+      preferLocalBuild ? true,
     }:
     runCommand name
     {
@@ -329,7 +325,7 @@ rec {
       name,
       text,
       runtimeInputs ? [ ],
-      checkPhase ? null
+      checkPhase ? null,
     }:
     writeTextFile {
       inherit name;
@@ -419,8 +415,7 @@ rec {
   */
   concatTextFile =
     {
-      name # the name of the derivation
-      ,
+      name, # the name of the derivation
       files,
       executable ? false # run chmod +x ?
       ,
@@ -428,7 +423,7 @@ rec {
       ,
       checkPhase ? "" # syntax checks, e.g. for scripts
       ,
-      meta ? { }
+      meta ? { },
     }:
     runCommandLocal name
     { inherit files executable checkPhase meta destination; }
@@ -640,16 +635,14 @@ rec {
       name ? lib.warn
         "calling makeSetupHook without passing a name is deprecated."
         "hook",
-      deps ? [ ]
+      deps ? [ ],
       # hooks go in nativeBuildInput so these will be nativeBuildInput
-      ,
-      propagatedBuildInputs ? [ ]
+      propagatedBuildInputs ? [ ],
       # these will be buildInputs
-      ,
       depsTargetTargetPropagated ? [ ],
       meta ? { },
       passthru ? { },
-      substitutions ? { }
+      substitutions ? { },
     }:
     script:
     runCommand name
@@ -883,7 +876,7 @@ rec {
       hash ? null,
       url ? null,
       message ? null,
-      hashMode ? "flat"
+      hashMode ? "flat",
     }:
     assert (message != null) || (url != null);
     assert (sha256 != null) || (sha1 != null) || (hash != null);
@@ -986,7 +979,7 @@ rec {
       )
         + "-patched",
       patches ? [ ],
-      postPatch ? ""
+      postPatch ? "",
     }:
     stdenvNoCC.mkDerivation {
       inherit name src patches postPatch;

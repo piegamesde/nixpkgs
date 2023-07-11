@@ -6,7 +6,7 @@
   runCommand,
   darwin,
   sources ? import ./sources.nix { inherit fetchurl; },
-  version ? sources.versionUsed
+  version ? sources.versionUsed,
 }:
 
 assert sources != null && (builtins.isAttrs sources);

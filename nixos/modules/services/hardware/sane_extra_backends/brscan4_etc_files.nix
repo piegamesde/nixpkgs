@@ -2,7 +2,7 @@
   stdenv,
   lib,
   brscan4,
-  netDevices ? [ ]
+  netDevices ? [ ],
 }:
 
 /* Testing

@@ -2,20 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  django
+  django,
 
   # optionals
-  ,
   bleach,
   docutils,
   markdown,
   pygments,
   python-creole,
   smartypants,
-  textile
+  textile,
 
   # tests
-  ,
   pytest-django,
   pytestCheckHook,
 }:

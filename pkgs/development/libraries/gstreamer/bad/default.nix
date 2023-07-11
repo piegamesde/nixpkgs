@@ -100,9 +100,8 @@
   Foundation,
   MediaToolbox,
   enableGplPlugins ? true,
-  bluezSupport ? stdenv.isLinux
+  bluezSupport ? stdenv.isLinux,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

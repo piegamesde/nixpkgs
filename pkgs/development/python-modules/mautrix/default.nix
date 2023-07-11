@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
   # deps
-  ,
   aiohttp,
   attrs,
-  yarl
+  yarl,
   # optional deps
-  ,
   python-magic,
   python-olm,
   unpaddedbase64,
-  pycryptodome
+  pycryptodome,
   # check deps
-  ,
   pytestCheckHook,
   pytest-asyncio,
   aiosqlite,

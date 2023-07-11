@@ -33,7 +33,7 @@
   which,
   xapian,
   zlib,
-  withGui ? true
+  withGui ? true,
 }:
 
 mkDerivation rec {

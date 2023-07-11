@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   fmt,
-  staticBuild ? stdenv.hostPlatform.isStatic
+  staticBuild ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

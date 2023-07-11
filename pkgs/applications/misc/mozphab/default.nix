@@ -1,10 +1,9 @@
 {
   lib,
   fetchFromGitHub,
-  python3
+  python3,
 
   # tests
-  ,
   git,
   mercurial,
   patch,

@@ -11,7 +11,7 @@
     DBDCSV
     TextCSV
   ],
-  willCite ? false
+  willCite ? false,
 }:
 
 runCommand "parallel-full" { nativeBuildInputs = [ makeWrapper ]; } ''

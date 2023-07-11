@@ -11,8 +11,7 @@
   libdrm,
   libgcrypt,
   libkrb5,
-  mesa # for libgbm
-  ,
+  mesa, # for libgbm
   nss,
   xorg,
   systemd,

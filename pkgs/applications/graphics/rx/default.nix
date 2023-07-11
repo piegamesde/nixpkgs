@@ -7,7 +7,7 @@
   cmake,
   pkg-config,
   xorg ? null,
-  libGL ? null
+  libGL ? null,
 }:
 
 with lib;

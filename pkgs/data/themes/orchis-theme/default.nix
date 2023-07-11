@@ -11,7 +11,7 @@
   tweaks ?
     [ ] # can be "solid" "compact" "black" "primary" "macos" "submenu" "nord|dracula"
   ,
-  withWallpapers ? false
+  withWallpapers ? false,
 }:
 
 let

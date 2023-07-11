@@ -16,7 +16,7 @@
   pkg-config,
   ppp,
   sstp,
-  withGnome ? true
+  withGnome ? true,
 }:
 
 stdenv.mkDerivation rec {

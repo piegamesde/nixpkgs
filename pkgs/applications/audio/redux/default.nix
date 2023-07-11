@@ -6,7 +6,7 @@
   libXext,
   alsa-lib,
   autoPatchelfHook,
-  releasePath ? null
+  releasePath ? null,
 }:
 
 # To use the full release version (same as renoise):

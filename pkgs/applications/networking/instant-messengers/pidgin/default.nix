@@ -37,7 +37,7 @@
   plugins,
   withOpenssl,
   withGnutls,
-  withCyrus_sasl ? true
+  withCyrus_sasl ? true,
 }:
 
 # FIXME: clean the mess around choosing the SSL library (nss by default)

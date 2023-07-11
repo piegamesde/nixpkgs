@@ -7,10 +7,9 @@
   poetry-core,
   pygments,
   typing-extensions,
-  pytestCheckHook
+  pytestCheckHook,
 
   # for passthru.tests
-  ,
   enrich,
   httpie,
   rich-rst,

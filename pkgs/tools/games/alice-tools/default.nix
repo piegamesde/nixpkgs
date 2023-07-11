@@ -16,7 +16,7 @@
   zlib,
   withGUI ? true,
   qtbase ? null,
-  wrapQtAppsHook ? null
+  wrapQtAppsHook ? null,
 }:
 
 assert withGUI -> qtbase != null && wrapQtAppsHook != null;

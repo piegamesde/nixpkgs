@@ -5,7 +5,7 @@
   ledger,
   hledger,
   useLedger ? true,
-  useHledger ? true
+  useHledger ? true,
 }:
 
 python3Packages.buildPythonApplication rec {

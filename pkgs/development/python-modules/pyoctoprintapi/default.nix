@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # propagated
-  ,
-  aiohttp
+  aiohttp,
 
   # tests
-  ,
   pytest-asyncio,
   pytestCheckHook,
 }:

@@ -20,9 +20,8 @@
   pkg-config,
   utf8proc,
   allowPgo ? !stdenv.hostPlatform.isMusl,
-  python3 # for PGO
+  python3, # for PGO
   # for clang stdenv check
-  ,
   foot,
   llvmPackages,
   llvmPackages_latest,

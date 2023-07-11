@@ -11,7 +11,7 @@
   texlive,
   doxygen,
   graphviz,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 
 let

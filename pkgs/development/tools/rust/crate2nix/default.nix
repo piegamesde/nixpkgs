@@ -2,9 +2,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  makeWrapper
+  makeWrapper,
 
-  ,
   cargo,
   nix,
   nix-prefetch-git,

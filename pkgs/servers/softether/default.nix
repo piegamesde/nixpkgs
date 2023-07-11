@@ -6,7 +6,7 @@
   readline,
   ncurses,
   zlib,
-  dataDir ? "/var/lib/softether"
+  dataDir ? "/var/lib/softether",
 }:
 
 stdenv.mkDerivation rec {

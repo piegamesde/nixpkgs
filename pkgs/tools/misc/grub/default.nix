@@ -4,7 +4,7 @@
   fetchurl,
   autoreconfHook,
   texinfo,
-  buggyBiosCDSupport ? true
+  buggyBiosCDSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

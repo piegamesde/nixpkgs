@@ -4,10 +4,9 @@
   fetchFromGitHub,
   lazarus,
   fpc,
-  libX11
+  libX11,
 
   # GTK2/3
-  ,
   pango,
   cairo,
   glib,
@@ -15,18 +14,17 @@
   gtk2,
   gtk3,
   gdk-pixbuf,
-  python3
+  python3,
 
   # Qt5
-  ,
   libqt5pas,
-  qt5
+  qt5,
 
-  ,
-  widgetset ? "qt5"
+  widgetset ? "qt5",
   # See https://github.com/Alexey-T/CudaText-lexers
-  ,
-  additionalLexers ? [ "Nix" ]
+  additionalLexers ? [
+    "Nix"
+  ],
 }:
 
 assert builtins.elem widgetset [

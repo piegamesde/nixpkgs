@@ -3,9 +3,8 @@
   lib,
   fetchFromGitHub,
   cmake,
-  blas
+  blas,
   # Check Inputs
-  ,
   python3,
 }:
 

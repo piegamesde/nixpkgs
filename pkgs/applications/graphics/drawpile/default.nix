@@ -3,44 +3,40 @@
   lib,
   mkDerivation,
   fetchFromGitHub,
-  extra-cmake-modules
+  extra-cmake-modules,
 
   # common deps
-  ,
-  karchive
+  karchive,
 
   # client deps
-  ,
   qtbase,
   qtkeychain,
   qtmultimedia,
   qtsvg,
   qttools,
-  libsecret
+  libsecret,
 
   # optional client deps
-  ,
   giflib,
   kdnssd,
   libvpx,
   miniupnpc,
-  qtx11extras # kis
+  qtx11extras, # kis
 
   # optional server deps
-  ,
   libmicrohttpd,
   libsodium,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  systemd ? null
+  systemd ? null,
 
   # options
-  ,
   buildClient ? true,
   buildServer ? true,
   buildServerGui ? true # if false builds a headless server
   ,
   buildExtraTools ? false,
   enableKisTablet ? false # enable improved graphics tablet support
+  ,
 }:
 
 with lib;

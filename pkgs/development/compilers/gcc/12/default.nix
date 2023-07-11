@@ -44,8 +44,7 @@
   ,
   crossStageStatic ? false,
   gnused ? null,
-  cloog # unused; just for compat with gcc4, as we override the parameter on some places
-  ,
+  cloog, # unused; just for compat with gcc4, as we override the parameter on some places
   buildPackages,
   libxcrypt,
   disableGdbPlugin ? !enablePlugin,

@@ -12,7 +12,7 @@ lib: pythonPackages:
   info,
   meta ? { },
   application ? false,
-  doCheck ? true
+  doCheck ? true,
 }:
 let
   build =

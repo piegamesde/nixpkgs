@@ -36,6 +36,7 @@
   ,
   destructionColor ?
     null # Tertiary color for 'destructive' buttons (Default: #F44336 = Red500)
+  ,
 }:
 
 stdenv.mkDerivation rec {

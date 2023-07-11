@@ -118,7 +118,7 @@ let
         slaves ? [ ],
         masters ? [ ],
         allowQuery ? [ ],
-        extraConfig ? ""
+        extraConfig ? "",
       }: ''
         zone "${name}" {
           type ${

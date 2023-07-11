@@ -16,7 +16,7 @@
 
 {
   src, # The file to import, relative to the src root directory
-  file ? "package.dhall"
+  file ? "package.dhall",
 }@args:
 
 let

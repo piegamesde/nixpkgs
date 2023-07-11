@@ -2,7 +2,7 @@
   version,
   sha256,
   extraPatches ? [ ],
-  knownVulnerabilities ? [ ]
+  knownVulnerabilities ? [ ],
 }:
 
 {
@@ -14,37 +14,32 @@
   pkg-config,
   perl,
   texinfo,
-  yasm
+  yasm,
 
-  ,
   ffmpegVariant ? "small" # Decides which dependencies are enabled by default
+  ,
 
   # Build with headless deps; excludes dependencies that are only necessary for
   # GUI applications. To be used for purposes that don't generally need such
   # components and i.e. only depend on libav
-  ,
-  withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps
+  withHeadlessDeps ? ffmpegVariant == "headless" || withSmallDeps,
 
   # Dependencies a user might customarily expect from a regular ffmpeg build.
   # /All/ packages that depend on ffmpeg and some of its feaures should depend
   # on the small variant. Small means the minimal set of features that satisfies
   # all dependants in Nixpkgs
-  ,
-  withSmallDeps ? ffmpegVariant == "small" || withFullDeps
+  withSmallDeps ? ffmpegVariant == "small" || withFullDeps,
 
   # Everything enabled; only guarded behind platform exclusivity or brokeness.
   # If you need to depend on ffmpeg-full because ffmpeg is missing some feature
   # your package needs, you should enable that feature in regular ffmpeg
   # instead.
-  ,
-  withFullDeps ? ffmpegVariant == "full"
+  withFullDeps ? ffmpegVariant == "full",
 
-  ,
   fetchgit,
-  fetchpatch
+  fetchpatch,
 
   # Feature flags
-  ,
   withAlsa ? withHeadlessDeps && stdenv.isLinux # Alsa in/output supporT
   ,
   withAom ? withFullDeps # AV1 reference encoder
@@ -209,15 +204,14 @@
   withZimg ? withHeadlessDeps,
   withZlib ? withHeadlessDeps,
   withZmq ? withFullDeps # Message passing
+  ,
 
   # *  Licensing options (yes some are listed twice, filters and such are not listed)
-  ,
   withGPL ? true,
   withGPLv3 ? true,
-  withUnfree ? false
+  withUnfree ? false,
 
   # *  Build options
-  ,
   withSmallBuild ? false # Optimize for size instead of speed
   ,
   withRuntimeCPUDetection ?
@@ -241,8 +235,8 @@
   withPixelutils ? withHeadlessDeps # Pixel utils in libavutil
   ,
   withLTO ? false # build with link-time optimization
-  # *  Program options
   ,
+  # *  Program options
   buildFfmpeg ? withHeadlessDeps # Build ffmpeg executable
   ,
   buildFfplay ? withFullDeps # Build ffplay executable
@@ -251,9 +245,8 @@
   ,
   buildQtFaststart ? withFullDeps # Build qt-faststart executable
   ,
-  withBin ? buildFfmpeg || buildFfplay || buildFfprobe || buildQtFaststart
+  withBin ? buildFfmpeg || buildFfplay || buildFfprobe || buildQtFaststart,
   # *  Library options
-  ,
   buildAvcodec ? withHeadlessDeps # Build avcodec library
   ,
   buildAvdevice ? withHeadlessDeps # Build avdevice library
@@ -261,9 +254,9 @@
   buildAvfilter ? withHeadlessDeps # Build avfilter library
   ,
   buildAvformat ? withHeadlessDeps # Build avformat library
+  ,
   # Deprecated but depended upon by some packages.
   # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
-  ,
   buildAvresample ?
     withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
   ,
@@ -282,9 +275,8 @@
     || buildAvutil
     || buildPostproc
     || buildSwresample
-    || buildSwscale
+    || buildSwscale,
   # *  Documentation options
-  ,
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
   ,
@@ -293,20 +285,18 @@
   withPodDoc ? withHeadlessDeps # POD documentation pages
   ,
   withTxtDoc ? withHeadlessDeps # Text documentation pages
+  ,
   # Whether a "doc" output will be produced. Note that withManPages does not produce
   # a "doc" output because its files go to "man".
-  ,
-  withDoc ? withDocumentation && (withHtmlDoc || withPodDoc || withTxtDoc)
+  withDoc ? withDocumentation && (withHtmlDoc || withPodDoc || withTxtDoc),
 
   # *  Developer options
-  ,
   withDebug ? false,
   withOptimisations ? true,
   withExtraWarnings ? false,
-  withStripping ? false
+  withStripping ? false,
 
   # *  External libraries options
-  ,
   alsa-lib,
   bzip2,
   clang,
@@ -359,10 +349,8 @@
   nv-codec-headers,
   nv-codec-headers-11,
   openal,
-  ocl-icd # OpenCL ICD
-  ,
-  opencl-headers # OpenCL headers
-  ,
+  ocl-icd, # OpenCL ICD
+  opencl-headers, # OpenCL headers
   opencore-amr,
   libGL,
   libGLU,
@@ -388,9 +376,8 @@
   zlib,
   vulkan-headers,
   vulkan-loader,
-  glslang
+  glslang,
   # *  Darwin frameworks
-  ,
   AVFoundation,
   Cocoa,
   CoreAudio,
@@ -398,9 +385,8 @@
   CoreServices,
   MediaToolbox,
   VideoDecodeAcceleration,
-  VideoToolbox
+  VideoToolbox,
   # *  Testing
-  ,
   testers,
 }:
 

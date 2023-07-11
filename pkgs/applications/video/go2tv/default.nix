@@ -10,7 +10,7 @@
   xorg,
   libglvnd,
   pkg-config,
-  withGui ? true
+  withGui ? true,
 }:
 
 buildGoModule rec {

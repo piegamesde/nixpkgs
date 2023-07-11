@@ -15,9 +15,8 @@
   guiSupport ? fullBuild,
   tk,
   highlightSupport ? fullBuild,
-  ApplicationServices
+  ApplicationServices,
   # test dependencies
-  ,
   runCommand,
   unzip,
   which,
@@ -142,7 +141,7 @@ let
     {
       mercurial ? self,
       nameSuffix ? "",
-      flags ? ""
+      flags ? "",
     }:
     runCommand "${mercurial.pname}${nameSuffix}-tests"
     {

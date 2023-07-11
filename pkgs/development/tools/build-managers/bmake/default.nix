@@ -6,8 +6,7 @@
   getopt,
   ksh,
   tzdata,
-  pkgsMusl # for passthru.tests
-  ,
+  pkgsMusl, # for passthru.tests
 }:
 
 stdenv.mkDerivation (

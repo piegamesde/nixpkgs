@@ -12,7 +12,7 @@
   enableLibPurple ? false,
   pidgin ? null,
   enablePam ? false,
-  pam ? null
+  pam ? null,
 }:
 
 stdenv.mkDerivation rec {

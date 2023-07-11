@@ -14,7 +14,7 @@
   libpng,
   gettext,
   cunit,
-  enableEditor ? false
+  enableEditor ? false,
 }:
 
 stdenv.mkDerivation rec {

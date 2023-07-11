@@ -2,16 +2,14 @@
   lib,
   stdenv,
   fetchurl,
-  unzip
+  unzip,
   # If jdk is null, require JAVA_HOME in runtime environment, else store
   # JAVA_HOME=${jdk.home} into grails.
-  ,
   jdk ? null,
   coreutils,
   ncurses,
   gnused,
-  gnugrep # for purity
-  ,
+  gnugrep, # for purity
 }:
 
 let

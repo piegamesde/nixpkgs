@@ -4,7 +4,7 @@
   fetchFromGitHub,
   SDL,
   which,
-  installTool ? false
+  installTool ? false,
 }:
 
 stdenv.mkDerivation rec {

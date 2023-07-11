@@ -3,7 +3,7 @@
   lib,
   nuspell,
   makeWrapper,
-  dicts ? [ ]
+  dicts ? [ ],
 }:
 
 let

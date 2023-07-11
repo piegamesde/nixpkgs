@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   gflags,
-  staticOnly ? stdenv.hostPlatform.isStatic
+  staticOnly ? stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation rec {

@@ -10,10 +10,9 @@
   version,
   fetchpatch,
   standalone ? stdenv.hostPlatform.useLLVM or false,
-  withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm
+  withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm,
   # on musl the shared objects don't build
-  ,
-  enableShared ? !stdenv.hostPlatform.isStatic
+  enableShared ? !stdenv.hostPlatform.isStatic,
 }:
 
 stdenv.mkDerivation {

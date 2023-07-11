@@ -5,7 +5,7 @@
   fetchpatch,
   ocaml,
   findlib,
-  withStatic ? false
+  withStatic ? false,
 }:
 
 stdenv.mkDerivation (

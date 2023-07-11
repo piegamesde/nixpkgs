@@ -16,7 +16,7 @@
   bsdlSupport ? true,
   jedecSupport ? true,
   staplSupport ? true,
-  svfSupport ? true
+  svfSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

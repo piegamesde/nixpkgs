@@ -9,10 +9,9 @@
   argp-standalone,
   openssl,
   jitterentropy,
-  withJitterEntropy ? true
+  withJitterEntropy ? true,
   # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
   # https://www.nist.gov/programs-projects/nist-randomness-beacon
-  ,
   curl,
   jansson,
   libxml2,
@@ -21,7 +20,7 @@
   opensc,
   withPkcs11 ? true,
   rtl-sdr,
-  withRtlsdr ? true
+  withRtlsdr ? true,
 }:
 
 stdenv.mkDerivation rec {

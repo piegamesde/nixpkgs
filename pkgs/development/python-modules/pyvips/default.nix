@@ -6,10 +6,8 @@
   glib,
   vips,
   cffi,
-  pkgconfig # from pythonPackages
-  ,
-  pkg-config # from pkgs
-  ,
+  pkgconfig, # from pythonPackages
+  pkg-config, # from pkgs
   lib,
 }:
 

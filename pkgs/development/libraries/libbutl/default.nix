@@ -5,7 +5,7 @@
   fetchurl,
   libuuid,
   enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? !enableShared
+  enableStatic ? !enableShared,
 }:
 
 stdenv.mkDerivation rec {

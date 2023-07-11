@@ -2,7 +2,7 @@
   stdenv,
   lib,
   virtualglLib,
-  virtualglLib_i686 ? null
+  virtualglLib_i686 ? null,
 }:
 
 stdenv.mkDerivation {

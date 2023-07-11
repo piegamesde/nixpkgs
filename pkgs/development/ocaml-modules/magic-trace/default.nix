@@ -7,7 +7,7 @@
   core_unix ? null,
   owee,
   ppx_jane,
-  shell ? null
+  shell ? null,
 }:
 
 buildDunePackage rec {

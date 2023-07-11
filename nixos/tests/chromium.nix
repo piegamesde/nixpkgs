@@ -10,7 +10,7 @@
     chrome-stable = pkgs.google-chrome;
     chrome-beta = pkgs.google-chrome-beta;
     chrome-dev = pkgs.google-chrome-dev;
-  }
+  },
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };

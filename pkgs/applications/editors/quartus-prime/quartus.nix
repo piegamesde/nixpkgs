@@ -10,7 +10,7 @@
     "Cyclone 10 LP"
     "MAX II/V"
     "MAX 10 FPGA"
-  ]
+  ],
 }:
 
 let

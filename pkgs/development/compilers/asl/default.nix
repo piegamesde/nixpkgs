@@ -3,7 +3,7 @@
   stdenv,
   fetchzip,
   tex,
-  buildDocs ? false
+  buildDocs ? false,
 }:
 
 stdenv.mkDerivation (

@@ -164,13 +164,12 @@
   , # Copy the contents of the Nix store to the root of the image and
   # skip further setup. Incompatible with `contents`,
   # `installBootLoader` and `configFile`.
-  onlyNixStore ? false
+  onlyNixStore ? false,
 
-  ,
   name ? "nixos-disk-image"
 
   , # Disk image format, one of qcow2, qcow2-compressed, vdi, vpc, raw.
-  format ? "raw"
+  format ? "raw",
 
   # Whether to fix:
   #   - GPT Disk Unique Identifier (diskGUID)
@@ -180,15 +179,12 @@
   # BIOS/MBR support is "best effort" at the moment.
   # Boot partitions may not be deterministic.
   # Also, to fix last time checked of the ext4 partition if fsType = ext4.
-  ,
-  deterministic ? true
+  deterministic ? true,
 
   # GPT Partition Unique Identifier for root partition.
-  ,
-  rootGPUID ? "F222513B-DED1-49FA-B591-20CE86A2FE7F"
+  rootGPUID ? "F222513B-DED1-49FA-B591-20CE86A2FE7F",
   # When fsType = ext4, this is the root Filesystem Unique Identifier.
   # TODO: support other filesystems someday.
-  ,
   rootFSUID ? (
     if fsType == "ext4" then
       rootGPUID
@@ -203,7 +199,7 @@
   copyChannel ? true
 
   , # Additional store paths to copy to the image's store.
-  additionalPaths ? [ ]
+  additionalPaths ? [ ],
 }:
 
 assert (lib.assertOneOf "partitionTableType" partitionTableType [

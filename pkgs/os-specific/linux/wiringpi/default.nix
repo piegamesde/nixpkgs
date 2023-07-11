@@ -10,15 +10,14 @@ let
   version = "2.61-1";
   mkSubProject =
     {
-      subprj # The only mandatory argument
-      ,
+      subprj, # The only mandatory argument
       buildInputs ? [ ],
       src ? fetchFromGitHub {
         owner = "WiringPi";
         repo = "WiringPi";
         rev = version;
         sha256 = "sha256-VxAaPhaPXd9xYt663Ju6SLblqiSLizauhhuFqCqbO5M=";
-      }
+      },
     }:
     stdenv.mkDerivation rec {
       pname = "wiringpi-${subprj}";

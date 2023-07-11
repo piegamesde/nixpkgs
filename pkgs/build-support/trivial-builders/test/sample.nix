@@ -2,7 +2,7 @@
   pkgs ? import ../../../.. {
     config = { };
     overlays = [ ];
-  }
+  },
 }:
 let
   inherit (pkgs) figlet zlib hello writeText runCommand;

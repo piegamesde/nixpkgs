@@ -6,8 +6,7 @@
   docbook-xsl-nons,
   gtk-doc,
   installShellFiles,
-  libxslt # for xsltproc
-  ,
+  libxslt, # for xsltproc
   pkg-config,
   which,
   libffi,

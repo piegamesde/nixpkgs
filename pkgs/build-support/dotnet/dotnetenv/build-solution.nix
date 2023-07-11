@@ -14,7 +14,7 @@
   assemblyInputs ? [ ],
   preBuild ? "",
   modifyPublicMain ? false,
-  mainClassFile ? null
+  mainClassFile ? null,
 }:
 
 assert modifyPublicMain -> mainClassFile != null;

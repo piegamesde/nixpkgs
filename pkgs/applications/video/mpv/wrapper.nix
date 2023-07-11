@@ -22,7 +22,7 @@ let
       # `$out/share/mpv/scripts/`.
       # A script can optionally also provide an `extraWrapperArgs` passthru attribute.
       scripts ? [ ],
-      extraUmpvWrapperArgs ? [ ]
+      extraUmpvWrapperArgs ? [ ],
     }:
     let
       binPath = lib.makeBinPath (

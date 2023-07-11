@@ -18,7 +18,7 @@
   symlinkJoin,
   makeWrapper,
   runCommand,
-  doInstallCheck ? true
+  doInstallCheck ? true,
 }:
 
 resholve.mkDerivation rec {

@@ -1,19 +1,17 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build time
-  ,
   autoreconfHook,
   flex,
   bison,
   perl,
   pkg-config,
-  texinfo
+  texinfo,
 
   # runtime
-  ,
   c-ares,
   json_c,
   libcap,
@@ -26,10 +24,9 @@
   pcre2,
   python3,
   readline,
-  rtrlib
+  rtrlib,
 
   # tests
-  ,
   nettools,
   nixosTests,
 }:

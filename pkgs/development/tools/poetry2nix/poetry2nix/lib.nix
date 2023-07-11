@@ -199,7 +199,7 @@ let
       version,
       hash,
       kind,
-      curlOpts ? ""
+      curlOpts ? "",
     }:
     let
       predictedURL = predictURLFromPypi { inherit pname file hash kind; };

@@ -3,10 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # propgatedBuildInputs
-  ,
   adal,
   certifi,
   google-auth,
@@ -17,10 +16,9 @@
   setuptools,
   six,
   urllib3,
-  websocket-client
+  websocket-client,
 
   # tests
-  ,
   pytestCheckHook,
   mock,
 }:

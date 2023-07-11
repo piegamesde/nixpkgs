@@ -2,10 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  python3
+  python3,
 
   # nativeCheckInputs
-  ,
   hypothesis,
   unittestCheckHook,
 

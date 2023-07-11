@@ -29,15 +29,13 @@
   QuartzCore,
   WebKit,
   DiscRecording,
-  CoreAudioKit
+  CoreAudioKit,
 
   # Enabling JACK requires a JACK server at runtime, no fallback mechanism
-  ,
   withJack ? false,
-  jack
+  jack,
 
-  ,
-  type ? "ADL"
+  type ? "ADL",
 }:
 
 assert lib.assertOneOf "type" type [

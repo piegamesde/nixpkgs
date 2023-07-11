@@ -6,14 +6,12 @@
   libossp_uuid,
   zlib,
   lib,
-  fetchpatch
+  fetchpatch,
   # optional but of negligible size
-  ,
   openssl,
   brotli,
-  c-ares
+  c-ares,
   # optional databases
-  ,
   sqliteSupport ? true,
   sqlite,
   postgresSupport ? false,

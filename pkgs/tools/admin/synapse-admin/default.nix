@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   mkYarnPackage,
-  baseUrl ? null
+  baseUrl ? null,
 }:
 
 mkYarnPackage rec {

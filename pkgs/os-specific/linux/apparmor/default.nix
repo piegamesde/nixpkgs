@@ -389,10 +389,9 @@ let
   #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
   apparmorRulesFromClosure =
     { # The store path of the derivation is given in $path
-      additionalRules ? [ ]
+      additionalRules ? [ ],
       # TODO: factorize here some other common paths
       # that may emerge from use cases.
-      ,
       baseRules ? [
         "r $path"
         "r $path/etc/**"
@@ -403,7 +402,7 @@ let
         # eg. glibc-2.30/lib/gconv/gconv-modules
         "r $path/lib/**"
       ],
-      name ? ""
+      name ? "",
     }:
     rootPaths:
     runCommand

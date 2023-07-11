@@ -9,7 +9,7 @@
   hip,
   gtest,
   buildTests ? false,
-  buildBenchmarks ? false
+  buildBenchmarks ? false,
 }:
 
 stdenv.mkDerivation (

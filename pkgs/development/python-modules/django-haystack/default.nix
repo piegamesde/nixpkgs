@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   pythonOlder,
-  fetchPypi
+  fetchPypi,
 
   # build dependencies
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # dependencies
-  ,
-  django
+  django,
 
   # tests
-  ,
   geopy,
   nose,
   pysolr,

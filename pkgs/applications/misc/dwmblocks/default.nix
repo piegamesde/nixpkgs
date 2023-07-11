@@ -5,7 +5,7 @@
   libX11,
   patches ? [ ],
   writeText,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation {

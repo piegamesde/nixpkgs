@@ -14,7 +14,7 @@
   slurp,
   wl-clipboard,
   waylandSupport ? true,
-  x11Support ? true
+  x11Support ? true,
 }:
 
 python3Packages.buildPythonApplication rec {

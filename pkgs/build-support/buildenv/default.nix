@@ -42,17 +42,15 @@ lib.makeOverridable (
     extraPrefix ? ""
 
     , # Shell commands to run after building the symlink tree.
-    postBuild ? ""
+    postBuild ? "",
 
     # Additional inputs
-    ,
     nativeBuildInputs ? [ ] # Handy e.g. if using makeWrapper in `postBuild`.
     ,
-    buildInputs ? [ ]
+    buildInputs ? [ ],
 
-    ,
     passthru ? { },
-    meta ? { }
+    meta ? { },
   }:
 
   let

@@ -15,7 +15,7 @@
   namespace,
   mainClassName,
   mainClassFile,
-  modifyPublicMain ? true
+  modifyPublicMain ? true,
 }:
 
 let

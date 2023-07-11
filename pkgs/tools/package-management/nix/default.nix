@@ -7,12 +7,11 @@
   fetchurl,
   fetchpatch,
   fetchpatch2,
-  Security
+  Security,
 
-  ,
   storeDir ? "/nix/store",
   stateDir ? "/nix/var",
-  confDir ? "/etc"
+  confDir ? "/etc",
 }:
 let
   boehmgc-nix_2_3 = boehmgc.override { enableLargeConfig = true; };

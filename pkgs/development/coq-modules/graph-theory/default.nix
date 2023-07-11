@@ -7,7 +7,7 @@
   mathcomp-fingroup,
   fourcolor,
   hierarchy-builder,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {

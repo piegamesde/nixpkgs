@@ -3,7 +3,7 @@
   lib,
   hunspell,
   makeWrapper,
-  dicts ? [ ]
+  dicts ? [ ],
 }:
 let
   searchPath = lib.makeSearchPath "share/hunspell" dicts;

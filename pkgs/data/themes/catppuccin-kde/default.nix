@@ -4,7 +4,7 @@
   fetchFromGitHub,
   flavour ? [ "frappe" ],
   accents ? [ "blue" ],
-  winDecStyles ? [ "modern" ]
+  winDecStyles ? [ "modern" ],
 }:
 
 let

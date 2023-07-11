@@ -4,7 +4,7 @@
   coq,
   equations,
   LibHyps,
-  version ? null
+  version ? null,
 }:
 
 (mkCoqDerivation {

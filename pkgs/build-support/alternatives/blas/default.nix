@@ -4,7 +4,7 @@
   lapack-reference,
   openblas,
   isILP64 ? false,
-  blasProvider ? openblas
+  blasProvider ? openblas,
 }:
 
 let

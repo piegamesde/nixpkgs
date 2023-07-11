@@ -135,9 +135,8 @@
   kwindowsystem ? null,
   variant ? "fresh",
   symlinkJoin,
-  postgresql
+  postgresql,
   # The rest are used only in passthru, for the wrapper
-  ,
   kauth ? null,
   kcompletion ? null,
   kconfigwidgets ? null,
@@ -153,7 +152,7 @@
   qtsvg ? null,
   qttools ? null,
   solid ? null,
-  sonnet ? null
+  sonnet ? null,
 }@args:
 
 assert builtins.elem variant [

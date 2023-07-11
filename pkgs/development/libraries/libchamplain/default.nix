@@ -17,9 +17,8 @@
   clutter-gtk,
   libsoup,
   libsoup_3,
-  gobject-introspection # , libmemphis
-  ,
-  withLibsoup3 ? false
+  gobject-introspection, # , libmemphis
+  withLibsoup3 ? false,
 }:
 
 stdenv.mkDerivation rec {

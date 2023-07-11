@@ -1,14 +1,12 @@
 {
   mkDerivation,
-  lib
+  lib,
 
-  ,
   cmake,
   extra-cmake-modules,
   pkg-config,
-  wrapQtAppsHook
+  wrapQtAppsHook,
 
-  ,
   cmark,
   kconfig,
   kdbusaddons,

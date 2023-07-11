@@ -16,7 +16,7 @@
   useMpi ? false,
   useIv ? true,
   useCore ? false,
-  useRx3d ? false
+  useRx3d ? false,
 }:
 
 stdenv.mkDerivation rec {

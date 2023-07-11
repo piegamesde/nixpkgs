@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { }
+  pkgs ? import <nixpkgs> { },
 }:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new hashes into this file

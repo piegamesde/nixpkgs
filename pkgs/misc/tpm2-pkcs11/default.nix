@@ -17,7 +17,7 @@
   glibc,
   libyaml,
   abrmdSupport ? true,
-  tpm2-abrmd ? null
+  tpm2-abrmd ? null,
 }:
 
 stdenv.mkDerivation rec {

@@ -11,10 +11,9 @@
   texlive,
   armadillo,
   libxc,
-  makeWrapper
+  makeWrapper,
   # Note that the CASPT2 module is broken with MPI
   # See https://gitlab.com/Molcas/OpenMolcas/-/issues/169
-  ,
   enableMpi ? false,
   mpi,
   globalarrays,

@@ -18,8 +18,7 @@
   libjpeg,
   libpng,
   libvisual,
-  tremor # provides 'virbisidec'
-  ,
+  tremor, # provides 'virbisidec'
   libGL,
   gobject-introspection,
   enableX11 ? stdenv.isLinux,
@@ -30,19 +29,19 @@
   wayland,
   wayland-protocols,
   enableAlsa ? stdenv.isLinux,
-  alsa-lib
+  alsa-lib,
   # TODO: fix once x86_64-darwin sdk updated
-  ,
-  enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64),
+  enableCocoa ? (
+    stdenv.isDarwin && stdenv.isAarch64
+  ),
   Cocoa,
   OpenGL,
   enableGl ? (enableX11 || enableWayland || enableCocoa),
   enableCdparanoia ? (!stdenv.isDarwin),
   cdparanoia,
   glib,
-  testers
+  testers,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

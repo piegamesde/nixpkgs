@@ -1,10 +1,9 @@
 {
   lib,
   pkgs,
-  stdenv
+  stdenv,
 
   # Build-time dependencies:
-  ,
   addOpenGLRunpath,
   bazel_5,
   binutils,
@@ -23,18 +22,16 @@
   setuptools,
   symlinkJoin,
   wheel,
-  which
+  which,
 
   # Python dependencies:
-  ,
   absl-py,
   flatbuffers,
   numpy,
   scipy,
-  six
+  six,
 
   # Runtime dependencies:
-  ,
   double-conversion,
   giflib,
   grpc,
@@ -42,16 +39,14 @@
   protobuf,
   python,
   snappy,
-  zlib
+  zlib,
 
   # CUDA flags:
-  ,
   cudaSupport ? false,
-  cudaPackages ? { }
+  cudaPackages ? { },
 
   # MKL:
-  ,
-  mklSupport ? true
+  mklSupport ? true,
 }:
 
 let

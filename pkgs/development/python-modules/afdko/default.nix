@@ -26,9 +26,8 @@
   cmake,
   antlr4_9,
   libxml2,
-  pytestCheckHook
+  pytestCheckHook,
   # Enables some expensive tests, useful for verifying an update
-  ,
   runAllTests ? false,
   afdko,
 }:

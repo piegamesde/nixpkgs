@@ -4,7 +4,7 @@
   fetchgit,
   rcinit ? null,
   rcshutdown ? null,
-  rcreboot ? null
+  rcreboot ? null,
 }:
 
 stdenv.mkDerivation rec {

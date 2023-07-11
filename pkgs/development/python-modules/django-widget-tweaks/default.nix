@@ -1,18 +1,15 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # native
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # propagated
-  ,
-  django
+  django,
 
   # tests
-  ,
   python,
 }:
 

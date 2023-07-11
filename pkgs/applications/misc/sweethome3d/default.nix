@@ -3,9 +3,8 @@
   stdenv,
   fetchurl,
   makeWrapper,
-  makeDesktopItem
+  makeDesktopItem,
   # sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
-  ,
   jdk8,
   jre8,
   ant,

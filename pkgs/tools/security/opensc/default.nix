@@ -17,7 +17,7 @@
   Carbon,
   PCSC,
   buildPackages,
-  withApplePCSC ? stdenv.isDarwin
+  withApplePCSC ? stdenv.isDarwin,
 }:
 
 stdenv.mkDerivation rec {

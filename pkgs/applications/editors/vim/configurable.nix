@@ -28,17 +28,15 @@
   vimPlugins,
   makeWrapper,
   wrapGAppsHook,
-  runtimeShell
+  runtimeShell,
 
   # apple frameworks
-  ,
   CoreServices,
   CoreData,
   Cocoa,
   Foundation,
-  libobjc
+  libobjc,
 
-  ,
   features ? "huge" # One of tiny, small, normal, big or huge
   ,
   wrapPythonDrv ? false,
@@ -73,6 +71,7 @@
   ,
   ftNixSupport ?
     config.vim.ftNix or true # Add .nix filetype detection and minimal syntax highlighting support
+  ,
 }:
 
 let

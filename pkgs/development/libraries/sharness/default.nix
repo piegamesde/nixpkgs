@@ -5,7 +5,7 @@
   fetchurl,
   perl,
   perlPackages,
-  sharnessExtensions ? { }
+  sharnessExtensions ? { },
 }:
 
 stdenv.mkDerivation rec {

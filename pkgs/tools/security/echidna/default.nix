@@ -1,8 +1,7 @@
 {
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
   # Haskell deps
-  ,
   mkDerivation,
   aeson,
   base,

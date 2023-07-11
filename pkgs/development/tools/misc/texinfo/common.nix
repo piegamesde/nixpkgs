@@ -1,7 +1,7 @@
 {
   version,
   sha256,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 {
@@ -13,10 +13,9 @@
   xz,
   libintl,
   bash,
-  gnulib
+  gnulib,
 
   # we are a dependency of gcc, this simplifies bootstraping
-  ,
   interactive ? false,
   ncurses,
   procps,

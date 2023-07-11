@@ -32,7 +32,7 @@
   withZlib ? true,
   zlib,
   withTools ? false,
-  withRedis ? false
+  withRedis ? false,
 }:
 
 let

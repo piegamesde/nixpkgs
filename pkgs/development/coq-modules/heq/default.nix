@@ -3,7 +3,7 @@
   fetchzip,
   mkCoqDerivation,
   coq,
-  version ? null
+  version ? null,
 }:
 
 let

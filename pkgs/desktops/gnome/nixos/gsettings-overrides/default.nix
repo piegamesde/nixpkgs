@@ -11,7 +11,7 @@
   extraGSettingsOverrides ? "",
   extraGSettingsOverridePackages ? [ ],
   favoriteAppsOverride ? "",
-  flashbackEnabled ? false
+  flashbackEnabled ? false,
 }:
 
 let

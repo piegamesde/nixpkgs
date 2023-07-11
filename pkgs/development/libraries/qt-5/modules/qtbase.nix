@@ -4,9 +4,8 @@
   src,
   patches,
   version,
-  qtCompatVersion
+  qtCompatVersion,
 
-  ,
   coreutils,
   bison,
   flex,
@@ -16,9 +15,8 @@
   perl,
   pkg-config,
   python3,
-  which
+  which,
   # darwin support
-  ,
   libiconv,
   libobjc,
   xcbuild,
@@ -36,9 +34,8 @@
   Foundation,
   OpenGL,
   MetalKit,
-  IOKit
+  IOKit,
 
-  ,
   dbus,
   fontconfig,
   freetype,
@@ -69,22 +66,19 @@
   xcbutilrenderutil,
   xcbutilwm,
   zlib,
-  at-spi2-core
+  at-spi2-core,
 
   # optional dependencies
-  ,
   cups ? null,
   postgresql ? null,
   withGtk3 ? false,
   dconf,
-  gtk3
+  gtk3,
 
   # options
-  ,
   libGLSupported ? !stdenv.isDarwin,
-  libGL
+  libGL,
   # qmake detection for libmysqlclient does not seem to work when cross compiling
-  ,
   mysqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform,
   libmysqlclient,
   buildExamples ? false,

@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build-system
-  ,
-  poetry-core
+  poetry-core,
 
   # propagates
-  ,
   aiofiles,
   blinker,
   click,
@@ -20,10 +18,9 @@
   pydata-sphinx-theme,
   python-dotenv,
   typing-extensions,
-  werkzeug
+  werkzeug,
 
   # tests
-  ,
   hypothesis,
   mock,
   py,

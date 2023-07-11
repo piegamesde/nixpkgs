@@ -5,7 +5,7 @@
   cmake,
   ninja,
   installCompatHeader ? false,
-  installLegacyHeaders ? false
+  installLegacyHeaders ? false,
 }:
 
 stdenv.mkDerivation rec {

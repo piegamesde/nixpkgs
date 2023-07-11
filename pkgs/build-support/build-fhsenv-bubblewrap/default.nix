@@ -153,7 +153,7 @@ let
     ;
   bwrapCmd =
     {
-      initArgs ? ""
+      initArgs ? "",
     }:
     ''
       ignored=(/nix /dev /proc /etc)

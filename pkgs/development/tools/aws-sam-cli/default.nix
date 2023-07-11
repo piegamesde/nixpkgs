@@ -1,7 +1,7 @@
 {
   lib,
   python3,
-  enableTelemetry ? false
+  enableTelemetry ? false,
 }:
 
 python3.pkgs.buildPythonApplication rec {

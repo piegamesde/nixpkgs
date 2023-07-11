@@ -8,7 +8,7 @@
   stdenv,
   wxSupport ? true,
   systemd,
-  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
 
 let

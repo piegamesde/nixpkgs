@@ -7,7 +7,7 @@
   eigen,
   hdf5,
   mpiSupport ? hdf5.mpiSupport,
-  mpi ? hdf5.mpi
+  mpi ? hdf5.mpi,
 }:
 
 assert mpiSupport -> mpi != null;

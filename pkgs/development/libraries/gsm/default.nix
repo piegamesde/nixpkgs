@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl, # Compile statically (support for packages that look for the static object)
-  staticSupport ? stdenv.hostPlatform.isStatic
+  staticSupport ? stdenv.hostPlatform.isStatic,
 }:
 
 let

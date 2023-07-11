@@ -9,9 +9,8 @@
   gstreamer,
   gst-plugins-base,
   gettext,
-  libav
+  libav,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

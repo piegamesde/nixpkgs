@@ -27,7 +27,7 @@ let
       sha256,
       extraNativeBuildInputs ? [ ],
       extraBuildInputs ? [ ],
-      withGraphviz ? false
+      withGraphviz ? false,
     }:
     let
       # Patches from the openembedded-core project to build vala without graphviz

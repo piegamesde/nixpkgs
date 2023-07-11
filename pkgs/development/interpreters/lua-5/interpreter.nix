@@ -20,7 +20,7 @@
   postConfigure ? null,
   postBuild ? null,
   staticOnly ? stdenv.hostPlatform.isStatic,
-  luaAttr ? "lua${lib.versions.major version}_${lib.versions.minor version}"
+  luaAttr ? "lua${lib.versions.major version}_${lib.versions.minor version}",
 }@inputs:
 let
   luaPackages = self.pkgs;

@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   pkg-config,
-  systemd ? null
+  systemd ? null,
 }:
 
 stdenv.mkDerivation rec {

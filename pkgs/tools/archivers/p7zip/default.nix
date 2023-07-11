@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  enableUnfree ? false
+  enableUnfree ? false,
 }:
 
 stdenv.mkDerivation (

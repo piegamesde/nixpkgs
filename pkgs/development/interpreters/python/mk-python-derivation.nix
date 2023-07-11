@@ -6,9 +6,8 @@
   python,
   wrapPython,
   unzip,
-  ensureNewerSourcesForZipFilesHook
+  ensureNewerSourcesForZipFilesHook,
   # Whether the derivation provides a Python module or not.
-  ,
   toPythonModule,
   namePrefix,
   update-python-libraries,
@@ -31,73 +30,61 @@
 }:
 
 {
-  name ? "${attrs.pname}-${attrs.version}"
+  name ? "${attrs.pname}-${attrs.version}",
 
   # Build-time dependencies for the package
-  ,
-  nativeBuildInputs ? [ ]
+  nativeBuildInputs ? [ ],
 
   # Run-time dependencies for the package
-  ,
-  buildInputs ? [ ]
+  buildInputs ? [ ],
 
   # Dependencies needed for running the checkPhase.
   # These are added to buildInputs when doCheck = true.
-  ,
   checkInputs ? [ ],
-  nativeCheckInputs ? [ ]
+  nativeCheckInputs ? [ ],
 
   # propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
-  ,
-  propagatedBuildInputs ? [ ]
+  propagatedBuildInputs ? [ ],
 
   # DEPRECATED: use propagatedBuildInputs
-  ,
-  pythonPath ? [ ]
+  pythonPath ? [ ],
 
   # Enabled to detect some (native)BuildInputs mistakes
-  ,
-  strictDeps ? true
+  strictDeps ? true,
 
-  ,
-  outputs ? [ "out" ]
+  outputs ? [ "out" ],
 
   # used to disable derivation, useful for specific python versions
-  ,
-  disabled ? false
+  disabled ? false,
 
   # Raise an error if two packages are installed with the same name
   # TODO: For cross we probably need a different PYTHONPATH, or not
   # add the runtime deps until after buildPhase.
-  ,
-  catchConflicts ? (python.stdenv.hostPlatform == python.stdenv.buildPlatform)
+  catchConflicts ? (
+    python.stdenv.hostPlatform == python.stdenv.buildPlatform
+  ),
 
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  ,
-  makeWrapperArgs ? [ ]
+  makeWrapperArgs ? [ ],
 
   # Skip wrapping of python programs altogether
-  ,
-  dontWrapPythonPrograms ? false
+  dontWrapPythonPrograms ? false,
 
   # Don't use Pip to install a wheel
   # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
   # It's included here to prevent an infinite recursion.
-  ,
-  dontUsePipInstall ? false
+  dontUsePipInstall ? false,
 
   # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
-  ,
-  permitUserSite ? false
+  permitUserSite ? false,
 
   # Remove bytecode from bin folder.
   # When a Python script has the extension `.py`, bytecode is generated
   # Typically, executables in bin have no extension, so no bytecode is generated.
   # However, some packages do provide executables with extensions, and thus bytecode is generated.
-  ,
-  removeBinBytecode ? true
+  removeBinBytecode ? true,
 
   # Several package formats are supported.
   # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
@@ -106,19 +93,14 @@
   # "pyproject": Install a package using a ``pyproject.toml`` file (PEP517). This builds a wheel.
   # "egg": Install a package from an egg.
   # "other" : Provide your own buildPhase and installPhase.
-  ,
-  format ? "setuptools"
+  format ? "setuptools",
 
-  ,
-  meta ? { }
+  meta ? { },
 
-  ,
-  passthru ? { }
+  passthru ? { },
 
-  ,
-  doCheck ? config.doCheckByDefault or false
+  doCheck ? config.doCheckByDefault or false,
 
-  ,
   disabledTestPaths ? [ ]
 
   ,

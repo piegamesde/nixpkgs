@@ -1,26 +1,22 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
   hatchling,
-  pytest
+  pytest,
 
   # runtime
-  ,
-  jupyter-core
+  jupyter-core,
 
   # optionals
-  ,
   jupyter-client,
   ipykernel,
   jupyter-server,
-  nbformat
+  nbformat,
 
   # tests
-  ,
   pytest-timeout,
   pytestCheckHook,
 }:

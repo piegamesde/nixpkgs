@@ -8,7 +8,7 @@
   procps,
   substituteAll,
   zlib,
-  wrapperDir ? "/run/wrappers/bin"
+  wrapperDir ? "/run/wrappers/bin",
 }:
 
 stdenv.mkDerivation rec {

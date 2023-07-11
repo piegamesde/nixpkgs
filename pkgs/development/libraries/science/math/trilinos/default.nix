@@ -10,7 +10,7 @@
   mpi,
   suitesparse,
   swig,
-  withMPI ? false
+  withMPI ? false,
 }:
 
 # NOTE: Not all packages are enabled.  We specifically enable the ones

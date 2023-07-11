@@ -3,7 +3,7 @@
   config ? { },
   pkgs ? import ../.. { inherit system config; },
   lib ? pkgs.lib,
-  testing ? import ../lib/testing-python.nix { inherit system pkgs; }
+  testing ? import ../lib/testing-python.nix { inherit system pkgs; },
 }:
 
 let

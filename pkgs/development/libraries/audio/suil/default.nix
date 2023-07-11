@@ -11,7 +11,7 @@
   sratom,
   wafHook,
   withQt5 ? true,
-  qt5 ? null
+  qt5 ? null,
 }:
 
 stdenv.mkDerivation rec {

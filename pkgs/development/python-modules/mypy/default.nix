@@ -4,28 +4,24 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-  pythonOlder
+  pythonOlder,
 
   # build-system
-  ,
   setuptools,
   types-psutil,
   types-setuptools,
-  types-typed-ast
+  types-typed-ast,
 
   # propagates
-  ,
   mypy-extensions,
   tomli,
-  typing-extensions
+  typing-extensions,
 
   # optionals
-  ,
   lxml,
-  psutil
+  psutil,
 
   # tests
-  ,
   attrs,
   filelock,
   pytest-xdist,

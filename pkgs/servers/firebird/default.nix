@@ -9,7 +9,7 @@
   libtommath,
   libtomcrypt,
   icu,
-  superServer ? false
+  superServer ? false,
 }:
 
 let

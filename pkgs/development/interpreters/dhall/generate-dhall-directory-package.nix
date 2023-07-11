@@ -18,7 +18,7 @@ lib.makePackageOverridable
     src, # The file to import, relative to the root directory
     file ?
       "package.dhall", # Set to `true` to generate documentation for the package
-    document ? false
+    document ? false,
   }:
   stdenv.mkDerivation {
     name = "dhall-directory-package.nix";

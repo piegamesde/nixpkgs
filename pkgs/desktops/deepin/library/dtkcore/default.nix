@@ -13,7 +13,7 @@
   libuchardet,
   dtkcommon,
   systemd,
-  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
 
 stdenv.mkDerivation rec {

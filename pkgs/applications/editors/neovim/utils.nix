@@ -24,22 +24,22 @@ let
   */
   makeNeovimConfig =
     {
-      withPython3 ? true
+      withPython3 ? true,
       # the function you would have passed to python3.withPackages
-      ,
-      extraPython3Packages ? (_: [ ]),
+      extraPython3Packages ? (
+        _: [ ]
+      ),
       withNodeJs ? false,
-      withRuby ? true
+      withRuby ? true,
       # the function you would have passed to lua.withPackages
-      ,
-      extraLuaPackages ? (_: [ ])
+      extraLuaPackages ? (
+        _: [ ]
+      ),
 
       # expects a list of plugin configuration
       # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
-      ,
-      plugins ? [ ]
+      plugins ? [ ],
       # custom viml config appended after plugin-specific config
-      ,
       customRC ? ""
 
       # for forward compability, when adding new environments, haskell etc.
@@ -169,23 +169,24 @@ let
   legacyWrapper =
     neovim:
     {
-      extraMakeWrapperArgs ? ""
+      extraMakeWrapperArgs ? "",
       # the function you would have passed to python.withPackages
-      ,
-      extraPythonPackages ? (_: [ ])
+      extraPythonPackages ? (
+        _: [ ]
+      ),
       # the function you would have passed to python.withPackages
-      ,
       withPython3 ? true,
-      extraPython3Packages ? (_: [ ])
+      extraPython3Packages ? (_: [ ]),
       # the function you would have passed to lua.withPackages
-      ,
-      extraLuaPackages ? (_: [ ]),
+      extraLuaPackages ? (
+        _: [ ]
+      ),
       withNodeJs ? false,
       withRuby ? true,
       vimAlias ? false,
       viAlias ? false,
       configure ? { },
-      extraName ? ""
+      extraName ? "",
     }:
     let
 
@@ -201,7 +202,7 @@ let
         packageName:
         {
           start ? [ ],
-          opt ? [ ]
+          opt ? [ ],
         }:
         start
         ++ (map

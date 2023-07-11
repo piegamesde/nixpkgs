@@ -51,7 +51,7 @@
   useStaticFreetype ? false,
   useStaticLibuvc ? false,
   useStaticOpenAL ? true,
-  useStaticSqlite ? false
+  useStaticSqlite ? false,
 }:
 
 let

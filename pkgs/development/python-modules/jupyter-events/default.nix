@@ -1,26 +1,22 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitHub
+  fetchFromGitHub,
 
   # build
-  ,
-  hatchling
+  hatchling,
 
   # runtime
-  ,
   jsonschema,
   python-json-logger,
   pyyaml,
-  traitlets
+  traitlets,
 
   # optionals
-  ,
   click,
-  rich
+  rich,
 
   # tests
-  ,
   pytest-asyncio,
   pytest-console-scripts,
   pytestCheckHook,

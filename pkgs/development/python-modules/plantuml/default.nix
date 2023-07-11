@@ -1,9 +1,8 @@
 {
   buildPythonPackage,
   fetchFromGitHub,
-  lib
+  lib,
   # Runtime dependencies
-  ,
   httplib2,
   six,
 }:

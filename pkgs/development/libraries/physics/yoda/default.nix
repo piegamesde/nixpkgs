@@ -7,7 +7,7 @@
   root,
   makeWrapper,
   zlib,
-  withRootSupport ? false
+  withRootSupport ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -3,9 +3,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-  pkutils
+  pkutils,
   # Check Inputs
-  ,
   nose,
 }:
 

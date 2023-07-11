@@ -3,10 +3,9 @@
   callPackage,
   channel ? "stable",
   fetchurl,
-  lib
+  lib,
   # This is only relevant for Linux, so we need to pass it through
-  ,
-  polkitPolicyOwners ? [ ]
+  polkitPolicyOwners ? [ ],
 }:
 
 let

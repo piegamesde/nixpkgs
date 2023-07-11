@@ -5,7 +5,7 @@
   kernel,
   nvidia_x11,
   hash,
-  broken ? false
+  broken ? false,
 }:
 
 stdenv.mkDerivation (

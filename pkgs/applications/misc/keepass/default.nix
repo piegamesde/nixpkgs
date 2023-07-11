@@ -14,7 +14,7 @@
   coreutils,
   unixtools,
   glib,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 let
   inherit (builtins)

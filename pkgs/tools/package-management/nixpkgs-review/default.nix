@@ -1,18 +1,16 @@
 {
   lib,
   python3,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   bubblewrap,
   nix-output-monitor,
   cacert,
   git,
-  nix
+  nix,
 
-  ,
   withSandboxSupport ? false,
-  withNom ? false
+  withNom ? false,
 }:
 
 python3.pkgs.buildPythonApplication rec {

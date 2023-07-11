@@ -11,7 +11,7 @@ let
   wrapper =
     {
       plugins ? [ ],
-      extraMakeWrapperArgs ? ""
+      extraMakeWrapperArgs ? "",
     }:
     let
 

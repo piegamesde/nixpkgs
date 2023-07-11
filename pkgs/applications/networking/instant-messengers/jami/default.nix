@@ -4,13 +4,11 @@
   pkg-config,
   fetchFromGitLab,
   gitUpdater,
-  ffmpeg_5
+  ffmpeg_5,
 
   # for daemon
-  ,
   autoreconfHook,
-  perl # for pod2man
-  ,
+  perl, # for pod2man
   alsa-lib,
   asio,
   dbus,
@@ -34,16 +32,13 @@
   speex,
   udev,
   webrtc-audio-processing,
-  zlib
+  zlib,
 
   # for client
-  ,
   cmake,
-  networkmanager # for libnm
-  ,
+  networkmanager, # for libnm
   python3,
-  qttools # for translations
-  ,
+  qttools, # for translations
   wrapQtAppsHook,
   libnotify,
   qt5compat,
@@ -56,15 +51,13 @@
   qtsvg,
   qtwebengine,
   qtwebchannel,
-  withWebengine ? true
+  withWebengine ? true,
 
   # for pjsip
-  ,
   fetchFromGitHub,
-  pjsip
+  pjsip,
 
   # for opendht
-  ,
   opendht,
 }:
 

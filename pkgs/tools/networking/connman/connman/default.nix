@@ -6,23 +6,21 @@
   fetchpatch,
   pkg-config,
   file,
-  glib
+  glib,
   # always required runtime dependencies
-  ,
   dbus,
   libmnl,
   gnutls,
-  readline
+  readline,
   # configureable options
-  ,
   firewallType ? "iptables" # or "nftables"
   ,
   iptables ? null,
   libnftnl ? null # for nftables
   ,
   dnsType ? "internal" # or "systemd-resolved"
-  # optional features which are turned *on* by default
   ,
+  # optional features which are turned *on* by default
   enableOpenconnect ? true,
   openconnect ? null,
   enableOpenvpn ? true,
@@ -48,14 +46,13 @@
   enableTools ? true,
   enableStats ? true,
   enableClient ? true,
-  enableDatafiles ? true
+  enableDatafiles ? true,
   # optional features which are turned *off* by default
-  ,
   enableNetworkManager ? false,
   enableHh2serialGps ? false,
   enableL2tp ? false,
   enableIospm ? false,
-  enableTist ? false
+  enableTist ? false,
 }:
 
 assert lib.asserts.assertOneOf "firewallType" firewallType [

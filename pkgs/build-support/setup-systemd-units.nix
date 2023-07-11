@@ -12,7 +12,7 @@
   lib,
 }:
 {
-  units # : AttrSet String (Either Path { path : Path, wanted-by : [ String ] })
+  units
   # ^ A set whose names are unit names and values are
   # either paths to the corresponding unit files or a set
   # containing the path and the list of units this unit
@@ -20,9 +20,8 @@
   #
   # The names should include the unit suffix
   # (e.g. ".service")
-  ,
-  namespace # : String
-  ,
+  , # : AttrSet String (Either Path { path : Path, wanted-by : [ String ] })
+  namespace, # : String
 # The namespace for the unit files, to allow for
 # multiple independent unit sets managed by
 # `setupSystemdUnits`.

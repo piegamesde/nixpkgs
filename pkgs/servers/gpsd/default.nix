@@ -1,23 +1,20 @@
 {
   stdenv,
   lib,
-  fetchurl
+  fetchurl,
 
   # nativeBuildInputs
-  ,
   scons,
-  pkg-config
+  pkg-config,
 
   # buildInputs
-  ,
   dbus,
   libusb1,
   ncurses,
   pps-tools,
-  python3Packages
+  python3Packages,
 
   # optional deps for GUI packages
-  ,
   guiSupport ? true,
   dbus-glib,
   libX11,
@@ -29,11 +26,10 @@
   pango,
   gdk-pixbuf,
   atk,
-  wrapGAppsHook
+  wrapGAppsHook,
 
-  ,
   gpsdUser ? "gpsd",
-  gpsdGroup ? "dialout"
+  gpsdGroup ? "dialout",
 }:
 
 stdenv.mkDerivation rec {

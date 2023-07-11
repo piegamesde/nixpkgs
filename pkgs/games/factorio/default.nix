@@ -18,9 +18,8 @@
   makeWrapper,
   releaseType,
   stdenv,
-  wayland
+  wayland,
 
-  ,
   mods ? [ ],
   mods-dat ? null,
   versionsJson ? ./versions.json,
@@ -28,6 +27,7 @@
   token ? "" # get/reset token at https://factorio.com/profile
   ,
   experimental ? false # true means to always use the latest branch
+  ,
 }:
 
 assert releaseType == "alpha"

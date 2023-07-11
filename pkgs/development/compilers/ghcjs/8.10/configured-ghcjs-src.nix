@@ -6,14 +6,12 @@
   gcc,
   cabal-install,
   runCommand,
-  fetchpatch
+  fetchpatch,
 
-  ,
   ghc,
   happy,
-  alex
+  alex,
 
-  ,
   ghcjsSrc,
   version,
 }:

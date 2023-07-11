@@ -17,7 +17,7 @@
   abc-verifier,
   z3,
   python3,
-  certifyBooks ? true
+  certifyBooks ? true,
 }@args:
 
 let

@@ -46,9 +46,8 @@
   developerBuild ? false,
   docs ? false,
   examples ? false,
-  demos ? false
+  demos ? false,
   # darwin support
-  ,
   libobjc,
   ApplicationServices,
   OpenGL,

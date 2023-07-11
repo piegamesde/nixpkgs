@@ -12,65 +12,53 @@
   buildInputs ? [ ],
   nativeBuildInputs ? [ ],
   passthru ? { },
-  patches ? [ ]
+  patches ? [ ],
 
   # Go linker flags, passed to go via -ldflags
-  ,
-  ldflags ? [ ]
+  ldflags ? [ ],
 
   # Go tags, passed to go via -tag
-  ,
-  tags ? [ ]
+  tags ? [ ],
 
   # A function to override the go-modules derivation
-  ,
-  overrideModAttrs ? (_oldAttrs: { })
+  overrideModAttrs ? (
+    _oldAttrs: { }
+  ),
 
   # path to go.mod and go.sum directory
-  ,
-  modRoot ? "./"
+  modRoot ? "./",
 
   # vendorHash is the SRI hash of the vendored dependencies
   #
   # if vendorHash is null, then we won't fetch any dependencies and
   # rely on the vendor folder within the source.
-  ,
-  vendorHash ? "_unset"
+  vendorHash ? "_unset",
   # same as vendorHash, but outputHashAlgo is hardcoded to sha256
   # so regular base32 sha256 hashes work
-  ,
-  vendorSha256 ? "_unset"
+  vendorSha256 ? "_unset",
   # Whether to delete the vendor folder supplied with the source.
-  ,
-  deleteVendor ? false
+  deleteVendor ? false,
   # Whether to fetch (go mod download) and proxy the vendor directory.
   # This is useful if your code depends on c code and go mod tidy does not
   # include the needed sources to build or if any dependency has case-insensitive
   # conflicts which will produce platform dependant `vendorHash` checksums.
-  ,
-  proxyVendor ? false
+  proxyVendor ? false,
 
   # We want parallel builds by default
-  ,
-  enableParallelBuilding ? true
+  enableParallelBuilding ? true,
 
   # Do not enable this without good reason
   # IE: programs coupled with the compiler
-  ,
-  allowGoReference ? false
+  allowGoReference ? false,
 
-  ,
-  CGO_ENABLED ? go.CGO_ENABLED
+  CGO_ENABLED ? go.CGO_ENABLED,
 
-  ,
-  meta ? { }
+  meta ? { },
 
   # Not needed with buildGoModule
-  ,
-  goPackagePath ? ""
+  goPackagePath ? "",
 
   # needed for buildFlags{,Array} warning
-  ,
   buildFlags ? "",
   buildFlagsArray ? ""
 

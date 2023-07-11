@@ -5,7 +5,7 @@
   xorg,
   wrapGAppsHook,
   budgie-desktop,
-  plugins ? [ ]
+  plugins ? [ ],
 }:
 
 stdenv.mkDerivation {

@@ -6,7 +6,7 @@
   gaia,
   mathcomp-zify,
   mathcomp,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation rec {

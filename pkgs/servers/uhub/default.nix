@@ -8,7 +8,7 @@
   sqlite,
   pkg-config,
   systemd,
-  tlsSupport ? false
+  tlsSupport ? false,
 }:
 
 assert tlsSupport -> openssl != null;

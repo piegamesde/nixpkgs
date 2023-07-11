@@ -16,7 +16,7 @@
   AppKit,
   CoreServices,
   desktopToDarwinBundle,
-  useKeytar ? true
+  useKeytar ? true,
 }:
 
 let

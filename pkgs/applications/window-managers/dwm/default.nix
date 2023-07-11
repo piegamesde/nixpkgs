@@ -7,7 +7,7 @@
   libXft,
   writeText,
   patches ? [ ],
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation rec {

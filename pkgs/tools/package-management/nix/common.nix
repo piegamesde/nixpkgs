@@ -10,7 +10,7 @@
     rev = version;
     inherit sha256;
   },
-  patches ? [ ]
+  patches ? [ ],
 }:
 assert (sha256 == null) -> (src != null);
 let
@@ -56,24 +56,21 @@ in
   Security,
   sqlite,
   util-linuxMinimal,
-  xz
+  xz,
 
-  ,
   enableDocumentation ?
     !atLeast24 || stdenv.hostPlatform == stdenv.buildPlatform,
   enableStatic ? stdenv.hostPlatform.isStatic,
   withAWS ? !enableStatic && (stdenv.isLinux || stdenv.isDarwin),
   aws-sdk-cpp,
   withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp,
-  libseccomp
+  libseccomp,
 
-  ,
   confDir,
   stateDir,
-  storeDir
+  storeDir,
 
   # passthru tests
-  ,
   pkgsi686Linux,
 }:
 let

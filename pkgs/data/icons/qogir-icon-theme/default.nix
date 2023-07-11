@@ -9,6 +9,7 @@
   colorVariants ? [ ] # default is all
   ,
   themeVariants ? [ ] # default is all
+  ,
 }:
 
 let

@@ -8,7 +8,7 @@
   libpcap,
   libusb1,
   bluez,
-  udevGroup ? "ubertooth"
+  udevGroup ? "ubertooth",
 }:
 
 stdenv.mkDerivation rec {

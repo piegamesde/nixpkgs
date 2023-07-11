@@ -1,7 +1,6 @@
 {
   lib,
-  element-desktop # for seshat and keytar
-  ,
+  element-desktop, # for seshat and keytar
   schildichat-web,
   stdenv,
   fetchFromGitHub,

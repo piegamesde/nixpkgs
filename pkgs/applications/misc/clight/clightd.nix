@@ -24,7 +24,7 @@
   libXrandr,
   wayland,
   enableScreen ? true,
-  enableYoctolight ? true
+  enableYoctolight ? true,
 }:
 
 stdenv.mkDerivation rec {

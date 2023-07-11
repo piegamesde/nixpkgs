@@ -27,7 +27,7 @@ let
       hostPkgs,
       crossPkgs,
       exec,
-      args ? [ ]
+      args ? [ ],
     }:
     let
       pkgName = (pkgFun hostPkgs).name;

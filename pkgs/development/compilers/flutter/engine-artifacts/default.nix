@@ -4,9 +4,8 @@
   hostPlatform,
   engineVersion,
   fetchzip,
-  autoPatchelfHook
+  autoPatchelfHook,
 
-  ,
   gtk3,
 }:
 

@@ -53,7 +53,7 @@
   Cocoa,
   CoreSymbolication,
   OpenGL,
-  noSplash ? false
+  noSplash ? false,
 }:
 
 let

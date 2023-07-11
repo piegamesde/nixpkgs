@@ -35,18 +35,16 @@
   udev,
   vulkan-loader,
   xxHash,
-  xz
+  xz,
 
   # Used in passthru
-  ,
   common-updater-scripts,
   dolphin-emu,
   jq,
   testers,
-  writeShellScript
+  writeShellScript,
 
   # Darwin-only dependencies
-  ,
   CoreBluetooth,
   ForceFeedback,
   IOBluetooth,

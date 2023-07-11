@@ -5,9 +5,8 @@
   lib,
   fetchurl,
   fetchpatch,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   ninja,
   which,

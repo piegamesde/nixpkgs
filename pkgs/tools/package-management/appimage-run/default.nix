@@ -3,7 +3,7 @@
   buildFHSEnv,
   makeDesktopItem,
   extraPkgs ? pkgs: [ ],
-  appimage-run-tests ? null
+  appimage-run-tests ? null,
 }:
 
 let

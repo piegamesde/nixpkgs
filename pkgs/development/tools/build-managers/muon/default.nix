@@ -12,7 +12,7 @@
   scdoc,
   zlib,
   embedSamurai ? false,
-  buildDocs ? true
+  buildDocs ? true,
 }:
 
 stdenv.mkDerivation (

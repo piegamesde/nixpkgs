@@ -19,9 +19,8 @@
   smartmontools,
   systemd,
   util-linux,
-  x86_energy_perf_policy
+  x86_energy_perf_policy,
   # RDW only works with NetworkManager, and thus is optional with default off
-  ,
   enableRDW ? false,
   networkmanager,
 }:

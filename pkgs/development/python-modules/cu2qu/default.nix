@@ -1,21 +1,18 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # build
-  ,
   cython,
   setuptools-scm,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
   defcon,
-  fonttools
+  fonttools,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

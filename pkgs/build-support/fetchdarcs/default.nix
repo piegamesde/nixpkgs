@@ -10,7 +10,7 @@
   context ? null,
   md5 ? "",
   sha256 ? "",
-  name ? "fetchdarcs"
+  name ? "fetchdarcs",
 }:
 
 if md5 != "" then

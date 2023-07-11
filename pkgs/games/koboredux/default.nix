@@ -9,7 +9,7 @@
   SDL2,
   SDL2_image,
   audiality2,
-  useProprietaryAssets ? true
+  useProprietaryAssets ? true,
 }:
 
 with lib;

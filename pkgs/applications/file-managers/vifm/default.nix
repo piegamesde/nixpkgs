@@ -2,18 +2,16 @@
   stdenv,
   fetchurl,
   makeWrapper,
-  perl # used to generate help tags
-  ,
+  perl, # used to generate help tags
   pkg-config,
   ncurses,
   libX11,
   util-linux,
   file,
   which,
-  groff
+  groff,
 
   # adds support for handling removable media (vifm-media). Linux only!
-  ,
   mediaSupport ? false,
   python3 ? null,
   udisks2 ? null,

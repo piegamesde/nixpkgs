@@ -6,7 +6,7 @@
   libX11,
   libXft,
   makeWrapper,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation rec {

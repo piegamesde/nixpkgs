@@ -25,7 +25,7 @@
   subversion,
   mercurialSupport ? false,
   mercurial,
-  extraUtils ? [ ]
+  extraUtils ? [ ],
 }:
 
 stdenv.mkDerivation rec {

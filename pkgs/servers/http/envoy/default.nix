@@ -13,11 +13,10 @@
   patchelf,
   python3,
   linuxHeaders,
-  nixosTests
+  nixosTests,
 
   # v8 (upstream default), wavm, wamr, wasmtime, disabled
-  ,
-  wasmRuntime ? "wamr"
+  wasmRuntime ? "wamr",
 }:
 
 let

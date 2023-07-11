@@ -4,7 +4,7 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  secureBuild ? false
+  secureBuild ? false,
 }:
 
 let

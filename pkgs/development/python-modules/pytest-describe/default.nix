@@ -1,14 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi
+  fetchPypi,
 
   # build
-  ,
-  pytest
+  pytest,
 
   # tests
-  ,
   pytestCheckHook,
 }:
 

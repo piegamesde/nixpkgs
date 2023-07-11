@@ -5,7 +5,7 @@
   makeWrapper,
   fetchzip,
   fetchpatch,
-  pathDeps ? [ ]
+  pathDeps ? [ ],
 }:
 
 buildGoModule rec {

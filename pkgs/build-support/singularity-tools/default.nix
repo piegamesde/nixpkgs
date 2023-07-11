@@ -25,10 +25,11 @@
   mkLayer =
     {
       name,
-      contents ? [ ]
+      contents ? [ ],
       # May be "apptainer" instead of "singularity"
-      ,
-      projectName ? (singularity.projectName or "singularity")
+      projectName ? (
+        singularity.projectName or "singularity"
+      ),
     }:
     runCommand "${projectName}-layer-${name}" { inherit contents; } ''
       mkdir $out
@@ -51,7 +52,7 @@
         exec /bin/sh'',
       runAsRoot ? null,
       memSize ? 512,
-      singularity ? defaultSingularity
+      singularity ? defaultSingularity,
     }:
     let
       projectName = singularity.projectName or "singularity";

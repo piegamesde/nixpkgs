@@ -12,6 +12,7 @@
   ,
   configOpts ?
     config.pcmciaUtils.config or null # Special hardware (map memory & port & irq)
+  ,
 }: # used to generate postInstall script.
 
 # FIXME: should add an option to choose between hotplug and udev.

@@ -3,7 +3,7 @@
   stdenv,
   pkgs,
   fetchFromGitHub,
-  nodejs ? pkgs.nodejs_14
+  nodejs ? pkgs.nodejs_14,
 }:
 
 stdenv.mkDerivation rec {

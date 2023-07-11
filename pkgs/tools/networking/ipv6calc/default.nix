@@ -7,7 +7,7 @@
   openssl,
   perl,
   libmaxminddb ? null,
-  geolite-legacy ? null
+  geolite-legacy ? null,
 }:
 
 stdenv.mkDerivation rec {

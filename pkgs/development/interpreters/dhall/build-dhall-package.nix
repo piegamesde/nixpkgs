@@ -9,11 +9,10 @@
 }:
 
 {
-  name
+  name,
 
   # Expressions to add to the cache before interpreting the code
-  ,
-  dependencies ? [ ]
+  dependencies ? [ ],
 
   # A Dhall expression
   #
@@ -25,8 +24,7 @@
   #
   # You can add a dependency to the cache using the preceding `dependencies`
   # option
-  ,
-  code
+  code,
 
   # `buildDhallPackage` can include both a "source distribution" in
   # `source.dhall` and a "binary distribution" in `binary.dhall`:
@@ -41,22 +39,19 @@
   # By default, `buildDhallPackage` only includes "binary.dhall" to conserve
   # space within the Nix store, but if you set the following `source` option to
   # `true` then the package will also include `source.dhall`.
-  ,
-  source ? false
+  source ? false,
 
   # Directory to generate documentation for (i.e. as the `--input` option to the
   # `dhall-docs` command.)
   #
   # If `null`, then no documentation is generated.
-  ,
-  documentationRoot ? null
+  documentationRoot ? null,
 
   # Base URL prepended to paths copied to the clipboard
   #
   # This is used in conjunction with `documentationRoot`, and is unused if
   # `documentationRoot` is `null`.
-  ,
-  baseImportUrl ? null
+  baseImportUrl ? null,
 }:
 
 let

@@ -10,7 +10,7 @@
   libvorbis,
   pkg-config,
   zlib,
-  enableTools ? false
+  enableTools ? false,
 }:
 
 stdenv.mkDerivation rec {

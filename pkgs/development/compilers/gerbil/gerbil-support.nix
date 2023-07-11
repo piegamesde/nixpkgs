@@ -41,7 +41,7 @@ rec {
       nativeBuildInputs ? [ ],
       buildInputs ? [ ],
       buildScript ? "./build.ss",
-      softwareName ? ""
+      softwareName ? "",
     }:
     let
       buildInputs_ = buildInputs;

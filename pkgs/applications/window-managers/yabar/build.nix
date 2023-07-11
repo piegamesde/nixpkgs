@@ -18,7 +18,7 @@
   rev,
   sha256,
   version,
-  patches ? [ ]
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation {

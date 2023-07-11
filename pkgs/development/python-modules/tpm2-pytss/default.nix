@@ -7,10 +7,8 @@
   cffi,
   cryptography,
   ibm-sw-tpm2,
-  pkgconfig # see nativeBuildInputs
-  ,
-  pkg-config # see nativeBuildInputs
-  ,
+  pkgconfig, # see nativeBuildInputs
+  pkg-config, # see nativeBuildInputs
   pycparser,
   pytestCheckHook,
   python,

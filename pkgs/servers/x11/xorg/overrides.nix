@@ -1013,7 +1013,7 @@ self: super:
   # See nixos/modules/services/x11/extra-layouts.nix
   xkeyboardconfig_custom =
     {
-      layouts ? { }
+      layouts ? { },
     }:
     let
       patchIn =

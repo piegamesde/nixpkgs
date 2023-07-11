@@ -19,15 +19,13 @@
   libpeas,
   gsettings-desktop-schemas,
   gobject-introspection,
-  python3
+  python3,
 
   # vim to be used, should support the GUI mode.
-  ,
-  vim
+  vim,
 
   # additional python3 packages to be available within plugins
-  ,
-  extraPythonPackages ? [ ]
+  extraPythonPackages ? [ ],
 }:
 
 stdenv.mkDerivation rec {

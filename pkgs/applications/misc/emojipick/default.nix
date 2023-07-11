@@ -12,7 +12,7 @@
   emojipick-show-notifications ? true,
   emojipick-print-emoji ? true,
   emojipick-font-family ? "Noto Color Emoji",
-  emojipick-font-size ? "18"
+  emojipick-font-size ? "18",
 }:
 
 let

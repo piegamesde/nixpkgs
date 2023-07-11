@@ -19,7 +19,7 @@ let
       pname,
       version,
       sha256,
-      extraMeta ? { }
+      extraMeta ? { },
     }:
     stdenv.mkDerivation rec {
       inherit pname version;

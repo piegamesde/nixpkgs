@@ -18,6 +18,7 @@
   extraEnv ? { } # Environment variables to pass to Steam
   ,
   withGameSpecificLibraries ? true # exclude game specific libraries
+  ,
 }:
 
 let

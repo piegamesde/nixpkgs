@@ -6,7 +6,7 @@
   qt4,
   udev,
   config,
-  acceptLicense ? config.segger-jlink.acceptLicense or false
+  acceptLicense ? config.segger-jlink.acceptLicense or false,
 }:
 
 let

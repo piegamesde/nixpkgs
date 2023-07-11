@@ -11,7 +11,7 @@
   seabios ? null,
   secureBoot ? false,
   httpSupport ? false,
-  tpmSupport ? false
+  tpmSupport ? false,
 }:
 
 assert csmSupport -> seabios != null;

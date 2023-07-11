@@ -26,7 +26,7 @@ let
     {
       libname,
       version,
-      files ? "*"
+      files ? "*",
     }: ''
       mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
       echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current

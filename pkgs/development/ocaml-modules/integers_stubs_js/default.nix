@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildDunePackage,
-  zarith_stubs_js ? null
+  zarith_stubs_js ? null,
 }:
 
 buildDunePackage rec {

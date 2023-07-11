@@ -26,7 +26,7 @@
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
-  enablePolly ? false
+  enablePolly ? false,
 }:
 
 let

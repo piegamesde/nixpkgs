@@ -118,7 +118,7 @@ let
         true,
       # Optional name to use as part of the store path.
       # This defaults to `src.name` or otherwise `"source"`.
-      name ? null
+      name ? null,
     }:
     let
       orig = toSourceAttributes src;

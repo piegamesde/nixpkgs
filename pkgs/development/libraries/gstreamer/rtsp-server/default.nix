@@ -9,9 +9,8 @@
   gettext,
   gobject-introspection,
   gst-plugins-base,
-  gst-plugins-bad
+  gst-plugins-bad,
   # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  ,
   enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
   hotdoc,
 }:

@@ -26,10 +26,9 @@
   gtk3,
   dconf,
   darwin,
-  buildPackages
+  buildPackages,
 
   # options
-  ,
   developerBuild ? false,
   decryptSslTraffic ? false,
   debug ? false,

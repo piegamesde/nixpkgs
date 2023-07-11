@@ -4,30 +4,25 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-  substituteAll
+  substituteAll,
 
   # build
-  ,
-  setuptools
+  setuptools,
 
   # patched in
-  ,
   geos,
   gdal,
-  withGdal ? false
+  withGdal ? false,
 
   # propagates
-  ,
   asgiref,
-  sqlparse
+  sqlparse,
 
   # extras
-  ,
   argon2-cffi,
-  bcrypt
+  bcrypt,
 
   # tests
-  ,
   aiosmtpd,
   docutils,
   geoip2,

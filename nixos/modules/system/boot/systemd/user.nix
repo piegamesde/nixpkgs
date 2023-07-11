@@ -52,7 +52,7 @@ let
   writeTmpfiles =
     {
       rules,
-      user ? null
+      user ? null,
     }:
     let
       suffix =

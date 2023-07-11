@@ -12,7 +12,7 @@
   deviceSystem ? if config.cudaSupport or false then
     "CUDA"
   else
-    "OMP"
+    "OMP",
 }:
 
 # Policy for device_vector<T>

@@ -10,7 +10,7 @@
   nix,
   coreutils,
   gnused,
-  disableRemoteLogging ? true
+  disableRemoteLogging ? true,
 }:
 
 let

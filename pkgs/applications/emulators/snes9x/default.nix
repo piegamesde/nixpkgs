@@ -25,7 +25,7 @@
   util-linuxMinimal,
   wrapGAppsHook,
   zlib,
-  withGtk ? false
+  withGtk ? false,
 }:
 
 stdenv.mkDerivation rec {

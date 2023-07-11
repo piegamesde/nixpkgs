@@ -25,17 +25,14 @@
   fop,
   epubcheck,
   gnused,
-  coreutils
+  coreutils,
 
   # if true, enable all the below filters and backends
-  ,
-  enableExtraPlugins ? false
+  enableExtraPlugins ? false,
 
   # unzip is needed to extract filter and backend plugins
-  ,
-  unzip
+  unzip,
   # filters
-  ,
   enableDitaaFilter ? false,
   jre,
   enableMscgenFilter ? false,
@@ -52,17 +49,14 @@
   numpy,
   enableAafigureFilter ? false,
   aafigure,
-  recursivePthLoader
+  recursivePthLoader,
   # backends
-  ,
   enableDeckjsBackend ? false,
-  enableOdfBackend ? false
+  enableOdfBackend ? false,
 
   # java is problematic on some platforms, where it is unfree
-  ,
-  enableJava ? true
+  enableJava ? true,
 
-  ,
   buildPackages,
 }:
 

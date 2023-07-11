@@ -20,7 +20,7 @@
   ruby,
   icu68,
   withMedia ? true,
-  withWebKit ? false
+  withWebKit ? false,
 }:
 
 let

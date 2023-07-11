@@ -11,7 +11,7 @@
   swig,
   yoda,
   zlib,
-  withPython ? false
+  withPython ? false,
 }:
 
 stdenv.mkDerivation rec {

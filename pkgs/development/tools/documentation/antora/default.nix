@@ -9,7 +9,7 @@ let
       {
         pkg,
         deps,
-        name ? ""
+        name ? "",
       }:
       let
         targetModule =

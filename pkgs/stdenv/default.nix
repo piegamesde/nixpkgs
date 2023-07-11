@@ -5,14 +5,13 @@
 # contain.
 
 { # Args just for stdenvs' usage
-  lib
+  lib,
   # Args to pass on to the pkgset builder, too
-  ,
   localSystem,
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ]
+  crossOverlays ? [ ],
 }@args:
 
 let

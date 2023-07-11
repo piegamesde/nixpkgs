@@ -4,9 +4,8 @@
   fetchFromGitHub,
   rustPlatform,
   pkg-config,
-  openssl
+  openssl,
   # darwin dependencies
-  ,
   darwin,
   libiconv,
   curl,

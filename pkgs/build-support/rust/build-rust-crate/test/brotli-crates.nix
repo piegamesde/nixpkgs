@@ -52,7 +52,7 @@ rec {
     {
       dependencies ? [ ],
       buildDependencies ? [ ],
-      features ? [ ]
+      features ? [ ],
     }:
     buildRustCrate {
       crateName = "alloc-no-stdlib";
@@ -67,7 +67,7 @@ rec {
     {
       dependencies ? [ ],
       buildDependencies ? [ ],
-      features ? [ ]
+      features ? [ ],
     }:
     buildRustCrate {
       crateName = "brotli";
@@ -85,7 +85,7 @@ rec {
     {
       dependencies ? [ ],
       buildDependencies ? [ ],
-      features ? [ ]
+      features ? [ ],
     }:
     buildRustCrate {
       crateName = "brotli-decompressor";
@@ -101,7 +101,7 @@ rec {
     ;
   alloc_no_stdlib_1_3_0 =
     {
-      features ? (alloc_no_stdlib_1_3_0_features { })
+      features ? (alloc_no_stdlib_1_3_0_features { }),
     }:
     alloc_no_stdlib_1_3_0_ {
       features = mkFeatures (features.alloc_no_stdlib_1_3_0 or { });
@@ -117,7 +117,7 @@ rec {
     ;
   brotli_2_5_0 =
     {
-      features ? (brotli_2_5_0_features { })
+      features ? (brotli_2_5_0_features { }),
     }:
     brotli_2_5_0_ {
       dependencies = mapFeatures features ([
@@ -197,7 +197,7 @@ rec {
     ;
   brotli_decompressor_1_3_1 =
     {
-      features ? (brotli_decompressor_1_3_1_features { })
+      features ? (brotli_decompressor_1_3_1_features { }),
     }:
     brotli_decompressor_1_3_1_ {
       dependencies = mapFeatures features ([ alloc_no_stdlib_1_3_0 ]);

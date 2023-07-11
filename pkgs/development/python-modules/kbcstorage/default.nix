@@ -2,20 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
 
   # build
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # propagates
-  ,
   azure-storage-blob,
   boto3,
-  requests
+  requests,
 
   # tests
-  ,
   responses,
   unittestCheckHook,
 }:

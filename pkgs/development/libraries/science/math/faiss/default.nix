@@ -27,8 +27,7 @@
   builtins.head
   optLevels
   ,
-  faiss # To run demos in the tests
-  ,
+  faiss, # To run demos in the tests
   runCommand,
 }@inputs:
 

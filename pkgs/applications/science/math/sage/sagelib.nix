@@ -36,8 +36,7 @@
   ntl,
   numpy,
   pari,
-  pkgconfig # the python module, not the pkg-config alias
-  ,
+  pkgconfig, # the python module, not the pkg-config alias
   pkg-config,
   planarity,
   ppl,
@@ -72,8 +71,7 @@
   networkx,
   ptyprocess,
   lrcalc-python,
-  sphinx # TODO: this is in setup.cfg, should we override it?
-  ,
+  sphinx, # TODO: this is in setup.cfg, should we override it?
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

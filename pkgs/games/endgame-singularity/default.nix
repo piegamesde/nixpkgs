@@ -4,7 +4,7 @@
   fetchFromGitHub,
   unzip,
   python3,
-  enableDefaultMusicPack ? true
+  enableDefaultMusicPack ? true,
 }:
 
 python3.pkgs.buildPythonApplication rec {

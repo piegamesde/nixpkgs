@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-  pythonOlder
+  pythonOlder,
 
   # build time
-  ,
-  setuptools-scm
+  setuptools-scm,
 
   # runtime
-  ,
   pytz,
-  jaraco_functools
+  jaraco_functools,
 
   # tests
-  ,
   freezegun,
   pytest-freezegun,
   pytestCheckHook,

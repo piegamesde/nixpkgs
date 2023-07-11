@@ -8,7 +8,7 @@
   python3,
   libllvm,
   libcxxabi,
-  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
+  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD,
 }:
 
 let

@@ -1,10 +1,9 @@
 {
   stdenv,
   lib,
-  fetchzip
+  fetchzip,
   # can either be "EU" or "Global"; it's unclear what the difference is
-  ,
-  region ? "Global"
+  region ? "Global",
 }:
 
 stdenv.mkDerivation rec {

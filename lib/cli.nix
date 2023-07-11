@@ -79,7 +79,7 @@ rec {
           [
             (mkOptionName k)
             (lib.generators.mkValueStringDefault { } v)
-          ]
+          ],
     }:
     options:
     let

@@ -4,7 +4,7 @@
   fetchurl,
   compat24 ? false,
   compat26 ? true,
-  unicode ? true
+  unicode ? true,
 }:
 
 stdenv.mkDerivation rec {

@@ -7,7 +7,7 @@
   python3,
   zbar,
   secp256k1,
-  enableQt ? true
+  enableQt ? true,
 }:
 
 let

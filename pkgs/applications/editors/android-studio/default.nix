@@ -3,7 +3,7 @@
   makeFontsConf,
   gnome2,
   buildFHSEnv,
-  tiling_wm ? false
+  tiling_wm ? false,
 }:
 
 let

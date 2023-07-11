@@ -3,14 +3,12 @@
   stdenv,
   fetchurl,
   makeDesktopItem,
-  writeText
+  writeText,
 
   # Common run-time dependencies
-  ,
-  zlib
+  zlib,
 
   # libxul run-time dependencies
-  ,
   atk,
   cairo,
   dbus,
@@ -25,46 +23,38 @@
   libXext,
   libXrender,
   libXt,
-  pango
+  pango,
 
-  ,
   audioSupport ? mediaSupport,
   pulseaudioSupport ? mediaSupport,
   libpulseaudio,
   apulse,
-  alsa-lib
+  alsa-lib,
 
   # Media support (implies audio support)
-  ,
   mediaSupport ? true,
-  ffmpeg
+  ffmpeg,
 
-  ,
-  gmp
+  gmp,
 
   # Wrapper runtime
-  ,
   coreutils,
   glibcLocales,
   gnome,
   runtimeShell,
   shared-mime-info,
-  gsettings-desktop-schemas
+  gsettings-desktop-schemas,
 
   # Hardening
-  ,
-  graphene-hardened-malloc
+  graphene-hardened-malloc,
   # Whether to use graphene-hardened-malloc
-  ,
-  useHardenedMalloc ? true
+  useHardenedMalloc ? true,
 
   # Whether to disable multiprocess support
-  ,
-  disableContentSandbox ? false
+  disableContentSandbox ? false,
 
   # Extra preferences
-  ,
-  extraPrefs ? ""
+  extraPrefs ? "",
 }:
 
 let

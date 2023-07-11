@@ -15,10 +15,9 @@
   expect,
   socat,
   gnutls,
-  perl
+  perl,
 
   # Tests
-  ,
   python3,
   which,
   nixosTests,

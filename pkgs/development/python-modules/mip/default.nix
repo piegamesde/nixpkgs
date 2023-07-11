@@ -10,14 +10,12 @@
   pytestCheckHook,
   pythonOlder,
   gurobi,
-  gurobipy
+  gurobipy,
   # Enable support for the commercial Gurobi solver (requires a license)
-  ,
-  gurobiSupport ? false
+  gurobiSupport ? false,
   # If Gurobi has already been installed outside of the Nix store, specify its
   # installation directory here
-  ,
-  gurobiHome ? null
+  gurobiHome ? null,
 }:
 
 buildPythonPackage rec {

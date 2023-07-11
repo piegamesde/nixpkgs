@@ -23,7 +23,7 @@
   systemd,
   useIMobileDevice ? true,
   libimobiledevice,
-  withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform)
+  withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform),
 }:
 
 stdenv.mkDerivation rec {

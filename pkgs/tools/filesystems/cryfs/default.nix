@@ -10,10 +10,9 @@
   fuse,
   openssl,
   range-v3,
-  spdlog
+  spdlog,
   # cryptopp and gtest on standby - using the vendored ones for now
   # see https://github.com/cryfs/cryfs/issues/369
-  ,
   llvmPackages,
 }:
 

@@ -4,7 +4,7 @@
   makeWrapper,
   retroarch,
   symlinkJoin,
-  cores ? [ ]
+  cores ? [ ],
 }:
 
 let

@@ -4,10 +4,9 @@
   callPackage,
   fetchFromGitHub,
   flit-core,
-  unittestCheckHook
+  unittestCheckHook,
 
   # important downstream dependencies
-  ,
   flit,
   black,
   mypy,

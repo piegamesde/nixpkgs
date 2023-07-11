@@ -14,7 +14,7 @@ let
     {
       name,
       description,
-      example ? null
+      example ? null,
     }: {
       inherit name;
       value = mkOption {

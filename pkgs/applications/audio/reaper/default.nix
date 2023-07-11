@@ -4,9 +4,8 @@
   stdenv,
   fetchurl,
   autoPatchelfHook,
-  makeWrapper
+  makeWrapper,
 
-  ,
   alsa-lib,
   curl,
   gtk3,
@@ -16,9 +15,8 @@
   vlc,
   xdg-utils,
   xdotool,
-  which
+  which,
 
-  ,
   jackSupport ? true,
   jackLibrary,
   pulseaudioSupport ? config.pulseaudio or true,

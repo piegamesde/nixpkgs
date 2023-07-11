@@ -10,7 +10,7 @@
   swig,
   python3,
   coreutils,
-  enablePython ? true
+  enablePython ? true,
 }:
 
 stdenv.mkDerivation rec {

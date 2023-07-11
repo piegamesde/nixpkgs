@@ -10,18 +10,16 @@
   fontconfig,
   pixman,
   tllist,
-  check
+  check,
   # Text shaping methods to enable, empty list disables all text shaping.
   # See `availableShapingTypes` or upstream meson_options.txt for available types.
-  ,
   withShapingTypes ? [
     "grapheme"
     "run"
   ],
   harfbuzz,
   utf8proc,
-  fcft # for passthru.tests
-  ,
+  fcft, # for passthru.tests
 }:
 
 let

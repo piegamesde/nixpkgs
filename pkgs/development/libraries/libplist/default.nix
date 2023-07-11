@@ -3,9 +3,8 @@
   stdenv,
   fetchFromGitHub,
   autoreconfHook,
-  pkg-config
+  pkg-config,
 
-  ,
   enablePython ? false,
   python3,
 }:

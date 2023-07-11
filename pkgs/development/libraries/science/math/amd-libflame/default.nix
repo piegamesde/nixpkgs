@@ -4,11 +4,10 @@
   fetchFromGitHub,
   gfortran,
   python3,
-  amd-blis
+  amd-blis,
 
-  ,
   withOpenMP ? true,
-  blas64 ? false
+  blas64 ? false,
 }:
 
 # right now only LP64 is supported

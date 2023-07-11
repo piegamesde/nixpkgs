@@ -2,9 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonOlder
+  pythonOlder,
   # build inputs
-  ,
   typing-extensions,
   uri-template,
 }:

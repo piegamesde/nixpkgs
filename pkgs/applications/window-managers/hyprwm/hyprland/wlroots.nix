@@ -10,7 +10,7 @@
   hwdata,
   hidpiXWayland ? true,
   enableXWayland ? true,
-  nvidiaPatches ? false
+  nvidiaPatches ? false,
 }:
 let
   libdisplay-info-new = libdisplay-info.overrideAttrs (

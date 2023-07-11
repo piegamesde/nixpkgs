@@ -2,7 +2,7 @@
   lib,
   bundlerApp,
   ruby,
-  beta ? false
+  beta ? false,
 }:
 
 bundlerApp {

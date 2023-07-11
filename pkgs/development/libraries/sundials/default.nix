@@ -9,7 +9,7 @@
   gfortran,
   suitesparse,
   lapackSupport ? true,
-  kluSupport ? true
+  kluSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

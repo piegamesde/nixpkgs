@@ -4,7 +4,7 @@
   fetchFromGitHub,
   opencl-headers,
   cmake,
-  withTracing ? false
+  withTracing ? false,
 }:
 
 stdenv.mkDerivation rec {

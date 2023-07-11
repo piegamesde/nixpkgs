@@ -8,34 +8,32 @@
   fetchFromGitHub,
   gradle,
   jdk,
-  perl
+  perl,
 
   # for arc
-  ,
   SDL2,
   pkg-config,
   stb,
   ant,
   alsa-lib,
   alsa-plugins,
-  glew
+  glew,
 
   # for soloud
-  ,
   libpulseaudio ? null,
-  libjack2 ? null
+  libjack2 ? null,
 
-  ,
-  nixosTests
+  nixosTests,
 
   # Make the build version easily overridable.
   # Server and client build versions must match, and an empty build version means
   # any build is allowed, so this parameter acts as a simple whitelist.
   # Takes the package version and returns the build version.
-  ,
-  makeBuildVersion ? (v: v),
+  makeBuildVersion ? (
+    v: v
+  ),
   enableClient ? true,
-  enableServer ? true
+  enableServer ? true,
 }:
 
 let

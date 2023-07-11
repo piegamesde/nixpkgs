@@ -8,7 +8,7 @@
   withNotification ? false,
   withYubikey ? false,
   withStrictCaller ? false,
-  withAll ? false
+  withAll ? false,
 }:
 
 rustPlatform.buildRustPackage rec {

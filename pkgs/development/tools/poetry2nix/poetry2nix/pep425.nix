@@ -3,7 +3,7 @@
   stdenv,
   poetryLib,
   python,
-  isLinux ? stdenv.isLinux
+  isLinux ? stdenv.isLinux,
 }:
 let
   inherit (lib.strings)

@@ -5,7 +5,7 @@
   autoreconfHook,
   doxygen,
   enableTool ? false,
-  enableTest ? false
+  enableTest ? false,
 }:
 
 stdenv.mkDerivation rec {

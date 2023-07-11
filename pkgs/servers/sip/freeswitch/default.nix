@@ -20,15 +20,12 @@
   which,
   libsndfile,
   libtiff,
-  libxcrypt
+  libxcrypt,
 
-  ,
-  callPackage
+  callPackage,
 
-  ,
-  SystemConfiguration
+  SystemConfiguration,
 
-  ,
   modules ? null,
   nixosTests,
 }:

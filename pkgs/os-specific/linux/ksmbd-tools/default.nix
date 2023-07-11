@@ -9,7 +9,7 @@
   libnl,
   libtool,
   pkg-config,
-  withKerberos ? false
+  withKerberos ? false,
 }:
 
 stdenv.mkDerivation rec {

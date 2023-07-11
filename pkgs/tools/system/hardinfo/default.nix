@@ -8,7 +8,7 @@
   pcre,
   glib,
   libxml2,
-  libsoup ? null
+  libsoup ? null,
 }:
 
 stdenv.mkDerivation rec {

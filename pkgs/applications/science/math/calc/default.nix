@@ -6,7 +6,7 @@
   ncurses,
   readline,
   util-linux,
-  enableReadline ? true
+  enableReadline ? true,
 }:
 
 stdenv.mkDerivation (

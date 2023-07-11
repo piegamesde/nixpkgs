@@ -4,7 +4,7 @@
   ghcWithPackages,
   taffybar,
   makeWrapper,
-  packages ? (x: [ ])
+  packages ? (x: [ ]),
 }:
 
 let

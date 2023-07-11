@@ -5,11 +5,10 @@
   makeDesktopItem,
   runtimeShell,
   symlinkJoin,
-  writeScriptBin
+  writeScriptBin,
 
   # command line arguments which are always set e.g "--disable-gpu"
-  ,
-  commandLineArgs ? [ ]
+  commandLineArgs ? [ ],
 }:
 
 let

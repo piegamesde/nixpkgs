@@ -9,7 +9,7 @@
   withSlack ? true,
   withEmoji ? true,
   withPid ? true,
-  withDbus ? stdenv.isLinux
+  withDbus ? stdenv.isLinux,
 }:
 
 let

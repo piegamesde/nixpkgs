@@ -1,6 +1,6 @@
 {
   pkgs ? (import ./.. { }),
-  nixpkgs ? { }
+  nixpkgs ? { },
 }:
 let
   doc-support = import ./doc-support { inherit pkgs nixpkgs; };

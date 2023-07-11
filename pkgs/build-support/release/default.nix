@@ -66,7 +66,7 @@ rec {
     {
       name,
       constituents,
-      meta ? { }
+      meta ? { },
     }:
     pkgs.runCommand name
     {

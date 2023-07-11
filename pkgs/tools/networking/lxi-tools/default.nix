@@ -19,7 +19,7 @@
   desktop-file-utils,
   appstream-glib,
   gsettings-desktop-schemas,
-  withGui ? false
+  withGui ? false,
 }:
 
 stdenv.mkDerivation rec {

@@ -14,7 +14,7 @@
   configurationCommon ? import ./configuration-common.nix,
   configurationNix ? import ./configuration-nix.nix,
   configurationArm ? import ./configuration-arm.nix,
-  configurationDarwin ? import ./configuration-darwin.nix
+  configurationDarwin ? import ./configuration-darwin.nix,
 }:
 
 let

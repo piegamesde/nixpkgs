@@ -26,13 +26,14 @@
   systemdMinimal,
   elogind,
   buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
   # A few tests currently fail on musl (polkitunixusertest, polkitunixgrouptest, polkitidentitytest segfault).
   # Not yet investigated; it may be due to the "Make netgroup support optional"
   # patch not updating the tests correctly yet, or doing something wrong,
   # or being unrelated to that.
-  ,
-  doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
+  doCheck ? (
+    stdenv.isLinux && !stdenv.hostPlatform.isMusl
+  ),
 }:
 
 let

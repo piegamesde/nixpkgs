@@ -8,7 +8,7 @@
   wine,
   writeShellScriptBin,
   symlinkJoin,
-  use64 ? false
+  use64 ? false,
 }:
 
 let

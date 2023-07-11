@@ -8,7 +8,7 @@
   libXt,
   libXpm,
   libXaw,
-  localStateDir ? null
+  localStateDir ? null,
 }:
 
 stdenv.mkDerivation {

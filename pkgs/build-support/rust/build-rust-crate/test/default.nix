@@ -29,7 +29,7 @@ let
     {
       name,
       crateVersion ? "0.1.0",
-      path ? "Cargo.toml"
+      path ? "Cargo.toml",
     }:
     mkFile path ''
       [package]
@@ -188,7 +188,7 @@ let
       name,
       crateArgs,
       expectedFiles,
-      output ? null
+      output ? null,
     }:
     assert (builtins.isString name);
     assert (builtins.isAttrs crateArgs);

@@ -1,13 +1,11 @@
 {
   lib,
-  mkDerivation
+  mkDerivation,
 
-  ,
   fetchurl,
   cmake,
-  extra-cmake-modules
+  extra-cmake-modules,
 
-  ,
   exiv2,
   kconfig,
   kcoreaddons,

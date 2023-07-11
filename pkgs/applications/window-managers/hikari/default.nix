@@ -22,7 +22,7 @@
     layershell = true;
     screencopy = true;
     xwayland = true;
-  }
+  },
 }:
 
 stdenv.mkDerivation rec {

@@ -2,9 +2,8 @@
   lib,
   stdenv,
   fetchurl,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cmake,
   doxygen,
   zlib,

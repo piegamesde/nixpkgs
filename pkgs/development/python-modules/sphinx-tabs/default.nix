@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  pythonImportsCheckHook
+  pythonImportsCheckHook,
   # documentation build dependencies
-  ,
-  sphinxHook
+  sphinxHook,
   # runtime dependencies
-  ,
   sphinx,
   pygments,
-  docutils
+  docutils,
   # test dependencies
-  ,
   pytest,
   beautifulsoup4,
 }:

@@ -4,26 +4,23 @@
   fetchPypi,
   writeText,
   buildPythonPackage,
-  pythonOlder
+  pythonOlder,
 
   # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst
   # build-system
-  ,
   pkg-config,
   pybind11,
   setuptools,
-  setuptools-scm
+  setuptools-scm,
 
   # native libraries
-  ,
   ffmpeg-headless,
   fontconfig,
   freetype,
   imagemagick,
-  qhull
+  qhull,
 
   # propagates
-  ,
   contourpy,
   cycler,
   fonttools,
@@ -32,55 +29,46 @@
   packaging,
   pillow,
   pyparsing,
-  python-dateutil
+  python-dateutil,
 
   # optional
-  ,
-  importlib-resources
+  importlib-resources,
 
   # GTK3
-  ,
   enableGtk3 ? false,
   cairo,
   gobject-introspection,
   gtk3,
   pycairo,
-  pygobject3
+  pygobject3,
 
   # Tk
-  ,
   enableTk ? !stdenv.isDarwin # darwin has its own "MacOSX" backend
   ,
   tcl,
   tk,
-  tkinter
+  tkinter,
 
   # Ghostscript
-  ,
   enableGhostscript ? true,
-  ghostscript
+  ghostscript,
 
   # Qt
-  ,
   enableQt ? false,
-  pyqt5
+  pyqt5,
 
   # Webagg
-  ,
   enableWebagg ? false,
-  tornado
+  tornado,
 
   # nbagg
-  ,
   enableNbagg ? false,
-  ipykernel
+  ipykernel,
 
   # darwin
-  ,
-  Cocoa
+  Cocoa,
 
   # required for headless detection
-  ,
   libX11,
   wayland,
 }:

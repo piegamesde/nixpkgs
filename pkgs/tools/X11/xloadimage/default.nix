@@ -3,17 +3,15 @@
   stdenv,
   fetchurl,
   libX11,
-  libXt
+  libXt,
 
-  ,
   libjpeg ? null,
   libpng ? null,
-  libtiff ? null
+  libtiff ? null,
 
-  ,
   withJpegSupport ? true,
   withPngSupport ? true,
-  withTiffSupport ? true
+  withTiffSupport ? true,
 }:
 
 assert withJpegSupport -> libjpeg != null;

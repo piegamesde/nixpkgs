@@ -8,8 +8,7 @@
   dbus,
   makeWrapper,
   boost,
-  elfutils # for libdw
-  ,
+  elfutils, # for libdw
   git,
   glib,
   glm,

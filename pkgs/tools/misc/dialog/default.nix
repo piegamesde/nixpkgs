@@ -6,7 +6,7 @@
   ncurses,
   withLibrary ? false,
   unicodeSupport ? true,
-  enableShared ? !stdenv.isDarwin
+  enableShared ? !stdenv.isDarwin,
 }:
 
 assert withLibrary -> libtool != null;

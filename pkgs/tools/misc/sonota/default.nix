@@ -7,7 +7,7 @@
   ,
   coreSize ? "1MB" # size of the binary image to flash
   ,
-  coreSha256 ? "0pkb2nmml0blrfiqpc46xpjc2dw927i89k1lfyqx827wanhc704x"
+  coreSha256 ? "0pkb2nmml0blrfiqpc46xpjc2dw927i89k1lfyqx827wanhc704x",
 }:
 
 with python3Packages;

@@ -5,7 +5,7 @@
   nemo,
   nemoExtensions,
   extensions ? [ ],
-  useDefaultExtensions ? true
+  useDefaultExtensions ? true,
 }:
 
 let

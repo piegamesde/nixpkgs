@@ -14,8 +14,7 @@
   libadwaita,
   wrapGAppsHook4,
   desktop-file-utils,
-  chromaprint # fpcalc
-  ,
+  chromaprint, # fpcalc
 }:
 
 stdenv.mkDerivation rec {

@@ -8,8 +8,7 @@
   docbook_xml_dtd_44,
   perlPackages,
   makeWrapper,
-  perl # for pod2man
-  ,
+  perl, # for pod2man
   darwin,
 }:
 

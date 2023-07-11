@@ -3,7 +3,7 @@
   kmod,
   modules,
   buildEnv,
-  name ? "kernel-modules"
+  name ? "kernel-modules",
 }:
 
 buildEnv {

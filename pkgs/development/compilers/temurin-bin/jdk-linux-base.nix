@@ -2,7 +2,7 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ]
+  knownVulnerabilities ? [ ],
 }:
 
 {
@@ -11,22 +11,19 @@
   fetchurl,
   autoPatchelfHook,
   makeWrapper,
-  setJavaClassPath
+  setJavaClassPath,
   # minimum dependencies
-  ,
   alsa-lib,
   fontconfig,
   freetype,
   libffi,
   xorg,
-  zlib
+  zlib,
   # runtime dependencies
-  ,
-  cups
+  cups,
   # runtime dependencies for GTK+ Look and Feel
   # TODO(@sternenseemann): gtk3 fails to evaluate in pkgsCross.ghcjs.buildPackages
   # which should be fixable, this is a no-rebuild workaround for GHC.
-  ,
   gtkSupport ? !stdenv.targetPlatform.isGhcjs,
   cairo,
   glib,

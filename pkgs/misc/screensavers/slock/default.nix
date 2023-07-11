@@ -7,11 +7,10 @@
   libX11,
   libXext,
   libXrandr,
-  libxcrypt
+  libxcrypt,
   # default header can be obtained from
   # https://git.suckless.org/slock/tree/config.def.h
-  ,
-  conf ? null
+  conf ? null,
 }:
 
 stdenv.mkDerivation (

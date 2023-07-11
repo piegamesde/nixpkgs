@@ -5,7 +5,7 @@
   steam-run,
   bash,
   coreutils,
-  steamRoot ? "~/.local/share/Steam"
+  steamRoot ? "~/.local/share/Steam",
 }:
 
 stdenv.mkDerivation {

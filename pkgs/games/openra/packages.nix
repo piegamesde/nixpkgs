@@ -71,7 +71,7 @@ rec {
       homepage,
       mods,
       src,
-      installExperimental ? ""
+      installExperimental ? "",
     }@engine:
     # Allow specifying the name at a later point if no name has been given.
     let

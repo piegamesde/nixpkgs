@@ -12,7 +12,7 @@
   fftwFloat,
   json_c,
   libjack2,
-  jackSupport ? true
+  jackSupport ? true,
 }:
 
 stdenv.mkDerivation rec {

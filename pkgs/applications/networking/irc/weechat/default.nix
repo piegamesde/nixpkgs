@@ -15,8 +15,7 @@
   libobjc,
   libresolv,
   libiconv,
-  asciidoctor # manpages
-  ,
+  asciidoctor, # manpages
   enableTests ? !stdenv.isDarwin,
   cpputest,
   guileSupport ? true,
@@ -37,7 +36,7 @@
   libxml2,
   pcre2,
   libargon2,
-  extraBuildInputs ? [ ]
+  extraBuildInputs ? [ ],
 }:
 
 let

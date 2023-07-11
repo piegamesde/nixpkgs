@@ -27,9 +27,8 @@
   enableLibsndfile ? true,
   libsndfile,
   enableWavpack ? true,
-  wavpack
+  wavpack,
   # amrnb and amrwb are unfree, disabled by default
-  ,
   enableAMR ? false,
   amrnb,
   amrwb,

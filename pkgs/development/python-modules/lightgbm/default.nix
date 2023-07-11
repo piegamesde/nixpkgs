@@ -13,7 +13,7 @@
   ocl-icd,
   opencl-headers,
   boost,
-  gpuSupport ? true
+  gpuSupport ? true,
 }:
 
 buildPythonPackage rec {

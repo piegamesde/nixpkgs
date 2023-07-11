@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  libcxxCmakeModule ? false
+  libcxxCmakeModule ? false,
 }:
 
 stdenv.mkDerivation rec {

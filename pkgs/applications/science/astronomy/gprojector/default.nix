@@ -6,7 +6,7 @@
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
-  extraJavaArgs ? "-Xms512M -Xmx2000M"
+  extraJavaArgs ? "-Xms512M -Xmx2000M",
 }:
 
 stdenvNoCC.mkDerivation rec {

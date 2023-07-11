@@ -4,20 +4,17 @@
   pythonOlder,
   fetchPypi,
   fetchFromGitHub,
-  buildPythonPackage
+  buildPythonPackage,
 
   # build
-  ,
   cython,
-  setuptools
+  setuptools,
 
   # propagates
-  ,
   greenlet,
-  typing-extensions
+  typing-extensions,
 
   # optionals
-  ,
   aiomysql,
   aiosqlite,
   asyncmy,
@@ -31,15 +28,13 @@
   pg8000,
   psycopg,
   psycopg2,
-  psycopg2cffi
+  psycopg2cffi,
   # TODO: pymssql
-  ,
   pymysql,
-  pyodbc
+  pyodbc,
   # TODO: sqlcipher3
 
   # tests
-  ,
   mock,
   pytest-xdist,
   pytestCheckHook,

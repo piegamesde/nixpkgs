@@ -3,7 +3,7 @@
   system ? builtins.currentSystem,
   noDev ? false,
   php ? pkgs.php,
-  phpPackages ? pkgs.phpPackages
+  phpPackages ? pkgs.phpPackages,
 }:
 
 let

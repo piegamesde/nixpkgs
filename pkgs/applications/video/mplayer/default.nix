@@ -58,9 +58,8 @@
   bs2bSupport ? false,
   libbs2b,
   v4lSupport ? false,
-  libv4l
+  libv4l,
   # For screenshots
-  ,
   libpngSupport ? true,
   libpng,
   libjpegSupport ? true,

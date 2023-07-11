@@ -10,9 +10,8 @@
   mono,
   pkg-config,
   msgpack,
-  toml11
+  toml11,
 
-  ,
   gccStdenv,
   llvmPackages,
   useClang ? false,

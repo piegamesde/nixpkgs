@@ -28,29 +28,23 @@
   which,
   wrapGAppsHook,
   wxGTK,
-  zlib
+  zlib,
 
-  ,
   spellcheckSupport ? true,
-  hunspell ? null
+  hunspell ? null,
 
-  ,
   openalSupport ? false,
-  openal ? null
+  openal ? null,
 
-  ,
   alsaSupport ? stdenv.isLinux,
-  alsa-lib ? null
+  alsa-lib ? null,
 
-  ,
   pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
-  libpulseaudio ? null
+  libpulseaudio ? null,
 
-  ,
   portaudioSupport ? false,
-  portaudio ? null
+  portaudio ? null,
 
-  ,
   useBundledLuaJIT ? false,
   darwin,
 }:

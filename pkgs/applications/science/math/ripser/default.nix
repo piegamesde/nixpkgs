@@ -6,7 +6,7 @@
   indicateProgress ? false,
   useGoogleHashmap ? false,
   sparsehash ? null,
-  fileFormat ? "lowerTriangularCsv"
+  fileFormat ? "lowerTriangularCsv",
 }:
 
 with lib;

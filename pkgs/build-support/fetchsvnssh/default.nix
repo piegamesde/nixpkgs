@@ -11,7 +11,7 @@
   url,
   rev ? "HEAD",
   md5 ? "",
-  sha256 ? ""
+  sha256 ? "",
 }:
 
 if md5 != "" then

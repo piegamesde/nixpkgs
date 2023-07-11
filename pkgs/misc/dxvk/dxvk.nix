@@ -13,7 +13,7 @@
   glfw,
   pkgsBuildHost,
   sdl2Support ? true,
-  glfwSupport ? false
+  glfwSupport ? false,
 }:
 
 # SDL2 and GLFW support are mutually exclusive.

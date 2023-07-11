@@ -8,8 +8,7 @@
   makeWrapper,
   wrapGAppsHook,
   gobject-introspection,
-  jre # old or modded versions of the game may require Java 8 (https://aur.archlinux.org/packages/minecraft-launcher/#pinned-674960)
-  ,
+  jre, # old or modded versions of the game may require Java 8 (https://aur.archlinux.org/packages/minecraft-launcher/#pinned-674960)
   xorg,
   zlib,
   nss,
@@ -32,7 +31,7 @@
   libuuid,
   systemd,
   flite ? null,
-  libXxf86vm ? null
+  libXxf86vm ? null,
 }:
 let
   desktopItem = makeDesktopItem {

@@ -11,10 +11,9 @@
   python3,
   spirv-tools,
   spirv-headers,
-  spirv-llvm-translator
+  spirv-llvm-translator,
 
-  ,
-  buildWithPatches ? true
+  buildWithPatches ? true,
 }:
 
 let

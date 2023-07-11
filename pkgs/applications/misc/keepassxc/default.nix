@@ -3,9 +3,8 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  qttools
+  qttools,
 
-  ,
   asciidoctor,
   botan2,
   curl,
@@ -24,12 +23,10 @@
   readline,
   wrapGAppsHook,
   wrapQtAppsHook,
-  zlib
+  zlib,
 
-  ,
-  LocalAuthentication
+  LocalAuthentication,
 
-  ,
   withKeePassBrowser ? true,
   withKeePassFDOSecrets ? true,
   withKeePassKeeShare ? true,
@@ -37,9 +34,8 @@
   withKeePassSSHAgent ? true,
   withKeePassTouchID ? true,
   withKeePassX11 ? true,
-  withKeePassYubiKey ? true
+  withKeePassYubiKey ? true,
 
-  ,
   nixosTests,
 }:
 

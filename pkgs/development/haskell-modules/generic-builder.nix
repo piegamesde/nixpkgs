@@ -26,14 +26,15 @@ let
 in
 
 {
-  pname
+  pname,
   # Note that ghc.isGhcjs != stdenv.hostPlatform.isGhcjs.
   # ghc.isGhcjs implies that we are using ghcjs, a project separate from GHC.
   # (mere) stdenv.hostPlatform.isGhcjs means that we are using GHC's JavaScript
   # backend. The latter is a normal cross compilation backend and needs little
   # special accomodation.
-  ,
-  dontStrip ? (ghc.isGhcjs or false || stdenv.hostPlatform.isGhcjs),
+  dontStrip ? (
+    ghc.isGhcjs or false || stdenv.hostPlatform.isGhcjs
+  ),
   version,
   revision ? null,
   sha256 ? null,
@@ -59,16 +60,14 @@ in
   doBenchmark ? false,
   doHoogle ? true,
   doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6",
-  editedCabalFile ? null
+  editedCabalFile ? null,
   # aarch64 outputs otherwise exceed 2GB limit
-  ,
   enableLibraryProfiling ? !(
     ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false
   ),
   enableExecutableProfiling ? false,
-  profilingDetail ? "exported-functions"
+  profilingDetail ? "exported-functions",
   # TODO enable shared libs for cross-compiling
-  ,
   enableSharedExecutables ? false,
   enableSharedLibraries ?
     !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
@@ -83,11 +82,10 @@ in
     stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
   extraLibraries ? [ ],
   librarySystemDepends ? [ ],
-  executableSystemDepends ? [ ]
+  executableSystemDepends ? [ ],
   # On macOS, statically linking against system frameworks is not supported;
   # see https://developer.apple.com/library/content/qa/qa1118/_index.html
   # They must be propagated to the environment of any executable linking with the library
-  ,
   libraryFrameworkDepends ? [ ],
   executableFrameworkDepends ? [ ],
   homepage ? "https://hackage.haskell.org/package/${pname}",
@@ -163,7 +161,7 @@ in
   , # If set to true, this builds a pre-linked .o file for this Haskell library.
   # This can make it slightly faster to load this library into GHCi, but takes
   # extra disk space and compile time.
-  enableLibraryForGhci ? false
+  enableLibraryForGhci ? false,
 }@args:
 
 assert editedCabalFile != null -> revision != null;
@@ -899,7 +897,7 @@ lib.fix (
         #   >    haskell.packages.ghc865.hello.envFunc { buildInputs = [ python ]; }'
         envFunc =
           {
-            withHoogle ? false
+            withHoogle ? false,
           }:
           let
             name = "ghc-shell-for-${drv.name}";

@@ -23,11 +23,10 @@
   advancecomp,
   tileMode ? false,
   enableSound ? tileMode,
-  buildPackages
+  buildPackages,
 
   # MacOS / Darwin builds
-  ,
-  darwin ? null
+  darwin ? null,
 }:
 
 stdenv.mkDerivation rec {

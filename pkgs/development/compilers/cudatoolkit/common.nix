@@ -26,13 +26,11 @@ args@{
   numactl,
   nss,
   perl,
-  python3 # FIXME: CUDAToolkit 10 may still need python27
-  ,
+  python3, # FIXME: CUDAToolkit 10 may still need python27
   pulseaudio,
   requireFile,
   stdenv,
-  backendStdenv # E.g. gcc11Stdenv, set in extension.nix
-  ,
+  backendStdenv, # E.g. gcc11Stdenv, set in extension.nix
   unixODBC,
   wayland,
   xorg,

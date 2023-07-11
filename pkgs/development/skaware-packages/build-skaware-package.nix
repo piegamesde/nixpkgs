@@ -6,45 +6,35 @@
 }:
 {
   # : string
-  pname
+  pname,
   # : string
-  ,
-  version
+  version,
   # : string
-  ,
-  sha256
+  sha256,
   # : string
-  ,
-  description
+  description,
   # : list Platform
-  ,
-  platforms ? lib.platforms.all
+  platforms ? lib.platforms.all,
   # : list string
-  ,
   outputs ? [
     "bin"
     "lib"
     "dev"
     "doc"
     "out"
-  ]
+  ],
   # TODO(Profpatsch): automatically infer most of these
   # : list string
-  ,
-  configureFlags
+  configureFlags,
   # : string
-  ,
-  postConfigure ? null
+  postConfigure ? null,
   # mostly for moving and deleting files from the build directory
   # : lines
-  ,
-  postInstall
+  postInstall,
   # : list Maintainer
-  ,
-  maintainers ? [ ]
+  maintainers ? [ ],
   # : passthru arguments (e.g. tests)
-  ,
-  passthru ? { }
+  passthru ? { },
 
 }:
 

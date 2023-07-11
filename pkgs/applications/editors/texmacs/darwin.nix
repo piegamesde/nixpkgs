@@ -19,7 +19,7 @@
   extraFonts ? false,
   chineseFonts ? false,
   japaneseFonts ? false,
-  koreanFonts ? false
+  koreanFonts ? false,
 }:
 let
   version = "1.99.4";

@@ -1,13 +1,11 @@
 {
   lib,
-  fetchFromGitHub
+  fetchFromGitHub,
 
-  ,
   cairo,
   ffmpeg,
-  texlive
+  texlive,
 
-  ,
   python3,
 }:
 

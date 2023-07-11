@@ -5,10 +5,9 @@
   rustPlatform,
   installShellFiles,
   scdoc,
-  makeWrapper
+  makeWrapper,
 
   # Script dependencies.
-  ,
   fzf,
   wl-clipboard,
   xclip,

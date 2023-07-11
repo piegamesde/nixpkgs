@@ -3,7 +3,7 @@
 {
   pkgs ? import <nixpkgs> { },
   minica ? pkgs.minica,
-  mkDerivation ? pkgs.stdenv.mkDerivation
+  mkDerivation ? pkgs.stdenv.mkDerivation,
 }:
 let
   conf = import ./snakeoil-certs.nix;

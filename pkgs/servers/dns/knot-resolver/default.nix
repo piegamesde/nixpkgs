@@ -1,16 +1,14 @@
 {
   lib,
   stdenv,
-  fetchurl
+  fetchurl,
   # native deps.
-  ,
   runCommand,
   pkg-config,
   meson,
   ninja,
-  makeWrapper
+  makeWrapper,
   # build+runtime deps.
-  ,
   knot-dns,
   luajitPackages,
   libuv,
@@ -20,13 +18,13 @@
   systemd,
   libcap_ng,
   dns-root-data,
-  nghttp2 # optionals, in principle
+  nghttp2, # optionals, in principle
   # test-only deps.
-  ,
   cmocka,
   which,
   cacert,
   extraFeatures ? false # catch-all if defaults aren't enough
+  ,
 }:
 let # un-indented, over the whole file
 

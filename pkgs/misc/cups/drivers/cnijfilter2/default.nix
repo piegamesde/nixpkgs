@@ -9,7 +9,7 @@
   libxml2,
   libusb1,
   libtool,
-  withDebug ? false
+  withDebug ? false,
 }:
 
 stdenv.mkDerivation {

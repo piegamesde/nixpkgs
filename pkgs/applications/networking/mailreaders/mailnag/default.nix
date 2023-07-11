@@ -2,8 +2,7 @@
   lib,
   fetchFromGitHub,
   gettext,
-  xorg # for lndir
-  ,
+  xorg, # for lndir
   gtk3,
   python3Packages,
   gdk-pixbuf,
@@ -13,16 +12,14 @@
   wrapGAppsHook,
   gsettings-desktop-schemas,
   glib,
-  gobject-introspection
+  gobject-introspection,
   # Available plugins (can be overridden)
-  ,
-  availablePlugins
+  availablePlugins,
   # Used in the withPlugins interface at passthru, can be overrided directly, or
   # prefarably via e.g: `mailnag.withPlugins([mailnag.availablePlugins.goa])`
-  ,
   mailnag,
   userPlugins ? [ ],
-  pluginsDeps ? [ ]
+  pluginsDeps ? [ ],
 }:
 
 python3Packages.buildPythonApplication rec {

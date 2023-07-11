@@ -8,7 +8,7 @@
   lxqt-qtplugin,
   qtx11extras,
   gitUpdater,
-  extraQtStyles ? [ ]
+  extraQtStyles ? [ ],
 }:
 
 mkDerivation rec {

@@ -10,7 +10,7 @@
   stdenv,
   writeScript,
   writeTextFile,
-  recommendedUdevRules ? true
+  recommendedUdevRules ? true,
 }:
 
 stdenv.mkDerivation rec {

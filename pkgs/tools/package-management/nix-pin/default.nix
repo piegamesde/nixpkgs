@@ -46,7 +46,7 @@ let
       {
         api =
           {
-            pinConfig ? defaults.pinConfig
+            pinConfig ? defaults.pinConfig,
           }:
           let
             impl =

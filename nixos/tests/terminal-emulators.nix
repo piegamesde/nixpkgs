@@ -15,7 +15,7 @@
 {
   system ? builtins.currentSystem,
   config ? { },
-  pkgs ? import ../.. { inherit system config; }
+  pkgs ? import ../.. { inherit system config; },
 }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
@@ -124,7 +124,7 @@ mapAttrs
     cmd ? "SHELL=$command ${executable}",
     colourTest ? true,
     pinkValue ? "#FF0087",
-    kill ? false
+    kill ? false,
   }:
   makeTest {
     name = "terminal-emulator-${name}";

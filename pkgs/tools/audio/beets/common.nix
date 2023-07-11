@@ -10,10 +10,9 @@
   python3Packages,
   sphinxHook,
   runtimeShell,
-  writeScript
+  writeScript,
 
   # plugin deps
-  ,
   aacgain,
   essentia-extractor,
   ffmpeg,
@@ -21,16 +20,14 @@
   imagemagick,
   keyfinder-cli,
   mp3gain,
-  mp3val
+  mp3val,
 
-  ,
   src,
   version,
   pluginOverrides ? { },
-  disableAllPlugins ? false
+  disableAllPlugins ? false,
 
   # tests
-  ,
   runCommand,
   beets,
 }@inputs:
@@ -43,7 +40,7 @@ let
       builtin ? false,
       propagatedBuildInputs ? [ ],
       testPaths ? [ ],
-      wrapperBins ? [ ]
+      wrapperBins ? [ ],
     }: {
       inherit enable builtin propagatedBuildInputs testPaths wrapperBins;
     }

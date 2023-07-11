@@ -10,6 +10,7 @@
   xorg,
   libGL,
   withGui ? false # build GUI version
+  ,
 }:
 
 rustPlatform.buildRustPackage rec {

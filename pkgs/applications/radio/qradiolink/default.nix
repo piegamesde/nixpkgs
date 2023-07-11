@@ -2,13 +2,11 @@
   lib,
   fetchFromGitHub,
   libpulseaudio,
-  libconfig
+  libconfig,
   # Needs a gnuradio built with qt gui support
-  ,
   gnuradio3_8,
-  thrift
+  thrift,
   # Not gnuradioPackages'
-  ,
   codec2,
   gmp,
   gsm,

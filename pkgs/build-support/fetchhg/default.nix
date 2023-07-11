@@ -11,7 +11,7 @@
   sha256 ? null,
   hash ? null,
   fetchSubrepos ? false,
-  preferLocalBuild ? true
+  preferLocalBuild ? true,
 }:
 
 if md5 != null then

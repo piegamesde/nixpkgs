@@ -3,9 +3,8 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-  cmake
+  cmake,
   # Remove gcc and python references
-  ,
   removeReferencesTo,
   pkg-config,
   volk,
@@ -27,31 +26,27 @@
   uhd,
   SDL,
   gsl,
-  cppzmq
+  cppzmq,
   # Needed only if qt-gui is disabled, from some reason
-  ,
-  icu
+  icu,
   # GUI related
-  ,
   gtk3,
   pango,
   gobject-introspection,
   cairo,
   qt5,
-  libsForQt5
+  libsForQt5,
   # Features available to override, the list of them is in featuresInfo. They
   # are all turned on by default.
-  ,
-  features ? { }
+  features ? { },
   # If one wishes to use a different src or name for a very custom build
-  ,
   overrideSrc ? { },
   pname ? "gnuradio",
   versionAttr ? {
     major = "3.8";
     minor = "5";
     patch = "0";
-  }
+  },
 }:
 
 let

@@ -13,7 +13,7 @@
   androidPkgs ? androidenv.composeAndroidPackages {
     includeNDK = true;
     ndkVersion = "22.1.7171670";
-  }
+  },
 }:
 
 buildGoModule {

@@ -41,7 +41,7 @@
   libgxps,
   supportXPS ? true # Open XML Paper Specification via libgxps
   ,
-  withLibsecret ? true
+  withLibsecret ? true,
 }:
 
 stdenv.mkDerivation rec {

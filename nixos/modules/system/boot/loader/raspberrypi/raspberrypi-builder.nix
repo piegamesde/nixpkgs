@@ -1,7 +1,7 @@
 {
   pkgs,
   configTxt,
-  firmware ? pkgs.raspberrypifw
+  firmware ? pkgs.raspberrypifw,
 }:
 
 pkgs.substituteAll {

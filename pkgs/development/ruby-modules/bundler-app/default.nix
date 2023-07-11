@@ -17,16 +17,13 @@
 # The 'exes' parameter ensures that a copy of e.g. rake doesn't polute the system.
 {
   # use the name of the name in question; its version will be picked up from the gemset
-  pname
+  pname,
   # Gemdir is the location of the Gemfile{,.lock} and gemset.nix; usually ./.
   # This is required unless gemfile, lockfile, and gemset are all provided
-  ,
-  gemdir ? null
+  gemdir ? null,
   # Exes is the list of executables provided by the gems in the Gemfile
-  ,
-  exes ? [ ]
+  exes ? [ ],
   # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
-  ,
   scripts ? [ ],
   ruby ? defs.ruby,
   gemfile ? null,
@@ -40,7 +37,7 @@
   buildInputs ? [ ],
   postBuild ? "",
   gemConfig ? null,
-  passthru ? { }
+  passthru ? { },
 }@args:
 
 let

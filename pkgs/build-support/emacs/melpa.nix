@@ -17,9 +17,8 @@ with lib;
   /* pname: Nix package name without special symbols and without version or
      "emacs-" prefix.
   */
-  pname
+  pname,
   # ename: Original Emacs package name, possibly containing special symbols.
-  ,
   ename ? null,
   version,
   recipe,

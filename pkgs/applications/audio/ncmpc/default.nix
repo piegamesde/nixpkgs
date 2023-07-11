@@ -11,7 +11,7 @@
   gettext,
   boost,
   pcreSupport ? false,
-  pcre ? null
+  pcre ? null,
 }:
 
 assert pcreSupport -> pcre != null;

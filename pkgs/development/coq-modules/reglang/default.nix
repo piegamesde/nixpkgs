@@ -3,7 +3,7 @@
   mkCoqDerivation,
   coq,
   ssreflect,
-  version ? null
+  version ? null,
 }:
 
 mkCoqDerivation {
