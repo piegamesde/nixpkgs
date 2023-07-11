@@ -33,8 +33,13 @@ let
 
      escapeShellArgs' : [ShellArg] -> String
   */
-  escapeShellArgs' = lib.concatMapStringsSep " "
-    (arg: if arg ? __rawShell then arg.__rawShell else lib.escapeShellArg arg);
+  escapeShellArgs' = lib.concatMapStringsSep " " (arg:
+    if
+      arg ? __rawShell
+    then
+      arg.__rawShell
+    else
+      lib.escapeShellArg arg);
 
   /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
@@ -45,7 +50,9 @@ let
       paths,
     }:
     arg:
-    if builtins.isPath arg then {
+    if
+      builtins.isPath arg
+    then {
       args = args
         ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
       maxArgIndex = maxArgIndex + 1;
@@ -130,7 +137,9 @@ in rec {
           ...
         }:
         supportedFeatures == [ "commit" ]) null null scripts != null;
-      validateFeatures = if hasCommitSupport then
+      validateFeatures = if
+        hasCommitSupport
+      then
         ({
             supportedFeatures,
             ...

@@ -15,7 +15,12 @@
 }:
 
 let
-  os = if stdenv.isDarwin then "osx" else "linux";
+  os = if
+    stdenv.isDarwin
+  then
+    "osx"
+  else
+    "linux";
   arch = {
     x86_64-linux = "x64";
     aarch64-linux = "arm64";

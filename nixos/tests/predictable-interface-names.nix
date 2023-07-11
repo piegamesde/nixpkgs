@@ -75,7 +75,12 @@ in
         testScript = ''
           print(machine.succeed("ip link"))
           machine.${
-            if predictable then "fail" else "succeed"
+            if
+              predictable
+            then
+              "fail"
+            else
+              "succeed"
           }("ip link show eth0")
         '';
       };

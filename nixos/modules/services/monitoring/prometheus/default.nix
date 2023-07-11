@@ -38,7 +38,9 @@ let
 
   # a wrapper that verifies that the configuration is valid
   promtoolCheck = what: name: file:
-    if checkConfigEnabled then
+    if
+      checkConfigEnabled
+    then
       pkgs.runCommandLocal
       "${name}-${replaceStrings [ " " ] [ "" ] what}-checked" {
         buildInputs = [ cfg.package.cli ];
@@ -64,7 +66,9 @@ let
   };
 
   prometheusYml = let
-    yml = if cfg.configText != null then
+    yml = if
+      cfg.configText != null
+    then
       pkgs.writeText "prometheus.yml" cfg.configText
     else
       generatedPrometheusYml;
@@ -77,7 +81,9 @@ let
   cmdlineArgs = cfg.extraFlags ++ [
     "--storage.tsdb.path=${workingDir}/data/"
     "--config.file=${
-      if cfg.enableReload then
+      if
+        cfg.enableReload
+      then
         "/etc/prometheus/prometheus.yaml"
       else
         prometheusYml
@@ -96,12 +102,15 @@ let
   filterValidPrometheus =
     filterAttrsListRecursive (n: v: !(n == "_module" || v == null));
   filterAttrsListRecursive = pred: x:
-    if isAttrs x then
+    if
+      isAttrs x
+    then
       listToAttrs (concatMap (name:
         let
           v = x.${name};
-        in if pred name v then [ (nameValuePair name
-          (filterAttrsListRecursive pred v)) ] else
+        in if
+          pred name v
+        then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else
           [ ]) (attrNames x))
     else if isList x then
       map (filterAttrsListRecursive pred) x

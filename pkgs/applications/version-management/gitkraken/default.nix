@@ -200,4 +200,9 @@ let
       cp -R . $out/Applications/GitKraken.app
     '';
   };
-in if stdenv.isDarwin then darwin else linux
+in if
+  stdenv.isDarwin
+then
+  darwin
+else
+  linux

@@ -43,7 +43,14 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin "-Wno-sign-compare";
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if
+        static
+      then
+        "OFF"
+      else
+        "ON"
+    }"
     "-DSNAPPY_BUILD_TESTS=OFF"
     "-DSNAPPY_BUILD_BENCHMARKS=OFF"
   ];

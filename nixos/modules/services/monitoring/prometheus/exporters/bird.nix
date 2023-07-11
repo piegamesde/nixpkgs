@@ -39,14 +39,32 @@ in {
   };
   serviceOpts = {
     serviceConfig = {
-      SupplementaryGroups =
-        singleton (if cfg.birdVersion == 1 then "bird" else "bird2");
+      SupplementaryGroups = singleton (if
+        cfg.birdVersion == 1
+      then
+        "bird"
+      else
+        "bird2");
       ExecStart = ''
         ${pkgs.prometheus-bird-exporter}/bin/bird_exporter \
           -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           -bird.socket ${cfg.birdSocket} \
-          -bird.v2=${if cfg.birdVersion == 2 then "true" else "false"} \
-          -format.new=${if cfg.newMetricFormat then "true" else "false"} \
+          -bird.v2=${
+            if
+              cfg.birdVersion == 2
+            then
+              "true"
+            else
+              "false"
+          } \
+          -format.new=${
+            if
+              cfg.newMetricFormat
+            then
+              "true"
+            else
+              "false"
+          } \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
       RestrictAddressFamilies = [

@@ -20,7 +20,9 @@
   ui ? false
 }:
 let
-  modules = if ui then {
+  modules = if
+    ui
+  then {
     "client/ui" = "netbird-ui";
   } else {
     client = "netbird";

@@ -60,7 +60,9 @@ let
     lib.flip lib.concatMap modules (mod:
       let
         supports = mod.supports or (_: true);
-      in if supports nginxVersion then
+      in if
+        supports nginxVersion
+      then
         mod.${attrPath} or [ ]
       else
         throw "Module at ${
@@ -81,7 +83,9 @@ in
       "doc"
     ];
 
-    src = if src != null then
+    src = if
+      src != null
+    then
       src
     else
       fetchurl {
@@ -227,7 +231,9 @@ in
       } // passthru.tests;
     };
 
-    meta = if meta != null then
+    meta = if
+      meta != null
+    then
       meta
     else
       with lib; {

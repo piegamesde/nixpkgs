@@ -13,7 +13,12 @@
 
 let
   inherit (stdenv) hostPlatform;
-  OS = if hostPlatform.isDarwin then "osx" else hostPlatform.parsed.kernel.name;
+  OS = if
+    hostPlatform.isDarwin
+  then
+    "osx"
+  else
+    hostPlatform.parsed.kernel.name;
   MODEL = toString hostPlatform.parsed.cpu.bits;
 in
   stdenv.mkDerivation {

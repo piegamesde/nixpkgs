@@ -16,19 +16,25 @@
 }:
 
 let
-  archString = if stdenv.isAarch64 then
+  archString = if
+    stdenv.isAarch64
+  then
     "arm64"
   else if stdenv.isx86_64 then
     "x64"
   else
     throw "unsupported platform";
-  platformString = if stdenv.isDarwin then
+  platformString = if
+    stdenv.isDarwin
+  then
     "osx"
   else if stdenv.isLinux then
     "linux"
   else
     throw "unsupported platform";
-  platformSha = if (stdenv.isDarwin && stdenv.isx86_64) then
+  platformSha = if
+    (stdenv.isDarwin && stdenv.isx86_64)
+  then
     "sha256-JKB7Oy+3KWtVo1Aqmc7vZiO88FrF9+8N/tdGlvIQolM="
   else if (stdenv.isDarwin && stdenv.isAarch64) then
     "sha256-9UwB1tT2VaW+favw/KWPziFMSRWcw7AqeeZvbaGOBqc="
@@ -38,7 +44,9 @@ let
     "sha256-3Lm9WYVcfkEVfji/h52VqFy1Jo1AiSQ22JhEGiCPzzM="
   else
     throw "unsupported platform";
-  platformLdLibraryPath = if stdenv.isDarwin then
+  platformLdLibraryPath = if
+    stdenv.isDarwin
+  then
     "DYLD_FALLBACK_LIBRARY_PATH"
   else if stdenv.isLinux then
     "LD_LIBRARY_PATH"
@@ -50,7 +58,9 @@ let
     icu
     curl
     openssl_1_1
-  ] ++ (if stdenv.isLinux then [
+  ] ++ (if
+    stdenv.isLinux
+  then [
     pam
     lttng-ust
   ] else [ darwin.Libsystem ]);

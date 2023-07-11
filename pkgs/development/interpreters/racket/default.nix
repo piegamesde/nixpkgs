@@ -154,7 +154,12 @@ in
       export DYLD_FALLBACK_LIBRARY_PATH="${libPath}"
     '';
 
-    shared = if stdenv.isDarwin then "dylib" else "shared";
+    shared = if
+      stdenv.isDarwin
+    then
+      "dylib"
+    else
+      "shared";
     configureFlags = [
       "--enable-${shared}"
       "--enable-lt=${libtool}/bin/libtool"

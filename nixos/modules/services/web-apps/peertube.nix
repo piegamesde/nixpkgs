@@ -202,8 +202,12 @@ in {
 
       host = lib.mkOption {
         type = lib.types.str;
-        default =
-          if cfg.database.createLocally then "/run/postgresql" else null;
+        default = if
+          cfg.database.createLocally
+        then
+          "/run/postgresql"
+        else
+          null;
         defaultText = lib.literalExpression ''
           if config.${opt.database.createLocally}
           then "/run/postgresql"
@@ -248,7 +252,9 @@ in {
 
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then
+        default = if
+          cfg.redis.createLocally && !cfg.redis.enableUnixSocket
+        then
           "127.0.0.1"
         else
           null;
@@ -262,7 +268,9 @@ in {
 
       port = lib.mkOption {
         type = lib.types.nullOr lib.types.port;
-        default = if cfg.redis.createLocally && cfg.redis.enableUnixSocket then
+        default = if
+          cfg.redis.createLocally && cfg.redis.enableUnixSocket
+        then
           null
         else
           31638;
@@ -377,7 +385,12 @@ in {
       {
         listen = { port = cfg.listenHttp; };
         webserver = {
-          https = (if cfg.enableWebHttps then true else false);
+          https = (if
+            cfg.enableWebHttps
+          then
+            true
+          else
+            false);
           hostname = "${cfg.localDomain}";
           port = cfg.listenWeb;
         };
@@ -389,7 +402,12 @@ in {
         };
         redis = {
           hostname = "${toString cfg.redis.host}";
-          port = (if cfg.redis.port == null then "" else cfg.redis.port);
+          port = (if
+            cfg.redis.port == null
+          then
+            ""
+          else
+            cfg.redis.port);
         };
         storage = {
           tmp = lib.mkDefault "/var/lib/peertube/storage/tmp/";

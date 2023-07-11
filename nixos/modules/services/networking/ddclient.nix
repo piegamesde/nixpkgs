@@ -7,7 +7,13 @@
 
 let
   cfg = config.services.ddclient;
-  boolToStr = bool: if bool then "yes" else "no";
+  boolToStr = bool:
+    if
+      bool
+    then
+      "yes"
+    else
+      "no";
   dataDir = "/var/lib/ddclient";
   StateDirectory = builtins.baseNameOf dataDir;
   RuntimeDirectory = StateDirectory;
@@ -19,7 +25,9 @@ let
     use=${cfg.use}
     login=${cfg.username}
     password=${
-      if cfg.protocol == "nsupdate" then
+      if
+        cfg.protocol == "nsupdate"
+      then
         "/run/${RuntimeDirectory}/ddclient.key"
       else
         "@password_placeholder@"
@@ -36,12 +44,18 @@ let
     ${cfg.extraConfig}
     ${lib.concatStringsSep "," cfg.domains}
   '';
-  configFile = if (cfg.configFile != null) then cfg.configFile else configFile';
+  configFile = if
+    (cfg.configFile != null)
+  then
+    cfg.configFile
+  else
+    configFile';
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
-    ${lib.optionalString (cfg.configFile == null)
-    (if (cfg.protocol == "nsupdate") then ''
+    ${lib.optionalString (cfg.configFile == null) (if
+      (cfg.protocol == "nsupdate")
+    then ''
       install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
     '' else if (cfg.passwordFile != null) then ''
       "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"

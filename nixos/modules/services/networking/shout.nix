@@ -16,7 +16,9 @@ let
     mv config.js $out
   '';
 
-  finalConfigFile = if (cfg.configFile != null) then
+  finalConfigFile = if
+    (cfg.configFile != null)
+  then
     cfg.configFile
   else ''
     var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
@@ -108,7 +110,12 @@ in {
         } ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"
-        (if cfg.private then "--private" else "--public")
+        (if
+          cfg.private
+        then
+          "--private"
+        else
+          "--public")
         "--port"
         (toString cfg.port)
         "--host"

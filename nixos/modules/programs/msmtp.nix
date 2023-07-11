@@ -89,7 +89,9 @@ in {
 
     environment.etc."msmtprc".text = let
       mkValueString = v:
-        if v == true then
+        if
+          v == true
+        then
           "on"
         else if v == false then
           "off"

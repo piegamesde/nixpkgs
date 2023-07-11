@@ -43,7 +43,9 @@ stdenv.mkDerivation rec {
     sed -i 57d texk/kpathsea/c-std.h
   '';
 
-  preConfigure = if stdenv.isCygwin then ''
+  preConfigure = if
+    stdenv.isCygwin
+  then ''
     find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
   '' else
     null;

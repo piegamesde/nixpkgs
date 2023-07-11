@@ -20,7 +20,12 @@ let
   version = "${mklVersion}.${rel}";
 
   mklVersion = "2023.1.0";
-  rel = if stdenvNoCC.isDarwin then "43558" else "46342";
+  rel = if
+    stdenvNoCC.isDarwin
+  then
+    "43558"
+  else
+    "46342";
 
   # Intel openmp uses its own versioning.
   openmpVersion = "2023.1.0";
@@ -75,17 +80,23 @@ in
 
     dontUnpack = stdenvNoCC.isLinux;
 
-    unpackPhase = if stdenvNoCC.isDarwin then ''
+    unpackPhase = if
+      stdenvNoCC.isDarwin
+    then ''
       7zz x $src
     '' else
       null;
 
-    nativeBuildInputs = [ validatePkgConfig ] ++ (if stdenvNoCC.isDarwin then [
+    nativeBuildInputs = [ validatePkgConfig ] ++ (if
+      stdenvNoCC.isDarwin
+    then [
       _7zz
       darwin.cctools
     ] else [ rpmextract ]);
 
-    buildPhase = if stdenvNoCC.isDarwin then ''
+    buildPhase = if
+      stdenvNoCC.isDarwin
+    then ''
       for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
         tar -xf $f
       done
@@ -123,7 +134,12 @@ in
         lib.optionalString stdenvNoCC.isLinux "intel64"
       }/*${shlibExt}* $out/lib
       cp -a opt/intel/oneapi/compiler/${mklVersion}/${
-        if stdenvNoCC.isDarwin then "mac" else "linux"
+        if
+          stdenvNoCC.isDarwin
+        then
+          "mac"
+        else
+          "linux"
       }/compiler/lib/${
         lib.optionalString stdenvNoCC.isLinux "intel64_lin"
       }/*${shlibExt}* $out/lib
@@ -136,7 +152,9 @@ in
 
       # CMake config
       cp -r opt/intel/oneapi/mkl/${mklVersion}/lib/cmake $out/lib
-    '' + (if enableStatic then ''
+    '' + (if
+      enableStatic
+    then ''
       install -Dm0644 -t $out/lib opt/intel/oneapi/mkl/${mklVersion}/lib/${
         lib.optionalString stdenvNoCC.isLinux "intel64"
       }/*.a

@@ -68,8 +68,10 @@ lib.makeOverridable ({
           # and otherwise use `meta.outputsToInstall`. The attribute is guaranteed
           # to exist in mkDerivation-created cases. The other cases (e.g. runCommand)
           # aren't expected to have multiple outputs.
-          (if (!drv ? outputSpecified || !drv.outputSpecified)
-          && drv.meta.outputsToInstall or null != null then
+          (if
+            (!drv ? outputSpecified || !drv.outputSpecified)
+            && drv.meta.outputsToInstall or null != null
+          then
             map (outName: drv.${outName}) drv.meta.outputsToInstall
           else [ drv ])
           # Add any extra outputs specified by the caller of `buildEnv`.

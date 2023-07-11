@@ -150,7 +150,13 @@ in
     ]) ++ lib.optional opencvSupport opencv;
 
     cmakeFlags = let
-      enableIf = cond: if cond then "ON" else "OFF";
+      enableIf = cond:
+        if
+          cond
+        then
+          "ON"
+        else
+          "OFF";
     in [
       "-DBUILD_META_EXAMPLES=ON"
       "-DCMAKE_DISABLE_FIND_PACKAGE_ARPACK=ON"
@@ -211,7 +217,12 @@ in
       description =
         "A toolbox which offers a wide range of efficient and unified machine learning methods";
       homepage = "http://shogun-toolbox.org/";
-      license = if withSvmLight then licenses.unfree else licenses.gpl3Plus;
+      license = if
+        withSvmLight
+      then
+        licenses.unfree
+      else
+        licenses.gpl3Plus;
       maintainers = with maintainers; [
         edwtjo
         smancill

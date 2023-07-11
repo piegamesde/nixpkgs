@@ -237,7 +237,9 @@ let
     ]);
   fingerprintToString = name: edid: "${name} ${edid}";
   configToString = name: config:
-    if config.enable then
+    if
+      config.enable
+    then
       concatStringsSep "\n" ([ "output ${name}" ]
         ++ optional (config.position != "") "pos ${config.position}"
         ++ optional (config.crtc != null) "crtc ${toString config.crtc}"
@@ -249,8 +251,12 @@ let
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
         ++ optional (config.transform != null) ("transform "
           + concatMapStringsSep "," toString (flatten config.transform))
-        ++ optional (config.scale != null)
-        ((if config.scale.method == "factor" then "scale" else "scale-from")
+        ++ optional (config.scale != null) ((if
+          config.scale.method == "factor"
+        then
+          "scale"
+        else
+          "scale-from")
           + " ${toString config.scale.x}x${toString config.scale.y}"))
     else ''
       output ${name}

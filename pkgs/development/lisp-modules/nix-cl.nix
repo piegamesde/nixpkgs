@@ -36,9 +36,15 @@ let
     let
       ff = f origArgs;
       overrideWith = newArgs:
-        origArgs
-        // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
-    in if builtins.isAttrs ff then
+        origArgs // (if
+          pkgs.lib.isFunction newArgs
+        then
+          newArgs origArgs
+        else
+          newArgs);
+    in if
+      builtins.isAttrs ff
+    then
       (ff // {
         overrideLispAttrs = newArgs:
           makeOverridableLispPackage f (overrideWith newArgs);
@@ -201,7 +207,9 @@ let
       dontStrip = true;
 
     } // (args // {
-      src = if builtins.length (args.patches or [ ]) > 0 then
+      src = if
+        builtins.length (args.patches or [ ]) > 0
+      then
         pkgs.applyPatches { inherit (args) src patches; }
       else
         args.src;

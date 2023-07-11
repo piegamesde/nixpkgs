@@ -108,7 +108,9 @@ in
       fi
       EOF
           ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then ''
+            if
+              stdenv.hostPlatform == stdenv.buildPlatform
+            then ''
               $out/bin/zsh -c "zcompile $out/etc/zshenv"
             '' else ''
               ${

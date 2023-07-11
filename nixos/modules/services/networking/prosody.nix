@@ -284,7 +284,9 @@ let
   };
 
   toLua = x:
-    if builtins.isString x then
+    if
+      builtins.isString x
+    then
       ''"${x}"''
     else if builtins.isBool x then
       boolToString x
@@ -828,7 +830,9 @@ in {
     environment.systemPackages = [ cfg.package ];
 
     environment.etc."prosody/prosody.cfg.lua".text = let
-      httpDiscoItems = if (cfg.uploadHttp != null) then [ {
+      httpDiscoItems = if
+        (cfg.uploadHttp != null)
+      then [ {
         url = cfg.uploadHttp.domain;
         description = "HTTP upload endpoint";
       } ] else

@@ -248,11 +248,18 @@ in
       // Optionally disable multiprocess support.  We always set this to ensure that
       // toggling the pref takes effect.
       lockPref("browser.tabs.remote.autostart.2", ${
-        if disableContentSandbox then "false" else "true"
+        if
+          disableContentSandbox
+        then
+          "false"
+        else
+          "true"
       });
 
       // Allow sandbox access to sound devices if using ALSA directly
-      ${if (audioSupport && !pulseaudioSupport) then ''
+      ${if
+        (audioSupport && !pulseaudioSupport)
+      then ''
         pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
       '' else ''
         clearPref("security.sandbox.content.write_path_whitelist");

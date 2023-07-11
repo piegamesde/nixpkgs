@@ -44,7 +44,9 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  preCheck = if stdenv.isDarwin then
+  preCheck = if
+    stdenv.isDarwin
+  then
     "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs"
   else
     null;

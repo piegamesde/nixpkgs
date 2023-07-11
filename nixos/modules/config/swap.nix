@@ -179,7 +179,9 @@ let
           mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
         deviceName =
           lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
-        realDevice = if config.randomEncryption.enable then
+        realDevice = if
+          config.randomEncryption.enable
+        then
           "/dev/mapper/${deviceName}"
         else
           config.device;
@@ -227,8 +229,9 @@ in {
     }) config.swapDevices;
 
     warnings = concatMap (sw:
-      if sw.size != null && hasPrefix "/dev/"
-      sw.device then [ "Setting the swap size of block device ${sw.device} has no effect" ] else
+      if
+        sw.size != null && hasPrefix "/dev/" sw.device
+      then [ "Setting the swap size of block device ${sw.device} has no effect" ] else
         [ ]) config.swapDevices;
 
     system.requiredKernelConfig =

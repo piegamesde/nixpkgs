@@ -30,7 +30,9 @@ let
       sha256 = "sha256-4sxHzU/ixMAkSo67FiE6/ZqWJq9Nb9OMNhMoXH2bEy4=";
     };
 
-    buildPhase = (if stdenv.isDarwin then ''
+    buildPhase = (if
+      stdenv.isDarwin
+    then ''
       LDFLAGS="-dynamic -undefined dynamic_lookup -lSystem"
     '' else ''
       LDFLAGS="-fPIC -shared"
@@ -52,7 +54,9 @@ in
 
     dirname = "Isabelle${version}";
 
-    src = if stdenv.isDarwin then
+    src = if
+      stdenv.isDarwin
+    then
       fetchurl {
         url =
           "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz";
@@ -132,7 +136,14 @@ in
       echo ISABELLE_LINE_EDITOR=${rlwrap}/bin/rlwrap >>etc/settings
 
       for comp in contrib/jdk* contrib/polyml-* contrib/verit-* contrib/vampire-* contrib/e-*; do
-        rm -rf $comp/${if stdenv.hostPlatform.isx86 then "x86" else "arm"}*
+        rm -rf $comp/${
+          if
+            stdenv.hostPlatform.isx86
+          then
+            "x86"
+          else
+            "arm"
+        }*
       done
 
       substituteInPlace lib/Tools/env \
@@ -152,7 +163,9 @@ in
         --replace 'ISABELLE_APPLE_PLATFORM64=arm64-darwin' ""
     '' + lib.optionalString stdenv.isLinux ''
       arch=${
-        if stdenv.hostPlatform.system == "x86_64-linux" then
+        if
+          stdenv.hostPlatform.system == "x86_64-linux"
+        then
           "x86_64-linux"
         else if stdenv.hostPlatform.isx86 then
           "x86-linux"

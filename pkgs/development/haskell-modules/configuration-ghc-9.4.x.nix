@@ -6,7 +6,9 @@
 let
   inherit (pkgs) fetchpatch lib;
   checkAgainAfter = pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then
+    if
+      builtins.compareVersions pkg.version ver <= 0
+    then
       act
     else
       builtins.throw
@@ -52,7 +54,9 @@ in {
   system-cxx-std-lib = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+  terminfo = if
+    pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+  then
     null
   else
     self.terminfo_0_4_1_6;
@@ -62,7 +66,12 @@ in {
   unix = null;
   # GHC only bundles the xhtml library if haddock is enabled, check if this is
   # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
-  xhtml = if self.ghc.hasHaddock or true then null else self.xhtml_3000_2_2_1;
+  xhtml = if
+    self.ghc.hasHaddock or true
+  then
+    null
+  else
+    self.xhtml_3000_2_2_1;
 
   # Tests fail because of typechecking changes
   conduit = dontCheck super.conduit;

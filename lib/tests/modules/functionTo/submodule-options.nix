@@ -46,7 +46,12 @@ in {
     optionsResult = lib.mkOption {
       type = types.str;
       default = lib.concatStringsSep " " (lib.concatLists (lib.mapAttrsToList
-        (k: v: if k == "_module" then [ ] else [ (lib.showOption v.loc) ])
+        (k: v:
+          if
+            k == "_module"
+          then
+            [ ]
+          else [ (lib.showOption v.loc) ])
         ((options.fun.type.getSubOptions [ "fun" ]))));
     };
   };

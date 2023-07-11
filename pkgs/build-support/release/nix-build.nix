@@ -16,7 +16,12 @@
   src,
   lib,
   stdenv,
-  name ? if doCoverageAnalysis then "nix-coverage" else "nix-build",
+  name ? if
+    doCoverageAnalysis
+  then
+    "nix-coverage"
+  else
+    "nix-build",
   failureHook ? null,
   prePhases ? [ ],
   postPhases ? [ ],
@@ -148,18 +153,27 @@ in
 
       postPhases = postPhases ++ [ "finalPhase" ];
 
-      meta = (if args ? meta then args.meta else { }) // {
-        description = if doCoverageAnalysis then
-          "Coverage analysis"
-        else
-          "Nix package for ${stdenv.hostPlatform.system}";
-      };
+      meta = (if
+        args ? meta
+      then
+        args.meta
+      else
+        { }) // {
+          description = if
+            doCoverageAnalysis
+          then
+            "Coverage analysis"
+          else
+            "Nix package for ${stdenv.hostPlatform.system}";
+        };
 
     }
 
     //
 
-    (if buildOutOfSourceTree then {
+    (if
+      buildOutOfSourceTree
+    then {
       preConfigure =
         # Build out of source tree and make the source tree read-only.  This
         # helps catch violations of the GNU Coding Standards (info

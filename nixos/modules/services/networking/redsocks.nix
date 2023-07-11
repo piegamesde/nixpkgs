@@ -215,8 +215,22 @@ in {
       '' ) cfg.redsocks;
     configfile = pkgs.writeText "redsocks.conf" ''
       base {
-        log_debug = ${if cfg.log_debug then "on" else "off"};
-        log_info = ${if cfg.log_info then "on" else "off"};
+        log_debug = ${
+          if
+            cfg.log_debug
+          then
+            "on"
+          else
+            "off"
+        };
+        log_info = ${
+          if
+            cfg.log_info
+          then
+            "on"
+          else
+            "off"
+        };
         log = ${cfg.log};
 
         daemon = off;

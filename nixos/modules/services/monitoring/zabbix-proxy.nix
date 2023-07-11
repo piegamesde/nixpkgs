@@ -58,7 +58,9 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if cfg.database.type == "mysql" then
+        default = if
+          cfg.database.type == "mysql"
+        then
           pkgs.zabbix.proxy-mysql
         else if cfg.database.type == "pgsql" then
           pkgs.zabbix.proxy-pgsql
@@ -122,8 +124,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default =
-            if cfg.database.type == "mysql" then mysql.port else pgsql.port;
+          default = if
+            cfg.database.type == "mysql"
+          then
+            mysql.port
+          else
+            pgsql.port;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql"
             then config.${options.services.mysql.port}
@@ -134,7 +140,9 @@ in {
 
         name = mkOption {
           type = types.str;
-          default = if cfg.database.type == "sqlite" then
+          default = if
+            cfg.database.type == "sqlite"
+          then
             "${stateDir}/zabbix.db"
           else
             "zabbix";
@@ -286,8 +294,9 @@ in {
     systemd.services.mysql.postStart = mkAfter (optionalString mysqlLocal ''
       ( echo "CREATE DATABASE IF NOT EXISTS \`${cfg.database.name}\` CHARACTER SET utf8 COLLATE utf8_bin;"
         echo "CREATE USER IF NOT EXISTS '${cfg.database.user}'@'localhost' IDENTIFIED WITH ${
-          if (getName config.services.mysql.package
-            == getName pkgs.mariadb) then
+          if
+            (getName config.services.mysql.package == getName pkgs.mariadb)
+          then
             "unix_socket"
           else
             "auth_socket"

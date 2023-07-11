@@ -13,7 +13,9 @@ let
   ini = pkgs.formats.ini {
     mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" rec {
       mkValueString = v:
-        if isInt v then
+        if
+          isInt v
+        then
           toString v
         else if isString v then
           v
@@ -248,7 +250,14 @@ in {
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x:
+                if
+                  isAttrs x || x == null
+                then
+                  x
+                else {
+                  _secret = x;
+                };
             };
           };
 
@@ -296,7 +305,14 @@ in {
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x:
+                if
+                  isAttrs x || x == null
+                then
+                  x
+                else {
+                  _secret = x;
+                };
             };
 
             from = lib.mkOption {
@@ -321,7 +337,13 @@ in {
             hosts = lib.mkOption {
               default = [ ];
               type = with lib.types; listOf str;
-              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
+              apply = x:
+                if
+                  x == [ ]
+                then
+                  null
+                else
+                  lib.concatStringsSep "," x;
               description = lib.mdDoc ''
                 A list of Elasticsearch hosts to push parsed reports
                 to.
@@ -349,7 +371,14 @@ in {
                 attrset or not (refer to [](#opt-services.parsedmarc.settings) for
                 details).
               '';
-              apply = x: if isAttrs x || x == null then x else { _secret = x; };
+              apply = x:
+                if
+                  isAttrs x || x == null
+                then
+                  x
+                else {
+                  _secret = x;
+                };
             };
 
             ssl = lib.mkOption {

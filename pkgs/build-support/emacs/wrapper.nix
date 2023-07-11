@@ -52,8 +52,12 @@ in
   packagesFun: # packages explicitly requested by the user
 
   let
-    explicitRequires =
-      if lib.isFunction packagesFun then packagesFun self else packagesFun;
+    explicitRequires = if
+      lib.isFunction packagesFun
+    then
+      packagesFun self
+    else
+      packagesFun;
 
   in
     runCommand (appendToName "with-packages" emacs).name {

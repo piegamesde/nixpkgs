@@ -65,7 +65,9 @@ let
     let
       escapeRegex = escape (stringToCharacters "\\[]{}()^$?*+|.");
       cmdline_ = builtins.unsafeDiscardStringContext cmdline;
-      re = if regex != "" then
+      re = if
+        regex != ""
+      then
         regex
       else if cmdline_ == "" then
         ".*"

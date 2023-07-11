@@ -34,7 +34,12 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   makeFlags = let
-    static = if enableStatic then "1" else "0";
+    static = if
+      enableStatic
+    then
+      "1"
+    else
+      "0";
   in [
     "OMP=1"
     "PREFIX=$(out)"

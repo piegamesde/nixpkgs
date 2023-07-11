@@ -22,13 +22,21 @@ let
         "davmail config type (str, int, bool or attribute set thereof)";
     };
 
-  toStr = val: if isBool val then boolToString val else toString val;
+  toStr = val:
+    if
+      isBool val
+    then
+      boolToString val
+    else
+      toString val;
 
   linesForAttrs = attrs:
     concatMap (name:
       let
         value = attrs.${name};
-      in if isAttrs value then
+      in if
+        isAttrs value
+      then
         map (line: name + "." + line) (linesForAttrs value)
       else [ "${name}=${toStr value}" ]) (attrNames attrs);
 

@@ -99,7 +99,12 @@ in {
         wantedBy = [ "multi-user.target" ];
         after = [ "networking.target" ];
 
-        environment.HOME = if baseq3InStore then home else cfg.baseq3;
+        environment.HOME = if
+          baseq3InStore
+        then
+          home
+        else
+          cfg.baseq3;
 
         serviceConfig = with lib; {
           Restart = "always";
@@ -107,7 +112,12 @@ in {
           WorkingDirectory = home;
 
           # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
-          ReadOnlyPaths = if baseq3InStore then home else cfg.baseq3;
+          ReadOnlyPaths = if
+            baseq3InStore
+          then
+            home
+          else
+            cfg.baseq3;
           ExecStartPre = optionalString (!baseq3InStore)
             "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
 

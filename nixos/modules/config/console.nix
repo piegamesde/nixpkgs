@@ -172,8 +172,22 @@ in {
 
         boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
           (mkBefore ''
-            kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
-            printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
+            kbd_mode ${
+              if
+                isUnicode
+              then
+                "-u"
+              else
+                "-a"
+            } -C /dev/console
+            printf "\033%%${
+              if
+                isUnicode
+              then
+                "G"
+              else
+                "@"
+            }" >> /dev/console
             loadkmap < ${optimizedKeymap}
 
             ${optionalString (cfg.earlySetup && cfg.font != null) ''
@@ -234,7 +248,9 @@ in {
         && !config.boot.initrd.systemd.enable) {
           boot.initrd.extraUtilsCommands = ''
             mkdir -p $out/share/consolefonts
-            ${if substring 0 1 cfg.font == "/" then ''
+            ${if
+              substring 0 1 cfg.font == "/"
+            then ''
               font="${cfg.font}"
             '' else ''
               font="$(echo ${

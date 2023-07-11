@@ -17,7 +17,12 @@ let
       cp ${filePath} $out/${fileName}
     '') cfg.configDir)}
   '';
-  configPath = if cfg.enableReload then "/etc/freeswitch" else configDirectory;
+  configPath = if
+    cfg.enableReload
+  then
+    "/etc/freeswitch"
+  else
+    configDirectory;
 in {
   options = {
     services.freeswitch = {

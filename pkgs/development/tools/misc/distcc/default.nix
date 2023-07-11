@@ -53,7 +53,9 @@ let
                             CXXFLAGS="-O2 -fno-strict-aliasing"
           --mandir=$out/share/man
                             ${
-                              if sysconfDir == "" then
+                              if
+                                sysconfDir == ""
+                              then
                                 ""
                               else
                                 "--sysconfdir=${sysconfDir}"

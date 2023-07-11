@@ -25,11 +25,32 @@ let
 
   fontconfig = config.fonts.fontconfig;
   xresourcesXft = pkgs.writeText "Xresources-Xft" ''
-    Xft.antialias: ${if fontconfig.antialias then "1" else "0"}
+    Xft.antialias: ${
+      if
+        fontconfig.antialias
+      then
+        "1"
+      else
+        "0"
+    }
     Xft.rgba: ${fontconfig.subpixel.rgba}
     Xft.lcdfilter: lcd${fontconfig.subpixel.lcdfilter}
-    Xft.hinting: ${if fontconfig.hinting.enable then "1" else "0"}
-    Xft.autohint: ${if fontconfig.hinting.autohint then "1" else "0"}
+    Xft.hinting: ${
+      if
+        fontconfig.hinting.enable
+      then
+        "1"
+      else
+        "0"
+    }
+    Xft.autohint: ${
+      if
+        fontconfig.hinting.autohint
+      then
+        "1"
+      else
+        "0"
+    }
     Xft.hintstyle: ${fontconfig.hinting.style}
   '';
 
@@ -139,7 +160,12 @@ let
 
   dmDefault = cfg.desktopManager.default;
   # fallback default for cases when only default wm is set
-  dmFallbackDefault = if dmDefault != null then dmDefault else "none";
+  dmFallbackDefault = if
+    dmDefault != null
+  then
+    dmDefault
+  else
+    "none";
   wmDefault = cfg.windowManager.default;
 
   defaultSessionFromLegacyOptions = dmFallbackDefault
@@ -269,7 +295,9 @@ in {
           sessionNames = concatMap (p: p.providedSessions)
             cfg.displayManager.sessionPackages;
           # We do not want to force users to set defaultSession when they have only single DE.
-          autologinSession = if cfg.displayManager.defaultSession != null then
+          autologinSession = if
+            cfg.displayManager.defaultSession != null
+          then
             cfg.displayManager.defaultSession
           else if cfg.displayManager.sessionData.sessionNames != [ ] then
             head cfg.displayManager.sessionData.sessionNames
@@ -293,7 +321,9 @@ in {
                     }
                 '';
           };
-        default = if dmDefault != null || wmDefault != null then
+        default = if
+          dmDefault != null || wmDefault != null
+        then
           defaultSessionFromLegacyOptions
         else
           null;
@@ -505,7 +535,9 @@ in {
           sessionName =
             "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
           script = xsession dm wm;
-          desktopNames = if dm ? desktopNames then
+          desktopNames = if
+            dm ? desktopNames
+          then
             concatStringsSep ";" dm.desktopNames
           else
             sessionName;

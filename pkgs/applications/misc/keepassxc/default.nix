@@ -57,7 +57,14 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (toString [
     "-Wno-old-style-cast"
     "-Wno-error"
-    "-D__BIG_ENDIAN__=${if stdenv.isBigEndian then "1" else "0"}"
+    "-D__BIG_ENDIAN__=${
+      if
+        stdenv.isBigEndian
+      then
+        "1"
+      else
+        "0"
+    }"
   ]);
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-rpath ${libargon2}/lib";

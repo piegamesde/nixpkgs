@@ -36,7 +36,12 @@ let
     (lib.concatStringsSep "\n\n" extraCertificateStrings);
 
   srcVersion = "3.86";
-  version = if nssOverride != null then nssOverride.version else srcVersion;
+  version = if
+    nssOverride != null
+  then
+    nssOverride.version
+  else
+    srcVersion;
   meta = with lib; {
     homepage = "https://curl.haxx.se/docs/caextract.html";
     description =
@@ -52,7 +57,9 @@ let
     pname = "nss-cacert-certdata";
     inherit version;
 
-    src = if nssOverride != null then
+    src = if
+      nssOverride != null
+    then
       nssOverride.src
     else
       fetchurl {

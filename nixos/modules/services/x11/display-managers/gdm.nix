@@ -14,7 +14,9 @@ let
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "custom.conf" cfg.gdm.settings;
 
-  xSessionWrapper = if (cfg.setupCommands == "") then
+  xSessionWrapper = if
+    (cfg.setupCommands == "")
+  then
     null
   else
     pkgs.writeScript "gdm-x-session-wrapper" ''

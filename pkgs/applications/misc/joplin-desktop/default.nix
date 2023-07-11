@@ -84,4 +84,9 @@ let
       cp -R . $out/Applications/Joplin.app
     '';
   };
-in if stdenv.isDarwin then darwin else linux
+in if
+  stdenv.isDarwin
+then
+  darwin
+else
+  linux

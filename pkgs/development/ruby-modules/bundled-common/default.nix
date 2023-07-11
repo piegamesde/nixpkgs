@@ -41,7 +41,9 @@ with import ./functions.nix { inherit lib gemConfig; };
 let
   gemFiles = bundlerFiles args;
 
-  importedGemset = if builtins.typeOf gemFiles.gemset != "set" then
+  importedGemset = if
+    builtins.typeOf gemFiles.gemset != "set"
+  then
     import gemFiles.gemset
   else
     gemFiles.gemset;
@@ -56,7 +58,9 @@ let
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler = if hasBundler then
+  bundler = if
+    hasBundler
+  then
     gems.bundler
   else
     defs.bundler.override (attrs: { inherit ruby; });
@@ -64,7 +68,9 @@ let
   gems =
     lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
-  name' = if name != null then
+  name' = if
+    name != null
+  then
     name
   else
     let
@@ -74,7 +80,12 @@ let
       "${pname}-${version}"
   ;
 
-  pname' = if pname != null then pname else name;
+  pname' = if
+    pname != null
+  then
+    pname
+  else
+    name;
 
   copyIfBundledByPath = {
       bundledByPath ? false,
@@ -85,7 +96,9 @@ let
     );
 
   maybeCopyAll = pkgname:
-    if pkgname == null then
+    if
+      pkgname == null
+    then
       ""
     else
       let
@@ -111,7 +124,9 @@ let
   buildGem = name: attrs:
     (let
       gemAttrs = composeGemAttrs ruby gems name attrs;
-    in if gemAttrs.type == "path" then
+    in if
+      gemAttrs.type == "path"
+    then
       pathDerivation (gemAttrs.source // gemAttrs)
     else
       buildRubyGem gemAttrs);
@@ -195,7 +210,9 @@ let
     };
   };
 
-  basicEnv = if copyGemFiles then
+  basicEnv = if
+    copyGemFiles
+  then
     runCommand name' basicEnvArgs ''
       mkdir -p $out
       for i in $paths; do

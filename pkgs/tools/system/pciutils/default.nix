@@ -33,7 +33,14 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-    "SHARED=${if static then "no" else "yes"}"
+    "SHARED=${
+      if
+        static
+      then
+        "no"
+      else
+        "yes"
+    }"
     "PREFIX=\${out}"
     "STRIP="
     "HOST=${stdenv.hostPlatform.system}"

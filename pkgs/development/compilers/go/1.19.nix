@@ -21,7 +21,9 @@
 let
   useGccGoBootstrap = stdenv.buildPlatform.isMusl
     || stdenv.buildPlatform.isRiscV;
-  goBootstrap = if useGccGoBootstrap then
+  goBootstrap = if
+    useGccGoBootstrap
+  then
     buildPackages.gccgo12
   else
     buildPackages.callPackage ./bootstrap116.nix { };
@@ -119,10 +121,18 @@ in
 
     # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
     # to be different from CC/CXX
-    CC_FOR_TARGET =
-      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
-    CXX_FOR_TARGET =
-      if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
+    CC_FOR_TARGET = if
+      isCross
+    then
+      "${targetCC}/bin/${targetCC.targetPrefix}cc"
+    else
+      null;
+    CXX_FOR_TARGET = if
+      isCross
+    then
+      "${targetCC}/bin/${targetCC.targetPrefix}c++"
+    else
+      null;
 
     GOARM = toString
       (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
@@ -133,8 +143,12 @@ in
     GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
     CGO_ENABLED = 1;
 
-    GOROOT_BOOTSTRAP =
-      if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
+    GOROOT_BOOTSTRAP = if
+      useGccGoBootstrap
+    then
+      goBootstrap
+    else
+      "${goBootstrap}/share/go";
 
     buildPhase = ''
       runHook preBuild
@@ -162,7 +176,9 @@ in
       # Contains the wrong perl shebang when cross compiling,
       # since it is not used for anything we can deleted as well.
       rm src/regexp/syntax/make_perl_groups.pl
-    '' + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then ''
+    '' + (if
+      (stdenv.buildPlatform.system != stdenv.hostPlatform.system)
+    then ''
       mv bin/*_*/* bin
       rmdir bin/*_*
       ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''

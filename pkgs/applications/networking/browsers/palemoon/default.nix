@@ -122,7 +122,14 @@ stdenv.mkDerivation rec {
     export MOZ_NOSPAM=1
 
     export build64=${lib.optionalString stdenv.hostPlatform.is64bit "1"}
-    export gtkversion=${if withGTK3 then "3" else "2"}
+    export gtkversion=${
+      if
+        withGTK3
+      then
+        "3"
+      else
+        "2"
+    }
     export xlibs=${lib.makeLibraryPath [ xorg.libX11 ]}
     export prefix=$out
     export mozmakeflags="-j$jobs"

@@ -8,7 +8,9 @@ let
   version = "1.8.1";
   rescript-editor-analysis =
     callPackage ./rescript-editor-analysis.nix { inherit version; };
-  arch = if stdenv.isLinux then
+  arch = if
+    stdenv.isLinux
+  then
     "linux"
   else if stdenv.isDarwin then
     "darwin"

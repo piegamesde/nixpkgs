@@ -266,7 +266,9 @@ in {
     };
     systemd.services.prosody = mkIf cfg.prosody.enable {
       preStart = let
-        videobridgeSecret = if cfg.videobridge.passwordFile != null then
+        videobridgeSecret = if
+          cfg.videobridge.passwordFile != null
+        then
           cfg.videobridge.passwordFile
         else
           "/var/lib/jitsi-meet/videobridge-secret";

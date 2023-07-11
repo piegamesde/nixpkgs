@@ -9,7 +9,12 @@
   python3,
   fixDarwinDylibNames,
   version,
-  cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi,
+  cxxabi ? if
+    stdenv.hostPlatform.isFreeBSD
+  then
+    libcxxrt
+  else
+    libcxxabi,
   libcxxabi,
   libcxxrt,
   enableShared ? !stdenv.hostPlatform.isStatic
@@ -84,7 +89,14 @@ in
     in
       [
         "-DLLVM_ENABLE_RUNTIMES=libcxx"
-        "-DLIBCXX_CXX_ABI=${if headersOnly then "none" else libcxx_cxx_abi_opt}"
+        "-DLIBCXX_CXX_ABI=${
+          if
+            headersOnly
+          then
+            "none"
+          else
+            libcxx_cxx_abi_opt
+        }"
       ] ++ lib.optional (!headersOnly && cxxabi.libName == "c++abi")
       "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
       ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)

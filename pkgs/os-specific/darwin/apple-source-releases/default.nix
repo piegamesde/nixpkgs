@@ -135,7 +135,12 @@ let
       # When cross-compiling, fetchurl depends on libiconv, resulting
       # in an infinite recursion without this. It's not clear why this
       # worked fine when not cross-compiling
-      fetch = if pname == "libiconv" then stdenv.fetchurlBoot else fetchurl;
+      fetch = if
+        pname == "libiconv"
+      then
+        stdenv.fetchurlBoot
+      else
+        fetchurl;
     in
       fetch {
         url =
@@ -155,7 +160,12 @@ let
     stdenv.mkDerivation ({
       inherit pname version;
 
-      src = if attrs ? srcs then null else (fetchApple' pname version sha256);
+      src = if
+        attrs ? srcs
+      then
+        null
+      else
+        (fetchApple' pname version sha256);
 
       enableParallelBuilding = true;
 
@@ -225,9 +235,13 @@ let
     # There should be an IOVideo here, but they haven't released it :(
   };
 
-  IOKitSrcs = lib.mapAttrs
-    (name: value: if lib.isFunction value then value name else value)
-    IOKitSpecs;
+  IOKitSrcs = lib.mapAttrs (name: value:
+    if
+      lib.isFunction value
+    then
+      value name
+    else
+      value) IOKitSpecs;
 
   # darwin package set
 in
@@ -338,7 +352,9 @@ in
         "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
       removefile = applePackage "removefile" "osx-10.12.6"
         "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M=" { };
-      xnu = if stdenv.isx86_64 then
+      xnu = if
+        stdenv.isx86_64
+      then
         applePackage "xnu" "osx-10.12.6"
         "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
           python3 =
@@ -360,7 +376,9 @@ in
         "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
           macosPackages_11_0_1 = macosPackages_11_0_1;
         };
-      network_cmds = if stdenv.isx86_64 then
+      network_cmds = if
+        stdenv.isx86_64
+      then
         applePackage "network_cmds" "osx-10.11.6"
         "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
       else

@@ -147,5 +147,9 @@ let
     '';
   };
 in
-  stdenv.mkDerivation
-  ((common stdenv.hostPlatform) // (if stdenv.isDarwin then darwin else linux))
+  stdenv.mkDerivation ((common stdenv.hostPlatform) // (if
+    stdenv.isDarwin
+  then
+    darwin
+  else
+    linux))

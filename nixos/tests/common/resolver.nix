@@ -71,12 +71,19 @@
               matched = builtins.match "[ 	]+(${reHost})(.*)" str;
               continue = lib.singleton (lib.head matched)
                 ++ matchAliases (lib.last matched);
-            in if matched == null then [ ] else continue;
+            in if
+              matched == null
+            then
+              [ ]
+            else
+              continue;
 
           matchLine = str:
             let
               result = builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
-            in if result == null then
+            in if
+              result == null
+            then
               null
             else {
               ipAddr = lib.head result;
@@ -90,15 +97,30 @@
                 [^
                 ]*
                 (.*)'' str;
-            in if rest == null then "" else lib.head rest;
+            in if
+              rest == null
+            then
+              ""
+            else
+              lib.head rest;
 
           getEntries = str: acc:
             let
               result = matchLine str;
               next = getEntries (skipLine str);
               newEntry = acc ++ lib.singleton result;
-              continue = if result == null then next acc else next newEntry;
-            in if str == "" then acc else continue;
+              continue = if
+                result == null
+              then
+                next acc
+              else
+                next newEntry;
+            in if
+              str == ""
+            then
+              acc
+            else
+              continue;
 
           isIPv6 = str: builtins.match ".*:.*" str != null;
           loopbackIps = [
@@ -110,7 +132,14 @@
           allEntries = lib.concatMap (entry:
             map (host: {
               inherit host;
-              ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} = entry.ipAddr;
+              ${
+                if
+                  isIPv6 entry.ipAddr
+                then
+                  "ipv6"
+                else
+                  "ipv4"
+              } = entry.ipAddr;
             }) entry.hosts) (filterLoopback (getEntries (allHosts + "\n") [ ]));
 
           mkRecords = entry:

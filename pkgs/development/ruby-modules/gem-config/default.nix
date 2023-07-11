@@ -730,7 +730,9 @@ in {
     };
 
   rbnacl = spec:
-    if lib.versionOlder spec.version "6.0.0" then {
+    if
+      lib.versionOlder spec.version "6.0.0"
+    then {
       postInstall = ''
         sed -i $(cat $out/nix-support/gem-meta/install-path)/lib/rbnacl.rb -e "2a \
         RBNACL_LIBSODIUM_GEM_LIB_PATH = '${libsodium.out}/lib/libsodium${stdenv.hostPlatform.extensions.sharedLibrary}'
@@ -838,7 +840,9 @@ in {
   snappy = attrs: { buildInputs = [ args.snappy ]; };
 
   sqlite3 = attrs:
-    if lib.versionAtLeast attrs.version "1.5.0" then {
+    if
+      lib.versionAtLeast attrs.version "1.5.0"
+    then {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ sqlite ];
       buildFlags = [ "--enable-system-libraries" ];
@@ -877,7 +881,9 @@ in {
     lib.optionalAttrs (lib.versionAtLeast attrs.version "1.0") {
       dontBuild = false;
       postPatch = let
-        path = if lib.versionAtLeast attrs.version "2.0" then
+        path = if
+          lib.versionAtLeast attrs.version "2.0"
+        then
           "lib/tzinfo/data_sources/zoneinfo_data_source.rb"
         else
           "lib/tzinfo/zoneinfo_data_source.rb";

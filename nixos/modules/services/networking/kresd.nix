@@ -25,7 +25,9 @@ let
           al_portOnly
         ];
       port = elemAt al 1;
-      addrSpec = if al_portOnly == null then
+      addrSpec = if
+        al_portOnly == null
+      then
         "'${head al}${elemAt al 2}'"
       else
         "{'::', '0.0.0.0'}";
@@ -61,7 +63,9 @@ in {
         ] config;
       in
         map (iface:
-          if elem ":" (stringToCharacters iface) then
+          if
+            elem ":" (stringToCharacters iface)
+          then
             "[${iface}]:53"
           else
             "${iface}:53") # Syntax depends on being IPv6 or IPv4.

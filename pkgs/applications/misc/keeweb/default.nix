@@ -79,7 +79,9 @@ let
     maintainers = with maintainers; [ sikmir ];
     platforms = builtins.attrNames srcs;
   };
-in if stdenv.isDarwin then
+in if
+  stdenv.isDarwin
+then
   stdenv.mkDerivation {
     inherit pname version src meta;
 

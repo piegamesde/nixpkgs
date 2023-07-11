@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
 
   # To get the latest version:
   # curl -L https://cnfl.io/cli | sh -s -- -l | grep -v latest | sort -V | tail -n1
-  src = fetchurl (if stdenv.hostPlatform.isDarwin then {
+  src = fetchurl (if
+    stdenv.hostPlatform.isDarwin
+  then {
     url =
       "https://s3-us-west-2.amazonaws.com/confluent.cloud/confluent-cli/archives/${version}/confluent_v${version}_darwin_amd64.tar.gz";
     sha256 = "1xkf7p9cn37k8j57cgbzxhqgnmchf86jyiza91bf6ddvm6jsm2gd";

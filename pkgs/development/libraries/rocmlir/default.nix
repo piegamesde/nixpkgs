@@ -20,7 +20,9 @@
 # with the source and built objects so that we can just
 # use it as the external LLVM repo for this
 let
-  llvmNativeTarget = if stdenv.isx86_64 then
+  llvmNativeTarget = if
+    stdenv.isx86_64
+  then
     "X86"
   else if stdenv.isAarch64 then
     "AArch64"
@@ -71,7 +73,9 @@ in
     doCheck = true;
 
     # Certain libs aren't being generated, try enabling tests next update
-    checkTarget = if buildRockCompiler then
+    checkTarget = if
+      buildRockCompiler
+    then
       "librockCompiler"
     else
       "check-mlir-miopen-build-only";

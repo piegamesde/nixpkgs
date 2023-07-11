@@ -9,8 +9,12 @@ let
     let
       components = lib.splitString "#" version;
       hash = lib.last components;
-      ver =
-        if builtins.length components == 1 then (cleanName version) else hash;
+      ver = if
+        builtins.length components == 1
+      then
+        (cleanName version)
+      else
+        hash;
     in
       ver
   ;

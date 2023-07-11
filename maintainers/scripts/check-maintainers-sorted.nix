@@ -28,17 +28,28 @@ let
       line,
       key,
     }:
-    foldl'
-    (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
-    null namesSorted;
+    foldl' (acc: n:
+      if
+        n.key < key && (acc == null || n.key > acc.key)
+      then
+        n
+      else
+        acc) null namesSorted;
   errors = foldl' add 0 (map (i:
     let
       a = elemAt namesSorted i;
       b = elemAt namesSorted (i + 1);
       lim = let
         t = before a;
-      in if t == null then "the initial {" else t.name;
-    in if a.line >= b.line then
+      in if
+        t == null
+      then
+        "the initial {"
+      else
+        t.name;
+    in if
+      a.line >= b.line
+    then
       trace ("maintainer ${a.name} (line ${toString a.line}) should be listed "
         + "after ${lim}, not after ${b.name} (line ${toString b.line})") 1
     else

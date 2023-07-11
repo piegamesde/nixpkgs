@@ -34,7 +34,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ coverage ];
 
   doCheck = false; # lot's of transient errors, too much hassle
-  checkPhase = if isPy3k then ''
+  checkPhase = if
+    isPy3k
+  then ''
     ${python.pythonForBuild.interpreter} setup.py build_tests
   '' else
     "" + ''

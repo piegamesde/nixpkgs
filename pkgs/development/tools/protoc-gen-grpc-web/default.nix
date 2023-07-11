@@ -26,7 +26,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [
     "PREFIX=$(out)"
-    "STATIC=${if isStatic then "yes" else "no"}"
+    "STATIC=${
+      if
+        isStatic
+      then
+        "yes"
+      else
+        "no"
+    }"
   ];
 
   doCheck = true;

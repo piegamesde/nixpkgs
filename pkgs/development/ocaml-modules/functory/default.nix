@@ -9,7 +9,9 @@
 assert lib.versionAtLeast (lib.getVersion ocaml) "3.11";
 
 let
-  param = if lib.versionAtLeast ocaml.version "4.02" then {
+  param = if
+    lib.versionAtLeast ocaml.version "4.02"
+  then {
     version = "0.6";
     sha256 = "18wpyxblz9jh5bfp0hpffnd0q8cq1b0dqp0f36vhqydfknlnpx8y";
   } else {

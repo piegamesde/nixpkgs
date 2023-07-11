@@ -35,7 +35,9 @@ in
       # such as `pkgs: "${pkgs.lzop}/bin/lzop"`.
     ,
     compressor ? "gzip",
-    _compressorFunction ? if lib.isFunction compressor then
+    _compressorFunction ? if
+      lib.isFunction compressor
+    then
       compressor
     else if !builtins.hasContext compressor
     && builtins.hasAttr compressor compressors then
@@ -49,7 +51,9 @@ in
       # List of arguments to pass to the compressor program, or null to use its defaults
     ,
     compressorArgs ? null,
-    _compressorArgsReal ? if compressorArgs == null then
+    _compressorArgsReal ? if
+      compressorArgs == null
+    then
       _compressorMeta.defaultArgs or [ ]
     else
       compressorArgs
@@ -103,8 +107,14 @@ in
     stdenvNoCC.mkDerivation rec {
       inherit name makeUInitrd extension uInitrdArch prepend;
 
-      ${if makeUInitrd then "uInitrdCompression" else null} =
-        uInitrdCompression;
+      ${
+        if
+          makeUInitrd
+        then
+          "uInitrdCompression"
+        else
+          null
+      } = uInitrdCompression;
 
       builder = ./make-initrd.sh;
 
@@ -128,7 +138,13 @@ in
       # !!! should use XML.
       objects = map (x: x.object) contents;
       symlinks = map (x: x.symlink) contents;
-      suffices = map (x: if x ? suffix then x.suffix else "none") contents;
+      suffices = map (x:
+        if
+          x ? suffix
+        then
+          x.suffix
+        else
+          "none") contents;
 
       # For obtaining the closure of `contents'.
       # Note: we don't use closureInfo yet, as that won't build with nix-1.x.

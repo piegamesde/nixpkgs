@@ -431,7 +431,9 @@ in {
           mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
             mkValueString = v:
               with builtins;
-              if isInt v then
+              if
+                isInt v
+              then
                 toString v
               else if isString v then
                 ''"${v}"''
@@ -440,7 +442,9 @@ in {
               else if false == v then
                 "false"
               else if isSecret v then
-                if (isString v._secret) then
+                if
+                  (isString v._secret)
+                then
                   hashString "sha256" v._secret
                 else
                   hashString "sha256" (builtins.readFile v._secret)
@@ -455,7 +459,9 @@ in {
         mkSecretReplacement = file: ''
           replace-secret ${
             escapeShellArgs [
-              (if (isString file) then
+              (if
+                (isString file)
+              then
                 builtins.hashString "sha256" file
               else
                 builtins.hashString "sha256" (builtins.readFile file))

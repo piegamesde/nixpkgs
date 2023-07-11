@@ -121,8 +121,12 @@ in
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     '';
 
-    preDistPhases =
-      [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
+    preDistPhases = [ (if
+      certifyBooks
+    then
+      "certifyBooksPhase"
+    else
+      "removeBooksPhase") ];
 
     certifyBooksPhase = ''
       # Certify the community books
@@ -158,7 +162,9 @@ in
         build tools cert.pl and clean.pl, renamed to ${pname}-cert and
         ${pname}-clean.
 
-      '' + (if certifyBooks then ''
+      '' + (if
+        certifyBooks
+      then ''
         The community books are also included and certified with the `make
         everything` target.
       '' else ''

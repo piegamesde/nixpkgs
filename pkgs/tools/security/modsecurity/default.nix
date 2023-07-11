@@ -16,7 +16,12 @@
 }:
 
 let
-  luaValue = if luaSupport then lua5 else "no";
+  luaValue = if
+    luaSupport
+  then
+    lua5
+  else
+    "no";
   optional = lib.optional;
 
 in

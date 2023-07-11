@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) pkg-config;
 
-  buildInputs = [ ] ++ (if stdenv.hostPlatform.isDarwin then [
+  buildInputs = [ ] ++ (if
+    stdenv.hostPlatform.isDarwin
+  then [
     Security
     libiconv
   ] else [ openssl ]) ++ lib.optional withNotmuchBackend notmuch;

@@ -20,7 +20,9 @@
   writeText,
 }:
 
-if ghcSrc == null || ghcVersion == null then
+if
+  ghcSrc == null || ghcVersion == null
+then
   throw "hadrian: need to specify ghcSrc and ghcVersion arguments manually"
 else
 

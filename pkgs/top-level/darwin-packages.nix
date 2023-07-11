@@ -43,7 +43,9 @@ in
         pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
       # Pick an SDK
-      apple_sdk = if stdenv.hostPlatform.isAarch64 then
+      apple_sdk = if
+        stdenv.hostPlatform.isAarch64
+      then
         apple_sdk_11_0
       else
         apple_sdk_10_12;
@@ -60,22 +62,28 @@ in
       chooseLibs = (
         # There are differences in which libraries are exported. Avoid evaluation
         # errors when a package is not provided.
-        selectAttrs
-        (if useAppleSDKLibs then apple_sdk else appleSourcePackages) [
-          "Libsystem"
-          "LibsystemCross"
-          "libcharset"
-          "libunwind"
-          "objc4"
-          "configd"
-          "IOKit"
-        ]) // {
-          inherit (if useAppleSDKLibs then
-            apple_sdk.frameworks
-          else
-            appleSourcePackages)
-            Security;
-        };
+        selectAttrs (if
+          useAppleSDKLibs
+        then
+          apple_sdk
+        else
+          appleSourcePackages) [
+            "Libsystem"
+            "LibsystemCross"
+            "libcharset"
+            "libunwind"
+            "objc4"
+            "configd"
+            "IOKit"
+          ]) // {
+            inherit (if
+              useAppleSDKLibs
+            then
+              apple_sdk.frameworks
+            else
+              appleSourcePackages)
+              Security;
+          };
 
     in
       impure-cmds // appleSourcePackages // chooseLibs // {
@@ -90,7 +98,9 @@ in
         };
 
         binutils = pkgs.wrapBintoolsWith {
-          libc = if stdenv.targetPlatform != stdenv.hostPlatform then
+          libc = if
+            stdenv.targetPlatform != stdenv.hostPlatform
+          then
             pkgs.libcCross
           else
             pkgs.stdenv.cc.libc;
@@ -104,7 +114,9 @@ in
         };
 
         binutilsDualAs = pkgs.wrapBintoolsWith {
-          libc = if stdenv.targetPlatform != stdenv.hostPlatform then
+          libc = if
+            stdenv.targetPlatform != stdenv.hostPlatform
+          then
             pkgs.libcCross
           else
             pkgs.stdenv.cc.libc;
@@ -117,11 +129,21 @@ in
         };
 
         cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-          stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
+          stdenv = if
+            stdenv.isDarwin
+          then
+            stdenv
+          else
+            pkgs.libcxxStdenv;
         };
 
         cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
-          stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
+          stdenv = if
+            stdenv.isDarwin
+          then
+            stdenv
+          else
+            pkgs.libcxxStdenv;
         };
 
         # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
@@ -213,7 +235,9 @@ in
           callPackage ../os-specific/darwin/CoreSymbolication { };
 
         # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
-        CF = if useAppleSDKLibs then
+        CF = if
+          useAppleSDKLibs
+        then
         # This attribute (CF) is included in extraBuildInputs in the stdenv. This
         # is typically the open source project. When a project refers to
         # "CoreFoundation" it has an extra setup hook to force impure system

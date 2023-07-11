@@ -514,7 +514,12 @@ in {
             hasPrimary = any (x: x.primary) heads;
             firstPrimary = head heads // { primary = true; };
             newHeads = singleton firstPrimary ++ tail heads;
-          in if heads != [ ] && !hasPrimary then newHeads else heads;
+          in if
+            heads != [ ] && !hasPrimary
+          then
+            newHeads
+          else
+            heads;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -707,7 +712,9 @@ in {
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (name:
       let
-        driver = attrByPath [ name ] (if xorg ? ${"xf86video" + name} then {
+        driver = attrByPath [ name ] (if
+          xorg ? ${"xf86video" + name}
+        then {
           modules = [ xorg.${"xf86video" + name} ];
         } else
           null) knownVideoDrivers;
@@ -870,7 +877,14 @@ in {
     services.xserver.config = ''
       Section "ServerFlags"
         Option "AllowMouseOpenFail" "on"
-        Option "DontZap" "${if cfg.enableCtrlAltBackspace then "off" else "on"}"
+        Option "DontZap" "${
+          if
+            cfg.enableCtrlAltBackspace
+          then
+            "off"
+          else
+            "on"
+        }"
       ${indent cfg.serverFlagsSection}
       EndSection
 
@@ -978,7 +992,9 @@ in {
 
     fonts.enableDefaultFonts = mkDefault true;
     fonts.fonts = [
-      (if cfg.upscaleDefaultCursor then
+      (if
+        cfg.upscaleDefaultCursor
+      then
         fontcursormisc_hidpi
       else
         pkgs.xorg.fontcursormisc)

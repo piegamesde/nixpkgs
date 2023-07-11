@@ -42,7 +42,12 @@
   features ? "huge" # One of tiny, small, normal, big or huge
   ,
   wrapPythonDrv ? false,
-  guiSupport ? config.vim.gui or (if stdenv.isDarwin then "gtk2" else "gtk3"),
+  guiSupport ? config.vim.gui or (if
+    stdenv.isDarwin
+  then
+    "gtk2"
+  else
+    "gtk3"),
   luaSupport ? config.vim.lua or true,
   perlSupport ? config.vim.perl or false # Perl interpreter
   ,
@@ -148,12 +153,15 @@ in
       "vim_cv_stat_ignores_slash=yes"
       "vim_cv_memmove_handles_overlap=yes"
     ] ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
-      "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin
-      (if darwinSupport then "--enable-darwin" else "--disable-darwin")
-      ++ lib.optionals luaSupport [
-        "--with-lua-prefix=${lua}"
-        "--enable-luainterp"
-      ] ++ lib.optionals lua.pkgs.isLuaJIT [ "--with-luajit" ]
+      "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin (if
+        darwinSupport
+      then
+        "--enable-darwin"
+      else
+        "--disable-darwin") ++ lib.optionals luaSupport [
+          "--with-lua-prefix=${lua}"
+          "--enable-luainterp"
+        ] ++ lib.optionals lua.pkgs.isLuaJIT [ "--with-luajit" ]
       ++ lib.optionals pythonSupport [
         "--enable-python3interp=yes"
         "--with-python3-config-dir=${python3}/lib"

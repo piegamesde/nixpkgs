@@ -89,7 +89,12 @@ let
       # lost on `.override`) but determine the auto-args based on `drv` (the problem here
       # is that nix has no way to "passthrough" args while preserving the reflection
       # info that callPackage uses to determine the arguments).
-      drv = if lib.isFunction fn then fn else import fn;
+      drv = if
+        lib.isFunction fn
+      then
+        fn
+      else
+        import fn;
       auto = builtins.intersectAttrs (lib.functionArgs drv) scope;
 
       # Converts a returned function to a functor attribute set if necessary
@@ -144,8 +149,12 @@ let
       extraCabal2nixOptions ? ""
     }:
     let
-      sha256Arg =
-        if sha256 == null then "--sha256=" else ''--sha256="${sha256}"'';
+      sha256Arg = if
+        sha256 == null
+      then
+        "--sha256="
+      else
+        ''--sha256="${sha256}"'';
     in
       buildPackages.runCommand "cabal2nix-${name}" {
         nativeBuildInputs = [ buildPackages.cabal2nix-unwrapped ];
@@ -252,7 +261,9 @@ in
           pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
         expr = self.haskellSrc2nix {
           inherit name extraCabal2nixOptions;
-          src = if pkgs.lib.canCleanSource src then
+          src = if
+            pkgs.lib.canCleanSource src
+          then
             pkgs.lib.cleanSourceWith { inherit src filter; }
           else
             src;
@@ -308,7 +319,9 @@ in
         drv = (extensible-self.extend (pkgs.lib.composeExtensions
           (self.packageSourceOverrides source-overrides)
           overrides)).callCabal2nixWithOptions name root cabal2nixOptions { };
-      in if returnShellEnv then
+      in if
+        returnShellEnv
+      then
         (modifier drv).envFunc { inherit withHoogle; }
       else
         modifier drv;
@@ -541,7 +554,9 @@ in
         # The important thing to note here is that all the fields from
         # packageInputs are set correctly.
         genericBuilderArgs = {
-          pname = if pkgs.lib.length selected == 1 then
+          pname = if
+            pkgs.lib.length selected == 1
+          then
             (pkgs.lib.head selected).name
           else
             "packages";
@@ -605,8 +620,12 @@ in
     */
     cabalSdist = {
         src,
-        name ?
-          if src ? name then "${src.name}-sdist.tar.gz" else "source.tar.gz"
+        name ? if
+          src ? name
+        then
+          "${src.name}-sdist.tar.gz"
+        else
+          "source.tar.gz"
       }:
       pkgs.runCommandLocal name {
         inherit src;
@@ -662,7 +681,9 @@ in
 
       commands: pkg:
 
-      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+      if
+        stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then
         lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg
         commands
       else

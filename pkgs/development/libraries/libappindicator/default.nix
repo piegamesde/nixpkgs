@@ -29,7 +29,12 @@ let
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = let
-      postfix = if monoSupport then "sharp" else "gtk${gtkVersion}";
+      postfix = if
+        monoSupport
+      then
+        "sharp"
+      else
+        "gtk${gtkVersion}";
     in
       "libappindicator-${postfix}"
     ;

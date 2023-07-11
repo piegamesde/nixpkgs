@@ -10,7 +10,9 @@
 let
   version = "4.13.0";
   platform = with stdenv;
-    if isDarwin then
+    if
+      isDarwin
+    then
       "macosx"
     else if isCygwin then
       "cygwin"

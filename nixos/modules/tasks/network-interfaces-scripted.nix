@@ -87,11 +87,12 @@ let
       deviceDependency = dev:
         # Use systemd service if we manage device creation, else
         # trust udev when not in a container
-        if (hasAttr dev (filterAttrs (k: v: v.virtual) cfg.interfaces))
-        || (hasAttr dev cfg.bridges) || (hasAttr dev cfg.bonds)
-        || (hasAttr dev cfg.macvlans) || (hasAttr dev cfg.sits)
-        || (hasAttr dev cfg.vlans)
-        || (hasAttr dev cfg.vswitches) then [ "${dev}-netdev.service" ] else
+        if
+          (hasAttr dev (filterAttrs (k: v: v.virtual) cfg.interfaces))
+          || (hasAttr dev cfg.bridges) || (hasAttr dev cfg.bonds)
+          || (hasAttr dev cfg.macvlans) || (hasAttr dev cfg.sits)
+          || (hasAttr dev cfg.vlans) || (hasAttr dev cfg.vswitches)
+        then [ "${dev}-netdev.service" ] else
           optional (dev != null && dev != "lo" && !config.boot.isContainer)
           (subsystemDevice dev);
 
@@ -403,7 +404,12 @@ let
 
             # (Un-)set stp on the bridge
             echo ${
-              if v.rstp then "2" else "0"
+              if
+                v.rstp
+              then
+                "2"
+              else
+                "0"
             } > /sys/class/net/${n}/bridge/stp_state
           '';
           reloadIfChanged = true;
@@ -570,7 +576,9 @@ let
             (deviceDependency v.local.dev
               ++ [ "network-addresses-${v.local.dev}.service" ]);
           fouSpec = "port ${toString v.port} ${
-              if v.protocol != null then
+              if
+                v.protocol != null
+              then
                 "ipproto ${toString v.protocol}"
               else
                 "gue"
@@ -647,7 +655,12 @@ let
       createGreDevice = n: v:
         nameValuePair "${n}-netdev" (let
           deps = deviceDependency v.dev;
-          ttlarg = if lib.hasPrefix "ip6" v.type then "hoplimit" else "ttl";
+          ttlarg = if
+            lib.hasPrefix "ip6" v.type
+          then
+            "hoplimit"
+          else
+            "ttl";
         in {
           description = "GRE Tunnel Interface ${n}";
           wantedBy = [

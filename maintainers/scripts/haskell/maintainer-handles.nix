@@ -14,7 +14,9 @@ let
   maintainers = import ../../maintainer-list.nix;
   inherit (pkgs) lib;
   mkMailGithubPair = _: maintainer:
-    if (maintainer ? email) && (maintainer ? github) then {
+    if
+      (maintainer ? email) && (maintainer ? github)
+    then {
       "${maintainer.email}" = maintainer.github;
     } else
       { };

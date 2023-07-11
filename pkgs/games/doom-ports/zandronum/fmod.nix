@@ -21,7 +21,9 @@ in
     version = "4.44.64";
     shortVersion = builtins.replaceStrings [ "." ] [ "" ] version;
 
-    src = fetchurl (if stdenv.isLinux then {
+    src = fetchurl (if
+      stdenv.isLinux
+    then {
       url = "https://zdoom.org/files/fmod/fmodapi${shortVersion}linux.tar.gz";
       sha256 = "047hk92xapwwqj281f4zwl0ih821rrliya70gfj82sdfjh9lz8i1";
     } else {

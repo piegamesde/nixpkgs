@@ -22,7 +22,9 @@ let
       name,
       value,
     }:
-    if !isAttrs value then
+    if
+      !isAttrs value
+    then
       0 # Leaf options.
     else
       {
@@ -45,10 +47,14 @@ let
       name,
       value,
     }:
-    if !isAttrs value then [ "${name} ${value}" ] else
+    if
+      !isAttrs value
+    then [ "${name} ${value}" ] else
       concatLists (mapAttrsToList (genSection name) value);
 
-  sudo_doas = if config.security.sudo.enable then
+  sudo_doas = if
+    config.security.sudo.enable
+  then
     "sudo"
   else if config.security.doas.enable then
     "doas"

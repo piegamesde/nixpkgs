@@ -18,8 +18,12 @@
 
 let
   Dune = let
-    dune-version =
-      args.duneVersion or (if args.useDune2 or true then "2" else "1");
+    dune-version = args.duneVersion or (if
+      args.useDune2 or true
+    then
+      "2"
+    else
+      "1");
   in
     {
       "1" = dune_1;
@@ -28,10 +32,12 @@ let
     }."${dune-version}"
   ;
 
-in if (args ? minimumOCamlVersion
-  && lib.versionOlder ocaml.version args.minimumOCamlVersion) || (args
-    ? minimalOCamlVersion
-    && lib.versionOlder ocaml.version args.minimalOCamlVersion) then
+in if
+  (args ? minimumOCamlVersion
+    && lib.versionOlder ocaml.version args.minimumOCamlVersion) || (args
+      ? minimalOCamlVersion
+      && lib.versionOlder ocaml.version args.minimalOCamlVersion)
+then
   throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
 else
 
@@ -55,7 +61,9 @@ else
       runHook preInstall
       dune install --prefix $out --libdir $OCAMLFIND_DESTDIR ${pname} \
        ${
-         if lib.versionAtLeast Dune.version "2.9" then
+         if
+           lib.versionAtLeast Dune.version "2.9"
+         then
            "--docdir $out/share/doc --mandir $out/share/man"
          else
            ""

@@ -10,7 +10,9 @@
 }:
 
 let
-  load_num = if num == null then
+  load_num = if
+    num == null
+  then
     ""
   else ''
     -I ${num}/lib/ocaml/${ocaml.version}/site-lib/num \

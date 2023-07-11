@@ -109,9 +109,14 @@ let
   stdenvBootstappingAndPlatforms = self: super:
     let
       withFallback = thisPkgs:
-        (if adjacentPackages == null then self else thisPkgs) // {
-          recurseForDerivations = false;
-        };
+        (if
+          adjacentPackages == null
+        then
+          self
+        else
+          thisPkgs) // {
+            recurseForDerivations = false;
+          };
     in {
       # Here are package sets of from related stages. They are all in the form
       # `pkgs{theirHost}{theirTarget}`. For example, `pkgsBuildHost` means their
@@ -202,45 +207,52 @@ let
     # All packages built with the Musl libc. This will override the
     # default GNU libc on Linux systems. Non-Linux systems are not
     # supported. 32-bit is also not supported.
-    pkgsMusl =
-      if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
-        nixpkgsFun {
-          overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
-          } = {
-            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          };
-        }
-      else
-        throw "Musl libc only supports 64-bit Linux systems.";
+    pkgsMusl = if
+      stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit
+    then
+      nixpkgsFun {
+        overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
+        ${
+          if
+            stdenv.hostPlatform == stdenv.buildPlatform
+          then
+            "localSystem"
+          else
+            "crossSystem"
+        } = {
+          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+        };
+      }
+    else
+      throw "Musl libc only supports 64-bit Linux systems.";
 
     # All packages built for i686 Linux.
     # Used by wine, firefox with debugging version of Flash, ...
-    pkgsi686Linux =
-      if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
-        nixpkgsFun {
-          overlays = [ (self': super': { pkgsi686Linux = super'; }) ]
-            ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
-          } = {
-            parsed = stdenv.hostPlatform.parsed // {
-              cpu = lib.systems.parse.cpuTypes.i686;
-            };
+    pkgsi686Linux = if
+      stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86
+    then
+      nixpkgsFun {
+        overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
+        ${
+          if
+            stdenv.hostPlatform == stdenv.buildPlatform
+          then
+            "localSystem"
+          else
+            "crossSystem"
+        } = {
+          parsed = stdenv.hostPlatform.parsed // {
+            cpu = lib.systems.parse.cpuTypes.i686;
           };
-        }
-      else
-        throw "i686 Linux package set can only be used with the x86 family.";
+        };
+      }
+    else
+      throw "i686 Linux package set can only be used with the x86 family.";
 
     # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
-    pkgsx86_64Darwin = if stdenv.hostPlatform.isDarwin then
+    pkgsx86_64Darwin = if
+      stdenv.hostPlatform.isDarwin
+    then
       nixpkgsFun {
         overlays = [ (self': super': { pkgsx86_64Darwin = super'; }) ]
           ++ overlays;
@@ -257,7 +269,9 @@ let
     # preexisting overlays. Prefer to initialize with the right overlays
     # in one go when calling Nixpkgs, for performance and simplicity.
     appendOverlays = extraOverlays:
-      if extraOverlays == [ ] then
+      if
+        extraOverlays == [ ]
+      then
         self
       else
         nixpkgsFun { overlays = args.overlays ++ extraOverlays; };

@@ -33,7 +33,14 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!stdenv.isDarwin) ipopt;
 
   cmakeFlags = [
-    "-DPAGMO_BUILD_TESTS=${if runTests then "ON" else "OFF"}"
+    "-DPAGMO_BUILD_TESTS=${
+      if
+        runTests
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DPAGMO_WITH_EIGEN3=yes"
     "-DPAGMO_WITH_NLOPT=yes"
     "-DNLOPT_LIBRARY=${nlopt}/lib/libnlopt${stdenv.hostPlatform.extensions.sharedLibrary}"

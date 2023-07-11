@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = if stdenv.isDarwin then [
+  buildInputs = if
+    stdenv.isDarwin
+  then [
     libiconv
     CoreServices
     Security

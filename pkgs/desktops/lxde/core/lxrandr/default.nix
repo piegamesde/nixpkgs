@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libX11
     xrandr
-    (if withGtk3 then gtk3 else gtk2)
+    (if
+      withGtk3
+    then
+      gtk3
+    else
+      gtk2)
   ];
 
   meta = with lib; {

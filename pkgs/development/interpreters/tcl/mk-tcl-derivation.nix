@@ -68,7 +68,9 @@ let
       ++ (attrs.nativeInstallCheckInputs or [ ]);
 
     # Add typical values expected by TEA for configureFlags
-    configureFlags = if (!dontConfigure && addTclConfigureFlags) then
+    configureFlags = if
+      (!dontConfigure && addTclConfigureFlags)
+    then
       (configureFlags ++ defaultTclPkgConfigureFlags)
     else
       configureFlags;

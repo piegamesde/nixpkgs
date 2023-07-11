@@ -18,7 +18,9 @@ let
 
   jamenv = ''
     unset AR
-  '' + (if stdenv.isDarwin then ''
+  '' + (if
+    stdenv.isDarwin
+  then ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
       lib.getDev SDL
     }/include/SDL"
@@ -67,7 +69,9 @@ in
 
     buildPhase = jamenv + "jam -j$NIX_BUILD_CORES";
 
-    installPhase = if stdenv.isDarwin then
+    installPhase = if
+      stdenv.isDarwin
+    then
       (substituteAll {
         inherit (stdenv) shell;
         isExecutable = true;

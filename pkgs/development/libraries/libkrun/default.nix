@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   pname = "libkrun";
   version = "1.5.1";
 
-  src = if stdenv.isLinux then
+  src = if
+    stdenv.isLinux
+  then
     fetchFromGitHub {
       owner = "containers";
       repo = pname;

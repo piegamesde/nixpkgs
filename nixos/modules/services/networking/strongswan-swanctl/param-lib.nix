@@ -24,7 +24,9 @@ rec {
         value = ps.${name};
         indentation = replicate indent " ";
       in
-        indentation + (if isAttrs value then
+        indentation + (if
+          isAttrs value
+        then
           ''
             ${name} {
           '' + mkConf (indent + 2) value + "\n" + indentation + "}"
@@ -49,10 +51,17 @@ rec {
 
   filterEmptySets = set:
     filterAttrs (n: v: (v != null)) (mapAttrs (name: value:
-      if isAttrs value then
+      if
+        isAttrs value
+      then
         let
           value' = filterEmptySets value;
-        in if value' == { } then null else value'
+        in if
+          value' == { }
+        then
+          null
+        else
+          value'
       else
         value) set);
 
@@ -65,7 +74,9 @@ rec {
       recurse = path: set:
         let
           g = name: value:
-            if isAttrs value && cond value then {
+            if
+              isAttrs value && cond value
+            then {
               ${name} = recurse (path ++ [ name ]) value;
             } else
               f (path ++ [ name ]) name value;

@@ -1228,7 +1228,9 @@ let
             useNetworkd = networkd;
             useDHCP = false;
           };
-        } // (if networkd then {
+        } // (if
+          networkd
+        then {
           systemd.network.links."10-custom_name" = {
             matchConfig.MACAddress = "52:54:00:12:01:01";
             linkConfig.Name = "custom_name";
@@ -1302,6 +1304,11 @@ in
   mapAttrs (const (attrs:
     makeTest (attrs // {
       name = "${attrs.name}-Networking-${
-          if networkd then "Networkd" else "Scripted"
+          if
+            networkd
+          then
+            "Networkd"
+          else
+            "Scripted"
         }";
     }))) testCases

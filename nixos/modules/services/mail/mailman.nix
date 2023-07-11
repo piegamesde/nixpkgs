@@ -364,7 +364,9 @@ in {
         pid_file = "/run/mailman/master.pid";
       };
 
-      mta.configuration = lib.mkDefault (if cfg.enablePostfix then
+      mta.configuration = lib.mkDefault (if
+        cfg.enablePostfix
+      then
         "${postfixMtaConfig}"
       else
         throw
@@ -662,7 +664,9 @@ in {
           plugins = [ "python3" ];
           home = webEnv;
           http = "127.0.0.1:18507";
-        } // (if cfg.serve.virtualRoot == "/" then {
+        } // (if
+          cfg.serve.virtualRoot == "/"
+        then {
           module = "mailman_web.wsgi:application";
         } else {
           mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";

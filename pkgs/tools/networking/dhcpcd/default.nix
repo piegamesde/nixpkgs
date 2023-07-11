@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-  ] ++ (if !enablePrivSep then [ "--disable-privsep" ] else [
+  ] ++ (if
+    !enablePrivSep
+  then [ "--disable-privsep" ] else [
     "--enable-privsep"
     # dhcpcd disables privsep if it can't find the default user,
     # so we explicitly specify a user.

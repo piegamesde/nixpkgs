@@ -94,7 +94,9 @@ stdenv.mkDerivation rec {
     "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     "-Dudevhwdbdir=${placeholder "out"}/lib/udev/hwdb.d"
     "-Dintrospection=${
-      if (stdenv.buildPlatform == stdenv.hostPlatform) then
+      if
+        (stdenv.buildPlatform == stdenv.hostPlatform)
+      then
         "auto"
       else
         "disabled"

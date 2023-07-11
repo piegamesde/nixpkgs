@@ -7,7 +7,9 @@
   camlp4,
 }:
 
-if lib.versionAtLeast ocaml.version "4.05" then
+if
+  lib.versionAtLeast ocaml.version "4.05"
+then
   throw "camomile-0.8.2 is not available for OCaml ${ocaml.version}"
 else
 

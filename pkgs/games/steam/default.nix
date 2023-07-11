@@ -12,7 +12,9 @@ let
     let
       inherit (self) callPackage;
     in rec {
-      steamArch = if stdenv.hostPlatform.system == "x86_64-linux" then
+      steamArch = if
+        stdenv.hostPlatform.system == "x86_64-linux"
+      then
         "amd64"
       else if stdenv.hostPlatform.system == "i686-linux" then
         "i386"
@@ -23,9 +25,15 @@ let
       steam-runtime-wrapped = callPackage ./runtime-wrapped.nix { };
       steam = callPackage ./steam.nix { };
       steam-fhsenv = callPackage ./fhsenv.nix {
-        glxinfo-i686 =
-          if self.steamArch == "amd64" then pkgsi686Linux.glxinfo else glxinfo;
-        steam-runtime-wrapped-i686 = if self.steamArch == "amd64" then
+        glxinfo-i686 = if
+          self.steamArch == "amd64"
+        then
+          pkgsi686Linux.glxinfo
+        else
+          glxinfo;
+        steam-runtime-wrapped-i686 = if
+          self.steamArch == "amd64"
+        then
           pkgsi686Linux.steamPackages.steam-runtime-wrapped
         else
           null;

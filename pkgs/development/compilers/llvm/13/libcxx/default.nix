@@ -7,7 +7,12 @@
   python3,
   fixDarwinDylibNames,
   version,
-  cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi,
+  cxxabi ? if
+    stdenv.hostPlatform.isFreeBSD
+  then
+    libcxxrt
+  else
+    libcxxabi,
   libcxxabi,
   libcxxrt,
   enableShared ? !stdenv.hostPlatform.isStatic
@@ -24,7 +29,12 @@
 assert stdenv.isDarwin -> cxxabi.pname == "libcxxabi";
 
 stdenv.mkDerivation rec {
-  pname = if headersOnly then "cxx-headers" else "libcxx";
+  pname = if
+    headersOnly
+  then
+    "cxx-headers"
+  else
+    "libcxx";
   inherit version;
 
   inherit src;

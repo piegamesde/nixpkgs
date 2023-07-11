@@ -17,7 +17,12 @@
 }:
 
 let
-  renderSystem = if withOgre then "3" else "4";
+  renderSystem = if
+    withOgre
+  then
+    "3"
+  else
+    "4";
 in
   stdenv.mkDerivation rec {
     pname = "mygui";

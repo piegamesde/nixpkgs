@@ -19,7 +19,14 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''
     cd src
-    cp Makefile.${if stdenv.isLinux then "Linux" else "MacOS"} Makefile
+    cp Makefile.${
+      if
+        stdenv.isLinux
+      then
+        "Linux"
+      else
+        "MacOS"
+    } Makefile
   '';
 
   makeFlags = [ "CC_EXEC=cc" ];

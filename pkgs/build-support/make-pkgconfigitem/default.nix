@@ -28,7 +28,9 @@ let
     builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
 
   replacePlaceholderAndListToString = x:
-    if builtins.isList x then
+    if
+      builtins.isList x
+    then
       placeholderToSubstVar (builtins.concatStringsSep " " x)
     else
       placeholderToSubstVar x;

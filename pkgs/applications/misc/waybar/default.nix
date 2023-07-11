@@ -103,7 +103,14 @@ stdenv.mkDerivation rec {
   doCheck = runTests;
 
   mesonFlags = (lib.mapAttrsToList (option: enable:
-    "-D${option}=${if enable then "enabled" else "disabled"}") {
+    "-D${option}=${
+      if
+        enable
+      then
+        "enabled"
+      else
+        "disabled"
+    }") {
       dbusmenu-gtk = traySupport;
       jack = jackSupport;
       libinput = inputSupport;

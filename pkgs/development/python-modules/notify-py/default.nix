@@ -58,7 +58,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [ dbus ];
 
-  checkPhase = if stdenv.isDarwin then ''
+  checkPhase = if
+    stdenv.isDarwin
+  then ''
     # Tests search for "afplay" binary which is built in to macOS and not available in nixpkgs
     mkdir $TMP/bin
     ln -s ${coreutils}/bin/true $TMP/bin/afplay

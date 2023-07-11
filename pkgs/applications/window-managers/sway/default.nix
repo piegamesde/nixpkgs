@@ -44,7 +44,12 @@
 # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
 assert trayEnabled -> systemdSupport && dbusSupport;
 let
-  sd-bus-provider = if systemdSupport then "libsystemd" else "basu";
+  sd-bus-provider = if
+    systemdSupport
+  then
+    "libsystemd"
+  else
+    "basu";
 
 in
   stdenv.mkDerivation rec {

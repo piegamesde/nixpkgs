@@ -101,9 +101,30 @@ stdenv.mkDerivation {
   configureFlags = [
     "--with-gif"
     "--disable-mmx-optimization"
-    "--${if static then "enable" else "disable"}-staticlibs"
-    "--${if !static then "enable" else "disable"}-sharedlibs"
-    "--${if withX then "with" else "without"}-x"
+    "--${
+      if
+        static
+      then
+        "enable"
+      else
+        "disable"
+    }-staticlibs"
+    "--${
+      if
+        !static
+      then
+        "enable"
+      else
+        "disable"
+    }-sharedlibs"
+    "--${
+      if
+        withX
+      then
+        "with"
+      else
+        "without"
+    }-x"
   ];
 
   meta = with lib; {

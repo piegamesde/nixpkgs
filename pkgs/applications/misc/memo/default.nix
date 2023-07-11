@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = let
-    pandocReplacement = if pandocSupport then
+    pandocReplacement = if
+      pandocSupport
+    then
       "pandoc_cmd=${pandoc}/bin/pandoc"
     else
       "#pandoc_cmd=pandoc";

@@ -57,7 +57,12 @@ in
 
       ./install.sh \
         ${
-          if colorVariants != [ ] then builtins.toString colorVariants else "-a"
+          if
+            colorVariants != [ ]
+          then
+            builtins.toString colorVariants
+          else
+            "-a"
         } \
         -d $out/share/icons
 

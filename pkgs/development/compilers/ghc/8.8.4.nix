@@ -58,7 +58,12 @@
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
   ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (if useLLVM then "perf-cross" else "perf-cross-ncg")
+    (if
+      useLLVM
+    then
+      "perf-cross"
+    else
+      "perf-cross-ncg")
 
   , # Whether to build sphinx documentation.
   enableDocs ? (
@@ -100,7 +105,14 @@ let
       ifneq \"\$(BuildFlavour)\" \"\"
       include mk/flavours/\$(BuildFlavour).mk
       endif
-      BUILD_SPHINX_HTML = ${if enableDocs then "YES" else "NO"}
+      BUILD_SPHINX_HTML = ${
+        if
+          enableDocs
+        then
+          "YES"
+        else
+          "NO"
+      }
       BUILD_SPHINX_PDF = NO
     '' +
     # Note [HADDOCK_DOCS]:
@@ -114,10 +126,29 @@ let
     # If this is solved in the future, we'd like to unconditionally
     # build the haddock program (removing the `enableHaddockProgram` option).
     ''
-      HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
-      DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
+      HADDOCK_DOCS = ${
+        if
+          enableHaddockProgram
+        then
+          "YES"
+        else
+          "NO"
+      }
+      DYNAMIC_GHC_PROGRAMS = ${
+        if
+          enableShared
+        then
+          "YES"
+        else
+          "NO"
+      }
       INTEGER_LIBRARY = ${
-        if enableIntegerSimple then "integer-simple" else "integer-gmp"
+        if
+          enableIntegerSimple
+        then
+          "integer-simple"
+        else
+          "integer-gmp"
       }
     ''
     # We only need to build stage1 on most cross-compilation because
@@ -128,8 +159,10 @@ let
     # ourselves.
     + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
-        if (targetPlatform.system == hostPlatform.system
-          && !targetPlatform.isiOS) then
+        if
+          (targetPlatform.system == hostPlatform.system
+            && !targetPlatform.isiOS)
+        then
           "NO"
         else
           "YES"

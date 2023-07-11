@@ -9,7 +9,9 @@
 let
   pname = "dypgen";
 
-in if lib.versionAtLeast ocaml.version "4.06" then
+in if
+  lib.versionAtLeast ocaml.version "4.06"
+then
   throw "${pname} is not available for OCaml ${ocaml.version}"
 else
 

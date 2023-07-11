@@ -34,7 +34,9 @@ let
     hash = "sha256-+isxkGKxW7H+IjuA5G4yXuvDmX+4UlsD8sXwoHxgLM8=";
   };
 in
-  (if stdenv.hostPlatform.system == "aarch64-darwin" then
+  (if
+    stdenv.hostPlatform.system == "aarch64-darwin"
+  then
     aarch64-dmg
   else if stdenv.hostPlatform.isDarwin then
     x86_64-dmg

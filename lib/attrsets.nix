@@ -38,7 +38,9 @@ in rec {
     set:
     let
       attr = head attrPath;
-    in if attrPath == [ ] then
+    in if
+      attrPath == [ ]
+    then
       set
     else if set ? ${attr} then
       attrByPath (tail attrPath) default set.${attr}
@@ -64,7 +66,9 @@ in rec {
     e:
     let
       attr = head attrPath;
-    in if attrPath == [ ] then
+    in if
+      attrPath == [ ]
+    then
       true
     else if e ? ${attr} then
       hasAttrByPath (tail attrPath) e.${attr}
@@ -88,7 +92,13 @@ in rec {
     let
       len = length attrPath;
       atDepth = n:
-        if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
+        if
+          n == len
+        then
+          value
+        else {
+          ${elemAt attrPath n} = atDepth (n + 1);
+        };
     in
       atDepth 0
   ;
@@ -201,8 +211,12 @@ in rec {
         # Applies only nested modification to the input value
         withNestedMods =
           # Return the value directly if we don't have any nested modifications
-          if split.wrong == [ ] then
-            if hasValue then
+          if
+            split.wrong == [ ]
+          then
+            if
+              hasValue
+            then
               value
             else
             # Throw an error if there is no value. This `head` call here is
@@ -352,8 +366,14 @@ in rec {
     listToAttrs (concatMap (name:
       let
         v = set.${name};
-      in if pred name v then [ (nameValuePair name
-        (if isAttrs v then filterAttrsRecursive pred v else v)) ] else
+      in if
+        pred name v
+      then [ (nameValuePair name (if
+        isAttrs v
+      then
+        filterAttrsRecursive pred v
+      else
+        v)) ] else
         [ ]) (attrNames set));
 
   /* Like builtins.foldl' but for attribute sets.
@@ -452,7 +472,9 @@ in rec {
     pred:
     # The attribute set to recursively collect.
     attrs:
-    if pred attrs then [ attrs ] else if isAttrs attrs then
+    if
+      pred attrs
+    then [ attrs ] else if isAttrs attrs then
       concatMap (collect pred) (attrValues attrs)
     else
       [ ];
@@ -600,7 +622,9 @@ in rec {
       recurse = path:
         let
           g = name: value:
-            if isAttrs value && cond value then
+            if
+              isAttrs value && cond value
+            then
               recurse (path ++ [ name ]) value
             else
               f (path ++ [ name ]) value;
@@ -686,7 +710,12 @@ in rec {
     cond:
     # The attribute set to return if `cond` is `true`.
     as:
-    if cond then as else { };
+    if
+      cond
+    then
+      as
+    else
+      { };
 
   /* Merge sets of attributes and use the function `f` to merge attributes
      values.
@@ -786,8 +815,9 @@ in rec {
         zipAttrsWith (n: values:
           let
             here = attrPath ++ [ n ];
-          in if length values == 1
-          || pred here (elemAt values 1) (head values) then
+          in if
+            length values == 1 || pred here (elemAt values 1) (head values)
+          then
             head values
           else
             f here values);
@@ -846,7 +876,9 @@ in rec {
       let
         pat = head values;
         val = elemAt values 1;
-      in if length values == 1 then
+      in if
+        length values == 1
+      then
         false
       else if isAttrs pat then
         isAttrs val && matchAttrs pat val
@@ -894,7 +926,9 @@ in rec {
   showAttrPath =
     # Attribute path to render to a string
     path:
-    if path == [ ] then
+    if
+      path == [ ]
+    then
       "<root attribute path>"
     else
       concatMapStringsSep "." escapeNixIdentifier path;
@@ -910,7 +944,9 @@ in rec {
        getOutput :: String -> Derivation -> String
   */
   getOutput = output: pkg:
-    if !pkg ? outputSpecified || !pkg.outputSpecified then
+    if
+      !pkg ? outputSpecified || !pkg.outputSpecified
+    then
       pkg.${output} or pkg.out or pkg
     else
       pkg;

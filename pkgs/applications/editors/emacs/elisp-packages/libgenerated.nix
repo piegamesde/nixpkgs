@@ -86,7 +86,9 @@ in {
       hasSource = lib.hasAttr variant args;
       pname = builtins.replaceStrings [ "@" ] [ "at" ] ename;
       broken = error != null;
-    in if hasSource then
+    in if
+      hasSource
+    then
       lib.nameValuePair ename (self.callPackage ({
           melpaBuild,
           fetchurl,
@@ -100,11 +102,15 @@ in {
               # This filter method is still technically wrong, but it's computationally cheap enough and tapers over the issue
               (builtins.filter (n: n >= 0) version)));
           # TODO: Broken should not result in src being null (hack to avoid eval errors)
-          src = if (sha256 == null || broken) then
+          src = if
+            (sha256 == null || broken)
+          then
             null
           else
             lib.getAttr fetcher (fetcherGenerators args sourceArgs);
-          recipe = if commit == null then
+          recipe = if
+            commit == null
+          then
             null
           else
             fetchurl {

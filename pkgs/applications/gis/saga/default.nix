@@ -78,8 +78,14 @@ mkDerivation rec {
       sqlite
     ];
 
-  cmakeFlags =
-    [ "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}" ];
+  cmakeFlags = [ "-DOpenMP_SUPPORT=${
+      if
+        stdenv.isDarwin
+      then
+        "OFF"
+      else
+        "ON"
+    }" ];
 
   meta = with lib; {
     description = "System for Automated Geoscientific Analyses";

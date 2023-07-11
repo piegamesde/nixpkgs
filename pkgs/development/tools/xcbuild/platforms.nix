@@ -62,7 +62,12 @@ let
       ArchitectureSetting = "ARCHS_STANDARD_64_BIT";
     }
     {
-      Identifier = if stdenv.isAarch64 then "arm64" else "x86_64";
+      Identifier = if
+        stdenv.isAarch64
+      then
+        "arm64"
+      else
+        "x86_64";
       Type = "Architecture";
       Name = "Apple Silicon or Intel 64-bit";
     }

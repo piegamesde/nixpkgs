@@ -39,7 +39,9 @@ let
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
   machineNames = map (name: "${name}: Machine;") nodeHostNames;
 
-  withChecks = if lib.length invalidNodeNames > 0 then
+  withChecks = if
+    lib.length invalidNodeNames > 0
+  then
     throw ''
       Cannot create machines out of (${
         lib.concatStringsSep ", " invalidNodeNames

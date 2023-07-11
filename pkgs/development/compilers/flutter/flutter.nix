@@ -71,7 +71,9 @@ let
       ${builtins.concatStringsSep "\n" ((map (name:
         mkCommonArtifactLinkCommand {
           artifact = engineArtifacts.common.${name};
-        }) (if includedEngineArtifacts ? common then
+        }) (if
+          includedEngineArtifacts ? common
+        then
           includedEngineArtifacts.common
         else
           [ ])) ++ (builtins.foldl' (commands: os:
@@ -88,7 +90,9 @@ let
                   }) engineArtifacts.platform.${os}.${architecture}.base)
                 includedEngineArtifacts.platform.${os}.${architecture})) [ ]
               (builtins.attrNames includedEngineArtifacts.platform.${os}))) [ ]
-            (builtins.attrNames (if includedEngineArtifacts ? platform then
+            (builtins.attrNames (if
+              includedEngineArtifacts ? platform
+            then
               includedEngineArtifacts.platform
             else
               { }))))}

@@ -50,7 +50,12 @@ let
         buildInputs = [
           flex
           zlib
-          (if withAda then gnat11 else gcc)
+          (if
+            withAda
+          then
+            gnat11
+          else
+            gcc)
         ];
 
         enableParallelBuilding = true;

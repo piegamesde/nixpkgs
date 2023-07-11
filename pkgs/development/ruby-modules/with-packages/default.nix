@@ -25,7 +25,12 @@ let
 
   buildGems = gemset:
     let
-      realGemset = if builtins.isAttrs gemset then gemset else import gemset;
+      realGemset = if
+        builtins.isAttrs gemset
+      then
+        gemset
+      else
+        import gemset;
       builtGems = lib.mapAttrs (name: initialAttrs:
         let
           attrs = functions.applyGemConfigs ({

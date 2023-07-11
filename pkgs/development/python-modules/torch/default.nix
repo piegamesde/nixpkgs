@@ -111,7 +111,13 @@ in
   assert !cudaSupport || magma.cudaPackages.cudatoolkit == cudatoolkit;
 
   let
-    setBool = v: if v then "1" else "0";
+    setBool = v:
+      if
+        v
+      then
+        "1"
+      else
+        "0";
 
     # https://github.com/pytorch/pytorch/blob/v1.13.1/torch/utils/cpp_extension.py#L1751
     supportedTorchCudaCapabilities = let
@@ -152,7 +158,9 @@ in
         + strings.concatStringsSep ", " unsupported) supported;
 
     # Create the gpuTargetString.
-    gpuTargetString = strings.concatStringsSep ";" (if gpuTargets != [ ] then
+    gpuTargetString = strings.concatStringsSep ";" (if
+      gpuTargets != [ ]
+    then
     # If gpuTargets is specified, it always takes priority.
       gpuTargets
     else if cudaSupport then

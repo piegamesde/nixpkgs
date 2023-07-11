@@ -12,7 +12,9 @@ let
       versionParts = lib.versions.splitVersion version;
       major = lib.toInt (lib.elemAt versionParts 0);
       minor = lib.toInt (lib.elemAt versionParts 1);
-      patch = if lib.length versionParts > 2 then
+      patch = if
+        lib.length versionParts > 2
+      then
         lib.toInt (lib.elemAt versionParts 2)
       else
         0;

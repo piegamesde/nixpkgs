@@ -32,7 +32,9 @@ buildPythonPackage rec {
     hash = "sha256-ALGyMvnR+QLVeKnXWBS2f6AgdY1a5CLijKjO9iafpcY=";
   };
 
-  buildInputs = (if stdenv.isDarwin then [ openblas ] else [
+  buildInputs = (if
+    stdenv.isDarwin
+  then [ openblas ] else [
     blas
     lapack
   ]);
@@ -40,7 +42,9 @@ buildPythonPackage rec {
 
   # similar to Gsl, glpk, fftw there is also a dsdp interface
   # but dsdp is not yet packaged in nixpkgs
-  preConfigure = (if stdenv.isDarwin then ''
+  preConfigure = (if
+    stdenv.isDarwin
+  then ''
     export CVXOPT_BLAS_LIB=openblas
     export CVXOPT_LAPACK_LIB=openblas
   '' else ''

@@ -37,7 +37,12 @@
 
 let
   ceresSplit = (builtins.length ceres-solver.outputs) > 1;
-  ceres' = if ceresSplit then ceres-solver.dev else ceres-solver;
+  ceres' = if
+    ceresSplit
+  then
+    ceres-solver.dev
+  else
+    ceres-solver;
 in
   buildPythonPackage rec {
     pname = "OpenSfM";

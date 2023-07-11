@@ -30,8 +30,12 @@ in rec {
       args = if lib.isString args' then { system = args'; } else args';
       final = {
         # Prefer to parse `config` as it is strictly more informative.
-        parsed = parse.mkSystemFromString
-          (if args ? config then args.config else args.system);
+        parsed = parse.mkSystemFromString (if
+          args ? config
+        then
+          args.config
+        else
+          args.system);
         # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
         system = parse.doubleFromSystem final.parsed;
         config = parse.tripleFromSystem final.parsed;
@@ -44,7 +48,9 @@ in rec {
           throw
           "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
         # Derived meta-data
-        libc = if final.isDarwin then
+        libc = if
+          final.isDarwin
+        then
           "libSystem"
         else if final.isMinGW then
           "msvcrt"
@@ -78,7 +84,9 @@ in rec {
         # the monolithic GCC build we cannot actually make those choices
         # independently, so we are just doing `linker` and keeping `useLLVM` for
         # now.
-        linker = if final.useLLVM or false then
+        linker = if
+          final.useLLVM or false
+        then
           "lld"
         else if final.isDarwin then
           "cctools"
@@ -88,15 +96,32 @@ in rec {
         else
           "bfd";
         extensions = rec {
-          sharedLibrary = if final.isDarwin then
+          sharedLibrary = if
+            final.isDarwin
+          then
             ".dylib"
           else if final.isWindows then
             ".dll"
           else
             ".so";
-          staticLibrary = if final.isWindows then ".lib" else ".a";
-          library = if final.isStatic then staticLibrary else sharedLibrary;
-          executable = if final.isWindows then ".exe" else "";
+          staticLibrary = if
+            final.isWindows
+          then
+            ".lib"
+          else
+            ".a";
+          library = if
+            final.isStatic
+          then
+            staticLibrary
+          else
+            sharedLibrary;
+          executable = if
+            final.isWindows
+          then
+            ".exe"
+          else
+            "";
         };
         # Misc boolean options
         useAndroidPrebuilt = false;
@@ -118,7 +143,9 @@ in rec {
           }.${final.parsed.kernel.name} or null;
 
           # uname -m
-          processor = if final.isPower64 then
+          processor = if
+            final.isPower64
+          then
             "ppc64${lib.optionalString final.isLittleEndian "le"}"
           else if final.isPower then
             "ppc${lib.optionalString final.isLittleEndian "le"}"
@@ -140,7 +167,9 @@ in rec {
         } // platforms.select final)
           linux-kernel gcc rustc;
 
-        linuxArch = if final.isAarch32 then
+        linuxArch = if
+          final.isAarch32
+        then
           "arm"
         else if final.isAarch64 then
           "arm64"
@@ -166,7 +195,9 @@ in rec {
         else
           final.parsed.cpu.name;
 
-        qemuArch = if final.isAarch32 then
+        qemuArch = if
+          final.isAarch32
+        then
           "arm"
         else if final.isS390 && !final.isS390x then
           null
@@ -178,7 +209,9 @@ in rec {
           final.uname.processor;
 
         # Name used by UEFI for architectures.
-        efiArch = if final.isx86_32 then
+        efiArch = if
+          final.isx86_32
+        then
           "ia32"
         else if final.isx86_64 then
           "x64"
@@ -194,7 +227,9 @@ in rec {
           aarch64 = "arm64";
         }.${final.parsed.cpu.name} or final.parsed.cpu.name;
 
-        darwinPlatform = if final.isMacOS then
+        darwinPlatform = if
+          final.isMacOS
+        then
           "macos"
         else if final.isiOS then
           "ios"
@@ -202,10 +237,16 @@ in rec {
           null;
         # The canonical name for this attribute is darwinSdkVersion, but some
         # platforms define the old name "sdkVer".
-        darwinSdkVersion =
-          final.sdkVer or (if final.isAarch64 then "11.0" else "10.12");
+        darwinSdkVersion = final.sdkVer or (if
+          final.isAarch64
+        then
+          "11.0"
+        else
+          "10.12");
         darwinMinVersion = final.darwinSdkVersion;
-        darwinMinVersionVariable = if final.isMacOS then
+        darwinMinVersionVariable = if
+          final.isMacOS
+        then
           "MACOSX_DEPLOYMENT_TARGET"
         else if final.isiOS then
           "IPHONEOS_DEPLOYMENT_TARGET"
@@ -230,9 +271,11 @@ in rec {
             };
             wine = (pkgs.winePackagesFor
               "wine${toString final.parsed.cpu.bits}").minimal;
-          in if final.parsed.kernel.name
-          == pkgs.stdenv.hostPlatform.parsed.kernel.name
-          && pkgs.stdenv.hostPlatform.canExecute final then
+          in if
+            final.parsed.kernel.name
+            == pkgs.stdenv.hostPlatform.parsed.kernel.name
+            && pkgs.stdenv.hostPlatform.canExecute final
+          then
             ''${pkgs.runtimeShell} -c '"$@"' --''
           else if final.isWindows then
             "${wine}/bin/wine${
@@ -251,7 +294,9 @@ in rec {
         emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
 
         emulator = pkgs:
-          if (final.emulatorAvailable pkgs) then
+          if
+            (final.emulatorAvailable pkgs)
+          then
             selectEmulator pkgs
           else
             throw "Don't know how to run ${final.config} executables.";
@@ -266,8 +311,12 @@ in rec {
           assertion,
           message,
         }:
-        if assertion final then pass else throw message) true
-        (final.parsed.abi.assertions or [ ]);
+        if
+          assertion final
+        then
+          pass
+        else
+          throw message) true (final.parsed.abi.assertions or [ ]);
       final
   ;
 }

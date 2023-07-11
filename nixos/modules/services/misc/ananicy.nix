@@ -12,11 +12,12 @@ let
   configFile =
     pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
   extraRules = pkgs.writeText "extraRules" cfg.extraRules;
-  servicename =
-    if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
-      "ananicy-cpp"
-    else
-      "ananicy";
+  servicename = if
+    ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp))
+  then
+    "ananicy-cpp"
+  else
+    "ananicy";
 in {
   options = {
     services.ananicy = {
@@ -93,17 +94,18 @@ in {
         apply_sched = mkOD true;
         apply_oom_score_adj = mkOD true;
         apply_cgroup = mkOD true;
-      } // (if ((lib.getName cfg.package)
-        == (lib.getName pkgs.ananicy-cpp)) then {
-          # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12
-          loglevel = mkOD "warn"; # default is info but its spammy
-          cgroup_realtime_workaround =
-            mkOD config.systemd.enableUnifiedCgroupHierarchy;
-        } else {
-          # https://github.com/Nefelim4ag/Ananicy/blob/master/ananicy.d/ananicy.conf
-          check_disks_schedulers = mkOD true;
-          check_freq = mkOD 5;
-        })
+      } // (if
+        ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp))
+      then {
+        # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12
+        loglevel = mkOD "warn"; # default is info but its spammy
+        cgroup_realtime_workaround =
+          mkOD config.systemd.enableUnifiedCgroupHierarchy;
+      } else {
+        # https://github.com/Nefelim4ag/Ananicy/blob/master/ananicy.d/ananicy.conf
+        check_disks_schedulers = mkOD true;
+        check_freq = mkOD 5;
+      })
     ;
 
     systemd = {

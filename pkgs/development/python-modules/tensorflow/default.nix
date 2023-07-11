@@ -109,7 +109,9 @@ in let
   # clang 7 fails to emit a symbol for
   # __ZN4llvm11SmallPtrSetIPKNS_10AllocaInstELj8EED1Ev in any of the
   # translation units, so the build fails at link time
-  stdenv = if cudaSupport then
+  stdenv = if
+    cudaSupport
+  then
     cudaPackages.backendStdenv
   else if originalStdenv.isDarwin then
     llvmPackages_11.stdenv
@@ -156,7 +158,13 @@ in
       paths = [ jsoncpp ];
     };
 
-    tfFeature = x: if x then "1" else "0";
+    tfFeature = x:
+      if
+        x
+      then
+        "1"
+      else
+        "0";
 
     version = "2.11.1";
     variant = lib.optionalString cudaSupport "-gpu";
@@ -251,7 +259,9 @@ in
         runHook postInstall
       '';
     };
-    bazel-build = if stdenv.isDarwin then
+    bazel-build = if
+      stdenv.isDarwin
+    then
       _bazel-build.overrideAttrs (prev: {
         bazelFlags = prev.bazelFlags ++ [
           "--override_repository=rules_cc=${rules_cc_darwin_patched}"
@@ -462,7 +472,9 @@ in
 
       fetchAttrs = {
         sha256 = {
-          x86_64-linux = if cudaSupport then
+          x86_64-linux = if
+            cudaSupport
+          then
             "sha256-rcTPOMoBfmKFuuCanMlhmtFtOQzOICfEXTZey/rQEdM="
           else
             "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0=";

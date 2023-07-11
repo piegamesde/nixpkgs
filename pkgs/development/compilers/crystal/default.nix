@@ -57,7 +57,9 @@ let
   ];
 
   binaryUrl = version: rel:
-    if arch == archs.aarch64-linux then
+    if
+      arch == archs.aarch64-linux
+    then
       "https://dev.alpinelinux.org/archive/crystal/crystal-${version}-aarch64-alpine-linux-musl.tar.gz"
     else if arch == archs.x86_64-darwin && lib.versionOlder version "1.2.0" then
       "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
@@ -194,7 +196,12 @@ let
         ];
         buildInputs = [
           boehmgc
-          (if lib.versionAtLeast version "1.8" then pcre2 else pcre)
+          (if
+            lib.versionAtLeast version "1.8"
+          then
+            pcre2
+          else
+            pcre)
           libevent
           libyaml
           zlib

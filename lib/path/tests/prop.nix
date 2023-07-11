@@ -50,7 +50,12 @@ let
           For valid subpath "${str}", appending to an absolute Nix path value gives "${absConcatOrig}", but appending the normalised result "${tryOnce.value}" gives a different value "${absConcatNormalised}"'';
 
       # Return an empty string when failed
-      if tryOnce.success then tryOnce.value else ""
+      if
+        tryOnce.success
+      then
+        tryOnce.value
+      else
+        ""
   ;
 
 in

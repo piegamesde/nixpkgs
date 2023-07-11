@@ -47,8 +47,12 @@ in {
       pkgs.pommed_light
     ];
 
-    environment.etc."pommed.conf".source =
-      if cfg.configFile == null then defaultConf else cfg.configFile;
+    environment.etc."pommed.conf".source = if
+      cfg.configFile == null
+    then
+      defaultConf
+    else
+      cfg.configFile;
 
     systemd.services.pommed = {
       description = "Pommed Apple Hotkeys Daemon";

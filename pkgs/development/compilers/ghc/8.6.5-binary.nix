@@ -23,7 +23,12 @@ let
   useNcurses6 = stdenv.hostPlatform.system == "x86_64-linux"
     || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
 
-  ourNcurses = if useNcurses6 then ncurses6 else ncurses5;
+  ourNcurses = if
+    useNcurses6
+  then
+    ncurses6
+  else
+    ncurses5;
 
   libPath = lib.makeLibraryPath ([
     ourNcurses
@@ -34,7 +39,9 @@ let
     + "LD_LIBRARY_PATH";
 
   glibcDynLinker = assert stdenv.isLinux;
-    if stdenv.hostPlatform.libc == "glibc" then
+    if
+      stdenv.hostPlatform.libc == "glibc"
+    then
     # Could be stdenv.cc.bintools.dynamicLinker, keeping as-is to avoid rebuild.
       ''"$(cat $NIX_CC/nix-support/dynamic-linker)"''
     else

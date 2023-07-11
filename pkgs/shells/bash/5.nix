@@ -76,7 +76,9 @@ in
       })
     ];
 
-    configureFlags = [ (if interactive then
+    configureFlags = [ (if
+      interactive
+    then
       "--with-installed-readline"
     else
       "--disable-readline") ]
@@ -119,7 +121,9 @@ in
       rm -f $out/lib/bash/Makefile.inc
     '';
 
-    postFixup = if interactive then ''
+    postFixup = if
+      interactive
+    then ''
       substituteInPlace "$out/bin/bashbug" \
         --replace '#!/bin/sh' "#!$out/bin/bash"
     ''

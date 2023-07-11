@@ -25,7 +25,12 @@ let
   isFullPackage = mediaSupport;
 in
   stdenv.mkDerivation rec {
-    pname = if isFullPackage then "vifm-full" else "vifm";
+    pname = if
+      isFullPackage
+    then
+      "vifm-full"
+    else
+      "vifm";
     version = "0.13";
 
     src = fetchurl {
@@ -77,7 +82,12 @@ in
           "; Includes support for optional features"
         }";
       maintainers = with maintainers; [ raskin ];
-      platforms = if mediaSupport then platforms.linux else platforms.unix;
+      platforms = if
+        mediaSupport
+      then
+        platforms.linux
+      else
+        platforms.unix;
       license = licenses.gpl2;
       downloadPage = "https://vifm.info/downloads.shtml";
       homepage = "https://vifm.info/";

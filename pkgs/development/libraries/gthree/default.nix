@@ -65,7 +65,14 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dgtk_doc=${if stdenv.isDarwin then "false" else "true"}"
+    "-Dgtk_doc=${
+      if
+        stdenv.isDarwin
+      then
+        "false"
+      else
+        "true"
+    }"
     # Data for examples is useless when the example programs are not installed.
     "-Dexamples=false"
   ];

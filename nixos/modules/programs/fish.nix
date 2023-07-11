@@ -29,7 +29,9 @@ let
     pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
 
   sourceEnv = file:
-    if cfg.useBabelfish then
+    if
+      cfg.useBabelfish
+    then
       "source /etc/fish/${file}.fish"
     else ''
       set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
@@ -174,7 +176,9 @@ in {
       })
 
       {
-        etc."fish/nixos-env-preinit.fish".text = if cfg.useBabelfish then ''
+        etc."fish/nixos-env-preinit.fish".text = if
+          cfg.useBabelfish
+        then ''
           # source the NixOS environment config
           if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
             source /etc/fish/setEnvironment.fish

@@ -138,7 +138,9 @@ in {
           text = ''
             #! ${pkgs.nftables}/bin/nft -f
             flush ruleset
-            ${if cfg.rulesetFile != null then ''
+            ${if
+              cfg.rulesetFile != null
+            then ''
               include "${cfg.rulesetFile}"
             '' else
               cfg.ruleset}

@@ -46,7 +46,12 @@ import ./make-test-python.nix ({
       }:
       let
         newSystem = nodes.walled2.config.system.build.toplevel;
-        unit = if nftables then "nftables" else "firewall";
+        unit = if
+          nftables
+        then
+          "nftables"
+        else
+          "firewall";
       in ''
         start_all()
 

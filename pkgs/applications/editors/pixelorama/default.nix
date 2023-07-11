@@ -7,8 +7,15 @@
 }:
 
 let
-  preset = if stdenv.isLinux then
-    if stdenv.is64bit then "Linux/X11 64-bit" else "Linux/X11 32-bit"
+  preset = if
+    stdenv.isLinux
+  then
+    if
+      stdenv.is64bit
+    then
+      "Linux/X11 64-bit"
+    else
+      "Linux/X11 32-bit"
   else if stdenv.isDarwin then
     "Mac OSX"
   else

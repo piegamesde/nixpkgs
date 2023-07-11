@@ -24,7 +24,9 @@ rec {
 
   # Special-case directive value representations by type
   phraseDirective = solution: env: name: val:
-    if builtins.isInt val then
+    if
+      builtins.isInt val
+    then
       builtins.toString val
     else if builtins.isString val then
       name
@@ -49,7 +51,9 @@ rec {
 
   # Custom ~search-path routine to handle relative path strings
   relSafeBinPath = input:
-    if lib.isDerivation input then
+    if
+      lib.isDerivation input
+    then
       ((lib.getOutput "bin" input) + "/bin")
     else if builtins.isString input then
       input
@@ -58,7 +62,9 @@ rec {
 
   # Special-case value representation by type/name
   phraseEnvVal = solution: env: val:
-    if env == "inputs" then
+    if
+      env == "inputs"
+    then
       (colons (map relSafeBinPath val))
     else if builtins.isString val then
       val
@@ -122,7 +128,9 @@ rec {
 
   # Build a single resholve invocation
   phraseInvocation = solution: value:
-    if validateSolution value then
+    if
+      validateSolution value
+    then
     # we pass resholve a directory
       "RESHOLVE_LORE=${binlore.collect (phraseBinloreArgs value)} ${
         phraseEnvs solution value

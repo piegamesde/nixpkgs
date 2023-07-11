@@ -105,7 +105,12 @@ stdenv.mkDerivation rec {
   postInstall = ''
     mkdir -p "$dev/include"
     install -m 644 ../../${pname}/include/${
-      if stdenv.isDarwin then "*" else "cxxabi.h"
+      if
+        stdenv.isDarwin
+      then
+        "*"
+      else
+        "cxxabi.h"
     } "$dev/include"
   '';
 

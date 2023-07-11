@@ -47,9 +47,15 @@ stdenv.mkDerivation ({
     runHook postBuild
   '';
 
-  installFlags = if attrs.doCheck or true then [ ] else [ "--no-test-load" ];
+  installFlags = if
+    attrs.doCheck or true
+  then
+    [ ]
+  else [ "--no-test-load" ];
 
-  rCommand = if requireX then
+  rCommand = if
+    requireX
+  then
   # Unfortunately, xvfb-run has a race condition even with -a option, so that
   # we acquire a lock explicitly.
     "flock ${xvfb-run} xvfb-run -a -e xvfb-error R"

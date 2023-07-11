@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
   ];
 
   configurePhase = let
-    target = if withGraphics then "X-Configure" else "Configure";
-    platform = if stdenv.isLinux then
+    target = if
+      withGraphics
+    then
+      "X-Configure"
+    else
+      "Configure";
+    platform = if
+      stdenv.isLinux
+    then
       "linux"
     else if stdenv.isDarwin then
       "macintosh"

@@ -136,11 +136,12 @@ in
     '';
 
     postBuild = let
-      tinygoForBuild =
-        if (stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
-          "build/tinygo"
-        else
-          "${buildPackages.tinygo}/bin/tinygo";
+      tinygoForBuild = if
+        (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      then
+        "build/tinygo"
+      else
+        "${buildPackages.tinygo}/bin/tinygo";
     in ''
       # Move binary
       mkdir -p build

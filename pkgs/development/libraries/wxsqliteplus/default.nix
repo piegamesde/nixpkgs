@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
     sed -ie 's|all: $(LIBPREFIX)wxsqlite$(LIBEXT)|all: |g' Makefile
     sed -ie 's|wxsqliteplus$(EXEEXT): $(WXSQLITEPLUS_OBJECTS) $(LIBPREFIX)wxsqlite$(LIBEXT)|wxsqliteplus$(EXEEXT):  $(WXSQLITEPLUS_OBJECTS) |g' Makefile
     sed -ie 's|-lwxsqlite |-lwxcode_${
-      if stdenv.isDarwin then
+      if
+        stdenv.isDarwin
+      then
         "osx_cocoau_wxsqlite3-3.2.0"
       else
         "gtk3u_wxsqlite3-3.2"

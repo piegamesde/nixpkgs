@@ -115,7 +115,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 gpsbabel -t $out/bin
-  '' + lib.optionalString withGUI (if stdenv.isDarwin then ''
+  '' + lib.optionalString withGUI (if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     mv gui/GPSBabelFE.app $out/Applications
     install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/Applications/GPSBabelFE.app/Contents/Resources/translations
@@ -130,7 +132,9 @@ stdenv.mkDerivation rec {
     cp -r html $doc/share/doc/gpsbabel
   '';
 
-  postFixup = lib.optionalString withGUI (if stdenv.isDarwin then ''
+  postFixup = lib.optionalString withGUI (if
+    stdenv.isDarwin
+  then ''
     wrapQtApp "$out/Applications/GPSBabelFE.app/Contents/MacOS/GPSBabelFE"
   '' else ''
     wrapQtApp "$out/bin/gpsbabelfe"

@@ -43,12 +43,22 @@ buildPythonPackage rec {
       ufo = [ fs ];
       lxml = [ lxml ];
       woff = [
-        (if isPyPy then brotlicffi else brotli)
+        (if
+          isPyPy
+        then
+          brotlicffi
+        else
+          brotli)
         zopfli
       ];
       unicode = lib.optional (pythonOlder "3.11") unicodedata2;
       graphite = [ lz4 ];
-      interpolatable = [ (if isPyPy then munkres else scipy) ];
+      interpolatable = [ (if
+        isPyPy
+      then
+        munkres
+      else
+        scipy) ];
       plot = [ matplotlib ];
       symfont = [ sympy ];
       type1 = lib.optional stdenv.isDarwin xattr;

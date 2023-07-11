@@ -56,7 +56,12 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    (if threadSupport then "--enable-threads" else "--disable-threads")
+    (if
+      threadSupport
+    then
+      "--enable-threads"
+    else
+      "--disable-threads")
     "--with-gmp-incdir=${lib.getDev gmp}/include"
     "--with-gmp-libdir=${lib.getLib gmp}/lib"
     "--with-libffi-incdir=${lib.getDev libffi}/include"

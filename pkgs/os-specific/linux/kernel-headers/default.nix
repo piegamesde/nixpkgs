@@ -93,7 +93,9 @@ let
       # Skip clean on darwin, case-sensitivity issues.
       buildPhase = lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
         make mrproper $makeFlags
-      '' + (if stdenvNoCC.hostPlatform.isAndroid then ''
+      '' + (if
+        stdenvNoCC.hostPlatform.isAndroid
+      then ''
         make defconfig
         make headers_install
       '' else ''

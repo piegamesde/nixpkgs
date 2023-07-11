@@ -33,7 +33,9 @@ stdenv.mkDerivation rec {
       --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
   '';
 
-  buildPhase = if stdenv.isDarwin then ''
+  buildPhase = if
+    stdenv.isDarwin
+  then ''
     make -f Bootstrap.mak osx
   '' else ''
     make -f Bootstrap.mak linux

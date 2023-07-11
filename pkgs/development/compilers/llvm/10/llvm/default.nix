@@ -53,7 +53,9 @@ let
   #
   # So, we "manually" assemble one python derivation for the package to depend
   # on, taking into account whether checks are enabled or not:
-  python = if doCheck then
+  python = if
+    doCheck
+  then
     let
       checkDeps = ps: with ps; [ psutil ];
     in
@@ -230,9 +232,23 @@ in
         ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
       in
         flagsForLlvmConfig ++ [
-          "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
+          "-DCMAKE_BUILD_TYPE=${
+            if
+              debugVersion
+            then
+              "Debug"
+            else
+              "Release"
+          }"
           "-DLLVM_INSTALL_UTILS=ON" # Needed by rustc
-          "-DLLVM_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+          "-DLLVM_BUILD_TESTS=${
+            if
+              doCheck
+            then
+              "ON"
+            else
+              "OFF"
+          }"
           "-DLLVM_ENABLE_FFI=ON"
           "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
           "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
@@ -294,7 +310,12 @@ in
       mv $out/share/opt-viewer $python/share/opt-viewer
       moveToOutput "bin/llvm-config*" "$dev"
       substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-        if debugVersion then "debug" else "release"
+        if
+          debugVersion
+        then
+          "debug"
+        else
+          "release"
       }.cmake" \
         --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
         --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"

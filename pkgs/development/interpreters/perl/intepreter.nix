@@ -34,7 +34,12 @@ assert (enableCrypt -> (libxcrypt != null));
 
 let
   crossCompiling = stdenv.buildPlatform != stdenv.hostPlatform;
-  libc = if stdenv.cc.libc or null != null then stdenv.cc.libc else "/usr";
+  libc = if
+    stdenv.cc.libc or null != null
+  then
+    stdenv.cc.libc
+  else
+    "/usr";
   libcInc = lib.getDev libc;
   libcLib = lib.getLib libc;
 
@@ -85,7 +90,9 @@ in
 
     # This is not done for native builds because pwd may need to come from
     # bootstrap tools when building bootstrap perl.
-    postPatch = (if crossCompiling then ''
+    postPatch = (if
+      crossCompiling
+    then ''
       substituteInPlace dist/PathTools/Cwd.pm \
         --replace "/bin/pwd" '${coreutils}/bin/pwd'
       substituteInPlace cnf/configure_tool.sh --replace "cc -E -P" "cc -E"
@@ -104,7 +111,9 @@ in
     # $out/lib/perl5 - this is the general default, but because $out
     # contains the string "perl", Configure would select $out/lib.
     # Miniperl needs -lm. perl needs -lrt.
-    configureFlags = (if crossCompiling then [
+    configureFlags = (if
+      crossCompiling
+    then [
       ''-Dlibpth=""''
       ''-Dglibpth=""''
       "-Ddefault_inc_excludes_dot"
@@ -200,7 +209,9 @@ in
         perlOnBuildForHost = override pkgsBuildHost.${perlAttr};
         perlOnBuildForTarget = override pkgsBuildTarget.${perlAttr};
         perlOnHostForHost = override pkgsHostHost.${perlAttr};
-        perlOnTargetForTarget = if lib.hasAttr perlAttr pkgsTargetTarget then
+        perlOnTargetForTarget = if
+          lib.hasAttr perlAttr pkgsTargetTarget
+        then
           (override pkgsTargetTarget.${perlAttr})
         else
           { };
@@ -221,7 +232,12 @@ in
       substituteInPlace "$out"/lib/perl5/*/*/Config_heavy.pl \
         --replace "${libcInc}" /no-such-path \
         --replace "${
-          if stdenv.hasCC then stdenv.cc.cc else "/no-such-path"
+          if
+            stdenv.hasCC
+          then
+            stdenv.cc.cc
+          else
+            "/no-such-path"
         }" /no-such-path \
         --replace "${stdenv.cc}" /no-such-path \
         --replace "$man" /no-such-path

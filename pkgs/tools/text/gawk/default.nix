@@ -59,11 +59,15 @@ stdenv.mkDerivation rec {
     ++ lib.optional interactive readline ++ lib.optional stdenv.isDarwin locale;
 
   configureFlags = [
-    (if withSigsegv then
+    (if
+      withSigsegv
+    then
       "--with-libsigsegv-prefix=${libsigsegv}"
     else
       "--without-libsigsegv")
-    (if interactive then
+    (if
+      interactive
+    then
       "--with-readline=${readline.dev}"
     else
       "--without-readline")
@@ -79,8 +83,12 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    libsigsegv =
-      if withSigsegv then libsigsegv else null; # for stdenv bootstrap
+    libsigsegv = if
+      withSigsegv
+    then
+      libsigsegv
+    else
+      null; # for stdenv bootstrap
   };
 
   meta = with lib; {

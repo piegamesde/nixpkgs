@@ -274,7 +274,9 @@ builtins.intersectAttrs super {
         pcre2
         util-linux
         pcre
-      ] ++ (if pkgs.stdenv.isLinux then [
+      ] ++ (if
+        pkgs.stdenv.isLinux
+      then [
         libselinux
         libsepol
       ] else
@@ -298,13 +300,16 @@ builtins.intersectAttrs super {
         libdatrie
         xorg.libXdmcp
         libdeflate
-      ] ++ (if pkgs.stdenv.isLinux then [
+      ] ++ (if
+        pkgs.stdenv.isLinux
+      then [
         libselinux
         libsepol
       ] else
         [ ])))
-  ] ++ (if pkgs.stdenv.isDarwin then [ (appendConfigureFlag
-    "-fhave-quartz-gtk") ] else
+  ] ++ (if
+    pkgs.stdenv.isDarwin
+  then [ (appendConfigureFlag "-fhave-quartz-gtk") ] else
     [ ]));
   gtksourceview2 = addPkgconfigDepend pkgs.gtk2 super.gtksourceview2;
   gtk-traymanager = addPkgconfigDepend pkgs.gtk3 super.gtk-traymanager;
@@ -595,8 +600,14 @@ builtins.intersectAttrs super {
   #
   # Additional note: nixpkgs' freeglut and macOS's OpenGL implementation do not cooperate,
   # so disable this on Darwin only
-  ${if pkgs.stdenv.isDarwin then null else "GLUT"} =
-    addPkgconfigDepend pkgs.freeglut
+  ${
+    if
+      pkgs.stdenv.isDarwin
+    then
+      null
+    else
+      "GLUT"
+  } = addPkgconfigDepend pkgs.freeglut
     (appendPatch ./patches/GLUT.patch super.GLUT);
 
   libsystemd-journal =
@@ -658,12 +669,13 @@ builtins.intersectAttrs super {
   servant-streaming-server = dontCheck super.servant-streaming-server;
 
   # https://github.com/haskell-servant/servant/pull/1238
-  servant-client-core =
-    if (pkgs.lib.getVersion super.servant-client-core) == "0.16" then
-      appendPatch ./patches/servant-client-core-redact-auth-header.patch
-      super.servant-client-core
-    else
-      super.servant-client-core;
+  servant-client-core = if
+    (pkgs.lib.getVersion super.servant-client-core) == "0.16"
+  then
+    appendPatch ./patches/servant-client-core-redact-auth-header.patch
+    super.servant-client-core
+  else
+    super.servant-client-core;
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -784,9 +796,24 @@ builtins.intersectAttrs super {
     '' + (drv.postFixup or "");
     buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
   }) (super.git-annex.override {
-    dbus = if pkgs.stdenv.isLinux then self.dbus else null;
-    fdo-notify = if pkgs.stdenv.isLinux then self.fdo-notify else null;
-    hinotify = if pkgs.stdenv.isLinux then self.hinotify else self.fsnotify;
+    dbus = if
+      pkgs.stdenv.isLinux
+    then
+      self.dbus
+    else
+      null;
+    fdo-notify = if
+      pkgs.stdenv.isLinux
+    then
+      self.fdo-notify
+    else
+      null;
+    hinotify = if
+      pkgs.stdenv.isLinux
+    then
+      self.hinotify
+    else
+      self.fsnotify;
   });
 
   # The test suite has undeclared dependencies on git.
@@ -1114,8 +1141,10 @@ builtins.intersectAttrs super {
 
   hercules-ci-api-core =
     # 2023-05-02: Work around a corrupted file on cache.nixos.org. This is a hash for x86_64-linux. Remove when it has changed.
-    if super.hercules-ci-api-core.drvPath
-    == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv" then
+    if
+      super.hercules-ci-api-core.drvPath
+      == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv"
+    then
       super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
     else
       super.hercules-ci-api-core;

@@ -12,7 +12,13 @@ let
   cfg = config.services.rippled;
   opt = options.services.rippled;
 
-  b2i = val: if val then "1" else "0";
+  b2i = val:
+    if
+      val
+    then
+      "1"
+    else
+      "0";
 
   dbCfg = db: ''
     type=${db.type}

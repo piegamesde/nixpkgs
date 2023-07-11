@@ -52,7 +52,9 @@ in
       for lib in $out/lib/*${stdenv.hostPlatform.extensions.sharedLibrary}* ; do
         if [[ -L "$lib" ]]; then
           ${
-            if stdenv.hostPlatform.isDarwin then ''
+            if
+              stdenv.hostPlatform.isDarwin
+            then ''
               install_name_tool ${
                 lib.strings.concatMapStrings
                 (x: " -add_rpath ${makeLibraryPath [ x ]} ")

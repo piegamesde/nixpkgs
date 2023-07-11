@@ -156,7 +156,12 @@ in {
         Type = "simple";
         ExecStart = lib.concatStringsSep " " ([
           bin
-          (if cfg.debug then "-vvv" else "-v")
+          (if
+            cfg.debug
+          then
+            "-vvv"
+          else
+            "-v")
           "--config"
           registrationFile
           "--listen-address"

@@ -39,7 +39,14 @@ stdenv.mkDerivation rec {
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     "SBINDIR=$(out)/bin"
     "LIBDIR=$(out)/lib"
-    "LUA=${if luaSupport then "lua" else "no"}"
+    "LUA=${
+      if
+        luaSupport
+      then
+        "lua"
+      else
+        "no"
+    }"
     "LUA_LIBDIR=$(out)/lib/lua/${lib.versions.majorMinor lua.version}"
     "MANDIR=$(out)/share/man"
     "DOCDIR=$(out)/share/doc/apk"

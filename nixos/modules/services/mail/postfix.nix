@@ -33,10 +33,14 @@ let
     escape = replaceStrings [ "$" ] [ "$$" ];
     mkList = items: "\n  " + concatStringsSep ",\n  " items;
     mkVal = value:
-      if isList value then
+      if
+        isList value
+      then
         mkList value
       else
-        " " + (if value == true then
+        " " + (if
+          value == true
+        then
           "yes"
         else if value == false then
           "no"
@@ -170,11 +174,22 @@ let
       };
 
       config.rawEntry = let
-        mkBool = bool: if bool then "y" else "n";
+        mkBool = bool:
+          if
+            bool
+          then
+            "y"
+          else
+            "n";
         mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
 
         maybeOption = fun: option:
-          if options.${option}.isDefined then fun config.${option} else "-";
+          if
+            options.${option}.isDefined
+          then
+            fun config.${option}
+          else
+            "-";
 
         # This is special, because we have two options for this value.
         wakeup = let
@@ -183,7 +198,12 @@ let
           finalValue = toString config.wakeup
             + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent)
             "?";
-        in if wakeupDefined then finalValue else "-";
+        in if
+          wakeupDefined
+        then
+          finalValue
+        else
+          "-";
 
       in [
         config.name
@@ -902,7 +922,9 @@ in {
         mail_spool_directory = "/var/spool/mail/";
         setgid_group = cfg.setgidGroup;
       }) // optionalAttrs (cfg.relayHost != "") {
-        relayhost = if cfg.lookupMX then
+        relayhost = if
+          cfg.lookupMX
+        then
           "${cfg.relayHost}:${toString cfg.relayPort}"
         else
           "[${cfg.relayHost}]:${toString cfg.relayPort}";

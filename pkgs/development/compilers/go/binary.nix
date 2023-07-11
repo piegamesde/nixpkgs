@@ -8,7 +8,12 @@
 }:
 let
   toGoKernel = platform:
-    if platform.isDarwin then "darwin" else platform.parsed.kernel.name;
+    if
+      platform.isDarwin
+    then
+      "darwin"
+    else
+      platform.parsed.kernel.name;
 
   toGoCPU = platform:
     {

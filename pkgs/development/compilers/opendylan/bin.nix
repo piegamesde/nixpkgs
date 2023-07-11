@@ -14,7 +14,9 @@ stdenv.mkDerivation rec {
   pname = "opendylan";
   version = "2013.2";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchurl {
       url =
         "https://opendylan.org/downloads/opendylan/${version}/opendylan-${version}-x86_64-linux.tar.bz2";

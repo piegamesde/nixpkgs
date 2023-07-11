@@ -9,7 +9,9 @@ with lib;
 
 let
 
-  dhcpcd = if !config.boot.isContainer then
+  dhcpcd = if
+    !config.boot.isContainer
+  then
     pkgs.dhcpcd
   else
     pkgs.dhcpcd.override { udev = null; };
@@ -23,10 +25,14 @@ let
 
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.
-  ignoredInterfaces = map (i: i.name) (filter
-    (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
-    interfaces) ++ mapAttrsToList (i: _: i) config.networking.sits
-    ++ concatLists
+  ignoredInterfaces = map (i: i.name) (filter (i:
+    if
+      i.useDHCP != null
+    then
+      !i.useDHCP
+    else
+      i.ipv4.addresses != [ ]) interfaces)
+    ++ mapAttrsToList (i: _: i) config.networking.sits ++ concatLists
     (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (concatMap (i:
       attrNames
@@ -36,7 +42,9 @@ let
     ++ config.networking.dhcpcd.denyInterfaces;
 
   arrayAppendOrNull = a1: a2:
-    if a1 == null && a2 == null then
+    if
+      a1 == null && a2 == null
+    then
       null
     else if a1 == null then
       a2
@@ -47,11 +55,12 @@ let
 
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
-  allowInterfaces = arrayAppendOrNull cfg.allowInterfaces
-    (if !config.networking.useDHCP && enableDHCP then
-      map (i: i.name) (filter (i: i.useDHCP == true) interfaces)
-    else
-      null);
+  allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (if
+    !config.networking.useDHCP && enableDHCP
+  then
+    map (i: i.name) (filter (i: i.useDHCP == true) interfaces)
+  else
+    null);
 
   staticIPv6Addresses =
     map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);

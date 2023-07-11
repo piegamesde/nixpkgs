@@ -49,7 +49,9 @@ in {
           files = builtins.attrNames (builtins.readDir path);
           matches = builtins.filter (match: match != null)
             (map (builtins.match pattern) files);
-        in if builtins.length matches != 0 then {
+        in if
+          builtins.length matches != 0
+        then {
           inherit path matches;
         } else if path == /. then
           null
@@ -63,7 +65,12 @@ in {
         file == /. || type == "directory"
       ;
     in
-      go (if isDir then file else parent)
+      go (if
+        isDir
+      then
+        file
+      else
+        parent)
   ;
 
   /* Given a directory, return a flattened list of all files within it recursively.
@@ -74,7 +81,9 @@ in {
     # The path to recursively list
     dir:
     lib.flatten (lib.mapAttrsToList (name: type:
-      if type == "directory" then
+      if
+        type == "directory"
+      then
         lib.filesystem.listFilesRecursive (dir + "/${name}")
       else
         dir + "/${name}") (builtins.readDir dir));

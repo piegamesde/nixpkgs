@@ -71,7 +71,12 @@ let
       fetchurl {
         url =
           "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-            if isLinux then "linux" else "darwin"
+            if
+              isLinux
+            then
+              "linux"
+            else
+              "darwin"
           }_${hashes.${system}.system}-php-${
             builtins.replaceStrings [ "." ] [ "" ] phpMajor
           }.so";
@@ -144,8 +149,12 @@ let
             rest = builtins.tail (builtins.tail path);
           in {
             system = builtins.head path;
-            phpMajor =
-              if builtins.length rest == 0 then null else builtins.head rest;
+            phpMajor = if
+              builtins.length rest == 0
+            then
+              null
+            else
+              builtins.head rest;
           } ;
 
         createUpdateable = path: _value:

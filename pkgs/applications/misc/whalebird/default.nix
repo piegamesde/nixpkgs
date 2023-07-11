@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
   src = let
     downloads =
       "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
-  in if stdenv.system == "x86_64-linux" then
+  in if
+    stdenv.system == "x86_64-linux"
+  then
     fetchurl {
       url = downloads + "/Whalebird-${version}-linux-x64.tar.bz2";
       sha256 = "sha256-jRtlnKlrh6If9wy3FqVBtctQO3rZJRwceUWAPmieT4A=";

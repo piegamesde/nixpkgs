@@ -91,7 +91,12 @@ in
       ''}
 
       export HOME=${
-        if target == "iphone" then "/Users/$(whoami)" else "$TMPDIR"
+        if
+          target == "iphone"
+        then
+          "/Users/$(whoami)"
+        else
+          "$TMPDIR"
       }
 
       ${lib.optionalString (tiVersion != null) ''
@@ -112,13 +117,17 @@ in
 
       mkdir -p $out
 
-      ${if target == "android" then ''
+      ${if
+        target == "android"
+      then ''
         titanium config --config-file $TMPDIR/config.json --no-colors android.sdkPath ${androidsdk}/libexec/android-sdk
 
         export PATH=${androidsdk}/libexec/android-sdk/tools:$(echo ${androidsdk}/libexec/android-sdk/build-tools/android-*):$PATH
         export GRADLE_USER_HOME=$TMPDIR/gradle
 
-        ${if release then ''
+        ${if
+          release
+        then ''
           ${lib.optionalString stdenv.isDarwin ''
             # Signing the app does not work with OpenJDK on macOS, use host SDK instead
             export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
@@ -142,7 +151,9 @@ in
             createdModulesSymlink=1
         fi
 
-        ${if release then ''
+        ${if
+          release
+        then ''
           # Create a keychain with the component hash name (should always be unique)
           export keychainName=$(basename $out)
 
@@ -174,7 +185,12 @@ in
 
           # Do the actual build
           titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target ${
-            if iosBuildStore then "dist-appstore" else "dist-adhoc"
+            if
+              iosBuildStore
+            then
+              "dist-appstore"
+            else
+              "dist-adhoc"
           } --pp-uuid $provisioningId --distribution-name "${iosCertificateName}" --keychain $HOME/Library/Keychains/$keychainName-db --device-family universal --ios-version ${iosVersion} --output-dir $out
 
           # Remove our generated keychain
@@ -202,8 +218,12 @@ in
     '';
 
     installPhase = ''
-      ${if target == "android" then ''
-        ${if release then
+      ${if
+        target == "android"
+      then ''
+        ${if
+          release
+        then
           ""
         else ''
           cp "$(ls build/android/bin/*.apk | grep -v '\-unsigned.apk')" $out

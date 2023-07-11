@@ -78,8 +78,18 @@
 let
 
   # Not always evaluated
-  blas' = if use64BitIdx then blas.override { isILP64 = true; } else blas;
-  lapack' = if use64BitIdx then lapack.override { isILP64 = true; } else lapack;
+  blas' = if
+    use64BitIdx
+  then
+    blas.override { isILP64 = true; }
+  else
+    blas;
+  lapack' = if
+    use64BitIdx
+  then
+    lapack.override { isILP64 = true; }
+  else
+    lapack;
   qrupdate' = qrupdate.override {
     # If use64BitIdx is false, this override doesn't evaluate to a new
     # derivation, as blas and lapack are not overridden.
@@ -91,7 +101,9 @@ let
     lapack = lapack';
   };
   # Not always suitesparse is required at all
-  suitesparse' = if suitesparse != null then
+  suitesparse' = if
+    suitesparse != null
+  then
     suitesparse.override {
       blas = blas';
       lapack = lapack';
@@ -188,7 +200,12 @@ let
     configureFlags = [
       "--with-blas=blas"
       "--with-lapack=lapack"
-      (if use64BitIdx then "--enable-64" else "--disable-64")
+      (if
+        use64BitIdx
+      then
+        "--enable-64"
+      else
+        "--disable-64")
     ] ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
       ++ lib.optionals enableReadline [ "--enable-readline" ]
       ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
@@ -232,7 +249,9 @@ let
         doronbehar
       ];
       description = "Scientific Programming Language";
-      platforms = if overridePlatforms == null then
+      platforms = if
+        overridePlatforms == null
+      then
         (lib.platforms.linux ++ lib.platforms.darwin)
       else
         overridePlatforms;

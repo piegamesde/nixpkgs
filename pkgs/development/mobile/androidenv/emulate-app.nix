@@ -51,7 +51,9 @@ in
           export TMPDIR=/tmp
       fi
 
-      ${if androidUserHome == null then ''
+      ${if
+        androidUserHome == null
+      then ''
         # Store the virtual devices somewhere else, instead of polluting a user's HOME directory
         export ANDROID_USER_HOME=$(mktemp -d $TMPDIR/nix-android-user-home-XXXX)
       '' else ''
@@ -59,7 +61,9 @@ in
         export ANDROID_USER_HOME="${androidUserHome}"
       ''}
 
-      ${if androidAvdHome == null then ''
+      ${if
+        androidAvdHome == null
+      then ''
         export ANDROID_AVD_HOME=$ANDROID_USER_HOME/avd
       '' else ''
         mkdir -p "${androidAvdHome}"

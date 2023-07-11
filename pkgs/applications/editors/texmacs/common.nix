@@ -36,7 +36,9 @@
     sha256 = "07axg57mqm3jbnm4lawx0h3r2h56xv9acwzjppryfklw4c27f5hh";
   };
 
-  postPatch = (if tex == null then ''
+  postPatch = (if
+    tex == null
+  then ''
     gunzip < ${fullFontsSrc} | (cd TeXmacs && tar xvf -)
   '' else
     lib.optionalString extraFonts ''

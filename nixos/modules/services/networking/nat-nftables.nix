@@ -11,7 +11,12 @@ let
   cfg = config.networking.nat;
 
   mkDest = externalIP:
-    if externalIP == null then "masquerade" else "snat ${externalIP}";
+    if
+      externalIP == null
+    then
+      "masquerade"
+    else
+      "snat ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -29,12 +34,26 @@ let
 
   splitIPPorts = IPPorts:
     let
-      matchIP = if isIPv6 IPPorts then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
+      matchIP = if
+        isIPv6 IPPorts
+      then
+        "[[]([0-9a-fA-F:]+)[]]"
+      else
+        "([0-9.]+)";
       m = builtins.match "${matchIP}:([0-9-]+)" IPPorts;
     in {
-      IP = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 0;
-      ports =
-        if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
+      IP = if
+        m == null
+      then
+        throw "bad ip:ports `${IPPorts}'"
+      else
+        elemAt m 0;
+      ports = if
+        m == null
+      then
+        throw "bad ip:ports `${IPPorts}'"
+      else
+        elemAt m 1;
     } ;
 
   mkTable = {

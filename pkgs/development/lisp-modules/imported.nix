@@ -28,7 +28,9 @@ let
     }:
     let
       src = fetchzip { inherit url sha256; };
-    in if asd == system then
+    in if
+      asd == system
+    then
       src
     else
       runCommand "source" { } ''

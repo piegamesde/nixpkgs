@@ -14,8 +14,12 @@ mkCoqDerivation {
   owner = "gappa";
   domain = "gitlab.inria.fr";
   inherit version;
-  defaultVersion =
-    if lib.versions.range "8.8" "8.16" coq.coq-version then "1.5.2" else null;
+  defaultVersion = if
+    lib.versions.range "8.8" "8.16" coq.coq-version
+  then
+    "1.5.2"
+  else
+    null;
   release."1.5.2".sha256 =
     "sha256-A021Bhqz5r2CZBayfjIiWrCIfUlejcQAfbTmOaf6QTM=";
   release."1.5.1".sha256 =

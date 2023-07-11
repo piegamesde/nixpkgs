@@ -431,8 +431,12 @@ in
   assert buildSwscale -> buildAvutil;
 
   stdenv.mkDerivation (finalAttrs: {
-    pname = "ffmpeg"
-      + (if ffmpegVariant == "small" then "" else "-${ffmpegVariant}");
+    pname = "ffmpeg" + (if
+      ffmpegVariant == "small"
+    then
+      ""
+    else
+      "-${ffmpegVariant}");
     inherit version;
 
     src = fetchgit {
@@ -468,7 +472,9 @@ in
     configureFlags = [
       #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
       "--target_os=${
-        if stdenv.hostPlatform.isMinGW then
+        if
+          stdenv.hostPlatform.isMinGW
+        then
           "mingw64"
         else
           stdenv.hostPlatform.parsed.kernel.name
@@ -656,8 +662,9 @@ in
     buildInputs = optionals withFullDeps [ libdc1394 ] ++ optionals
       (withFullDeps
         && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
-      ++ optionals (withNvdec || withNvenc) [ (if (lib.versionAtLeast version
-        "6") then
+      ++ optionals (withNvdec || withNvenc) [ (if
+        (lib.versionAtLeast version "6")
+      then
         nv-codec-headers-11
       else
         nv-codec-headers) ] ++ optionals withAlsa [ alsa-lib ]
@@ -696,7 +703,9 @@ in
       ++ optionals withSpeex [ speex ] ++ optionals withSrt [ srt ]
       ++ optionals withSsh [ libssh ] ++ optionals withSvg [ librsvg ]
       ++ optionals withSvtav1 [ svt-av1 ] ++ optionals withTheora [ libtheora ]
-      ++ optionals withVaapi [ (if withSmallDeps then
+      ++ optionals withVaapi [ (if
+        withSmallDeps
+      then
         libva
       else
         libva-minimal) ] ++ optionals withVdpau [ libvdpau ]
@@ -733,8 +742,12 @@ in
 
     # Fails with SIGABRT otherwise FIXME: Why?
     checkPhase = let
-      ldLibraryPathEnv =
-        if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+      ldLibraryPathEnv = if
+        stdenv.isDarwin
+      then
+        "DYLD_LIBRARY_PATH"
+      else
+        "LD_LIBRARY_PATH";
       libsToLink = [ ] ++ optional buildAvcodec "libavcodec"
         ++ optional buildAvdevice "libavdevice"
         ++ optional buildAvfilter "libavfilter"

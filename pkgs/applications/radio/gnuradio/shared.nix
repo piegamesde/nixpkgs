@@ -22,7 +22,9 @@ rec {
     "minor"
     "patch"
   ] versionAttr);
-  src = if overrideSrc != { } then
+  src = if
+    overrideSrc != { }
+  then
     overrideSrc
   else
     fetchFromGitHub {
@@ -34,7 +36,12 @@ rec {
   # Check if a feature is enabled, while defaulting to true if feat is not
   # specified.
   hasFeature = feat:
-    (if builtins.hasAttr feat features then features.${feat} else true);
+    (if
+      builtins.hasAttr feat features
+    then
+      features.${feat}
+    else
+      true);
   nativeBuildInputs = lib.flatten (lib.mapAttrsToList (feat: info:
     (lib.optionals (hasFeature feat)
       ((lib.optionals (builtins.hasAttr "native" info) info.native)
@@ -46,7 +53,9 @@ rec {
         ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info)
           info.pythonRuntime)))) featuresInfo);
   cmakeFlags = lib.mapAttrsToList (feat: info:
-    (if feat == "basic" then
+    (if
+      feat == "basic"
+    then
     # Abuse this unavoidable "iteration" to set this flag which we want as
     # well - it means: Don't turn on features just because their deps are
     # satisfied, let only our cmakeFlags decide.

@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
     makeFlagsArray=(
         FFLAGS="-fallow-argument-mismatch"
     )
-  '' + (if useMpi then ''
+  '' + (if
+    useMpi
+  then ''
     makeFlagsArray+=(
         CC="mpicc" FC="mpifort"
         FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."

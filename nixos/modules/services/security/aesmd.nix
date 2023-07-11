@@ -72,7 +72,12 @@ in {
               "direct"
               "manual"
             ]);
-          default = if (cfg.settings.proxy != null) then "manual" else null;
+          default = if
+            (cfg.settings.proxy != null)
+          then
+            "manual"
+          else
+            null;
           defaultText = literalExpression ''
             if (config.${opt.settings}.proxy != null) then "manual" else null
           '';

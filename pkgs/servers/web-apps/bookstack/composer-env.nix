@@ -134,10 +134,14 @@ let
           let
             dependency = dependencies.${dependencyName};
           in ''
-            ${if dependency.targetDir == "" then ''
+            ${if
+              dependency.targetDir == ""
+            then ''
               vendorDir="$(dirname ${dependencyName})"
               mkdir -p "$vendorDir"
-              ${if symlinkDependencies then
+              ${if
+                symlinkDependencies
+              then
                 ''
                   ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
               else
@@ -146,7 +150,9 @@ let
             '' else ''
               namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
               mkdir -p "$namespaceDir"
-              ${if symlinkDependencies then
+              ${if
+                symlinkDependencies
+              then
                 ''
                   ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
               else
@@ -170,7 +176,9 @@ let
         inherit unpackPhase buildPhase;
 
         installPhase = ''
-          ${if executable then ''
+          ${if
+            executable
+          then ''
             mkdir -p $out/share/php
             cp -av $src $out/share/php/$name
             chmod -R u+w $out/share/php/$name

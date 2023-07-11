@@ -8,7 +8,9 @@
 }:
 
 let
-  params = if lib.versionAtLeast ocaml.version "5.00" then {
+  params = if
+    lib.versionAtLeast ocaml.version "5.00"
+  then {
     version = "13.0.1";
     hash = "sha256-OYa0uLsDyzjmXZgWcYUxLhqco4Kp/icfDamNe3En5JQ=";
     propagatedBuildInputs = [ domainslib ];

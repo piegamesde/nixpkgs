@@ -11,7 +11,13 @@ let
   cfg = config.hardware.openrazer;
   kernelPackages = config.boot.kernelPackages;
 
-  toPyBoolStr = b: if b then "True" else "False";
+  toPyBoolStr = b:
+    if
+      b
+    then
+      "True"
+    else
+      "False";
 
   daemonExe =
     "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";

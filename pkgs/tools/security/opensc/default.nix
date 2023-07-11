@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--with-xsl-stylesheetsdir=${docbook_xsl}/xml/xsl/docbook"
     "--with-pcsc-provider=${
-      if withApplePCSC then
+      if
+        withApplePCSC
+      then
         "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
       else
         "${

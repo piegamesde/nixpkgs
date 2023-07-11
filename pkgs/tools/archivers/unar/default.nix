@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "0p846q1l66k3rnd512sncp26zpv411b8ahi145sghfcsz9w8abc4";
   };
 
-  postPatch = if stdenv.isDarwin then ''
+  postPatch = if
+    stdenv.isDarwin
+  then ''
     substituteInPlace "./XADMaster.xcodeproj/project.pbxproj" \
       --replace "libstdc++.6.dylib" "libc++.1.dylib"
   '' else ''

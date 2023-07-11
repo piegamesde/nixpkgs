@@ -42,7 +42,12 @@ let
 
     # add a tail, so that without any bind_addresses we still have a useable address
     bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
-    listenerProtocol = if listener.tls then "https" else "http";
+    listenerProtocol = if
+      listener.tls
+    then
+      "https"
+    else
+      "http";
   in
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
@@ -52,7 +57,12 @@ let
           ([ configFile ] ++ cfg.extraConfigFiles)
         } \
         "${listenerProtocol}://${
-          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
+          if
+            (isIpv6 bindAddress)
+          then
+            "[${bindAddress}]"
+          else
+            "${bindAddress}"
         }:${builtins.toString listener.port}/"
     ''
   ;
@@ -547,11 +557,12 @@ in {
 
               media_store_path = mkOption {
                 type = types.path;
-                default =
-                  if lib.versionAtLeast config.system.stateVersion "22.05" then
-                    "${cfg.dataDir}/media_store"
-                  else
-                    "${cfg.dataDir}/media";
+                default = if
+                  lib.versionAtLeast config.system.stateVersion "22.05"
+                then
+                  "${cfg.dataDir}/media_store"
+                else
+                  "${cfg.dataDir}/media";
                 defaultText =
                   "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
                 description = lib.mdDoc ''
@@ -727,11 +738,12 @@ in {
                   "sqlite3"
                   "psycopg2"
                 ];
-                default =
-                  if versionAtLeast config.system.stateVersion "18.03" then
-                    "psycopg2"
-                  else
-                    "sqlite3";
+                default = if
+                  versionAtLeast config.system.stateVersion "18.03"
+                then
+                  "psycopg2"
+                else
+                  "sqlite3";
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"

@@ -123,7 +123,9 @@ let
         "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
       ] ++ lib.optionals (unwrapped.hasFeature "gr-qtgui")
       # 3.7 builds with qt4
-    (if lib.versionAtLeast unwrapped.versionAttr.major "3.8" then [
+    (if
+      lib.versionAtLeast unwrapped.versionAttr.major "3.8"
+    then [
       "--prefix"
       "QT_PLUGIN_PATH"
       ":"
@@ -150,7 +152,9 @@ let
     inherit pythonEnv pythonPkgs unwrapped;
     pkgs = packages;
   };
-  self = if doWrap then
+  self = if
+    doWrap
+  then
     stdenv.mkDerivation {
       inherit pname version passthru;
       nativeBuildInputs = [ makeWrapper ];

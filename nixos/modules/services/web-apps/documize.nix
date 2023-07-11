@@ -88,7 +88,13 @@ in {
       description = lib.mdDoc ''
         Set `true` for offline mode.
       '';
-      apply = v: if true == v then 1 else 0;
+      apply = v:
+        if
+          true == v
+        then
+          1
+        else
+          0;
     };
 
     dbtype = mkOption {

@@ -61,8 +61,20 @@ stdenv.mkDerivation rec {
     runHook preBuild
 
     yarn --offline electron-builder \
-      --dir ${if stdenv.isDarwin then "--macos" else "--linux"} ${
-        if stdenv.hostPlatform.isAarch64 then "--arm64" else "--x64"
+      --dir ${
+        if
+          stdenv.isDarwin
+        then
+          "--macos"
+        else
+          "--linux"
+      } ${
+        if
+          stdenv.hostPlatform.isAarch64
+        then
+          "--arm64"
+        else
+          "--x64"
       } \
       -c.electronDist=${electron}/lib/electron \
       -c.electronVersion=${electron.version}
@@ -74,7 +86,14 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/share/{applications,teams-for-linux}
-    cp dist/${if stdenv.isDarwin then "darwin-" else "linux-"}${
+    cp dist/${
+      if
+        stdenv.isDarwin
+      then
+        "darwin-"
+      else
+        "linux-"
+    }${
       lib.optionalString stdenv.hostPlatform.isAarch64 "arm64-"
     }unpacked/resources/app.asar $out/share/teams-for-linux/
 

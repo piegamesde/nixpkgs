@@ -21,11 +21,15 @@
 }:
 
 let
-  platform = if stdenv.hostPlatform.isUnix then
+  platform = if
+    stdenv.hostPlatform.isUnix
+  then
     "unix"
   else
     throw "Unknown platform for NetHack: ${stdenv.hostPlatform.system}";
-  unixHint = if x11Mode then
+  unixHint = if
+    x11Mode
+  then
     "linux-x11"
   else if qtMode then
     "linux-qt4"
@@ -45,7 +49,9 @@ let
 in
   stdenv.mkDerivation rec {
     version = "3.6.7";
-    pname = if x11Mode then
+    pname = if
+      x11Mode
+    then
       "nethack-x11"
     else if qtMode then
       "nethack-qt"
@@ -192,7 +198,12 @@ in
       description = "Rogue-like game";
       homepage = "http://nethack.org/";
       license = "nethack";
-      platforms = if x11Mode then platforms.linux else platforms.unix;
+      platforms = if
+        x11Mode
+      then
+        platforms.linux
+      else
+        platforms.unix;
       maintainers = with maintainers; [ abbradar ];
     };
   }

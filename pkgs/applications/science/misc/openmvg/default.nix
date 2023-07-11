@@ -47,8 +47,22 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-std=c++11"
-    "-DOpenMVG_BUILD_EXAMPLES=${if enableExamples then "ON" else "OFF"}"
-    "-DOpenMVG_BUILD_DOC=${if enableDocs then "ON" else "OFF"}"
+    "-DOpenMVG_BUILD_EXAMPLES=${
+      if
+        enableExamples
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DOpenMVG_BUILD_DOC=${
+      if
+        enableDocs
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DTARGET_ARCHITECTURE=generic"
   ] ++ lib.optional enableShared "-DOpenMVG_BUILD_SHARED=ON";
 

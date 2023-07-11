@@ -10,7 +10,9 @@
 
 let
   pname = "ulex";
-  param = if lib.versionAtLeast ocaml.version "4.02" then {
+  param = if
+    lib.versionAtLeast ocaml.version "4.02"
+  then {
     version = "1.2";
     sha256 = "08yf2x9a52l2y4savjqfjd2xy4pjd1rpla2ylrr9qrz1drpfw4ic";
   } else {

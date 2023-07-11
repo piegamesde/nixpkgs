@@ -101,7 +101,14 @@ in
 
     # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
     # collisions as well as custom build flags
-    ${if enableJemalloc then "ARROW_JEMALLOC_URL" else null} = fetchurl {
+    ${
+      if
+        enableJemalloc
+      then
+        "ARROW_JEMALLOC_URL"
+      else
+        null
+    } = fetchurl {
       url =
         "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
       hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
@@ -181,8 +188,22 @@ in
     '';
 
     cmakeFlags = [
-      "-DARROW_BUILD_SHARED=${if enableShared then "ON" else "OFF"}"
-      "-DARROW_BUILD_STATIC=${if enableShared then "OFF" else "ON"}"
+      "-DARROW_BUILD_SHARED=${
+        if
+          enableShared
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DARROW_BUILD_STATIC=${
+        if
+          enableShared
+        then
+          "OFF"
+        else
+          "ON"
+      }"
       "-DARROW_BUILD_TESTS=ON"
       "-DARROW_BUILD_INTEGRATION=ON"
       "-DARROW_BUILD_UTILITIES=ON"
@@ -190,15 +211,36 @@ in
       "-DARROW_VERBOSE_THIRDPARTY_BUILD=ON"
       "-DARROW_DEPENDENCY_SOURCE=SYSTEM"
       "-Dxsimd_SOURCE=AUTO"
-      "-DARROW_DEPENDENCY_USE_SHARED=${if enableShared then "ON" else "OFF"}"
+      "-DARROW_DEPENDENCY_USE_SHARED=${
+        if
+          enableShared
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       "-DARROW_COMPUTE=ON"
       "-DARROW_CSV=ON"
       "-DARROW_DATASET=ON"
       "-DARROW_FILESYSTEM=ON"
-      "-DARROW_FLIGHT_SQL=${if enableFlight then "ON" else "OFF"}"
+      "-DARROW_FLIGHT_SQL=${
+        if
+          enableFlight
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       "-DARROW_HDFS=ON"
       "-DARROW_IPC=ON"
-      "-DARROW_JEMALLOC=${if enableJemalloc then "ON" else "OFF"}"
+      "-DARROW_JEMALLOC=${
+        if
+          enableJemalloc
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       "-DARROW_JSON=ON"
       "-DARROW_USE_GLOG=ON"
       "-DARROW_WITH_BACKTRACE=ON"
@@ -211,10 +253,38 @@ in
       "-DARROW_WITH_ZSTD=ON"
       "-DARROW_MIMALLOC=ON"
       "-DARROW_SUBSTRAIT=ON"
-      "-DARROW_FLIGHT=${if enableFlight then "ON" else "OFF"}"
-      "-DARROW_FLIGHT_TESTING=${if enableFlight then "ON" else "OFF"}"
-      "-DARROW_S3=${if enableS3 then "ON" else "OFF"}"
-      "-DARROW_GCS=${if enableGcs then "ON" else "OFF"}"
+      "-DARROW_FLIGHT=${
+        if
+          enableFlight
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DARROW_FLIGHT_TESTING=${
+        if
+          enableFlight
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DARROW_S3=${
+        if
+          enableS3
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DARROW_GCS=${
+        if
+          enableGcs
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       # Parquet options:
       "-DARROW_PARQUET=ON"
       "-DPARQUET_BUILD_EXECUTABLES=ON"

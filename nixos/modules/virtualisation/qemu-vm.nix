@@ -67,8 +67,15 @@ let
       useEFIBoot,
       useDefaultFilesystems,
     }:
-    if useDefaultFilesystems then
-      if useEFIBoot then "efi" else "legacy"
+    if
+      useDefaultFilesystems
+    then
+      if
+        useEFIBoot
+      then
+        "efi"
+      else
+        "legacy"
     else
       "none";
 
@@ -90,7 +97,9 @@ let
         inherit file;
       });
       deviceOpts = mkOpts (deviceExtraOpts // { drive = drvId; });
-      device = if cfg.qemu.diskInterface == "scsi" then
+      device = if
+        cfg.qemu.diskInterface == "scsi"
+      then
         "-device lsi53c895a -device scsi-hd,${deviceOpts}"
       else
         "-device virtio-blk-pci,${deviceOpts}";
@@ -107,7 +116,9 @@ let
   driveDeviceName = idx:
     let
       letter = elemAt lowerChars (idx - 1);
-    in if cfg.qemu.diskInterface == "scsi" then
+    in if
+      cfg.qemu.diskInterface == "scsi"
+    then
       "/dev/sd${letter}"
     else
       "/dev/vd${letter}";
@@ -161,7 +172,9 @@ let
         TMPDIR=$(mktemp -d nix-vm.XXXXXXXXXX --tmpdir)
     fi
 
-    ${lib.optionalString (cfg.useNixStoreImage) (if cfg.writableStore then ''
+    ${lib.optionalString (cfg.useNixStoreImage) (if
+      cfg.writableStore
+    then ''
       # Create a writable copy/snapshot of the store image.
       ${qemu}/bin/qemu-img create -f qcow2 -F qcow2 -b ${storeImage}/nixos.qcow2 "$TMPDIR"/store.img
     '' else ''
@@ -202,7 +215,9 @@ let
       NIX_EFI_VARS=$(readlink -f "''${NIX_EFI_VARS:-${config.system.name}-efi-vars.fd}")
       # VM needs writable EFI vars
       if ! test -e "$NIX_EFI_VARS"; then
-      ${if cfg.useBootLoader then
+      ${if
+        cfg.useBootLoader
+      then
       # We still need the EFI var from the make-disk-image derivation
       # because our "switch-to-configuration" process might
       # write into it and we want to keep this data.
@@ -285,9 +300,15 @@ let
     copyChannel = false;
   };
 
-  bootConfiguration = if cfg.useDefaultFilesystems then
-    if cfg.useBootLoader then
-      if cfg.useEFIBoot then
+  bootConfiguration = if
+    cfg.useDefaultFilesystems
+  then
+    if
+      cfg.useBootLoader
+    then
+      if
+        cfg.useEFIBoot
+      then
         "efi_bootloading_with_default_fs"
       else
         "legacy_bootloading_with_default_fs"
@@ -391,7 +412,12 @@ in {
 
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
-      default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
+      default = if
+        cfg.useEFIBoot
+      then
+        "${cfg.bootLoaderDevice}1"
+      else
+        null;
       defaultText = literalExpression
         ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
@@ -672,7 +698,12 @@ in {
             "${qemu-common.qemuSerialDevice},115200n8"
             "tty0"
           ];
-        in if cfg.graphics then consoles else reverseList consoles;
+        in if
+          cfg.graphics
+        then
+          consoles
+        else
+          reverseList consoles;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
           The output console devices to pass to the kernel command line via the
@@ -895,8 +926,12 @@ in {
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
     # Otherwise, we set the proper bootloader device for this.
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
-    boot.loader.grub.device =
-      mkVMOverride (if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice);
+    boot.loader.grub.device = mkVMOverride (if
+      cfg.useEFIBoot
+    then
+      "nodev"
+    else
+      cfg.bootLoaderDevice);
     boot.loader.grub.gfxmodeBios = with cfg.resolution;
       "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
@@ -988,7 +1023,9 @@ in {
           host,
           guest,
         }:
-        if from == "host" then
+        if
+          from == "host"
+        then
           "hostfwd=${proto}:${host.address}:${toString host.port}-"
           + "${guest.address}:${toString guest.port},"
         else
@@ -1022,9 +1059,13 @@ in {
           ++ (map toString (range 0 9));
         # Replace all non-alphanumeric characters with underscores
         sanitizeShellIdent = s:
-          concatMapStrings
-          (c: if builtins.elem c alphaNumericChars then c else "_")
-          (stringToCharacters s);
+          concatMapStrings (c:
+            if
+              builtins.elem c alphaNumericChars
+            then
+              c
+            else
+              "_") (stringToCharacters s);
       in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${
@@ -1055,7 +1096,12 @@ in {
         name = "nix-store";
         file = ''"$TMPDIR"/store.img'';
         deviceExtraOpts.bootindex = "2";
-        driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
+        driveExtraOpts.format = if
+          cfg.writableStore
+        then
+          "qcow2"
+        else
+          "raw";
       } ])
       (imap0 (idx: _: {
         file = "$(pwd)/empty${toString idx}.qcow2";
@@ -1073,7 +1119,9 @@ in {
     # test image (since those filesystems don't exist in the VM).
     virtualisation.fileSystems = let
       mkSharedDir = tag: share: {
-        name = if tag == "nix-store" && cfg.writableStore then
+        name = if
+          tag == "nix-store" && cfg.writableStore
+        then
           "/nix/.ro-store"
         else
           share.target;
@@ -1090,15 +1138,16 @@ in {
       lib.mkMerge [
         (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
         {
-          "/" = lib.mkIf cfg.useDefaultFilesystems
-            (if cfg.diskImage == null then {
-              device = "tmpfs";
-              fsType = "tmpfs";
-            } else {
-              device = cfg.rootDevice;
-              fsType = "ext4";
-              autoFormat = true;
-            });
+          "/" = lib.mkIf cfg.useDefaultFilesystems (if
+            cfg.diskImage == null
+          then {
+            device = "tmpfs";
+            fsType = "tmpfs";
+          } else {
+            device = cfg.rootDevice;
+            fsType = "ext4";
+            autoFormat = true;
+          });
           "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
             device = "tmpfs";
             fsType = "tmpfs";
@@ -1112,12 +1161,18 @@ in {
               "size=${toString config.boot.tmp.tmpfsSize}"
             ];
           };
-          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" =
-            lib.mkIf cfg.useNixStoreImage {
-              device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
-              neededForBoot = true;
-              options = [ "ro" ];
-            };
+          "/nix/${
+            if
+              cfg.writableStore
+            then
+              ".ro-store"
+            else
+              "store"
+          }" = lib.mkIf cfg.useNixStoreImage {
+            device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+            neededForBoot = true;
+            options = [ "ro" ];
+          };
           "/nix/.rw-store" =
             lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
               fsType = "tmpfs";
@@ -1161,10 +1216,18 @@ in {
         };
       };
 
-    swapDevices =
-      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
-    boot.initrd.luks.devices =
-      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) { };
+    swapDevices = (if
+      cfg.useDefaultFilesystems
+    then
+      mkVMOverride
+    else
+      mkDefault) [ ];
+    boot.initrd.luks.devices = (if
+      cfg.useDefaultFilesystems
+    then
+      mkVMOverride
+    else
+      mkDefault) { };
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;

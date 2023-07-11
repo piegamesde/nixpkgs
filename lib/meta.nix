@@ -47,7 +47,13 @@ rec {
 
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset = f: set:
-    lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set;
+    lib.mapAttrs (name: pkg:
+      if
+        lib.isDerivation pkg
+      then
+        (f pkg)
+      else
+        pkg) set;
 
   # Set the nix-env priority of the package.
   setPrio = priority: addMetaAttrs { inherit priority; };
@@ -84,7 +90,9 @@ rec {
   */
   platformMatch = platform: elem:
     let
-      pattern = if builtins.isString elem then {
+      pattern = if
+        builtins.isString elem
+      then {
         system = elem;
       } else if elem ? parsed then
         elem

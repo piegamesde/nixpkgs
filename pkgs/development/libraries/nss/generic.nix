@@ -54,7 +54,9 @@ in
 
     patches = [
       # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
-      (if (lib.versionOlder version "3.84") then
+      (if
+        (lib.versionOlder version "3.84")
+      then
         ./85_security_load_3.77+.patch
       else
         ./85_security_load_3.85+.patch)
@@ -86,7 +88,9 @@ in
 
     buildPhase = let
       getArch = platform:
-        if platform.isx86_64 then
+        if
+          platform.isx86_64
+        then
           "x64"
         else if platform.isx86_32 then
           "ia32"
@@ -95,7 +99,12 @@ in
         else if platform.isAarch64 then
           "arm64"
         else if platform.isPower && platform.is64bit then
-          (if platform.isLittleEndian then "ppc64le" else "ppc64")
+          (if
+            platform.isLittleEndian
+          then
+            "ppc64le"
+          else
+            "ppc64")
         else
           platform.parsed.cpu.name;
       # yes, this is correct. nixpkgs uses "host" for the platform the binary will run on whereas nss uses "host" for the platform that the build is running on
@@ -173,12 +182,19 @@ in
 
     postFixup = let
       isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-      nss = if isCross then buildPackages.nss.tools else "$out";
+      nss = if
+        isCross
+      then
+        buildPackages.nss.tools
+      else
+        "$out";
     in
       (lib.optionalString enableFIPS (''
         for libname in freebl3 nssdbm3 softokn3
         do libfile="$out/lib/lib$libname${stdenv.hostPlatform.extensions.sharedLibrary}"''
-        + (if stdenv.isDarwin then ''
+        + (if
+          stdenv.isDarwin
+        then ''
           DYLD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
         '' else ''
           LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \

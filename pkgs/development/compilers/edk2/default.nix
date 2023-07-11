@@ -14,7 +14,9 @@
 let
   pythonEnv = buildPackages.python3.withPackages (ps: [ ps.tkinter ]);
 
-  targetArch = if stdenv.isi686 then
+  targetArch = if
+    stdenv.isi686
+  then
     "IA32"
   else if stdenv.isx86_64 then
     "X64"
@@ -25,9 +27,19 @@ let
   else
     throw "Unsupported architecture";
 
-  buildStdenv = if stdenv.isDarwin then llvmPackages_9.stdenv else stdenv;
+  buildStdenv = if
+    stdenv.isDarwin
+  then
+    llvmPackages_9.stdenv
+  else
+    stdenv;
 
-  buildType = if stdenv.isDarwin then "CLANGPDB" else "GCC5";
+  buildType = if
+    stdenv.isDarwin
+  then
+    "CLANGPDB"
+  else
+    "GCC5";
 
   edk2 = buildStdenv.mkDerivation {
     pname = "edk2";

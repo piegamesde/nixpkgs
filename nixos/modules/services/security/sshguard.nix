@@ -17,7 +17,9 @@ let
       "-o cat"
       "-n1"
     ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
-    backend = if config.networking.nftables.enable then
+    backend = if
+      config.networking.nftables.enable
+    then
       "sshg-fw-nft-sets"
     else
       "sshg-fw-ipset";
@@ -126,7 +128,9 @@ in {
       restartTriggers = [ configFile ];
 
       path = with pkgs;
-        if config.networking.nftables.enable then [
+        if
+          config.networking.nftables.enable
+        then [
           nftables
           iproute2
           systemd

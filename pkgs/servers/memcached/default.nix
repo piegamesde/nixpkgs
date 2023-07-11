@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [ "ac_cv_c_endian=${
-      if stdenv.hostPlatform.isBigEndian then "big" else "little"
+      if
+        stdenv.hostPlatform.isBigEndian
+      then
+        "big"
+      else
+        "little"
     }" ];
 
   buildInputs = [

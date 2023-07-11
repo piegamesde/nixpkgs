@@ -16,7 +16,9 @@
 }:
 
 let
-  switch = if lib.versionAtLeast ocaml.version "4.08" then {
+  switch = if
+    lib.versionAtLeast ocaml.version "4.08"
+  then {
     version = "2.10.0";
     sha256 = "sha256-R10WovnqYcYCrDJnPuIQx2zHaPchSYfXDAaVMsJ4LQA=";
     duneVersion = "3";

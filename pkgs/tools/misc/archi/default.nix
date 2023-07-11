@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
   pname = "Archi";
   version = "4.7.1";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchurl {
       url =
         "https://www.archimatetool.com/downloads/archi/Archi-Linux64-${version}.tgz";
@@ -37,7 +39,9 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
-  installPhase = if stdenv.hostPlatform.system == "x86_64-linux" then ''
+  installPhase = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then ''
     mkdir -p $out/bin $out/libexec
     for f in configuration features p2 plugins Archi.ini; do
       cp -r $f $out/libexec

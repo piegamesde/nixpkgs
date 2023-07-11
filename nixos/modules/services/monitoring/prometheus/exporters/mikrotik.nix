@@ -53,7 +53,9 @@ in {
     };
   };
   serviceOpts = let
-    configFile = if cfg.configFile != null then
+    configFile = if
+      cfg.configFile != null
+    then
       cfg.configFile
     else
       "${pkgs.writeText "mikrotik-exporter.yml"

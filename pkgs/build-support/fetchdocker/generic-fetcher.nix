@@ -35,7 +35,9 @@ in
   ]);
 
   # If layerDigest is non-empty then it must not have a 'sha256:' prefix!
-  assert (if layerDigest != "" then
+  assert (if
+    layerDigest != ""
+  then
     !lib.hasPrefix "sha256:" layerDigest
   else
     true);

@@ -249,7 +249,12 @@ in
 
         substituteInPlace src/util/virpolkit.h \
           --replace '"/usr/bin/pkttyagent"' '"${
-            if isLinux then polkit.bin else "/usr"
+            if
+              isLinux
+            then
+              polkit.bin
+            else
+              "/usr"
           }/bin/pkttyagent"'
 
         patchShebangs .
@@ -262,7 +267,12 @@ in
     mesonFlags = let
       cfg = option: val: "-D${option}=${val}";
       feat = option: enable:
-        cfg option (if enable then "enabled" else "disabled");
+        cfg option (if
+          enable
+        then
+          "enabled"
+        else
+          "disabled");
       driver = name: feat "driver_${name}";
       storage = name: feat "storage_${name}";
     in [
@@ -271,7 +281,12 @@ in
       (cfg "localstatedir" "/var")
       (cfg "runstatedir" "/run")
 
-      (cfg "init_script" (if isDarwin then "none" else "systemd"))
+      (cfg "init_script" (if
+        isDarwin
+      then
+        "none"
+      else
+        "systemd"))
       (cfg "qemu_datadir" (lib.optionalString isDarwin "${qemu}/share/qemu"))
 
       (feat "apparmor" isLinux)

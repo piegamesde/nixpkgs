@@ -173,7 +173,9 @@ in {
         set -euo pipefail
 
         # prepare config file
-        ${(if settingsProvided || configFileProvided || cfg.persistentKeys then
+        ${(if
+          settingsProvided || configFileProvided || cfg.persistentKeys
+        then
           "echo "
 
           + (lib.optionalString settingsProvided

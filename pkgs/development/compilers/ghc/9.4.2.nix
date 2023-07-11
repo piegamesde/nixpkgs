@@ -64,7 +64,12 @@
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
   ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (if useLLVM then "perf-cross" else "perf-cross-ncg")
+    (if
+      useLLVM
+    then
+      "perf-cross"
+    else
+      "perf-cross-ncg")
 
   , # Whether to build sphinx documentation.
   enableDocs ? (
@@ -105,7 +110,14 @@ let
     ifneq \"\$(BuildFlavour)\" \"\"
     include mk/flavours/\$(BuildFlavour).mk
     endif
-    BUILD_SPHINX_HTML = ${if enableDocs then "YES" else "NO"}
+    BUILD_SPHINX_HTML = ${
+      if
+        enableDocs
+      then
+        "YES"
+      else
+        "NO"
+    }
     BUILD_SPHINX_PDF = NO
   '' +
     # Note [HADDOCK_DOCS]:
@@ -119,15 +131,41 @@ let
     # If this is solved in the future, we'd like to unconditionally
     # build the haddock program (removing the `enableHaddockProgram` option).
     ''
-      HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
+      HADDOCK_DOCS = ${
+        if
+          enableHaddockProgram
+        then
+          "YES"
+        else
+          "NO"
+      }
       # Build haddocks for boot packages with hyperlinking
       EXTRA_HADDOCK_OPTS += --hyperlinked-source --quickjump
 
-      DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-      BIGNUM_BACKEND = ${if enableNativeBignum then "native" else "gmp"}
+      DYNAMIC_GHC_PROGRAMS = ${
+        if
+          enableShared
+        then
+          "YES"
+        else
+          "NO"
+      }
+      BIGNUM_BACKEND = ${
+        if
+          enableNativeBignum
+        then
+          "native"
+        else
+          "gmp"
+      }
     '' + lib.optionalString (targetPlatform != hostPlatform) ''
       Stage1Only = ${
-        if targetPlatform.system == hostPlatform.system then "NO" else "YES"
+        if
+          targetPlatform.system == hostPlatform.system
+        then
+          "NO"
+        else
+          "YES"
       }
       CrossCompilePrefix = ${targetPrefix}
     '' + lib.optionalString (!enableProfiledLibs) ''
@@ -163,14 +201,18 @@ let
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool = if stdenv.targetPlatform.isAarch64 then
+    install_name_tool = if
+      stdenv.targetPlatform.isAarch64
+    then
       targetCC.bintools
     else
       targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
+      if
+        stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin
+      then
         targetCC.bintools
       else
         targetCC.bintools.bintools;

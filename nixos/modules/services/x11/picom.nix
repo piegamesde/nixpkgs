@@ -27,14 +27,21 @@ let
   mkAttrsString = top:
     mapAttrsToList (k: v:
       let
-        sep = if (top && isAttrs v) then ":" else "=";
+        sep = if
+          (top && isAttrs v)
+        then
+          ":"
+        else
+          "=";
       in
         "${escape [ sep ] k}${sep}${mkValueString v};"
     );
 
   # This serializes a Nix expression to the libconfig format.
   mkValueString = v:
-    if types.bool.check v then
+    if
+      types.bool.check v
+    then
       boolToString v
     else if types.int.check v then
       toString v
@@ -271,7 +278,12 @@ in {
           res = x != "none";
           msg = "The type of services.picom.vSync has changed to bool:"
             + " interpreting ${x} as ${boolToString res}";
-        in if isBool x then x else warn msg res;
+        in if
+          isBool x
+        then
+          x
+        else
+          warn msg res;
 
       description = lib.mdDoc ''
         Enable vertical synchronization. Chooses the best method

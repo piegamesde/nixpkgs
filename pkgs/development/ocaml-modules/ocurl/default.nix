@@ -9,7 +9,9 @@
   lwt,
   lwt_ppx,
 }:
-if lib.versionOlder ocaml.version "4.04" then
+if
+  lib.versionOlder ocaml.version "4.04"
+then
   throw "ocurl is not available for OCaml ${ocaml.version}"
 else
   stdenv.mkDerivation rec {

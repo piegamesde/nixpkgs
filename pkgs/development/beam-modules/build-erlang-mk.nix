@@ -47,7 +47,9 @@ let
 
       inherit src;
 
-      setupHook = if setupHook == null then
+      setupHook = if
+        setupHook == null
+      then
         writeText "setupHook.sh" ''
           addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
         ''
@@ -67,7 +69,9 @@ let
         ++ lib.optional (enableDebugInfo || erlang.debugInfo)
         ''ERL_OPTS="$ERL_OPTS +debug_info"'' ++ buildFlags;
 
-      configurePhase = if configurePhase == null then ''
+      configurePhase = if
+        configurePhase == null
+      then ''
         runHook preConfigure
 
         # We shouldnt need to do this, but it seems at times there is a *.app in
@@ -78,7 +82,9 @@ let
       '' else
         configurePhase;
 
-      buildPhase = if buildPhase == null then ''
+      buildPhase = if
+        buildPhase == null
+      then ''
         runHook preBuild
 
         make $buildFlags "''${buildFlagsArray[@]}"
@@ -87,7 +93,9 @@ let
       '' else
         buildPhase;
 
-      installPhase = if installPhase == null then ''
+      installPhase = if
+        installPhase == null
+      then ''
         runHook preInstall
 
         mkdir -p $out/lib/erlang/lib/${name}

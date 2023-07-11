@@ -18,7 +18,13 @@ in
     ...
   }:
   let
-    seqIf = cond: if cond then builtins.seq else a: b: b;
+    seqIf = cond:
+      if
+        cond
+      then
+        builtins.seq
+      else
+        a: b: b;
     # If cond, force `a` before returning any attr
     seqAttrsIf = cond: a: lib.mapAttrs (_: v: seqIf cond a v);
 

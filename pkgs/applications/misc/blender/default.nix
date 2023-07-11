@@ -129,7 +129,9 @@ in
     ] ++ lib.optionals (!stdenv.isAarch64) [
       openimagedenoise
       embree
-    ] ++ (if (!stdenv.isDarwin) then [
+    ] ++ (if
+      (!stdenv.isDarwin)
+    then [
       libXi
       libX11
       libXext
@@ -161,7 +163,9 @@ in
     postPatch = ''
       # allow usage of dynamically linked embree
       rm build_files/cmake/Modules/FindEmbree.cmake
-    '' + (if stdenv.isDarwin then ''
+    '' + (if
+      stdenv.isDarwin
+    then ''
       : > build_files/cmake/platform/platform_apple_xcode.cmake
       substituteInPlace source/creator/CMakeLists.txt \
         --replace '${"$"}{LIBDIR}/python' \
@@ -205,7 +209,14 @@ in
       "-DWITH_OPENVDB=ON"
       "-DWITH_TBB=ON"
       "-DWITH_IMAGE_OPENJPEG=ON"
-      "-DWITH_OPENCOLLADA=${if colladaSupport then "ON" else "OFF"}"
+      "-DWITH_OPENCOLLADA=${
+        if
+          colladaSupport
+        then
+          "ON"
+        else
+          "OFF"
+      }"
     ] ++ lib.optionals
       stdenv.hostPlatform.isAarch64 [ "-DWITH_CYCLES_EMBREE=OFF" ]
       ++ lib.optionals stdenv.isDarwin [
@@ -231,7 +242,9 @@ in
     NIX_LDFLAGS =
       lib.optionalString cudaSupport "-rpath ${stdenv.cc.cc.lib}/lib";
 
-    blenderExecutable = placeholder "out" + (if stdenv.isDarwin then
+    blenderExecutable = placeholder "out" + (if
+      stdenv.isDarwin
+    then
       "/Applications/Blender.app/Contents/MacOS/Blender"
     else
       "/bin/blender");

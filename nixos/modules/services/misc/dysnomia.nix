@@ -14,7 +14,9 @@ let
     concatMapStrings (propertyName:
       let
         property = properties.${propertyName};
-      in if isList property then ''
+      in if
+        isList property
+      then ''
         ${propertyName}=(${
           lib.concatMapStrings (elem: ''"${toString elem}" '')
           (properties.${propertyName})

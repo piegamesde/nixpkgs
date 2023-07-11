@@ -41,7 +41,12 @@ let
 
       passthru.updateScript = [
         ./update-zen.py
-        (if isLqx then "lqx" else "zen")
+        (if
+          isLqx
+        then
+          "lqx"
+        else
+          "zen")
       ];
 
       extraMeta = {

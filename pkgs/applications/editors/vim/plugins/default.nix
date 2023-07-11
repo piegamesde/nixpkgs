@@ -36,7 +36,9 @@ let
     inherit llvmPackages luaPackages;
   };
 
-  aliases = if config.allowAliases then
+  aliases = if
+    config.allowAliases
+  then
     (import ./aliases.nix lib)
   else
     final: prev: { };

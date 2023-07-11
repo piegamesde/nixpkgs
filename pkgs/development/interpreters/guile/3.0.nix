@@ -20,8 +20,12 @@
 
 let
   # Do either a coverage analysis build or a standard build.
-  builder =
-    if coverageAnalysis != null then coverageAnalysis else stdenv.mkDerivation;
+  builder = if
+    coverageAnalysis != null
+  then
+    coverageAnalysis
+  else
+    stdenv.mkDerivation;
 in
   builder rec {
     pname = "guile";

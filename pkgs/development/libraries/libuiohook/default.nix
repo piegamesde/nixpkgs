@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = if stdenv.isDarwin then [
+  buildInputs = if
+    stdenv.isDarwin
+  then [
     AppKit
     ApplicationServices
     Carbon

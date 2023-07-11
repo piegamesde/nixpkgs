@@ -51,7 +51,9 @@ let
         maybeOption = option:
           optionalString options.${option}.isDefined
           " ${option}=${config.${option}}";
-      in if (!(hasPrefix "/" config.socket)) then
+      in if
+        (!(hasPrefix "/" config.socket))
+      then
         "${config.socket}"
       else
         "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
@@ -98,7 +100,13 @@ let
                 showFiles files
               } has enum value `proxy` which has been renamed to `rspamd_proxy`";
           in
-            x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x
+            x:
+            if
+              x == "proxy"
+            then
+              traceWarning warning "rspamd_proxy"
+            else
+              x
           ;
         };
         bindSockets = mkOption {
@@ -118,8 +126,12 @@ let
           ];
           apply = value:
             map (each:
-              if (isString each) then
-                if (isUnixSocket each) then {
+              if
+                (isString each)
+              then
+                if
+                  (isUnixSocket each)
+                then {
                   socket = each;
                   owner = cfg.user;
                   group = cfg.group;
@@ -157,7 +169,12 @@ let
         || name == "rspamd_proxy") {
           type = mkDefault name;
           includes = mkDefault [ "$CONFDIR/worker-${
-              if name == "rspamd_proxy" then "proxy" else name
+              if
+                name == "rspamd_proxy"
+              then
+                "proxy"
+              else
+                name
             }.inc" ];
           bindSockets = let
             unixSocket = name: {
@@ -167,8 +184,9 @@ let
               group = cfg.group;
             };
           in
-            mkDefault
-            (if name == "normal" then [ (unixSocket "rspamd") ] else if name
+            mkDefault (if
+              name == "normal"
+            then [ (unixSocket "rspamd") ] else if name
             == "controller" then [ "localhost:11334" ] else if name
             == "rspamd_proxy" then [ (unixSocket "proxy") ] else
               [ ])
@@ -177,7 +195,12 @@ let
     };
 
   isUnixSocket = socket:
-    hasPrefix "/" (if (isString socket) then socket else socket.socket);
+    hasPrefix "/" (if
+      (isString socket)
+    then
+      socket
+    else
+      socket.socket);
 
   mkBindSockets = enabled: socks:
     concatStringsSep "\n  "
@@ -202,14 +225,25 @@ let
 
     ${concatStringsSep "\n" (mapAttrsToList (name: value:
       let
-        includeName = if name == "rspamd_proxy" then "proxy" else name;
+        includeName = if
+          name == "rspamd_proxy"
+        then
+          "proxy"
+        else
+          name;
         tryOverride = boolToString (value.extraConfig == "");
       in ''
         worker "${value.type}" {
           type = "${value.type}";
           ${
-            optionalString (value.enable != null)
-            "enabled = ${if value.enable != false then "yes" else "no"};"
+            optionalString (value.enable != null) "enabled = ${
+              if
+                value.enable != false
+              then
+                "yes"
+              else
+                "no"
+            };"
           }
           ${mkBindSockets value.enable value.bindSockets}
           ${
@@ -282,10 +316,17 @@ let
     };
 
   configOverrides = (mapAttrs' (n: v:
-    nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {
-      text = v.extraConfig;
-    }) (filterAttrs (n: v: v.extraConfig != "") cfg.workers))
-    // (if cfg.extraConfig == "" then
+    nameValuePair "worker-${
+      if
+        n == "rspamd_proxy"
+      then
+        "proxy"
+      else
+        n
+    }.inc" { text = v.extraConfig; })
+    (filterAttrs (n: v: v.extraConfig != "") cfg.workers)) // (if
+      cfg.extraConfig == ""
+    then
       { }
     else {
       "extra-config.inc".text = cfg.extraConfig;

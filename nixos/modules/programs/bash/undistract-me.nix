@@ -31,7 +31,14 @@ in {
   config = mkIf cfg.enable {
     programs.bash.promptPluginInit = ''
       export LONG_RUNNING_COMMAND_TIMEOUT=${toString cfg.timeout}
-      export UDM_PLAY_SOUND=${if cfg.playSound then "1" else "0"}
+      export UDM_PLAY_SOUND=${
+        if
+          cfg.playSound
+        then
+          "1"
+        else
+          "0"
+      }
       . "${pkgs.undistract-me}/etc/profile.d/undistract-me.sh"
     '';
   };

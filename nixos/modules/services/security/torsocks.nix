@@ -20,7 +20,14 @@ let
     ${optionalNullStr cfg.socks5Username "SOCKS5Username ${cfg.socks5Username}"}
     ${optionalNullStr cfg.socks5Password "SOCKS5Password ${cfg.socks5Password}"}
 
-    AllowInbound ${if cfg.allowInbound then "1" else "0"}
+    AllowInbound ${
+      if
+        cfg.allowInbound
+      then
+        "1"
+      else
+        "0"
+    }
   '';
 
   wrapTorsocks = name: server:

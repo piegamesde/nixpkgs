@@ -61,7 +61,9 @@ let
   '';
 
   renderValue = x:
-    if isList x then
+    if
+      isList x
+    then
       concatMapStringsSep "," (x: ''"${x}"'') x
     else if isString x && hasInfix "," x then
       ''"${x}"''
@@ -470,7 +472,9 @@ in {
                 -o $STATE_DIRECTORY/ldap-proxy.ini
             ''}";
           ExecStart = let
-            configPath = if cfg.ldap-proxy.settings != { } then
+            configPath = if
+              cfg.ldap-proxy.settings != { }
+            then
               "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
             else
               cfg.ldap-proxy.configFile;

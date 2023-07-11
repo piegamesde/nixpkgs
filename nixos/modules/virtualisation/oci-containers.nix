@@ -255,8 +255,9 @@ let
       requires = dependsOn;
       environment = proxy_env;
 
-      path = if cfg.backend
-      == "docker" then [ config.virtualisation.docker.package ] else if cfg.backend
+      path = if
+        cfg.backend == "docker"
+      then [ config.virtualisation.docker.package ] else if cfg.backend
       == "podman" then [ config.virtualisation.podman.package ] else
         throw "Unhandled backend: ${cfg.backend}";
 
@@ -303,11 +304,15 @@ let
         ++ map escapeShellArg container.extraOptions ++ [ container.image ]
         ++ map escapeShellArg container.cmd);
 
-      preStop = if cfg.backend == "podman" then
+      preStop = if
+        cfg.backend == "podman"
+      then
         "[ $SERVICE_RESULT = success ] || podman stop --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
       else
         "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}";
-      postStop = if cfg.backend == "podman" then
+      postStop = if
+        cfg.backend == "podman"
+      then
         "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
       else
         "${cfg.backend} rm -f ${name} || true";
@@ -358,7 +363,9 @@ in {
         "podman"
         "docker"
       ];
-      default = if versionAtLeast config.system.stateVersion "22.05" then
+      default = if
+        versionAtLeast config.system.stateVersion "22.05"
+      then
         "podman"
       else
         "docker";

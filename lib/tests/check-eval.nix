@@ -6,4 +6,9 @@ let
     "systems"
   ];
   all = builtins.concatLists (map (f: import (./. + "/${f}.nix")) tests);
-in if all == [ ] then null else throw (builtins.toJSON all)
+in if
+  all == [ ]
+then
+  null
+else
+  throw (builtins.toJSON all)

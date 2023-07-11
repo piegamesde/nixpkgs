@@ -9,8 +9,15 @@ let
   # The x86-64-modern may need to be refined further in the future
   # but stdenv.hostPlatform CPU flags do not currently work on Darwin
   # https://discourse.nixos.org/t/darwin-system-and-stdenv-hostplatform-features/9745
-  archDarwin = if stdenv.isx86_64 then "x86-64-modern" else "x86-64";
-  arch = if stdenv.isDarwin then
+  archDarwin = if
+    stdenv.isx86_64
+  then
+    "x86-64-modern"
+  else
+    "x86-64";
+  arch = if
+    stdenv.isDarwin
+  then
     archDarwin
   else if stdenv.isx86_64 then
     "x86-64"

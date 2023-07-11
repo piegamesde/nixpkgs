@@ -33,7 +33,9 @@ buildGoModule rec {
   ];
 
   buildPhase = let
-    cmds = if stdenv.isDarwin then [
+    cmds = if
+      stdenv.isDarwin
+    then [
       "osxkeychain"
       "pass"
     ] else [

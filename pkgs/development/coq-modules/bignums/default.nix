@@ -10,7 +10,9 @@ mkCoqDerivation {
   owner = "coq";
   displayVersion = { bignums = ""; };
   inherit version;
-  defaultVersion = if lib.versions.isGe "8.6" coq.coq-version then
+  defaultVersion = if
+    lib.versions.isGe "8.6" coq.coq-version
+  then
     "${coq.coq-version}.0"
   else
     null;

@@ -54,13 +54,17 @@ in rec {
   textClosureList = predefined: arg:
     let
       f = done: todo:
-        if todo == [ ] then {
+        if
+          todo == [ ]
+        then {
           result = [ ];
           inherit done;
         } else
           let
             entry = head todo;
-          in if isAttrs entry then
+          in if
+            isAttrs entry
+          then
             let
               x = f done entry.deps;
               y = f x.done (tail todo);

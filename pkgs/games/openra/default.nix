@@ -44,7 +44,13 @@ let
       to base the name on the attribute name instead, preventing the need to specify the name twice
       if the attribute name and engine/mod name are equal.
   */
-  callWithName = name: value: if isFunction value then value name else value;
+  callWithName = name: value:
+    if
+      isFunction value
+    then
+      value name
+    else
+      value;
   buildOpenRASet = f: args:
     pkgs.recurseIntoAttrs (mapAttrs callWithName (f ({
       inherit (pkgs) fetchFromGitHub;
@@ -71,7 +77,12 @@ in
         builder = name:
           pkgs.callPackage ./engine.nix
           (common // { engine = engine // { inherit name; }; });
-      in if name == null then builder else builder name;
+      in if
+        name == null
+      then
+        builder
+      else
+        builder name;
 
     # See `buildOpenRAEngine`.
     buildOpenRAMod = {
@@ -95,7 +106,12 @@ in
               mod = mod // { inherit name assetsError; };
               engine = engine // { inherit mods; };
             });
-        in if name == null then builder else builder name) engine;
+        in if
+          name == null
+        then
+          builder
+        else
+          builder name) engine;
 
     # See `buildOpenRASet`.
     engines =

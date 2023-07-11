@@ -25,7 +25,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if withGui then "bitcoin-knots" else "bitcoind-knots";
+  pname = if
+    withGui
+  then
+    "bitcoin-knots"
+  else
+    "bitcoind-knots";
   version = "23.0.knots20220529";
 
   src = fetchurl {

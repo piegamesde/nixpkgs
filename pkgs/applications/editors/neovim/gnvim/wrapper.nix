@@ -8,7 +8,9 @@
 stdenv.mkDerivation {
   pname = "gnvim";
   version = gnvim-unwrapped.version;
-  buildCommand = if stdenv.isDarwin then ''
+  buildCommand = if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     cp -r ${gnvim-unwrapped}/bin/gnvim.app $out/Applications
 

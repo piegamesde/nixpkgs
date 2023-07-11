@@ -5,8 +5,18 @@
 }:
 
 let
-  os = if stdenv.isDarwin then "macos" else "linux";
-  arch = if stdenv.isAarch64 then "arm64" else "x86_64";
+  os = if
+    stdenv.isDarwin
+  then
+    "macos"
+  else
+    "linux";
+  arch = if
+    stdenv.isAarch64
+  then
+    "arm64"
+  else
+    "x86_64";
   hashes = {
     "x86_64-linux" =
       "443a763487366fa960120bfe193441e6bbe86fdb31baeed7dbb17d410dee0522";

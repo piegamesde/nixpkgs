@@ -57,8 +57,9 @@ in {
 
   # For building runtime libs
   # same for all gcc's
-  depsBuildTarget = (if hostPlatform
-  == buildPlatform then [ targetPackages.stdenv.cc.bintools # newly-built gcc will be used
+  depsBuildTarget = (if
+    hostPlatform == buildPlatform
+  then [ targetPackages.stdenv.cc.bintools # newly-built gcc will be used
   ] else
     assert targetPlatform == hostPlatform;
     [

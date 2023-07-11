@@ -258,7 +258,9 @@ in {
           -e 's|shared.loader=|shared.loader=''${catalina.base}/shared/lib/*.jar|' \
           ${tomcat}/conf/catalina.properties > ${cfg.baseDir}/conf/catalina.properties
 
-        ${if cfg.serverXml != "" then ''
+        ${if
+          cfg.serverXml != ""
+        then ''
           cp -f ${
             pkgs.writeTextDir "server.xml" cfg.serverXml
           }/* ${cfg.baseDir}/conf/

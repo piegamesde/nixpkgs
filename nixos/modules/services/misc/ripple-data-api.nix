@@ -182,7 +182,9 @@ in {
       };
 
       serviceConfig = let
-        importMode = if cfg.minLedger != null && cfg.maxLedger != null then
+        importMode = if
+          cfg.minLedger != null && cfg.maxLedger != null
+        then
           "${toString cfg.minLedger} ${toString cfg.maxLedger}"
         else
           cfg.importMode;

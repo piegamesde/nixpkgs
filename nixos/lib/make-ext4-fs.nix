@@ -40,7 +40,12 @@ in
     ] ++ lib.optional compressImage zstd;
 
     buildCommand = ''
-      ${if compressImage then "img=temp.img" else "img=$out"}
+      ${if
+        compressImage
+      then
+        "img=temp.img"
+      else
+        "img=$out"}
       (
       mkdir -p ./files
       ${populateImageCommands}

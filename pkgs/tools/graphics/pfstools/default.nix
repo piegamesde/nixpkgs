@@ -72,7 +72,9 @@ mkDerivation rec {
     perl
     qtbase
     netpbm
-  ] ++ (if stdenv.isDarwin then
+  ] ++ (if
+    stdenv.isDarwin
+  then
     (with darwin.apple_sdk.frameworks; [
       OpenGL
       GLUT

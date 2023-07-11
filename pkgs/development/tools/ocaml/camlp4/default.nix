@@ -7,7 +7,9 @@
   ocamlbuild,
 }:
 
-if lib.versionAtLeast ocaml.version "4.15" then
+if
+  lib.versionAtLeast ocaml.version "4.15"
+then
   throw "camlp4 is not available for OCaml ${ocaml.version}"
 else
 

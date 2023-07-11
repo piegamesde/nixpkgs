@@ -12,7 +12,12 @@ let
   dtCfg = config.hardware.deviceTree;
   cfg = blCfg.generic-extlinux-compatible;
 
-  timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;
+  timeoutStr = if
+    blCfg.timeout == null
+  then
+    "-1"
+  else
+    toString blCfg.timeout;
 
   # The builder used to write during system activation
   builder = import ./extlinux-conf-builder.nix { inherit pkgs; };

@@ -54,7 +54,9 @@ let
       echo "${version}"
     fi
   '';
-  mainProgram = if stdenv.hostPlatform.system == "i686-linux" then
+  mainProgram = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     "etl.i386"
   else
     "etl.x86_64";

@@ -20,7 +20,12 @@ buildDunePackage rec {
     sha256 = "0ccjwcriwm8fv29ij1cnbc9win054kb6pfga3ygzdbjpjb778j46";
   };
 
-  duneVersion = if lib.versionAtLeast ocaml.version "4.12" then "2" else "1";
+  duneVersion = if
+    lib.versionAtLeast ocaml.version "4.12"
+  then
+    "2"
+  else
+    "1";
   postPatch = lib.optionalString (duneVersion != "1") "dune upgrade";
   doCheck = true;
 

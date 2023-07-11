@@ -54,8 +54,18 @@ let
         sed -i s@=${nagiosState}@=$lib@ nagios.cfg
         ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
       '';
-    defaultCfgFile = if cfg.validateConfig then validated else file;
-  in if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile;
+    defaultCfgFile = if
+      cfg.validateConfig
+    then
+      validated
+    else
+      file;
+  in if
+    cfg.mainConfigFile == null
+  then
+    defaultCfgFile
+  else
+    cfg.mainConfigFile;
 
   # Plain configuration for the Nagios web-interface with no
   # authentication.

@@ -116,7 +116,12 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt";
-  stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
+  stageNameAddon = if
+    crossStageStatic
+  then
+    "stage-static"
+  else
+    "stage-final";
   crossNameAddon = optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
@@ -184,7 +189,12 @@ in
         # On NixOS, use the right path to the dynamic linker instead of
         # `/lib/ld*.so'.
         (let
-          libc = if libcCross != null then libcCross else stdenv.cc.libc;
+          libc = if
+            libcCross != null
+          then
+            libcCross
+          else
+            stdenv.cc.libc;
         in
           (''
             echo "fixing the \`GLIBC_DYNAMIC_LINKER', \`UCLIBC_DYNAMIC_LINKER', and \`MUSL_DYNAMIC_LINKER' macros..."
@@ -230,12 +240,21 @@ in
       ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
       ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if
+      targetPlatform != hostPlatform
+    then
+      targetPlatform.config
+    else
+      null;
 
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-      (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+      (if
+        profiledCompiler
+      then
+        "profiledbootstrap"
+      else
+        "bootstrap");
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList stripDebugListTarget preFixup;
@@ -244,8 +263,14 @@ in
       false; # requires a lot of tools, causes a dependency cycle for stdenv
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-    ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} =
-      "gcc -m64";
+    ${
+      if
+        hostPlatform.system == "x86_64-solaris"
+      then
+        "CC"
+      else
+        null
+    } = "gcc -m64";
 
     # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
     # library headers and binaries, regarless of the language being compiled.

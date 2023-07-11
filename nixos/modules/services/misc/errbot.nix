@@ -94,7 +94,9 @@ in {
 
     systemd.services = mapAttrs' (name: instanceCfg:
       nameValuePair "errbot-${name}" (let
-        dataDir = if instanceCfg.dataDir != null then
+        dataDir = if
+          instanceCfg.dataDir != null
+        then
           instanceCfg.dataDir
         else
           "/var/lib/errbot/${name}";

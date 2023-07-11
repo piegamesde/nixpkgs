@@ -25,12 +25,19 @@ let
 
   allowNonSource = let
     envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
-  in if envVar != "" then envVar != "0" else config.allowNonSource or true;
+  in if
+    envVar != ""
+  then
+    envVar != "0"
+  else
+    config.allowNonSource or true;
 
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
 
-  areLicenseListsValid = if lib.mutuallyExclusive allowlist blocklist then
+  areLicenseListsValid = if
+    lib.mutuallyExclusive allowlist blocklist
+  then
     true
   else
     throw
@@ -245,7 +252,9 @@ let
       errormsg ? ""
     }:
     let
-      msg = if inHydra then
+      msg = if
+        inHydra
+      then
         "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
       else
         ''
@@ -255,7 +264,9 @@ let
 
         '' + (builtins.getAttr reason remediation) attrs;
 
-      handler = if config ? handleEvalIssue then
+      handler = if
+        config ? handleEvalIssue
+      then
         config.handleEvalIssue reason
       else
         throw;
@@ -273,7 +284,9 @@ let
     }:
     let
       remediationMsg = (builtins.getAttr reason remediation) attrs;
-      msg = if inHydra then
+      msg = if
+        inHydra
+      then
         "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
       else
         "Package ${getName attrs} in ${
@@ -283,7 +296,12 @@ let
 
           ${remediationMsg}'');
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
-    in if isEnabled != null then builtins.trace msg true else true;
+    in if
+      isEnabled != null
+    then
+      builtins.trace msg true
+    else
+      true;
 
   # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
   # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
@@ -360,8 +378,12 @@ let
   };
 
   checkMetaAttr = k: v:
-    if metaTypes ? ${k} then
-      if typeCheck metaTypes.${k} v then
+    if
+      metaTypes ? ${k}
+    then
+      if
+        typeCheck metaTypes.${k} v
+      then
         null
       else ''
         key 'meta.${k}' has invalid value; expected ${
@@ -384,7 +406,12 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
         expectedOutputs;
-    in if config.checkMeta then builtins.length missingOutputs > 0 else false;
+    in if
+      config.checkMeta
+    then
+      builtins.length missingOutputs > 0
+    else
+      false;
 
   # Check if a derivation is valid, that is whether it passes checks for
   # e.g brokenness or license.
@@ -399,7 +426,9 @@ let
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
     let
       res = checkMeta (attrs.meta or { });
-    in if res != [ ] then {
+    in if
+      res != [ ]
+    then {
       valid = "no";
       reason = "unknown-meta";
       errormsg = ''
@@ -421,7 +450,9 @@ let
         insecure = isMarkedInsecure attrs;
       } // (
         # --- Put checks that cannot be ignored here ---
-        if checkOutputsToInstall attrs then {
+        if
+          checkOutputsToInstall attrs
+        then {
           valid = "no";
           reason = "broken-outputs";
           errormsg = "has invalid meta.outputsToInstall";
@@ -535,11 +566,12 @@ let
         # Expose the result of the checks for everyone to see.
         inherit (validity) unfree broken unsupported insecure;
 
-        available = validity.valid != "no"
-          && (if config.checkMetaRecursively or false then
-            lib.all (d: d.meta.available or true) references
-          else
-            true);
+        available = validity.valid != "no" && (if
+          config.checkMetaRecursively or false
+        then
+          lib.all (d: d.meta.available or true) references
+        else
+          true);
       }
   ;
 

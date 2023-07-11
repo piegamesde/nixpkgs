@@ -66,7 +66,9 @@ in rec {
     description = "instruction set architecture name and information";
     merge = mergeOneOption;
     check = x:
-      types.bitWidth.check x.bits && (if 8 < x.bits then
+      types.bitWidth.check x.bits && (if
+        8 < x.bits
+      then
         types.significantByte.check x.significantByte
       else
         !(x ? significantByte));
@@ -374,10 +376,12 @@ in rec {
 
   # GNU build systems assume that older NetBSD architectures are using a.out.
   gnuNetBSDDefaultExecFormat = cpu:
-    if (cpu.family == "arm" && cpu.bits == 32)
-    || (cpu.family == "sparc" && cpu.bits == 32)
-    || (cpu.family == "m68k" && cpu.bits == 32)
-    || (cpu.family == "x86" && cpu.bits == 32) then
+    if
+      (cpu.family == "arm" && cpu.bits == 32)
+      || (cpu.family == "sparc" && cpu.bits == 32)
+      || (cpu.family == "m68k" && cpu.bits == 32)
+      || (cpu.family == "x86" && cpu.bits == 32)
+    then
       execFormats.aout
     else
       execFormats.elf;
@@ -700,14 +704,18 @@ in rec {
 
   mkSkeletonFromList = l:
     {
-      "1" = if elemAt l 0 == "avr" then {
+      "1" = if
+        elemAt l 0 == "avr"
+      then {
         cpu = elemAt l 0;
         kernel = "none";
         abi = "unknown";
       } else
         throw "Target specification with 1 components is ambiguous";
       "2" = # We only do 2-part hacks for things Nix already supports
-        if elemAt l 1 == "cygwin" then {
+        if
+          elemAt l 1 == "cygwin"
+        then {
           cpu = elemAt l 0;
           kernel = "windows";
           abi = "cygnus";
@@ -731,12 +739,14 @@ in rec {
         };
       "3" =
         # cpu-kernel-environment
-        if elemAt l 1 == "linux" || elem (elemAt l 2) [
-          "eabi"
-          "eabihf"
-          "elf"
-          "gnu"
-        ] then {
+        if
+          elemAt l 1 == "linux" || elem (elemAt l 2) [
+            "eabi"
+            "eabihf"
+            "elf"
+            "gnu"
+          ]
+        then {
           cpu = elemAt l 0;
           kernel = elemAt l 1;
           abi = elemAt l 2;
@@ -753,7 +763,9 @@ in rec {
         || hasPrefix "genode" (elemAt l 2) then {
           cpu = elemAt l 0;
           vendor = elemAt l 1;
-          kernel = if elemAt l 2 == "mingw32" then
+          kernel = if
+            elemAt l 2 == "mingw32"
+          then
             "windows" # autotools breaks on -gnu for window
           else
             elemAt l 2;
@@ -784,7 +796,9 @@ in rec {
 
       parsed = {
         cpu = getCpu args.cpu;
-        vendor = if args ? vendor then
+        vendor = if
+          args ? vendor
+        then
           getVendor args.vendor
         else if isDarwin parsed then
           vendors.apple
@@ -792,17 +806,25 @@ in rec {
           vendors.pc
         else
           vendors.unknown;
-        kernel = if hasPrefix "darwin" args.kernel then
+        kernel = if
+          hasPrefix "darwin" args.kernel
+        then
           getKernel "darwin"
         else if hasPrefix "netbsd" args.kernel then
           getKernel "netbsd"
         else
           getKernel args.kernel;
-        abi = if args ? abi then
+        abi = if
+          args ? abi
+        then
           getAbi args.abi
         else if isLinux parsed || isWindows parsed then
-          if isAarch32 parsed then
-            if lib.versionAtLeast (parsed.cpu.version or "0") "6" then
+          if
+            isAarch32 parsed
+          then
+            if
+              lib.versionAtLeast (parsed.cpu.version or "0") "6"
+            then
               abis.gnueabihf
             else
               abis.gnueabi
@@ -830,7 +852,9 @@ in rec {
       abi,
       ...
     }:
-    if abi == abis.cygnus then
+    if
+      abi == abis.cygnus
+    then
       "${cpu.name}-cygwin"
     else if kernel.families ? darwin then
       "${cpu.name}-darwin"

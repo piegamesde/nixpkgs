@@ -22,7 +22,15 @@
 }:
 
 let
-  mkFlag = optSet: flag: "-D${flag}=${if optSet then "ON" else "OFF"}";
+  mkFlag = optSet: flag:
+    "-D${flag}=${
+      if
+        optSet
+      then
+        "ON"
+      else
+        "OFF"
+    }";
 
 in
   stdenv.mkDerivation rec {

@@ -35,7 +35,9 @@ stdenv.mkDerivation {
     cp -p converters/op2calltree $out/bin/op2calltree
     cp -p converters/pprof2calltree $out/bin/pprof2calltree
     chmod -R +x $out/bin/
-  '' + (if stdenv.isDarwin then ''
+  '' + (if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/Applications
     cp cgview/cgview.app/Contents/MacOS/cgview $out/bin
     cp -a qcachegrind/qcachegrind.app $out/Applications

@@ -9,7 +9,9 @@
 }:
 
 let
-  params = if lib.versionAtLeast ocaml.version "5.0" then {
+  params = if
+    lib.versionAtLeast ocaml.version "5.0"
+  then {
     version = "4.0.0";
     hash = "sha256-yNLN5bBe4aft9Rl5VHmlOYTlnCdR2NgDWsc3uJHaZy4=";
     propagatedBuildInputs = [

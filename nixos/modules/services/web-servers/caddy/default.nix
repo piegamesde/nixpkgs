@@ -48,7 +48,9 @@ let
     '';
   in
     "${
-      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
+      if
+        pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform
+      then
         Caddyfile-formatted
       else
         Caddyfile

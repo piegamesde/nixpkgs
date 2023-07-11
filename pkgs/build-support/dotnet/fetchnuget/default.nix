@@ -12,7 +12,9 @@ attrs@{
   md5 ? "",
   ...
 }:
-if md5 != "" then
+if
+  md5 != ""
+then
   throw "fetchnuget does not support md5 anymore, please use sha256"
 else
   buildDotnetPackage ({

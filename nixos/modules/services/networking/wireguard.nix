@@ -361,7 +361,9 @@ let
       peer,
     }:
     let
-      psk = if peer.presharedKey != null then
+      psk = if
+        peer.presharedKey != null
+      then
         pkgs.writeText "wg-psk" peer.presharedKey
       else
         peer.presharedKeyFile;
@@ -392,7 +394,9 @@ let
           wireguard-tools
         ];
 
-        serviceConfig = if !dynamicRefreshEnabled then {
+        serviceConfig = if
+          !dynamicRefreshEnabled
+        then {
           Type = "oneshot";
           RemainAfterExit = true;
         } else {
@@ -404,7 +408,9 @@ let
           #
           # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
           Restart = "always";
-          RestartSec = if null != peer.dynamicEndpointRefreshRestartSeconds then
+          RestartSec = if
+            null != peer.dynamicEndpointRefreshRestartSeconds
+          then
             peer.dynamicEndpointRefreshRestartSeconds
           else
             peer.dynamicEndpointRefreshSeconds;
@@ -475,7 +481,9 @@ let
     # exactly one way to specify the private key must be set
     #assert (values.privateKey != null) != (values.privateKeyFile != null);
     let
-      privKey = if values.privateKeyFile != null then
+      privKey = if
+        values.privateKeyFile != null
+      then
         values.privateKeyFile
       else
         pkgs.writeText "wg-key" values.privateKey;
@@ -484,7 +492,12 @@ let
       ipPreMove = nsWrap "ip" src null;
       ipPostMove = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
-      ns = if dst == "init" then "1" else dst;
+      ns = if
+        dst == "init"
+      then
+        "1"
+      else
+        dst;
 
     in
       nameValuePair "wireguard-${name}" {
@@ -545,7 +558,9 @@ let
         dst
       ];
       ns = last nsList;
-    in if (length nsList > 0 && ns != "init") then
+    in if
+      (length nsList > 0 && ns != "init")
+    then
       ''ip netns exec "${ns}" "${cmd}"''
     else
       cmd;

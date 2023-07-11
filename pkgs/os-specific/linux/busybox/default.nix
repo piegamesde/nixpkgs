@@ -96,7 +96,14 @@ in
 
     configurePhase = ''
       export KCONFIG_NOTIMESTAMP=1
-      make ${if enableMinimal then "allnoconfig" else "defconfig"}
+      make ${
+        if
+          enableMinimal
+        then
+          "allnoconfig"
+        else
+          "defconfig"
+      }
 
       ${configParser}
 

@@ -43,8 +43,22 @@ in
 
     cmakeFlags = [
       "-DCLANG_RESOURCE_DIR=${libclang.dev}/"
-      "-DSPHINX_HTML=${if withHTML then "ON" else "OFF"}"
-      "-DSPHINX_MAN=${if withManual then "ON" else "OFF"}"
+      "-DSPHINX_HTML=${
+        if
+          withHTML
+        then
+          "ON"
+        else
+          "OFF"
+      }"
+      "-DSPHINX_MAN=${
+        if
+          withManual
+        then
+          "ON"
+        else
+          "OFF"
+      }"
     ];
 
     # 97% tests passed, 97 tests failed out of 2881

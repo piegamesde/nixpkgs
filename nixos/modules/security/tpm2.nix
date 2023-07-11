@@ -30,7 +30,12 @@ in {
         set.
       '';
       type = lib.types.nullOr lib.types.str;
-      default = if cfg.abrmd.enable then "tss" else "root";
+      default = if
+        cfg.abrmd.enable
+      then
+        "tss"
+      else
+        "root";
       defaultText = lib.literalExpression
         ''if config.security.tpm2.abrmd.enable then "tss" else "root"'';
     };
@@ -154,7 +159,9 @@ in {
           "TPM2_PKCS11_TCTI"
         ] (_:
           "${cfg.tctiEnvironment.interface}:${
-            if cfg.tctiEnvironment.interface == "tabrmd" then
+            if
+              cfg.tctiEnvironment.interface == "tabrmd"
+            then
               cfg.tctiEnvironment.tabrmdConf
             else
               cfg.tctiEnvironment.deviceConf

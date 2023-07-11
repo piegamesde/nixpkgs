@@ -76,14 +76,18 @@ let
     };
     eject = { linux = pkgs.util-linux; };
     getconf = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then
+      linux = if
+        stdenv.hostPlatform.libc == "glibc"
+      then
         pkgs.stdenv.cc.libc
       else
         pkgs.netbsd.getconf;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then
+      linux = if
+        stdenv.hostPlatform.libc == "glibc"
+      then
         pkgs.stdenv.cc.libc
       else
         pkgs.netbsd.getent;

@@ -66,7 +66,9 @@ let
     };
   };
 
-  release = if hasAttr dfVersion unfuck-releases then
+  release = if
+    hasAttr dfVersion unfuck-releases
+  then
     getAttr dfVersion unfuck-releases
   else
     throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
@@ -110,8 +112,9 @@ in
       libGL
     ]
     # switched to gtk3 in 0.47.05
-      ++ (if lib.versionOlder release.unfuckRelease
-      "0.47.05" then [ gtk2 ] else [ gtk3 ]);
+      ++ (if
+        lib.versionOlder release.unfuckRelease "0.47.05"
+      then [ gtk2 ] else [ gtk3 ]);
 
     # Don't strip unused symbols; dfhack hooks into some of them.
     dontStrip = true;

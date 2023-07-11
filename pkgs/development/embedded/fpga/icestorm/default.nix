@@ -24,7 +24,12 @@ stdenv.mkDerivation rec {
   version = "2020.12.04";
 
   passthru = rec {
-    pythonPkg = if (false && usePyPy) then pypy3 else python3;
+    pythonPkg = if
+      (false && usePyPy)
+    then
+      pypy3
+    else
+      python3;
     pythonInterp = pythonPkg.interpreter;
   };
 

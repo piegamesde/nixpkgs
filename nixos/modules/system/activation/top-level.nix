@@ -47,7 +47,9 @@ let
     chmod u+x $out/activate $out/dry-activate
     unset activationScript dryActivationScript
 
-    ${if config.boot.initrd.systemd.enable then ''
+    ${if
+      config.boot.initrd.systemd.enable
+    then ''
       cp ${config.system.build.bootStage2} $out/prepare-root
       substituteInPlace $out/prepare-root --subst-var-by systemConfig $out
       # This must not be a symlink or the abs_path of the grub builder for the tests
@@ -136,7 +138,9 @@ let
   failedAssertions =
     map (x: x.message) (filter (x: !x.assertion) config.assertions);
 
-  baseSystemAssertWarn = if failedAssertions != [ ] then
+  baseSystemAssertWarn = if
+    failedAssertions != [ ]
+  then
     throw ''
 
       Failed assertions:
@@ -330,7 +334,9 @@ in {
 
     system.name = mkOption {
       type = types.str;
-      default = if config.networking.hostName == "" then
+      default = if
+        config.networking.hostName == ""
+      then
         "unnamed"
       else
         config.networking.hostName;
@@ -405,7 +411,9 @@ in {
         };
       };
 
-    system.build.toplevel = if config.system.includeBuildDependencies then
+    system.build.toplevel = if
+      config.system.includeBuildDependencies
+    then
       systemWithBuildDeps
     else
       system;

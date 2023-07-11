@@ -147,9 +147,15 @@ let
       isMismatchedPython = drv: drv.pythonModule != python;
 
       optionalLocation = let
-        pos = builtins.unsafeGetAttrPos
-          (if attrs ? "pname" then "pname" else "name") attrs;
-      in if pos == null then
+        pos = builtins.unsafeGetAttrPos (if
+          attrs ? "pname"
+        then
+          "pname"
+        else
+          "name") attrs;
+      in if
+        pos == null
+      then
         ""
       else
         " at ${pos.file}:${toString pos.line}:${toString pos.column}";
@@ -199,7 +205,9 @@ let
       ;
 
       checkDrv = drv:
-        if (isPythonModule drv) && (isMismatchedPython drv) then
+        if
+          (isPythonModule drv) && (isMismatchedPython drv)
+        then
           throwMismatch drv
         else
           drv;
@@ -265,7 +273,14 @@ let
 
     inherit strictDeps;
 
-    LANG = "${if python.stdenv.isDarwin then "en_US" else "C"}.UTF-8";
+    LANG = "${
+        if
+          python.stdenv.isDarwin
+        then
+          "en_US"
+        else
+          "C"
+      }.UTF-8";
 
     # Python packages don't have a checkPhase, only an installCheckPhase
     doCheck = false;

@@ -78,7 +78,14 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   cmakeFlags = [
-    "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
+    "-DLLDB_INCLUDE_TESTS=${
+      if
+        doCheck
+      then
+        "YES"
+      else
+        "NO"
+    }"
     "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
   ] ++ lib.optionals stdenv.isDarwin [
     # Building debugserver requires the proprietary libcompression

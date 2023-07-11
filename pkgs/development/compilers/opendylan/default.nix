@@ -31,14 +31,17 @@ stdenv.mkDerivation {
     autoconf
     automake
   ];
-  buildInputs = (if stdenv.hostPlatform.system
-  == "i686-linux" then [ mps ] else [ boehmgc ]) ++ [
+  buildInputs = (if
+    stdenv.hostPlatform.system == "i686-linux"
+  then [ mps ] else [ boehmgc ]) ++ [
     opendylan-bootstrap
     boehmgc
     perl
   ];
 
-  preConfigure = if stdenv.hostPlatform.system == "i686-linux" then ''
+  preConfigure = if
+    stdenv.hostPlatform.system == "i686-linux"
+  then ''
     mkdir -p $TMPDIR/mps
     tar --strip-components=1 -xf ${mps.src} -C $TMPDIR/mps
     ./autogen.sh
@@ -46,7 +49,9 @@ stdenv.mkDerivation {
     ./autogen.sh
   '';
 
-  configureFlags = [ (if stdenv.hostPlatform.system == "i686-linux" then
+  configureFlags = [ (if
+    stdenv.hostPlatform.system == "i686-linux"
+  then
     "--with-mps=$(TMPDIR)/mps"
   else
     "--with-gc=${boehmgc.out}") ];

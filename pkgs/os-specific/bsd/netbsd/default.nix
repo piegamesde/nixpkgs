@@ -34,8 +34,10 @@ let
     makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
   defaultMakeFlags = [ "MKSOFTFLOAT=${
-      if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
-      == "soft" then
+      if
+        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
+        == "soft"
+      then
         "yes"
       else
         "no"
@@ -68,7 +70,12 @@ in
 
       mkDerivation = lib.makeOverridable (attrs:
         let
-          stdenv' = if attrs.noCC or false then stdenvNoCC else stdenv;
+          stdenv' = if
+            attrs.noCC or false
+          then
+            stdenvNoCC
+          else
+            stdenv;
         in
           stdenv'.mkDerivation ({
             pname = "${attrs.pname or (baseNameOf attrs.path)}-netbsd";

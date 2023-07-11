@@ -29,7 +29,9 @@ rustPlatform.buildRustPackage rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ curl ] ++ (if stdenv.isDarwin then [
+  buildInputs = [ curl ] ++ (if
+    stdenv.isDarwin
+  then [
     libiconv
     Security
     SystemConfiguration

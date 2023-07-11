@@ -40,7 +40,14 @@ in
 
     sourceRoot = "rott-${version}/rott";
 
-    makeFlags = [ "SHAREWARE=${if buildShareware then "1" else "0"}" ];
+    makeFlags = [ "SHAREWARE=${
+        if
+          buildShareware
+        then
+          "1"
+        else
+          "0"
+      }" ];
 
     # when using SDL_compat instead of SDL_classic, SDL_mixer isn't correctly
     # detected, but there is no harm just specifying it
@@ -61,7 +68,12 @@ in
       name = "rott";
       exec = "rott";
       desktopName = "Rise of the Triad: ${
-          if buildShareware then "The HUNT Begins" else "Dark War"
+          if
+            buildShareware
+          then
+            "The HUNT Begins"
+          else
+            "Dark War"
         }";
       categories = [ "Game" ];
     }) ];

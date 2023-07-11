@@ -13,7 +13,9 @@ let
   format = pkgs.formats.ini {
     # https://github.com/NixOS/nixpkgs/pull/121613#issuecomment-885241996
     listToValue = l:
-      if builtins.length l == 1 then
+      if
+        builtins.length l == 1
+      then
         generators.mkValueStringDefault { } (head l)
       else
         lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
@@ -114,7 +116,9 @@ in {
         services.moonraker.configDir has been deprecated upstream and will be removed.
 
         Action: ${
-          if cfg.configDir == unifiedConfigDir then
+          if
+            cfg.configDir == unifiedConfigDir
+          then
             "Simply remove services.moonraker.configDir from your config."
           else
             "Move files from `${cfg.configDir}` to `${unifiedConfigDir}` then remove services.moonraker.configDir from your config."
@@ -169,7 +173,9 @@ in {
       script = ''
         config_path=${
         # Deprecated separate config dir
-          if cfg.configDir != null then
+          if
+            cfg.configDir != null
+          then
             "${cfg.configDir}/moonraker-temp.cfg"
             # Config in unified data path
           else

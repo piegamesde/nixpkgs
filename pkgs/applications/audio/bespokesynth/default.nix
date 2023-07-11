@@ -124,7 +124,9 @@ in
         "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/"
       ]);
 
-    postInstall = if stdenv.hostPlatform.isDarwin then ''
+    postInstall = if
+      stdenv.hostPlatform.isDarwin
+    then ''
       mkdir -p $out/{Applications,bin}
       mv Source/BespokeSynth_artefacts/${cmakeBuildType}/BespokeSynth.app $out/Applications/
       # Symlinking confuses the resource finding about the actual location of the binary

@@ -94,7 +94,9 @@ let
     transformOptions = opt:
       opt // {
         declarations = map (decl:
-          if hasPrefix (toString ../..) (toString decl) then
+          if
+            hasPrefix (toString ../..) (toString decl)
+          then
             let
               subpath = removePrefix "/"
                 (removePrefix (toString ../..) (toString decl));

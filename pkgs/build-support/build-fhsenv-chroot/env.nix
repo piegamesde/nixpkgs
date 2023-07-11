@@ -41,8 +41,12 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs
-    ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs ++ (if
+    multiPkgs == null
+  then
+    [ ]
+  else
+    multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -54,7 +58,12 @@ let
   # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
   basePkgs = with pkgs; [
     glibcLocales
-    (if isMultiBuild then glibc_multi else glibc)
+    (if
+      isMultiBuild
+    then
+      glibc_multi
+    else
+      glibc)
     (toString gcc.cc.lib)
     bashInteractiveFHS
     coreutils
@@ -206,7 +215,14 @@ let
   setupLibDirs_target = ''
     # link content of targetPaths
     cp -rsHf ${staticUsrProfileTarget}/lib lib
-    ln -s lib lib${if is64Bit then "64" else "32"}
+    ln -s lib lib${
+      if
+        is64Bit
+      then
+        "64"
+      else
+        "32"
+    }
   '';
 
   # setup /lib, /lib32 and /lib64
@@ -228,8 +244,12 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs =
-    if isTargetBuild then setupLibDirs_target else setupLibDirs_multi;
+  setupLibDirs = if
+    isTargetBuild
+  then
+    setupLibDirs_target
+  else
+    setupLibDirs_multi;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''

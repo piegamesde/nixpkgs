@@ -79,7 +79,12 @@ let
       -coqdevdir $lib/lib/coq/${coq.coq-version}/user-contrib/compcert/ \
       -toolprefix ${tools}/bin/ \
       -use-external-Flocq \
-      ${if stdenv.isDarwin then "x86_64-macosx" else "x86_64-linux"}
+      ${if
+        stdenv.isDarwin
+      then
+        "x86_64-macosx"
+      else
+        "x86_64-linux"}
     '';
 
     installTargets = "documentation install";

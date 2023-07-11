@@ -12,7 +12,9 @@ stdenv.mkDerivation {
 
   version = "1.1.97.962.g24733a46";
 
-  src = if stdenv.isAarch64 then
+  src = if
+    stdenv.isAarch64
+  then
     (fetchurl {
       url =
         "https://web.archive.org/web/20221101120432/https://download.scdn.co/SpotifyARM64.dmg";

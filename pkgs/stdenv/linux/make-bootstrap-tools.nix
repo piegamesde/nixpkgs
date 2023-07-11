@@ -72,7 +72,9 @@ in with pkgs; rec {
         set -x
         mkdir -p $out/bin $out/lib $out/libexec
 
-      '' + (if (stdenv.hostPlatform.libc == "glibc") then
+      '' + (if
+        (stdenv.hostPlatform.libc == "glibc")
+      then
         ''
           # Copy what we need of Glibc.
           cp -d ${libc.out}/lib/ld*.so* $out/lib
@@ -252,7 +254,9 @@ in with pkgs; rec {
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
     };
-  in if (stdenv.hostPlatform.libc == "glibc") then
+  in if
+    (stdenv.hostPlatform.libc == "glibc")
+  then
     import ./bootstrap-tools {
       inherit (stdenv.buildPlatform) system; # Used to determine where to build
       inherit bootstrapFiles extraAttrs;

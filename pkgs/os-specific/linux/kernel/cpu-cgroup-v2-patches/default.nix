@@ -4,7 +4,9 @@ in
   builtins.listToAttrs (builtins.filter (x: x != null) (map (name:
     let
       match = builtins.match "(.*)\\.patch" name;
-    in if match == null then
+    in if
+      match == null
+    then
       null
     else {
       name = builtins.head match;

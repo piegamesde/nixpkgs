@@ -172,7 +172,9 @@ in
 
     isGhcjs = ghc.isGhcjs or false;
     isHaLVM = ghc.isHaLVM or false;
-    packageDbFlag = if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then
+    packageDbFlag = if
+      isGhcjs || isHaLVM || versionOlder "7.6" ghc.version
+    then
       "package-db"
     else
       "package-conf";
@@ -182,7 +184,9 @@ in
     # Same as our GHC, unless we're cross, in which case it is native GHC with the
     # same version, or ghcjs, in which case its the ghc used to build ghcjs.
     nativeGhc = buildHaskellPackages.ghc;
-    nativePackageDbFlag = if versionOlder "7.6" nativeGhc.version then
+    nativePackageDbFlag = if
+      versionOlder "7.6" nativeGhc.version
+    then
       "package-db"
     else
       "package-conf";
@@ -190,7 +194,12 @@ in
     # the target dir for haddock documentation
     docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
 
-    binDir = if enableSeparateBinOutput then "$bin/bin" else "$out/bin";
+    binDir = if
+      enableSeparateBinOutput
+    then
+      "$bin/bin"
+    else
+      "$out/bin";
 
     newCabalFileUrl =
       "mirror://hackage/${pname}-${version}/revision/${revision}.cabal";
@@ -242,7 +251,14 @@ in
       # Pass the "wrong" C compiler rather than none at all so packages that just
       # use the C preproccessor still work, see
       # https://github.com/haskell/cabal/issues/6466 for details.
-      "--with-gcc=${if stdenv.hasCC then "$CC" else "$CC_FOR_BUILD"}"
+      "--with-gcc=${
+        if
+          stdenv.hasCC
+        then
+          "$CC"
+        else
+          "$CC_FOR_BUILD"
+      }"
     ] ++ optionals stdenv.hasCC [
       "--with-ld=${stdenv.cc.bintools.targetPrefix}ld"
       "--with-ar=${stdenv.cc.bintools.targetPrefix}ar"
@@ -293,11 +309,12 @@ in
         (optionalString ((enableExecutableProfiling || enableLibraryProfiling)
           && versionOlder "8" ghc.version)
           "--profiling-detail=${profilingDetail}")
-        (enableFeature enableExecutableProfiling
-          (if versionOlder ghc.version "8" then
-            "executable-profiling"
-          else
-            "profiling"))
+        (enableFeature enableExecutableProfiling (if
+          versionOlder ghc.version "8"
+        then
+          "executable-profiling"
+        else
+          "profiling"))
         (enableFeature enableSharedLibraries "shared")
         (optionalString (versionAtLeast ghc.version "7.10")
           (enableFeature doCoverage "coverage"))
@@ -368,7 +385,12 @@ in
 
     setupCommand = "./Setup";
 
-    ghcCommand' = if isGhcjs then "ghcjs" else "ghc";
+    ghcCommand' = if
+      isGhcjs
+    then
+      "ghcjs"
+    else
+      "ghc";
     ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
 
     ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
@@ -615,7 +637,9 @@ in
         installPhase = ''
           runHook preInstall
 
-          ${if !isLibrary && buildTarget == "" then
+          ${if
+            !isLibrary && buildTarget == ""
+          then
             "${setupCommand} install"
             # ^^ if the project is not a library, and no build target is specified, we can just use "install".
           else if !isLibrary then
@@ -714,7 +738,12 @@ in
           # `null' if no haddock documentation was built.
           # TODO: fetch the self from the fixpoint instead
           haddockDir = self:
-            if doHaddock then "${docdir self.doc}/html" else null;
+            if
+              doHaddock
+            then
+              "${docdir self.doc}/html"
+            else
+              null;
 
           # Creates a derivation containing all of the necessary dependencies for building the
           # parent derivation. The attribute set that it takes as input can be viewed as:
@@ -736,8 +765,12 @@ in
             let
               name = "ghc-shell-for-${drv.name}";
 
-              withPackages =
-                if withHoogle then ghcWithHoogle else ghcWithPackages;
+              withPackages = if
+                withHoogle
+              then
+                ghcWithHoogle
+              else
+                ghcWithPackages;
 
               # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
               # want a shell for the sake of cross compiling a package. In the native case
@@ -771,7 +804,9 @@ in
                 "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
                 # TODO: is this still valid?
                 "NIX_${ghcCommandCaps}_DOCDIR" = "${ghcEnv}/share/doc/ghc/html";
-                "NIX_${ghcCommandCaps}_LIBDIR" = if ghc.isHaLVM or false then
+                "NIX_${ghcCommandCaps}_LIBDIR" = if
+                  ghc.isHaLVM or false
+                then
                   "${ghcEnv}/lib/HaLVM-${ghc.version}"
                 else
                   "${ghcEnv}/${ghcLibdir}";

@@ -50,10 +50,17 @@ stdenv.mkDerivation rec {
     extraPrefix = "";
   }) ];
 
-  configureFlags = if stdenv.isLinux then [
+  configureFlags = if
+    stdenv.isLinux
+  then [
     # It seems that the e2fsprogs is one of the few packages that cannot be
     # build with shared and static libs.
-    (if shared then "--enable-elf-shlibs" else "--disable-elf-shlibs")
+    (if
+      shared
+    then
+      "--enable-elf-shlibs"
+    else
+      "--disable-elf-shlibs")
     "--enable-symlink-install"
     "--enable-relative-symlinks"
     "--with-crond-dir=no"

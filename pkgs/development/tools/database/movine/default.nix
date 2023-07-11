@@ -28,7 +28,9 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     postgresql
     sqlite
-  ] ++ (if !stdenv.isDarwin then [ openssl ] else [
+  ] ++ (if
+    !stdenv.isDarwin
+  then [ openssl ] else [
     Security
     libiconv
   ]);

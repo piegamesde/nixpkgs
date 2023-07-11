@@ -46,7 +46,9 @@ let
         builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
-    in if parts == null then
+    in if
+      parts == null
+    then
       null
     else
       {
@@ -55,7 +57,9 @@ let
       } // lib.optionalAttrs (type != null) { inherit type value; };
 
   # shadows args.lockFileContents
-  lockFileContents = if lockFile != null then
+  lockFileContents = if
+    lockFile != null
+  then
     builtins.readFile lockFile
   else
     args.lockFileContents;
@@ -143,8 +147,10 @@ let
     let
       gitParts = parseGit pkg.source;
       registryIndexUrl = lib.removePrefix "registry+" pkg.source;
-    in if lib.hasPrefix "registry+" pkg.source
-    && builtins.hasAttr registryIndexUrl registries then
+    in if
+      lib.hasPrefix "registry+" pkg.source
+      && builtins.hasAttr registryIndexUrl registries
+    then
       let
         crateTarball = fetchCrate pkg registries.${registryIndexUrl};
       in
@@ -168,7 +174,9 @@ let
           If you use `buildRustPackage`, you can add this attribute to the `cargoLock`
           attribute set.
         '';
-        tree = if gitShaOutputHash ? ${gitParts.sha} then
+        tree = if
+          gitShaOutputHash ? ${gitParts.sha}
+        then
           fetchgit {
             inherit (gitParts) url;
             rev = gitParts.sha; # The commit SHA is always available.
@@ -239,7 +247,9 @@ let
     else
       throw "Cannot handle crate source: ${pkg.source}";
 
-  vendorDir = runCommand "cargo-vendor-dir" (if lockFile == null then {
+  vendorDir = runCommand "cargo-vendor-dir" (if
+    lockFile == null
+  then {
     inherit lockFileContents;
     passAsFile = [ "lockFileContents" ];
   } else {
@@ -248,7 +258,9 @@ let
         mkdir -p $out/.cargo
 
         ${
-          if lockFile != null then
+          if
+            lockFile != null
+          then
             "ln -s ${lockFile} $out/Cargo.lock"
           else
             "cp $lockFileContentsPath $out/Cargo.lock"

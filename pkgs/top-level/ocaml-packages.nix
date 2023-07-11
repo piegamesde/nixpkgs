@@ -162,7 +162,9 @@ let
         camlp-streams =
           callPackage ../development/ocaml-modules/camlp-streams { };
 
-        camlp4 = if lib.versionOlder "4.02" ocaml.version then
+        camlp4 = if
+          lib.versionOlder "4.02" ocaml.version
+        then
           callPackage ../development/tools/ocaml/camlp4 { }
         else
           null;
@@ -176,7 +178,9 @@ let
 
         camlzip = callPackage ../development/ocaml-modules/camlzip { };
 
-        camomile = if lib.versionOlder "4.02" ocaml.version then
+        camomile = if
+          lib.versionOlder "4.02" ocaml.version
+        then
           callPackage ../development/ocaml-modules/camomile { }
         else
           callPackage ../development/ocaml-modules/camomile/0.8.5.nix { };
@@ -234,7 +238,9 @@ let
 
         # The 1.1.0 release broke a lot of packages and is not compatible with
         # OCaml < 4.08.
-        cmdliner = if lib.versionAtLeast ocaml.version "4.08" then
+        cmdliner = if
+          lib.versionAtLeast ocaml.version "4.08"
+        then
           cmdliner_1_1
         else
           cmdliner_1_0;
@@ -430,14 +436,18 @@ let
 
         dune_1 = callPackage ../development/tools/ocaml/dune/1.nix { };
 
-        dune_2 = if lib.versionAtLeast ocaml.version "4.08" then
+        dune_2 = if
+          lib.versionAtLeast ocaml.version "4.08"
+        then
           callPackage ../development/tools/ocaml/dune/2.nix { }
         else if lib.versionAtLeast ocaml.version "4.02" then
           pkgs.dune_2
         else
           throw "dune_2 is not available for OCaml ${ocaml.version}";
 
-        dune_3 = if lib.versionAtLeast ocaml.version "4.08" then
+        dune_3 = if
+          lib.versionAtLeast ocaml.version "4.08"
+        then
           callPackage ../development/tools/ocaml/dune/3.nix { }
         else if lib.versionAtLeast ocaml.version "4.02" then
           pkgs.dune_3
@@ -491,7 +501,9 @@ let
         eliom = callPackage ../development/ocaml-modules/eliom { };
 
         elpi = callPackage ../development/ocaml-modules/elpi (let
-          ppxlib_0_15 = if lib.versionAtLeast ppxlib.version "0.15" then
+          ppxlib_0_15 = if
+            lib.versionAtLeast ppxlib.version "0.15"
+          then
             ppxlib.override { version = "0.15.0"; }
           else
             ppxlib;
@@ -674,7 +686,9 @@ let
           inherit (pkgs) gnuplot;
         };
 
-        graphics = if lib.versionOlder "4.09" ocaml.version then
+        graphics = if
+          lib.versionOlder "4.09" ocaml.version
+        then
           callPackage ../development/ocaml-modules/graphics { }
         else
           null;
@@ -819,7 +833,9 @@ let
         ### J ###
 
         # Jane Street
-        janePackage = if lib.versionOlder "4.10.2" ocaml.version then
+        janePackage = if
+          lib.versionOlder "4.10.2" ocaml.version
+        then
           callPackage
           ../development/ocaml-modules/janestreet/janePackage_0_15.nix { }
         else if lib.versionOlder "4.08" ocaml.version then
@@ -832,7 +848,9 @@ let
           callPackage ../development/ocaml-modules/janestreet/janePackage.nix
           { };
 
-        janeStreet = if lib.versionOlder "4.10.2" ocaml.version then
+        janeStreet = if
+          lib.versionOlder "4.10.2" ocaml.version
+        then
           import ../development/ocaml-modules/janestreet/0.15.nix {
             inherit self;
             inherit (pkgs) bash fetchpatch fzf lib openssl zstd;
@@ -930,7 +948,9 @@ let
           inherit (pkgs.gnome2) libgnomecanvas gtksourceview;
         };
 
-        lablgtk-extras = if lib.versionOlder "4.02" ocaml.version then
+        lablgtk-extras = if
+          lib.versionOlder "4.02" ocaml.version
+        then
           callPackage ../development/ocaml-modules/lablgtk-extras { }
         else
           callPackage ../development/ocaml-modules/lablgtk-extras/1.4.nix { };
@@ -1075,7 +1095,9 @@ let
 
         menhirSdk = callPackage ../development/ocaml-modules/menhir/sdk.nix { };
 
-        merlin = if lib.versionAtLeast ocaml.version "4.12" then
+        merlin = if
+          lib.versionAtLeast ocaml.version "4.12"
+        then
           callPackage ../development/tools/ocaml/merlin/4.x.nix { }
         else
           callPackage ../development/tools/ocaml/merlin { };
@@ -1279,7 +1301,9 @@ let
           inherit (pkgs.python3Packages) numpy;
         };
 
-        num = if lib.versionOlder "4.06" ocaml.version then
+        num = if
+          lib.versionOlder "4.06" ocaml.version
+        then
           callPackage ../development/ocaml-modules/num { }
         else
           null;
@@ -1290,7 +1314,9 @@ let
 
         ocaml_cryptgps = callPackage ../development/ocaml-modules/cryptgps { };
 
-        ocaml_expat = if lib.versionAtLeast ocaml.version "4.02" then
+        ocaml_expat = if
+          lib.versionAtLeast ocaml.version "4.02"
+        then
           callPackage ../development/ocaml-modules/expat { }
         else
           callPackage ../development/ocaml-modules/expat/0.9.nix { };
@@ -1350,7 +1376,9 @@ let
 
         ocaml-vdom = callPackage ../development/ocaml-modules/ocaml-vdom { };
 
-        ocamlbuild = if lib.versionOlder "4.03" ocaml.version then
+        ocamlbuild = if
+          lib.versionOlder "4.03" ocaml.version
+        then
           callPackage ../development/tools/ocaml/ocamlbuild { }
         else
           null;
@@ -1596,7 +1624,9 @@ let
 
         ppx_repr = callPackage ../development/ocaml-modules/repr/ppx.nix { };
 
-        ppx_tools = if lib.versionAtLeast ocaml.version "4.02" then
+        ppx_tools = if
+          lib.versionAtLeast ocaml.version "4.02"
+        then
           callPackage ../development/ocaml-modules/ppx_tools { }
         else
           null;

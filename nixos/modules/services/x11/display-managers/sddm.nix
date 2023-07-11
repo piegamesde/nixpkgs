@@ -38,7 +38,12 @@ let
     General = {
       HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
       RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
-      Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
+      Numlock = if
+        cfg.autoNumlock
+      then
+        "on"
+      else
+        "none"; # on, off none
 
       # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
       DefaultSession = optionalString (dmcfg.defaultSession != null)
@@ -58,7 +63,12 @@ let
     };
 
     X11 = {
-      MinimumVT = if xcfg.tty != null then xcfg.tty else 7;
+      MinimumVT = if
+        xcfg.tty != null
+      then
+        xcfg.tty
+      else
+        7;
       ServerPath = toString xserverWrapper;
       XephyrPath = "${pkgs.xorg.xorgserver.out}/bin/Xephyr";
       SessionCommand = toString dmcfg.sessionData.wrapper;

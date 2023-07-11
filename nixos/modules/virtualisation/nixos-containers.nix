@@ -204,14 +204,18 @@ let
   postStartScript = (cfg:
     let
       ipcall = cfg: ipcmd: variable: attribute:
-        if cfg.${attribute} == null then ''
+        if
+          cfg.${attribute} == null
+        then ''
           if [ -n "${variable}" ]; then
             ${ipcmd} add ${variable} dev $ifaceHost
           fi
         '' else
           "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost";
       renderExtraVeth = name: cfg:
-        if cfg.hostBridge != null then ''
+        if
+          cfg.hostBridge != null
+        then ''
           # Add ${name} to bridge ${cfg.hostBridge}
           ip link set dev ${name} master ${cfg.hostBridge} up
         '' else ''
@@ -342,8 +346,15 @@ let
 
   mkBindFlag = d:
     let
-      flagPrefix = if d.isReadOnly then " --bind-ro=" else " --bind=";
-      mountstr = if d.hostPath != null then
+      flagPrefix = if
+        d.isReadOnly
+      then
+        " --bind-ro="
+      else
+        " --bind=";
+      mountstr = if
+        d.hostPath != null
+      then
         "${d.hostPath}:${d.mountPoint}"
       else
         "${d.mountPoint}";
@@ -506,8 +517,10 @@ in {
                                 toString __curPos.line
                               }";
                             config = {
-                              nixpkgs = if options.nixpkgs ? hostPlatform
-                              && host.options.nixpkgs.hostPlatform.isDefined then {
+                              nixpkgs = if
+                                options.nixpkgs ? hostPlatform
+                                && host.options.nixpkgs.hostPlatform.isDefined
+                              then {
                                 inherit (host.config.nixpkgs) hostPlatform;
                               } else {
                                 inherit (host.config.nixpkgs) localSystem;
@@ -746,7 +759,9 @@ in {
             # Because this is a submodule we cannot use `mkRemovedOptionModule` or option `assertions`.
             optionPath = "containers.${name}.pkgs";
             files = showFiles options.pkgs.files;
-            checkAssertion = if options.pkgs.isDefined then
+            checkAssertion = if
+              options.pkgs.isDefined
+            then
               throw ''
                 The option definition `${optionPath}' in ${files} no longer has any effect; please remove it.
 
@@ -834,7 +849,9 @@ in {
       # declarative containers
       ++ (mapAttrsToList (name: cfg:
         nameValuePair "container@${name}" (let
-          containerConfig = cfg // (if cfg.enableTun then {
+          containerConfig = cfg // (if
+            cfg.enableTun
+          then {
             allowedDevices = cfg.allowedDevices ++ [ {
               node = "/dev/net/tun";
               modifier = "rw";
@@ -851,11 +868,15 @@ in {
             serviceConfig = serviceDirectives containerConfig;
             unitConfig.RequiresMountsFor =
               lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
-            environment.root = if containerConfig.ephemeral then
+            environment.root = if
+              containerConfig.ephemeral
+            then
               "/run/nixos-containers/%i"
             else
               "${stateDirectory}/%i";
-          } // (if containerConfig.autoStart then {
+          } // (if
+            containerConfig.autoStart
+          then {
             wantedBy = [ "machines.target" ];
             wants = [ "network.target" ];
             after = [ "network.target" ];
@@ -873,8 +894,9 @@ in {
     # configuration.
     environment.etc = let
       mkPortStr = p:
-        p.protocol + ":" + (toString p.hostPort) + ":"
-        + (if p.containerPort == null then
+        p.protocol + ":" + (toString p.hostPort) + ":" + (if
+          p.containerPort == null
+        then
           toString p.hostPort
         else
           toString p.containerPort);

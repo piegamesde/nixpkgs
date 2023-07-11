@@ -24,8 +24,9 @@ let
 
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
 
-  fileSystems = if fileSystems'
-  ? result then # use topologically sorted fileSystems everywhere
+  fileSystems = if
+    fileSystems' ? result
+  then # use topologically sorted fileSystems everywhere
     fileSystems'.result
   else # the assertion below will catch this,
   # but we fall back to the original order
@@ -160,7 +161,9 @@ let
       config = let
         defaultFormatOptions =
           # -F needed to allow bare block device without partitions
-          if (builtins.substring 0 3 config.fsType) == "ext" then
+          if
+            (builtins.substring 0 3 config.fsType) == "ext"
+          then
             "-F"
             # -q needed for non-interactive operations
           else if config.fsType == "jfs" then
@@ -241,8 +244,9 @@ let
       extraOpts ? (fs: [ ])
     }:
     concatMapStrings (fs:
-      (optionalString (isBindMount fs) (escape rootPrefix))
-      + (if fs.device != null then
+      (optionalString (isBindMount fs) (escape rootPrefix)) + (if
+        fs.device != null
+      then
         escape fs.device
       else if fs.label != null then
         "/dev/disk/by-label/${escape fs.label}"
@@ -250,7 +254,9 @@ let
         throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
       + escape fs.mountPoint + " " + fs.fsType + " "
       + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
-      + " 0 " + (if skipCheck fs then
+      + " 0 " + (if
+        skipCheck fs
+      then
         "0"
       else if fs.mountPoint == "/" then
         "1"

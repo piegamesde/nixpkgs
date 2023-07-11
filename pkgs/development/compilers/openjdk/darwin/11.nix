@@ -14,7 +14,9 @@ let
       arch = "x64";
       zuluVersion = "11.48.21";
       jdkVersion = "11.0.11";
-      sha256 = if enableJavaFX then
+      sha256 = if
+        enableJavaFX
+      then
         "18bd9cd66d6abc6f8c627bc70278dc8fd4860e138e1dc9e170eddb89727ccc7b"
       else
         "0v0n7h7i04pvna41wpdq2k9qiy70sbbqzqzvazfdvgm3gb22asw6";
@@ -24,7 +26,9 @@ let
       arch = "aarch64";
       zuluVersion = "11.48.21";
       jdkVersion = "11.0.11";
-      sha256 = if enableJavaFX then
+      sha256 = if
+        enableJavaFX
+      then
         "ef0de2705c6c2d586812f7f3736b70e22b069545b38034816016f9f264ad43f9"
       else
         "066whglrxx81c95grv2kxdbvyh32728ixhml2v44ildh549n4lhc";
@@ -37,7 +41,12 @@ let
     sha256 = "0nk7m0lgcbsvldq2wbfni2pzq8h818523z912i7v8hdcij5s48c0";
   };
 
-  javaPackage = if enableJavaFX then "ca-fx-jdk" else "ca-jdk";
+  javaPackage = if
+    enableJavaFX
+  then
+    "ca-fx-jdk"
+  else
+    "ca-jdk";
 
   jdk = stdenv.mkDerivation rec {
     pname = "zulu${dist.zuluVersion}-${javaPackage}";

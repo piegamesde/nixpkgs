@@ -119,8 +119,15 @@ in
   }:
 
   let
-    urls_ = if urls != [ ] && url == "" then
-      (if lib.isList urls then urls else throw "`urls` is not a list")
+    urls_ = if
+      urls != [ ] && url == ""
+    then
+      (if
+        lib.isList urls
+      then
+        urls
+      else
+        throw "`urls` is not a list")
     else if urls == [ ] && url != "" then
       (if lib.isString url then [ url ] else throw "`url` is not a string")
     else
@@ -128,7 +135,9 @@ in
 
     hash_ =
       # Many other combinations don't make sense, but this is the most common one:
-      if hash != "" && sha256 != "" then
+      if
+        hash != "" && sha256 != ""
+      then
         throw "multiple hashes passed to fetchurl"
       else
 
@@ -158,10 +167,14 @@ in
         }";
 
   in
-    stdenvNoCC.mkDerivation ((if (pname != "" && version != "") then {
+    stdenvNoCC.mkDerivation ((if
+      (pname != "" && version != "")
+    then {
       inherit pname version;
     } else {
-      name = if showURLs then
+      name = if
+        showURLs
+      then
         "urls"
       else if name != "" then
         name
@@ -181,15 +194,21 @@ in
       # New-style output content requirements.
       inherit (hash_) outputHashAlgo outputHash;
 
-      SSL_CERT_FILE = if (hash_.outputHash == "" || hash_.outputHash
-        == lib.fakeSha256 || hash_.outputHash == lib.fakeSha512
-        || hash_.outputHash == lib.fakeHash) then
+      SSL_CERT_FILE = if
+        (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256
+          || hash_.outputHash == lib.fakeSha512 || hash_.outputHash
+          == lib.fakeHash)
+      then
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else
         "/no-cert-file.crt";
 
-      outputHashMode =
-        if (recursiveHash || executable) then "recursive" else "flat";
+      outputHashMode = if
+        (recursiveHash || executable)
+      then
+        "recursive"
+      else
+        "flat";
 
       curlOpts = lib.warnIf (lib.isList curlOpts) ''
         fetchurl for ${toString (builtins.head urls_)}: curlOpts is a list (${
@@ -210,7 +229,9 @@ in
 
       inherit preferLocalBuild;
 
-      postHook = if netrcPhase == null then
+      postHook = if
+        netrcPhase == null
+      then
         null
       else ''
         ${netrcPhase}

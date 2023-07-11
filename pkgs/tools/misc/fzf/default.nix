@@ -17,7 +17,9 @@ let
   # on Linux, wrap perl in the bash completion scripts with the glibc locales,
   # so that using the shell completion (ctrl+r, etc) doesn't result in ugly
   # warnings on non-nixos machines
-  ourPerl = if !stdenv.isLinux then
+  ourPerl = if
+    !stdenv.isLinux
+  then
     perl
   else
     (writeShellScriptBin "perl" ''

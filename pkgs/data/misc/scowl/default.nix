@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false;
 
-  installPhase = if singleWordlist == null then ''
+  installPhase = if
+    singleWordlist == null
+  then ''
     eval "$preInstall"
 
     mkdir -p "$out/share/scowl"

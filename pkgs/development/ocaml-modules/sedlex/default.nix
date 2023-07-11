@@ -11,8 +11,12 @@
 }:
 
 let
-  param = if lib.versionAtLeast ppxlib.version "0.26.0" then
-    if lib.versionAtLeast ocaml.version "4.14" then {
+  param = if
+    lib.versionAtLeast ppxlib.version "0.26.0"
+  then
+    if
+      lib.versionAtLeast ocaml.version "4.14"
+    then {
       version = "3.1";
       sha256 = "sha256-qG8Wxd/ATwoogeKJDyt5gkGhP5Wvc0j0mMqcoVDkeq4=";
     } else {

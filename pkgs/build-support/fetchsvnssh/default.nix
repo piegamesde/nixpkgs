@@ -14,7 +14,9 @@
   sha256 ? ""
 }:
 
-if md5 != "" then
+if
+  md5 != ""
+then
   throw "fetchsvnssh does not support md5 anymore, please use sha256"
 else
   stdenvNoCC.mkDerivation {

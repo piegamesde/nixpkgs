@@ -111,7 +111,9 @@
 }@args:
 
 let
-  platforms = if args ? meta.platforms then
+  platforms = if
+    args ? meta.platforms
+  then
     lib.intersectLists args.meta.platforms dotnet-sdk.meta.platforms
   else
     dotnet-sdk.meta.platforms;
@@ -119,7 +121,9 @@ let
   inherit (callPackage ./hooks {
     inherit dotnet-sdk dotnet-test-sdk disabledTests nuget-source dotnet-runtime
       runtimeDeps buildType;
-    runtimeId = if runtimeId != null then
+    runtimeId = if
+      runtimeId != null
+    then
       runtimeId
     else
       dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
@@ -127,13 +131,19 @@ let
     dotnetConfigureHook dotnetBuildHook dotnetCheckHook dotnetInstallHook
     dotnetFixupHook;
 
-  localDeps = if (projectReferences != [ ]) then
+  localDeps = if
+    (projectReferences != [ ])
+  then
     linkFarmFromDrvs "${name}-project-references" projectReferences
   else
     null;
 
-  _nugetDeps = if (nugetDeps != null) then
-    if lib.isDerivation nugetDeps then
+  _nugetDeps = if
+    (nugetDeps != null)
+  then
+    if
+      lib.isDerivation nugetDeps
+    then
       nugetDeps
     else
       mkNugetDeps {
@@ -203,7 +213,9 @@ in
 
       fetch-deps = let
         flags = dotnetFlags ++ dotnetRestoreFlags;
-        runtimeIds = if runtimeId != null then [ runtimeId ] else
+        runtimeIds = if
+          runtimeId != null
+        then [ runtimeId ] else
           map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
         defaultDepsFile =
           # Wire in the nugetDeps file such that running the script with no args
@@ -211,8 +223,10 @@ in
           # Note that toString is necessary here as it results in the path at
           # eval time (i.e. to the file in your local Nixpkgs checkout) rather
           # than the Nix store path of the path after it's been imported.
-          if lib.isPath nugetDeps
-          && !lib.hasPrefix "${builtins.storeDir}/" (toString nugetDeps) then
+          if
+            lib.isPath nugetDeps
+            && !lib.hasPrefix "${builtins.storeDir}/" (toString nugetDeps)
+          then
             toString nugetDeps
           else
             ''$(mktemp -t "${pname}-deps-XXXXXX.nix")'';

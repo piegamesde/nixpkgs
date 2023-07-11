@@ -15,7 +15,9 @@ let
       echo 'directory="../zip"' >> META-camlzip
     '';
   };
-  param = if lib.versionAtLeast ocaml.version "4.07" then
+  param = if
+    lib.versionAtLeast ocaml.version "4.07"
+  then
     common // {
       version = "1.11";
       url = "https://github.com/xavierleroy/camlzip/archive/rel111.tar.gz";

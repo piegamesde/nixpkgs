@@ -11,7 +11,12 @@ with lib;
 let
   cfg = config.services.amule;
   opt = options.services.amule;
-  user = if cfg.user != null then cfg.user else "amule";
+  user = if
+    cfg.user != null
+  then
+    cfg.user
+  else
+    "amule";
 
 in {
 

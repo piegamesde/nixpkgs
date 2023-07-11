@@ -36,7 +36,9 @@ let
   pname = "xonotic";
   version = "0.8.5";
   name = "${pname}-${version}";
-  variant = if withSDL && withGLX then
+  variant = if
+    withSDL && withGLX
+  then
     ""
   else if withSDL then
     "-sdl"

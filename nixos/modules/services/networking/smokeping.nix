@@ -11,7 +11,9 @@ let
   cfg = config.services.smokeping;
   smokepingHome = "/var/lib/smokeping";
   smokepingPidDir = "/run";
-  configFile = if cfg.config == null then ''
+  configFile = if
+    cfg.config == null
+  then ''
     *** General ***
     cgiurl   = ${cfg.cgiUrl}
     contact = ${cfg.ownerEmail}

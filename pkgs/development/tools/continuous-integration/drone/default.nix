@@ -35,6 +35,11 @@ buildGoModule rec {
       techknowlogick
     ];
     license = with licenses;
-      if enableUnfree then unfreeRedistributable else asl20;
+      if
+        enableUnfree
+      then
+        unfreeRedistributable
+      else
+        asl20;
   };
 }

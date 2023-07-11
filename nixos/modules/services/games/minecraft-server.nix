@@ -22,7 +22,13 @@ let
       uuid = v;
     }) cfg.whitelist));
 
-  cfgToString = v: if builtins.isBool v then boolToString v else toString v;
+  cfgToString = v:
+    if
+      builtins.isBool v
+    then
+      boolToString v
+    else
+      toString v;
 
   serverPropertiesFile = pkgs.writeText "server.properties" (''
     # server.properties managed by NixOS configuration
@@ -46,12 +52,16 @@ let
 
   serverPort = cfg.serverProperties.server-port or defaultServerPort;
 
-  rconPort = if cfg.serverProperties.enable-rcon or false then
+  rconPort = if
+    cfg.serverProperties.enable-rcon or false
+  then
     cfg.serverProperties."rcon.port" or 25575
   else
     null;
 
-  queryPort = if cfg.serverProperties.enable-query or false then
+  queryPort = if
+    cfg.serverProperties.enable-query or false
+  then
     cfg.serverProperties."query.port" or 25565
   else
     null;
@@ -257,7 +267,9 @@ in {
 
       preStart = ''
         ln -sf ${eulaFile} eula.txt
-      '' + (if cfg.declarative then ''
+      '' + (if
+        cfg.declarative
+      then ''
 
         if [ -e .declarative ]; then
 
@@ -285,7 +297,9 @@ in {
       '');
     };
 
-    networking.firewall = mkIf cfg.openFirewall (if cfg.declarative then {
+    networking.firewall = mkIf cfg.openFirewall (if
+      cfg.declarative
+    then {
       allowedUDPPorts = [ serverPort ];
       allowedTCPPorts = [ serverPort ] ++ optional (queryPort != null) queryPort
         ++ optional (rconPort != null) rconPort;

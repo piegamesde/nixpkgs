@@ -83,11 +83,23 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int
-            (n: n >= 0 && n <= (if v == 4 then 32 else 128));
+          type = types.addCheck types.int (n:
+            n >= 0 && n <= (if
+              v == 4
+            then
+              32
+            else
+              128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
-            bits in the prefix (`${if v == 4 then "24" else "64"}`).
+            bits in the prefix (`${
+              if
+                v == 4
+              then
+                "24"
+              else
+                "64"
+            }`).
           '';
         };
       };
@@ -101,11 +113,23 @@ let
       };
 
       prefixLength = mkOption {
-        type = types.addCheck types.int
-          (n: n >= 0 && n <= (if v == 4 then 32 else 128));
+        type = types.addCheck types.int (n:
+          n >= 0 && n <= (if
+            v == 4
+          then
+            32
+          else
+            128));
         description = lib.mdDoc ''
           Subnet mask of the network, specified as the number of
-          bits in the prefix (`${if v == 4 then "24" else "64"}`).
+          bits in the prefix (`${
+            if
+              v == 4
+            then
+              "24"
+            else
+              "64"
+          }`).
         '';
       };
 
@@ -349,7 +373,12 @@ let
         };
 
         virtualType = mkOption {
-          default = if hasPrefix "tun" name then "tun" else "tap";
+          default = if
+            hasPrefix "tun" name
+          then
+            "tun"
+          else
+            "tap";
           defaultText =
             literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
           type = with types;
@@ -401,7 +430,12 @@ let
           (config:
             let
               bool = getAttrFromPath [ "preferTempAddress" ] config;
-            in if bool then "default" else "enabled"))
+            in if
+              bool
+            then
+              "default"
+            else
+              "enabled"))
         (mkRenamedOptionModule [ "ip4" ] [
           "ipv4"
           "addresses"
@@ -504,7 +538,9 @@ let
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
     hi="${cfg.hostId}"
-    ${if pkgs.stdenv.isBigEndian then ''
+    ${if
+      pkgs.stdenv.isBigEndian
+    then ''
       echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > $out
     '' else ''
       echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
@@ -549,7 +585,9 @@ in {
     networking.fqdn = mkOption {
       readOnly = true;
       type = types.str;
-      default = if (cfg.hostName != "" && cfg.domain != null) then
+      default = if
+        (cfg.hostName != "" && cfg.domain != null)
+      then
         "${cfg.hostName}.${cfg.domain}"
       else
         throw ''
@@ -572,7 +610,12 @@ in {
     networking.fqdnOrHostName = mkOption {
       readOnly = true;
       type = types.str;
-      default = if cfg.domain == null then cfg.hostName else cfg.fqdn;
+      default = if
+        cfg.domain == null
+      then
+        cfg.hostName
+      else
+        cfg.fqdn;
       defaultText = literalExpression ''
         if cfg.domain == null then cfg.hostName else cfg.fqdn
       '';
@@ -1467,7 +1510,12 @@ in {
     };
 
     networking.tempAddresses = mkOption {
-      default = if cfg.enableIPv6 then "default" else "disabled";
+      default = if
+        cfg.enableIPv6
+      then
+        "default"
+      else
+        "disabled";
       defaultText = literalExpression ''
         if ''${config.${opt.enableIPv6}} then "default" else "disabled"
       '';
@@ -1685,7 +1733,9 @@ in {
         # Convert device:interface key:value pairs into a list, and if it exists,
         # place the interface which is named after the device at the beginning.
         wlanListDeviceFirst = device: interfaces:
-          if hasAttr device interfaces then
+          if
+            hasAttr device interfaces
+          then
             mapAttrsToList (n: v: v // { _iName = n; })
             (filterAttrs (n: _: n == device) interfaces)
             ++ mapAttrsToList (n: v: v // { _iName = n; })
@@ -1717,7 +1767,12 @@ in {
             ${optionalString
             (current.type == "managed" && current.fourAddr != null)
             "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-              if current.fourAddr then "on" else "off"
+              if
+                current.fourAddr
+              then
+                "on"
+              else
+                "off"
             }"}
             ${optionalString (current.mac != null)
             "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
@@ -1735,7 +1790,12 @@ in {
             "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
             ${optionalString (new.type == "managed" && new.fourAddr != null)
             "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-              if new.fourAddr then "on" else "off"
+              if
+                new.fourAddr
+              then
+                "on"
+              else
+                "off"
             }"}
             ${optionalString (new.mac != null)
             "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}

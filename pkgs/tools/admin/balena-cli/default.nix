@@ -52,7 +52,9 @@ in
     };
 
     # https://github.com/NixOS/nixpkgs/pull/48193/files#diff-b65952dbe5271c002fbc941b01c3586bf5050ad0e6aa6b2fcc74357680e103ea
-    preFixup = if stdenv.isLinux then
+    preFixup = if
+      stdenv.isLinux
+    then
       let
         libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
       in ''

@@ -14,8 +14,12 @@ in
   stdenv.mkDerivation {
     pname = "gcolor2";
     inherit version;
-    arch =
-      if stdenv.hostPlatform.system == "x86_64-linux" then "amd64" else "386";
+    arch = if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then
+      "amd64"
+    else
+      "386";
 
     src = fetchurl {
       url =
@@ -28,8 +32,9 @@ in
     '';
 
     # from https://github.com/PhantomX/slackbuilds/tree/master/gcolor2/patches
-    patches = (if stdenv.hostPlatform.system
-    == "x86_64-linux" then [ ./gcolor2-amd64.patch ] else
+    patches = (if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then [ ./gcolor2-amd64.patch ] else
       [ ]) ++ [
         # Pull patch pending upstream inclusion for -fno-common toolchains:
         #   https://sourceforge.net/p/gcolor2/patches/8/

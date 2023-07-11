@@ -19,7 +19,9 @@ let
   group = "automysqlbackup";
 
   toStr = val:
-    if isList val then
+    if
+      isList val
+    then
       "( ${concatMapStringsSep " " (val: "'${val}'") val} )"
     else if isInt val then
       toString val

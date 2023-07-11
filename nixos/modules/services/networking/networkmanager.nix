@@ -16,7 +16,9 @@ let
   enableIwd = cfg.wifi.backend == "iwd";
 
   mkValue = v:
-    if v == true then
+    if
+      v == true
+    then
       "yes"
     else if v == false then
       "no"
@@ -37,14 +39,18 @@ let
       dhcp = cfg.dhcp;
       dns = cfg.dns;
       # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-      rc-manager = if config.networking.resolvconf.enable then
+      rc-manager = if
+        config.networking.resolvconf.enable
+      then
         "resolvconf"
       else
         "unmanaged";
       firewall-backend = cfg.firewallBackend;
     })
     (mkSection "keyfile" {
-      unmanaged-devices = if cfg.unmanaged == [ ] then
+      unmanaged-devices = if
+        cfg.unmanaged == [ ]
+      then
         null
       else
         lib.concatStringsSep ";" cfg.unmanaged;
@@ -577,7 +583,9 @@ in {
         networkmanager.connectionConfig = {
           "ethernet.cloned-mac-address" = cfg.ethernet.macAddress;
           "wifi.cloned-mac-address" = cfg.wifi.macAddress;
-          "wifi.powersave" = if cfg.wifi.powersave == null then
+          "wifi.powersave" = if
+            cfg.wifi.powersave == null
+          then
             null
           else if cfg.wifi.powersave then
             3

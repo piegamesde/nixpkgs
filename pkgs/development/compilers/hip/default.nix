@@ -34,7 +34,12 @@
 }:
 
 let
-  hipPlatform = if useNVIDIA then "nvidia" else "amd";
+  hipPlatform = if
+    useNVIDIA
+  then
+    "nvidia"
+  else
+    "amd";
 
   wrapperArgs = [
     "--prefix PATH : $out/bin"

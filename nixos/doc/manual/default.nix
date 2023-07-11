@@ -57,7 +57,9 @@ let
         opt // {
           # Clean up declaration sites to not refer to the NixOS source tree.
           declarations = map (decl:
-            if hasPrefix (toString ../../..) (toString decl) then
+            if
+              hasPrefix (toString ../../..) (toString decl)
+            then
               let
                 subpath = removePrefix "/"
                   (removePrefix (toString ../../..) (toString decl));
@@ -219,7 +221,9 @@ in rec {
 
   # Generate the NixOS manual.
   manualHTML = runCommand "nixos-manual-html" {
-    nativeBuildInputs = if allowDocBook then [
+    nativeBuildInputs = if
+      allowDocBook
+    then [
       buildPackages.libxml2.bin
       buildPackages.libxslt.bin
     ] else [ buildPackages.nixos-render-docs ];
@@ -236,7 +240,9 @@ in rec {
     cp ${../../../doc/overrides.css} $dst/overrides.css
     cp -r ${pkgs.documentation-highlighter} $dst/highlightjs
 
-    ${if allowDocBook then ''
+    ${if
+      allowDocBook
+    then ''
       xsltproc \
         ${manualXsltprocOptions} \
         --stringparam id.warnings "1" \
@@ -321,7 +327,9 @@ in rec {
     # Generate manpages.
     mkdir -p $out/share/man/man8
     installManPage ${./manpages}/*
-    ${if allowDocBook then ''
+    ${if
+      allowDocBook
+    then ''
       xsltproc --nonet \
         --maxdepth 6000 \
         --param man.output.in.separate.dir 1 \

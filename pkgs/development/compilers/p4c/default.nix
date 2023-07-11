@@ -24,7 +24,13 @@
   enableMultithreading ? false
 }:
 let
-  toCMakeBoolean = v: if v then "ON" else "OFF";
+  toCMakeBoolean = v:
+    if
+      v
+    then
+      "ON"
+    else
+      "OFF";
 in
   stdenv.mkDerivation rec {
     pname = "p4c";

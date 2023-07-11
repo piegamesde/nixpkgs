@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ m4 ];
-  buildInputs = if stdenv.isDarwin then [
+  buildInputs = if
+    stdenv.isDarwin
+  then [
     Carbon
     IOKit
   ] else [

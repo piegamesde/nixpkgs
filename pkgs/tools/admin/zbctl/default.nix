@@ -8,7 +8,9 @@ stdenvNoCC.mkDerivation rec {
   pname = "zbctl";
   version = "8.0.6";
 
-  src = if stdenvNoCC.hostPlatform.system == "x86_64-darwin" then
+  src = if
+    stdenvNoCC.hostPlatform.system == "x86_64-darwin"
+  then
     fetchurl {
       url =
         "https://github.com/camunda/zeebe/releases/download/${version}/zbctl.darwin";

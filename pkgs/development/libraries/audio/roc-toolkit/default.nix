@@ -58,8 +58,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!opensslSupport) "--disable-openssl"
     ++ lib.optional (!soxSupport) "--disable-sox"
     ++ lib.optional (!libunwindSupport) "--disable-libunwind"
-    ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio"
-    ++ (if (!openfecSupport) then [ "--disable-openfec" ] else [
+    ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio" ++ (if
+      (!openfecSupport)
+    then [ "--disable-openfec" ] else [
       "--with-libraries=${openfec}/lib"
       "--with-openfec-includes=${openfec.dev}/include"
     ]);

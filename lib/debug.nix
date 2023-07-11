@@ -41,7 +41,12 @@ in rec {
     msg:
     # Value to return
     x:
-    if pred then trace msg x else x;
+    if
+      pred
+    then
+      trace msg x
+    else
+      x;
 
   /* Trace the supplied value after applying a function to it, and
      return the original value.
@@ -104,7 +109,9 @@ in rec {
   traceSeqN = depth: x: y:
     let
       snip = v:
-        if isList v then
+        if
+          isList v
+        then
           noQuotes "[…]" v
         else if isAttrs v then
           noQuotes "{…}" v
@@ -115,7 +122,9 @@ in rec {
         val = v;
       };
       modify = n: fn: v:
-        if (n == 0) then
+        if
+          (n == 0)
+        then
           fn v
         else if isList v then
           map (modify (n - 1) fn) v
@@ -243,10 +252,16 @@ in rec {
     tests:
     concatLists (attrValues (mapAttrs (name: test:
       let
-        testsToRun = if tests ? tests then tests.tests else [ ];
-      in if (substring 0 4 name == "test" || elem name testsToRun)
-      && ((testsToRun == [ ]) || elem name tests.tests)
-      && (test.expr != test.expected)
+        testsToRun = if
+          tests ? tests
+        then
+          tests.tests
+        else
+          [ ];
+      in if
+        (substring 0 4 name == "test" || elem name testsToRun)
+        && ((testsToRun == [ ]) || elem name tests.tests)
+        && (test.expr != test.expected)
 
       then [ {
         inherit name;

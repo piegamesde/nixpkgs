@@ -78,7 +78,9 @@ in {
         "postgrey"
         "inetPort"
       ];
-    in if value inetAddr == null then {
+    in if
+      value inetAddr == null
+    then {
       path = "/run/postgrey.sock";
     } else {
       addr = value inetAddr;
@@ -201,7 +203,9 @@ in {
     };
 
     systemd.services.postgrey = let
-      bind-flag = if cfg.socket ? path then
+      bind-flag = if
+        cfg.socket ? path
+      then
         "--unix=${cfg.socket.path} --socketmode=${cfg.socket.mode}"
       else
         "--inet=${
@@ -227,7 +231,9 @@ in {
                     --max-age=${toString cfg.maxAge} \
                     --retry-window=${toString cfg.retryWindow} \
                     ${
-                      if cfg.lookupBySubnet then
+                      if
+                        cfg.lookupBySubnet
+                      then
                         "--lookup-by-subnet"
                       else
                         "--lookup-by-host"
@@ -237,7 +243,9 @@ in {
                     } \
                     ${optionalString cfg.privacy "--privacy"} \
                     --auto-whitelist-clients=${
-                      toString (if cfg.autoWhitelist == null then
+                      toString (if
+                        cfg.autoWhitelist == null
+                      then
                         0
                       else
                         cfg.autoWhitelist)

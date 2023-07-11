@@ -10,7 +10,9 @@ let
 
   makeZfsTest = name:
     {
-      kernelPackage ? if enableUnstable then
+      kernelPackage ? if
+        enableUnstable
+      then
         pkgs.zfsUnstable.latestCompatibleLinuxPackages
       else
         pkgs.linuxPackages,

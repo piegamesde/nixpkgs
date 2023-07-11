@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   postInstall = let
-    executablePrefix = if stdenv.buildPlatform == stdenv.hostPlatform then
+    executablePrefix = if
+      stdenv.buildPlatform == stdenv.hostPlatform
+    then
       "$out"
     else
       buildPackages.libgphoto2;

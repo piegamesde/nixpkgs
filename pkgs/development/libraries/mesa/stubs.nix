@@ -8,7 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libGL";
-  inherit (if stdenv.hostPlatform.isDarwin then mesa else libglvnd) version;
+  inherit (if
+    stdenv.hostPlatform.isDarwin
+  then
+    mesa
+  else
+    libglvnd)
+    version;
   outputs = [
     "out"
     "dev"
@@ -18,7 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
   # build. We need to also include OpenGL.framework, and some
   # extra tricks to go along with. We add mesa’s libGLX to support
   # the X extensions to OpenGL.
-  buildCommand = if stdenv.hostPlatform.isDarwin then ''
+  buildCommand = if
+    stdenv.hostPlatform.isDarwin
+  then ''
       mkdir -p $out/nix-support $dev
       echo ${OpenGL} >> $out/nix-support/propagated-build-inputs
       ln -s ${mesa.out}/lib $out/lib
@@ -83,8 +91,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = {
-    description = "Stub bindings using "
-      + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
+    description = "Stub bindings using " + (if
+      stdenv.hostPlatform.isDarwin
+    then
+      "mesa"
+    else
+      "libglvnd");
     pkgConfigModules = [
       "gl"
       "egl"
@@ -92,7 +104,12 @@ stdenv.mkDerivation (finalAttrs: {
       "glesv2"
     ];
   } // {
-    inherit (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
+    inherit (if
+      stdenv.hostPlatform.isDarwin
+    then
+      mesa.meta
+    else
+      libglvnd.meta)
       homepage license platforms;
   };
 })

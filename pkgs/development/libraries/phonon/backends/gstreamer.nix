@@ -81,5 +81,12 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${
+      if
+        debug
+      then
+        "Debug"
+      else
+        "Release"
+    }" ];
 }

@@ -35,7 +35,9 @@ let
   # [ drv1 drv2 drv3 ]
   accumulateDerivations = jobList:
     lib.concatMap (attrs:
-      if lib.isDerivation attrs then [ attrs ] else
+      if
+        lib.isDerivation attrs
+      then [ attrs ] else
         lib.optionals (lib.isAttrs attrs)
         (accumulateDerivations (lib.attrValues attrs))) jobList;
 
@@ -216,9 +218,13 @@ let
   #   };
   # }
   removePlatforms = platformsToRemove: packageSet:
-    lib.mapAttrsRecursive
-    (_: val: if lib.isList val then removeMany platformsToRemove val else val)
-    packageSet;
+    lib.mapAttrsRecursive (_: val:
+      if
+        lib.isList val
+      then
+        removeMany platformsToRemove val
+      else
+        val) packageSet;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {

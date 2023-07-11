@@ -13,7 +13,14 @@ let
     [gammu]
     Device = ${cfg.device.path}
     Connection = ${cfg.device.connection}
-    SynchronizeTime = ${if cfg.device.synchronizeTime then "yes" else "no"}
+    SynchronizeTime = ${
+      if
+        cfg.device.synchronizeTime
+      then
+        "yes"
+      else
+        "no"
+    }
     LogFormat = ${cfg.log.format}
     ${optionalString (cfg.device.pin != null) "PIN = ${cfg.device.pin}"}
     ${cfg.extraConfig.gammu}

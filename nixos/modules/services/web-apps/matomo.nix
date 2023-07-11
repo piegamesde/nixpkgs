@@ -287,7 +287,9 @@ in {
       # workaround for when both are null and need to generate a string,
       # which is illegal, but as assertions apparently are being triggered *after* config generation,
       # we have to avoid already throwing errors at this previous stage.
-      socketOwner = if (cfg.nginx != null) then
+      socketOwner = if
+        (cfg.nginx != null)
+      then
         config.services.nginx.user
       else if (cfg.webServerUser != null) then
         cfg.webServerUser

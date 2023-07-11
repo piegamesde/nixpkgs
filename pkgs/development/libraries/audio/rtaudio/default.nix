@@ -36,10 +36,38 @@ stdenv.mkDerivation rec {
     ++ lib.optional jackSupport jack ++ lib.optional coreaudioSupport CoreAudio;
 
   cmakeFlags = [
-    "-DRTAUDIO_API_ALSA=${if alsaSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_PULSE=${if pulseaudioSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_JACK=${if jackSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_CORE=${if coreaudioSupport then "ON" else "OFF"}"
+    "-DRTAUDIO_API_ALSA=${
+      if
+        alsaSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DRTAUDIO_API_PULSE=${
+      if
+        pulseaudioSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DRTAUDIO_API_JACK=${
+      if
+        jackSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DRTAUDIO_API_CORE=${
+      if
+        coreaudioSupport
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   meta = with lib; {

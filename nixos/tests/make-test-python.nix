@@ -11,7 +11,9 @@ f:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
-makeTest (if pkgs.lib.isFunction f then
+makeTest (if
+  pkgs.lib.isFunction f
+then
   f (args // {
     inherit pkgs;
     inherit (pkgs) lib;

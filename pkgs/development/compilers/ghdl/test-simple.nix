@@ -6,7 +6,12 @@
 }:
 
 let
-  ghdl = if backend == "llvm" then ghdl-llvm else ghdl-mcode;
+  ghdl = if
+    backend == "llvm"
+  then
+    ghdl-llvm
+  else
+    ghdl-mcode;
 in
   stdenv.mkDerivation {
     name = "ghdl-test-simple";
@@ -18,7 +23,9 @@ in
       mkdir -p ghdlwork
       ghdl -a --workdir=ghdlwork --ieee=synopsys simple.vhd simple-tb.vhd
       ghdl -e --workdir=ghdlwork --ieee=synopsys -o sim-simple tb
-    '' + (if backend == "llvm" then ''
+    '' + (if
+      backend == "llvm"
+    then ''
       ./sim-simple --assert-level=warning > output.txt
     '' else ''
       ghdl -r --workdir=ghdlwork --ieee=synopsys tb > output.txt

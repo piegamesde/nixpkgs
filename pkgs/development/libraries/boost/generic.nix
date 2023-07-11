@@ -14,7 +14,9 @@
   boost-build,
   fetchpatch,
   which,
-  toolset ? if stdenv.cc.isClang then
+  toolset ? if
+    stdenv.cc.isClang
+  then
     "clang"
   else if stdenv.cc.isGNU then
     "gcc"
@@ -70,10 +72,20 @@ let
   link = lib.concatStringsSep ","
     (lib.optional enableShared "shared" ++ lib.optional enableStatic "static");
 
-  runtime-link = if enableShared then "shared" else "static";
+  runtime-link = if
+    enableShared
+  then
+    "shared"
+  else
+    "static";
 
   # To avoid library name collisions
-  layout = if taggedLayout then "tagged" else "system";
+  layout = if
+    taggedLayout
+  then
+    "tagged"
+  else
+    "system";
 
   # Versions of b2 before 1.65 have job limits; specifically:
   #   - Versions before 1.58 support up to 64 jobs[0]
@@ -81,7 +93,9 @@ let
   #
   # [0]: https://github.com/boostorg/build/commit/0ef40cb86728f1cd804830fef89a6d39153ff632
   # [1]: https://github.com/boostorg/build/commit/316e26ca718afc65d6170029284521392524e4f8
-  jobs = if lib.versionOlder version "1.58" then
+  jobs = if
+    lib.versionOlder version "1.58"
+  then
     "$(($NIX_BUILD_CORES<=64 ? $NIX_BUILD_CORES : 64))"
   else if lib.versionOlder version "1.65" then
     "$(($NIX_BUILD_CORES<=256 ? $NIX_BUILD_CORES : 256))"
@@ -108,8 +122,15 @@ let
     (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")) [
       "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
       "architecture=${
-        if stdenv.hostPlatform.isMips64 then
-          if lib.versionOlder version "1.78" then "mips1" else "mips"
+        if
+          stdenv.hostPlatform.isMips64
+        then
+          if
+            lib.versionOlder version "1.78"
+          then
+            "mips1"
+          else
+            "mips"
         else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
           "s390x"
         else
@@ -123,7 +144,9 @@ let
       # adapted from table in boost manual
       # https://www.boost.org/doc/libs/1_66_0/libs/context/doc/html/context/architectures.html
       "abi=${
-        if stdenv.hostPlatform.parsed.cpu.family == "arm" then
+        if
+          stdenv.hostPlatform.parsed.cpu.family == "arm"
+        then
           "aapcs"
         else if stdenv.hostPlatform.isWindows then
           "ms"
@@ -288,8 +311,12 @@ in
       "--includedir=$(dev)/include"
       "--libdir=$(out)/lib"
       "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-    ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
-      ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ];
+    ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [ (if
+      enableIcu
+    then
+      "--with-icu=${icu.dev}"
+    else
+      "--without-icu") ];
 
     buildPhase = ''
       runHook preBuild

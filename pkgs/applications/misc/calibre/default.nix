@@ -204,7 +204,9 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog =
       "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
-    license = if unrarSupport then
+    license = if
+      unrarSupport
+    then
       lib.licenses.unfreeRedistributable
     else
       lib.licenses.gpl3Plus;

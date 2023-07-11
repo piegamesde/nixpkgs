@@ -151,7 +151,14 @@ in
 
     cmakeFlags = [
       "-DMIR_PLATFORM='gbm-kms;x11;eglstream-kms;wayland'"
-      "-DMIR_ENABLE_TESTS=${if doCheck then "ON" else "OFF"}"
+      "-DMIR_ENABLE_TESTS=${
+        if
+          doCheck
+        then
+          "ON"
+        else
+          "OFF"
+      }"
       # BadBufferTest.test_truncated_shm_file *doesn't* throw an error as the test expected, mark as such
       # https://github.com/MirServer/mir/pull/1947#issuecomment-811810872
       "-DMIR_SIGBUS_HANDLER_ENVIRONMENT_BROKEN=ON"

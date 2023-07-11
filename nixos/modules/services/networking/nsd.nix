@@ -24,7 +24,13 @@ let
       > 0;
   };
 
-  mkZoneFileName = name: if name == "." then "root" else name;
+  mkZoneFileName = name:
+    if
+      name == "."
+    then
+      "root"
+    else
+      name;
 
   # replaces include: directives for keys with fake keys for nsd-checkconf
   injectFakeKeys = keys:
@@ -145,10 +151,27 @@ let
     ${cfg.extraConfig}
   '';
 
-  yesOrNo = b: if b then "yes" else "no";
-  maybeString = prefix: x: if x == null then "" else ''${prefix} "${x}"'';
+  yesOrNo = b:
+    if
+      b
+    then
+      "yes"
+    else
+      "no";
+  maybeString = prefix: x:
+    if
+      x == null
+    then
+      ""
+    else
+      ''${prefix} "${x}"'';
   maybeToString = prefix: x:
-    if x == null then "" else "${prefix} ${toString x}";
+    if
+      x == null
+    then
+      ""
+    else
+      "${prefix} ${toString x}";
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
   keyConfigFile = concatStrings (mapAttrsToList (keyName: keyOptions: ''
@@ -192,8 +215,9 @@ let
   zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
   zoneConfigs' = parent: name: zone:
-    if !(zone ? children) || zone.children == null || zone.children == { }
-    # leaf -> actual zone
+    if
+      !(zone ? children) || zone.children == null || zone.children == { }
+      # leaf -> actual zone
     then
       listToAttrs [ (nameValuePair name (parent // zone)) ]
 
@@ -471,8 +495,13 @@ let
     };
   };
 
-  dnssecZones =
-    (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones = (filterAttrs (n: v:
+    if
+      v ? dnssec
+    then
+      v.dnssec
+    else
+      false) zoneConfigs);
 
   dnssec = dnssecZones != { };
 

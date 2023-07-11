@@ -101,9 +101,12 @@ in
           ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
           ++ lib.optional (xineramaSupport && !waylandSupport)
           pkgs.xorg.libXinerama ++ lib.optional udevSupport pkgs.udev
-          ++ lib.optional vulkanSupport
-          (if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader)
-          ++ lib.optional sdlSupport pkgs.SDL2
+          ++ lib.optional vulkanSupport (if
+            stdenv.isDarwin
+          then
+            moltenvk
+          else
+            pkgs.vulkan-loader) ++ lib.optional sdlSupport pkgs.SDL2
           ++ lib.optional usbSupport pkgs.libusb1
           ++ lib.optionals gstreamerSupport (with pkgs.gst_all_1; [
             gstreamer
@@ -254,11 +257,15 @@ in
           fromSource
           binaryNativeCode # mono, gecko
         ];
-        description = if supportFlags.waylandSupport then
+        description = if
+          supportFlags.waylandSupport
+        then
           "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
         else
           "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
-        platforms = if supportFlags.waylandSupport then
+        platforms = if
+          supportFlags.waylandSupport
+        then
           (lib.remove "x86_64-darwin" prevPlatforms)
         else
           prevPlatforms;

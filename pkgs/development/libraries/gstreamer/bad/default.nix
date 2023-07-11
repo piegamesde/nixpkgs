@@ -255,8 +255,22 @@ stdenv.mkDerivation rec {
     "-Davtp=disabled"
     "-Ddirectshow=disabled" # Windows-only
     "-Ddts=disabled" # required `libdca` library not packaged in nixpkgs as of writing, and marked as "BIG FAT WARNING: libdca is still in early development"
-    "-Dzbar=${if enableZbar then "enabled" else "disabled"}"
-    "-Dfaac=${if faacSupport then "enabled" else "disabled"}"
+    "-Dzbar=${
+      if
+        enableZbar
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Dfaac=${
+      if
+        faacSupport
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
     "-Diqa=disabled" # required `dssim` library not packaging in nixpkgs as of writing, also this is AGPL so update license when adding support
     "-Dmagicleap=disabled" # required `ml_audio` library not packaged in nixpkgs as of writing
     "-Dmsdk=disabled" # not packaged in nixpkgs as of writing / no Windows support
@@ -286,7 +300,14 @@ stdenv.mkDerivation rec {
     "-Dgs=disabled" # depends on `google-cloud-cpp`
     "-Donnx=disabled" # depends on `libonnxruntime` not packaged in nixpkgs as of writing
     "-Dopenaptx=enabled" # since gstreamer-1.20.1 `libfreeaptx` is supported for circumventing the dubious license conflict with `libopenaptx`
-    "-Dbluez=${if bluezSupport then "enabled" else "disabled"}"
+    "-Dbluez=${
+      if
+        bluezSupport
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
     (lib.mesonEnable "doc" enableDocumentation)
   ] ++ lib.optionals (!stdenv.isLinux) [
     "-Ddoc=disabled" # needs gstcuda to be enabled which is Linux-only
@@ -317,7 +338,9 @@ stdenv.mkDerivation rec {
       # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
       # but its meson build system does not declare the dependency.
       "-Dapplemedia=disabled"
-    ] ++ (if enableGplPlugins then [ "-Dgpl=enabled" ] else [
+    ] ++ (if
+      enableGplPlugins
+    then [ "-Dgpl=enabled" ] else [
       "-Ddts=disabled"
       "-Dfaad=disabled"
       "-Diqa=disabled"
@@ -350,8 +373,12 @@ stdenv.mkDerivation rec {
       something - be it a good code review, some documentation, a set of tests,
       a real live maintainer, or some actual wide use.
     '';
-    license =
-      if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
+    license = if
+      enableGplPlugins
+    then
+      licenses.gpl2Plus
+    else
+      licenses.lgpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ matthewbauer ];
   };

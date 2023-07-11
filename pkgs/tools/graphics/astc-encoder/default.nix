@@ -10,7 +10,9 @@ with rec {
   # SIMD instruction sets to compile for. If none are specified by the user,
   # an appropriate one is selected based on the detected host system
   isas = with stdenv.hostPlatform;
-    if simdExtensions != null then
+    if
+      simdExtensions != null
+    then
       lib.toList simdExtensions
     else if avx2Support then [ "AVX2" ] else if sse4_1Support then [ "SSE41" ] else if isx86_64 then [ "SSE2" ] else if isAarch64 then [ "NEON" ] else [ "NONE" ];
 

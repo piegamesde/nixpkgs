@@ -63,11 +63,20 @@ vmTools.runInLinuxImage (stdenv.mkDerivation (
       # the log file
       export PAGER=cat
       ${checkinstall}/sbin/checkinstall --nodoc -y -D \
-        --fstrans=${if fsTranslation then "yes" else "no"} \
+        --fstrans=${
+          if
+            fsTranslation
+          then
+            "yes"
+          else
+            "no"
+        } \
         --requires="${lib.concatStringsSep "," debRequires}" \
         --provides="${lib.concatStringsSep "," debProvides}" \
         ${
-          if (src ? version) then
+          if
+            (src ? version)
+          then
             "--pkgversion=$(echo ${src.version} | tr _ -)"
           else
             "--pkgversion=0.0.0"
@@ -98,9 +107,14 @@ vmTools.runInLinuxImage (stdenv.mkDerivation (
       eval "$postInstall"
     '';
 
-    meta = (if args ? meta then args.meta else { }) // {
-      description = "Deb package for ${diskImage.fullName}";
-    };
+    meta = (if
+      args ? meta
+    then
+      args.meta
+    else
+      { }) // {
+        description = "Deb package for ${diskImage.fullName}";
+      };
   }
 
 ))

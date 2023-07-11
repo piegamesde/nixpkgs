@@ -16,7 +16,13 @@ let
     md = true;
     metal = true;
   };
-  onOffBool = b: if b then "ON" else "OFF";
+  onOffBool = b:
+    if
+      b
+    then
+      "ON"
+    else
+      "OFF";
   withMPI = (mpi != null);
 in
   stdenv.mkDerivation rec {

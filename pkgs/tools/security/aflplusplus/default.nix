@@ -25,7 +25,9 @@ assert (wine != null) -> (stdenv.targetPlatform.system == "i686-linux");
 
 let
   aflplusplus-qemu = callPackage ./qemu.nix { inherit aflplusplus; };
-  qemu-exe-name = if stdenv.targetPlatform.system == "x86_64-linux" then
+  qemu-exe-name = if
+    stdenv.targetPlatform.system == "x86_64-linux"
+  then
     "qemu-x86_64"
   else if stdenv.targetPlatform.system == "i686-linux" then
     "qemu-i386"

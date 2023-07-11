@@ -464,7 +464,9 @@ let
           name = id;
           value = true;
         } ]);
-      in if dup then
+      in if
+        dup
+      then
         args
       else if exists then
         builtins.trace "Duplicate ${idAttr} ${id}" {
@@ -933,12 +935,14 @@ in {
           scheme = "${id}(${sep}${options})?";
           content = "${base64}${sep}${base64}(${sep}${base64})?";
           mcf = "^${sep}${scheme}${sep}${content}$";
-        in if (allowsLogin user.hashedPassword && user.hashedPassword
-          != "" # login without password
-          && builtins.match mcf user.hashedPassword == null) then ''
-            The password hash of user "${user.name}" may be invalid. You must set a
-            valid hash or the user will be locked out of their account. Please
-            check the value of option `users.users."${user.name}".hashedPassword`.'' else
+        in if
+          (allowsLogin user.hashedPassword && user.hashedPassword
+            != "" # login without password
+            && builtins.match mcf user.hashedPassword == null)
+        then ''
+          The password hash of user "${user.name}" may be invalid. You must set a
+          valid hash or the user will be locked out of their account. Please
+          check the value of option `users.users."${user.name}".hashedPassword`.'' else
           null));
 
   } ;

@@ -13,7 +13,9 @@ let
     chown sogo:sogo /etc/sogo/sogo.conf
     chmod 640 /etc/sogo/sogo.conf
 
-    ${if (cfg.configReplaces != { }) then ''
+    ${if
+      (cfg.configReplaces != { })
+    then ''
       # Insert secrets
       ${concatStringsSep "\n"
       (mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'')

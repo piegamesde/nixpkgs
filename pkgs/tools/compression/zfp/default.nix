@@ -52,8 +52,14 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda "-DZFP_WITH_CUDA=ON"
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
-    ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
-    ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ]);
+    ++ lib.optional enablePython "-DBUILD_ZFPY=ON" ++ ([ "-DBUILD_UTILITIES=${
+        if
+          enableUtilities
+        then
+          "ON"
+        else
+          "OFF"
+      }" ]);
 
   doCheck = true;
 

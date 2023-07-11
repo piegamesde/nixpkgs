@@ -67,7 +67,9 @@ stdenv.mkDerivation rec {
     make -C syd check
   '';
 
-  postInstall = if installTests then ''
+  postInstall = if
+    installTests
+  then ''
     moveToOutput bin/syd-test $installedTests
   '' else ''
     # Tests are installed despite --disable-installed-tests

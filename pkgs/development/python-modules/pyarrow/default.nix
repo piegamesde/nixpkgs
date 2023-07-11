@@ -23,7 +23,13 @@
 }:
 
 let
-  zero_or_one = cond: if cond then 1 else 0;
+  zero_or_one = cond:
+    if
+      cond
+    then
+      1
+    else
+      0;
 
 in
   buildPythonPackage rec {

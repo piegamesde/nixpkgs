@@ -14,7 +14,9 @@
 }:
 
 let
-  selectedIndicators = if indicators == null then
+  selectedIndicators = if
+    indicators == null
+  then
     wingpanelIndicators
   else
     indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators);

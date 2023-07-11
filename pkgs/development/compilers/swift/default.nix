@@ -22,7 +22,9 @@ let
     #
     # If 'latest' becomes an issue, recommend replacing it with v14, which is
     # currently closest to the official Swift builds.
-    clang = if pkgs.stdenv.isDarwin then
+    clang = if
+      pkgs.stdenv.isDarwin
+    then
       llvmPackages_latest.clang.override rec {
         libc = apple_sdk.Libsystem;
         bintools = pkgs.bintools.override { inherit libc; };
@@ -60,12 +62,16 @@ let
       useSwiftDriver = false;
     };
 
-    Dispatch = if stdenv.isDarwin then
+    Dispatch = if
+      stdenv.isDarwin
+    then
       null # part of libsystem
     else
       callPackage ./libdispatch { swift = swiftNoSwiftDriver; };
 
-    Foundation = if stdenv.isDarwin then
+    Foundation = if
+      stdenv.isDarwin
+    then
       apple_sdk.frameworks.Foundation
     else
       callPackage ./foundation { swift = swiftNoSwiftDriver; };

@@ -272,7 +272,14 @@ in {
           PRUNEFS="${lib.concatStringsSep " " cfg.pruneFS}"
           PRUNENAMES="${lib.concatStringsSep " " cfg.pruneNames}"
           PRUNEPATHS="${lib.concatStringsSep " " cfg.prunePaths}"
-          PRUNE_BIND_MOUNTS="${if cfg.pruneBindMounts then "yes" else "no"}"
+          PRUNE_BIND_MOUNTS="${
+            if
+              cfg.pruneBindMounts
+            then
+              "yes"
+            else
+              "no"
+          }"
         '';
       };
     };
@@ -290,7 +297,9 @@ in {
 
       # mlocate's updatedb takes flags via a configuration file or
       # on the command line, but not by environment variable.
-      script = if isMorPLocate then
+      script = if
+        isMorPLocate
+      then
         let
           toFlags = x:
             optional (cfg.${x} != [ ])
@@ -303,7 +312,14 @@ in {
         in ''
           exec ${cfg.locate}/bin/updatedb \
             --output ${toString cfg.output} ${concatStringsSep " " args} \
-            --prune-bind-mounts ${if cfg.pruneBindMounts then "yes" else "no"} \
+            --prune-bind-mounts ${
+              if
+                cfg.pruneBindMounts
+              then
+                "yes"
+              else
+                "no"
+            } \
             ${concatStringsSep " " cfg.extraFlags}
         ''
       else ''
@@ -318,7 +334,12 @@ in {
         PRUNEFS = concatStringsSep " " cfg.pruneFS;
         PRUNEPATHS = concatStringsSep " " cfg.prunePaths;
         PRUNENAMES = concatStringsSep " " cfg.pruneNames;
-        PRUNE_BIND_MOUNTS = if cfg.pruneBindMounts then "yes" else "no";
+        PRUNE_BIND_MOUNTS = if
+          cfg.pruneBindMounts
+        then
+          "yes"
+        else
+          "no";
       };
       serviceConfig.Nice = 19;
       serviceConfig.IOSchedulingClass = "idle";

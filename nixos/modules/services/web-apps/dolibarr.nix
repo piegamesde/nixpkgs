@@ -25,7 +25,9 @@ let
       ];
 
       toStr = k: v:
-        if (any (str: k == str) secretKeys) then
+        if
+          (any (str: k == str) secretKeys)
+        then
           v
         else if isString v then
           "'${v}'"

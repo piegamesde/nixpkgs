@@ -54,7 +54,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "/etc/sioyek" "$out/etc"
   '';
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     cp -r pdf_viewer/shaders sioyek.app/Contents/MacOS/shaders
     cp pdf_viewer/prefs.config sioyek.app/Contents/MacOS/
     cp pdf_viewer/prefs_user.config sioyek.app/Contents/MacOS/

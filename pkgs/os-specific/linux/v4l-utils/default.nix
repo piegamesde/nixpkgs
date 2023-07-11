@@ -35,7 +35,9 @@ in
 
     outputs = [ "out" ] ++ lib.optional withUtils "lib" ++ [ "dev" ];
 
-    configureFlags = (if withUtils then [
+    configureFlags = (if
+      withUtils
+    then [
       "--with-localedir=${placeholder "lib"}/share/locale"
       "--with-udevdir=${placeholder "out"}/lib/udev"
     ] else [ "--disable-v4l-utils" ]);

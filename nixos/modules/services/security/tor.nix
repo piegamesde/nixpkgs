@@ -19,12 +19,24 @@ let
   '';
   bindsPrivilegedPort = any (p0:
     let
-      p1 = if p0 ? "port" then p0.port else p0;
-    in if p1 == "auto" then
+      p1 = if
+        p0 ? "port"
+      then
+        p0.port
+      else
+        p0;
+    in if
+      p1 == "auto"
+    then
       false
     else
       let
-        p2 = if isInt p1 then p1 else toInt p1;
+        p2 = if
+          isInt p1
+        then
+          p1
+        else
+          toInt p1;
       in
         p1 != null && 0 < p2 && p2 < 1024
   ) (flatten [
@@ -239,10 +251,17 @@ let
     };
 
   mkValueString = k: v:
-    if v == null then
+    if
+      v == null
+    then
       ""
     else if isBool v then
-      (if v then "1" else "0")
+      (if
+        v
+      then
+        "1"
+      else
+        "0")
     else if v ? "unix" && v.unix != null then
       "unix:" + v.unix
       + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
@@ -264,12 +283,14 @@ let
         generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
     } (lib.mapAttrs (k: v:
       # Not necesssary, but prettier rendering
-      if elem k [
-        "AutomapHostsSuffixes"
-        "DirPolicy"
-        "ExitPolicy"
-        "SocksPolicy"
-      ] && v != [ ] then
+      if
+        elem k [
+          "AutomapHostsSuffixes"
+          "DirPolicy"
+          "ExitPolicy"
+          "SocksPolicy"
+        ] && v != [ ]
+      then
         concatStringsSep "," v
       else
         v) (lib.filterAttrs (k: v: !(v == null || v == "")) settings));
@@ -813,7 +834,9 @@ in {
                       }))
                   ]);
                 apply = map (v:
-                  if isInt v then {
+                  if
+                    isInt v
+                  then {
                     port = v;
                     target = null;
                   } else
@@ -875,16 +898,20 @@ in {
                 };
               };
               config = {
-                path = mkDefault
-                  ((if config.secretKey == null then stateDir else runDir)
-                    + "/onion/${name}");
+                path = mkDefault ((if
+                  config.secretKey == null
+                then
+                  stateDir
+                else
+                  runDir) + "/onion/${name}");
                 settings.HiddenServiceVersion = config.version;
-                settings.HiddenServiceAuthorizeClient =
-                  if config.authorizeClient != null then
-                    config.authorizeClient.authType + " "
-                    + concatStringsSep "," config.authorizeClient.clientNames
-                  else
-                    null;
+                settings.HiddenServiceAuthorizeClient = if
+                  config.authorizeClient != null
+                then
+                  config.authorizeClient.authType + " "
+                  + concatStringsSep "," config.authorizeClient.clientNames
+                else
+                  null;
                 settings.HiddenServicePort = map
                   (p: mkValueString "" p.port + " " + mkValueString "" p.target)
                   config.map;
@@ -1224,11 +1251,12 @@ in {
           };
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
-            default =
-              if cfg.settings.HiddenServiceNonAnonymousMode == true then [ {
-                port = 0;
-              } ] else
-                [ ];
+            default = if
+              cfg.settings.HiddenServiceNonAnonymousMode == true
+            then [ {
+              port = 0;
+            } ] else
+              [ ];
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
@@ -1370,8 +1398,10 @@ in {
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = concatMap (o:
-        if isInt o && o > 0 then [ o ] else if o ? "port" && isInt o.port
-        && o.port > 0 then [ o.port ] else
+        if
+          isInt o && o > 0
+        then [ o ] else if o ? "port" && isInt o.port && o.port
+        > 0 then [ o.port ] else
           [ ]) (flatten [
             cfg.settings.ORPort
             cfg.settings.DirPort

@@ -36,7 +36,9 @@ in
     ];
 
     installPhase = ''
-      ${if stdenv.isDarwin then ''
+      ${if
+        stdenv.isDarwin
+      then ''
         install -D liblinear.so.${soVersion} $out/lib/liblinear.${soVersion}.dylib
         ln -s $out/lib/liblinear.${soVersion}.dylib $out/lib/liblinear.dylib
       '' else ''

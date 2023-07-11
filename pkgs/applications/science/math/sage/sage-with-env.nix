@@ -54,7 +54,9 @@ let
     let
       parts = lib.splitString "-" pkg.name;
       # remove python3.8-
-      stripped_parts = if (builtins.head parts) == python3.libPrefix then
+      stripped_parts = if
+        (builtins.head parts) == python3.libPrefix
+      then
         builtins.tail parts
       else
         parts;
@@ -67,12 +69,16 @@ let
 
   # return the names of all dependencies in the transitive closure
   transitiveClosure = dep:
-    if dep == null then
+    if
+      dep == null
+    then
     # propagatedBuildInputs might contain null
     # (although that might be considered a programming error in the derivation)
       [ ]
     else
-      [ dep ] ++ (if builtins.hasAttr "propagatedBuildInputs" dep then
+      [ dep ] ++ (if
+        builtins.hasAttr "propagatedBuildInputs" dep
+      then
         lib.unique
         (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
       else

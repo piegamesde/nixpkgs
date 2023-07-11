@@ -162,7 +162,12 @@ in {
               ) execOpts;
               unitAttrs = toplevelConfig.systemd.units."${name}.service";
               allPkgs = lib.singleton (builtins.toJSON unitAttrs);
-              unitPkgs = if fullUnit then allPkgs else execPkgs;
+              unitPkgs = if
+                fullUnit
+              then
+                allPkgs
+              else
+                execPkgs;
             in
               unitPkgs ++ lib.optional (binSh != null) binSh
             ;

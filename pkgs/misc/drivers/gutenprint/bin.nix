@@ -34,7 +34,9 @@ stdenv.mkDerivation {
   pname = "cups-gutenprint-binary";
   version = "5.0.1";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchurl {
       url =
         "https://www.openprinting.org/download/printdriver/debian/dists/lsb3.1/main/binary-amd64/gutenprint_5.0.1-1lsb3.1_amd64.deb";

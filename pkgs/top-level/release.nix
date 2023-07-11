@@ -62,7 +62,9 @@ let
     lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
     pkgs-lib-tests = import ../pkgs-lib/tests { inherit pkgs; };
 
-    darwin-tested = if supportDarwin.x86_64 then
+    darwin-tested = if
+      supportDarwin.x86_64
+    then
       pkgs.releaseTools.aggregate {
         name = "nixpkgs-darwin-${jobs.tarball.version}";
         meta.description =
@@ -188,7 +190,9 @@ let
 
     stdenvBootstrapTools = with lib;
       genAttrs systemsWithAnySupport (system:
-        if hasSuffix "-linux" system then
+        if
+          hasSuffix "-linux" system
+        then
           let
             bootstrap = import ../stdenv/linux/make-bootstrap-tools.nix {
               pkgs = import ../.. { localSystem = { inherit system; }; };

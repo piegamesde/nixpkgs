@@ -60,8 +60,22 @@ mkDerivation rec {
 
   cmakeFlags = [
     "-DCHAT_TYPE=${chatType}"
-    "-DENABLE_PLUGINS=${if enablePlugins then "ON" else "OFF"}"
-    "-DBUILD_PSIMEDIA=${if enablePsiMedia then "ON" else "OFF"}"
+    "-DENABLE_PLUGINS=${
+      if
+        enablePlugins
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DBUILD_PSIMEDIA=${
+      if
+        enablePsiMedia
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   nativeBuildInputs = [

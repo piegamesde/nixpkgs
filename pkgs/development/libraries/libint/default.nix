@@ -75,7 +75,12 @@
 }:
 
 # Check that Fortran bindings are not used together with SIMD real type
-assert (if enableFortran then !enableSSE else true);
+assert (if
+  enableFortran
+then
+  !enableSSE
+else
+  true);
 
 # Check that a possible angular momentum for basis functions is used
 assert (maxAm >= 1 && maxAm <= 8);

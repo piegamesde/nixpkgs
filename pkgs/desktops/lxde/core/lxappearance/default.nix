@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     libX11
-    (if withGtk3 then gtk3 else gtk2)
+    (if
+      withGtk3
+    then
+      gtk3
+    else
+      gtk2)
   ];
 
   patches = [ ./lxappearance-0.6.3-xdg.system.data.dirs.patch ];

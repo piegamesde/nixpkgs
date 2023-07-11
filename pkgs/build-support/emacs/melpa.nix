@@ -36,7 +36,12 @@ let
 in
   import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
 
-    ename = if ename == null then pname else ename;
+    ename = if
+      ename == null
+    then
+      pname
+    else
+      ename;
 
     packageBuild = stdenv.mkDerivation {
       name = "package-build";

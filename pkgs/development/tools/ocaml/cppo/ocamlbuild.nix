@@ -5,7 +5,9 @@
   ocamlbuild,
 }:
 
-if lib.versionOlder (lib.getVersion cppo) "1.6" then
+if
+  lib.versionOlder (lib.getVersion cppo) "1.6"
+then
   cppo
 else
 

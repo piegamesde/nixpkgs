@@ -36,7 +36,13 @@
 }:
 
 let
-  mkFlag = optSet: flag: if optSet then "-D${flag}=ON" else "-D${flag}=OFF";
+  mkFlag = optSet: flag:
+    if
+      optSet
+    then
+      "-D${flag}=ON"
+    else
+      "-D${flag}=OFF";
 
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
@@ -137,7 +143,14 @@ in
 
     cmakeFlags = cmakeCommonFlags ++ [
       "-DGIT_ARCHETYPE=1" # https://bugs.gentoo.org/814116
-      "-DENABLE_SHARED=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+      "-DENABLE_SHARED=${
+        if
+          stdenv.hostPlatform.isStatic
+        then
+          "OFF"
+        else
+          "ON"
+      }"
       "-DHIGH_BIT_DEPTH=OFF"
       "-DENABLE_HDR10_PLUS=ON"
       (mkFlag (isCross && stdenv.hostPlatform.isAarch) "CROSS_COMPILE_ARM")

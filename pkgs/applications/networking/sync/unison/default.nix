@@ -47,7 +47,14 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "INSTALLDIR=$(out)/bin/"
-    "UISTYLE=${if enableX11 then "gtk3" else "text"}"
+    "UISTYLE=${
+      if
+        enableX11
+      then
+        "gtk3"
+      else
+        "text"
+    }"
   ] ++ lib.optional (!ocamlPackages.ocaml.nativeCompilers) "NATIVE=false";
 
   preInstall = ''

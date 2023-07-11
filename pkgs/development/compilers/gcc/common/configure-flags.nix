@@ -72,13 +72,17 @@ let
     # Ensure that -print-prog-name is able to find the correct programs.
     [
       "--with-as=${
-        if targetPackages.stdenv.cc.bintools.isLLVM then
+        if
+          targetPackages.stdenv.cc.bintools.isLLVM
+        then
           binutils
         else
           targetPackages.stdenv.cc.bintools
       }/bin/${targetPlatform.config}-as"
       "--with-ld=${targetPackages.stdenv.cc.bintools}/bin/${targetPlatform.config}-ld"
-    ] ++ (if crossStageStatic then
+    ] ++ (if
+      crossStageStatic
+    then
       [
         "--disable-libssp"
         "--disable-nls"
@@ -109,7 +113,9 @@ let
       ]
     else
       [
-        (if crossDarwin then
+        (if
+          crossDarwin
+        then
           "--with-sysroot=${lib.getLib libcCross}/share/sysroot"
         else
           "--with-headers=${lib.getDev libcCross}${
@@ -118,7 +124,9 @@ let
         "--enable-__cxa_atexit"
         "--enable-long-long"
         "--enable-threads=${
-          if targetPlatform.isUnix then
+          if
+            targetPlatform.isUnix
+          then
             "posix"
           else if targetPlatform.isWindows then
             (threadsCross.model or "win32")
@@ -145,7 +153,9 @@ let
       "--with-mpfr-lib=${mpfr.out}/lib"
       "--with-mpc=${libmpc}"
     ] ++ lib.optionals (!crossStageStatic) [
-      (if libcCross == null then
+      (if
+        libcCross == null
+      then
         "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
       else
         "--with-native-system-header-dir=${lib.getDev libcCross}${
@@ -204,7 +214,9 @@ let
       }"
     ]
 
-    ++ (if (enableMultilib || targetPlatform.isAvr) then [
+    ++ (if
+      (enableMultilib || targetPlatform.isAvr)
+    then [
       "--enable-multilib"
       "--disable-libquadmath"
     ] else [ "--disable-multilib" ])
@@ -232,7 +244,9 @@ let
     ]
 
     # Ada options, gcc can't build the runtime library for a cross compiler
-    ++ lib.optional langAda (if hostPlatform == targetPlatform then
+    ++ lib.optional langAda (if
+      hostPlatform == targetPlatform
+    then
       "--enable-libada"
     else
       "--disable-libada")

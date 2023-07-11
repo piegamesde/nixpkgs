@@ -16,7 +16,13 @@
 with lib;
 
 let
-  boolToCmake = x: if x then "ON" else "OFF";
+  boolToCmake = x:
+    if
+      x
+    then
+      "ON"
+    else
+      "OFF";
 
   rev = "1.8.0";
   sha256 = "0q3a8x3iih25xkp2bm842sm2hxlb8hxlls4qmvj7vzwrh4lvsl7b";
@@ -77,7 +83,12 @@ let
     meta = {
       description = "SMT solver for Monotonic Theories";
       platforms = platforms.unix;
-      license = if includeGplCode then licenses.gpl2 else licenses.mit;
+      license = if
+        includeGplCode
+      then
+        licenses.gpl2
+      else
+        licenses.mit;
       homepage = "https://github.com/sambayless/monosat";
       maintainers = [ maintainers.acairncross ];
     };

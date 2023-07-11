@@ -26,7 +26,9 @@ let
   systemActivationScript = set: onlyDry:
     let
       set' = mapAttrs (_: v:
-        if isString v then
+        if
+          isString v
+        then
           (noDepEntry v) // { supportsDryActivation = false; }
         else
           v) set;
@@ -38,7 +40,9 @@ let
       # an activation script that does not, the dependency cannot be resolved and the eval
       # fails.
       withDrySnippets = mapAttrs (a: v:
-        if onlyDry && !v.supportsDryActivation then
+        if
+          onlyDry && !v.supportsDryActivation
+        then
           v // {
             text =
               "#### Activation script snippet ${a} does not support dry activation.";
@@ -202,7 +206,13 @@ in {
           trap "_status=1 _localstatus=\$?" ERR
 
           ${let
-            set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
+            set' = mapAttrs (n: v:
+              if
+                isString v
+              then
+                noDepEntry v
+              else
+                v) set;
             withHeadlines = addAttributeName set';
           in
             textClosureMap id (withHeadlines) (attrNames withHeadlines)
@@ -248,15 +258,16 @@ in {
       ${pkgs.e2fsprogs}/bin/chattr -f +i /var/empty || true
     '';
 
-    system.activationScripts.usrbinenv =
-      if config.environment.usrbinenv != null then ''
-        mkdir -m 0755 -p /usr/bin
-        ln -sfn ${config.environment.usrbinenv} /usr/bin/.env.tmp
-        mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
-      '' else ''
-        rm -f /usr/bin/env
-        rmdir --ignore-fail-on-non-empty /usr/bin /usr
-      '';
+    system.activationScripts.usrbinenv = if
+      config.environment.usrbinenv != null
+    then ''
+      mkdir -m 0755 -p /usr/bin
+      ln -sfn ${config.environment.usrbinenv} /usr/bin/.env.tmp
+      mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
+    '' else ''
+      rm -f /usr/bin/env
+      rmdir --ignore-fail-on-non-empty /usr/bin /usr
+    '';
 
     system.activationScripts.specialfs = ''
       specialMount() {

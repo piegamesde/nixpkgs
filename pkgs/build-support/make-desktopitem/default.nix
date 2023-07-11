@@ -52,7 +52,9 @@ lib.makeOverridable ({
     # e.g. StartupNotify, where "unset" is literally defined as "do something reasonable".
     # So, handle null values separately.
     boolOrNullToString = value:
-      if value == null then
+      if
+        value == null
+      then
         null
       else if builtins.isBool value then
         lib.boolToString value
@@ -62,7 +64,9 @@ lib.makeOverridable ({
     # Multiple values are represented as one string, joined by semicolons.
     # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
     renderList = key: value:
-      if !builtins.isList value then
+      if
+        !builtins.isList value
+      then
         throw "makeDesktopItem: value for ${key} must be a list!"
       else if builtins.any (item: lib.hasInfix ";" item) value then
         throw
@@ -105,7 +109,12 @@ lib.makeOverridable ({
     # FIXME: this isn't entirely correct for arbitrary strings, as some characters
     # need to be escaped. There are currently none in nixpkgs though, so this is OK.
     renderLine = name: value:
-      if value != null then "${name}=${value}" else null;
+      if
+        value != null
+      then
+        "${name}=${value}"
+      else
+        null;
 
     # Render a full section of the file from an attrset.
     # Null values are intentionally left out.

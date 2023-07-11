@@ -12,7 +12,12 @@ let
 
   specs = mapAttrsToList (n: v: rec {
     name = n + ".json";
-    path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
+    path = if
+      isAttrs v
+    then
+      pkgs.writeText name (builtins.toJSON v)
+    else
+      v;
   }) cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
@@ -27,7 +32,9 @@ let
   });
 
   specPaths = map dirOf (concatMap (spec:
-    if isAttrs spec then
+    if
+      isAttrs spec
+    then
       collect isString
       (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
     else [ spec ]) (attrValues cfg.specs));

@@ -7,7 +7,9 @@
   pkgs ? import nixpkgs { config = { }; },
   lib ? pkgs.lib,
   stdenv ? pkgs.stdenv,
-  buildRustCrateForPkgs ? if buildRustCrate != null then
+  buildRustCrateForPkgs ? if
+    buildRustCrate != null
+  then
     lib.warn
     "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
     (_: buildRustCrate)
@@ -34,7 +36,9 @@
   release ? true
     # Additional crate2nix configuration if it exists.
   ,
-  crateConfig ? if builtins.pathExists ./crate-config.nix then
+  crateConfig ? if
+    builtins.pathExists ./crate-config.nix
+  then
     pkgs.callPackage ./crate-config.nix { }
   else
     { }
@@ -4134,15 +4138,18 @@ rec {
 
       # This doesn't appear to be officially documented anywhere yet.
       # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
-      os = if stdenv.hostPlatform.isDarwin then
+      os = if
+        stdenv.hostPlatform.isDarwin
+      then
         "macos"
       else
         stdenv.hostPlatform.parsed.kernel.name;
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
-      endian = if stdenv.hostPlatform.parsed.cpu.significantByte.name
-      == "littleEndian" then
+      endian = if
+        stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian"
+      then
         "little"
       else
         "big";
@@ -4293,17 +4300,20 @@ rec {
           testPostRun,
         }:
         let
-          buildRustCrateForPkgsFuncOverriden =
-            if buildRustCrateForPkgsFunc != null then
-              buildRustCrateForPkgsFunc
+          buildRustCrateForPkgsFuncOverriden = if
+            buildRustCrateForPkgsFunc != null
+          then
+            buildRustCrateForPkgsFunc
+          else
+            (if
+              crateOverrides == pkgs.defaultCrateOverrides
+            then
+              buildRustCrateForPkgs
             else
-              (if crateOverrides == pkgs.defaultCrateOverrides then
-                buildRustCrateForPkgs
-              else
-                pkgs:
-                (buildRustCrateForPkgs pkgs).override {
-                  defaultCrateOverrides = crateOverrides;
-                });
+              pkgs:
+              (buildRustCrateForPkgs pkgs).override {
+                defaultCrateOverrides = crateOverrides;
+              });
           builtRustCrates = builtRustCratesWithFeatures {
             inherit packageId features;
             buildRustCrateForPkgsFunc = buildRustCrateForPkgsFuncOverriden;
@@ -4316,7 +4326,9 @@ rec {
           };
           drv = builtRustCrates.crates.${packageId};
           testDrv = builtTestRustCrates.crates.${packageId};
-          derivation = if runTests then
+          derivation = if
+            runTests
+          then
             crateWithTest {
               crate = drv;
               testCrate = testDrv;
@@ -4380,7 +4392,9 @@ rec {
               inherit features target;
               buildByPackageId = depPackageId:
                 # proc_macro crates must be compiled for the build architecture
-                if crateConfigs.${depPackageId}.procMacro or false then
+                if
+                  crateConfigs.${depPackageId}.procMacro or false
+                then
                   self.build.crates.${depPackageId}
                 else
                   self.crates.${depPackageId};
@@ -4469,7 +4483,9 @@ rec {
        be serialized as JSON.
     */
     sanitizeForJson = val:
-      if builtins.isAttrs val then
+      if
+        builtins.isAttrs val
+      then
         lib.mapAttrs (n: v: sanitizeForJson v) val
       else if builtins.isList val then
         builtins.map sanitizeForJson val
@@ -4608,8 +4624,9 @@ rec {
               let
                 cacheFeatures = cache.${packageId} or [ ];
                 combinedFeatures = sortedUnique (cacheFeatures ++ features);
-              in if cache ? ${packageId} && cache.${packageId}
-              == combinedFeatures then
+              in if
+                cache ? ${packageId} && cache.${packageId} == combinedFeatures
+              then
                 cache
               else
                 mergePackageFeatures {
@@ -4696,8 +4713,9 @@ rec {
           let
             enabled =
               builtins.any (doesFeatureEnableDependency dependency) features;
-          in if (dependency.optional or false)
-          && enabled then [ (dependency.rename or dependency.name) ] else
+          in if
+            (dependency.optional or false) && enabled
+          then [ (dependency.rename or dependency.name) ] else
             [ ]) dependencies;
       in
         sortedUnique (features ++ additionalFeatures)
@@ -4738,7 +4756,9 @@ rec {
     ;
 
     deprecationWarning = message: value:
-      if strictDeprecation then
+      if
+        strictDeprecation
+      then
         builtins.throw "strictDeprecation enabled, aborting: ${message}"
       else
         builtins.trace message value;

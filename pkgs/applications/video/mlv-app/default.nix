@@ -19,7 +19,12 @@ mkDerivation rec {
     sha256 = "0s5sjdxi8a17ddvih4ara7mlb2xrc9xqx52jmhfaca6ng341gi4x";
   };
 
-  patches = if stdenv.isAarch64 then ./aarch64-flags.patch else null;
+  patches = if
+    stdenv.isAarch64
+  then
+    ./aarch64-flags.patch
+  else
+    null;
 
   installPhase = ''
     runHook preInstall

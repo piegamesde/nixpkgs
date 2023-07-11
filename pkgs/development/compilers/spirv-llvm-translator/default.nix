@@ -15,7 +15,9 @@ let
   isROCm = lib.hasPrefix "rocm" llvm.pname;
 
   # ROCm will always be at the latest version
-  branch = if llvmMajor == "15" || isROCm then rec {
+  branch = if
+    llvmMajor == "15" || isROCm
+  then rec {
     version = "15.0.0";
     rev = "v${version}";
     hash = "sha256-OsDohXRxovtEXaWiRGp8gJ0dXmoALyO+ZimeSO8aPVI=";
@@ -53,7 +55,14 @@ in
 
     cmakeFlags = [
       "-DLLVM_INCLUDE_TESTS=ON"
-      "-DLLVM_DIR=${(if isROCm then llvm else llvm.dev)}"
+      "-DLLVM_DIR=${
+        (if
+          isROCm
+        then
+          llvm
+        else
+          llvm.dev)
+      }"
       "-DBUILD_SHARED_LIBS=YES"
       "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
       # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/

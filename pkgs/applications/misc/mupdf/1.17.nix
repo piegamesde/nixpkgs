@@ -66,7 +66,9 @@ in
     ] ++ lib.optionals enableCurl [
       curl
       openssl
-    ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+    ] ++ lib.optionals enableGL (if
+      stdenv.isDarwin
+    then
       with darwin.apple_sdk.frameworks; [
         GLUT
         OpenGL

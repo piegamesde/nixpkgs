@@ -58,7 +58,9 @@ let
   # TODO support also other build architectures. The ideal way would be to use
   # stdenv_32bit but that doesn't work due to host platform mismatch:
   # https://github.com/NixOS/nixpkgs/issues/212494
-  buildStdenv = if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
+  buildStdenv = if
+    buildPackages.stdenv.isx86_64 && stdenv.is32bit
+  then
     buildPackages.pkgsi686Linux.buildPackages.stdenv
   else
     buildPackages.stdenv;
@@ -137,7 +139,9 @@ in
         luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
         luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
         luaOnHostForHost = override pkgsHostHost.${luaAttr};
-        luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
+        luaOnTargetForTarget = if
+          lib.hasAttr luaAttr pkgsTargetTarget
+        then
           (override pkgsTargetTarget.${luaAttr})
         else
           { };

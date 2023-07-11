@@ -44,7 +44,9 @@ let
   # } ];
   usedPlatforms = config:
     # don't recurse into derivations possibly creating an infinite recursion
-    if isDerivation config then
+    if
+      isDerivation config
+    then
       [ ]
     else if isAttrs config then
       optional (config ? platform) config.platform
@@ -271,8 +273,12 @@ in {
                 "yaml"
                 "storage"
               ];
-              default =
-                if cfg.lovelaceConfig != null then "yaml" else "storage";
+              default = if
+                cfg.lovelaceConfig != null
+              then
+                "yaml"
+              else
+                "storage";
               defaultText = literalExpression ''
                 if cfg.lovelaceConfig != null
                   then "yaml"
@@ -433,13 +439,17 @@ in {
         ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile;
 
       preStart = let
-        copyConfig = if cfg.configWritable then ''
+        copyConfig = if
+          cfg.configWritable
+        then ''
           cp --no-preserve=mode ${configFile} "${cfg.configDir}/configuration.yaml"
         '' else ''
           rm -f "${cfg.configDir}/configuration.yaml"
           ln -s /etc/home-assistant/configuration.yaml "${cfg.configDir}/configuration.yaml"
         '';
-        copyLovelaceConfig = if cfg.lovelaceConfigWritable then ''
+        copyLovelaceConfig = if
+          cfg.lovelaceConfigWritable
+        then ''
           cp --no-preserve=mode ${lovelaceConfigFile} "${cfg.configDir}/ui-lovelace.yaml"
         '' else ''
           rm -f "${cfg.configDir}/ui-lovelace.yaml"
@@ -607,7 +617,12 @@ in {
             "allowlist_external_dirs"
           ];
           value = attrByPath cfgPath [ ] cfg;
-          allowPaths = if isList value then value else singleton value;
+          allowPaths = if
+            isList value
+          then
+            value
+          else
+            singleton value;
         in
           [ "${cfg.configDir}" ] ++ allowPaths
         ;

@@ -30,7 +30,12 @@
 }:
 let # un-indented, over the whole file
 
-  result = if extraFeatures then wrapped-full else unwrapped;
+  result = if
+    extraFeatures
+  then
+    wrapped-full
+  else
+    unwrapped;
 
   inherit (lib) optional optionals optionalString;
   lua = luajitPackages;

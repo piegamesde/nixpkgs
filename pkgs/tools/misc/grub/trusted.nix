@@ -28,7 +28,12 @@ let
   inPCSystems = lib.any (system: stdenv.hostPlatform.system == system)
     (lib.mapAttrsToList (name: _: name) pcSystems);
 
-  version = if for_HP_laptop then "1.2.1" else "1.2.0";
+  version = if
+    for_HP_laptop
+  then
+    "1.2.1"
+  else
+    "1.2.0";
 
   unifont_bdf = fetchurl {
     url = "http://unifoundry.com/unifont-5.1.20080820.bdf.gz";
@@ -51,7 +56,9 @@ in
       owner = "Sirrix-AG";
       repo = "TrustedGRUB2";
       rev = version;
-      sha256 = if for_HP_laptop then
+      sha256 = if
+        for_HP_laptop
+      then
         "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
       else
         "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";

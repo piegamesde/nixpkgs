@@ -54,7 +54,9 @@ backendStdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  src = if developerProgram then
+  src = if
+    developerProgram
+  then
     requireFile {
       message = ''
         This nix expression requires that ${args.name} is already part of the store.

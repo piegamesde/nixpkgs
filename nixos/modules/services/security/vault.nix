@@ -18,7 +18,9 @@ let
       listener "tcp" {
         address = "${cfg.address}"
         ${
-          if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then ''
+          if
+            (cfg.tlsCertFile == null || cfg.tlsKeyFile == null)
+          then ''
             tls_disable = "true"
           '' else ''
             tls_cert_file = "${cfg.tlsCertFile}"
@@ -132,11 +134,12 @@ in {
 
       storagePath = mkOption {
         type = types.nullOr types.path;
-        default =
-          if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then
-            "/var/lib/vault"
-          else
-            null;
+        default = if
+          cfg.storageBackend == "file" || cfg.storageBackend == "raft"
+        then
+          "/var/lib/vault"
+        else
+          null;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"

@@ -99,7 +99,9 @@ in
     makeFlags = (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc
       ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
 
-    postInstall = (if stdenv.hostPlatform == stdenv.buildPlatform then ''
+    postInstall = (if
+      stdenv.hostPlatform == stdenv.buildPlatform
+    then ''
       echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
       make -j''${NIX_BUILD_CORES:-1} localedata/install-locales
     '' else
@@ -116,8 +118,10 @@ in
           -f charmaps/UTF-8 \
           --prefix $NIX_BUILD_TOP \
           ${
-            if stdenv.hostPlatform.parsed.cpu.significantByte.name
-            == "littleEndian" then
+            if
+              stdenv.hostPlatform.parsed.cpu.significantByte.name
+              == "littleEndian"
+            then
               "--little-endian"
             else
               "--big-endian"

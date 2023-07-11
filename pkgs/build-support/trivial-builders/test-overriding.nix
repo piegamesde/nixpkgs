@@ -73,7 +73,12 @@ let
         disallowExtglob
         assertFail
       ]);
-    in if isBin then "${drv}/bin/${drv.name}" else drv;
+    in if
+      isBin
+    then
+      "${drv}/bin/${drv.name}"
+    else
+      drv;
 
   writeTextOverrides = {
     # Make sure extglob works by default

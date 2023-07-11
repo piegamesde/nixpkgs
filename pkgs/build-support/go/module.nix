@@ -90,8 +90,15 @@ assert (vendorSha256 != "_unset" && vendorHash != "_unset")
 let
   hasAnyVendorHash = (vendorSha256 != null && vendorSha256 != "_unset")
     || (vendorHash != null && vendorHash != "_unset");
-  vendorHashType = if hasAnyVendorHash then
-    if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri"
+  vendorHashType = if
+    hasAnyVendorHash
+  then
+    if
+      vendorSha256 != null && vendorSha256 != "_unset"
+    then
+      "sha256"
+    else
+      "sri"
   else
     null;
 
@@ -101,7 +108,9 @@ let
     "vendorHash"
   ];
 
-  go-modules = if hasAnyVendorHash then
+  go-modules = if
+    hasAnyVendorHash
+  then
     stdenv.mkDerivation (let
       modArgs = {
 
@@ -159,7 +168,9 @@ let
               exit 10
             fi
 
-          ${if proxyVendor then ''
+          ${if
+            proxyVendor
+          then ''
             mkdir -p "''${GOPATH}/pkg/mod/cache/download"
             go mod download
           '' else ''
@@ -177,7 +188,9 @@ let
         installPhase = args.modInstallPhase or ''
             runHook preInstall
 
-          ${if proxyVendor then ''
+          ${if
+            proxyVendor
+          then ''
             rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
             cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
           '' else ''
@@ -197,7 +210,9 @@ let
     in
       modArgs // ({
         outputHashMode = "recursive";
-      } // (if (vendorHashType == "sha256") then {
+      } // (if
+        (vendorHashType == "sha256")
+      then {
         outputHashAlgo = "sha256";
         outputHash = vendorSha256;
       } else {
@@ -228,7 +243,9 @@ let
       export GOSUMDB=off
       cd "$modRoot"
     '' + lib.optionalString hasAnyVendorHash ''
-      ${if proxyVendor then ''
+      ${if
+        proxyVendor
+      then ''
         export GOPROXY=file://${go-modules}
       '' else ''
         rm -rf vendor

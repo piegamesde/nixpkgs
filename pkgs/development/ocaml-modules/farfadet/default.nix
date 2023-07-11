@@ -9,7 +9,9 @@
   faraday,
 }:
 
-if lib.versionOlder ocaml.version "4.3" then
+if
+  lib.versionOlder ocaml.version "4.3"
+then
   throw "farfadet is not available for OCaml ${ocaml.version}"
 else
 

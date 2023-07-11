@@ -61,7 +61,9 @@ let
 
       overrides = {
         # upstream issue: Wrong type argument: arrayp, nil
-        org-transclusion = if super.org-transclusion.version == "1.2.0" then
+        org-transclusion = if
+          super.org-transclusion.version == "1.2.0"
+        then
           markBroken super.org-transclusion
         else
           super.org-transclusion;
@@ -70,7 +72,9 @@ let
         cl-print = null; # builtin
         tle = null; # builtin
         advice = null; # builtin
-        seq = if lib.versionAtLeast self.emacs.version "27" then
+        seq = if
+          lib.versionAtLeast self.emacs.version "27"
+        then
           null
         else
           super.seq;

@@ -11,7 +11,9 @@
   ...
 }@attrs:
 
-if disabled then
+if
+  disabled
+then
   throw "${attrs.name} not supported by interpreter lua-${lua.luaversion}"
 else
   toLuaModule (lua.stdenv.mkDerivation (attrs // {

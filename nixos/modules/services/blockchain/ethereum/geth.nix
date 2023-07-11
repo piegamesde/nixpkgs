@@ -207,7 +207,12 @@ in {
     systemd.services = mapAttrs' (gethName: cfg:
       let
         stateDir = "goethereum/${gethName}/${
-            if (cfg.network == null) then "mainnet" else cfg.network
+            if
+              (cfg.network == null)
+            then
+              "mainnet"
+            else
+              cfg.network
           }";
         dataDir = "/var/lib/${stateDir}";
       in
@@ -270,7 +275,9 @@ in {
                 lib.concatStringsSep "," cfg.authrpc.vhosts
               } \
               ${
-                if (cfg.authrpc.jwtsecret != "") then
+                if
+                  (cfg.authrpc.jwtsecret != "")
+                then
                   "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"
                 else
                   "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"

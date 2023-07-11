@@ -24,7 +24,14 @@ let
     txindex=1
     txprevcache=1
     walletpath=${cfg.wallet}
-    gen=${if cfg.generate then "1" else "0"}
+    gen=${
+      if
+        cfg.generate
+      then
+        "1"
+      else
+        "0"
+    }
     ${listToConf "addnode" cfg.extraNodes}
     ${listToConf "connect" cfg.trustedNodes}
   '' + optionalString useRPC ''

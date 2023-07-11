@@ -20,7 +20,9 @@ let
       log_dir = dataDir;
       ui_port = cfg.port;
       fileserver_port = cfg.fileserverPort;
-      tor = if !cfg.tor then
+      tor = if
+        !cfg.tor
+      then
         "disable"
       else if cfg.torAlways then
         "always"

@@ -145,7 +145,9 @@ let
           ] value
         }"'';
     sanitize = value:
-      if value == true then
+      if
+        value == true
+      then
         "true"
       else if value == false then
         "false"

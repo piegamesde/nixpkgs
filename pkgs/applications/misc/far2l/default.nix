@@ -105,8 +105,15 @@ stdenv.mkDerivation rec {
       --replace "-framework System" -lSystem
   '';
 
-  cmakeFlags =
-    lib.mapAttrsToList (k: v: "-D${k}=${if v then "yes" else "no"}") {
+  cmakeFlags = lib.mapAttrsToList (k: v:
+    "-D${k}=${
+      if
+        v
+      then
+        "yes"
+      else
+        "no"
+    }") {
       TTYX = withTTYX;
       USEWX = withGUI;
       USEUCD = withUCD;

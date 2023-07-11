@@ -10,7 +10,9 @@
 }:
 
 let
-  llvmNativeTarget = if stdenv.isx86_64 then
+  llvmNativeTarget = if
+    stdenv.isx86_64
+  then
     "X86"
   else if stdenv.isAarch64 then
     "AArch64"

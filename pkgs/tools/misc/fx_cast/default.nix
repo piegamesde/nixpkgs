@@ -18,7 +18,12 @@ let
     inherit (pkgs)
       nodejs stdenv lib python2 runCommand writeTextFile writeShellScript;
     inherit pkgs;
-    libtool = if stdenv.isDarwin then pkgs.darwin.cctools else null;
+    libtool = if
+      stdenv.isDarwin
+    then
+      pkgs.darwin.cctools
+    else
+      null;
   };
   nodePackages = import ./node-packages.nix {
     inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;

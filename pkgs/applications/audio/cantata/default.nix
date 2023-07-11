@@ -54,7 +54,15 @@ assert withReplaygain -> withTaglib;
 assert withLibVlc -> withHttpStream;
 
 let
-  fstat = x: fn: "-DENABLE_${fn}=${if x then "ON" else "OFF"}";
+  fstat = x: fn:
+    "-DENABLE_${fn}=${
+      if
+        x
+      then
+        "ON"
+      else
+        "OFF"
+    }";
 
   withUdisks = (withTaglib && withDevices);
 

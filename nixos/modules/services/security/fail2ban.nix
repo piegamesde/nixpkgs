@@ -96,7 +96,9 @@ in {
       };
 
       banaction = mkOption {
-        default = if config.networking.nftables.enable then
+        default = if
+          config.networking.nftables.enable
+        then
           "nftables-multiport"
         else
           "iptables-multiport";
@@ -112,7 +114,9 @@ in {
       };
 
       banaction-allports = mkOption {
-        default = if config.networking.nftables.enable then
+        default = if
+          config.networking.nftables.enable
+        then
           "nftables-allport"
         else
           "iptables-allport";

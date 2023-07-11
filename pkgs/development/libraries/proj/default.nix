@@ -62,8 +62,12 @@ stdenv.mkDerivation (finalAttrs: rec {
   ];
 
   preCheck = let
-    libPathEnvVar =
-      if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+    libPathEnvVar = if
+      stdenv.isDarwin
+    then
+      "DYLD_LIBRARY_PATH"
+    else
+      "LD_LIBRARY_PATH";
   in ''
     export HOME=$TMPDIR
     export TMP=$TMPDIR

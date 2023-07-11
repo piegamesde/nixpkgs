@@ -16,8 +16,18 @@
 
 let
   rev = 3390;
-  jre' = if preferZulu then zulu else jre;
-  gtk' = if preferGtk3 then gtk3 else gtk2;
+  jre' = if
+    preferZulu
+  then
+    zulu
+  else
+    jre;
+  gtk' = if
+    preferGtk3
+  then
+    gtk3
+  else
+    gtk2;
 
   inherit (lib) makeLibraryPath versions;
 

@@ -67,7 +67,9 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if pkgs.stdenv.hostPlatform.libc == "glibc" then
+        default = if
+          pkgs.stdenv.hostPlatform.libc == "glibc"
+        then
           pkgs.stdenv.cc.libc.bin
         else
           pkgs.glibc.bin;
@@ -135,11 +137,18 @@ in {
       # sill want to read their configuration files after the privilege drop
       # and so users can set the owner of those files to the nscd user.
       serviceConfig = {
-        ExecStart = if cfg.enableNsncd then
+        ExecStart = if
+          cfg.enableNsncd
+        then
           "${pkgs.nsncd}/bin/nsncd"
         else
           "!@${cfg.package}/bin/nscd nscd";
-        Type = if cfg.enableNsncd then "notify" else "forking";
+        Type = if
+          cfg.enableNsncd
+        then
+          "notify"
+        else
+          "forking";
         User = cfg.user;
         Group = cfg.group;
         RemoveIPC = true;

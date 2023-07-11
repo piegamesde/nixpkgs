@@ -113,7 +113,9 @@ in {
     };
 
     host = mkOption {
-      default = (if mpdCfg.network.listenAddress != "any" then
+      default = (if
+        mpdCfg.network.listenAddress != "any"
+      then
         mpdCfg.network.listenAddress
       else
         "localhost");
@@ -129,7 +131,9 @@ in {
     };
 
     passwordFile = mkOption {
-      default = if localMpd then
+      default = if
+        localMpd
+      then
         (findFirst (c: any (x: x == "read") c.permissions) {
           passwordFile = null;
         } mpdCfg.credentials).passwordFile

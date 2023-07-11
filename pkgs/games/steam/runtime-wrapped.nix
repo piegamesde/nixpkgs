@@ -25,7 +25,9 @@ let
 
   allPkgs = overridePkgs ++ [ steam-runtime ];
 
-  gnuArch = if steamArch == "amd64" then
+  gnuArch = if
+    steamArch == "amd64"
+  then
     "x86_64-linux-gnu"
   else if steamArch == "i386" then
     "i386-linux-gnu"

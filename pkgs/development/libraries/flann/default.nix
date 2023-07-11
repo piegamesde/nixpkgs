@@ -54,7 +54,14 @@ stdenv.mkDerivation rec {
     "-DBUILD_EXAMPLES:BOOL=OFF"
     "-DBUILD_TESTS:BOOL=OFF"
     "-DBUILD_MATLAB_BINDINGS:BOOL=OFF"
-    "-DBUILD_PYTHON_BINDINGS:BOOL=${if enablePython then "ON" else "OFF"}"
+    "-DBUILD_PYTHON_BINDINGS:BOOL=${
+      if
+        enablePython
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   nativeBuildInputs = [

@@ -23,7 +23,9 @@ let
       DB_USERNAME=${cfg.database.user}
       # NOTE: file_get_contents adds newline at the end of returned string
       DB_PASSWORD=${
-        if cfg.database.passwordFile == null then
+        if
+          cfg.database.passwordFile == null
+        then
           ""
         else
           ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''

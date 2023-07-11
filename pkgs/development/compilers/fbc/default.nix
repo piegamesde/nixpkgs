@@ -102,7 +102,9 @@ stdenv.mkDerivation rec {
     make rtlib -j$buildJobs \
       "FBC=$PWD/bin/fbc${stdenv.buildPlatform.extensions.executable} -i $PWD/inc" \
       ${
-        if (stdenv.buildPlatform == stdenv.hostPlatform) then
+        if
+          (stdenv.buildPlatform == stdenv.hostPlatform)
+        then
           "BUILD_PREFIX=${buildPackages.stdenv.cc.targetPrefix} LD=${buildPackages.stdenv.cc.targetPrefix}ld"
         else
           "TARGET=${stdenv.hostPlatform.config}"

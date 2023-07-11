@@ -41,8 +41,12 @@ let
     }
   ;
 
-  backendPackage = if backend == "webengine" then
-    if isQt6 then
+  backendPackage = if
+    backend == "webengine"
+  then
+    if
+      isQt6
+    then
       python3Packages.pyqt6-webengine
     else
       python3Packages.pyqtwebengine
@@ -54,13 +58,20 @@ let
       Valid choices are qtwebengine (recommended) or qtwebkit.
     '';
 
-  buildPythonApplication = if isQt6 then
+  buildPythonApplication = if
+    isQt6
+  then
     python3Packages.buildPythonApplication
   else
     mkDerivationWith python3Packages.buildPythonApplication;
 
   pname = "qutebrowser";
-  version = if isQt6 then "unstable-2023-04-18" else "2.5.3";
+  version = if
+    isQt6
+  then
+    "unstable-2023-04-18"
+  else
+    "2.5.3";
 
 in
   assert withMediaPlayback -> gst_all_1 != null;
@@ -69,7 +80,9 @@ in
   buildPythonApplication {
     inherit pname version;
 
-    src = if isQt6 then
+    src = if
+      isQt6
+    then
     # comes from the master branch of upstream
     # https://github.com/qutebrowser/qutebrowser/issues/7202
     # https://github.com/qutebrowser/qutebrowser/discussions/7628
@@ -192,7 +205,9 @@ in
       homepage = "https://github.com/qutebrowser/qutebrowser";
       description = "Keyboard-focused browser with a minimal GUI";
       license = licenses.gpl3Plus;
-      platforms = if enableWideVine then [ "x86_64-linux" ] else
+      platforms = if
+        enableWideVine
+      then [ "x86_64-linux" ] else
         backendPackage.meta.platforms;
       maintainers = with maintainers; [
         jagajaga

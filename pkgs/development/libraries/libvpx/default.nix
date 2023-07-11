@@ -91,7 +91,9 @@ let
   # libvpx darwin targets include darwin version (ie. ARCH-darwinXX-gcc, XX being the darwin version)
   # See all_platforms: https://github.com/webmproject/libvpx/blob/master/configure
   # Darwin versions: 10.4=8, 10.5=9, 10.6=10, 10.7=11, 10.8=12, 10.9=13, 10.10=14
-  darwinVersion = if stdenv.hostPlatform.osxMinVersion == "10.10" then
+  darwinVersion = if
+    stdenv.hostPlatform.osxMinVersion == "10.10"
+  then
     "14"
   else if stdenv.hostPlatform.osxMinVersion == "10.9" then
     "13"
@@ -108,7 +110,9 @@ let
 
   kernel =
     # Build system doesn't understand BSD, so pretend to be Linux.
-    if stdenv.isBSD then
+    if
+      stdenv.isBSD
+    then
       "linux"
     else if stdenv.isDarwin then
       "darwin${darwinVersion}"
@@ -191,7 +195,12 @@ in
       "--disable-docs"
       "--as=yasm"
       # Limit default decoder max to WHXGA
-      (if sizeLimitSupport then "--size-limit=5120x3200" else null)
+      (if
+        sizeLimitSupport
+      then
+        "--size-limit=5120x3200"
+      else
+        null)
       "--disable-codec-srcs"
       (enableFeature debugLibsSupport "debug-libs")
       (enableFeature isMips "dequant-tokens")
@@ -207,7 +216,9 @@ in
       (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
       (enableFeature errorConcealmentSupport "error-concealment")
       # Shared libraries are only supported on ELF platforms
-      (if isDarwin || isCygwin then
+      (if
+        isDarwin || isCygwin
+      then
         "--enable-static --disable-shared"
       else
         "--enable-shared")

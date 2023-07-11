@@ -247,7 +247,9 @@ let
           "--config=cuda"
         ] ++ [ "--config=mkl_open_source_only" ];
 
-      sha256 = if cudaSupport then
+      sha256 = if
+        cudaSupport
+      then
         "sha256-cgsiloW77p4+TKRrYequZ/UwKwfO2jsHKtZ+aA30H7E="
       else
         "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos=";
@@ -284,7 +286,9 @@ let
           --replace "/usr/bin/install_name_tool" "${cctools}/bin/install_name_tool"
         substituteInPlace ../output/external/rules_cc/cc/private/toolchain/unix_cc_configure.bzl \
           --replace "/usr/bin/libtool" "${cctools}/bin/libtool"
-      '' + (if stdenv.cc.isGNU then ''
+      '' + (if
+        stdenv.cc.isGNU
+      then ''
         sed -i 's@-lprotobuf@-l:libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
         sed -i 's@-lprotoc@-l:libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
       '' else if stdenv.cc.isClang then ''
@@ -300,7 +304,9 @@ let
 
     inherit meta;
   };
-  platformTag = if stdenv.targetPlatform.isLinux then
+  platformTag = if
+    stdenv.targetPlatform.isLinux
+  then
     "manylinux2014_${stdenv.targetPlatform.linuxArch}"
   else if stdenv.system == "x86_64-darwin" then
     "macosx_10_9_${stdenv.targetPlatform.linuxArch}"

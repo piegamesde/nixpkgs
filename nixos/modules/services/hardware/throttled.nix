@@ -27,7 +27,9 @@ in {
     # The upstream package has this in Install, but that's not enough, see the NixOS manual
     systemd.services.throttled.wantedBy = [ "multi-user.target" ];
 
-    environment.etc."throttled.conf".source = if cfg.extraConfig != "" then
+    environment.etc."throttled.conf".source = if
+      cfg.extraConfig != ""
+    then
       pkgs.writeText "throttled.conf" cfg.extraConfig
     else
       "${pkgs.throttled}/etc/throttled.conf";

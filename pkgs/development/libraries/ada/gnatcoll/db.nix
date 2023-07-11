@@ -52,7 +52,9 @@ let
 in
   stdenv.mkDerivation rec {
     # executables don't adhere to the string gnatcoll-* scheme
-    pname = if onlyExecutable then
+    pname = if
+      onlyExecutable
+    then
       builtins.replaceStrings [ "_" ] [ "-" ] component
     else
       "gnatcoll-${component}";
@@ -83,8 +85,14 @@ in
     # and other libraries to link against when static linking is used.
     # For executables this is of course not relevant and we can reduce
     # the closure size dramatically
-    ${if onlyExecutable then "buildInputs" else "propagatedBuildInputs"} =
-      [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
+    ${
+      if
+        onlyExecutable
+      then
+        "buildInputs"
+      else
+        "propagatedBuildInputs"
+    } = [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
 
     makeFlags = [
       "-C"

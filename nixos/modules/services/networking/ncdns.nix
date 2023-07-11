@@ -212,7 +212,9 @@ in {
 
     services.pdns-recursor = mkIf cfgs.pdns-recursor.resolveNamecoin {
       forwardZonesRecurse.bit = "${cfg.address}:${toString cfg.port}";
-      luaConfig = if cfg.dnssec.enable then
+      luaConfig = if
+        cfg.dnssec.enable
+      then
         ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
       else
         ''addNTA("bit", "namecoin DNSSEC disabled")'';

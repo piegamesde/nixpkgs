@@ -14,7 +14,9 @@ let
   info = lib.splitString "-" stdenv.hostPlatform.system;
   arch = lib.elemAt info 0;
   plat = lib.elemAt info 1;
-  shas = if enableUnfree then {
+  shas = if
+    enableUnfree
+  then {
     x86_64-linux =
       "35e50e05fba0240aa5b138bc1c81f67addaf557701f8df41c682b5bc708f7455";
     x86_64-darwin =
@@ -74,7 +76,12 @@ let
         binaryBytecode # source bundles dependencies as jars
         binaryNativeCode # bundled jruby includes native code
       ];
-      license = if enableUnfree then licenses.elastic else licenses.asl20;
+      license = if
+        enableUnfree
+      then
+        licenses.elastic
+      else
+        licenses.asl20;
       platforms = platforms.unix;
       maintainers = with maintainers; [
         wjlroe

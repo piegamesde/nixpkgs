@@ -133,7 +133,9 @@ in {
             size = "${toString cfg.memoryPercent} / 100 * ram";
           in
             {
-              zram-size = if cfg.memoryMax != null then
+              zram-size = if
+                cfg.memoryMax != null
+              then
                 "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
               else
                 size;

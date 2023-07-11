@@ -56,7 +56,14 @@
 
 let
   cmakeFeatureFlag = feature: flag:
-    "-D${feature}=${if flag then "on" else "off"}";
+    "-D${feature}=${
+      if
+        flag
+      then
+        "on"
+      else
+        "off"
+    }";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "arcan" + lib.optionalString useStaticOpenAL "-static-openal";

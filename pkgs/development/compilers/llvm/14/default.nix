@@ -22,10 +22,18 @@
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
   ,
-  bootBintoolsNoLibc ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintoolsNoLibc ? if
+    stdenv.targetPlatform.linker == "lld"
+  then
+    null
+  else
+    pkgs.bintoolsNoLibc,
+  bootBintools ? if
+    stdenv.targetPlatform.linker == "lld"
+  then
+    null
+  else
+    pkgs.bintools,
   darwin,
 }:
 
@@ -35,14 +43,23 @@ let
   dash-candidate = lib.optionalString (candidate != "") "-${candidate}";
   rev = ""; # When using a Git commit
   rev-version = ""; # When using a Git commit
-  version =
-    if rev != "" then rev-version else "${release_version}${dash-candidate}";
+  version = if
+    rev != ""
+  then
+    rev-version
+  else
+    "${release_version}${dash-candidate}";
   targetConfig = stdenv.targetPlatform.config;
 
   monorepoSrc = fetchFromGitHub {
     owner = "llvm";
     repo = "llvm-project";
-    rev = if rev != "" then rev else "llvmorg-${version}";
+    rev = if
+      rev != ""
+    then
+      rev
+    else
+      "llvmorg-${version}";
     sha256 = "sha256-vffu4HilvYwtzwgq+NlS26m65DGbp6OSSne2aje1yJE=";
   };
 
@@ -74,11 +91,18 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         '';
 
-      bintoolsNoLibc' = if bootBintoolsNoLibc == null then
+      bintoolsNoLibc' = if
+        bootBintoolsNoLibc == null
+      then
         tools.bintoolsNoLibc
       else
         bootBintoolsNoLibc;
-      bintools' = if bootBintools == null then tools.bintools else bootBintools;
+      bintools' = if
+        bootBintools == null
+      then
+        tools.bintools
+      else
+        bootBintools;
 
     in {
 
@@ -109,7 +133,9 @@ let
       # });
 
       # pick clang appropriate for package set we are targeting
-      clang = if stdenv.targetPlatform.useLLVM or false then
+      clang = if
+        stdenv.targetPlatform.useLLVM or false
+      then
         tools.clangUseLLVM
       else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
         tools.libstdcxxClang
@@ -233,7 +259,9 @@ let
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
+        stdenv = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
         else
           stdenv;
@@ -241,14 +269,18 @@ let
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
+        stdenv = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRt
         else
           stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt = if stdenv.hostPlatform.isAndroid then
+      compiler-rt = if
+        stdenv.hostPlatform.isAndroid
+      then
         libraries.compiler-rt-libc
       else
         libraries.compiler-rt-no-libc;
@@ -259,14 +291,18 @@ let
 
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
-        stdenv = if stdenv.hostPlatform.useLLVM or false then
+        stdenv = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoLibcxx
         else
           stdenv;
       };
 
       libcxxabi = let
-        stdenv_ = if stdenv.hostPlatform.useLLVM or false then
+        stdenv_ = if
+          stdenv.hostPlatform.useLLVM or false
+        then
           overrideCC stdenv buildLlvmTools.clangNoLibcxx
         else
           stdenv;

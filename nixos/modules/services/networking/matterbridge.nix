@@ -12,7 +12,9 @@ let
 
   cfg = config.services.matterbridge;
 
-  matterbridgeConfToml = if cfg.configPath == null then
+  matterbridgeConfToml = if
+    cfg.configPath == null
+  then
     pkgs.writeText "matterbridge.toml" (cfg.configFile)
   else
     cfg.configPath;

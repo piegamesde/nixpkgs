@@ -18,13 +18,19 @@ let
 
   serviceName = iface:
     "supplicant-${
-      if (iface == "WLAN") then
+      if
+        (iface == "WLAN")
+      then
         "wlan@"
       else
-        (if (iface == "LAN") then
+        (if
+          (iface == "LAN")
+        then
           "lan@"
         else
-          (if (iface == "DBUS") then
+          (if
+            (iface == "DBUS")
+          then
             "dbus"
           else
             (replaceStrings [ " " ] [ "-" ] iface)))
@@ -33,9 +39,12 @@ let
   # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService = iface: suppl:
     let
-      deps = (if (iface == "WLAN" || iface
-        == "LAN") then [ "sys-subsystem-net-devices-%i.device" ] else
-        (if (iface == "DBUS") then [ "dbus.service" ] else
+      deps = (if
+        (iface == "WLAN" || iface == "LAN")
+      then [ "sys-subsystem-net-devices-%i.device" ] else
+        (if
+          (iface == "DBUS")
+        then [ "dbus.service" ] else
           (map subsystemDevice (splitString " " iface))))
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
 
@@ -76,10 +85,17 @@ let
 
       serviceConfig.ExecStart =
         "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confFileArg} -I${extraConfFile} ${bridgeArg} ${suppl.extraCmdArgs} ${
-          if (iface == "WLAN" || iface == "LAN") then
+          if
+            (iface == "WLAN" || iface == "LAN")
+          then
             "-i%I"
           else
-            (if (iface == "DBUS") then "-u" else ifaceArg)
+            (if
+              (iface == "DBUS")
+            then
+              "-u"
+            else
+              ifaceArg)
         }";
 
     } ;

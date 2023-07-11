@@ -17,8 +17,22 @@ let
     pkgs.writeText "nylon-${cfg.name}.conf" ''
       [General]
       No-Simultaneous-Conn=${toString cfg.nrConnections}
-      Log=${if cfg.logging then "1" else "0"}
-      Verbose=${if cfg.verbosity then "1" else "0"}
+      Log=${
+        if
+          cfg.logging
+        then
+          "1"
+        else
+          "0"
+      }
+      Verbose=${
+        if
+          cfg.verbosity
+        then
+          "1"
+        else
+          "0"
+      }
 
       [Server]
       Binding-Interface=${cfg.acceptInterface}

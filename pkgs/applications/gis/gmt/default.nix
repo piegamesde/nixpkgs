@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     pcre
     dcw-gmt
     gshhg-gmt
-  ] ++ (if stdenv.isDarwin then [
+  ] ++ (if
+    stdenv.isDarwin
+  then [
     Accelerate
     CoreGraphics
     CoreVideo

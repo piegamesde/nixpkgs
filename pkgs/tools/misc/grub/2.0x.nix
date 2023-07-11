@@ -447,7 +447,9 @@ in
         })
       ];
 
-      postPatch = if kbdcompSupport then ''
+      postPatch = if
+        kbdcompSupport
+      then ''
         sed -i util/grub-kbdcomp.in -e 's@\bckbcomp\b@${ckbcomp}/bin/ckbcomp@'
       '' else ''
         echo '#! ${runtimeShell}' > util/grub-kbdcomp.in
@@ -531,7 +533,9 @@ in
         ];
 
       # save target that grub is compiled for
-      grubTarget = if efiSupport then
+      grubTarget = if
+        efiSupport
+      then
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
       else
         lib.optionalString inPCSystems

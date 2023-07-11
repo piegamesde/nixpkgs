@@ -10,7 +10,9 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.mail;
 
-  configFile = if cfg.configuration != null then
+  configFile = if
+    cfg.configuration != null
+  then
     configurationFile
   else
     (escapeShellArg cfg.configFile);
@@ -19,7 +21,9 @@ let
     (builtins.toJSON (
       # removes the _module attribute, null values and converts attrNames to lowercase
       mapAttrs' (name: value:
-        if name == "servers" then
+        if
+          name == "servers"
+        then
           nameValuePair (toLower name) ((map (srv:
             (mapAttrs' (n: v: nameValuePair (toLower n) v)
               (filterAttrs (n: v: !(n == "_module" || v == null)) srv)))) value)

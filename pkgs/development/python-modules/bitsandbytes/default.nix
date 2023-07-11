@@ -70,7 +70,9 @@ in
 
     CUDA_HOME = "${cuda-native-redist}";
 
-    preBuild = if torch.cudaSupport then
+    preBuild = if
+      torch.cudaSupport
+    then
       with torch.cudaPackages;
       let
         cudaVersion = lib.concatStrings

@@ -20,7 +20,9 @@ let
     mkdir -p $out/share/applications
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (command: value:
       let
-        opts = if builtins.isAttrs value then
+        opts = if
+          builtins.isAttrs value
+        then
           value
         else {
           executable = value;

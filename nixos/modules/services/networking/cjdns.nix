@@ -70,11 +70,13 @@ let
     };
     authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
     interfaces = {
-      ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules
-        cfg.ETHInterface) ] else
+      ETHInterface = if
+        (cfg.ETHInterface.bind != "")
+      then [ (parseModules cfg.ETHInterface) ] else
         [ ];
-      UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules
-        cfg.UDPInterface) ] else
+      UDPInterface = if
+        (cfg.UDPInterface.bind != "")
+      then [ (parseModules cfg.UDPInterface) ] else
         [ ];
     };
 
@@ -260,7 +262,9 @@ in {
       after = [ "network-online.target" ];
       bindsTo = [ "network-online.target" ];
 
-      preStart = if cfg.confFile != null then
+      preStart = if
+        cfg.confFile != null
+      then
         ""
       else ''
         [ -e /etc/cjdns.keys ] && source /etc/cjdns.keys
@@ -283,7 +287,9 @@ in {
         fi
       '';
 
-      script = (if cfg.confFile != null then
+      script = (if
+        cfg.confFile != null
+      then
         "${pkg}/bin/cjdroute < ${cfg.confFile}"
       else ''
         source /etc/cjdns.keys

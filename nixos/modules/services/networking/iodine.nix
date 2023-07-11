@@ -184,8 +184,12 @@ in {
           # hardening :
           # Filesystem access
           ProtectSystem = "strict";
-          ProtectHome =
-            if isProtected cfg.passwordFile then "read-only" else "true";
+          ProtectHome = if
+            isProtected cfg.passwordFile
+          then
+            "read-only"
+          else
+            "true";
           PrivateTmp = true;
           ReadWritePaths = "/dev/net/tun";
           PrivateDevices = false;
@@ -217,7 +221,9 @@ in {
             serviceConfig = {
               # Filesystem access
               ProtectSystem = "strict";
-              ProtectHome = if isProtected cfg.server.passwordFile then
+              ProtectHome = if
+                isProtected cfg.server.passwordFile
+              then
                 "read-only"
               else
                 "true";

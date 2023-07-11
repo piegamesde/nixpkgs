@@ -9,12 +9,20 @@ with lib;
 let
   cfg = config.services.unbound;
 
-  yesOrNo = v: if v then "yes" else "no";
+  yesOrNo = v:
+    if
+      v
+    then
+      "yes"
+    else
+      "no";
 
   toOption = indent: n: v: "${indent}${toString n}: ${v}";
 
   toConf = indent: n: v:
-    if builtins.isFloat v then
+    if
+      builtins.isFloat v
+    then
       (toOption indent n (builtins.toJSON v))
     else if isInt v then
       (toOption indent n (toString v))

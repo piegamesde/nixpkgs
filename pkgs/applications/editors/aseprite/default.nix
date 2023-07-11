@@ -38,14 +38,21 @@ let
 in
   stdenv.mkDerivation rec {
     pname = "aseprite";
-    version = if unfree then "1.2.16.3" else "1.1.7";
+    version = if
+      unfree
+    then
+      "1.2.16.3"
+    else
+      "1.1.7";
 
     src = fetchFromGitHub {
       owner = "aseprite";
       repo = "aseprite";
       rev = "v${version}";
       fetchSubmodules = true;
-      sha256 = if unfree then
+      sha256 = if
+        unfree
+      then
         "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8"
       else
         "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
@@ -80,7 +87,9 @@ in
       libGL
     ];
 
-    patches = if !unfree then [ ./allegro-glibc-2.30.patch ] else [
+    patches = if
+      !unfree
+    then [ ./allegro-glibc-2.30.patch ] else [
       (fetchpatch {
         url =
           "https://github.com/lfont/aseprite/commit/f1ebc47012d3fed52306ed5922787b4b98cc0a7b.patch";
@@ -141,7 +150,12 @@ in
     meta = with lib; {
       homepage = "https://www.aseprite.org/";
       description = "Animated sprite editor & pixel art tool";
-      license = if unfree then licenses.unfree else licenses.gpl2;
+      license = if
+        unfree
+      then
+        licenses.unfree
+      else
+        licenses.gpl2;
       longDescription = ''
         Aseprite is a program to create animated sprites. Its main features are:
 

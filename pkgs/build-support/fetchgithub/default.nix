@@ -23,7 +23,9 @@
 
 let
 
-  position = (if args.meta.description or null != null then
+  position = (if
+    args.meta.description or null != null
+  then
     builtins.unsafeGetAttrPos "description" args.meta
   else
     builtins.unsafeGetAttrPos "rev" args);
@@ -44,13 +46,24 @@ let
     "githubBase"
     "varPrefix"
   ];
-  varBase =
-    "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
+  varBase = "NIX${
+      if
+        varPrefix == null
+      then
+        ""
+      else
+        "_${varPrefix}"
+    }_GITHUB_PRIVATE_";
   useFetchGit = fetchSubmodules || (leaveDotGit == true) || deepClone
     || forceFetchGit || !(sparseCheckout == "" || sparseCheckout == [ ]);
   # We prefer fetchzip in cases we don't need submodules as the hash
   # is more stable in that case.
-  fetcher = if useFetchGit then fetchgit else fetchzip;
+  fetcher = if
+    useFetchGit
+  then
+    fetchgit
+  else
+    fetchzip;
   privateAttrs = lib.optionalAttrs private {
     netrcPhase = ''
       if [ -z "''$${varBase}USERNAME" -o -z "''$${varBase}PASSWORD" ]; then
@@ -71,7 +84,9 @@ let
 
   gitRepoUrl = "${baseUrl}.git";
 
-  fetcherArgs = (if useFetchGit then
+  fetcherArgs = (if
+    useFetchGit
+  then
     {
       inherit rev deepClone fetchSubmodules sparseCheckout;
       url = gitRepoUrl;

@@ -627,8 +627,12 @@ in {
         {
           NODE_ENV = "production";
 
-          REDIS_URL =
-            if cfg.redisUrl == "local" then localRedisUrl else cfg.redisUrl;
+          REDIS_URL = if
+            cfg.redisUrl == "local"
+          then
+            localRedisUrl
+          else
+            cfg.redisUrl;
           URL = cfg.publicUrl;
           PORT = builtins.toString cfg.port;
 
@@ -712,7 +716,9 @@ in {
 
         # The config file is required for the CLI, the DATABASE_URL environment
         # variable is read by the app.
-        ${if (cfg.databaseUrl == "local") then ''
+        ${if
+          (cfg.databaseUrl == "local")
+        then ''
           cat <<EOF > $RUNTIME_DIRECTORY/database.json
           {
             "production": {
@@ -795,7 +801,9 @@ in {
           })"
         ''}
 
-        ${if (cfg.databaseUrl == "local") then ''
+        ${if
+          (cfg.databaseUrl == "local")
+        then ''
           export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
           export PGSSLMODE=disable
         '' else ''

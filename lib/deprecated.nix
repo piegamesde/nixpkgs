@@ -14,9 +14,20 @@ rec {
   maybeEnv = name: default:
     let
       value = builtins.getEnv name;
-    in if value == "" then default else value;
+    in if
+      value == ""
+    then
+      default
+    else
+      value;
 
-  defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
+  defaultMergeArg = x: y:
+    if
+      builtins.isAttrs y
+    then
+      y
+    else
+      (y x);
   defaultMerge = x: y: x // (defaultMergeArg x y);
   foldArgs = merger: f: init: x:
     let
@@ -44,7 +55,9 @@ rec {
   # Return the second argument if the first one is true or the empty version
   # of the second argument.
   ifEnable = cond: val:
-    if cond then
+    if
+      cond
+    then
       val
     else if builtins.isList val then
       [ ]
@@ -58,7 +71,9 @@ rec {
 
   # Return true only if there is an attribute and it is true.
   checkFlag = attrSet: name:
-    if name == "true" then
+    if
+      name == "true"
+    then
       true
     else if name == "false" then
       false
@@ -70,14 +85,18 @@ rec {
   # Input : attrSet, [ [name default] ... ], name
   # Output : its value or default.
   getValue = attrSet: argList: name:
-    (attrByPath [ name ] (if checkFlag attrSet name then
+    (attrByPath [ name ] (if
+      checkFlag attrSet name
+    then
       true
     else if argList == [ ] then
       null
     else
       let
         x = builtins.head argList;
-      in if (head x) == name then
+      in if
+        (head x) == name
+      then
         (head (tail x))
       else
         (getValue attrSet (tail argList) name)) attrSet);
@@ -105,12 +124,18 @@ rec {
     }:
     let
       go = xs: acc:
-        if xs == [ ] then
+        if
+          xs == [ ]
+        then
           [ ]
         else
           let
             x = head xs;
-            y = if elem x acc then [ ] else [ x ];
+            y = if
+              elem x acc
+            then
+              [ ]
+            else [ x ];
           in
             y ++ go (tail xs) (y ++ acc)
       ;
@@ -124,14 +149,19 @@ rec {
       getter ? (x: x),
       compare ? (x: y: x == y)
     }:
-    if inputList == [ ] then
+    if
+      inputList == [ ]
+    then
       outputList
     else
       let
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
-        newOutputList = outputList
-          ++ (if any isX outputList then [ ] else [ x ]);
+        newOutputList = outputList ++ (if
+          any isX outputList
+        then
+          [ ]
+        else [ x ]);
       in
         uniqListExt {
           outputList = newOutputList;
@@ -141,7 +171,9 @@ rec {
   ;
 
   condConcat = name: list: checker:
-    if list == [ ] then
+    if
+      list == [ ]
+    then
       name
     else if checker (head list) then
       condConcat (name + (head (tail list))) (tail (tail list)) checker
@@ -154,13 +186,17 @@ rec {
     }:
     let
       work = list: doneKeys: result:
-        if list == [ ] then
+        if
+          list == [ ]
+        then
           result
         else
           let
             x = head list;
             key = x.key;
-          in if elem key doneKeys then
+          in if
+            elem key doneKeys
+          then
             work (tail list) doneKeys result
           else
             work (tail list ++ operator x) ([ key ] ++ doneKeys)
@@ -170,17 +206,26 @@ rec {
   ;
 
   innerModifySumArgs = f: x: a: b:
-    if b == null then (f a b) // x else innerModifySumArgs f x (a // b);
+    if
+      b == null
+    then
+      (f a b) // x
+    else
+      innerModifySumArgs f x (a // b);
   modifySumArgs = f: x: innerModifySumArgs f x { };
 
   innerClosePropagation = acc: xs:
-    if xs == [ ] then
+    if
+      xs == [ ]
+    then
       acc
     else
       let
         y = head xs;
         ys = tail xs;
-      in if !isAttrs y then
+      in if
+        !isAttrs y
+      then
         innerClosePropagation acc ys
       else
         let
@@ -209,11 +254,15 @@ rec {
         val = x;
       }) (builtins.filter (x: x != null) list);
       operator = item:
-        if !builtins.isAttrs item.val then
+        if
+          !builtins.isAttrs item.val
+        then
           [ ]
         else
           builtins.concatMap (x:
-            if x != null then [ {
+            if
+              x != null
+            then [ {
               key = x.outPath;
               val = x;
             } ] else
@@ -221,7 +270,9 @@ rec {
                 ++ (item.val.propagatedNativeBuildInputs or [ ]));
     });
 
-  closePropagation = if builtins ? genericClosure then
+  closePropagation = if
+    builtins ? genericClosure
+  then
     closePropagationFast
   else
     closePropagationSlow;
@@ -244,9 +295,13 @@ rec {
   # merge attributes with custom function handling the case that the attribute
   # exists in both sets
   mergeAttrsWithFunc = f: set1: set2:
-    foldr
-    (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
-    (set2 // set1) (attrNames set2);
+    foldr (n: set:
+      if
+        set ? ${n}
+      then
+        setAttr set n (f set.${n} set2.${n})
+      else
+        set) (set2 // set1) (attrNames set2);
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
@@ -269,9 +324,12 @@ rec {
     }:
     attrs1: attrs2:
     foldr (n: set:
-      setAttr set n (if set ? ${n} then # merge
-        if elem n
-        mergeLists # attribute contains list, merge them by concatenating
+      setAttr set n (if
+        set ? ${n}
+      then # merge
+        if
+          elem n
+          mergeLists # attribute contains list, merge them by concatenating
         then
           attrs2.${n} ++ attrs1.${n}
         else if elem n overrideSnd then
@@ -304,8 +362,12 @@ rec {
         x
         y
         (mapAttrs (a: v: # merge special names using given functions
-          if x ? ${a} then
-            if y ? ${a} then
+          if
+            x ? ${a}
+          then
+            if
+              y ? ${a}
+            then
               v x.${a} y.${a} # both have attr, use merge func
             else
               x.${a} # only x has attr
@@ -344,8 +406,15 @@ rec {
         ]);
 
   nixType = x:
-    if isAttrs x then
-      if x ? outPath then "derivation" else "attrs"
+    if
+      isAttrs x
+    then
+      if
+        x ? outPath
+      then
+        "derivation"
+      else
+        "attrs"
     else if lib.isFunction x then
       "function"
     else if isList x then

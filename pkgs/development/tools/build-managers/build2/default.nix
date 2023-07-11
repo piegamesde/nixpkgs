@@ -11,7 +11,9 @@
 }:
 let
   configSharedStatic = enableShared: enableStatic:
-    if enableShared && enableStatic then
+    if
+      enableShared && enableStatic
+    then
       "both"
     else if enableShared then
       "shared"

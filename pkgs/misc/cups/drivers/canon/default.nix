@@ -32,7 +32,9 @@ let
       gcc,
     }:
     gcc) { };
-  ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
+  ld32 = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     "${stdenv.cc}/nix-support/dynamic-linker-m32"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "${stdenv.cc}/nix-support/dynamic-linker"

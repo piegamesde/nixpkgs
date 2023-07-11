@@ -49,7 +49,9 @@ let
   '';
 
   eventToShellCmds = event:
-    if builtins.hasAttr event cfg.hooks then
+    if
+      builtins.hasAttr event cfg.hooks
+    then
       (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
     else
       "";

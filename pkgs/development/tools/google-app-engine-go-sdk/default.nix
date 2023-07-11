@@ -11,7 +11,9 @@ with python3Packages;
 stdenv.mkDerivation rec {
   pname = "google-app-engine-go-sdk";
   version = "1.9.61";
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchzip {
       url =
         "https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-${version}.zip";

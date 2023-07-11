@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     }" ] ++ lib.optionals
     stdenv.isDarwin [ "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib" ];
 
-  postInstall = if stdenv.isDarwin then ''
+  postInstall = if
+    stdenv.isDarwin
+  then ''
     mkdir -p "$out/Applications" "$out/XyGrib/XyGrib.app/Contents/Resources"
     cp "../data/img/xyGrib.icns" "$out/XyGrib/XyGrib.app/Contents/Resources/xyGrib.icns"
     mv $out/XyGrib/XyGrib.app $out/Applications

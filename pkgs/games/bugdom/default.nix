@@ -49,7 +49,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-  '' + (if stdenv.hostPlatform.isDarwin then ''
+  '' + (if
+    stdenv.hostPlatform.isDarwin
+  then ''
     mkdir -p $out/{bin,Applications}
     mv {,$out/Applications/}Bugdom.app
     makeWrapper $out/{Applications/Bugdom.app/Contents/MacOS,bin}/Bugdom

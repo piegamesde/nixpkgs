@@ -76,8 +76,22 @@ stdenv.mkDerivation rec {
     "-DCMAKE_UNITY_BUILD=ON"
     "-DCMAKE_UNITY_BUILD_BATCH_SIZE=32"
     "-DSWIG_COMPILE_FLAGS='-O1'"
-    "-DUSE_SPHINX=${if enablePython then "ON" else "OFF"}"
-    "-DBUILD_PYTHON=${if enablePython then "ON" else "OFF"}"
+    "-DUSE_SPHINX=${
+      if
+        enablePython
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DBUILD_PYTHON=${
+      if
+        enablePython
+      then
+        "ON"
+      else
+        "OFF"
+    }"
   ];
 
   doCheck = runTests;

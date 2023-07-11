@@ -20,7 +20,9 @@ let
         ind = i;
         value = v;
       }) (stringToCharacters str));
-    in if length nonchars == 0 then
+    in if
+      length nonchars == 0
+    then
       ""
     else
       substring (head nonchars).ind

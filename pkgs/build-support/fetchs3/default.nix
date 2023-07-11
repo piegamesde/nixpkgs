@@ -34,12 +34,19 @@ in
 
     outputHashAlgo = "sha256";
     outputHash = sha256;
-    outputHashMode = if recursiveHash then "recursive" else "flat";
+    outputHashMode = if
+      recursiveHash
+    then
+      "recursive"
+    else
+      "flat";
 
     preferLocalBuild = true;
 
     AWS_DEFAULT_REGION = region;
-  } // credentialAttrs) (if postFetch != null then ''
+  } // credentialAttrs) (if
+    postFetch != null
+  then ''
     downloadedFile="$(mktemp)"
     aws s3 cp ${s3url} $downloadedFile
     ${postFetch}

@@ -77,7 +77,9 @@ rec {
           # TODO: support a search path.
           foundDeps = dep: xs:
             let
-              exts = if dep.type == "img" then [
+              exts = if
+                dep.type == "img"
+              then [
                 ".pdf"
                 ".png"
                 ".ps"
@@ -88,7 +90,12 @@ rec {
               ] else [ "" ];
               fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null
                 (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
-            in if fn != null then [ { key = fn; } ] ++ xs else xs;
+            in if
+              fn != null
+            then
+              [ { key = fn; } ] ++ xs
+            else
+              xs;
 
         in
           pkgs.lib.foldr foundDeps [ ] deps

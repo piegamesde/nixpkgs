@@ -22,11 +22,18 @@ let
       ...
     }:
     let
-      type = if recognitionType == "magic" then "M" else "E";
+      type = if
+        recognitionType == "magic"
+      then
+        "M"
+      else
+        "E";
       offset' = toString offset;
       mask' = toString mask;
       interpreter = "/run/binfmt/${name}";
-      flags = if !(matchCredentials -> openBinary) then
+      flags = if
+        !(matchCredentials -> openBinary)
+      then
         throw
         "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
       else
@@ -43,7 +50,9 @@ let
       wrapInterpreterInShell,
       ...
     }:
-    if wrapInterpreterInShell then ''
+    if
+      wrapInterpreterInShell
+    then ''
       rm -f /run/binfmt/${name}
       cat > /run/binfmt/${name} << 'EOF'
       #!${pkgs.bash}/bin/sh
@@ -383,7 +392,9 @@ in {
           interpreterReg = let
             wrapperName = "qemu-${qemuArch}-binfmt-P";
             wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-          in if preserveArgvZero then
+          in if
+            preserveArgvZero
+          then
             "${wrapper}/bin/${wrapperName}"
           else
             interpreter;

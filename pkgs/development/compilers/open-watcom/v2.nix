@@ -49,10 +49,31 @@ stdenv.mkDerivation rec {
     runHook preConfigure
 
     export OWROOT=$(realpath $PWD)
-    export OWTOOLS=${if stdenv.cc.isClang then "CLANG" else "GCC"}
-    export OWDOCBUILD=${if withDocs then "1" else "0"}
+    export OWTOOLS=${
+      if
+        stdenv.cc.isClang
+      then
+        "CLANG"
+      else
+        "GCC"
+    }
+    export OWDOCBUILD=${
+      if
+        withDocs
+      then
+        "1"
+      else
+        "0"
+    }
     export OWGHOSTSCRIPTPATH=${lib.optionalString withDocs "${ghostscript}/bin"}
-    export OWGUINOBUILD=${if withGUI then "0" else "1"}
+    export OWGUINOBUILD=${
+      if
+        withGUI
+      then
+        "0"
+      else
+        "1"
+    }
     export OWNOBUILD=
     export OWDISTRBUILD=0
     export OWDOSBOX=${dosbox}/bin/dosbox

@@ -23,11 +23,14 @@ let
   configFile = settingsFormatIni.generate "config.ini" cfg.settings;
 
   mkProvisionCfg = name: attr: provisionCfg:
-    if provisionCfg.path != null then
+    if
+      provisionCfg.path != null
+    then
       provisionCfg.path
     else
-      provisioningSettingsFormat.generate "${name}.yaml"
-      (if provisionCfg.settings != null then
+      provisioningSettingsFormat.generate "${name}.yaml" (if
+        provisionCfg.settings != null
+      then
         provisionCfg.settings
       else {
         apiVersion = 1;
@@ -48,7 +51,9 @@ let
     pkgs.writeText "notifier.yaml" (builtins.toJSON notifierConfiguration);
 
   generateAlertingProvisioningYaml = x:
-    if (cfg.provision.alerting."${x}".path == null) then
+    if
+      (cfg.provision.alerting."${x}".path == null)
+    then
       provisioningSettingsFormat.generate "${x}.yaml"
       cfg.provision.alerting."${x}".settings
     else
@@ -130,7 +135,9 @@ let
       description =
         "Wrapper-type for backwards compat of Grafana's declarative provisioning";
       check = x:
-        if builtins.isList x then
+        if
+          builtins.isList x
+        then
           throw ''
             Provisioning dashboards and datasources declaratively by
             setting `dashboards` or `datasources` to a list is not supported
@@ -881,7 +888,13 @@ in {
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
       # times.
-      apply = x: if isList x then lib.unique x else x;
+      apply = x:
+        if
+          isList x
+        then
+          lib.unique x
+        else
+          x;
     };
 
     package = mkOption {
@@ -910,7 +923,9 @@ in {
             plugins = mkOption {
               description = lib.mdDoc
                 "Directory where grafana will automatically scan and look for plugins";
-              default = if (cfg.declarativePlugins == null) then
+              default = if
+                (cfg.declarativePlugins == null)
+              then
                 "${cfg.dataDir}/plugins"
               else
                 declarativePlugins;
@@ -1916,8 +1931,9 @@ in {
         # Hardening
         AmbientCapabilities = lib.mkIf
           (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.settings.server.http_port
-          < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if
+          (cfg.settings.server.http_port < 1024)
+        then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;

@@ -28,7 +28,13 @@ let
       touch $out
     '';
 
-  check = cond: if cond then "ok" else "nok";
+  check = cond:
+    if
+      cond
+    then
+      "ok"
+    else
+      "nok";
 in {
   withExtensions-enables-previously-disabled-extensions =
     runTest "php-test-withExtensions-enables-previously-disabled-extensions" ''

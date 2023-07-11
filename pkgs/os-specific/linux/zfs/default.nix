@@ -63,7 +63,12 @@ let
   # by the kernel.
   # If you don't do this your ZFS builds will fail on any non-standard (e.g.
   # clang-built) kernels.
-  stdenv' = if kernel == null then stdenv else kernel.stdenv;
+  stdenv' = if
+    kernel == null
+  then
+    stdenv
+  else
+    kernel.stdenv;
 
   common = {
       version,
@@ -254,7 +259,9 @@ let
       passthru = {
         inherit enableMail latestCompatibleLinuxPackages;
 
-        tests = if isUnstable then [ nixosTests.zfs.unstable ] else [
+        tests = if
+          isUnstable
+        then [ nixosTests.zfs.unstable ] else [
           nixosTests.zfs.installer
           nixosTests.zfs.stable
         ];
@@ -290,12 +297,18 @@ in {
   # to be adapted
   zfsStable = common {
     # check the release notes for compatible kernels
-    kernelCompatible = if stdenv'.isx86_64 then
+    kernelCompatible = if
+      stdenv'.isx86_64
+    then
       kernel.kernelOlder "6.3"
     else
       kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    latestCompatibleLinuxPackages = if
+      stdenv'.isx86_64
+    then
+      linuxPackages_6_2
+    else
+      linuxPackages_6_1;
 
     # this package should point to the latest release.
     version = "2.1.11";
@@ -308,12 +321,18 @@ in {
     # NOTE:
     #   zfs-2.1.9<=x<=2.1.10 is broken with aarch64-linux-6.2
     #   for future releases, please delete this condition.
-    kernelCompatible = if stdenv'.isx86_64 then
+    kernelCompatible = if
+      stdenv'.isx86_64
+    then
       kernel.kernelOlder "6.3"
     else
       kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    latestCompatibleLinuxPackages = if
+      stdenv'.isx86_64
+    then
+      linuxPackages_6_2
+    else
+      linuxPackages_6_1;
 
     # this package should point to a version / git revision compatible with the latest kernel release
     # IMPORTANT: Always use a tagged release candidate or commits from the

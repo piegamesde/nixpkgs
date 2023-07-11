@@ -43,7 +43,9 @@ in {
           ...
         }:
         let
-          extend = if local.config.inheritParentConfig then
+          extend = if
+            local.config.inheritParentConfig
+          then
             extendModules
           else
             noUserModules.extendModules;

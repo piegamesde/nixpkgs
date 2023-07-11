@@ -15,7 +15,13 @@ let
   opt = options.services.mediatomb;
   name = cfg.package.pname;
   pkg = cfg.package;
-  optionYesNo = option: if option then "yes" else "no";
+  optionYesNo = option:
+    if
+      option
+    then
+      "yes"
+    else
+      "no";
   # configuration on media directory
   mediaDirectory = {
     options = {
@@ -44,7 +50,9 @@ let
     }" hidden-files="${optionYesNo d.hidden-files}" />
   '';
 
-  transcodingConfig = if cfg.transcoding then
+  transcodingConfig = if
+    cfg.transcoding
+  then
     with pkgs; ''
       <transcoding enabled="yes">
         <mimetype-profile-mappings>

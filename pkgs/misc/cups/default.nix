@@ -138,7 +138,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postInstall = ''
-    libexec=${if stdenv.isDarwin then "libexec/cups" else "lib/cups"}
+    libexec=${
+      if
+        stdenv.isDarwin
+      then
+        "libexec/cups"
+      else
+        "lib/cups"
+    }
     moveToOutput $libexec "$out"
 
     # $lib contains references to $out/share/cups.

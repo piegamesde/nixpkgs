@@ -11,7 +11,9 @@ let
 
   cfg = config.services.squid;
 
-  squidConfig = pkgs.writeText "squid.conf" (if cfg.configText != null then
+  squidConfig = pkgs.writeText "squid.conf" (if
+    cfg.configText != null
+  then
     cfg.configText
   else ''
     #

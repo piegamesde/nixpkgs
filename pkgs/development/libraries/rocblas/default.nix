@@ -63,7 +63,14 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_CXX_COMPILER=hipcc"
     "-Dpython=python3"
     "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-    "-DBUILD_WITH_TENSILE=${if buildTensile then "ON" else "OFF"}"
+    "-DBUILD_WITH_TENSILE=${
+      if
+        buildTensile
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     # Manually define CMAKE_INSTALL_<DIR>
     # See: https://github.com/NixOS/nixpkgs/pull/197838
     "-DCMAKE_INSTALL_BINDIR=bin"
@@ -75,8 +82,22 @@ stdenv.mkDerivation (finalAttrs: {
     "-DTensile_ROOT=/build/source/tensile/lib/python${python3.pythonVersion}/site-packages/Tensile"
     "-DTensile_LOGIC=${tensileLogic}"
     "-DTensile_CODE_OBJECT_VERSION=${tensileCOVersion}"
-    "-DTensile_SEPARATE_ARCHITECTURES=${if tensileSepArch then "ON" else "OFF"}"
-    "-DTensile_LAZY_LIBRARY_LOADING=${if tensileLazyLib then "ON" else "OFF"}"
+    "-DTensile_SEPARATE_ARCHITECTURES=${
+      if
+        tensileSepArch
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DTensile_LAZY_LIBRARY_LOADING=${
+      if
+        tensileLazyLib
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
   ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]

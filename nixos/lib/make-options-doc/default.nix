@@ -80,7 +80,9 @@ let
   genRelatedPackages = packages: optName:
     let
       unpack = p:
-        if lib.isString p then {
+        if
+          lib.isString p
+        then {
           name = p;
         } else if lib.isList p then {
           path = p;
@@ -143,7 +145,9 @@ in rec {
       (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
     # merge with an empty set if baseOptionsJSON is null to run markdown
     # processing on the input options
-    baseJSON = if baseOptionsJSON == null then
+    baseJSON = if
+      baseOptionsJSON == null
+    then
       builtins.toFile "base.json" "{}"
     else
       baseOptionsJSON;
@@ -155,7 +159,14 @@ in rec {
     TOUCH_IF_DB=$dst/.used-docbook \
     python ${./mergeJSON.py} \
       ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
-      ${if allowDocBook then "--warn-on-docbook" else "--error-on-docbook"} \
+      ${
+        if
+          allowDocBook
+        then
+          "--warn-on-docbook"
+        else
+          "--error-on-docbook"
+      } \
       $baseJSON $options \
       > $dst/options.json
 

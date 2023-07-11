@@ -97,4 +97,9 @@ let
       sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     };
   };
-in if stdenv.isDarwin then darwinPkg else linuxPkg
+in if
+  stdenv.isDarwin
+then
+  darwinPkg
+else
+  linuxPkg

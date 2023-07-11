@@ -7,7 +7,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if withoutInitTools then "sysvtools" else "sysvinit";
+  pname = if
+    withoutInitTools
+  then
+    "sysvtools"
+  else
+    "sysvinit";
   version = "3.04";
 
   src = fetchurl {

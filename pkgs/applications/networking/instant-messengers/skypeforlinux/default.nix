@@ -94,7 +94,9 @@ let
     xorg.libxcb
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "x86_64-linux"
+  then
     fetchurl {
       urls = [
         "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb"

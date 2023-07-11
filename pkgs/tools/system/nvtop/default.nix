@@ -16,8 +16,14 @@
 }:
 
 let
-  pname-suffix =
-    if amd && nvidia then "" else if amd then "-amd" else "-nvidia";
+  pname-suffix = if
+    amd && nvidia
+  then
+    ""
+  else if amd then
+    "-amd"
+  else
+    "-nvidia";
   nvidia-postFixup = "addOpenGLRunpath $out/bin/nvtop";
   libPath = lib.makeLibraryPath [
     libdrm

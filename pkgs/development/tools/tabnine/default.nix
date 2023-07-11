@@ -6,11 +6,12 @@
 }:
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
-  platform =
-    if (builtins.hasAttr stdenv.hostPlatform.system sources.platforms) then
-      builtins.getAttr (stdenv.hostPlatform.system) sources.platforms
-    else
-      throw "Not supported on ${stdenv.hostPlatform.system}";
+  platform = if
+    (builtins.hasAttr stdenv.hostPlatform.system sources.platforms)
+  then
+    builtins.getAttr (stdenv.hostPlatform.system) sources.platforms
+  else
+    throw "Not supported on ${stdenv.hostPlatform.system}";
 in
   stdenv.mkDerivation {
     pname = "tabnine";

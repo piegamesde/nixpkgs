@@ -35,7 +35,13 @@
 
 let
   inherit (builtins) elemAt;
-  nullableOr = o: default: if o == null then default else o;
+  nullableOr = o: default:
+    if
+      o == null
+    then
+      default
+    else
+      o;
 
   bits = stdenv.hostPlatform.parsed.cpu.bits;
 

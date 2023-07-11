@@ -123,7 +123,9 @@ in
 
     cmakeFlags = [
       "-DBUILD_RECORDER=${
-        if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then
+        if
+          (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
+        then
           "ON"
         else
           "OFF"

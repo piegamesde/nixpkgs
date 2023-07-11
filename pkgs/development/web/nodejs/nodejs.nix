@@ -44,7 +44,12 @@ let
   majorVersion = lib.versions.major version;
   minorVersion = lib.versions.minor version;
 
-  pname = if enableNpm then "nodejs" else "nodejs-slim";
+  pname = if
+    enableNpm
+  then
+    "nodejs"
+  else
+    "nodejs-slim";
 
   useSharedHttpParser = !stdenv.isDarwin
     && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
@@ -119,7 +124,9 @@ let
         "--dest-cpu=${
           let
             platform = stdenv.hostPlatform;
-          in if platform.isAarch32 then
+          in if
+            platform.isAarch32
+          then
             "arm"
           else if platform.isAarch64 then
             "arm64"
@@ -217,7 +224,9 @@ let
       mkdir -p $libv8/lib
       pushd out/Release/obj.target
       find . -path "./torque_*/**/*.o" -or -path "./v8*/**/*.o" | sort -u >files
-      ${if stdenv.buildPlatform.isGnu then ''
+      ${if
+        stdenv.buildPlatform.isGnu
+      then ''
         ar -cqs $libv8/lib/libv8.a @files
       '' else ''
         cat files | while read -r file; do

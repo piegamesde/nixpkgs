@@ -73,7 +73,9 @@
 }:
 
 let
-  hdf4-custom = if hdf4-forced != null then
+  hdf4-custom = if
+    hdf4-forced != null
+  then
     hdf4-forced
   else
     hdf4.override {
@@ -81,7 +83,9 @@ let
       szipSupport = enableSzip;
       inherit szip;
     };
-  hdf5-custom = if hdf5-forced != null then
+  hdf5-custom = if
+    hdf5-forced != null
+  then
     hdf5-forced
   else
     hdf5.override {
@@ -91,12 +95,16 @@ let
       szipSupport = enableSzip;
       inherit szip;
     };
-  netcdf-custom = if netcdf-forced != null then
+  netcdf-custom = if
+    netcdf-forced != null
+  then
     netcdf-forced
   else
     netcdf.override { hdf5 = hdf5-custom; };
   enablePlplotDrivers = enableWX || enableXWin;
-  plplot-with-drivers = if plplot-forced != null then
+  plplot-with-drivers = if
+    plplot-forced != null
+  then
     plplot-forced
   else
     plplot.override { inherit enableWX enableXWin; };
@@ -149,9 +157,12 @@ in
 
     nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
 
-    cmakeFlags = lib.optional (!enableHDF4) "-DHDF=OFF"
-      ++ [ (if enableHDF5 then "-DHDF5DIR=${hdf5-custom}" else "-DHDF5=OFF") ]
-      ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
+    cmakeFlags = lib.optional (!enableHDF4) "-DHDF=OFF" ++ [ (if
+      enableHDF5
+    then
+      "-DHDF5DIR=${hdf5-custom}"
+    else
+      "-DHDF5=OFF") ] ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
       ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"
       ++ lib.optional (!enableGRIB) "-DGRIB=OFF"
       ++ lib.optional (!enableGLPK) "-DGLPK=OFF"

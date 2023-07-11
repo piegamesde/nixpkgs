@@ -19,7 +19,12 @@ let
   version = "11.2";
   bootstrapFromC = !((stdenv.isLinux && stdenv.isAarch64) || stdenv.isx86_64);
 
-  arch = if stdenv.isLinux && stdenv.isAarch64 then "-aarch64le" else "-x86-64";
+  arch = if
+    stdenv.isLinux && stdenv.isAarch64
+  then
+    "-aarch64le"
+  else
+    "-x86-64";
 in
   stdenv.mkDerivation {
     pname = "mit-scheme" + lib.optionalString enableX11 "-x11";
@@ -29,7 +34,9 @@ in
     # the platform-specific tarballs, which contain pre-built binaries.  It
     # leads to more efficient code than when building the tarball that contains
     # generated C code instead of those binaries.
-    src = if stdenv.isLinux && stdenv.isAarch64 then
+    src = if
+      stdenv.isLinux && stdenv.isAarch64
+    then
       fetchurl {
         url =
           "mirror://gnu/mit-scheme/stable.pkg/${version}/mit-scheme-${version}-aarch64le.tar.gz";
@@ -61,7 +68,9 @@ in
        runHook preBuild
        cd src
 
-      ${if bootstrapFromC then
+      ${if
+        bootstrapFromC
+      then
         "./etc/make-liarc.sh --prefix=$out"
       else
         "make compile-microcode"}

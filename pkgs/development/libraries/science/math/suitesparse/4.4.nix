@@ -10,7 +10,12 @@
 }:
 
 let
-  int_t = if blas.isILP64 then "int64_t" else "int32_t";
+  int_t = if
+    blas.isILP64
+  then
+    "int64_t"
+  else
+    "int32_t";
   SHLIB_EXT = stdenv.hostPlatform.extensions.sharedLibrary;
 in
   stdenv.mkDerivation rec {
@@ -68,10 +73,27 @@ in
           for i in "$out"/lib/lib*.a; do
             ar -x $i
           done
-          ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${
-            if enableCuda then "nvcc" else "cc"
+          ${
+            if
+              enableCuda
+            then
+              cudatoolkit
+            else
+              stdenv.cc.outPath
+          }/bin/${
+            if
+              enableCuda
+            then
+              "nvcc"
+            else
+              "cc"
           } *.o ${
-            if stdenv.isDarwin then "-dynamiclib" else "--shared"
+            if
+              stdenv.isDarwin
+            then
+              "-dynamiclib"
+            else
+              "--shared"
           } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lblas ${
             lib.optionalString enableCuda "-lcublas"
           }

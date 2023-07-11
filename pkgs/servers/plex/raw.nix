@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   pname = "plexmediaserver";
 
   # Fetch the source
-  src = if stdenv.hostPlatform.system == "aarch64-linux" then
+  src = if
+    stdenv.hostPlatform.system == "aarch64-linux"
+  then
     fetchurl {
       url =
         "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";

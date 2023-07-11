@@ -7,7 +7,12 @@
   python3,
   fixDarwinDylibNames,
   version,
-  cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else libcxxabi,
+  cxxabi ? if
+    stdenv.hostPlatform.isFreeBSD
+  then
+    libcxxrt
+  else
+    libcxxabi,
   libcxxabi,
   libcxxrt,
 }:

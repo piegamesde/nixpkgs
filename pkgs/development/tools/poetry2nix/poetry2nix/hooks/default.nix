@@ -34,8 +34,10 @@ let
         };
       } ./remove-special-dependencies.sh) { };
   makeSetupHookArgs = deps:
-    if lib.elem "propagatedBuildInputs"
-    (builtins.attrNames (builtins.functionArgs makeSetupHook)) then {
+    if
+      lib.elem "propagatedBuildInputs"
+      (builtins.attrNames (builtins.functionArgs makeSetupHook))
+    then {
       propagatedBuildInputs = deps;
     } else {
       inherit deps;

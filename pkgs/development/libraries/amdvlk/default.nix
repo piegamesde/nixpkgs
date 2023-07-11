@@ -22,7 +22,12 @@
 }:
 let
 
-  suffix = if stdenv.system == "x86_64-linux" then "64" else "32";
+  suffix = if
+    stdenv.system == "x86_64-linux"
+  then
+    "64"
+  else
+    "32";
 
 in
   stdenv.mkDerivation rec {

@@ -76,7 +76,9 @@ in
     dontPatchELF = true;
     dontStrip = true;
     meta = vscode.meta;
-  } (if stdenv.isDarwin then ''
+  } (if
+    stdenv.isDarwin
+  then ''
     mkdir -p $out/bin/
     mkdir -p "$out/Applications/${longName}.app/Contents/MacOS"
 

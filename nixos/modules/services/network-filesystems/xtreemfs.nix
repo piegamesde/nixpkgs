@@ -42,7 +42,12 @@ let
     babudb.baseDir = ${home}/dir/database
     babudb.logDir = ${home}/dir/db-log
     babudb.sync = ${
-      if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode
+      if
+        cfg.dir.replication.enable
+      then
+        "FDATASYNC"
+      else
+        cfg.dir.syncMode
     }
 
     ${optionalString cfg.dir.replication.enable
@@ -69,7 +74,12 @@ let
     babudb.baseDir = ${home}/mrc/database
     babudb.logDir = ${home}/mrc/db-log
     babudb.sync = ${
-      if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode
+      if
+        cfg.mrc.replication.enable
+      then
+        "FDATASYNC"
+      else
+        cfg.mrc.syncMode
     }
 
     ${optionalString cfg.mrc.replication.enable

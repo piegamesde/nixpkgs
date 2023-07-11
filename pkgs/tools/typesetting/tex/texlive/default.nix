@@ -121,7 +121,9 @@ let
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file
-        [ (if (attrs.hasRunfiles or false) then
+        [ (if
+          (attrs.hasRunfiles or false)
+        then
           mkPkgV "run"
           # the fake derivations are used for filtering of hyphenation patterns and formats
         else {
@@ -197,7 +199,9 @@ let
       fixedHash =
         fixedHashes.${tlName} or null; # be graceful about missing hashes
 
-      urls = args.urls or (if args ? url then [ args.url ] else
+      urls = args.urls or (if
+        args ? url
+      then [ args.url ] else
         map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz")
         (args.urlPrefixes or urlPrefixes));
 
@@ -286,7 +290,12 @@ in
           ${pname} = attrs;
           extraName = "combined" + lib.removePrefix "scheme" pname;
           extraVersion = with version;
-            if final then "-final" else ".${year}${month}${day}";
+            if
+              final
+            then
+              "-final"
+            else
+              ".${year}${month}${day}";
         })) {
           inherit (tl)
             scheme-basic scheme-context scheme-full scheme-gust scheme-infraonly

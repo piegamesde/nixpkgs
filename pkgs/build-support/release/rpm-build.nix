@@ -51,9 +51,14 @@ vmTools.buildRPM (
       done
     '';
 
-    meta = (if args ? meta then args.meta else { }) // {
-      description = "RPM package for ${diskImage.fullName}";
-    };
+    meta = (if
+      args ? meta
+    then
+      args.meta
+    else
+      { }) // {
+        description = "RPM package for ${diskImage.fullName}";
+      };
   }
 
 )

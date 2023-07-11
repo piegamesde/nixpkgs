@@ -9,7 +9,9 @@
 }:
 
 let
-  platform = if stdenv.isLinux then
+  platform = if
+    stdenv.isLinux
+  then
     "linux"
   else if stdenv.isDarwin then
     "mac"

@@ -1415,8 +1415,10 @@ in
       testScript = ''
         ${nodeName}.start()
         ${concatStringsSep "\n" (map (line:
-          if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line
-            == ")") then
+          if
+            (builtins.substring 0 1 line == " " || builtins.substring 0 1 line
+              == ")")
+          then
             line
           else
             "${nodeName}.${line}")

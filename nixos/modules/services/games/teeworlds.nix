@@ -13,7 +13,14 @@ let
 
   teeworldsConf = pkgs.writeText "teeworlds.cfg" ''
     sv_port ${toString cfg.port}
-    sv_register ${if cfg.register then "1" else "0"}
+    sv_register ${
+      if
+        cfg.register
+      then
+        "1"
+      else
+        "0"
+    }
     ${optionalString (cfg.name != null) "sv_name ${cfg.name}"}
     ${optionalString (cfg.motd != null) "sv_motd ${cfg.motd}"}
     ${optionalString (cfg.password != null) "password ${cfg.password}"}

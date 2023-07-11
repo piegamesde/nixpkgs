@@ -232,7 +232,9 @@ in {
 
     systemd.services = mapAttrs' (blockbookName: cfg:
       (nameValuePair "blockbook-frontend-${blockbookName}" (let
-        configFile = if cfg.configFile != null then
+        configFile = if
+          cfg.configFile != null
+        then
           cfg.configFile
         else
           pkgs.writeText "config.conf" (builtins.toJSON ({
@@ -262,7 +264,9 @@ in {
           ExecStart = ''
             ${cfg.package}/bin/blockbook \
             ${
-              if (cfg.rpc.passwordFile != null && cfg.configFile == null) then
+              if
+                (cfg.rpc.passwordFile != null && cfg.configFile == null)
+              then
                 "-blockchaincfg=${cfg.dataDir}/${blockbookName}-config.json"
               else
                 "-blockchaincfg=${configFile}"

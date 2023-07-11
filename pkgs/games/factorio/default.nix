@@ -78,7 +78,12 @@ let
     categories = [ "Game" ];
   };
 
-  branch = if experimental then "experimental" else "stable";
+  branch = if
+    experimental
+  then
+    "experimental"
+  else
+    "stable";
 
   # NB `experimental` directs us to take the latest build, regardless of its branch;
   # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
@@ -92,8 +97,12 @@ let
   makeBinDists = versions:
     let
       f = path: name: value:
-        if builtins.isAttrs value then
-          if value ? "name" then
+        if
+          builtins.isAttrs value
+        then
+          if
+            value ? "name"
+          then
             makeBinDist value
           else
             builtins.mapAttrs (f (path ++ [ name ])) value
@@ -111,7 +120,9 @@ let
       needsAuth,
     }: {
       inherit version tarDirectory;
-      src = if !needsAuth then
+      src = if
+        !needsAuth
+      then
         fetchurl { inherit name url sha256; }
       else
         (lib.overrideDerivation (fetchurl {
@@ -125,7 +136,9 @@ let
           ];
         }) (_: {
           # This preHook hides the credentials from /proc
-          preHook = if username != "" && token != "" then ''
+          preHook = if
+            username != "" && token != ""
+          then ''
             echo -n "${username}" >username
             echo -n "${token}"    >token
           '' else ''
@@ -179,7 +192,9 @@ let
         $out/bin/factorio
     '';
 
-    passthru.updateScript = if (username != "" && token != "") then [
+    passthru.updateScript = if
+      (username != "" && token != "")
+    then [
       ./update.py
       "--username=${username}"
       "--token=${token}"

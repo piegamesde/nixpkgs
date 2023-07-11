@@ -42,7 +42,14 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_SAMPLES=OFF"
-    "-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DBUILD_TESTS=${
+      if
+        doCheck
+      then
+        "ON"
+      else
+        "OFF"
+    }"
     "-DUSE_SYSTEM_GTEST=ON"
   ];
 

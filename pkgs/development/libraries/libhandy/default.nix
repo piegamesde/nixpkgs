@@ -70,7 +70,14 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgtk_doc=true"
-    "-Dglade_catalog=${if enableGlade then "enabled" else "disabled"}"
+    "-Dglade_catalog=${
+      if
+        enableGlade
+      then
+        "enabled"
+      else
+        "disabled"
+    }"
   ];
 
   # Uses define_variable in pkg-config, but we still need it to use the glade output
