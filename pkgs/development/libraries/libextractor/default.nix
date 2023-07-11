@@ -52,11 +52,13 @@ stdenv.mkDerivation rec {
     # Libraries cannot be wrapped so we need to hardcode the plug-in paths.
     (substituteAll {
       src = ./gst-hardcode-plugins.patch;
-      load_gst_plugins = lib.concatMapStrings (plugin:
+      load_gst_plugins = lib.concatMapStrings (
+        plugin:
         ''
           gst_registry_scan_path(gst_registry_get(), "${
             lib.getLib plugin
-          }/lib/gstreamer-1.0");'') (gstPlugins gst_all_1);
+          }/lib/gstreamer-1.0");''
+      ) (gstPlugins gst_all_1);
     })
   ];
 
@@ -80,8 +82,9 @@ stdenv.mkDerivation rec {
       libgsf
       rpm
     ]
-    ++ lib.optionals gstreamerSupport
-      ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
+    ++ lib.optionals gstreamerSupport (
+      [ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1
+    )
     ++ lib.optionals gtkSupport [
       glib
       gtk3

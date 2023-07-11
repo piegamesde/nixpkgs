@@ -58,13 +58,15 @@ let
       '';
 
       configurePhase =
-        concatStringsSep " " ([
+        concatStringsSep " " (
+          [
             "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"
           ]
           ++ optional javaBindings "--java"
           ++ optional ocamlBindings "--ml"
           ++ optional pythonBindings
-            "--python --pypkgdir=$out/${python.sitePackages}")
+            "--python --pypkgdir=$out/${python.sitePackages}"
+        )
         + "\n"
         + "cd build"
         ;

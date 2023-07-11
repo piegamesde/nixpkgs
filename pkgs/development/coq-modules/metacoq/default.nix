@@ -94,63 +94,70 @@ let
         echo "all:" > all/Makefile
         echo "install:" >> all/Makefile
       '';
-      derivation = (mkCoqDerivation ({
-        inherit version pname defaultVersion release releaseRev repo owner;
+      derivation = (mkCoqDerivation (
+        {
+          inherit version pname defaultVersion release releaseRev repo owner;
 
-        mlPlugin = true;
-        propagatedBuildInputs =
-          [
-            equations
-            coq.ocamlPackages.zarith
-          ]
-          ++ metacoq-deps
-          ;
+          mlPlugin = true;
+          propagatedBuildInputs =
+            [
+              equations
+              coq.ocamlPackages.zarith
+            ]
+            ++ metacoq-deps
+            ;
 
-        patchPhase = ''
-          patchShebangs ./configure.sh
-          patchShebangs ./template-coq/update_plugin.sh
-          patchShebangs ./template-coq/gen-src/to-lower.sh
-          patchShebangs ./pcuic/clean_extraction.sh
-          patchShebangs ./safechecker/clean_extraction.sh
-          patchShebangs ./erasure/clean_extraction.sh
-          echo "CAMLFLAGS+=-w -60 # Unused module" >> ./safechecker/Makefile.plugin.local
-          sed -i -e 's/mv $i $newi;/mv $i tmp; mv tmp $newi;/' ./template-coq/gen-src/to-lower.sh ./pcuic/clean_extraction.sh ./safechecker/clean_extraction.sh ./erasure/clean_extraction.sh
-        '';
+          patchPhase = ''
+            patchShebangs ./configure.sh
+            patchShebangs ./template-coq/update_plugin.sh
+            patchShebangs ./template-coq/gen-src/to-lower.sh
+            patchShebangs ./pcuic/clean_extraction.sh
+            patchShebangs ./safechecker/clean_extraction.sh
+            patchShebangs ./erasure/clean_extraction.sh
+            echo "CAMLFLAGS+=-w -60 # Unused module" >> ./safechecker/Makefile.plugin.local
+            sed -i -e 's/mv $i $newi;/mv $i tmp; mv tmp $newi;/' ./template-coq/gen-src/to-lower.sh ./pcuic/clean_extraction.sh ./safechecker/clean_extraction.sh ./erasure/clean_extraction.sh
+          '';
 
-        configurePhase =
-          optionalString (package == "all") pkgallMake
-          + ''
-            touch ${pkgpath}/metacoq-config
-          ''
-          + optionalString (elem package [
-            "safechecker"
-            "erasure"
-          ]) ''
-            echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
-          ''
-          + optionalString (package == "single") ''
-            ./configure.sh local
-          ''
-          ;
+          configurePhase =
+            optionalString (package == "all") pkgallMake
+            + ''
+              touch ${pkgpath}/metacoq-config
+            ''
+            + optionalString (elem package [
+              "safechecker"
+              "erasure"
+            ]) ''
+              echo  "-I ${template-coq}/lib/coq/${coq.coq-version}/user-contrib/MetaCoq/Template/" > ${pkgpath}/metacoq-config
+            ''
+            + optionalString (package == "single") ''
+              ./configure.sh local
+            ''
+            ;
 
-        preBuild = ''
-          cd ${pkgpath}
-        '';
+          preBuild = ''
+            cd ${pkgpath}
+          '';
 
-        meta = {
-          homepage = "https://metacoq.github.io/";
-          license = licenses.mit;
-          maintainers = with maintainers; [ cohencyril ];
-        };
-      } // optionalAttrs (package != "single") {
-        passthru = genAttrs packages metacoq_;
-      })).overrideAttrs (o:
+          meta = {
+            homepage = "https://metacoq.github.io/";
+            license = licenses.mit;
+            maintainers = with maintainers; [ cohencyril ];
+          };
+        } // optionalAttrs (package != "single") {
+          passthru = genAttrs packages metacoq_;
+        }
+      )).overrideAttrs (
+        o:
         let
           requiresOcamlStdlibShims =
             versionAtLeast o.version "1.0-8.16"
-            || (o.version == "dev"
-              && (versionAtLeast coq.coq-version "8.16"
-                || coq.coq-version == "dev"))
+            || (
+              o.version == "dev"
+              && (
+                versionAtLeast coq.coq-version "8.16"
+                || coq.coq-version == "dev"
+              )
+            )
             ;
         in
         {
@@ -164,7 +171,9 @@ let
     derivation
     ;
 in
-metacoq_ (if single then
-  "single"
-else
-  "all")
+metacoq_ (
+  if single then
+    "single"
+  else
+    "all"
+)

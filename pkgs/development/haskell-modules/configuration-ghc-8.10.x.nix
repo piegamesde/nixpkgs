@@ -119,16 +119,19 @@ self: super: {
       ];
     in
     addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
-      (lself: lsuper: {
-        Cabal = lself.Cabal_3_6_3_0;
-        aeson = lself.aeson_1_5_6_0;
-        lens-aeson = lself.lens-aeson_1_1_3;
-        lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
-      }))
+      (
+        lself: lsuper: {
+          Cabal = lself.Cabal_3_6_3_0;
+          aeson = lself.aeson_1_5_6_0;
+          lens-aeson = lself.lens-aeson_1_1_3;
+          lsp-types =
+            doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
+        }
+      ))
     ;
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends
-    (with self.hls-tactics-plugin.scope; [
+  hls-tactics-plugin = unmarkBroken (addBuildDepends (
+    with self.hls-tactics-plugin.scope; [
       aeson
       extra
       fingertree
@@ -150,10 +153,11 @@ self: super: {
       syb
       unagi-chan
       unordered-containers
-    ]) super.hls-tactics-plugin);
+    ]
+  ) super.hls-tactics-plugin);
 
-  hls-brittany-plugin = unmarkBroken (addBuildDepends
-    (with self.hls-brittany-plugin.scope; [
+  hls-brittany-plugin = unmarkBroken (addBuildDepends (
+    with self.hls-brittany-plugin.scope; [
       brittany
       czipwith
       extra
@@ -163,24 +167,28 @@ self: super: {
       hls-test-utils
       lens
       lsp-types
-    ]) (super.hls-brittany-plugin.overrideScope (lself: lsuper: {
+    ]
+  ) (super.hls-brittany-plugin.overrideScope (
+    lself: lsuper: {
       brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
       aeson = lself.aeson_1_5_6_0;
       multistate = unmarkBroken (dontCheck lsuper.multistate);
       lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
-    })));
+    }
+  )));
 
     # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
     # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends
-    (with self.hls-haddock-comments-plugin.scope; [
+  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends (
+    with self.hls-haddock-comments-plugin.scope; [
       ghc-exactprint
       ghcide
       hls-plugin-api
       hls-refactor-plugin
       lsp-types
       unordered-containers
-    ]) super.hls-haddock-comments-plugin);
+    ]
+  ) super.hls-haddock-comments-plugin);
 
   mime-string = disableOptimization super.mime-string;
 
@@ -202,10 +210,12 @@ self: super: {
   taffybar = markUnbroken (doDistribute super.taffybar);
 
     # https://github.com/fpco/inline-c/issues/127 (recommend to upgrade to Nixpkgs GHC >=9.0)
-  inline-c-cpp = (if isDarwin then
-    dontCheck
-  else
-    x: x) super.inline-c-cpp;
+  inline-c-cpp = (
+    if isDarwin then
+      dontCheck
+    else
+      x: x
+  ) super.inline-c-cpp;
 
     # Depends on OneTuple for GHC < 9.0
   universe-base = addBuildDepends [ self.OneTuple ] super.universe-base;

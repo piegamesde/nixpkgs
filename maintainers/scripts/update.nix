@@ -16,12 +16,14 @@
 }:
 
 let
-  pkgs = import ./../../default.nix (if include-overlays == false then
-    { overlays = [ ]; }
-  else if include-overlays == true then
-    { } # Let Nixpkgs include overlays impurely.
-  else
-    { overlays = include-overlays; });
+  pkgs = import ./../../default.nix (
+    if include-overlays == false then
+      { overlays = [ ]; }
+    else if include-overlays == true then
+      { } # Let Nixpkgs include overlays impurely.
+    else
+      { overlays = include-overlays; }
+  );
 
   inherit (pkgs)
     lib
@@ -94,9 +96,9 @@ let
               || evaluatedPathContent.recurseForDerivations or false
               || evaluatedPathContent.recurseForRelease or false
             then
-              dedupResults (lib.mapAttrsToList
-                (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
-                evaluatedPathContent)
+              dedupResults (lib.mapAttrsToList (
+                name: elem: packagesWithPathInner (path ++ [ name ]) elem
+              ) evaluatedPathContent)
             else
               [ ]
           else
@@ -114,8 +116,9 @@ let
     # Recursively find all packages in `pkgs` with updateScript matching given predicate.
   packagesWithUpdateScriptMatchingPredicate =
     cond:
-    packagesWith
-    (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg)
+    packagesWith (
+      path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg
+    )
     ;
 
     # Recursively find all packages in `pkgs` with updateScript by given maintainer.
@@ -130,14 +133,20 @@ let
           builtins.getAttr maintainer' lib.maintainers
         ;
     in
-    packagesWithUpdateScriptMatchingPredicate (path: pkg:
-      (if builtins.hasAttr "maintainers" pkg.meta then
-        (if builtins.isList pkg.meta.maintainers then
-          builtins.elem maintainer pkg.meta.maintainers
+    packagesWithUpdateScriptMatchingPredicate (
+      path: pkg:
+      (
+        if builtins.hasAttr "maintainers" pkg.meta then
+          (
+            if builtins.isList pkg.meta.maintainers then
+              builtins.elem maintainer pkg.meta.maintainers
+            else
+              maintainer == pkg.meta.maintainers
+          )
         else
-          maintainer == pkg.meta.maintainers)
-      else
-        false))
+          false
+      )
+    )
     ;
 
     # Recursively find all packages under `path` in `pkgs` with updateScript.

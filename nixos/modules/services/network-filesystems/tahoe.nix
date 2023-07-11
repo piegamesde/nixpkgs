@@ -201,7 +201,8 @@ in
   config = mkMerge [
     (mkIf (cfg.introducers != { }) {
       environment = {
-        etc = flip mapAttrs' cfg.introducers (node: settings:
+        etc = flip mapAttrs' cfg.introducers (
+          node: settings:
           nameValuePair "tahoe-lafs/introducer-${node}.cfg" {
             mode = "0444";
             text = ''
@@ -214,7 +215,8 @@ in
               ${optionalString (settings.tub.location != null)
               "tub.location = ${settings.tub.location}"}
             '';
-          });
+          }
+        );
           # Actually require Tahoe, so that we will have it installed.
         systemPackages =
           flip mapAttrsToList cfg.introducers (node: settings: settings.package)
@@ -223,7 +225,8 @@ in
         # Open up the firewall.
         # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.introducers
         #   (node: settings: settings.tub.port);
-      systemd.services = flip mapAttrs' cfg.introducers (node: settings:
+      systemd.services = flip mapAttrs' cfg.introducers (
+        node: settings:
         let
           pidfile = "/run/tahoe.introducer-${node}.pid";
             # This is a directory, but it has no trailing slash. Tahoe commands
@@ -270,15 +273,18 @@ in
           '';
         }
       );
-      users.users = flip mapAttrs' cfg.introducers (node: _:
+      users.users = flip mapAttrs' cfg.introducers (
+        node: _:
         nameValuePair "tahoe.introducer-${node}" {
           description = "Tahoe node user for introducer ${node}";
           isSystemUser = true;
-        });
+        }
+      );
     })
     (mkIf (cfg.nodes != { }) {
       environment = {
-        etc = flip mapAttrs' cfg.nodes (node: settings:
+        etc = flip mapAttrs' cfg.nodes (
+          node: settings:
           nameValuePair "tahoe-lafs/${node}.cfg" {
             mode = "0444";
             text = ''
@@ -324,7 +330,8 @@ in
               ${optionalString (settings.sftpd.accounts.url != null)
               "accounts.url = ${settings.sftpd.accounts.url}"}
             '';
-          });
+          }
+        );
           # Actually require Tahoe, so that we will have it installed.
         systemPackages =
           flip mapAttrsToList cfg.nodes (node: settings: settings.package);
@@ -332,7 +339,8 @@ in
         # Open up the firewall.
         # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.nodes
         #   (node: settings: settings.tub.port);
-      systemd.services = flip mapAttrs' cfg.nodes (node: settings:
+      systemd.services = flip mapAttrs' cfg.nodes (
+        node: settings:
         let
           pidfile = "/run/tahoe.${node}.pid";
             # This is a directory, but it has no trailing slash. Tahoe commands
@@ -380,11 +388,13 @@ in
           '';
         }
       );
-      users.users = flip mapAttrs' cfg.nodes (node: _:
+      users.users = flip mapAttrs' cfg.nodes (
+        node: _:
         nameValuePair "tahoe.${node}" {
           description = "Tahoe node user for node ${node}";
           isSystemUser = true;
-        });
+        }
+      );
     })
   ];
 }

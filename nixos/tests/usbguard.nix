@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -65,4 +66,5 @@ import ./make-test-python.nix ({
           machine.succeed("usbguard list-devices | grep -E ' allow .*QEMU USB HARDDRIVE'")
           machine.fail("usbguard list-devices | grep -E ' block .*QEMU USB HARDDRIVE'")
     '';
-  })
+  }
+)

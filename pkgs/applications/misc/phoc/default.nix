@@ -22,7 +22,9 @@
 let
   phocWlroots = wlroots.overrideAttrs (old: {
     patches =
-      (old.patches or [ ])
+      (
+        old.patches or [ ]
+      )
       ++ [
         # Revert "layer-shell: error on 0 dimension without anchors"
         # https://source.puri.sm/Librem5/phosh/-/issues/422

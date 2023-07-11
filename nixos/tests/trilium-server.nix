@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "trilium-server";
@@ -49,4 +50,5 @@ import ./make-test-python.nix ({
               "curl --resolve 'trilium.example.com:80:127.0.0.1' http://trilium.example.com/"
           )
     '';
-  })
+  }
+)

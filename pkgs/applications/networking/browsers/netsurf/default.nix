@@ -3,7 +3,8 @@
   pkgs,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self; {
     # ui can be: gtk2, gtk3, sixel, framebuffer. Note that console display (sixel)
     # requires a terminal that supports `sixel` capabilities, such as mlterm
@@ -43,4 +44,5 @@ lib.makeScope pkgs.newScope (self:
     libutf8proc = callPackage ./libutf8proc.nix { };
     libwapcaplet = callPackage ./libwapcaplet.nix { };
     nsgenbind = callPackage ./nsgenbind.nix { };
-  })
+  }
+)

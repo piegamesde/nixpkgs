@@ -129,39 +129,45 @@ let
       ;
   };
 
-  modulesTree = pkgs.aggregateModules (with config.boot.kernelPackages; [
-    kernel
-    zfs
-  ]);
+  modulesTree = pkgs.aggregateModules (
+    with config.boot.kernelPackages; [
+      kernel
+      zfs
+    ]
+  );
 
-  tools = lib.makeBinPath (with pkgs; [
-    config.system.build.nixos-enter
-    config.system.build.nixos-install
-    dosfstools
-    0.0
-    fsprogs
-    gptfdisk
-    nix
-    parted
-    util-linux
-    zfs
-  ]);
+  tools = lib.makeBinPath (
+    with pkgs; [
+      config.system.build.nixos-enter
+      config.system.build.nixos-install
+      dosfstools
+      0.0
+      fsprogs
+      gptfdisk
+      nix
+      parted
+      util-linux
+      zfs
+    ]
+  );
 
   hasDefinedMount = disk: ((disk.mount or null) != null);
 
   stringifyProperties =
     prefix: properties:
-    lib.concatStringsSep " \\\n" (lib.mapAttrsToList (property: value:
-      "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
-      properties)
+    lib.concatStringsSep " \\\n" (lib.mapAttrsToList (
+      property: value:
+      "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
+    ) properties)
     ;
 
   createDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      sorted = lib.sort (left: right:
-        (lib.stringLength left.name) < (lib.stringLength right.name))
-        datasetlist;
+      sorted = lib.sort (
+        left: right:
+        (lib.stringLength left.name) < (lib.stringLength right.name)
+      ) datasetlist;
       cmd =
         {
           name,
@@ -179,14 +185,18 @@ let
   mountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter ({
+      mounts = lib.filter (
+        {
           value,
           ...
         }:
-        hasDefinedMount value) datasetlist;
-      sorted = lib.sort (left: right:
+        hasDefinedMount value
+      ) datasetlist;
+      sorted = lib.sort (
+        left: right:
         (lib.stringLength left.value.mount)
-        < (lib.stringLength right.value.mount)) mounts;
+        < (lib.stringLength right.value.mount)
+      ) mounts;
       cmd =
         {
           name,
@@ -203,14 +213,18 @@ let
   unmountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter ({
+      mounts = lib.filter (
+        {
           value,
           ...
         }:
-        hasDefinedMount value) datasetlist;
-      sorted = lib.sort (left: right:
+        hasDefinedMount value
+      ) datasetlist;
+      sorted = lib.sort (
+        left: right:
         (lib.stringLength left.value.mount)
-        > (lib.stringLength right.value.mount)) mounts;
+        > (lib.stringLength right.value.mount)
+      ) mounts;
       cmd =
         {
           name,
@@ -233,13 +247,15 @@ let
         nixpkgs-fmt
       ];
       filesystems = builtins.toJSON {
-        fileSystems = lib.mapAttrs' (dataset: attrs: {
-          name = attrs.mount;
-          value = {
-            fsType = "zfs";
-            device = "${dataset}";
-          };
-        }) mountable;
+        fileSystems = lib.mapAttrs' (
+          dataset: attrs: {
+            name = attrs.mount;
+            value = {
+              fsType = "zfs";
+              device = "${dataset}";
+            };
+          }
+        ) mountable;
       };
       passAsFile = [ "filesystems" ];
     } ''

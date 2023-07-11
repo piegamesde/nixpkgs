@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -27,4 +28,5 @@ import ./make-test-python.nix ({
       machine.succeed('[ "$(stat -c %a /home/alice)" == "700" ]')
       machine.succeed('[ "$(stat -c %a /home/bob)" == "750" ]')
     '';
-  })
+  }
+)

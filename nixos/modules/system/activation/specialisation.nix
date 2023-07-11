@@ -22,9 +22,9 @@ let
     # you can provide an easy way to boot the same configuration
     # as you use, but with another kernel
     # !!! fix this
-  children = mapAttrs
-    (childName: childConfig: childConfig.configuration.system.build.toplevel)
-    config.specialisation;
+  children = mapAttrs (
+    childName: childConfig: childConfig.configuration.system.build.toplevel
+  ) config.specialisation;
 
 in
 {
@@ -47,7 +47,8 @@ in
         sudo /run/current-system/specialisation/fewJobsManyCores/bin/switch-to-configuration test
         ```
       '';
-      type = types.attrsOf (types.submodule (local@{
+      type = types.attrsOf (types.submodule (
+        local@{
           ...
         }:
         let

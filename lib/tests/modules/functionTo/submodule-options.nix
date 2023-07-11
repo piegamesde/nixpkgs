@@ -11,7 +11,8 @@ in
   imports = [
 
     # fun.<function-body>.a
-    ({
+    (
+      {
         ...
       }: {
         options = {
@@ -21,10 +22,12 @@ in
               ;
           };
         };
-      })
+      }
+    )
 
     # fun.<function-body>.b
-    ({
+    (
+      {
         ...
       }: {
         options = {
@@ -34,7 +37,8 @@ in
               ;
           };
         };
-      })
+      }
+    )
   ];
 
   options = {
@@ -46,13 +50,15 @@ in
 
     optionsResult = lib.mkOption {
       type = types.str;
-      default = lib.concatStringsSep " " (lib.concatLists (lib.mapAttrsToList
-        (k: v:
-          if k == "_module" then
-            [ ]
-          else
-            [ (lib.showOption v.loc) ])
-        ((options.fun.type.getSubOptions [ "fun" ]))));
+      default = lib.concatStringsSep " " (lib.concatLists (lib.mapAttrsToList (
+        k: v:
+        if k == "_module" then
+          [ ]
+        else
+          [ (lib.showOption v.loc) ]
+      ) (
+        (options.fun.type.getSubOptions [ "fun" ])
+      )));
     };
   };
 

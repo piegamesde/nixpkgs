@@ -47,28 +47,32 @@ let
       ...
     }@args:
 
-    stdenv.mkDerivation ({
-      name = "aspell-dict-${shortName}";
+    stdenv.mkDerivation (
+      {
+        name = "aspell-dict-${shortName}";
 
-      strictDeps = true;
+        strictDeps = true;
 
-      nativeBuildInputs = [
-        aspell
-        which
-      ];
+        nativeBuildInputs = [
+          aspell
+          which
+        ];
 
-      dontAddPrefix = true;
+        dontAddPrefix = true;
 
-      configurePlatforms = [ ];
+        configurePlatforms = [ ];
 
-      preBuild =
-        "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
+        preBuild =
+          "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
 
-      meta = {
-        description = "Aspell dictionary for ${fullName}";
-        platforms = lib.platforms.all;
-      } // (args.meta or { });
-    } // removeAttrs args [ "meta" ])
+        meta = {
+          description = "Aspell dictionary for ${fullName}";
+          platforms = lib.platforms.all;
+        } // (
+          args.meta or { }
+        );
+      } // removeAttrs args [ "meta" ]
+    )
     ;
 
   buildOfficialDict =
@@ -126,38 +130,42 @@ let
 
         meta = {
           homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
-        } // (args.meta or { });
+        } // (
+          args.meta or { }
+        );
 
-      } // lib.optionalAttrs (stdenv.isDarwin
+      } // lib.optionalAttrs (
+        stdenv.isDarwin
         && lib.elem language [
           "is"
           "nb"
-        ]) {
-          # tar: Cannot open: Illegal byte sequence
-          unpackPhase = ''
-            runHook preUnpack
+        ]
+      ) {
+        # tar: Cannot open: Illegal byte sequence
+        unpackPhase = ''
+          runHook preUnpack
 
-            tar -xf $src --strip-components=1 || true
+          tar -xf $src --strip-components=1 || true
 
-            runHook postUnpack
+          runHook postUnpack
+        '';
+
+        postPatch = lib.getAttr language {
+          is = ''
+            cp icelandic.alias íslenska.alias
+            sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
           '';
-
-          postPatch = lib.getAttr language {
-            is = ''
-              cp icelandic.alias íslenska.alias
-              sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
-            '';
-            nb = ''
-              cp bokmal.alias bokmål.alias
-              sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
-            '';
-          };
-        } // removeAttrs args [
-          "language"
-          "filename"
-          "sha256"
-          "meta"
-        ];
+          nb = ''
+            cp bokmal.alias bokmål.alias
+            sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
+          '';
+        };
+      } // removeAttrs args [
+        "language"
+        "filename"
+        "sha256"
+        "meta"
+      ];
     in
     buildDict buildArgs
     ;
@@ -168,54 +176,58 @@ let
       langInputs ? [ ],
       ...
     }@args:
-    buildDict ({
-      propagatedUserEnvPackages = langInputs;
+    buildDict (
+      {
+        propagatedUserEnvPackages = langInputs;
 
-      preBuild = ''
-        # Aspell can't handle multiple data-dirs
-        # Copy everything we might possibly need
-        ${lib.concatMapStringsSep "\n" (p: ''
-          cp -a ${p}/lib/aspell/* .
-        '') ([ aspell ] ++ langInputs)}
-        export ASPELL_CONF="data-dir $(pwd)"
+        preBuild = ''
+          # Aspell can't handle multiple data-dirs
+          # Copy everything we might possibly need
+          ${lib.concatMapStringsSep "\n" (p: ''
+            cp -a ${p}/lib/aspell/* .
+          '') (
+            [ aspell ] ++ langInputs
+          )}
+          export ASPELL_CONF="data-dir $(pwd)"
 
-        aspell-create() {
-          target=$1
-          shift
-          echo building $target
-          aspell create "$@" master ./$target.rws
-        }
+          aspell-create() {
+            target=$1
+            shift
+            echo building $target
+            aspell create "$@" master ./$target.rws
+          }
 
-        words-only() {
-          awk -F'\t' '{print $1}' | sort | uniq
-        }
+          words-only() {
+            awk -F'\t' '{print $1}' | sort | uniq
+          }
 
-        # drop comments
-        aspell-affix() {
-          words-only \
-            | grep -a -v '#' \
-            | aspell-create "$@"
-        }
+          # drop comments
+          aspell-affix() {
+            words-only \
+              | grep -a -v '#' \
+              | aspell-create "$@"
+          }
 
-        # Hack: drop comments and words with affixes
-        aspell-plain() {
-          words-only \
-            | grep -a -v '#' \
-            | grep -a -v '/' \
-            | aspell-create "$@"
-        }
+          # Hack: drop comments and words with affixes
+          aspell-plain() {
+            words-only \
+              | grep -a -v '#' \
+              | grep -a -v '/' \
+              | aspell-create "$@"
+          }
 
-        aspell-install() {
-          install -d $out/lib/aspell
-          for a in "$@"; do
-            echo installing $a
-            install -t $out/lib/aspell $a.rws
-          done
-        }
-      '';
+          aspell-install() {
+            install -d $out/lib/aspell
+            for a in "$@"; do
+              echo installing $a
+              install -t $out/lib/aspell $a.rws
+            done
+          }
+        '';
 
-      dontUnpack = true;
-    } // args)
+        dontUnpack = true;
+      } // args
+    )
     ;
 
 in

@@ -50,15 +50,17 @@ outer@{
 
 let
 
-  moduleNames = map (mod:
+  moduleNames = map (
+    mod:
     mod.name or (throw "The nginx module with source ${
         toString mod.src
-      } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."))
-    modules;
+      } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported.")
+  ) modules;
 
   mapModules =
     attrPath:
-    lib.flip lib.concatMap modules (mod:
+    lib.flip lib.concatMap modules (
+      mod:
       let
         supports = mod.supports or (_: true);
       in
@@ -168,16 +170,19 @@ stdenv.mkDerivation {
     ++ map (mod: "--add-module=${mod.src}") modules
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-I${libxml2.dev}/include/libxml2"
-    "-Wno-error=implicit-fallthrough"
-  ]
-    ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-        # fix build vts module on gcc11
-        "-Wno-error=stringop-overread"
-      ]
-    ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-I${libxml2.dev}/include/libxml2"
+      "-Wno-error=implicit-fallthrough"
+    ]
+    ++ lib.optionals (
+      stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11"
+    ) [
+      # fix build vts module on gcc11
+      "-Wno-error=stringop-overread"
+    ]
+    ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations"
+  );
 
   configurePlatforms = [ ];
 
@@ -192,15 +197,16 @@ stdenv.mkDerivation {
     ;
 
   patches =
-    map fixPatch ([
-      (substituteAll {
-        src = ./nix-etag-1.15.4.patch;
-        preInstall = ''
-          export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
-        '';
-      })
-      ./nix-skip-check-logs-path.patch
-    ]
+    map fixPatch (
+      [
+        (substituteAll {
+          src = ./nix-etag-1.15.4.patch;
+          preInstall = ''
+            export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
+          '';
+        })
+        ./nix-skip-check-logs-path.patch
+      ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         (fetchpatch {
           url =
@@ -218,7 +224,8 @@ stdenv.mkDerivation {
           sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
         })
       ]
-      ++ mapModules "patches")
+      ++ mapModules "patches"
+    )
     ++ extraPatches
     ;
 

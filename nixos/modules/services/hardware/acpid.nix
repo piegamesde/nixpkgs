@@ -148,14 +148,16 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = escapeShellArgs ([
-          "${pkgs.acpid}/bin/acpid"
-          "--foreground"
-          "--netlink"
-          "--confdir"
-          "${acpiConfDir}"
-        ]
-          ++ optional cfg.logEvents "--logevents");
+        ExecStart = escapeShellArgs (
+          [
+            "${pkgs.acpid}/bin/acpid"
+            "--foreground"
+            "--netlink"
+            "--confdir"
+            "${acpiConfDir}"
+          ]
+          ++ optional cfg.logEvents "--logevents"
+        );
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";

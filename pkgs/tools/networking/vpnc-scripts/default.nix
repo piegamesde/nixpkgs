@@ -42,16 +42,18 @@ stdenv.mkDerivation {
     + ''
       wrapProgram $out/bin/vpnc-script \
         --prefix PATH : "${
-          lib.makeBinPath ([
-            nettools
-            gawk
-            coreutils
-            gnugrep
-          ]
+          lib.makeBinPath (
+            [
+              nettools
+              gawk
+              coreutils
+              gnugrep
+            ]
             ++ lib.optionals stdenv.isLinux [
               openresolv
               iproute2
-            ])
+            ]
+          )
         }"
     ''
     ;

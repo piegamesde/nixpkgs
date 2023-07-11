@@ -110,7 +110,8 @@ let
       ];
   };
 in
-lib.listToAttrs (map (component:
+lib.listToAttrs (map (
+  component:
   lib.nameValuePair component (home-assistant.overridePythonAttrs (old: {
     pname = "homeassistant-test-${component}";
     format = "other";
@@ -156,4 +157,5 @@ lib.listToAttrs (map (component:
         # upstream only tests on Linux, so do we.
       platforms = lib.platforms.linux;
     };
-  }))) home-assistant.supportedComponentsWithTests)
+  }))
+) home-assistant.supportedComponentsWithTests)

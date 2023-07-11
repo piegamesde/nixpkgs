@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -58,4 +59,5 @@ import ./make-test-python.nix ({
       with subtest("Container's root folder was removed"):
           machine.fail("ls /run/nixos-containers/webserver")
     '';
-  })
+  }
+)

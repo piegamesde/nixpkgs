@@ -103,9 +103,9 @@ let
               cat test.c
               wcl386 -fe=test_c test.c
               # Only test execution if hostPlatform is targetable
-              ${lib.optionalString
-              (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-              "./test_c"}
+              ${lib.optionalString (
+                !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch
+              ) "./test_c"}
 
               cat <<EOF >test.cpp
               #include <string>
@@ -125,9 +125,9 @@ let
               cat test.cpp
               wcl386 -fe=test_cpp test.cpp
               # Only test execution if hostPlatform is targetable
-              ${lib.optionalString
-              (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-              "./test_cpp"}
+              ${lib.optionalString (
+                !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch
+              ) "./test_cpp"}
               touch $out
             '';
             cross = runCommand "${name}-test-cross" {

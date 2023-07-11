@@ -70,13 +70,15 @@ in
 
   config = mkIf cfg.enable {
     programs.singularity.packageOverriden =
-      (cfg.package.override (optionalAttrs cfg.enableFakeroot {
-        newuidmapPath = "/run/wrappers/bin/newuidmap";
-        newgidmapPath = "/run/wrappers/bin/newgidmap";
-      } // optionalAttrs cfg.enableSuid {
-        enableSuid = true;
-        starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
-      }));
+      (cfg.package.override (
+        optionalAttrs cfg.enableFakeroot {
+          newuidmapPath = "/run/wrappers/bin/newuidmap";
+          newgidmapPath = "/run/wrappers/bin/newgidmap";
+        } // optionalAttrs cfg.enableSuid {
+          enableSuid = true;
+          starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
+        }
+      ));
     environment.systemPackages = [ cfg.packageOverriden ];
     security.wrappers."${cfg.packageOverriden.projectName}-suid" =
       mkIf cfg.enableSuid {

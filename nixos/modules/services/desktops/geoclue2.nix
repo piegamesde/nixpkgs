@@ -22,7 +22,8 @@ let
     "io.elementary.desktop.agent-geoclue2"
   ];
 
-  appConfigModule = types.submodule ({
+  appConfigModule = types.submodule (
+    {
       name,
       ...
     }: {
@@ -57,7 +58,8 @@ let
       };
 
       config.desktopID = mkDefault name;
-    });
+    }
+  );
 
   appConfigToINICompatible =
     _:
@@ -261,24 +263,27 @@ in
       isSystem = false;
     };
 
-    environment.etc."geoclue/geoclue.conf".text = generators.toINI { } ({
-      agent = {
-        whitelist = concatStringsSep ";"
-          (optional cfg.enableDemoAgent "geoclue-demo-agent"
-            ++ defaultWhitelist);
-      };
-      network-nmea = { enable = cfg.enableNmea; };
-      "3g" = { enable = cfg.enable3G; };
-      cdma = { enable = cfg.enableCDMA; };
-      modem-gps = { enable = cfg.enableModemGPS; };
-      wifi = {
-        enable = cfg.enableWifi;
-        url = cfg.geoProviderUrl;
-        submit-data = boolToString cfg.submitData;
-        submission-url = cfg.submissionUrl;
-        submission-nick = cfg.submissionNick;
-      };
-    } // mapAttrs' appConfigToINICompatible cfg.appConfig);
+    environment.etc."geoclue/geoclue.conf".text = generators.toINI { } (
+      {
+        agent = {
+          whitelist = concatStringsSep ";" (
+            optional cfg.enableDemoAgent "geoclue-demo-agent"
+            ++ defaultWhitelist
+          );
+        };
+        network-nmea = { enable = cfg.enableNmea; };
+        "3g" = { enable = cfg.enable3G; };
+        cdma = { enable = cfg.enableCDMA; };
+        modem-gps = { enable = cfg.enableModemGPS; };
+        wifi = {
+          enable = cfg.enableWifi;
+          url = cfg.geoProviderUrl;
+          submit-data = boolToString cfg.submitData;
+          submission-url = cfg.submissionUrl;
+          submission-nick = cfg.submissionNick;
+        };
+      } // mapAttrs' appConfigToINICompatible cfg.appConfig
+    );
   };
 
   meta = with lib; {

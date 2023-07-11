@@ -44,10 +44,12 @@ useStdenv.mkDerivation {
 
   makeFlags = [ "-e" ];
   buildFlags = [
-    (if withLibc then
-      "k-libc"
-    else
-      "k")
+    (
+      if withLibc then
+        "k-libc"
+      else
+        "k"
+    )
     "libk.so"
   ];
   checkTarget = "t";

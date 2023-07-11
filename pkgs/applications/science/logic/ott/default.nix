@@ -25,10 +25,12 @@ stdenv.mkDerivation rec {
       pkg-config
       opaline
     ]
-    ++ (with ocamlPackages; [
-      findlib
-      ocaml
-    ])
+    ++ (
+      with ocamlPackages; [
+        findlib
+        ocaml
+      ]
+    )
     ;
   buildInputs = with ocamlPackages; [ ocamlgraph ];
 

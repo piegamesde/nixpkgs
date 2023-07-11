@@ -32,12 +32,15 @@ let
         else
           import gemset
         ;
-      builtGems = lib.mapAttrs (name: initialAttrs:
+      builtGems = lib.mapAttrs (
+        name: initialAttrs:
         let
-          attrs = functions.applyGemConfigs ({
-            inherit ruby;
-            gemName = name;
-          } // initialAttrs);
+          attrs = functions.applyGemConfigs (
+            {
+              inherit ruby;
+              gemName = name;
+            } // initialAttrs
+          );
         in
         buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
       ) realGemset;

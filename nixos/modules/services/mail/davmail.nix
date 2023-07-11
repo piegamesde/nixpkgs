@@ -32,7 +32,8 @@ let
 
   linesForAttrs =
     attrs:
-    concatMap (name:
+    concatMap (
+      name:
       let
         value = attrs.${name};
       in

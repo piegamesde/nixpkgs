@@ -310,10 +310,11 @@ in
             -i ${configurationYaml} \
             -o /run/dendrite/dendrite.yaml
         '' ];
-        ExecStart = lib.strings.concatStringsSep " " ([
-          "${pkgs.dendrite}/bin/dendrite"
-          "--config /run/dendrite/dendrite.yaml"
-        ]
+        ExecStart = lib.strings.concatStringsSep " " (
+          [
+            "${pkgs.dendrite}/bin/dendrite"
+            "--config /run/dendrite/dendrite.yaml"
+          ]
           ++ lib.optionals (cfg.httpPort != null) [
               "--http-bind-address :${builtins.toString cfg.httpPort}"
             ]
@@ -324,7 +325,8 @@ in
           ]
           ++ lib.optionals cfg.openRegistration [
               "--really-enable-open-registration"
-            ]);
+            ]
+        );
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";
       };

@@ -13,18 +13,24 @@ let
         {
           version ? null
         }:
-        mkCoqDerivation ({
-          inherit pname version;
-          owner = "coq-contribs";
-          mlPlugin = true;
-        } // lib.optionalAttrs (builtins.elem coq.coq-version coqs) ({
-          defaultVersion = param.version;
-          release = { "${param.version}" = { inherit (param) rev sha256; }; };
-        } // (removeAttrs param [
-          "version"
-          "rev"
-          "sha256"
-        ])))
+        mkCoqDerivation (
+          {
+            inherit pname version;
+            owner = "coq-contribs";
+            mlPlugin = true;
+          } // lib.optionalAttrs (builtins.elem coq.coq-version coqs) (
+            {
+              defaultVersion = param.version;
+              release = {
+                "${param.version}" = { inherit (param) rev sha256; };
+              };
+            } // (removeAttrs param [
+              "version"
+              "rev"
+              "sha256"
+            ])
+          )
+        )
         ;
     in
     lib.makeOverridable contribVersion { }

@@ -62,19 +62,21 @@ let
 
   libPathFor =
     pkgs:
-    lib.makeLibraryPath (with pkgs; [
-      libdrm
-      xorg.libXext
-      xorg.libX11
-      xorg.libXv
-      xorg.libXrandr
-      xorg.libxcb
-      zlib
-      stdenv.cc.cc
-      wayland
-      mesa
-      libGL
-    ])
+    lib.makeLibraryPath (
+      with pkgs; [
+        libdrm
+        xorg.libXext
+        xorg.libX11
+        xorg.libXv
+        xorg.libXrandr
+        xorg.libxcb
+        zlib
+        stdenv.cc.cc
+        wayland
+        mesa
+        libGL
+      ]
+    )
     ;
 
   self = stdenv.mkDerivation {
@@ -166,13 +168,15 @@ let
         kernel.modDirVersion
       ;
 
-    makeFlags = optionals (!libsOnly) (kernel.makeFlags
+    makeFlags = optionals (!libsOnly) (
+      kernel.makeFlags
       ++ [
         "IGNORE_PREEMPT_RT_PRESENCE=1"
         "NV_BUILD_SUPPORTS_HMM=1"
         "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
         "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      ]);
+      ]
+    );
 
     hardeningDisable = [
       "pic"
@@ -198,22 +202,26 @@ let
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 
     passthru = {
-      open = mapNullable (hash:
+      open = mapNullable (
+        hash:
         callPackage ./open.nix {
           inherit hash;
           nvidia_x11 = self;
           broken = brokenOpen;
-        }) openSha256;
-      settings = (if settings32Bit then
-        pkgsi686Linux.callPackage
-      else
-        callPackage) (import ./settings.nix self settingsSha256) {
-          withGtk2 = preferGtk2;
-          withGtk3 = !preferGtk2;
-        };
-      persistenced = mapNullable
-        (hash: callPackage (import ./persistenced.nix self hash) { })
-        persistencedSha256;
+        }
+      ) openSha256;
+      settings = (
+        if settings32Bit then
+          pkgsi686Linux.callPackage
+        else
+          callPackage
+      ) (import ./settings.nix self settingsSha256) {
+        withGtk2 = preferGtk2;
+        withGtk3 = !preferGtk2;
+      };
+      persistenced = mapNullable (
+        hash: callPackage (import ./persistenced.nix self hash) { }
+      ) persistencedSha256;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");

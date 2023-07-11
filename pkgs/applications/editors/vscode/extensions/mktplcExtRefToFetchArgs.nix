@@ -7,10 +7,12 @@
 }:
 let
   archurl =
-    (if arch == "" then
-      ""
-    else
-      "?targetPlatform=${arch}");
+    (
+      if arch == "" then
+        ""
+      else
+        "?targetPlatform=${arch}"
+    );
 in
 {
   url =

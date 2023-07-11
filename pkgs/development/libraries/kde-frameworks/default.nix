@@ -47,11 +47,13 @@ let
     mirror = "mirror://kde";
   };
 
-  mkDerivation = libsForQt5.callPackage ({
+  mkDerivation = libsForQt5.callPackage (
+    {
       stdenv,
       mkDerivation ? stdenv.mkDerivation
     }:
-    mkDerivation) { };
+    mkDerivation
+  ) { };
 
   packages =
     self:
@@ -124,8 +126,9 @@ let
               ;
 
           in
-          mkDerivation
-          (args // { inherit pname meta outputs setupHook src version; })
+          mkDerivation (
+            args // { inherit pname meta outputs setupHook src version; }
+          )
           ;
 
       };

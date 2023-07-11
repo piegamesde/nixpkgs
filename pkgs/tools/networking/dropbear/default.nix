@@ -42,13 +42,15 @@ stdenv.mkDerivation rec {
     makeFlagsArray=(
       VPATH=$(cat $NIX_CC/nix-support/orig-libc)/lib
       PROGRAMS="${
-        lib.concatStringsSep " " ([
-          "dropbear"
-          "dbclient"
-          "dropbearkey"
-          "dropbearconvert"
-        ]
-          ++ lib.optionals enableSCP [ "scp" ])
+        lib.concatStringsSep " " (
+          [
+            "dropbear"
+            "dbclient"
+            "dropbearkey"
+            "dropbearconvert"
+          ]
+          ++ lib.optionals enableSCP [ "scp" ]
+        )
       }"
     )
   '';

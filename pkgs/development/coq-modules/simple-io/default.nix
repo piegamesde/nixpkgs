@@ -31,11 +31,13 @@ mkCoqDerivation {
   nativeBuildInputs = [ coq.ocamlPackages.cppo ];
   propagatedBuildInputs =
     [ coq-ext-lib ]
-    ++ (with coq.ocamlPackages; [
-      ocaml
-      findlib
-      ocamlbuild
-    ])
+    ++ (
+      with coq.ocamlPackages; [
+        ocaml
+        findlib
+        ocamlbuild
+      ]
+    )
     ;
 
   doCheck = true;

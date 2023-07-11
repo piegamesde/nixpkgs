@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/wtwitch \
       --set-default LANG en_US.UTF-8 \
       --prefix PATH : ${
-        lib.makeBinPath (lib.optionals stdenv.isLinux [ vlc ]
+        lib.makeBinPath (
+          lib.optionals stdenv.isLinux [ vlc ]
           ++ [
             bash
             coreutils-prefixed
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
             mpv
             procps
             streamlink
-          ])
+          ]
+        )
       }
   '';
 

@@ -13,21 +13,24 @@ let
     # Extract local dasaset names (so no datasets containing "@")
   localDatasetName =
     d:
-    optionals (d != null) (let
-      m = builtins.match "([^/@]+[^@]*)" d;
-    in
-    optionals (m != null) m
+    optionals (d != null) (
+      let
+        m = builtins.match "([^/@]+[^@]*)" d;
+      in
+      optionals (m != null) m
     )
     ;
 
     # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName =
     name:
-    lib.concatMapStrings (s:
+    lib.concatMapStrings (
+      s:
       if lib.isList s then
         "-"
       else
-        s) (builtins.split "[^a-zA-Z0-9_.\\-]+" name)
+        s
+    ) (builtins.split "[^a-zA-Z0-9_.\\-]+" name)
     ;
 
     # Function to build "zfs allow" commands for the filesystems we've delegated
@@ -37,7 +40,8 @@ let
     # datasets.
   buildAllowCommand =
     permissions: dataset:
-    ("-+${
+    (
+      "-+${
         pkgs.writeShellScript "zfs-allow-${dataset}" ''
           # Here we explicitly use the booted system to guarantee the stable API needed by ZFS
 
@@ -73,7 +77,8 @@ let
           ''}
           fi
         ''
-      }")
+      }"
+    )
     ;
 
     # Function to build "zfs unallow" commands for the filesystems we've
@@ -84,7 +89,8 @@ let
     # since the dataset should have been created at this point.
   buildUnallowCommand =
     permissions: dataset:
-    ("-+${
+    (
+      "-+${
         pkgs.writeShellScript "zfs-unallow-${dataset}" ''
           # Here we explicitly use the booted system to guarantee the stable API needed by ZFS
           ${lib.escapeShellArgs [
@@ -104,7 +110,8 @@ let
             (builtins.dirOf dataset)
           ])}
         ''
-      }")
+      }"
+    )
     ;
 in
 {
@@ -227,7 +234,8 @@ in
     };
 
     commands = mkOption {
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           name,
           ...
         }: {
@@ -338,7 +346,8 @@ in
             localSourceAllow = mkDefault cfg.localSourceAllow;
             localTargetAllow = mkDefault cfg.localTargetAllow;
           };
-        }));
+        }
+      ));
       default = { };
       example = literalExpression ''
         {
@@ -366,7 +375,8 @@ in
       groups = mkIf (cfg.group == "syncoid") { syncoid = { }; };
     };
 
-    systemd.services = mapAttrs' (name: c:
+    systemd.services = mapAttrs' (
+      name: c:
       nameValuePair "syncoid-${escapeUnitName name}" (mkMerge [
         {
           description =
@@ -388,7 +398,8 @@ in
               ++ (map (buildUnallowCommand c.localTargetAllow)
                 (localDatasetName c.target))
               ;
-            ExecStart = lib.escapeShellArgs ([ "${cfg.package}/bin/syncoid" ]
+            ExecStart = lib.escapeShellArgs (
+              [ "${cfg.package}/bin/syncoid" ]
               ++ optionals c.useCommonArgs cfg.commonArgs
               ++ optional c.recursive "-r"
               ++ optionals (c.sshKey != null) [
@@ -404,7 +415,8 @@ in
                 "--no-privilege-elevation"
                 c.source
                 c.target
-              ]);
+              ]
+            );
             User = cfg.user;
             Group = cfg.group;
             StateDirectory = [ "syncoid" ];
@@ -483,7 +495,8 @@ in
         }
         cfg.service
         c.service
-      ])) cfg.commands;
+      ])
+    ) cfg.commands;
   };
 
   meta.maintainers = with maintainers; [

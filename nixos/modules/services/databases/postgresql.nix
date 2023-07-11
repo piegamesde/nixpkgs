@@ -488,10 +488,12 @@ in
           "localhost"
         ;
       port = cfg.port;
-      jit = mkDefault (if cfg.enableJIT then
-        "on"
-      else
-        "off");
+      jit = mkDefault (
+        if cfg.enableJIT then
+          "on"
+        else
+          "off"
+      );
     };
 
     services.postgresql.package =
@@ -517,10 +519,12 @@ in
         # ‘system.stateVersion’ to maintain compatibility with existing
         # systems!
       in
-      mkDefault (if cfg.enableJIT then
-        base.withJIT
-      else
-        base)
+      mkDefault (
+        if cfg.enableJIT then
+          base.withJIT
+        else
+          base
+      )
       ;
 
     services.postgresql.dataDir =
@@ -548,9 +552,9 @@ in
 
     environment.pathsToLink = [ "/share/postgresql" ];
 
-    system.extraDependencies = lib.optional
-      (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-      configFileCheck;
+    system.extraDependencies = lib.optional (
+      cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+    ) configFileCheck;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
@@ -606,22 +610,25 @@ in
           '') cfg.ensureDatabases}
         ''
         + ''
-          ${concatMapStrings (user:
+          ${concatMapStrings (
+            user:
             let
-              userPermissions = concatStringsSep "\n" (mapAttrsToList
-                (database: permission:
-                  ''
-                    $PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '')
-                user.ensurePermissions);
+              userPermissions = concatStringsSep "\n" (mapAttrsToList (
+                database: permission:
+                ''
+                  $PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
+              ) user.ensurePermissions);
 
               filteredClauses =
                 filterAttrs (name: value: value != null) user.ensureClauses;
 
-              clauseSqlStatements = attrValues (mapAttrs (n: v:
+              clauseSqlStatements = attrValues (mapAttrs (
+                n: v:
                 if v then
                   n
                 else
-                  "no${n}") filteredClauses);
+                  "no${n}"
+              ) filteredClauses);
 
               userClauses =
                 ''

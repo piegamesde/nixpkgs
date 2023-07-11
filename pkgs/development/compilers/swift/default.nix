@@ -37,20 +37,22 @@ let
       # `apple_sdk_11_0.callPackage`, with our clang on top.
     inherit (clang) bintools;
     stdenv = overrideCC pkgs.stdenv clang;
-    darwin = pkgs.darwin.overrideScope (_: prev: {
-      inherit apple_sdk;
-      inherit (apple_sdk)
-        Libsystem
-        LibsystemCross
-        libcharset
-        libunwind
-        objc4
-        configd
-        IOKit
-        Security
-        ;
-      CF = apple_sdk.CoreFoundation;
-    });
+    darwin = pkgs.darwin.overrideScope (
+      _: prev: {
+        inherit apple_sdk;
+        inherit (apple_sdk)
+          Libsystem
+          LibsystemCross
+          libcharset
+          libunwind
+          objc4
+          configd
+          IOKit
+          Security
+          ;
+        CF = apple_sdk.CoreFoundation;
+      }
+    );
     xcodebuild = pkgs.xcbuild.override {
       inherit (apple_sdk.frameworks) CoreServices CoreGraphics ImageIO;
       inherit stdenv;

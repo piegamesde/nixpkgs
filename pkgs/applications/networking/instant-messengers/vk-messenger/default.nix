@@ -58,12 +58,14 @@ let
       wrapGAppsHook
     ];
     buildInputs =
-      (with xorg; [
-        libXdamage
-        libXtst
-        libXScrnSaver
-        libxkbfile
-      ])
+      (
+        with xorg; [
+          libXdamage
+          libXtst
+          libXScrnSaver
+          libxkbfile
+        ]
+      )
       ++ [
         gtk3
         nss

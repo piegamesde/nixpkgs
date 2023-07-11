@@ -169,13 +169,14 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ package.bin ];
 
-    environment.etc = mapAttrs' (name: opts:
+    environment.etc = mapAttrs' (
+      name: opts:
       nameValuePair "awstats/awstats.${name}.conf" {
         source =
-          pkgs.runCommand "awstats.${name}.conf" { preferLocalBuild = true; }
-          (''
-            sed \
-          ''
+          pkgs.runCommand "awstats.${name}.conf" { preferLocalBuild = true; } (
+            ''
+              sed \
+            ''
             # set up mail stats
             + optionalString (opts.type == "mail") ''
               -e 's|^\(LogType\)=.*$|\1=M|' \
@@ -219,45 +220,53 @@ in
               -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
               -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
             ''
-            + concatStringsSep "\n" (mapAttrsToList (n: v: ''
-              -e 's|^\(${n}\)=.*$|\1="${v}"|' \
-            '') opts.extraConfig)
+            + concatStringsSep "\n" (mapAttrsToList (
+              n: v: ''
+                -e 's|^\(${n}\)=.*$|\1="${v}"|' \
+              ''
+            ) opts.extraConfig)
             + ''
               < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
-            '');
-      }) cfg.configs;
+            ''
+          );
+      }
+    ) cfg.configs;
 
       # create data directory with the correct permissions
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 755 root root - -" ]
-      ++ mapAttrsToList
-        (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
+      ++ mapAttrsToList (
+        name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -"
+      ) cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
       ;
 
       # nginx options
-    services.nginx.virtualHosts = mapAttrs' (name: opts: {
-      name = opts.webService.hostname;
-      value = {
-        locations = {
-          "${opts.webService.urlPrefix}/css/" = {
-            alias = "${package.out}/wwwroot/css/";
-          };
-          "${opts.webService.urlPrefix}/icons/" = {
-            alias = "${package.out}/wwwroot/icon/";
-          };
-          "${opts.webService.urlPrefix}/" = {
-            alias = "${cfg.dataDir}/${name}/";
-            extraConfig = ''
-              autoindex on;
-            '';
+    services.nginx.virtualHosts = mapAttrs' (
+      name: opts: {
+        name = opts.webService.hostname;
+        value = {
+          locations = {
+            "${opts.webService.urlPrefix}/css/" = {
+              alias = "${package.out}/wwwroot/css/";
+            };
+            "${opts.webService.urlPrefix}/icons/" = {
+              alias = "${package.out}/wwwroot/icon/";
+            };
+            "${opts.webService.urlPrefix}/" = {
+              alias = "${cfg.dataDir}/${name}/";
+              extraConfig = ''
+                autoindex on;
+              '';
+            };
           };
         };
-      };
-    }) webServices;
+      }
+    ) webServices;
 
       # update awstats
-    systemd.services = mkIf (cfg.updateAt != null) (mapAttrs' (name: opts:
+    systemd.services = mkIf (cfg.updateAt != null) (mapAttrs' (
+      name: opts:
       nameValuePair "awstats-${name}-update" {
         description = "update awstats for ${name}";
         script =
@@ -283,7 +292,8 @@ in
           ''
           ;
         startAt = cfg.updateAt;
-      }) cfg.configs);
+      }
+    ) cfg.configs);
   };
 
 }

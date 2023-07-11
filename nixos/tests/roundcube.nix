@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -41,4 +42,5 @@ import ./make-test-python.nix ({
       roundcube.wait_for_unit("nginx.service")
       roundcube.succeed("curl -sSfL http://roundcube/ | grep 'Keep me logged in'")
     '';
-  })
+  }
+)

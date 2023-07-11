@@ -21,11 +21,13 @@
 
 let
   inherit (python3.pkgs) pyqt5 dbus-python;
-  python = python3.withPackages (pkgs:
+  python = python3.withPackages (
+    pkgs:
     with pkgs; [
       pyqt5
       dbus-python
-    ]);
+    ]
+  );
 in
 mkDerivation rec {
   pname = "ffado";

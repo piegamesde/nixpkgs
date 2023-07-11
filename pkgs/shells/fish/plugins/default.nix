@@ -4,7 +4,8 @@
   config,
 }:
 
-lib.makeScope newScope (self:
+lib.makeScope newScope (
+  self:
   with self;
   {
     async-prompt = callPackage ./async-prompt.nix { };
@@ -63,4 +64,5 @@ lib.makeScope newScope (self:
     z = callPackage ./z.nix { };
   } // lib.optionalAttrs config.allowAliases {
     autopair-fish = self.autopair; # Added 2023-03-10
-  })
+  }
+)

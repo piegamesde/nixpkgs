@@ -7,9 +7,11 @@
   lib ? pkgs.lib
 }:
 let
-  n = lib.mapAttrsToList (_: v: v.version) (lib.filterAttrs (k: v:
+  n = lib.mapAttrsToList (_: v: v.version) (lib.filterAttrs (
+    k: v:
     builtins.match "nextcloud[0-9]+" k != null
-    && (builtins.tryEval v.version).success) pkgs);
+    && (builtins.tryEval v.version).success
+  ) pkgs);
 in
 {
   inherit n;

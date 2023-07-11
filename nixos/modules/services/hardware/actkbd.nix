@@ -12,7 +12,8 @@ let
   cfg = config.services.actkbd;
 
   configFile = pkgs.writeText "actkbd.conf" ''
-    ${concatMapStringsSep "\n" ({
+    ${concatMapStringsSep "\n" (
+      {
         keys,
         events,
         attributes,
@@ -21,7 +22,8 @@ let
       }:
       "${concatMapStringsSep "+" toString keys}:${
         concatStringsSep "," events
-      }:${concatStringsSep "," attributes}:${command}") cfg.bindings}
+      }:${concatStringsSep "," attributes}:${command}"
+    ) cfg.bindings}
     ${cfg.extraConfig}
   '';
 

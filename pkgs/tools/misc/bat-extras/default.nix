@@ -179,12 +179,14 @@ let
   optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
 in
 {
-  batdiff = script "batdiff" ([
-    less
-    coreutils
-    gitMinimal
-  ]
-    ++ optionalDep withDelta delta);
+  batdiff = script "batdiff" (
+    [
+      less
+      coreutils
+      gitMinimal
+    ]
+    ++ optionalDep withDelta delta
+  );
   batgrep = script "batgrep" [
     less
     coreutils
@@ -192,14 +194,18 @@ in
   ];
   batman = script "batman" [ util-linux ];
   batpipe = script "batpipe" [ less ];
-  batwatch = script "batwatch" ([
-    less
-    coreutils
-  ]
-    ++ optionalDep withEntr entr);
-  prettybat = script "prettybat" ([ ]
+  batwatch = script "batwatch" (
+    [
+      less
+      coreutils
+    ]
+    ++ optionalDep withEntr entr
+  );
+  prettybat = script "prettybat" (
+    [ ]
     ++ optionalDep withShFmt shfmt
     ++ optionalDep withPrettier nodePackages.prettier
     ++ optionalDep withClangTools clang-tools
-    ++ optionalDep withRustFmt rustfmt);
+    ++ optionalDep withRustFmt rustfmt
+  );
 }

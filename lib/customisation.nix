@@ -42,15 +42,18 @@ rec {
     let
       newDrv = derivation (drv.drvAttrs // (f drv));
     in
-    lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv ({
-      meta = drv.meta or { };
-      passthru =
-        if drv ? passthru then
-          drv.passthru
-        else
-          { }
-        ;
-    } // (drv.passthru or { }) //
+    lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv (
+      {
+        meta = drv.meta or { };
+        passthru =
+          if drv ? passthru then
+            drv.passthru
+          else
+            { }
+          ;
+      } // (
+        drv.passthru or { }
+      ) //
       # TODO(@Artturin): remove before release 23.05 and only have __spliced.
       (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
         crossDrv = overrideDerivation drv.crossDrv f;
@@ -58,7 +61,8 @@ rec {
       }) // lib.optionalAttrs (drv ? __spliced) {
         __spliced = { }
           // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
-      })
+      }
+    )
     ;
 
     /* `makeOverridable` takes a function from attribute set to attribute set and
@@ -92,10 +96,12 @@ rec {
         # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
         newArgs:
-        origArgs // (if lib.isFunction newArgs then
-          newArgs origArgs
-        else
-          newArgs)
+        origArgs // (
+          if lib.isFunction newArgs then
+            newArgs origArgs
+          else
+            newArgs
+        )
         ;
 
         # Re-call the function but with different arguments
@@ -169,7 +175,9 @@ rec {
         # wouldn't be passed to it
       missingArgs = lib.attrNames
         # Filter out arguments that have a default value
-        (lib.filterAttrs (name: value: !value)
+        (lib.filterAttrs (
+          name: value: !value
+        )
         # Filter out arguments that would be passed
           (removeAttrs fargs (lib.attrNames allArgs)));
 
@@ -182,8 +190,9 @@ rec {
           # levenshteinAtMost is only fast for 2 or less.
           (lib.filter (lib.strings.levenshteinAtMost 2 arg))
           # Put strings with shorter distance first
-          (lib.sort (x: y:
-            lib.strings.levenshtein x arg < lib.strings.levenshtein y arg))
+          (lib.sort (
+            x: y: lib.strings.levenshtein x arg < lib.strings.levenshtein y arg
+          ))
           # Only take the first couple results
           (lib.take 3)
           # Quote all entries
@@ -254,9 +263,11 @@ rec {
         name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
     in
     if lib.isDerivation pkgs then
-      throw ("function `callPackages` was called on a *single* derivation "
+      throw (
+        "function `callPackages` was called on a *single* derivation "
         + ''"${pkgs.name or "<unknown-name>"}";''
-        + " did you mean to use `callPackage` instead?")
+        + " did you mean to use `callPackage` instead?"
+      )
     else
       lib.mapAttrs mkAttrOverridable pkgs
     ;

@@ -37,8 +37,9 @@ let
     pkg.override {
       elpaBuild =
         args:
-        self.elpaBuild
-        (args // { meta = (args.meta or { }) // { broken = true; }; })
+        self.elpaBuild (
+          args // { meta = (args.meta or { }) // { broken = true; }; }
+        )
         ;
     }
     ;
@@ -51,7 +52,8 @@ let
     # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
-  generateElpa = lib.makeOverridable ({
+  generateElpa = lib.makeOverridable (
+    {
       generated ? ./elpa-generated.nix
     }:
     let
@@ -112,7 +114,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "")
+            (
+              old.postInstall or ""
+            )
             + "\n"
             + ''
               ./install.sh --prefix=$out
@@ -123,7 +127,8 @@ let
             old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
         });
 
-        jinx = super.jinx.overrideAttrs (old:
+        jinx = super.jinx.overrideAttrs (
+          old:
           let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in
@@ -141,7 +146,9 @@ let
             '';
 
             postInstall =
-              (old.postInstall or "")
+              (
+                old.postInstall or ""
+              )
               + "\n"
               + ''
                 outd=$out/share/emacs/site-lisp/elpa/jinx-*

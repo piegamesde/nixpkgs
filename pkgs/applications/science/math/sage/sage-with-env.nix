@@ -79,16 +79,18 @@ let
       [ ]
     else
       [ dep ]
-      ++ (if builtins.hasAttr "propagatedBuildInputs" dep then
-        lib.unique
-        (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
-      else
-        [ ])
+      ++ (
+        if builtins.hasAttr "propagatedBuildInputs" dep then
+          lib.unique (builtins.concatLists
+            (map transitiveClosure dep.propagatedBuildInputs))
+        else
+          [ ]
+      )
     ;
 
-  allInputs = lib.remove null
-    (nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ])
-    ;
+  allInputs = lib.remove null (
+    nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ]
+  );
   transitiveDeps =
     lib.unique (builtins.concatLists (map transitiveClosure allInputs));
     # fix differences between spkg and sage names

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -22,4 +23,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(1143) # IMAP
       machine.wait_for_open_port(1025) # SMTP
     '';
-  })
+  }
+)

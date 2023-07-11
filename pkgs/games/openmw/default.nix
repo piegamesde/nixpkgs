@@ -52,7 +52,9 @@ let
     };
     patches = [ ];
     cmakeFlags =
-      (old.cmakeFlags or [ ])
+      (
+        old.cmakeFlags or [ ]
+      )
       ++ [
         "-DUSE_DOUBLE_PRECISION=ON"
         "-DBULLET2_MULTITHREADING=ON"

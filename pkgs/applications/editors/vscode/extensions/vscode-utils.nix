@@ -32,31 +32,33 @@ let
       passthru ? { },
       ...
     }:
-    stdenv.mkDerivation ((removeAttrs a [ "vscodeExtUniqueId" ]) // {
+    stdenv.mkDerivation (
+      (removeAttrs a [ "vscodeExtUniqueId" ]) // {
 
-      name = "vscode-extension-${name}";
+        name = "vscode-extension-${name}";
 
-      passthru = passthru // {
-        inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
-      };
+        passthru = passthru // {
+          inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
+        };
 
-      inherit configurePhase buildPhase dontPatchELF dontStrip;
+        inherit configurePhase buildPhase dontPatchELF dontStrip;
 
-      installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
+        installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
-      nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
+        nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
 
-      installPhase = ''
+        installPhase = ''
 
-        runHook preInstall
+          runHook preInstall
 
-        mkdir -p "$out/$installPrefix"
-        find . -mindepth 1 -maxdepth 1 | xargs -d'\n' mv -t "$out/$installPrefix/"
+          mkdir -p "$out/$installPrefix"
+          find . -mindepth 1 -maxdepth 1 | xargs -d'\n' mv -t "$out/$installPrefix/"
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-    })
+      }
+    )
     ;
 
   fetchVsixFromVscodeMarketplace =
@@ -72,22 +74,24 @@ let
     }:
     assert "" == name;
     assert null == src;
-    buildVscodeExtension ((removeAttrs a [
-      "mktplcRef"
-      "vsix"
-    ]) // {
-      name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
-      version = mktplcRef.version;
-      src =
-        if (vsix != null) then
-          vsix
-        else
-          fetchVsixFromVscodeMarketplace mktplcRef
-        ;
-      vscodeExtPublisher = mktplcRef.publisher;
-      vscodeExtName = mktplcRef.name;
-      vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
-    })
+    buildVscodeExtension (
+      (removeAttrs a [
+        "mktplcRef"
+        "vsix"
+      ]) // {
+        name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
+        version = mktplcRef.version;
+        src =
+          if (vsix != null) then
+            vsix
+          else
+            fetchVsixFromVscodeMarketplace mktplcRef
+          ;
+        vscodeExtPublisher = mktplcRef.publisher;
+        vscodeExtName = mktplcRef.name;
+        vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
+      }
+    )
     ;
 
   mktplcRefAttrList = [
@@ -100,10 +104,13 @@ let
 
   mktplcExtRefToExtDrv =
     ext:
-    buildVscodeMarketplaceExtension (removeAttrs ext mktplcRefAttrList // {
-      mktplcRef =
-        builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext;
-    })
+    buildVscodeMarketplaceExtension (
+      removeAttrs ext mktplcRefAttrList // {
+        mktplcRef =
+          builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext
+          ;
+      }
+    )
     ;
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;

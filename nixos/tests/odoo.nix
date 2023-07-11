@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
         server.succeed("curl -s http://localhost/web/database/selector | grep '<title>Odoo</title>'")
       ''
       ;
-  })
+  }
+)

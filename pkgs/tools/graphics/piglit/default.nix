@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
     libXrender
     libxcb
     libxkbcommon
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         mako
         numpy
-      ]))
+      ]
+    ))
     waffle
     wayland
   ];

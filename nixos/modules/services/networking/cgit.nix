@@ -88,17 +88,20 @@ let
     cfg:
     pkgs.writeText "cgitrc" ''
       # global settings
-      ${concatStringsSep "\n" (mapAttrsToList cgitrcLine
-        ({ virtual-root = cfg.nginx.location; } // cfg.settings))}
+      ${concatStringsSep "\n" (mapAttrsToList cgitrcLine (
+        { virtual-root = cfg.nginx.location; } // cfg.settings
+      ))}
       ${optionalString (cfg.scanPath != null)
       (cgitrcLine "scan-path" cfg.scanPath)}
 
       # repository settings
-      ${concatStrings (mapAttrsToList (url: settings: ''
-        ${cgitrcLine "repo.url" url}
-        ${concatStringsSep "\n"
-        (mapAttrsToList (name: cgitrcLine "repo.${name}") settings)}
-      '') cfg.repos)}
+      ${concatStrings (mapAttrsToList (
+        url: settings: ''
+          ${cgitrcLine "repo.url" url}
+          ${concatStringsSep "\n"
+          (mapAttrsToList (name: cgitrcLine "repo.${name}") settings)}
+        ''
+      ) cfg.repos)}
 
       # extra config
       ${cfg.extraConfig}
@@ -115,9 +118,11 @@ let
         allowSubstitutes = false;
       } ''
         mkdir -p "$out"
-        ${concatStrings (mapAttrsToList (name: value: ''
-          ln -s ${escapeShellArg value.path} "$out"/${escapeShellArg name}
-        '') cfg.repos)}
+        ${concatStrings (mapAttrsToList (
+          name: value: ''
+            ln -s ${escapeShellArg value.path} "$out"/${escapeShellArg name}
+          ''
+        ) cfg.repos)}
       ''
     ;
 
@@ -127,7 +132,8 @@ in
     services.cgit = mkOption {
       description = mdDoc "Configure cgit instances.";
       default = { };
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           config,
           ...
         }: {
@@ -190,34 +196,40 @@ in
               default = "";
             };
           };
-        }));
+        }
+      ));
     };
   };
 
   config = mkIf (any (cfg: cfg.enable) (attrValues cfgs)) {
-    assertions = mapAttrsToList (vhost: cfg: {
-      assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
-      message =
-        "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
-    }) cfgs;
+    assertions = mapAttrsToList (
+      vhost: cfg: {
+        assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
+        message =
+          "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
+      }
+    ) cfgs;
 
     services.fcgiwrap.enable = true;
 
     services.nginx.enable = true;
 
-    services.nginx.virtualHosts = mkMerge (mapAttrsToList (_: cfg: {
-      ${cfg.nginx.virtualHost} = {
-        locations = (genAttrs' [
-          "cgit.css"
-          "cgit.png"
-          "favicon.ico"
-          "robots.txt"
-        ] (name:
-          nameValuePair "= ${stripLocation cfg}/${name}" {
-            extraConfig = ''
-              alias ${cfg.package}/cgit/${name};
-            '';
-          })) // {
+    services.nginx.virtualHosts = mkMerge (mapAttrsToList (
+      _: cfg: {
+        ${cfg.nginx.virtualHost} = {
+          locations = (genAttrs' [
+            "cgit.css"
+            "cgit.png"
+            "favicon.ico"
+            "robots.txt"
+          ] (
+            name:
+            nameValuePair "= ${stripLocation cfg}/${name}" {
+              extraConfig = ''
+                alias ${cfg.package}/cgit/${name};
+              '';
+            }
+          )) // {
             "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
               fastcgiParams = rec {
                 SCRIPT_FILENAME =
@@ -238,7 +250,8 @@ in
               extraConfig = mkFastcgiPass cfg;
             };
           };
-      };
-    }) cfgs);
+        };
+      }
+    ) cfgs);
   };
 }

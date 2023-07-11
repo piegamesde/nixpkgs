@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ (python3.withPackages (p: with p; [ cffi ])) ];
 
   buildInputs = [
-      (python3.withPackages (p:
+      (python3.withPackages (
+        p:
         with p; [
           cffi
           pyserial
@@ -31,7 +32,8 @@ stdenv.mkDerivation rec {
           jinja2
           markupsafe
           numpy
-        ]))
+        ]
+      ))
     ];
 
     # we need to run this to prebuild the chelper.

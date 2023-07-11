@@ -34,12 +34,14 @@ rec {
     rec {
 
       # Create fetch expressions for dependencies.
-      sources = listToAttrs (map (dep:
+      sources = listToAttrs (map (
+        dep:
         nameValuePair dep.subpath (fetchgit {
           url = dep.packageRef.location;
           rev = dep.state.checkoutState.revision;
           sha256 = hashes.${dep.subpath};
-        })) workspaceState.object.dependencies);
+        })
+      ) workspaceState.object.dependencies);
 
         # Configure phase snippet for use in packaging.
       configure =
@@ -48,9 +50,11 @@ rec {
           ln -sf ${pinFile} ./Package.resolved
           install -m 0600 ${workspaceStateFile} ./.build/workspace-state.json
         ''
-        + concatStrings (mapAttrsToList (name: src: ''
-          ln -s '${src}' '.build/checkouts/${name}'
-        '') sources)
+        + concatStrings (mapAttrsToList (
+          name: src: ''
+            ln -s '${src}' '.build/checkouts/${name}'
+          ''
+        ) sources)
         + ''
           # Helper that makes a swiftpm dependency mutable by copying the source.
           swiftpmMakeMutable() {

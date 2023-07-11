@@ -42,7 +42,8 @@
   zlib,
 }:
 let
-  python3Env = python3.withPackages (ps:
+  python3Env = python3.withPackages (
+    ps:
     with ps;
     [
       appdirs
@@ -57,7 +58,8 @@ let
       requests
       pygobject3
     ]
-    ++ inkex.propagatedBuildInputs);
+    ++ inkex.propagatedBuildInputs
+  );
 in
 stdenv.mkDerivation rec {
   pname = "inkscape";
@@ -110,10 +112,12 @@ stdenv.mkDerivation rec {
       gdk-pixbuf # for setup hook
       wrapGAppsHook
     ]
-    ++ (with perlPackages; [
-      perl
-      XMLParser
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLParser
+      ]
+    )
     ;
 
   buildInputs =

@@ -238,44 +238,46 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = mkMakeFlagsFromConfig (config // {
-    FC = "${stdenv.cc.targetPrefix}gfortran";
-    CC =
-      "${stdenv.cc.targetPrefix}${
-        if stdenv.cc.isClang then
-          "clang"
+  makeFlags = mkMakeFlagsFromConfig (
+    config // {
+      FC = "${stdenv.cc.targetPrefix}gfortran";
+      CC =
+        "${stdenv.cc.targetPrefix}${
+          if stdenv.cc.isClang then
+            "clang"
+          else
+            "cc"
+        }";
+      PREFIX = placeholder "out";
+      OPENBLAS_INCLUDE_DIR = "${placeholder "dev"}/include";
+      NUM_THREADS = 64;
+      INTERFACE64 = blas64;
+      NO_STATIC = !enableStatic;
+      NO_SHARED = !enableShared;
+      CROSS = stdenv.hostPlatform != stdenv.buildPlatform;
+      HOSTCC = "cc";
+        # Makefile.system only checks defined status
+        # This seems to be a bug in the openblas Makefile:
+        # on x86_64 it expects NO_BINARY_MODE=
+        # but on aarch64 it expects NO_BINARY_MODE=0
+      NO_BINARY_MODE =
+        if stdenv.isx86_64 then
+          toString (stdenv.hostPlatform != stdenv.buildPlatform)
         else
-          "cc"
-      }";
-    PREFIX = placeholder "out";
-    OPENBLAS_INCLUDE_DIR = "${placeholder "dev"}/include";
-    NUM_THREADS = 64;
-    INTERFACE64 = blas64;
-    NO_STATIC = !enableStatic;
-    NO_SHARED = !enableShared;
-    CROSS = stdenv.hostPlatform != stdenv.buildPlatform;
-    HOSTCC = "cc";
-      # Makefile.system only checks defined status
-      # This seems to be a bug in the openblas Makefile:
-      # on x86_64 it expects NO_BINARY_MODE=
-      # but on aarch64 it expects NO_BINARY_MODE=0
-    NO_BINARY_MODE =
-      if stdenv.isx86_64 then
-        toString (stdenv.hostPlatform != stdenv.buildPlatform)
-      else
-        stdenv.hostPlatform != stdenv.buildPlatform
-      ;
-      # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
-      # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
-      # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
-    MAKE_NB_JOBS = 0;
-  } // (lib.optionalAttrs singleThreaded {
-    # As described on https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
-    USE_THREAD = false;
-    USE_LOCKING = true; # available with openblas >= 0.3.7
-    USE_OPENMP =
-      false; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
-  }));
+          stdenv.hostPlatform != stdenv.buildPlatform
+        ;
+        # This disables automatic build job count detection (which honours neither enableParallelBuilding nor NIX_BUILD_CORES)
+        # and uses the main make invocation's job count, falling back to 1 if no parallelism is used.
+        # https://github.com/xianyi/OpenBLAS/blob/v0.3.20/getarch.c#L1781-L1792
+      MAKE_NB_JOBS = 0;
+    } // (lib.optionalAttrs singleThreaded {
+      # As described on https://github.com/xianyi/OpenBLAS/wiki/Faq/4bded95e8dc8aadc70ce65267d1093ca7bdefc4c#multi-threaded
+      USE_THREAD = false;
+      USE_LOCKING = true; # available with openblas >= 0.3.7
+      USE_OPENMP =
+        false; # openblas will refuse building with both USE_OPENMP=1 and USE_THREAD=0
+    })
+  );
 
   doCheck = true;
   checkTarget = "tests";

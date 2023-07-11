@@ -65,26 +65,29 @@ stdenv.mkDerivation rec {
       libxml2
       libuuid
     ]
-    ++ (with xorg; [
-      libX11
-      libXext
-      libXtst
-      libXi
-      libXmu
-      libXrender
-      libxcb
-      libXcursor
-      libXfixes
-      libXrandr
-      libICE
-      libSM
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXtst
+        libXi
+        libXmu
+        libXrender
+        libxcb
+        libXcursor
+        libXfixes
+        libXrandr
+        libICE
+        libSM
+      ]
+    )
     ;
 
   ldpath =
     lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
+      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
+    )
     ;
 
   phases = "unpackPhase installPhase fixupPhase";

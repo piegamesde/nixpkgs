@@ -32,27 +32,31 @@ let
       extraAttrs ? { }
     }:
 
-    stdenv'.cc.overrideAttrs (previousAttrs:
-      ({
-        inherit name;
+    stdenv'.cc.overrideAttrs (
+      previousAttrs:
+      (
+        {
+          inherit name;
 
-        postFixup =
-          previousAttrs.postFixup
-          + ''
-            declare -p wrapperName
-            echo "env.wrapperName = $wrapperName"
-            [[ $wrapperName == "CC_WRAPPER" ]] || (echo "'\$wrapperName' was not 'CC_WRAPPER'" && false)
-            declare -p suffixSalt
-            echo "env.suffixSalt = $suffixSalt"
-            [[ $suffixSalt == "${stdenv'.cc.suffixSalt}" ]] || (echo "'\$suffxSalt' was not '${stdenv'.cc.suffixSalt}'" && false)
+          postFixup =
+            previousAttrs.postFixup
+            + ''
+              declare -p wrapperName
+              echo "env.wrapperName = $wrapperName"
+              [[ $wrapperName == "CC_WRAPPER" ]] || (echo "'\$wrapperName' was not 'CC_WRAPPER'" && false)
+              declare -p suffixSalt
+              echo "env.suffixSalt = $suffixSalt"
+              [[ $suffixSalt == "${stdenv'.cc.suffixSalt}" ]] || (echo "'\$suffxSalt' was not '${stdenv'.cc.suffixSalt}'" && false)
 
-            grep -q "@out@" $out/bin/cc || echo "@out@ in $out/bin/cc was substituted"
-            grep -q "@suffixSalt@" $out/bin/cc && (echo "$out/bin/cc contains unsubstituted variables" && false)
+              grep -q "@out@" $out/bin/cc || echo "@out@ in $out/bin/cc was substituted"
+              grep -q "@suffixSalt@" $out/bin/cc && (echo "$out/bin/cc contains unsubstituted variables" && false)
 
-            touch $out
-          ''
-          ;
-      } // extraAttrs))
+              touch $out
+            ''
+            ;
+        } // extraAttrs
+      )
+    )
     ;
 
   testEnvAttrset =
@@ -61,19 +65,21 @@ let
       stdenv',
       extraAttrs ? { }
     }:
-    stdenv'.mkDerivation ({
-      inherit name;
-      env = { string = "testing-string"; };
+    stdenv'.mkDerivation (
+      {
+        inherit name;
+        env = { string = "testing-string"; };
 
-      passAsFile = [ "buildCommand" ];
-      buildCommand = ''
-        declare -p string
-        echo "env.string = $string"
-        [[ $string == "testing-string" ]] || (echo "'\$string' was not 'testing-string'" && false)
-        [[ "$(declare -p string)" == 'declare -x string="testing-string"' ]] || (echo "'\$string' was not exported" && false)
-        touch $out
-      '';
-    } // extraAttrs)
+        passAsFile = [ "buildCommand" ];
+        buildCommand = ''
+          declare -p string
+          echo "env.string = $string"
+          [[ $string == "testing-string" ]] || (echo "'\$string' was not 'testing-string'" && false)
+          [[ "$(declare -p string)" == 'declare -x string="testing-string"' ]] || (echo "'\$string' was not exported" && false)
+          touch $out
+        '';
+      } // extraAttrs
+    )
     ;
 
   testPrependAndAppendToVar =
@@ -82,43 +88,45 @@ let
       stdenv',
       extraAttrs ? { }
     }:
-    stdenv'.mkDerivation ({
-      inherit name;
-      env = { string = "testing-string"; };
+    stdenv'.mkDerivation (
+      {
+        inherit name;
+        env = { string = "testing-string"; };
 
-      passAsFile =
-        [ "buildCommand" ]
-        ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ]
-        ;
-      buildCommand = ''
-        declare -p string
-        appendToVar string hello
-        # test that quoted strings work
-        prependToVar string "world"
-        declare -p string
+        passAsFile =
+          [ "buildCommand" ]
+          ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ]
+          ;
+        buildCommand = ''
+          declare -p string
+          appendToVar string hello
+          # test that quoted strings work
+          prependToVar string "world"
+          declare -p string
 
-        declare -A associativeArray=(["X"]="Y")
-        [[ $(appendToVar associativeArray "fail" 2>&1) =~ "trying to use" ]] || (echo "prependToVar did not catch prepending associativeArray" && false)
-        [[ $(prependToVar associativeArray "fail" 2>&1) =~ "trying to use" ]] || (echo "prependToVar did not catch prepending associativeArray" && false)
+          declare -A associativeArray=(["X"]="Y")
+          [[ $(appendToVar associativeArray "fail" 2>&1) =~ "trying to use" ]] || (echo "prependToVar did not catch prepending associativeArray" && false)
+          [[ $(prependToVar associativeArray "fail" 2>&1) =~ "trying to use" ]] || (echo "prependToVar did not catch prepending associativeArray" && false)
 
-        [[ $string == "world testing-string hello" ]] || (echo "'\$string' was not 'world testing-string hello'" && false)
+          [[ $string == "world testing-string hello" ]] || (echo "'\$string' was not 'world testing-string hello'" && false)
 
-        # test appending to a unset variable
-        appendToVar nonExistant created hello
-        typeset -p nonExistant
-        if [[ -n $__structuredAttrs ]]; then
-          [[ "''${nonExistant[@]}" == "created hello" ]]
-        else
-          # there's a extra " " in front here and a extra " " in the end of prependToVar
-          # shouldn't matter because these functions will mostly be used for $*Flags and the Flag variable will in most cases already exit
-          [[ "$nonExistant" == " created hello" ]]
-        fi
+          # test appending to a unset variable
+          appendToVar nonExistant created hello
+          typeset -p nonExistant
+          if [[ -n $__structuredAttrs ]]; then
+            [[ "''${nonExistant[@]}" == "created hello" ]]
+          else
+            # there's a extra " " in front here and a extra " " in the end of prependToVar
+            # shouldn't matter because these functions will mostly be used for $*Flags and the Flag variable will in most cases already exit
+            [[ "$nonExistant" == " created hello" ]]
+          fi
 
-        eval "$extraTest"
+          eval "$extraTest"
 
-        touch $out
-      '';
-    } // extraAttrs)
+          touch $out
+        '';
+      } // extraAttrs
+    )
     ;
 
 in

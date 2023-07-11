@@ -22,7 +22,8 @@ let
     ""
   ];
   compare = a: b: simplify (toLower a) < simplify (toLower b);
-  namesSorted = sort (a: b: a.key < b.key) (map (n:
+  namesSorted = sort (a: b: a.key < b.key) (map (
+    n:
     let
       pos = builtins.unsafeGetAttrPos n maintainers;
     in
@@ -38,13 +39,16 @@ let
       line,
       key,
     }:
-    foldl' (acc: n:
+    foldl' (
+      acc: n:
       if n.key < key && (acc == null || n.key > acc.key) then
         n
       else
-        acc) null namesSorted
+        acc
+    ) null namesSorted
     ;
-  errors = foldl' add 0 (map (i:
+  errors = foldl' add 0 (map (
+    i:
     let
       a = elemAt namesSorted i;
       b = elemAt namesSorted (i + 1);
@@ -59,8 +63,10 @@ let
         ;
     in
     if a.line >= b.line then
-      trace ("maintainer ${a.name} (line ${toString a.line}) should be listed "
-        + "after ${lim}, not after ${b.name} (line ${toString b.line})") 1
+      trace (
+        "maintainer ${a.name} (line ${toString a.line}) should be listed "
+        + "after ${lim}, not after ${b.name} (line ${toString b.line})"
+      ) 1
     else
       0
   ) (genList (i: i) (length namesSorted - 1)));

@@ -86,15 +86,17 @@ stdenv.mkDerivation rec {
       libsepol
       p11-kit
     ]
-    ++ optionals withGstreamer (with gst_all_1; [
-      glib-networking
-      gstreamer
-      gst-libav
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-    ])
+    ++ optionals withGstreamer (
+      with gst_all_1; [
+        glib-networking
+        gstreamer
+        gst-libav
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+      ]
+    )
     ++ lib.optional withVlc libvlc
     ;
 

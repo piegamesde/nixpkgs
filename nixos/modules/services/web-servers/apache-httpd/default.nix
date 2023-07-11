@@ -32,10 +32,12 @@ let
     let
       majorVersion = lib.versions.major (lib.getVersion php);
     in
-    (if majorVersion == "8" then
-      "php"
-    else
-      "php${majorVersion}")
+    (
+      if majorVersion == "8" then
+        "php"
+      else
+        "php${majorVersion}"
+    )
     ;
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
@@ -43,7 +45,8 @@ let
   vhosts = attrValues cfg.virtualHosts;
 
     # certName is used later on to determine systemd service names.
-  acmeEnabledVhosts = map (hostOpts:
+  acmeEnabledVhosts = map (
+    hostOpts:
     hostOpts // {
       certName =
         if hostOpts.useACMEHost != null then
@@ -51,8 +54,9 @@ let
         else
           hostOpts.hostName
         ;
-    }) (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
-      vhosts);
+    }
+  ) (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null)
+    vhosts);
 
   dependentCertNames =
     unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
@@ -98,10 +102,12 @@ let
       "socache_shmcb"
       "mpm_${cfg.mpm}"
     ]
-    ++ (if cfg.mpm == "prefork" then
-      [ "cgi" ]
-    else
-      [ "cgid" ])
+    ++ (
+      if cfg.mpm == "prefork" then
+        [ "cgi" ]
+      else
+        [ "cgid" ]
+    )
     ++ optional enableHttp2 "http2"
     ++ optional enableSSL "ssl"
     ++ optional enableUserDir "userdir"
@@ -122,23 +128,25 @@ let
     ;
 
   loggingConf =
-    (if cfg.logFormat != "none" then
-      ''
-        ErrorLog ${cfg.logDir}/error.log
+    (
+      if cfg.logFormat != "none" then
+        ''
+          ErrorLog ${cfg.logDir}/error.log
 
-        LogLevel notice
+          LogLevel notice
 
-        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-        LogFormat "%h %l %u %t \"%r\" %>s %b" common
-        LogFormat "%{Referer}i -> %U" referer
-        LogFormat "%{User-agent}i" agent
+          LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+          LogFormat "%h %l %u %t \"%r\" %>s %b" common
+          LogFormat "%{Referer}i -> %U" referer
+          LogFormat "%{User-agent}i" agent
 
-        CustomLog ${cfg.logDir}/access.log ${cfg.logFormat}
-      ''
-    else
-      ''
-        ErrorLog /dev/null
-      '');
+          CustomLog ${cfg.logDir}/access.log ${cfg.logFormat}
+        ''
+      else
+        ''
+          ErrorLog /dev/null
+        ''
+    );
 
   browserHacks = ''
     <IfModule mod_setenvif.c>
@@ -378,8 +386,9 @@ let
         </Directory>
       ''}
 
-      ${optionalString
-      (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "") ''
+      ${optionalString (
+        hostOpts.globalRedirect != null && hostOpts.globalRedirect != ""
+      ) ''
         RedirectPermanent / ${hostOpts.globalRedirect}
       ''}
 
@@ -454,9 +463,9 @@ let
           "Expecting either a string or attribute set including a name and path."
         ;
     in
-    concatMapStringsSep "\n"
-    (module: "LoadModule ${module.name}_module ${module.path}")
-    (unique (map mkModule modules))
+    concatMapStringsSep "\n" (
+      module: "LoadModule ${module.name}_module ${module.path}"
+    ) (unique (map mkModule modules))
     }
 
     AddHandler type-map var
@@ -855,11 +864,19 @@ in
           '';
         }
         {
-          assertion = all (hostOpts:
+          assertion = all (
+            hostOpts:
             with hostOpts;
-            !(addSSL && onlySSL)
-            && !(forceSSL && onlySSL)
-            && !(addSSL && forceSSL)) vhosts;
+            !(
+              addSSL && onlySSL
+            )
+            && !(
+              forceSSL && onlySSL
+            )
+            && !(
+              addSSL && forceSSL
+            )
+          ) vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
             `services.httpd.virtualHosts.<name>.onlySSL` and `services.httpd.virtualHosts.<name>.forceSSL`
@@ -867,9 +884,9 @@ in
           '';
         }
         {
-          assertion = all
-            (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
-            vhosts;
+          assertion = all (
+            hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null)
+          ) vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.
@@ -883,17 +900,21 @@ in
           '';
         }
       ]
-      ++ map (name:
+      ++ map (
+        name:
         mkCertOwnershipAssertion {
           inherit (cfg) group user;
           cert = config.security.acme.certs.${name};
           groups = config.users.groups;
-        }) dependentCertNames
+        }
+      ) dependentCertNames
       ;
 
-    warnings = mapAttrsToList (name: hostOpts: ''
-      Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
-    '') (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ])
+    warnings = mapAttrsToList (
+      name: hostOpts: ''
+        Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
+      ''
+    ) (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ])
       cfg.virtualHosts);
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
@@ -910,7 +931,8 @@ in
 
     security.acme.certs =
       let
-        acmePairs = map (hostOpts:
+        acmePairs = map (
+          hostOpts:
           let
             hasRoot = hostOpts.acmeRoot != null;
           in
@@ -919,22 +941,28 @@ in
               # if acmeRoot is null inherit config.security.acme
               # Since config.security.acme.certs.<cert>.webroot's own default value
               # should take precedence set priority higher than mkOptionDefault
-            webroot = mkOverride (if hasRoot then
-              1000
-            else
-              2000) hostOpts.acmeRoot;
+            webroot = mkOverride (
+              if hasRoot then
+                1000
+              else
+                2000
+            ) hostOpts.acmeRoot;
               # Also nudge dnsProvider to null in case it is inherited
-            dnsProvider = mkOverride (if hasRoot then
-              1000
-            else
-              2000) null;
+            dnsProvider = mkOverride (
+              if hasRoot then
+                1000
+              else
+                2000
+            ) null;
             extraDomainNames = hostOpts.serverAliases;
               # Use the vhost-specific email address if provided, otherwise let
               # security.acme.email or security.acme.certs.<cert>.email be used.
-            email = mkOverride 2000 (if hostOpts.adminAddr != null then
-              hostOpts.adminAddr
-            else
-              cfg.adminAddr);
+            email = mkOverride 2000 (
+              if hostOpts.adminAddr != null then
+                hostOpts.adminAddr
+              else
+                cfg.adminAddr
+            );
               # Filter for enableACME-only vhosts. Don't want to create dud certs
           }
         ) (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts);

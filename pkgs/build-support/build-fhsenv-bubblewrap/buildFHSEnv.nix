@@ -49,10 +49,12 @@ let
     # host's architecture
   targetPaths =
     targetPkgs pkgs
-    ++ (if multiPkgs == null then
-      [ ]
-    else
-      multiPkgs pkgs)
+    ++ (
+      if multiPkgs == null then
+        [ ]
+      else
+        multiPkgs pkgs
+    )
     ;
 
     # list of packages which are installed for both x86 and x86_64 on x86_64
@@ -65,10 +67,12 @@ let
     # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
   basePkgs = with pkgs; [
     glibcLocales
-    (if isMultiBuild then
-      glibc_multi
-    else
-      glibc)
+    (
+      if isMultiBuild then
+        glibc_multi
+      else
+        glibc
+    )
     (toString gcc.cc.lib)
     bashInteractiveFHS
     coreutils

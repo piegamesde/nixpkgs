@@ -39,11 +39,13 @@ rustPlatform.buildRustPackage rec {
       harfbuzz
       openssl
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      ApplicationServices
-      Cocoa
-      Foundation
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        ApplicationServices
+        Cocoa
+        Foundation
+      ]
+    )
     ;
 
     # Tectonic runs biber when it detects it needs to run it, see:

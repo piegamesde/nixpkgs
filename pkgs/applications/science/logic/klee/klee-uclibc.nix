@@ -21,12 +21,13 @@ let
     sha256 = "xDYr4xijjxjZjcz0YtItlbq5LwVUi7k/ZSmP6a+uvVc=";
   };
   resolvedExtraKleeuClibcConfig =
-    lib.mapAttrsToList (name: value: "${name}=${value}") (extraKleeuClibcConfig
-      // {
+    lib.mapAttrsToList (name: value: "${name}=${value}") (
+      extraKleeuClibcConfig // {
         "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
         "RUNTIME_PREFIX" = "/";
         "DEVEL_PREFIX" = "/";
-      });
+      }
+    );
 in
 stdenv.mkDerivation rec {
   pname = "klee-uclibc";
@@ -61,9 +62,11 @@ stdenv.mkDerivation rec {
     # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
   configurePhase = ''
     ./configure ${
-      lib.escapeShellArgs ([ "--make-llvm-lib" ]
+      lib.escapeShellArgs (
+        [ "--make-llvm-lib" ]
         ++ lib.optional (!debugRuntime) "--enable-release"
-        ++ lib.optional runtimeAsserts "--enable-assertions")
+        ++ lib.optional runtimeAsserts "--enable-assertions"
+      )
     }
 
     # Set all the configs we care about.

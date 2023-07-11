@@ -104,10 +104,12 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
       z3
     ]
-    ++ (with python3Packages; [
-      python
-      pybind11
-    ])
+    ++ (
+      with python3Packages; [
+        python
+        pybind11
+      ]
+    )
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
     ;
 

@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -69,4 +70,5 @@ import ../make-test-python.nix ({
       client.succeed("send-testmail")
       client.succeed("test-imap")
     '';
-  })
+  }
+)

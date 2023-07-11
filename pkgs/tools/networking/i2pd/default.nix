@@ -40,10 +40,12 @@ stdenv.mkDerivation rec {
         a: b:
         a
         + "="
-        + (if b then
-          "yes"
-        else
-          "no")
+        + (
+          if b then
+            "yes"
+          else
+            "no"
+        )
         ;
     in
     [

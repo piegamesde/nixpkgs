@@ -50,8 +50,9 @@ let
 
   optionalNull = val: ret: optional (val != null) ret;
 
-  optionString = concatStringsSep " " (mapAttrsToList streamToOption cfg.streams
-    # global options
+  optionString = concatStringsSep " " (
+    mapAttrsToList streamToOption cfg.streams
+      # global options
     ++ [ "--stream.bind_to_address=${cfg.listenAddress}" ]
     ++ [ "--stream.port=${toString cfg.port}" ]
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
@@ -73,7 +74,8 @@ let
       "--http.port=${toString cfg.http.port}"
     ]
     ++ optional (cfg.http.docRoot != null)
-      ''--http.doc_root="${toString cfg.http.docRoot}"'');
+      ''--http.doc_root="${toString cfg.http.docRoot}"''
+  );
 
 in
 {
@@ -310,10 +312,12 @@ in
 
     warnings =
       # https://github.com/badaix/snapcast/blob/98ac8b2fb7305084376607b59173ce4097c620d8/server/streamreader/stream_manager.cpp#L85
-      filter (w: w != "") (mapAttrsToList (k: v:
+      filter (w: w != "") (mapAttrsToList (
+        k: v:
         optionalString (v.type == "spotify") ''
           services.snapserver.streams.${k}.type = "spotify" is deprecated, use services.snapserver.streams.${k}.type = "librespot" instead.
-        '') cfg.streams);
+        ''
+      ) cfg.streams);
 
     systemd.services.snapserver = {
       after = [ "network.target" ];

@@ -23,12 +23,14 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ ffmpeg_4 ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      Accelerate
-      CoreGraphics
-      CoreVideo
-      zlib
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Accelerate
+        CoreGraphics
+        CoreVideo
+        zlib
+      ]
+    )
     ;
 
   cmakeFlags = [

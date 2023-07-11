@@ -17,11 +17,13 @@
 }:
 
 let
-  python3Env = python3.withPackages (ps:
+  python3Env = python3.withPackages (
+    ps:
     with ps; [
       numpy
       setuptools
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {
@@ -56,8 +58,9 @@ stdenv.mkDerivation rec {
       python3Env
       ncurses
     ]
-    ++ lib.optionals stdenv.isDarwin
-      (with darwin.apple_sdk.frameworks; [ CoreFoundation ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [ CoreFoundation ]
+    )
     ;
 
   patches = [
@@ -69,9 +72,9 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks")
-    ;
+  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"
+  );
 
   configurePhase = ''
     substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out

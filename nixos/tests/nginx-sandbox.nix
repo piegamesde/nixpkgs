@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -15,10 +16,12 @@ import ./make-test-python.nix ({
         ...
       }: {
         nixpkgs.overlays = [
-            (self: super: {
-              nginx-lua =
-                super.nginx.override { modules = [ pkgs.nginxModules.lua ]; };
-            })
+            (
+              self: super: {
+                nginx-lua =
+                  super.nginx.override { modules = [ pkgs.nginxModules.lua ]; };
+              }
+            )
           ];
         services.nginx.enable = true;
         services.nginx.package = pkgs.nginx-lua;
@@ -67,4 +70,5 @@ import ./make-test-python.nix ({
           "curl -vvv -s http://localhost/test2-read/bar.txt"
       )
     '';
-  })
+  }
+)

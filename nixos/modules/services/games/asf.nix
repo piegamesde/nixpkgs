@@ -12,32 +12,36 @@ let
 
   format = pkgs.formats.json { };
 
-  asf-config = format.generate "ASF.json" (cfg.settings // {
-    # we disable it because ASF cannot update itself anyways
-    # and nixos takes care of restarting the service
-    # is in theory not needed as this is already the default for default builds
-    UpdateChannel = 0;
-    Headless = true;
-  } // lib.optionalAttrs (cfg.ipcPasswordFile != null) {
-    IPCPassword = "#ipcPassword#";
-  });
+  asf-config = format.generate "ASF.json" (
+    cfg.settings // {
+      # we disable it because ASF cannot update itself anyways
+      # and nixos takes care of restarting the service
+      # is in theory not needed as this is already the default for default builds
+      UpdateChannel = 0;
+      Headless = true;
+    } // lib.optionalAttrs (cfg.ipcPasswordFile != null) {
+      IPCPassword = "#ipcPassword#";
+    }
+  );
 
   ipc-config = format.generate "IPC.config" cfg.ipcSettings;
 
   mkBot =
     n: c:
-    format.generate "${n}.json" (c.settings // {
-      SteamLogin =
-        if c.username == "" then
-          n
-        else
-          c.username
-        ;
-      SteamPassword = c.passwordFile;
-        # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
-      PasswordFormat = 4;
-      Enabled = c.enabled;
-    })
+    format.generate "${n}.json" (
+      c.settings // {
+        SteamLogin =
+          if c.username == "" then
+            n
+          else
+            c.username
+          ;
+        SteamPassword = c.passwordFile;
+          # sets the password format to file (https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Security#file)
+        PasswordFormat = 4;
+        Enabled = c.enabled;
+      }
+    )
     ;
 in
 {

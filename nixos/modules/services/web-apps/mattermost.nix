@@ -47,7 +47,8 @@ let
     ;
 
   mattermostPluginDerivations = with pkgs;
-    map (plugin:
+    map (
+      plugin:
       stdenv.mkDerivation {
         name = "mattermost-plugin";
         installPhase = ''
@@ -59,7 +60,8 @@ let
         dontConfigure = true;
         dontBuild = true;
         preferLocalBuild = true;
-      }) cfg.plugins;
+      }
+    ) cfg.plugins;
 
   mattermostPlugins = with pkgs;
     if mattermostPluginDerivations == [ ] then
@@ -102,11 +104,12 @@ let
     PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
   } cfg.extraConfig;
 
-  mattermostConf = recursiveUpdate mattermostConfWithoutPlugins
-    (if mattermostPlugins == null then
+  mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
+    if mattermostPlugins == null then
       { }
     else
-      { PluginSettings = { Enable = true; }; });
+      { PluginSettings = { Enable = true; }; }
+  );
 
   mattermostConfJSON =
     pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);

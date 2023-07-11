@@ -384,10 +384,12 @@ in
         cfg.nginx
         {
           root = mkForce "${snipe-it}/public";
-          extraConfig = optionalString (cfg.nginx.addSSL
+          extraConfig = optionalString (
+            cfg.nginx.addSSL
             || cfg.nginx.forceSSL
             || cfg.nginx.onlySSL
-            || cfg.nginx.enableACME) "fastcgi_param HTTPS on;";
+            || cfg.nginx.enableACME
+          ) "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
               index = "index.php";
@@ -402,10 +404,12 @@ in
                 fastcgi_pass unix:${
                   config.services.phpfpm.pools."snipe-it".socket
                 };
-                ${optionalString (cfg.nginx.addSSL
+                ${optionalString (
+                  cfg.nginx.addSSL
                   || cfg.nginx.forceSSL
                   || cfg.nginx.onlySSL
-                  || cfg.nginx.enableACME) "fastcgi_param HTTPS on;"}
+                  || cfg.nginx.enableACME
+                ) "fastcgi_param HTTPS on;"}
               '';
             };
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
@@ -436,7 +440,9 @@ in
             v:
             isAttrs v
             && v ? _secret
-            && (isString v._secret || builtins.isPath v._secret)
+            && (
+              isString v._secret || builtins.isPath v._secret
+            )
             ;
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
@@ -469,10 +475,12 @@ in
             file: ''
               replace-secret ${
                 escapeShellArgs [
-                  (if (isString file) then
-                    builtins.hashString "sha256" file
-                  else
-                    builtins.hashString "sha256" (builtins.readFile file))
+                  (
+                    if (isString file) then
+                      builtins.hashString "sha256" file
+                    else
+                      builtins.hashString "sha256" (builtins.readFile file)
+                  )
                   file
                   "${cfg.dataDir}/.env"
                 ]
@@ -481,11 +489,13 @@ in
             ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+          filteredConfig = lib.converge (lib.filterAttrsRecursive (
+            _: v:
             !elem v [
               { }
               null
-            ])) cfg.config;
+            ]
+          )) cfg.config;
           snipeITEnv =
             pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
         in

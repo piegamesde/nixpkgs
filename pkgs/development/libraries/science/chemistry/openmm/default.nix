@@ -56,11 +56,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda cudaPackages.cudatoolkit
     ;
 
-  propagatedBuildInputs = lib.optionals enablePython (with python3Packages; [
-    python
-    numpy
-    cython
-  ]);
+  propagatedBuildInputs = lib.optionals enablePython (
+    with python3Packages; [
+      python
+      numpy
+      cython
+    ]
+  );
 
   cmakeFlags =
     [

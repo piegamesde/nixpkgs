@@ -37,17 +37,21 @@ stdenv.mkDerivation {
   makeFlags = [ "INSTALL=install" ];
 
   buildFlags = [
-      (if stdenv.isDarwin then
-        "osx-all"
-      else
-        "gcc-all")
+      (
+        if stdenv.isDarwin then
+          "osx-all"
+        else
+          "gcc-all"
+      )
     ];
 
   installTargets = [
-      (if stdenv.isDarwin then
-        "osx-install"
-      else
-        "gcc-install")
+      (
+        if stdenv.isDarwin then
+          "osx-install"
+        else
+          "gcc-install"
+      )
     ];
 
   meta = with lib; {

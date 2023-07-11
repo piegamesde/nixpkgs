@@ -160,43 +160,49 @@ let
 
   appleDerivation'' =
     stdenv: pname: version: sdkName: sha256: attrs:
-    stdenv.mkDerivation ({
-      inherit pname version;
+    stdenv.mkDerivation (
+      {
+        inherit pname version;
 
-      src =
-        if attrs ? srcs then
-          null
-        else
-          (fetchApple' pname version sha256)
-        ;
+        src =
+          if attrs ? srcs then
+            null
+          else
+            (fetchApple' pname version sha256)
+          ;
 
-      enableParallelBuilding = true;
+        enableParallelBuilding = true;
 
-        # In rare cases, APPLE may drop some headers quietly on new release.
-      doInstallCheck = attrs ? appleHeaders;
-      passAsFile = [ "appleHeaders" ];
-      installCheckPhase = ''
-        cd $out/include
+          # In rare cases, APPLE may drop some headers quietly on new release.
+        doInstallCheck = attrs ? appleHeaders;
+        passAsFile = [ "appleHeaders" ];
+        installCheckPhase = ''
+          cd $out/include
 
-        result=$(diff -u "$appleHeadersPath" <(find * -type f | sort) --label "Listed in appleHeaders" --label "Found in \$out/include" || true)
+          result=$(diff -u "$appleHeadersPath" <(find * -type f | sort) --label "Listed in appleHeaders" --label "Found in \$out/include" || true)
 
-        if [ -z "$result" ]; then
-          echo "Apple header list is matched."
-        else
-          echo >&2 "\
-        Apple header list is inconsistent, please ensure no header file is unexpectedly dropped.
-        $result
-        "
-          exit 1
-        fi
-      '';
+          if [ -z "$result" ]; then
+            echo "Apple header list is matched."
+          else
+            echo >&2 "\
+          Apple header list is inconsistent, please ensure no header file is unexpectedly dropped.
+          $result
+          "
+            exit 1
+          fi
+        '';
 
-    } // attrs // {
-      meta = (with lib; {
-        platforms = platforms.darwin;
-        license = licenses.apsl20;
-      }) // (attrs.meta or { });
-    })
+      } // attrs // {
+        meta = (
+          with lib; {
+            platforms = platforms.darwin;
+            license = licenses.apsl20;
+          }
+        ) // (
+          attrs.meta or { }
+        );
+      }
+    )
     ;
 
   IOKitSpecs = {
@@ -240,11 +246,13 @@ let
       # There should be an IOVideo here, but they haven't released it :(
   };
 
-  IOKitSrcs = lib.mapAttrs (name: value:
+  IOKitSrcs = lib.mapAttrs (
+    name: value:
     if lib.isFunction value then
       value name
     else
-      value) IOKitSpecs;
+      value
+  ) IOKitSpecs;
 
   # darwin package set
 in

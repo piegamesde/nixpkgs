@@ -27,11 +27,13 @@ buildPythonPackage rec {
       libusb1
       udev
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      AppKit
-      CoreFoundation
-      IOKit
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        AppKit
+        CoreFoundation
+        IOKit
+      ]
+    )
     ;
 
     # Fix the USB backend library lookup

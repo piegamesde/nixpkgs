@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
       assert "${pkgs.xterm.version}" in machine.succeed("cat /tmp/xterm_version")
       machine.screenshot("window")
     '';
-  })
+  }
+)

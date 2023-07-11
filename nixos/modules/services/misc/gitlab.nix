@@ -75,11 +75,13 @@ let
     [gitlab.http-settings]
     self_signed_cert = false
 
-    ${concatStringsSep "\n" (attrValues (mapAttrs (k: v: ''
-      [[storage]]
-      name = "${lib.escape [ ''"'' ] k}"
-      path = "${lib.escape [ ''"'' ] v.path}"
-    '') gitlabConfig.production.repositories.storages))}
+    ${concatStringsSep "\n" (attrValues (mapAttrs (
+      k: v: ''
+        [[storage]]
+        name = "${lib.escape [ ''"'' ] k}"
+        path = "${lib.escape [ ''"'' ] v.path}"
+      ''
+    ) gitlabConfig.production.repositories.storages))}
   '';
 
   gitlabShellConfig = flip recursiveUpdate cfg.extraShellConfig {

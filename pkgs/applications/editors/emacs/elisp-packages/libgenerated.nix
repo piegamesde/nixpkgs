@@ -13,7 +13,8 @@ let
       commit,
       ...
     }: {
-      github = self.callPackage ({
+      github = self.callPackage (
+        {
           fetchFromGitHub,
         }:
         fetchFromGitHub {
@@ -21,8 +22,10 @@ let
           repo = lib.head (lib.tail (lib.splitString "/" repo));
           rev = commit;
           inherit sha256;
-        }) { };
-      gitlab = self.callPackage ({
+        }
+      ) { };
+      gitlab = self.callPackage (
+        {
           fetchFromGitLab,
         }:
         fetchFromGitLab {
@@ -30,43 +33,54 @@ let
           repo = lib.head (lib.tail (lib.splitString "/" repo));
           rev = commit;
           inherit sha256;
-        }) { };
-      git = self.callPackage ({
+        }
+      ) { };
+      git = self.callPackage (
+        {
           fetchgit,
         }:
         (fetchgit {
           rev = commit;
           inherit sha256 url;
-        }).overrideAttrs (_: { GIT_SSL_NO_VERIFY = true; })) { };
-      bitbucket = self.callPackage ({
+        }).overrideAttrs (_: { GIT_SSL_NO_VERIFY = true; })
+      ) { };
+      bitbucket = self.callPackage (
+        {
           fetchhg,
         }:
         fetchhg {
           rev = commit;
           url = "https://bitbucket.com/${repo}";
           inherit sha256;
-        }) { };
-      hg = self.callPackage ({
+        }
+      ) { };
+      hg = self.callPackage (
+        {
           fetchhg,
         }:
         fetchhg {
           rev = commit;
           inherit sha256 url;
-        }) { };
-      sourcehut = self.callPackage ({
+        }
+      ) { };
+      sourcehut = self.callPackage (
+        {
           fetchzip,
         }:
         fetchzip {
           url = "https://git.sr.ht/~${repo}/archive/${commit}.tar.gz";
           inherit sha256;
-        }) { };
-      codeberg = self.callPackage ({
+        }
+      ) { };
+      codeberg = self.callPackage (
+        {
           fetchzip,
         }:
         fetchzip {
           url = "https://codeberg.org/${repo}/archive/${commit}.tar.gz";
           inherit sha256;
-        }) { };
+        }
+      ) { };
     }
     ;
 
@@ -92,7 +106,8 @@ in
       broken = error != null;
     in
     if hasSource then
-      lib.nameValuePair ename (self.callPackage ({
+      lib.nameValuePair ename (self.callPackage (
+        {
           melpaBuild,
           fetchurl,
           ...
@@ -125,7 +140,8 @@ in
           packageRequires = lib.optionals (deps != null)
             (map (dep: pkgargs.${dep} or self.${dep} or null) deps);
           meta = (sourceArgs.meta or { }) // { inherit broken; };
-        }) { })
+        }
+      ) { })
     else
       null
     ;

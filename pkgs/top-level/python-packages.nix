@@ -6157,7 +6157,8 @@ with self; {
 
   libmodulemd = lib.pipe pkgs.libmodulemd [
     toPythonModule
-    (p:
+    (
+      p:
       p.overrideAttrs (super: {
         meta = super.meta // {
           outputsToInstall = [
@@ -6165,7 +6166,8 @@ with self; {
             ]; # The package always builds python3 bindings
           broken = (super.meta.broken or false) || !isPy3k;
         };
-      }))
+      })
+    )
     (p: p.override { python3 = python; })
     (p: p.py)
   ];
@@ -6184,14 +6186,18 @@ with self; {
 
   libpwquality = lib.pipe pkgs.libpwquality [
     toPythonModule
-    (p:
+    (
+      p:
       p.overrideAttrs
-      (super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; }))
-    (p:
+      (super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; })
+    )
+    (
+      p:
       p.override {
         enablePython = true;
         inherit python;
-      })
+      }
+    )
     (p: p.py)
   ];
 
@@ -6202,9 +6208,11 @@ with self; {
 
   librepo = lib.pipe pkgs.librepo [
     toPythonModule
-    (p:
+    (
+      p:
       p.overrideAttrs
-      (super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; }))
+      (super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; })
+    )
     (p: p.override { inherit python; })
     (p: p.py)
   ];
@@ -6225,18 +6233,22 @@ with self; {
 
   libselinux = lib.pipe pkgs.libselinux [
     toPythonModule
-    (p:
+    (
+      p:
       p.overrideAttrs (super: {
         meta = super.meta // {
           outputsToInstall = [ "py" ];
           broken = super.meta.broken or isPy27;
         };
-      }))
-    (p:
+      })
+    )
+    (
+      p:
       p.override {
         enablePython = true;
         python3 = python;
-      })
+      }
+    )
     (p: p.py)
   ];
 

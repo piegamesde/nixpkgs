@@ -53,40 +53,44 @@ let
     libXxf86vm # needed only for versions <1.13
   ];
 
-  libPath = lib.makeLibraryPath ([
-    alsa-lib
-    atk
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    pango
-    gtk3-x11
-    gtk2-x11
-    nspr
-    nss
-    stdenv.cc.cc
-    zlib
-    libuuid
-  ]
-    ++ (with xorg; [
-      libX11
-      libxcb
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libXtst
-      libXScrnSaver
-    ]));
+  libPath = lib.makeLibraryPath (
+    [
+      alsa-lib
+      atk
+      cairo
+      cups
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      pango
+      gtk3-x11
+      gtk2-x11
+      nspr
+      nss
+      stdenv.cc.cc
+      zlib
+      libuuid
+    ]
+    ++ (
+      with xorg; [
+        libX11
+        libxcb
+        libXcomposite
+        libXcursor
+        libXdamage
+        libXext
+        libXfixes
+        libXi
+        libXrandr
+        libXrender
+        libXtst
+        libXScrnSaver
+      ]
+    )
+  );
 in
 stdenv.mkDerivation rec {
   pname = "minecraft-launcher";

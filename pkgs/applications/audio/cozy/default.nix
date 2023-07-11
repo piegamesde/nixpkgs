@@ -53,13 +53,15 @@ python3Packages.buildPythonApplication rec {
       libhandy
       pantheon.granite
     ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-plugins-good
-      gst-plugins-ugly
-      gst-plugins-base
-      gst-plugins-bad
-    ])
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-good
+        gst-plugins-ugly
+        gst-plugins-base
+        gst-plugins-bad
+      ]
+    )
     ;
 
   propagatedBuildInputs = with python3Packages; [

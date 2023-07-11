@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -16,4 +17,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("navidrome")
       machine.wait_for_open_port(4533)
     '';
-  })
+  }
+)

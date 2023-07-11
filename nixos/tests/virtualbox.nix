@@ -198,13 +198,17 @@ let
         "--register"
       ];
 
-      vmFlags = mkFlags ([
-        "--uart1 0x3F8 4"
-        "--uartmode1 client /run/virtualbox-log-${name}.sock"
-        "--memory 768"
-        "--audio none"
-      ]
-        ++ (attrs.vmFlags or [ ]));
+      vmFlags = mkFlags (
+        [
+          "--uart1 0x3F8 4"
+          "--uartmode1 client /run/virtualbox-log-${name}.sock"
+          "--memory 768"
+          "--audio none"
+        ]
+        ++ (
+          attrs.vmFlags or [ ]
+        )
+      );
 
       controllerFlags = mkFlags [
         "--name SATA"
@@ -602,7 +606,9 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test1()
     destroy_vm_test2()
   '';
-} // (if enableUnfree then
-  unfreeTests
-else
-  { })
+} // (
+  if enableUnfree then
+    unfreeTests
+  else
+    { }
+)

@@ -34,10 +34,12 @@ stdenv.mkDerivation rec {
       "BUILDTYPE=release"
       "INSTALLDIR=$(out)"
     ]
-    ++ (if installTool then
-      [ "INSTALLTOOL=true" ]
-    else
-      [ "INSTALLTOOL=false" ])
+    ++ (
+      if installTool then
+        [ "INSTALLTOOL=true" ]
+      else
+        [ "INSTALLTOOL=false" ]
+    )
     ;
 
   enableParallelBuilding = true;

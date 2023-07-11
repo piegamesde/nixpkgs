@@ -108,12 +108,14 @@ let
             hash = "sha256-D762GA04OpGG0NbtlU4AQq2fGODo3giLK0GdUmkn0ZY=";
           };
         });
-        sqlsoup = super.sqlsoup.overrideAttrs ({
+        sqlsoup = super.sqlsoup.overrideAttrs (
+          {
             meta ? { },
             ...
           }: {
             meta = meta // { broken = false; };
-          });
+          }
+        );
         click = super.click.overridePythonAttrs (old: rec {
           version = "7.1.2";
           src = old.src.override {
@@ -135,7 +137,8 @@ let
         flask-babel = (super.flask-babel.override {
           sphinxHook = null;
           furo = null;
-        }).overridePythonAttrs (old:
+        }).overridePythonAttrs (
+          old:
           (dropDevOutput old) // rec {
             pname = "Flask-Babel";
             version = "2.0.0";
@@ -146,7 +149,8 @@ let
               hash =
                 "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
             };
-          });
+          }
+        );
         psycopg2 = (super.psycopg2.override {
           sphinxHook = null;
           sphinx-better-theme = null;
@@ -155,8 +159,9 @@ let
         pyjwt = (super.pyjwt.override {
           sphinxHook = null;
           sphinx-rtd-theme = null;
-        }).overridePythonAttrs
-          (old: (dropDevOutput old) // { format = "setuptools"; });
+        }).overridePythonAttrs (
+          old: (dropDevOutput old) // { format = "setuptools"; }
+        );
         beautifulsoup4 = (super.beautifulsoup4.override { sphinxHook = null; })
           .overridePythonAttrs dropDevOutput;
         pydash = (super.pydash.override { sphinx-rtd-theme = null; })

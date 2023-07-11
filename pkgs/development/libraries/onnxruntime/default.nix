@@ -59,12 +59,14 @@ stdenv.mkDerivation rec {
       python3Packages.python
       gtest
     ]
-    ++ lib.optionals pythonSupport (with python3Packages; [
-      setuptools
-      wheel
-      pip
-      pythonOutputDistHook
-    ])
+    ++ lib.optionals pythonSupport (
+      with python3Packages; [
+        setuptools
+        wheel
+        pip
+        pythonOutputDistHook
+      ]
+    )
     ;
 
   buildInputs =

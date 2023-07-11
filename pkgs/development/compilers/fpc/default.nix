@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
       --replace "ifneq (\$(CODESIGN),)" "ifeq (\$(OS_TARGET), darwin)"
   '';
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks")
-    ;
+  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"
+  );
 
   makeFlags = [
     "NOGDB=1"

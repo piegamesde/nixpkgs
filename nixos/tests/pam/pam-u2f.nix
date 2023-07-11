@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     ...
   }:
 
@@ -26,4 +27,5 @@ import ../make-test-python.nix ({
           'egrep "auth required .*/lib/security/pam_u2f.so.*debug.*interactive.*cue.*origin=nixos-test" /etc/pam.d/ -R'
       )
     '';
-  })
+  }
+)

@@ -17,13 +17,15 @@ rec {
       passthru ? { },
       ...
     }@attrs:
-    stdenv.mkDerivation (attrs // {
-      name = "eclipse-plugin-" + name;
+    stdenv.mkDerivation (
+      attrs // {
+        name = "eclipse-plugin-" + name;
 
-      buildInputs = buildInputs ++ [ unzip ];
+        buildInputs = buildInputs ++ [ unzip ];
 
-      passthru = { isEclipsePlugin = true; } // passthru;
-    })
+        passthru = { isEclipsePlugin = true; } // passthru;
+      }
+    )
     ;
 
     # Helper for the common case where we have separate feature and
@@ -49,21 +51,23 @@ rec {
         ;
 
     in
-    buildEclipsePluginBase (attrs // {
-      srcs = [ srcFeature ] ++ pSrcs;
+    buildEclipsePluginBase (
+      attrs // {
+        srcs = [ srcFeature ] ++ pSrcs;
 
-      buildCommand = ''
-        dropinDir="$out/eclipse/dropins/${name}"
+        buildCommand = ''
+          dropinDir="$out/eclipse/dropins/${name}"
 
-        mkdir -p $dropinDir/features
-        unzip ${srcFeature} -d $dropinDir/features/
+          mkdir -p $dropinDir/features
+          unzip ${srcFeature} -d $dropinDir/features/
 
-        mkdir -p $dropinDir/plugins
-        for plugin in ${toString pSrcs}; do
-          cp -v $plugin $dropinDir/plugins/$(stripHash $plugin)
-        done
-      '';
-    })
+          mkdir -p $dropinDir/plugins
+          for plugin in ${toString pSrcs}; do
+            cp -v $plugin $dropinDir/plugins/$(stripHash $plugin)
+          done
+        '';
+      }
+    )
     ;
 
     # Helper for the case where the build directory has the layout of an
@@ -75,44 +79,46 @@ rec {
       name,
       ...
     }@attrs:
-    buildEclipsePluginBase (attrs // {
-      dontBuild = true;
-      doCheck = false;
+    buildEclipsePluginBase (
+      attrs // {
+        dontBuild = true;
+        doCheck = false;
 
-      installPhase = ''
-        dropinDir="$out/eclipse/dropins/${name}"
+        installPhase = ''
+          dropinDir="$out/eclipse/dropins/${name}"
 
-        # Install features.
-        cd features
-        for feature in *.jar; do
-          featureName=''${feature%.jar}
-          mkdir -p $dropinDir/features/$featureName
-          unzip $feature -d $dropinDir/features/$featureName
-        done
-        cd ..
+          # Install features.
+          cd features
+          for feature in *.jar; do
+            featureName=''${feature%.jar}
+            mkdir -p $dropinDir/features/$featureName
+            unzip $feature -d $dropinDir/features/$featureName
+          done
+          cd ..
 
-        # Install plugins.
-        mkdir -p $dropinDir/plugins
+          # Install plugins.
+          mkdir -p $dropinDir/plugins
 
-        # A bundle should be unpacked if the manifest matches this
-        # pattern.
-        unpackPat="Eclipse-BundleShape:\\s*dir"
+          # A bundle should be unpacked if the manifest matches this
+          # pattern.
+          unpackPat="Eclipse-BundleShape:\\s*dir"
 
-        cd plugins
-        for plugin in *.jar ; do
-          pluginName=''${plugin%.jar}
-          manifest=$(unzip -p $plugin META-INF/MANIFEST.MF)
+          cd plugins
+          for plugin in *.jar ; do
+            pluginName=''${plugin%.jar}
+            manifest=$(unzip -p $plugin META-INF/MANIFEST.MF)
 
-          if [[ $manifest =~ $unpackPat ]] ; then
-            mkdir $dropinDir/plugins/$pluginName
-            unzip $plugin -d $dropinDir/plugins/$pluginName
-          else
-            cp -v $plugin $dropinDir/plugins/
-          fi
-        done
-        cd ..
-      '';
-    })
+            if [[ $manifest =~ $unpackPat ]] ; then
+              mkdir $dropinDir/plugins/$pluginName
+              unzip $plugin -d $dropinDir/plugins/$pluginName
+            else
+              cp -v $plugin $dropinDir/plugins/
+            fi
+          done
+          cd ..
+        '';
+      }
+    )
     ;
 
   acejump = buildEclipsePlugin rec {

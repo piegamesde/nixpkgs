@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -198,4 +199,5 @@ import ./make-test-python.nix ({
       remote_router.succeed("ping -c1 192.168.10.2")
       remote_router.succeed("ping -c1 2001:db8:10::2")
     '';
-  })
+  }
+)

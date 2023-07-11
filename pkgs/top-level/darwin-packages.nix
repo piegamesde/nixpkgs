@@ -15,12 +15,15 @@ let
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
   targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (stdenv.targetPlatform.config + "-");
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
+      stdenv.targetPlatform.config + "-"
+    );
 
 in
-makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
-(spliced: spliced.apple_sdk.frameworks) (self:
+makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
+  spliced: spliced.apple_sdk.frameworks
+) (
+  self:
   let
     inherit (self)
       mkDerivation
@@ -58,34 +61,38 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     selectAttrs =
       attrs: names:
-      lib.listToAttrs (lib.concatMap (n:
-        lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
-        names)
+      lib.listToAttrs (lib.concatMap (
+        n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]
+      ) names)
       ;
 
     chooseLibs = (
       # There are differences in which libraries are exported. Avoid evaluation
       # errors when a package is not provided.
-      selectAttrs (if useAppleSDKLibs then
-        apple_sdk
-      else
-        appleSourcePackages) [
-          "Libsystem"
-          "LibsystemCross"
-          "libcharset"
-          "libunwind"
-          "objc4"
-          "configd"
-          "IOKit"
-        ]) // {
-          inherit
-            (if useAppleSDKLibs then
+      selectAttrs (
+        if useAppleSDKLibs then
+          apple_sdk
+        else
+          appleSourcePackages
+      ) [
+        "Libsystem"
+        "LibsystemCross"
+        "libcharset"
+        "libunwind"
+        "objc4"
+        "configd"
+        "IOKit"
+      ]) // {
+        inherit
+          (
+            if useAppleSDKLibs then
               apple_sdk.frameworks
             else
-              appleSourcePackages)
-            Security
-            ;
-        };
+              appleSourcePackages
+          )
+          Security
+          ;
+      };
 
   in
   impure-cmds // appleSourcePackages // chooseLibs // {

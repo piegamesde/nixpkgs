@@ -60,25 +60,26 @@ buildPythonPackage rec {
     ''
       chmod +x "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas"
     ''
-    + (let
-      # Bash was getting weird without linting,
-      # but basically upstream contains [cc, ..., "-lcuda", ...]
-      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-      old = [ "-lcuda" ];
-      new = [
-        "-lcuda"
-        "-L${addOpenGLRunpath.driverLink}"
-        "-L${cudaPackages.cuda_cudart}/lib/stubs/"
-      ];
+    + (
+      let
+        # Bash was getting weird without linting,
+        # but basically upstream contains [cc, ..., "-lcuda", ...]
+        # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+        old = [ "-lcuda" ];
+        new = [
+          "-lcuda"
+          "-L${addOpenGLRunpath.driverLink}"
+          "-L${cudaPackages.cuda_cudart}/lib/stubs/"
+        ];
 
-      quote = x: ''"${x}"'';
-      oldStr = lib.concatMapStringsSep ", " quote old;
-      newStr = lib.concatMapStringsSep ", " quote new;
-    in
-    ''
-      substituteInPlace $out/${python.sitePackages}/triton/compiler.py \
-        --replace '${oldStr}' '${newStr}'
-    ''
+        quote = x: ''"${x}"'';
+        oldStr = lib.concatMapStringsSep ", " quote old;
+        newStr = lib.concatMapStringsSep ", " quote new;
+      in
+      ''
+        substituteInPlace $out/${python.sitePackages}/triton/compiler.py \
+          --replace '${oldStr}' '${newStr}'
+      ''
     )
     ;
 

@@ -50,13 +50,15 @@ python3.pkgs.buildPythonApplication rec {
       mercurial
       patch
     ]
-    ++ (with python3.pkgs; [
-      callee
-      immutabledict
-      hg-evolve
-      mock
-      pytestCheckHook
-    ])
+    ++ (
+      with python3.pkgs; [
+        callee
+        immutabledict
+        hg-evolve
+        mock
+        pytestCheckHook
+      ]
+    )
     ;
 
   preCheck = ''

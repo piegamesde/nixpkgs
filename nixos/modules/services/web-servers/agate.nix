@@ -102,12 +102,13 @@ in
         in
         ''
           exec ${cfg.package}/bin/agate ${
-            escapeShellArgs ([
-              "--content"
-              "${cfg.contentDir}"
-              "--certs"
-              "${cfg.certificatesDir}"
-            ]
+            escapeShellArgs (
+              [
+                "--content"
+                "${cfg.contentDir}"
+                "--certs"
+                "${cfg.certificatesDir}"
+              ]
               ++ addresses
               ++ (optionals (cfg.hostnames != [ ]) hostnames)
               ++ (optionals (cfg.language != null) [
@@ -115,7 +116,8 @@ in
                 cfg.language
               ])
               ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
-              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
+              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs)
+            )
           }
         ''
         ;

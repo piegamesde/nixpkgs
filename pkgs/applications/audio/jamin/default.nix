@@ -35,10 +35,12 @@ stdenv.mkDerivation rec {
       liblo
       libxml2
     ]
-    ++ (with perlPackages; [
-      perl
-      XMLParser
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLParser
+      ]
+    )
     ;
 
     # Workaround build failure on -fno-common toolchains like upstream

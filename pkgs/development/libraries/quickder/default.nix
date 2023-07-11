@@ -33,14 +33,16 @@ stdenv.mkDerivation rec {
   buildInputs = [
     arpa2cm
     arpa2common
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         asn1ate
         colored
         pyparsing
         setuptools
         six
-      ]))
+      ]
+    ))
     quickmem
   ];
 

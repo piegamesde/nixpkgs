@@ -12,7 +12,8 @@ let
 
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
-        ({
+        (
+          {
             config,
             ...
           }: {
@@ -22,7 +23,8 @@ let
               config.boot.loader.systemd-boot.enable
               || config.boot.loader.efi.canTouchEfiVariables
               ;
-          })
+          }
+        )
       ];
   };
 in

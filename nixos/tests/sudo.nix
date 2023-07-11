@@ -4,7 +4,8 @@ let
   password = "helloworld";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -172,4 +173,5 @@ import ./make-test-python.nix ({
       with subtest("non-wheel users should be unable to run sudo thanks to execWheelOnly"):
           strict.fail('su - noadmin -c "sudo --help"')
     '';
-  })
+  }
+)

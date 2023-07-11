@@ -1,6 +1,7 @@
 # This test runs influxdb and checks if influxdb is up and running
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
       assert '"values":[123]' in out
       assert '"values":[1.23]' in out
     '';
-  })
+  }
+)

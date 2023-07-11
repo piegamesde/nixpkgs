@@ -71,35 +71,39 @@ let
 
   passthru = { inherit sources; };
 
-  fhsEnvAnki = buildFHSEnv (appimageTools.defaultFhsEnvArgs // {
-    inherit pname version;
-    name = null; # Appimage sets it to "appimage-env"
+  fhsEnvAnki = buildFHSEnv (
+    appimageTools.defaultFhsEnvArgs // {
+      inherit pname version;
+      name = null; # Appimage sets it to "appimage-env"
 
-      # Dependencies of anki
-    targetPkgs =
-      pkgs:
-      (with pkgs; [
-        xorg.libxkbfile
-        krb5
-      ])
-      ;
+        # Dependencies of anki
+      targetPkgs =
+        pkgs:
+        (
+          with pkgs; [
+            xorg.libxkbfile
+            krb5
+          ]
+        )
+        ;
 
-    runScript = writeShellScript "anki-wrapper.sh" ''
-      exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}
-    '';
+      runScript = writeShellScript "anki-wrapper.sh" ''
+        exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}
+      '';
 
-    extraInstallCommands = ''
-      ln -s ${pname} $out/bin/anki
+      extraInstallCommands = ''
+        ln -s ${pname} $out/bin/anki
 
-      mkdir -p $out/share
-      cp -R ${unpacked}/share/applications \
-        ${unpacked}/share/man \
-        ${unpacked}/share/pixmaps \
-        $out/share/
-    '';
+        mkdir -p $out/share
+        cp -R ${unpacked}/share/applications \
+          ${unpacked}/share/man \
+          ${unpacked}/share/pixmaps \
+          $out/share/
+      '';
 
-    inherit meta passthru;
-  });
+      inherit meta passthru;
+    }
+  );
 
 in
 if stdenv.isLinux then

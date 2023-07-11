@@ -31,40 +31,44 @@ rec {
       ...
     }@attrs:
     let
-      drv = stdenv.mkDerivation (attrs // {
-        name = namePrefix + name;
+      drv = stdenv.mkDerivation (
+        attrs // {
+          name = namePrefix + name;
 
-        inherit
-          unpackPhase
-          configurePhase
-          buildPhase
-          addonInfo
-          preInstall
-          postInstall
-          ;
+          inherit
+            unpackPhase
+            configurePhase
+            buildPhase
+            addonInfo
+            preInstall
+            postInstall
+            ;
 
-        installPhase = ''
-          runHook preInstall
+          installPhase = ''
+            runHook preInstall
 
-          target=$out/${rtpPath}/${path}
-          mkdir -p $out/${rtpPath}
-          cp -r . $target
+            target=$out/${rtpPath}/${path}
+            mkdir -p $out/${rtpPath}
+            cp -r . $target
 
-          runHook postInstall
-        '';
+            runHook postInstall
+          '';
 
-        meta = { platforms = lib.platforms.all; } // meta;
-      });
+          meta = { platforms = lib.platforms.all; } // meta;
+        }
+      );
     in
     addRtp (toVimPlugin drv)
     ;
 
   buildVimPluginFrom2Nix =
     attrs:
-    buildVimPlugin ({
-      # vim plugins may override this
-      buildPhase = ":";
-      configurePhase = ":";
-    } // attrs)
+    buildVimPlugin (
+      {
+        # vim plugins may override this
+        buildPhase = ":";
+        configurePhase = ":";
+      } // attrs
+    )
     ;
 }

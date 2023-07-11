@@ -12,32 +12,36 @@ let
   cfg = config.services.cockroachdb;
   crdb = cfg.package;
 
-  startupCommand = utils.escapeSystemdExecArgs ([
-    # Basic startup
-    "${crdb}/bin/cockroach"
-    "start"
-    "--logtostderr"
-    "--store=/var/lib/cockroachdb"
+  startupCommand = utils.escapeSystemdExecArgs (
+    [
+      # Basic startup
+      "${crdb}/bin/cockroach"
+      "start"
+      "--logtostderr"
+      "--store=/var/lib/cockroachdb"
 
-    # WebUI settings
-    "--http-addr=${cfg.http.address}:${toString cfg.http.port}"
+      # WebUI settings
+      "--http-addr=${cfg.http.address}:${toString cfg.http.port}"
 
-    # Cluster listen address
-    "--listen-addr=${cfg.listen.address}:${toString cfg.listen.port}"
+      # Cluster listen address
+      "--listen-addr=${cfg.listen.address}:${toString cfg.listen.port}"
 
-    # Cache and memory settings.
-    "--cache=${cfg.cache}"
-    "--max-sql-memory=${cfg.maxSqlMemory}"
+      # Cache and memory settings.
+      "--cache=${cfg.cache}"
+      "--max-sql-memory=${cfg.maxSqlMemory}"
 
-    # Certificate/security settings.
-    (if cfg.insecure then
-      "--insecure"
-    else
-      "--certs-dir=${cfg.certsDir}")
-  ]
+      # Certificate/security settings.
+      (
+        if cfg.insecure then
+          "--insecure"
+        else
+          "--certs-dir=${cfg.certsDir}"
+      )
+    ]
     ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
     ++ lib.optional (cfg.locality != null) "--locality=${cfg.locality}"
-    ++ cfg.extraArgs);
+    ++ cfg.extraArgs
+  );
 
   addressOption =
     descr: defaultPort: {

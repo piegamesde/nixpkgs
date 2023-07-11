@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -38,4 +39,5 @@ import ./make-test-python.nix ({
       )
       assert "awesome" in machine.succeed("echo ''${NIXCON}")
     '';
-  })
+  }
+)

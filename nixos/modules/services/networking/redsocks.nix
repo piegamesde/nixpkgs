@@ -194,7 +194,8 @@ in
     ##### implementation
   config =
     let
-      redsocks_blocks = concatMapStrings (block:
+      redsocks_blocks = concatMapStrings (
+        block:
         let
           proxy = splitString ":" block.proxy;
         in
@@ -260,13 +261,17 @@ in
         optionalString (isString block.redirectCondition)
         block.redirectCondition
         ;
-      iptables = concatImapStrings (idx: block:
+      iptables = concatImapStrings (
+        idx: block:
         let
           chain = "REDSOCKS${toString idx}";
-          doNotRedirect = concatMapStringsSep "\n" (f:
-            "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
-            (block.doNotRedirect
-              ++ (optionals block.redirectInternetOnly internetOnly));
+          doNotRedirect = concatMapStringsSep "\n" (
+            f:
+            "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true"
+          ) (
+            block.doNotRedirect
+            ++ (optionals block.redirectInternetOnly internetOnly)
+          );
         in
         optionalString (block.redirectCondition != false) ''
           ip46tables -t nat -F ${chain} 2>/dev/null || true
@@ -301,16 +306,16 @@ in
 
       networking.firewall.extraCommands = iptables;
 
-      networking.firewall.extraStopCommands = concatImapStringsSep "\n"
-        (idx: block:
-          let
-            chain = "REDSOCKS${toString idx}";
-          in
-          optionalString (block.redirectCondition != false)
-          "ip46tables -t nat -D OUTPUT -p tcp ${
-            redCond block
-          } -j ${chain} 2>/dev/null || true"
-        ) cfg.redsocks;
+      networking.firewall.extraStopCommands = concatImapStringsSep "\n" (
+        idx: block:
+        let
+          chain = "REDSOCKS${toString idx}";
+        in
+        optionalString (block.redirectCondition != false)
+        "ip46tables -t nat -D OUTPUT -p tcp ${
+          redCond block
+        } -j ${chain} 2>/dev/null || true"
+      ) cfg.redsocks;
     }
     ;
 

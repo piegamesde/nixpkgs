@@ -28,7 +28,9 @@ python.pkgs.buildPythonApplication rec {
 
     # package is only compatible with python 2.7 and 3.5+
   disabled = with python.pkgs;
-    !(pythonAtLeast "3.5" || isPy27);
+    !(
+      pythonAtLeast "3.5" || isPy27
+    );
 
     # fetching from GitHub because the PyPi source is missing the tests
   src = fetchFromGitHub {

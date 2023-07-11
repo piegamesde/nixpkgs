@@ -10,7 +10,8 @@ let
 
   mkOcamlPackages =
     ocaml:
-    (lib.makeScope newScope (self:
+    (lib.makeScope newScope (
+      self:
       with self; {
         inherit
           ocaml
@@ -503,18 +504,19 @@ let
 
         eliom = callPackage ../development/ocaml-modules/eliom { };
 
-        elpi = callPackage ../development/ocaml-modules/elpi (let
-          ppxlib_0_15 =
-            if lib.versionAtLeast ppxlib.version "0.15" then
-              ppxlib.override { version = "0.15.0"; }
-            else
-              ppxlib
-            ;
-        in
-        {
-          ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
-          inherit ppxlib_0_15;
-        }
+        elpi = callPackage ../development/ocaml-modules/elpi (
+          let
+            ppxlib_0_15 =
+              if lib.versionAtLeast ppxlib.version "0.15" then
+                ppxlib.override { version = "0.15.0"; }
+              else
+                ppxlib
+              ;
+          in
+          {
+            ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
+            inherit ppxlib_0_15;
+          }
         );
 
         emile = callPackage ../development/ocaml-modules/emile { };
@@ -2087,7 +2089,8 @@ let
 
           ### End ###
 
-      })).overrideScope' liftJaneStreet
+      }
+    )).overrideScope' liftJaneStreet
     ;
 
 in

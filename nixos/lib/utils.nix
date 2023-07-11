@@ -78,21 +78,24 @@ rec {
     let
       replacePrefix =
         p: r: s:
-        (if (hasPrefix p s) then
-          r + (removePrefix p s)
-        else
-          s)
+        (
+          if (hasPrefix p s) then
+            r + (removePrefix p s)
+          else
+            s
+        )
         ;
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
     replaceStrings [ "/" ] [ "-" ]
     (replacePrefix "." (strings.escapeC [ "." ] ".")
-      (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-")
-        (if normalizedPath == "/" then
+      (strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
+        if normalizedPath == "/" then
           normalizedPath
         else
-          trim normalizedPath)))
+          trim normalizedPath
+      )))
     ;
 
     # Quotes an argument for use in Exec* service lines.
@@ -170,7 +173,8 @@ rec {
         if item ? ${attr} then
           nameValuePair prefix item.${attr}
         else if isAttrs item then
-          map (name:
+          map (
+            name:
             let
               escapedName =
                 ''
@@ -263,10 +267,12 @@ rec {
       shopt -pq inherit_errexit && inherit_errexit_enabled=1
       shopt -s inherit_errexit
     ''
-    + concatStringsSep "\n" (imap1 (index: name: ''
-      secret${toString index}=$(<'${secrets.${name}}')
-      export secret${toString index}
-    '') (attrNames secrets))
+    + concatStringsSep "\n" (imap1 (
+      index: name: ''
+        secret${toString index}=$(<'${secrets.${name}}')
+        export secret${toString index}
+      ''
+    ) (attrNames secrets))
     + "\n"
     + "${pkgs.jq}/bin/jq >'${output}' "
     + lib.escapeShellArg (concatStringsSep " | "

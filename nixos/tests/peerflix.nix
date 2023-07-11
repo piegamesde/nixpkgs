@@ -1,6 +1,7 @@
 # This test runs peerflix and checks if peerflix starts
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -23,4 +24,5 @@ import ./make-test-python.nix ({
       peerflix.wait_for_unit("peerflix.service")
       peerflix.wait_until_succeeds("curl -f localhost:9000")
     '';
-  })
+  }
+)

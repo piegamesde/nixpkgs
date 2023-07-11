@@ -139,9 +139,9 @@ in
           (ensureDefaultPrinter cfg.ensureDefaultPrinter))
         # Note: if cupsd is "stateless" the service can't be stopped,
         # otherwise the configuration will be wiped on the next start.
-        (optionalString
-          (with config.services.printing; startWhenNeeded && !stateless)
-          "systemctl stop cups.service")
+        (optionalString (
+          with config.services.printing; startWhenNeeded && !stateless
+        ) "systemctl stop cups.service")
       ];
     };
   };

@@ -17,10 +17,12 @@ let
   trim =
     chars: str:
     let
-      nonchars = filter (x: !(elem x.value chars)) (imap0 (i: v: {
-        ind = i;
-        value = v;
-      }) (stringToCharacters str));
+      nonchars = filter (x: !(elem x.value chars)) (imap0 (
+        i: v: {
+          ind = i;
+          value = v;
+        }
+      ) (stringToCharacters str));
     in
     if length nonchars == 0 then
       ""
@@ -40,10 +42,12 @@ let
     ]) (splitString "\n" str))
     ;
   configText = indent (toString cfg.configSetup);
-  connectionText = concatStrings (mapAttrsToList (n: v: ''
-    conn ${n}
-    ${indent v}
-  '') cfg.connections);
+  connectionText = concatStrings (mapAttrsToList (
+    n: v: ''
+      conn ${n}
+      ${indent v}
+    ''
+  ) cfg.connections);
 
   configFile = pkgs.writeText "ipsec-nixos.conf" ''
     config setup
@@ -52,10 +56,12 @@ let
     ${connectionText}
   '';
 
-  policyFiles = mapAttrs' (name: text: {
-    name = "ipsec.d/policies/${name}";
-    value.source = pkgs.writeText "ipsec-policy-${name}" text;
-  }) cfg.policies;
+  policyFiles = mapAttrs' (
+    name: text: {
+      name = "ipsec.d/policies/${name}";
+      value.source = pkgs.writeText "ipsec-policy-${name}" text;
+    }
+  ) cfg.policies;
 
 in
 {

@@ -99,8 +99,9 @@ let
 
       testfun =
         name: attrs:
-        runCommand "${python.name}-tests-${name}"
-        ({ inherit (python) pythonVersion; } // attrs) ''
+        runCommand "${python.name}-tests-${name}" (
+          { inherit (python) pythonVersion; } // attrs
+        ) ''
           cp -r ${./tests/test_environments} tests
           chmod -R +w tests
           substituteAllInPlace tests/test_python.py
@@ -116,15 +117,18 @@ let
 
     # Integration tests involving the package set.
     # All PyPy package builds are broken at the moment
-  integrationTests = lib.optionalAttrs (!python.isPyPy) (lib.optionalAttrs
-    (python.isPy3k && !stdenv.isDarwin) { # darwin has no split-debug
+  integrationTests = lib.optionalAttrs (!python.isPyPy) (
+    lib.optionalAttrs (
+      python.isPy3k && !stdenv.isDarwin
+    ) { # darwin has no split-debug
       cpython-gdb =
         callPackage ./tests/test_cpython_gdb { interpreter = python; };
     } // lib.optionalAttrs (python.pythonAtLeast "3.7") rec {
       # Before the addition of NIX_PYTHONPREFIX mypy was broken with typed packages
       nix-pythonprefix-mypy =
         callPackage ./tests/test_nix_pythonprefix { interpreter = python; };
-    });
+    }
+  );
 
     # Tests to ensure overriding works as expected.
   overrideTests =
@@ -155,14 +159,18 @@ let
       # Test applying overrides using pythonPackagesOverlays.
       test-pythonPackagesExtensions =
         let
-          pkgs_ = pkgs.extend (final: prev: {
-            pythonPackagesExtensions =
-              prev.pythonPackagesExtensions
-              ++ [
-                (python-final: python-prev: { foo = python-prev.setuptools; })
-              ]
-              ;
-          });
+          pkgs_ = pkgs.extend (
+            final: prev: {
+              pythonPackagesExtensions =
+                prev.pythonPackagesExtensions
+                ++ [
+                  (
+                    python-final: python-prev: { foo = python-prev.setuptools; }
+                  )
+                ]
+                ;
+            }
+          );
         in
         pkgs_.${python.pythonAttr}.pkgs.foo
         ;
@@ -171,7 +179,8 @@ let
 
   condaTests =
     let
-      requests = callPackage ({
+      requests = callPackage (
+        {
           autoPatchelfHook,
           fetchurl,
           pythonCondaPackages,
@@ -187,10 +196,12 @@ let
           };
           nativeBuildInputs =
             [ autoPatchelfHook ]
-            ++ (with python.pkgs; [
-              condaUnpackHook
-              condaInstallHook
-            ])
+            ++ (
+              with python.pkgs; [
+                condaUnpackHook
+                condaInstallHook
+              ]
+            )
             ;
           buildInputs = [ pythonCondaPackages.condaPatchelfLibs ];
           propagatedBuildInputs = with python.pkgs; [
@@ -199,7 +210,8 @@ let
             urllib3
             certifi
           ];
-        }) { };
+        }
+      ) { };
       pythonWithRequests =
         requests.pythonModule.withPackages (ps: [ requests ]);
     in
@@ -211,5 +223,6 @@ let
     ;
 
 in
-lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform)
-(environmentTests // integrationTests // overrideTests // condaTests)
+lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform) (
+  environmentTests // integrationTests // overrideTests // condaTests
+)

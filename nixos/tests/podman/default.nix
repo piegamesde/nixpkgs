@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -198,4 +199,5 @@ import ../make-test-python.nix ({
       # TODO: add docker-compose test
 
     '';
-  })
+  }
+)

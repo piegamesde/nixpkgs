@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -36,4 +37,5 @@ import ./make-test-python.nix ({
       sm.succeed("ls /var/lib/smokeping/cache/Local/LocalMachine_mini.png")
       sm.succeed("ls /var/lib/smokeping/cache/index.html")
     '';
-  })
+  }
+)

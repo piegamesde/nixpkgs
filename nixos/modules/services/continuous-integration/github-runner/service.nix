@@ -52,13 +52,15 @@ in
   } // cfg.extraEnvironment;
 
   path =
-    (with pkgs; [
-      bash
-      coreutils
-      git
-      gnutar
-      gzip
-    ])
+    (
+      with pkgs; [
+        bash
+        coreutils
+        git
+        gnutar
+        gzip
+      ]
+    )
     ++ [ config.nix.package ]
     ++ cfg.extraPackages
     ;
@@ -213,18 +215,20 @@ in
             }} "$WORK_DIRECTORY/"
           '';
         in
-        map (x:
+        map (
+          x:
           "${x} ${
             escapeShellArgs [
               stateDir
               workDir
               logsDir
             ]
-          }") [
-            "+${unconfigureRunner}" # runs as root
-            configureRunner
-            setupWorkDir
-          ]
+          }"
+        ) [
+          "+${unconfigureRunner}" # runs as root
+          configureRunner
+          setupWorkDir
+        ]
         ;
 
         # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)

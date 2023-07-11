@@ -37,11 +37,13 @@ stdenv.mkDerivation rec {
     gtk3
     libhandy
     libnotify
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         icalendar
         pygobject3
-      ]))
+      ]
+    ))
   ];
 
   postPatch = ''

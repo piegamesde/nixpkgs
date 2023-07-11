@@ -120,10 +120,11 @@ let
     {
       dependencies,
     }:
-    lib.optionalString (dependencies != [ ]) (''
-      mkdir -p node_modules
-      cd node_modules
-    ''
+    lib.optionalString (dependencies != [ ]) (
+      ''
+        mkdir -p node_modules
+        cd node_modules
+      ''
       + (lib.concatMapStrings (dependency: ''
         if [ ! -e "${dependency.packageName}" ]; then
             ${composePackage dependency}
@@ -131,7 +132,8 @@ let
       '') dependencies)
       + ''
         cd ..
-      '')
+      ''
+    )
     ;
 
     # Recursively composes the dependencies of a package
@@ -223,9 +225,9 @@ let
         then
             cd node_modules
             ${
-              lib.concatMapStrings
-              (dependency: pinpointDependenciesOfPackage dependency)
-              dependencies
+              lib.concatMapStrings (
+                dependency: pinpointDependenciesOfPackage dependency
+              ) dependencies
             }
             cd ..
         fi
@@ -493,91 +495,93 @@ let
         "meta"
       ];
     in
-    stdenv.mkDerivation ({
-      name =
-        "${name}${
-          if version == null then
-            ""
-          else
-            "-${version}"
-        }";
-      buildInputs =
-        [
-          tarWrapper
-          python
-          nodejs
-        ]
-        ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool
-        ++ buildInputs
-        ;
+    stdenv.mkDerivation (
+      {
+        name =
+          "${name}${
+            if version == null then
+              ""
+            else
+              "-${version}"
+          }";
+        buildInputs =
+          [
+            tarWrapper
+            python
+            nodejs
+          ]
+          ++ lib.optional (stdenv.isLinux) utillinux
+          ++ lib.optional (stdenv.isDarwin) libtool
+          ++ buildInputs
+          ;
 
-      inherit nodejs;
+        inherit nodejs;
 
-      inherit
-        dontStrip
-        ; # Stripping may fail a build for some package deployments
-      inherit dontNpmInstall preRebuild unpackPhase buildPhase;
+        inherit
+          dontStrip
+          ; # Stripping may fail a build for some package deployments
+        inherit dontNpmInstall preRebuild unpackPhase buildPhase;
 
-      compositionScript = composePackage args;
-      pinpointDependenciesScript = pinpointDependenciesOfPackage args;
+        compositionScript = composePackage args;
+        pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
-      passAsFile = [
-        "compositionScript"
-        "pinpointDependenciesScript"
-      ];
+        passAsFile = [
+          "compositionScript"
+          "pinpointDependenciesScript"
+        ];
 
-      installPhase = ''
-        source ${installPackage}
+        installPhase = ''
+          source ${installPackage}
 
-        # Create and enter a root node_modules/ folder
-        mkdir -p $out/lib/node_modules
-        cd $out/lib/node_modules
+          # Create and enter a root node_modules/ folder
+          mkdir -p $out/lib/node_modules
+          cd $out/lib/node_modules
 
-        # Compose the package and all its dependencies
-        source $compositionScriptPath
+          # Compose the package and all its dependencies
+          source $compositionScriptPath
 
-        ${prepareAndInvokeNPM {
-          inherit packageName bypassCache reconstructLock npmFlags production;
-        }}
+          ${prepareAndInvokeNPM {
+            inherit packageName bypassCache reconstructLock npmFlags production;
+          }}
 
-        # Create symlink to the deployed executable folder, if applicable
-        if [ -d "$out/lib/node_modules/.bin" ]
-        then
-            ln -s $out/lib/node_modules/.bin $out/bin
+          # Create symlink to the deployed executable folder, if applicable
+          if [ -d "$out/lib/node_modules/.bin" ]
+          then
+              ln -s $out/lib/node_modules/.bin $out/bin
 
-            # Patch the shebang lines of all the executables
-            ls $out/bin/* | while read i
-            do
-                file="$(readlink -f "$i")"
-                chmod u+rwx "$file"
-                patchShebangs "$file"
-            done
-        fi
+              # Patch the shebang lines of all the executables
+              ls $out/bin/* | while read i
+              do
+                  file="$(readlink -f "$i")"
+                  chmod u+rwx "$file"
+                  patchShebangs "$file"
+              done
+          fi
 
-        # Create symlinks to the deployed manual page folders, if applicable
-        if [ -d "$out/lib/node_modules/${packageName}/man" ]
-        then
-            mkdir -p $out/share
-            for dir in "$out/lib/node_modules/${packageName}/man/"*
-            do
-                mkdir -p $out/share/man/$(basename "$dir")
-                for page in "$dir"/*
-                do
-                    ln -s $page $out/share/man/$(basename "$dir")
-                done
-            done
-        fi
+          # Create symlinks to the deployed manual page folders, if applicable
+          if [ -d "$out/lib/node_modules/${packageName}/man" ]
+          then
+              mkdir -p $out/share
+              for dir in "$out/lib/node_modules/${packageName}/man/"*
+              do
+                  mkdir -p $out/share/man/$(basename "$dir")
+                  for page in "$dir"/*
+                  do
+                      ln -s $page $out/share/man/$(basename "$dir")
+                  done
+              done
+          fi
 
-        # Run post install hook, if provided
-        runHook postInstall
-      '';
+          # Run post install hook, if provided
+          runHook postInstall
+        '';
 
-      meta = {
-        # default to Node.js' platforms
-        platforms = nodejs.meta.platforms;
-      } // meta;
-    } // extraArgs)
+        meta = {
+          # default to Node.js' platforms
+          platforms = nodejs.meta.platforms;
+        } // meta;
+      } // extraArgs
+    )
     ;
 
     # Builds a node environment (a node_modules folder and a set of binaries)
@@ -607,76 +611,78 @@ let
         "buildInputs"
       ];
     in
-    stdenv.mkDerivation ({
-      name =
-        "node-dependencies-${name}${
-          if version == null then
-            ""
-          else
-            "-${version}"
-        }";
+    stdenv.mkDerivation (
+      {
+        name =
+          "node-dependencies-${name}${
+            if version == null then
+              ""
+            else
+              "-${version}"
+          }";
 
-      buildInputs =
-        [
-          tarWrapper
-          python
-          nodejs
-        ]
-        ++ lib.optional (stdenv.isLinux) utillinux
-        ++ lib.optional (stdenv.isDarwin) libtool
-        ++ buildInputs
-        ;
+        buildInputs =
+          [
+            tarWrapper
+            python
+            nodejs
+          ]
+          ++ lib.optional (stdenv.isLinux) utillinux
+          ++ lib.optional (stdenv.isDarwin) libtool
+          ++ buildInputs
+          ;
 
-      inherit
-        dontStrip
-        ; # Stripping may fail a build for some package deployments
-      inherit dontNpmInstall unpackPhase buildPhase;
+        inherit
+          dontStrip
+          ; # Stripping may fail a build for some package deployments
+        inherit dontNpmInstall unpackPhase buildPhase;
 
-      includeScript = includeDependencies { inherit dependencies; };
-      pinpointDependenciesScript = pinpointDependenciesOfPackage args;
+        includeScript = includeDependencies { inherit dependencies; };
+        pinpointDependenciesScript = pinpointDependenciesOfPackage args;
 
-      passAsFile = [
-        "includeScript"
-        "pinpointDependenciesScript"
-      ];
+        passAsFile = [
+          "includeScript"
+          "pinpointDependenciesScript"
+        ];
 
-      installPhase = ''
-        source ${installPackage}
+        installPhase = ''
+          source ${installPackage}
 
-        mkdir -p $out/${packageName}
-        cd $out/${packageName}
+          mkdir -p $out/${packageName}
+          cd $out/${packageName}
 
-        source $includeScriptPath
+          source $includeScriptPath
 
-        # Create fake package.json to make the npm commands work properly
-        cp ${src}/package.json .
-        chmod 644 package.json
-        ${lib.optionalString bypassCache ''
-          if [ -f ${src}/package-lock.json ]
-          then
-              cp ${src}/package-lock.json .
-              chmod 644 package-lock.json
-          fi
-        ''}
+          # Create fake package.json to make the npm commands work properly
+          cp ${src}/package.json .
+          chmod 644 package.json
+          ${lib.optionalString bypassCache ''
+            if [ -f ${src}/package-lock.json ]
+            then
+                cp ${src}/package-lock.json .
+                chmod 644 package-lock.json
+            fi
+          ''}
 
-        # Go to the parent folder to make sure that all packages are pinpointed
-        cd ..
-        ${lib.optionalString (builtins.substring 0 1 packageName == "@")
-        "cd .."}
+          # Go to the parent folder to make sure that all packages are pinpointed
+          cd ..
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+          "cd .."}
 
-        ${prepareAndInvokeNPM {
-          inherit packageName bypassCache reconstructLock npmFlags production;
-        }}
+          ${prepareAndInvokeNPM {
+            inherit packageName bypassCache reconstructLock npmFlags production;
+          }}
 
-        # Expose the executables that were installed
-        cd ..
-        ${lib.optionalString (builtins.substring 0 1 packageName == "@")
-        "cd .."}
+          # Expose the executables that were installed
+          cd ..
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+          "cd .."}
 
-        mv ${packageName} lib
-        ln -s $out/lib/node_modules/.bin $out/bin
-      '';
-    } // extraArgs)
+          mv ${packageName} lib
+          ln -s $out/lib/node_modules/.bin $out/bin
+        '';
+      } // extraArgs
+    )
     ;
 
     # Builds a development shell
@@ -711,40 +717,42 @@ let
         "buildPhase"
       ];
     in
-    stdenv.mkDerivation ({
-      name =
-        "node-shell-${name}${
-          if version == null then
-            ""
-          else
-            "-${version}"
-        }";
+    stdenv.mkDerivation (
+      {
+        name =
+          "node-shell-${name}${
+            if version == null then
+              ""
+            else
+              "-${version}"
+          }";
 
-      buildInputs =
-        [
-          python
-          nodejs
-        ]
-        ++ lib.optional (stdenv.isLinux) utillinux
-        ++ buildInputs
-        ;
-      buildCommand = ''
-        mkdir -p $out/bin
-        cat > $out/bin/shell <<EOF
-        #! ${stdenv.shell} -e
-        $shellHook
-        exec ${stdenv.shell}
-        EOF
-        chmod +x $out/bin/shell
-      '';
+        buildInputs =
+          [
+            python
+            nodejs
+          ]
+          ++ lib.optional (stdenv.isLinux) utillinux
+          ++ buildInputs
+          ;
+        buildCommand = ''
+          mkdir -p $out/bin
+          cat > $out/bin/shell <<EOF
+          #! ${stdenv.shell} -e
+          $shellHook
+          exec ${stdenv.shell}
+          EOF
+          chmod +x $out/bin/shell
+        '';
 
-        # Provide the dependencies in a development shell through the NODE_PATH environment variable
-      inherit nodeDependencies;
-      shellHook = lib.optionalString (dependencies != [ ]) ''
-        export NODE_PATH=${nodeDependencies}/lib/node_modules
-        export PATH="${nodeDependencies}/bin:$PATH"
-      '';
-    } // extraArgs)
+          # Provide the dependencies in a development shell through the NODE_PATH environment variable
+        inherit nodeDependencies;
+        shellHook = lib.optionalString (dependencies != [ ]) ''
+          export NODE_PATH=${nodeDependencies}/lib/node_modules
+          export PATH="${nodeDependencies}/bin:$PATH"
+        '';
+      } // extraArgs
+    )
     ;
 in
 {

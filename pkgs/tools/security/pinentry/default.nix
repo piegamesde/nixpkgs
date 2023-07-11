@@ -131,7 +131,8 @@ pinentryMkDerivation rec {
     ;
 
   postInstall =
-    lib.concatStrings (lib.flip map enabledFlavors (f:
+    lib.concatStrings (lib.flip map enabledFlavors (
+      f:
       let
         binary = "pinentry-" + flavorInfo.${f}.bin;
       in

@@ -112,9 +112,11 @@ let
           '';
         }
         ;
-      usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u:
+      usersWithKeys = attrValues (flip filterAttrs config.users.users (
+        n: u:
         length u.openssh.authorizedKeys.keys != 0
-        || length u.openssh.authorizedKeys.keyFiles != 0));
+        || length u.openssh.authorizedKeys.keyFiles != 0
+      ));
     in
     listToAttrs (map mkAuthKeyFile usersWithKeys)
     ;
@@ -453,7 +455,8 @@ in
                     UseDns = true;
                     PasswordAuthentication = false;
                   }'';
-        type = types.submodule ({
+        type = types.submodule (
+          {
             name,
             ...
           }: {
@@ -587,7 +590,8 @@ in
                 '';
               };
             };
-          });
+          }
+        );
       };
 
       extraConfig = mkOption {
@@ -688,16 +692,18 @@ in
               "-f /etc/ssh/sshd_config"
               ;
             KillMode = "process";
-          } // (if cfg.startWhenNeeded then
-            {
-              StandardInput = "socket";
-              StandardError = "journal";
-            }
-          else
-            {
-              Restart = "always";
-              Type = "simple";
-            });
+          } // (
+            if cfg.startWhenNeeded then
+              {
+                StandardInput = "socket";
+                StandardError = "journal";
+              }
+            else
+              {
+                Restart = "always";
+                Type = "simple";
+              }
+          );
 
         };
 
@@ -710,13 +716,17 @@ in
             wantedBy = [ "sockets.target" ];
             socketConfig.ListenStream =
               if cfg.listenAddresses != [ ] then
-                map (l:
+                map (
+                  l:
                   "${l.addr}:${
-                    toString (if l.port != null then
-                      l.port
-                    else
-                      22)
-                  }") cfg.listenAddresses
+                    toString (
+                      if l.port != null then
+                        l.port
+                      else
+                        22
+                    )
+                  }"
+                ) cfg.listenAddresses
               else
                 cfg.ports
               ;
@@ -777,7 +787,8 @@ in
         Port ${toString port}
       '') cfg.ports}
 
-      ${concatMapStrings ({
+      ${concatMapStrings (
+        {
           port,
           addr,
           ...
@@ -785,7 +796,8 @@ in
           ListenAddress ${addr}${
             optionalString (port != null) (":" + toString port)
           }
-        '') cfg.listenAddresses}
+        ''
+      ) cfg.listenAddresses}
 
       ${optionalString cfgc.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
@@ -817,13 +829,15 @@ in
           ;
         message = "cannot enable X11 forwarding without setting xauth location";
       } ]
-      ++ forEach cfg.listenAddresses ({
+      ++ forEach cfg.listenAddresses (
+        {
           addr,
           ...
         }: {
           assertion = addr != null;
           message = "addr must be specified in each listenAddresses entry";
-        })
+        }
+      )
       ;
 
   };

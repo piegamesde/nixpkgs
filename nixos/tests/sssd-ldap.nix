@@ -7,7 +7,8 @@ let
 
   testUser = "alice";
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -109,4 +110,5 @@ import ./make-test-python.nix ({
         machine.wait_for_console_text("Backend is online")
         machine.succeed("getent passwd ${testUser}")
     '';
-  })
+  }
+)

@@ -31,19 +31,27 @@ let
   makeOverridablePythonPackage =
     f: origArgs:
     let
-      args = lib.fix (lib.extends (_: previousAttrs: {
-        passthru = (previousAttrs.passthru or { }) // {
-          overridePythonAttrs =
-            newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
-        };
-      }) (_: origArgs));
+      args = lib.fix (lib.extends (
+        _: previousAttrs: {
+          passthru = (
+            previousAttrs.passthru or { }
+          ) // {
+            overridePythonAttrs =
+              newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+          };
+        }
+      ) (
+        _: origArgs
+      ));
       result = f args;
       overrideWith =
         newArgs:
-        args // (if pkgs.lib.isFunction newArgs then
-          newArgs args
-        else
-          newArgs)
+        args // (
+          if pkgs.lib.isFunction newArgs then
+            newArgs args
+          else
+            newArgs
+        )
         ;
     in
     if builtins.isAttrs result then
@@ -87,9 +95,11 @@ let
     let
       modules = lib.filter hasPythonModule drvs;
     in
-    lib.unique ([ python ]
+    lib.unique (
+      [ python ]
       ++ modules
-      ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules))
+      ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
+    )
     ;
 
     # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
@@ -104,7 +114,9 @@ let
     drv:
     drv.overrideAttrs (oldAttrs: {
       # Use passthru in order to prevent rebuilds when possible.
-      passthru = (oldAttrs.passthru or { }) // {
+      passthru = (
+        oldAttrs.passthru or { }
+      ) // {
         pythonModule = python;
         pythonPath = [ ]; # Deprecated, for compatibility.
         requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
@@ -116,7 +128,9 @@ let
   toPythonApplication =
     drv:
     drv.overrideAttrs (oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
+      passthru = (
+        oldAttrs.passthru or { }
+      ) // {
         # Remove Python prefix from name so we have a "normal" name.
         # While the prefix shows up in the store path, it won't be
         # used by `nix-env`.

@@ -12,7 +12,8 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation (finalAttrs:
+stdenv.mkDerivation (
+  finalAttrs:
   let
     inherit (finalAttrs) version;
   in

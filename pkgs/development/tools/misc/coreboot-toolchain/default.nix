@@ -6,7 +6,8 @@
 let
   common =
     arch:
-    callPackage ({
+    callPackage (
+      {
         bison,
         callPackage,
         curl,
@@ -51,10 +52,12 @@ let
         buildInputs = [
           flex
           zlib
-          (if withAda then
-            gnat11
-          else
-            gcc)
+          (
+            if withAda then
+              gnat11
+            else
+              gcc
+          )
         ];
 
         enableParallelBuilding = true;
@@ -66,9 +69,9 @@ let
 
           mkdir -p util/crossgcc/tarballs
 
-          ${lib.concatMapStringsSep "\n"
-          (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
-          (callPackage ./stable.nix { })}
+          ${lib.concatMapStringsSep "\n" (
+            file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}"
+          ) (callPackage ./stable.nix { })}
 
           patchShebangs util/genbuild_h/genbuild_h.sh
         '';
@@ -91,7 +94,8 @@ let
           maintainers = with maintainers; [ felixsinger ];
           platforms = platforms.linux;
         };
-      })
+      }
+    )
     ;
 
 in

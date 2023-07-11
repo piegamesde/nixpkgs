@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -44,4 +45,5 @@ import ./make-test-python.nix ({
       server.succeed("curl --fail http://$(getent ahostsv4 localhost | head -n1 | cut -f 1 -d ' '):8200/")
       client.succeed("curl --fail http://$(getent ahostsv4 server | head -n1 | cut -f 1 -d ' '):8200/")
     '';
-  })
+  }
+)

@@ -30,32 +30,36 @@ let
 
   defaultUser = "cassandra";
 
-  cassandraConfig = flip recursiveUpdate cfg.extraConfig ({
-    commitlog_sync = "batch";
-    commitlog_sync_batch_window_in_ms = 2;
-    start_native_transport = cfg.allowClients;
-    cluster_name = cfg.clusterName;
-    partitioner = "org.apache.cassandra.dht.Murmur3Partitioner";
-    endpoint_snitch = "SimpleSnitch";
-    data_file_directories = [ "${cfg.homeDir}/data" ];
-    commitlog_directory = "${cfg.homeDir}/commitlog";
-    saved_caches_directory = "${cfg.homeDir}/saved_caches";
-  } // optionalAttrs (cfg.seedAddresses != [ ]) {
-    seed_provider = [ {
-      class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
-      parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
-    } ];
-  } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; });
+  cassandraConfig = flip recursiveUpdate cfg.extraConfig (
+    {
+      commitlog_sync = "batch";
+      commitlog_sync_batch_window_in_ms = 2;
+      start_native_transport = cfg.allowClients;
+      cluster_name = cfg.clusterName;
+      partitioner = "org.apache.cassandra.dht.Murmur3Partitioner";
+      endpoint_snitch = "SimpleSnitch";
+      data_file_directories = [ "${cfg.homeDir}/data" ];
+      commitlog_directory = "${cfg.homeDir}/commitlog";
+      saved_caches_directory = "${cfg.homeDir}/saved_caches";
+    } // optionalAttrs (cfg.seedAddresses != [ ]) {
+      seed_provider = [ {
+        class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
+        parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
+      } ];
+    } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; }
+  );
 
-  cassandraConfigWithAddresses = cassandraConfig
-    // (if cfg.listenAddress == null then
+  cassandraConfigWithAddresses = cassandraConfig // (
+    if cfg.listenAddress == null then
       { listen_interface = cfg.listenInterface; }
     else
-      { listen_address = cfg.listenAddress; })
-    // (if cfg.rpcAddress == null then
+      { listen_address = cfg.listenAddress; }
+  ) // (
+    if cfg.rpcAddress == null then
       { rpc_interface = cfg.rpcInterface; }
     else
-      { rpc_address = cfg.rpcAddress; });
+      { rpc_address = cfg.rpcAddress; }
+  );
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";
@@ -539,12 +543,14 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = concatStringsSep " " ([
-          "${cfg.package}/bin/nodetool"
-          "repair"
-          "--full"
-        ]
-          ++ cfg.fullRepairOptions);
+        ExecStart = concatStringsSep " " (
+          [
+            "${cfg.package}/bin/nodetool"
+            "repair"
+            "--full"
+          ]
+          ++ cfg.fullRepairOptions
+        );
       };
     };
 
@@ -567,11 +573,13 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = concatStringsSep " " ([
-          "${cfg.package}/bin/nodetool"
-          "repair"
-        ]
-          ++ cfg.incrementalRepairOptions);
+        ExecStart = concatStringsSep " " (
+          [
+            "${cfg.package}/bin/nodetool"
+            "repair"
+          ]
+          ++ cfg.incrementalRepairOptions
+        );
       };
     };
 

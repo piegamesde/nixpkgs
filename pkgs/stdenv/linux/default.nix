@@ -72,10 +72,12 @@
         armv7l-linux = import ./bootstrap-files/armv7l.nix;
         aarch64-linux = import ./bootstrap-files/aarch64.nix;
         mipsel-linux = import ./bootstrap-files/mipsel.nix;
-        mips64el-linux = import (if localSystem.isMips64n32 then
-          ./bootstrap-files/mips64el-n32.nix
-        else
-          ./bootstrap-files/mips64el.nix);
+        mips64el-linux = import (
+          if localSystem.isMips64n32 then
+            ./bootstrap-files/mips64el-n32.nix
+          else
+            ./bootstrap-files/mips64el.nix
+        );
         powerpc64le-linux = import ./bootstrap-files/powerpc64le.nix;
         riscv64-linux = import ./bootstrap-files/riscv64.nix;
       };
@@ -89,7 +91,8 @@
       # Try to find an architecture compatible with our current system. We
       # just try every bootstrap we’ve got and test to see if it is
       # compatible with or current architecture.
-    getCompatibleTools = lib.foldl (v: system:
+    getCompatibleTools = lib.foldl (
+      v: system:
       if v != null then
         v
       else if
@@ -97,18 +100,19 @@
       then
         archLookupTable.${system}
       else
-        null) null (lib.attrNames archLookupTable);
+        null
+    ) null (lib.attrNames archLookupTable);
 
     archLookupTable =
       table.${localSystem.libc} or (abort
         "unsupported libc for the pure Linux stdenv");
     files =
-      archLookupTable.${localSystem.system} or (if
-        getCompatibleTools != null
-      then
-        getCompatibleTools
-      else
-        (abort "unsupported platform for the pure Linux stdenv"));
+      archLookupTable.${localSystem.system} or (
+        if getCompatibleTools != null then
+          getCompatibleTools
+        else
+          (abort "unsupported platform for the pure Linux stdenv")
+      );
   in
   files
 }:
@@ -153,19 +157,21 @@ let
     # coreutils, GCC, etc.
 
     # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
-  bootstrapTools = (import (if localSystem.libc == "musl" then
-    ./bootstrap-tools-musl
-  else
-    ./bootstrap-tools) {
-      inherit system bootstrapFiles;
-      extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
-        __contentAddressed = true;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      };
-    }) // {
-      passthru.isFromBootstrapFiles = true;
+  bootstrapTools = (import (
+    if localSystem.libc == "musl" then
+      ./bootstrap-tools-musl
+    else
+      ./bootstrap-tools
+  ) {
+    inherit system bootstrapFiles;
+    extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
+      __contentAddressed = true;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
     };
+  }) // {
+    passthru.isFromBootstrapFiles = true;
+  };
 
   getLibc =
     stage:
@@ -221,19 +227,24 @@ let
               inherit lib;
               inherit (prevStage) coreutils gnugrep;
               stdenvNoCC = prevStage.ccWrapperStdenv;
-            }).overrideAttrs (a:
-              lib.optionalAttrs
-              (prevStage.gcc-unwrapped.passthru.isXgcc or false) {
+            }).overrideAttrs (
+              a:
+              lib.optionalAttrs (
+                prevStage.gcc-unwrapped.passthru.isXgcc or false
+              ) {
                 # This affects only `xgcc` (the compiler which compiles the final compiler).
                 postFixup =
-                  (a.postFixup or "")
+                  (
+                    a.postFixup or ""
+                  )
                   + ''
                     echo "--sysroot=${
                       lib.getDev (getLibc prevStage)
                     }" >> $out/nix-support/cc-cflags
                   ''
                   ;
-              })
+              }
+            )
           ;
 
         overrides =
@@ -255,18 +266,21 @@ in
 assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 [
 
-  ({ }: {
-    __raw = true;
+  (
+    { }: {
+      __raw = true;
 
-    gcc-unwrapped = null;
-    binutils = null;
-    coreutils = null;
-    gnugrep = null;
-  })
+      gcc-unwrapped = null;
+      binutils = null;
+      coreutils = null;
+      gnugrep = null;
+    }
+  )
 
   # Build a dummy stdenv with no GCC or working fetchurl.  This is
   # because we need a stdenv to build the GCC wrapper and fetchurl.
-  (prevStage:
+  (
+    prevStage:
     stageFun prevStage {
       name = "bootstrap-stage0";
 
@@ -316,7 +330,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           gnugrep = bootstrapTools;
         }
         ;
-    })
+    }
+  )
 
   # Create the first "real" standard environment.  This one consists
   # of bootstrap tools only, and a minimal Glibc to keep the GCC
@@ -328,7 +343,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
   # If we ever need to use a package from more than one stage back, we
   # simply re-export those packages in the middle stage(s) using the
   # overrides attribute and the inherit syntax.
-  (prevStage:
+  (
+    prevStage:
     # previous stage0 stdenv:
     assert isFromBootstrapFiles prevStage.binutils.bintools;
     assert isFromBootstrapFiles prevStage."${localSystem.libc}";
@@ -368,13 +384,15 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
-    })
+    }
+  )
 
   # First rebuild of gcc; this is linked against all sorts of junk
   # from the bootstrap-files, but we only care about the code that
   # this compiler *emits*.  The `gcc` binary produced in this stage
   # is not part of the final stdenv.
-  (prevStage:
+  (
+    prevStage:
     assert isBuiltByBootstrapFilesCompiler prevStage.binutils-unwrapped;
     assert isFromBootstrapFiles prevStage."${localSystem.libc}";
     assert isFromBootstrapFiles prevStage.gcc-unwrapped;
@@ -399,25 +417,27 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             ;
           ${localSystem.libc} = getLibc prevStage;
           gmp = prev.gmp.override { cxx = false; };
-          gcc-unwrapped = (prev.gcc-unwrapped.override (commonGccOverrides // {
-            # The most logical name for this package would be something like
-            # "gcc-stage1".  Unfortunately "stage" is already reserved for the
-            # layers of stdenv, so using "stage" in the name of this package
-            # would cause massive confusion.
-            #
-            # Gcc calls its "stage1" compiler `xgcc` (--disable-bootstrap results
-            # in `xgcc` being copied to $prefix/bin/gcc).  So we imitate that.
-            #
-            name = "xgcc";
+          gcc-unwrapped = (prev.gcc-unwrapped.override (
+            commonGccOverrides // {
+              # The most logical name for this package would be something like
+              # "gcc-stage1".  Unfortunately "stage" is already reserved for the
+              # layers of stdenv, so using "stage" in the name of this package
+              # would cause massive confusion.
+              #
+              # Gcc calls its "stage1" compiler `xgcc` (--disable-bootstrap results
+              # in `xgcc` being copied to $prefix/bin/gcc).  So we imitate that.
+              #
+              name = "xgcc";
 
-              # xgcc uses ld linked against nixpkgs' glibc and gcc built
-              # against bootstrapTools glibc. We can't allow loading
-              #   $out/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so
-              # to mix libc.so:
-              #   ...-binutils-patchelfed-ld-2.40/bin/ld: ...-xgcc-13.0.0/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so:
-              #     error loading plugin: ...-bootstrap-tools/lib/libpthread.so.0: undefined symbol: __libc_vfork, version GLIBC_PRIVATE
-            enableLTO = false;
-          })).overrideAttrs (a: {
+                # xgcc uses ld linked against nixpkgs' glibc and gcc built
+                # against bootstrapTools glibc. We can't allow loading
+                #   $out/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so
+                # to mix libc.so:
+                #   ...-binutils-patchelfed-ld-2.40/bin/ld: ...-xgcc-13.0.0/libexec/gcc/x86_64-unknown-linux-gnu/13.0.1/liblto_plugin.so:
+                #     error loading plugin: ...-bootstrap-tools/lib/libpthread.so.0: undefined symbol: __libc_vfork, version GLIBC_PRIVATE
+              enableLTO = false;
+            }
+          )).overrideAttrs (a: {
 
             # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
             # to `$out/nix-support/cc-cflags`.
@@ -443,7 +463,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
               #
             configureFlags =
-              (a.configureFlags or [ ])
+              (
+                a.configureFlags or [ ]
+              )
               ++ [
                 "--with-native-system-header-dir=/include"
                 "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
@@ -468,12 +490,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
-    })
+    }
+  )
 
   # 2nd stdenv that contains our own rebuilt binutils and is used for
   # compiling our own Glibc.
   #
-  (prevStage:
+  (
+    prevStage:
     # previous stage1 stdenv:
     assert isBuiltByBootstrapFilesCompiler prevStage.binutils-unwrapped;
     assert isFromBootstrapFiles prevStage."${localSystem.libc}";
@@ -564,11 +588,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
             # TODO(amjoseph): It is not yet entirely clear why this is necessary.
             # Something strange is going on with xgcc and libstdc++ on pkgsMusl.
-          patchelf = super.patchelf.overrideAttrs (previousAttrs:
+          patchelf = super.patchelf.overrideAttrs (
+            previousAttrs:
             lib.optionalAttrs super.stdenv.hostPlatform.isMusl {
               NIX_CFLAGS_COMPILE =
                 (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
-            });
+            }
+          );
 
         }
         ;
@@ -578,12 +604,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
-    })
+    }
+  )
 
   # Construct a third stdenv identical to the 2nd, except that this
   # one uses the rebuilt Glibc from stage2.  It still uses the recent
   # binutils and rest of the bootstrap tools, including GCC.
-  (prevStage:
+  (
+    prevStage:
     # previous stage2 stdenv:
     assert isBuiltByNixpkgsCompiler prevStage.binutils-unwrapped;
     assert isBuiltByNixpkgsCompiler prevStage.${localSystem.libc};
@@ -591,12 +619,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isFromBootstrapFiles prevStage.coreutils;
     assert isFromBootstrapFiles prevStage.gnugrep;
     assert isBuiltByNixpkgsCompiler prevStage.patchelf;
-    assert lib.all isBuiltByNixpkgsCompiler (with prevStage; [
-      gmp
-      isl_0_20
-      libmpc
-      mpfr
-    ]);
+    assert lib.all isBuiltByNixpkgsCompiler (
+      with prevStage; [
+        gmp
+        isl_0_20
+        libmpc
+        mpfr
+      ]
+    );
     stageFun prevStage {
       name = "bootstrap-stage3";
 
@@ -624,12 +654,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           gmp = super.gmp.override { cxx = false; };
         } // {
           ${localSystem.libc} = getLibc prevStage;
-          gcc-unwrapped = (super.gcc-unwrapped.override
-            (commonGccOverrides // { inherit (prevStage) which; }))
-            .overrideAttrs (a: {
-              # so we can add them to allowedRequisites below
-              passthru = a.passthru // { inherit (self) gmp mpfr libmpc isl; };
-            });
+          gcc-unwrapped = (super.gcc-unwrapped.override (
+            commonGccOverrides // { inherit (prevStage) which; }
+          )).overrideAttrs (a: {
+            # so we can add them to allowedRequisites below
+            passthru = a.passthru // { inherit (self) gmp mpfr libmpc isl; };
+          });
         }
         ;
       extraNativeBuildInputs =
@@ -639,12 +669,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
-    })
+    }
+  )
 
   # Construct a fourth stdenv that uses the new GCC.  But coreutils is
   # still from the bootstrap tools.
   #
-  (prevStage:
+  (
+    prevStage:
     # previous stage3 stdenv:
     assert isBuiltByNixpkgsCompiler prevStage.binutils-unwrapped;
     assert isBuiltByNixpkgsCompiler prevStage.${localSystem.libc};
@@ -710,7 +742,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
-    })
+    }
+  )
 
   # Construct the final stdenv.  It uses the Glibc and GCC, and adds
   # in a new binutils that doesn't depend on bootstrap-tools, as well
@@ -720,7 +753,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
   # dependency (`nix-store -qR') on bootstrapTools or the first
   # binutils built.
   #
-  (prevStage:
+  (
+    prevStage:
     # previous stage4 stdenv; see stage3 comment regarding gcc,
     # which applies here as well.
     assert isBuiltByNixpkgsCompiler prevStage.binutils-unwrapped;
@@ -792,15 +826,17 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             file
           ]
           # Library dependencies
-          ++ map getLib ([
-            attr
-            acl
-            zlib
-            pcre
-            libidn2
-            libunistring
-          ]
-            ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv)
+          ++ map getLib (
+            [
+              attr
+              acl
+              zlib
+              pcre
+              libidn2
+              libunistring
+            ]
+            ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv
+          )
           # More complicated cases
           ++ (map (x: getOutput x (getLibc prevStage)) [
             "out"
@@ -821,12 +857,14 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             prevStage.updateAutotoolsGnuConfigScriptsHook
             prevStage.gnu-config
           ]
-          ++ (with gcc-unwrapped.passthru; [
-            gmp
-            libmpc
-            mpfr
-            isl
-          ]);
+          ++ (
+            with gcc-unwrapped.passthru; [
+              gmp
+              libmpc
+              mpfr
+              isl
+            ]
+          );
 
         overrides =
           self: super:
@@ -869,10 +907,12 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           }
           ;
       };
-    })
+    }
+  )
 
   # This "no-op" stage is just a place to put the assertions about stage5.
-  (prevStage:
+  (
+    prevStage:
     # previous stage5 stdenv; see stage3 comment regarding gcc,
     # which applies here as well.
     assert isBuiltByNixpkgsCompiler prevStage.binutils-unwrapped;
@@ -882,5 +922,6 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isBuiltByNixpkgsCompiler prevStage.gnugrep;
     assert isBuiltByNixpkgsCompiler prevStage.patchelf; {
       inherit (prevStage) config overlays stdenv;
-    })
+    }
+  )
 ]

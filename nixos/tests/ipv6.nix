@@ -1,7 +1,8 @@
 # Test of IPv6 functionality in NixOS, including whether router
 # solicication/advertisement using radvd works.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -127,4 +128,5 @@ import ./make-test-python.nix ({
               # But using the EUI-64 one.
               client.succeed(f"ip route get 2001:db8:: | grep 'src {ip}'")
     '';
-  })
+  }
+)

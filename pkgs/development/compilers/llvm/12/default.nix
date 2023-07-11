@@ -71,21 +71,24 @@ let
       ;
   };
 
-  tools = lib.makeExtensible (tools:
+  tools = lib.makeExtensible (
+    tools:
     let
-      callPackage = newScope (tools // {
-        inherit
-          stdenv
-          cmake
-          libxml2
-          python3
-          isl
-          release_version
-          version
-          fetch
-          buildLlvmTools
-          ;
-      });
+      callPackage = newScope (
+        tools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            isl
+            release_version
+            version
+            fetch
+            buildLlvmTools
+            ;
+        }
+      );
       mkExtraBuildCommands0 =
         cc: ''
           rsrc="$out/resource-root"
@@ -224,10 +227,12 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString (!stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false) ''
-              echo "-lunwind" >> $out/nix-support/cc-ldflags
-            ''
+          + lib.optionalString (
+            !stdenv.targetPlatform.isWasm
+            && stdenv.targetPlatform.useLLVM or false
+          ) ''
+            echo "-lunwind" >> $out/nix-support/cc-ldflags
+          ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''
@@ -288,11 +293,23 @@ let
     }
   );
 
-  libraries = lib.makeExtensible (libraries:
+  libraries = lib.makeExtensible (
+    libraries:
     let
-      callPackage = newScope (libraries // buildLlvmTools // {
-        inherit stdenv cmake libxml2 python3 isl release_version version fetch;
-      });
+      callPackage = newScope (
+        libraries // buildLlvmTools // {
+          inherit
+            stdenv
+            cmake
+            libxml2
+            python3
+            isl
+            release_version
+            version
+            fetch
+            ;
+        }
+      );
     in
     {
 

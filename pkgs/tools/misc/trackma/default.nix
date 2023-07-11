@@ -53,7 +53,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with python3.pkgs;
-    ([ urllib3 ]
+    (
+      [ urllib3 ]
       ++ lib.optionals withQT [ pyqt5 ]
       ++ lib.optionals withGTK [ pycairo ]
       ++ lib.optionals withCurses [ urwid ]
@@ -62,7 +63,8 @@ python3.pkgs.buildPythonApplication rec {
         pygobject3
         pyinotify
       ]
-      ++ lib.optionals (withGTK || withQT) [ pillow ]);
+      ++ lib.optionals (withGTK || withQT) [ pillow ]
+    );
 
   dontWrapQtApps = true;
   dontWrapGApps = true;

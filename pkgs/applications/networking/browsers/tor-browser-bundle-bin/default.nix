@@ -307,8 +307,9 @@ stdenv.mkDerivation rec {
       ]
     }
     WRAPPER_XDG_DATA_DIRS+=":"${
-      lib.concatMapStringsSep ":"
-      (x: "${x}/share/gsettings-schemas/${x.name}") [
+      lib.concatMapStringsSep ":" (
+        x: "${x}/share/gsettings-schemas/${x.name}"
+      ) [
         glib
         gsettings-desktop-schemas
         gtk3

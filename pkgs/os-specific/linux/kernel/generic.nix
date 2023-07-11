@@ -84,20 +84,24 @@ let
   # and pings all maintainers.
   #
   # For further context, see https://github.com/NixOS/nixpkgs/pull/143113#issuecomment-953319957
-  basicArgs = builtins.removeAttrs args (lib.filter (x:
+  basicArgs = builtins.removeAttrs args (lib.filter (
+    x:
     !(builtins.elem x [
       "version"
       "src"
-    ])) (lib.attrNames args));
+    ])
+  ) (lib.attrNames args));
 
     # Combine the `features' attribute sets of all the kernel patches.
-  kernelFeatures = lib.foldr (x: y: (x.features or { }) // y) ({
-    iwlwifi = true;
-    efiBootStub = true;
-    needsCifsUtils = true;
-    netfilterRPFilter = true;
-    ia32Emulation = true;
-  } // features) kernelPatches;
+  kernelFeatures = lib.foldr (x: y: (x.features or { }) // y) (
+    {
+      iwlwifi = true;
+      efiBootStub = true;
+      needsCifsUtils = true;
+      netfilterRPFilter = true;
+      ia32Emulation = true;
+    } // features
+  ) kernelPatches;
 
   commonStructuredConfig = import ./common-config.nix {
     inherit lib stdenv version;
@@ -112,22 +116,26 @@ let
     + stdenv.hostPlatform.linux-kernel.extraConfig or ""
     ;
 
-  structuredConfigFromPatches = map ({
+  structuredConfigFromPatches = map (
+    {
       extraStructuredConfig ? { },
       ...
     }: {
       settings = extraStructuredConfig;
-    }) kernelPatches;
+    }
+  ) kernelPatches;
 
     # appends kernel patches extraConfig
   kernelConfigFun =
     baseConfigStr:
     let
-      configFromPatches = map ({
+      configFromPatches = map (
+        {
           extraConfig ? "",
           ...
         }:
-        extraConfig) kernelPatches;
+        extraConfig
+      ) kernelPatches;
     in
     lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
     ;
@@ -249,16 +257,23 @@ let
   }; # end of configfile derivation
 
   kernel =
-    (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; })
-    (basicArgs // {
-      inherit kernelPatches randstructSeed extraMakeFlags extraMeta configfile;
-      pos = builtins.unsafeGetAttrPos "version" args;
+    (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; }) (
+      basicArgs // {
+        inherit
+          kernelPatches
+          randstructSeed
+          extraMakeFlags
+          extraMeta
+          configfile
+          ;
+        pos = builtins.unsafeGetAttrPos "version" args;
 
-      config = {
-        CONFIG_MODULES = "y";
-        CONFIG_FW_LOADER = "m";
-      };
-    } // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; });
+        config = {
+          CONFIG_MODULES = "y";
+          CONFIG_FW_LOADER = "m";
+        };
+      } // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
+    );
 
   passthru = basicArgs // {
     features = kernelFeatures;
@@ -279,10 +294,12 @@ let
     configEnv = kernel.overrideAttrs (old: {
       nativeBuildInputs =
         old.nativeBuildInputs or [ ]
-        ++ (with buildPackages; [
-          pkg-config
-          ncurses
-        ])
+        ++ (
+          with buildPackages; [
+            pkg-config
+            ncurses
+          ]
+        )
         ;
     });
 
@@ -292,12 +309,15 @@ let
         overridableKernel = finalKernel // {
           override =
             args:
-            lib.warn
-            ("override is stubbed for NixOS kernel tests, not applying changes these arguments: "
-              + toString (lib.attrNames (if lib.isAttrs args then
-                args
-              else
-                args { }))) overridableKernel
+            lib.warn (
+              "override is stubbed for NixOS kernel tests, not applying changes these arguments: "
+              + toString (lib.attrNames (
+                if lib.isAttrs args then
+                  args
+                else
+                  args { }
+              ))
+            ) overridableKernel
             ;
         };
       in

@@ -4,7 +4,8 @@
 
    TODO: Test federation.
 */
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     package ? pkgs.akkoma,
     confined ? false,

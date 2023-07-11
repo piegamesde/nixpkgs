@@ -8,7 +8,8 @@
   pcre,
 }:
 
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
     ...
@@ -59,4 +60,5 @@ import ./versions.nix ({
       ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

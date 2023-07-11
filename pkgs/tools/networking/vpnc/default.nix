@@ -35,10 +35,12 @@ stdenv.mkDerivation {
       libgcrypt
       perl
     ]
-    ++ (if opensslSupport then
-      [ openssl ]
-    else
-      [ gnutls ])
+    ++ (
+      if opensslSupport then
+        [ openssl ]
+      else
+        [ gnutls ]
+    )
     ;
 
   makeFlags =

@@ -133,11 +133,13 @@ stdenv.mkDerivation rec {
     [
       bc
       perl
-      (python3.withPackages (ps:
+      (python3.withPackages (
+        ps:
         with ps; [
           numpy
           scipy
-        ]))
+        ]
+      ))
     ]
     ++ lib.optionals withMPI [
       mpi

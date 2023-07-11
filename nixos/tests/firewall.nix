@@ -1,6 +1,7 @@
 # Test the firewall module.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     nftables,
     ...
@@ -88,4 +89,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  })
+  }
+)

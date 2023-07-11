@@ -20,10 +20,12 @@ let
     ${lib.optionalString cfg.lt-cred-mech "lt-cred-mech"}
     ${lib.optionalString cfg.no-auth "no-auth"}
     ${lib.optionalString cfg.use-auth-secret "use-auth-secret"}
-    ${lib.optionalString (cfg.static-auth-secret != null)
-    ("static-auth-secret=${cfg.static-auth-secret}")}
-    ${lib.optionalString (cfg.static-auth-secret-file != null)
-    ("static-auth-secret=#static-auth-secret#")}
+    ${lib.optionalString (cfg.static-auth-secret != null) (
+      "static-auth-secret=${cfg.static-auth-secret}"
+    )}
+    ${lib.optionalString (cfg.static-auth-secret-file != null) (
+      "static-auth-secret=#static-auth-secret#"
+    )}
     realm=${cfg.realm}
     ${lib.optionalString cfg.no-udp "no-udp"}
     ${lib.optionalString cfg.no-tcp "no-tcp"}
@@ -41,8 +43,9 @@ let
     ${lib.optionalString cfg.no-cli "no-cli"}
     cli-ip=${cfg.cli-ip}
     cli-port=${toString cfg.cli-port}
-    ${lib.optionalString (cfg.cli-password != null)
-    ("cli-password=${cfg.cli-password}")}
+    ${lib.optionalString (cfg.cli-password != null) (
+      "cli-password=${cfg.cli-password}"
+    )}
     ${cfg.extraConfig}
   '';
 in
@@ -368,11 +371,13 @@ in
             RuntimeDirectory = "turnserver";
             User = "turnserver";
             Group = "turnserver";
-            AmbientCapabilities = mkIf (cfg.listening-port < 1024
+            AmbientCapabilities = mkIf (
+              cfg.listening-port < 1024
               || cfg.alt-listening-port < 1024
               || cfg.tls-listening-port < 1024
               || cfg.alt-tls-listening-port < 1024
-              || cfg.min-port < 1024) "cap_net_bind_service";
+              || cfg.min-port < 1024
+            ) "cap_net_bind_service";
             Restart = "on-abort";
           };
         }

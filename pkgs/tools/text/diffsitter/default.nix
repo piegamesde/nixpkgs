@@ -14,7 +14,8 @@ let
     let
       grammars = grammarFn tree-sitter.builtGrammars;
     in
-    linkFarm "grammars" (map (drv:
+    linkFarm "grammars" (map (
+      drv:
       let
         name = lib.strings.getName drv;
       in

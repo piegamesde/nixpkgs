@@ -171,8 +171,9 @@ stdenv.mkDerivation rec {
 
   libPath =
     lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.is64bit)
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    + lib.optionalString (stdenv.is64bit) (
+      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
+    )
     + ":$out/opt/${vivaldiName}/lib"
     ;
 

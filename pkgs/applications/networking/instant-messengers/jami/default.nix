@@ -86,7 +86,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  pjsip-jami = pjsip.overrideAttrs (old:
+  pjsip-jami = pjsip.overrideAttrs (
+    old:
     let
       patch-src = src + "/daemon/contrib/src/pjproject/";
     in

@@ -20,8 +20,9 @@ let
       ${optionalString cfg.nodump "nodump"}
       ${optionalString cfg.printStats "print-stats"}
       ${optionalString cfg.printStats "humanize-numbers"}
-      ${optionalString (cfg.checkpointBytes != null)
-      ("checkpoint-bytes " + cfg.checkpointBytes)}
+      ${optionalString (cfg.checkpointBytes != null) (
+        "checkpoint-bytes " + cfg.checkpointBytes
+      )}
       ${optionalString cfg.aggressiveNetworking "aggressive-networking"}
       ${concatStringsSep "\n" (map (v: "exclude ${v}") cfg.excludes)}
       ${concatStringsSep "\n" (map (v: "include ${v}") cfg.includes)}
@@ -76,7 +77,8 @@ in
       };
 
       archives = mkOption {
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             config,
             options,
             ...
@@ -277,7 +279,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
 
         default = { };
 
@@ -313,17 +316,22 @@ in
 
   config = mkIf gcfg.enable {
     assertions =
-      (mapAttrsToList (name: cfg: {
-        assertion = cfg.directories != [ ];
-        message = "Must specify paths for tarsnap to back up";
-      }) gcfg.archives)
-      ++ (mapAttrsToList (name: cfg: {
-        assertion = !(cfg.lowmem && cfg.verylowmem);
-        message = "You cannot set both lowmem and verylowmem";
-      }) gcfg.archives)
+      (mapAttrsToList (
+        name: cfg: {
+          assertion = cfg.directories != [ ];
+          message = "Must specify paths for tarsnap to back up";
+        }
+      ) gcfg.archives)
+      ++ (mapAttrsToList (
+        name: cfg: {
+          assertion = !(cfg.lowmem && cfg.verylowmem);
+          message = "You cannot set both lowmem and verylowmem";
+        }
+      ) gcfg.archives)
       ;
 
-    systemd.services = (mapAttrs' (name: cfg:
+    systemd.services = (mapAttrs' (
+      name: cfg:
       nameValuePair "tarsnap-${name}" {
         description = "Tarsnap archive '${name}'";
         requires = [ "network-online.target" ];
@@ -386,9 +394,11 @@ in
           CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
           PermissionsStartOnly = "true";
         };
-      }) gcfg.archives) //
+      }
+    ) gcfg.archives) //
 
-      (mapAttrs' (name: cfg:
+      (mapAttrs' (
+        name: cfg:
         nameValuePair "tarsnap-restore-${name}" {
           description = "Tarsnap restore '${name}'";
           requires = [ "network-online.target" ];
@@ -439,20 +449,24 @@ in
             CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
             PermissionsStartOnly = "true";
           };
-        }) gcfg.archives);
+        }
+      ) gcfg.archives);
 
       # Note: the timer must be Persistent=true, so that systemd will start it even
       # if e.g. your laptop was asleep while the latest interval occurred.
-    systemd.timers = mapAttrs' (name: cfg:
+    systemd.timers = mapAttrs' (
+      name: cfg:
       nameValuePair "tarsnap-${name}" {
         timerConfig.OnCalendar = cfg.period;
         timerConfig.Persistent = "true";
         wantedBy = [ "timers.target" ];
-      }) gcfg.archives;
+      }
+    ) gcfg.archives;
 
-    environment.etc = mapAttrs' (name: cfg:
-      nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; })
-      gcfg.archives;
+    environment.etc = mapAttrs' (
+      name: cfg:
+      nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
+    ) gcfg.archives;
 
     environment.systemPackages = [ pkgs.tarsnap ];
   };

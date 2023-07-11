@@ -36,7 +36,9 @@
   enableLibtirpc ? stdenv.isLinux,
   libtirpc,
   python3,
-  enableMPI ? (stdenv.isLinux || stdenv.isDarwin)
+  enableMPI ? (
+    stdenv.isLinux || stdenv.isDarwin
+  )
   # Choose MPICH over OpenMPI because it currently builds on AArch and Darwin
   ,
   mpi
@@ -164,10 +166,12 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     lib.optional (!enableHDF4) "-DHDF=OFF"
     ++ [
-      (if enableHDF5 then
-        "-DHDF5DIR=${hdf5-custom}"
-      else
-        "-DHDF5=OFF")
+      (
+        if enableHDF5 then
+          "-DHDF5DIR=${hdf5-custom}"
+        else
+          "-DHDF5=OFF"
+      )
     ]
     ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
     ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"

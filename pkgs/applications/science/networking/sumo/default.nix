@@ -72,15 +72,17 @@ stdenv.mkDerivation rec {
       zlib
       python3
     ]
-    ++ (with xorg; [
-      libX11
-      libXcursor
-      libXext
-      libXfixes
-      libXft
-      libXrandr
-      libXrender
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXcursor
+        libXext
+        libXfixes
+        libXft
+        libXrandr
+        libXrender
+      ]
+    )
     ;
 
   meta = with lib; {

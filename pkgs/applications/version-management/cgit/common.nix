@@ -39,10 +39,12 @@ stdenv.mkDerivation {
       pkg-config
       asciidoc
     ]
-    ++ (with python3Packages; [
-      python
-      wrapPython
-    ])
+    ++ (
+      with python3Packages; [
+        python
+        wrapPython
+      ]
+    )
     ;
   buildInputs =
     buildInputs

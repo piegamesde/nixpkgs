@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -60,4 +61,5 @@ import ./make-test-python.nix ({
       client.wait_for_unit("network.target")
       assert "<title>Jitsi Meet</title>" in client.succeed("curl -sSfkL http://server/")
     '';
-  })
+  }
+)

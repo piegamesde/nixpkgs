@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -149,4 +150,5 @@ import ./make-test-python.nix ({
             )
       ''
       ;
-  })
+  }
+)

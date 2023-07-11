@@ -27,7 +27,8 @@ in
       peers = mkOption {
         default = { };
         description = lib.mdDoc "pppd peers.";
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -62,7 +63,8 @@ in
                   "pppd configuration for this peer, see the pppd(8) man page.";
               };
             };
-          }));
+          }
+        ));
       };
     };
   };

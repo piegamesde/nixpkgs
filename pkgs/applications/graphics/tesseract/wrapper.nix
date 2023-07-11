@@ -12,10 +12,12 @@
 
     # A list of files or a directory containing files
   ,
-  tessdata ? (if enableLanguages == null then
-    languages.all
-  else
-    map (lang: languages.${lang}) enableLanguages)
+  tessdata ? (
+    if enableLanguages == null then
+      languages.all
+    else
+      map (lang: languages.${lang}) enableLanguages
+  )
 
   # This argument is obsolete
   ,
@@ -85,10 +87,12 @@ let
     '';
   };
 
-  tesseract = (if enableLanguages == [ ] then
-    tesseractBase
-  else
-    tesseractWithData) // passthru // test;
+  tesseract = (
+    if enableLanguages == [ ] then
+      tesseractBase
+    else
+      tesseractWithData
+  ) // passthru // test;
 in
 if enableLanguagesHash == null then
   tesseract

@@ -93,7 +93,8 @@ let
   # configured trees)
   luarocks_config = "luarocks-config.lua";
 
-  luarocksDrv = luaLib.toLuaModule (lua.stdenv.mkDerivation (self:
+  luarocksDrv = luaLib.toLuaModule (lua.stdenv.mkDerivation (
+    self:
     attrs // {
 
       name = namePrefix + pname + "-" + self.version;
@@ -128,8 +129,9 @@ let
         in
         [ lua.pkgs.luarocks ]
         ++ buildInputs
-        ++ lib.optionals self.doCheck
-          ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
+        ++ lib.optionals self.doCheck (
+          [ luarocksCheckHook ] ++ self.nativeCheckInputs
+        )
         ++ (map (d: d.dep) externalDeps')
         ;
 
@@ -144,10 +146,11 @@ let
       rocksSubdir = "${self.pname}-${self.version}-rocks";
       luarocks_content =
         let
-          externalDepsGenerated = lib.filter (drv: !drv ? luaModule)
-            (self.nativeBuildInputs
-              ++ self.propagatedBuildInputs
-              ++ self.buildInputs);
+          externalDepsGenerated = lib.filter (drv: !drv ? luaModule) (
+            self.nativeBuildInputs
+            ++ self.propagatedBuildInputs
+            ++ self.buildInputs
+          );
           generatedConfig = luaLib.generateLuarocksConfig {
             externalDeps =
               lib.unique (self.externalDeps ++ externalDepsGenerated);
@@ -155,8 +158,9 @@ let
               # closure, as it doesn't have a rock tree :)
               # luaLib.hasLuaModule
             requiredLuaRocks = lib.filter luaLib.hasLuaModule
-              (lua.pkgs.requiredLuaModules
-                (self.nativeBuildInputs ++ self.propagatedBuildInputs));
+              (lua.pkgs.requiredLuaModules (
+                self.nativeBuildInputs ++ self.propagatedBuildInputs
+              ));
             inherit (self) extraVariables rocksSubdir;
           };
         in
@@ -250,6 +254,7 @@ let
         maintainers = (attrs.meta.maintainers or [ ]) ++ [ ];
         broken = disabled;
       } // attrs.meta or { };
-    }));
+    }
+  ));
 in
 luarocksDrv

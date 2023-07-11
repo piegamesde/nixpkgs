@@ -21,13 +21,15 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ zlib ]
-    ++ (if stdenv.isDarwin then
-      [ darwin.apple_sdk.frameworks.Accelerate ]
-    else
-      [
-        blas
-        lapack
-      ])
+    ++ (
+      if stdenv.isDarwin then
+        [ darwin.apple_sdk.frameworks.Accelerate ]
+      else
+        [
+          blas
+          lapack
+        ]
+    )
     ;
 
   preBuild = ''

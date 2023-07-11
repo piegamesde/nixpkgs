@@ -60,10 +60,12 @@ stdenv.mkDerivation rec {
     "DESTDIR=$(out)/bin"
   ];
   buildFlags = [
-      (if stdenv.isDarwin then
-        "mac"
-      else
-        "linux-alsa")
+      (
+        if stdenv.isDarwin then
+          "mac"
+        else
+          "linux-alsa"
+      )
     ];
 
   meta = with lib; {

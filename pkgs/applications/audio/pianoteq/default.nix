@@ -56,14 +56,16 @@ let
         for f in $out/bin/Pianoteq*; do
           if [ -x "$f" ] && [ -f "$f" ]; then
             wrapProgram "$f" --prefix LD_LIBRARY_PATH : ${
-              lib.makeLibraryPath (buildInputs
+              lib.makeLibraryPath (
+                buildInputs
                 ++ [
                   xorg.libXcursor
                   xorg.libXinerama
                   xorg.libXrandr
                   libjack2
                   zlib
-                ])
+                ]
+              )
             }
           fi
         done

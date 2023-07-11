@@ -322,12 +322,14 @@ in
         message =
           "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
       } ]
-      ++ map (name:
+      ++ map (
+        name:
         mkCertOwnershipAssertion {
           inherit (cfg) group user;
           cert = config.security.acme.certs.${name};
           groups = config.users.groups;
-        }) acmeHosts
+        }
+      ) acmeHosts
       ;
 
     services.caddy.extraConfig =
@@ -403,11 +405,13 @@ in
 
     security.acme.certs =
       let
-        certCfg = map (useACMEHost:
+        certCfg = map (
+          useACMEHost:
           nameValuePair useACMEHost {
             group = mkDefault cfg.group;
             reloadServices = [ "caddy.service" ];
-          }) acmeHosts;
+          }
+        ) acmeHosts;
       in
       listToAttrs certCfg
       ;

@@ -17,11 +17,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    (with python3Packages; [
-      python
-      fonttools
-      fontforge
-    ]);
+    (
+      with python3Packages; [
+        python
+        fonttools
+        fontforge
+      ]
+    );
 
   postPatch = ''
     rm *.otf

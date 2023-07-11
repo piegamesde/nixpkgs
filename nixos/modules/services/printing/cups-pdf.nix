@@ -135,9 +135,11 @@ let
       config.confFileText = lib.pipe config.settings [
         (lib.filterAttrs (key: value: value != null))
         (lib.mapAttrs (key: builtins.toString))
-        (lib.mapAttrsToList (key: value: ''
-          ${key} ${value}
-        ''))
+        (lib.mapAttrsToList (
+          key: value: ''
+            ${key} ${value}
+          ''
+        ))
         lib.concatStrings
       ];
     }
@@ -149,23 +151,27 @@ let
     (lib.filterAttrs (name: lib.getAttr "enable"))
     (lib.mapAttrs (name: lib.getAttr "confFileText"))
     (lib.mapAttrs (name: pkgs.writeText "cups-pdf-${name}.conf"))
-    (lib.mapAttrsToList (name: confFile: ''
-      ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf
-    ''))
+    (lib.mapAttrsToList (
+      name: confFile: ''
+        ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf
+      ''
+    ))
     lib.concatStrings
   ];
 
   printerSettings = lib.pipe cupsPdfCfg.instances [
     (lib.filterAttrs (name: lib.getAttr "enable"))
     (lib.filterAttrs (name: lib.getAttr "installPrinter"))
-    (lib.mapAttrsToList (name: instance:
+    (lib.mapAttrsToList (
+      name: instance:
       (lib.mapAttrs (key: lib.mkDefault) {
         inherit name;
         model = "CUPS-PDF_opt.ppd";
         deviceUri = "cups-pdf:/${name}";
         description = "virtual printer for cups-pdf instance ${name}";
         location = instance.settings.Out;
-      })))
+      })
+    ))
   ];
 
 in

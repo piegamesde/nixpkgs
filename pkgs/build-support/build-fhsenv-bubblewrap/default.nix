@@ -29,10 +29,12 @@
   ...
 }@args:
 
-assert (pname != null || version != null)
-  -> (name == null
-    && pname
-      != null); # You must declare either a name or pname + version (preferred).
+assert (
+  pname != null || version != null
+)
+  -> (
+    name == null && pname != null
+  ); # You must declare either a name or pname + version (preferred).
 
 with builtins;
 let

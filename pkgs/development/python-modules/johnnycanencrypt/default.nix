@@ -45,10 +45,12 @@ buildPythonPackage rec {
       llvmPackages.clang
       pkg-config
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      maturinBuildHook
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]
+    )
     ;
 
   buildInputs =

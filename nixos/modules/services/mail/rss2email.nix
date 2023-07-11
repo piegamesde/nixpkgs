@@ -110,13 +110,18 @@ in
 
     systemd.services.rss2email =
       let
-        conf = pkgs.writeText "rss2email.cfg" (lib.generators.toINI { } ({
-          DEFAULT = cfg.config;
-        } // lib.mapAttrs' (name: feed:
-          nameValuePair "feed.${name}" ({
-            inherit (feed) url;
-          } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
-          cfg.feeds));
+        conf = pkgs.writeText "rss2email.cfg" (lib.generators.toINI { } (
+          {
+            DEFAULT = cfg.config;
+          } // lib.mapAttrs' (
+            name: feed:
+            nameValuePair "feed.${name}" (
+              {
+                inherit (feed) url;
+              } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }
+            )
+          ) cfg.feeds
+        ));
       in
       {
         preStart = ''

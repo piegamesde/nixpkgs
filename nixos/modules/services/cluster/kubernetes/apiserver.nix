@@ -16,8 +16,10 @@ let
   isRBACEnabled = elem "RBAC" cfg.authorizationMode;
 
   apiserverServiceIP =
-    (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
-      + ".1");
+    (
+      concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
+      + ".1"
+    );
 in
 {
 
@@ -492,8 +494,9 @@ in
                           ${
                             optionalString (cfg.featureGates != [ ])
                             "--feature-gates=${
-                              concatMapStringsSep ","
-                              (feature: "${feature}=true") cfg.featureGates
+                              concatMapStringsSep "," (
+                                feature: "${feature}=true"
+                              ) cfg.featureGates
                             }"
                           } \
                           ${

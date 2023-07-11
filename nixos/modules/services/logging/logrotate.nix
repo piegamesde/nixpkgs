@@ -193,7 +193,8 @@ in
             };
           };
         '';
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -251,7 +252,8 @@ in
               };
             };
 
-          }));
+          }
+        ));
       };
 
       configFile = mkOption {

@@ -71,11 +71,13 @@ import ../make-test-python.nix {
         ...
       }: {
         nixpkgs.overlays = [
-            (self: super: {
-              prosody = super.prosody.override {
-                withExtraLuaPackages = p: [ p.luadbi-mysql ];
-              };
-            })
+            (
+              self: super: {
+                prosody = super.prosody.override {
+                  withExtraLuaPackages = p: [ p.luadbi-mysql ];
+                };
+              }
+            )
           ];
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";

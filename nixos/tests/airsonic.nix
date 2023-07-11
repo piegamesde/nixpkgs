@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
       with machine.nested("Waiting for UI to work"):
           retry(airsonic_is_up)
     '';
-  })
+  }
+)

@@ -5,7 +5,8 @@
   testers,
 }:
 let
-  node-forbiddenDependencies-fail = nixos ({
+  node-forbiddenDependencies-fail = nixos (
+    {
       ...
     }: {
       system.forbiddenDependenciesRegex = "-dev$";
@@ -13,8 +14,10 @@ let
       documentation.enable = false;
       fileSystems."/".device = "ignore-root-device";
       boot.loader.grub.enable = false;
-    });
-  node-forbiddenDependencies-succeed = nixos ({
+    }
+  );
+  node-forbiddenDependencies-succeed = nixos (
+    {
       ...
     }: {
       system.forbiddenDependenciesRegex = "-dev$";
@@ -22,7 +25,8 @@ let
       documentation.enable = false;
       fileSystems."/".device = "ignore-root-device";
       boot.loader.grub.enable = false;
-    });
+    }
+  );
 in
 lib.recurseIntoAttrs {
   test-forbiddenDependencies-fail = testers.testBuildFailure

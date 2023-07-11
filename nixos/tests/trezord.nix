@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(21325)
       machine.wait_until_succeeds("curl -fL http://localhost:21325/status/ | grep Version")
     '';
-  })
+  }
+)

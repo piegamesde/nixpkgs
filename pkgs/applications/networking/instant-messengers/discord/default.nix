@@ -86,36 +86,40 @@ let
   openasar = callPackage ./openasar.nix { };
 
   packages =
-    (builtins.mapAttrs (_: value:
-      callPackage package (value // {
-        inherit src version openasar branch;
-        meta = meta // { mainProgram = value.binaryName; };
-      })) {
-        stable = rec {
-          pname = "discord";
-          binaryName = "Discord";
-          desktopName = "Discord";
-        };
-        ptb = rec {
-          pname = "discord-ptb";
-          binaryName =
-            if stdenv.isLinux then
-              "DiscordPTB"
-            else
-              desktopName
-            ;
-          desktopName = "Discord PTB";
-        };
-        canary = rec {
-          pname = "discord-canary";
-          binaryName =
-            if stdenv.isLinux then
-              "DiscordCanary"
-            else
-              desktopName
-            ;
-          desktopName = "Discord Canary";
-        };
-      });
+    (builtins.mapAttrs (
+      _: value:
+      callPackage package (
+        value // {
+          inherit src version openasar branch;
+          meta = meta // { mainProgram = value.binaryName; };
+        }
+      )
+    ) {
+      stable = rec {
+        pname = "discord";
+        binaryName = "Discord";
+        desktopName = "Discord";
+      };
+      ptb = rec {
+        pname = "discord-ptb";
+        binaryName =
+          if stdenv.isLinux then
+            "DiscordPTB"
+          else
+            desktopName
+          ;
+        desktopName = "Discord PTB";
+      };
+      canary = rec {
+        pname = "discord-canary";
+        binaryName =
+          if stdenv.isLinux then
+            "DiscordCanary"
+          else
+            desktopName
+          ;
+        desktopName = "Discord Canary";
+      };
+    });
 in
 packages.${branch}

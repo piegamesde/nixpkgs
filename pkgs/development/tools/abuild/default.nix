@@ -30,14 +30,16 @@ stdenv.mkDerivation rec {
     zlib
     busybox
     # for $out/bin/apkbuild-cpan and $out/bin/apkbuild-pypi
-    (perl.withPackages (ps:
+    (perl.withPackages (
+      ps:
       with ps; [
         LWP
         JSON
         ModuleBuildTiny
         LWPProtocolHttps
         IPCSystemSimple
-      ]))
+      ]
+    ))
   ];
 
   nativeBuildInputs = [

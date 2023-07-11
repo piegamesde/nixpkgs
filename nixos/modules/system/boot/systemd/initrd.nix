@@ -140,10 +140,12 @@ let
         object = path;
         symlink = "";
       }) (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++ mapAttrsToList (_: v: {
-        object = v.source;
-        symlink = v.target;
-      }) (filterAttrs (_: v: v.enable) cfg.contents)
+      ++ mapAttrsToList (
+        _: v: {
+          object = v.source;
+          symlink = v.target;
+        }
+      ) (filterAttrs (_: v: v.enable) cfg.contents)
       ;
   };
 
@@ -518,12 +520,14 @@ in
         // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
         cfg.targets
         // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-        cfg.timers // listToAttrs (map (v:
+        cfg.timers // listToAttrs (map (
+          v:
           let
             n = escapeSystemdPath v.where;
           in
           nameValuePair "${n}.mount" (mountToUnit n v)
-        ) cfg.mounts) // listToAttrs (map (v:
+        ) cfg.mounts) // listToAttrs (map (
+          v:
           let
             n = escapeSystemdPath v.where;
           in

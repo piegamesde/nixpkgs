@@ -34,10 +34,12 @@
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
   checkTargets ? [
-    (lib.optionalString buildTests (if targetDir == "runtimes" then
-      "check-runtimes"
-    else
-      "check-all"))
+    (lib.optionalString buildTests (
+      if targetDir == "runtimes" then
+        "check-runtimes"
+      else
+        "check-all"
+    ))
   ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
@@ -129,15 +131,18 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
         "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
       ]
-    ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
-      && targetRuntimes != [ ]) [
-        "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
-      ]
-    ++ lib.optionals
-      (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
-        "-DLLVM_ENABLE_RTTI=ON"
-        "-DLLVM_ENABLE_EH=ON"
-      ]
+    ++ lib.optionals (
+      (
+        finalAttrs.passthru.isLLVM || targetDir == "runtimes"
+      )
+      && targetRuntimes != [ ]
+    ) [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
+    ++ lib.optionals (
+      finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang
+    ) [
+      "-DLLVM_ENABLE_RTTI=ON"
+      "-DLLVM_ENABLE_EH=ON"
+    ]
     ++ lib.optionals (buildDocs || buildMan) [
       "-DLLVM_INCLUDE_DOCS=ON"
       "-DLLVM_BUILD_DOCS=ON"

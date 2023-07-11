@@ -33,11 +33,13 @@ let
 
      escapeShellArgs' : [ShellArg] -> String
   */
-  escapeShellArgs' = lib.concatMapStringsSep " " (arg:
+  escapeShellArgs' = lib.concatMapStringsSep " " (
+    arg:
     if arg ? __rawShell then
       arg.__rawShell
     else
-      lib.escapeShellArg arg);
+      lib.escapeShellArg arg
+  );
 
     /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
        Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
@@ -150,46 +152,58 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle ({
+        lib.findSingle (
+          {
             supportedFeatures,
             ...
           }:
-          supportedFeatures == [ "commit" ]) null null scripts
+          supportedFeatures == [ "commit" ]
+        ) null null scripts
         != null
         ;
       validateFeatures =
         if hasCommitSupport then
-          ({
+          (
+            {
               supportedFeatures,
               ...
             }:
             supportedFeatures == [ "commit" ]
-            || supportedFeatures == [ "silent" ])
+            || supportedFeatures == [ "silent" ]
+          )
         else
-          ({
+          (
+            {
               supportedFeatures,
               ...
             }:
-            supportedFeatures == [ ])
+            supportedFeatures == [ ]
+          )
         ;
 
     in
     assert lib.assertMsg (lib.all validateFeatures scripts)
       "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
-        attrPath ? null,
-        ...
-      }:
-      attrPath) scripts))
-      == 1)
+    assert lib.assertMsg (
+      builtins.length (lib.unique (builtins.map (
+        {
+          attrPath ? null,
+          ...
+        }:
+        attrPath
+      ) scripts))
+      == 1
+    )
       "Combining update scripts with different attr paths is currently unsupported.";
 
     {
-      command = commandsToShellInvocation (builtins.map ({
+      command = commandsToShellInvocation (builtins.map (
+        {
           command,
           ...
         }:
-        command) scripts);
+        command
+      ) scripts);
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     }
     ;

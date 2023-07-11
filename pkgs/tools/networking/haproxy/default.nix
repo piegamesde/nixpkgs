@@ -43,15 +43,19 @@ stdenv.mkDerivation rec {
     # TODO: make it work on bsd as well
   makeFlags = [
     "PREFIX=${placeholder "out"}"
-    ("TARGET="
-      + (if stdenv.isSunOS then
-        "solaris"
-      else if stdenv.isLinux then
-        "linux-glibc"
-      else if stdenv.isDarwin then
-        "osx"
-      else
-        "generic"))
+    (
+      "TARGET="
+      + (
+        if stdenv.isSunOS then
+          "solaris"
+        else if stdenv.isLinux then
+          "linux-glibc"
+        else if stdenv.isDarwin then
+          "osx"
+        else
+          "generic"
+      )
+    )
   ];
 
   buildFlags =

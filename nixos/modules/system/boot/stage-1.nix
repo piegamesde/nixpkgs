@@ -178,7 +178,8 @@ let
     #
     # TODO: move out to a separate script; see #85000.
     ${optionalString (!config.boot.loader.supportsInitrdSecrets)
-    (concatStringsSep "\n" (mapAttrsToList (dest: source:
+    (concatStringsSep "\n" (mapAttrsToList (
+      dest: source:
       let
         source' =
           if source == null then
@@ -268,17 +269,20 @@ let
   linkUnits = pkgs.runCommand "link-units" {
     allowedReferences = [ extraUtils ];
     preferLocalBuild = true;
-  } (''
-    mkdir -p $out
-    cp -v ${udev}/lib/systemd/network/*.link $out/
-  ''
-    + (let
-      links =
-        filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
-      files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
-    in
-    concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
-    ));
+  } (
+    ''
+      mkdir -p $out
+      cp -v ${udev}/lib/systemd/network/*.link $out/
+    ''
+    + (
+      let
+        links =
+          filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
+        files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
+      in
+      concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
+    )
+  );
 
   udevRules = pkgs.runCommand "udev-rules" {
     allowedReferences = [ extraUtils ];
@@ -357,25 +361,31 @@ let
       kernelModules
       ;
 
-    resumeDevices = map (sd:
+    resumeDevices = map (
+      sd:
       if sd ? device then
         sd.device
       else
-        "/dev/disk/by-label/${sd.label}") (filter (sd:
-          hasPrefix "/dev/" sd.device
-          && !sd.randomEncryption.enable
-            # Don't include zram devices
-          && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
+        "/dev/disk/by-label/${sd.label}"
+    ) (filter (
+      sd:
+      hasPrefix "/dev/" sd.device
+      && !sd.randomEncryption.enable
+        # Don't include zram devices
+      && !(hasPrefix "/dev/zram" sd.device)
+    ) config.swapDevices);
 
     fsInfo =
       let
         f =
           fs: [
             fs.mountPoint
-            (if fs.device != null then
-              fs.device
-            else
-              "/dev/disk/by-label/${fs.label}")
+            (
+              if fs.device != null then
+                fs.device
+              else
+                "/dev/disk/by-label/${fs.label}"
+            )
             fs.fsType
             (builtins.concatStringsSep "," fs.options)
           ]
@@ -446,10 +456,12 @@ let
         '';
         symlink = "/etc/multipath.conf";
       } ]
-      ++ (lib.mapAttrsToList (symlink: options: {
-        inherit symlink;
-        object = options.source;
-      }) config.boot.initrd.extraFiles)
+      ++ (lib.mapAttrsToList (
+        symlink: options: {
+          inherit symlink;
+          object = options.source;
+        }
+      ) config.boot.initrd.extraFiles)
       ;
   };
 
@@ -488,7 +500,8 @@ let
 
       tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
 
-      ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
+      ${lib.concatStringsSep "\n" (mapAttrsToList (
+        dest: source:
         let
           source' =
             if source == null then
@@ -651,12 +664,14 @@ in
 
     boot.initrd.compressor = mkOption {
       default =
-        (if
-          lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
-        then
-          "zstd"
-        else
-          "gzip");
+        (
+          if
+            lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
+          then
+            "zstd"
+          else
+            "gzip"
+        );
       defaultText =
         literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
@@ -773,10 +788,13 @@ in
       {
         assertion =
           !config.boot.loader.supportsInitrdSecrets
-          -> all (source:
+          -> all (
+            source:
             builtins.isPath source
-            || (builtins.isString source && hasPrefix builtins.storeDir source))
-            (attrValues config.boot.initrd.secrets)
+            || (
+              builtins.isString source && hasPrefix builtins.storeDir source
+            )
+          ) (attrValues config.boot.initrd.secrets)
           ;
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when

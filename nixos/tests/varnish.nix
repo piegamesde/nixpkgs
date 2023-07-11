@@ -3,7 +3,8 @@
   pkgs ? import ../.. { inherit system; },
   package,
 }:
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:

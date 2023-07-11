@@ -27,21 +27,28 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++ concatMap (i:
-      attrNames (filterAttrs (name: config:
-        !(config.type == "internal" || hasAttr name cfg.interfaces))
-        i.interfaces)) (attrValues cfg.vswitches)
+    ++ concatMap (
+      i:
+      attrNames (filterAttrs (
+        name: config:
+        !(
+          config.type == "internal" || hasAttr name cfg.interfaces
+        )
+      ) i.interfaces)
+    ) (attrValues cfg.vswitches)
     ;
 
   slaveIfs =
     map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
-  rstpBridges = flip filterAttrs cfg.bridges (_:
+  rstpBridges = flip filterAttrs cfg.bridges (
+    _:
     {
       rstp,
       ...
     }:
-    rstp);
+    rstp
+  );
 
   needsMstpd = rstpBridges != { };
 
@@ -91,13 +98,17 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (n:
+          type = types.addCheck types.int (
+            n:
             n >= 0
             && n
-              <= (if v == 4 then
-                32
-              else
-                128));
+              <= (
+                if v == 4 then
+                  32
+                else
+                  128
+              )
+          );
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix (`${
@@ -121,13 +132,17 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (n:
+          type = types.addCheck types.int (
+            n:
             n >= 0
             && n
-              <= (if v == 4 then
-                32
-              else
-                128));
+              <= (
+                if v == 4 then
+                  32
+                else
+                  128
+              )
+          );
           description = lib.mdDoc ''
             Subnet mask of the network, specified as the number of
             bits in the prefix (`${
@@ -438,16 +453,16 @@ let
           defined = x: x != "_mkMergedOptionModule";
         in
         [
-          (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ]
-            (config:
-              let
-                bool = getAttrFromPath [ "preferTempAddress" ] config;
-              in
-              if bool then
-                "default"
-              else
-                "enabled"
-            ))
+          (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ] (
+            config:
+            let
+              bool = getAttrFromPath [ "preferTempAddress" ] config;
+            in
+            if bool then
+              "default"
+            else
+              "enabled"
+          ))
           (mkRenamedOptionModule [ "ip4" ] [
             "ipv4"
             "addresses"
@@ -465,24 +480,28 @@ let
           ] [
             "ipv4"
             "addresses"
-          ] (cfg:
+          ] (
+            cfg:
             with cfg;
             optional (defined ipAddress && defined prefixLength) {
               address = ipAddress;
               prefixLength = prefixLength;
-            }))
+            }
+          ))
           (mkMergedOptionModule [
             [ "ipv6Address" ]
             [ "ipv6PrefixLength" ]
           ] [
             "ipv6"
             "addresses"
-          ] (cfg:
+          ] (
+            cfg:
             with cfg;
             optional (defined ipv6Address && defined ipv6PrefixLength) {
               address = ipv6Address;
               prefixLength = ipv6PrefixLength;
-            }))
+            }
+          ))
 
           ({
             options.warnings = options.warnings;
@@ -545,12 +564,14 @@ let
         "generate IPv6 temporary addresses and use these as source addresses in routing";
     };
   };
-  tempaddrDoc = concatStringsSep "\n" (mapAttrsToList (name:
+  tempaddrDoc = concatStringsSep "\n" (mapAttrsToList (
+    name:
     {
       description,
       ...
     }:
-    ''- `"${name}"` to ${description};'') tempaddrValues);
+    ''- `"${name}"` to ${description};''
+  ) tempaddrValues);
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
     hi="${cfg.hostId}"
@@ -1595,7 +1616,9 @@ in
       ++ [ {
         assertion =
           cfg.hostId == null
-          || (stringLength cfg.hostId == 8 && isHexString cfg.hostId)
+          || (
+            stringLength cfg.hostId == 8 && isHexString cfg.hostId
+          )
           ;
         message = "Invalid value given to the networking.hostId option.";
       } ]
@@ -1623,18 +1646,20 @@ in
         # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
       "net.ipv6.conf.default.use_tempaddr" =
         tempaddrValues.${cfg.tempAddresses}.sysctl;
-    } // listToAttrs (forEach interfaces (i:
+    } // listToAttrs (forEach interfaces (
+      i:
       nameValuePair
       "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
-      i.proxyARP)) // listToAttrs (forEach interfaces (i:
-        let
-          opt = i.tempAddress;
-          val = tempaddrValues.${opt}.sysctl;
-        in
-        nameValuePair
-        "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
-        val
-      ));
+      i.proxyARP
+    )) // listToAttrs (forEach interfaces (
+      i:
+      let
+        opt = i.tempAddress;
+        val = tempaddrValues.${opt}.sysctl;
+      in
+      nameValuePair
+      "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr" val
+    ));
 
     security.wrappers = {
       ping = {
@@ -1749,7 +1774,8 @@ in
         (pkgs.writeTextFile rec {
           name = "ipv6-privacy-extensions.rules";
           destination = "/etc/udev/rules.d/99-${name}";
-          text = concatMapStrings (i:
+          text = concatMapStrings (
+            i:
             let
               opt = i.tempAddress;
               val = tempaddrValues.${opt}.sysctl;
@@ -1811,15 +1837,17 @@ in
 
                 # Configure the current interface
                 ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
-                ${optionalString
-                (current.type == "mesh" && current.meshID != null)
+                ${optionalString (
+                  current.type == "mesh" && current.meshID != null
+                )
                 "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
-                ${optionalString
-                (current.type == "monitor" && current.flags != null)
+                ${optionalString (
+                  current.type == "monitor" && current.flags != null
+                )
                 "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
-                ${optionalString
-                (current.type == "managed" && current.fourAddr != null)
-                "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
+                ${optionalString (
+                  current.type == "managed" && current.fourAddr != null
+                ) "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
                   if current.fourAddr then
                     "on"
                   else
@@ -1861,8 +1889,8 @@ in
                 NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"''
               ;
           in
-          flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces)
-          (device:
+          flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
+            device:
             let
               interfaces =
                 wlanListDeviceFirst device wlanDeviceInterfaces.${device};
@@ -1873,12 +1901,13 @@ in
               # It is important to have that rule first as overwriting the NAME attribute also prevents the
               # next rules from matching.
               ${flip (concatMapStringsSep "\n")
-              (wlanListDeviceFirst device wlanDeviceInterfaces.${device})
-              (interface:
+              (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
+                interface:
                 ''
                   ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
                     systemdAttrs interface._iName
-                  }, RUN+="${newInterfaceScript interface}"'')}
+                  }, RUN+="${newInterfaceScript interface}"''
+              )}
 
               # Add the required, new WLAN interfaces to the default WLAN interface with the
               # persistent, default name as assigned by udev.

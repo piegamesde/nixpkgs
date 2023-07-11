@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -56,4 +57,5 @@ import ./make-test-python.nix ({
           "curl --fail --resolve lockedsubdir:80:127.0.0.1 http://bob:pwofb@lockedsubdir/sublocation/index.html"
       )
     '';
-  })
+  }
+)

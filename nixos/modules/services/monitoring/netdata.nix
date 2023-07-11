@@ -30,10 +30,12 @@ let
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out
-    ${concatStringsSep "\n" (mapAttrsToList (path: file: ''
-      mkdir -p "$out/$(dirname ${path})"
-      ln -s "${file}" "$out/${path}"
-    '') cfg.configDir)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      path: file: ''
+        mkdir -p "$out/$(dirname ${path})"
+        ln -s "${file}" "$out/${path}"
+      ''
+    ) cfg.configDir)}
   '';
 
   localConfig = {
@@ -52,10 +54,12 @@ let
     };
   };
   mkConfig = generators.toINI { } (recursiveUpdate localConfig cfg.config);
-  configFile = pkgs.writeText "netdata.conf" (if cfg.configText != null then
-    cfg.configText
-  else
-    mkConfig);
+  configFile = pkgs.writeText "netdata.conf" (
+    if cfg.configText != null then
+      cfg.configText
+    else
+      mkConfig
+  );
 
   defaultUser = "netdata";
 
@@ -203,18 +207,21 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       path =
-        (with pkgs; [
-          curl
-          gawk
-          iproute2
-          which
-          procps
-          bash
-        ])
+        (
+          with pkgs; [
+            curl
+            gawk
+            iproute2
+            which
+            procps
+            bash
+          ]
+        )
         ++ lib.optional cfg.python.enable
           (pkgs.python3.withPackages cfg.python.extraPackages)
-        ++ lib.optional config.virtualisation.libvirtd.enable
-          (config.virtualisation.libvirtd.package)
+        ++ lib.optional config.virtualisation.libvirtd.enable (
+          config.virtualisation.libvirtd.package
+        )
         ;
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";

@@ -34,12 +34,14 @@ in
 {
   inherit buildbot buildbot-plugins buildbot-worker;
   buildbot-ui = buildbot.withPlugins (with buildbot-plugins; [ www ]);
-  buildbot-full = buildbot.withPlugins (with buildbot-plugins; [
-    www
-    console-view
-    waterfall-view
-    grid-view
-    wsgi-dashboards
-    badges
-  ]);
+  buildbot-full = buildbot.withPlugins (
+    with buildbot-plugins; [
+      www
+      console-view
+      waterfall-view
+      grid-view
+      wsgi-dashboards
+      badges
+    ]
+  );
 }

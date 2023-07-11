@@ -12,11 +12,13 @@
   makeWrapper,
 }:
 let
-  luaEnv = lua.withPackages (p:
+  luaEnv = lua.withPackages (
+    p:
     with p; [
       luasql-sqlite3
       luautf8
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "openrussian-cli";

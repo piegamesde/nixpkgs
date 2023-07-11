@@ -115,7 +115,8 @@ in
       '';
 
       type = with types;
-        attrsOf (submodule ({
+        attrsOf (submodule (
+          {
             name,
             config,
             ...
@@ -153,7 +154,8 @@ in
             };
 
             config.target = mkDefault name;
-          }));
+          }
+        ));
 
     };
   };
@@ -163,10 +165,12 @@ in
     environment.variables.EDITOR =
       mkIf cfg.defaultEditor (mkOverride 900 "nvim");
 
-    environment.etc = listToAttrs (attrValues (mapAttrs (name: value: {
-      name = "xdg/nvim/${name}";
-      value = value // { target = "xdg/nvim/${value.target}"; };
-    }) cfg.runtime));
+    environment.etc = listToAttrs (attrValues (mapAttrs (
+      name: value: {
+        name = "xdg/nvim/${name}";
+        value = value // { target = "xdg/nvim/${value.target}"; };
+      }
+    ) cfg.runtime));
 
     programs.neovim.finalPackage = pkgs.wrapNeovim cfg.package {
       inherit (cfg) viAlias vimAlias withPython3 withNodeJs withRuby configure;

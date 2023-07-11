@@ -72,24 +72,26 @@ let
     # is a well-formed platform with no missing fields.  It will be
     # uncommented in a separate PR, in case it breaks the build.
     #(x: lib.trivial.pipe x [ (x: builtins.removeAttrs x [ "_type" ]) lib.systems.parse.mkSystem ])
-    (parsed // {
-      abi =
-        {
-          gnu = lib.systems.parse.abis.musl;
-          gnueabi = lib.systems.parse.abis.musleabi;
-          gnueabihf = lib.systems.parse.abis.musleabihf;
-          gnuabin32 = lib.systems.parse.abis.muslabin32;
-          gnuabi64 = lib.systems.parse.abis.muslabi64;
-          gnuabielfv2 = lib.systems.parse.abis.musl;
-          gnuabielfv1 = lib.systems.parse.abis.musl;
-            # The following two entries ensure that this function is idempotent.
-          musleabi = lib.systems.parse.abis.musleabi;
-          musleabihf = lib.systems.parse.abis.musleabihf;
-          muslabin32 = lib.systems.parse.abis.muslabin32;
-          muslabi64 = lib.systems.parse.abis.muslabi64;
-        }
-        .${parsed.abi.name} or lib.systems.parse.abis.musl;
-    })
+    (
+      parsed // {
+        abi =
+          {
+            gnu = lib.systems.parse.abis.musl;
+            gnueabi = lib.systems.parse.abis.musleabi;
+            gnueabihf = lib.systems.parse.abis.musleabihf;
+            gnuabin32 = lib.systems.parse.abis.muslabin32;
+            gnuabi64 = lib.systems.parse.abis.muslabi64;
+            gnuabielfv2 = lib.systems.parse.abis.musl;
+            gnuabielfv1 = lib.systems.parse.abis.musl;
+              # The following two entries ensure that this function is idempotent.
+            musleabi = lib.systems.parse.abis.musleabi;
+            musleabihf = lib.systems.parse.abis.musleabihf;
+            muslabin32 = lib.systems.parse.abis.muslabin32;
+            muslabi64 = lib.systems.parse.abis.muslabi64;
+          }
+          .${parsed.abi.name} or lib.systems.parse.abis.musl;
+      }
+    )
     ;
 
   stdenvAdapters =
@@ -118,12 +120,14 @@ let
     let
       withFallback =
         thisPkgs:
-        (if adjacentPackages == null then
-          self
-        else
-          thisPkgs) // {
-            recurseForDerivations = false;
-          }
+        (
+          if adjacentPackages == null then
+            self
+          else
+            thisPkgs
+        ) // {
+          recurseForDerivations = false;
+        }
         ;
     in
     {
@@ -304,35 +308,38 @@ let
 
         # Fully static packages.
         # Currently uses Musl on Linux (couldn’t get static glibc to work).
-      pkgsStatic = nixpkgsFun ({
-        overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
-      } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        crossSystem = {
-          isStatic = true;
-          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-        } // lib.optionalAttrs
-          (stdenv.hostPlatform.system == "powerpc64-linux") {
-            gcc.abi = "elfv2";
-          };
-      });
+      pkgsStatic = nixpkgsFun (
+        {
+          overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
+        } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+          crossSystem = {
+            isStatic = true;
+            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+          } // lib.optionalAttrs (
+            stdenv.hostPlatform.system == "powerpc64-linux"
+          ) { gcc.abi = "elfv2"; };
+        }
+      );
     }
     ;
 
     # The complete chain of package set builders, applied from top to bottom.
     # stdenvOverlays must be last as it brings package forward from the
     # previous bootstrapping phases which have already been overlayed.
-  toFix = lib.foldl' (lib.flip lib.extends) (self: { }) ([
-    stdenvBootstappingAndPlatforms
-    stdenvAdapters
-    trivialBuilders
-    splice
-    allPackages
-    otherPackageSets
-    aliases
-    configOverrides
-  ]
+  toFix = lib.foldl' (lib.flip lib.extends) (self: { }) (
+    [
+      stdenvBootstappingAndPlatforms
+      stdenvAdapters
+      trivialBuilders
+      splice
+      allPackages
+      otherPackageSets
+      aliases
+      configOverrides
+    ]
     ++ overlays
-    ++ [ stdenvOverrides ]);
+    ++ [ stdenvOverrides ]
+  );
 
   # Return the complete set of packages.
 in

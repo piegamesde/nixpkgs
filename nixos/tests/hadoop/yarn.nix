@@ -1,5 +1,6 @@
 # This only tests if YARN is able to start its services
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     package,
     ...
   }: {
@@ -55,4 +56,5 @@ import ../make-test-python.nix ({
       resourcemanager.succeed("curl -f http://localhost:8088")
       nodemanager.succeed("curl -f http://localhost:8042")
     '';
-  })
+  }
+)

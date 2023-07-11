@@ -156,30 +156,32 @@ stdenv.mkDerivation rec {
     prometheus-cpp
   ];
 
-  hydraPath = lib.makeBinPath ([
-    subversion
-    openssh
-    nix
-    coreutils
-    findutils
-    pixz
-    gzip
-    bzip2
-    xz
-    gnutar
-    unzip
-    git
-    top-git
-    mercurial
-    darcs
-    gnused
-    breezy
-  ]
+  hydraPath = lib.makeBinPath (
+    [
+      subversion
+      openssh
+      nix
+      coreutils
+      findutils
+      pixz
+      gzip
+      bzip2
+      xz
+      gnutar
+      unzip
+      git
+      top-git
+      mercurial
+      darcs
+      gnused
+      breezy
+    ]
     ++ lib.optionals stdenv.isLinux [
       rpm
       dpkg
       cdrkit
-    ]);
+    ]
+  );
 
   nativeBuildInputs = [
     autoreconfHook

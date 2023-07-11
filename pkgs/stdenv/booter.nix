@@ -86,13 +86,15 @@ let
     # Take the list and disallow custom overrides in all but the final stage,
     # and allow it in the final flag. Only defaults this boolean field if it
     # isn't already set.
-  withAllowCustomOverrides = lib.lists.imap1 (index: stageFun: prevStage:
+  withAllowCustomOverrides = lib.lists.imap1 (
+    index: stageFun: prevStage:
     # So true by default for only the first element because one
     # 1-indexing. Since we reverse the list, this means this is true
     # for the final stage.
     {
       allowCustomOverrides = index == 1;
-    } // (stageFun prevStage)) (lib.lists.reverseList stageFuns);
+    } // (stageFun prevStage)
+  ) (lib.lists.reverseList stageFuns);
 
     # Adds the stdenv to the arguments, and sticks in it the previous stage for
     # debugging purposes.
@@ -111,38 +113,40 @@ let
         if args.__raw or false then
           args'
         else
-          allPackages ((builtins.removeAttrs args' [ "selfBuild" ]) // {
-            adjacentPackages =
-              if args.selfBuild or true then
-                null
-              else
-                rec {
-                  pkgsBuildBuild = prevStage.buildPackages;
-                  pkgsBuildHost = prevStage;
-                  pkgsBuildTarget =
-                    if
-                      args.stdenv.targetPlatform == args.stdenv.hostPlatform
-                    then
-                      pkgsBuildHost
-                    else
-                      assert args.stdenv.hostPlatform
-                        == args.stdenv.buildPlatform;
-                      thisStage
-                    ;
-                  pkgsHostHost =
-                    if
-                      args.stdenv.hostPlatform == args.stdenv.targetPlatform
-                    then
-                      thisStage
-                    else
-                      assert args.stdenv.buildPlatform
-                        == args.stdenv.hostPlatform;
-                      pkgsBuildHost
-                    ;
-                  pkgsTargetTarget = nextStage;
-                }
-              ;
-          })
+          allPackages (
+            (builtins.removeAttrs args' [ "selfBuild" ]) // {
+              adjacentPackages =
+                if args.selfBuild or true then
+                  null
+                else
+                  rec {
+                    pkgsBuildBuild = prevStage.buildPackages;
+                    pkgsBuildHost = prevStage;
+                    pkgsBuildTarget =
+                      if
+                        args.stdenv.targetPlatform == args.stdenv.hostPlatform
+                      then
+                        pkgsBuildHost
+                      else
+                        assert args.stdenv.hostPlatform
+                          == args.stdenv.buildPlatform;
+                        thisStage
+                      ;
+                    pkgsHostHost =
+                      if
+                        args.stdenv.hostPlatform == args.stdenv.targetPlatform
+                      then
+                        thisStage
+                      else
+                        assert args.stdenv.buildPlatform
+                          == args.stdenv.hostPlatform;
+                        pkgsBuildHost
+                      ;
+                    pkgsTargetTarget = nextStage;
+                  }
+                ;
+            }
+          )
         ;
     in
     thisStage

@@ -56,11 +56,13 @@ let
     }:
     let
       mkRepoRuby =
-        (ruby.withPackages (pkgs:
+        (ruby.withPackages (
+          pkgs:
           with pkgs; [
             slop
             nokogiri
-          ]));
+          ]
+        ));
       mkRepoRubyArguments = lib.lists.flatten [
         (builtins.map (package: [
           "--packages"
@@ -110,13 +112,17 @@ let
     # Converts all 'archives' keys in a repo spec to fetchurl calls.
   fetchArchives =
     attrSet:
-    lib.attrsets.mapAttrsRecursive (path: value:
+    lib.attrsets.mapAttrsRecursive (
+      path: value:
       if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
-        (builtins.listToAttrs (builtins.map (archive:
+        (builtins.listToAttrs (builtins.map (
+          archive:
           lib.attrsets.nameValuePair archive.os
-          (fetchurl { inherit (archive) url sha1; })) value))
+          (fetchurl { inherit (archive) url sha1; })
+        ) value))
       else
-        value) attrSet
+        value
+    ) attrSet
     ;
 
     # Converts the repo attrset into fetch calls
@@ -137,10 +143,12 @@ let
     # Just used for displaying licenses.
   mkLicenseTexts =
     licenseNames:
-    lib.lists.flatten (builtins.map (licenseName:
+    lib.lists.flatten (builtins.map (
+      licenseName:
       builtins.map (licenseText: ''
         --- ${licenseName} ---
-        ${licenseText}'') (mkLicenses licenseName)) licenseNames)
+        ${licenseText}'') (mkLicenses licenseName)
+    ) licenseNames)
     ;
 
     # Converts a license name to a list of license hashes.
@@ -158,7 +166,8 @@ rec {
   deployAndroidPackages =
     callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
   deployAndroidPackage =
-    ({
+    (
+      {
         package,
         os ? null,
         buildInputs ? [ ],
@@ -174,11 +183,13 @@ rec {
           "patchInstructions"
         ];
       in
-      deployAndroidPackages ({
-        inherit os buildInputs meta;
-        packages = [ package ];
-        patchesInstructions = { "${package.name}" = patchInstructions; };
-      } // extraParams)
+      deployAndroidPackages (
+        {
+          inherit os buildInputs meta;
+          packages = [ package ];
+          patchesInstructions = { "${package.name}" = patchInstructions; };
+        } // extraParams
+      )
     );
 
   platform-tools = callPackage ./platform-tools.nix {
@@ -217,7 +228,8 @@ rec {
     package = packages.patcher."1";
   };
 
-  build-tools = map (version:
+  build-tools = map (
+    version:
     callPackage ./build-tools.nix {
       inherit deployAndroidPackage os;
       package = packages.build-tools.${version};
@@ -229,7 +241,8 @@ rec {
           check = toolsVersion != null;
         }}
       '';
-    }) buildToolsVersions;
+    }
+  ) buildToolsVersions;
 
   emulator = callPackage ./emulator.nix {
     inherit deployAndroidPackage os;
@@ -243,20 +256,26 @@ rec {
     '';
   };
 
-  platforms = map (version:
+  platforms = map (
+    version:
     deployAndroidPackage {
       inherit os;
       package = packages.platforms.${version};
-    }) platformVersions;
+    }
+  ) platformVersions;
 
-  sources = map (version:
+  sources = map (
+    version:
     deployAndroidPackage {
       inherit os;
       package = packages.sources.${version};
-    }) platformVersions;
+    }
+  ) platformVersions;
 
-  system-images = lib.flatten (map (apiVersion:
-    map (type:
+  system-images = lib.flatten (map (
+    apiVersion:
+    map (
+      type:
       # Deploy all system images with the same  systemImageType in one derivation to avoid the `null` problem below
       # with avdmanager when trying to create an avd!
       #
@@ -266,14 +285,16 @@ rec {
       # null
       # ```
       let
-        availablePackages = map (abiVersion:
-          system-images-packages.${apiVersion}.${type}.${abiVersion})
-          (builtins.filter (abiVersion:
-            lib.hasAttrByPath [
-              apiVersion
-              type
-              abiVersion
-            ] system-images-packages) abiVersions);
+        availablePackages = map (
+          abiVersion: system-images-packages.${apiVersion}.${type}.${abiVersion}
+        ) (builtins.filter (
+          abiVersion:
+          lib.hasAttrByPath [
+            apiVersion
+            type
+            abiVersion
+          ] system-images-packages
+        ) abiVersions);
 
         instructions = builtins.listToAttrs (map (package: {
           name = package.name;
@@ -290,13 +311,16 @@ rec {
         packages = availablePackages;
         patchesInstructions = instructions;
       })
-    ) systemImageTypes) platformVersions);
+    ) systemImageTypes
+  ) platformVersions);
 
-  cmake = map (version:
+  cmake = map (
+    version:
     callPackage ./cmake.nix {
       inherit deployAndroidPackage os;
       package = packages.cmake.${version};
-    }) cmakeVersions;
+    }
+  ) cmakeVersions;
 
     # Creates a NDK bundle.
   makeNdkBundle =
@@ -318,19 +342,22 @@ rec {
       null
     ;
 
-  google-apis = map (version:
+  google-apis = map (
+    version:
     deployAndroidPackage {
       inherit os;
       package = addons.addons.${version}.google_apis;
-    })
-    (builtins.filter (platformVersion: platformVersion < "26") platformVersions)
+    }
+  ) (builtins.filter (platformVersion: platformVersion < "26") platformVersions)
     ; # API level 26 and higher include Google APIs by default
 
-  google-tv-addons = map (version:
+  google-tv-addons = map (
+    version:
     deployAndroidPackage {
       inherit os;
       package = addons.addons.${version}.google_tv_addon;
-    }) platformVersions;
+    }
+  ) platformVersions;
 
     # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
@@ -502,7 +529,8 @@ rec {
           }}
 
           # Link extras
-          ${lib.concatMapStrings (identifier:
+          ${lib.concatMapStrings (
+            identifier:
             let
               path = addons.extras.${identifier}.path;
               addon = deployAndroidPackage {
@@ -534,7 +562,8 @@ rec {
 
           # Write licenses
           mkdir -p licenses
-          ${lib.concatMapStrings (licenseName:
+          ${lib.concatMapStrings (
+            licenseName:
             let
               licenseHashes =
                 builtins.concatStringsSep "\n" (mkLicenseHashes licenseName);

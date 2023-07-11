@@ -97,10 +97,12 @@ let
             "-DBoost_USE_STATIC_LIBS=OFF"
 
           ]
-          ++ (if z3Support then
-            [ "-DSTRICT_Z3_VERSION=OFF" ]
-          else
-            [ "-DUSE_Z3=OFF" ])
+          ++ (
+            if z3Support then
+              [ "-DSTRICT_Z3_VERSION=OFF" ]
+            else
+              [ "-DUSE_Z3=OFF" ]
+          )
           ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ]
           ;
 
@@ -117,7 +119,8 @@ let
         nativeCheckInputs = [
           jq
           ncurses
-          (python3.withPackages (ps:
+          (python3.withPackages (
+            ps:
             with ps; [
               colorama
               deepdiff
@@ -128,7 +131,8 @@ let
               sphinx
               tabulate
               z3
-            ]))
+            ]
+          ))
         ]; # contextlib2 glob2 textwrap3 traceback2 urllib3
 
           # tests take 60+ minutes to complete, only run as part of passthru tests

@@ -49,15 +49,16 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     let
-      gstPluginPaths = lib.makeSearchPathOutput "lib" "/lib/gstreamer-1.0"
-        (with gst_all_1; [
+      gstPluginPaths = lib.makeSearchPathOutput "lib" "/lib/gstreamer-1.0" (
+        with gst_all_1; [
           gstreamer
           gst-plugins-base
           gst-plugins-good
           gst-plugins-ugly
           gst-plugins-bad
           gst-libav
-        ]);
+        ]
+      );
     in
     toString [
       # This flag should be picked up through pkg-config, but it isn't.

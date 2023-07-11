@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -81,4 +82,5 @@ import ./make-test-python.nix ({
 
       server.shutdown()
     '';
-  })
+  }
+)

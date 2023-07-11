@@ -51,12 +51,14 @@ let
           source = tpl.template;
           target = "/templates/${tpl.name}.tpl";
         }) list;
-        properties = listToAttrs (map (tpl:
+        properties = listToAttrs (map (
+          tpl:
           nameValuePair tpl.target {
             when = tpl.when;
             template = "${tpl.name}.tpl";
             properties = tpl.properties;
-          }) list);
+          }
+        ) list);
       }
     else
       {

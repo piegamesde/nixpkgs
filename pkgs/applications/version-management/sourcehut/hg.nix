@@ -28,12 +28,14 @@ buildPythonPackage rec {
       --replace "all: api hgsrht-keys" ""
   '';
 
-  hgsrht-api = buildGoModule ({
-    inherit src version;
-    pname = "hgsrht-api";
-    modRoot = "api";
-    vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  hgsrht-api = buildGoModule (
+    {
+      inherit src version;
+      pname = "hgsrht-api";
+      modRoot = "api";
+      vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
+    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   hgsrht-keys = buildGoModule {
     inherit src version;

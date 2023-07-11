@@ -65,7 +65,8 @@ let
     .${flavour};
 
 in
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -128,4 +129,5 @@ import ../make-test-python.nix ({
       assert "hello" in machine.succeed("cat /test")
       ${extraCheck}
     '';
-  })
+  }
+)

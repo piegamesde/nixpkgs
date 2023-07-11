@@ -39,12 +39,14 @@ let
           mkList value
         else
           " "
-          + (if value == true then
-            "yes"
-          else if value == false then
-            "no"
-          else
-            toString value)
+          + (
+            if value == true then
+              "yes"
+            else if value == false then
+              "no"
+            else
+              toString value
+          )
         ;
       mkEntry = name: value: "${escape name} =${mkVal value}";
     in
@@ -201,8 +203,9 @@ let
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
                 toString config.wakeup
-                + optionalString
-                  (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
+                + optionalString (
+                  wakeupUCDefined && !config.wakeupUnusedComponent
+                ) "?"
                 ;
             in
             if wakeupDefined then
@@ -889,14 +892,18 @@ in
           ln -sf ${mainCfFile} /var/lib/postfix/conf/main.cf
           ln -sf ${masterCfFile} /var/lib/postfix/conf/master.cf
 
-          ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
-            ln -sf ${from} /var/lib/postfix/conf/${to}
-            ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
-          '') cfg.aliasFiles)}
-          ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
-            ln -sf ${from} /var/lib/postfix/conf/${to}
-            ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
-          '') cfg.mapFiles)}
+          ${concatStringsSep "\n" (mapAttrsToList (
+            to: from: ''
+              ln -sf ${from} /var/lib/postfix/conf/${to}
+              ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
+            ''
+          ) cfg.aliasFiles)}
+          ${concatStringsSep "\n" (mapAttrsToList (
+            to: from: ''
+              ln -sf ${from} /var/lib/postfix/conf/${to}
+              ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
+            ''
+          ) cfg.mapFiles)}
 
           mkdir -p /var/spool/mail
           chown root:root /var/spool/mail
@@ -1105,7 +1112,9 @@ in
                 ]
                 ;
               adjustSmtpTlsSecurityLevel =
-                !(cfg.submissionsOptions ? smtpd_tls_security_level)
+                !(
+                  cfg.submissionsOptions ? smtpd_tls_security_level
+                )
                 || cfg.submissionsOptions.smtpd_tls_security_level == "none"
                 || cfg.submissionsOptions.smtpd_tls_security_level == "may"
                 ;
@@ -1157,6 +1166,8 @@ in
       "postfix"
       "config"
       "smtp_tls_security_level"
-    ] (config: mkIf config.services.postfix.useDane "dane"))
+    ] (
+      config: mkIf config.services.postfix.useDane "dane"
+    ))
   ];
 }

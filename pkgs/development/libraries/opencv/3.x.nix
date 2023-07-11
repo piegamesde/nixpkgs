@@ -192,9 +192,11 @@ let
     ''
       mkdir -p "${extra.dst}"
     ''
-    + concatStrings (mapAttrsToList (name: md5: ''
-      ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-    '') extra.files)
+    + concatStrings (mapAttrsToList (
+      name: md5: ''
+        ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+      ''
+    ) extra.files)
     ;
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
@@ -272,10 +274,12 @@ stdenv.mkDerivation {
       VideoDecodeAcceleration
       bzip2
     ]
-    ++ lib.optionals enableGStreamer (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-    ])
+    ++ lib.optionals enableGStreamer (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+      ]
+    )
     ++ lib.optional enableOvis ogre
     ++ lib.optional enableGPhoto2 libgphoto2
     ++ lib.optional enableDC1394 libdc1394

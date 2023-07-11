@@ -155,7 +155,9 @@ in
       {
         assertion =
           cfg.driSupport32Bit
-          -> (config.boot.kernelPackages.kernel.features.ia32Emulation or false)
+          -> (
+            config.boot.kernelPackages.kernel.features.ia32Emulation or false
+          )
           ;
         message =
           "Option driSupport32Bit requires a kernel that supports 32bit emulation";
@@ -164,17 +166,20 @@ in
 
     systemd.tmpfiles.rules = [
       "L+ /run/opengl-driver - - - - ${package}"
-      (if pkgs.stdenv.isi686 then
-        "L+ /run/opengl-driver-32 - - - - opengl-driver"
-      else if cfg.driSupport32Bit then
-        "L+ /run/opengl-driver-32 - - - - ${package32}"
-      else
-        "r /run/opengl-driver-32")
+      (
+        if pkgs.stdenv.isi686 then
+          "L+ /run/opengl-driver-32 - - - - opengl-driver"
+        else if cfg.driSupport32Bit then
+          "L+ /run/opengl-driver-32 - - - - ${package32}"
+        else
+          "r /run/opengl-driver-32"
+      )
     ];
 
-    environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.setLdLibraryPath
-      ([ "/run/opengl-driver/lib" ]
-        ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib");
+    environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.setLdLibraryPath (
+      [ "/run/opengl-driver/lib" ]
+      ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib"
+    );
 
     hardware.opengl.package = mkDefault pkgs.mesa.drivers;
     hardware.opengl.package32 = mkDefault pkgs.pkgsi686Linux.mesa.drivers;

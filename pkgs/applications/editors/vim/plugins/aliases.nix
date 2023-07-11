@@ -38,18 +38,21 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias:
-      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-    aliases
+    lib.mapAttrs (
+      n: alias:
+      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
+    ) aliases
     ;
 
-  deprecations = lib.mapAttrs (old: info:
+  deprecations = lib.mapAttrs (
+    old: info:
     throw
-    "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}.")
-    (lib.importJSON ./deprecated.json);
+    "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+  ) (lib.importJSON ./deprecated.json);
 
 in
-mapAliases (with prev;
+mapAliases (
+  with prev;
   {
     airline = vim-airline;
     alternative = a-vim; # backwards compat, added 2014-10-21
@@ -159,4 +162,5 @@ mapAliases (with prev;
     Yankring = YankRing-vim;
     xterm-color-table = xterm-color-table-vim;
     zeavim = zeavim-vim;
-  } // deprecations)
+  } // deprecations
+)

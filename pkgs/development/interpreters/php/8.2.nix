@@ -7,13 +7,16 @@
 }@_args:
 
 let
-  base = callPackage ./generic.nix (_args // {
-    version = "8.2.5";
-    hash = "sha256-5agGY8yk9gRK2GpIl5gUfHrwN+ypb2zTV6s20oy2N1c=";
-  });
+  base = callPackage ./generic.nix (
+    _args // {
+      version = "8.2.5";
+      hash = "sha256-5agGY8yk9gRK2GpIl5gUfHrwN+ypb2zTV6s20oy2N1c=";
+    }
+  );
 
 in
-base.withExtensions ({
+base.withExtensions (
+  {
     all,
     ...
   }:
@@ -60,4 +63,5 @@ base.withExtensions ({
     xmlwriter
     zip
     zlib
-  ]))
+  ])
+)

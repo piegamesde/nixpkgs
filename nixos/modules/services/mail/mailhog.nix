@@ -10,14 +10,16 @@ with lib;
 let
   cfg = config.services.mailhog;
 
-  args = lib.concatStringsSep " " ([
-    "-api-bind-addr :${toString cfg.apiPort}"
-    "-smtp-bind-addr :${toString cfg.smtpPort}"
-    "-ui-bind-addr :${toString cfg.uiPort}"
-    "-storage ${cfg.storage}"
-  ]
+  args = lib.concatStringsSep " " (
+    [
+      "-api-bind-addr :${toString cfg.apiPort}"
+      "-smtp-bind-addr :${toString cfg.smtpPort}"
+      "-ui-bind-addr :${toString cfg.uiPort}"
+      "-storage ${cfg.storage}"
+    ]
     ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
-    ++ cfg.extraArgs);
+    ++ cfg.extraArgs
+  );
 
 in
 {

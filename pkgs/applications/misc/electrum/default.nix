@@ -102,15 +102,17 @@ python3.pkgs.buildPythonApplication {
       substituteInPlace ./electrum/ecc_fast.py \
         --replace ${libsecp256k1_name} ${secp256k1}/lib/libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}
     ''
-    + (if enableQt then
-      ''
-        substituteInPlace ./electrum/qrscanner.py \
-          --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}
-      ''
-    else
-      ''
-        sed -i '/qdarkstyle/d' contrib/requirements/requirements.txt
-      '')
+    + (
+      if enableQt then
+        ''
+          substituteInPlace ./electrum/qrscanner.py \
+            --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}
+        ''
+      else
+        ''
+          sed -i '/qdarkstyle/d' contrib/requirements/requirements.txt
+        ''
+    )
     ;
 
   postInstall = lib.optionalString stdenv.isLinux ''

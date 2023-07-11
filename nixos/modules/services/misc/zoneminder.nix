@@ -311,7 +311,8 @@ in
       phpfpm = lib.mkIf useNginx {
         pools.zoneminder = {
           inherit user group;
-          phpPackage = pkgs.php.withExtensions ({
+          phpPackage = pkgs.php.withExtensions (
+            {
               enabled,
               all,
             }:
@@ -319,7 +320,8 @@ in
             ++ [
               all.apcu
               all.sysvsem
-            ]);
+            ]
+          );
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
           '';
@@ -397,10 +399,12 @@ in
           CacheDirectory = dirs cacheDirs;
           RuntimeDirectory = dirName;
           ReadWriteDirectories = lib.mkIf useCustomDir [ cfg.storageDir ];
-          StateDirectory = dirs (if useCustomDir then
-            [ ]
-          else
-            libDirs);
+          StateDirectory = dirs (
+            if useCustomDir then
+              [ ]
+            else
+              libDirs
+          );
           LogsDirectory = dirName;
           PrivateTmp = true;
           ProtectSystem = "strict";

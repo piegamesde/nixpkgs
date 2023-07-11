@@ -37,7 +37,9 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  meta = (lapackProvider'.meta or { }) // {
+  meta = (
+    lapackProvider'.meta or { }
+  ) // {
     description =
       "${lib.getName lapackProvider'} with just the LAPACK C and FORTRAN ABI";
   };
@@ -63,27 +65,29 @@ stdenv.mkDerivation {
   dontPatchELF = true;
 
   installPhase =
-    (''
-      mkdir -p $out/lib $dev/include $dev/lib/pkgconfig
+    (
+      ''
+        mkdir -p $out/lib $dev/include $dev/lib/pkgconfig
 
-      liblapack="${
-        lib.getLib lapackProvider'
-      }/lib/liblapack${canonicalExtension}"
+        liblapack="${
+          lib.getLib lapackProvider'
+        }/lib/liblapack${canonicalExtension}"
 
-      if ! [ -e "$liblapack" ]; then
-        echo "$liblapack does not exist, ${lapackProvider'.name} does not provide liblapack."
-        exit 1
-      fi
+        if ! [ -e "$liblapack" ]; then
+          echo "$liblapack does not exist, ${lapackProvider'.name} does not provide liblapack."
+          exit 1
+        fi
 
-      cp -L "$liblapack" $out/lib/liblapack${canonicalExtension}
-      chmod +w $out/lib/liblapack${canonicalExtension}
+        cp -L "$liblapack" $out/lib/liblapack${canonicalExtension}
+        chmod +w $out/lib/liblapack${canonicalExtension}
 
-    ''
-      + (lib.optionalString
-        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
-          patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
-        '')
+      ''
+      + (lib.optionalString (
+        stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
+      ) ''
+        patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
+      '')
       + ''
 
           if [ "$out/lib/liblapack${canonicalExtension}" != "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}" ]; then
@@ -115,13 +119,14 @@ stdenv.mkDerivation {
           chmod +w $out/lib/liblapacke${canonicalExtension}
 
       ''
-      + (lib.optionalString
-        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
-          patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-            lib.getLib lapackProvider'
-          }/lib" $out/lib/liblapacke${canonicalExtension}
-        '')
+      + (lib.optionalString (
+        stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
+      ) ''
+        patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
+          lib.getLib lapackProvider'
+        }/lib" $out/lib/liblapacke${canonicalExtension}
+      '')
       + ''
 
           if [ -f "$out/lib/liblapacke.so.3" ]; then
@@ -147,5 +152,6 @@ stdenv.mkDerivation {
         }LP64,GNU' > $out/nix-support/setup-hook
         ln -s $out/lib/liblapack${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
         ln -sf ${lapackProvider'}/include/* $dev/include
-      '');
+      ''
+    );
 }

@@ -46,11 +46,12 @@ let
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_aarch64.so";
     }
-    ++ lib.optional
-      (builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null) {
-        jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
-        file = "libs/linux/libjSSC-2.8_armhf.so";
-      }
+    ++ lib.optional (
+      builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null
+    ) {
+      jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
+      file = "libs/linux/libjSSC-2.8_armhf.so";
+    }
     ++ lib.optional (stdenv.hostPlatform.system == "x86_64-linux") {
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86_64.so";
@@ -100,10 +101,12 @@ let
 in
 stdenv.mkDerivation rec {
   pname =
-    (if withTeensyduino then
-      "teensyduino"
-    else
-      "arduino")
+    (
+      if withTeensyduino then
+        "teensyduino"
+      else
+        "arduino"
+    )
     + lib.optionalString (!withGui) "-core"
     ;
   version = "1.8.19";
@@ -265,7 +268,8 @@ stdenv.mkDerivation rec {
       patchelf --set-rpath ${rpath}:$out/lib $file || true
     done
 
-    ${lib.concatMapStringsSep "\n" ({
+    ${lib.concatMapStringsSep "\n" (
+      {
         jar,
         file,
       }: ''
@@ -273,7 +277,8 @@ stdenv.mkDerivation rec {
         patchelf --set-rpath $rpath ${file}
         jar uvf $out/${jar} ${file}
         rm -f ${file}
-      '') patchelfInJars}
+      ''
+    ) patchelfInJars}
 
     # avrdude_bin is linked against libtinfo.so.5
     mkdir $out/lib/

@@ -41,17 +41,19 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ freetype ]
-    ++ (if stdenv.isDarwin then
-      [
-        OpenGL
-        GLUT
-      ]
-    else
-      [
-        libGL
-        libGLU
-        freeglut
-      ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          OpenGL
+          GLUT
+        ]
+      else
+        [
+          libGL
+          libGLU
+          freeglut
+        ]
+    )
     ;
 
   configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];

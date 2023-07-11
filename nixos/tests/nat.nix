@@ -3,7 +3,8 @@
 # client on the inside network, a server on the outside network, and a
 # router connected to both that performs Network Address Translation
 # for the client.
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     withFirewall,
@@ -15,10 +16,12 @@ import ./make-test-python.nix ({
       if nftables then
         "nftables"
       else
-        (if withFirewall then
-          "firewall"
-        else
-          "nat")
+        (
+          if withFirewall then
+            "firewall"
+          else
+            "nat"
+        )
       ;
 
     routerBase = lib.mkMerge [ {
@@ -37,10 +40,12 @@ import ./make-test-python.nix ({
     name =
       "nat"
       + (lib.optionalString nftables "Nftables")
-      + (if withFirewall then
-        "WithFirewall"
-      else
-        "Standalone")
+      + (
+        if withFirewall then
+          "WithFirewall"
+        else
+          "Standalone"
+      )
       ;
     meta = with pkgs.lib.maintainers; {
       maintainers = [

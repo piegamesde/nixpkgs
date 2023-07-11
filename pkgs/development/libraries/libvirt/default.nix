@@ -84,7 +84,8 @@
 
 let
   inherit (stdenv) isDarwin isLinux isx86_64;
-  binPath = lib.makeBinPath ([ dnsmasq ]
+  binPath = lib.makeBinPath (
+    [ dnsmasq ]
     ++ lib.optionals isLinux [
       bridge-utils
       dmidecode
@@ -103,7 +104,8 @@ let
       libiscsi
       openiscsi
     ]
-    ++ lib.optionals enableZfs [ zfs ]);
+    ++ lib.optionals enableZfs [ zfs ]
+  );
 
 in
 assert enableXen -> isLinux && isx86_64;
@@ -291,10 +293,12 @@ stdenv.mkDerivation rec {
       cfg = option: val: "-D${option}=${val}";
       feat =
         option: enable:
-        cfg option (if enable then
-          "enabled"
-        else
-          "disabled")
+        cfg option (
+          if enable then
+            "enabled"
+          else
+            "disabled"
+        )
         ;
       driver = name: feat "driver_${name}";
       storage = name: feat "storage_${name}";
@@ -305,10 +309,12 @@ stdenv.mkDerivation rec {
       (cfg "localstatedir" "/var")
       (cfg "runstatedir" "/run")
 
-      (cfg "init_script" (if isDarwin then
-        "none"
-      else
-        "systemd"))
+      (cfg "init_script" (
+        if isDarwin then
+          "none"
+        else
+          "systemd"
+      ))
       (cfg "qemu_datadir" (lib.optionalString isDarwin "${qemu}/share/qemu"))
 
       (feat "apparmor" isLinux)

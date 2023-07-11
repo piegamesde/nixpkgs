@@ -54,10 +54,11 @@ rec {
         set -e ;
         if [ -n "${version-path}.ss" ] ; then
           echo -e '(import :clan/versioning${
-            builtins.concatStringsSep "" (map (x:
+            builtins.concatStringsSep "" (map (
+              x:
               lib.optionalString (x.passthru.version-path != "")
-              " :${x.passthru.gerbil-package}/${x.passthru.version-path}")
-              gerbilInputs)
+              " :${x.passthru.gerbil-package}/${x.passthru.version-path}"
+            ) gerbilInputs)
           })\n(register-software "${softwareName}" "v${git-version}")\n' > "${passthru.version-path}.ss"
         fi
         patchShebangs . ;

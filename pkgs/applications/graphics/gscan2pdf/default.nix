@@ -41,36 +41,38 @@ perlPackages.buildPerlPackage rec {
       sane-backends
       sane-frontends
     ]
-    ++ (with perlPackages; [
-      Gtk3
-      Gtk3ImageView
-      Gtk3SimpleList
-      Cairo
-      CairoGObject
-      Glib
-      GlibObjectIntrospection
-      GooCanvas2
-      GraphicsTIFF
-      IPCSystemSimple
-      LocaleCodes
-      LocaleGettext
-      PDFBuilder
-      ImagePNGLibpng
-      ImageSane
-      SetIntSpan
-      ImageMagick
-      ConfigGeneral
-      ListMoreUtils
-      HTMLParser
-      ProcProcessTable
-      LogLog4perl
-      TryTiny
-      DataUUID
-      DateCalc
-      IOString
-      FilesysDf
-      SubOverride
-    ])
+    ++ (
+      with perlPackages; [
+        Gtk3
+        Gtk3ImageView
+        Gtk3SimpleList
+        Cairo
+        CairoGObject
+        Glib
+        GlibObjectIntrospection
+        GooCanvas2
+        GraphicsTIFF
+        IPCSystemSimple
+        LocaleCodes
+        LocaleGettext
+        PDFBuilder
+        ImagePNGLibpng
+        ImageSane
+        SetIntSpan
+        ImageMagick
+        ConfigGeneral
+        ListMoreUtils
+        HTMLParser
+        ProcProcessTable
+        LogLog4perl
+        TryTiny
+        DataUUID
+        DateCalc
+        IOString
+        FilesysDf
+        SubOverride
+      ]
+    )
     ;
 
   postPatch =
@@ -127,7 +129,9 @@ perlPackages.buildPerlPackage rec {
       file
       tesseract # tests are expecting tesseract 3.x precisely
     ]
-    ++ (with perlPackages; [ TestPod ])
+    ++ (
+      with perlPackages; [ TestPod ]
+    )
     ;
 
   checkPhase = ''

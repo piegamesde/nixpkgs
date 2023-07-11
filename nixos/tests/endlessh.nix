@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -55,4 +56,5 @@ import ./make-test-python.nix ({
           server.wait_for_open_port(22)
           client.succeed("nc -dvW5 server 22")
     '';
-  })
+  }
+)

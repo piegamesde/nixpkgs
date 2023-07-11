@@ -107,8 +107,9 @@ rec {
           => "usr/local/bin"
     */
   concatStringsSep =
-    builtins.concatStringsSep or (separator: list:
-      lib.foldl' (x: y: x + y) "" (intersperse separator list));
+    builtins.concatStringsSep or (
+      separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list)
+    );
 
     /* Maps a function over a list of strings and then concatenates the
        result with the specified separator interspersed between
@@ -239,11 +240,13 @@ rec {
           Path values are always normalised in Nix, so there's no need to call this function on them.
           This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
           This behavior is deprecated and will throw an error in the future.''
-    (builtins.foldl' (x: y:
+    (builtins.foldl' (
+      x: y:
       if y == "/" && hasSuffix "/" x then
         x
       else
-        x + y) "" (stringToCharacters s))
+        x + y
+    ) "" (stringToCharacters s))
     ;
 
     /* Depending on the boolean `cond', return either the given string
@@ -291,8 +294,9 @@ rec {
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (substring 0 (stringLength pref) str == pref)
+          This behavior is deprecated and will throw an error in the future.'' (
+        substring 0 (stringLength pref) str == pref
+      )
     ;
 
     /* Determine whether a string has given suffix.
@@ -322,9 +326,10 @@ rec {
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (lenContent >= lenSuffix
-      && substring (lenContent - lenSuffix) lenContent content == suffix)
+          This behavior is deprecated and will throw an error in the future.'' (
+        lenContent >= lenSuffix
+        && substring (lenContent - lenSuffix) lenContent content == suffix
+      )
     ;
 
     /* Determine whether a string contains the given infix
@@ -351,8 +356,9 @@ rec {
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (builtins.match ".*${escapeRegex infix}.*" "${content}" != null)
+          This behavior is deprecated and will throw an error in the future.'' (
+        builtins.match ".*${escapeRegex infix}.*" "${content}" != null
+      )
     ;
 
     /* Convert a string to a list of characters (i.e. singleton strings).
@@ -585,17 +591,18 @@ rec {
   toShellVar =
     name: value:
     lib.throwIfNot (isValidPosixName name)
-    "toShellVar: ${name} is not a valid shell variable name"
-    (if isAttrs value && !isStringLike value then
-      "declare -A ${name}=(${
-        concatStringsSep " "
-        (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}")
-          value)
-      })"
-    else if isList value then
-      "declare -a ${name}=(${escapeShellArgs value})"
-    else
-      "${name}=${escapeShellArg value}")
+    "toShellVar: ${name} is not a valid shell variable name" (
+      if isAttrs value && !isStringLike value then
+        "declare -A ${name}=(${
+          concatStringsSep " " (lib.mapAttrsToList (
+            n: v: "[${escapeShellArg n}]=${escapeShellArg v}"
+          ) value)
+        })"
+      else if isList value then
+        "declare -a ${name}=(${escapeShellArgs value})"
+      else
+        "${name}=${escapeShellArg value}"
+    )
     ;
 
     /* Translate an attribute set into corresponding shell variable declarations
@@ -770,16 +777,16 @@ rec {
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function never removes any prefix in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (let
-      preLen = stringLength prefix;
-      sLen = stringLength str;
-    in
-    if substring 0 preLen str == prefix then
-      substring preLen (sLen - preLen) str
-    else
-      str
-    )
+          This behavior is deprecated and will throw an error in the future.'' (
+        let
+          preLen = stringLength prefix;
+          sLen = stringLength str;
+        in
+        if substring 0 preLen str == prefix then
+          substring preLen (sLen - preLen) str
+        else
+          str
+      )
     ;
 
     /* Return a string without the specified suffix, if the suffix matches.
@@ -805,16 +812,16 @@ rec {
       }) is a path value, but only strings are supported.
           There is almost certainly a bug in the calling code, since this function never removes any suffix in such a case.
           This function also copies the path to the Nix store, which may not be what you want.
-          This behavior is deprecated and will throw an error in the future.''
-    (let
-      sufLen = stringLength suffix;
-      sLen = stringLength str;
-    in
-    if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
-      substring 0 (sLen - sufLen) str
-    else
-      str
-    )
+          This behavior is deprecated and will throw an error in the future.'' (
+        let
+          sufLen = stringLength suffix;
+          sLen = stringLength str;
+        in
+        if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
+          substring 0 (sLen - sufLen) str
+        else
+          str
+      )
     ;
 
     /* Return true if string v1 denotes a version older than v2.
@@ -964,10 +971,12 @@ rec {
     feature: flag:
     assert (lib.isString feature);
     assert (lib.isBool flag);
-    mesonOption feature (if flag then
-      "enabled"
-    else
-      "disabled")
+    mesonOption feature (
+      if flag then
+        "enabled"
+      else
+        "disabled"
+    )
     ;
 
     /* Create an --{enable,disable}-<feat> string that can be passed to
@@ -1118,7 +1127,9 @@ rec {
       "float"
       "bool"
     ]
-    || (isList x && lib.all isConvertibleWithToString x)
+    || (
+      isList x && lib.all isConvertibleWithToString x
+    )
     ;
 
     /* Check whether a value can be coerced to a string.
@@ -1284,8 +1295,8 @@ rec {
               "/prefix/compose-search-path.patch" ]
     */
   readPathsFromFile =
-    lib.warn "lib.readPathsFromFile is deprecated, use a list instead"
-    (rootPath: file:
+    lib.warn "lib.readPathsFromFile is deprecated, use a list instead" (
+      rootPath: file:
       let
         lines = lib.splitString "\n" (readFile file);
         removeComments =
@@ -1337,25 +1348,33 @@ rec {
         # resulting string is only used as a derivation name
         unsafeDiscardStringContext
         # Strip all leading "."
-        (x: elemAt (match "\\.*(.*)" x) 0)
+        (
+          x: elemAt (match "\\.*(.*)" x) 0
+        )
         # Split out all invalid characters
         # https://github.com/NixOS/nix/blob/2.3.2/src/libstore/store-api.cc#L85-L112
         # https://github.com/NixOS/nix/blob/2242be83c61788b9c0736a92bb0b5c7bbfc40803/nix-rust/src/store/path.rs#L100-L125
         (split "[^[:alnum:]+._?=-]+")
         # Replace invalid character ranges with a "-"
-        (concatMapStrings (s:
+        (concatMapStrings (
+          s:
           if lib.isList s then
             "-"
           else
-            s))
+            s
+        ))
         # Limit to 211 characters (minus 4 chars for ".drv")
-        (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
+        (
+          x: substring (lib.max (stringLength x - 207) 0) (-1) x
+        )
         # If the result is empty, replace it with "unknown"
-        (x:
+        (
+          x:
           if stringLength x == 0 then
             "unknown"
           else
-            x)
+            x
+        )
       ]
     ;
 
@@ -1377,8 +1396,9 @@ rec {
     a: b:
     let
       # Two dimensional array with dimensions (stringLength a + 1, stringLength b + 1)
-      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1))
-        (stringLength a + 1);
+      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1)) (
+        stringLength a + 1
+      );
       d = x: y: lib.elemAt (lib.elemAt arr x) y;
       dist =
         i: j:
@@ -1395,8 +1415,9 @@ rec {
         else if i == 0 then
           j
         else
-          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1))
-          (d (i - 1) (j - 1) + c)
+          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (
+            d (i - 1) (j - 1) + c
+          )
         ;
     in
     d (stringLength a) (stringLength b)

@@ -69,8 +69,9 @@ stdenvNoCC.mkDerivation rec {
         + builtins.toString tweaks
       } \
       ${
-        lib.optionalString (border-radius != null)
-        ("--round " + builtins.toString border-radius + "px")
+        lib.optionalString (border-radius != null) (
+          "--round " + builtins.toString border-radius + "px"
+        )
       }
     ${lib.optionalString withWallpapers ''
       mkdir -p $out/share/backgrounds

@@ -22,7 +22,9 @@
 }:
 
 assert cudaSupport
-  -> (cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null);
+  -> (
+    cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null
+  );
 assert enablePython -> pythonPackages != null;
 
 stdenv.mkDerivation rec {
@@ -47,10 +49,12 @@ stdenv.mkDerivation rec {
       gcc.cc.lib
     ]
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
-    ++ lib.optionals enablePython (with pythonPackages; [
-      python
-      pybind11
-    ])
+    ++ lib.optionals enablePython (
+      with pythonPackages; [
+        python
+        pybind11
+      ]
+    )
     ++ lib.optionals enableGUI [
       mesa
       gtk3

@@ -49,10 +49,10 @@ let
     ES_PORT = toString (cfg.elasticsearch.port);
 
     TRUSTED_PROXY_IP = cfg.trustedProxy;
-  } // lib.optionalAttrs
-    (cfg.database.host != "/run/postgresql" && cfg.database.port != null) {
-      DB_PORT = toString cfg.database.port;
-    } // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
+  } // lib.optionalAttrs (
+    cfg.database.host != "/run/postgresql" && cfg.database.port != null
+  ) { DB_PORT = toString cfg.database.port; }
+    // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
     // cfg.extraConfig;
 
   systemCallsList = [
@@ -116,12 +116,15 @@ let
     SystemCallArchitectures = "native";
   };
 
-  envFile = pkgs.writeText "mastodon.env" (lib.concatMapStrings (s: s + "\n")
-    ((lib.concatLists (lib.mapAttrsToList (name: value:
+  envFile = pkgs.writeText "mastodon.env" (lib.concatMapStrings (s: s + "\n") (
+    (lib.concatLists (lib.mapAttrsToList (
+      name: value:
       if value != null then
         [ ''${name}="${toString value}"'' ]
       else
-        [ ]) env))));
+        [ ]
+    ) env))
+  ));
 
   mastodonTootctl =
     let
@@ -144,59 +147,64 @@ let
     ''
     ;
 
-  sidekiqUnits = lib.attrsets.mapAttrs' (name: processCfg:
-    lib.nameValuePair "mastodon-sidekiq-${name}" (let
-      jobClassArgs =
-        toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
-      jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-      threads = toString (if processCfg.threads == null then
-        cfg.sidekiqThreads
-      else
-        processCfg.threads);
-    in
-    {
-      after =
-        [
-          "network.target"
-          "mastodon-init-dirs.service"
-        ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-        ;
-      requires =
-        [ "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-        ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-        ;
-      description = "Mastodon sidekiq${jobClassLabel}";
-      wantedBy = [ "mastodon.target" ];
-      environment = env // {
-        PORT = toString (cfg.sidekiqPort);
-        DB_POOL = threads;
-      };
-      serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
-        Restart = "always";
-        RestartSec = 20;
-        EnvironmentFile =
-          [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-        WorkingDirectory = cfg.package;
-          # System Call Filtering
-        SystemCallFilter = [
-          ("~" + lib.concatStringsSep " " systemCallsList)
-          "@chown"
-          "pipe"
-          "pipe2"
+  sidekiqUnits = lib.attrsets.mapAttrs' (
+    name: processCfg:
+    lib.nameValuePair "mastodon-sidekiq-${name}" (
+      let
+        jobClassArgs =
+          toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
+        jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
+        threads = toString (
+          if processCfg.threads == null then
+            cfg.sidekiqThreads
+          else
+            processCfg.threads
+        );
+      in
+      {
+        after =
+          [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
+        requires =
+          [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
+          ;
+        description = "Mastodon sidekiq${jobClassLabel}";
+        wantedBy = [ "mastodon.target" ];
+        environment = env // {
+          PORT = toString (cfg.sidekiqPort);
+          DB_POOL = threads;
+        };
+        serviceConfig = {
+          ExecStart =
+            "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+          Restart = "always";
+          RestartSec = 20;
+          EnvironmentFile =
+            [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+          WorkingDirectory = cfg.package;
+            # System Call Filtering
+          SystemCallFilter = [
+            ("~" + lib.concatStringsSep " " systemCallsList)
+            "@chown"
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+        path = with pkgs; [
+          file
+          imagemagick
+          ffmpeg
         ];
-      } // cfgService;
-      path = with pkgs; [
-        file
-        imagemagick
-        ffmpeg
-      ];
-    }
-    )) cfg.sidekiqProcesses;
+      }
+    )
+  ) cfg.sidekiqProcesses;
 
 in
 {
@@ -662,7 +670,9 @@ in
         {
           assertion =
             !databaseActuallyCreateLocally
-            -> (cfg.database.host != "/run/postgresql")
+            -> (
+              cfg.database.host != "/run/postgresql"
+            )
             ;
           message = ''
             <option>services.mastodon.database.host</option> needs to be set if
@@ -686,9 +696,10 @@ in
         {
           assertion =
             1
-            == builtins.length (lib.mapAttrsToList (_: v:
-              builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
-              cfg.sidekiqProcesses)
+            == builtins.length (lib.mapAttrsToList (
+              _: v:
+              builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]
+            ) cfg.sidekiqProcesses)
             ;
           message =
             ''
@@ -746,8 +757,10 @@ in
           SyslogIdentifier = "mastodon-init-dirs";
             # System Call Filtering
           SystemCallFilter = [
-            ("~"
-              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
+            (
+              "~"
+              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
+            )
             "@chown"
             "pipe"
             "pipe2"
@@ -804,8 +817,10 @@ in
           WorkingDirectory = cfg.package;
             # System Call Filtering
           SystemCallFilter = [
-            ("~"
-              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
+            (
+              "~"
+              + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ])
+            )
             "@chown"
             "pipe"
             "pipe2"
@@ -840,10 +855,12 @@ in
           ;
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon streaming";
-        environment = env // (if cfg.enableUnixSocket then
-          { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
-        else
-          { PORT = toString (cfg.streamingPort); });
+        environment = env // (
+          if cfg.enableUnixSocket then
+            { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
+          else
+            { PORT = toString (cfg.streamingPort); }
+        );
         serviceConfig = {
           ExecStart = "${cfg.package}/run-streaming.sh";
           Restart = "always";
@@ -856,12 +873,16 @@ in
           RuntimeDirectoryMode = "0750";
             # System Call Filtering
           SystemCallFilter = [
-            ("~"
-              + lib.concatStringsSep " " (systemCallsList
+            (
+              "~"
+              + lib.concatStringsSep " " (
+                systemCallsList
                 ++ [
                   "@memlock"
                   "@resources"
-                ]))
+                ]
+              )
+            )
             "pipe"
             "pipe2"
           ];
@@ -884,10 +905,12 @@ in
           ;
         wantedBy = [ "mastodon.target" ];
         description = "Mastodon web";
-        environment = env // (if cfg.enableUnixSocket then
-          { SOCKET = "/run/mastodon-web/web.socket"; }
-        else
-          { PORT = toString (cfg.webPort); });
+        environment = env // (
+          if cfg.enableUnixSocket then
+            { SOCKET = "/run/mastodon-web/web.socket"; }
+          else
+            { PORT = toString (cfg.webPort); }
+        );
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
           Restart = "always";
@@ -949,19 +972,23 @@ in
 
           locations."@proxy" = {
             proxyPass =
-              (if cfg.enableUnixSocket then
-                "http://unix:/run/mastodon-web/web.socket"
-              else
-                "http://127.0.0.1:${toString (cfg.webPort)}");
+              (
+                if cfg.enableUnixSocket then
+                  "http://unix:/run/mastodon-web/web.socket"
+                else
+                  "http://127.0.0.1:${toString (cfg.webPort)}"
+              );
             proxyWebsockets = true;
           };
 
           locations."/api/v1/streaming/" = {
             proxyPass =
-              (if cfg.enableUnixSocket then
-                "http://unix:/run/mastodon-streaming/streaming.socket"
-              else
-                "http://127.0.0.1:${toString (cfg.streamingPort)}/");
+              (
+                if cfg.enableUnixSocket then
+                  "http://unix:/run/mastodon-streaming/streaming.socket"
+                else
+                  "http://127.0.0.1:${toString (cfg.streamingPort)}/"
+              );
             proxyWebsockets = true;
           };
         };

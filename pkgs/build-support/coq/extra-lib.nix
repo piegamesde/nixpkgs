@@ -93,7 +93,8 @@ recursiveUpdate lib (rec {
     pred: l: # put in file lists
     let
       loop =
-        (vv: v: l:
+        (
+          vv: v: l:
           if l == [ ] then
             vv ++ [ v ]
           else
@@ -102,11 +103,13 @@ recursiveUpdate lib (rec {
               tl = tail l;
             in
             if pred hd then
-              loop (vv
+              loop (
+                vv
                 ++ [
                   v
                   hd
-                ]) [ ] tl
+                ]
+              ) [ ] tl
             else
               loop vv (v ++ [ hd ]) tl
         );

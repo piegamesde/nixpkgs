@@ -54,9 +54,11 @@ let
       version ? "unstable-2023-03-13",
       ...
     }@args:
-    import ./mkLibretroCore.nix ({
-      inherit lib stdenv core src version makeWrapper retroarch zlib;
-    } // args)
+    import ./mkLibretroCore.nix (
+      {
+        inherit lib stdenv core src version makeWrapper retroarch zlib;
+      } // args
+    )
     ;
 in
 {
@@ -390,18 +392,20 @@ in
         libevdev
         udev
       ]
-      ++ (with xorg; [
-        libSM
-        libX11
-        libXi
-        libpthreadstubs
-        libxcb
-        xcbutil
-        libXext
-        libXrandr
-        libXinerama
-        libXxf86vm
-      ])
+      ++ (
+        with xorg; [
+          libSM
+          libX11
+          libXi
+          libpthreadstubs
+          libxcb
+          xcbutil
+          libXext
+          libXrandr
+          libXinerama
+          libXxf86vm
+        ]
+      )
       ;
     makefile = "Makefile";
     cmakeFlags = [

@@ -101,7 +101,8 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${
-      lib.makeBinPath ([ iptables ]
+      lib.makeBinPath (
+        [ iptables ]
         ++ [
           acl
           rsync
@@ -120,7 +121,8 @@ buildGoModule rec {
           (writeShellScriptBin "apparmor_parser" ''
             exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
           '')
-        ])
+        ]
+      )
     }
 
     installShellCompletion --bash --name lxd ./scripts/bash/lxd-client

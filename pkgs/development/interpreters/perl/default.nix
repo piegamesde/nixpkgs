@@ -22,7 +22,8 @@ let
         # Function that when called
         # - imports perl-packages.nix
         # - adds spliced package sets to the package set
-        ({
+        (
+          {
             stdenv,
             pkgs,
             perl,

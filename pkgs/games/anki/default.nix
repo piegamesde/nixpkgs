@@ -45,11 +45,13 @@ let
     };
   };
 
-  anki-build-python = python3.withPackages (ps:
+  anki-build-python = python3.withPackages (
+    ps:
     with ps; [
       pip
       mypy-protobuf
-    ]);
+    ]
+  );
 
     # anki shells out to git to check its revision, and also to update submodules
     # We don't actually need the submodules, so we stub that out

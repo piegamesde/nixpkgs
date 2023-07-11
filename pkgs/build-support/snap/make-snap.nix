@@ -41,7 +41,9 @@ let
           # base: built from https://github.com/NixOS/snapd-nix-base
           # and published as The NixOS Foundation on the Snapcraft store.
           base = "nix-base";
-          layout = (args.layout or { }) // {
+          layout = (
+            args.layout or { }
+          ) // {
             # Bind mount the Snap's root nix directory to `/nix` in the
             # execution environment's filesystem namespace.
             "/nix".bind = "$SNAP/nix";

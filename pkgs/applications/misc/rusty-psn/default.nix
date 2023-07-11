@@ -49,10 +49,12 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
   buildFeatures = [
-      (if withGui then
-        "egui"
-      else
-        "cli")
+      (
+        if withGui then
+          "egui"
+        else
+          "cli"
+      )
     ];
 
   postFixup =

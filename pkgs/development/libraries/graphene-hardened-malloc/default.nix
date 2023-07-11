@@ -8,7 +8,8 @@
   stress-ng,
 }:
 
-lib.fix (self:
+lib.fix (
+  self:
   stdenv.mkDerivation rec {
     pname = "graphene-hardened-malloc";
     version = "11";
@@ -99,4 +100,5 @@ lib.fix (self:
         "aarch64-linux"
       ];
     };
-  })
+  }
+)

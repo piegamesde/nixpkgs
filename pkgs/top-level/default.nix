@@ -54,14 +54,20 @@ let
   inherit (lib) throwIfNot;
 
   checked = throwIfNot (lib.isList overlays)
-    "The overlays argument to nixpkgs must be a list." lib.foldr (x:
+    "The overlays argument to nixpkgs must be a list." lib.foldr (
+      x:
       throwIfNot (lib.isFunction x)
-      "All overlays passed to nixpkgs must be functions.") (r: r) overlays
-    throwIfNot (lib.isList crossOverlays)
-    "The crossOverlays argument to nixpkgs must be a list." lib.foldr (x:
+      "All overlays passed to nixpkgs must be functions."
+    ) (
+      r: r
+    ) overlays throwIfNot (lib.isList crossOverlays)
+    "The crossOverlays argument to nixpkgs must be a list." lib.foldr (
+      x:
       throwIfNot (lib.isFunction x)
-      "All crossOverlays passed to nixpkgs must be functions.") (r: r)
-    crossOverlays;
+      "All crossOverlays passed to nixpkgs must be functions."
+    ) (
+      r: r
+    ) crossOverlays;
 
   localSystem = lib.systems.elaborate args.localSystem;
 
@@ -86,13 +92,15 @@ let
   configEval = lib.evalModules {
     modules = [
       ./config.nix
-      ({
+      (
+        {
           options,
           ...
         }: {
           _file = "nixpkgs.config";
           config = config1;
-        })
+        }
+      )
     ];
   };
 

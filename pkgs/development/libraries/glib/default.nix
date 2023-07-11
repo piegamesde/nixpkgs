@@ -152,14 +152,16 @@ stdenv.mkDerivation (finalAttrs: {
       libselinux
       util-linuxMinimal # for libmount
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      AppKit
-      Carbon
-      Cocoa
-      CoreFoundation
-      CoreServices
-      Foundation
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        AppKit
+        Carbon
+        Cocoa
+        CoreFoundation
+        CoreServices
+        Foundation
+      ]
+    )
     ++ lib.optionals buildDocs [
       # Note: this needs to be both in buildInputs and nativeBuildInputs. The
       # Meson gtkdoc module uses find_program to look it up (-> build dep), but
@@ -350,10 +352,12 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl21Plus;
     maintainers =
       teams.gnome.members
-      ++ (with maintainers; [
-        lovek323
-        raskin
-      ])
+      ++ (
+        with maintainers; [
+          lovek323
+          raskin
+        ]
+      )
       ;
     pkgConfigModules = [
       "gio-2.0"

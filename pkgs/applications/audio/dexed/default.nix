@@ -95,16 +95,18 @@ stdenv.mkDerivation rec {
       runHook preInstall
 
     ''
-    + (if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/{Applications,bin}
-        mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
-        ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
-      ''
-    else
-      ''
-        install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
-      '')
+    + (
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          mkdir -p $out/{Applications,bin}
+          mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
+          ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
+        ''
+      else
+        ''
+          install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
+        ''
+    )
     + ''
       mkdir -p ${vst3Dir} ${clapDir}
       mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}

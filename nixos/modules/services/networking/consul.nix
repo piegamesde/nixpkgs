@@ -26,8 +26,9 @@ let
     ;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
-  systemdDevices = forEach devices
-    (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device");
+  systemdDevices = forEach devices (
+    i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device"
+  );
 in
 {
   options = {
@@ -273,11 +274,13 @@ in
             echo "{" > /etc/consul-addrs.json
             delim=" "
           ''
-          + concatStrings (flip mapAttrsToList cfg.interface (name: i:
+          + concatStrings (flip mapAttrsToList cfg.interface (
+            name: i:
             optionalString (i != null) ''
               echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
               delim=","
-            ''))
+            ''
+          ))
           + ''
             echo "}" >> /etc/consul-addrs.json
           ''

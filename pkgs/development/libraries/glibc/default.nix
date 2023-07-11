@@ -60,21 +60,29 @@ in
     "stackprotector"
   ];
 
-  env = (previousAttrs.env or { }) // {
+  env = (
+    previousAttrs.env or { }
+  ) // {
     NIX_CFLAGS_COMPILE =
-      (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
+      (
+        previousAttrs.env.NIX_CFLAGS_COMPILE or ""
+      )
       + lib.concatStringsSep " " (builtins.concatLists [
         (lib.optionals withGd gdCflags)
         # Fix -Werror build failure when building glibc with musl with GCC >= 8, see:
         # https://github.com/NixOS/nixpkgs/pull/68244#issuecomment-544307798
         (lib.optional stdenv.hostPlatform.isMusl "-Wno-error=attribute-alias")
-        (lib.optionals ((stdenv.hostPlatform != stdenv.buildPlatform)
-          || stdenv.hostPlatform.isMusl) [
-            # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
-            # New warning as of GCC 9
-            # Same for musl: https://github.com/NixOS/nixpkgs/issues/78805
-            "-Wno-error=missing-attributes"
-          ])
+        (lib.optionals (
+          (
+            stdenv.hostPlatform != stdenv.buildPlatform
+          )
+          || stdenv.hostPlatform.isMusl
+        ) [
+          # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
+          # New warning as of GCC 9
+          # Same for musl: https://github.com/NixOS/nixpkgs/issues/78805
+          "-Wno-error=missing-attributes"
+        ])
         (lib.optionals (stdenv.hostPlatform.isPower64) [
           # Do not complain about the Processor Specific ABI (i.e. the
           # choice to use IEEE-standard `long double`).  We pass this
@@ -102,44 +110,48 @@ in
     # gcc.libgcc, since the path will be embedded in the resulting binary.
     #
   makeFlags =
-    (previousAttrs.makeFlags or [ ])
+    (
+      previousAttrs.makeFlags or [ ]
+    )
     ++ lib.optionals (stdenv.cc.cc ? libgcc) [
         "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
       ]
     ;
 
   postInstall =
-    (if stdenv.hostPlatform == stdenv.buildPlatform then
-      ''
-        echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
-        make -j''${NIX_BUILD_CORES:-1} localedata/install-locales
-      ''
-    else
-      lib.optionalString stdenv.buildPlatform.isLinux ''
-        # This is based on http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
-        # Instead of using their patch to build a build-native localedef,
-        # we simply use the one from buildPackages
-        pushd ../glibc-2*/localedata
-        export I18NPATH=$PWD GCONV_PATH=$PWD/../iconvdata
-        mkdir -p $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale
-        ${lib.getBin buildPackages.glibc}/bin/localedef \
-          --alias-file=../intl/locale.alias \
-          -i locales/C \
-          -f charmaps/UTF-8 \
-          --prefix $NIX_BUILD_TOP \
-          ${
-            if
-              stdenv.hostPlatform.parsed.cpu.significantByte.name
-              == "littleEndian"
-            then
-              "--little-endian"
-            else
-              "--big-endian"
-          } \
-          C.UTF-8
-        cp -r $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale $out/lib
-        popd
-      '')
+    (
+      if stdenv.hostPlatform == stdenv.buildPlatform then
+        ''
+          echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
+          make -j''${NIX_BUILD_CORES:-1} localedata/install-locales
+        ''
+      else
+        lib.optionalString stdenv.buildPlatform.isLinux ''
+          # This is based on http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
+          # Instead of using their patch to build a build-native localedef,
+          # we simply use the one from buildPackages
+          pushd ../glibc-2*/localedata
+          export I18NPATH=$PWD GCONV_PATH=$PWD/../iconvdata
+          mkdir -p $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale
+          ${lib.getBin buildPackages.glibc}/bin/localedef \
+            --alias-file=../intl/locale.alias \
+            -i locales/C \
+            -f charmaps/UTF-8 \
+            --prefix $NIX_BUILD_TOP \
+            ${
+              if
+                stdenv.hostPlatform.parsed.cpu.significantByte.name
+                == "littleEndian"
+              then
+                "--little-endian"
+              else
+                "--big-endian"
+            } \
+            C.UTF-8
+          cp -r $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale $out/lib
+          popd
+        ''
+    )
     + ''
 
       test -f $out/etc/ld.so.cache && rm $out/etc/ld.so.cache
@@ -189,10 +201,11 @@ in
 
   separateDebugInfo = true;
 
-  passthru = (previousAttrs.passthru or { })
-    // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {
-      inherit (stdenv.cc.cc) libgcc;
-    };
+  passthru = (
+    previousAttrs.passthru or { }
+  ) // lib.optionalAttrs (stdenv.cc.cc ? libgcc) {
+    inherit (stdenv.cc.cc) libgcc;
+  };
 
   meta = (previousAttrs.meta or { }) // { description = "The GNU C Library"; };
 })

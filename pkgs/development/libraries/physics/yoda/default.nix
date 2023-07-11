@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ python ]
-    ++ (with python.pkgs; [
-      numpy
-      matplotlib
-    ])
+    ++ (
+      with python.pkgs; [
+        numpy
+        matplotlib
+      ]
+    )
     ++ lib.optionals withRootSupport [ root ]
     ;
 

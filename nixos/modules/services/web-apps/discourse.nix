@@ -565,8 +565,10 @@ in
       {
         assertion =
           cfg.database.ignorePostgresqlVersion
-          || (databaseActuallyCreateLocally
-            -> upstreamPostgresqlVersion == postgresqlVersion)
+          || (
+            databaseActuallyCreateLocally
+            -> upstreamPostgresqlVersion == postgresqlVersion
+          )
           ;
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "
@@ -1047,66 +1049,68 @@ in
     };
 
     systemd.services.discourse-mail-receiver-setup =
-      lib.mkIf cfg.mail.incoming.enable (let
-        mail-receiver-environment = {
-          MAIL_DOMAIN = cfg.hostname;
-          DISCOURSE_BASE_URL =
-            "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-          DISCOURSE_API_KEY = "@api-key@";
-          DISCOURSE_API_USERNAME = "system";
-        };
-        mail-receiver-json =
-          json.generate "mail-receiver.json" mail-receiver-environment;
-      in
-      {
-        before = [ "postfix.service" ];
-        after = [ "discourse.service" ];
-        wantedBy = [ "discourse.service" ];
-        partOf = [ "discourse.service" ];
-        path = [
-          cfg.package.rake
-          pkgs.jq
-        ];
-        preStart = lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
-          set -o errexit -o pipefail -o nounset -o errtrace
-          shopt -s inherit_errexit
+      lib.mkIf cfg.mail.incoming.enable (
+        let
+          mail-receiver-environment = {
+            MAIL_DOMAIN = cfg.hostname;
+            DISCOURSE_BASE_URL =
+              "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
+            DISCOURSE_API_KEY = "@api-key@";
+            DISCOURSE_API_USERNAME = "system";
+          };
+          mail-receiver-json =
+            json.generate "mail-receiver.json" mail-receiver-environment;
+        in
+        {
+          before = [ "postfix.service" ];
+          after = [ "discourse.service" ];
+          wantedBy = [ "discourse.service" ];
+          partOf = [ "discourse.service" ];
+          path = [
+            cfg.package.rake
+            pkgs.jq
+          ];
+          preStart =
+            lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-          if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
-              discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
-          fi
-        '';
-        script =
-          let
-            apiKeyPath =
-              if cfg.mail.incoming.apiKeyFile == null then
-                "/var/lib/discourse-mail-receiver/api_key"
-              else
-                cfg.mail.incoming.apiKeyFile
-              ;
-          in
-          ''
-            set -o errexit -o pipefail -o nounset -o errtrace
-            shopt -s inherit_errexit
+              if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
+                  discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
+              fi
+            '';
+          script =
+            let
+              apiKeyPath =
+                if cfg.mail.incoming.apiKeyFile == null then
+                  "/var/lib/discourse-mail-receiver/api_key"
+                else
+                  cfg.mail.incoming.apiKeyFile
+                ;
+            in
+            ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-            api_key=$(<'${apiKeyPath}')
-            export api_key
+              api_key=$(<'${apiKeyPath}')
+              export api_key
 
-            jq <${mail-receiver-json} \
-               '.DISCOURSE_API_KEY = $ENV.api_key' \
-               >'/run/discourse-mail-receiver/mail-receiver-environment.json'
-          ''
-          ;
+              jq <${mail-receiver-json} \
+                 '.DISCOURSE_API_KEY = $ENV.api_key' \
+                 >'/run/discourse-mail-receiver/mail-receiver-environment.json'
+            ''
+            ;
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          RuntimeDirectory = "discourse-mail-receiver";
-          RuntimeDirectoryMode = "0700";
-          StateDirectory = "discourse-mail-receiver";
-          User = "discourse";
-          Group = "discourse";
-        };
-      }
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            RuntimeDirectory = "discourse-mail-receiver";
+            RuntimeDirectoryMode = "0700";
+            StateDirectory = "discourse-mail-receiver";
+            User = "discourse";
+            Group = "discourse";
+          };
+        }
       );
 
     services.discourse.siteSettings = {

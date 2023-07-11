@@ -209,10 +209,12 @@ let
       [
         "--with-blas=blas"
         "--with-lapack=lapack"
-        (if use64BitIdx then
-          "--enable-64"
-        else
-          "--disable-64")
+        (
+          if use64BitIdx then
+            "--enable-64"
+          else
+            "--disable-64"
+        )
       ]
       ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
       ++ lib.optionals enableReadline [ "--enable-readline" ]

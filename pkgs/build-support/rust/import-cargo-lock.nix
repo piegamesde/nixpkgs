@@ -105,7 +105,8 @@ let
     # workspace). By using the git commit SHA as a universal identifier,
     # the user does not have to specify the output hash for every package
     # individually.
-  gitShaOutputHash = lib.mapAttrs' (nameVer: hash:
+  gitShaOutputHash = lib.mapAttrs' (
+    nameVer: hash:
     let
       unusedHash = throw
         "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
@@ -258,53 +259,55 @@ let
       throw "Cannot handle crate source: ${pkg.source}"
     ;
 
-  vendorDir = runCommand "cargo-vendor-dir" (if lockFile == null then
-    {
-      inherit lockFileContents;
-      passAsFile = [ "lockFileContents" ];
-    }
-  else
-    { passthru = { inherit lockFile; }; }) ''
-          mkdir -p $out/.cargo
+  vendorDir = runCommand "cargo-vendor-dir" (
+    if lockFile == null then
+      {
+        inherit lockFileContents;
+        passAsFile = [ "lockFileContents" ];
+      }
+    else
+      { passthru = { inherit lockFile; }; }
+  ) ''
+        mkdir -p $out/.cargo
 
-          ${
-            if lockFile != null then
-              "ln -s ${lockFile} $out/Cargo.lock"
-            else
-              "cp $lockFileContentsPath $out/Cargo.lock"
-          }
+        ${
+          if lockFile != null then
+            "ln -s ${lockFile} $out/Cargo.lock"
+          else
+            "cp $lockFileContentsPath $out/Cargo.lock"
+        }
 
-          cat > $out/.cargo/config <<EOF
-      [source.crates-io]
-      replace-with = "vendored-sources"
+        cat > $out/.cargo/config <<EOF
+    [source.crates-io]
+    replace-with = "vendored-sources"
 
-      [source.vendored-sources]
-      directory = "cargo-vendor-dir"
-      EOF
+    [source.vendored-sources]
+    directory = "cargo-vendor-dir"
+    EOF
 
-          declare -A keysSeen
+        declare -A keysSeen
 
-          for registry in ${toString (builtins.attrNames extraRegistries)}; do
-            cat >> $out/.cargo/config <<EOF
+        for registry in ${toString (builtins.attrNames extraRegistries)}; do
+          cat >> $out/.cargo/config <<EOF
 
-      [source."$registry"]
-      registry = "$registry"
-      replace-with = "vendored-sources"
-      EOF
-          done
+    [source."$registry"]
+    registry = "$registry"
+    replace-with = "vendored-sources"
+    EOF
+        done
 
-          for crate in ${toString depCrates}; do
-            # Link the crate directory, removing the output path hash from the destination.
-            ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
+        for crate in ${toString depCrates}; do
+          # Link the crate directory, removing the output path hash from the destination.
+          ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
 
-            if [ -e "$crate/.cargo-config" ]; then
-              key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
-              if [[ -z ''${keysSeen[$key]} ]]; then
-                keysSeen[$key]=1
-                cat "$crate/.cargo-config" >> $out/.cargo/config
-              fi
+          if [ -e "$crate/.cargo-config" ]; then
+            key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
+            if [[ -z ''${keysSeen[$key]} ]]; then
+              keysSeen[$key]=1
+              cat "$crate/.cargo-config" >> $out/.cargo/config
             fi
-          done
-    '';
+          fi
+        done
+  '';
 in
 vendorDir

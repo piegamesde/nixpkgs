@@ -69,10 +69,12 @@ else
     buildInputs = [
       dot-merlin-reader
       yojson
-      (if lib.versionAtLeast version "4.7-414" then
-        merlin-lib
-      else
-        csexp)
+      (
+        if lib.versionAtLeast version "4.7-414" then
+          merlin-lib
+        else
+          csexp
+      )
       menhirSdk
       menhirLib
     ];

@@ -220,7 +220,9 @@ let
           nativeCheckInputs =
             oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
           disabledTestPaths =
-            (oldAttrs.disabledTestPaths or [ ])
+            (
+              oldAttrs.disabledTestPaths or [ ]
+            )
             ++ [
               "test/aaa_profiling"
               "test/ext/mypy"
@@ -237,7 +239,8 @@ let
   };
 
     # TODO: split this off in build and runtime environment
-  ceph-python-env = python.withPackages (ps:
+  ceph-python-env = python.withPackages (
+    ps:
     with ps; [
       ceph-common
 
@@ -274,7 +277,8 @@ let
       # src/tools/cephfs/shell/setup.py
       cmd2
       colorama
-    ]);
+    ]
+  );
   sitePackages = ceph-python-env.python.sitePackages;
 
   version = "17.2.5";

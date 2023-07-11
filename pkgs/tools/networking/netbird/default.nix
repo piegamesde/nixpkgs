@@ -84,7 +84,8 @@ buildGoModule rec {
   '';
 
   postInstall =
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (module: binary:
+    lib.concatStringsSep "\n" (lib.mapAttrsToList (
+      module: binary:
       ''
         mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
       ''
@@ -93,7 +94,8 @@ buildGoModule rec {
           --bash <($out/bin/${binary} completion bash) \
           --fish <($out/bin/${binary} completion fish) \
           --zsh <($out/bin/${binary} completion zsh)
-      '') modules)
+      ''
+    ) modules)
     + lib.optionalString (stdenv.isLinux && ui) ''
       mkdir -p $out/share/pixmaps
       cp $src/client/ui/disconnected.png $out/share/pixmaps/netbird.png

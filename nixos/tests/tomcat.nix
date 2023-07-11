@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
           "curl --fail http://localhost:8080/examples/jsp/jsp2/simpletag/hello.jsp | grep 'Hello, world!'"
       )
     '';
-  })
+  }
+)

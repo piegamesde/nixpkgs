@@ -163,15 +163,17 @@ stdenv.mkDerivation rec {
         extraPrefix = "tools/";
       })
     ]
-    ++ lib.optional gtkStyle (substituteAll ({
-      src = ./dlopen-gtkstyle.diff;
-        # substituteAll ignores env vars starting with capital letter
-      gtk = gtk2.out;
-    } // lib.optionalAttrs gnomeStyle {
-      gconf = GConf.out;
-      libgnomeui = libgnomeui.out;
-      gnome_vfs = gnome_vfs.out;
-    }))
+    ++ lib.optional gtkStyle (substituteAll (
+      {
+        src = ./dlopen-gtkstyle.diff;
+          # substituteAll ignores env vars starting with capital letter
+        gtk = gtk2.out;
+      } // lib.optionalAttrs gnomeStyle {
+        gconf = GConf.out;
+        libgnomeui = libgnomeui.out;
+        gnome_vfs = gnome_vfs.out;
+      }
+    ))
     ++ lib.optional stdenv.isAarch64 (fetchpatch {
       url =
         "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
@@ -227,70 +229,72 @@ stdenv.mkDerivation rec {
           "-platform"
         ;
     in
-    (if stdenv.hostPlatform != stdenv.buildPlatform then
-      [
-        # I've not tried any case other than i686-pc-mingw32.
-        # -nomake tools: it fails linking some asian language symbols
-        # -no-svg: it fails to build on mingw64
-        "-static"
-        "-release"
-        "-confirm-license"
-        "-opensource"
-        "-no-opengl"
-        "-no-phonon"
-        "-no-svg"
-        "-make"
-        "qmake"
-        "-make"
-        "libs"
-        "-nomake"
-        "tools"
-      ]
-    else
-      [
-        "-v"
-        "-no-separate-debug-info"
-        "-release"
-        "-fast"
-        "-confirm-license"
-        "-opensource"
+    (
+      if stdenv.hostPlatform != stdenv.buildPlatform then
+        [
+          # I've not tried any case other than i686-pc-mingw32.
+          # -nomake tools: it fails linking some asian language symbols
+          # -no-svg: it fails to build on mingw64
+          "-static"
+          "-release"
+          "-confirm-license"
+          "-opensource"
+          "-no-opengl"
+          "-no-phonon"
+          "-no-svg"
+          "-make"
+          "qmake"
+          "-make"
+          "libs"
+          "-nomake"
+          "tools"
+        ]
+      else
+        [
+          "-v"
+          "-no-separate-debug-info"
+          "-release"
+          "-fast"
+          "-confirm-license"
+          "-opensource"
 
-        (mk (!stdenv.isFreeBSD) "opengl")
-        "-xrender"
-        "-xrandr"
-        "-xinerama"
-        "-xcursor"
-        "-xinput"
-        "-xfixes"
-        "-fontconfig"
-        "-qdbus"
-        (mk (cups != null) "cups")
-        "-glib"
-        "-dbus-linked"
-        "-openssl-linked"
+          (mk (!stdenv.isFreeBSD) "opengl")
+          "-xrender"
+          "-xrandr"
+          "-xinerama"
+          "-xcursor"
+          "-xinput"
+          "-xfixes"
+          "-fontconfig"
+          "-qdbus"
+          (mk (cups != null) "cups")
+          "-glib"
+          "-dbus-linked"
+          "-openssl-linked"
 
-        "-${
-          if libmysqlclient != null then
-            "plugin"
-          else
-            "no"
-        }-sql-mysql"
-        "-system-sqlite"
+          "-${
+            if libmysqlclient != null then
+              "plugin"
+            else
+              "no"
+          }-sql-mysql"
+          "-system-sqlite"
 
-        "-exceptions"
-        "-xmlpatterns"
+          "-exceptions"
+          "-xmlpatterns"
 
-        "-make"
-        "libs"
-        "-make"
-        "tools"
-        "-make"
-        "translations"
-        "-no-phonon"
-        "-no-webkit"
-        "-no-multimedia"
-        "-audio-backend"
-      ])
+          "-make"
+          "libs"
+          "-make"
+          "tools"
+          "-make"
+          "translations"
+          "-no-phonon"
+          "-no-webkit"
+          "-no-multimedia"
+          "-audio-backend"
+        ]
+    )
     ++ [
       "-${
         if demos then
@@ -394,7 +398,8 @@ stdenv.mkDerivation rec {
       "-I${glib.dev}/include/glib-2.0"
       "-I${glib.out}/lib/glib-2.0/include"
     ]
-    ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1");
+    ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1"
+  );
 
   NIX_LDFLAGS =
     lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin) "-lglib-2.0";

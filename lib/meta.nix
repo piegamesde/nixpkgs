@@ -54,7 +54,8 @@ rec {
     */
   appendToName =
     suffix:
-    updateName (name:
+    updateName (
+      name:
       let
         x = builtins.parseDrvName name;
       in
@@ -65,11 +66,13 @@ rec {
     # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset =
     f: set:
-    lib.mapAttrs (name: pkg:
+    lib.mapAttrs (
+      name: pkg:
       if lib.isDerivation pkg then
         (f pkg)
       else
-        pkg) set
+        pkg
+    ) set
     ;
 
     # Set the nix-env priority of the package.
@@ -140,10 +143,15 @@ rec {
     */
   availableOn =
     platform: pkg:
-    ((!pkg ? meta.platforms)
-      || lib.any (platformMatch platform) pkg.meta.platforms)
-    && lib.all (elem: !platformMatch platform elem)
-      (pkg.meta.badPlatforms or [ ])
+    (
+      (
+        !pkg ? meta.platforms
+      )
+      || lib.any (platformMatch platform) pkg.meta.platforms
+    )
+    && lib.all (elem: !platformMatch platform elem) (
+      pkg.meta.badPlatforms or [ ]
+    )
     ;
 
     /* Get the corresponding attribute in lib.licenses

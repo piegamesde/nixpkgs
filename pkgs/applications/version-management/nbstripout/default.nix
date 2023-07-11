@@ -32,10 +32,12 @@ python3.pkgs.buildPythonApplication rec {
       git
       mercurial
     ]
-    ++ (with python3.pkgs; [
-      pytest-cram
-      pytestCheckHook
-    ])
+    ++ (
+      with python3.pkgs; [
+        pytest-cram
+        pytestCheckHook
+      ]
+    )
     ;
 
   preCheck = ''

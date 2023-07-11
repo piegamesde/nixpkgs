@@ -73,11 +73,13 @@ in
         mountable = lib.filterAttrs (_: value: ((value.mount or null) != null))
           config.ec2.zfs.datasets;
       in
-      lib.mapAttrs' (dataset: opts:
+      lib.mapAttrs' (
+        dataset: opts:
         lib.nameValuePair opts.mount {
           device = dataset;
           fsType = "zfs";
-        }) mountable
+        }
+      ) mountable
       ;
   };
 }

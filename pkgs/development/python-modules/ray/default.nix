@@ -72,13 +72,15 @@ buildPythonPackage rec {
         "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
       binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or { };
     in
-    fetchPypi ({
-      inherit pname version format;
-      dist = pyShortVersion;
-      python = pyShortVersion;
-      abi = pyShortVersion;
-      platform = "manylinux2014_x86_64";
-    } // binary-hash)
+    fetchPypi (
+      {
+        inherit pname version format;
+        dist = pyShortVersion;
+        python = pyShortVersion;
+        abi = pyShortVersion;
+        platform = "manylinux2014_x86_64";
+      } // binary-hash
+    )
     ;
 
   passthru.optional-dependencies = rec {

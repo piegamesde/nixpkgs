@@ -168,11 +168,13 @@ let
     documentation = [ "man:faxq(8)" ];
     requires = [ "hylafax-spool.service" ];
     after = [ "hylafax-spool.service" ];
-    wants = mapModems ({
+    wants = mapModems (
+      {
         name,
         ...
       }:
-      "hylafax-faxgetty@${name}.service");
+      "hylafax-faxgetty@${name}.service"
+    );
     wantedBy = mkIf cfg.autostart [ "multi-user.target" ];
     serviceConfig.Type = "forking";
     serviceConfig.ExecStart =

@@ -30,17 +30,21 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [ installShellFiles ];
-  buildInputs = lib.optionals stdenv.isDarwin ([
-    libiconv
-    darwin.libobjc
-  ]
-    ++ (with darwin.apple_sdk.frameworks; [
-      Security
-      CoreServices
-      Metal
-      Foundation
-      QuartzCore
-    ]));
+  buildInputs = lib.optionals stdenv.isDarwin (
+    [
+      libiconv
+      darwin.libobjc
+    ]
+    ++ (
+      with darwin.apple_sdk.frameworks; [
+        Security
+        CoreServices
+        Metal
+        Foundation
+        QuartzCore
+      ]
+    )
+  );
 
   buildAndTestSubdir = "cli";
 

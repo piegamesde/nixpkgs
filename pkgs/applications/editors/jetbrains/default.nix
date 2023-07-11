@@ -85,14 +85,18 @@ let
       };
     }).overrideAttrs (attrs: {
       nativeBuildInputs =
-        (attrs.nativeBuildInputs or [ ])
+        (
+          attrs.nativeBuildInputs or [ ]
+        )
         ++ lib.optionals (stdenv.isLinux) [
           autoPatchelfHook
           patchelf
         ]
         ;
       buildInputs =
-        (attrs.buildInputs or [ ])
+        (
+          attrs.buildInputs or [ ]
+        )
         ++ lib.optionals (stdenv.isLinux) [
           python3
           stdenv.cc.cc
@@ -104,7 +108,9 @@ let
         ;
       dontAutoPatchelf = true;
       postFixup =
-        (attrs.postFixup or "")
+        (
+          attrs.postFixup or ""
+        )
         + lib.optionalString (stdenv.isLinux) ''
           (
             cd $out/clion
@@ -209,7 +215,9 @@ let
       };
     }).overrideAttrs (attrs: {
       postFixup =
-        (attrs.postFixup or "")
+        (
+          attrs.postFixup or ""
+        )
         + lib.optionalString stdenv.isLinux ''
           interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
           patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
@@ -352,7 +360,8 @@ let
         '';
         maintainers = with maintainers; [ ];
       };
-    }).overrideAttrs (finalAttrs: previousAttrs:
+    }).overrideAttrs (
+      finalAttrs: previousAttrs:
       lib.optionalAttrs cythonSpeedup {
         buildInputs = with python3.pkgs; [
           python3
@@ -367,7 +376,8 @@ let
           fi
         '';
           # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
-      })
+      }
+    )
     ;
 
   buildRider =
@@ -399,7 +409,8 @@ let
         maintainers = with maintainers; [ raphaelr ];
       };
     }).overrideAttrs (attrs: {
-      postPatch = lib.optionalString (!stdenv.isDarwin) (attrs.postPatch
+      postPatch = lib.optionalString (!stdenv.isDarwin) (
+        attrs.postPatch
         + ''
           interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
           patchelf --set-interpreter $interp \
@@ -408,7 +419,8 @@ let
 
           rm -rf lib/ReSharperHost/linux-x64/dotnet
           ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
-        '');
+        ''
+      );
     })
     ;
 

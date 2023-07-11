@@ -19,7 +19,8 @@ let
       See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en#${option}).
     ''
     ;
-  bindsPrivilegedPort = any (p0:
+  bindsPrivilegedPort = any (
+    p0:
     let
       p1 =
         if p0 ? "port" then
@@ -117,7 +118,8 @@ let
     oneOf [
       port
       (enum [ "auto" ])
-      (submodule ({
+      (submodule (
+        {
           config,
           ...
         }: {
@@ -129,11 +131,13 @@ let
               type = nullOr int;
               default = null;
             };
-          } // genAttrs isolateFlags (name:
+          } // genAttrs isolateFlags (
+            name:
             mkOption {
               type = types.bool;
               default = false;
-            });
+            }
+          );
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
@@ -141,7 +145,8 @@ let
                 "SessionGroup=${toString config.SessionGroup}"
               ;
           };
-        }))
+        }
+      ))
     ];
   optionIsolablePorts =
     optionName:
@@ -187,7 +192,8 @@ let
     with types;
     oneOf [
       port
-      (submodule ({
+      (submodule (
+        {
           config,
           ...
         }: {
@@ -200,11 +206,13 @@ let
               type = nullOr int;
               default = null;
             };
-          } // genAttrs flags (name:
+          } // genAttrs flags (
+            name:
             mkOption {
               type = types.bool;
               default = false;
-            });
+            }
+          );
           config =
             mkIf doConfig { # Only add flags in SOCKSPort to avoid duplicates
               flags =
@@ -213,7 +221,8 @@ let
                   "SessionGroup=${toString config.SessionGroup}"
                 ;
             };
-        }))
+        }
+      ))
     ]
     ;
   optionFlags = mkOption {
@@ -232,7 +241,8 @@ let
           (listOf (oneOf [
             port
             (enum [ "auto" ])
-            (submodule ({
+            (submodule (
+              {
                 config,
                 ...
               }:
@@ -249,11 +259,13 @@ let
                   addr = optionAddress;
                   port = optionPort;
                   flags = optionFlags;
-                } // genAttrs flags (name:
+                } // genAttrs flags (
+                  name:
                   mkOption {
                     type = types.bool;
                     default = false;
-                  });
+                  }
+                );
                 config = {
                   flags = filter (name: config.${name} == true) flags;
                 };
@@ -286,10 +298,12 @@ let
     if v == null then
       ""
     else if isBool v then
-      (if v then
-        "1"
-      else
-        "0")
+      (
+        if v then
+          "1"
+        else
+          "0"
+      )
     else if v ? "unix" && v.unix != null then
       "unix:"
       + v.unix
@@ -314,7 +328,8 @@ let
         k:
         generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k
         ;
-    } (lib.mapAttrs (k: v:
+    } (lib.mapAttrs (
+      k: v:
       # Not necesssary, but prettier rendering
       if
         elem k [
@@ -327,14 +342,19 @@ let
       then
         concatStringsSep "," v
       else
-        v) (lib.filterAttrs (k: v: !(v == null || v == "")) settings))
+        v
+    ) (lib.filterAttrs (k: v: !(v == null || v == "")) settings))
     ;
-  torrc = pkgs.writeText "torrc" (genTorrc cfg.settings
-    + concatStrings (mapAttrsToList (name: onion:
+  torrc = pkgs.writeText "torrc" (
+    genTorrc cfg.settings
+    + concatStrings (mapAttrsToList (
+      name: onion:
       ''
         HiddenServiceDir ${onion.path}
       ''
-      + genTorrc onion.settings) cfg.relay.onionServices));
+      + genTorrc onion.settings
+    ) cfg.relay.onionServices)
+  );
 in
 {
   imports = [
@@ -633,7 +653,8 @@ in
               clientAuthorizations = [ "/run/keys/tor/alice.prv.x25519" ];
             };
           };
-          type = types.attrsOf (types.submodule ({
+          type = types.attrsOf (types.submodule (
+            {
               name,
               config,
               ...
@@ -651,7 +672,8 @@ in
                 default = [ ];
                 example = [ "/run/keys/tor/alice.prv.x25519" ];
               };
-            }));
+            }
+          ));
         };
       };
 
@@ -773,7 +795,8 @@ in
                 ];
             };
           };
-          type = types.attrsOf (types.submodule ({
+          type = types.attrsOf (types.submodule (
+            {
               name,
               config,
               ...
@@ -804,7 +827,8 @@ in
                 description =
                   lib.mdDoc (descriptionGeneric "HiddenServiceAuthorizeClient");
                 default = null;
-                type = types.nullOr (types.submodule ({
+                type = types.nullOr (types.submodule (
+                  {
                     ...
                   }: {
                     options = {
@@ -830,7 +854,8 @@ in
                         '';
                       };
                     };
-                  }));
+                  }
+                ));
               };
               options.authorizedClients = mkOption {
                 description = lib.mdDoc ''
@@ -853,14 +878,16 @@ in
                 type = with types;
                   listOf (oneOf [
                     port
-                    (submodule ({
+                    (submodule (
+                      {
                         ...
                       }: {
                         options = {
                           port = optionPort;
                           target = mkOption {
                             default = null;
-                            type = nullOr (submodule ({
+                            type = nullOr (submodule (
+                              {
                                 ...
                               }: {
                                 options = {
@@ -868,19 +895,23 @@ in
                                   addr = optionAddress;
                                   port = optionPort;
                                 };
-                              }));
+                              }
+                            ));
                           };
                         };
-                      }))
+                      }
+                    ))
                   ]);
-                apply = map (v:
+                apply = map (
+                  v:
                   if isInt v then
                     {
                       port = v;
                       target = null;
                     }
                   else
-                    v);
+                    v
+                );
               };
               options.version = mkOption {
                 description =
@@ -938,11 +969,15 @@ in
                 };
               };
               config = {
-                path = mkDefault ((if config.secretKey == null then
-                  stateDir
-                else
-                  runDir)
-                  + "/onion/${name}");
+                path = mkDefault (
+                  (
+                    if config.secretKey == null then
+                      stateDir
+                    else
+                      runDir
+                  )
+                  + "/onion/${name}"
+                );
                 settings.HiddenServiceVersion = config.version;
                 settings.HiddenServiceAuthorizeClient =
                   if config.authorizeClient != null then
@@ -952,11 +987,12 @@ in
                   else
                     null
                   ;
-                settings.HiddenServicePort = map
-                  (p: mkValueString "" p.port + " " + mkValueString "" p.target)
-                  config.map;
+                settings.HiddenServicePort = map (
+                  p: mkValueString "" p.port + " " + mkValueString "" p.target
+                ) config.map;
               };
-            }));
+            }
+          ));
         };
       };
 
@@ -1041,7 +1077,8 @@ in
                 (listOf (oneOf [
                   port
                   (enum [ "auto" ])
-                  (submodule ({
+                  (submodule (
+                    {
                       config,
                       ...
                     }:
@@ -1058,11 +1095,13 @@ in
                         flags = optionFlags;
                         addr = optionAddress;
                         port = optionPort;
-                      } // genAttrs flags (name:
+                      } // genAttrs flags (
+                        name:
                         mkOption {
                           type = types.bool;
                           default = false;
-                        });
+                        }
+                      );
                       config = {
                         flags = filter (name: config.${name} == true) flags;
                       };
@@ -1135,14 +1174,16 @@ in
               nullOr (oneOf [
                 port
                 (enum [ "auto" ])
-                (submodule ({
+                (submodule (
+                  {
                     ...
                   }: {
                     options = {
                       addr = optionAddress;
                       port = optionPort;
                     };
-                  }))
+                  }
+                ))
               ]);
             apply =
               p:
@@ -1269,7 +1310,8 @@ in
               lib.mdDoc (descriptionGeneric "ServerTransportPlugin");
             default = null;
             type = with types;
-              nullOr (submodule ({
+              nullOr (submodule (
+                {
                   ...
                 }: {
                   options = {
@@ -1288,7 +1330,8 @@ in
                       description = lib.mdDoc "Command of pluggable transport.";
                     };
                   };
-                }));
+                }
+              ));
           };
           options.ShutdownWaitLength = mkOption {
             type = types.int;
@@ -1349,19 +1392,21 @@ in
     # Not sure if `cfg.relay.role == "private-bridge"` helps as tor
     # sends a lot of stats
     warnings =
-      optional (cfg.settings.BridgeRelay
-        && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-          != [ ]) ''
-            Running Tor hidden services on a public relay makes the
-            presence of hidden services visible through simple statistical
-            analysis of publicly available data.
-            See https://trac.torproject.org/projects/tor/ticket/8742
+      optional (
+        cfg.settings.BridgeRelay
+        && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
+      ) ''
+        Running Tor hidden services on a public relay makes the
+        presence of hidden services visible through simple statistical
+        analysis of publicly available data.
+        See https://trac.torproject.org/projects/tor/ticket/8742
 
-            You can safely ignore this warning if you don't intend to
-            actually hide your hidden services. In either case, you can
-            always create a container/VM with a separate Tor daemon instance.
-          ''
-      ++ flatten (mapAttrsToList (n: o:
+        You can safely ignore this warning if you don't intend to
+        actually hide your hidden services. In either case, you can
+        always create a container/VM with a separate Tor daemon instance.
+      ''
+      ++ flatten (mapAttrsToList (
+        n: o:
         optionals (o.settings.HiddenServiceVersion == 2) [
             (optional (o.settings.HiddenServiceExportCircuitID != null) ''
               HiddenServiceExportCircuitID is used in the HiddenService: ${n}
@@ -1377,7 +1422,8 @@ in
             RendPostPeriod is used in the HiddenService: ${n}
             but this option is only for v2 hidden services.
           '')
-        ]) cfg.relay.onionServices)
+        ]
+      ) cfg.relay.onionServices)
       ;
 
     users.groups.tor.gid = config.ids.gids.tor;
@@ -1401,21 +1447,23 @@ in
           RelaxDirModeCheck = true;
         } ];
       })
-      (mkIf cfg.relay.enable (optionalAttrs (cfg.relay.role != "exit") {
-        ExitPolicy = mkForce [ "reject *:*" ];
-      } // optionalAttrs (elem cfg.relay.role [
-        "bridge"
-        "private-bridge"
-      ]) {
-        BridgeRelay = true;
-        ExtORPort.port = mkDefault "auto";
-        ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
-        ServerTransportPlugin.exec =
-          mkDefault "${pkgs.obfs4}/bin/obfs4proxy managed";
-      } // optionalAttrs (cfg.relay.role == "private-bridge") {
-        ExtraInfoStatistics = false;
-        PublishServerDescriptor = false;
-      }))
+      (mkIf cfg.relay.enable (
+        optionalAttrs (cfg.relay.role != "exit") {
+          ExitPolicy = mkForce [ "reject *:*" ];
+        } // optionalAttrs (elem cfg.relay.role [
+          "bridge"
+          "private-bridge"
+        ]) {
+          BridgeRelay = true;
+          ExtORPort.port = mkDefault "auto";
+          ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
+          ServerTransportPlugin.exec =
+            mkDefault "${pkgs.obfs4}/bin/obfs4proxy managed";
+        } // optionalAttrs (cfg.relay.role == "private-bridge") {
+          ExtraInfoStatistics = false;
+          PublishServerDescriptor = false;
+        }
+      ))
       (mkIf (!cfg.relay.enable) {
         # Avoid surprises when leaving ORPort/DirPort configurations in cfg.settings,
         # because it would still enable Tor as a relay,
@@ -1431,35 +1479,41 @@ in
         # when services.tor.client.enable is false
         SOCKSPort = mkForce [ 0 ];
       })
-      (mkIf cfg.client.enable ({
-        SOCKSPort = [ cfg.client.socksListenAddress ];
-      } // optionalAttrs cfg.client.transparentProxy.enable {
-        TransPort = [ {
-          addr = "127.0.0.1";
-          port = 9040;
-        } ];
-      } // optionalAttrs cfg.client.dns.enable {
-        DNSPort = [ {
-          addr = "127.0.0.1";
-          port = 9053;
-        } ];
-        AutomapHostsOnResolve = true;
-      } // optionalAttrs (flatten
-        (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
-        != [ ]) { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }))
+      (mkIf cfg.client.enable (
+        {
+          SOCKSPort = [ cfg.client.socksListenAddress ];
+        } // optionalAttrs cfg.client.transparentProxy.enable {
+          TransPort = [ {
+            addr = "127.0.0.1";
+            port = 9040;
+          } ];
+        } // optionalAttrs cfg.client.dns.enable {
+          DNSPort = [ {
+            addr = "127.0.0.1";
+            port = 9053;
+          } ];
+          AutomapHostsOnResolve = true;
+        } // optionalAttrs (
+          flatten (mapAttrsToList (n: o: o.clientAuthorizations)
+            cfg.client.onionServices)
+          != [ ]
+        ) { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
+      ))
     ];
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = concatMap (o:
+      allowedTCPPorts = concatMap (
+        o:
         if isInt o && o > 0 then
           [ o ]
         else if o ? "port" && isInt o.port && o.port > 0 then
           [ o.port ]
         else
-          [ ]) (flatten [
-            cfg.settings.ORPort
-            cfg.settings.DirPort
-          ]);
+          [ ]
+      ) (flatten [
+        cfg.settings.ORPort
+        cfg.settings.DirPort
+      ]);
     };
 
     systemd.services.tor = {
@@ -1477,22 +1531,27 @@ in
         ExecStartPre = [
           "${cfg.package}/bin/tor -f ${torrc} --verify-config"
           # DOC: Appendix G of https://spec.torproject.org/rend-spec-v3
-          ("+"
+          (
+            "+"
             + pkgs.writeShellScript "ExecStartPre" (concatStringsSep "\n"
-              (flatten ([ "set -eu" ]
-                ++ mapAttrsToList (name: onion:
+              (flatten (
+                [ "set -eu" ]
+                ++ mapAttrsToList (
+                  name: onion:
                   optional (onion.authorizedClients != [ ]) ''
                     rm -rf ${escapeShellArg onion.path}/authorized_clients
                     install -d -o tor -g tor -m 0700 ${
                       escapeShellArg onion.path
                     } ${escapeShellArg onion.path}/authorized_clients
                   ''
-                  ++ imap0 (i: pubKey: ''
-                    echo ${pubKey} |
-                    install -o tor -g tor -m 0400 /dev/stdin ${
-                      escapeShellArg onion.path
-                    }/authorized_clients/${toString i}.auth
-                  '') onion.authorizedClients
+                  ++ imap0 (
+                    i: pubKey: ''
+                      echo ${pubKey} |
+                      install -o tor -g tor -m 0400 /dev/stdin ${
+                        escapeShellArg onion.path
+                      }/authorized_clients/${toString i}.auth
+                    ''
+                  ) onion.authorizedClients
                   ++ optional (onion.secretKey != null) ''
                     install -d -o tor -g tor -m 0700 ${
                       escapeShellArg onion.path
@@ -1507,9 +1566,12 @@ in
                       } ${escapeShellArg onion.path}/hs_ed25519_secret_key;;
                      (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
                     esac
-                  '') cfg.relay.onionServices
-                ++ mapAttrsToList (name: onion:
-                  imap0 (i: prvKeyPath:
+                  ''
+                ) cfg.relay.onionServices
+                ++ mapAttrsToList (
+                  name: onion:
+                  imap0 (
+                    i: prvKeyPath:
                     let
                       hostname = removeSuffix ".onion" name;
                     in
@@ -1522,7 +1584,10 @@ in
                          escapeShellArg hostname
                        }.${toString i}.auth_private
                     ''
-                  ) onion.clientAuthorizations) cfg.client.onionServices))))
+                  ) onion.clientAuthorizations
+                ) cfg.client.onionServices
+              )))
+          )
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -1546,9 +1611,9 @@ in
             "tor"
             "tor/onion"
           ]
-          ++ flatten (mapAttrsToList (name: onion:
-            optional (onion.secretKey == null) "tor/onion/${name}")
-            cfg.relay.onionServices)
+          ++ flatten (mapAttrsToList (
+            name: onion: optional (onion.secretKey == null) "tor/onion/${name}"
+          ) cfg.relay.onionServices)
           ;
           # The following options are only to optimize:
           # systemd-analyze security tor

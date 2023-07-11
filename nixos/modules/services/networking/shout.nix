@@ -113,10 +113,12 @@ in
         } ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"
-        (if cfg.private then
-          "--private"
-        else
-          "--public")
+        (
+          if cfg.private then
+            "--private"
+          else
+            "--public"
+        )
         "--port"
         (toString cfg.port)
         "--host"

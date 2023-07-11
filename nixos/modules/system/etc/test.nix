@@ -11,7 +11,8 @@
   writeText,
 }:
 let
-  node = evalMinimalConfig ({
+  node = evalMinimalConfig (
+    {
       config,
       ...
     }: {
@@ -24,7 +25,8 @@ let
         text = hostsText;
         mode = "0751";
       };
-    });
+    }
+  );
   passwdText = ''
     root:x:0:0:System administrator:/root:/run/current-system/sw/bin/bash
   '';

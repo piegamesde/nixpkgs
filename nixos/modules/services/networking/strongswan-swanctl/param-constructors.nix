@@ -62,12 +62,14 @@ rec {
     if strongswanDefault == null then
       mdDoc description
     else
-      mdDoc (description
+      mdDoc (
+        description
         + ''
 
 
           StrongSwan default: ````${builtins.toJSON strongswanDefault}````
-        '')
+        ''
+      )
     ;
 
   single = f: name: value: { ${name} = f value; };
@@ -99,11 +101,13 @@ rec {
         default = null;
         description = documentDefault description strongswanDefault;
       };
-      render = single (b:
+      render = single (
+        b:
         if b then
           "yes"
         else
-          "no");
+          "no"
+      );
     }
     ;
   yes = true;
@@ -139,8 +143,9 @@ rec {
         default = { };
         description = mdDoc description;
       };
-      render = single (attrs:
-        (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
+      render = single (
+        attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs))
+      );
     }
     ;
 

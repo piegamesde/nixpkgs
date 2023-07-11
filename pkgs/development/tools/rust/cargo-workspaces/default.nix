@@ -40,13 +40,15 @@ rustPlatform.buildRustPackage rec {
       libssh2
       libgit2
     ]
-    ++ (lib.optionals stdenv.isDarwin ([
-      IOKit
-      Security
-      CoreFoundation
-      AppKit
-    ]
-      ++ (lib.optionals stdenv.isAarch64 [ System ])))
+    ++ (lib.optionals stdenv.isDarwin (
+      [
+        IOKit
+        Security
+        CoreFoundation
+        AppKit
+      ]
+      ++ (lib.optionals stdenv.isAarch64 [ System ])
+    ))
     ;
 
   meta = with lib; {

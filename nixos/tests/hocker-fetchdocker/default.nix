@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -17,4 +18,5 @@ import ../make-test-python.nix ({
       machine.wait_for_unit("sockets.target")
       machine.wait_until_succeeds("docker run registry-1.docker.io/v2/library/hello-world:latest")
     '';
-  })
+  }
+)

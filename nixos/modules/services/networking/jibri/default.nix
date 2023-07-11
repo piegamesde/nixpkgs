@@ -30,11 +30,13 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars (c:
+    + stringAsChars (
+      c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
-        "_") s
+        "_"
+    ) s
     ;
 
   defaultJibriConfig = {
@@ -45,33 +47,35 @@ let
       http.external-api-port = 2222;
       http.internal-api-port = 3333;
 
-      xmpp.environments = flip mapAttrsToList cfg.xmppEnvironments (name: env: {
-        inherit name;
+      xmpp.environments = flip mapAttrsToList cfg.xmppEnvironments (
+        name: env: {
+          inherit name;
 
-        xmpp-server-hosts = env.xmppServerHosts;
-        xmpp-domain = env.xmppDomain;
-        control-muc = {
-          domain = env.control.muc.domain;
-          room-name = env.control.muc.roomName;
-          nickname = env.control.muc.nickname;
-        };
+          xmpp-server-hosts = env.xmppServerHosts;
+          xmpp-domain = env.xmppDomain;
+          control-muc = {
+            domain = env.control.muc.domain;
+            room-name = env.control.muc.roomName;
+            nickname = env.control.muc.nickname;
+          };
 
-        control-login = {
-          domain = env.control.login.domain;
-          username = env.control.login.username;
-          password.__hocon_envvar = toVarName "${name}_control";
-        };
+          control-login = {
+            domain = env.control.login.domain;
+            username = env.control.login.username;
+            password.__hocon_envvar = toVarName "${name}_control";
+          };
 
-        call-login = {
-          domain = env.call.login.domain;
-          username = env.call.login.username;
-          password.__hocon_envvar = toVarName "${name}_call";
-        };
+          call-login = {
+            domain = env.call.login.domain;
+            username = env.call.login.username;
+            password.__hocon_envvar = toVarName "${name}_call";
+          };
 
-        strip-from-room-domain = env.stripFromRoomDomain;
-        usage-timeout = env.usageTimeout;
-        trust-all-xmpp-certs = env.disableCertificateVerification;
-      });
+          strip-from-room-domain = env.stripFromRoomDomain;
+          usage-timeout = env.usageTimeout;
+          trust-all-xmpp-certs = env.disableCertificateVerification;
+        }
+      );
     };
 
     recording = {
@@ -207,7 +211,8 @@ in
         };
       '';
       default = { };
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           ...
         }: {
@@ -317,17 +322,19 @@ in
 
           config =
             let
-              nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
-                (config.networking.hostName
-                  + optionalString (config.networking.domain != null)
-                    ".${config.networking.domain}"));
+              nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ] (
+                config.networking.hostName
+                + optionalString (config.networking.domain != null)
+                  ".${config.networking.domain}"
+              ));
             in
             {
               call.login.username = nick;
               control.muc.nickname = nick;
             }
             ;
-        }));
+        }
+      ));
     };
   };
 
@@ -417,14 +424,16 @@ in
       ];
 
       script =
-        (concatStrings (mapAttrsToList (name: env: ''
-          export ${
-            toVarName "${name}_control"
-          }=$(cat ${env.control.login.passwordFile})
-          export ${
-            toVarName "${name}_call"
-          }=$(cat ${env.call.login.passwordFile})
-        '') cfg.xmppEnvironments))
+        (concatStrings (mapAttrsToList (
+          name: env: ''
+            export ${
+              toVarName "${name}_control"
+            }=$(cat ${env.control.login.passwordFile})
+            export ${
+              toVarName "${name}_call"
+            }=$(cat ${env.call.login.passwordFile})
+          ''
+        ) cfg.xmppEnvironments))
         + ''
           ${pkgs.jdk11_headless}/bin/java -Djava.util.logging.config.file=${
             ./logging.properties-journal

@@ -700,7 +700,8 @@ rec {
     let
       inherit (pkgs) lib;
       nixosCore =
-        (evalMinimalConfig ({
+        (evalMinimalConfig (
+          {
             config,
             ...
           }: {
@@ -716,7 +717,8 @@ rec {
                 # For executables:
                 # mode = "0755";
             };
-          }));
+          }
+        ));
     in
     pkgs.dockerTools.streamLayeredImage {
       name = "etc";

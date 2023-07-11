@@ -23,10 +23,12 @@ stdenv.mkDerivation rec {
       autoreconfHook
       which
     ]
-    ++ (with ocamlPackages; [
-      findlib
-      ocaml
-    ])
+    ++ (
+      with ocamlPackages; [
+        findlib
+        ocaml
+      ]
+    )
     ;
 
   buildInputs = with ocamlPackages; [

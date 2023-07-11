@@ -17,15 +17,17 @@
 }:
 
 let
-  binPath = lib.makeBinPath ([
-    runc
-    conntrack-tools
-    crun
-    conmon
-    util-linux
-    iptables
-  ]
-    ++ extraPackages);
+  binPath = lib.makeBinPath (
+    [
+      runc
+      conntrack-tools
+      crun
+      conmon
+      util-linux
+      iptables
+    ]
+    ++ extraPackages
+  );
 
 in
 runCommand cri-o-unwrapped.name {

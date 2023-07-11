@@ -48,10 +48,12 @@ stdenv.mkDerivation rec {
       perl
       pkg-config
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+      ]
+    )
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 

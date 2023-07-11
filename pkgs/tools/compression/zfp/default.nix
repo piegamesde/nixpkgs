@@ -33,11 +33,13 @@ stdenv.mkDerivation rec {
     lib.optional enableCuda cudatoolkit
     ++ lib.optional enableFortran gfortran
     ++ lib.optional enableOpenMP llvmPackages.openmp
-    ++ lib.optionals enablePython (with python3Packages; [
-      cython
-      numpy
-      python
-    ])
+    ++ lib.optionals enablePython (
+      with python3Packages; [
+        cython
+        numpy
+        python
+      ]
+    )
     ;
 
     # compile CUDA code for all extant GPUs so the binary will work with any GPU

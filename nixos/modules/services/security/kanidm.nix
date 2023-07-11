@@ -26,16 +26,17 @@ let
     # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
   hasPrefixInList =
     list: newPath:
-    lib.any
-    (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-    list
+    lib.any (
+      path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)
+    ) list
     ;
-  mergePaths = lib.foldl' (merged: newPath:
+  mergePaths = lib.foldl' (
+    merged: newPath:
     let
       # If the new path is a prefix to some existing path, we need to filter it out
-      filteredPaths = lib.filter
-        (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
-        merged;
+      filteredPaths = lib.filter (
+        p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)
+      ) merged;
         # If a prefix of the new path is already in the list, do not add it
       filteredNew =
         if hasPrefixInList filteredPaths newPath then
@@ -229,8 +230,12 @@ in
       {
         assertion =
           !cfg.enableServer
-          || ((cfg.serverSettings.tls_chain or null) == null)
-          || (!lib.isStorePath cfg.serverSettings.tls_chain)
+          || (
+            (cfg.serverSettings.tls_chain or null) == null
+          )
+          || (
+            !lib.isStorePath cfg.serverSettings.tls_chain
+          )
           ;
         message = ''
           <option>services.kanidm.serverSettings.tls_chain</option> points to
@@ -241,8 +246,12 @@ in
       {
         assertion =
           !cfg.enableServer
-          || ((cfg.serverSettings.tls_key or null) == null)
-          || (!lib.isStorePath cfg.serverSettings.tls_key)
+          || (
+            (cfg.serverSettings.tls_key or null) == null
+          )
+          || (
+            !lib.isStorePath cfg.serverSettings.tls_key
+          )
           ;
         message = ''
           <option>services.kanidm.serverSettings.tls_key</option> points to
@@ -269,9 +278,11 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (cfg.serverSettings.domain == null
+          || (
+            cfg.serverSettings.domain == null
             -> cfg.serverSettings.role == "WriteReplica"
-              || cfg.serverSettings.role == "WriteReplicaNoUI")
+              || cfg.serverSettings.role == "WriteReplicaNoUI"
+          )
           ;
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
@@ -289,10 +300,12 @@ in
       after = [ "network.target" ];
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
-        (defaultServiceConfig // {
-          BindReadOnlyPaths =
-            mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
-        })
+        (
+          defaultServiceConfig // {
+            BindReadOnlyPaths =
+              mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
+          }
+        )
         {
           StateDirectory = "kanidm";
           StateDirectoryMode = "0700";

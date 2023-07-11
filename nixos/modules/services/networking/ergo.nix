@@ -19,20 +19,21 @@ let
     types
     ;
 
-  configFile = pkgs.writeText "ergo.conf" (''
-    ergo {
-      directory = "${cfg.dataDir}"
-      node {
-        mining = false
+  configFile = pkgs.writeText "ergo.conf" (
+    ''
+      ergo {
+        directory = "${cfg.dataDir}"
+        node {
+          mining = false
+        }
+        wallet.secretStorage.secretDir = "${cfg.dataDir}/wallet/keystore"
       }
-      wallet.secretStorage.secretDir = "${cfg.dataDir}/wallet/keystore"
-    }
 
-    scorex {
-      network {
-        bindAddress = "${cfg.listen.ip}:${toString cfg.listen.port}"
-      }
-  ''
+      scorex {
+        network {
+          bindAddress = "${cfg.listen.ip}:${toString cfg.listen.port}"
+        }
+    ''
     + optionalString (cfg.api.keyHash != null) ''
       restApi {
          apiKeyHash = "${cfg.api.keyHash}"
@@ -41,7 +42,8 @@ let
     ''
     + ''
       }
-    '');
+    ''
+  );
 
 in
 {

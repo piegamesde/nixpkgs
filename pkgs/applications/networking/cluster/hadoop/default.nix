@@ -60,10 +60,9 @@ let
 
       nativeBuildInputs =
         [ makeWrapper ]
-        ++ optionals
-          (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
-            autoPatchelfHook
-          ]
+        ++ optionals (
+          stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")
+        ) [ autoPatchelfHook ]
         ;
       buildInputs = [ openssl ] ++ nativeLibs;
 

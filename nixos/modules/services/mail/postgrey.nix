@@ -14,8 +14,9 @@ let
   natural' = with types; addCheck int (x: x > 0);
 
   socket = with types;
-    addCheck (either (submodule unixSocket) (submodule inetSocket))
-    (x: x ? path || x ? port);
+    addCheck (either (submodule unixSocket) (submodule inetSocket)) (
+      x: x ? path || x ? port
+    );
 
   inetSocket = with types; {
     options = {
@@ -67,7 +68,8 @@ in
         "services"
         "postgrey"
         "socket"
-      ] (config:
+      ] (
+        config:
         let
           value = p: getAttrFromPath p config;
           inetAddr = [
@@ -253,10 +255,12 @@ in
                       } \
                       ${optionalString cfg.privacy "--privacy"} \
                       --auto-whitelist-clients=${
-                        toString (if cfg.autoWhitelist == null then
-                          0
-                        else
-                          cfg.autoWhitelist)
+                        toString (
+                          if cfg.autoWhitelist == null then
+                            0
+                          else
+                            cfg.autoWhitelist
+                        )
                       } \
                       --greylist-action=${cfg.greylistAction} \
                       --greylist-text="${cfg.greylistText}" \
@@ -266,9 +270,9 @@ in
                         cfg.whitelistClients
                       } \
                       ${
-                        concatMapStringsSep " "
-                        (x: "--whitelist-recipients=" + x)
-                        cfg.whitelistRecipients
+                        concatMapStringsSep " " (
+                          x: "--whitelist-recipients=" + x
+                        ) cfg.whitelistRecipients
                       }
           '';
           Restart = "always";

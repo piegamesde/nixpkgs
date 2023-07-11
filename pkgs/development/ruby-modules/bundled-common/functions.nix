@@ -79,27 +79,38 @@ rec {
       ...
     }:
     attrs:
-    (!(attrs ? platforms)
+    (
+      !(
+        attrs ? platforms
+      )
       || builtins.length attrs.platforms == 0
-      || builtins.any (platform:
+      || builtins.any (
+        platform:
         platform.engine == rubyEngine
-        && (!(platform ? version) || platform.version == version.majMin))
-        attrs.platforms)
+        && (
+          !(platform ? version) || platform.version == version.majMin
+        )
+      ) attrs.platforms
+    )
     ;
 
   groupMatches =
     groups: attrs:
     groups == null
-    || !(attrs ? groups)
+    || !(
+      attrs ? groups
+    )
     || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ]
     ;
 
   applyGemConfigs =
     attrs:
-    (if gemConfig ? ${attrs.gemName} then
-      attrs // gemConfig.${attrs.gemName} attrs
-    else
-      attrs)
+    (
+      if gemConfig ? ${attrs.gemName} then
+        attrs // gemConfig.${attrs.gemName} attrs
+      else
+        attrs
+    )
     ;
 
   genStubsScript =
@@ -146,12 +157,14 @@ rec {
 
   composeGemAttrs =
     ruby: gems: name: attrs:
-    ((removeAttrs attrs [ "platforms" ]) // {
-      inherit ruby;
-      inherit (attrs.source) type;
-      source = removeAttrs attrs.source [ "type" ];
-      gemName = name;
-      gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or [ ]);
-    })
+    (
+      (removeAttrs attrs [ "platforms" ]) // {
+        inherit ruby;
+        inherit (attrs.source) type;
+        source = removeAttrs attrs.source [ "type" ];
+        gemName = name;
+        gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or [ ]);
+      }
+    )
     ;
 }

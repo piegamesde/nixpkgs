@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
     optional (stdenv.isLinux && !withBundledLLVM)
       "--push-state --as-needed -lstdc++ --pop-state"
     ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++"
-    ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib");
+    ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib"
+  );
 
     # Increase codegen units to introduce parallelism within the compiler.
   RUSTFLAGS = "-Ccodegen-units=10";
@@ -111,7 +112,8 @@ stdenv.mkDerivation rec {
       "--host=${rust.toRustTargetSpec stdenv.hostPlatform}"
       # std is built for all platforms in --target.
       "--target=${
-        concatStringsSep "," ([
+        concatStringsSep "," (
+          [
             (rust.toRustTargetSpec stdenv.targetPlatform)
 
             # (build!=target): When cross-building a compiler we need to add
@@ -127,7 +129,8 @@ stdenv.mkDerivation rec {
             ]
           ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform) [
               (rust.toRustTargetSpec stdenv.hostPlatform)
-            ])
+            ]
+        )
       }"
 
       "${setBuild}.cc=${ccForBuild}"
@@ -199,20 +202,21 @@ stdenv.mkDerivation rec {
       # Useful debugging parameter
       # export VERBOSE=1
     ''
-    + lib.optionalString
-      (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic) ''
-        # Upstream rustc still assumes that musl = static[1].  The fix for
-        # this is to disable crt-static by default for non-static musl
-        # targets.
-        #
-        # Even though Cargo will build build.rs files for the build platform,
-        # cross-compiling _from_ musl appears to work fine, so we only need
-        # to do this when rustc's target platform is dynamically linked musl.
-        #
-        # [1]: https://github.com/rust-lang/compiler-team/issues/422
-        substituteInPlace compiler/rustc_target/src/spec/linux_musl_base.rs \
-            --replace "base.crt_static_default = true" "base.crt_static_default = false"
-      ''
+    + lib.optionalString (
+      stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic
+    ) ''
+      # Upstream rustc still assumes that musl = static[1].  The fix for
+      # this is to disable crt-static by default for non-static musl
+      # targets.
+      #
+      # Even though Cargo will build build.rs files for the build platform,
+      # cross-compiling _from_ musl appears to work fine, so we only need
+      # to do this when rustc's target platform is dynamically linked musl.
+      #
+      # [1]: https://github.com/rust-lang/compiler-team/issues/422
+      substituteInPlace compiler/rustc_target/src/spec/linux_musl_base.rs \
+          --replace "base.crt_static_default = true" "base.crt_static_default = false"
+    ''
     + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       # See https://github.com/jemalloc/jemalloc/issues/1997
       # Using a value of 48 should work on both emulated and native x86_64-darwin.

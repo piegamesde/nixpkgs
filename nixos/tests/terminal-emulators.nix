@@ -118,7 +118,8 @@ let
     xterm.pkg = p: p.xterm;
   };
 in
-mapAttrs (name:
+mapAttrs (
+  name:
   {
     pkg,
     executable ? name,

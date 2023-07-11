@@ -12,14 +12,16 @@ let
 
   versionParts = lib.take 2 (lib.splitVersion version);
     # 4.2 -> 402, 3.11 -> 311
-  stableVersion = lib.removePrefix "0" (lib.concatMapStrings (p:
+  stableVersion = lib.removePrefix "0" (lib.concatMapStrings (
+    p:
     if (lib.toInt p) < 10 then
       (lib.concatStrings [
         "0"
         p
       ])
     else
-      p) versionParts);
+      p
+  ) versionParts);
 
 in
 stdenv.mkDerivation rec {
@@ -45,7 +47,8 @@ stdenv.mkDerivation rec {
     cp -r . $out/share/moodle
     cp ${phpConfig} $out/share/moodle/config.php
 
-    ${lib.concatStringsSep "\n" (map (p:
+    ${lib.concatStringsSep "\n" (map (
+      p:
       let
         dir =
           if p.pluginType == "mod" then

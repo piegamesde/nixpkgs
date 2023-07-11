@@ -46,11 +46,13 @@ stdenv.mkDerivation rec {
     libevdev
     json-glib
     libunistring
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         evdev
         pygobject3
-      ]))
+      ]
+    ))
   ];
 
   mesonFlags = [ "-Dsystemd-unit-dir=./lib/systemd/system/" ];

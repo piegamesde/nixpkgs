@@ -49,11 +49,13 @@ clangStdenv.mkDerivation rec {
       appstream-glib
       desktop-file-utils
     ]
-    ++ (with rustPlatform; [
-      rust.cargo
-      rust.rustc
-      cargoSetupHook
-    ])
+    ++ (
+      with rustPlatform; [
+        rust.cargo
+        rust.rustc
+        cargoSetupHook
+      ]
+    )
     ;
 
   buildInputs = [

@@ -165,29 +165,31 @@ let
       ...
     }@args:
 
-    stdenv.mkDerivation ((faust2ApplBase args) // {
+    stdenv.mkDerivation (
+      (faust2ApplBase args) // {
 
-      nativeBuildInputs = [
-        pkg-config
-        makeWrapper
-      ];
+        nativeBuildInputs = [
+          pkg-config
+          makeWrapper
+        ];
 
-      propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
+        propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
 
-      postFixup = ''
+        postFixup = ''
 
-        # export parts of the build environment
-        for script in "$out"/bin/*; do
-          wrapProgram "$script" \
-            --set FAUSTLIB "${faust}/lib/faust" \
-            --set FAUSTINC "${faust}/include/faust" \
-            --prefix PATH : "$PATH" \
-            --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
-            --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
-            --set NIX_LDFLAGS "$NIX_LDFLAGS"
-        done
-      '';
-    })
+          # export parts of the build environment
+          for script in "$out"/bin/*; do
+            wrapProgram "$script" \
+              --set FAUSTLIB "${faust}/lib/faust" \
+              --set FAUSTINC "${faust}/include/faust" \
+              --prefix PATH : "$PATH" \
+              --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
+              --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
+              --set NIX_LDFLAGS "$NIX_LDFLAGS"
+          done
+        '';
+      }
+    )
     ;
 
     # Builder for 'faust2appl' scripts, such as faust2firefox that
@@ -207,17 +209,19 @@ let
         concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
 
     in
-    stdenv.mkDerivation ((faust2ApplBase args) // {
+    stdenv.mkDerivation (
+      (faust2ApplBase args) // {
 
-      nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [ makeWrapper ];
 
-      postFixup = ''
-        for script in "$out"/bin/*; do
-          wrapProgram "$script" --prefix PATH : "${runtimePath}"
-        done
-      '';
+        postFixup = ''
+          for script in "$out"/bin/*; do
+            wrapProgram "$script" --prefix PATH : "${runtimePath}"
+          done
+        '';
 
-    })
+      }
+    )
     ;
 
 in

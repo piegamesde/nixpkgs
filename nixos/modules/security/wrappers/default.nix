@@ -23,7 +23,8 @@ let
     lib.types.strMatching mode // { description = "file mode string"; }
     ;
 
-  wrapperType = lib.types.submodule ({
+  wrapperType = lib.types.submodule (
+    {
       name,
       config,
       ...
@@ -89,7 +90,8 @@ let
         description =
           lib.mdDoc "Whether to add the setgid bit the wrapper program.";
       };
-    });
+    }
+  );
 
     ###### Activation script for the setcap wrappers
   mkSetcapProgram =
@@ -152,11 +154,13 @@ let
     ''
     ;
 
-  mkWrappedPrograms = builtins.map (opts:
+  mkWrappedPrograms = builtins.map (
+    opts:
     if opts.capabilities != "" then
       mkSetcapProgram opts
     else
-      mkSetuidProgram opts) (lib.attrValues wrappers);
+      mkSetuidProgram opts
+  ) (lib.attrValues wrappers);
 in
 {
   imports = [
@@ -236,13 +240,15 @@ in
     ###### implementation
   config = {
 
-    assertions = lib.mapAttrsToList (name: opts: {
-      assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
-      message = ''
-        The security.wrappers.${name} wrapper is not valid:
-            setuid/setgid and capabilities are mutually exclusive.
-      '';
-    }) wrappers;
+    assertions = lib.mapAttrsToList (
+      name: opts: {
+        assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
+        message = ''
+          The security.wrappers.${name} wrapper is not valid:
+              setuid/setgid and capabilities are mutually exclusive.
+        '';
+      }
+    ) wrappers;
 
     security.wrappers =
       let

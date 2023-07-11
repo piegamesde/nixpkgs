@@ -46,7 +46,8 @@ in
     testScriptString =
       if lib.isFunction config.testScript then
         config.testScript {
-          nodes = lib.mapAttrs (k: v:
+          nodes = lib.mapAttrs (
+            k: v:
             if
               v.virtualisation.useNixStoreImage
             then
@@ -55,7 +56,8 @@ in
               config.withoutTestScriptReferences.nodesCompat.${k}
             else
             # reuse memoized config
-              v) config.nodesCompat;
+              v
+          ) config.nodesCompat;
         }
       else
         config.testScript
@@ -85,10 +87,11 @@ in
           #   testScript (ad infinitum)
           # If we don't need to build an image, we can break this
           # cycle by short-circuiting when useNixStoreImage is false.
-          (config.virtualisation.useNixStoreImage
+          (
+            config.virtualisation.useNixStoreImage
             && builtins.hasContext testModuleArgs.config.testScriptString
-            && testModuleArgs.config.includeTestScriptReferences)
-          (hostPkgs.writeStringReferencesToFile
+            && testModuleArgs.config.includeTestScriptReferences
+          ) (hostPkgs.writeStringReferencesToFile
             testModuleArgs.config.testScriptString);
       }
       ;

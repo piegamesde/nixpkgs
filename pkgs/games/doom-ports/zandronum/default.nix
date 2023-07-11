@@ -94,10 +94,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DFORCE_INTERNAL_GME=OFF" ]
-    ++ (if serverOnly then
-      [ "-DSERVERONLY=ON" ]
-    else
-      [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ])
+    ++ (
+      if serverOnly then
+        [ "-DSERVERONLY=ON" ]
+      else
+        [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]
+    )
     ;
 
   hardeningDisable = [ "format" ];

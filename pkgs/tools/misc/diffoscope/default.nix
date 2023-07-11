@@ -151,18 +151,20 @@ python3Packages.buildPythonApplication rec {
       zip
       zstd
     ]
-    ++ (with python3Packages; [
-      argcomplete
-      debian
-      defusedxml
-      jsondiff
-      jsbeautifier
-      libarchive-c
-      python-magic
-      progressbar33
-      pypdf2
-      tlsh
-    ])
+    ++ (
+      with python3Packages; [
+        argcomplete
+        debian
+        defusedxml
+        jsondiff
+        jsbeautifier
+        libarchive-c
+        python-magic
+        progressbar33
+        pypdf2
+        tlsh
+      ]
+    )
     ++ lib.optionals stdenv.isLinux [
       python3Packages.pyxattr
       python3Packages.rpm
@@ -170,49 +172,53 @@ python3Packages.buildPythonApplication rec {
       cdrkit
       dtc
     ]
-    ++ lib.optionals enableBloat ([
-      abootimg
-      apksigcopier
-      apksigner
-      apktool
-      cbfstool
-      colord
-      enjarify
-      ffmpeg
-      fpc
-      ghc
-      ghostscriptX
-      giflib
-      gnupg
-      gnumeric
-      hdf5
-      imagemagick
-      libcaca
-      llvm
-      jdk
-      mono
-      ocaml
-      odt2txt
-      oggvideotools
-      openssh
-      pdftk
-      poppler_utils
-      procyon
-      qemu
-      R
-      tcpdump
-      ubootTools
-      wabt
-      radare2
-      xmlbeans
-    ]
-      ++ (with python3Packages; [
-        androguard
-        binwalk
-        guestfs
-        h5py
-        pdfminer-six
-      ]))
+    ++ lib.optionals enableBloat (
+      [
+        abootimg
+        apksigcopier
+        apksigner
+        apktool
+        cbfstool
+        colord
+        enjarify
+        ffmpeg
+        fpc
+        ghc
+        ghostscriptX
+        giflib
+        gnupg
+        gnumeric
+        hdf5
+        imagemagick
+        libcaca
+        llvm
+        jdk
+        mono
+        ocaml
+        odt2txt
+        oggvideotools
+        openssh
+        pdftk
+        poppler_utils
+        procyon
+        qemu
+        R
+        tcpdump
+        ubootTools
+        wabt
+        radare2
+        xmlbeans
+      ]
+      ++ (
+        with python3Packages; [
+          androguard
+          binwalk
+          guestfs
+          h5py
+          pdfminer-six
+        ]
+      )
+    )
     ;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;

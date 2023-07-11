@@ -10,11 +10,13 @@ with lib;
 let
   cfg = config.services.etebase-server;
 
-  pythonEnv = pkgs.python3.withPackages (ps:
+  pythonEnv = pkgs.python3.withPackages (
+    ps:
     with ps; [
       etebase-server
       daphne
-    ]);
+    ]
+  );
 
   iniFmt = pkgs.formats.ini { };
 

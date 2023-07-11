@@ -43,13 +43,15 @@ mkCoqDerivation rec {
 
   propagatedBuildInputs =
     [ serapi ]
-    ++ (with coq.ocamlPackages; [
-      camlp-streams
-      dune-build-info
-      menhir
-      uri
-      yojson
-    ])
+    ++ (
+      with coq.ocamlPackages; [
+        camlp-streams
+        dune-build-info
+        menhir
+        uri
+        yojson
+      ]
+    )
     ;
 
   meta = with lib; {

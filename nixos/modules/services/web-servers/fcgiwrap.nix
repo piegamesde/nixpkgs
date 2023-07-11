@@ -74,13 +74,15 @@ in
             optionalString (cfg.socketType != "unix")
             "-s ${cfg.socketType}:${cfg.socketAddress}"
           }";
-      } // (if cfg.user != null && cfg.group != null then
-        {
-          User = cfg.user;
-          Group = cfg.group;
-        }
-      else
-        { });
+      } // (
+        if cfg.user != null && cfg.group != null then
+          {
+            User = cfg.user;
+            Group = cfg.group;
+          }
+        else
+          { }
+      );
     };
 
     systemd.sockets =

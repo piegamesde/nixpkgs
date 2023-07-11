@@ -61,16 +61,18 @@ stdenv.mkDerivation rec {
       mv $out/lib/libcdb.a $dev/lib
       rmdir $out/lib
     ''
-    + (if static then
-      ''
-        cp cdb $out/bin/cdb
-      ''
-    else
-      ''
-        mkdir -p $lib/lib
-        cp libcdb.so* $lib/lib
-        cp cdb-shared $out/bin/cdb
-      '')
+    + (
+      if static then
+        ''
+          cp cdb $out/bin/cdb
+        ''
+      else
+        ''
+          mkdir -p $lib/lib
+          cp libcdb.so* $lib/lib
+          cp cdb-shared $out/bin/cdb
+        ''
+    )
     ;
 
   src = fetchurl {

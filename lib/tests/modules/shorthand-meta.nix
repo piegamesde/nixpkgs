@@ -7,7 +7,8 @@ let
 in
 {
   imports = [
-    ({
+    (
+      {
         config,
         ...
       }: {
@@ -16,7 +17,8 @@ in
           result =
             mkOption { default = lib.concatStringsSep " " config.meta.foo; };
         };
-      })
+      }
+    )
     {
       meta.foo = [
         "one"

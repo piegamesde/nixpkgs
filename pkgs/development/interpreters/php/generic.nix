@@ -38,7 +38,9 @@ let
       hash,
       extraPatches ? [ ],
       packageOverrides ? (final: prev: { }),
-      phpAttrsOverrides ? (attrs: { })
+      phpAttrsOverrides ? (
+        attrs: { }
+      )
 
       # Sapi flags
       ,
@@ -84,12 +86,15 @@ let
         # expected.
       mkBuildEnv =
         prevArgs: prevExtensionFunctions:
-        lib.makeOverridable ({
-            extensions ? ({
+        lib.makeOverridable (
+          {
+            extensions ? (
+              {
                 enabled,
                 ...
               }:
-              enabled),
+              enabled
+            ),
             extraConfig ? "",
             ...
           }@innerArgs:
@@ -106,11 +111,13 @@ let
             }).overrideScope' packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
-            enabledExtensions = builtins.foldl' (enabled: f:
+            enabledExtensions = builtins.foldl' (
+              enabled: f:
               f {
                 inherit enabled;
                 all = php-packages.extensions;
-              }) [ ] allExtensionFunctions;
+              }
+            ) [ ] allExtensionFunctions;
 
             getExtName =
               ext:
@@ -122,9 +129,9 @@ let
             getDepsRecursively =
               extensions:
               let
-                deps = lib.concatMap
-                  (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
-                  extensions;
+                deps = lib.concatMap (
+                  ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ])
+                ) extensions;
               in
               if !(deps == [ ]) then
                 deps ++ (getDepsRecursively deps)
@@ -138,7 +145,8 @@ let
               # the right order - if a plugin which is dependent on
               # another plugin is placed before its dependency, it will
               # fail to load.
-            extensionTexts = lib.listToAttrs (map (ext:
+            extensionTexts = lib.listToAttrs (map (
+              ext:
               let
                 extName = getExtName ext;
                 phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
@@ -151,7 +159,9 @@ let
                 text = "${type}=${ext}/lib/php/extensions/${extName}.so";
                 deps = map getExtName phpDeps;
               }
-            ) (enabledExtensions ++ (getDepsRecursively enabledExtensions)));
+            ) (
+              enabledExtensions ++ (getDepsRecursively enabledExtensions)
+            ));
 
             extNames = map getExtName enabledExtensions;
             extraInit = writeText "php-extra-init-${version}.ini" ''
@@ -170,11 +180,14 @@ let
                 overrideAttrs =
                   f:
                   let
-                    newPhpAttrsOverrides = composeOverrides
-                      (filteredArgs.phpAttrsOverrides or (attrs: { })) f;
-                    php = generic (filteredArgs // {
-                      phpAttrsOverrides = newPhpAttrsOverrides;
-                    });
+                    newPhpAttrsOverrides = composeOverrides (
+                      filteredArgs.phpAttrsOverrides or (attrs: { })
+                    ) f;
+                    php = generic (
+                      filteredArgs // {
+                        phpAttrsOverrides = newPhpAttrsOverrides;
+                      }
+                    );
                   in
                   php.buildEnv { inherit extensions extraConfig; }
                   ;
@@ -223,197 +236,199 @@ let
         mkBuildEnv prevArgs prevExtensionFunctions { inherit extensions; }
         ;
     in
-    stdenv.mkDerivation (let
-      attrs = {
-        pname = "php";
+    stdenv.mkDerivation (
+      let
+        attrs = {
+          pname = "php";
 
-        inherit version;
+          inherit version;
 
-        enableParallelBuilding = true;
+          enableParallelBuilding = true;
 
-        nativeBuildInputs =
-          [
-            autoconf
-            automake
-            bison
-            flex
-            libtool
-            pkg-config
-            re2c
-          ]
-          ++ lib.optional stdenv.isDarwin xcbuild
-          ;
-
-        buildInputs =
-          # PCRE extension
-          [
-            pcre2
-          ]
-
-          # Enable sapis
-          ++ lib.optionals pearSupport [
-              libxml2.dev
-            ]
-
-            # Misc deps
-          ++ lib.optional apxs2Support apacheHttpd
-          ++ lib.optional argon2Support libargon2
-          ++ lib.optional systemdSupport systemd
-          ++ lib.optional valgrindSupport valgrind
-          ;
-
-        CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
-        SKIP_PERF_SENSITIVE = 1;
-
-        configureFlags =
-          # Disable all extensions
-          [
-            "--disable-all"
-          ]
-
-          # PCRE
-          ++ [
-            "--with-external-pcre=${pcre2.dev}"
-          ]
-
-          # Enable sapis
-          ++ lib.optional (!cgiSupport) "--disable-cgi"
-          ++ lib.optional (!cliSupport) "--disable-cli"
-          ++ lib.optional fpmSupport "--enable-fpm"
-          ++ lib.optionals pearSupport [
-            "--with-pear"
-            "--enable-xml"
-            "--with-libxml"
-          ]
-          ++ lib.optional pharSupport "--enable-phar"
-          ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
-
-            # Misc flags
-          ++ lib.optional apxs2Support
-            "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
-          ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
-          ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
-          ++ lib.optional embedSupport "--enable-embed"
-          ++ lib.optional (!ipv6Support) "--disable-ipv6"
-          ++ lib.optional systemdSupport "--with-fpm-systemd"
-          ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-          ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
-            "--enable-maintainer-zts"
-          ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
-            "--enable-zts"
-
-            # Sendmail
-          ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
-          ;
-
-        hardeningDisable = [ "bindnow" ];
-
-        preConfigure =
-          # Don't record the configure flags since this causes unnecessary
-          # runtime dependencies
-          ''
-            for i in main/build-defs.h.in scripts/php-config.in; do
-              substituteInPlace $i \
-                --replace '@CONFIGURE_COMMAND@' '(omitted)' \
-                --replace '@CONFIGURE_OPTIONS@' "" \
-                --replace '@PHP_LDFLAGS@' ""
-            done
-
-            export EXTENSION_DIR=$out/lib/php/extensions
-
-            ./buildconf --copy --force
-
-            if test -f $src/genfiles; then
-              ./genfiles
-            fi
-          ''
-          + lib.optionalString stdenv.isDarwin ''
-            substituteInPlace configure --replace "-lstdc++" "-lc++"
-          ''
-          ;
-
-        postInstall = ''
-          test -d $out/etc || mkdir $out/etc
-          cp php.ini-production $out/etc/php.ini
-        '';
-
-        postFixup = ''
-          mkdir -p $dev/bin $dev/share/man/man1
-          mv $out/bin/phpize $out/bin/php-config $dev/bin/
-          mv $out/share/man/man1/phpize.1.gz \
-             $out/share/man/man1/php-config.1.gz \
-             $dev/share/man/man1/
-        '';
-
-        src = fetchurl {
-          url = "https://www.php.net/distributions/php-${version}.tar.bz2";
-          inherit hash;
-        };
-
-        patches = [ ./fix-paths-php7.patch ] ++ extraPatches;
-
-        separateDebugInfo = true;
-
-        outputs = [
-          "out"
-          "dev"
-        ];
-
-        passthru = {
-          updateScript =
-            let
-              script = writeShellScript "php${lib.versions.major version}${
-                  lib.versions.minor version
-                }-update-script" ''
-                  set -o errexit
-                  PATH=${
-                    lib.makeBinPath [
-                      common-updater-scripts
-                      curl
-                      jq
-                    ]
-                  }
-                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
-                    lib.versions.major version
-                  }"."${lib.versions.majorMinor version}".version')
-                  update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
-                '';
-            in
+          nativeBuildInputs =
             [
-              script
-              # Passed as an argument so that update.nix can ensure it does not become a store path.
-              (./. + "/${lib.versions.majorMinor version}.nix")
+              autoconf
+              automake
+              bison
+              flex
+              libtool
+              pkg-config
+              re2c
             ]
+            ++ lib.optional stdenv.isDarwin xcbuild
             ;
-          buildEnv = mkBuildEnv { } [ ];
-          withExtensions = mkWithExtensions { } [ ];
-          overrideAttrs =
-            f:
-            let
-              newPhpAttrsOverrides = composeOverrides phpAttrsOverrides f;
-              php =
-                generic (args // { phpAttrsOverrides = newPhpAttrsOverrides; });
-            in
-            php
-            ;
-          inherit ztsSupport;
-        };
 
-        meta = with lib; {
-          description = "An HTML-embedded scripting language";
-          homepage = "https://www.php.net/";
-          license = licenses.php301;
-          mainProgram = "php";
-          maintainers = teams.php.members;
-          platforms = platforms.all;
-          outputsToInstall = [
+          buildInputs =
+            # PCRE extension
+            [
+              pcre2
+            ]
+
+            # Enable sapis
+            ++ lib.optionals pearSupport [
+                libxml2.dev
+              ]
+
+              # Misc deps
+            ++ lib.optional apxs2Support apacheHttpd
+            ++ lib.optional argon2Support libargon2
+            ++ lib.optional systemdSupport systemd
+            ++ lib.optional valgrindSupport valgrind
+            ;
+
+          CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";
+          SKIP_PERF_SENSITIVE = 1;
+
+          configureFlags =
+            # Disable all extensions
+            [
+              "--disable-all"
+            ]
+
+            # PCRE
+            ++ [
+              "--with-external-pcre=${pcre2.dev}"
+            ]
+
+            # Enable sapis
+            ++ lib.optional (!cgiSupport) "--disable-cgi"
+            ++ lib.optional (!cliSupport) "--disable-cli"
+            ++ lib.optional fpmSupport "--enable-fpm"
+            ++ lib.optionals pearSupport [
+              "--with-pear"
+              "--enable-xml"
+              "--with-libxml"
+            ]
+            ++ lib.optional pharSupport "--enable-phar"
+            ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
+
+              # Misc flags
+            ++ lib.optional apxs2Support
+              "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
+            ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
+            ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
+            ++ lib.optional embedSupport "--enable-embed"
+            ++ lib.optional (!ipv6Support) "--disable-ipv6"
+            ++ lib.optional systemdSupport "--with-fpm-systemd"
+            ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
+            ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
+              "--enable-maintainer-zts"
+            ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
+              "--enable-zts"
+
+              # Sendmail
+            ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
+            ;
+
+          hardeningDisable = [ "bindnow" ];
+
+          preConfigure =
+            # Don't record the configure flags since this causes unnecessary
+            # runtime dependencies
+            ''
+              for i in main/build-defs.h.in scripts/php-config.in; do
+                substituteInPlace $i \
+                  --replace '@CONFIGURE_COMMAND@' '(omitted)' \
+                  --replace '@CONFIGURE_OPTIONS@' "" \
+                  --replace '@PHP_LDFLAGS@' ""
+              done
+
+              export EXTENSION_DIR=$out/lib/php/extensions
+
+              ./buildconf --copy --force
+
+              if test -f $src/genfiles; then
+                ./genfiles
+              fi
+            ''
+            + lib.optionalString stdenv.isDarwin ''
+              substituteInPlace configure --replace "-lstdc++" "-lc++"
+            ''
+            ;
+
+          postInstall = ''
+            test -d $out/etc || mkdir $out/etc
+            cp php.ini-production $out/etc/php.ini
+          '';
+
+          postFixup = ''
+            mkdir -p $dev/bin $dev/share/man/man1
+            mv $out/bin/phpize $out/bin/php-config $dev/bin/
+            mv $out/share/man/man1/phpize.1.gz \
+               $out/share/man/man1/php-config.1.gz \
+               $dev/share/man/man1/
+          '';
+
+          src = fetchurl {
+            url = "https://www.php.net/distributions/php-${version}.tar.bz2";
+            inherit hash;
+          };
+
+          patches = [ ./fix-paths-php7.patch ] ++ extraPatches;
+
+          separateDebugInfo = true;
+
+          outputs = [
             "out"
             "dev"
           ];
+
+          passthru = {
+            updateScript =
+              let
+                script = writeShellScript "php${lib.versions.major version}${
+                    lib.versions.minor version
+                  }-update-script" ''
+                    set -o errexit
+                    PATH=${
+                      lib.makeBinPath [
+                        common-updater-scripts
+                        curl
+                        jq
+                      ]
+                    }
+                    new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
+                      lib.versions.major version
+                    }"."${lib.versions.majorMinor version}".version')
+                    update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
+                  '';
+              in
+              [
+                script
+                # Passed as an argument so that update.nix can ensure it does not become a store path.
+                (./. + "/${lib.versions.majorMinor version}.nix")
+              ]
+              ;
+            buildEnv = mkBuildEnv { } [ ];
+            withExtensions = mkWithExtensions { } [ ];
+            overrideAttrs =
+              f:
+              let
+                newPhpAttrsOverrides = composeOverrides phpAttrsOverrides f;
+                php = generic (
+                  args // { phpAttrsOverrides = newPhpAttrsOverrides; }
+                );
+              in
+              php
+              ;
+            inherit ztsSupport;
+          };
+
+          meta = with lib; {
+            description = "An HTML-embedded scripting language";
+            homepage = "https://www.php.net/";
+            license = licenses.php301;
+            mainProgram = "php";
+            maintainers = teams.php.members;
+            platforms = platforms.all;
+            outputsToInstall = [
+              "out"
+              "dev"
+            ];
+          };
         };
-      };
-    in
-    attrs // phpAttrsOverrides attrs
+      in
+      attrs // phpAttrsOverrides attrs
     )
     ;
 in

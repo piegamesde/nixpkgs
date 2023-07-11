@@ -75,20 +75,22 @@ stdenv.mkDerivation rec {
   inherit version;
   pname = "quartus-prime-lite-unwrapped";
 
-  src = map download ([
-    {
-      name = "QuartusLiteSetup-${version}-linux.run";
-      sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
-    }
-    {
-      name = "ModelSimSetup-${version}-linux.run";
-      sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
-    }
-  ]
+  src = map download (
+    [
+      {
+        name = "QuartusLiteSetup-${version}-linux.run";
+        sha256 = "0mjp1rg312dipr7q95pb4nf4b8fwvxgflnd1vafi3g9cshbb1c3k";
+      }
+      {
+        name = "ModelSimSetup-${version}-linux.run";
+        sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
+      }
+    ]
     ++ (map (id: {
       name = "${id}-${version}.qdz";
       sha256 = lib.getAttr id componentHashes;
-    }) (lib.attrValues supportedDeviceIds)));
+    }) (lib.attrValues supportedDeviceIds))
+  );
 
   nativeBuildInputs = [ unstick ];
 

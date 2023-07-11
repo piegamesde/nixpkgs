@@ -44,9 +44,11 @@ with self;
     let
       modules = lib.filter hasPerlModule drvs;
     in
-    lib.unique ([ perl ]
+    lib.unique (
+      [ perl ]
       ++ modules
-      ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules))
+      ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules)
+    )
     ;
 
     # Convert derivation to a perl module.
@@ -54,7 +56,9 @@ with self;
     drv:
     drv.overrideAttrs (oldAttrs: {
       # Use passthru in order to prevent rebuilds when possible.
-      passthru = (oldAttrs.passthru or { }) // {
+      passthru = (
+        oldAttrs.passthru or { }
+      ) // {
         perlModule = perl;
         requiredPerlModules = requiredPerlModules drv.propagatedBuildInputs;
       };
@@ -66,29 +70,31 @@ with self;
     # Helper functions for packages that use Module::Build to build.
   buildPerlModule =
     args:
-    buildPerlPackage ({
-      buildPhase = ''
-        runHook preBuild
-        perl Build.PL --prefix=$out; ./Build build
-        runHook postBuild
-      '';
-      installPhase = ''
-        runHook preInstall
-        ./Build install
-        runHook postInstall
-      '';
-      checkPhase = ''
-        runHook preCheck
-        ./Build test
-        runHook postCheck
-      '';
-    } // args // {
-      preConfigure = ''
-        touch Makefile.PL
-        ${args.preConfigure or ""}
-      '';
-      buildInputs = (args.buildInputs or [ ]) ++ [ ModuleBuild ];
-    })
+    buildPerlPackage (
+      {
+        buildPhase = ''
+          runHook preBuild
+          perl Build.PL --prefix=$out; ./Build build
+          runHook postBuild
+        '';
+        installPhase = ''
+          runHook preInstall
+          ./Build install
+          runHook postInstall
+        '';
+        checkPhase = ''
+          runHook preCheck
+          ./Build test
+          runHook postCheck
+        '';
+      } // args // {
+        preConfigure = ''
+          touch Makefile.PL
+          ${args.preConfigure or ""}
+        '';
+        buildInputs = (args.buildInputs or [ ]) ++ [ ModuleBuild ];
+      }
+    )
     ;
 
     /* Construct a perl search path (such as $PERL5LIB)
@@ -26541,12 +26547,14 @@ with self;
         TestException
         TestWarn
       ]
-      ++ (with pkgs; [
-        gsl
-        freeglut
-        xorg.libXmu
-        xorg.libXi
-      ])
+      ++ (
+        with pkgs; [
+          gsl
+          freeglut
+          xorg.libXmu
+          xorg.libXi
+        ]
+      )
       ;
 
     propagatedBuildInputs = [
@@ -31759,15 +31767,16 @@ with self;
       };
 
         # use native libraries from the host when running build commands
-      postConfigure = lib.optionalString cross (let
-        host_perl = perl.perlOnBuild;
-        host_self = perl.perlOnBuild.pkgs.TermReadKey;
-        perl_lib = "${host_perl}/lib/perl5/${host_perl.version}";
-        self_lib = "${host_self}/lib/perl5/site_perl/${host_perl.version}";
-      in
-      ''
-        sed -ie 's|"-I$(INST_ARCHLIB)"|"-I${perl_lib}" "-I${self_lib}"|g' Makefile
-      ''
+      postConfigure = lib.optionalString cross (
+        let
+          host_perl = perl.perlOnBuild;
+          host_self = perl.perlOnBuild.pkgs.TermReadKey;
+          perl_lib = "${host_perl}/lib/perl5/${host_perl.version}";
+          self_lib = "${host_self}/lib/perl5/site_perl/${host_perl.version}";
+        in
+        ''
+          sed -ie 's|"-I$(INST_ARCHLIB)"|"-I${perl_lib}" "-I${self_lib}"|g' Makefile
+        ''
       );
 
         # TermReadKey uses itself in the build process
@@ -37280,10 +37289,12 @@ with self;
         AlienBuild
         AlienLibxml2
       ]
-      ++ lib.optionals stdenv.isDarwin (with pkgs; [
-        libiconv
-        zlib
-      ])
+      ++ lib.optionals stdenv.isDarwin (
+        with pkgs; [
+          libiconv
+          zlib
+        ]
+      )
       ;
     propagatedBuildInputs = [ XMLSAX ];
     meta = {

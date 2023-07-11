@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
           "${pkgs.curl}/bin/curl -s localhost:19531/machine | ${pkgs.jq}/bin/jq -e '.hostname == \"machine\"'"
       )
     '';
-  })
+  }
+)

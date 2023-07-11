@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -46,4 +47,5 @@ import ../make-test-python.nix ({
       assert "test2" in machine.succeed("cat /mnt/testfs1/test1")
       assert "test1" in machine.succeed("cat /mnt/testfs2/test1")
     '';
-  })
+  }
+)

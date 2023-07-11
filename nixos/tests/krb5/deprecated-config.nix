@@ -1,7 +1,8 @@
 # Verifies that the configuration suggested in deprecated example values
 # will result in the expected output.
 
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -54,4 +55,5 @@ import ../make-test-python.nix ({
         )
       ''
       ;
-  })
+  }
+)

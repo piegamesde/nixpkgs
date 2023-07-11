@@ -6,7 +6,8 @@
 
 with lib; {
   applyOverlays =
-    (base: overlays':
+    (
+      base: overlays':
       stdenvNoCC.mkDerivation {
         name = "device-tree-overlays";
         nativeBuildInputs = [ dtc ];
@@ -55,5 +56,6 @@ with lib; {
             done
           ''
           ;
-      });
+      }
+    );
 }

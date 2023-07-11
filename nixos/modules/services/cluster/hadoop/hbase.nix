@@ -66,24 +66,27 @@ let
           [ hbase.package ]
           ++ optional (with cfg.hbase.master; enable && initHDFS) package;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS)
-          (concatStringsSep "\n" (map
-            (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}") [
-              "dfsadmin -safemode wait"
-              "dfs -mkdir -p ${cfg.hbase.rootdir}"
-              "dfs -chown hbase ${cfg.hbase.rootdir}"
-            ]));
+          (concatStringsSep "\n" (map (
+            x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}"
+          ) [
+            "dfsadmin -safemode wait"
+            "dfs -mkdir -p ${cfg.hbase.rootdir}"
+            "dfs -chown hbase ${cfg.hbase.rootdir}"
+          ]));
 
         inherit (cfg.hbase."${name}") environment;
-        script = concatStringsSep " " ([
-          "hbase --config /etc/hadoop-conf/"
-          "${toLower name} start"
-        ]
+        script = concatStringsSep " " (
+          [
+            "hbase --config /etc/hadoop-conf/"
+            "${toLower name} start"
+          ]
           ++ cfg.hbase."${name}".extraFlags
           ++ map (x: "--${toLower x} ${toString cfg.hbase.${name}.${x}}")
             (filter (x: hasAttr x cfg.hbase.${name}) [
               "port"
               "infoPort"
-            ]));
+            ])
+        );
 
         serviceConfig = {
           User = "hbase";
@@ -179,58 +182,61 @@ in
         example = "zk1.internal,zk2.internal,zk3.internal";
         default = null;
       };
-    } // (let
-      ports =
-        port: infoPort: {
-          port = mkOption {
-            type = types.int;
-            default = port;
-            description = mdDoc "RPC port";
-          };
-          infoPort = mkOption {
-            type = types.int;
-            default = infoPort;
-            description = mdDoc "web UI port";
-          };
-        }
-        ;
-    in
-    mapAttrs hbaseRoleOption {
-      master.initHDFS =
-        mkEnableOption (mdDoc "initialization of the hbase directory on HDFS");
-      regionServer.overrideHosts = mkOption {
-        type = types.bool;
-        default = true;
-        description = mdDoc ''
-          Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
-          Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
-          or /etc/hosts entries.
-        '';
-      };
-      thrift = ports 9090 9095;
-      rest = ports 8080 8085;
-    }
+    } // (
+      let
+        ports =
+          port: infoPort: {
+            port = mkOption {
+              type = types.int;
+              default = port;
+              description = mdDoc "RPC port";
+            };
+            infoPort = mkOption {
+              type = types.int;
+              default = infoPort;
+              description = mdDoc "web UI port";
+            };
+          }
+          ;
+      in
+      mapAttrs hbaseRoleOption {
+        master.initHDFS =
+          mkEnableOption (mdDoc "initialization of the hbase directory on HDFS")
+          ;
+        regionServer.overrideHosts = mkOption {
+          type = types.bool;
+          default = true;
+          description = mdDoc ''
+            Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
+            Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
+            or /etc/hosts entries.
+          '';
+        };
+        thrift = ports 9090 9095;
+        rest = ports 8080 8085;
+      }
     );
   };
 
-  config = mkMerge ([
+  config = mkMerge (
+    [
 
-    (mkIf cfg.gatewayRole.enable {
+      (mkIf cfg.gatewayRole.enable {
 
-      environment.systemPackages =
-        mkIf cfg.gatewayRole.enableHbaseCli [ cfg.hbase.package ];
+        environment.systemPackages =
+          mkIf cfg.gatewayRole.enableHbaseCli [ cfg.hbase.package ];
 
-      services.hadoop.hbaseSiteInternal = with cfg.hbase; {
-        "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum;
-      };
+        services.hadoop.hbaseSiteInternal = with cfg.hbase; {
+          "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum;
+        };
 
-      users.users.hbase = {
-        description = "Hadoop HBase user";
-        group = "hadoop";
-        isSystemUser = true;
-      };
-    })
-  ]
+        users.users.hbase = {
+          description = "Hadoop HBase user";
+          group = "hadoop";
+          isSystemUser = true;
+        };
+      })
+    ]
     ++ (mapAttrsToList hbaseRoleConfig {
       master = [
         16000
@@ -248,5 +254,6 @@ in
         port
         infoPort
       ];
-    }));
+    })
+  );
 }

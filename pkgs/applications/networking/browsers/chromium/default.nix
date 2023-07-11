@@ -81,17 +81,19 @@ let
   chromium = rec {
     inherit stdenv llvmPackages upstream-info;
 
-    mkChromiumDerivation = callPackage ./common.nix ({
-      inherit channel chromiumVersionAtLeast versionRange;
-      inherit proprietaryCodecs cupsSupport pulseSupport ungoogled;
-      gnChromium = gn.overrideAttrs (oldAttrs: {
-        inherit (upstream-info.deps.gn) version;
-        src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
-      });
-    } // lib.optionalAttrs (chromiumVersionAtLeast "113") rec {
-      llvmPackages = llvmPackages_16;
-      stdenv = llvmPackages_16.stdenv;
-    });
+    mkChromiumDerivation = callPackage ./common.nix (
+      {
+        inherit channel chromiumVersionAtLeast versionRange;
+        inherit proprietaryCodecs cupsSupport pulseSupport ungoogled;
+        gnChromium = gn.overrideAttrs (oldAttrs: {
+          inherit (upstream-info.deps.gn) version;
+          src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
+        });
+      } // lib.optionalAttrs (chromiumVersionAtLeast "113") rec {
+        llvmPackages = llvmPackages_16;
+        stdenv = llvmPackages_16.stdenv;
+      }
+    );
 
     browser = callPackage ./browser.nix {
       inherit channel chromiumVersionAtLeast enableWideVine ungoogled;
@@ -104,10 +106,12 @@ let
     if channel == "dev" then
       "unstable"
     else
-      (if channel == "ungoogled-chromium" then
-        "stable"
-      else
-        channel)
+      (
+        if channel == "ungoogled-chromium" then
+          "stable"
+        else
+          channel
+      )
     ;
   pkgName = "google-chrome-${pkgSuffix}";
   chromeSrc =

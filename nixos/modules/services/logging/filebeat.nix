@@ -47,7 +47,8 @@ in
           See <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
         '';
         default = { };
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -65,7 +66,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
         example = literalExpression ''
           {
             journald.id = "everything";  # Only for filebeat7
@@ -100,7 +102,8 @@ in
           See <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
         '';
         default = { };
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -118,7 +121,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
         example = literalExpression ''
           {
             nginx = {

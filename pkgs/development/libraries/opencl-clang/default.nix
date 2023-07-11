@@ -64,10 +64,12 @@ let
     let
       inherit (llvmPackages_11) llvm;
       inherit
-        (if buildWithPatches then
-          passthru
-        else
-          llvmPkgs)
+        (
+          if buildWithPatches then
+            passthru
+          else
+            llvmPkgs
+        )
         libclang
         spirv-llvm-translator
         ;

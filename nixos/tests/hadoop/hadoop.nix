@@ -1,7 +1,8 @@
 # This test is very comprehensive. It tests whether all hadoop services work well with each other.
 # Run this when updating the Hadoop package or making significant changes to the hadoop module.
 # For a more basic test, see hdfs.nix and yarn.nix
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     package,
     ...
   }: {
@@ -304,4 +305,5 @@ import ../make-test-python.nix ({
       assert "Estimated value of Pi is" in client.succeed("HADOOP_USER_NAME=hdfs yarn jar $(readlink $(which yarn) | sed -r 's~bin/yarn~lib/hadoop-*/share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar~g') pi 2 10")
       assert "SUCCEEDED" in client.succeed("yarn application -list -appStates FINISHED")
     '';
-  })
+  }
+)

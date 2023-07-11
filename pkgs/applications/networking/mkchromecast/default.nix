@@ -45,16 +45,18 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages;
-    ([
-      pychromecast
-      psutil
-      mutagen
-      flask
-      netifaces
-      requests
-      pyqt5
-    ]
-      ++ lib.optionals enableSonos [ soco ]);
+    (
+      [
+        pychromecast
+        psutil
+        mutagen
+        flask
+        netifaces
+        requests
+        pyqt5
+      ]
+      ++ lib.optionals enableSonos [ soco ]
+    );
 
   postPatch = ''
     substituteInPlace setup.py \

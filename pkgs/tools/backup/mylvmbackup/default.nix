@@ -33,13 +33,15 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram "$out/bin/mylvmbackup" \
       --prefix PERL5LIB : "${
-        perlPackages.makePerlPath (with perlPackages; [
-          ConfigIniFiles
-          DBDmysql
-          DBI
-          TimeDate
-          FileCopyRecursive
-        ])
+        perlPackages.makePerlPath (
+          with perlPackages; [
+            ConfigIniFiles
+            DBDmysql
+            DBI
+            TimeDate
+            FileCopyRecursive
+          ]
+        )
       }"
   '';
 

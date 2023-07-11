@@ -268,12 +268,16 @@ rec {
          => false
     */
   any =
-    builtins.any or (pred:
-      foldr (x: y:
+    builtins.any or (
+      pred:
+      foldr (
+        x: y:
         if pred x then
           true
         else
-          y) false);
+          y
+      ) false
+    );
 
     /* Return true if function `pred` returns true for all elements of
        `list`.
@@ -287,12 +291,16 @@ rec {
          => false
     */
   all =
-    builtins.all or (pred:
-      foldr (x: y:
+    builtins.all or (
+      pred:
+      foldr (
+        x: y:
         if pred x then
           y
         else
-          false) true);
+          false
+      ) true
+    );
 
     /* Count how many elements of `list` match the supplied predicate
        function.
@@ -306,11 +314,13 @@ rec {
   count =
     # Predicate
     pred:
-    foldl' (c: x:
+    foldl' (
+      c: x:
       if pred x then
         c + 1
       else
-        c) 0
+        c
+    ) 0
     ;
 
     /* Return a singleton list or an empty list, depending on a boolean
@@ -418,8 +428,10 @@ rec {
          => { right = [ 5 3 4 ]; wrong = [ 1 2 ]; }
     */
   partition =
-    builtins.partition or (pred:
-      foldr (h: t:
+    builtins.partition or (
+      pred:
+      foldr (
+        h: t:
         if pred h then
           {
             right = [ h ] ++ t.right;
@@ -429,10 +441,12 @@ rec {
           {
             right = t.right;
             wrong = [ h ] ++ t.wrong;
-          }) {
-            right = [ ];
-            wrong = [ ];
-          });
+          }
+      ) {
+        right = [ ];
+        wrong = [ ];
+      }
+    );
 
     /* Splits the elements of a list into many lists, using the return value of a predicate.
        Predicate should return a string which becomes keys of attrset `groupBy` returns.
@@ -460,13 +474,16 @@ rec {
     op: nul: pred: lst: mapAttrs (name: foldl op nul) (groupBy pred lst);
 
   groupBy =
-    builtins.groupBy or (pred:
-      foldl' (r: e:
+    builtins.groupBy or (
+      pred:
+      foldl' (
+        r: e:
         let
           key = pred e;
         in
         r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
-      ) { });
+      ) { }
+    );
 
     /* Merges two lists of the same size together. If the sizes aren't the same
        the merging stops at the shortest. How both lists are merged is defined
@@ -616,7 +633,8 @@ rec {
          => [ 3 5 7 ]
     */
   sort =
-    builtins.sort or (strictLess: list:
+    builtins.sort or (
+      strictLess: list:
       let
         len = length list;
         first = head list;
@@ -703,11 +721,13 @@ rec {
     let
       vectorise =
         s:
-        map (x:
+        map (
+          x:
           if isList x then
             toInt (head x)
           else
-            x) (builtins.split "(0|[1-9][0-9]*)" s)
+            x
+        ) (builtins.split "(0|[1-9][0-9]*)" s)
         ;
       prepared = map (x: [
         (vectorise x)
@@ -773,12 +793,14 @@ rec {
     let
       len = length list;
     in
-    genList (n: elemAt list (n + start)) (if start >= len then
-      0
-    else if start + count > len then
-      len - start
-    else
-      count)
+    genList (n: elemAt list (n + start)) (
+      if start >= len then
+        0
+      else if start + count > len then
+        len - start
+      else
+        count
+    )
     ;
 
     /* Return the last element of a list.
@@ -820,8 +842,9 @@ rec {
          => [ "13" "14" "23" "24" ]
     */
   crossLists = builtins.trace
-    "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
-    (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
+    "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
+      f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
+    );
 
     /* Remove duplicate elements from the list. O(n^2) complexity.
 
@@ -831,11 +854,13 @@ rec {
          unique [ 3 2 3 4 ]
          => [ 3 2 4 ]
     */
-  unique = foldl' (acc: e:
+  unique = foldl' (
+    acc: e:
     if elem e acc then
       acc
     else
-      acc ++ [ e ]) [ ];
+      acc ++ [ e ]
+  ) [ ];
 
     /* Intersects list 'e' and another list. O(nm) complexity.
 

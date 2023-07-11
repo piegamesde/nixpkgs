@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "fscrypt";
@@ -53,4 +54,5 @@ import ./make-test-python.nix ({
         machine.succeed("cat /home/alice/world")
         logout()
     '';
-  })
+  }
+)

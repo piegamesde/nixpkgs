@@ -1,6 +1,7 @@
 # This test runs simple etcd node
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -27,4 +28,5 @@ import ./make-test-python.nix ({
           node.succeed("etcdctl set /foo/bar 'Hello world'")
           node.succeed("etcdctl get /foo/bar | grep 'Hello world'")
     '';
-  })
+  }
+)

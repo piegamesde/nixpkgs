@@ -70,8 +70,9 @@ let
     args@{
       ...
     }:
-    import (srcUnpacked + "/src/nix/eval-composition.nix")
-    ({ inherit pkgs; } // args)
+    import (srcUnpacked + "/src/nix/eval-composition.nix") (
+      { inherit pkgs; } // args
+    )
     ;
 
     /* Function to derivation of the docker compose yaml file

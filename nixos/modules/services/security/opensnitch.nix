@@ -11,8 +11,9 @@ let
   cfg = config.services.opensnitch;
   format = pkgs.formats.json { };
 
-  predefinedRules = flip mapAttrs cfg.rules
-    (name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); });
+  predefinedRules = flip mapAttrs cfg.rules (
+    name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); }
+  );
 
 in
 {
@@ -183,34 +184,41 @@ in
       services.opensnitchd.wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != { }) (let
-      rules = flip mapAttrsToList predefinedRules (file: content: {
-        inherit (content) file;
-        local = "/var/lib/opensnitch/rules/${file}.json";
-      });
-    in
-    ''
-      # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
-      # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
-      # `cfg.rules`).
-      find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
-        optionalString (rules != { }) ''
-          -not \( ${
-            concatMapStringsSep " -o " ({
-                local,
-                ...
-              }:
-              "-name '${baseNameOf local}*'") rules
-          } \) \
-        ''
-      } -delete
-      ${concatMapStrings ({
-          file,
-          local,
-        }: ''
-          ln -sf '${file}' "${local}"
-        '') rules}
-    ''
+    systemd.services.opensnitchd.preStart = mkIf (cfg.rules != { }) (
+      let
+        rules = flip mapAttrsToList predefinedRules (
+          file: content: {
+            inherit (content) file;
+            local = "/var/lib/opensnitch/rules/${file}.json";
+          }
+        );
+      in
+      ''
+        # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
+        # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
+        # `cfg.rules`).
+        find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
+          optionalString (rules != { }) ''
+            -not \( ${
+              concatMapStringsSep " -o " (
+                {
+                  local,
+                  ...
+                }:
+                "-name '${baseNameOf local}*'"
+              ) rules
+            } \) \
+          ''
+        } -delete
+        ${concatMapStrings (
+          {
+            file,
+            local,
+          }: ''
+            ln -sf '${file}' "${local}"
+          ''
+        ) rules}
+      ''
     );
 
     environment.etc."opensnitchd/default-config.json".source =

@@ -23,7 +23,8 @@ in
 
   libcusolver = final.addBuildInputs prev.libcusolver [ prev.libcublas ];
 
-  cuda_nvcc = prev.cuda_nvcc.overrideAttrs (oldAttrs:
+  cuda_nvcc = prev.cuda_nvcc.overrideAttrs (
+    oldAttrs:
     let
       inherit (prev.backendStdenv) cc;
     in
@@ -47,7 +48,9 @@ in
       #   for us, as the default set of CUDA capabilities we build can regularly cause this to
       #   occur (for example, with Magma).
       postInstall =
-        (oldAttrs.postInstall or "")
+        (
+          oldAttrs.postInstall or ""
+        )
         + ''
           mkdir -p $out/nix-support
           cat <<EOF >> $out/nix-support/setup-hook
@@ -84,17 +87,21 @@ in
   nsight_compute = prev.nsight_compute.overrideAttrs (oldAttrs: {
     nativeBuildInputs =
       oldAttrs.nativeBuildInputs
-      ++ (if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-        [ pkgs.qt5.wrapQtAppsHook ]
-      else
-        [ pkgs.qt6.wrapQtAppsHook ])
+      ++ (
+        if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
+          [ pkgs.qt5.wrapQtAppsHook ]
+        else
+          [ pkgs.qt6.wrapQtAppsHook ]
+      )
       ;
     buildInputs =
       oldAttrs.buildInputs
-      ++ (if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-        [ pkgs.qt5.qtwebview ]
-      else
-        [ pkgs.qt6.qtwebview ])
+      ++ (
+        if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
+          [ pkgs.qt5.qtwebview ]
+        else
+          [ pkgs.qt6.qtwebview ]
+      )
       ;
   });
 

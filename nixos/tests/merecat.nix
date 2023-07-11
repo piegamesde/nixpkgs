@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -32,4 +33,5 @@ import ./make-test-python.nix ({
       machine.succeed("curl --fail foo.localhost | grep 'Hello foo'")
       machine.succeed("curl --fail bar.localhost | grep 'Hello bar'")
     '';
-  })
+  }
+)

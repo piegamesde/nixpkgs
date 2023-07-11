@@ -83,14 +83,16 @@
   }
   # Configure the Exec directive in the generated .desktop file
   ,
-  desktopBinary ? (if enableGuis.xlib then
-    "mlterm"
-  else if enableGuis.wayland then
-    "mlterm-wl"
-  else if enableGuis.sdl2 then
-    "mlterm-sdl2"
-  else
-    throw "mlterm: couldn't figure out what desktopBinary to use.")
+  desktopBinary ? (
+    if enableGuis.xlib then
+      "mlterm"
+    else if enableGuis.wayland then
+      "mlterm-wl"
+    else if enableGuis.sdl2 then
+      "mlterm-sdl2"
+    else
+      throw "mlterm: couldn't figure out what desktopBinary to use."
+  )
 }:
 
 let

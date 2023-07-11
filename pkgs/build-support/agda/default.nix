@@ -92,8 +92,9 @@ let
     let
       agdaWithArgs =
         withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
-      includePathArgs = concatMapStrings (path: "-i" + path + " ")
-        (includePaths ++ [ (dirOf everythingFile) ]);
+      includePathArgs = concatMapStrings (path: "-i" + path + " ") (
+        includePaths ++ [ (dirOf everythingFile) ]
+      );
     in
     {
       inherit libraryName libraryFile;
@@ -123,8 +124,9 @@ let
             find -not \( -path ${everythingFile} -or -path ${
               lib.interfaceFile everythingFile
             } \) -and \( ${
-              concatMapStringsSep " -or " (p: "-name '*.${p}'")
-              (extensions ++ extraExtensions)
+              concatMapStringsSep " -or " (p: "-name '*.${p}'") (
+                extensions ++ extraExtensions
+              )
             } \) -exec cp -p --parents -t "$out" {} +
             runHook postInstall
           ''
@@ -146,9 +148,11 @@ let
 
         # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests = with builtins;
-        lib.filterAttrs (name: pkg:
+        lib.filterAttrs (
+          name: pkg:
           self.lib.isUnbrokenAgdaPackage pkg
-          && elem pname (map (pkg: pkg.pname) pkg.buildInputs)) self;
+          && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
+        ) self;
     }
     ;
 in

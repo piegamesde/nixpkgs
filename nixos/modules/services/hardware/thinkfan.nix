@@ -110,14 +110,16 @@ let
       query,
       ...
     }@args:
-    (filterAttrs (k: v:
+    (filterAttrs (
+      k: v:
       v != null
       && !(elem k [
         "type"
         "query"
-      ])) args) // {
-        "${type}" = query;
-      }
+      ])
+    ) args) // {
+      "${type}" = query;
+    }
     ;
 
   syntaxNote =
@@ -286,11 +288,13 @@ in
     systemd.packages = [ thinkfan ];
 
     systemd.services = {
-      thinkfan.environment.THINKFAN_ARGS = escapeShellArgs ([
-        "-c"
-        configFile
-      ]
-        ++ cfg.extraArgs);
+      thinkfan.environment.THINKFAN_ARGS = escapeShellArgs (
+        [
+          "-c"
+          configFile
+        ]
+        ++ cfg.extraArgs
+      );
 
         # must be added manually, see issue #81138
       thinkfan.wantedBy = [ "multi-user.target" ];

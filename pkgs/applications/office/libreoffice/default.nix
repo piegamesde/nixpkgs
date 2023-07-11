@@ -199,17 +199,23 @@ let
 
   srcs = {
     primary = primary-src;
-    third_party = map (x:
-      ((fetchurl { inherit (x) url sha256 name; }) // {
-        inherit (x) md5name md5;
-      })) (importVariant "download.nix"
-        ++ [ (rec {
-          name = "unowinreg.dll";
-          url = "https://dev-www.libreoffice.org/extern/${md5name}";
-          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-          md5 = "185d60944ea767075d27247c3162b3bc";
-          md5name = "${md5}-${name}";
-        }) ]);
+    third_party = map (
+      x:
+      (
+        (fetchurl { inherit (x) url sha256 name; }) // {
+          inherit (x) md5name md5;
+        }
+      )
+    ) (
+      importVariant "download.nix"
+      ++ [ (rec {
+        name = "unowinreg.dll";
+        url = "https://dev-www.libreoffice.org/extern/${md5name}";
+        sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+        md5 = "185d60944ea767075d27247c3162b3bc";
+        md5name = "${md5}-${name}";
+      }) ]
+    );
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -239,13 +245,15 @@ in
 
   inherit (primary-src) src;
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-I${librdf_rasqal}/include/rasqal" # librdf_redland refers to rasqal.h instead of rasqal/rasqal.h
-    "-fno-visibility-inlines-hidden" # https://bugs.documentfoundation.org/show_bug.cgi?id=78174#c10
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-I${librdf_rasqal}/include/rasqal" # librdf_redland refers to rasqal.h instead of rasqal/rasqal.h
+      "-fno-visibility-inlines-hidden" # https://bugs.documentfoundation.org/show_bug.cgi?id=78174#c10
+    ]
     ++ optionals (stdenv.isLinux && stdenv.isAarch64 && variant == "still") [
         "-O2" # https://bugs.gentoo.org/727188
-      ]);
+      ]
+  );
 
   tarballPath = "external/tarballs";
 
@@ -484,10 +492,12 @@ in
 
   configureFlags =
     [
-      (if withHelp then
-        ""
-      else
-        "--without-help")
+      (
+        if withHelp then
+          ""
+        else
+          "--without-help"
+      )
       "--with-boost=${getDev boost}"
       "--with-boost-libdir=${getLib boost}/lib"
       "--with-beanshell-jar=${bsh}"

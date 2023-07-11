@@ -488,11 +488,12 @@ in
       serviceConfig =
         let
           # List of capabilities to equip home-assistant with, depending on configured components
-          capabilities = lib.unique ([
-            # Empty string first, so we will never accidentally have an empty capability bounding set
-            # https://github.com/NixOS/nixpkgs/issues/120617#issuecomment-830685115
-            ""
-          ]
+          capabilities = lib.unique (
+            [
+              # Empty string first, so we will never accidentally have an empty capability bounding set
+              # https://github.com/NixOS/nixpkgs/issues/120617#issuecomment-830685115
+              ""
+            ]
             ++ lib.optionals
               (builtins.any useComponent componentsUsingBluetooth) [
                 # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
@@ -510,7 +511,8 @@ in
               "CAP_NET_ADMIN"
               "CAP_NET_BIND_SERVICE"
               "CAP_NET_RAW"
-            ]);
+            ]
+          );
           componentsUsingBluetooth = [
             # Components that require the AF_BLUETOOTH address family
             "august"

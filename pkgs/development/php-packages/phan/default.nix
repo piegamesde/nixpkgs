@@ -6,11 +6,13 @@
   makeWrapper,
 }:
 let
-  php' = php.withExtensions ({
+  php' = php.withExtensions (
+    {
       enabled,
       all,
     }:
-    enabled ++ [ all.ast ]);
+    enabled ++ [ all.ast ]
+  );
 in
 mkDerivation rec {
   pname = "phan";

@@ -133,14 +133,15 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = escapeShellArgs ([
-          "${getBin cfg.package}/bin/iceccd"
-          "-b"
-          "$STATE_DIRECTORY"
-          "-u"
-          "icecc"
-          (toString cfg.nice)
-        ]
+        ExecStart = escapeShellArgs (
+          [
+            "${getBin cfg.package}/bin/iceccd"
+            "-b"
+            "$STATE_DIRECTORY"
+            "-u"
+            "icecc"
+            (toString cfg.nice)
+          ]
           ++ optionals (cfg.schedulerHost != null) [
             "-s"
             cfg.schedulerHost
@@ -162,7 +163,8 @@ in
             (cfg.hostname)
           ]
           ++ optional cfg.noRemote "--no-remote"
-          ++ cfg.extraArgs);
+          ++ cfg.extraArgs
+        );
         DynamicUser = true;
         User = "icecc";
         Group = "icecc";

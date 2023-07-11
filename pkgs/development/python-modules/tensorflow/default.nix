@@ -353,48 +353,50 @@ let
       # Take as many libraries from the system as possible. Keep in sync with
       # list of valid syslibs in
       # https://github.com/tensorflow/tensorflow/blob/master/third_party/systemlibs/syslibs_configure.bzl
-    TF_SYSTEM_LIBS = lib.concatStringsSep "," ([
-      "absl_py"
-      "astor_archive"
-      "astunparse_archive"
-      "boringssl"
-      # Not packaged in nixpkgs
-      # "com_github_googleapis_googleapis"
-      # "com_github_googlecloudplatform_google_cloud_cpp"
-      "com_github_grpc_grpc"
-      "com_google_protobuf"
-      # Fails with the error: external/org_tensorflow/tensorflow/core/profiler/utils/tf_op_utils.cc:46:49: error: no matching function for call to 're2::RE2::FullMatch(absl::lts_2020_02_25::string_view&, re2::RE2&)'
-      # "com_googlesource_code_re2"
-      "curl"
-      "cython"
-      "dill_archive"
-      "double_conversion"
-      "flatbuffers"
-      "functools32_archive"
-      "gast_archive"
-      "gif"
-      "hwloc"
-      "icu"
-      "jsoncpp_git"
-      "libjpeg_turbo"
-      "lmdb"
-      "nasm"
-      "opt_einsum_archive"
-      "org_sqlite"
-      "pasta"
-      "png"
-      "pybind11"
-      "six_archive"
-      "snappy"
-      "tblib_archive"
-      "termcolor_archive"
-      "typing_extensions_archive"
-      "wrapt"
-      "zlib"
-    ]
+    TF_SYSTEM_LIBS = lib.concatStringsSep "," (
+      [
+        "absl_py"
+        "astor_archive"
+        "astunparse_archive"
+        "boringssl"
+        # Not packaged in nixpkgs
+        # "com_github_googleapis_googleapis"
+        # "com_github_googlecloudplatform_google_cloud_cpp"
+        "com_github_grpc_grpc"
+        "com_google_protobuf"
+        # Fails with the error: external/org_tensorflow/tensorflow/core/profiler/utils/tf_op_utils.cc:46:49: error: no matching function for call to 're2::RE2::FullMatch(absl::lts_2020_02_25::string_view&, re2::RE2&)'
+        # "com_googlesource_code_re2"
+        "curl"
+        "cython"
+        "dill_archive"
+        "double_conversion"
+        "flatbuffers"
+        "functools32_archive"
+        "gast_archive"
+        "gif"
+        "hwloc"
+        "icu"
+        "jsoncpp_git"
+        "libjpeg_turbo"
+        "lmdb"
+        "nasm"
+        "opt_einsum_archive"
+        "org_sqlite"
+        "pasta"
+        "png"
+        "pybind11"
+        "six_archive"
+        "snappy"
+        "tblib_archive"
+        "termcolor_archive"
+        "typing_extensions_archive"
+        "wrapt"
+        "zlib"
+      ]
       ++ lib.optionals (!stdenv.isDarwin) [
           "nsync" # fails to build on darwin
-        ]);
+        ]
+    );
 
     INCLUDEDIR = "${includes_joined}/include";
 

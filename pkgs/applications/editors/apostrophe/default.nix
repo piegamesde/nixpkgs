@@ -24,7 +24,8 @@
 }:
 
 let
-  pythonEnv = pythonPackages.python.withPackages (p:
+  pythonEnv = pythonPackages.python.withPackages (
+    p:
     with p; [
       regex
       setuptools
@@ -34,7 +35,8 @@ let
       pycairo
       pypandoc
       chardet
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {

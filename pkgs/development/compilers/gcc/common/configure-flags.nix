@@ -83,66 +83,73 @@ let
       }/bin/${targetPlatform.config}-as"
       "--with-ld=${targetPackages.stdenv.cc.bintools}/bin/${targetPlatform.config}-ld"
     ]
-    ++ (if crossStageStatic then
-      [
-        "--disable-libssp"
-        "--disable-nls"
-        "--without-headers"
-        "--disable-threads"
-        "--disable-libgomp"
-        "--disable-libquadmath"
-        "--disable-shared"
-        "--disable-libatomic" # requires libc
-        "--disable-decimal-float" # requires libc
-        "--disable-libmpx" # requires libc
-      ]
-      ++ lib.optionals crossMingw [
-        "--with-headers=${lib.getDev libcCross}/include"
-        "--with-gcc"
-        "--with-gnu-as"
-        "--with-gnu-ld"
-        "--disable-debug"
-        "--disable-win32-registry"
-        "--enable-hash-synchronization"
-        "--enable-libssp"
-        "--disable-nls"
-        # To keep ABI compatibility with upstream mingw-w64
-        "--enable-fully-dynamic-string"
-      ]
-      ++ lib.optionals (crossMingw && targetPlatform.isx86_32) [
-        # See Note [Windows Exception Handling]
-        "--enable-sjlj-exceptions"
-        "--with-dwarf2"
-      ]
-    else
-      [
-        (if crossDarwin then
-          "--with-sysroot=${lib.getLib libcCross}/share/sysroot"
-        else
-          "--with-headers=${lib.getDev libcCross}${
-            libcCross.incdir or "/include"
-          }")
-        "--enable-__cxa_atexit"
-        "--enable-long-long"
-        "--enable-threads=${
-          if targetPlatform.isUnix then
-            "posix"
-          else if targetPlatform.isWindows then
-            (threadsCross.model or "win32")
-          else
-            "single"
-        }"
-        "--enable-nls"
-      ]
-      ++ lib.optionals
-        (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
+    ++ (
+      if crossStageStatic then
+        [
+          "--disable-libssp"
+          "--disable-nls"
+          "--without-headers"
+          "--disable-threads"
+          "--disable-libgomp"
+          "--disable-libquadmath"
+          "--disable-shared"
+          "--disable-libatomic" # requires libc
+          "--disable-decimal-float" # requires libc
+          "--disable-libmpx" # requires libc
+        ]
+        ++ lib.optionals crossMingw [
+          "--with-headers=${lib.getDev libcCross}/include"
+          "--with-gcc"
+          "--with-gnu-as"
+          "--with-gnu-ld"
+          "--disable-debug"
+          "--disable-win32-registry"
+          "--enable-hash-synchronization"
+          "--enable-libssp"
+          "--disable-nls"
+          # To keep ABI compatibility with upstream mingw-w64
+          "--enable-fully-dynamic-string"
+        ]
+        ++ lib.optionals (crossMingw && targetPlatform.isx86_32) [
+          # See Note [Windows Exception Handling]
+          "--enable-sjlj-exceptions"
+          "--with-dwarf2"
+        ]
+      else
+        [
+          (
+            if crossDarwin then
+              "--with-sysroot=${lib.getLib libcCross}/share/sysroot"
+            else
+              "--with-headers=${lib.getDev libcCross}${
+                libcCross.incdir or "/include"
+              }"
+          )
+          "--enable-__cxa_atexit"
+          "--enable-long-long"
+          "--enable-threads=${
+            if targetPlatform.isUnix then
+              "posix"
+            else if targetPlatform.isWindows then
+              (threadsCross.model or "win32")
+            else
+              "single"
+          }"
+          "--enable-nls"
+        ]
+        ++ lib.optionals (
+          targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl"
+        ) [
           # libsanitizer requires netrom/netrom.h which is not
           # available in uclibc.
           "--disable-libsanitizer"
         ]
-      ++ lib.optional (targetPlatform.libc == "newlib"
-        || targetPlatform.libc == "newlib-nano") "--with-newlib"
-      ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc")
+        ++ lib.optional (
+          targetPlatform.libc == "newlib"
+          || targetPlatform.libc == "newlib-nano"
+        ) "--with-newlib"
+        ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
+    )
     ;
 
   configureFlags =
@@ -155,12 +162,14 @@ let
       "--with-mpc=${libmpc}"
     ]
     ++ lib.optionals (!crossStageStatic) [
-      (if libcCross == null then
-        "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
-      else
-        "--with-native-system-header-dir=${lib.getDev libcCross}${
-          libcCross.incdir or "/include"
-        }")
+      (
+        if libcCross == null then
+          "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
+        else
+          "--with-native-system-header-dir=${lib.getDev libcCross}${
+            libcCross.incdir or "/include"
+          }"
+      )
       # gcc builds for cross-compilers (build != host) or cross-built
       # gcc (host != target) always apply the offset prefix to disentangle
       # target headers from build or host headers:
@@ -202,7 +211,8 @@ let
       "--with-system-zlib"
       "--enable-static"
       "--enable-languages=${
-        lib.concatStringsSep "," (lib.optional langC "c"
+        lib.concatStringsSep "," (
+          lib.optional langC "c"
           ++ lib.optional langCC "c++"
           ++ lib.optional langD "d"
           ++ lib.optional langFortran "fortran"
@@ -215,17 +225,20 @@ let
             "objc"
             "obj-c++"
           ]
-          ++ lib.optional langJit "jit")
+          ++ lib.optional langJit "jit"
+        )
       }"
     ]
 
-    ++ (if (enableMultilib || targetPlatform.isAvr) then
-      [
-        "--enable-multilib"
-        "--disable-libquadmath"
-      ]
-    else
-      [ "--disable-multilib" ])
+    ++ (
+      if (enableMultilib || targetPlatform.isAvr) then
+        [
+          "--enable-multilib"
+          "--disable-libquadmath"
+        ]
+      else
+        [ "--disable-multilib" ]
+    )
     ++ lib.optional (!enableShared) "--disable-shared"
     ++ lib.singleton (lib.enableFeature enablePlugin "plugin")
     # Libcc1 is the GCC cc1 plugin for the GDB debugger which is only used by gdb
@@ -250,10 +263,12 @@ let
     ]
 
     # Ada options, gcc can't build the runtime library for a cross compiler
-    ++ lib.optional langAda (if hostPlatform == targetPlatform then
-      "--enable-libada"
-    else
-      "--disable-libada")
+    ++ lib.optional langAda (
+      if hostPlatform == targetPlatform then
+        "--enable-libada"
+      else
+        "--disable-libada"
+    )
 
     # Java options
     ++ lib.optionals langJava [
@@ -290,16 +305,19 @@ let
       "--with-gnu-as"
       "--without-gnu-ld"
     ]
-    ++ lib.optional (targetPlatform.libc == "musl")
+    ++ lib.optional (
+      targetPlatform.libc == "musl"
+    )
     # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
       "--disable-libmpx"
-    ++ lib.optionals
-      (targetPlatform == hostPlatform && targetPlatform.libc == "musl") [
-        "--disable-libsanitizer"
-        "--disable-symvers"
-        "libat_cv_have_ifunc=no"
-        "--disable-gnu-indirect-function"
-      ]
+    ++ lib.optionals (
+      targetPlatform == hostPlatform && targetPlatform.libc == "musl"
+    ) [
+      "--disable-libsanitizer"
+      "--disable-symvers"
+      "libat_cv_have_ifunc=no"
+      "--disable-gnu-indirect-function"
+    ]
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
     ;

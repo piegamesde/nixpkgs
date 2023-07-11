@@ -113,27 +113,29 @@ stdenv.mkDerivation rec {
   doCheck = runTests;
 
   mesonFlags =
-    (lib.mapAttrsToList (option: enable:
+    (lib.mapAttrsToList (
+      option: enable:
       "-D${option}=${
         if enable then
           "enabled"
         else
           "disabled"
-      }") {
-        dbusmenu-gtk = traySupport;
-        jack = jackSupport;
-        libinput = inputSupport;
-        libnl = nlSupport;
-        libudev = udevSupport;
-        mpd = mpdSupport;
-        mpris = mprisSupport;
-        pulseaudio = pulseSupport;
-        rfkill = rfkillSupport;
-        sndio = sndioSupport;
-        tests = runTests;
-        upower_glib = upowerSupport;
-        wireplumber = wireplumberSupport;
-      })
+      }"
+    ) {
+      dbusmenu-gtk = traySupport;
+      jack = jackSupport;
+      libinput = inputSupport;
+      libnl = nlSupport;
+      libudev = udevSupport;
+      mpd = mpdSupport;
+      mpris = mprisSupport;
+      pulseaudio = pulseSupport;
+      rfkill = rfkillSupport;
+      sndio = sndioSupport;
+      tests = runTests;
+      upower_glib = upowerSupport;
+      wireplumber = wireplumberSupport;
+    })
     ++ [
       "-Dsystemd=disabled"
       "-Dgtk-layer-shell=enabled"

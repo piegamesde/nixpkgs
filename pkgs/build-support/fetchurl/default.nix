@@ -16,12 +16,14 @@ let
     # fetchurl instantiations via environment variables.  This makes the
     # resulting store derivations (.drv files) much smaller, which in
     # turn makes nix-env/nix-instantiate faster.
-  mirrorsFile = buildPackages.stdenvNoCC.mkDerivation ({
-    name = "mirrors-list";
-    strictDeps = true;
-    builder = ./write-mirror-list.sh;
-    preferLocalBuild = true;
-  } // mirrors);
+  mirrorsFile = buildPackages.stdenvNoCC.mkDerivation (
+    {
+      name = "mirrors-list";
+      strictDeps = true;
+      builder = ./write-mirror-list.sh;
+      preferLocalBuild = true;
+    } // mirrors
+  );
 
     # Names of the master sites that are mirrored (i.e., "sourceforge",
     # "gnu", etc.).
@@ -125,15 +127,19 @@ in
 let
   urls_ =
     if urls != [ ] && url == "" then
-      (if lib.isList urls then
-        urls
-      else
-        throw "`urls` is not a list")
+      (
+        if lib.isList urls then
+          urls
+        else
+          throw "`urls` is not a list"
+      )
     else if urls == [ ] && url != "" then
-      (if lib.isString url then
-        [ url ]
-      else
-        throw "`url` is not a string")
+      (
+        if lib.isString url then
+          [ url ]
+        else
+          throw "`url` is not a string"
+      )
     else
       throw "fetchurl requires either `url` or `urls` to be set"
     ;
@@ -180,19 +186,22 @@ let
     ;
 
 in
-stdenvNoCC.mkDerivation ((if (pname != "" && version != "") then
-  { inherit pname version; }
-else
-  {
-    name =
-      if showURLs then
-        "urls"
-      else if name != "" then
-        name
-      else
-        baseNameOf (toString (builtins.head urls_))
-      ;
-  }) // {
+stdenvNoCC.mkDerivation (
+  (
+    if (pname != "" && version != "") then
+      { inherit pname version; }
+    else
+      {
+        name =
+          if showURLs then
+            "urls"
+          else if name != "" then
+            name
+          else
+            baseNameOf (toString (builtins.head urls_))
+          ;
+      }
+  ) // {
     builder = ./builder.sh;
 
     nativeBuildInputs = [ curl ] ++ nativeBuildInputs;
@@ -208,10 +217,12 @@ else
 
     SSL_CERT_FILE =
       if
-        (hash_.outputHash == ""
+        (
+          hash_.outputHash == ""
           || hash_.outputHash == lib.fakeSha256
           || hash_.outputHash == lib.fakeSha512
-          || hash_.outputHash == lib.fakeHash)
+          || hash_.outputHash == lib.fakeHash
+        )
       then
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else
@@ -256,4 +267,5 @@ else
 
     inherit meta;
     passthru = { inherit url; } // passthru;
-  })
+  }
+)

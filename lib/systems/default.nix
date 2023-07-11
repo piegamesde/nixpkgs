@@ -37,10 +37,12 @@ rec {
         ;
       final = {
         # Prefer to parse `config` as it is strictly more informative.
-        parsed = parse.mkSystemFromString (if args ? config then
-          args.config
-        else
-          args.system);
+        parsed = parse.mkSystemFromString (
+          if args ? config then
+            args.config
+          else
+            args.system
+        );
           # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
         system = parse.doubleFromSystem final.parsed;
         config = parse.tripleFromSystem final.parsed;
@@ -175,11 +177,13 @@ rec {
 
           # Just a guess, based on `system`
         inherit
-          ({
-            linux-kernel = args.linux-kernel or { };
-            gcc = args.gcc or { };
-            rustc = args.rust or { };
-          } // platforms.select final)
+          (
+            {
+              linux-kernel = args.linux-kernel or { };
+              gcc = args.gcc or { };
+              rustc = args.rust or { };
+            } // platforms.select final
+          )
           linux-kernel
           gcc
           rustc
@@ -258,10 +262,12 @@ rec {
           # The canonical name for this attribute is darwinSdkVersion, but some
           # platforms define the old name "sdkVer".
         darwinSdkVersion =
-          final.sdkVer or (if final.isAarch64 then
-            "11.0"
-          else
-            "10.12");
+          final.sdkVer or (
+            if final.isAarch64 then
+              "11.0"
+            else
+              "10.12"
+          );
         darwinMinVersion = final.darwinSdkVersion;
         darwinMinVersionVariable =
           if final.isMacOS then
@@ -271,70 +277,72 @@ rec {
           else
             null
           ;
-      } // (let
-        selectEmulator =
-          pkgs:
-          let
-            qemu-user = pkgs.qemu.override {
-              smartcardSupport = false;
-              spiceSupport = false;
-              openGLSupport = false;
-              virglSupport = false;
-              vncSupport = false;
-              gtkSupport = false;
-              sdlSupport = false;
-              pulseSupport = false;
-              smbdSupport = false;
-              seccompSupport = false;
-              enableDocs = false;
-              hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
-            };
-            wine =
-              (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}")
-              .minimal;
-          in
-          if
-            final.parsed.kernel.name
-              == pkgs.stdenv.hostPlatform.parsed.kernel.name
-            && pkgs.stdenv.hostPlatform.canExecute final
-          then
-            ''${pkgs.runtimeShell} -c '"$@"' --''
-          else if final.isWindows then
-            "${wine}/bin/wine${
-              lib.optionalString (final.parsed.cpu.bits == 64) "64"
-            }"
-          else if
-            final.isLinux
-            && pkgs.stdenv.hostPlatform.isLinux
-            && final.qemuArch != null
-          then
-            "${qemu-user}/bin/qemu-${final.qemuArch}"
-          else if final.isWasi then
-            "${pkgs.wasmtime}/bin/wasmtime"
-          else if final.isMmix then
-            "${pkgs.mmixware}/bin/mmix"
-          else
-            null
-          ;
-      in
-      {
-        emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
+      } // (
+        let
+          selectEmulator =
+            pkgs:
+            let
+              qemu-user = pkgs.qemu.override {
+                smartcardSupport = false;
+                spiceSupport = false;
+                openGLSupport = false;
+                virglSupport = false;
+                vncSupport = false;
+                gtkSupport = false;
+                sdlSupport = false;
+                pulseSupport = false;
+                smbdSupport = false;
+                seccompSupport = false;
+                enableDocs = false;
+                hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
+              };
+              wine =
+                (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}")
+                .minimal;
+            in
+            if
+              final.parsed.kernel.name
+                == pkgs.stdenv.hostPlatform.parsed.kernel.name
+              && pkgs.stdenv.hostPlatform.canExecute final
+            then
+              ''${pkgs.runtimeShell} -c '"$@"' --''
+            else if final.isWindows then
+              "${wine}/bin/wine${
+                lib.optionalString (final.parsed.cpu.bits == 64) "64"
+              }"
+            else if
+              final.isLinux
+              && pkgs.stdenv.hostPlatform.isLinux
+              && final.qemuArch != null
+            then
+              "${qemu-user}/bin/qemu-${final.qemuArch}"
+            else if final.isWasi then
+              "${pkgs.wasmtime}/bin/wasmtime"
+            else if final.isMmix then
+              "${pkgs.mmixware}/bin/mmix"
+            else
+              null
+            ;
+        in
+        {
+          emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
 
-        emulator =
-          pkgs:
-          if (final.emulatorAvailable pkgs) then
-            selectEmulator pkgs
-          else
-            throw "Don't know how to run ${final.config} executables."
-          ;
+          emulator =
+            pkgs:
+            if (final.emulatorAvailable pkgs) then
+              selectEmulator pkgs
+            else
+              throw "Don't know how to run ${final.config} executables."
+            ;
 
-      }
+        }
       ) // mapAttrs (n: v: v final.parsed) inspect.predicates
         // mapAttrs (n: v: v final.gcc.arch or "default")
         architectures.predicates // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert lib.foldl (pass:
+    assert lib.foldl (
+      pass:
       {
         assertion,
         message,
@@ -342,7 +350,10 @@ rec {
       if assertion final then
         pass
       else
-        throw message) true (final.parsed.abi.assertions or [ ]);
+        throw message
+    ) true (
+      final.parsed.abi.assertions or [ ]
+    );
     final
     ;
 }

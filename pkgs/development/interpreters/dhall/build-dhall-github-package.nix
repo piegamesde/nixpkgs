@@ -5,7 +5,8 @@
 }:
 
 # This function is used by `dhall-to-nixpkgs` when given a GitHub repository
-lib.makePackageOverridable ({ # Arguments passed through to `buildDhallPackage`
+lib.makePackageOverridable (
+  { # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],
     source ? false
@@ -32,35 +33,39 @@ lib.makePackageOverridable ({ # Arguments passed through to `buildDhallPackage`
   let
     versionedName = "${name}-${rev}";
 
-    src = fetchFromGitHub ({
-      name = "${versionedName}-source";
+    src = fetchFromGitHub (
+      {
+        name = "${versionedName}-source";
 
-      inherit owner repo rev;
-    } // removeAttrs args [
-      "name"
-      "dependencies"
-      "document"
-      "source"
-      "directory"
-      "file"
-      "owner"
-      "repo"
-      "rev"
-    ]);
+        inherit owner repo rev;
+      } // removeAttrs args [
+        "name"
+        "dependencies"
+        "document"
+        "source"
+        "directory"
+        "file"
+        "owner"
+        "repo"
+        "rev"
+      ]
+    );
 
     prefix = lib.optionalString (directory != "") "/${directory}";
 
   in
-  buildDhallPackage ({
-    inherit dependencies source;
+  buildDhallPackage (
+    {
+      inherit dependencies source;
 
-    name = versionedName;
+      name = versionedName;
 
-    code = "${src}${prefix}/${file}";
-  } // lib.optionalAttrs document {
-    documentationRoot = "${src}/${prefix}";
+      code = "${src}${prefix}/${file}";
+    } // lib.optionalAttrs document {
+      documentationRoot = "${src}/${prefix}";
 
-    baseImportUrl =
-      "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
-  })
+      baseImportUrl =
+        "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";
+    }
+  )
 )

@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     # This patch disables build-time detection.
     ../openssl/3.0/openssl-disable-kernel-detection.patch
 
-    (if stdenv.hostPlatform.isDarwin then
-      ../openssl/use-etc-ssl-certs-darwin.patch
-    else
-      ../openssl/use-etc-ssl-certs.patch)
+    (
+      if stdenv.hostPlatform.isDarwin then
+        ../openssl/use-etc-ssl-certs-darwin.patch
+      else
+        ../openssl/use-etc-ssl-certs.patch
+    )
   ];
 
   postPatch =
@@ -64,7 +66,9 @@ stdenv.mkDerivation rec {
   setOutputFlags = false;
   separateDebugInfo =
     !stdenv.hostPlatform.isDarwin
-    && !(stdenv.hostPlatform.useLLVM or false)
+    && !(
+      stdenv.hostPlatform.useLLVM or false
+    )
     && stdenv.cc.isGNU
     ;
 
@@ -96,30 +100,33 @@ stdenv.mkDerivation rec {
           throw "unsupported ABI for ${stdenv.hostPlatform.system}"
         ;
     }
-    .${stdenv.hostPlatform.system} or (if
-      stdenv.hostPlatform == stdenv.buildPlatform
-    then
-      "./config"
-    else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
-      "./Configure BSD-x86_64"
-    else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
-      "./Configure BSD-x86"
-      + lib.optionalString
-        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
-    else if stdenv.hostPlatform.isBSD then
-      "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
-    else if stdenv.hostPlatform.isMinGW then
-      "./Configure mingw${
-        lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32)
-        (toString stdenv.hostPlatform.parsed.cpu.bits)
-      }"
-    else if stdenv.hostPlatform.isLinux then
-      "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
-    else if stdenv.hostPlatform.isiOS then
-      "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
-    else
-      throw
-      "Not sure what configuration to use for ${stdenv.hostPlatform.config}");
+    .${stdenv.hostPlatform.system} or (
+      if stdenv.hostPlatform == stdenv.buildPlatform then
+        "./config"
+      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
+        "./Configure BSD-x86_64"
+      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
+        "./Configure BSD-x86"
+        + lib.optionalString (
+          stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf"
+        ) "-elf"
+      else if stdenv.hostPlatform.isBSD then
+        "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
+      else if stdenv.hostPlatform.isMinGW then
+        "./Configure mingw${
+          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32)
+          (toString stdenv.hostPlatform.parsed.cpu.bits)
+        }"
+      else if stdenv.hostPlatform.isLinux then
+        "./Configure linux-generic${
+          toString stdenv.hostPlatform.parsed.cpu.bits
+        }"
+      else if stdenv.hostPlatform.isiOS then
+        "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
+      else
+        throw
+        "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
+    );
 
     # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
   dontAddStaticConfigureFlags = true;
@@ -161,19 +168,21 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   postInstall =
-    (if static then
-      ''
-        # OPENSSLDIR has a reference to self
-        ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
-      ''
-    else
-      ''
-        # If we're building dynamic libraries, then don't install static
-        # libraries.
-        if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
-            rm "$out/lib/"*.a
-        fi
-      '')
+    (
+      if static then
+        ''
+          # OPENSSLDIR has a reference to self
+          ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
+        ''
+      else
+        ''
+          # If we're building dynamic libraries, then don't install static
+          # libraries.
+          if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
+              rm "$out/lib/"*.a
+          fi
+        ''
+    )
     + ''
       mkdir -p $bin
       mv $out/bin $bin/bin

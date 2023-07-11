@@ -24,7 +24,8 @@
 }:
 
 let
-  binPath = lib.makeBinPath ([ ]
+  binPath = lib.makeBinPath (
+    [ ]
     ++ lib.optionals stdenv.isLinux [
       runc
       crun
@@ -34,7 +35,8 @@ let
       util-linux
       iptables
     ]
-    ++ extraPackages);
+    ++ extraPackages
+  );
 
   helpersBin = symlinkJoin {
     name =

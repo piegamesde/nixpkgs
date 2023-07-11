@@ -66,8 +66,9 @@ let
     #
     # TODO(@Ericson2314) Make unconditional, or optional but always true by
     # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
-    (targetPlatform.config + "-");
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
+    targetPlatform.config + "-"
+  );
 
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
@@ -158,19 +159,22 @@ let
       ""
     ;
 
-  expand-response-params = lib.optionalString (buildPackages ? stdenv
+  expand-response-params = lib.optionalString (
+    buildPackages ? stdenv
     && buildPackages.stdenv.hasCC
-    && buildPackages.stdenv.cc != "/dev/null")
-    (import ../expand-response-params { inherit (buildPackages) stdenv; });
+    && buildPackages.stdenv.cc != "/dev/null"
+  ) (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
 in
 stdenv.mkDerivation {
   pname =
     targetPrefix
-    + (if name != "" then
-      name
-    else
-      "${bintoolsName}-wrapper")
+    + (
+      if name != "" then
+        name
+      else
+        "${bintoolsName}-wrapper"
+    )
     ;
   version =
     if bintools == null then
@@ -232,25 +236,27 @@ stdenv.mkDerivation {
       }
     ''
 
-    + (if nativeTools then
-      ''
-        echo ${nativePrefix} > $out/nix-support/orig-bintools
+    + (
+      if nativeTools then
+        ''
+          echo ${nativePrefix} > $out/nix-support/orig-bintools
 
-        ldPath="${nativePrefix}/bin"
-      ''
-    else
-      ''
-        echo $bintools_bin > $out/nix-support/orig-bintools
+          ldPath="${nativePrefix}/bin"
+        ''
+      else
+        ''
+          echo $bintools_bin > $out/nix-support/orig-bintools
 
-        ldPath="${bintools_bin}/bin"
-      ''
+          ldPath="${bintools_bin}/bin"
+        ''
 
-      # Solaris needs an additional ld wrapper.
-      + optionalString (targetPlatform.isSunOS && nativePrefix != "") ''
-        ldPath="${nativePrefix}/bin"
-        exec="$ldPath/${targetPrefix}ld"
-        wrap ld-solaris ${./ld-solaris-wrapper.sh}
-      '')
+        # Solaris needs an additional ld wrapper.
+        + optionalString (targetPlatform.isSunOS && nativePrefix != "") ''
+          ldPath="${nativePrefix}/bin"
+          exec="$ldPath/${targetPrefix}ld"
+          wrap ld-solaris ${./ld-solaris-wrapper.sh}
+        ''
+    )
 
     # If we are asked to wrap `gas` and this bintools has it,
     # then symlink it (`as` will be symlinked next).
@@ -274,23 +280,25 @@ stdenv.mkDerivation {
       done
 
     ''
-    + (if !useMacosReexportHack then
-      ''
-        if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
-          wrap ${targetPrefix}ld ${
-            ./ld-wrapper.sh
+    + (
+      if !useMacosReexportHack then
+        ''
+          if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
+            wrap ${targetPrefix}ld ${
+              ./ld-wrapper.sh
+            } ''${ld:-$ldPath/${targetPrefix}ld}
+          fi
+        ''
+      else
+        ''
+          ldInner="${targetPrefix}ld-reexport-delegate"
+          wrap "$ldInner" ${
+            ./macos-sierra-reexport-hack.bash
           } ''${ld:-$ldPath/${targetPrefix}ld}
-        fi
-      ''
-    else
-      ''
-        ldInner="${targetPrefix}ld-reexport-delegate"
-        wrap "$ldInner" ${
-          ./macos-sierra-reexport-hack.bash
-        } ''${ld:-$ldPath/${targetPrefix}ld}
-        wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
-        unset ldInner
-      '')
+          wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
+          unset ldInner
+        ''
+    )
     + ''
 
       for variant in $ldPath/${targetPrefix}ld.*; do
@@ -312,15 +320,16 @@ stdenv.mkDerivation {
     ##
     ## General libc support
     ##
-    optionalString (libc != null) (''
-      touch "$out/nix-support/libc-ldflags"
-      echo "-L${libc_lib}${
-        libc.libdir or "/lib"
-      }" >> $out/nix-support/libc-ldflags
+    optionalString (libc != null) (
+      ''
+        touch "$out/nix-support/libc-ldflags"
+        echo "-L${libc_lib}${
+          libc.libdir or "/lib"
+        }" >> $out/nix-support/libc-ldflags
 
-      echo "${libc_lib}" > $out/nix-support/orig-libc
-      echo "${libc_dev}" > $out/nix-support/orig-libc-dev
-    ''
+        echo "${libc_lib}" > $out/nix-support/orig-libc
+        echo "${libc_dev}" > $out/nix-support/orig-libc-dev
+      ''
 
       ##
       ## Dynamic linker support
@@ -359,7 +368,8 @@ stdenv.mkDerivation {
               ''
           }
         fi
-      '')
+      ''
+    )
 
     ##
     ## User env support
@@ -380,12 +390,14 @@ stdenv.mkDerivation {
       ##
       ## Man page and info support
       ##
-    + optionalString propagateDoc (''
-      ln -s ${bintools.man} $man
-    ''
+    + optionalString propagateDoc (
+      ''
+        ln -s ${bintools.man} $man
+      ''
       + optionalString (bintools ? info) ''
         ln -s ${bintools.info} $info
-      '')
+      ''
+    )
 
     ##
     ## Hardening support
@@ -433,10 +445,11 @@ stdenv.mkDerivation {
       ###
       ### Remove LC_UUID
       ###
-    + optionalString
-      (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
-        echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
-      ''
+    + optionalString (
+      stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)
+    ) ''
+      echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
+    ''
 
     + ''
       for flags in "$out/nix-support"/*flags*; do
@@ -451,23 +464,24 @@ stdenv.mkDerivation {
     ###
     ### Ensure consistent LC_VERSION_MIN_MACOSX
     ###
-    + optionalString stdenv.targetPlatform.isDarwin (let
-      inherit (stdenv.targetPlatform)
-        darwinPlatform
-        darwinSdkVersion
-        darwinMinVersion
-        darwinMinVersionVariable
-        ;
-    in
-    ''
-      export darwinPlatform=${darwinPlatform}
-      export darwinMinVersion=${darwinMinVersion}
-      export darwinSdkVersion=${darwinSdkVersion}
-      export darwinMinVersionVariable=${darwinMinVersionVariable}
-      substituteAll ${
-        ./add-darwin-ldflags-before.sh
-      } $out/nix-support/add-local-ldflags-before.sh
-    ''
+    + optionalString stdenv.targetPlatform.isDarwin (
+      let
+        inherit (stdenv.targetPlatform)
+          darwinPlatform
+          darwinSdkVersion
+          darwinMinVersion
+          darwinMinVersionVariable
+          ;
+      in
+      ''
+        export darwinPlatform=${darwinPlatform}
+        export darwinMinVersion=${darwinMinVersion}
+        export darwinSdkVersion=${darwinSdkVersion}
+        export darwinMinVersionVariable=${darwinMinVersionVariable}
+        substituteAll ${
+          ./add-darwin-ldflags-before.sh
+        } $out/nix-support/add-local-ldflags-before.sh
+      ''
     )
 
     ##
@@ -519,19 +533,21 @@ stdenv.mkDerivation {
           { }
         ;
     in
-    (if bintools_ ? meta then
-      removeAttrs bintools.meta [ "priority" ]
-    else
-      { }) // {
-        description =
-          lib.attrByPath [
-            "meta"
-            "description"
-          ] "System binary utilities" bintools_
-          + " (wrapper script)"
-          ;
-        priority = 10;
-      }
+    (
+      if bintools_ ? meta then
+        removeAttrs bintools.meta [ "priority" ]
+      else
+        { }
+    ) // {
+      description =
+        lib.attrByPath [
+          "meta"
+          "description"
+        ] "System binary utilities" bintools_
+        + " (wrapper script)"
+        ;
+      priority = 10;
+    }
     // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
     ;
 }

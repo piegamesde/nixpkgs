@@ -27,15 +27,17 @@ let
     inherit ruby;
     gemfile = writeText "Gemfile" "";
     lockfile = writeText "Gemfile.lock" "";
-    gemset = lib.recursiveUpdate (import ./gemset.nix) ({
-      vagrant = {
-        source = {
-          type = "url";
-          inherit url sha256;
+    gemset = lib.recursiveUpdate (import ./gemset.nix) (
+      {
+        vagrant = {
+          source = {
+            type = "url";
+            inherit url sha256;
+          };
+          inherit version;
         };
-        inherit version;
-      };
-    } // lib.optionalAttrs withLibvirt (import ./gemset_libvirt.nix));
+      } // lib.optionalAttrs withLibvirt (import ./gemset_libvirt.nix)
+    );
 
       # This replaces the gem symlinks with directories, resolving this
       # error when running vagrant (I have no idea why):
@@ -80,12 +82,13 @@ buildRubyGem rec {
     #   - qemu: Make 'qemu-img' available for 'vagrant package'
   postInstall =
     let
-      pathAdditions = lib.makeSearchPath "bin" (map (x: lib.getBin x)
-        ([ libarchive ]
-          ++ lib.optionals withLibvirt [
-            libguestfs
-            qemu
-          ]));
+      pathAdditions = lib.makeSearchPath "bin" (map (x: lib.getBin x) (
+        [ libarchive ]
+        ++ lib.optionals withLibvirt [
+          libguestfs
+          qemu
+        ]
+      ));
     in
     ''
       wrapProgram "$out/bin/vagrant" \

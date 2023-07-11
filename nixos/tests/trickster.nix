@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -43,4 +44,5 @@ import ./make-test-python.nix ({
           "curl -fL http://localhost:9090/metrics | grep 'promhttp_metric_handler_requests_total{code=\"500\"} 0'"
       )
     '';
-  })
+  }
+)

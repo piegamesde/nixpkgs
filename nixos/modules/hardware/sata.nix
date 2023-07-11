@@ -84,7 +84,8 @@ in
     services.udev.extraRules =
       lib.concatMapStringsSep "\n" buildRule cfg.drives;
 
-    systemd.services = lib.listToAttrs (map (e:
+    systemd.services = lib.listToAttrs (map (
+      e:
       lib.nameValuePair (unitName e) {
         description = "SATA timeout for ${e.name}";
         wantedBy = [ "sata-timeout.target" ];
@@ -96,7 +97,8 @@ in
           ProtectHome = "tmpfs";
           ProtectSystem = "strict";
         };
-      }) cfg.drives);
+      }
+    ) cfg.drives);
 
     systemd.targets.sata-timeout = {
       description = "SATA timeout";

@@ -307,7 +307,9 @@ in
       assertions = [ {
         assertion =
           cfg.tokenjanitor.enable
-          -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
+          -> (
+            cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned
+          )
           ;
         message = ''
           privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
@@ -454,8 +456,9 @@ in
           let
             xor = a: b: a && !b || !a && b;
           in
-          xor (cfg.ldap-proxy.settings == { })
-          (cfg.ldap-proxy.configFile == null)
+          xor (cfg.ldap-proxy.settings == { }) (
+            cfg.ldap-proxy.configFile == null
+          )
           ;
         message =
           "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";

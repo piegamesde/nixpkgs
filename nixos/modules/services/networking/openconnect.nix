@@ -99,12 +99,13 @@ let
   };
   generateExtraConfig =
     extra_cfg:
-    strings.concatStringsSep "\n" (attrsets.mapAttrsToList (name: value:
+    strings.concatStringsSep "\n" (attrsets.mapAttrsToList (
+      name: value:
       if (value == true) then
         name
       else
-        "${name}=${value}")
-      (attrsets.filterAttrs (_: value: value != false) extra_cfg))
+        "${name}=${value}"
+    ) (attrsets.filterAttrs (_: value: value != false) extra_cfg))
     ;
   generateConfig =
     name: icfg:
@@ -164,10 +165,12 @@ in
   };
 
   config = {
-    systemd.services = mapAttrs' (name: value: {
-      name = "openconnect-${name}";
-      value = generateUnit name value;
-    }) cfg.interfaces;
+    systemd.services = mapAttrs' (
+      name: value: {
+        name = "openconnect-${name}";
+        value = generateUnit name value;
+      }
+    ) cfg.interfaces;
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

@@ -35,11 +35,13 @@ stdenv.mkDerivation rec {
     unzip
   ];
   buildInputs =
-    (with perlPackages; [
-      perl
-      ImageExifTool
-      CpanelJSONXS
-    ]);
+    (
+      with perlPackages; [
+        perl
+        ImageExifTool
+        CpanelJSONXS
+      ]
+    );
 
   installPhase = ''
     mkdir -p "$out/bin"

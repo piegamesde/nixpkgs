@@ -24,7 +24,8 @@ with lib;
   };
 
   config = mkIf config.security.lockKernelModules {
-    boot.kernelModules = concatMap (x:
+    boot.kernelModules = concatMap (
+      x:
       if x.device != null then
         if x.fsType == "vfat" then
           [
@@ -35,7 +36,8 @@ with lib;
         else
           [ x.fsType ]
       else
-        [ ]) config.system.build.fileSystems;
+        [ ]
+    ) config.system.build.fileSystems;
 
     systemd.services.disable-kernel-module-loading = {
       description = "Disable kernel module loading";

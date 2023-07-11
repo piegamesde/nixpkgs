@@ -124,10 +124,11 @@ stdenv.mkDerivation {
 
     # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString
-      (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
-        ln -s "$out/lib"/*/* "$out/lib"
-      ''
+    lib.optionalString (
+      stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm
+    ) ''
+      ln -s "$out/lib"/*/* "$out/lib"
+    ''
     + lib.optionalString (useLLVM) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
@@ -137,12 +138,13 @@ stdenv.mkDerivation {
       ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
     ''
       # See https://reviews.llvm.org/D37278 for why android exception
-    + lib.optionalString
-      (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid) ''
-        for f in $out/lib/*/*builtins-i?86*; do
-          ln -s "$f" $(echo "$f" | sed -e 's/builtins-i.86/builtins-i386/')
-        done
-      ''
+    + lib.optionalString (
+      stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid
+    ) ''
+      for f in $out/lib/*/*builtins-i?86*; do
+        ln -s "$f" $(echo "$f" | sed -e 's/builtins-i.86/builtins-i386/')
+      done
+    ''
     + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
     ''

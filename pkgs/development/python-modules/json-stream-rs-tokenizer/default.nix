@@ -32,11 +32,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
     # Tests depend on json-stream, which depends on this package.

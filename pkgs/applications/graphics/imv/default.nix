@@ -62,20 +62,22 @@ let
     inherit (netsurf) libnsgif;
   };
 
-  backendFlags = builtins.map (b:
+  backendFlags = builtins.map (
+    b:
     if builtins.elem b withBackends then
       "-D${b}=enabled"
     else
-      "-D${b}=disabled") (builtins.attrNames backends);
+      "-D${b}=disabled"
+  ) (builtins.attrNames backends);
 
   # check that given window system is valid
 in
 assert lib.assertOneOf "withWindowSystem" withWindowSystem'
   (builtins.attrNames windowSystems);
 # check that every given backend is valid
-assert builtins.all
-  (b: lib.assertOneOf "each backend" b (builtins.attrNames backends))
-  withBackends;
+assert builtins.all (
+  b: lib.assertOneOf "each backend" b (builtins.attrNames backends)
+) withBackends;
 
 stdenv.mkDerivation rec {
   pname = "imv";

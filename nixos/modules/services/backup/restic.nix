@@ -17,7 +17,8 @@ in
     description = lib.mdDoc ''
       Periodic backups to create with Restic.
     '';
-    type = types.attrsOf (types.submodule ({
+    type = types.attrsOf (types.submodule (
+      {
         config,
         name,
         ...
@@ -272,7 +273,8 @@ in
             '';
           };
         };
-      }));
+      }
+    ));
     default = { };
     example = {
       localbackup = {
@@ -298,16 +300,20 @@ in
   };
 
   config = {
-    warnings = mapAttrsToList (n: v:
-      "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.")
-      (filterAttrs (n: v: v.s3CredentialsFile != null)
-        config.services.restic.backups);
-    assertions = mapAttrsToList (n: v: {
-      assertion = (v.repository == null) != (v.repositoryFile == null);
-      message =
-        "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
-    }) config.services.restic.backups;
-    systemd.services = mapAttrs' (name: backup:
+    warnings = mapAttrsToList (
+      n: v:
+      "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
+    ) (filterAttrs (n: v: v.s3CredentialsFile != null)
+      config.services.restic.backups);
+    assertions = mapAttrsToList (
+      n: v: {
+        assertion = (v.repository == null) != (v.repositoryFile == null);
+        message =
+          "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
+      }
+    ) config.services.restic.backups;
+    systemd.services = mapAttrs' (
+      name: backup:
       let
         extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
         resticCmd = "${backup.package}/bin/restic${extraOptions}";
@@ -331,9 +337,11 @@ in
             "--files-from ${filesFromTmpFile}"
           ;
         pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
-          (resticCmd
+          (
+            resticCmd
             + " forget --prune "
-            + (concatStringsSep " " backup.pruneOpts))
+            + (concatStringsSep " " backup.pruneOpts)
+          )
           (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
         ];
           # Helper functions for rclone remotes
@@ -351,45 +359,50 @@ in
             v
           ;
       in
-      nameValuePair "restic-backups-${name}" ({
-        environment = {
-          RESTIC_CACHE_DIR = "%C/restic-backups-${name}";
-          RESTIC_PASSWORD_FILE = backup.passwordFile;
-          RESTIC_REPOSITORY = backup.repository;
-          RESTIC_REPOSITORY_FILE = backup.repositoryFile;
-        } // optionalAttrs (backup.rcloneOptions != null) (mapAttrs'
-          (name: value:
-            nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
-          backup.rcloneOptions)
-          // optionalAttrs (backup.rcloneConfigFile != null) {
-            RCLONE_CONFIG = backup.rcloneConfigFile;
-          } // optionalAttrs (backup.rcloneConfig != null) (mapAttrs'
-            (name: value:
-              nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
-            backup.rcloneConfig);
-        path = [ pkgs.openssh ];
-        restartIfChanged = false;
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart =
-            (optionals (backupPaths != "") [
-                "${resticCmd} backup ${
-                  concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-                } ${backupPaths}"
-              ])
-            ++ pruneCmd
-            ;
-          User = backup.user;
-          RuntimeDirectory = "restic-backups-${name}";
-          CacheDirectory = "restic-backups-${name}";
-          CacheDirectoryMode = "0700";
-          PrivateTmp = true;
-        } // optionalAttrs (backup.environmentFile != null) {
-          EnvironmentFile = backup.environmentFile;
-        };
-      } // optionalAttrs (backup.initialize
-        || backup.dynamicFilesFrom != null
-        || backup.backupPrepareCommand != null) {
+      nameValuePair "restic-backups-${name}" (
+        {
+          environment = {
+            RESTIC_CACHE_DIR = "%C/restic-backups-${name}";
+            RESTIC_PASSWORD_FILE = backup.passwordFile;
+            RESTIC_REPOSITORY = backup.repository;
+            RESTIC_REPOSITORY_FILE = backup.repositoryFile;
+          } // optionalAttrs (backup.rcloneOptions != null) (mapAttrs' (
+            name: value:
+            nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)
+          ) backup.rcloneOptions)
+            // optionalAttrs (backup.rcloneConfigFile != null) {
+              RCLONE_CONFIG = backup.rcloneConfigFile;
+            } // optionalAttrs (backup.rcloneConfig != null) (mapAttrs' (
+              name: value:
+              nameValuePair (rcloneAttrToConf name) (toRcloneVal value)
+            ) backup.rcloneConfig);
+          path = [ pkgs.openssh ];
+          restartIfChanged = false;
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart =
+              (optionals (backupPaths != "") [
+                  "${resticCmd} backup ${
+                    concatStringsSep " " (
+                      backup.extraBackupArgs ++ excludeFlags
+                    )
+                  } ${backupPaths}"
+                ])
+              ++ pruneCmd
+              ;
+            User = backup.user;
+            RuntimeDirectory = "restic-backups-${name}";
+            CacheDirectory = "restic-backups-${name}";
+            CacheDirectoryMode = "0700";
+            PrivateTmp = true;
+          } // optionalAttrs (backup.environmentFile != null) {
+            EnvironmentFile = backup.environmentFile;
+          };
+        } // optionalAttrs (
+          backup.initialize
+          || backup.dynamicFilesFrom != null
+          || backup.backupPrepareCommand != null
+        ) {
           preStart = ''
             ${optionalString (backup.backupPrepareCommand != null) ''
               ${pkgs.writeScript "backupPrepareCommand"
@@ -405,23 +418,27 @@ in
               } > ${filesFromTmpFile}
             ''}
           '';
-        } // optionalAttrs (backup.dynamicFilesFrom != null
-          || backup.backupCleanupCommand != null) {
-            postStop = ''
-              ${optionalString (backup.backupCleanupCommand != null) ''
-                ${pkgs.writeScript "backupCleanupCommand"
-                backup.backupCleanupCommand}
-              ''}
-              ${optionalString (backup.dynamicFilesFrom != null) ''
-                rm ${filesFromTmpFile}
-              ''}
-            '';
-          })
+        } // optionalAttrs (
+          backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null
+        ) {
+          postStop = ''
+            ${optionalString (backup.backupCleanupCommand != null) ''
+              ${pkgs.writeScript "backupCleanupCommand"
+              backup.backupCleanupCommand}
+            ''}
+            ${optionalString (backup.dynamicFilesFrom != null) ''
+              rm ${filesFromTmpFile}
+            ''}
+          '';
+        }
+      )
     ) config.services.restic.backups;
-    systemd.timers = mapAttrs' (name: backup:
+    systemd.timers = mapAttrs' (
+      name: backup:
       nameValuePair "restic-backups-${name}" {
         wantedBy = [ "timers.target" ];
         timerConfig = backup.timerConfig;
-      }) config.services.restic.backups;
+      }
+    ) config.services.restic.backups;
   };
 }

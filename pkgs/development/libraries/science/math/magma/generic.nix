@@ -64,22 +64,25 @@ let
     # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
-    trivial.throwIf (supported == [ ])
-    ("No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported) supported
+    trivial.throwIf (supported == [ ]) (
+      "No supported GPU targets specified. Requested GPU targets: "
+      + strings.concatStringsSep ", " unsupported
+    ) supported
     ;
 
-  gpuTargetString = strings.concatStringsSep "," (if
-    gpuTargets != [ ]
-  then
-  # If gpuTargets is specified, it always takes priority.
-    gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
-  else if rocmSupport then
-    gpuArchWarner supportedRocmArches unsupportedRocmArches
-  else if cudaSupport then
-    [ ] # It's important we pass explicit -DGPU_TARGET to reset magma's defaults
-  else
-    throw "No GPU targets specified");
+  gpuTargetString = strings.concatStringsSep "," (
+    if
+      gpuTargets != [ ]
+    then
+    # If gpuTargets is specified, it always takes priority.
+      gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
+    else if rocmSupport then
+      gpuArchWarner supportedRocmArches unsupportedRocmArches
+    else if cudaSupport then
+      [ ] # It's important we pass explicit -DGPU_TARGET to reset magma's defaults
+    else
+      throw "No GPU targets specified"
+  );
 
     # E.g. [ "80" "86" "90" ]
   cudaArchitectures = (builtins.map cudaFlags.dropDot cudaCapabilities);

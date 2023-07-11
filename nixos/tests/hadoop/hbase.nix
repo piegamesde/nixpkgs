@@ -3,7 +3,8 @@
   pkgs,
   ...
 }:
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     hadoop ? pkgs.hadoop,
     hbase ? pkgs.hbase,
     ...
@@ -139,4 +140,5 @@ import ../make-test-python.nix ({
     '';
 
     meta.maintainers = with maintainers; [ illustris ];
-  })
+  }
+)

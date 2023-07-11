@@ -29,8 +29,10 @@ self: super: {
         })
       ]
       ;
-  }) (super.ghcjs.overrideScope (self: super: {
-    # Allow transformers-compat >= 0.7
-    optparse-applicative = doJailbreak self.optparse-applicative_0_15_1_0;
-  }));
+  }) (super.ghcjs.overrideScope (
+    self: super: {
+      # Allow transformers-compat >= 0.7
+      optparse-applicative = doJailbreak self.optparse-applicative_0_15_1_0;
+    }
+  ));
 }

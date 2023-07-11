@@ -11,7 +11,8 @@
 # Fix regression in precomputing CMAKE_SIZEOF_VOID_P
 # See https://github.com/mesonbuild/meson/pull/11761
 let
-  fixedMeson = buildPackages.meson.overrideAttrs ({
+  fixedMeson = buildPackages.meson.overrideAttrs (
+    {
       patches ? [ ],
       ...
     }: {
@@ -25,7 +26,8 @@ let
           })
         ]
         ;
-    });
+    }
+  );
 
 in
 stdenv.mkDerivation rec {

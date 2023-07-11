@@ -22,7 +22,8 @@
 
 with lib;
 
-makeScope newScope (self:
+makeScope newScope (
+  self:
   let
     callPackage = self.callPackage;
 
@@ -42,8 +43,9 @@ makeScope newScope (self:
         hasOctavePackage = drv: drv ? isOctavePackage;
         packages = filter hasOctavePackage drvs;
       in
-      unique
-      (packages ++ concatLists (catAttrs "requiredOctavePackages" packages))
+      unique (
+        packages ++ concatLists (catAttrs "requiredOctavePackages" packages)
+      )
       ;
 
   in

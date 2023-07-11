@@ -147,12 +147,14 @@ stdenv.mkDerivation {
       glib
       zlib
     ]
-    ++ lib.optionals withQt (with qt5; [
-      qtbase
-      qtmultimedia
-      qtsvg
-      qttools
-    ])
+    ++ lib.optionals withQt (
+      with qt5; [
+        qtbase
+        qtmultimedia
+        qtsvg
+        qttools
+      ]
+    )
     ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
     ++ lib.optionals stdenv.isLinux [
       libcap
@@ -181,34 +183,36 @@ stdenv.mkDerivation {
       mkdir -p $dev/lib/wireshark
       mv $out/lib/wireshark/cmake $dev/lib/wireshark
     ''
-    + (if stdenv.isDarwin && withQt then
-      ''
-        mkdir -p $out/Applications
-        mv $out/bin/Wireshark.app $out/Applications/Wireshark.app
+    + (
+      if stdenv.isDarwin && withQt then
+        ''
+          mkdir -p $out/Applications
+          mv $out/bin/Wireshark.app $out/Applications/Wireshark.app
 
-        for f in $(find $out/Applications/Wireshark.app/Contents/PlugIns -name "*.so"); do
-            for dylib in $(otool -L $f | awk '/^\t*lib/ {print $1}'); do
-                install_name_tool -change "$dylib" "$out/lib/$dylib" "$f"
-            done
-        done
-      ''
-    else
-      lib.optionalString withQt ''
-        pwd
-        install -Dm644 -t $out/share/applications ../resources/freedesktop/org.wireshark.Wireshark.desktop
+          for f in $(find $out/Applications/Wireshark.app/Contents/PlugIns -name "*.so"); do
+              for dylib in $(otool -L $f | awk '/^\t*lib/ {print $1}'); do
+                  install_name_tool -change "$dylib" "$out/lib/$dylib" "$f"
+              done
+          done
+        ''
+      else
+        lib.optionalString withQt ''
+          pwd
+          install -Dm644 -t $out/share/applications ../resources/freedesktop/org.wireshark.Wireshark.desktop
 
-        install -Dm644 ../resources/icons/wsicon.svg $out/share/icons/wireshark.svg
-        mkdir -pv $dev/include/{epan/{wmem,ftypes,dfilter},wsutil/wmem,wiretap}
+          install -Dm644 ../resources/icons/wsicon.svg $out/share/icons/wireshark.svg
+          mkdir -pv $dev/include/{epan/{wmem,ftypes,dfilter},wsutil/wmem,wiretap}
 
-        cp config.h $dev/include/wireshark/
-        cp ../epan/*.h $dev/include/epan/
-        cp ../epan/ftypes/*.h $dev/include/epan/ftypes/
-        cp ../epan/dfilter/*.h $dev/include/epan/dfilter/
-        cp ../include/ws_*.h $dev/include/
-        cp ../wiretap/*.h $dev/include/wiretap/
-        cp ../wsutil/*.h $dev/include/wsutil/
-        cp ../wsutil/wmem/*.h $dev/include/wsutil/wmem/
-      '')
+          cp config.h $dev/include/wireshark/
+          cp ../epan/*.h $dev/include/epan/
+          cp ../epan/ftypes/*.h $dev/include/epan/ftypes/
+          cp ../epan/dfilter/*.h $dev/include/epan/dfilter/
+          cp ../include/ws_*.h $dev/include/
+          cp ../wiretap/*.h $dev/include/wiretap/
+          cp ../wsutil/*.h $dev/include/wsutil/
+          cp ../wsutil/wmem/*.h $dev/include/wsutil/wmem/
+        ''
+    )
     ;
 
   dontFixCmake = true;

@@ -10,7 +10,9 @@
   buildRustCrateForPkgs ? if buildRustCrate != null then
     lib.warn
     "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
-    (_: buildRustCrate)
+    (
+      _: buildRustCrate
+    )
   else
     pkgs:
     pkgs.buildRustCrate
@@ -641,7 +643,9 @@ rec {
                 target,
                 features,
               }:
-              (target."unix" or false)
+              (
+                target."unix" or false
+              )
               ;
           }
           {
@@ -652,7 +656,9 @@ rec {
                 target,
                 features,
               }:
-              (target."os" == "wasi")
+              (
+                target."os" == "wasi"
+              )
               ;
           }
         ];
@@ -1082,7 +1088,9 @@ rec {
               target,
               features,
             }:
-            ((target."os" == "macos") || (target."os" == "freebsd"))
+            (
+              (target."os" == "macos") || (target."os" == "freebsd")
+            )
             ;
         } ];
 
@@ -1213,7 +1221,9 @@ rec {
                 target,
                 features,
               }:
-              (target."env" == "msvc")
+              (
+                target."env" == "msvc"
+              )
               ;
           }
         ];
@@ -1455,7 +1465,9 @@ rec {
                 target,
                 features,
               }:
-              (target."unix" or false)
+              (
+                target."unix" or false
+              )
               ;
           }
           {
@@ -1468,7 +1480,9 @@ rec {
                 target,
                 features,
               }:
-              (!(target."os" == "emscripten"))
+              (
+                !(target."os" == "emscripten")
+              )
               ;
           }
           {
@@ -1484,7 +1498,9 @@ rec {
                 target,
                 features,
               }:
-              (target."os" == "emscripten")
+              (
+                target."os" == "emscripten"
+              )
               ;
           }
         ];
@@ -1708,7 +1724,9 @@ rec {
                 target,
                 features,
               }:
-              ((target."os" == "android") || (target."os" == "linux"))
+              (
+                (target."os" == "android") || (target."os" == "linux")
+              )
               ;
           }
           {
@@ -1721,7 +1739,9 @@ rec {
                 target,
                 features,
               }:
-              ((target."os" == "android") || (target."os" == "linux"))
+              (
+                (target."os" == "android") || (target."os" == "linux")
+              )
               ;
             features = [ "std" ];
           }
@@ -1734,12 +1754,26 @@ rec {
                 target,
                 features,
               }:
-              ((target."os" == "dragonfly")
-                || (target."os" == "freebsd")
-                || (target."os" == "illumos")
-                || (target."os" == "netbsd")
-                || (target."os" == "openbsd")
-                || (target."os" == "solaris"))
+              (
+                (
+                  target."os" == "dragonfly"
+                )
+                || (
+                  target."os" == "freebsd"
+                )
+                || (
+                  target."os" == "illumos"
+                )
+                || (
+                  target."os" == "netbsd"
+                )
+                || (
+                  target."os" == "openbsd"
+                )
+                || (
+                  target."os" == "solaris"
+                )
+              )
               ;
             features = [ "std" ];
           }
@@ -1752,12 +1786,30 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "x86")
-                || (target."arch" == "x86_64")
-                || (((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && ((target."os" == "android")
-                    || (target."os" == "fuchsia")
-                    || (target."os" == "linux"))))
+              (
+                (
+                  target."arch" == "x86"
+                )
+                || (
+                  target."arch" == "x86_64"
+                )
+                || (
+                  (
+                    (target."arch" == "aarch64") || (target."arch" == "arm")
+                  )
+                  && (
+                    (
+                      target."os" == "android"
+                    )
+                    || (
+                      target."os" == "fuchsia"
+                    )
+                    || (
+                      target."os" == "linux"
+                    )
+                  )
+                )
+              )
               ;
           }
           {
@@ -1773,10 +1825,20 @@ rec {
                 target,
                 features,
               }:
-              ((target."arch" == "wasm32")
-                && (target."vendor" == "unknown")
-                && (target."os" == "unknown")
-                && (target."env" == ""))
+              (
+                (
+                  target."arch" == "wasm32"
+                )
+                && (
+                  target."vendor" == "unknown"
+                )
+                && (
+                  target."os" == "unknown"
+                )
+                && (
+                  target."env" == ""
+                )
+              )
               ;
             features = [
               "Crypto"
@@ -1792,7 +1854,9 @@ rec {
                 target,
                 features,
               }:
-              (target."os" == "windows")
+              (
+                target."os" == "windows"
+              )
               ;
             features = [
               "ntsecapi"
@@ -1814,7 +1878,9 @@ rec {
               target,
               features,
             }:
-            ((target."unix" or false) || (target."windows" or false))
+            (
+              (target."unix" or false) || (target."windows" or false)
+            )
             ;
         } ];
         features = {
@@ -2181,7 +2247,9 @@ rec {
                 target,
                 features,
               }:
-              (target."family" == "unix")
+              (
+                target."family" == "unix"
+              )
               ;
           }
           {
@@ -2192,7 +2260,9 @@ rec {
                 target,
                 features,
               }:
-              (target."family" == "unix")
+              (
+                target."family" == "unix"
+              )
               ;
           }
           {
@@ -3985,7 +4055,9 @@ rec {
                 target,
                 features,
               }:
-              (stdenv.hostPlatform.config == "i686-pc-windows-gnu")
+              (
+                stdenv.hostPlatform.config == "i686-pc-windows-gnu"
+              )
               ;
           }
           {
@@ -3996,7 +4068,9 @@ rec {
                 target,
                 features,
               }:
-              (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu")
+              (
+                stdenv.hostPlatform.config == "x86_64-pc-windows-gnu"
+              )
               ;
           }
         ];
@@ -4213,22 +4287,31 @@ rec {
       !(
         # Filter out git
         baseName == ".gitignore"
-        || (type == "directory" && baseName == ".git")
+        || (
+          type == "directory" && baseName == ".git"
+        )
 
         # Filter out build results
-        || (type == "directory"
-          && (baseName == "target"
+        || (
+          type == "directory"
+          && (
+            baseName == "target"
             || baseName == "_site"
             || baseName == ".sass-cache"
             || baseName == ".jekyll-metadata"
-            || baseName == "build-artifacts"))
+            || baseName == "build-artifacts"
+          )
+        )
 
         # Filter out nix-build result symlinks
-        || (type == "symlink" && lib.hasPrefix "result" baseName)
+        || (
+          type == "symlink" && lib.hasPrefix "result" baseName
+        )
 
         # Filter out IDE config
-        || (type == "directory"
-          && (baseName == ".idea" || baseName == ".vscode"))
+        || (
+          type == "directory" && (baseName == ".idea" || baseName == ".vscode")
+        )
         || lib.hasSuffix ".iml" baseName
 
           # Filter out nix build files
@@ -4241,7 +4324,8 @@ rec {
         || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
         || lib.hasSuffix ".tmp" baseName
         || lib.hasSuffix ".bak" baseName
-        || baseName == "tests.nix")
+        || baseName == "tests.nix"
+      )
       ;
 
       /* Returns a crate which depends on successful test execution
@@ -4322,8 +4406,9 @@ rec {
         passthru = (crate.passthru or { }) // { inherit test; };
       } ''
         echo tested by ${test}
-        ${lib.concatMapStringsSep "\n"
-        (output: "ln -s ${crate.${output}} ${"$"}${output}") crate.outputs}
+        ${lib.concatMapStringsSep "\n" (
+          output: "ln -s ${crate.${output}} ${"$"}${output}"
+        ) crate.outputs}
       ''
       ;
 
@@ -4344,7 +4429,8 @@ rec {
         ,
         testPostRun ? ""
       }:
-      lib.makeOverridable ({
+      lib.makeOverridable (
+        {
           features,
           crateOverrides,
           runTests,
@@ -4358,12 +4444,14 @@ rec {
             if buildRustCrateForPkgsFunc != null then
               buildRustCrateForPkgsFunc
             else
-              (if crateOverrides == pkgs.defaultCrateOverrides then
-                buildRustCrateForPkgs
-              else
-                pkgs:
-                (buildRustCrateForPkgs pkgs)
-                .override { defaultCrateOverrides = crateOverrides; })
+              (
+                if crateOverrides == pkgs.defaultCrateOverrides then
+                  buildRustCrateForPkgs
+                else
+                  pkgs:
+                  (buildRustCrateForPkgs pkgs)
+                  .override { defaultCrateOverrides = crateOverrides; }
+              )
             ;
           builtRustCrates = builtRustCratesWithFeatures {
             inherit packageId features;
@@ -4421,18 +4509,22 @@ rec {
       assert (builtins.isBool runTests);
       let
         rootPackageId = packageId;
-        mergedFeatures = mergePackageFeatures (args // {
-          inherit rootPackageId;
-          target = target // { test = runTests; };
-        });
+        mergedFeatures = mergePackageFeatures (
+          args // {
+            inherit rootPackageId;
+            target = target // { test = runTests; };
+          }
+        );
           # Memoize built packages so that reappearing packages are only built once.
         builtByPackageIdByPkgs = mkBuiltByPackageIdByPkgs pkgs;
         mkBuiltByPackageIdByPkgs =
           pkgs:
           let
             self = {
-              crates = lib.mapAttrs (packageId: value:
-                buildByPackageIdForPkgsImpl self pkgs packageId) crateConfigs;
+              crates = lib.mapAttrs (
+                packageId: value:
+                buildByPackageIdForPkgsImpl self pkgs packageId
+              ) crateConfigs;
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
             };
           in
@@ -4448,8 +4540,9 @@ rec {
               "devDependencies"
             ];
             devDependencies =
-              lib.optionals (runTests && packageId == rootPackageId)
-              (crateConfig'.devDependencies or [ ]);
+              lib.optionals (runTests && packageId == rootPackageId) (
+                crateConfig'.devDependencies or [ ]
+              );
             dependencies = dependencyDerivations {
               inherit features target;
               buildByPackageId =
@@ -4476,10 +4569,15 @@ rec {
               }
               ;
             dependenciesWithRenames = lib.filter (d: d ? "rename")
-              (filterEnabledDependenciesForThis
-                ((crateConfig.buildDependencies or [ ])
-                  ++ (crateConfig.dependencies or [ ])
-                  ++ devDependencies));
+              (filterEnabledDependenciesForThis (
+                (
+                  crateConfig.buildDependencies or [ ]
+                )
+                ++ (
+                  crateConfig.dependencies or [ ]
+                )
+                ++ devDependencies
+              ));
               # Crate renames have the form:
               #
               # {
@@ -4503,36 +4601,40 @@ rec {
                   }
                   ;
               in
-              lib.mapAttrs
-              (name: choices: builtins.map versionAndRename choices) grouped
+              lib.mapAttrs (
+                name: choices: builtins.map versionAndRename choices
+              ) grouped
               ;
           in
-          buildRustCrateForPkgsFunc pkgs (crateConfig // {
-            src =
-              crateConfig.src or (pkgs.fetchurl rec {
-                name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
-                  # https://www.pietroalbini.org/blog/downloading-crates-io/
-                  # Not rate-limited, CDN URL.
-                url =
-                  "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
-                sha256 =
-                  assert (lib.assertMsg (crateConfig ? sha256)
-                    "Missing sha256 for ${name}");
-                  crateConfig.sha256
-                  ;
-              });
-            extraRustcOpts = lib.lists.optional (targetFeatures != [ ])
-              "-C target-feature=${
-                lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
-              }";
-            inherit
-              features
-              dependencies
-              buildDependencies
-              crateRenames
-              release
-              ;
-          })
+          buildRustCrateForPkgsFunc pkgs (
+            crateConfig // {
+              src =
+                crateConfig.src or (pkgs.fetchurl rec {
+                  name =
+                    "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
+                    # https://www.pietroalbini.org/blog/downloading-crates-io/
+                    # Not rate-limited, CDN URL.
+                  url =
+                    "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
+                  sha256 =
+                    assert (lib.assertMsg (crateConfig ? sha256)
+                      "Missing sha256 for ${name}");
+                    crateConfig.sha256
+                    ;
+                });
+              extraRustcOpts = lib.lists.optional (targetFeatures != [ ])
+                "-C target-feature=${
+                  lib.concatMapStringsSep "," (x: "+${x}") targetFeatures
+                }";
+              inherit
+                features
+                dependencies
+                buildDependencies
+                crateRenames
+                release
+                ;
+            }
+          )
           ;
       in
       builtByPackageIdByPkgs
@@ -4637,11 +4739,21 @@ rec {
         onlyInCrate2Nix = builtins.attrNames
           (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined)
           ;
-        differentFeatures = lib.filterAttrs (n: v:
-          (v ? "crate2nix")
-          && (v ? "cargo")
-          && (v.crate2nix.features or [ ])
-            != (v."cargo".resolved_default_features or [ ])) combined;
+        differentFeatures = lib.filterAttrs (
+          n: v:
+          (
+            v ? "crate2nix"
+          )
+          && (
+            v ? "cargo"
+          )
+          && (
+            v.crate2nix.features or [ ]
+          )
+            != (
+              v."cargo".resolved_default_features or [ ]
+            )
+        ) combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; }
       ;
@@ -4702,7 +4814,8 @@ rec {
               map depWithResolvedFeatures enabledDependencies;
             foldOverCache = op: lib.foldl op cache directDependencies;
           in
-          foldOverCache (cache:
+          foldOverCache (
+            cache:
             {
               packageId,
               features,
@@ -4730,12 +4843,15 @@ rec {
           in
           featuresByPackageId // { "${packageId}" = combinedFeatures; }
           ;
-        cacheWithDependencies = resolveDependencies cacheWithSelf "dep"
-          (crateConfig.dependencies or [ ]
-            ++ lib.optionals (runTests && packageId == rootPackageId)
-              (crateConfig.devDependencies or [ ]));
-        cacheWithAll = resolveDependencies cacheWithDependencies "build"
-          (crateConfig.buildDependencies or [ ]);
+        cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
+          crateConfig.dependencies or [ ]
+          ++ lib.optionals (runTests && packageId == rootPackageId) (
+            crateConfig.devDependencies or [ ]
+          )
+        );
+        cacheWithAll = resolveDependencies cacheWithDependencies "build" (
+          crateConfig.buildDependencies or [ ]
+        );
       in
       cacheWithAll
       ;
@@ -4751,13 +4867,18 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isAttrs target);
 
-      lib.filter (dep:
+      lib.filter (
+        dep:
         let
           targetFunc = dep.target or (features: true);
         in
         targetFunc { inherit features target; }
-        && (!(dep.optional or false)
-          || builtins.any (doesFeatureEnableDependency dep) features)
+        && (
+          !(
+            dep.optional or false
+          )
+          || builtins.any (doesFeatureEnableDependency dep) features
+        )
       ) dependencies
       ;
 
@@ -4805,7 +4926,8 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isList dependencies);
       let
-        additionalFeatures = lib.concatMap (dependency:
+        additionalFeatures = lib.concatMap (
+          dependency:
           assert (builtins.isAttrs dependency);
           let
             enabled =

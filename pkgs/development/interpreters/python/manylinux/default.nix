@@ -41,37 +41,43 @@ let
   getLibOutputs = lib.mapAttrs (k: v: lib.getLib v);
 
     # https://www.python.org/dev/peps/pep-0599/
-  manylinux2014Libs = getLibOutputs (with pkgs; {
-    "libgcc_s.so.1" = glibc;
-    "libstdc++.so.6" = stdenv.cc.cc;
-    "libm.so.6" = glibc;
-    "libdl.so.2" = glibc;
-    "librt.so.1" = glibc;
-    "libc.so.6" = glibc;
-    "libnsl.so.1" = glibc;
-    "libutil.so.1" = glibc;
-    "libpthread.so.0" = glibc;
-    "libresolv.so.2" = glibc;
-    "libX11.so.6" = xorg.libX11;
-    "libXext.so.6" = xorg.libXext;
-    "libXrender.so.1" = xorg.libXrender;
-    "libICE.so.6" = xorg.libICE;
-    "libSM.so.6" = xorg.libSM;
-    "libGL.so.1" = libGL;
-    "libgobject-2.0.so.0" = glib;
-    "libgthread-2.0.so.0" = glib;
-    "libglib-2.0.so.0" = glib;
-  });
+  manylinux2014Libs = getLibOutputs (
+    with pkgs; {
+      "libgcc_s.so.1" = glibc;
+      "libstdc++.so.6" = stdenv.cc.cc;
+      "libm.so.6" = glibc;
+      "libdl.so.2" = glibc;
+      "librt.so.1" = glibc;
+      "libc.so.6" = glibc;
+      "libnsl.so.1" = glibc;
+      "libutil.so.1" = glibc;
+      "libpthread.so.0" = glibc;
+      "libresolv.so.2" = glibc;
+      "libX11.so.6" = xorg.libX11;
+      "libXext.so.6" = xorg.libXext;
+      "libXrender.so.1" = xorg.libXrender;
+      "libICE.so.6" = xorg.libICE;
+      "libSM.so.6" = xorg.libSM;
+      "libGL.so.1" = libGL;
+      "libgobject-2.0.so.0" = glib;
+      "libgthread-2.0.so.0" = glib;
+      "libglib-2.0.so.0" = glib;
+    }
+  );
 
     # https://www.python.org/dev/peps/pep-0571/
   manylinux2010Libs = manylinux2014Libs;
 
     # https://www.python.org/dev/peps/pep-0513/
-  manylinux1Libs = getLibOutputs (manylinux2010Libs // (with pkgs; {
-    "libpanelw.so.5" = ncurses5;
-    "libncursesw.so.5" = ncurses5;
-    "libcrypt.so.1" = libxcrypt;
-  }));
+  manylinux1Libs = getLibOutputs (
+    manylinux2010Libs // (
+      with pkgs; {
+        "libpanelw.so.5" = ncurses5;
+        "libncursesw.so.5" = ncurses5;
+        "libcrypt.so.1" = libxcrypt;
+      }
+    )
+  );
 
 in
 {

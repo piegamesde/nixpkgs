@@ -33,13 +33,15 @@ buildPythonPackage rec {
   };
 
   buildInputs =
-    (if stdenv.isDarwin then
-      [ openblas ]
-    else
-      [
-        blas
-        lapack
-      ]);
+    (
+      if stdenv.isDarwin then
+        [ openblas ]
+      else
+        [
+          blas
+          lapack
+        ]
+    );
   doCheck =
     !stdenv.isDarwin
     ;
@@ -47,16 +49,18 @@ buildPythonPackage rec {
     # similar to Gsl, glpk, fftw there is also a dsdp interface
     # but dsdp is not yet packaged in nixpkgs
   preConfigure =
-    (if stdenv.isDarwin then
-      ''
-        export CVXOPT_BLAS_LIB=openblas
-        export CVXOPT_LAPACK_LIB=openblas
-      ''
-    else
-      ''
-        export CVXOPT_BLAS_LIB=blas
-        export CVXOPT_LAPACK_LIB=lapack
-      '')
+    (
+      if stdenv.isDarwin then
+        ''
+          export CVXOPT_BLAS_LIB=openblas
+          export CVXOPT_LAPACK_LIB=openblas
+        ''
+      else
+        ''
+          export CVXOPT_BLAS_LIB=blas
+          export CVXOPT_LAPACK_LIB=lapack
+        ''
+    )
     + ''
       export CVXOPT_BUILD_DSDP=0
       export CVXOPT_SUITESPARSE_LIB_DIR=${lib.getLib suitesparse}/lib

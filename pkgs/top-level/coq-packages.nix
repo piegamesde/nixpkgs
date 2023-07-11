@@ -147,13 +147,14 @@ let
       trakt = callPackage ../development/coq-modules/trakt { };
       Velisarios = callPackage ../development/coq-modules/Velisarios { };
       Verdi = callPackage ../development/coq-modules/Verdi { };
-      VST = callPackage ../development/coq-modules/VST
-        ((lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
+      VST = callPackage ../development/coq-modules/VST (
+        (lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
           compcert = self.compcert.override { version = "3.11"; };
-        }) // (lib.optionalAttrs
-          (lib.versions.isEq self.coq.coq-version "8.13") {
-            ITree = self.ITree.override { version = "4.0.0"; };
-          }));
+        })
+        // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13") {
+          ITree = self.ITree.override { version = "4.0.0"; };
+        })
+      );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages =
         doesFilter:
@@ -167,15 +168,17 @@ let
 
   filterCoqPackages =
     set:
-    lib.listToAttrs (lib.concatMap (name:
+    lib.listToAttrs (lib.concatMap (
+      name:
       let
         v = set.${name} or null;
       in
-      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name
-        (if lib.isAttrs v && v.recurseForDerivations or false then
+      lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name (
+        if lib.isAttrs v && v.recurseForDerivations or false then
           filterCoqPackages v
         else
-          v))
+          v
+      ))
     ) (lib.attrNames set))
     ;
   mkCoq =

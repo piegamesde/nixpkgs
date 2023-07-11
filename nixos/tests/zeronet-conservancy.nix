@@ -1,7 +1,8 @@
 let
   port = 43110;
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -31,4 +32,5 @@ import ./make-test-python.nix ({
         toString port
       }/Stats")
     '';
-  })
+  }
+)

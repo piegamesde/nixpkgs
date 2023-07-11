@@ -38,12 +38,13 @@ let
       # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
       makeSections =
         type: sections:
-        concatStringsSep "\n\n" (mapAttrsToList (sec: attrs:
+        concatStringsSep "\n\n" (mapAttrsToList (
+          sec: attrs:
           ''
             ${type} ${sec}
           ''
-          + (concatStringsSep "\n"
-            (mapAttrsToList (k: v: "  ${k}=${v}") attrs))) sections)
+          + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
+        ) sections)
         ;
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
@@ -70,8 +71,9 @@ let
       charon {
         ${optionalString managePlugins "load_modular = no"}
         ${
-          optionalString managePlugins
-          ("load = " + (concatStringsSep " " enabledPlugins))
+          optionalString managePlugins (
+            "load = " + (concatStringsSep " " enabledPlugins)
+          )
         }
         plugins {
           stroke {

@@ -57,9 +57,9 @@ in
 mkDerivation {
   pname =
     baseLib.pname
-    + lib.optionalString
-      (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport)
-      "-full"
+    + lib.optionalString (
+      pdfSupport && presentationSupport && vlcSupport && gstreamerSupport
+    ) "-full"
     ;
   inherit (baseLib) version src;
 
@@ -69,11 +69,13 @@ mkDerivation {
   ];
   buildInputs =
     [ qtbase ]
-    ++ optionals gstreamerSupport ([
-      qtmultimedia.bin
-      gst_all_1.gstreamer
-    ]
-      ++ gstPlugins gst_all_1)
+    ++ optionals gstreamerSupport (
+      [
+        qtmultimedia.bin
+        gst_all_1.gstreamer
+      ]
+      ++ gstPlugins gst_all_1
+    )
     ;
   propagatedBuildInputs =
     optional pdfSupport mupdf
@@ -106,12 +108,13 @@ mkDerivation {
       "\${gappsWrapperArgs[@]}"
       "\${qtWrapperArgs[@]}"
     ]
-    ++ optionals presentationSupport
-      ([ "--prefix PATH : ${libreoffice-unwrapped}/bin" ]
-        ++ map wrapSetVar [
-          "URE_BOOTSTRAP"
-          "UNO_PATH"
-        ])
+    ++ optionals presentationSupport (
+      [ "--prefix PATH : ${libreoffice-unwrapped}/bin" ]
+      ++ map wrapSetVar [
+        "URE_BOOTSTRAP"
+        "UNO_PATH"
+      ]
+    )
     ;
 
   installPhase = ''

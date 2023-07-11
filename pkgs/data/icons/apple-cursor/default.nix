@@ -7,15 +7,19 @@
 let
   _src =
     variant: suffix: hash:
-    fetchzip ({
-      name = variant;
-      url =
-        "https://github.com/ful1e5/apple_cursor/releases/download/v${version}/${variant}.${suffix}";
-      hash = hash;
-    } // (if suffix == "zip" then
-      { stripRoot = false; }
-    else
-      { }))
+    fetchzip (
+      {
+        name = variant;
+        url =
+          "https://github.com/ful1e5/apple_cursor/releases/download/v${version}/${variant}.${suffix}";
+        hash = hash;
+      } // (
+        if suffix == "zip" then
+          { stripRoot = false; }
+        else
+          { }
+      )
+    )
     ;
 
   version = "2.0.0";

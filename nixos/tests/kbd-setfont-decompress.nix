@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
       assert machine.succeed("PATH= ${pkgs.kbd}/bin/setfont font.psf.xz  2>&1") == ""
       assert machine.succeed("PATH= ${pkgs.kbd}/bin/setfont font.psf.zst 2>&1") == ""
     '';
-  })
+  }
+)

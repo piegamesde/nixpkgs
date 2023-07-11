@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -30,5 +31,6 @@ import ./make-test-python.nix ({
           raise Exception("Program did not start successfully")
       machine.screenshot("screen")
     '';
-  })
+  }
+)
 

@@ -421,12 +421,14 @@ in
       instances = lib.attrValues cfg.instances;
     in
     {
-      assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances
-        (name: instance: [ {
+      assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances (
+        name: instance: [ {
           assertion =
             instance.secrets.manual
-            || (instance.secrets.jwtSecretFile != null
-              && instance.secrets.storageEncryptionKeyFile != null)
+            || (
+              instance.secrets.jwtSecretFile != null
+              && instance.secrets.storageEncryptionKeyFile != null
+            )
             ;
           message = ''
             Authelia requires a JWT Secret and a Storage Encryption Key to work.
@@ -437,15 +439,18 @@ in
             environmentVariables or settingsFiles.
             Do not include raw secrets in nix settings.
           '';
-        } ]));
+        } ]
+      ));
 
-      systemd.services = lib.mkMerge (map (instance:
+      systemd.services = lib.mkMerge (map (
+        instance:
         lib.mkIf instance.enable {
           "authelia-${instance.name}" = mkInstanceServiceConfig instance;
-        }) instances);
-      users = lib.mkMerge (map
-        (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
-        instances);
+        }
+      ) instances);
+      users = lib.mkMerge (map (
+        instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)
+      ) instances);
     }
     ;
 }

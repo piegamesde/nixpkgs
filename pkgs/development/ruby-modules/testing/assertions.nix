@@ -8,10 +8,11 @@
     if actual == expected then
       (test.passed "= ${toString expected}")
     else
-      (test.failed
-        ("expected '${toString expected}'(${builtins.typeOf expected})"
-          + " !=  "
-          + "actual '${toString actual}'(${builtins.typeOf actual})"))
+      (test.failed (
+        "expected '${toString expected}'(${builtins.typeOf expected})"
+        + " !=  "
+        + "actual '${toString actual}'(${builtins.typeOf actual})"
+      ))
     ;
 
   beASet =

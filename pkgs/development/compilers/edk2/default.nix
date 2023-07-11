@@ -115,7 +115,8 @@ let
     passthru = {
       mkDerivation =
         projectDscPath: attrsOrFun:
-        buildStdenv.mkDerivation (finalAttrs:
+        buildStdenv.mkDerivation (
+          finalAttrs:
           let
             attrs = lib.toFunction attrsOrFun finalAttrs;
           in

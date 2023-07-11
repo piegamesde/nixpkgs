@@ -74,7 +74,8 @@ runCommand basicEnv.name cmdArgs ''
   ${(lib.concatMapStrings (x: ''
     ln -s '${basicEnv}/bin/${x}' $out/bin/${x};
   '') exes)}
-  ${(lib.concatMapStrings (s:
+  ${(lib.concatMapStrings (
+    s:
     "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} "
     + "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "
     + "--unset BUNDLE_PATH "
@@ -83,7 +84,8 @@ runCommand basicEnv.name cmdArgs ''
     + "--set GEM_PATH ${basicEnv}/${ruby.gemPath} "
     + ''
       --chdir "$srcdir";
-    '') scripts)}
+    ''
+  ) scripts)}
 
   ${lib.optionalString installManpages ''
     for section in {1..9}; do

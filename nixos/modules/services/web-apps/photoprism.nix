@@ -17,8 +17,9 @@ let
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList
-        (name: val: "export ${name}=${lib.escapeShellArg val}") env);
+      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList (
+        name: val: "export ${name}=${lib.escapeShellArg val}"
+      ) env);
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}

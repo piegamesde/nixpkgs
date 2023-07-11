@@ -140,13 +140,15 @@ in
         Type = "dbus";
         BusName = "net.connman";
         Restart = "on-failure";
-        ExecStart = toString ([
-          "${cfg.package}/sbin/connmand"
-          "--config=${configFile}"
-          "--nodaemon"
-        ]
+        ExecStart = toString (
+          [
+            "${cfg.package}/sbin/connmand"
+            "--config=${configFile}"
+            "--nodaemon"
+          ]
           ++ optional enableIwd "--wifi=iwd_agent"
-          ++ cfg.extraFlags);
+          ++ cfg.extraFlags
+        );
         StandardOutput = "null";
       };
     };

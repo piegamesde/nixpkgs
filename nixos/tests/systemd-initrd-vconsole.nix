@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -39,4 +40,5 @@ import ./make-test-python.nix ({
       machine.wait_for_console_text("arstneio")
       machine.send_console("systemctl poweroff\n")
     '';
-  })
+  }
+)

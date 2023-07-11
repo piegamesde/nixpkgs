@@ -19,18 +19,25 @@ let
     {
       # Create a derivation from the official Nextcloud apps.
       # This takes the data generated from the go tool.
-      mkNextcloudDerivation = self.callPackage ({ }:
+      mkNextcloudDerivation = self.callPackage (
+        { }:
         {
           data,
         }:
-        pkgs.fetchNextcloudApp { inherit (data) url sha256; }) { };
+        pkgs.fetchNextcloudApp { inherit (data) url sha256; }
+      ) { };
 
-    } // lib.mapAttrs (type: pkgs:
-      lib.makeExtensible (_:
+    } // lib.mapAttrs (
+      type: pkgs:
+      lib.makeExtensible (
+        _:
         lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; })
-        pkgs)) generatedJson
+        pkgs
+      )
+    ) generatedJson
     ;
 
 in
-(lib.makeExtensible (_: (lib.makeScope newScope packages))).extend
-(selfNC: superNC: { })
+(lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
+  selfNC: superNC: { }
+)

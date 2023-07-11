@@ -24,13 +24,17 @@ let
       if (iface == "WLAN") then
         "wlan@"
       else
-        (if (iface == "LAN") then
-          "lan@"
-        else
-          (if (iface == "DBUS") then
-            "dbus"
+        (
+          if (iface == "LAN") then
+            "lan@"
           else
-            (replaceStrings [ " " ] [ "-" ] iface)))
+            (
+              if (iface == "DBUS") then
+                "dbus"
+              else
+                (replaceStrings [ " " ] [ "-" ] iface)
+            )
+        )
     }"
     ;
 
@@ -39,13 +43,17 @@ let
     iface: suppl:
     let
       deps =
-        (if (iface == "WLAN" || iface == "LAN") then
-          [ "sys-subsystem-net-devices-%i.device" ]
-        else
-          (if (iface == "DBUS") then
-            [ "dbus.service" ]
+        (
+          if (iface == "WLAN" || iface == "LAN") then
+            [ "sys-subsystem-net-devices-%i.device" ]
           else
-            (map subsystemDevice (splitString " " iface))))
+            (
+              if (iface == "DBUS") then
+                [ "dbus.service" ]
+              else
+                (map subsystemDevice (splitString " " iface))
+            )
+        )
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge)
         ;
 
@@ -77,8 +85,9 @@ let
       path = [ pkgs.coreutils ];
 
       preStart = ''
-        ${optionalString
-        (suppl.configFile.path != null && suppl.configFile.writable) ''
+        ${optionalString (
+          suppl.configFile.path != null && suppl.configFile.writable
+        ) ''
           (umask 077 && touch -a "${suppl.configFile.path}")
         ''}
         ${optionalString suppl.userControlled.enable ''
@@ -91,10 +100,12 @@ let
           if (iface == "WLAN" || iface == "LAN") then
             "-i%I"
           else
-            (if (iface == "DBUS") then
-              "-u"
-            else
-              ifaceArg)
+            (
+              if (iface == "DBUS") then
+                "-u"
+              else
+                ifaceArg
+            )
         }";
 
     }
@@ -273,12 +284,16 @@ in
           text = ''
             ${flip (concatMapStringsSep "\n")
             (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS")
-              (attrNames cfg)) (iface:
-                flip (concatMapStringsSep "\n") (splitString " " iface) (i:
+              (attrNames cfg)) (
+                iface:
+                flip (concatMapStringsSep "\n") (splitString " " iface) (
+                  i:
                   ''
                     ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
                       replaceStrings [ " " ] [ "-" ] iface
-                    }.service", TAG+="SUPPLICANT_ASSIGNED"''))}
+                    }.service", TAG+="SUPPLICANT_ASSIGNED"''
+                )
+              )}
 
             ${optionalString (hasAttr "WLAN" cfg) ''
               ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"

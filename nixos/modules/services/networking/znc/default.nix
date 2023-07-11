@@ -27,7 +27,8 @@ let
 
       sortedAttrs =
         set:
-        sort (l: r:
+        sort (
+          l: r:
           if l == "extraConfig" then
             false # Always put extraConfig last
           else if isAttrs set.${l} == isAttrs set.${r} then
@@ -50,10 +51,12 @@ let
 
             # extraConfig should be inserted verbatim
           string = [
-              (if name == "extraConfig" then
-                value
-              else
-                "${name} = ${value}")
+              (
+                if name == "extraConfig" then
+                  value
+                else
+                  "${name} = ${value}"
+              )
             ];
 
             # Values like `Foo = [ "bar" "baz" ];` should be transformed into
@@ -66,10 +69,14 @@ let
             #     Baz=baz
             #     Qux=qux
             #   </Foo>
-          set = concatMap (subname:
-            optionals (value.${subname} != null) ([ "<${name} ${subname}>" ]
+          set = concatMap (
+            subname:
+            optionals (value.${subname} != null) (
+              [ "<${name} ${subname}>" ]
               ++ map (line: "	${line}") (toLines value.${subname})
-              ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
+              ++ [ "</${name}>" ]
+            )
+          ) (filter (v: v != null) (attrNames value));
 
         }
         .${builtins.typeOf value}
@@ -95,13 +102,15 @@ let
       (listOf zncAtom)
       zncAttr
     ];
-    zncConf = attrsOf (zncAll // {
-      # Since this is a recursive type and the description by default contains
-      # the description of its subtypes, infinite recursion would occur without
-      # explicitly breaking this cycle
-      description =
-        "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
-    });
+    zncConf = attrsOf (
+      zncAll // {
+        # Since this is a recursive type and the description by default contains
+        # the description of its subtypes, infinite recursion would occur without
+        # explicitly breaking this cycle
+        description =
+          "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
+      }
+    );
   };
 
 in

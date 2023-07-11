@@ -183,10 +183,12 @@ rec {
       type = lib.types.package;
       description =
         "The ${name'} package to use."
-        + (if extraDescription == "" then
-          ""
-        else
-          " ")
+        + (
+          if extraDescription == "" then
+            ""
+          else
+            " "
+        )
         + extraDescription
         ;
       ${
@@ -200,10 +202,12 @@ rec {
           "example"
         else
           null
-      } = literalExpression (if isList example then
-        "pkgs." + concatStringsSep "." example
-      else
-        example);
+      } = literalExpression (
+        if isList example then
+          "pkgs." + concatStringsSep "." example
+        else
+          example
+      );
     }
     ;
 
@@ -224,21 +228,24 @@ rec {
     */
   mkSinkUndeclaredOptions =
     attrs:
-    mkOption ({
-      internal = true;
-      visible = false;
-      default = false;
-      description = "Sink for option definitions.";
-      type = mkOptionType {
-        name = "sink";
-        check = x: true;
-        merge = loc: defs: false;
-      };
-      apply =
-        x:
-        throw "Option value is not readable because the option is not declared."
-        ;
-    } // attrs)
+    mkOption (
+      {
+        internal = true;
+        visible = false;
+        default = false;
+        description = "Sink for option definitions.";
+        type = mkOptionType {
+          name = "sink";
+          check = x: true;
+          merge = loc: defs: false;
+        };
+        apply =
+          x:
+          throw
+          "Option value is not readable because the option is not declared."
+          ;
+      } // attrs
+    )
     ;
 
   mergeDefaultOption =
@@ -298,7 +305,8 @@ rec {
     else if length defs == 1 then
       (head defs).value
     else
-      (foldl' (first: def:
+      (foldl' (
+        first: def:
         if def.value != first.value then
           throw ''
             The option `${showOption loc}' has conflicting definition values:${
@@ -309,7 +317,8 @@ rec {
             }
             ${prioritySuggestion}''
         else
-          first) (head defs) (tail defs)).value
+          first
+      ) (head defs) (tail defs)).value
     ;
 
     /* Extracts values of all "value" keys of the given list.
@@ -338,7 +347,8 @@ rec {
 
   optionAttrSetToDocList' =
     _: options:
-    concatMap (opt:
+    concatMap (
+      opt:
       let
         name = showOption opt.loc;
         docOption = rec {
@@ -363,10 +373,9 @@ rec {
           default = builtins.addErrorContext
             "while evaluating the default value of option `${name}`"
             (renderOptionValue (opt.defaultText or opt.default));
-        } // optionalAttrs
-          (opt ? relatedPackages && opt.relatedPackages != null) {
-            inherit (opt) relatedPackages;
-          };
+        } // optionalAttrs (
+          opt ? relatedPackages && opt.relatedPackages != null
+        ) { inherit (opt) relatedPackages; };
 
         subOptions =
           let
@@ -533,7 +542,8 @@ rec {
 
   showDefs =
     defs:
-    concatMapStrings (def:
+    concatMapStrings (
+      def:
       let
         # Pretty print the value for display, if successful
         prettyEval = builtins.tryEval (lib.generators.toPretty { }
@@ -544,8 +554,9 @@ rec {
           # Split it into its lines
         lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
           # Only display the first 5 lines, and indent them for better visibility
-        value = concatStringsSep "\n    "
-          (take 5 lines ++ optional (length lines > 5) "...");
+        value = concatStringsSep "\n    " (
+          take 5 lines ++ optional (length lines > 5) "..."
+        );
         result =
           # Don't print any value if evaluating the value strictly fails
           if !prettyEval.success then

@@ -37,11 +37,13 @@ stdenv.mkDerivation rec {
       coreutils
       minc_tools
     ]
-    ++ (with perlPackages; [
-      perl
-      GetoptTabular
-      MNI-Perllib
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        GetoptTabular
+        MNI-Perllib
+      ]
+    )
     ;
 
   cmakeFlags = [

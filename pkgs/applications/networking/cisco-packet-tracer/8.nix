@@ -64,26 +64,28 @@ let
         nspr
         nss
       ]
-      ++ (with xorg; [
-        libICE
-        libSM
-        libX11
-        libxcb
-        libXcomposite
-        libXcursor
-        libXdamage
-        libXext
-        libXfixes
-        libXi
-        libXrandr
-        libXrender
-        libXScrnSaver
-        libXtst
-        xcbutilimage
-        xcbutilkeysyms
-        xcbutilrenderutil
-        xcbutilwm
-      ])
+      ++ (
+        with xorg; [
+          libICE
+          libSM
+          libX11
+          libxcb
+          libXcomposite
+          libXcursor
+          libXdamage
+          libXext
+          libXfixes
+          libXi
+          libXrandr
+          libXrender
+          libXScrnSaver
+          libXtst
+          xcbutilimage
+          xcbutilkeysyms
+          xcbutilrenderutil
+          xcbutilwm
+        ]
+      )
       ;
 
     installPhase = ''

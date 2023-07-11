@@ -1,5 +1,6 @@
 let
-  opensearchTest = import ./make-test-python.nix ({
+  opensearchTest = import ./make-test-python.nix (
+    {
       pkgs,
       lib,
       extraSettings ? { }
@@ -24,7 +25,8 @@ let
             "curl --fail localhost:9200"
         )
       '';
-    });
+    }
+  );
 in
 {
   opensearch = opensearchTest { };

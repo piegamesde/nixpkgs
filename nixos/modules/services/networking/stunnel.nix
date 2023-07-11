@@ -171,8 +171,9 @@ in
               ;
             forceClient = c: c // { client = true; };
           in
-          mapAttrs
-          (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
+          mapAttrs (
+            _: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c))
+          )
           ;
 
         example = {
@@ -194,8 +195,12 @@ in
     assertions = concatLists [
       (singleton {
         assertion =
-          (length (attrValues cfg.servers) != 0)
-          || ((length (attrValues cfg.clients)) != 0)
+          (
+            length (attrValues cfg.servers) != 0
+          )
+          || (
+            (length (attrValues cfg.clients)) != 0
+          )
           ;
         message =
           "stunnel: At least one server- or client-configuration has to be present.";

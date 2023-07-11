@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes = lib.foldl (a: version:
+    nodes = lib.foldl (
+      a: version:
       let
         package = pkgs."wordpress${version}";
       in
@@ -98,9 +100,11 @@ import ./make-test-python.nix ({
 
       start_all()
 
-      ${lib.concatStrings (lib.mapAttrsToList (name: value: ''
-        ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
-      '') nodes)}
+      ${lib.concatStrings (lib.mapAttrsToList (
+        name: value: ''
+          ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
+        ''
+      ) nodes)}
 
       site_names = ["site1.local", "site2.local"]
 
@@ -121,4 +125,5 @@ import ./make-test-python.nix ({
                       machine.succeed(f"cat /var/lib/wordpress/{site_name}/secret-keys.php")
                   )
     '';
-  })
+  }
+)

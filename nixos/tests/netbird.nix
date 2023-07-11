@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -23,4 +24,5 @@ import ./make-test-python.nix ({
       node.wait_for_file("/var/run/netbird/sock")
       node.succeed("netbird status | grep -q 'Daemon status: NeedsLogin'")
     '';
-  })
+  }
+)

@@ -55,10 +55,12 @@ mkDerivation rec {
       "--disable-qtgui"
       "--disable-x11mon"
     ]
-    ++ (if stdenv.isLinux then
-      [ "--with-inotify" ]
-    else
-      [ "--without-inotify" ])
+    ++ (
+      if stdenv.isLinux then
+        [ "--with-inotify" ]
+      else
+        [ "--without-inotify" ]
+    )
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];

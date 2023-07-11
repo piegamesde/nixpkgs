@@ -6,7 +6,8 @@
   ,
 }:
 
-lib.makeScope newScope (self:
+lib.makeScope newScope (
+  self:
 
   let
     # Modeled after qt's
@@ -16,18 +17,22 @@ lib.makeScope newScope (self:
     };
     mkDerivation = mkDerivationWith stdenv.mkDerivation;
 
-    callPackage = self.newScope ({
-      inherit
-        (gnuradio)
-        # Packages that are potentially overridden and used as deps here.
-        boost
-        volk
-        logLib
-        ;
-      inherit mkDerivationWith mkDerivation;
-    } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
-      inherit (gnuradio) uhd;
-    });
+    callPackage = self.newScope (
+      {
+        inherit
+          (
+            gnuradio
+          )
+          # Packages that are potentially overridden and used as deps here.
+          boost
+          volk
+          logLib
+          ;
+        inherit mkDerivationWith mkDerivation;
+      } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
+        inherit (gnuradio) uhd;
+      }
+    );
   in
   {
 

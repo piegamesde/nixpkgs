@@ -14,23 +14,25 @@ let
       extraLdflags,
       ...
     }@args:
-    buildGoModule (rec {
-      inherit pname src vendorHash version;
+    buildGoModule (
+      rec {
+        inherit pname src vendorHash version;
 
-      sourceRoot = "${src.name}/provider";
+        sourceRoot = "${src.name}/provider";
 
-      subPackages = [ "cmd/${cmd}" ];
+        subPackages = [ "cmd/${cmd}" ];
 
-      doCheck = false;
+        doCheck = false;
 
-      ldflags =
-        [
-          "-s"
-          "-w"
-        ]
-        ++ extraLdflags
-        ;
-    } // args)
+        ldflags =
+          [
+            "-s"
+            "-w"
+          ]
+          ++ extraLdflags
+          ;
+      } // args
+    )
     ;
 
   mkPythonPackage =
@@ -41,7 +43,8 @@ let
       version,
       ...
     }:
-    python3Packages.callPackage ({
+    python3Packages.callPackage (
+      {
         buildPythonPackage,
         pythonOlder,
         parver,
@@ -83,7 +86,8 @@ let
         pythonImportsCheck = [
             (builtins.replaceStrings [ "-" ] [ "_" ] pname)
           ];
-      }) { }
+      }
+    ) { }
     ;
 in
 {
@@ -113,29 +117,31 @@ let
     pname = cmdGen;
   };
 in
-mkBasePackage ({
-  inherit meta src version vendorHash extraLdflags;
-
-  pname = repo;
-
-  nativeBuildInputs = [ pulumi-gen ];
-
-  cmd = cmdRes;
-
-  postConfigure = ''
-    pushd ..
-
-    chmod +w sdk/
-    ${cmdGen} schema
-
-    popd
-
-    VERSION=v${version} go generate cmd/${cmdRes}/main.go
-  '';
-
-  passthru.sdks.python = mkPythonPackage {
-    inherit meta src version;
+mkBasePackage (
+  {
+    inherit meta src version vendorHash extraLdflags;
 
     pname = repo;
-  };
-} // args)
+
+    nativeBuildInputs = [ pulumi-gen ];
+
+    cmd = cmdRes;
+
+    postConfigure = ''
+      pushd ..
+
+      chmod +w sdk/
+      ${cmdGen} schema
+
+      popd
+
+      VERSION=v${version} go generate cmd/${cmdRes}/main.go
+    '';
+
+    passthru.sdks.python = mkPythonPackage {
+      inherit meta src version;
+
+      pname = repo;
+    };
+  } // args
+)

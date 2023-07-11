@@ -73,10 +73,11 @@ stdenv.mkDerivation rec {
     lvm2
   ];
 
-  EXECUTABLES_PATHS = lib.makeBinPath ([
-    xfsprogs
-    thin-provisioning-tools
-  ]
+  EXECUTABLES_PATHS = lib.makeBinPath (
+    [
+      xfsprogs
+      thin-provisioning-tools
+    ]
     ++ lib.optionals clevisSupport [
       clevis
       jose
@@ -85,7 +86,8 @@ stdenv.mkDerivation rec {
       curl
       tpm2-tools
       coreutils
-    ]);
+    ]
+  );
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

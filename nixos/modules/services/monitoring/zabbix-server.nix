@@ -299,7 +299,9 @@ in
       ( echo "CREATE DATABASE IF NOT EXISTS \`${cfg.database.name}\` CHARACTER SET utf8 COLLATE utf8_bin;"
         echo "CREATE USER IF NOT EXISTS '${cfg.database.user}'@'localhost' IDENTIFIED WITH ${
           if
-            (getName config.services.mysql.package == getName pkgs.mariadb)
+            (
+              getName config.services.mysql.package == getName pkgs.mariadb
+            )
           then
             "unix_socket"
           else

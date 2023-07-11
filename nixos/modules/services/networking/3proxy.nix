@@ -374,7 +374,8 @@ in
         ${optionalString (cfg.denyPrivate)
         "deny * * ${optionalList cfg.privateRanges}"}
 
-        ${concatMapStringsSep "\n" (acl:
+        ${concatMapStringsSep "\n" (
+          acl:
           "${acl.rule} ${
             concatMapStringsSep " " optionalList [
               acl.users
@@ -382,7 +383,8 @@ in
               acl.targets
               acl.targetPorts
             ]
-          }") service.acl}
+          }"
+        ) service.acl}
 
         maxconn ${toString service.maxConnections}
 

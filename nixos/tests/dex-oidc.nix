@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -77,4 +78,5 @@ import ./make-test-python.nix ({
               f"curl -fs localhost:8080/dex/userinfo --oauth2-bearer {bearer}"
           )
     '';
-  })
+  }
+)

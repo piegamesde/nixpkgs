@@ -20,22 +20,24 @@ let
     ''
       unset AR
     ''
-    + (if stdenv.isDarwin then
-      ''
-        export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
-          lib.getDev SDL
-        }/include/SDL"
-        export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
-      ''
-    else
-      ''
-        export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
-        export DESTDIR="$out"
-        export _BINDIR=libexec/gargoyle
-        export _APPDIR=libexec/gargoyle
-        export _LIBDIR=libexec/gargoyle
-        export GARGLKINI="$out/etc/garglk.ini"
-      '')
+    + (
+      if stdenv.isDarwin then
+        ''
+          export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
+            lib.getDev SDL
+          }/include/SDL"
+          export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
+        ''
+      else
+        ''
+          export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
+          export DESTDIR="$out"
+          export _BINDIR=libexec/gargoyle
+          export _APPDIR=libexec/gargoyle
+          export _LIBDIR=libexec/gargoyle
+          export GARGLKINI="$out/etc/garglk.ini"
+        ''
+    )
     ;
 
 in

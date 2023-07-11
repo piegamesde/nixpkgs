@@ -13,11 +13,13 @@ let
     # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
-    (genList (i:
+    (genList (
+      i:
       if i == idx then
         value
       else
-        (builtins.elemAt list i)) (length list))
+        (builtins.elemAt list i)
+    ) (length list))
     ;
 
     # Normalize package names as per PEP 503
@@ -32,8 +34,9 @@ let
     ;
 
     # Normalize an entire attrset of packages
-  normalizePackageSet = lib.attrsets.mapAttrs'
-    (name: value: lib.attrsets.nameValuePair (normalizePackageName name) value);
+  normalizePackageSet = lib.attrsets.mapAttrs' (
+    name: value: lib.attrsets.nameValuePair (normalizePackageName name) value
+  );
 
     # Get a full semver pythonVersion from a python derivation
   getPythonVersion =
@@ -45,10 +48,12 @@ let
       minor = l: lib.elemAt l 1;
       joinVersion = v: lib.concatStringsSep "." v;
     in
-    joinVersion (if major pyVer == major ver && minor pyVer == minor ver then
-      ver
-    else
-      pyVer)
+    joinVersion (
+      if major pyVer == major ver && minor pyVer == minor ver then
+        ver
+      else
+        pyVer
+    )
     ;
 
     # Compare a semver expression with a version
@@ -102,7 +107,8 @@ let
       (builtins.foldl' combine initial tokens).state
     ;
   fromTOML =
-    builtins.fromTOML or (toml:
+    builtins.fromTOML or (
+      toml:
       builtins.fromJSON (builtins.readFile (pkgs.runCommand "from-toml" {
         inherit toml;
         allowSubstitutes = false;
@@ -113,7 +119,8 @@ let
           -i <(echo "$toml") \
           -of json \
           -o $out
-      '')));
+      ''))
+    );
   readTOML =
     path:
     fromTOML (builtins.readFile path)
@@ -160,7 +167,8 @@ let
     #   file: filename including extension
     #   hash: SRI hash
     #   kind: Language implementation and version tag
-  predictURLFromPypi = lib.makeOverridable ({
+  predictURLFromPypi = lib.makeOverridable (
+    {
       pname,
       file,
       hash,
@@ -168,7 +176,8 @@ let
     }:
     "https://files.pythonhosted.org/packages/${kind}/${
       lib.toLower (builtins.substring 0 1 file)
-    }/${pname}/${file}");
+    }/${pname}/${file}"
+  );
 
     # Fetch from the PyPI index.
     # At first we try to fetch the predicated URL but if that fails we
@@ -179,7 +188,8 @@ let
     #   version: the version string of the dependency
     #   hash: SRI hash
     #   kind: Language implementation and version tag
-  fetchFromPypi = lib.makeOverridable ({
+  fetchFromPypi = lib.makeOverridable (
+    {
       pname,
       file,
       version,
@@ -216,7 +226,8 @@ let
     })
   );
 
-  fetchFromLegacy = lib.makeOverridable ({
+  fetchFromLegacy = lib.makeOverridable (
+    {
       python,
       pname,
       url,
@@ -225,11 +236,13 @@ let
     }:
     let
       pathParts =
-        (builtins.filter ({
+        (builtins.filter (
+          {
             prefix,
             path,
           }:
-          "NETRC" == prefix) builtins.nixPath);
+          "NETRC" == prefix
+        ) builtins.nixPath);
       netrc_file =
         if (pathParts != [ ]) then
           (builtins.head pathParts).path
@@ -268,9 +281,11 @@ let
         builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
         requires;
     in
-    builtins.map (drvAttr:
+    builtins.map (
+      drvAttr:
       pythonPackages.${drvAttr} or (throw
-        "unsupported build system requirement ${drvAttr}")) requiredPkgs
+        "unsupported build system requirement ${drvAttr}")
+    ) requiredPkgs
     ;
 
     # Find gitignore files recursively in parent directory stopping with .git
@@ -288,9 +303,9 @@ let
           [ ]
         ;
     in
-    lib.optionals
-      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-      (findGitIgnores parent)
+    lib.optionals (
+      builtins.pathExists path && builtins.toString path != "/" && !isGitRoot
+    ) (findGitIgnores parent)
     ++ gitIgnores
     ;
 
@@ -308,8 +323,12 @@ let
       gitIgnores = findGitIgnores src;
       pycacheFilter =
         name: type:
-        (type == "directory" && !lib.strings.hasInfix "__pycache__" name)
-        || (type == "regular" && !lib.strings.hasSuffix ".pyc" name)
+        (
+          type == "directory" && !lib.strings.hasInfix "__pycache__" name
+        )
+        || (
+          type == "regular" && !lib.strings.hasSuffix ".pyc" name
+        )
         ;
     in
     lib.cleanSourceWith {

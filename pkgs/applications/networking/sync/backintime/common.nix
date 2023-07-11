@@ -13,11 +13,13 @@
 }:
 
 let
-  python' = python3.withPackages (ps:
+  python' = python3.withPackages (
+    ps:
     with ps; [
       dbus-python
       keyring
-    ]);
+    ]
+  );
 
   apps = lib.makeBinPath [
     openssh

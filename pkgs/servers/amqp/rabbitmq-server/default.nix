@@ -27,16 +27,17 @@
 }:
 
 let
-  runtimePath = lib.makeBinPath ([
-    erlang
-    getconf # for getting memory limits
-    socat
-    procps
-    gnused
-    coreutils # used by helper scripts
-  ]
-    ++ lib.optionals stdenv.isLinux [ systemd ])
-    ; # for systemd unit activation check
+  runtimePath = lib.makeBinPath (
+    [
+      erlang
+      getconf # for getting memory limits
+      socat
+      procps
+      gnused
+      coreutils # used by helper scripts
+    ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
+  ); # for systemd unit activation check
 
 in
 stdenv.mkDerivation rec {

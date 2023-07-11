@@ -14,22 +14,26 @@ let
   defaultUser = "syncthing";
   defaultGroup = defaultUser;
 
-  devices = mapAttrsToList (name: device: {
-    deviceID = device.id;
-    inherit (device) name addresses introducer autoAcceptFolders;
-  }) cfg.devices;
+  devices = mapAttrsToList (
+    name: device: {
+      deviceID = device.id;
+      inherit (device) name addresses introducer autoAcceptFolders;
+    }
+  ) cfg.devices;
 
-  folders = mapAttrsToList (_: folder: {
-    inherit (folder) path id label type;
-    devices =
-      map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
-    rescanIntervalS = folder.rescanInterval;
-    fsWatcherEnabled = folder.watch;
-    fsWatcherDelayS = folder.watchDelay;
-    ignorePerms = folder.ignorePerms;
-    ignoreDelete = folder.ignoreDelete;
-    versioning = folder.versioning;
-  }) (filterAttrs (_: folder: folder.enable) cfg.folders);
+  folders = mapAttrsToList (
+    _: folder: {
+      inherit (folder) path id label type;
+      devices =
+        map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
+      rescanIntervalS = folder.rescanInterval;
+      fsWatcherEnabled = folder.watch;
+      fsWatcherDelayS = folder.watchDelay;
+      ignorePerms = folder.ignorePerms;
+      ignoreDelete = folder.ignoreDelete;
+      versioning = folder.versioning;
+    }
+  ) (filterAttrs (_: folder: folder.enable) cfg.folders);
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''
     set -efu
@@ -133,7 +137,8 @@ in
             addresses = [ "tcp://192.168.0.10:51820" ];
           };
         };
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -183,7 +188,8 @@ in
               };
 
             };
-          }));
+          }
+        ));
       };
 
       overrideFolders = mkOption {
@@ -214,7 +220,8 @@ in
             };
           }
         '';
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -237,7 +244,9 @@ in
                   check =
                     x:
                     types.str.check x
-                    && (substring 0 1 x == "/" || substring 0 2 x == "~/")
+                    && (
+                      substring 0 1 x == "/" || substring 0 2 x == "~/"
+                    )
                     ;
                   description =
                     types.str.description + " starting with / or ~/";
@@ -410,7 +419,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
       };
 
       extraOptions = mkOption {
@@ -574,7 +584,8 @@ in
         It can be enabled on a per-folder basis through the web interface.
       '')
     ]
-    ++ map (o:
+    ++ map (
+      o:
       mkRenamedOptionModule [
         "services"
         "syncthing"
@@ -584,15 +595,16 @@ in
         "services"
         "syncthing"
         o
-      ]) [
-        "cert"
-        "key"
-        "devices"
-        "folders"
-        "overrideDevices"
-        "overrideFolders"
-        "extraOptions"
       ]
+    ) [
+      "cert"
+      "key"
+      "devices"
+      "folders"
+      "overrideDevices"
+      "overrideFolders"
+      "extraOptions"
+    ]
     ;
 
     ###### implementation
@@ -686,21 +698,22 @@ in
           ];
         };
       };
-      syncthing-init = mkIf
-        (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { }) {
-          description = "Syncthing configuration updater";
-          requisite = [ "syncthing.service" ];
-          after = [ "syncthing.service" ];
-          wantedBy = [ "multi-user.target" ];
+      syncthing-init = mkIf (
+        cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { }
+      ) {
+        description = "Syncthing configuration updater";
+        requisite = [ "syncthing.service" ];
+        after = [ "syncthing.service" ];
+        wantedBy = [ "multi-user.target" ];
 
-          serviceConfig = {
-            User = cfg.user;
-            RemainAfterExit = true;
-            RuntimeDirectory = "syncthing-init";
-            Type = "oneshot";
-            ExecStart = updateConfig;
-          };
+        serviceConfig = {
+          User = cfg.user;
+          RemainAfterExit = true;
+          RuntimeDirectory = "syncthing-init";
+          Type = "oneshot";
+          ExecStart = updateConfig;
         };
+      };
 
       syncthing-resume = { wantedBy = [ "suspend.target" ]; };
     };

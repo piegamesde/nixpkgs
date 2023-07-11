@@ -12,13 +12,15 @@ let
     lib.concatStringsSep " "
     (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs)
     ;
-  postgrey-flags = mk-perl-flags (with perlPackages; [
-    NetServer
-    BerkeleyDB
-    DigestSHA1
-    NetAddrIP
-    IOMultiplex
-  ]);
+  postgrey-flags = mk-perl-flags (
+    with perlPackages; [
+      NetServer
+      BerkeleyDB
+      DigestSHA1
+      NetAddrIP
+      IOMultiplex
+    ]
+  );
   policy-test-flags = mk-perl-flags (with perlPackages; [ ParseSyslog ]);
   version = "1.37";
   name = "postgrey-${version}";

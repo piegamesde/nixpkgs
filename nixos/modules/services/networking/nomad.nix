@@ -147,12 +147,14 @@ in
 
       path =
         cfg.extraPackages
-        ++ (with pkgs; [
-          # Client mode requires at least the following:
-          coreutils
-          iproute2
-          iptables
-        ])
+        ++ (
+          with pkgs; [
+            # Client mode requires at least the following:
+            coreutils
+            iproute2
+            iptables
+          ]
+        )
         ;
 
       serviceConfig = mkMerge [
@@ -168,9 +170,9 @@ in
             in
             "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
             + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-            + concatMapStrings
-              (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-              (lib.attrNames cfg.credentials)
+            + concatMapStrings (
+              key: " -config=\${CREDENTIALS_DIRECTORY}/${key}"
+            ) (lib.attrNames cfg.credentials)
             ;
           KillMode = "process";
           KillSignal = "SIGINT";

@@ -18,13 +18,15 @@
 }:
 
 let
-  perl' = perl.withPackages (p:
+  perl' = perl.withPackages (
+    p:
     with p; [
       AuthenSASL
       ConvertASN1
       IOSocketSSL
       perlldap
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "lbdb";

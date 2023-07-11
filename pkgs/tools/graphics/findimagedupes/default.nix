@@ -28,16 +28,18 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ perl ]
-    ++ (with perlPackages; [
-      DBFile
-      FileMimeInfo
-      FileBaseDir
-      #GraphicsMagick
-      ImageMagick
-      Inline
-      InlineC
-      ParseRecDescent
-    ])
+    ++ (
+      with perlPackages; [
+        DBFile
+        FileMimeInfo
+        FileBaseDir
+        #GraphicsMagick
+        ImageMagick
+        Inline
+        InlineC
+        ParseRecDescent
+      ]
+    )
     ;
 
     # use /tmp as a storage

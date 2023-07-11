@@ -37,10 +37,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ cffi ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      maturinBuildHook
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        maturinBuildHook
+      ]
+    )
     ;
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];

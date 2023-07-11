@@ -55,23 +55,27 @@ let
     copyExtraFiles = pkgs.writeShellScript "copy-extra-files" ''
       empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
-      ${concatStrings (mapAttrsToList (n: v: ''
-        ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
-          escapeShellArg n
-        }
-        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
-          escapeShellArg n
-        }
-      '') cfg.extraFiles)}
+      ${concatStrings (mapAttrsToList (
+        n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
+            escapeShellArg n
+          }
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
+            escapeShellArg n
+          }
+        ''
+      ) cfg.extraFiles)}
 
-      ${concatStrings (mapAttrsToList (n: v: ''
-        ${pkgs.coreutils}/bin/install -Dp "${
-          pkgs.writeText n v
-        }" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
-        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${
-          escapeShellArg n
-        }
-      '') cfg.extraEntries)}
+      ${concatStrings (mapAttrsToList (
+        n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${
+            pkgs.writeText n v
+          }" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${
+            escapeShellArg n
+          }
+        ''
+      ) cfg.extraEntries)}
     '';
   };
 
@@ -291,9 +295,11 @@ in
     assertions =
       [ {
         assertion =
-          (config.boot.kernelPackages.kernel.features or {
-            efiBootStub = true;
-          }) ? efiBootStub
+          (
+            config.boot.kernelPackages.kernel.features or {
+              efiBootStub = true;
+            }
+          ) ? efiBootStub
           ;
         message = "This kernel does not support the EFI boot stub";
       } ]

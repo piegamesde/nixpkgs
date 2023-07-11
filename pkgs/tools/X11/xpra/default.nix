@@ -111,13 +111,15 @@ buildPythonApplication rec {
       libXtst
       xorgproto
     ]
-    ++ (with gst_all_1; [
-      gst-libav
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gstreamer
-    ])
+    ++ (
+      with gst_all_1; [
+        gst-libav
+        gst-plugins-bad
+        gst-plugins-base
+        gst-plugins-good
+        gstreamer
+      ]
+    )
     ++ [
       atk.out
       cairo
@@ -138,33 +140,35 @@ buildPythonApplication rec {
     ++ lib.optional withNvenc nvencHeaders;
 
   propagatedBuildInputs = with python3.pkgs;
-    ([
-      cryptography
-      dbus-python
-      gst-python
-      idna
-      lz4
-      netifaces
-      numpy
-      opencv4
-      pam
-      paramiko
-      pillow
-      pycairo
-      pycrypto
-      pycups
-      pygobject3
-      pyinotify
-      pyopengl
-      python-uinput
-      pyxdg
-      rencode
-      invoke
-    ]
+    (
+      [
+        cryptography
+        dbus-python
+        gst-python
+        idna
+        lz4
+        netifaces
+        numpy
+        opencv4
+        pam
+        paramiko
+        pillow
+        pycairo
+        pycrypto
+        pycups
+        pygobject3
+        pyinotify
+        pyopengl
+        python-uinput
+        pyxdg
+        rencode
+        invoke
+      ]
       ++ lib.optionals withNvenc [
         pycuda
         pynvml
-      ]);
+      ]
+    );
 
     # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -79,4 +80,5 @@ import ./make-test-python.nix ({
             assert "Active: active (running)" in output
       ''
       ;
-  })
+  }
+)

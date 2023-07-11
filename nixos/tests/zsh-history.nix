@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
       # Ensure that command was recorded in history
       default.succeed("/run/current-system/sw/bin/history list | grep -q foobar")
     '';
-  })
+  }
+)

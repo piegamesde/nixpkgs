@@ -67,10 +67,12 @@ stdenvNoCC.mkDerivation {
       xclip
       libnotify
     ]
-    ++ (if emojipick-use-rofi then
-      [ rofi ]
-    else
-      [ dmenu ])
+    ++ (
+      if emojipick-use-rofi then
+        [ rofi ]
+      else
+        [ dmenu ]
+    )
     ;
 
   installPhase = ''

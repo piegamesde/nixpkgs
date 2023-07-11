@@ -26,26 +26,32 @@ let
       }
     ''
 
-    (concatStringsSep "\n" (mapAttrsToList (protocol: plugins: ''
-      protocol ${protocol} {
-        mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
-      }
-    '') cfg.mailPlugins.perProtocol))
+    (concatStringsSep "\n" (mapAttrsToList (
+      protocol: plugins: ''
+        protocol ${protocol} {
+          mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
+        }
+      ''
+    ) cfg.mailPlugins.perProtocol))
 
-    (if cfg.sslServerCert == null then
-      ''
-        ssl = no
-        disable_plaintext_auth = no
-      ''
-    else
-      ''
-        ssl_cert = <${cfg.sslServerCert}
-        ssl_key = <${cfg.sslServerKey}
-        ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
-        ${optionalString cfg.enableDHE
-        "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
-        disable_plaintext_auth = yes
-      '')
+    (
+      if cfg.sslServerCert == null then
+        ''
+          ssl = no
+          disable_plaintext_auth = no
+        ''
+      else
+        ''
+          ssl_cert = <${cfg.sslServerCert}
+          ssl_key = <${cfg.sslServerKey}
+          ${optionalString (cfg.sslCACert != null) (
+            "ssl_ca = <" + cfg.sslCACert
+          )}
+          ${optionalString cfg.enableDHE
+          "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
+          disable_plaintext_auth = yes
+        ''
+    )
 
     ''
       default_internal_user = ${cfg.user}
@@ -120,8 +126,10 @@ let
 
   modulesDir = pkgs.symlinkJoin {
     name = "dovecot-modules";
-    paths = map (pkg: "${pkg}/lib/dovecot") ([ dovecotPkg ]
-      ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules);
+    paths = map (pkg: "${pkg}/lib/dovecot") (
+      [ dovecotPkg ]
+      ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
+    );
   };
 
   mailboxConfig =
@@ -392,11 +400,13 @@ in
 
     mailboxes = mkOption {
       type = with types;
-        coercedTo (listOf unspecified) (list:
+        coercedTo (listOf unspecified) (
+          list:
           listToAttrs (map (entry: {
             name = entry.name;
             value = removeAttrs entry [ "name" ];
-          }) list)) (attrsOf (submodule mailboxes));
+          }) list)
+        ) (attrsOf (submodule mailboxes));
       default = { };
       example = literalExpression ''
         {
@@ -505,15 +515,17 @@ in
         ''
         + optionalString (cfg.sieveScripts != { }) ''
           mkdir -p ${stateDir}/sieve
-          ${concatStringsSep "\n" (mapAttrsToList (to: from: ''
-            if [ -d '${from}' ]; then
-              mkdir '${stateDir}/sieve/${to}'
-              cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-            else
-              cp -p '${from}' '${stateDir}/sieve/${to}'
-            fi
-            ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-          '') cfg.sieveScripts)}
+          ${concatStringsSep "\n" (mapAttrsToList (
+            to: from: ''
+              if [ -d '${from}' ]; then
+                mkdir '${stateDir}/sieve/${to}'
+                cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+              else
+                cp -p '${from}' '${stateDir}/sieve/${to}'
+              fi
+              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+            ''
+          ) cfg.sieveScripts)}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         ''
         ;
@@ -530,8 +542,12 @@ in
       {
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
-          && (cfg.sslCACert != null
-            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null))
+          && (
+            cfg.sslCACert != null
+            -> !(
+              cfg.sslServerCert == null || cfg.sslServerKey == null
+            )
+          )
           ;
         message =
           "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
@@ -544,7 +560,9 @@ in
       {
         assertion =
           cfg.sieveScripts != { }
-          -> (cfg.mailUser != null && cfg.mailGroup != null)
+          -> (
+            cfg.mailUser != null && cfg.mailGroup != null
+          )
           ;
         message =
           "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";

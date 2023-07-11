@@ -38,14 +38,16 @@ buildPythonPackage rec {
     ''
       substituteInPlace rarfile.py \
     ''
-    + (if useUnrar then
-      ''
-        --replace 'UNRAR_TOOL = "unrar"' "UNRAR_TOOL = \"${unrar}/bin/unrar\""
-      ''
-    else
-      ''
-        --replace 'ALT_TOOL = "bsdtar"' "ALT_TOOL = \"${libarchive}/bin/bsdtar\""
-      '')
+    + (
+      if useUnrar then
+        ''
+          --replace 'UNRAR_TOOL = "unrar"' "UNRAR_TOOL = \"${unrar}/bin/unrar\""
+        ''
+      else
+        ''
+          --replace 'ALT_TOOL = "bsdtar"' "ALT_TOOL = \"${libarchive}/bin/bsdtar\""
+        ''
+    )
     + ""
     ;
     # the tests only work with the standard unrar package

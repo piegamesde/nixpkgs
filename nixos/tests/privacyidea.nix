@@ -1,6 +1,7 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: rec {
@@ -45,4 +46,5 @@ import ./make-test-python.nix ({
           "curl --fail http://localhost/auth -F username=admin -F password=testing | grep token"
       )
     '';
-  })
+  }
+)

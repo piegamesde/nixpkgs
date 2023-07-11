@@ -20,7 +20,8 @@ let
       true; # disable automatic guest account registration at matrix.org
   };
 in
-stdenv.mkDerivation (finalAttrs:
+stdenv.mkDerivation (
+  finalAttrs:
   builtins.removeAttrs pinData [ "hashes" ] // {
     pname = "element-web";
 
@@ -95,4 +96,5 @@ stdenv.mkDerivation (finalAttrs:
       license = lib.licenses.asl20;
       platforms = lib.platforms.all;
     };
-  })
+  }
+)

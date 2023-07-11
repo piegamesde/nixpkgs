@@ -58,30 +58,32 @@ rec {
           # We have a mix of otf and ttf fonts
           local out_font=$out/share/fonts/noto
         ''
-        + (if _variants == [ ] then
-          ''
-            for folder in $(ls -d fonts/*/); do
-              if [[ -d "$folder"unhinted/variable-ttf ]]; then
-                install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
-              elif [[ -d "$folder"unhinted/otf ]]; then
-                install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
-              else
-                install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
-              fi
-            done
-          ''
-        else
-          ''
-            for variant in $_variants; do
-              if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
-                install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
-              elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
-                install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
-              else
-                install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
-              fi
-            done
-          '')
+        + (
+          if _variants == [ ] then
+            ''
+              for folder in $(ls -d fonts/*/); do
+                if [[ -d "$folder"unhinted/variable-ttf ]]; then
+                  install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
+                elif [[ -d "$folder"unhinted/otf ]]; then
+                  install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
+                else
+                  install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
+                fi
+              done
+            ''
+          else
+            ''
+              for variant in $_variants; do
+                if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
+                elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
+                else
+                  install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
+                fi
+              done
+            ''
+        )
         ;
 
       passthru.updateScript =
@@ -189,11 +191,13 @@ rec {
   noto-fonts-emoji =
     let
       version = "2.038";
-      emojiPythonEnv = buildPackages.python3.withPackages (p:
+      emojiPythonEnv = buildPackages.python3.withPackages (
+        p:
         with p; [
           fonttools
           nototools
-        ]);
+        ]
+      );
     in
     stdenvNoCC.mkDerivation {
       pname = "noto-fonts-emoji";

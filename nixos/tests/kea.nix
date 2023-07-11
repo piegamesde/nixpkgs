@@ -5,7 +5,8 @@
 # that the nameserver can resolve the clients fqdn to the correct IP
 # address.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -200,4 +201,5 @@ import ./make-test-python.nix ({
         nameserver.wait_until_succeeds("kdig +short client.lan.nixos.test @10.0.0.2 | grep -q 10.0.0.3")
       ''
       ;
-  })
+  }
+)

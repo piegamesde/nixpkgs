@@ -4,7 +4,8 @@
   pluginOpts ? ""
 }:
 
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -87,4 +88,5 @@ import ../make-test-python.nix ({
       )
       assert msg == "It works!", "Could not connect through shadowsocks"
     '';
-  })
+  }
+)

@@ -7,7 +7,8 @@
 
 let
   phpWithExts =
-    (php.withExtensions ({
+    (php.withExtensions (
+      {
         all,
         ...
       }:
@@ -19,7 +20,8 @@ let
         openssl
         simplexml
         sqlite3
-      ]));
+      ]
+    ));
   phpBin = "${phpWithExts}/bin/php";
 in
 (writeShellScriptBin "rss-bridge-cli" ''

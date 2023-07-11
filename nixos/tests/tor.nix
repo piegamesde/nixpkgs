@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
           "echo GETINFO version | nc 127.0.0.1 9051"
       )
     '';
-  })
+  }
+)

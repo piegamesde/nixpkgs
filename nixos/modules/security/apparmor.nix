@@ -62,7 +62,8 @@ in
         description = lib.mdDoc ''
           AppArmor policies.
         '';
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             config,
             ...
@@ -77,7 +78,8 @@ in
                 apply = pkgs.writeText name;
               };
             };
-          }));
+          }
+        ));
         default = { };
       };
       includes = mkOption {
@@ -131,11 +133,14 @@ in
     environment.etc."apparmor.d".source = pkgs.linkFarm "apparmor.d" (
       # It's important to put only enabledPolicies here and not all cfg.policies
       # because aa-remove-unknown reads profiles from all /etc/apparmor.d/*
-      mapAttrsToList (name: p: {
-        inherit name;
-        path = p.profile;
-      }) enabledPolicies
-      ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes);
+      mapAttrsToList (
+        name: p: {
+          inherit name;
+          path = p.profile;
+        }
+      ) enabledPolicies
+      ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes
+    );
     environment.etc."apparmor/parser.conf".text =
       ''
         ${if cfg.enableCache then
@@ -236,18 +241,21 @@ in
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          ExecStart = mapAttrsToList (n: p:
-            "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
-            enabledPolicies;
+          ExecStart = mapAttrsToList (
+            n: p:
+            "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}"
+          ) enabledPolicies;
           ExecStartPost =
             optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
-            mapAttrsToList (n: p:
+            mapAttrsToList (
+              n: p:
               "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${
                 commonOpts p
-              }") enabledPolicies
+              }"
+            ) enabledPolicies
             ++
             # Remove from the kernel any profile whose name is not
             # one of the names within the content of the profiles in enabledPolicies

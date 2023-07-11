@@ -59,11 +59,13 @@ buildPythonPackage {
 
   src =
     let
-      pyVerNoDot = lib.strings.stringAsChars (x:
+      pyVerNoDot = lib.strings.stringAsChars (
+        x:
         if x == "." then
           ""
         else
-          x) python.pythonVersion;
+          x
+      ) python.pythonVersion;
       platform =
         if stdenv.isDarwin then
           "mac"

@@ -102,27 +102,29 @@ rustPlatform.buildRustPackage rec {
   checkFlags = [ "--skip=term::test::mock_term" ]; # broken on aarch64
 
   postInstall =
-    (if stdenv.isDarwin then
-      ''
-        mkdir $out/Applications
-        cp -r extra/osx/Alacritty.app $out/Applications
-        ln -s $out/bin $out/Applications/Alacritty.app/Contents/MacOS
-      ''
-    else
-      ''
-        install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-        install -D extra/linux/org.alacritty.Alacritty.appdata.xml -t $out/share/appdata/
-        install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+    (
+      if stdenv.isDarwin then
+        ''
+          mkdir $out/Applications
+          cp -r extra/osx/Alacritty.app $out/Applications
+          ln -s $out/bin $out/Applications/Alacritty.app/Contents/MacOS
+        ''
+      else
+        ''
+          install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+          install -D extra/linux/org.alacritty.Alacritty.appdata.xml -t $out/share/appdata/
+          install -D extra/logo/compat/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
 
-        # patchelf generates an ELF that binutils' "strip" doesn't like:
-        #    strip: not enough room for program headers, try linking with -N
-        # As a workaround, strip manually before running patchelf.
-        $STRIP -S $out/bin/alacritty
+          # patchelf generates an ELF that binutils' "strip" doesn't like:
+          #    strip: not enough room for program headers, try linking with -N
+          # As a workaround, strip manually before running patchelf.
+          $STRIP -S $out/bin/alacritty
 
-        patchelf --set-rpath "${
-          lib.makeLibraryPath rpathLibs
-        }" $out/bin/alacritty
-      '')
+          patchelf --set-rpath "${
+            lib.makeLibraryPath rpathLibs
+          }" $out/bin/alacritty
+        ''
+    )
     + ''
 
       installShellCompletion --zsh extra/completions/_alacritty

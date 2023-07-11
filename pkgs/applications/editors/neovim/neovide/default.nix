@@ -55,10 +55,12 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
         sha256 = "sha256-w5dw/lGm40gKkHPR1ji/L82Oa808Kuh8qaCeiqBLkLw=";
       };
         # The externals for skia are taken from skia/DEPS
-      externals = linkFarm "skia-externals" (lib.mapAttrsToList (name: value: {
-        inherit name;
-        path = fetchgit value;
-      }) (lib.importJSON ./skia-externals.json));
+      externals = linkFarm "skia-externals" (lib.mapAttrsToList (
+        name: value: {
+          inherit name;
+          path = fetchgit value;
+        }
+      ) (lib.importJSON ./skia-externals.json));
     in
     runCommand "source" { } ''
       cp -R ${repo} $out
@@ -97,15 +99,17 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
 
   postFixup =
     let
-      libPath = lib.makeLibraryPath ([
-        libglvnd
-        libxkbcommon
-        xorg.libXcursor
-        xorg.libXext
-        xorg.libXrandr
-        xorg.libXi
-      ]
-        ++ lib.optionals enableWayland [ wayland ]);
+      libPath = lib.makeLibraryPath (
+        [
+          libglvnd
+          libxkbcommon
+          xorg.libXcursor
+          xorg.libXext
+          xorg.libXrandr
+          xorg.libXi
+        ]
+        ++ lib.optionals enableWayland [ wayland ]
+      );
     in
     ''
       # library skia embeds the path to its sources

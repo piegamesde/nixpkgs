@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -41,4 +42,5 @@ import ./make-test-python.nix ({
           "grep 'Config is successfully initialized' /var/lib/wasabibackend/.walletwasabi/backend/Logs.txt"
       )
     '';
-  })
+  }
+)

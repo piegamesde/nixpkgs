@@ -39,12 +39,11 @@ rec {
     */
   overrideCabal =
     f: drv:
-    (drv.override (args:
-      args // {
-        mkDerivation = drv: (args.mkDerivation drv).override f;
-      })) // {
-        overrideScope = scope: overrideCabal f (drv.overrideScope scope);
-      }
+    (drv.override (
+      args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }
+    )) // {
+      overrideScope = scope: overrideCabal f (drv.overrideScope scope);
+    }
     ;
 
     # : Map Name (Either Path VersionNumber) -> HaskellPackageOverrideSet
@@ -53,7 +52,8 @@ rec {
     # the packages named in the input set to the corresponding versions
   packageSourceOverrides =
     overrides: self: super:
-    pkgs.lib.mapAttrs (name: src:
+    pkgs.lib.mapAttrs (
+      name: src:
       let
         isPath = x: builtins.substring 0 1 (toString x) == "/";
         generateExprs =
@@ -137,8 +137,9 @@ rec {
     */
   doDistribute = overrideCabal (drv: {
     # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
-    hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ])
-      (drv.platforms or lib.platforms.all);
+    hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (
+      drv.platforms or lib.platforms.all
+    );
   });
     /* dontDistribute disables the distribution of binaries for the package
        via hydra.
@@ -430,10 +431,11 @@ rec {
     overrideCabal (_drv: {
       postBuild = with lib;
         let
-          args = concatStringsSep " "
-            (optional ignoreEmptyImports "--ignore-empty-imports"
-              ++ optional ignoreMainModule "--ignore-main-module"
-              ++ map (pkg: "--ignore-package ${pkg}") ignorePackages);
+          args = concatStringsSep " " (
+            optional ignoreEmptyImports "--ignore-empty-imports"
+            ++ optional ignoreMainModule "--ignore-main-module"
+            ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
+          );
         in
         "${pkgs.haskellPackages.packunused}/bin/packunused"
         + optionalString (args != "") " ${args}"
@@ -566,7 +568,9 @@ rec {
     exeName:
     overrideCabal (drv: {
       postInstall =
-        (drv.postInstall or "")
+        (
+          drv.postInstall or ""
+        )
         + ''
           bashCompDir="''${!outputBin}/share/bash-completion/completions"
           zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
@@ -644,15 +648,18 @@ rec {
             if !lib.isDerivation val then
               [ ]
             else
-              builtins.concatMap (drv:
+              builtins.concatMap (
+                drv:
                 if !lib.isDerivation drv then
                   [ ]
                 else
                   [ {
                     key = drv.outPath;
                     val = drv;
-                  } ])
-              (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
+                  } ]
+              ) (
+                val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]
+              )
             ;
         })
         ;

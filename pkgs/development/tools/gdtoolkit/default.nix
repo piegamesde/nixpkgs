@@ -35,11 +35,13 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs =
     [ lark080 ]
-    ++ (with python3Packages; [
-      docopt
-      pyyaml
-      setuptools
-    ])
+    ++ (
+      with python3Packages; [
+        docopt
+        pyyaml
+        setuptools
+      ]
+    )
     ;
 
   doCheck = true;

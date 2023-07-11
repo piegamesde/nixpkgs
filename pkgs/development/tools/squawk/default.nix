@@ -33,10 +33,12 @@ rustPlatform.buildRustPackage rec {
       libiconv
       openssl
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreFoundation
-      Security
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        CoreFoundation
+        Security
+      ]
+    )
     ;
 
   OPENSSL_NO_VENDOR = 1;

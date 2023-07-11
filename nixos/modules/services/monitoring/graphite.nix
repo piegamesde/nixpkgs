@@ -24,13 +24,15 @@ let
     ln -s $graphiteLocalSettings $out/graphite_local_settings.py
   '';
 
-  graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (''
-    STATIC_ROOT = '${staticDir}'
-  ''
+  graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (
+    ''
+      STATIC_ROOT = '${staticDir}'
+    ''
     + optionalString (config.time.timeZone != null) ''
       TIME_ZONE = '${config.time.timeZone}'
     ''
-    + cfg.web.extraConfig);
+    + cfg.web.extraConfig
+  );
 
   seyrenConfig = {
     SEYREN_URL = cfg.seyren.seyrenUrl;
@@ -383,11 +385,11 @@ in
         ;
     })
 
-    (mkIf (cfg.carbon.enableCache
+    (mkIf (
+      cfg.carbon.enableCache
       || cfg.carbon.enableAggregator
-      || cfg.carbon.enableRelay) {
-        environment.systemPackages = [ pkgs.python3Packages.carbon ];
-      })
+      || cfg.carbon.enableRelay
+    ) { environment.systemPackages = [ pkgs.python3Packages.carbon ]; })
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {
@@ -477,18 +479,20 @@ in
       services.mongodb.enable = mkDefault true;
     })
 
-    (mkIf (cfg.carbon.enableCache
+    (mkIf (
+      cfg.carbon.enableCache
       || cfg.carbon.enableAggregator
       || cfg.carbon.enableRelay
       || cfg.web.enable
-      || cfg.seyren.enable) {
-        users.users.graphite = {
-          uid = config.ids.uids.graphite;
-          group = "graphite";
-          description = "Graphite daemon user";
-          home = dataDir;
-        };
-        users.groups.graphite.gid = config.ids.gids.graphite;
-      })
+      || cfg.seyren.enable
+    ) {
+      users.users.graphite = {
+        uid = config.ids.uids.graphite;
+        group = "graphite";
+        description = "Graphite daemon user";
+        home = dataDir;
+      };
+      users.groups.graphite.gid = config.ids.gids.graphite;
+    })
   ];
 }

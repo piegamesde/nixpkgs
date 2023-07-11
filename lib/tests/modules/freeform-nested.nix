@@ -3,10 +3,11 @@
   ...
 }:
 let
-  deathtrapArgs = lib.mapAttrs (k: _:
+  deathtrapArgs = lib.mapAttrs (
+    k: _:
     throw
-    "The module system is too strict, accessing an unused option's ${k} mkOption-attribute.")
-    (lib.functionArgs lib.mkOption);
+    "The module system is too strict, accessing an unused option's ${k} mkOption-attribute."
+  ) (lib.functionArgs lib.mkOption);
 in
 {
   options.nest.foo = lib.mkOption {

@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     php,
@@ -73,4 +74,5 @@ import ../make-test-python.nix ({
             machine.succeed(f'test -n "$(php -m | grep -i {ext})"')
       ''
       ;
-  })
+  }
+)

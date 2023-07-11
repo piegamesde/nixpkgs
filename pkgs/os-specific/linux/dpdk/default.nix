@@ -21,12 +21,14 @@
   pciutils,
   withExamples ? [ ],
   shared ? false,
-  machine ? (if stdenv.isx86_64 then
-    "nehalem"
-  else if stdenv.isAarch64 then
-    "generic"
-  else
-    null)
+  machine ? (
+    if stdenv.isx86_64 then
+      "nehalem"
+    else if stdenv.isAarch64 then
+      "generic"
+    else
+      null
+  )
 }:
 
 let

@@ -89,14 +89,16 @@ let
       };
 
       config = {
-        directives = mkOrder 10 ([
-          "driver = ${config.driver}"
-          "port = ${config.port}"
-          ''desc = "${config.description}"''
-          "sdorder = ${toString config.shutdownOrder}"
-        ]
+        directives = mkOrder 10 (
+          [
+            "driver = ${config.driver}"
+            "port = ${config.port}"
+            ''desc = "${config.description}"''
+            "sdorder = ${toString config.shutdownOrder}"
+          ]
           ++ (optional (config.maxStartDelay != null)
-            "maxstartdelay = ${toString config.maxStartDelay}"));
+            "maxstartdelay = ${toString config.maxStartDelay}")
+        );
 
         summary =
           concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);

@@ -6,7 +6,8 @@
 
 let
   inside =
-    (self:
+    (
+      self:
       let
         callPackage = pkgs.newScope self;
       in

@@ -238,12 +238,14 @@ in
       "d '${cfg.mediaDir}' - ${cfg.user} ${
         config.users.users.${cfg.user}.group
       } - -"
-      (if cfg.consumptionDirIsPublic then
-        "d '${cfg.consumptionDir}' 777 - - - -"
-      else
-        "d '${cfg.consumptionDir}' - ${cfg.user} ${
-          config.users.users.${cfg.user}.group
-        } - -")
+      (
+        if cfg.consumptionDirIsPublic then
+          "d '${cfg.consumptionDir}' 777 - - - -"
+        else
+          "d '${cfg.consumptionDir}' - ${cfg.user} ${
+            config.users.users.${cfg.user}.group
+          } - -"
+      )
     ];
 
     systemd.services.paperless-scheduler = {

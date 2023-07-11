@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -66,4 +67,5 @@ import ./make-test-python.nix ({
       # Store path should exist in the store now
       machine.succeed("[ -d %s ] || exit 1" % storePath)
     '';
-  })
+  }
+)

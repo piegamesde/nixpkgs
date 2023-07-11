@@ -59,13 +59,15 @@ in
       system.fsPackages = [ pkgs.btrfs-progs ];
 
       boot.initrd.kernelModules = mkIf inInitrd [ "btrfs" ];
-      boot.initrd.availableKernelModules = mkIf inInitrd ([ "crc32c" ]
+      boot.initrd.availableKernelModules = mkIf inInitrd (
+        [ "crc32c" ]
         ++ optionals (config.boot.kernelPackages.kernel.kernelAtLeast "5.5") [
           # Needed for mounting filesystems with new checksums
           "xxhash_generic"
           "blake2b_generic"
           "sha256_generic" # Should be baked into our kernel, just to be sure
-        ]);
+        ]
+      );
 
       boot.initrd.extraUtilsCommands =
         mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''

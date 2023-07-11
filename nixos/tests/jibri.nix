@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -73,4 +74,5 @@ import ./make-test-python.nix ({
           "cat /var/log/jitsi/jibri/log.0.txt | grep -q 'Finalize script finished with exit value 0'", timeout=36
       )
     '';
-  })
+  }
+)

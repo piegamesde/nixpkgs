@@ -29,11 +29,13 @@ let
       merge = mergeOneOption;
       getSubOptions =
         prefix:
-        elemType.getSubOptions (prefix
+        elemType.getSubOptions (
+          prefix
           ++ [
             "*"
             "*"
-          ])
+          ]
+        )
         ;
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
@@ -250,7 +252,8 @@ let
   configToString =
     name: config:
     if config.enable then
-      concatStringsSep "\n" ([ "output ${name}" ]
+      concatStringsSep "\n" (
+        [ "output ${name}" ]
         ++ optional (config.position != "") "pos ${config.position}"
         ++ optional (config.crtc != null) "crtc ${toString config.crtc}"
         ++ optional config.primary "primary"
@@ -259,14 +262,20 @@ let
         ++ optional (config.mode != "") "mode ${config.mode}"
         ++ optional (config.rate != "") "rate ${config.rate}"
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
-        ++ optional (config.transform != null) ("transform "
-          + concatMapStringsSep "," toString (flatten config.transform))
-        ++ optional (config.scale != null)
-          ((if config.scale.method == "factor" then
-            "scale"
-          else
-            "scale-from")
-            + " ${toString config.scale.x}x${toString config.scale.y}"))
+        ++ optional (config.transform != null) (
+          "transform "
+          + concatMapStringsSep "," toString (flatten config.transform)
+        )
+        ++ optional (config.scale != null) (
+          (
+            if config.scale.method == "factor" then
+              "scale"
+            else
+              "scale-from"
+          )
+          + " ${toString config.scale.x}x${toString config.scale.y}"
+        )
+      )
     else
       ''
         output ${name}

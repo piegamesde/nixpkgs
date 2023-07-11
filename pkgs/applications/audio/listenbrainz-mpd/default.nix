@@ -28,13 +28,15 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     [ sqlite ]
-    ++ (if stdenv.isDarwin then
-      [
-        libiconv
-        Security
-      ]
-    else
-      [ openssl ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          libiconv
+          Security
+        ]
+      else
+        [ openssl ]
+    )
     ;
 
   meta = with lib; {

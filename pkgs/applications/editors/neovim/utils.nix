@@ -32,7 +32,9 @@ let
       withRuby ? true
         # the function you would have passed to lua.withPackages
       ,
-      extraLuaPackages ? (_: [ ])
+      extraLuaPackages ? (
+        _: [ ]
+      )
 
       # expects a list of plugin configuration
       # expects { plugin=far-vim; config = "let g:far#source='rg'"; optional = false; }
@@ -65,18 +67,24 @@ let
             optional = false;
           };
         in
-        map (x:
-          defaultPlugin // (if (x ? plugin) then
-            x
-          else
-            { plugin = x; })) plugins
+        map (
+          x:
+          defaultPlugin // (
+            if (x ? plugin) then
+              x
+            else
+              { plugin = x; }
+          )
+        ) plugins
         ;
 
-      pluginRC = lib.foldl (acc: p:
+      pluginRC = lib.foldl (
+        acc: p:
         if p.config != null then
           acc ++ [ p.config ]
         else
-          acc) [ ] pluginsNormalized;
+          acc
+      ) [ ] pluginsNormalized;
 
       pluginsPartitioned =
         lib.partition (x: x.optional == true) pluginsNormalized;
@@ -88,10 +96,12 @@ let
       };
 
       pluginPython3Packages = getDeps "python3Dependencies" requiredPlugins;
-      python3Env = python3Packages.python.withPackages (ps:
+      python3Env = python3Packages.python.withPackages (
+        ps:
         [ ps.pynvim ]
         ++ (extraPython3Packages ps)
-        ++ (lib.concatMap (f: f ps) pluginPython3Packages));
+        ++ (lib.concatMap (f: f ps) pluginPython3Packages)
+      );
 
       luaEnv = neovim-unwrapped.lua.withPackages (extraLuaPackages);
 
@@ -103,8 +113,10 @@ let
         # avoid double wrapping, see comment near finalMakeWrapperArgs
       makeWrapperArgs =
         let
-          binPath = lib.makeBinPath (lib.optionals withRuby [ rubyEnv ]
-            ++ lib.optionals withNodeJs [ nodejs ]);
+          binPath = lib.makeBinPath (
+            lib.optionals withRuby [ rubyEnv ]
+            ++ lib.optionals withNodeJs [ nodejs ]
+          );
         in
         [ "--inherit-argv0" ]
         ++ lib.optionals withRuby [
@@ -157,11 +169,15 @@ let
       extraMakeWrapperArgs ? ""
         # the function you would have passed to python.withPackages
       ,
-      extraPythonPackages ? (_: [ ])
+      extraPythonPackages ? (
+        _: [ ]
+      )
       # the function you would have passed to python.withPackages
       ,
       withPython3 ? true,
-      extraPython3Packages ? (_: [ ])
+      extraPython3Packages ? (
+        _: [ ]
+      )
       # the function you would have passed to lua.withPackages
       ,
       extraLuaPackages ? (_: [ ]),
@@ -205,11 +221,13 @@ let
         inherit extraName;
       };
     in
-    wrapNeovimUnstable neovim (res // {
-      wrapperArgs =
-        lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
-      wrapRc = (configure != { });
-    })
+    wrapNeovimUnstable neovim (
+      res // {
+        wrapperArgs =
+          lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
+        wrapRc = (configure != { });
+      }
+    )
     ;
 
     /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers

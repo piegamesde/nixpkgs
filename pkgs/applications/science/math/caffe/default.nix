@@ -88,19 +88,23 @@ stdenv.mkDerivation rec {
     # It's important that caffe is passed the major and minor version only because that's what
     # boost_python expects
     [
-      (if pythonSupport then
-        "-Dpython_version=${python.pythonVersion}"
-      else
-        "-DBUILD_python=OFF")
+      (
+        if pythonSupport then
+          "-Dpython_version=${python.pythonVersion}"
+        else
+          "-DBUILD_python=OFF"
+      )
       "-DBLAS=open"
     ]
-    ++ (if cudaSupport then
-      [
-        "-DCUDA_ARCH_NAME=All"
-        "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-      ]
-    else
-      [ "-DCPU_ONLY=ON" ])
+    ++ (
+      if cudaSupport then
+        [
+          "-DCUDA_ARCH_NAME=All"
+          "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+        ]
+      else
+        [ "-DCPU_ONLY=ON" ]
+    )
     ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
     ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ]
@@ -140,24 +144,26 @@ stdenv.mkDerivation rec {
     let
       pp = python.pkgs;
     in
-    ([
-      pp.numpy
-      pp.scipy
-      pp.scikitimage
-      pp.h5py
-      pp.matplotlib
-      pp.ipython
-      pp.networkx
-      pp.nose
-      pp.pandas
-      pp.python-dateutil
-      pp.protobuf
-      pp.gflags
-      pp.pyyaml
-      pp.pillow
-      pp.six
-    ]
-      ++ lib.optional leveldbSupport pp.leveldb)
+    (
+      [
+        pp.numpy
+        pp.scipy
+        pp.scikitimage
+        pp.h5py
+        pp.matplotlib
+        pp.ipython
+        pp.networkx
+        pp.nose
+        pp.pandas
+        pp.python-dateutil
+        pp.protobuf
+        pp.gflags
+        pp.pyyaml
+        pp.pillow
+        pp.six
+      ]
+      ++ lib.optional leveldbSupport pp.leveldb
+    )
   );
 
   outputs = [
@@ -183,11 +189,12 @@ stdenv.mkDerivation rec {
         'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
     ''
-    + lib.optionalString
-      (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
-        # CUDA 9.0 doesn't support sm_20
-        sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
-      ''
+    + lib.optionalString (
+      cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0"
+    ) ''
+      # CUDA 9.0 doesn't support sm_20
+      sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
+    ''
     ;
 
   preConfigure = lib.optionalString pythonSupport ''

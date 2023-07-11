@@ -74,13 +74,15 @@ stdenv.mkDerivation rec {
       vcdimager
       zlib
     ]
-    ++ (with xorg; [
-      libX11
-      libXext
-      libXinerama
-      libXv
-      libxcb
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXinerama
+        libXv
+        libxcb
+      ]
+    )
     ;
 
   enableParallelBuilding = true;

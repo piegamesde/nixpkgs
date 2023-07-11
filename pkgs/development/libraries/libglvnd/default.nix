@@ -44,24 +44,26 @@ stdenv.mkDerivation rec {
       --replace "-Xlinker --version-script=$(VERSION_SCRIPT)" "-Xlinker"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-UDEFAULT_EGL_VENDOR_CONFIG_DIRS"
-    # FHS paths are added so that non-NixOS applications can find vendor files.
-    ''
-      -DDEFAULT_EGL_VENDOR_CONFIG_DIRS="${addOpenGLRunpath.driverLink}/share/glvnd/egl_vendor.d:/etc/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d"''
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      "-UDEFAULT_EGL_VENDOR_CONFIG_DIRS"
+      # FHS paths are added so that non-NixOS applications can find vendor files.
+      ''
+        -DDEFAULT_EGL_VENDOR_CONFIG_DIRS="${addOpenGLRunpath.driverLink}/share/glvnd/egl_vendor.d:/etc/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d"''
 
-    "-Wno-error=array-bounds"
-  ]
-    ++ lib.optional stdenv.cc.isClang "-Wno-error");
+      "-Wno-error=array-bounds"
+    ]
+    ++ lib.optional stdenv.cc.isClang "-Wno-error"
+  );
 
   configureFlags =
     [ ]
       # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-tls"
       # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
-    ++ lib.optional
-      (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-      "--disable-asm"
+    ++ lib.optional (
+      stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+    ) "--disable-asm"
     ;
 
   outputs = [

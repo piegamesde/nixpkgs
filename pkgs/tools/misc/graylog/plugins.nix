@@ -20,16 +20,18 @@ let
       '',
       ...
     }:
-    stdenv.mkDerivation (a // {
-      inherit installPhase;
-      dontUnpack = true;
-      nativeBuildInputs = [ unzip ];
-      meta = a.meta // {
-        platforms = graylog.meta.platforms;
-        maintainers = (a.meta.maintainers or [ ]) ++ [ maintainers.fadenb ];
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      };
-    })
+    stdenv.mkDerivation (
+      a // {
+        inherit installPhase;
+        dontUnpack = true;
+        nativeBuildInputs = [ unzip ];
+        meta = a.meta // {
+          platforms = graylog.meta.platforms;
+          maintainers = (a.meta.maintainers or [ ]) ++ [ maintainers.fadenb ];
+          sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        };
+      }
+    )
     ;
 in
 {

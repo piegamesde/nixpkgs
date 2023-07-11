@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     package ? pkgs.hbase,
@@ -34,4 +35,5 @@ import ./make-test-python.nix ({
       hbase.wait_until_succeeds("echo \"create 't1','f1'\" | sudo -u hbase hbase shell -n")
       assert "NAME => 'f1'" in hbase.succeed("echo \"describe 't1'\" | sudo -u hbase hbase shell -n")
     '';
-  })
+  }
+)

@@ -68,7 +68,8 @@ let
 
   destType =
     srcConfig:
-    submodule ({
+    submodule (
+      {
         name,
         ...
       }: {
@@ -131,10 +132,12 @@ let
           label = mkDefault name;
           plan = mkDefault srcConfig.plan;
         };
-      })
+      }
+    )
     ;
 
-  srcType = submodule ({
+  srcType = submodule (
+    {
       name,
       config,
       ...
@@ -269,7 +272,8 @@ let
 
       config = { dataset = mkDefault name; };
 
-    });
+    }
+  );
 
     ### Generating the configuration from here
 
@@ -300,11 +304,13 @@ let
   mkDestAttrs =
     dst:
     with dst;
-    mapAttrs' (n: v: nameValuePair "dst_${label}${n}" v) ({
-      "" = optionalString (host != null) "${host}:" + dataset;
-      _plan = plan;
-    } // optionalAttrs (presend != null) { _precmd = presend; }
-      // optionalAttrs (postsend != null) { _pstcmd = postsend; })
+    mapAttrs' (n: v: nameValuePair "dst_${label}${n}" v) (
+      {
+        "" = optionalString (host != null) "${host}:" + dataset;
+        _plan = plan;
+      } // optionalAttrs (presend != null) { _precmd = presend; }
+      // optionalAttrs (postsend != null) { _pstcmd = postsend; }
+    )
     ;
 
   mkSrcAttrs =
@@ -330,7 +336,8 @@ let
     (map mkDestAttrs (builtins.attrValues destinations))
     ;
 
-  files = mapAttrs' (n: srcCfg:
+  files = mapAttrs' (
+    n: srcCfg:
     let
       fileText = attrsToFile (mkSrcAttrs srcCfg);
     in
@@ -497,10 +504,12 @@ in
               | grep -oP '(?<=\*\*\* backup plan: ).*(?= \*\*\*)' \
               | xargs -I{} ${pkgs.znapzend}/bin/znapzendzetup delete "{}"
           ''
-          + concatStringsSep "\n" (mapAttrsToList (dataset: config: ''
-            echo Importing znapzend zetup ${config} for dataset ${dataset}
-            ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-          '') files)
+          + concatStringsSep "\n" (mapAttrsToList (
+            dataset: config: ''
+              echo Importing znapzend zetup ${config} for dataset ${dataset}
+              ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
+            ''
+          ) files)
           + ''
             wait
           ''

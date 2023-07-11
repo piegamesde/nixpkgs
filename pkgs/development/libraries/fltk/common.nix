@@ -38,8 +38,9 @@
   cairo
 
   ,
-  withPango ?
-    (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux),
+  withPango ? (
+    lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux
+  ),
   pango
 
   ,
@@ -171,11 +172,12 @@ stdenv.mkDerivation rec {
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
-  preBuild = lib.optionalString
-    (withCairo && withShared && stdenv.hostPlatform.isDarwin) ''
-      # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
-      export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
-    '';
+  preBuild = lib.optionalString (
+    withCairo && withShared && stdenv.hostPlatform.isDarwin
+  ) ''
+    # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
+    export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
+  '';
 
   postBuild = lib.optionalString withDocs ''
     make docs

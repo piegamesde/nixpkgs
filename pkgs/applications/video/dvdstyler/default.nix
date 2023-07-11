@@ -90,12 +90,14 @@ stdenv.mkDerivation rec {
 
   preFixup =
     let
-      binPath = makeBinPath ([
-        cdrtools
-        dvdauthor
-        dvdplusrwtools
-      ]
-        ++ optionals dvdisasterSupport [ dvdisaster ]);
+      binPath = makeBinPath (
+        [
+          cdrtools
+          dvdauthor
+          dvdplusrwtools
+        ]
+        ++ optionals dvdisasterSupport [ dvdisaster ]
+      );
     in
     ''
       gappsWrapperArgs+=(

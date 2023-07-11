@@ -47,15 +47,16 @@ rustPlatform.buildRustPackage rec {
       [ openssl ]
     ;
 
-  preBuild = lib.optionalString (x11Support && usesX11)
-    (if preferXsel && xsel != null then
+  preBuild = lib.optionalString (x11Support && usesX11) (
+    if preferXsel && xsel != null then
       ''
         export XSEL_PATH="${xsel}/bin/xsel"
       ''
     else
       ''
         export XCLIP_PATH="${xclip}/bin/xclip"
-      '');
+      ''
+  );
 
   postInstall = ''
     installShellCompletion contrib/completions/ffsend.{bash,fish} --zsh contrib/completions/_ffsend

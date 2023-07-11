@@ -15,10 +15,12 @@ let
 
       overrideWith =
         update:
-        args // (if lib.isFunction update then
-          update args
-        else
-          update)
+        args // (
+          if lib.isFunction update then
+            update args
+          else
+            update
+        )
         ;
 
       overridePackage =

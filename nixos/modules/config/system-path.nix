@@ -52,7 +52,8 @@ let
     "rsync"
     "strace"
   ];
-  defaultPackages = map (n:
+  defaultPackages = map (
+    n:
     let
       pkg = pkgs.${n};
     in

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -127,4 +128,5 @@ import ./make-test-python.nix ({
           server.wait_for_open_port(22)
           machine.succeed(as_alice("ssh -i alice -o StrictHostKeyChecking=no server exit"))
     '';
-  })
+  }
+)

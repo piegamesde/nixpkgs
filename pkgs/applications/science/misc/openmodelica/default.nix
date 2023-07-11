@@ -4,7 +4,8 @@
   libsForQt5,
   clangStdenv,
 }:
-lib.makeScope newScope (self:
+lib.makeScope newScope (
+  self:
   let
     callPackage = self.newScope { stdenv = clangStdenv; };
     callQtPackage = self.newScope (libsForQt5 // { stdenv = clangStdenv; });

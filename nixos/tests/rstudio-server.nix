@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
       customPackageMachine.wait_for_unit("rstudio-server.service")
       customPackageMachine.succeed("curl -f -vvv -s http://127.0.0.1:8787")
     '';
-  })
+  }
+)

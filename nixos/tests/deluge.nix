@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -64,4 +65,5 @@ import ./make-test-python.nix ({
           "(deluge-console 'connect 127.0.0.1:58846 andrew password; help' || true) | grep -q 'rm.*Remove a torrent'"
       )
     '';
-  })
+  }
+)

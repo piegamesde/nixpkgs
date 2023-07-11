@@ -204,8 +204,9 @@ backendStdenv.mkDerivation rec {
           cd ..
         done
       ''}
-      ${lib.optionalString
-      (lib.versionAtLeast version "10.1" && lib.versionOlder version "11") ''
+      ${lib.optionalString (
+        lib.versionAtLeast version "10.1" && lib.versionOlder version "11"
+      ) ''
         cd pkg/builds/cuda-toolkit
         mv * $out/
       ''}
@@ -257,9 +258,9 @@ backendStdenv.mkDerivation rec {
       ''}
 
       # Remove some cruft.
-      ${lib.optionalString
-      ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
-      "rm $out/bin/uninstall*"}
+      ${lib.optionalString (
+        (lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1")
+      ) "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
       if [ -d "$out"/cuda-samples ]; then
@@ -291,8 +292,9 @@ backendStdenv.mkDerivation rec {
 
       # Remove OpenCL libraries as they are provided by ocl-icd and driver.
       rm -f $out/lib64/libOpenCL*
-      ${lib.optionalString
-      (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11")) ''
+      ${lib.optionalString (
+        lib.versionAtLeast version "10.1" && (lib.versionOlder version "11")
+      ) ''
         mv $out/lib64 $out/lib
         mv $out/extras/CUPTI/lib64/libcupti* $out/lib
       ''}

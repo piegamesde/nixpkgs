@@ -102,11 +102,13 @@ let
 
   plugins =
     let
-      plugins = builtins.filter (n:
+      plugins = builtins.filter (
+        n:
         !(lib.elem n [
           "out"
           "bin"
-        ])) package.outputs;
+        ])
+      ) package.outputs;
     in
     lib.genAttrs plugins (output: package.${output})
     ;

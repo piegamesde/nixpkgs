@@ -23,13 +23,15 @@ let
       ${fd_cfg.extraClientConfig}
     }
 
-    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
-      Director {
-        Name = "${name}";
-        Password = "${value.password}";
-        Monitor = "${value.monitor}";
-      }
-    '') fd_cfg.director)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      name: value: ''
+        Director {
+          Name = "${name}";
+          Password = "${value.password}";
+          Monitor = "${value.monitor}";
+        }
+      ''
+    ) fd_cfg.director)}
 
     Messages {
       Name = Standard;
@@ -48,32 +50,38 @@ let
       ${sd_cfg.extraStorageConfig}
     }
 
-    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
-      Autochanger {
-        Name = "${name}";
-        Device = ${concatStringsSep ", " (map (a: ''"${a}"'') value.devices)};
-        Changer Device =  "${value.changerDevice}";
-        Changer Command = "${value.changerCommand}";
-        ${value.extraAutochangerConfig}
-      }
-    '') sd_cfg.autochanger)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      name: value: ''
+        Autochanger {
+          Name = "${name}";
+          Device = ${concatStringsSep ", " (map (a: ''"${a}"'') value.devices)};
+          Changer Device =  "${value.changerDevice}";
+          Changer Command = "${value.changerCommand}";
+          ${value.extraAutochangerConfig}
+        }
+      ''
+    ) sd_cfg.autochanger)}
 
-    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
-      Device {
-        Name = "${name}";
-        Archive Device = "${value.archiveDevice}";
-        Media Type = "${value.mediaType}";
-        ${value.extraDeviceConfig}
-      }
-    '') sd_cfg.device)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      name: value: ''
+        Device {
+          Name = "${name}";
+          Archive Device = "${value.archiveDevice}";
+          Media Type = "${value.mediaType}";
+          ${value.extraDeviceConfig}
+        }
+      ''
+    ) sd_cfg.device)}
 
-    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
-      Director {
-        Name = "${name}";
-        Password = "${value.password}";
-        Monitor = "${value.monitor}";
-      }
-    '') sd_cfg.director)}
+    ${concatStringsSep "\n" (mapAttrsToList (
+      name: value: ''
+        Director {
+          Name = "${name}";
+          Password = "${value.password}";
+          Monitor = "${value.monitor}";
+        }
+      ''
+    ) sd_cfg.director)}
 
     Messages {
       Name = Standard;

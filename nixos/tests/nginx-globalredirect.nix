@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
       webserver.succeed("curl --fail -si http://localhost/alf | grep '^Location:.*/alf'")
       webserver.fail("curl --fail -si http://localhost/noredirect | grep '^Location:'")
     '';
-  })
+  }
+)

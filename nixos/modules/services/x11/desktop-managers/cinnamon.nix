@@ -147,42 +147,43 @@ in
       security.pam.services = { cinnamon-screensaver = { }; };
 
       environment.systemPackages = with pkgs.cinnamon // pkgs;
-        ([
-          desktop-file-utils
+        (
+          [
+            desktop-file-utils
 
-          # common-files
-          cinnamon-common
-          cinnamon-session
-          cinnamon-desktop
-          cinnamon-menus
-          cinnamon-translations
+            # common-files
+            cinnamon-common
+            cinnamon-session
+            cinnamon-desktop
+            cinnamon-menus
+            cinnamon-translations
 
-          # utils needed by some scripts
-          killall
+            # utils needed by some scripts
+            killall
 
-          # session requirements
-          cinnamon-screensaver
-          # cinnamon-killer-daemon: provided by cinnamon-common
-          networkmanagerapplet # session requirement - also nm-applet not needed
+            # session requirements
+            cinnamon-screensaver
+            # cinnamon-killer-daemon: provided by cinnamon-common
+            networkmanagerapplet # session requirement - also nm-applet not needed
 
-          # For a polkit authentication agent
-          polkit_gnome
+            # For a polkit authentication agent
+            polkit_gnome
 
-          # packages
-          nemo-with-extensions
-          cinnamon-control-center
-          cinnamon-settings-daemon
-          libgnomekbd
+            # packages
+            nemo-with-extensions
+            cinnamon-control-center
+            cinnamon-settings-daemon
+            libgnomekbd
 
-          # theme
-          gnome.adwaita-icon-theme
-          gnome.gnome-themes-extra
-          gtk3.out
+            # theme
+            gnome.adwaita-icon-theme
+            gnome.gnome-themes-extra
+            gtk3.out
 
-          # other
-          glib # for gsettings
-          xdg-user-dirs
-        ]
+            # other
+            glib # for gsettings
+            xdg-user-dirs
+          ]
           ++ utils.removePackagesByName [
             # accessibility
             onboard
@@ -197,7 +198,8 @@ in
             mint-x-icons
             mint-y-icons
             xapp # provides some xapp-* icons
-          ] config.environment.cinnamon.excludePackages);
+          ] config.environment.cinnamon.excludePackages
+        );
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;

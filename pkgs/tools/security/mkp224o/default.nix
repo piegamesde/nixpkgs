@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
         ]
         ;
     in
-    lib.concatMapStrings ({
+    lib.concatMapStrings (
+      {
         suffix,
         configureFlags,
       }: ''
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
             installPhase = "install -D mkp224o $out";
           }
         } $out/bin/mkp224o-${suffix}
-      '') variants
+      ''
+    ) variants
     ;
 
   meta = with lib; {

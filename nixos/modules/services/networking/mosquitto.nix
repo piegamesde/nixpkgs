@@ -43,10 +43,12 @@ let
 
   assertKeysValid =
     prefix: valid: config:
-    mapAttrsToList (n: _: {
-      assertion = valid ? ${n};
-      message = "Invalid config key ${prefix}.${n}.";
-    }) config
+    mapAttrsToList (
+      n: _: {
+        assertion = valid ? ${n};
+        message = "Invalid config key ${prefix}.${n}.";
+      }
+    ) config
     ;
 
   formatFreeform =
@@ -118,28 +120,32 @@ let
 
   userAsserts =
     prefix: users:
-    mapAttrsToList (n: _: {
-      assertion =
-        builtins.match ''
-          [^:
-          ]+'' n
-        != null
-        ;
-      message = "Invalid user name ${n} in ${prefix}";
-    }) users
-    ++ mapAttrsToList (n: u: {
-      assertion =
-        count (s: s != null) [
-          u.password
-          u.passwordFile
-          u.hashedPassword
-          u.hashedPasswordFile
-        ]
-        <= 1
-        ;
-      message =
-        "Cannot set more than one password option for user ${n} in ${prefix}";
-    }) users
+    mapAttrsToList (
+      n: _: {
+        assertion =
+          builtins.match ''
+            [^:
+            ]+'' n
+          != null
+          ;
+        message = "Invalid user name ${n} in ${prefix}";
+      }
+    ) users
+    ++ mapAttrsToList (
+      n: u: {
+        assertion =
+          count (s: s != null) [
+            u.password
+            u.passwordFile
+            u.hashedPassword
+            u.hashedPasswordFile
+          ]
+          <= 1
+          ;
+        message =
+          "Cannot set more than one password option for user ${n} in ${prefix}";
+      }
+    ) users
     ;
 
   makePasswordFile =
@@ -147,42 +153,46 @@ let
     let
       makeLines =
         store: file:
-        mapAttrsToList
-          (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
-          (filterAttrs (_: u: u.${store} != null) users)
-        ++ mapAttrsToList
-          (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
-          (filterAttrs (_: u: u.${file} != null) users)
+        mapAttrsToList (
+          n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}"
+        ) (filterAttrs (_: u: u.${store} != null) users)
+        ++ mapAttrsToList (
+          n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}"
+        ) (filterAttrs (_: u: u.${file} != null) users)
         ;
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
-    pkgs.writeScript "make-mosquitto-passwd" (''
-      #! ${pkgs.runtimeShell}
+    pkgs.writeScript "make-mosquitto-passwd" (
+      ''
+        #! ${pkgs.runtimeShell}
 
-      set -eu
+        set -eu
 
-      file=${escapeShellArg path}
+        file=${escapeShellArg path}
 
-      rm -f "$file"
-      touch "$file"
+        rm -f "$file"
+        touch "$file"
 
-      addLine() {
-        echo "$1:$2" >> "$file"
-      }
-      addFile() {
-        if [ $(wc -l <"$2") -gt 1 ]; then
-          echo "invalid mosquitto password file $2" >&2
-          return 1
-        fi
-        echo "$1:$(cat "$2")" >> "$file"
-      }
-    ''
-      + concatStringsSep "\n" (plainLines
+        addLine() {
+          echo "$1:$2" >> "$file"
+        }
+        addFile() {
+          if [ $(wc -l <"$2") -gt 1 ]; then
+            echo "invalid mosquitto password file $2" >&2
+            return 1
+          fi
+          echo "$1:$(cat "$2")" >> "$file"
+        }
+      ''
+      + concatStringsSep "\n" (
+        plainLines
         ++ optional (plainLines != [ ]) ''
           ${cfg.package}/bin/mosquitto_passwd -U "$file"
         ''
-        ++ hashedLines))
+        ++ hashedLines
+      )
+    )
     ;
 
   makeACLFile =
@@ -227,10 +237,12 @@ let
 
   authAsserts =
     prefix: auth:
-    mapAttrsToList (n: _: {
-      assertion = configKey.check n;
-      message = "Invalid auth plugin key ${prefix}.${n}";
-    }) auth
+    mapAttrsToList (
+      n: _: {
+        assertion = configKey.check n;
+        message = "Invalid auth plugin key ${prefix}.${n}";
+      }
+    ) auth
     ;
 
   formatAuthPlugin =
@@ -620,11 +632,13 @@ let
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ]
-    ++ map (d:
+    ++ map (
+      d:
       if path.check d then
         "log_dest file ${d}"
       else
-        "log_dest ${d}") cfg.logDest
+        "log_dest ${d}"
+    ) cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
@@ -689,7 +703,8 @@ in
           ]
           ++ filter path.check cfg.logDest
           ;
-        ReadOnlyPaths = map (p: "${p}") (cfg.includeDirs
+        ReadOnlyPaths = map (p: "${p}") (
+          cfg.includeDirs
           ++ filter (v: v != null) (flatten [
             (map (l: [
               (l.settings.psk_file or null)
@@ -701,13 +716,16 @@ in
               (l.settings.dhparamfile or null)
               (l.settings.keyfile or null)
             ]) cfg.listeners)
-            (mapAttrsToList (_: b: [
-              (b.settings.bridge_cafile or null)
-              (b.settings.bridge_capath or null)
-              (b.settings.bridge_certfile or null)
-              (b.settings.bridge_keyfile or null)
-            ]) cfg.bridges)
-          ]));
+            (mapAttrsToList (
+              _: b: [
+                (b.settings.bridge_cafile or null)
+                (b.settings.bridge_capath or null)
+                (b.settings.bridge_certfile or null)
+                (b.settings.bridge_keyfile or null)
+              ]
+            ) cfg.bridges)
+          ])
+        );
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_UNIX"
@@ -726,9 +744,10 @@ in
         ];
         UMask = "0077";
       };
-      preStart = concatStringsSep "\n" (imap0 (idx: listener:
-        makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
-        cfg.listeners);
+      preStart = concatStringsSep "\n" (imap0 (
+        idx: listener:
+        makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}"
+      ) cfg.listeners);
     };
 
     users.users.mosquitto = {

@@ -45,14 +45,18 @@ stdenv.mkDerivation rec {
       libunistring
       wxGTK32
     ]
-    ++ (with lua53Packages; [
-      lua
-      busted
-    ])
-    ++ (with perlPackages; [
-      perl
-      TemplateToolkit
-    ])
+    ++ (
+      with lua53Packages; [
+        lua
+        busted
+      ]
+    )
+    ++ (
+      with perlPackages; [
+        perl
+        TemplateToolkit
+      ]
+    )
     ++ lib.optionals stdenv.isLinux [ gtk3 ]
     ++ lib.optionals stdenv.isDarwin [
       Carbon

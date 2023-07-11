@@ -103,8 +103,9 @@
   withLzma ? withHeadlessDeps # xz-utils
   ,
   withMfx ? withFullDeps
-    && (with stdenv.targetPlatform;
-      isLinux && !isAarch) # Hardware acceleration via intel-media-sdk/libmfx
+    && (
+      with stdenv.targetPlatform; isLinux && !isAarch
+    ) # Hardware acceleration via intel-media-sdk/libmfx
   ,
   withModplug ? withFullDeps && !stdenv.isDarwin # ModPlug support
   ,
@@ -165,7 +166,9 @@
   ,
   withV4l2M2m ? withV4l2,
   withVaapi ? withHeadlessDeps
-    && (with stdenv; isLinux || isFreeBSD) # Vaapi hardware acceleration
+    && (
+      with stdenv; isLinux || isFreeBSD
+    ) # Vaapi hardware acceleration
   ,
   withVdpau ? withSmallDeps # Vdpau hardware acceleration
   ,
@@ -299,7 +302,9 @@
     # a "doc" output because its files go to "man".
   ,
   withDoc ? withDocumentation
-    && (withHtmlDoc || withPodDoc || withTxtDoc)
+    && (
+      withHtmlDoc || withPodDoc || withTxtDoc
+    )
 
     # *  Developer options
   ,
@@ -439,12 +444,16 @@ assert buildFfmpeg
   -> buildAvcodec
     && buildAvfilter
     && buildAvformat
-    && (buildSwresample || buildAvresample);
+    && (
+      buildSwresample || buildAvresample
+    );
 assert buildFfplay
   -> buildAvcodec
     && buildAvformat
     && buildSwscale
-    && (buildSwresample || buildAvresample);
+    && (
+      buildSwresample || buildAvresample
+    );
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
@@ -457,10 +466,12 @@ assert buildSwscale -> buildAvutil;
 stdenv.mkDerivation (finalAttrs: {
   pname =
     "ffmpeg"
-    + (if ffmpegVariant == "small" then
-      ""
-    else
-      "-${ffmpegVariant}")
+    + (
+      if ffmpegVariant == "small" then
+        ""
+      else
+        "-${ffmpegVariant}"
+    )
     ;
   inherit version;
 
@@ -487,14 +498,17 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     ;
 
-  patches = map (patch: fetchpatch patch) (extraPatches
-    ++ (lib.optional (lib.versionAtLeast version "6"
-      && lib.versionOlder version "6.1") { # this can be removed post 6.1
-        name = "fix_aacps_tablegen";
-        url =
-          "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
-        hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
-      }));
+  patches = map (patch: fetchpatch patch) (
+    extraPatches
+    ++ (lib.optional (
+      lib.versionAtLeast version "6" && lib.versionOlder version "6.1"
+    ) { # this can be removed post 6.1
+      name = "fix_aacps_tablegen";
+      url =
+        "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
+      hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
+    })
+  );
 
   configurePlatforms = [ ];
   setOutputFlags = false; # Only accepts some of them
@@ -704,10 +718,12 @@ stdenv.mkDerivation (finalAttrs: {
         libraw1394
       ] # TODO where does this belong to
     ++ optionals (withNvdec || withNvenc) [
-        (if (lib.versionAtLeast version "6") then
-          nv-codec-headers-11
-        else
-          nv-codec-headers)
+        (
+          if (lib.versionAtLeast version "6") then
+            nv-codec-headers-11
+          else
+            nv-codec-headers
+        )
       ]
     ++ optionals withAlsa [ alsa-lib ]
     ++ optionals withAom [ libaom ]
@@ -771,10 +787,12 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optionals withSvtav1 [ svt-av1 ]
     ++ optionals withTheora [ libtheora ]
     ++ optionals withVaapi [
-        (if withSmallDeps then
-          libva
-        else
-          libva-minimal)
+        (
+          if withSmallDeps then
+            libva
+          else
+            libva-minimal
+        )
       ]
     ++ optionals withVdpau [ libvdpau ]
     ++ optionals withVidStab [ vid-stab ]

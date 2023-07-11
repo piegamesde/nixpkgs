@@ -345,7 +345,8 @@ rec {
 
   runInLinuxVM =
     drv:
-    lib.overrideDerivation drv ({
+    lib.overrideDerivation drv (
+      {
         memSize ? 512,
         QEMU_OPTS ? "",
         args,
@@ -363,7 +364,8 @@ rec {
         QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
         passAsFile =
           [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
-      })
+      }
+    )
     ;
 
   extractFs =
@@ -585,65 +587,67 @@ rec {
 
   buildRPM =
     attrs:
-    runInLinuxImage (stdenv.mkDerivation ({
-      prePhases = [
-        "prepareImagePhase"
-        "sysInfoPhase"
-      ];
-      dontConfigure = true;
+    runInLinuxImage (stdenv.mkDerivation (
+      {
+        prePhases = [
+          "prepareImagePhase"
+          "sysInfoPhase"
+        ];
+        dontConfigure = true;
 
-      outDir = "rpms/${attrs.diskImage.name}";
+        outDir = "rpms/${attrs.diskImage.name}";
 
-      prepareImagePhase = ''
-        if test -n "$extraRPMs"; then
-          for rpmdir in $extraRPMs ; do
-            rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
+        prepareImagePhase = ''
+          if test -n "$extraRPMs"; then
+            for rpmdir in $extraRPMs ; do
+              rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
+            done
+          fi
+        '';
+
+        sysInfoPhase = ''
+          echo "System/kernel: $(uname -a)"
+          if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
+          if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
+          echo "installed RPM packages"
+          rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
+        '';
+
+        buildPhase = ''
+          eval "$preBuild"
+
+          srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
+          cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
+
+          export HOME=/tmp/home
+          mkdir $HOME
+
+          rpmout=/tmp/rpmout
+          mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
+
+          echo "%_topdir $rpmout" >> $HOME/.rpmmacros
+
+          if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
+          rpmbuild -vv $extra -ta "$srcName"
+
+          eval "$postBuild"
+        '';
+
+        installPhase = ''
+          eval "$preInstall"
+
+          mkdir -p $out/$outDir
+          find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
+
+          for i in $out/$outDir/*.rpm; do
+            echo "Generated RPM/SRPM: $i"
+            rpm -qip $i
           done
-        fi
-      '';
 
-      sysInfoPhase = ''
-        echo "System/kernel: $(uname -a)"
-        if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
-        if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
-        echo "installed RPM packages"
-        rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
-      '';
-
-      buildPhase = ''
-        eval "$preBuild"
-
-        srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
-        cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
-
-        export HOME=/tmp/home
-        mkdir $HOME
-
-        rpmout=/tmp/rpmout
-        mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
-
-        echo "%_topdir $rpmout" >> $HOME/.rpmmacros
-
-        if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
-        rpmbuild -vv $extra -ta "$srcName"
-
-        eval "$postBuild"
-      '';
-
-      installPhase = ''
-        eval "$preInstall"
-
-        mkdir -p $out/$outDir
-        find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
-
-        for i in $out/$outDir/*.rpm; do
-          echo "Generated RPM/SRPM: $i"
-          rpm -qip $i
-        done
-
-        eval "$postInstall"
-      ''; # */
-    } // attrs))
+          eval "$postInstall"
+        ''; # */
+      } // attrs
+    ))
     ;
 
     /* Create a filesystem image of the specified size and fill it with
@@ -774,14 +778,16 @@ rec {
       ];
       inherit archs;
     } ''
-      ${lib.concatImapStrings (i: pl: ''
-        gunzip < ${pl} > ./packages_${toString i}.xml
-      '') packagesLists}
+      ${lib.concatImapStrings (
+        i: pl: ''
+          gunzip < ${pl} > ./packages_${toString i}.xml
+        ''
+      ) packagesLists}
       perl -w ${rpm/rpm-closure.pl} \
         ${
-          lib.concatImapStrings
-          (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
-          (lib.zipLists packagesLists urlPrefixes)
+          lib.concatImapStrings (
+            i: pl: "./packages_${toString i}.xml ${pl.snd} "
+          ) (lib.zipLists packagesLists urlPrefixes)
         } \
         ${toString packages} > $out
     ''

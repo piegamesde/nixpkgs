@@ -18,14 +18,16 @@ let
     inherit fetchHex fetchFromGitHub fetchgit;
     builder = buildRebar3;
     overrides =
-      (self: super: {
-        proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
-        redbug = super.redbug.overrideAttrs (_: {
-          patchPhase = ''
-            substituteInPlace rebar.config --replace ", warnings_as_errors" ""
-          '';
-        });
-      });
+      (
+        self: super: {
+          proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
+          redbug = super.redbug.overrideAttrs (_: {
+            patchPhase = ''
+              substituteInPlace rebar.config --replace ", warnings_as_errors" ""
+            '';
+          });
+        }
+      );
   };
 in
 rebar3Relx {

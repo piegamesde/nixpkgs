@@ -71,7 +71,8 @@ in
 
       nodelist {
         ${
-          concatMapStrings ({
+          concatMapStrings (
+            {
               nodeid,
               name,
               ring_addrs,
@@ -80,12 +81,15 @@ in
                 nodeid: ${toString nodeid}
                 name: ${name}
                 ${
-                  concatStrings (imap0 (i: addr: ''
-                    ring${toString i}_addr: ${addr}
-                  '') ring_addrs)
+                  concatStrings (imap0 (
+                    i: addr: ''
+                      ring${toString i}_addr: ${addr}
+                    ''
+                  ) ring_addrs)
                 }
               }
-            '') cfg.nodelist
+            ''
+          ) cfg.nodelist
         }
       }
 

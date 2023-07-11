@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
       assert client.succeed("cat /tmp/test.file.up") == server.succeed("cat /tmp/test.file.up")
       assert client.succeed("cat /tmp/test.file.down") == server.succeed("cat /tmp/test.file.up")
     '';
-  })
+  }
+)

@@ -54,11 +54,15 @@ mkDerivation rec {
     qtbase
     jack_capture
     pulseaudioFull
-    ((python3.withPackages (ps:
-      with ps; [
-        pyqt5
-        dbus-python
-      ])))
+    (
+      (python3.withPackages (
+        ps:
+        with ps; [
+          pyqt5
+          dbus-python
+        ]
+      ))
+    )
   ];
 
   makeFlags = [
@@ -73,30 +77,34 @@ mkDerivation rec {
     let
       outRef = placeholder "out";
       prefix = "${outRef}/share/cadence/src";
-      scriptAndSource = lib.mapAttrs' (script: source:
-        lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source)) {
-          "cadence" = "cadence.py";
-          "claudia" = "claudia.py";
-          "catarina" = "catarina.py";
-          "catia" = "catia.py";
-          "cadence-jacksettings" = "jacksettings.py";
-          "cadence-aloop-daemon" = "cadence_aloop_daemon.py";
-          "cadence-logs" = "logs.py";
-          "cadence-render" = "render.py";
-          "claudia-launcher" = "claudia_launcher.py";
-          "cadence-session-start" = "cadence_session_start.py";
-        };
+      scriptAndSource = lib.mapAttrs' (
+        script: source:
+        lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source)
+      ) {
+        "cadence" = "cadence.py";
+        "claudia" = "claudia.py";
+        "catarina" = "catarina.py";
+        "catia" = "catia.py";
+        "cadence-jacksettings" = "jacksettings.py";
+        "cadence-aloop-daemon" = "cadence_aloop_daemon.py";
+        "cadence-logs" = "logs.py";
+        "cadence-render" = "render.py";
+        "claudia-launcher" = "claudia_launcher.py";
+        "cadence-session-start" = "cadence_session_start.py";
+      };
     in
-    lib.mapAttrsToList (script: source: ''
-      rm -f ${script}
-      makeQtWrapper ${source} ${script} \
-        --prefix PATH : "${
-          lib.makeBinPath [
-            jack_capture # cadence-render
-            pulseaudioFull # cadence, cadence-session-start
-          ]
-        }"
-    '') scriptAndSource
+    lib.mapAttrsToList (
+      script: source: ''
+        rm -f ${script}
+        makeQtWrapper ${source} ${script} \
+          --prefix PATH : "${
+            lib.makeBinPath [
+              jack_capture # cadence-render
+              pulseaudioFull # cadence, cadence-session-start
+            ]
+          }"
+      ''
+    ) scriptAndSource
     ;
 
   meta = {

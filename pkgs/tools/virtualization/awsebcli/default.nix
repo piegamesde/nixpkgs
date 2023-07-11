@@ -5,7 +5,8 @@
   docker-compose_1,
 }:
 let
-  docker_compose = changeVersion (with localPython.pkgs;
+  docker_compose = changeVersion (
+    with localPython.pkgs;
     docker-compose_1.override {
       inherit
         colorama
@@ -18,7 +19,8 @@ let
         websocket-client
         paramiko
         ;
-    }).overridePythonAttrs "1.25.5"
+    }
+  ).overridePythonAttrs "1.25.5"
     "sha256-ei622Bc/30COUF5vfUl6wLd3OIcZVCvp5JoO/Ud6UMY=";
 
   changeVersion =

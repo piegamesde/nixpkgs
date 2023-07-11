@@ -105,7 +105,8 @@ let
 
     ${cfg.extraConfig}
 
-    ${concatMapStrings ({
+    ${concatMapStrings (
+      {
         name,
         file,
         master ? true,
@@ -147,7 +148,8 @@ let
           allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
           ${extraConfig}
         };
-      '') (attrValues cfg.zones)}
+      ''
+    ) (attrValues cfg.zones)}
   '';
 
 in

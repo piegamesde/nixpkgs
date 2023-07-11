@@ -84,24 +84,35 @@ let
     else
       "unix"
     ;
-  sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix)
-    (optionals enable16Bit [ "Makefile" ]
-      ++ optionals enable32Bit [ "Makefile21" ]);
+  sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
+    optionals enable16Bit [ "Makefile" ]
+    ++ optionals enable32Bit [ "Makefile21" ]
+  );
   sdlBuildFlags = concatStringsSep " "
     (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
-  sdlBins = concatStringsSep " "
-    (optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]);
-  x11ConfigureFlags = concatStringsSep " " ((if
-    ((enableHAXM && (enable16Bit || enable32Bit))
-      || (enable16Bit && enable32Bit))
-  then
-    [ "--enable-build-all" ]
-  else if enableHAXM then
-    [ "--enable-haxm" ]
-  else if enable32Bit then
-    [ "--enable-ia32" ]
-  else
-    [ ])
+  sdlBins = concatStringsSep " " (
+    optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
+  );
+  x11ConfigureFlags = concatStringsSep " " (
+    (
+      if
+        (
+          (
+            enableHAXM && (enable16Bit || enable32Bit)
+          )
+          || (
+            enable16Bit && enable32Bit
+          )
+        )
+      then
+        [ "--enable-build-all" ]
+      else if enableHAXM then
+        [ "--enable-haxm" ]
+      else if enable32Bit then
+        [ "--enable-ia32" ]
+      else
+        [ ]
+    )
     ++ optionals (!isSDL2) [
       "--enable-sdl"
       "--enable-sdlmixer"
@@ -110,7 +121,8 @@ let
       "--enable-sdl2=no"
       "--enable-sdl2mixer=no"
       "--enable-sdl2ttf=no"
-    ]);
+    ]
+  );
   x11BuildFlags = concatStringsSep " " [
     "SDL2_CONFIG=sdl2-config"
     "SDL_CONFIG=sdl-config"
@@ -118,9 +130,11 @@ let
     ''
       SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
-  x11Bins = concatStringsSep " " (optionals enable16Bit [ "xnp2kai" ]
+  x11Bins = concatStringsSep " " (
+    optionals enable16Bit [ "xnp2kai" ]
     ++ optionals enable32Bit [ "xnp21kai" ]
-    ++ optionals enableHAXM [ "xnp21kai_haxm" ]);
+    ++ optionals enableHAXM [ "xnp21kai_haxm" ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "np2kai";

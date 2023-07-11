@@ -237,9 +237,9 @@ in
         after = [ "network.target" ];
 
         script = ''
-          ${concatStringsSep "\n" (attrValues (mapAttrs
-            (name: path: ''export ${name}="$(< ${escapeShellArg path})"'')
-            cfg.environmentFiles))}
+          ${concatStringsSep "\n" (attrValues (mapAttrs (
+            name: path: ''export ${name}="$(< ${escapeShellArg path})"''
+          ) cfg.environmentFiles))}
           exec ${patroni}/bin/patroni ${configFile}
         '';
 
@@ -253,13 +253,15 @@ in
             ExecReload = "${pkgs.coreutils}/bin/kill -s HUP $MAINPID";
             KillMode = "process";
           }
-          (mkIf (cfg.postgresqlDataDir
+          (mkIf (
+            cfg.postgresqlDataDir
               == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
-            && cfg.dataDir == "/var/lib/patroni") {
-              StateDirectory =
-                "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
-              StateDirectoryMode = "0750";
-            })
+            && cfg.dataDir == "/var/lib/patroni"
+          ) {
+            StateDirectory =
+              "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";
+            StateDirectoryMode = "0750";
+          })
         ];
       };
     };

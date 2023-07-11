@@ -13,13 +13,14 @@ let
   sgx-psw = pkgs.sgx-psw.override { inherit (cfg) debug; };
 
   configFile = with cfg.settings;
-    pkgs.writeText "aesmd.conf" (concatStringsSep "\n"
-      (optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
-        ++ optional (proxy != null) "aesm proxy = ${proxy}"
-        ++ optional (proxyType != null) "proxy type = ${proxyType}"
-        ++ optional (defaultQuotingType != null)
-          "default quoting type = ${defaultQuotingType}"
-        ++ [ "" ]));
+    pkgs.writeText "aesmd.conf" (concatStringsSep "\n" (
+      optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
+      ++ optional (proxy != null) "aesm proxy = ${proxy}"
+      ++ optional (proxyType != null) "proxy type = ${proxyType}"
+      ++ optional (defaultQuotingType != null)
+        "default quoting type = ${defaultQuotingType}"
+      ++ [ "" ]
+    ));
 in
 {
   options.services.aesmd = {

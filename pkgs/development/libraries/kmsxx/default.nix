@@ -40,10 +40,12 @@ stdenv.mkDerivation {
       fmt
       libevdev
     ]
-    ++ lib.optionals withPython (with python3Packages; [
-      python
-      pybind11
-    ])
+    ++ lib.optionals withPython (
+      with python3Packages; [
+        python
+        pybind11
+      ]
+    )
     ;
 
   dontUseCmakeConfigure = true;

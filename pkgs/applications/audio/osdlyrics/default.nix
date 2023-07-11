@@ -42,14 +42,16 @@ stdenv.mkDerivation rec {
     libappindicator-gtk2
     libnotify
     python3.pkgs.wrapPython
-    (python3.withPackages (pp:
+    (python3.withPackages (
+      pp:
       with pp; [
         chardet
         dbus-python
         future
         pycurl
         pygobject3
-      ]))
+      ]
+    ))
   ];
 
   postFixup = ''

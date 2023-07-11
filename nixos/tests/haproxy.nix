@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -57,4 +58,5 @@ import ./make-test-python.nix ({
               "curl -fk http://localhost:80/index.txt"
           )
     '';
-  })
+  }
+)

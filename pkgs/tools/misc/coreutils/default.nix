@@ -134,8 +134,10 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-packager=https://nixos.org" ]
-    ++ optional (singleBinary != false) ("--enable-single-binary"
-      + optionalString (isString singleBinary) "=${singleBinary}")
+    ++ optional (singleBinary != false) (
+      "--enable-single-binary"
+      + optionalString (isString singleBinary) "=${singleBinary}"
+    )
     ++ optional withOpenssl "--with-openssl"
     ++ optional stdenv.hostPlatform.isSunOS "ac_cv_func_inotify_init=no"
     ++ optional withPrefix "--program-prefix=g"
@@ -161,10 +163,15 @@ stdenv.mkDerivation rec {
     # With non-standard storeDir: https://github.com/NixOS/nix/issues/512
     # On aarch64+musl, test-init.sh fails due to a segfault in diff.
   doCheck =
-    (!isCross)
-    && (stdenv.hostPlatform.libc == "glibc"
-      || stdenv.hostPlatform.libc == "musl")
-    && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
+    (
+      !isCross
+    )
+    && (
+      stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl"
+    )
+    && !(
+      stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64
+    )
     && !stdenv.isAarch32
     ;
 
@@ -180,10 +187,12 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = optionalString selinuxSupport "-lsepol";
   FORCE_UNSAFE_CONFIGURE = optionalString stdenv.hostPlatform.isSunOS "1";
-  env.NIX_CFLAGS_COMPILE = toString ([ ]
-    # Work around a bogus warning in conjunction with musl.
+  env.NIX_CFLAGS_COMPILE = toString (
+    [ ]
+      # Work around a bogus warning in conjunction with musl.
     ++ optional stdenv.hostPlatform.isMusl "-Wno-error"
-    ++ optional stdenv.hostPlatform.isAndroid "-D__USE_FORTIFY_LEVEL=0");
+    ++ optional stdenv.hostPlatform.isAndroid "-D__USE_FORTIFY_LEVEL=0"
+  );
 
     # Works around a bug with 8.26:
     # Makefile:3440: *** Recursive variable 'INSTALL' references itself (eventually).  Stop.

@@ -43,7 +43,8 @@ in
           See <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
         '';
         default = { };
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             name,
             ...
           }: {
@@ -60,7 +61,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
         example = {
           system = {
             metricsets = [

@@ -223,8 +223,9 @@ let
     postInstall = ''
       PATH=$out/bin:$PATH patchShebangs $out
 
-      ${lib.optionalString
-      (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform) ''
+      ${lib.optionalString (
+        enableNpm && stdenv.hostPlatform == stdenv.buildPlatform
+      ) ''
         mkdir -p $out/share/bash-completion/completions/
         HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
         for dir in "$out/lib/node_modules/npm/man/"*; do

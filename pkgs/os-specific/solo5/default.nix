@@ -95,22 +95,24 @@ stdenv.mkDerivation {
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
     maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({
+    platforms = builtins.map (
+      {
         arch,
         os,
       }:
-      "${arch}-${os}") (cartesianProductOfSets {
-        arch = [
-          "aarch64"
-          "x86_64"
-        ];
-        os = [
-          "freebsd"
-          "genode"
-          "linux"
-          "openbsd"
-        ];
-      });
+      "${arch}-${os}"
+    ) (cartesianProductOfSets {
+      arch = [
+        "aarch64"
+        "x86_64"
+      ];
+      os = [
+        "freebsd"
+        "genode"
+        "linux"
+        "openbsd"
+      ];
+    });
   };
 
 }

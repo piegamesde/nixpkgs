@@ -1,7 +1,8 @@
 let
   nginxRoot = "/run/nginx";
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "nghttpx";
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
       proxy.wait_for_open_port(80)
       client.wait_until_succeeds("curl -s --fail http://proxy/hello-world.txt")
     '';
-  })
+  }
+)

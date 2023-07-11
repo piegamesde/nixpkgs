@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -46,4 +47,5 @@ import ./make-test-python.nix ({
             machine.wait_for_closed_port(80)
       ''
       ;
-  })
+  }
+)

@@ -17,16 +17,16 @@ let
       extraConfiguration ? null
     }:
     let
-      masterName = head (filter (machineName:
-        any (role: role == "master") machines.${machineName}.roles)
-        (attrNames machines));
+      masterName = head (filter (
+        machineName: any (role: role == "master") machines.${machineName}.roles
+      ) (attrNames machines));
       master = machines.${masterName};
       extraHosts = ''
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
-        ${concatMapStringsSep "\n"
-        (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
-        (attrNames machines)}
+        ${concatMapStringsSep "\n" (
+          machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}"
+        ) (attrNames machines)}
       '';
       wrapKubectl = with pkgs;
         runCommand "wrap-kubectl" { nativeBuildInputs = [ makeWrapper ]; } ''
@@ -37,7 +37,8 @@ let
     makeTest {
       inherit name;
 
-      nodes = mapAttrs (machineName: machine:
+      nodes = mapAttrs (
+        machineName: machine:
         {
           config,
           pkgs,
@@ -90,7 +91,8 @@ let
             (machine.extraConfiguration { inherit config pkgs lib nodes; }))
           (optionalAttrs (extraConfiguration != null)
             (extraConfiguration { inherit config pkgs lib nodes; }))
-        ]) machines;
+        ]
+      ) machines;
 
       testScript =
         ''
@@ -103,37 +105,41 @@ let
 
   mkKubernetesMultiNodeTest =
     attrs:
-    mkKubernetesBaseTest ({
-      machines = {
-        machine1 = {
-          roles = [ "master" ];
-          ip = "192.168.1.1";
+    mkKubernetesBaseTest (
+      {
+        machines = {
+          machine1 = {
+            roles = [ "master" ];
+            ip = "192.168.1.1";
+          };
+          machine2 = {
+            roles = [ "node" ];
+            ip = "192.168.1.2";
+          };
         };
-        machine2 = {
-          roles = [ "node" ];
-          ip = "192.168.1.2";
-        };
-      };
-    } // attrs // {
-      name = "kubernetes-${attrs.name}-multinode";
-    })
+      } // attrs // {
+        name = "kubernetes-${attrs.name}-multinode";
+      }
+    )
     ;
 
   mkKubernetesSingleNodeTest =
     attrs:
-    mkKubernetesBaseTest ({
-      machines = {
-        machine1 = {
-          roles = [
-            "master"
-            "node"
-          ];
-          ip = "192.168.1.1";
+    mkKubernetesBaseTest (
+      {
+        machines = {
+          machine1 = {
+            roles = [
+              "master"
+              "node"
+            ];
+            ip = "192.168.1.1";
+          };
         };
-      };
-    } // attrs // {
-      name = "kubernetes-${attrs.name}-singlenode";
-    })
+      } // attrs // {
+        name = "kubernetes-${attrs.name}-singlenode";
+      }
+    )
     ;
 in
 {

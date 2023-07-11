@@ -36,11 +36,13 @@ stdenv.mkDerivation rec {
       vamp-plugin-sdk
       ladspaH
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      Accelerate
-      CoreGraphics
-      CoreVideo
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Accelerate
+        CoreGraphics
+        CoreVideo
+      ]
+    )
     ;
   makeFlags = [ "AR:=$(AR)" ];
 

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
       bridge.wait_for_open_port(1080)
       bridge.wait_for_open_port(6667)
     '';
-  })
+  }
+)

@@ -50,11 +50,13 @@ mkDerivation rec {
       miniupnpc
       aspell
       gettext
-      (perl.withPackages (p:
+      (perl.withPackages (
+        p:
         with p; [
           GetoptLong
           TermShellUI
-        ]))
+        ]
+      ))
     ]
     ++ lib.optional stdenv.isDarwin libiconv
     ;

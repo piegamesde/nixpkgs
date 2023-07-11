@@ -5,7 +5,8 @@ let
   containerIp6 = "fc00::2/7";
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -108,4 +109,5 @@ import ./make-test-python.nix ({
       # Destroying a declarative container should fail.
       machine.fail("nixos-container destroy webserver")
     '';
-  })
+  }
+)

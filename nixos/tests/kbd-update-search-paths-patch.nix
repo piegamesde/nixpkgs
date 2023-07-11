@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -25,4 +26,5 @@ import ./make-test-python.nix ({
       if match:
           raise Exception("command `{}` failed".format(command))
     '';
-  })
+  }
+)

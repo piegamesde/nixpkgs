@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -103,4 +104,5 @@ import ./make-test-python.nix ({
       basic.succeed("ip addr show >&2")
       basic.succeed("ip route show >&2")
     '';
-  })
+  }
+)

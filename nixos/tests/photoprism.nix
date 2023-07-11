@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -29,4 +30,5 @@ import ./make-test-python.nix ({
       response = machine.succeed("curl -vvv -s -H 'Host: photoprism' http://127.0.0.1:8080/library/login")
       assert '<title>PhotoPrism</title>' in response, "Login page didn't load successfully"
     '';
-  })
+  }
+)

@@ -36,7 +36,8 @@
 let
   inherit (lib) optional optionals;
 in
-stdenv.mkDerivation (finalAttrs:
+stdenv.mkDerivation (
+  finalAttrs:
   let
     inherit (finalAttrs) pname version;
   in
@@ -126,12 +127,14 @@ stdenv.mkDerivation (finalAttrs:
         libiconv
         libintl
       ]
-      ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-        CoreGraphics
-        CoreText
-        ApplicationServices
-        Carbon
-      ])
+      ++ optionals stdenv.isDarwin (
+        with darwin.apple_sdk.frameworks; [
+          CoreGraphics
+          CoreText
+          ApplicationServices
+          Carbon
+        ]
+      )
       ;
 
     propagatedBuildInputs =
@@ -157,18 +160,22 @@ stdenv.mkDerivation (finalAttrs:
 
     configureFlags =
       [ "--enable-tee" ]
-      ++ (if stdenv.isDarwin then
-        [
-          "--disable-dependency-tracking"
-          "--enable-quartz"
-          "--enable-quartz-font"
-          "--enable-quartz-image"
-          "--enable-ft"
-        ]
-      else
-        (optional xcbSupport "--enable-xcb"
-          ++ optional glSupport "--enable-gl"
-          ++ optional pdfSupport "--enable-pdf"))
+      ++ (
+        if stdenv.isDarwin then
+          [
+            "--disable-dependency-tracking"
+            "--enable-quartz"
+            "--enable-quartz-font"
+            "--enable-quartz-image"
+            "--enable-ft"
+          ]
+        else
+          (
+            optional xcbSupport "--enable-xcb"
+            ++ optional glSupport "--enable-gl"
+            ++ optional pdfSupport "--enable-pdf"
+          )
+      )
       ++ optional (!x11Support) "--disable-xlib"
       ;
 

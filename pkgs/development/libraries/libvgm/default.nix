@@ -115,9 +115,11 @@ stdenv.mkDerivation rec {
       "-DAUDIODRV_APPLE=${onOff withCoreAudio}"
       "-DAUDIODRV_LIBAO=${onOff withLibao}"
     ]
-    ++ optionals enableEmulation ([ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
+    ++ optionals enableEmulation (
+      [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
       ++ optionals (!withAllEmulators)
-        (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")))
+        (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
+    )
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
@@ -132,9 +134,13 @@ stdenv.mkDerivation rec {
     description = "More modular rewrite of most components from VGMPlay";
     license =
       if
-        (enableEmulation
-          && (withAllEmulators
-            || (lib.lists.any (core: core == "WSWAN_ALL") emulators)))
+        (
+          enableEmulation
+          && (
+            withAllEmulators
+            || (lib.lists.any (core: core == "WSWAN_ALL") emulators)
+          )
+        )
       then
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
       else

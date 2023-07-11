@@ -47,31 +47,33 @@ let
 
     # this will generate the default.yaml file with all configFiles as inputs and
     # replace all secret strings using replace-secret
-  generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (let
-    yqEvalStr = concatImapStringsSep " * "
-      (pos: _: "select(fileIndex == ${toString (pos - 1)})") configFiles;
-    yqEvalArgs = concatStringsSep " " configFiles;
-  in
-  ''
-    set -euo pipefail
+  generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
+    let
+      yqEvalStr = concatImapStringsSep " * " (
+        pos: _: "select(fileIndex == ${toString (pos - 1)})"
+      ) configFiles;
+      yqEvalArgs = concatStringsSep " " configFiles;
+    in
+    ''
+      set -euo pipefail
 
-    umask 077
+      umask 077
 
-    # mjolnir will try to load a config from "./config/default.yaml" in the working directory
-    # -> let's place the generated config there
-    mkdir -p ${cfg.dataPath}/config
+      # mjolnir will try to load a config from "./config/default.yaml" in the working directory
+      # -> let's place the generated config there
+      mkdir -p ${cfg.dataPath}/config
 
-    # merge all config files into one, overriding settings of the previous one with the next config
-    # e.g. "eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' filea.yaml fileb.yaml" will merge filea.yaml with fileb.yaml
-    ${pkgs.yq-go}/bin/yq eval-all -P '${yqEvalStr}' ${yqEvalArgs} > ${cfg.dataPath}/config/default.yaml
+      # merge all config files into one, overriding settings of the previous one with the next config
+      # e.g. "eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' filea.yaml fileb.yaml" will merge filea.yaml with fileb.yaml
+      ${pkgs.yq-go}/bin/yq eval-all -P '${yqEvalStr}' ${yqEvalArgs} > ${cfg.dataPath}/config/default.yaml
 
-    ${optionalString (cfg.accessTokenFile != null) ''
-      ${pkgs.replace-secret}/bin/replace-secret '@ACCESS_TOKEN@' '${cfg.accessTokenFile}' ${cfg.dataPath}/config/default.yaml
-    ''}
-    ${optionalString (cfg.pantalaimon.passwordFile != null) ''
-      ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
-    ''}
-  ''
+      ${optionalString (cfg.accessTokenFile != null) ''
+        ${pkgs.replace-secret}/bin/replace-secret '@ACCESS_TOKEN@' '${cfg.accessTokenFile}' ${cfg.dataPath}/config/default.yaml
+      ''}
+      ${optionalString (cfg.pantalaimon.passwordFile != null) ''
+        ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
+      ''}
+    ''
   );
 in
 {

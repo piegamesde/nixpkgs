@@ -9,13 +9,15 @@
 }:
 
 let
-  python = python3.withPackages (ps:
+  python = python3.withPackages (
+    ps:
     with ps; [
       pygobject3
       (toPythonModule ibus)
       pyxdg
       levenshtein
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "ibus-uniemoji";

@@ -93,11 +93,12 @@ let
             "${config.i18n.glibcLocales}"
           ]
           ++ mapAttrsToList (name: inbox: inbox.description) cfg.inboxes
-          ++ optionals
-            (!config.systemd.services."public-inbox-${srv}".confinement.enable) [
-              "${pkgs.dash}/bin/dash:/bin/sh"
-              builtins.storeDir
-            ]
+          ++ optionals (
+            !config.systemd.services."public-inbox-${srv}".confinement.enable
+          ) [
+            "${pkgs.dash}/bin/dash:/bin/sh"
+            builtins.storeDir
+          ]
           ;
           # The following options are only for optimizing:
           # systemd-analyze security public-inbox-'*'
@@ -196,7 +197,8 @@ in
         Inboxes to configure, where attribute names are inbox names.
       '';
       default = { };
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           name,
           ...
         }: {
@@ -258,7 +260,8 @@ in
             description = lib.mdDoc
               "Nicknames of a 'coderepo' section associated with the inbox.";
           };
-        }));
+        }
+      ));
     };
     imap = {
       enable = mkEnableOption (lib.mdDoc "the public-inbox IMAP server");
@@ -450,28 +453,34 @@ in
       groups.public-inbox = { };
     };
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = mkMerge (map (proto:
+      allowedTCPPorts = mkMerge (map (
+        proto:
         (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [
             cfg.${proto}.port
-          ])) [
-            "imap"
-            "http"
-            "nntp"
-          ]);
+          ])
+      ) [
+        "imap"
+        "http"
+        "nntp"
+      ]);
     };
     services.postfix = mkIf (cfg.postfix.enable && cfg.mda.enable) {
       # Not sure limiting to 1 is necessary, but better safe than sorry.
       config.public-inbox_destination_recipient_limit = "1";
 
         # Register the addresses as existing
-      virtual = concatStringsSep "\n" (mapAttrsToList (_: inbox:
+      virtual = concatStringsSep "\n" (mapAttrsToList (
+        _: inbox:
         concatMapStringsSep "\n" (address: "${address} ${address}")
-        inbox.address) cfg.inboxes);
+        inbox.address
+      ) cfg.inboxes);
 
         # Deliver the addresses with the public-inbox transport
-      transport = concatStringsSep "\n" (mapAttrsToList (_: inbox:
+      transport = concatStringsSep "\n" (mapAttrsToList (
+        _: inbox:
         concatMapStringsSep "\n" (address: "${address} public-inbox:${address}")
-        inbox.address) cfg.inboxes);
+        inbox.address
+      ) cfg.inboxes);
 
         # The public-inbox transport
       masterConfig.public-inbox = {
@@ -500,17 +509,19 @@ in
         ];
       };
     };
-    systemd.sockets = mkMerge (map (proto:
+    systemd.sockets = mkMerge (map (
+      proto:
       mkIf (cfg.${proto}.enable && cfg.${proto}.port != null) {
         "public-inbox-${proto}d" = {
           listenStreams = [ (toString cfg.${proto}.port) ];
           wantedBy = [ "sockets.target" ];
         };
-      }) [
-        "imap"
-        "http"
-        "nntp"
-      ]);
+      }
+    ) [
+      "imap"
+      "http"
+      "nntp"
+    ]);
     systemd.services = mkMerge [
       (mkIf cfg.imap.enable {
         public-inbox-imapd = mkMerge [
@@ -522,17 +533,18 @@ in
             ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
-              ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-imapd" ]
-                  ++ cfg.imap.args
-                  ++ optionals (cfg.imap.cert != null) [
-                    "--cert"
-                    cfg.imap.cert
-                  ]
-                  ++ optionals (cfg.imap.key != null) [
-                    "--key"
-                    cfg.imap.key
-                  ]);
+              ExecStart = escapeShellArgs (
+                [ "${cfg.package}/bin/public-inbox-imapd" ]
+                ++ cfg.imap.args
+                ++ optionals (cfg.imap.cert != null) [
+                  "--cert"
+                  cfg.imap.cert
+                ]
+                ++ optionals (cfg.imap.key != null) [
+                  "--key"
+                  cfg.imap.key
+                ]
+              );
             };
           }
         ];
@@ -547,38 +559,39 @@ in
             ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
-              ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-httpd" ]
-                  ++ cfg.http.args
-                  ++ [
-                    (pkgs.writeText "public-inbox.psgi" ''
-                      #!${cfg.package.fullperl} -w
-                      use strict;
-                      use warnings;
-                      use Plack::Builder;
-                      use PublicInbox::WWW;
+              ExecStart = escapeShellArgs (
+                [ "${cfg.package}/bin/public-inbox-httpd" ]
+                ++ cfg.http.args
+                ++ [
+                  (pkgs.writeText "public-inbox.psgi" ''
+                    #!${cfg.package.fullperl} -w
+                    use strict;
+                    use warnings;
+                    use Plack::Builder;
+                    use PublicInbox::WWW;
 
-                      my $www = PublicInbox::WWW->new;
-                      $www->preload;
+                    my $www = PublicInbox::WWW->new;
+                    $www->preload;
 
-                      builder {
-                        # If reached through a reverse proxy,
-                        # make it transparent by resetting some HTTP headers
-                        # used by public-inbox to generate URIs.
-                        enable 'ReverseProxy';
+                    builder {
+                      # If reached through a reverse proxy,
+                      # make it transparent by resetting some HTTP headers
+                      # used by public-inbox to generate URIs.
+                      enable 'ReverseProxy';
 
-                        # No need to send a response body if it's an HTTP HEAD requests.
-                        enable 'Head';
+                      # No need to send a response body if it's an HTTP HEAD requests.
+                      enable 'Head';
 
-                        # Route according to configured domains and root paths.
-                        ${
-                          concatMapStrings (path: ''
-                            mount q(${path}) => sub { $www->call(@_); };
-                          '') cfg.http.mounts
-                        }
+                      # Route according to configured domains and root paths.
+                      ${
+                        concatMapStrings (path: ''
+                          mount q(${path}) => sub { $www->call(@_); };
+                        '') cfg.http.mounts
                       }
-                    '')
-                  ]);
+                    }
+                  '')
+                ]
+              );
             };
           }
         ];
@@ -593,41 +606,44 @@ in
             ];
             requires = [ "public-inbox-init.service" ];
             serviceConfig = {
-              ExecStart = escapeShellArgs
-                ([ "${cfg.package}/bin/public-inbox-nntpd" ]
-                  ++ cfg.nntp.args
-                  ++ optionals (cfg.nntp.cert != null) [
-                    "--cert"
-                    cfg.nntp.cert
-                  ]
-                  ++ optionals (cfg.nntp.key != null) [
-                    "--key"
-                    cfg.nntp.key
-                  ]);
+              ExecStart = escapeShellArgs (
+                [ "${cfg.package}/bin/public-inbox-nntpd" ]
+                ++ cfg.nntp.args
+                ++ optionals (cfg.nntp.cert != null) [
+                  "--cert"
+                  cfg.nntp.cert
+                ]
+                ++ optionals (cfg.nntp.key != null) [
+                  "--key"
+                  cfg.nntp.key
+                ]
+              );
             };
           }
         ];
       })
-      (mkIf (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
-        || cfg.settings.publicinboxwatch.watchspam != null) {
-          public-inbox-watch = mkMerge [
-            (serviceConfig "watch")
-            {
-              inherit (cfg) path;
-              wants = [ "public-inbox-init.service" ];
-              requires =
-                [ "public-inbox-init.service" ]
-                ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
-                  "spamassassin.service"
-                ;
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                ExecStart = "${cfg.package}/bin/public-inbox-watch";
-                ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-              };
-            }
-          ];
-        })
+      (mkIf (
+        any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
+        || cfg.settings.publicinboxwatch.watchspam != null
+      ) {
+        public-inbox-watch = mkMerge [
+          (serviceConfig "watch")
+          {
+            inherit (cfg) path;
+            wants = [ "public-inbox-init.service" ];
+            requires =
+              [ "public-inbox-init.service" ]
+              ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
+                "spamassassin.service"
+              ;
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+              ExecStart = "${cfg.package}/bin/public-inbox-watch";
+              ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            };
+          }
+        ];
+      })
       ({
         public-inbox-init =
           let
@@ -651,41 +667,45 @@ in
                     ln -sf ${cfg.spamAssassinRules} ${stateDir}/.spamassassin/user_prefs
                   ''}
                 ''
-                + concatStrings (mapAttrsToList (name: inbox: ''
-                  if [ ! -e ${stateDir}/inboxes/${escapeShellArg name} ]; then
-                    # public-inbox-init creates an inbox and adds it to a config file.
-                    # It tries to atomically write the config file by creating
-                    # another file in the same directory, and renaming it.
-                    # This has the sad consequence that we can't use
-                    # /dev/null, or it would try to create a file in /dev.
-                    conf_dir="$(mktemp -d)"
+                + concatStrings (mapAttrsToList (
+                  name: inbox: ''
+                    if [ ! -e ${stateDir}/inboxes/${escapeShellArg name} ]; then
+                      # public-inbox-init creates an inbox and adds it to a config file.
+                      # It tries to atomically write the config file by creating
+                      # another file in the same directory, and renaming it.
+                      # This has the sad consequence that we can't use
+                      # /dev/null, or it would try to create a file in /dev.
+                      conf_dir="$(mktemp -d)"
 
-                    PI_CONFIG=$conf_dir/conf \
-                    ${cfg.package}/bin/public-inbox-init -V2 \
-                      ${
-                        escapeShellArgs ([
-                          name
-                          "${stateDir}/inboxes/${name}"
-                          inbox.url
-                        ]
-                          ++ inbox.address)
-                      }
+                      PI_CONFIG=$conf_dir/conf \
+                      ${cfg.package}/bin/public-inbox-init -V2 \
+                        ${
+                          escapeShellArgs (
+                            [
+                              name
+                              "${stateDir}/inboxes/${name}"
+                              inbox.url
+                            ]
+                            ++ inbox.address
+                          )
+                        }
 
-                    rm -rf $conf_dir
-                  fi
+                      rm -rf $conf_dir
+                    fi
 
-                  ln -sf ${inbox.description} \
-                    ${stateDir}/inboxes/${escapeShellArg name}/description
+                    ln -sf ${inbox.description} \
+                      ${stateDir}/inboxes/${escapeShellArg name}/description
 
-                  export GIT_DIR=${stateDir}/inboxes/${
-                    escapeShellArg name
-                  }/all.git
-                  if test -d "$GIT_DIR"; then
-                    # Config is inherited by each epoch repository,
-                    # so just needs to be set for all.git.
-                    ${pkgs.git}/bin/git config core.sharedRepository 0640
-                  fi
-                '') cfg.inboxes)
+                    export GIT_DIR=${stateDir}/inboxes/${
+                      escapeShellArg name
+                    }/all.git
+                    if test -d "$GIT_DIR"; then
+                      # Config is inherited by each epoch repository,
+                      # so just needs to be set for all.git.
+                      ${pkgs.git}/bin/git config core.sharedRepository 0640
+                    fi
+                  ''
+                ) cfg.inboxes)
                 + ''
                   shopt -s nullglob
                   for inbox in ${stateDir}/inboxes/*/; do

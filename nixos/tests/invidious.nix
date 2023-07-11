@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -93,4 +94,5 @@ import ./make-test-python.nix ({
         curl_assert_status_code(f"{url}/search", 200)
       ''
       ;
-  })
+  }
+)

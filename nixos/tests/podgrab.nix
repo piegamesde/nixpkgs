@@ -2,7 +2,8 @@ let
   defaultPort = 8080;
   customPort = 4242;
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
     '';
 
     meta.maintainers = with pkgs.lib.maintainers; [ ambroisie ];
-  })
+  }
+)

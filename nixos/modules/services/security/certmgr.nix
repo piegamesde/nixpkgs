@@ -10,15 +10,17 @@ with lib;
 let
   cfg = config.services.certmgr;
 
-  specs = mapAttrsToList (n: v: rec {
-    name = n + ".json";
-    path =
-      if isAttrs v then
-        pkgs.writeText name (builtins.toJSON v)
-      else
-        v
-      ;
-  }) cfg.specs;
+  specs = mapAttrsToList (
+    n: v: rec {
+      name = n + ".json";
+      path =
+        if isAttrs v then
+          pkgs.writeText name (builtins.toJSON v)
+        else
+          v
+        ;
+    }
+  ) cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
@@ -31,12 +33,14 @@ let
     inherit (cfg) metricsPort metricsAddress;
   });
 
-  specPaths = map dirOf (concatMap (spec:
+  specPaths = map dirOf (concatMap (
+    spec:
     if isAttrs spec then
       collect isString
       (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
     else
-      [ spec ]) (attrValues cfg.specs));
+      [ spec ]
+  ) (attrValues cfg.specs));
 
   preStart = ''
     ${concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map escapeShellArg specPaths)}
@@ -138,13 +142,15 @@ in
             };
 
             action = mkOption {
-              type = addCheck str (x:
+              type = addCheck str (
+                x:
                 cfg.svcManager == "command"
                 || elem x [
                   "restart"
                   "reload"
                   "nop"
-                ]);
+                ]
+              );
               default = "nop";
               description = lib.mdDoc "The action to take after fetching.";
             };

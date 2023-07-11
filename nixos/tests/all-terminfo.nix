@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: rec {
@@ -24,12 +25,13 @@ import ./make-test-python.nix ({
           && builtins.elem "terminfo" o.value.outputs
           ;
         terminfos = lib.filterAttrs infoFilter pkgs;
-        excludedTerminfos = lib.filterAttrs (_: drv:
-          !(builtins.elem drv.terminfo config.environment.systemPackages))
-          terminfos;
-        includedOuts = lib.filterAttrs
-          (_: drv: builtins.elem drv.out config.environment.systemPackages)
-          terminfos;
+        excludedTerminfos = lib.filterAttrs (
+          _: drv:
+          !(builtins.elem drv.terminfo config.environment.systemPackages)
+        ) terminfos;
+        includedOuts = lib.filterAttrs (
+          _: drv: builtins.elem drv.out config.environment.systemPackages
+        ) terminfos;
       in
       {
         environment = {
@@ -46,4 +48,5 @@ import ./make-test-python.nix ({
       machine.fail("grep . /etc/terminfo-missing >&2")
       machine.fail("grep . /etc/terminfo-extra-outs >&2")
     '';
-  })
+  }
+)

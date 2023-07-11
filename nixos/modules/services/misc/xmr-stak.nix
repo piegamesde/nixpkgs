@@ -76,10 +76,11 @@ in
         LD_LIBRARY_PATH = "${pkgs.linuxPackages_latest.nvidia_x11}/lib";
       };
 
-      preStart = concatStrings (flip mapAttrsToList cfg.configFiles
-        (fn: content: ''
+      preStart = concatStrings (flip mapAttrsToList cfg.configFiles (
+        fn: content: ''
           ln -sf '${pkgs.writeText "xmr-stak-${fn}" content}' '${fn}'
-        ''));
+        ''
+      ));
 
       serviceConfig =
         let

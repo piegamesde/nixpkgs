@@ -12,7 +12,8 @@ let
   };
 
 in
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     kernelPackages ? null,
@@ -82,4 +83,5 @@ import ../make-test-python.nix ({
       peer2.succeed("ip -n ${interfaceNamespace} link show wg0")
       peer3.succeed("ip link show wg0")
     '';
-  })
+  }
+)

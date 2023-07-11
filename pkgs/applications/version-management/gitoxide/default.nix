@@ -31,14 +31,16 @@ rustPlatform.buildRustPackage rec {
   ];
   buildInputs =
     [ curl ]
-    ++ (if stdenv.isDarwin then
-      [
-        libiconv
-        Security
-        SystemConfiguration
-      ]
-    else
-      [ openssl ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          libiconv
+          Security
+          SystemConfiguration
+        ]
+      else
+        [ openssl ]
+    )
     ;
 
     # Needed to get openssl-sys to use pkg-config.

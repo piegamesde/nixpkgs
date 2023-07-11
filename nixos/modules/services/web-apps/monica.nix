@@ -433,11 +433,13 @@ in
             ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+          filteredConfig = lib.converge (lib.filterAttrsRecursive (
+            _: v:
             !elem v [
               { }
               null
-            ])) cfg.config;
+            ]
+          )) cfg.config;
           monicaEnv =
             pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
         in

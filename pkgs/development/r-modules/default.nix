@@ -29,7 +29,8 @@ let
     let
       hydraPlatforms' = hydraPlatforms;
     in
-    lib.makeOverridable ({
+    lib.makeOverridable (
+      {
         name,
         version,
         sha256,
@@ -58,7 +59,8 @@ let
         meta.hydraPlatforms = hydraPlatforms;
         meta.broken = broken;
         meta.maintainers = maintainers;
-      })
+      }
+    )
     ;
 
     # Templates for generating Bioconductor and CRAN packages
@@ -158,10 +160,11 @@ let
     # }
   overrideNativeBuildInputs =
     overrides: old:
-    lib.mapAttrs (name: value:
+    lib.mapAttrs (
+      name: value:
       (builtins.getAttr name old).overrideAttrs
-      (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
-    overrides
+      (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; })
+    ) overrides
     ;
 
     # Overrides package definitions with buildInputs.
@@ -180,9 +183,11 @@ let
     # }
   overrideBuildInputs =
     overrides: old:
-    lib.mapAttrs (name: value:
+    lib.mapAttrs (
+      name: value:
       (builtins.getAttr name old).overrideAttrs
-      (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides
+      (attrs: { buildInputs = attrs.buildInputs ++ value; })
+    ) overrides
     ;
 
     # Overrides package definitions with maintainers.
@@ -201,9 +206,9 @@ let
     # }
   overrideMaintainers =
     overrides: old:
-    lib.mapAttrs
-    (name: value: (builtins.getAttr name old).override { maintainers = value; })
-    overrides
+    lib.mapAttrs (
+      name: value: (builtins.getAttr name old).override { maintainers = value; }
+    ) overrides
     ;
 
     # Overrides package definitions with new R dependencies.
@@ -223,12 +228,14 @@ let
     # }
   overrideRDepends =
     overrides: old:
-    lib.mapAttrs (name: value:
+    lib.mapAttrs (
+      name: value:
       (builtins.getAttr name old).overrideAttrs (attrs: {
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
         propagatedNativeBuildInputs =
           (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
-      })) overrides
+      })
+    ) overrides
     ;
 
     # Overrides package definition requiring X running to install.
@@ -1313,14 +1320,18 @@ let
         (attrs: { patchPhase = "patchShebangs configure"; });
 
       data_table = old.data_table.overrideAttrs (attrs: {
-        env = (attrs.env or { }) // {
+        env = (
+          attrs.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -fopenmp";
         };
         patchPhase = "patchShebangs configure";
       });
 
       ModelMetrics = old.ModelMetrics.overrideAttrs (attrs: {
-        env = (attrs.env or { }) // {
+        env = (
+          attrs.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE =
             attrs.env.NIX_CFLAGS_COMPILE
             + lib.optionalString stdenv.isDarwin " -fopenmp"
@@ -1534,7 +1545,9 @@ let
         (attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; });
 
       rstan = old.rstan.overrideAttrs (attrs: {
-        env = (attrs.env or { }) // {
+        env = (
+          attrs.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE =
             attrs.env.NIX_CFLAGS_COMPILE
             + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION"
@@ -1563,7 +1576,8 @@ let
       systemfonts = old.systemfonts.overrideAttrs
         (attrs: { preConfigure = "patchShebangs configure"; });
 
-      littler = old.littler.overrideAttrs (attrs:
+      littler = old.littler.overrideAttrs (
+        attrs:
         with pkgs; {
           buildInputs =
             [
@@ -1584,7 +1598,8 @@ let
             # these won't run without special provisions, so better remove them
             rm -r $out/library/littler/script-tests
           '';
-        });
+        }
+      );
 
       lpsymphony = old.lpsymphony.overrideAttrs (attrs: {
         preConfigure = ''
@@ -1592,14 +1607,16 @@ let
         '';
       });
 
-      sodium = old.sodium.overrideAttrs (attrs:
+      sodium = old.sodium.overrideAttrs (
+        attrs:
         with pkgs; {
           preConfigure = ''
             patchShebangs configure
           '';
           nativeBuildInputs = [ pkg-config ] ++ attrs.nativeBuildInputs;
           buildInputs = [ libsodium.dev ] ++ attrs.buildInputs;
-        });
+        }
+      );
 
       keyring = old.keyring.overrideAttrs (attrs: {
         preConfigure = ''

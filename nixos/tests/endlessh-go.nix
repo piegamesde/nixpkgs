@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -70,4 +71,5 @@ import ./make-test-python.nix ({
           client.succeed("nc -dvW5 server 22")
           client.succeed("curl -kv server:92/metrics")
     '';
-  })
+  }
+)

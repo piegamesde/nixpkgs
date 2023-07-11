@@ -173,7 +173,8 @@ in
       description = lib.mdDoc ''
         Cloudflare tunnels.
       '';
-      type = types.attrsOf (types.submodule ({
+      type = types.attrsOf (types.submodule (
+        {
           name,
           ...
         }: {
@@ -213,7 +214,8 @@ in
 
             ingress = mkOption {
               type = with types;
-                attrsOf (either str (submodule ({
+                attrsOf (either str (submodule (
+                  {
                     hostname,
                     ...
                   }: {
@@ -244,7 +246,8 @@ in
                       };
 
                     };
-                  })));
+                  }
+                )));
               default = { };
               description = lib.mdDoc ''
                 Ingress rules.
@@ -257,7 +260,8 @@ in
               };
             };
           };
-        }));
+        }
+      ));
 
       default = { };
       example = {
@@ -271,22 +275,27 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.targets = mapAttrs' (name: tunnel:
+    systemd.targets = mapAttrs' (
+      name: tunnel:
       nameValuePair "cloudflared-tunnel-${name}" {
         description = "Cloudflare tunnel '${name}' target";
         requires = [ "cloudflared-tunnel-${name}.service" ];
         after = [ "cloudflared-tunnel-${name}.service" ];
         unitConfig.StopWhenUnneeded = true;
-      }) config.services.cloudflared.tunnels;
+      }
+    ) config.services.cloudflared.tunnels;
 
-    systemd.services = mapAttrs' (name: tunnel:
+    systemd.services = mapAttrs' (
+      name: tunnel:
       let
-        filterConfig = lib.attrsets.filterAttrsRecursive (_: v:
+        filterConfig = lib.attrsets.filterAttrsRecursive (
+          _: v:
           !builtins.elem v [
             null
             [ ]
             { }
-          ]);
+          ]
+        );
 
         filterIngressSet = filterAttrs (_: v: builtins.typeOf v == "set");
         filterIngressStr = filterAttrs (_: v: builtins.typeOf v == "string");
@@ -298,11 +307,12 @@ in
           tunnel = name;
           "credentials-file" = tunnel.credentialsFile;
           ingress =
-            (map (key:
+            (map (
+              key:
               {
                 hostname = key;
-              } // getAttr key (filterConfig (filterConfig ingressesSet)))
-              (attrNames ingressesSet))
+              } // getAttr key (filterConfig (filterConfig ingressesSet))
+            ) (attrNames ingressesSet))
             ++ (map (key: {
               hostname = key;
               service = getAttr key ingressesStr;

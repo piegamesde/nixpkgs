@@ -14,7 +14,8 @@
 # https://discourse.nixos.org/t/hardware-dependent-nixos-tests/18564
 # for discussion of other alternatives).
 
-import ../../../../nixos/tests/make-test-python.nix ({
+import ../../../../nixos/tests/make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -63,4 +64,5 @@ import ../../../../nixos/tests/make-test-python.nix ({
       machine.succeed(f"mosquitto_pub -h localhost -t cmnd/{relay_id}/1 -m OFF")
       print("Did you see the relay switching on and off?")
     '';
-  })
+  }
+)

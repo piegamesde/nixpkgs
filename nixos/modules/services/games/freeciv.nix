@@ -44,10 +44,12 @@ let
           ;
         mkParams =
           k: v:
-          map (mkParam k) (if isList v then
-            v
-          else
-            [ v ])
+          map (mkParam k) (
+            if isList v then
+              v
+            else
+              [ v ]
+          )
           ;
       in
       escapeShellArgs
@@ -159,10 +161,11 @@ in
         StandardInput = "fd:freeciv.socket";
         StandardOutput = "journal";
         StandardError = "journal";
-        ExecStart = pkgs.writeShellScript "freeciv-server" (''
-          set -eux
-          savedir=$(date +%Y-%m-%d_%H-%M-%S)
-        ''
+        ExecStart = pkgs.writeShellScript "freeciv-server" (
+          ''
+            set -eux
+            savedir=$(date +%Y-%m-%d_%H-%M-%S)
+          ''
           + "${pkgs.freeciv}/bin/freeciv-server"
           + " "
           + optionalString (cfg.settings.saves != null) (concatStringsSep " " [
@@ -170,8 +173,10 @@ in
             "${escapeShellArg cfg.settings.saves}/$savedir"
           ])
           + " "
-          + argsFormat.generate "freeciv-server"
-            (cfg.settings // { saves = null; }));
+          + argsFormat.generate "freeciv-server" (
+            cfg.settings // { saves = null; }
+          )
+        );
         DynamicUser = true;
           # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];

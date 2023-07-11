@@ -136,7 +136,8 @@ let
           # The CPython stable ABI is abi3 as in the shared library suffix.
           python.passthru.implementation == "cpython"
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
-          && x == "abi3")
+          && x == "abi3"
+        )
         ;
       withPython =
         ver: abi: x:
@@ -148,22 +149,28 @@ let
             targetMachine != null
           then
           # See PEP 600 for details.
-            (p:
+            (
+              p:
               builtins.match "any|manylinux(1|2010|2014)_${
                   escapeRegex targetMachine
                 }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p
-              != null)
+              != null
+            )
           else
             (p: p == "any")
         else if stdenv.isDarwin then
           if stdenv.targetPlatform.isAarch64 then
-            (p:
+            (
+              p:
               p == "any"
-              || (hasInfix "macosx" p
+              || (
+                hasInfix "macosx" p
                 && lib.lists.any (e: hasSuffix e p) [
                   "arm64"
                   "aarch64"
-                ]))
+                ]
+              )
+            )
           else
             (p: p == "any" || (hasInfix "macosx" p && hasSuffix "x86_64" p))
         else

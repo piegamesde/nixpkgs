@@ -1,5 +1,6 @@
 # Test Authelia as an auth server for Traefik as a reverse proxy of a local web service
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -183,4 +184,5 @@ import ./make-test-python.nix ({
           assert "hello", "could not reach authed static site with valid credentials" in \
             authelia.succeed("curl --insecure -sSf -u 'bob:password' -H Host:static-basic-auth.example.com https://authelia:443/")
     '';
-  })
+  }
+)

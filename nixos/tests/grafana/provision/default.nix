@@ -1,4 +1,5 @@
-import ../../make-test-python.nix ({
+import ../../make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -192,11 +193,13 @@ import ../../make-test-python.nix ({
         ;
     };
 
-    nodes = builtins.mapAttrs (_: val:
+    nodes = builtins.mapAttrs (
+      _: val:
       mkMerge [
         val
         baseGrafanaConf
-      ]) extraNodeConfs;
+      ]
+    ) extraNodeConfs;
   in
   {
     name = "grafana-provision";

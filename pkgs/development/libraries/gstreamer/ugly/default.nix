@@ -80,17 +80,19 @@ stdenv.mkDerivation rec {
       "-Dsidplay=disabled" # sidplay / sidplay/player.h isn't packaged in nixpkgs as of writing
       (lib.mesonEnable "doc" enableDocumentation)
     ]
-    ++ (if enableGplPlugins then
-      [ "-Dgpl=enabled" ]
-    else
-      [
-        "-Da52dec=disabled"
-        "-Dcdio=disabled"
-        "-Ddvdread=disabled"
-        "-Dmpeg2dec=disabled"
-        "-Dsidplay=disabled"
-        "-Dx264=disabled"
-      ])
+    ++ (
+      if enableGplPlugins then
+        [ "-Dgpl=enabled" ]
+      else
+        [
+          "-Da52dec=disabled"
+          "-Dcdio=disabled"
+          "-Ddvdread=disabled"
+          "-Dmpeg2dec=disabled"
+          "-Dsidplay=disabled"
+          "-Dx264=disabled"
+        ]
+    )
     ;
 
   postPatch = ''

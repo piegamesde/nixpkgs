@@ -6,7 +6,9 @@
   # Only used for Linux's x86/x86_64
   ,
   uasm,
-  useUasm ? (stdenv.isLinux && stdenv.hostPlatform.isx86)
+  useUasm ? (
+    stdenv.isLinux && stdenv.hostPlatform.isx86
+  )
 
   # RAR code is under non-free unRAR license
   # see the meta.license section below for more details
@@ -80,12 +82,13 @@ stdenv.mkDerivation rec {
       --replace windres.exe ${stdenv.cc.targetPrefix}windres
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString
-    (lib.optionals stdenv.isDarwin [ "-Wno-deprecated-copy-dtor" ]
-      ++ lib.optionals stdenv.hostPlatform.isMinGW [
-        "-Wno-conversion"
-        "-Wno-unused-macros"
-      ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [ "-Wno-deprecated-copy-dtor" ]
+    ++ lib.optionals stdenv.hostPlatform.isMinGW [
+      "-Wno-conversion"
+      "-Wno-unused-macros"
+    ]
+  );
 
   inherit makefile;
 

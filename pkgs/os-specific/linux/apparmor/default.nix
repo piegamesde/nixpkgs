@@ -402,14 +402,15 @@ let
       name ? ""
     }:
     rootPaths:
-    runCommand
-    ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}")
-    { } ''
+    runCommand (
+      "apparmor-closure-rules" + lib.optionalString (name != "") "-${name}"
+    ) { } ''
       touch $out
       while read -r path
       do printf >>$out "%s,\n" ${
-        lib.concatMapStringsSep " " (x: ''"${x}"'')
-        (baseRules ++ additionalRules)
+        lib.concatMapStringsSep " " (x: ''"${x}"'') (
+          baseRules ++ additionalRules
+        )
       }
       done <${closureInfo { inherit rootPaths; }}/store-paths
     ''

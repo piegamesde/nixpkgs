@@ -21,14 +21,16 @@
 with lib;
 
 let
-  rootfsImage = pkgs.callPackage ../../../lib/make-ext4-fs.nix ({
-    inherit (config.sdImage) storePaths;
-    compressImage = config.sdImage.compressImage;
-    populateImageCommands = config.sdImage.populateRootCommands;
-    volumeLabel = "NIXOS_SD";
-  } // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
-    uuid = config.sdImage.rootPartitionUUID;
-  });
+  rootfsImage = pkgs.callPackage ../../../lib/make-ext4-fs.nix (
+    {
+      inherit (config.sdImage) storePaths;
+      compressImage = config.sdImage.compressImage;
+      populateImageCommands = config.sdImage.populateRootCommands;
+      volumeLabel = "NIXOS_SD";
+    } // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
+      uuid = config.sdImage.rootPartitionUUID;
+    }
+  );
 in
 {
   imports = [
@@ -192,7 +194,8 @@ in
 
     sdImage.storePaths = [ config.system.build.toplevel ];
 
-    system.build.sdImage = pkgs.callPackage ({
+    system.build.sdImage = pkgs.callPackage (
+      {
         stdenv,
         dosfstools,
         e2fsprogs,
@@ -296,7 +299,8 @@ in
               zstd -T$NIX_BUILD_CORES --rm $img
           fi
         '';
-      }) { };
+      }
+    ) { };
 
     boot.postBootCommands = lib.mkIf config.sdImage.expandOnBoot ''
       # On the first boot do some maintenance tasks

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -78,4 +79,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("multi-user.target")
       assert "/dev/mapper/cryptroot on / type ext4" in machine.succeed("mount")
     '';
-  })
+  }
+)

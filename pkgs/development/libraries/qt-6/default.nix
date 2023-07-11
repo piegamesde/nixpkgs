@@ -67,48 +67,50 @@ let
         ];
       };
       env = callPackage ./qt-env.nix { };
-      full = env "qt-full-${qtbase.version}" ([
-        qt3d
-        qt5compat
-        qtcharts
-        qtconnectivity
-        qtdatavis3d
-        qtdeclarative
-        qtdoc
-        qtgrpc
-        qthttpserver
-        qtimageformats
-        qtlanguageserver
-        qtlocation
-        qtlottie
-        qtmultimedia
-        qtmqtt
-        qtnetworkauth
-        qtpositioning
-        qtsensors
-        qtserialbus
-        qtserialport
-        qtshadertools
-        qtspeech
-        qtquick3d
-        qtquick3dphysics
-        qtquickeffectmaker
-        qtquicktimeline
-        qtremoteobjects
-        qtsvg
-        qtscxml
-        qttools
-        qttranslations
-        qtvirtualkeyboard
-        qtwebchannel
-        qtwebengine
-        qtwebsockets
-        qtwebview
-      ]
+      full = env "qt-full-${qtbase.version}" (
+        [
+          qt3d
+          qt5compat
+          qtcharts
+          qtconnectivity
+          qtdatavis3d
+          qtdeclarative
+          qtdoc
+          qtgrpc
+          qthttpserver
+          qtimageformats
+          qtlanguageserver
+          qtlocation
+          qtlottie
+          qtmultimedia
+          qtmqtt
+          qtnetworkauth
+          qtpositioning
+          qtsensors
+          qtserialbus
+          qtserialport
+          qtshadertools
+          qtspeech
+          qtquick3d
+          qtquick3dphysics
+          qtquickeffectmaker
+          qtquicktimeline
+          qtremoteobjects
+          qtsvg
+          qtscxml
+          qttools
+          qttranslations
+          qtvirtualkeyboard
+          qtwebchannel
+          qtwebengine
+          qtwebsockets
+          qtwebview
+        ]
         ++ lib.optionals (!stdenv.isDarwin) [
           qtwayland
           libglvnd
-        ]);
+        ]
+      );
 
       qt3d = callPackage ./modules/qt3d.nix { };
       qt5compat = callPackage ./modules/qt5compat.nix { };

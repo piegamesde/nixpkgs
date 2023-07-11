@@ -223,8 +223,9 @@ in
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"
-            + optionalString (length cmdlineArgs != 0)
-              (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs)
+            + optionalString (length cmdlineArgs != 0) (
+              " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
+            )
             ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };

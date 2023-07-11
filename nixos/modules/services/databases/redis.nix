@@ -318,7 +318,8 @@ in
 
       servers = mkOption {
         type = with types;
-          attrsOf (submodule ({
+          attrsOf (submodule (
+            {
               config,
               name,
               ...
@@ -464,7 +465,8 @@ in
 
                 slaveOf = mkOption {
                   type = with types;
-                    nullOr (submodule ({
+                    nullOr (submodule (
+                      {
                         ...
                       }: {
                         options = {
@@ -480,7 +482,8 @@ in
                             default = 6379;
                           };
                         };
-                      }));
+                      }
+                    ));
 
                   default = null;
                   description = lib.mdDoc
@@ -585,10 +588,12 @@ in
                     if config.save == [ ] then
                       ''""'' # Disable saving with `save = ""`
                     else
-                      map (d:
+                      map (
+                        d:
                         "${toString (builtins.elemAt d 0)} ${
                           toString (builtins.elemAt d 1)
-                        }") config.save
+                        }"
+                      ) config.save
                     ;
                   dbfilename = "dump.rdb";
                   dir = "/var/lib/${redisName name}";
@@ -612,7 +617,8 @@ in
                   requirepass = config.requirePass;
                 })
               ];
-            }));
+            }
+          ));
         description =
           lib.mdDoc "Configuration of multiple `redis-server` instances.";
         default = { };
@@ -625,13 +631,15 @@ in
 
   config = mkIf (enabledServers != { }) {
 
-    assertions = attrValues (mapAttrs (name: conf: {
-      assertion = conf.requirePass != null -> conf.requirePassFile == null;
-      message = ''
-        You can only set one services.redis.servers.${name}.requirePass
-        or services.redis.servers.${name}.requirePassFile
-      '';
-    }) enabledServers);
+    assertions = attrValues (mapAttrs (
+      name: conf: {
+        assertion = conf.requirePass != null -> conf.requirePassFile == null;
+        message = ''
+          You can only set one services.redis.servers.${name}.requirePass
+          or services.redis.servers.${name}.requirePassFile
+        '';
+      }
+    ) enabledServers);
 
     boot.kernel.sysctl = mkMerge [
       { "vm.nr_hugepages" = "0"; }
@@ -644,16 +652,19 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-    users.users = mapAttrs' (name: conf:
+    users.users = mapAttrs' (
+      name: conf:
       nameValuePair (redisName name) {
         description = "System user for the redis-server instance ${name}";
         isSystemUser = true;
         group = redisName name;
-      }) enabledServers;
+      }
+    ) enabledServers;
     users.groups =
       mapAttrs' (name: conf: nameValuePair (redisName name) { }) enabledServers;
 
-    systemd.services = mapAttrs' (name: conf:
+    systemd.services = mapAttrs' (
+      name: conf:
       nameValuePair (redisName name) {
         description = "Redis Server - ${redisName name}";
 
@@ -667,26 +678,27 @@ in
             }/redis.conf ${escapeShellArgs conf.extraParams}";
           ExecStartPre =
             "+"
-            + pkgs.writeShellScript "${redisName name}-prep-conf" (let
-              redisConfVar = "/var/lib/${redisName name}/redis.conf";
-              redisConfRun = "/run/${redisName name}/nixos.conf";
-              redisConfStore = redisConfig conf.settings;
-            in
-            ''
-              touch "${redisConfVar}" "${redisConfRun}"
-              chown '${conf.user}' "${redisConfVar}" "${redisConfRun}"
-              chmod 0600 "${redisConfVar}" "${redisConfRun}"
-              if [ ! -s ${redisConfVar} ]; then
-                echo 'include "${redisConfRun}"' > "${redisConfVar}"
-              fi
-              echo 'include "${redisConfStore}"' > "${redisConfRun}"
-              ${optionalString (conf.requirePassFile != null) ''
-                {
-                  echo -n "requirepass "
-                  cat ${escapeShellArg conf.requirePassFile}
-                } >> "${redisConfRun}"
-              ''}
-            ''
+            + pkgs.writeShellScript "${redisName name}-prep-conf" (
+              let
+                redisConfVar = "/var/lib/${redisName name}/redis.conf";
+                redisConfRun = "/run/${redisName name}/nixos.conf";
+                redisConfStore = redisConfig conf.settings;
+              in
+              ''
+                touch "${redisConfVar}" "${redisConfRun}"
+                chown '${conf.user}' "${redisConfVar}" "${redisConfRun}"
+                chmod 0600 "${redisConfVar}" "${redisConfRun}"
+                if [ ! -s ${redisConfVar} ]; then
+                  echo 'include "${redisConfRun}"' > "${redisConfVar}"
+                fi
+                echo 'include "${redisConfStore}"' > "${redisConfRun}"
+                ${optionalString (conf.requirePassFile != null) ''
+                  {
+                    echo -n "requirepass "
+                    cat ${escapeShellArg conf.requirePassFile}
+                  } >> "${redisConfRun}"
+                ''}
+              ''
             )
             ;
           Type = "notify";
@@ -737,7 +749,8 @@ in
           SystemCallFilter =
             "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
         };
-      }) enabledServers;
+      }
+    ) enabledServers;
 
   };
 }

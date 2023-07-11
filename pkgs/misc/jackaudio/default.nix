@@ -134,15 +134,17 @@ stdenv.mkDerivation (finalAttrs: {
     ;
 
   postInstall =
-    (if libOnly then
-      ''
-        rm -rf $out/{bin,share}
-        rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
-      ''
-    else
-      ''
-        wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
-      '');
+    (
+      if libOnly then
+        ''
+          rm -rf $out/{bin,share}
+          rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
+        ''
+      else
+        ''
+          wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
+        ''
+    );
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

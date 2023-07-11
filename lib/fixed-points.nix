@@ -134,10 +134,12 @@
     # customized.
   makeExtensibleWithCustomName =
     extenderName: rattrs:
-    fix' (self:
+    fix' (
+      self:
       (rattrs self) // {
         ${extenderName} =
           f: makeExtensibleWithCustomName extenderName (extends f rattrs);
-      })
+      }
+    )
     ;
 }

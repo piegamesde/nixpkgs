@@ -376,53 +376,54 @@ in
 
             # Test compatibility with Caddy
             # It only supports useACMEHost, hence not using mkServerConfigs
-        } // (let
-          baseCaddyConfig =
-            {
-              nodes,
-              config,
-              ...
-            }: {
-              security.acme = {
-                defaults = (dnsConfig nodes);
-                  # One manual wildcard cert
-                certs."example.test" = { domain = "*.example.test"; };
-              };
-
-              users.users."${config.services.caddy.user}".extraGroups = [
-                  "acme"
-                ];
-
-              services.caddy = {
-                enable = true;
-                virtualHosts."a.exmaple.test" = {
-                  useACMEHost = "example.test";
-                  extraConfig = ''
-                    root * ${documentRoot}
-                  '';
+        } // (
+          let
+            baseCaddyConfig =
+              {
+                nodes,
+                config,
+                ...
+              }: {
+                security.acme = {
+                  defaults = (dnsConfig nodes);
+                    # One manual wildcard cert
+                  certs."example.test" = { domain = "*.example.test"; };
                 };
-              };
-            }
-            ;
-        in
-        {
-          caddy.configuration = baseCaddyConfig;
 
-            # Test that the server reloads when only the acme configuration is changed.
-          "caddy-change-acme-conf".configuration =
-            {
-              nodes,
-              config,
-              ...
-            }:
-            lib.mkMerge [
-              (baseCaddyConfig { inherit nodes config; })
-              { security.acme.certs."example.test" = { keyType = "ec384"; }; }
-            ]
-            ;
+                users.users."${config.services.caddy.user}".extraGroups = [
+                    "acme"
+                  ];
 
-            # Test compatibility with Nginx
-        }
+                services.caddy = {
+                  enable = true;
+                  virtualHosts."a.exmaple.test" = {
+                    useACMEHost = "example.test";
+                    extraConfig = ''
+                      root * ${documentRoot}
+                    '';
+                  };
+                };
+              }
+              ;
+          in
+          {
+            caddy.configuration = baseCaddyConfig;
+
+              # Test that the server reloads when only the acme configuration is changed.
+            "caddy-change-acme-conf".configuration =
+              {
+                nodes,
+                config,
+                ...
+              }:
+              lib.mkMerge [
+                (baseCaddyConfig { inherit nodes config; })
+                { security.acme.certs."example.test" = { keyType = "ec384"; }; }
+              ]
+              ;
+
+              # Test compatibility with Nginx
+          }
         ) // (mkServerConfigs {
           server = "nginx";
           group = "nginx";

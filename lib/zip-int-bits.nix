@@ -32,10 +32,12 @@ let
   bitsToInt =
     l: signum:
     if l == [ ] then
-      (if signum == 0 then
-        0
-      else
-        -1)
+      (
+        if signum == 0 then
+          0
+        else
+          -1
+      )
     else
       (builtins.head l) + (2 * (bitsToInt (builtins.tail l) signum))
     ;

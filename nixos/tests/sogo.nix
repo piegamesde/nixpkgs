@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -65,4 +66,5 @@ import ./make-test-python.nix ({
       sogo.wait_for_open_port(80)
       sogo.succeed("curl -sSfL http://sogo/SOGo")
     '';
-  })
+  }
+)

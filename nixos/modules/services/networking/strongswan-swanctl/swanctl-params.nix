@@ -37,34 +37,36 @@ let
   };
 in
 {
-  authorities = mkAttrsOfParams ({
+  authorities = mkAttrsOfParams (
+    {
 
-    cacert = mkOptionalStrParam ''
-      The certificates may use a relative path from the swanctl
-      `x509ca` directory or an absolute path.
+      cacert = mkOptionalStrParam ''
+        The certificates may use a relative path from the swanctl
+        `x509ca` directory or an absolute path.
 
-      Configure one of {option}`cacert`,
-      {option}`file`, or
-      {option}`handle` per section.
-    '';
+        Configure one of {option}`cacert`,
+        {option}`file`, or
+        {option}`handle` per section.
+      '';
 
-    cert_uri_base = mkOptionalStrParam ''
-      Defines the base URI for the Hash and URL feature supported by
-      IKEv2. Instead of exchanging complete certificates, IKEv2 allows one to
-      send an URI that resolves to the DER encoded certificate. The certificate
-      URIs are built by appending the SHA1 hash of the DER encoded certificates
-      to this base URI.
-    '';
+      cert_uri_base = mkOptionalStrParam ''
+        Defines the base URI for the Hash and URL feature supported by
+        IKEv2. Instead of exchanging complete certificates, IKEv2 allows one to
+        send an URI that resolves to the DER encoded certificate. The certificate
+        URIs are built by appending the SHA1 hash of the DER encoded certificates
+        to this base URI.
+      '';
 
-    crl_uris = mkCommaSepListParam [ ] ''
-      List of CRL distribution points (ldap, http, or file URI).
-    '';
+      crl_uris = mkCommaSepListParam [ ] ''
+        List of CRL distribution points (ldap, http, or file URI).
+      '';
 
-    ocsp_uris = mkCommaSepListParam [ ] ''
-      List of OCSP URIs.
-    '';
+      ocsp_uris = mkCommaSepListParam [ ] ''
+        List of OCSP URIs.
+      '';
 
-  } // certParams) ''
+    } // certParams
+  ) ''
     Section defining complementary attributes of certification authorities, each
     in its own subsection with an arbitrary yet unique name
   '';

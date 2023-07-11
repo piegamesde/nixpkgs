@@ -112,12 +112,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ alsa-utils ]
     ;
 
-  scriptPath = lib.makeBinPath ([
-    wrappedRuby
-    libnotify
-    which
-  ]
-    ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
+  scriptPath = lib.makeBinPath (
+    [
+      wrappedRuby
+      libnotify
+      which
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-utils ]
+  );
 
   postUnpack = ''
     rm -rf vendor

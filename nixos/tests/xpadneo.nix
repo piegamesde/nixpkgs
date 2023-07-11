@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -15,4 +16,5 @@ import ./make-test-python.nix ({
       machine.start();
       machine.succeed("modinfo hid_xpadneo | grep 'version:\s\+${pkgs.linuxPackages.xpadneo.version}'")
     '';
-  })
+  }
+)

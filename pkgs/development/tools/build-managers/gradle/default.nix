@@ -79,8 +79,9 @@ rec {
                  concatStringsSep "," varNames
                }'";
           };
-          varDefs = concatStringsSep "\n" (map (x: "  --set ${x} \\")
-            ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs));
+          varDefs = concatStringsSep "\n" (map (x: "  --set ${x} \\") (
+            [ "JAVA_HOME ${java}" ] ++ toolchain.varDefs
+          ));
         in
         ''
           mkdir -pv $out/lib/gradle/

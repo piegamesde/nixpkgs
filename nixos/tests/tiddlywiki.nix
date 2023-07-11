@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     ...
   }: {
     name = "tiddlywiki";
@@ -65,4 +66,5 @@ import ./make-test-python.nix ({
               "curl --fail -o /dev/null 127.0.0.1:8080/recipes/default/tiddlers/somepage"
           )
     '';
-  })
+  }
+)

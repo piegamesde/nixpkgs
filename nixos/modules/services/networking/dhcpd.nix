@@ -228,7 +228,8 @@ in
     ++ flip map [
       "4"
       "6"
-    ] (postfix:
+    ] (
+      postfix:
       mkRemovedOptionModule [
         "services"
         "dhcpd${postfix}"
@@ -237,7 +238,8 @@ in
         The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
         This means the directory is named after the service (dhcpd${postfix}), created under
         /var/lib/private/ and symlinked to /var/lib/.
-      '')
+      ''
+    )
     ;
 
     ###### interface

@@ -92,13 +92,15 @@ pythonPackages.buildPythonApplication rec {
     ++ lib.optionals stdenv.isLinux [
         util-linux # Add 'setsid' to PATH.
       ]
-    ++ (with pythonPackages; [
-      lockfile
-      mock
-      pexpect
-      pytest
-      pytest-runner
-    ])
+    ++ (
+      with pythonPackages; [
+        lockfile
+        mock
+        pexpect
+        pytest
+        pytest-runner
+      ]
+    )
     ;
 
   postInstall = ''

@@ -132,7 +132,8 @@ let
           ];
           apply =
             value:
-            map (each:
+            map (
+              each:
               if (isString each) then
                 if (isUnixSocket each) then
                   {
@@ -148,7 +149,8 @@ let
                     rawEntry = "${each}";
                   }
               else
-                each) value
+                each
+            ) value
             ;
         };
         count = mkOption {
@@ -173,49 +175,55 @@ let
             ;
         };
       };
-      config = mkIf (name == "normal"
+      config = mkIf (
+        name == "normal"
         || name == "controller"
         || name == "fuzzy"
-        || name == "rspamd_proxy") {
-          type = mkDefault name;
-          includes = mkDefault [
-              "$CONFDIR/worker-${
-                if name == "rspamd_proxy" then
-                  "proxy"
-                else
-                  name
-              }.inc"
-            ];
-          bindSockets =
-            let
-              unixSocket =
-                name: {
-                  mode = "0660";
-                  socket = "/run/rspamd/${name}.sock";
-                  owner = cfg.user;
-                  group = cfg.group;
-                }
-                ;
-            in
-            mkDefault (if name == "normal" then
+        || name == "rspamd_proxy"
+      ) {
+        type = mkDefault name;
+        includes = mkDefault [
+            "$CONFDIR/worker-${
+              if name == "rspamd_proxy" then
+                "proxy"
+              else
+                name
+            }.inc"
+          ];
+        bindSockets =
+          let
+            unixSocket =
+              name: {
+                mode = "0660";
+                socket = "/run/rspamd/${name}.sock";
+                owner = cfg.user;
+                group = cfg.group;
+              }
+              ;
+          in
+          mkDefault (
+            if name == "normal" then
               [ (unixSocket "rspamd") ]
             else if name == "controller" then
               [ "localhost:11334" ]
             else if name == "rspamd_proxy" then
               [ (unixSocket "proxy") ]
             else
-              [ ])
-            ;
-        };
+              [ ]
+          )
+          ;
+      };
     }
     ;
 
   isUnixSocket =
     socket:
-    hasPrefix "/" (if (isString socket) then
-      socket
-    else
-      socket.socket)
+    hasPrefix "/" (
+      if (isString socket) then
+        socket
+      else
+        socket.socket
+    )
     ;
 
   mkBindSockets =
@@ -241,7 +249,8 @@ let
       .include(try=true; priority=10) "$LOCAL_CONFDIR/override.d/logging.inc"
     }
 
-    ${concatStringsSep "\n" (mapAttrsToList (name: value:
+    ${concatStringsSep "\n" (mapAttrsToList (
+      name: value:
       let
         includeName =
           if name == "rspamd_proxy" then
@@ -283,14 +292,19 @@ let
   '';
 
   filterFiles = files: filterAttrs (n: v: v.enable) files;
-  rspamdDir = pkgs.linkFarm "etc-rspamd-dir" ((mapAttrsToList (name: file: {
-    name = "local.d/${name}";
-    path = file.source;
-  }) (filterFiles cfg.locals))
-    ++ (mapAttrsToList (name: file: {
-      name = "override.d/${name}";
-      path = file.source;
-    }) (filterFiles cfg.overrides))
+  rspamdDir = pkgs.linkFarm "etc-rspamd-dir" (
+    (mapAttrsToList (
+      name: file: {
+        name = "local.d/${name}";
+        path = file.source;
+      }
+    ) (filterFiles cfg.locals))
+    ++ (mapAttrsToList (
+      name: file: {
+        name = "override.d/${name}";
+        path = file.source;
+      }
+    ) (filterFiles cfg.overrides))
     ++ (optional (cfg.localLuaRules != null) {
       name = "rspamd.local.lua";
       path = cfg.localLuaRules;
@@ -298,7 +312,8 @@ let
     ++ [ {
       name = "rspamd.conf";
       path = rspamdConfFile;
-    } ]);
+    } ]
+  );
 
   configFileModule =
     prefix:
@@ -329,27 +344,30 @@ let
         };
       };
       config = {
-        source = mkIf (config.text != null) (let
-          name' = "rspamd-${prefix}-" + baseNameOf name;
-        in
-        mkDefault (pkgs.writeText name' config.text)
+        source = mkIf (config.text != null) (
+          let
+            name' = "rspamd-${prefix}-" + baseNameOf name;
+          in
+          mkDefault (pkgs.writeText name' config.text)
         );
       };
     }
     ;
 
-  configOverrides = (mapAttrs' (n: v:
+  configOverrides = (mapAttrs' (
+    n: v:
     nameValuePair "worker-${
       if n == "rspamd_proxy" then
         "proxy"
       else
         n
-    }.inc" { text = v.extraConfig; })
-    (filterAttrs (n: v: v.extraConfig != "") cfg.workers))
-    // (if cfg.extraConfig == "" then
+    }.inc" { text = v.extraConfig; }
+  ) (filterAttrs (n: v: v.extraConfig != "") cfg.workers)) // (
+    if cfg.extraConfig == "" then
       { }
     else
-      { "extra-config.inc".text = cfg.extraConfig; });
+      { "extra-config.inc".text = cfg.extraConfig; }
+  );
 
 in
 {

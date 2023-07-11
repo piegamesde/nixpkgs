@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
     ./enable-powerpc.patch
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
+  buildInputs = lib.optionals stdenv.isDarwin (
+    with darwin.apple_sdk.frameworks; [ ApplicationServices ]
+  );
 
   patchPhase = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1
@@ -35,11 +36,13 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
       # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/v0.3.1/webrtc/rtc_base/system/arch.h
       # + our patches
-    platforms = intersectLists platforms.unix (platforms.arm
+    platforms = intersectLists platforms.unix (
+      platforms.arm
       ++ platforms.aarch64
       ++ platforms.mips
       ++ platforms.power
       ++ platforms.riscv
-      ++ platforms.x86);
+      ++ platforms.x86
+    );
   };
 }

@@ -138,7 +138,8 @@ let
   ];
 
 in
-lib.flip map versions ({
+lib.flip map versions (
+  {
     version,
     lang,
     language,
@@ -155,4 +156,5 @@ lib.flip map versions ({
       '';
       inherit sha256;
     };
-  })
+  }
+)

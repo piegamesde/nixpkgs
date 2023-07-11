@@ -14,60 +14,64 @@ let
   modDirVersion = "5.15.84";
   tag = "1.20230106";
 in
-lib.overrideDerivation (buildLinux (args // {
-  version = "${modDirVersion}-${tag}";
-  inherit modDirVersion;
+lib.overrideDerivation (buildLinux (
+  args // {
+    version = "${modDirVersion}-${tag}";
+    inherit modDirVersion;
 
-  src = fetchFromGitHub {
-    owner = "raspberrypi";
-    repo = "linux";
-    rev = tag;
-    hash =
-      "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
-  };
+    src = fetchFromGitHub {
+      owner = "raspberrypi";
+      repo = "linux";
+      rev = tag;
+      hash =
+        "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
+    };
 
-  defconfig =
-    {
-      "1" = "bcmrpi_defconfig";
-      "2" = "bcm2709_defconfig";
-      "3" =
-        if stdenv.hostPlatform.isAarch64 then
-          "bcmrpi3_defconfig"
-        else
-          "bcm2709_defconfig"
-        ;
-      "4" = "bcm2711_defconfig";
-    }
-    .${toString rpiVersion};
-
-  features = { efiBootStub = false; } // (args.features or { });
-
-  extraConfig = ''
-    # ../drivers/gpu/drm/ast/ast_mode.c:851:18: error: initialization of 'void (*)(struct drm_crtc *, struct drm_atomic_state *)' from incompatible pointer type 'void (*)(struct drm_crtc *, struct drm_crtc_state *)' [-Werror=incompatible-pointer-types]
-    #   851 |  .atomic_flush = ast_crtc_helper_atomic_flush,
-    #       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # ../drivers/gpu/drm/ast/ast_mode.c:851:18: note: (near initialization for 'ast_crtc_helper_funcs.atomic_flush')
-    DRM_AST n
-    # ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function 'amdgpu_dm_atomic_commit_tail':
-    # ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:7757:4: error: implicit declaration of function 'is_hdr_metadata_different' [-Werror=implicit-function-declaration]
-    #  7757 |    is_hdr_metadata_different(old_con_state, new_con_state);
-    #       |    ^~~~~~~~~~~~~~~~~~~~~~~~~
-    DRM_AMDGPU n
-  '';
-
-  extraMeta =
-    if (rpiVersion < 3) then
+    defconfig =
       {
-        platforms = with lib.platforms; arm;
-        hydraPlatforms = [ ];
+        "1" = "bcmrpi_defconfig";
+        "2" = "bcm2709_defconfig";
+        "3" =
+          if stdenv.hostPlatform.isAarch64 then
+            "bcmrpi3_defconfig"
+          else
+            "bcm2709_defconfig"
+          ;
+        "4" = "bcm2711_defconfig";
       }
-    else
-      {
-        platforms = with lib.platforms; arm ++ aarch64;
-        hydraPlatforms = [ "aarch64-linux" ];
-      }
-    ;
-} // (args.argsOverride or { }))) (oldAttrs: {
+      .${toString rpiVersion};
+
+    features = { efiBootStub = false; } // (args.features or { });
+
+    extraConfig = ''
+      # ../drivers/gpu/drm/ast/ast_mode.c:851:18: error: initialization of 'void (*)(struct drm_crtc *, struct drm_atomic_state *)' from incompatible pointer type 'void (*)(struct drm_crtc *, struct drm_crtc_state *)' [-Werror=incompatible-pointer-types]
+      #   851 |  .atomic_flush = ast_crtc_helper_atomic_flush,
+      #       |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # ../drivers/gpu/drm/ast/ast_mode.c:851:18: note: (near initialization for 'ast_crtc_helper_funcs.atomic_flush')
+      DRM_AST n
+      # ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function 'amdgpu_dm_atomic_commit_tail':
+      # ../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:7757:4: error: implicit declaration of function 'is_hdr_metadata_different' [-Werror=implicit-function-declaration]
+      #  7757 |    is_hdr_metadata_different(old_con_state, new_con_state);
+      #       |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+      DRM_AMDGPU n
+    '';
+
+    extraMeta =
+      if (rpiVersion < 3) then
+        {
+          platforms = with lib.platforms; arm;
+          hydraPlatforms = [ ];
+        }
+      else
+        {
+          platforms = with lib.platforms; arm ++ aarch64;
+          hydraPlatforms = [ "aarch64-linux" ];
+        }
+      ;
+  } // (
+    args.argsOverride or { }
+  )
+)) (oldAttrs: {
   postConfigure = ''
     # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
     sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'

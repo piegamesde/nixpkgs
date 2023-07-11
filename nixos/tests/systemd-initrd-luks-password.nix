@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -63,4 +64,5 @@ import ./make-test-python.nix ({
       assert "/dev/mapper/cryptroot on / type ext4" in machine.succeed("mount"), "/dev/mapper/cryptroot do not appear in mountpoints list"
       assert "/dev/mapper/cryptroot2 on /cryptroot2 type ext4" in machine.succeed("mount")
     '';
-  })
+  }
+)

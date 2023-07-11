@@ -22,15 +22,18 @@ let
     # on its own first.
   genericSection = {
     generic =
-      (cfg.server.extraOptions // {
-        user = "root";
-        group = "root";
-        port = cfg.server.listenPort;
-      } // (optionalAttrs (cfg.server.listenAddress != null) {
-        listenaddr = cfg.server.listenAddress;
-      }));
+      (
+        cfg.server.extraOptions // {
+          user = "root";
+          group = "root";
+          port = cfg.server.listenPort;
+        } // (optionalAttrs (cfg.server.listenAddress != null) {
+          listenaddr = cfg.server.listenAddress;
+        })
+      );
   };
-  exportSections = mapAttrs (_:
+  exportSections = mapAttrs (
+    _:
     {
       path,
       allowAddresses,
@@ -41,17 +44,20 @@ let
     } // (optionalAttrs (allowAddresses != null) {
       authfile =
         pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
-    })) cfg.server.exports;
+    })
+  ) cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''
     ${lib.generators.toINI { } genericSection}
     ${lib.generators.toINI { } exportSections}
   '';
-  splitLists = partition (path: hasPrefix "/dev/" path) (mapAttrsToList (_:
+  splitLists = partition (path: hasPrefix "/dev/" path) (mapAttrsToList (
+    _:
     {
       path,
       ...
     }:
-    path) cfg.server.exports);
+    path
+  ) cfg.server.exports);
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
 in

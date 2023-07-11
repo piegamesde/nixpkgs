@@ -114,12 +114,14 @@ stdenv.mkDerivation rec {
 
       wrapProgram $out/bin/vncserver \
         --prefix PATH : ${
-          lib.makeBinPath (with xorg; [
-            xterm
-            twm
-            xsetroot
-            xauth
-          ])
+          lib.makeBinPath (
+            with xorg; [
+              xterm
+              twm
+              xsetroot
+              xauth
+            ]
+          )
         }
     ''
     + lib.optionalString stdenv.isDarwin ''
@@ -140,7 +142,8 @@ stdenv.mkDerivation rec {
       pixman
       gawk
     ]
-    ++ lib.optionals stdenv.isLinux (with xorg;
+    ++ lib.optionals stdenv.isLinux (
+      with xorg;
       [
         nettle
         pam
@@ -160,7 +163,8 @@ stdenv.mkDerivation rec {
         libpciaccess
         libGLU
       ]
-      ++ xorg.xorgserver.buildInputs)
+      ++ xorg.xorgserver.buildInputs
+    )
     ;
 
   nativeBuildInputs =
@@ -168,7 +172,8 @@ stdenv.mkDerivation rec {
       cmake
       gettext
     ]
-    ++ lib.optionals stdenv.isLinux (with xorg;
+    ++ lib.optionals stdenv.isLinux (
+      with xorg;
       [
         fontutil
         libtool
@@ -176,7 +181,8 @@ stdenv.mkDerivation rec {
         utilmacros
         zlib
       ]
-      ++ xorg.xorgserver.nativeBuildInputs)
+      ++ xorg.xorgserver.nativeBuildInputs
+    )
     ;
 
   propagatedBuildInputs =

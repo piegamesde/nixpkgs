@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -70,4 +71,5 @@ import ./make-test-python.nix ({
       upstream.wait_for_unit("multi-user.target")
       upstream.wait_until_succeeds("ping -c5 fd42::2")
     '';
-  })
+  }
+)

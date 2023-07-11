@@ -154,11 +154,13 @@ in
         script =
           let
             target = escapeShellArg cfg.targetUrl;
-            extra = escapeShellArgs ([
-              "--archive-dir"
-              stateDirectory
-            ]
-              ++ cfg.extraFlags);
+            extra = escapeShellArgs (
+              [
+                "--archive-dir"
+                stateDirectory
+              ]
+              ++ cfg.extraFlags
+            );
             dup = "${pkgs.duplicity}/bin/duplicity";
           in
           ''
@@ -182,10 +184,11 @@ in
               else
                 "incr"
             } ${
-              lib.escapeShellArgs ([
-                cfg.root
-                cfg.targetUrl
-              ]
+              lib.escapeShellArgs (
+                [
+                  cfg.root
+                  cfg.targetUrl
+                ]
                 ++ concatMap (p: [
                   "--include"
                   p
@@ -194,11 +197,14 @@ in
                   "--exclude"
                   p
                 ]) cfg.exclude
-                ++ (lib.optionals (cfg.fullIfOlderThan != "never"
-                  && cfg.fullIfOlderThan != "always") [
-                    "--full-if-older-than"
-                    cfg.fullIfOlderThan
-                  ]))
+                ++ (lib.optionals (
+                  cfg.fullIfOlderThan != "never"
+                  && cfg.fullIfOlderThan != "always"
+                ) [
+                  "--full-if-older-than"
+                  cfg.fullIfOlderThan
+                ])
+              )
             } ${extra}
           ''
           ;

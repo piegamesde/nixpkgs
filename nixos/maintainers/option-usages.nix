@@ -91,18 +91,24 @@ let
   reportNewFailures =
     old: new:
     let
-      filterChanges = filter ({
+      filterChanges = filter (
+        {
           fst,
           snd,
         }:
-        !(fst.success -> snd.success));
+        !(
+          fst.success -> snd.success
+        )
+      );
 
-      keepNames = map ({
+      keepNames = map (
+        {
           fst,
           snd,
         }:
         # assert fst.name == snd.name;
-        snd.name);
+        snd.name
+      );
 
         # Use  tryEval (strict ...)  to know if there is any failure while
         # evaluating the option value.
@@ -112,10 +118,12 @@ let
         # each options.
       tryCollectOptions =
         moduleResult:
-        forEach (excludeOptions (collect isOption moduleResult)) (opt:
+        forEach (excludeOptions (collect isOption moduleResult)) (
+          opt:
           {
             name = showOption opt.loc;
-          } // builtins.tryEval (strict opt.value))
+          } // builtins.tryEval (strict opt.value)
+        )
         ;
     in
     keepNames
@@ -163,23 +171,26 @@ let
         ;
       checkAll = checkList == [ ];
     in
-    flip filter graph ({
+    flip filter graph (
+      {
         option,
         ...
       }:
-      (checkAll || elem option checkList) && !(elem option excludedTestOptions))
+      (checkAll || elem option checkList) && !(elem option excludedTestOptions)
+    )
     ;
 
   graphToDot =
     graph: ''
       digraph "Option Usages" {
         ${
-          concatMapStrings ({
+          concatMapStrings (
+            {
               option,
               usedBy,
             }:
-            concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
-          displayOptionsGraph
+            concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
+          ) displayOptionsGraph
         }
       }
     ''
@@ -187,13 +198,15 @@ let
 
   graphToText =
     graph:
-    concatMapStrings ({
+    concatMapStrings (
+      {
         usedBy,
         ...
       }:
       concatMapStrings (user: ''
         ${user}
-      '') usedBy) displayOptionsGraph
+      '') usedBy
+    ) displayOptionsGraph
     ;
 
 in

@@ -30,7 +30,8 @@ let
     url = "ftp://ftp.denx.de/pub/u-boot/u-boot-${defaultVersion}.tar.bz2";
     hash = "sha256-aUI7rTgPiaCRZjbonm3L0uRRLVhDCNki0QOdHkMxlQ8=";
   };
-  buildUBoot = lib.makeOverridable ({
+  buildUBoot = lib.makeOverridable (
+    {
       version ? null,
       src ? null,
       filesToInstall,
@@ -42,117 +43,120 @@ let
       extraMeta ? { },
       ...
     }@args:
-    stdenv.mkDerivation ({
-      pname = "uboot-${defconfig}";
+    stdenv.mkDerivation (
+      {
+        pname = "uboot-${defconfig}";
 
-      version =
-        if src == null then
-          defaultVersion
-        else
-          version
-        ;
+        version =
+          if src == null then
+            defaultVersion
+          else
+            version
+          ;
 
-      src =
-        if src == null then
-          defaultSrc
-        else
-          src
-        ;
+        src =
+          if src == null then
+            defaultSrc
+          else
+            src
+          ;
 
-      patches =
-        [
-          ./0001-configs-rpi-allow-for-bigger-kernels.patch
+        patches =
+          [
+            ./0001-configs-rpi-allow-for-bigger-kernels.patch
 
-          # Make U-Boot forward some important settings from the firmware-provided FDT. Fixes booting on BCM2711C0 boards.
-          # See also: https://github.com/NixOS/nixpkgs/issues/135828
-          # Source: https://patchwork.ozlabs.org/project/uboot/patch/20210822143656.289891-1-sjoerd@collabora.com/
-          ./0001-rpi-Copy-properties-from-firmware-dtb-to-the-loaded-.patch
-        ]
-        ++ extraPatches
-        ;
+            # Make U-Boot forward some important settings from the firmware-provided FDT. Fixes booting on BCM2711C0 boards.
+            # See also: https://github.com/NixOS/nixpkgs/issues/135828
+            # Source: https://patchwork.ozlabs.org/project/uboot/patch/20210822143656.289891-1-sjoerd@collabora.com/
+            ./0001-rpi-Copy-properties-from-firmware-dtb-to-the-loaded-.patch
+          ]
+          ++ extraPatches
+          ;
 
-      postPatch = ''
-        patchShebangs tools
-        patchShebangs arch/arm/mach-rockchip
-      '';
+        postPatch = ''
+          patchShebangs tools
+          patchShebangs arch/arm/mach-rockchip
+        '';
 
-      nativeBuildInputs = [
-        ncurses # tools/kwboot
-        bc
-        bison
-        dtc
-        flex
-        openssl
-        (buildPackages.python3.withPackages (p: [
-          p.libfdt
-          p.setuptools # for pkg_resources
-        ]))
-        swig
-        which # for scripts/dtc-version.sh
-      ];
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+        nativeBuildInputs = [
+          ncurses # tools/kwboot
+          bc
+          bison
+          dtc
+          flex
+          openssl
+          (buildPackages.python3.withPackages (p: [
+            p.libfdt
+            p.setuptools # for pkg_resources
+          ]))
+          swig
+          which # for scripts/dtc-version.sh
+        ];
+        depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-      buildInputs = [
-        ncurses # tools/kwboot
-        libuuid # tools/mkeficapsule
-        gnutls # tools/mkeficapsule
-      ];
+        buildInputs = [
+          ncurses # tools/kwboot
+          libuuid # tools/mkeficapsule
+          gnutls # tools/mkeficapsule
+        ];
 
-      hardeningDisable = [ "all" ];
+        hardeningDisable = [ "all" ];
 
-      enableParallelBuilding = true;
+        enableParallelBuilding = true;
 
-      makeFlags =
-        [
-          "DTC=dtc"
-          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-        ]
-        ++ extraMakeFlags
-        ;
+        makeFlags =
+          [
+            "DTC=dtc"
+            "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+          ]
+          ++ extraMakeFlags
+          ;
 
-      passAsFile = [ "extraConfig" ];
+        passAsFile = [ "extraConfig" ];
 
-      configurePhase = ''
-        runHook preConfigure
+        configurePhase = ''
+          runHook preConfigure
 
-        make ${defconfig}
+          make ${defconfig}
 
-        cat $extraConfigPath >> .config
+          cat $extraConfigPath >> .config
 
-        runHook postConfigure
-      '';
+          runHook postConfigure
+        '';
 
-      installPhase = ''
-        runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-        mkdir -p ${installDir}
-        cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
+          mkdir -p ${installDir}
+          cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
 
-        mkdir -p "$out/nix-support"
-        ${lib.concatMapStrings (file: ''
-          echo "file binary-dist ${installDir}/${
-            builtins.baseNameOf file
-          }" >> "$out/nix-support/hydra-build-products"
-        '') filesToInstall}
+          mkdir -p "$out/nix-support"
+          ${lib.concatMapStrings (file: ''
+            echo "file binary-dist ${installDir}/${
+              builtins.baseNameOf file
+            }" >> "$out/nix-support/hydra-build-products"
+          '') filesToInstall}
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-      dontStrip = true;
+        dontStrip = true;
 
-      meta = with lib;
-        {
-          homepage = "https://www.denx.de/wiki/U-Boot/";
-          description = "Boot loader for embedded systems";
-          license = licenses.gpl2;
-          maintainers = with maintainers; [
-            bartsch
-            dezgeg
-            samueldr
-            lopsided98
-          ];
-        } // extraMeta;
-    } // removeAttrs args [ "extraMeta" ]));
+        meta = with lib;
+          {
+            homepage = "https://www.denx.de/wiki/U-Boot/";
+            description = "Boot loader for embedded systems";
+            license = licenses.gpl2;
+            maintainers = with maintainers; [
+              bartsch
+              dezgeg
+              samueldr
+              lopsided98
+            ];
+          } // extraMeta;
+      } // removeAttrs args [ "extraMeta" ]
+    )
+  );
 in
 {
   inherit buildUBoot;

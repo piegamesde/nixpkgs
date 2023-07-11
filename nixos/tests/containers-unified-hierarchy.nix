@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("echo 'stat -fc %T /sys/fs/cgroup/ | grep cgroup2fs' | nixos-container root-login test-container")
     '';
-  })
+  }
+)

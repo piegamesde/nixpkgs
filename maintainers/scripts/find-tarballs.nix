@@ -27,10 +27,14 @@ let
     name = drv.name;
   }) fetchurlDependencies;
 
-  fetchurlDependencies = filter (drv:
+  fetchurlDependencies = filter (
+    drv:
     drv.outputHash or "" != ""
     && drv.outputHashMode or "flat" == "flat"
-    && (drv ? url || drv ? urls)) dependencies;
+    && (
+      drv ? url || drv ? urls
+    )
+  ) dependencies;
 
   dependencies = map (x: x.value) (genericClosure {
     startSet = map keyDrv (derivationsIn' root);
@@ -52,9 +56,10 @@ let
     else if isList x then
       concatLists (map derivationsIn' x)
     else if isAttrs x then
-      concatLists (mapAttrsToList (n: v:
-        addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v))
-        x)
+      concatLists (mapAttrsToList (
+        n: v:
+        addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)
+      ) x)
     else
       [ ]
     ;
@@ -72,11 +77,13 @@ let
 
   immediateDependenciesOf =
     drv:
-    concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv ([
-      "meta"
-      "passthru"
-    ]
-      ++ optionals (drv ? passthru) (attrNames drv.passthru))))
+    concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv (
+      [
+        "meta"
+        "passthru"
+      ]
+      ++ optionals (drv ? passthru) (attrNames drv.passthru)
+    )))
     ;
 
   derivationsIn =

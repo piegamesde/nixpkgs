@@ -21,7 +21,8 @@ in
       "extraPortals"
     ])
 
-    ({
+    (
+      {
         config,
         lib,
         options,

@@ -32,15 +32,17 @@ let
     # Wrap the original `mkDerivation` providing extra args to it.
   extendMkDerivationArgs =
     old: f:
-    withOldMkDerivation old
-    (_: mkDerivationSuper: args: (mkDerivationSuper args).overrideAttrs f)
+    withOldMkDerivation old (
+      _: mkDerivationSuper: args: (mkDerivationSuper args).overrideAttrs f
+    )
     ;
 
     # Wrap the original `mkDerivation` transforming the result.
   overrideMkDerivationResult =
     old: f:
-    withOldMkDerivation old
-    (_: mkDerivationSuper: args: f (mkDerivationSuper args))
+    withOldMkDerivation old (
+      _: mkDerivationSuper: args: f (mkDerivationSuper args)
+    )
     ;
 
 in
@@ -83,30 +85,38 @@ rec {
     # binaries.
   makeStaticBinaries =
     stdenv0:
-    stdenv0.override (old:
+    stdenv0.override (
+      old:
       {
-        mkDerivationFromStdenv = withOldMkDerivation old
-          (stdenv: mkDerivationSuper: args:
-            if stdenv.hostPlatform.isDarwin then
-              throw "Cannot build fully static binaries on Darwin/macOS"
-            else
-              (mkDerivationSuper args).overrideAttrs (finalAttrs:
-                {
-                  NIX_CFLAGS_LINK =
-                    toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
-                } // lib.optionalAttrs
-                (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
-                  configureFlags =
-                    (finalAttrs.configureFlags or [ ])
-                    ++ [
-                      "--disable-shared" # brrr...
-                    ]
-                    ;
-                }));
+        mkDerivationFromStdenv = withOldMkDerivation old (
+          stdenv: mkDerivationSuper: args:
+          if stdenv.hostPlatform.isDarwin then
+            throw "Cannot build fully static binaries on Darwin/macOS"
+          else
+            (mkDerivationSuper args).overrideAttrs (
+              finalAttrs:
+              {
+                NIX_CFLAGS_LINK =
+                  toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
+              } // lib.optionalAttrs (
+                !(finalAttrs.dontAddStaticConfigureFlags or false)
+              ) {
+                configureFlags =
+                  (
+                    finalAttrs.configureFlags or [ ]
+                  )
+                  ++ [
+                    "--disable-shared" # brrr...
+                  ]
+                  ;
+              }
+            )
+        );
       } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
         extraBuildInputs =
           (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
-      })
+      }
+    )
     ;
 
     # Return a modified stdenv that builds static libraries instead of
@@ -114,12 +124,15 @@ rec {
   makeStaticLibraries =
     stdenv:
     stdenv.override (old: {
-      mkDerivationFromStdenv = extendMkDerivationArgs old (args:
+      mkDerivationFromStdenv = extendMkDerivationArgs old (
+        args:
         {
           dontDisableStatic = true;
         } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
           configureFlags =
-            (args.configureFlags or [ ])
+            (
+              args.configureFlags or [ ]
+            )
             ++ [
               "--enable-static"
               "--disable-shared"
@@ -129,7 +142,8 @@ rec {
             (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
           mesonFlags =
             (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
-        });
+        }
+      );
     })
     ;
 
@@ -146,7 +160,9 @@ rec {
           + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
           ;
         nativeBuildInputs =
-          (args.nativeBuildInputs or [ ])
+          (
+            args.nativeBuildInputs or [ ]
+          )
           ++ [
             (pkgs.buildPackages.makeSetupHook {
               name = "darwin-portable-libSystem-hook";
@@ -163,8 +179,8 @@ rec {
     # Puts all the other ones together
   makeStatic =
     stdenv:
-    lib.foldl (lib.flip lib.id) stdenv
-    (lib.optional stdenv.hostPlatform.isDarwin makeStaticDarwin
+    lib.foldl (lib.flip lib.id) stdenv (
+      lib.optional stdenv.hostPlatform.isDarwin makeStaticDarwin
 
       ++ [
         makeStaticLibraries
@@ -216,7 +232,8 @@ rec {
   traceDrvLicenses =
     stdenv:
     stdenv.override (old: {
-      mkDerivationFromStdenv = overrideMkDerivationResult (pkg:
+      mkDerivationFromStdenv = overrideMkDerivationResult (
+        pkg:
         let
           printDrvPath =
             val:
@@ -245,7 +262,9 @@ rec {
     stdenv.override (old: {
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
         dontStrip = true;
-        env = (args.env or { }) // {
+        env = (
+          args.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE =
             toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
         };
@@ -278,27 +297,37 @@ rec {
         '';
       };
     in
-    stdenv.override (old:
+    stdenv.override (
+      old:
       {
         cc = stdenv.cc.override { inherit bintools; };
-        allowedRequisites = lib.mapNullable (rs:
+        allowedRequisites = lib.mapNullable (
+          rs:
           rs
           ++ [
             bintools
             pkgs.mold
             (lib.getLib pkgs.mimalloc)
             (lib.getLib pkgs.openssl)
-          ]) (stdenv.allowedRequisites or null);
+          ]
+        ) (
+          stdenv.allowedRequisites or null
+        );
           # gcc >12.1.0 supports '-fuse-ld=mold'
           # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
           # https://github.com/rui314/mold#how-to-use
-      } // lib.optionalAttrs (stdenv.cc.isClang
-        || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")) {
-          mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-            NIX_CFLAGS_LINK =
-              toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
-          });
-        })
+      } // lib.optionalAttrs (
+        stdenv.cc.isClang
+        || (
+          stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"
+        )
+      ) {
+        mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
+          NIX_CFLAGS_LINK =
+            toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+        });
+      }
+    )
     ;
 
     /* Modify a stdenv so that it builds binaries optimized specifically
@@ -310,7 +339,9 @@ rec {
     stdenv:
     stdenv.override (old: {
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        env = (args.env or { }) // {
+        env = (
+          args.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE =
             toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
         };
@@ -340,7 +371,9 @@ rec {
     compilerFlags: stdenv:
     stdenv.override (old: {
       mkDerivationFromStdenv = extendMkDerivationArgs old (args: {
-        env = (args.env or { }) // {
+        env = (
+          args.env or { }
+        ) // {
           NIX_CFLAGS_COMPILE =
             toString (args.env.NIX_CFLAGS_COMPILE or "")
             + " ${toString compilerFlags}"

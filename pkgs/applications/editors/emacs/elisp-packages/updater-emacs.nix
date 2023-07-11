@@ -1,7 +1,8 @@
 let
   pkgs = import ../../../../.. { };
 
-  emacsEnv = pkgs.emacs.pkgs.withPackages (epkgs:
+  emacsEnv = pkgs.emacs.pkgs.withPackages (
+    epkgs:
     let
 
       promise = epkgs.trivialBuild {

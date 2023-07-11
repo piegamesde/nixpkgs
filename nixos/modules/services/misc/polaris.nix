@@ -95,20 +95,22 @@ in
         SupplementaryGroups = cfg.extraGroups;
         StateDirectory = "polaris";
         CacheDirectory = "polaris";
-        ExecStart = escapeShellArgs ([
-          "${cfg.package}/bin/polaris"
-          "--foreground"
-          "--port"
-          cfg.port
-          "--database"
-          "/var/lib/${StateDirectory}/db.sqlite"
-          "--cache"
-          "/var/cache/${CacheDirectory}"
-        ]
+        ExecStart = escapeShellArgs (
+          [
+            "${cfg.package}/bin/polaris"
+            "--foreground"
+            "--port"
+            cfg.port
+            "--database"
+            "/var/lib/${StateDirectory}/db.sqlite"
+            "--cache"
+            "/var/cache/${CacheDirectory}"
+          ]
           ++ optionals (cfg.settings != { }) [
             "--config"
             (settingsFormat.generate "polaris-config.toml" cfg.settings)
-          ]);
+          ]
+        );
         Restart = "on-failure";
 
           # Security options:

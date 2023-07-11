@@ -56,24 +56,26 @@ stdenv.mkDerivation rec {
       perl
       which
     ]
-    ++ (if !stdenv.isDarwin then
-      [
-        fontconfig
-        freetype # fontsrv uses these
-        libX11
-        libXext
-        libXt
-        xorgproto
-      ]
-    else
-      [
-        Carbon
-        Cocoa
-        IOKit
-        Metal
-        QuartzCore
-        DarwinTools
-      ])
+    ++ (
+      if !stdenv.isDarwin then
+        [
+          fontconfig
+          freetype # fontsrv uses these
+          libX11
+          libXext
+          libXt
+          xorgproto
+        ]
+      else
+        [
+          Carbon
+          Cocoa
+          IOKit
+          Metal
+          QuartzCore
+          DarwinTools
+        ]
+    )
     ;
 
   configurePhase = ''

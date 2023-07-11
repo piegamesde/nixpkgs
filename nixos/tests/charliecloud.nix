@@ -1,6 +1,7 @@
 # This test checks charliecloud image construction and run
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:

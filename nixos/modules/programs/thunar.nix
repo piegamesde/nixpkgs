@@ -29,18 +29,19 @@ in
     };
   };
 
-  config = mkIf cfg.enable (let
-    package = pkgs.xfce.thunar.override { thunarPlugins = cfg.plugins; };
+  config = mkIf cfg.enable (
+    let
+      package = pkgs.xfce.thunar.override { thunarPlugins = cfg.plugins; };
 
-  in
-  {
-    environment.systemPackages = [ package ];
+    in
+    {
+      environment.systemPackages = [ package ];
 
-    services.dbus.packages = [ package ];
+      services.dbus.packages = [ package ];
 
-    systemd.packages = [ package ];
+      systemd.packages = [ package ];
 
-    programs.xfconf.enable = true;
-  }
+      programs.xfconf.enable = true;
+    }
   );
 }

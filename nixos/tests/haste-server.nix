@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
       machine.succeed('curl -s -X POST http://localhost:7777/documents -d "Hello World!" > bla')
       machine.succeed('curl http://localhost:7777/raw/$(cat bla | jq -r .key) | grep "Hello World"')
     '';
-  })
+  }
+)

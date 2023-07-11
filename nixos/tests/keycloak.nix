@@ -6,7 +6,8 @@ let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   frontendUrl = "https://${certs.domain}";
 
-  keycloakTest = import ./make-test-python.nix ({
+  keycloakTest = import ./make-test-python.nix (
+    {
       pkgs,
       databaseType,
       ...
@@ -82,14 +83,16 @@ let
             realm = "test-realm";
             clients = [ client ];
             users = [
-                (user // {
-                  enabled = true;
-                  credentials = [ {
-                    type = "password";
-                    temporary = false;
-                    value = password;
-                  } ];
-                })
+                (
+                  user // {
+                    enabled = true;
+                    credentials = [ {
+                      type = "password";
+                      temporary = false;
+                      value = password;
+                    } ];
+                  }
+                )
               ];
           };
 

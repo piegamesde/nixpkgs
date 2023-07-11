@@ -1,7 +1,8 @@
 let
   name = "pam";
 in
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -29,4 +30,5 @@ import ../make-test-python.nix ({
       pkgs.pam_ccreds.outPath
       pkgs.pam_krb5.outPath
     ] (builtins.readFile ./test_chfn.py);
-  })
+  }
+)

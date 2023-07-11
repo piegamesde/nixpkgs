@@ -7,7 +7,8 @@
   bash,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs:
+stdenvNoCC.mkDerivation (
+  finalAttrs:
   let
     dxvk32 =
       if stdenv.isDarwin then

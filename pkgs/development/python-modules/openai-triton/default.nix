@@ -132,25 +132,26 @@ buildPythonPackage {
 
       rm cmake/FindLLVM.cmake
     ''
-    + (let
-      # Bash was getting weird without linting,
-      # but basically upstream contains [cc, ..., "-lcuda", ...]
-      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-      old = [ "-lcuda" ];
-      new = [
-        "-lcuda"
-        "-L${addOpenGLRunpath.driverLink}"
-        "-L${cuda_cudart}/lib/stubs/"
-      ];
+    + (
+      let
+        # Bash was getting weird without linting,
+        # but basically upstream contains [cc, ..., "-lcuda", ...]
+        # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+        old = [ "-lcuda" ];
+        new = [
+          "-lcuda"
+          "-L${addOpenGLRunpath.driverLink}"
+          "-L${cuda_cudart}/lib/stubs/"
+        ];
 
-      quote = x: ''"${x}"'';
-      oldStr = lib.concatMapStringsSep ", " quote old;
-      newStr = lib.concatMapStringsSep ", " quote new;
-    in
-    ''
-      substituteInPlace python/triton/compiler.py \
-        --replace '${oldStr}' '${newStr}'
-    ''
+        quote = x: ''"${x}"'';
+        oldStr = lib.concatMapStringsSep ", " quote old;
+        newStr = lib.concatMapStringsSep ", " quote new;
+      in
+      ''
+        substituteInPlace python/triton/compiler.py \
+          --replace '${oldStr}' '${newStr}'
+      ''
     )
     # Triton seems to be looking up cuda.h
     + ''

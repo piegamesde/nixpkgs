@@ -30,7 +30,8 @@ assert sqliteSupport -> !mysqlSupport && !postgresqlSupport;
 let
   inherit (lib) optional optionalString;
 in
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
     ...
@@ -117,4 +118,5 @@ import ./versions.nix ({
       maintainers = [ maintainers.mmahut ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

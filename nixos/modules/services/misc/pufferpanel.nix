@@ -121,9 +121,11 @@ in
         # would set PUFFER_LOGS to $LOGS_DIRECTORY if PUFFER_LOGS environment
         # variable is not defined.
       script = ''
-        ${lib.concatLines (lib.mapAttrsToList (name: value: ''
-          export ${name}="''${${name}-${value}}"
-        '') {
+        ${lib.concatLines (lib.mapAttrsToList (
+          name: value: ''
+            export ${name}="''${${name}-${value}}"
+          ''
+        ) {
           PUFFER_LOGS = "$LOGS_DIRECTORY";
           PUFFER_DAEMON_DATA_CACHE = "$CACHE_DIRECTORY";
           PUFFER_DAEMON_DATA_SERVERS = "$STATE_DIRECTORY/servers";

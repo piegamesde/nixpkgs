@@ -19,19 +19,23 @@ stdenv.mkDerivation (finalAttrs: {
       "1.4.0"
     ;
 
-  src = fetchFromGitHub ({
-    owner = "qca";
-    repo = "open-ath9k-htc-firmware";
-  } // (if enableUnstable then
+  src = fetchFromGitHub (
     {
-      rev = "d856466a068afe4069335257c0d28295ff777d92";
-      hash = "sha256-9OE6qYGABeXjf1r/Depd+811EJ2e8I0Ni5ePHSOh9G4=";
-    }
-  else
-    {
-      rev = finalAttrs.version;
-      hash = "sha256-Q/A0ryIC5E1pt2Sh7o79gxHbe4OgdlrwflOWtxWSS5o=";
-    }));
+      owner = "qca";
+      repo = "open-ath9k-htc-firmware";
+    } // (
+      if enableUnstable then
+        {
+          rev = "d856466a068afe4069335257c0d28295ff777d92";
+          hash = "sha256-9OE6qYGABeXjf1r/Depd+811EJ2e8I0Ni5ePHSOh9G4=";
+        }
+      else
+        {
+          rev = finalAttrs.version;
+          hash = "sha256-Q/A0ryIC5E1pt2Sh7o79gxHbe4OgdlrwflOWtxWSS5o=";
+        }
+    )
+  );
 
   postPatch = ''
     patchShebangs target_firmware/firmware-crc.pl
@@ -63,12 +67,14 @@ stdenv.mkDerivation (finalAttrs: {
         "mpfr"
         "mpc"
       ] [
-        (map (vname:
+        (map (
+          vname:
           fetchurl rec {
             url = urls-and-hashes."${(toUpper vname) + "_URL"}";
             sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
             name = last (splitString "/" url);
-          }))
+          }
+        ))
         (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
         (lib.concatStringsSep "\n")
       ];

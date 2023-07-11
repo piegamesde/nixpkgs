@@ -62,11 +62,13 @@ stdenv.mkDerivation rec {
       pkg-config
       ensureNewerSourcesForZipFilesHook
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   buildInputs =

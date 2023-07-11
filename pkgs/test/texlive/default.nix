@@ -19,7 +19,9 @@
 
   opentype-fonts = runCommand "texlive-test-opentype" {
     nativeBuildInputs = [
-        (with texlive; combine { inherit scheme-medium libertinus-fonts; })
+        (
+          with texlive; combine { inherit scheme-medium libertinus-fonts; }
+        )
       ];
     input = builtins.toFile "opentype-testfile.tex" ''
       \documentclass{article}
@@ -43,7 +45,9 @@
 
   chktex = runCommand "texlive-test-chktex" {
     nativeBuildInputs = [
-        (with texlive; combine { inherit scheme-infraonly chktex; })
+        (
+          with texlive; combine { inherit scheme-infraonly chktex; }
+        )
       ];
     input = builtins.toFile "chktex-sample.tex" ''
       \documentclass{article}
@@ -158,7 +162,8 @@
 
   texdoc = runCommand "texlive-test-texdoc" {
     nativeBuildInputs = [
-        (with texlive;
+        (
+          with texlive;
           combine {
             inherit scheme-infraonly luatex texdoc;
             pkgFilter =
@@ -169,7 +174,8 @@
                 "doc"
               ]
               ;
-          })
+          }
+        )
       ];
   } ''
     texdoc --version

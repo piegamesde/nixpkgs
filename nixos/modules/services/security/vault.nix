@@ -46,13 +46,15 @@ let
   '';
 
   allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
-  configOptions = escapeShellArgs (lib.optional cfg.dev "-dev"
+  configOptions = escapeShellArgs (
+    lib.optional cfg.dev "-dev"
     ++ lib.optional (cfg.dev && cfg.devRootTokenID != null)
       "-dev-root-token-id=${cfg.devRootTokenID}"
     ++ (concatMap (p: [
       "-config"
       p
-    ]) allConfigPaths));
+    ]) allConfigPaths)
+  );
 
 in
 {
@@ -215,7 +217,9 @@ in
       {
         assertion =
           cfg.storageBackend == "inmem"
-          -> (cfg.storagePath == null && cfg.storageConfig == null)
+          -> (
+            cfg.storagePath == null && cfg.storageConfig == null
+          )
           ;
         message =
           ''
@@ -223,11 +227,20 @@ in
       }
       {
         assertion =
-          ((cfg.storageBackend == "file"
-            -> (cfg.storagePath != null && cfg.storageConfig == null))
-            && (cfg.storagePath != null
-              -> (cfg.storageBackend == "file"
-                || cfg.storageBackend == "raft")));
+          (
+            (
+              cfg.storageBackend == "file"
+              -> (
+                cfg.storagePath != null && cfg.storageConfig == null
+              )
+            )
+            && (
+              cfg.storagePath != null
+              -> (
+                cfg.storageBackend == "file" || cfg.storageBackend == "raft"
+              )
+            )
+          );
         message =
           ''
             You must set services.vault.storagePath only when using the "file" or "raft" backend'';
@@ -251,9 +264,9 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "network.target" ]
-        ++ optional
-          (config.services.consul.enable && cfg.storageBackend == "consul")
-          "consul.service"
+        ++ optional (
+          config.services.consul.enable && cfg.storageBackend == "consul"
+        ) "consul.service"
         ;
 
       restartIfChanged =

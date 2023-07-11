@@ -25,8 +25,9 @@ let
     #
     # TODO(@Ericson2314) Make unconditional, or optional but always true by
     # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
-    (targetPlatform.config + "-");
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
+    targetPlatform.config + "-"
+  );
 
     # See description in cc-wrapper.
   suffixSalt = replaceStrings [
@@ -112,12 +113,14 @@ stdenv.mkDerivation {
     ##
     ## Man page and doc support
     ##
-    + optionalString propagateDoc (''
-      ln -s ${pkg-config.man} $man
-    ''
+    + optionalString propagateDoc (
+      ''
+        ln -s ${pkg-config.man} $man
+      ''
       + optionalString (pkg-config ? doc) ''
         ln -s ${pkg-config.doc} $doc
-      '')
+      ''
+    )
 
     + ''
       substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
@@ -145,18 +148,20 @@ stdenv.mkDerivation {
           { }
         ;
     in
-    (if pkg-config_ ? meta then
-      removeAttrs pkg-config.meta [ "priority" ]
-    else
-      { }) // {
-        description =
-          lib.attrByPath [
-            "meta"
-            "description"
-          ] "pkg-config" pkg-config_
-          + " (wrapper script)"
-          ;
-        priority = 10;
-      }
+    (
+      if pkg-config_ ? meta then
+        removeAttrs pkg-config.meta [ "priority" ]
+      else
+        { }
+    ) // {
+      description =
+        lib.attrByPath [
+          "meta"
+          "description"
+        ] "pkg-config" pkg-config_
+        + " (wrapper script)"
+        ;
+      priority = 10;
+    }
     ;
 }

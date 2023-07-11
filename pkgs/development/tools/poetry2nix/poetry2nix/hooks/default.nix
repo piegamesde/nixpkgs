@@ -20,7 +20,8 @@ let
       fields,
       kind,
     }:
-    nonOverlayedPython.pkgs.callPackage (_:
+    nonOverlayedPython.pkgs.callPackage (
+      _:
       makeSetupHook {
         name = "remove-path-dependencies.sh";
         substitutions = {
@@ -33,7 +34,8 @@ let
           inherit fields;
           inherit kind;
         };
-      } ./remove-special-dependencies.sh) { }
+      } ./remove-special-dependencies.sh
+    ) { }
     ;
   makeSetupHookArgs =
     deps:
@@ -62,19 +64,24 @@ in
     kind = "git";
   };
 
-  pipBuildHook = callPackage ({
+  pipBuildHook = callPackage (
+    {
       pip,
       wheel,
     }:
-    makeSetupHook ({
-      name = "pip-build-hook.sh";
-      substitutions = { inherit pythonInterpreter pythonSitePackages; };
-    } // (makeSetupHookArgs [
-      pip
-      wheel
-    ])) ./pip-build-hook.sh) { };
+    makeSetupHook (
+      {
+        name = "pip-build-hook.sh";
+        substitutions = { inherit pythonInterpreter pythonSitePackages; };
+      } // (makeSetupHookArgs [
+        pip
+        wheel
+      ])
+    ) ./pip-build-hook.sh
+  ) { };
 
-  poetry2nixFixupHook = callPackage (_:
+  poetry2nixFixupHook = callPackage (
+    _:
     makeSetupHook {
       name = "fixup-hook.sh";
       substitutions = {
@@ -85,13 +92,15 @@ in
           "LICENSE"
         ];
       };
-    } ./fixup-hook.sh) { };
+    } ./fixup-hook.sh
+  ) { };
 
     # As of 2023-03 a newer version of packaging introduced a new behaviour where python-requires
     # cannot contain version wildcards. This behaviour is complaint with PEP440
     #
     # The wildcards are a no-op anyway so we can work around this issue by just dropping the precision down to the last known number.
-  poetry2nixPythonRequiresPatchHook = callPackage (_:
+  poetry2nixPythonRequiresPatchHook = callPackage (
+    _:
     let
       # Python pre 3.9 does not contain the ast.unparse method.
       # We can extract this from Python 3.8 for any
@@ -122,7 +131,7 @@ in
 
     # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
     # It doesn't _really_ depend on wheel though, it just copies the wheel.
-  wheelUnpackHook = callPackage
-    (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
-    { };
+  wheelUnpackHook = callPackage (
+    _: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh
+  ) { };
 }

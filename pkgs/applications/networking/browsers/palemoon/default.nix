@@ -42,8 +42,10 @@
 # https://developer.palemoon.org/build/linux/
 assert stdenv.cc.isGNU;
 assert with lib.strings;
-  (versionAtLeast stdenv.cc.version "7.1"
-    && versionOlder stdenv.cc.version "13");
+  (
+    versionAtLeast stdenv.cc.version "7.1"
+    && versionOlder stdenv.cc.version "13"
+  );
 
 stdenv.mkDerivation rec {
   pname = "palemoon";
@@ -92,17 +94,19 @@ stdenv.mkDerivation rec {
       pango
       zlib
     ]
-    ++ (with xorg; [
-      libX11
-      libXext
-      libXft
-      libXi
-      libXrender
-      libXScrnSaver
-      libXt
-      pixman
-      xorgproto
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXft
+        libXi
+        libXrender
+        libXScrnSaver
+        libXt
+        pixman
+        xorgproto
+      ]
+    )
     ++ lib.optionals withGTK3 [ gtk3 ]
     ;
 

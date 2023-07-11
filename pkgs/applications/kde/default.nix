@@ -37,26 +37,30 @@ let
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage ({
+      mkDerivation = libsForQt5.callPackage (
+        {
           mkDerivation,
         }:
-        mkDerivation) { };
+        mkDerivation
+      ) { };
     in
-    mkDerivation (args // {
-      inherit pname version src;
+    mkDerivation (
+      args // {
+        inherit pname version src;
 
-      outputs = args.outputs or [ "out" ];
+        outputs = args.outputs or [ "out" ];
 
-      meta =
-        let
-          meta = args.meta or { };
-        in
-        meta // {
-          homepage = meta.homepage or "http://www.kde.org";
-          platforms = meta.platforms or lib.platforms.linux;
-        }
-        ;
-    })
+        meta =
+          let
+            meta = args.meta or { };
+          in
+          meta // {
+            homepage = meta.homepage or "http://www.kde.org";
+            platforms = meta.platforms or lib.platforms.linux;
+          }
+          ;
+      }
+    )
     ;
 
   packages =

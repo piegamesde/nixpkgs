@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -32,4 +33,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("diff data.txt /tmp/data.txt")
     '';
-  })
+  }
+)

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -27,4 +28,5 @@ import ./make-test-python.nix ({
       with subtest("Check that the web interface is accessible"):
           assert "Add User" in machine.succeed("curl -s http://localhost:37358/.web/add/")
     '';
-  })
+  }
+)

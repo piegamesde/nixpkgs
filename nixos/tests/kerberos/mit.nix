@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -52,4 +53,5 @@ import ../make-test-python.nix ({
           "echo alice_pw | sudo -u alice kinit",
       )
     '';
-  })
+  }
+)

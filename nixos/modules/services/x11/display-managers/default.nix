@@ -86,9 +86,10 @@ let
     fi
 
     # Import environment variables into the systemd user environment.
-    ${optionalString (cfg.displayManager.importedVariables != [ ])
-    ("/run/current-system/systemd/bin/systemctl --user import-environment "
-      + toString (unique cfg.displayManager.importedVariables))}
+    ${optionalString (cfg.displayManager.importedVariables != [ ]) (
+      "/run/current-system/systemd/bin/systemctl --user import-environment "
+      + toString (unique cfg.displayManager.importedVariables)
+    )}
 
     # Speed up application start by 50-150ms according to
     # http://kdemonkey.blogspot.nl/2008/04/magic-trick.html
@@ -232,14 +233,17 @@ in
 
       sessionPackages = mkOption {
         type = with types;
-          listOf (package // {
-            description = "package with provided sessions";
-            check =
-              p:
-              assertMsg (package.check p
-                && p ? providedSessions
-                && p.providedSessions != [ ]
-                && all isString p.providedSessions) ''
+          listOf (
+            package // {
+              description = "package with provided sessions";
+              check =
+                p:
+                assertMsg (
+                  package.check p
+                  && p ? providedSessions
+                  && p.providedSessions != [ ]
+                  && all isString p.providedSessions
+                ) ''
                   Package, '${p.name}', did not specify any session names, as strings, in
                   'passthru.providedSessions'. This is required when used as a session package.
 
@@ -247,8 +251,9 @@ in
                     ${p}/share/xsessions
                     ${p}/share/wayland-sessions
                 ''
-              ;
-          });
+                ;
+            }
+          );
         default = [ ];
         description = lib.mdDoc ''
           A list of packages containing x11 or wayland session files to be passed to the display manager.
@@ -314,16 +319,20 @@ in
             description = "session name";
             check =
               d:
-              assertMsg (d != null
-                -> (str.check d
-                  && elem d cfg.displayManager.sessionData.sessionNames)) ''
-                    Default graphical session, '${d}', not found.
-                    Valid names for 'services.xserver.displayManager.defaultSession' are:
-                      ${
-                        concatStringsSep "\n  "
-                        cfg.displayManager.sessionData.sessionNames
-                      }
-                  ''
+              assertMsg (
+                d != null
+                -> (
+                  str.check d
+                  && elem d cfg.displayManager.sessionData.sessionNames
+                )
+              ) ''
+                Default graphical session, '${d}', not found.
+                Valid names for 'services.xserver.displayManager.defaultSession' are:
+                  ${
+                    concatStringsSep "\n  "
+                    cfg.displayManager.sessionData.sessionNames
+                  }
+              ''
               ;
           };
         default =
@@ -396,7 +405,8 @@ in
 
         # Configuration for automatic login. Common for all DM.
       autoLogin = mkOption {
-        type = types.submodule ({
+        type = types.submodule (
+          {
             config,
             options,
             ...
@@ -420,7 +430,8 @@ in
                 '';
               };
             };
-          });
+          }
+        );
 
         default = { };
         description = lib.mdDoc ''
@@ -458,24 +469,28 @@ in
     warnings = mkIf (dmDefault != null || wmDefault != null) [ ''
       The following options are deprecated:
         ${
-          concatStringsSep "\n  " (map ({
+          concatStringsSep "\n  " (map (
+            {
               c,
               t,
             }:
-            t) (filter ({
-                c,
-                t,
-              }:
-              c != null) [
-                {
-                  c = dmDefault;
-                  t = "- services.xserver.desktopManager.default";
-                }
-                {
-                  c = wmDefault;
-                  t = "- services.xserver.windowManager.default";
-                }
-              ]))
+            t
+          ) (filter (
+            {
+              c,
+              t,
+            }:
+            c != null
+          ) [
+            {
+              c = dmDefault;
+              t = "- services.xserver.desktopManager.default";
+            }
+            {
+              c = wmDefault;
+              t = "- services.xserver.windowManager.default";
+            }
+          ]))
         }
       Please use
         services.xserver.displayManager.defaultSession = "${defaultSessionFromLegacyOptions}";
@@ -539,7 +554,8 @@ in
           ;
         # We will generate every possible pair of WM and DM.
       in
-      concatLists (builtins.map ({
+      concatLists (builtins.map (
+        {
           dm,
           wm,
         }:
@@ -554,24 +570,26 @@ in
               sessionName
             ;
         in
-        optional (dm.name != "none" || wm.name != "none") (pkgs.writeTextFile {
-          name = "${sessionName}-xsession";
-          destination = "/share/xsessions/${sessionName}.desktop";
-            # Desktop Entry Specification:
-            # - https://standards.freedesktop.org/desktop-entry-spec/latest/
-            # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
-          text = ''
-            [Desktop Entry]
-            Version=1.0
-            Type=XSession
-            TryExec=${script}
-            Exec=${script}
-            Name=${sessionName}
-            DesktopNames=${desktopNames}
-          '';
-        } // {
-          providedSessions = [ sessionName ];
-        })
+        optional (dm.name != "none" || wm.name != "none") (
+          pkgs.writeTextFile {
+            name = "${sessionName}-xsession";
+            destination = "/share/xsessions/${sessionName}.desktop";
+              # Desktop Entry Specification:
+              # - https://standards.freedesktop.org/desktop-entry-spec/latest/
+              # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+            text = ''
+              [Desktop Entry]
+              Version=1.0
+              Type=XSession
+              TryExec=${script}
+              Exec=${script}
+              Name=${sessionName}
+              DesktopNames=${desktopNames}
+            '';
+          } // {
+            providedSessions = [ sessionName ];
+          }
+        )
       ) (cartesianProductOfSets {
         dm = dms;
         wm = wms;

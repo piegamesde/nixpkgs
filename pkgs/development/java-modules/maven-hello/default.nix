@@ -60,7 +60,9 @@ rec {
         mavenSurefireJunit4_2_12_4
         hamcrestCore_1_3
       ]
-      ++ (with poms; [ surefireProviders_2_12_4 ])
+      ++ (
+        with poms; [ surefireProviders_2_12_4 ]
+      )
       ;
     sha512 =
       "2f13592blvfgwad61174fza99ncb5jlch4sjjindk1pcaixqw26fnjfxb4ck80cknkihvcsylhviyfvhpm1ivvpg0zkicxva37cr4ri";

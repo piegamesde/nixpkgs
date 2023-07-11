@@ -89,11 +89,13 @@ stdenv.mkDerivation {
     echo "checking whether patchShebangs works properly... ">&2
 
     fail=
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (_: test: ''
-      validate "${test.name}" "${test}" ${
-        lib.escapeShellArg test.assertion
-      } || fail=1
-    '') tests)}
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
+      _: test: ''
+        validate "${test.name}" "${test}" ${
+          lib.escapeShellArg test.assertion
+        } || fail=1
+      ''
+    ) tests)}
 
     if [ "$fail" ]; then
       echo "failed"

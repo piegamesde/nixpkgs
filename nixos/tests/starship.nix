@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -16,7 +17,8 @@ import ./make-test-python.nix ({
         };
       };
 
-      environment.systemPackages = map (shell:
+      environment.systemPackages = map (
+        shell:
         pkgs.writeScriptBin "expect-${shell}" ''
           #!${pkgs.expect}/bin/expect -f
 
@@ -30,11 +32,12 @@ import ./make-test-python.nix ({
           }
 
           expect eof
-        '') [
-          "bash"
-          "fish"
-          "zsh"
-        ];
+        ''
+      ) [
+        "bash"
+        "fish"
+        "zsh"
+      ];
     };
 
     testScript = ''
@@ -45,4 +48,5 @@ import ./make-test-python.nix ({
       machine.succeed("expect-fish")
       machine.succeed("expect-zsh")
     '';
-  })
+  }
+)

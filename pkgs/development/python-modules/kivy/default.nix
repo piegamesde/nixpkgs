@@ -57,13 +57,15 @@ buildPythonPackage rec {
       AVFoundation
       libcxx
     ]
-    ++ lib.optionals withGstreamer (with gst_all_1; [
-      # NOTE: The degree to which gstreamer actually works is unclear
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-    ])
+    ++ lib.optionals withGstreamer (
+      with gst_all_1; [
+        # NOTE: The degree to which gstreamer actually works is unclear
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+      ]
+    )
     ;
 
   propagatedBuildInputs = [

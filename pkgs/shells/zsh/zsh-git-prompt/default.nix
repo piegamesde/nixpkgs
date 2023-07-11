@@ -32,7 +32,8 @@
   haskellPackages,
 }:
 
-haskellPackages.callPackage ({
+haskellPackages.callPackage (
+  {
     mkDerivation,
     base,
     HUnit,
@@ -79,4 +80,5 @@ haskellPackages.callPackage ({
     description = "Informative git prompt for zsh";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.league ];
-  }) { }
+  }
+) { }

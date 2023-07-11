@@ -76,7 +76,9 @@ let
       ;
 
     patches =
-      (args.patches or [ ])
+      (
+        args.patches or [ ]
+      )
       ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ]
       ;
 

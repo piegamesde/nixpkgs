@@ -41,11 +41,13 @@ stdenv.mkDerivation rec {
     pkg-config
     gobject-introspection
     gdk-pixbuf
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         docutils
         pygobject3
-      ]))
+      ]
+    ))
   ];
 
   buildInputs = [

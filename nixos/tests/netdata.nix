@@ -1,6 +1,7 @@
 # This test runs netdata and checks for data via apps.plugin
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -47,4 +48,5 @@ import ./make-test-python.nix ({
       cmd = f"curl -s {url} | jq -e '{filter}'"
       netdata.wait_until_succeeds(cmd)
     '';
-  })
+  }
+)

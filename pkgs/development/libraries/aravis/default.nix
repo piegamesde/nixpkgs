@@ -66,12 +66,14 @@ stdenv.mkDerivation rec {
       gobject-introspection
     ]
     ++ lib.optional enableUsb libusb1
-    ++ lib.optionals (enableViewer || enableGstPlugin) (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      (gst-plugins-good.override { gtkSupport = true; })
-      gst-plugins-bad
-    ])
+    ++ lib.optionals (enableViewer || enableGstPlugin) (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        (gst-plugins-good.override { gtkSupport = true; })
+        gst-plugins-bad
+      ]
+    )
     ++ lib.optionals (enableViewer) [ gtk3 ]
     ;
 

@@ -10,11 +10,13 @@ let
   cfg = config.services.k3s;
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule ([
-      "services"
-      "k3s"
-    ]
-      ++ config) instruction
+    lib.mkRemovedOptionModule (
+      [
+        "services"
+        "k3s"
+      ]
+      ++ config
+    ) instruction
     ;
 in
 {
@@ -146,7 +148,9 @@ in
       {
         assertion =
           cfg.role == "agent"
-          -> (cfg.configPath != null || cfg.serverAddr != "")
+          -> (
+            cfg.configPath != null || cfg.serverAddr != ""
+          )
           ;
         message =
           "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
@@ -200,16 +204,16 @@ in
         LimitCORE = "infinity";
         TasksMax = "infinity";
         EnvironmentFile = cfg.environmentFile;
-        ExecStart = concatStringsSep " \\\n "
-          ([ "${cfg.package}/bin/k3s ${cfg.role}" ]
-            ++ (optional cfg.clusterInit "--cluster-init")
-            ++ (optional cfg.disableAgent "--disable-agent")
-            ++ (optional (cfg.serverAddr != "") "--server ${cfg.serverAddr}")
-            ++ (optional (cfg.token != "") "--token ${cfg.token}")
-            ++ (optional (cfg.tokenFile != null)
-              "--token-file ${cfg.tokenFile}")
-            ++ (optional (cfg.configPath != null) "--config ${cfg.configPath}")
-            ++ [ cfg.extraFlags ]);
+        ExecStart = concatStringsSep " \\\n " (
+          [ "${cfg.package}/bin/k3s ${cfg.role}" ]
+          ++ (optional cfg.clusterInit "--cluster-init")
+          ++ (optional cfg.disableAgent "--disable-agent")
+          ++ (optional (cfg.serverAddr != "") "--server ${cfg.serverAddr}")
+          ++ (optional (cfg.token != "") "--token ${cfg.token}")
+          ++ (optional (cfg.tokenFile != null) "--token-file ${cfg.tokenFile}")
+          ++ (optional (cfg.configPath != null) "--config ${cfg.configPath}")
+          ++ [ cfg.extraFlags ]
+        );
       };
     };
   };

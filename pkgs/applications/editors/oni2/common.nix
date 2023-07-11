@@ -163,19 +163,21 @@ stdenv.mkDerivation (rec {
       icu58
       libpng
     ]
-    ++ (with xorg; [
-      libX11
-      libXext
-      libXi
-      libXxf86vm
-      libXrandr
-      libXinerama
-      libXcursor
-      libICE
-      libSM
-      libXt
-      libxkbfile
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXi
+        libXxf86vm
+        libXrandr
+        libXinerama
+        libXcursor
+        libICE
+        libSM
+        libXt
+        libxkbfile
+      ]
+    )
     ;
 
   unpackPhase = ''

@@ -16,7 +16,8 @@ let
   # Our generic constructor to build new providers.
   #
   # Is designed to combine with the terraform.withPlugins implementation.
-  mkProvider = lib.makeOverridable ({
+  mkProvider = lib.makeOverridable (
+    {
       owner,
       repo,
       rev,
@@ -86,7 +87,8 @@ let
           ./pkgs/applications/networking/cluster/terraform-providers/update-provider "$provider"
         '';
       };
-    });
+    }
+  );
 
   list = lib.importJSON ./providers.json;
 

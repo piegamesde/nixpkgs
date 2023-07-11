@@ -5,7 +5,8 @@
   writeTextFile,
 }:
 
-lib.makeOverridable ({
+lib.makeOverridable (
+  {
     completionDirs ? [ ],
     functionDirs ? [ ],
     confDirs ? [ ],

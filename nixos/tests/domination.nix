@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -27,4 +28,5 @@ import ./make-test-python.nix ({
       machine.wait_for_text(r"(New Game|Start Server|Load Game|Help Manual|Join Game|About|Play Online)")
       machine.screenshot("screen")
     '';
-  })
+  }
+)

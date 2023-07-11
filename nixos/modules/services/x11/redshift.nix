@@ -23,7 +23,8 @@ in
     ] [
       "location"
       "latitude"
-    ] (config:
+    ] (
+      config:
       let
         value = getAttrFromPath [
           "services"
@@ -43,7 +44,8 @@ in
     ] [
       "location"
       "longitude"
-    ] (config:
+    ] (
+      config:
       let
         value = getAttrFromPath [
           "services"

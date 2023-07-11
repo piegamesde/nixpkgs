@@ -30,12 +30,14 @@ let
 
   sphinx-build =
     let
-      env = python3.withPackages (pp:
+      env = python3.withPackages (
+        pp:
         with pp; [
           sphinx
           recommonmark
           sphinx-rtd-theme
-        ]);
+        ]
+      );
       # Expose only the sphinx-build binary to avoid contaminating
       # everything with Sphinx’s Python environment.
     in
@@ -84,13 +86,15 @@ stdenv.mkDerivation rec {
       libevdev
       mtdev
       libwacom
-      (python3.withPackages (pp:
+      (python3.withPackages (
+        pp:
         with pp; [
           pp.libevdev # already in scope
           pyudev
           pyyaml
           setuptools
-        ]))
+        ]
+      ))
     ]
     ++ lib.optionals eventGUISupport [
       # GUI event viewer

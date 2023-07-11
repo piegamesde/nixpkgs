@@ -514,19 +514,21 @@ in
         trust = cfg.trust;
         server = {
           listen = "${cfg.listenHost}:${toString cfg.listenPort}";
-        } // (if needToCreateCA then
-          {
-            cert = "${cfg.dataDir}/keys/server.cert";
-            key = "${cfg.dataDir}/keys/server.key";
-            crl = "${cfg.dataDir}/keys/server.crl";
-          }
-        else
-          {
-            cert = "${cfg.pki.manual.server.cert}";
-            key = "${cfg.pki.manual.server.key}";
-            ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
-              "${cfg.pki.manual.server.crl}";
-          });
+        } // (
+          if needToCreateCA then
+            {
+              cert = "${cfg.dataDir}/keys/server.cert";
+              key = "${cfg.dataDir}/keys/server.key";
+              crl = "${cfg.dataDir}/keys/server.crl";
+            }
+          else
+            {
+              cert = "${cfg.pki.manual.server.cert}";
+              key = "${cfg.pki.manual.server.key}";
+              ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
+                "${cfg.pki.manual.server.crl}";
+            }
+        );
 
         ca.cert =
           if needToCreateCA then

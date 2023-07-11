@@ -1,6 +1,7 @@
 # This test runs docker-registry and check if it works
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -79,4 +80,5 @@ import ./make-test-python.nix ({
           "ls -l /var/lib/docker-registry/docker/registry/v2/blobs/sha256/*/*/data"
       )
     '';
-  })
+  }
+)

@@ -37,7 +37,8 @@ let
 
   mkTest =
     name: machine:
-    import ./make-test-python.nix ({
+    import ./make-test-python.nix (
+      {
         pkgs,
         ...
       }: {
@@ -93,7 +94,8 @@ let
           # machine.send_key('ctrl-q')
           # machine.wait_until_fails('pgrep -x codium')
         '';
-      })
+      }
+    )
     ;
 
 in

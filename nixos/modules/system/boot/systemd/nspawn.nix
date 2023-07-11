@@ -174,7 +174,8 @@ in
 
   config =
     let
-      units = mapAttrs' (n: v:
+      units = mapAttrs' (
+        n: v:
         let
           nspawnFile = "${n}.nspawn";
         in

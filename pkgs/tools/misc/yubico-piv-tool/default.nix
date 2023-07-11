@@ -39,10 +39,12 @@ stdenv.mkDerivation rec {
       openssl
       check
     ]
-    ++ (if withApplePCSC then
-      [ PCSC ]
-    else
-      [ pcsclite ])
+    ++ (
+      if withApplePCSC then
+        [ PCSC ]
+      else
+        [ pcsclite ]
+    )
     ;
 
   cmakeFlags = [

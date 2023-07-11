@@ -30,11 +30,13 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs =
     [ wget ]
-    ++ (with python3Packages; [
-      biopython
-      psutil
-      xlsxwriter
-    ])
+    ++ (
+      with python3Packages; [
+        biopython
+        psutil
+        xlsxwriter
+      ]
+    )
     ;
 
     # Tests rely on some of the databases being available, which is not bundled

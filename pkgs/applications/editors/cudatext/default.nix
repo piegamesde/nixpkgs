@@ -36,11 +36,13 @@ assert builtins.elem widgetset [
 ];
 
 let
-  deps = lib.mapAttrs (name: spec:
+  deps = lib.mapAttrs (
+    name: spec:
     fetchFromGitHub {
       repo = name;
       inherit (spec) owner rev hash;
-    }) (lib.importJSON ./deps.json);
+    }
+  ) (lib.importJSON ./deps.json);
 in
 stdenv.mkDerivation rec {
   pname = "cudatext";
@@ -85,9 +87,11 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath buildInputs}";
 
   buildPhase =
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (name: dep: ''
-      cp -r ${dep} ${name}
-    '') deps)
+    lib.concatStringsSep "\n" (lib.mapAttrsToList (
+      name: dep: ''
+        cp -r ${dep} ${name}
+      ''
+    ) deps)
     + ''
       # See https://wiki.freepascal.org/CudaText#How_to_compile_CudaText
       substituteInPlace ATSynEdit/atsynedit/atsynedit_package.lpk \

@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -45,4 +46,5 @@ import ../make-test-python.nix ({
           # Shouldn't fail if not called by healthchecks user
           assert "foo\n" == machine.succeed("echo 'print(\"foo\")' | healthchecks-manage shell")
     '';
-  })
+  }
+)

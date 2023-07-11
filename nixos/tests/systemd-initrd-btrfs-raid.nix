@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     pkgs,
     ...
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
       assert "hello" in machine.succeed("cat /test")
       assert "Total devices 2" in machine.succeed("btrfs filesystem show")
     '';
-  })
+  }
+)

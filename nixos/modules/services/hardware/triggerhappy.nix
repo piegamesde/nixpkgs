@@ -14,7 +14,8 @@ let
   socket = "/run/thd.socket";
 
   configFile = pkgs.writeText "triggerhappy.conf" ''
-    ${concatMapStringsSep "\n" ({
+    ${concatMapStringsSep "\n" (
+      {
         keys,
         event,
         cmd,
@@ -27,7 +28,8 @@ let
           release = 0;
         }
         .${event}
-      } ${cmd}") cfg.bindings}
+      } ${cmd}"
+    ) cfg.bindings}
     ${cfg.extraConfig}
   '';
 

@@ -32,11 +32,13 @@ let
     # and because JSON is a valid subset of YAML.
   makeCheckConfigs =
     entries:
-    mapAttrs' (name: conf: {
-      name = "datadog-agent/conf.d/${name}.d/conf.yaml";
-      value.source =
-        pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
-    }) entries
+    mapAttrs' (
+      name: conf: {
+        name = "datadog-agent/conf.d/${name}.d/conf.yaml";
+        value.source =
+          pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
+      }
+    ) entries
     ;
 
   defaultChecks = {

@@ -23,10 +23,12 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ libbsd ]
-    ++ (with perlPackages; [
-      perl
-      SysCPU
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        SysCPU
+      ]
+    )
     ;
 
   postInstall = ''

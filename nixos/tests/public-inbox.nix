@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -106,11 +107,13 @@ import ./make-test-python.nix ({
                 ];
               };
             };
-          settings.coderepo = lib.listToAttrs (map (path:
+          settings.coderepo = lib.listToAttrs (map (
+            path:
             lib.nameValuePair (baseNameOf path) {
               dir = "/var/lib/gitolite/repositories/${path}.git";
               cgitUrl = "https://git.${domain}/${path}.git";
-            }) repositories);
+            }
+          ) repositories);
         };
 
           # Use gitolite to store Git repositories listed in coderepo entries

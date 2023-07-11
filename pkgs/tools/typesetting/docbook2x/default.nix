@@ -42,12 +42,14 @@ stdenv.mkDerivation rec {
       libiconv
       bash
     ]
-    ++ (with perlPackages; [
-      perl
-      XMLSAX
-      XMLParser
-      XMLNamespaceSupport
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        XMLSAX
+        XMLParser
+        XMLNamespaceSupport
+      ]
+    )
     ;
 
   postConfigure = ''

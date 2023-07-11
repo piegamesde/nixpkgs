@@ -5,7 +5,8 @@
   systemdStage1 ? false
 }:
 
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -175,4 +176,5 @@ import ../make-test-python.nix ({
           # Check that ovpnclient is reachable from testclient over the gateway
           testclient.succeed("nc -w 2 192.168.2.3 12345 | grep -q TESTVALUE")
     '';
-  })
+  }
+)

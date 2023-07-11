@@ -58,21 +58,23 @@ stdenv.mkDerivation rec {
       bash-completion
       help2man
     ]
-    ++ (with perlPackages; [
-      perl
-      CryptSSLeay
-      LWP
-      TimeDate
-      DBFile
-      FileDesktopEntry
-      ParseDebControl
-      LWPProtocolHttps
-      Moo
-      FileHomeDir
-      IPCRun
-      FileDirList
-      FileTouch
-    ])
+    ++ (
+      with perlPackages; [
+        perl
+        CryptSSLeay
+        LWP
+        TimeDate
+        DBFile
+        FileDesktopEntry
+        ParseDebControl
+        LWPProtocolHttps
+        Moo
+        FileHomeDir
+        IPCRun
+        FileDirList
+        FileTouch
+      ]
+    )
     ;
 
   preConfigure = ''

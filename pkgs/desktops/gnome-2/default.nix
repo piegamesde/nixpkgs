@@ -5,7 +5,8 @@
   lib,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self;
   {
 
@@ -55,7 +56,9 @@ lib.makeScope pkgs.newScope (self:
 
   } // lib.optionalAttrs config.allowAliases {
     inherit
-      (pkgs)
+      (
+        pkgs
+      )
       # GTK Libs
       glib
       glibmm
@@ -102,4 +105,5 @@ lib.makeScope pkgs.newScope (self:
       throw "gnome2.libgnomeprintui has been removed"; # 2023-01-15
     libgtkhtml = throw "gnome2.libgtkhtml has been removed"; # 2023-01-15
     python_rsvg = throw "gnome2.python_rsvg has been removed"; # 2023-01-14
-  })
+  }
+)

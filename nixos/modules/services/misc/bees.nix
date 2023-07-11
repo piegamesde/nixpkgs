@@ -108,7 +108,8 @@ in
     };
   };
   config = {
-    systemd.services = mapAttrs' (name: fs:
+    systemd.services = mapAttrs' (
+      name: fs:
       nameValuePair "beesd@${name}" {
         description = "Block-level BTRFS deduplication for %i";
         after = [ "sysinit.target" ];
@@ -151,6 +152,7 @@ in
         unitConfig.RequiresMountsFor =
           lib.mkIf (lib.hasPrefix "/" fs.spec) fs.spec;
         wantedBy = [ "multi-user.target" ];
-      }) cfg.filesystems;
+      }
+    ) cfg.filesystems;
   };
 }

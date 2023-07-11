@@ -164,25 +164,29 @@ stdenv.mkDerivation rec {
       taglib
       zlib
     ]
-    ++ (with xorg; [
-      libSM
-      libXpm
-      libXv
-      libXvMC
-      xcbutilkeysyms
-    ])
+    ++ (
+      with xorg; [
+        libSM
+        libXpm
+        libXv
+        libXvMC
+        xcbutilkeysyms
+      ]
+    )
     ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
     ++ optional jackSupport libjack2
     ++ optionals chromecastSupport [
       libmicrodns
       protobuf
     ]
-    ++ optionals skins2Support (with xorg; [
-      freetype
-      libXext
-      libXinerama
-      libXpm
-    ])
+    ++ optionals skins2Support (
+      with xorg; [
+        freetype
+        libXext
+        libXinerama
+        libXpm
+      ]
+    )
     ++ optionals waylandSupport [
       wayland
       wayland-protocols

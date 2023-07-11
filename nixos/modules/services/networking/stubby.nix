@@ -20,21 +20,23 @@ in
         "debugLogging"
       ] ''Use services.stubby.logLevel = "debug"; instead.'')
     ]
-    ++ map (x:
+    ++ map (
+      x:
       (mkRemovedOptionModule [
         "services"
         "stubby"
         x
-      ] "Stubby configuration moved to services.stubby.settings.")) [
-        "authenticationMode"
-        "fallbackProtocols"
-        "idleTimeout"
-        "listenAddresses"
-        "queryPaddingBlocksize"
-        "roundRobinUpstreams"
-        "subnetPrivate"
-        "upstreamServers"
-      ]
+      ] "Stubby configuration moved to services.stubby.settings.")
+    ) [
+      "authenticationMode"
+      "fallbackProtocols"
+      "idleTimeout"
+      "listenAddresses"
+      "queryPaddingBlocksize"
+      "roundRobinUpstreams"
+      "subnetPrivate"
+      "upstreamServers"
+    ]
     ;
 
   options = {

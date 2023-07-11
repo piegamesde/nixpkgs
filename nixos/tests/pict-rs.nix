@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("pict-rs")
       machine.wait_for_open_port(8080)
     '';
-  })
+  }
+)

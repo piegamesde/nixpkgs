@@ -32,15 +32,17 @@ runCommand (radian.name + "-wrapper") {
       # prefer wrapper over the package
     priority = (radian.meta.priority or 0) - 1;
   };
-} (''
-  makeWrapper "${radian}/bin/radian" "$out/bin/radian" \
-    --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE" \
-    --set "R_HOME" "${R}/lib/R"
-''
+} (
+  ''
+    makeWrapper "${radian}/bin/radian" "$out/bin/radian" \
+      --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE" \
+      --set "R_HOME" "${R}/lib/R"
+  ''
   + lib.optionalString wrapR ''
     cd ${R}/bin
     for exe in *; do
       makeWrapper "${R}/bin/$exe" "$out/bin/$exe" \
         --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE"
     done
-  '')
+  ''
+)

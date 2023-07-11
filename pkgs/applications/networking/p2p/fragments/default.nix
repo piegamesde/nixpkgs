@@ -23,7 +23,9 @@
 let
   patchedTransmission = transmission.overrideAttrs (oldAttrs: {
     patches =
-      (oldAttrs.patches or [ ])
+      (
+        oldAttrs.patches or [ ]
+      )
       ++ [
         (fetchpatch {
           url =
@@ -64,11 +66,13 @@ stdenv.mkDerivation rec {
       pkg-config
       wrapGAppsHook4
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   buildInputs = [

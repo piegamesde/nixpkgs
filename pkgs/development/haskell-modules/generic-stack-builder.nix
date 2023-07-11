@@ -28,73 +28,75 @@ let
   stackHook = makeSetupHook { name = "stack-hook"; } ./stack-hook.sh;
 
 in
-stdenv.mkDerivation (args // {
+stdenv.mkDerivation (
+  args // {
 
-  # Doesn't work in the sandbox. Pass `--option sandbox relaxed` or
-  # `--option sandbox false` to be able to build this
-  __noChroot = true;
+    # Doesn't work in the sandbox. Pass `--option sandbox relaxed` or
+    # `--option sandbox false` to be able to build this
+    __noChroot = true;
 
-  buildInputs =
-    buildInputs
-    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales
-    ;
+    buildInputs =
+      buildInputs
+      ++ lib.optional (stdenv.hostPlatform.libc == "glibc") glibcLocales
+      ;
 
-  nativeBuildInputs =
-    nativeBuildInputs
-    ++ [
-      ghc
-      pkg-config
-      stack
-      stackHook
-    ]
-    ;
+    nativeBuildInputs =
+      nativeBuildInputs
+      ++ [
+        ghc
+        pkg-config
+        stack
+        stackHook
+      ]
+      ;
 
-  STACK_PLATFORM_VARIANT = "nix";
-  STACK_IN_NIX_SHELL = 1;
-  STACK_IN_NIX_EXTRA_ARGS = extraArgs;
+    STACK_PLATFORM_VARIANT = "nix";
+    STACK_IN_NIX_SHELL = 1;
+    STACK_IN_NIX_EXTRA_ARGS = extraArgs;
 
-    # XXX: workaround for https://ghc.haskell.org/trac/ghc/ticket/11042.
-  LD_LIBRARY_PATH = lib.makeLibraryPath (LD_LIBRARY_PATH ++ buildInputs);
-    # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
+      # XXX: workaround for https://ghc.haskell.org/trac/ghc/ticket/11042.
+    LD_LIBRARY_PATH = lib.makeLibraryPath (LD_LIBRARY_PATH ++ buildInputs);
+      # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
 
-    # Non-NixOS git needs cert
-  GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+      # Non-NixOS git needs cert
+    GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    # Fixes https://github.com/commercialhaskell/stack/issues/2358
-  LANG = "en_US.UTF-8";
+      # Fixes https://github.com/commercialhaskell/stack/issues/2358
+    LANG = "en_US.UTF-8";
 
-  preferLocalBuild = true;
+    preferLocalBuild = true;
 
-  preConfigure = ''
-    export STACK_ROOT=$NIX_BUILD_TOP/.stack
-  '';
-
-  buildPhase =
-    args.buildPhase or ''
-      runHook preBuild
-
-      ${stackCmd} build
-
-      runHook postBuild
+    preConfigure = ''
+      export STACK_ROOT=$NIX_BUILD_TOP/.stack
     '';
 
-  checkPhase =
-    args.checkPhase or ''
-      runHook preCheck
+    buildPhase =
+      args.buildPhase or ''
+        runHook preBuild
 
-      ${stackCmd} test
+        ${stackCmd} build
 
-      runHook postCheck
-    '';
+        runHook postBuild
+      '';
 
-  doCheck = args.doCheck or true;
+    checkPhase =
+      args.checkPhase or ''
+        runHook preCheck
 
-  installPhase =
-    args.installPhase or ''
-      runHook preInstall
+        ${stackCmd} test
 
-      ${stackCmd} --local-bin-path=$out/bin build --copy-bins
+        runHook postCheck
+      '';
 
-      runHook postInstall
-    '';
-})
+    doCheck = args.doCheck or true;
+
+    installPhase =
+      args.installPhase or ''
+        runHook preInstall
+
+        ${stackCmd} --local-bin-path=$out/bin build --copy-bins
+
+        runHook postInstall
+      '';
+  }
+)

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -6,9 +7,11 @@ import ./make-test-python.nix ({
   let
 
     customPkgs = pkgs.appendOverlays [
-        (self: super: {
-          hello = super.hello.overrideAttrs (old: { name = "custom-hello"; });
-        })
+        (
+          self: super: {
+            hello = super.hello.overrideAttrs (old: { name = "custom-hello"; });
+          }
+        )
       ];
 
   in

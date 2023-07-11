@@ -71,7 +71,8 @@ let
           depAttrs =
             builtins.map (d: lib.toLower d) (builtins.attrNames depSet);
         in
-        (builtins.map (dep:
+        (builtins.map (
+          dep:
           let
             pkg = py.pkgs."${normalizePackageName dep}";
             constraints = depSet.${dep}.python or "";
@@ -105,29 +106,34 @@ let
           rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps
         ;
       checkInputs' =
-        getDeps
-          (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
-          # >=poetry-1.2.0 dependency groups
-        ++ lib.flatten (map
-          (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
-          checkGroups)
+        getDeps (
+          pyProject.tool.poetry."dev-dependencies" or { }
+        ) # <poetry-1.2.0
+        # >=poetry-1.2.0 dependency groups
+        ++ lib.flatten (map (
+          g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })
+        ) checkGroups)
         ;
     in
     {
-      buildInputs = mkInput "buildInputs" (if includeBuildSystem then
-        buildSystemPkgs
-      else
-        [ ]);
-      propagatedBuildInputs = mkInput "propagatedBuildInputs"
-        (getDeps allRawDeps
-          ++ (
-            # >=poetry-1.2.0 dependency groups
-            if pyProject.tool.poetry.group or { } != { } then
-              lib.flatten
-              (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
-                groups)
-            else
-              [ ]));
+      buildInputs = mkInput "buildInputs" (
+        if includeBuildSystem then
+          buildSystemPkgs
+        else
+          [ ]
+      );
+      propagatedBuildInputs = mkInput "propagatedBuildInputs" (
+        getDeps allRawDeps
+        ++ (
+          # >=poetry-1.2.0 dependency groups
+          if pyProject.tool.poetry.group or { } != { } then
+            lib.flatten
+            (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
+              groups)
+          else
+            [ ]
+        )
+      );
       nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
       checkInputs = mkInput "checkInputs" checkInputs';
       nativeCheckInputs = mkInput "nativeCheckInputs" checkInputs';
@@ -239,10 +245,12 @@ lib.makeScope pkgs.newScope (self: {
             "files"
           ] poetryLock;
         in
-        lib.listToAttrs (lib.mapAttrsToList (n: v: {
-          name = normalizePackageName n;
-          value = v;
-        }) lockfiles)
+        lib.listToAttrs (lib.mapAttrsToList (
+          n: v: {
+            name = normalizePackageName n;
+            value = v;
+          }
+        ) lockfiles)
         ;
 
       evalPep508 = mkEvalPep508 python;
@@ -272,30 +280,35 @@ lib.makeScope pkgs.newScope (self: {
       baseOverlay =
         self: super:
         let
-          lockPkgs = builtins.listToAttrs (builtins.map (pkgMeta:
+          lockPkgs = builtins.listToAttrs (builtins.map (
+            pkgMeta:
             let
               normalizedName = normalizePackageName pkgMeta.name;
             in
             {
               name = normalizedName;
-              value = self.mkPoetryDep (pkgMeta // {
-                inherit pwd preferWheels;
-                pos = poetrylockPos;
-                source = pkgMeta.source or null;
-                  # Default to files from lock file version 2.0 and fall back to 1.1
-                files = pkgMeta.files or lockFiles.${normalizedName};
-                pythonPackages = self;
+              value = self.mkPoetryDep (
+                pkgMeta // {
+                  inherit pwd preferWheels;
+                  pos = poetrylockPos;
+                  source = pkgMeta.source or null;
+                    # Default to files from lock file version 2.0 and fall back to 1.1
+                  files = pkgMeta.files or lockFiles.${normalizedName};
+                  pythonPackages = self;
 
-                sourceSpec =
-                  ((normalizePackageSet
-                    pyProject.tool.poetry.dependencies or { })
-                    .${normalizedName} or (normalizePackageSet
-                      pyProject.tool.poetry.dev-dependencies or { })
-                    .${normalizedName} or (normalizePackageSet
-                      pyProject.tool.poetry.group.dev.dependencies or { })
-                    .${normalizedName} # Poetry 1.2.0+
-                    or { });
-              });
+                  sourceSpec =
+                    (
+                      (normalizePackageSet
+                        pyProject.tool.poetry.dependencies or { })
+                      .${normalizedName} or (normalizePackageSet
+                        pyProject.tool.poetry.dev-dependencies or { })
+                      .${normalizedName} or (normalizePackageSet
+                        pyProject.tool.poetry.group.dev.dependencies or { })
+                      .${normalizedName} # Poetry 1.2.0+
+                      or { }
+                    );
+                }
+              );
             }
           ) (lib.reverseList compatible));
           buildSystems = builtins.listToAttrs (builtins.map (x: {
@@ -308,66 +321,87 @@ lib.makeScope pkgs.newScope (self: {
           ${pyProject.tool.poetry.name} = null;
         }
         ;
-      overlays = builtins.map getFunctorFn ([
-        # Remove Python packages aliases with non-normalized names to avoid issues with infinite recursion (issue #750).
-        (self: super: {
-          # Upstream nixpkgs uses non canonical names
-          async-generator =
-            super.async-generator or super.async_generator or null;
-        })
+      overlays = builtins.map getFunctorFn (
+        [
+          # Remove Python packages aliases with non-normalized names to avoid issues with infinite recursion (issue #750).
+          (
+            self: super: {
+              # Upstream nixpkgs uses non canonical names
+              async-generator =
+                super.async-generator or super.async_generator or null;
+            }
+          )
 
-        (self: super:
-          lib.attrsets.mapAttrs (name: value:
-            if
-              lib.isDerivation value
-              && self.hasPythonModule value
-              && (normalizePackageName name) != name
-            then
-              null
-            else
-              value) super)
+          (
+            self: super:
+            lib.attrsets.mapAttrs (
+              name: value:
+              if
+                lib.isDerivation value
+                && self.hasPythonModule value
+                && (normalizePackageName name) != name
+              then
+                null
+              else
+                value
+            ) super
+          )
 
-        (self: super:
-          {
-            mkPoetryDep = self.callPackage ./mk-poetry-dep.nix {
-              inherit lib python poetryLib evalPep508;
-            };
+          (
+            self: super:
+            {
+              mkPoetryDep = self.callPackage ./mk-poetry-dep.nix {
+                inherit lib python poetryLib evalPep508;
+              };
 
-              # # Use poetry-core from the poetry build (pep517/518 build-system)
-            poetry-core = poetryPkg.passthru.python.pkgs.poetry-core;
-            poetry = poetryPkg;
+                # # Use poetry-core from the poetry build (pep517/518 build-system)
+              poetry-core = poetryPkg.passthru.python.pkgs.poetry-core;
+              poetry = poetryPkg;
 
-            __toPluginAble = toPluginAble self;
-          } // lib.optionalAttrs (!super ? setuptools-scm) {
-            # The canonical name is setuptools-scm
-            setuptools-scm = super.setuptools_scm;
-          })
+              __toPluginAble = toPluginAble self;
+            } // lib.optionalAttrs (!super ? setuptools-scm) {
+              # The canonical name is setuptools-scm
+              setuptools-scm = super.setuptools_scm;
+            }
+          )
 
-        # Fix infinite recursion in a lot of packages because of checkInputs
-        (self: super:
-          lib.mapAttrs (name: value:
-            (if
-              lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value
-            then
-              value.overridePythonAttrs (_: { doCheck = false; })
-            else
-              value)) super)
+          # Fix infinite recursion in a lot of packages because of checkInputs
+          (
+            self: super:
+            lib.mapAttrs (
+              name: value:
+              (
+                if
+                  lib.isDerivation value
+                  && lib.hasAttr "overridePythonAttrs" value
+                then
+                  value.overridePythonAttrs (_: { doCheck = false; })
+                else
+                  value
+              )
+            ) super
+          )
 
-        # Null out any filtered packages, we don't want python.pkgs from nixpkgs
-        (self: super:
-          builtins.listToAttrs (builtins.map (x: {
-            name = normalizePackageName x.name;
-            value = null;
-          }) incompatible))
-        # Create poetry2nix layer
-        baseOverlay
+          # Null out any filtered packages, we don't want python.pkgs from nixpkgs
+          (
+            self: super:
+            builtins.listToAttrs (builtins.map (x: {
+              name = normalizePackageName x.name;
+              value = null;
+            }) incompatible)
+          )
+          # Create poetry2nix layer
+          baseOverlay
 
-      ]
+        ]
         ++ # User provided overrides
-        (if builtins.typeOf overrides == "list" then
-          overrides
-        else
-          [ overrides ]));
+        (
+          if builtins.typeOf overrides == "list" then
+            overrides
+          else
+            [ overrides ]
+        )
+      );
       packageOverrides =
         lib.foldr lib.composeExtensions (self: super: { }) overlays;
       py = python.override {
@@ -440,16 +474,21 @@ lib.makeScope pkgs.newScope (self: {
         (builtins.attrNames editablePackageSources);
 
       allEditablePackageSources =
-        ((getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
+        (
+          (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
           // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
           // (
             # Poetry>=1.2.0
             if pyProject.tool.poetry.group or { } != { } then
-              builtins.foldl' (acc: g:
-                acc // getEditableDeps
-                pyProject.tool.poetry.group.${g}.dependencies) { } groups
+              builtins.foldl' (
+                acc: g:
+                acc
+                // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies
+              ) { } groups
             else
-              { }) // editablePackageSources);
+              { }
+          ) // editablePackageSources
+        );
 
       editablePackageSources' = builtins.removeAttrs allEditablePackageSources
         excludedEditablePackageNames;
@@ -475,9 +514,9 @@ lib.makeScope pkgs.newScope (self: {
 
         # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
       editableAttrs = lib.attrNames editablePackageSources';
-      envPkgs = builtins.filter
-        (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs)
-        poetryPackages;
+      envPkgs = builtins.filter (
+        drv: !lib.elem (drv.pname or drv.name or "") editableAttrs
+      ) poetryPackages;
 
     in
     poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps))
@@ -498,7 +537,8 @@ lib.makeScope pkgs.newScope (self: {
         if lib.isDerivation projectDir then
           projectDir
         else
-          self.cleanPythonSources { src = projectDir; }),
+          self.cleanPythonSources { src = projectDir; }
+      ),
       pyproject ? projectDir + "/pyproject.toml",
       poetrylock ? projectDir + "/poetry.lock",
       overrides ? self.defaultPoetryOverrides,
@@ -543,58 +583,62 @@ lib.makeScope pkgs.newScope (self: {
       inputAttrs =
         mkInputAttrs { inherit py pyProject attrs groups checkGroups extras; };
 
-      app = py.pkgs.buildPythonPackage (passedAttrs // inputAttrs // {
-        nativeBuildInputs =
-          inputAttrs.nativeBuildInputs
-          ++ [
-            hooks.removePathDependenciesHook
-            hooks.removeGitDependenciesHook
-          ]
-          ;
-      } // {
-        pname = normalizePackageName pyProject.tool.poetry.name;
-        version = pyProject.tool.poetry.version;
+      app = py.pkgs.buildPythonPackage (
+        passedAttrs // inputAttrs // {
+          nativeBuildInputs =
+            inputAttrs.nativeBuildInputs
+            ++ [
+              hooks.removePathDependenciesHook
+              hooks.removeGitDependenciesHook
+            ]
+            ;
+        } // {
+          pname = normalizePackageName pyProject.tool.poetry.name;
+          version = pyProject.tool.poetry.version;
 
-        inherit src;
+          inherit src;
 
-        format = "pyproject";
-          # Like buildPythonApplication, but without the toPythonModule part
-          # Meaning this ends up looking like an application but it also
-          # provides python modules
-        namePrefix = "";
+          format = "pyproject";
+            # Like buildPythonApplication, but without the toPythonModule part
+            # Meaning this ends up looking like an application but it also
+            # provides python modules
+          namePrefix = "";
 
-        passthru = {
-          python = py;
-          dependencyEnv = (lib.makeOverridable ({
-              app,
-              ...
-            }@attrs:
-            let
-              args = builtins.removeAttrs attrs [ "app" ] // {
-                extraLibs = [ app ];
-              };
-            in
-            py.buildEnv.override args
-          )) { inherit app; };
-        };
+          passthru = {
+            python = py;
+            dependencyEnv = (lib.makeOverridable (
+              {
+                app,
+                ...
+              }@attrs:
+              let
+                args = builtins.removeAttrs attrs [ "app" ] // {
+                  extraLibs = [ app ];
+                };
+              in
+              py.buildEnv.override args
+            )) { inherit app; };
+          };
 
-          # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
-        pos =
-          builtins.unsafeGetAttrPos (lib.elemAt (lib.attrNames attrs) 0) attrs;
+            # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
+          pos =
+            builtins.unsafeGetAttrPos (lib.elemAt (lib.attrNames attrs) 0) attrs
+            ;
 
-        meta =
-          lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) {
-            inherit (pyProject.tool.poetry) description;
-          }
-          // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) {
-            inherit (pyProject.tool.poetry) homepage;
-          } // {
-            inherit (py.meta) platforms;
-            license =
-              getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");
-          } // meta;
+          meta = lib.optionalAttrs
+            (lib.hasAttr "description" pyProject.tool.poetry) {
+              inherit (pyProject.tool.poetry) description;
+            } // lib.optionalAttrs
+            (lib.hasAttr "homepage" pyProject.tool.poetry) {
+              inherit (pyProject.tool.poetry) homepage;
+            } // {
+              inherit (py.meta) platforms;
+              license =
+                getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");
+            } // meta;
 
-      });
+        }
+      );
     in
     app
     ;

@@ -27,13 +27,15 @@ assert lib.elem blas-ilp64.passthru.implementation [
 ];
 
 let
-  python = python3.withPackages (ps:
+  python = python3.withPackages (
+    ps:
     with ps; [
       six
       pyparsing
       numpy
       h5py
-    ]);
+    ]
+  );
 
 in
 stdenv.mkDerivation {

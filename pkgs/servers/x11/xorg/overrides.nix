@@ -65,7 +65,8 @@ let
 in
 self: super:
 {
-  wrapWithXFileSearchPathHook = callPackage ({
+  wrapWithXFileSearchPathHook = callPackage (
+    {
       makeBinaryWrapper,
       makeSetupHook,
       writeScript,
@@ -86,7 +87,8 @@ self: super:
         done
       }
       postInstallHooks+=(wrapWithXFileSearchPath)
-    '')) { };
+    '')
+  ) { };
 
   bdftopcf = super.bdftopcf.overrideAttrs
     (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; });
@@ -157,7 +159,9 @@ self: super:
     depsBuildBuild =
       [ buildPackages.stdenv.cc ]
       ++ lib.optionals stdenv.hostPlatform.isStatic [
-          (xorg.buildPackages.stdenv.cc.libc.static or null)
+          (
+            xorg.buildPackages.stdenv.cc.libc.static or null
+          )
         ]
       ;
     preConfigure = ''
@@ -247,7 +251,9 @@ self: super:
     configureFlags =
       attrs.configureFlags or [ ]
       ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+      ++ lib.optionals (
+        stdenv.buildPlatform != stdenv.hostPlatform
+      )
       # checking for /dev/urandom... configure: error: cannot check for file existence when cross compiling
         [
           "ac_cv_file__dev_urandom=true"
@@ -525,10 +531,12 @@ self: super:
   });
 
   libpciaccess = super.libpciaccess.overrideAttrs (attrs: {
-    buildInputs = lib.optionals stdenv.hostPlatform.isNetBSD (with netbsd; [
-      libarch
-      libpci
-    ]);
+    buildInputs = lib.optionals stdenv.hostPlatform.isNetBSD (
+      with netbsd; [
+        libarch
+        libpci
+      ]
+    );
 
     meta = attrs.meta // {
       # https://gitlab.freedesktop.org/xorg/lib/libpciaccess/-/blob/master/configure.ac#L108-114
@@ -941,7 +949,8 @@ self: super:
   });
 
   xorgserver = with xorg;
-    super.xorgserver.overrideAttrs (attrs_passed:
+    super.xorgserver.overrideAttrs (
+      attrs_passed:
       # exchange attrs if abiCompat is set
       let
         version = lib.getVersion attrs_passed;
@@ -965,214 +974,217 @@ self: super:
           ;
 
       in
-      attrs // (let
-        version = lib.getVersion attrs;
-        commonBuildInputs =
-          attrs.buildInputs
-          ++ [
-            xtrans
-            libxcvt
-          ]
-          ;
-        commonPropagatedBuildInputs = [
-          dbus
-          libGL
-          libGLU
-          libXext
-          libXfont
-          libXfont2
-          libepoxy
-          libunwind
-          libxshmfence
-          pixman
-          xorgproto
-          zlib
-        ];
-          # XQuartz requires two compilations: the first to get X / XQuartz,
-          # and the second to get Xvfb, Xnest, etc.
-        darwinOtherX = xorgserver.overrideAttrs (oldAttrs: {
-          configureFlags =
-            oldAttrs.configureFlags
+      attrs // (
+        let
+          version = lib.getVersion attrs;
+          commonBuildInputs =
+            attrs.buildInputs
             ++ [
-              "--disable-xquartz"
-              "--enable-xorg"
-              "--enable-xvfb"
-              "--enable-xnest"
-              "--enable-kdrive"
+              xtrans
+              libxcvt
             ]
             ;
-          postInstall = ":"; # prevent infinite recursion
-        });
-
-        fpgit =
-          commit: sha256: name:
-          fetchpatch ({
-            url =
-              "https://gitlab.freedesktop.org/xorg/xserver/-/commit/${commit}.diff";
-            inherit sha256;
-          } // lib.optionalAttrs (name != null) { name = name + ".patch"; })
-          ;
-      in
-      if (!isDarwin) then
-        {
-          outputs = [
-            "out"
-            "dev"
+          commonPropagatedBuildInputs = [
+            dbus
+            libGL
+            libGLU
+            libXext
+            libXfont
+            libXfont2
+            libepoxy
+            libunwind
+            libxshmfence
+            pixman
+            xorgproto
+            zlib
           ];
-          patches =
-            [
-              # The build process tries to create the specified logdir when building.
-              #
-              # We set it to /var/log which can't be touched from inside the sandbox causing the build to hard-fail
-              ./dont-create-logdir-during-build.patch
+            # XQuartz requires two compilations: the first to get X / XQuartz,
+            # and the second to get Xvfb, Xnest, etc.
+          darwinOtherX = xorgserver.overrideAttrs (oldAttrs: {
+            configureFlags =
+              oldAttrs.configureFlags
+              ++ [
+                "--disable-xquartz"
+                "--enable-xorg"
+                "--enable-xvfb"
+                "--enable-xnest"
+                "--enable-kdrive"
+              ]
+              ;
+            postInstall = ":"; # prevent infinite recursion
+          });
+
+          fpgit =
+            commit: sha256: name:
+            fetchpatch (
+              {
+                url =
+                  "https://gitlab.freedesktop.org/xorg/xserver/-/commit/${commit}.diff";
+                inherit sha256;
+              } // lib.optionalAttrs (name != null) { name = name + ".patch"; }
+            )
+            ;
+        in
+        if (!isDarwin) then
+          {
+            outputs = [
+              "out"
+              "dev"
             ];
-          buildInputs =
-            commonBuildInputs
-            ++ [
-              libdrm
-              mesa
-            ]
-            ;
-          propagatedBuildInputs =
-            attrs.propagatedBuildInputs or [ ]
-            ++ [ libpciaccess ]
-            ++ commonPropagatedBuildInputs
-            ++ lib.optionals stdenv.isLinux [ udev ]
-            ;
-          depsBuildBuild = [ buildPackages.stdenv.cc ];
-          prePatch = lib.optionalString stdenv.hostPlatform.isMusl ''
-            export CFLAGS+=" -D__uid_t=uid_t -D__gid_t=gid_t"
-          '';
-          configureFlags =
-            [
-              "--enable-kdrive" # not built by default
-              "--enable-xephyr"
-              "--enable-xcsecurity" # enable SECURITY extension
-              "--with-default-font-path=" # there were only paths containing "${prefix}",
-              # and there are no fonts in this package anyway
+            patches =
+              [
+                # The build process tries to create the specified logdir when building.
+                #
+                # We set it to /var/log which can't be touched from inside the sandbox causing the build to hard-fail
+                ./dont-create-logdir-during-build.patch
+              ];
+            buildInputs =
+              commonBuildInputs
+              ++ [
+                libdrm
+                mesa
+              ]
+              ;
+            propagatedBuildInputs =
+              attrs.propagatedBuildInputs or [ ]
+              ++ [ libpciaccess ]
+              ++ commonPropagatedBuildInputs
+              ++ lib.optionals stdenv.isLinux [ udev ]
+              ;
+            depsBuildBuild = [ buildPackages.stdenv.cc ];
+            prePatch = lib.optionalString stdenv.hostPlatform.isMusl ''
+              export CFLAGS+=" -D__uid_t=uid_t -D__gid_t=gid_t"
+            '';
+            configureFlags =
+              [
+                "--enable-kdrive" # not built by default
+                "--enable-xephyr"
+                "--enable-xcsecurity" # enable SECURITY extension
+                "--with-default-font-path=" # there were only paths containing "${prefix}",
+                # and there are no fonts in this package anyway
+                "--with-xkb-bin-directory=${xorg.xkbcomp}/bin"
+                "--with-xkb-path=${xorg.xkeyboardconfig}/share/X11/xkb"
+                "--with-xkb-output=$out/share/X11/xkb/compiled"
+                "--with-log-dir=/var/log"
+                "--enable-glamor"
+                "--with-os-name=Nix" # r13y, embeds the build machine's kernel version otherwise
+              ]
+              ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
+              ;
+
+            env.NIX_CFLAGS_COMPILE = toString [
+              # Needed with GCC 12
+              "-Wno-error=array-bounds"
+            ];
+
+            postInstall = ''
+              rm -fr $out/share/X11/xkb/compiled # otherwise X will try to write in it
+              ( # assert() keeps runtime reference xorgserver-dev in xf86-video-intel and others
+                cd "$dev"
+                for f in include/xorg/*.h; do
+                  sed "1i#line 1 \"${attrs.pname}-${attrs.version}/$f\"" -i "$f"
+                done
+              )
+            '';
+            passthru.version = version; # needed by virtualbox guest additions
+          }
+        else
+          {
+            nativeBuildInputs =
+              attrs.nativeBuildInputs
+              ++ [
+                autoreconfHook
+                bootstrap_cmds
+                xorg.utilmacros
+                xorg.fontutil
+              ]
+              ;
+            buildInputs =
+              commonBuildInputs
+              ++ [
+                bootstrap_cmds
+                automake
+                autoconf
+                Xplugin
+                Carbon
+                Cocoa
+              ]
+              ;
+            propagatedBuildInputs =
+              commonPropagatedBuildInputs
+              ++ [
+                libAppleWM
+                xorgproto
+              ]
+              ;
+
+            patches = [
+              # XQuartz patchset
+              (fetchpatch {
+                url =
+                  "https://github.com/XQuartz/xorg-server/commit/e88fd6d785d5be477d5598e70d105ffb804771aa.patch";
+                sha256 = "1q0a30m1qj6ai924afz490xhack7rg4q3iig2gxsjjh98snikr1k";
+                name = "use-cppflags-not-cflags.patch";
+              })
+              (fetchpatch {
+                url =
+                  "https://github.com/XQuartz/xorg-server/commit/75ee9649bcfe937ac08e03e82fd45d9e18110ef4.patch";
+                sha256 = "1vlfylm011y00j8mig9zy6gk9bw2b4ilw2qlsc6la49zi3k0i9fg";
+                name = "use-old-mitrapezoids-and-mitriangles-routines.patch";
+              })
+              (fetchpatch {
+                url =
+                  "https://github.com/XQuartz/xorg-server/commit/c58f47415be79a6564a9b1b2a62c2bf866141e73.patch";
+                sha256 = "19sisqzw8x2ml4lfrwfvavc2jfyq2bj5xcf83z89jdxg8g1gdd1i";
+                name = "revert-fb-changes-1.patch";
+              })
+              (fetchpatch {
+                url =
+                  "https://github.com/XQuartz/xorg-server/commit/56e6f1f099d2821e5002b9b05b715e7b251c0c97.patch";
+                sha256 = "0zm9g0g1jvy79sgkvy0rjm6ywrdba2xjd1nsnjbxjccckbr6i396";
+                name = "revert-fb-changes-2.patch";
+              })
+              ./darwin/bundle_main.patch
+              (substitute {
+                src = ./darwin/stub.patch;
+                replacements = [
+                  "--subst-var-by"
+                  "XQUARTZ_APP"
+                  "${placeholder "out"}/Applications/XQuartz.app"
+                ];
+              })
+            ];
+
+            configureFlags = [
+              # note: --enable-xquartz is auto
+              "CPPFLAGS=-I${./darwin/dri}"
+              "--disable-glamor"
+              "--with-default-font-path="
+              "--with-apple-application-name=XQuartz"
+              "--with-apple-applications-dir=\${out}/Applications"
+              "--with-bundle-id-prefix=org.nixos.xquartz"
+              "--with-sha1=CommonCrypto"
               "--with-xkb-bin-directory=${xorg.xkbcomp}/bin"
               "--with-xkb-path=${xorg.xkeyboardconfig}/share/X11/xkb"
               "--with-xkb-output=$out/share/X11/xkb/compiled"
-              "--with-log-dir=/var/log"
-              "--enable-glamor"
-              "--with-os-name=Nix" # r13y, embeds the build machine's kernel version otherwise
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ]
-            ;
+              "--without-dtrace" # requires Command Line Tools for Xcode
+            ];
+            preConfigure = ''
+              mkdir -p $out/Applications
+              export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -Wno-error"
+              substituteInPlace hw/xquartz/pbproxy/Makefile.in --replace -F/System -F${ApplicationServices}
+            '';
+            postInstall = ''
+              rm -fr $out/share/X11/xkb/compiled
 
-          env.NIX_CFLAGS_COMPILE = toString [
-            # Needed with GCC 12
-            "-Wno-error=array-bounds"
-          ];
+              cp -rT ${darwinOtherX}/bin $out/bin
+              rm -f $out/bin/X
+              ln -s Xquartz $out/bin/X
 
-          postInstall = ''
-            rm -fr $out/share/X11/xkb/compiled # otherwise X will try to write in it
-            ( # assert() keeps runtime reference xorgserver-dev in xf86-video-intel and others
-              cd "$dev"
-              for f in include/xorg/*.h; do
-                sed "1i#line 1 \"${attrs.pname}-${attrs.version}/$f\"" -i "$f"
-              done
-            )
-          '';
-          passthru.version = version; # needed by virtualbox guest additions
-        }
-      else
-        {
-          nativeBuildInputs =
-            attrs.nativeBuildInputs
-            ++ [
-              autoreconfHook
-              bootstrap_cmds
-              xorg.utilmacros
-              xorg.fontutil
-            ]
-            ;
-          buildInputs =
-            commonBuildInputs
-            ++ [
-              bootstrap_cmds
-              automake
-              autoconf
-              Xplugin
-              Carbon
-              Cocoa
-            ]
-            ;
-          propagatedBuildInputs =
-            commonPropagatedBuildInputs
-            ++ [
-              libAppleWM
-              xorgproto
-            ]
-            ;
-
-          patches = [
-            # XQuartz patchset
-            (fetchpatch {
-              url =
-                "https://github.com/XQuartz/xorg-server/commit/e88fd6d785d5be477d5598e70d105ffb804771aa.patch";
-              sha256 = "1q0a30m1qj6ai924afz490xhack7rg4q3iig2gxsjjh98snikr1k";
-              name = "use-cppflags-not-cflags.patch";
-            })
-            (fetchpatch {
-              url =
-                "https://github.com/XQuartz/xorg-server/commit/75ee9649bcfe937ac08e03e82fd45d9e18110ef4.patch";
-              sha256 = "1vlfylm011y00j8mig9zy6gk9bw2b4ilw2qlsc6la49zi3k0i9fg";
-              name = "use-old-mitrapezoids-and-mitriangles-routines.patch";
-            })
-            (fetchpatch {
-              url =
-                "https://github.com/XQuartz/xorg-server/commit/c58f47415be79a6564a9b1b2a62c2bf866141e73.patch";
-              sha256 = "19sisqzw8x2ml4lfrwfvavc2jfyq2bj5xcf83z89jdxg8g1gdd1i";
-              name = "revert-fb-changes-1.patch";
-            })
-            (fetchpatch {
-              url =
-                "https://github.com/XQuartz/xorg-server/commit/56e6f1f099d2821e5002b9b05b715e7b251c0c97.patch";
-              sha256 = "0zm9g0g1jvy79sgkvy0rjm6ywrdba2xjd1nsnjbxjccckbr6i396";
-              name = "revert-fb-changes-2.patch";
-            })
-            ./darwin/bundle_main.patch
-            (substitute {
-              src = ./darwin/stub.patch;
-              replacements = [
-                "--subst-var-by"
-                "XQUARTZ_APP"
-                "${placeholder "out"}/Applications/XQuartz.app"
-              ];
-            })
-          ];
-
-          configureFlags = [
-            # note: --enable-xquartz is auto
-            "CPPFLAGS=-I${./darwin/dri}"
-            "--disable-glamor"
-            "--with-default-font-path="
-            "--with-apple-application-name=XQuartz"
-            "--with-apple-applications-dir=\${out}/Applications"
-            "--with-bundle-id-prefix=org.nixos.xquartz"
-            "--with-sha1=CommonCrypto"
-            "--with-xkb-bin-directory=${xorg.xkbcomp}/bin"
-            "--with-xkb-path=${xorg.xkeyboardconfig}/share/X11/xkb"
-            "--with-xkb-output=$out/share/X11/xkb/compiled"
-            "--without-dtrace" # requires Command Line Tools for Xcode
-          ];
-          preConfigure = ''
-            mkdir -p $out/Applications
-            export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -Wno-error"
-            substituteInPlace hw/xquartz/pbproxy/Makefile.in --replace -F/System -F${ApplicationServices}
-          '';
-          postInstall = ''
-            rm -fr $out/share/X11/xkb/compiled
-
-            cp -rT ${darwinOtherX}/bin $out/bin
-            rm -f $out/bin/X
-            ln -s Xquartz $out/bin/X
-
-            cp ${darwinOtherX}/share/man -rT $out/share/man
-          '';
-          passthru.version = version;
-        }
+              cp ${darwinOtherX}/share/man -rT $out/share/man
+            '';
+            passthru.version = version;
+          }
       )
     );
 
@@ -1394,45 +1406,46 @@ self: super:
 }
 
 # mark some packages as unfree
-// (let
-  # unfree but redistributable
-  redist = [
-    "fontadobeutopiatype1"
-    "fontadobeutopia100dpi"
-    "fontadobeutopia75dpi"
-    "fontbhtype1"
-    "fontibmtype1"
-    "fontbhttf"
-    "fontbh100dpi"
-    "fontbh75dpi"
+// (
+  let
+    # unfree but redistributable
+    redist = [
+      "fontadobeutopiatype1"
+      "fontadobeutopia100dpi"
+      "fontadobeutopia75dpi"
+      "fontbhtype1"
+      "fontibmtype1"
+      "fontbhttf"
+      "fontbh100dpi"
+      "fontbh75dpi"
 
-    # Bigelow & Holmes fonts
-    # https://www.x.org/releases/current/doc/xorg-docs/License.html#Bigelow_Holmes_Inc_and_URW_GmbH_Luxi_font_license
-    "fontbhlucidatypewriter100dpi"
-    "fontbhlucidatypewriter75dpi"
-  ];
+      # Bigelow & Holmes fonts
+      # https://www.x.org/releases/current/doc/xorg-docs/License.html#Bigelow_Holmes_Inc_and_URW_GmbH_Luxi_font_license
+      "fontbhlucidatypewriter100dpi"
+      "fontbhlucidatypewriter75dpi"
+    ];
 
-    # unfree, possibly not redistributable
-  unfree = [
-    # no license, just a copyright notice
-    "fontdaewoomisc"
+      # unfree, possibly not redistributable
+    unfree = [
+      # no license, just a copyright notice
+      "fontdaewoomisc"
 
-    # unclear license, "permission to use"?
-    "fontjismisc"
-  ];
+      # unclear license, "permission to use"?
+      "fontjismisc"
+    ];
 
-  setLicense =
-    license: name:
-    super.${name}.overrideAttrs
-    (attrs: { meta = attrs.meta // { inherit license; }; })
-    ;
-  mapNamesToAttrs =
-    f: names:
-    with lib;
-    listToAttrs (zipListsWith nameValuePair names (map f names))
-    ;
+    setLicense =
+      license: name:
+      super.${name}.overrideAttrs
+      (attrs: { meta = attrs.meta // { inherit license; }; })
+      ;
+    mapNamesToAttrs =
+      f: names:
+      with lib;
+      listToAttrs (zipListsWith nameValuePair names (map f names))
+      ;
 
-in
-mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
-// mapNamesToAttrs (setLicense lib.licenses.unfree) unfree
+  in
+  mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
+  // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree
 )

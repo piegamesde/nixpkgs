@@ -193,16 +193,18 @@ qtModule {
     + postPatch
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
-    "-Wno-class-memaccess"
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isGNU [
+      # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
+      "-Wno-class-memaccess"
+    ]
     ++ lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge") [
       # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
       # TODO: investigate and fix properly
       "-march=westmere"
     ]
-    ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]);
+    ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]
+  );
 
   preConfigure = ''
     export NINJAFLAGS=-j$NIX_BUILD_CORES
@@ -365,14 +367,20 @@ qtModule {
       # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
-      (lib.lists.filter (parsedPlatform:
+      (lib.lists.filter (
+        parsedPlatform:
         with parsedPlatform;
         isUnix
-        && (isx86_32
+        && (
+          isx86_32
           || isx86_64
           || isAarch32
           || isAarch64
-          || (isMips && isLittleEndian))))
+          || (
+            isMips && isLittleEndian
+          )
+        )
+      ))
       (map (plat: plat.system))
     ];
     broken =

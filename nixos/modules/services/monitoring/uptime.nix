@@ -19,8 +19,8 @@ let
   cfg = config.services.uptime;
   opt = options.services.uptime;
 
-  configDir = pkgs.runCommand "config" { preferLocalBuild = true; }
-    (if cfg.configFile != null then
+  configDir = pkgs.runCommand "config" { preferLocalBuild = true; } (
+    if cfg.configFile != null then
       ''
         mkdir $out
         ext=`echo ${cfg.configFile} | grep -o \\..*`
@@ -39,7 +39,8 @@ let
           connectionString: 'mongodb://localhost/uptime'
         EOF
         ln -sv /var/lib/uptime/runtime.json $out/runtime.json
-      '');
+      ''
+  );
 in
 {
   options.services.uptime = {

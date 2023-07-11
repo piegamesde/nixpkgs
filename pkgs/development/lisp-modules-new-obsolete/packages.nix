@@ -55,17 +55,19 @@ let
           '';
         });
     in
-    build-asdf-system (args // {
-      # Patches are already applied in `build`
-      patches = [ ];
-      src = build;
-        # TODO(kasper): handle this with a setup hook
-      LD_LIBRARY_PATH =
-        build.LD_LIBRARY_PATH
-        + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
-        + "${build}"
-        ;
-    })
+    build-asdf-system (
+      args // {
+        # Patches are already applied in `build`
+        patches = [ ];
+        src = build;
+          # TODO(kasper): handle this with a setup hook
+        LD_LIBRARY_PATH =
+          build.LD_LIBRARY_PATH
+          + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
+          + "${build}"
+          ;
+      }
+    )
     ;
 
     # A little hacky
@@ -347,11 +349,13 @@ let
 
       lispLibs =
         ql.nyxt.lispLibs
-        ++ (with ql; [
-          cl-cffi-gtk
-          cl-webkit2
-          mk-string-metrics
-        ])
+        ++ (
+          with ql; [
+            cl-cffi-gtk
+            cl-webkit2
+            mk-string-metrics
+          ]
+        )
         ;
 
       src = pkgs.fetchzip {

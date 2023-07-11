@@ -109,13 +109,15 @@ buildPythonApplication {
       qtbase
       glib-networking
     ]
-    ++ lib.optionals withMediaPlayback (with gst_all_1; [
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-      gst-libav
-    ])
+    ++ lib.optionals withMediaPlayback (
+      with gst_all_1; [
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+        gst-libav
+      ]
+    )
     ;
 
   nativeBuildInputs =
@@ -132,23 +134,25 @@ buildPythonApplication {
     ;
 
   propagatedBuildInputs = with python3Packages;
-    ([
-      pyyaml
-      backendPackage
-      jinja2
-      pygments
-      # scripts and userscripts libs
-      tldextract
-      beautifulsoup4
-      readability-lxml
-      pykeepass
-      stem
-      pynacl
-      # extensive ad blocking
-      adblock
-    ]
+    (
+      [
+        pyyaml
+        backendPackage
+        jinja2
+        pygments
+        # scripts and userscripts libs
+        tldextract
+        beautifulsoup4
+        readability-lxml
+        pykeepass
+        stem
+        pynacl
+        # extensive ad blocking
+        adblock
+      ]
       ++ lib.optional (pythonOlder "3.9") importlib-resources
-      ++ lib.optional stdenv.isLinux qtwayland);
+      ++ lib.optional stdenv.isLinux qtwayland
+    );
 
   patches = [ ./fix-restart.patch ];
 

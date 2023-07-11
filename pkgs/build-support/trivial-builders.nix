@@ -99,14 +99,16 @@ rec {
       ,
     }:
     buildCommand:
-    stdenv.mkDerivation ({
-      enableParallelBuilding = true;
-      inherit buildCommand name;
-      passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
-    } // (lib.optionalAttrs runLocal {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    }) // builtins.removeAttrs derivationArgs [ "passAsFile" ])
+    stdenv.mkDerivation (
+      {
+        enableParallelBuilding = true;
+        inherit buildCommand name;
+        passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
+      } // (lib.optionalAttrs runLocal {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      }) // builtins.removeAttrs derivationArgs [ "passAsFile" ]
+    )
     ;
 
     /* Writes a text file to the nix store.
@@ -579,10 +581,12 @@ rec {
           throw "linkFarm entries must be either attrs or a list!"
         ;
 
-      linkCommands = lib.mapAttrsToList (name: path: ''
-        mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
-        ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
-      '') entries';
+      linkCommands = lib.mapAttrsToList (
+        name: path: ''
+          mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
+          ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
+        ''
+      ) entries';
     in
     runCommand name {
       preferLocalBuild = true;
@@ -644,37 +648,45 @@ rec {
       substitutions ? { }
     }:
     script:
-    runCommand name (substitutions // {
-      inherit meta;
-      inherit depsTargetTargetPropagated;
-      propagatedBuildInputs =
-        # remove list conditionals before 23.11
-        lib.warnIf (!lib.isList deps)
-        "'deps' argument to makeSetupHook must be a list. content of deps: ${
-          toString deps
-        }" (lib.warnIf (deps != [ ])
-          "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
+    runCommand name (
+      substitutions // {
+        inherit meta;
+        inherit depsTargetTargetPropagated;
+        propagatedBuildInputs =
+          # remove list conditionals before 23.11
+          lib.warnIf (!lib.isList deps)
+          "'deps' argument to makeSetupHook must be a list. content of deps: ${
             toString deps
-          }" propagatedBuildInputs
-          ++ (if lib.isList deps then
-            deps
-          else
-            [ deps ]));
-      strictDeps = true;
-        # TODO 2023-01, no backport: simplify to inherit passthru;
-      passthru = passthru // optionalAttrs (substitutions ? passthru) (warn
-        "makeSetupHook (name = ${
-          lib.strings.escapeNixString name
-        }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
-        substitutions.passthru);
-    }) (''
-      mkdir -p $out/nix-support
-      cp ${script} $out/nix-support/setup-hook
-      recordPropagatedDependencies
-    ''
+          }" (
+            lib.warnIf (deps != [ ])
+              "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
+                toString deps
+              }" propagatedBuildInputs
+            ++ (
+              if lib.isList deps then
+                deps
+              else
+                [ deps ]
+            )
+          );
+        strictDeps = true;
+          # TODO 2023-01, no backport: simplify to inherit passthru;
+        passthru = passthru // optionalAttrs (substitutions ? passthru) (warn
+          "makeSetupHook (name = ${
+            lib.strings.escapeNixString name
+          }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
+          substitutions.passthru);
+      }
+    ) (
+      ''
+        mkdir -p $out/nix-support
+        cp ${script} $out/nix-support/setup-hook
+        recordPropagatedDependencies
+      ''
       + lib.optionalString (substitutions != { }) ''
         substituteAll ${script} $out/nix-support/setup-hook
-      '')
+      ''
+    )
     ;
 
     # Write the references (i.e. the runtime dependencies in the Nix store) of `path' to a file.
@@ -759,12 +771,14 @@ rec {
         # Objects copied from outside of the store, such as paths and
         # `builtins.fetch*`ed ones
       sources = lib.attrNames (lib.filterAttrs (n: v: v ? path) context);
-      packages = lib.mapAttrs' (name: value: {
-        inherit value;
-        name = lib.head
-          (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
-            name);
-      }) derivations;
+      packages = lib.mapAttrs' (
+        name: value: {
+          inherit value;
+          name = lib.head
+            (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
+              name);
+        }
+      ) derivations;
         # The syntax of output paths differs between outputs named `out`
         # and other, explicitly named ones. For explicitly named ones,
         # the output name is suffixed as `-name`, but `out` outputs
@@ -772,25 +786,32 @@ rec {
         # from named output paths. Therefore, we find all the named ones
         # first so we can use them to remove false matches when looking
         # for `out` outputs (see the definition of `outputPaths`).
-      namedOutputPaths = lib.flatten (lib.mapAttrsToList (name: value:
-        (map (output:
+      namedOutputPaths = lib.flatten (lib.mapAttrsToList (
+        name: value:
+        (map (
+          output:
           lib.filter lib.isList (builtins.split
             "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
-            string)) (lib.remove "out" value.outputs))) packages);
+            string)
+        ) (lib.remove "out" value.outputs))
+      ) packages);
         # Only `out` outputs
-      outputPaths = lib.flatten (lib.mapAttrsToList (name: value:
+      outputPaths = lib.flatten (lib.mapAttrsToList (
+        name: value:
         if lib.elem "out" value.outputs then
-          lib.filter (x:
+          lib.filter (
+            x:
             lib.isList x
             &&
             # If the matched path is in `namedOutputPaths`,
             # it's a partial match of an output path where
             # the output name isn't `out`
-            lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths)
-          (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})"
+            lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
+          ) (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})"
             string)
         else
-          [ ]) packages);
+          [ ]
+      ) packages);
       allPaths = lib.concatStringsSep "\n"
         (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
@@ -915,13 +936,15 @@ rec {
   applyPatches =
     {
       src,
-      name ? (if builtins.typeOf src == "path" then
-        builtins.baseNameOf src
-      else if builtins.isAttrs src && builtins.hasAttr "name" src then
-        src.name
-      else
-        throw
-        "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute.")
+      name ? (
+        if builtins.typeOf src == "path" then
+          builtins.baseNameOf src
+        else if builtins.isAttrs src && builtins.hasAttr "name" src then
+          src.name
+        else
+          throw
+          "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
+      )
         + "-patched",
       patches ? [ ],
       postPatch ? ""

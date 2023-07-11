@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
       pxlib
       perl
     ]
-    ++ (with perlPackages; [ libxml_perl ])
+    ++ (
+      with perlPackages; [ libxml_perl ]
+    )
     ;
   nativeBuildInputs = [ pkg-config ];
 

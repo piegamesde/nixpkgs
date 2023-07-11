@@ -11,7 +11,8 @@ let
 
       count = 320;
 
-      sillyLibs = lib.genList (i:
+      sillyLibs = lib.genList (
+        i:
         stdenv.mkDerivation rec {
           name = "${prefix}-fluff-${toString i}";
           unpackPhase = ''
@@ -30,7 +31,8 @@ let
             mv lib${name}.dylib "$out/lib"
           '';
           meta.platforms = lib.platforms.darwin;
-        }) count;
+        }
+      ) count;
 
       finalExe = stdenv.mkDerivation {
         name = "${prefix}-final-asdf";
@@ -41,8 +43,9 @@ let
           #include <cstdlib>
           #include <iostream>
 
-          ${toString (lib.genList
-            (i: ''extern "C" unsigned int asdf_${toString i}(void); '') count)}
+          ${toString (lib.genList (
+            i: ''extern "C" unsigned int asdf_${toString i}(void); ''
+          ) count)}
 
           unsigned int (*funs[])(void) = {
             ${toString (lib.genList (i: "asdf_${toString i},") count)}

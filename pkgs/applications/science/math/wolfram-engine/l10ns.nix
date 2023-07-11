@@ -31,7 +31,8 @@ let
         sha256 = "10cpwllz9plxz22iqdh6xgkxqphl9s9nq8ax16pafjll6j9kqy1q";
         installer = "WolframEngine_13.0.0_LINUX.sh";
       }
-    ] ({
+    ] (
+      {
         version,
         lang,
         language,
@@ -52,7 +53,8 @@ let
           '';
           inherit sha256;
         };
-      });
+      }
+    );
   minVersion = with lib;
     if majorVersion == null then
       elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0
@@ -61,6 +63,6 @@ let
   maxVersion = toString (1 + builtins.fromJSON minVersion);
 in
 with lib;
-findFirst
-(l: (l.lang == lang && l.version >= minVersion && l.version < maxVersion))
-(throw "Version ${minVersion} in language ${lang} not supported") allVersions
+findFirst (
+  l: (l.lang == lang && l.version >= minVersion && l.version < maxVersion)
+) (throw "Version ${minVersion} in language ${lang} not supported") allVersions

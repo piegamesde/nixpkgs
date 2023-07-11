@@ -37,11 +37,13 @@ buildPythonPackage rec {
       rustfmt
       setuptools-rust
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];

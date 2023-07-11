@@ -5,7 +5,8 @@
 
 let
 
-  testedSystems = lib.filterAttrs (name: value:
+  testedSystems = lib.filterAttrs (
+    name: value:
     let
       platform = lib.systems.elaborate value;
     in
@@ -73,7 +74,8 @@ let
 
   mapMultiPlatformTest =
     crossSystemFun: test:
-    lib.mapAttrs (name: system:
+    lib.mapAttrs (
+      name: system:
       test rec {
         crossPkgs = import pkgs.path {
           localSystem = { inherit (pkgs.stdenv.hostPlatform) config; };
@@ -95,7 +97,8 @@ let
           else
             pkg
           ;
-      }) testedSystems
+      }
+    ) testedSystems
     ;
 
   tests = {
@@ -159,9 +162,11 @@ let
 in
 {
   gcc =
-    (lib.mapAttrs
-      (_: mapMultiPlatformTest (system: system // { useLLVM = false; })) tests);
+    (lib.mapAttrs (
+      _: mapMultiPlatformTest (system: system // { useLLVM = false; })
+    ) tests);
   llvm =
-    (lib.mapAttrs
-      (_: mapMultiPlatformTest (system: system // { useLLVM = true; })) tests);
+    (lib.mapAttrs (
+      _: mapMultiPlatformTest (system: system // { useLLVM = true; })
+    ) tests);
 }

@@ -13,17 +13,19 @@ stdenv.mkDerivation {
   hardeningEnable = [ "pie" ];
   CFLAGS =
     [ ''-DWRAPPER_DIR="${parentWrapperDir}"'' ]
-    ++ (if debug then
-      [
-        "-Werror"
-        "-Og"
-        "-g"
-      ]
-    else
-      [
-        "-Wall"
-        "-O2"
-      ])
+    ++ (
+      if debug then
+        [
+          "-Werror"
+          "-Og"
+          "-g"
+        ]
+      else
+        [
+          "-Wall"
+          "-O2"
+        ]
+    )
     ;
   dontStrip = debug;
   installPhase = ''

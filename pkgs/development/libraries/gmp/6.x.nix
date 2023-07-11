@@ -67,9 +67,9 @@ let
         # see https://gmplib.org/manual/Notes-for-Particular-Systems.html
       ++ optional (!withStatic && stdenv.hostPlatform.isWindows)
         "--disable-static --enable-shared"
-      ++ optional
-        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-        "--disable-assembly"
+      ++ optional (
+        stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+      ) "--disable-assembly"
       ;
 
     doCheck = true; # not cross;

@@ -183,39 +183,44 @@ let
 in
 [
 
-  ({ }: {
-    __raw = true;
+  (
+    { }: {
+      __raw = true;
 
-    bootstrapTools = derivation ({
-      inherit system;
-      inherit
-        make
-        bash
-        coreutils
-        findutils
-        diffutils
-        grep
-        patch
-        gawk
-        cpio
-        sed
-        curl
-        ;
+      bootstrapTools = derivation (
+        {
+          inherit system;
+          inherit
+            make
+            bash
+            coreutils
+            findutils
+            diffutils
+            grep
+            patch
+            gawk
+            cpio
+            sed
+            curl
+            ;
 
-      name = "trivial-bootstrap-tools";
-      builder = bashExe;
-      args = [ ./trivial-bootstrap.sh ];
-      buildInputs = [ make ];
-      mkdir = "/bin/mkdir";
-      ln = "/bin/ln";
-    } // lib.optionalAttrs config.contentAddressedByDefault {
-      __contentAddressed = true;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
-    });
-  })
+          name = "trivial-bootstrap-tools";
+          builder = bashExe;
+          args = [ ./trivial-bootstrap.sh ];
+          buildInputs = [ make ];
+          mkdir = "/bin/mkdir";
+          ln = "/bin/ln";
+        } // lib.optionalAttrs config.contentAddressedByDefault {
+          __contentAddressed = true;
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+        }
+      );
+    }
+  )
 
-  ({
+  (
+    {
       bootstrapTools,
       ...
     }: rec {
@@ -244,7 +249,8 @@ in
         cc = null;
         overrides = self: super: { };
       };
-    })
+    }
+  )
 
   (prevStage: {
     __raw = true;

@@ -5,7 +5,8 @@
 # iptables to nftables requires a full reboot, which is a bit hard inside NixOS
 # tests.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
           machine.succeed("lsmod | grep nf_tables")
           machine.fail("lsmod | grep ip_tables")
     '';
-  })
+  }
+)

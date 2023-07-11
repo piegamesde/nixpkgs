@@ -5,7 +5,8 @@
   writeText,
 }:
 
-import ./versions.nix ({
+import ./versions.nix (
+  {
     version,
     sha256,
     ...
@@ -47,4 +48,5 @@ import ./versions.nix ({
       maintainers = [ maintainers.mmahut ];
       platforms = platforms.linux;
     };
-  })
+  }
+)

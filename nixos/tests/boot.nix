@@ -40,10 +40,12 @@ let
   makeBootTest =
     name: extraConfig:
     let
-      machineConfig = pythonDict ({
-        qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
-        qemuFlags = "-m 768";
-      } // extraConfig);
+      machineConfig = pythonDict (
+        {
+          qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
+          qemuFlags = "-m 768";
+        } // extraConfig
+      );
     in
     makeTest {
       name = "boot-" + name;
@@ -83,11 +85,13 @@ let
           config.system.build.netbootIpxeScript
         ];
       };
-      machineConfig = pythonDict ({
-        qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
-        qemuFlags = "-boot order=n -m 2000";
-        netBackendArgs = "tftp=${ipxeBootDir},bootfile=netboot.ipxe";
-      } // extraConfig);
+      machineConfig = pythonDict (
+        {
+          qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
+          qemuFlags = "-boot order=n -m 2000";
+          netBackendArgs = "tftp=${ipxeBootDir},bootfile=netboot.ipxe";
+        } // extraConfig
+      );
     in
     makeTest {
       name = "boot-netboot-" + name;

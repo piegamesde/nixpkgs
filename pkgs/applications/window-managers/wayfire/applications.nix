@@ -4,7 +4,8 @@
   wayfirePlugins,
 }:
 
-lib.makeExtensible (self:
+lib.makeExtensible (
+  self:
   with self; {
     inherit wayfirePlugins;
 
@@ -23,4 +24,5 @@ lib.makeExtensible (self:
         wcm = wrapWayfireApplication wcm selector;
       }
       ;
-  })
+  }
+)

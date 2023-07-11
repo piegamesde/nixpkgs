@@ -145,7 +145,8 @@ assert xarSupport -> libxml2 != null;
   };
 
   passthru.tests = { inherit cmake nix samba; };
-})).overrideAttrs (previousAttrs:
+})).overrideAttrs (
+  previousAttrs:
   assert previousAttrs.version == "3.6.2";
   lib.optionalAttrs stdenv.hostPlatform.isStatic {
     patches =
@@ -159,4 +160,5 @@ assert xarSupport -> libxml2 != null;
           hash = "sha256-lb+zwWSH6/MLUIROvu9I/hUjSbb2jOWO755WC/r+lbY=";
         })
       ];
-  })
+  }
+)

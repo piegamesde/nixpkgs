@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -14,4 +15,5 @@ import ./make-test-python.nix ({
           assert "Tainted" not in output
           assert "unmerged-usr" not in output
     '';
-  })
+  }
+)

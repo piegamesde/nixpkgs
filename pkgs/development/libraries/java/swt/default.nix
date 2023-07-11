@@ -97,20 +97,21 @@ stdenv.mkDerivation rec {
 
   postPatch =
     let
-      makefile-sed = builtins.toFile "swt-makefile.sed" (''
-        # fix pkg-config invocations in CFLAGS/LIBS pairs.
-        #
-        # change:
-        #     FOOCFLAGS = `pkg-config --cflags `foo bar`
-        #     FOOLIBS = `pkg-config --libs-only-L foo` -lbaz
-        # into:
-        #     FOOCFLAGS = `pkg-config --cflags foo bar`
-        #     FOOLIBS = `pkg-config --libs foo bar`
-        #
-        # the latter works more consistently.
-        /^[A-Z0-9_]\+CFLAGS = `pkg-config --cflags [^`]\+`$/ {
-          N
-          s''
+      makefile-sed = builtins.toFile "swt-makefile.sed" (
+        ''
+          # fix pkg-config invocations in CFLAGS/LIBS pairs.
+          #
+          # change:
+          #     FOOCFLAGS = `pkg-config --cflags `foo bar`
+          #     FOOLIBS = `pkg-config --libs-only-L foo` -lbaz
+          # into:
+          #     FOOCFLAGS = `pkg-config --cflags foo bar`
+          #     FOOLIBS = `pkg-config --libs foo bar`
+          #
+          # the latter works more consistently.
+          /^[A-Z0-9_]\+CFLAGS = `pkg-config --cflags [^`]\+`$/ {
+            N
+            s''
         + "/"
         + ''
           ^\([A-Z0-9_]\+\)CFLAGS = `pkg-config --cflags \(.\+\)`\
@@ -126,7 +127,8 @@ stdenv.mkDerivation rec {
           }
           # fix WebKit libs not being there
           s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
-        '');
+        ''
+      );
     in
     ''
       declare -a makefiles=(./*.mak)

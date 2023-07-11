@@ -65,7 +65,8 @@ let
         };
         scrubDerivations =
           namePrefix: pkgSet:
-          mapAttrs (name: value:
+          mapAttrs (
+            name: value:
             let
               wholeName = "${namePrefix}.${name}";
               guard = lib.warn
@@ -88,10 +89,16 @@ let
 
     baseOptionsJSON =
       let
-        filter = builtins.filterSource (n: t:
+        filter = builtins.filterSource (
+          n: t:
           cleanSourceFilter n t
-          && (t == "directory" -> baseNameOf n != "tests")
-          && (t == "file" -> hasSuffix ".nix" n));
+          && (
+            t == "directory" -> baseNameOf n != "tests"
+          )
+          && (
+            t == "file" -> hasSuffix ".nix" n
+          )
+        );
       in
       pkgs.runCommand "lazy-options.json" {
         libPath = filter (pkgs.path + "/lib");

@@ -113,12 +113,13 @@ in
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = with lib; {
-        ExecStart = strings.concatStringsSep " " ([
-          "${pkgs.xautolock}/bin/xautolock"
-          "-noclose"
-          "-time ${toString cfg.time}"
-          "-locker '${cfg.locker}'"
-        ]
+        ExecStart = strings.concatStringsSep " " (
+          [
+            "${pkgs.xautolock}/bin/xautolock"
+            "-noclose"
+            "-time ${toString cfg.time}"
+            "-locker '${cfg.locker}'"
+          ]
           ++ optionals cfg.enableNotifier [
             "-notify ${toString cfg.notify}"
             "-notifier '${cfg.notifier}'"
@@ -130,7 +131,8 @@ in
             "-killer '${cfg.killer}'"
             "-killtime ${toString cfg.killtime}"
           ]
-          ++ cfg.extraOptions);
+          ++ cfg.extraOptions
+        );
         Restart = "always";
       };
     };

@@ -17,11 +17,13 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeBuildInputs =
-    (with python3Packages; [
-      numpy
-      cython
-      scipy
-    ])
+    (
+      with python3Packages; [
+        numpy
+        cython
+        scipy
+      ]
+    )
     ++ [ wrapQtAppsHook ]
     ;
 

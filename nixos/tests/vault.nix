@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -26,4 +27,5 @@ import ./make-test-python.nix ({
       machine.fail("vault status")
       machine.succeed("vault status || test $? -eq 2")
     '';
-  })
+  }
+)

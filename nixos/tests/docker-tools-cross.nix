@@ -2,7 +2,8 @@
 # tests that _include_ running the result are separate. That way, most people
 # can run the majority of the test suite without the extra setup.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:

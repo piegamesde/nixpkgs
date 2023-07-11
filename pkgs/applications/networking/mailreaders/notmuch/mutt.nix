@@ -19,16 +19,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs =
     [ perl ]
-    ++ (with perlPackages; [
-      FileRemove
-      DigestSHA1
-      Later
-      MailBox
-      MailMaildir
-      MailTools
-      StringShellQuote
-      TermReadLineGnu
-    ])
+    ++ (
+      with perlPackages; [
+        FileRemove
+        DigestSHA1
+        Later
+        MailBox
+        MailMaildir
+        MailTools
+        StringShellQuote
+        TermReadLineGnu
+      ]
+    )
     ;
 
   src = notmuch.src;

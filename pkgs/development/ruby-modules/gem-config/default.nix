@@ -522,9 +522,11 @@ in
       nativeBuildInputs =
         [ pkg-config ]
         ++ lib.optional stdenv.isDarwin cctools
-        ++ lib.optional (lib.versionAtLeast attrs.version "1.53.0"
+        ++ lib.optional (
+          lib.versionAtLeast attrs.version "1.53.0"
           && stdenv.isDarwin
-          && stdenv.isAarch64) autoSignDarwinBinariesHook
+          && stdenv.isAarch64
+        ) autoSignDarwinBinariesHook
         ;
       buildInputs = [ openssl ];
       hardeningDisable = [ "format" ];
@@ -544,15 +546,16 @@ in
           substituteInPlace Makefile \
             --replace '-Wno-invalid-source-encoding' ""
         ''
-        + lib.optionalString
-          (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin) ''
-            # For < v1.48.0
-            substituteInPlace src/ruby/ext/grpc/extconf.rb \
-              --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
-            # For >= v1.48.0
-            substituteInPlace src/ruby/ext/grpc/extconf.rb \
-              --replace 'apple_toolchain = ' 'apple_toolchain = false && '
-          ''
+        + lib.optionalString (
+          lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin
+        ) ''
+          # For < v1.48.0
+          substituteInPlace src/ruby/ext/grpc/extconf.rb \
+            --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
+          # For >= v1.48.0
+          substituteInPlace src/ruby/ext/grpc/extconf.rb \
+            --replace 'apple_toolchain = ' 'apple_toolchain = false && '
+        ''
         ;
     }
     ;

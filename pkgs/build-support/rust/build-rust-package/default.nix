@@ -68,8 +68,12 @@
 }@args:
 
 assert cargoVendorDir == null && cargoLock == null
-  -> !(args ? cargoSha256 && args.cargoSha256 != null)
-    && !(args ? cargoHash && args.cargoHash != null)
+  -> !(
+    args ? cargoSha256 && args.cargoSha256 != null
+  )
+    && !(
+      args ? cargoHash && args.cargoHash != null
+    )
   -> throw "cargoSha256, cargoHash, cargoVendorDir, or cargoLock must be set";
 assert buildType == "release" || buildType == "debug";
 
@@ -81,21 +85,23 @@ let
     else if cargoLock != null then
       importCargoLock cargoLock
     else
-      fetchCargoTarball ({
-        inherit
-          src
-          srcs
-          sourceRoot
-          preUnpack
-          unpackPhase
-          postUnpack
-          cargoUpdateHook
-          ;
-        name = cargoDepsName;
-        patches = cargoPatches;
-      } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
+      fetchCargoTarball (
+        {
+          inherit
+            src
+            srcs
+            sourceRoot
+            preUnpack
+            unpackPhase
+            postUnpack
+            cargoUpdateHook
+            ;
+          name = cargoDepsName;
+          patches = cargoPatches;
+        } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
         // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
-        // depsExtraArgs)
+        // depsExtraArgs
+      )
     ;
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
@@ -124,99 +130,105 @@ let
 in
 assert useSysroot -> !(args.doCheck or true);
 
-stdenv.mkDerivation ((removeAttrs args [
-  "depsExtraArgs"
-  "cargoUpdateHook"
-  "cargoLock"
-]) // lib.optionalAttrs useSysroot {
-  RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
-} // {
-  inherit buildAndTestSubdir cargoDeps;
+stdenv.mkDerivation (
+  (removeAttrs args [
+    "depsExtraArgs"
+    "cargoUpdateHook"
+    "cargoLock"
+  ]) // lib.optionalAttrs useSysroot {
+    RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
+  } // {
+    inherit buildAndTestSubdir cargoDeps;
 
-  cargoBuildType = buildType;
+    cargoBuildType = buildType;
 
-  cargoCheckType = checkType;
+    cargoCheckType = checkType;
 
-  cargoBuildNoDefaultFeatures = buildNoDefaultFeatures;
+    cargoBuildNoDefaultFeatures = buildNoDefaultFeatures;
 
-  cargoCheckNoDefaultFeatures = checkNoDefaultFeatures;
+    cargoCheckNoDefaultFeatures = checkNoDefaultFeatures;
 
-  cargoBuildFeatures = buildFeatures;
+    cargoBuildFeatures = buildFeatures;
 
-  cargoCheckFeatures = checkFeatures;
+    cargoCheckFeatures = checkFeatures;
 
-  patchRegistryDeps = ./patch-registry-deps;
+    patchRegistryDeps = ./patch-registry-deps;
 
-  nativeBuildInputs =
-    nativeBuildInputs
-    ++ lib.optionals auditable [
-        (buildPackages.cargo-auditable-cargo-wrapper.override {
-          inherit cargo cargo-auditable;
-        })
-      ]
-    ++ [
-      cargoBuildHook
-      (if useNextest then
-        cargoNextestHook
-      else
-        cargoCheckHook)
-      cargoInstallHook
-      cargoSetupHook
-      rustc
-    ]
-    ;
-
-  buildInputs =
-    buildInputs
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-    ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
-    ;
-
-  patches = cargoPatches ++ patches;
-
-  PKG_CONFIG_ALLOW_CROSS =
-    if stdenv.buildPlatform != stdenv.hostPlatform then
-      1
-    else
-      0
-    ;
-
-  postUnpack =
-    ''
-      eval "$cargoDepsHook"
-
-      export RUST_LOG=${logLevel}
-    ''
-    + (args.postUnpack or "")
-    ;
-
-  configurePhase =
-    args.configurePhase or ''
-      runHook preConfigure
-      runHook postConfigure
-    '';
-
-  doCheck = args.doCheck or true;
-
-  strictDeps = true;
-
-  meta = {
-    # default to Rust's platforms
-    platforms =
-      rustc.meta.platforms
+    nativeBuildInputs =
+      nativeBuildInputs
+      ++ lib.optionals auditable [
+          (buildPackages.cargo-auditable-cargo-wrapper.override {
+            inherit cargo cargo-auditable;
+          })
+        ]
       ++ [
-        # Platforms without host tools from
-        # https://doc.rust-lang.org/nightly/rustc/platform-support.html
-        "armv7a-darwin"
-        "armv5tel-linux"
-        "armv6l-linux"
-        "armv7a-linux"
-        "m68k-linux"
-        "riscv32-linux"
-        "armv6l-netbsd"
-        "x86_64-redox"
-        "wasm32-wasi"
+        cargoBuildHook
+        (
+          if useNextest then
+            cargoNextestHook
+          else
+            cargoCheckHook
+        )
+        cargoInstallHook
+        cargoSetupHook
+        rustc
       ]
       ;
-  } // meta;
-})
+
+    buildInputs =
+      buildInputs
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
+      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
+      ;
+
+    patches = cargoPatches ++ patches;
+
+    PKG_CONFIG_ALLOW_CROSS =
+      if stdenv.buildPlatform != stdenv.hostPlatform then
+        1
+      else
+        0
+      ;
+
+    postUnpack =
+      ''
+        eval "$cargoDepsHook"
+
+        export RUST_LOG=${logLevel}
+      ''
+      + (
+        args.postUnpack or ""
+      )
+      ;
+
+    configurePhase =
+      args.configurePhase or ''
+        runHook preConfigure
+        runHook postConfigure
+      '';
+
+    doCheck = args.doCheck or true;
+
+    strictDeps = true;
+
+    meta = {
+      # default to Rust's platforms
+      platforms =
+        rustc.meta.platforms
+        ++ [
+          # Platforms without host tools from
+          # https://doc.rust-lang.org/nightly/rustc/platform-support.html
+          "armv7a-darwin"
+          "armv5tel-linux"
+          "armv6l-linux"
+          "armv7a-linux"
+          "m68k-linux"
+          "riscv32-linux"
+          "armv6l-netbsd"
+          "x86_64-redox"
+          "wasm32-wasi"
+        ]
+        ;
+    } // meta;
+  }
+)

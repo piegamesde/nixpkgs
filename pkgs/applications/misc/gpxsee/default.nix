@@ -47,15 +47,17 @@ stdenv.mkDerivation rec {
       qtpbfimageplugin
       qtserialport
     ]
-    ++ (if isQt6 then
-      [
-        qtbase
-        qtpositioning
-        qtsvg
-        qt5compat
-      ]
-    else
-      [ qtlocation ])
+    ++ (
+      if isQt6 then
+        [
+          qtbase
+          qtpositioning
+          qtsvg
+          qt5compat
+        ]
+      else
+        [ qtlocation ]
+    )
     ;
 
   nativeBuildInputs = [

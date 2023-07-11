@@ -9,15 +9,19 @@
 
 let
   enableChecksum =
-    (with stdenv;
-      buildPlatform == hostPlatform && hostPlatform == targetPlatform)
+    (
+      with stdenv;
+      buildPlatform == hostPlatform && hostPlatform == targetPlatform
+    )
     && langC
     && langCC
     && !stdenv.hostPlatform.isDarwin
     ;
 in
-(pkg:
-  pkg.overrideAttrs (previousAttrs:
+(
+  pkg:
+  pkg.overrideAttrs (
+    previousAttrs:
     lib.optionalAttrs enableChecksum {
       outputs =
         previousAttrs.outputs ++ lib.optionals enableChecksum [ "checksum" ]
@@ -25,7 +29,9 @@ in
         # This is a separate phase because gcc assembles its phase scripts
         # in bash instead of nix (we should fix that).
       preFixupPhases =
-        (previousAttrs.preFixupPhases or [ ])
+        (
+          previousAttrs.preFixupPhases or [ ]
+        )
         ++ [ "postInstallSaveChecksumPhase" ]
         ;
         #
@@ -51,4 +57,6 @@ in
         make -C gcc cc1-checksum.o cc1plus-checksum.o
         install -Dt $checksum/checksums/ gcc/cc*-checksum.o
       '';
-    }))
+    }
+  )
+)

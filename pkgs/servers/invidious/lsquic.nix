@@ -30,7 +30,8 @@ let
     ;
 
     # lsquic requires a specific boringssl version (noted in its README)
-  boringssl' = boringssl.overrideAttrs ({
+  boringssl' = boringssl.overrideAttrs (
+    {
       preBuild,
       ...
     }: {
@@ -84,7 +85,8 @@ let
               -i build.ninja
         ''
         ;
-    });
+    }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "lsquic";

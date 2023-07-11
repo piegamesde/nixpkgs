@@ -86,8 +86,10 @@ let
     ;
 
 in
-makeScope pkgs'.newScope (self:
-  makeOverridable ({
+makeScope pkgs'.newScope (
+  self:
+  makeOverridable (
+    {
       pkgs ? pkgs',
       lib ? pkgs.lib,
       elpaPackages ? mkElpaPackages { inherit pkgs lib; } self,
@@ -96,41 +98,45 @@ makeScope pkgs'.newScope (self:
       melpaPackages ? melpaGeneric { inherit pkgs lib; } "unstable" self,
       manualPackages ? mkManualPackages { inherit pkgs lib; } self
     }:
-    ({ } // elpaPackages // {
-      inherit elpaPackages;
-    } // nongnuPackages // {
-      inherit nongnuPackages;
-    } // melpaStablePackages // {
-      inherit melpaStablePackages;
-    } // melpaPackages // {
-      inherit melpaPackages;
-    } // manualPackages // {
-      inherit manualPackages;
-    } // {
+    (
+      { } // elpaPackages // {
+        inherit elpaPackages;
+      } // nongnuPackages // {
+        inherit nongnuPackages;
+      } // melpaStablePackages // {
+        inherit melpaStablePackages;
+      } // melpaPackages // {
+        inherit melpaPackages;
+      } // manualPackages // {
+        inherit manualPackages;
+      } // {
 
-      # Propagate overridden scope
-      emacs = emacs'.overrideAttrs (old: {
-        passthru =
-          (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
-      });
+        # Propagate overridden scope
+        emacs = emacs'.overrideAttrs (old: {
+          passthru =
+            (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
+        });
 
-      trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix {
-        inherit (self) emacs;
-      };
+        trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix {
+          inherit (self) emacs;
+        };
 
-      melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix {
-        inherit (self) emacs;
-      };
+        melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix {
+          inherit (self) emacs;
+        };
 
-      emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
-      withPackages = emacsWithPackages { inherit pkgs lib; } self;
+        emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
+        withPackages = emacsWithPackages { inherit pkgs lib; } self;
 
-    } // {
+      } // {
 
-      # Package specific priority overrides goes here
+        # Package specific priority overrides goes here
 
-      # Telega uploads packages incompatible with stable tdlib to melpa
-      # Prefer the one from melpa stable
-      inherit (melpaStablePackages) telega;
+        # Telega uploads packages incompatible with stable tdlib to melpa
+        # Prefer the one from melpa stable
+        inherit (melpaStablePackages) telega;
 
-    })) { })
+      }
+    )
+  ) { }
+)

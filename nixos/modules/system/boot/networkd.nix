@@ -584,7 +584,8 @@ let
         (assertValueOneOf "Unmanaged" boolValues)
         (assertInt "Group")
         (assertRange "Group" 0 2147483647)
-        (assertValueOneOf "RequiredForOnline" (boolValues
+        (assertValueOneOf "RequiredForOnline" (
+          boolValues
           ++ [
             "missing"
             "off"
@@ -595,7 +596,8 @@ let
             "degraded"
             "enslaved"
             "routable"
-          ]))
+          ]
+        ))
         (assertValueOneOf "RequiredFamilyForOnline" [
           "ipv4"
           "ipv6"
@@ -686,29 +688,37 @@ let
         (assertValueOneOf "DNSOverTLS" (boolValues ++ [ "opportunistic" ]))
         (assertValueOneOf "DNSSEC" (boolValues ++ [ "allow-downgrade" ]))
         (assertValueOneOf "LLDP" (boolValues ++ [ "routers-only" ]))
-        (assertValueOneOf "EmitLLDP" (boolValues
+        (assertValueOneOf "EmitLLDP" (
+          boolValues
           ++ [
             "nearest-bridge"
             "non-tpmr-bridge"
             "customer-bridge"
-          ]))
+          ]
+        ))
         (assertValueOneOf "DNSDefaultRoute" boolValues)
-        (assertValueOneOf "IPForward" (boolValues
+        (assertValueOneOf "IPForward" (
+          boolValues
           ++ [
             "ipv4"
             "ipv6"
-          ]))
-        (assertValueOneOf "IPMasquerade" (boolValues
+          ]
+        ))
+        (assertValueOneOf "IPMasquerade" (
+          boolValues
           ++ [
             "ipv4"
             "ipv6"
             "both"
-          ]))
-        (assertValueOneOf "IPv6PrivacyExtensions" (boolValues
+          ]
+        ))
+        (assertValueOneOf "IPv6PrivacyExtensions" (
+          boolValues
           ++ [
             "prefer-public"
             "kernel"
-          ]))
+          ]
+        ))
         (assertValueOneOf "IPv6AcceptRA" boolValues)
         (assertInt "IPv6DuplicateAddressDetection")
         (assertMinimum "IPv6DuplicateAddressDetection" 0)
@@ -722,12 +732,14 @@ let
         (assertValueOneOf "ActiveSlave" boolValues)
         (assertValueOneOf "PrimarySlave" boolValues)
         (assertValueOneOf "ConfigureWithoutCarrier" boolValues)
-        (assertValueOneOf "KeepConfiguration" (boolValues
+        (assertValueOneOf "KeepConfiguration" (
+          boolValues
           ++ [
             "static"
             "dhcp-on-stop"
             "dhcp"
-          ]))
+          ]
+        ))
       ];
 
       sectionAddress = checkUnitConfig "Address" [
@@ -3413,7 +3425,8 @@ let
         default = { };
         internal = true;
         type = with types;
-          attrsOf (submodule ({
+          attrsOf (submodule (
+            {
               name,
               config,
               ...
@@ -3421,7 +3434,8 @@ let
               options =
                 mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
               config = { unit = mkDefault (makeUnit name config); };
-            }));
+            }
+          ));
       };
 
       wait-online = {
@@ -3575,17 +3589,18 @@ let
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 
-        networking.iproute2 = mkIf (cfg.config.addRouteTablesToIPRoute2
-          && cfg.config.routeTables != { }) {
-            enable = mkDefault true;
-            rttablesExtraConfig = ''
+        networking.iproute2 = mkIf (
+          cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { }
+        ) {
+          enable = mkDefault true;
+          rttablesExtraConfig = ''
 
-              # Extra tables defined in NixOS systemd.networkd.config.routeTables.
-              ${concatStringsSep "\n"
-              (mapAttrsToList (name: number: "${toString number} ${name}")
-                cfg.config.routeTables)}
-            '';
-          };
+            # Extra tables defined in NixOS systemd.networkd.config.routeTables.
+            ${concatStringsSep "\n"
+            (mapAttrsToList (name: number: "${toString number} ${name}")
+              cfg.config.routeTables)}
+          '';
+        };
 
         services.resolved.enable = mkDefault true;
 

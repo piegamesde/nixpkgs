@@ -25,11 +25,13 @@ in
         value = root + "/${file}";
       }) root-files;
         # Subdirectories of the root with a cabal file.
-      cabal-subdirs = builtins.filter ({
+      cabal-subdirs = builtins.filter (
+        {
           name,
           value,
         }:
-        builtins.pathExists (value + "/${name}.cabal")) root-files-with-paths;
+        builtins.pathExists (value + "/${name}.cabal")
+      ) root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs
     ;
@@ -68,10 +70,12 @@ in
         file == /. || type == "directory"
         ;
     in
-    go (if isDir then
-      file
-    else
-      parent)
+    go (
+      if isDir then
+        file
+      else
+        parent
+    )
     ;
 
     /* Given a directory, return a flattened list of all files within it recursively.
@@ -81,11 +85,13 @@ in
   listFilesRecursive =
     # The path to recursively list
     dir:
-    lib.flatten (lib.mapAttrsToList (name: type:
+    lib.flatten (lib.mapAttrsToList (
+      name: type:
       if type == "directory" then
         lib.filesystem.listFilesRecursive (dir + "/${name}")
       else
-        dir + "/${name}") (builtins.readDir dir))
+        dir + "/${name}"
+    ) (builtins.readDir dir))
     ;
 
 }

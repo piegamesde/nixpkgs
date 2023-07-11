@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -23,4 +24,5 @@ import ./make-test-python.nix ({
       machine.wait_until_succeeds("test $(</sys/kernel/mm/ksm/run) -eq 1")
       machine.wait_until_succeeds("test $(</sys/kernel/mm/ksm/sleep_millisecs) -eq 300")
     '';
-  })
+  }
+)

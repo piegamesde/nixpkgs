@@ -18,7 +18,8 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (pp:
+  pythonEnv = python3.withPackages (
+    pp:
     with pp; [
       grpcio-tools
       protobuf
@@ -31,7 +32,8 @@ let
       cryptography
       pynacl
       netifaces
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "warpinator";

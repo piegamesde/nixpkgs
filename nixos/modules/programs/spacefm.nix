@@ -56,8 +56,10 @@ in
     environment.systemPackages = [ pkgs.spaceFM ];
 
     environment.etc."spacefm/spacefm.conf".text = concatStrings (mapAttrsToList
-      (n: v: ''
-        ${n}=${toString v}
-      '') cfg.settings);
+      (
+        n: v: ''
+          ${n}=${toString v}
+        ''
+      ) cfg.settings);
   };
 }

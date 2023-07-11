@@ -55,10 +55,11 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dversion=${version}" ];
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    # Needed with GCC 12
-    "-Wno-error=address"
-  ]
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      # Needed with GCC 12
+      "-Wno-error=address"
+    ]
     ++ lib.optionals stdenv.isDarwin [
       "-Wno-sometimes-uninitialized"
       "-Wno-tautological-pointer-compare"
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
       "-Wno-array-bounds"
       "-Wno-free-nonheap-object"
       "-Wno-stringop-truncation"
-    ]);
+    ]
+  );
 
   passthru = { updateScript = nix-update-script { }; };
 

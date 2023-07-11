@@ -245,9 +245,12 @@ let
 
   generateUnit =
     name: values:
-    assert assertMsg (values.configFile != null
-      || ((values.privateKey != null) != (values.privateKeyFile != null)))
-      "Only one of privateKey, configFile or privateKeyFile may be set";
+    assert assertMsg (
+      values.configFile != null
+      || (
+        (values.privateKey != null) != (values.privateKeyFile != null)
+      )
+    ) "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile =
         if values.preUp != "" then
@@ -258,10 +261,11 @@ let
       postUp =
         optional (values.privateKeyFile != null)
           "wg set ${name} private-key <(cat ${values.privateKeyFile})"
-        ++ (concatMap (peer:
+        ++ (concatMap (
+          peer:
           optional (peer.presharedKeyFile != null)
-          "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
-          values.peers)
+          "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
+        ) values.peers)
         ++ optional (values.postUp != "") values.postUp
         ;
       postUpFile =
@@ -318,10 +322,11 @@ let
           + optionalString (postDownFile != null) ''
             PostDown = ${postDownFile}
           ''
-          + concatMapStringsSep "\n" (peer:
-            assert assertMsg (!((peer.presharedKeyFile != null)
-              && (peer.presharedKey != null)))
-              "Only one of presharedKey or presharedKeyFile may be set";
+          + concatMapStringsSep "\n" (
+            peer:
+            assert assertMsg (
+              !((peer.presharedKeyFile != null) && (peer.presharedKey != null))
+            ) "Only one of presharedKey or presharedKeyFile may be set";
             ''
               [Peer]
             ''
@@ -339,7 +344,8 @@ let
             ''
             + optionalString (peer.allowedIPs != [ ]) ''
               AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
-            '') values.peers
+            ''
+          ) values.peers
           ;
       };
       configPath =

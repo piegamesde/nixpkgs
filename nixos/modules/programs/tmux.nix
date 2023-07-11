@@ -38,8 +38,9 @@ let
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString
-    (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
+    ${optionalString (
+      cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize
+    ) ''
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U

@@ -62,17 +62,19 @@ let
     else
       map mkJarUrl repos
     ;
-  jar = fetchurl (builtins.removeAttrs args [
-    "groupId"
-    "artifactId"
-    "version"
-    "classifier"
-    "repos"
-    "url"
-  ] // {
-    urls = urls_;
-    name = "${pname}-${version}.jar";
-  });
+  jar = fetchurl (
+    builtins.removeAttrs args [
+      "groupId"
+      "artifactId"
+      "version"
+      "classifier"
+      "repos"
+      "url"
+    ] // {
+      urls = urls_;
+      name = "${pname}-${version}.jar";
+    }
+  );
 in
 stdenv.mkDerivation {
   inherit pname version;

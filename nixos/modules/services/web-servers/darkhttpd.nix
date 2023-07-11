@@ -10,14 +10,16 @@ with lib;
 let
   cfg = config.services.darkhttpd;
 
-  args = concatStringsSep " " ([
-    cfg.rootDir
-    "--port ${toString cfg.port}"
-    "--addr ${cfg.address}"
-  ]
+  args = concatStringsSep " " (
+    [
+      cfg.rootDir
+      "--port ${toString cfg.port}"
+      "--addr ${cfg.address}"
+    ]
     ++ cfg.extraArgs
     ++ optional cfg.hideServerId "--no-server-id"
-    ++ optional config.networking.enableIPv6 "--ipv6");
+    ++ optional config.networking.enableIPv6 "--ipv6"
+  );
 
 in
 {

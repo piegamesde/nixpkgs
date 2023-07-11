@@ -73,11 +73,13 @@ stdenv.mkDerivation (finalAttrs: {
       # Provides glib-compile-resources to compile gresources
       glib
     ]
-    ++ (with rustPlatform; [
-      cargoSetupHook
-      rust.cargo
-      rust.rustc
-    ])
+    ++ (
+      with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]
+    )
     ;
 
   buildInputs =
@@ -95,13 +97,15 @@ stdenv.mkDerivation (finalAttrs: {
       # SVG support for gdk-pixbuf
       librsvg
     ]
-    ++ (with gst_all_1; [
-      # Audio & video support for webkitgtk WebView
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-    ])
+    ++ (
+      with gst_all_1; [
+        # Audio & video support for webkitgtk WebView
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+      ]
+    )
     ;
 
   passthru.updateScript = gitUpdater { rev-prefix = "v."; };

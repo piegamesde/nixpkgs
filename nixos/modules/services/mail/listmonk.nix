@@ -18,11 +18,12 @@ let
     }' WHERE key = '${key}';"
     ;
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql"
-    (concatStringsSep "\n" (mapAttrsToList setDatabaseOption
-      (if (cfg.database.settings != null) then
+    (concatStringsSep "\n" (mapAttrsToList setDatabaseOption (
+      if (cfg.database.settings != null) then
         cfg.database.settings
       else
-        { })));
+        { }
+    )));
   updateDatabaseConfigScript =
     pkgs.writeShellScriptBin "update-database-config.sh" ''
       ${if cfg.database.mutableSettings then

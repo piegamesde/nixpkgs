@@ -16,7 +16,8 @@ in
     in
     {
       servers = mkOption {
-        type = types.attrsOf (types.submodule ({
+        type = types.attrsOf (types.submodule (
+          {
             ...
           }: {
             options = {
@@ -60,7 +61,8 @@ in
                 '';
               };
             };
-          }));
+          }
+        ));
         default = { };
         example = literalExpression ''
           {
@@ -97,7 +99,8 @@ in
         ;
     in
     mkIf (cfg.servers != { }) {
-      systemd.services = mapAttrs' (server: options:
+      systemd.services = mapAttrs' (
+        server: options:
         nameValuePair "tts-${server}" {
           description = "Coqui TTS server instance ${server}";
           after = [ "network-online.target" ];
@@ -161,7 +164,8 @@ in
             ];
             UMask = "0077";
           };
-        }) cfg.servers;
+        }
+      ) cfg.servers;
     }
     ;
 }

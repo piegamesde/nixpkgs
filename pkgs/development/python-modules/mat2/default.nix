@@ -41,13 +41,15 @@ buildPythonPackage rec {
   patches =
     [
       # hardcode paths to some binaries
-      (substituteAll ({
-        src = ./paths.patch;
-        exiftool = "${exiftool}/bin/exiftool";
-        ffmpeg = "${ffmpeg}/bin/ffmpeg";
-      } // lib.optionalAttrs dolphinIntegration {
-        kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
-      }))
+      (substituteAll (
+        {
+          src = ./paths.patch;
+          exiftool = "${exiftool}/bin/exiftool";
+          ffmpeg = "${ffmpeg}/bin/ffmpeg";
+        } // lib.optionalAttrs dolphinIntegration {
+          kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
+        }
+      ))
       # the executable shouldn't be called .mat2-wrapped
       ./executable-name.patch
       # hardcode path to mat2 executable

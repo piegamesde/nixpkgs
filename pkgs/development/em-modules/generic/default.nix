@@ -13,7 +13,8 @@ let
     pkgs.stdenv.mkDerivation (finalAttrs: f (lib.toFunction argsFun finalAttrs))
     ;
 in
-wrapDerivation ({
+wrapDerivation (
+  {
     buildInputs ? [ ],
     nativeBuildInputs ? [ ]
 
@@ -102,4 +103,5 @@ wrapDerivation ({
       # add an extra maintainer to every package
       maintainers = (meta.maintainers or [ ]) ++ [ lib.maintainers.qknight ];
     };
-  })
+  }
+)

@@ -39,11 +39,13 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars (c:
+    + stringAsChars (
+      c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
-        "_") s
+        "_"
+    ) s
     ;
 
   defaultJvbConfig = {
@@ -59,8 +61,8 @@ let
         enabled = true;
         transports = [ { type = "muc"; } ];
       };
-      apis.xmpp-client.configs = flip mapAttrs cfg.xmppConfigs
-        (name: xmppConfig: {
+      apis.xmpp-client.configs = flip mapAttrs cfg.xmppConfigs (
+        name: xmppConfig: {
           hostname = xmppConfig.hostName;
           domain = xmppConfig.domain;
           username = xmppConfig.userName;
@@ -69,7 +71,8 @@ let
           muc_nickname = xmppConfig.mucNickname;
           disable_certificate_verification =
             xmppConfig.disableCertificateVerification;
-        });
+        }
+      );
     };
   };
 
@@ -121,7 +124,8 @@ in
           };
         }
       '';
-      type = attrsOf (submodule ({
+      type = attrsOf (submodule (
+        {
           name,
           ...
         }: {
@@ -180,10 +184,12 @@ in
           };
           config = {
             hostName = mkDefault name;
-            mucNickname = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
-              (config.networking.fqdnOrHostName));
+            mucNickname = mkDefault (builtins.replaceStrings [ "." ] [ "-" ] (
+              config.networking.fqdnOrHostName
+            ));
           };
-        }));
+        }
+      ));
     };
 
     nat = {
@@ -265,9 +271,11 @@ in
         environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
         script =
-          (concatStrings (mapAttrsToList (name: xmppConfig: ''
-            export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-          '') cfg.xmppConfigs))
+          (concatStrings (mapAttrsToList (
+            name: xmppConfig: ''
+              export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+            ''
+          ) cfg.xmppConfigs))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
               if (cfg.apis == [ ]) then

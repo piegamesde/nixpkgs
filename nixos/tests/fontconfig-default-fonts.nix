@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -35,4 +36,5 @@ import ./make-test-python.nix ({
       machine.succeed("fc-match monospace | grep '\"Source Code Pro\"'")
       machine.succeed("fc-match emoji | grep '\"Twitter Color Emoji\"'")
     '';
-  })
+  }
+)

@@ -212,11 +212,13 @@ let
           "--localstatedir=/var"
           "--enable-systemd"
         ]
-        ++ optionals buildKernel ([
-          "--with-linux=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
-          "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-        ]
-          ++ kernel.makeFlags)
+        ++ optionals buildKernel (
+          [
+            "--with-linux=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
+            "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+          ]
+          ++ kernel.makeFlags
+        )
         ;
 
       makeFlags = optionals buildKernel kernel.makeFlags;

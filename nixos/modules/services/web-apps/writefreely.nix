@@ -16,14 +16,15 @@ let
     mkKeyValue =
       key: value:
       let
-        value' = lib.optionalString (value != null)
-          (if builtins.isBool value then
+        value' = lib.optionalString (value != null) (
+          if builtins.isBool value then
             if value == true then
               "true"
             else
               "false"
           else
-            toString value);
+            toString value
+        );
       in
       "${key} = ${value'}"
       ;

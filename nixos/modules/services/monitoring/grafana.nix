@@ -27,14 +27,15 @@ let
     if provisionCfg.path != null then
       provisionCfg.path
     else
-      provisioningSettingsFormat.generate "${name}.yaml"
-      (if provisionCfg.settings != null then
-        provisionCfg.settings
-      else
-        {
-          apiVersion = 1;
-          ${attr} = [ ];
-        })
+      provisioningSettingsFormat.generate "${name}.yaml" (
+        if provisionCfg.settings != null then
+          provisionCfg.settings
+        else
+          {
+            apiVersion = 1;
+            ${attr} = [ ];
+          }
+      )
     ;
 
   datasourceFileOrDir =
@@ -1852,12 +1853,13 @@ in
         # is specified, this can be achieved by using the file/env provider:
         # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
       in
-      (optional (doesntUseFileProvider cfg.settings.database.password ""
-        || doesntUseFileProvider cfg.settings.security.admin_password
-          "admin") ''
-            Grafana passwords will be stored as plaintext in the Nix store!
-            Use file provider or an env-var instead.
-          '')
+      (optional (
+        doesntUseFileProvider cfg.settings.database.password ""
+        || doesntUseFileProvider cfg.settings.security.admin_password "admin"
+      ) ''
+        Grafana passwords will be stored as plaintext in the Nix store!
+        Use file provider or an env-var instead.
+      '')
       # Warn about deprecated notifiers.
       ++ (optional (cfg.provision.notifiers != [ ]) ''
         Notifiers are deprecated upstream and will be removed in Grafana 10.
@@ -1865,20 +1867,21 @@ in
       '')
       # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
       # only uses file/env providers.
-      ++ (optional (let
-        datasourcesToCheck =
-          optionals (cfg.provision.datasources.settings != null)
-          cfg.provision.datasources.settings.datasources;
-        declarationUnsafe =
-          {
-            secureJsonData,
-            ...
-          }:
-          secureJsonData != null
-          && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
-          ;
-      in
-      any declarationUnsafe datasourcesToCheck
+      ++ (optional (
+        let
+          datasourcesToCheck =
+            optionals (cfg.provision.datasources.settings != null)
+            cfg.provision.datasources.settings.datasources;
+          declarationUnsafe =
+            {
+              secureJsonData,
+              ...
+            }:
+            secureJsonData != null
+            && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
+            ;
+        in
+        any declarationUnsafe datasourcesToCheck
       ) ''
         Declarations in the `secureJsonData`-block of a datasource will be leaked to the
         Nix store unless a file-provider or an env-var is used!
@@ -1902,12 +1905,14 @@ in
           let
             prometheusIsNotDirect =
               opt:
-              all ({
+              all (
+                {
                   type,
                   access,
                   ...
                 }:
-                type == "prometheus" -> access != "direct") opt
+                type == "prometheus" -> access != "direct"
+              ) opt
               ;
           in
           cfg.provision.datasources.settings == null

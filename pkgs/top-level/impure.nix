@@ -66,13 +66,16 @@ in
         let
           content = builtins.readDir path;
         in
-        map (n: import (path + ("/" + n))) (builtins.filter (n:
-          (builtins.match ".*\\.nix" n != null
+        map (n: import (path + ("/" + n))) (builtins.filter (
+          n:
+          (
+            builtins.match ".*\\.nix" n != null
             &&
             # ignore Emacs lock files (.#foo.nix)
-              builtins.match "\\.#.*" n == null)
-          || builtins.pathExists (path + ("/" + n + "/default.nix")))
-          (builtins.attrNames content))
+              builtins.match "\\.#.*" n == null
+          )
+          || builtins.pathExists (path + ("/" + n + "/default.nix"))
+        ) (builtins.attrNames content))
       else
       # it's a file, so the result is the contents of the file itself
         import path
@@ -112,6 +115,8 @@ in
 assert args ? localSystem -> !(args ? system);
 assert args ? system -> !(args ? localSystem);
 
-import ./. (builtins.removeAttrs args [ "system" ] // {
-  inherit config overlays localSystem;
-})
+import ./. (
+  builtins.removeAttrs args [ "system" ] // {
+    inherit config overlays localSystem;
+  }
+)

@@ -3,7 +3,8 @@
   pkgs,
 }:
 
-lib.makeScope pkgs.newScope (self:
+lib.makeScope pkgs.newScope (
+  self:
   with self; {
 
     #### CORE EFL
@@ -20,4 +21,5 @@ lib.makeScope pkgs.newScope (self:
     rage = callPackage ./rage { };
     terminology = callPackage ./terminology { };
 
-  })
+  }
+)

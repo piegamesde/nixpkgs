@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
         node1.succeed("systemd-run -t -p RestrictNetworkInterfaces='eth1' ping -c 5 192.168.1.2")
         node1.fail("systemd-run -t -p RestrictNetworkInterfaces='lo' ping -c 5 192.168.1.2")
     '';
-  })
+  }
+)

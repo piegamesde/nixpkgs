@@ -54,18 +54,24 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
   pname =
     old.pname
     + "-hyprland"
-    + (if hidpiXWayland then
-      "-hidpi"
-    else
-      "")
-    + (if nvidiaPatches then
-      "-nvidia"
-    else
-      "")
+    + (
+      if hidpiXWayland then
+        "-hidpi"
+      else
+        ""
+    )
+    + (
+      if nvidiaPatches then
+        "-nvidia"
+      else
+        ""
+    )
     ;
 
   patches =
-    (old.patches or [ ])
+    (
+      old.patches or [ ]
+    )
     ++ (lib.optionals (enableXWayland && hidpiXWayland) [
       "${hyprland.src}/nix/wlroots-hidpi.patch"
       (fetchpatch {
@@ -85,13 +91,17 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     ;
 
   postPatch =
-    (old.postPatch or "")
-    + (if nvidiaPatches then
-      ''
-        substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
-      ''
-    else
-      "")
+    (
+      old.postPatch or ""
+    )
+    + (
+      if nvidiaPatches then
+        ''
+          substituteInPlace render/gles2/renderer.c --replace "glFlush();" "glFinish();"
+        ''
+      else
+        ""
+    )
     ;
 
   buildInputs =
@@ -105,7 +115,9 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
 })).override {
   xwayland = xwayland.overrideAttrs (old: {
     patches =
-      (old.patches or [ ])
+      (
+        old.patches or [ ]
+      )
       ++ (lib.optionals hidpiXWayland [
         "${hyprland.src}/nix/xwayland-vsync.patch"
         "${hyprland.src}/nix/xwayland-hidpi.patch"

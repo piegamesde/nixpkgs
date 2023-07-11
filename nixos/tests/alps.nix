@@ -2,7 +2,8 @@ let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -121,4 +122,5 @@ import ./make-test-python.nix ({
         client.succeed("test-alps-login")
       ''
       ;
-  })
+  }
+)

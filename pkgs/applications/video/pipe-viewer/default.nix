@@ -15,7 +15,8 @@
   Gtk3,
 }:
 let
-  perlEnv = perl.withPackages (ps:
+  perlEnv = perl.withPackages (
+    ps:
     with ps;
     [
       AnyURIEscape
@@ -35,7 +36,8 @@ let
       TextParsewords
       UnicodeLineBreak
     ]
-    ++ lib.optionals withGtk3 [ FileShareDir ]);
+    ++ lib.optionals withGtk3 [ FileShareDir ]
+  );
 in
 buildPerlModule rec {
   pname = "pipe-viewer";

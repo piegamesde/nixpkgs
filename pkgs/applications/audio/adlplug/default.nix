@@ -82,12 +82,13 @@ stdenv.mkDerivation rec {
       "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers"
     ]);
 
-  NIX_LDFLAGS = toString (lib.optionals stdenv.hostPlatform.isDarwin [
-    # Framework that JUCE needs which don't get linked properly
-    "-framework CoreAudioKit"
-    "-framework QuartzCore"
-    "-framework AudioToolbox"
-  ]
+  NIX_LDFLAGS = toString (
+    lib.optionals stdenv.hostPlatform.isDarwin [
+      # Framework that JUCE needs which don't get linked properly
+      "-framework CoreAudioKit"
+      "-framework QuartzCore"
+      "-framework AudioToolbox"
+    ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       # JUCE dlopen's these at runtime
       "-lX11"
@@ -95,7 +96,8 @@ stdenv.mkDerivation rec {
       "-lXcursor"
       "-lXinerama"
       "-lXrandr"
-    ]);
+    ]
+  );
 
   nativeBuildInputs = [
     cmake

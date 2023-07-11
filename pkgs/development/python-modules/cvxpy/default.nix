@@ -11,7 +11,9 @@
   scipy,
   scs,
   setuptools,
-  useOpenmp ? (!stdenv.isDarwin)
+  useOpenmp ? (
+    !stdenv.isDarwin
+  )
   # Check inputs
   ,
   pytestCheckHook,

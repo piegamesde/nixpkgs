@@ -173,7 +173,8 @@ in
 
     # Implementation
   config = mkIf (enabledNetworks != { }) {
-    systemd.services = mkMerge (mapAttrsToList (netName: netCfg:
+    systemd.services = mkMerge (mapAttrsToList (
+      netName: netCfg:
       let
         networkId = nameToId netName;
         settings = recursiveUpdate {
@@ -263,13 +264,15 @@ in
       (mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks);
 
       # Create the service users and groups.
-    users.users = mkMerge (mapAttrsToList (netName: netCfg: {
-      ${nameToId netName} = {
-        group = nameToId netName;
-        description = "Nebula service user for network ${netName}";
-        isSystemUser = true;
-      };
-    }) enabledNetworks);
+    users.users = mkMerge (mapAttrsToList (
+      netName: netCfg: {
+        ${nameToId netName} = {
+          group = nameToId netName;
+          description = "Nebula service user for network ${netName}";
+          isSystemUser = true;
+        };
+      }
+    ) enabledNetworks);
 
     users.groups = mkMerge
       (mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; })

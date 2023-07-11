@@ -1,5 +1,6 @@
 # Test whether `houndd` indexes nixpkgs
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -62,4 +63,5 @@ import ./make-test-python.nix ({
           "curl -f http://127.0.0.1:6080/api/v1/search\?stats\=fosho\&repos\=\*\&rng=%3A20\&q\=hi\&files\=\&i=nope | grep 'Filename' | grep 'hello'"
       )
     '';
-  })
+  }
+)

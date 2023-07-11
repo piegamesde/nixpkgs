@@ -9,7 +9,8 @@ with pkgs.lib;
 let
   testsForLinuxPackages =
     linuxPackages:
-    (import ./make-test-python.nix ({
+    (import ./make-test-python.nix (
+      {
         pkgs,
         ...
       }: {
@@ -33,7 +34,8 @@ let
           assert "Linux" in machine.succeed("uname -s")
           assert "${linuxPackages.kernel.modDirVersion}" in machine.succeed("uname -a")
         '';
-      }) args)
+      }
+    ) args)
     ;
   kernels = pkgs.linuxKernel.vanillaPackages // {
     inherit (pkgs.linuxKernel.packages)

@@ -299,10 +299,12 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  preBuild = lib.concatStrings (lib.mapAttrsToList (dir:
+  preBuild = lib.concatStrings (lib.mapAttrsToList (
+    dir:
     lib.concatMapStrings (artifact: ''
       ln -s ${artifact}/share/java/* third_party/${dir}
-    '')) artifacts);
+    '')
+  ) artifacts);
 
   postInstall = ''
     wrapProgram $out/bin/tsdb \

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -50,4 +51,5 @@ import ./make-test-python.nix ({
       machine.fail("curl -fvvv -X HEAD -s http://127.0.0.1/")
       machine.fail("curl -fvvv -s http://127.0.0.1/secret.html")
     '';
-  })
+  }
+)

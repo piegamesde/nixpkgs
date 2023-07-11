@@ -21,8 +21,9 @@ let
     warn
     ;
 
-  licenseMap = flip concatMapAttrs licenses
-    (k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; });
+  licenseMap = flip concatMapAttrs licenses (
+    k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; }
+  );
 
   deprecatedAliases = {
     "AGPL-3.0" = "agpl3Only";
@@ -53,15 +54,18 @@ let
       (filterAttrs (k: v: licenses.${v}.deprecated or true) deprecatedAliases);
   };
 
-  lint = flip pipe (flip mapAttrsToList lints (k: v:
+  lint = flip pipe (flip mapAttrsToList lints (
+    k: v:
     if v == [ ] then
       id
     else
-      warn "${k}: ${concatStringsSep ", " v}"));
+      warn "${k}: ${concatStringsSep ", " v}"
+  ));
 
   arms = lint (concatStringsSep "\n        "
-    (mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'')
-      (deprecatedAliases // licenseMap)));
+    (mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (
+      deprecatedAliases // licenseMap
+    )));
 
 in
 writeText "get-nix-license.rs" ''

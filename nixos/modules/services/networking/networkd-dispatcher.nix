@@ -88,14 +88,18 @@ in
           let
             scriptDir = pkgs.symlinkJoin {
               name = "networkd-dispatcher-script-dir";
-              paths = lib.mapAttrsToList (name: cfg:
-                (map (state:
+              paths = lib.mapAttrsToList (
+                name: cfg:
+                (map (
+                  state:
                   pkgs.writeTextFile {
                     inherit name;
                     text = cfg.script;
                     destination = "/${state}.d/${name}";
                     executable = true;
-                  }) cfg.onState)) cfg.rules;
+                  }
+                ) cfg.onState)
+              ) cfg.rules;
             };
           in
           [

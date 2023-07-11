@@ -12,11 +12,13 @@ let
   fpm = config.services.phpfpm.pools.roundcube;
   localDB = cfg.database.host == "localhost";
   user = cfg.database.username;
-  phpWithPspell = pkgs.php81.withExtensions ({
+  phpWithPspell = pkgs.php81.withExtensions (
+    {
       enabled,
       all,
     }:
-    [ all.pspell ] ++ enabled);
+    [ all.pspell ] ++ enabled
+  );
 in
 {
   options.services.roundcube = {
@@ -138,8 +140,9 @@ in
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
     services.roundcube.database.passwordFile =
-      mkIf (!localDB && cfg.database.password != "") (mkDefault
-        ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
+      mkIf (!localDB && cfg.database.password != "") (mkDefault (
+        "${pkgs.writeText "roundcube-password" cfg.database.password}"
+      ));
     warnings = lib.optional (!localDB && cfg.database.password != "")
       "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
       ;
@@ -182,7 +185,8 @@ in
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
-        lib.concatMapStringsSep ", " (dict:
+        lib.concatMapStringsSep ", " (
+          dict:
           let
             p = builtins.parseDrvName dict.shortName;
           in

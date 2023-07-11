@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -54,4 +55,5 @@ import ./make-test-python.nix ({
           'curl --fail --user rpc2:rpc2 --data-binary \'{"jsonrpc": "1.0", "id":"curltest", "method": "getblockchaininfo", "params": [] }\' -H \'content-type: text/plain;\' localhost:18332 |  grep \'"chain":"test"\' '
       )
     '';
-  })
+  }
+)

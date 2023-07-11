@@ -14,7 +14,8 @@ let
     ;
 
 in
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -90,4 +91,5 @@ import ./make-test-python.nix ({
             machine.fail(f"nixos-container destroy {container}")
       ''
       ;
-  })
+  }
+)

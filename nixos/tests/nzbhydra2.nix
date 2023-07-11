@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }:
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(5076)
       machine.succeed("curl --fail http://localhost:5076/")
     '';
-  })
+  }
+)

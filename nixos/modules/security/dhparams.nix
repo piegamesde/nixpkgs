@@ -173,7 +173,8 @@ in
               continue
             fi
             ${
-              lib.concatStrings (lib.mapAttrsToList (name:
+              lib.concatStrings (lib.mapAttrsToList (
+                name:
                 {
                   bits,
                   path,
@@ -186,7 +187,8 @@ in
                      } bit)" > /dev/null; then
                     continue
                   fi
-                '') cfg.params)
+                ''
+              ) cfg.params)
             }
             rm $file
           done
@@ -197,7 +199,8 @@ in
           rmdir --ignore-fail-on-non-empty ${cfg.path}
         '';
       };
-    } // lib.mapAttrs' (name:
+    } // lib.mapAttrs' (
+      name:
       {
         bits,
         path,
@@ -215,7 +218,8 @@ in
           ${pkgs.openssl}/bin/openssl dhparam -out ${lib.escapeShellArg path} \
             ${toString bits}
         '';
-      }) cfg.params;
+      }
+    ) cfg.params;
   };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];

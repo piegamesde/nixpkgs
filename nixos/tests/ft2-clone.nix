@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -33,5 +34,6 @@ import ./make-test-python.nix ({
       machine.wait_for_text(r"(Songlen|Repstart|Time|About|Nibbles|Help)")
       machine.screenshot("screen")
     '';
-  })
+  }
+)
 

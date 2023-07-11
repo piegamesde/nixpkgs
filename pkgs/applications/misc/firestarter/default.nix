@@ -83,13 +83,15 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ hwloc ]
-    ++ (if withCuda then
-      [
-        glibc_multi
-        cudatoolkit
-      ]
-    else
-      [ glibc.static ])
+    ++ (
+      if withCuda then
+        [
+          glibc_multi
+          cudatoolkit
+        ]
+      else
+        [ glibc.static ]
+    )
     ;
 
   NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];

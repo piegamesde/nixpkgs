@@ -33,7 +33,8 @@ let
         # - imports lua-packages.nix
         # - adds spliced package sets to the package set
         # - applies overrides from `packageOverrides`
-        ({
+        (
+          {
             lua,
             overrides,
             callPackage,
@@ -46,10 +47,12 @@ let
               if
                 (builtins.pathExists ../../lua-modules/generated-packages.nix)
               then
-                (final: prev:
+                (
+                  final: prev:
                   callPackage ../../lua-modules/generated-packages.nix {
                     inherit (final) callPackage;
-                  } final prev)
+                  } final prev
+                )
               else
                 (final: prev: { })
               ;

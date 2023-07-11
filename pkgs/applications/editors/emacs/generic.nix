@@ -96,16 +96,18 @@
   gtk3 ? null,
   withXinput2 ? withX && lib.versionAtLeast version "29",
   withImageMagick ? lib.versionOlder version "27" && (withX || withNS),
-  toolkit ? (if withGTK2 then
-    "gtk2"
-  else if withGTK3 then
-    "gtk3"
-  else if withMotif then
-    "motif"
-  else if withAthena then
-    "athena"
-  else
-    "lucid"),
+  toolkit ? (
+    if withGTK2 then
+      "gtk2"
+    else if withGTK3 then
+      "gtk3"
+    else if withMotif then
+      "motif"
+    else if withAthena then
+      "athena"
+    else
+      "lucid"
+  ),
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
   withTreeSitter ? lib.versionAtLeast version "29",
@@ -136,18 +138,23 @@ let
       ]
     ;
 in
-(if withMacport then
-  llvmPackages_6.stdenv
-else
-  stdenv).mkDerivation (finalAttrs:
-    (lib.optionalAttrs nativeComp {
+(
+  if withMacport then
+    llvmPackages_6.stdenv
+  else
+    stdenv
+).mkDerivation (
+  finalAttrs:
+  (
+    lib.optionalAttrs nativeComp {
       NATIVE_FULL_AOT = "1";
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
     } // {
       pname =
         pname
-        + lib.optionalString
-          (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox"
+        + lib.optionalString (
+          !withX && !withNS && !withMacport && !withGTK2 && !withGTK3
+        ) "-nox"
         ;
       inherit version;
 
@@ -162,17 +169,19 @@ else
                   ./native-comp-driver-options.patch
                 ;
               backendPath =
-                (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') ([
-                  # Paths necessary so the JIT compiler finds its libraries:
-                  "${lib.getLib libgccjit}/lib"
-                ]
+                (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') (
+                  [
+                    # Paths necessary so the JIT compiler finds its libraries:
+                    "${lib.getLib libgccjit}/lib"
+                  ]
                   ++ libGccJitLibraryPaths
                   ++ [
                     # Executable paths necessary for compilation (ld, as):
                     "${lib.getBin stdenv.cc.cc}/bin"
                     "${lib.getBin stdenv.cc.bintools}/bin"
                     "${lib.getBin stdenv.cc.bintools.bintools}/bin"
-                  ])));
+                  ]
+                )));
             })
           ]
         ;
@@ -319,25 +328,27 @@ else
           "--with-modules"
         ]
         ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
-        ++ (if withNS then
-          [ "--disable-ns-self-contained" ]
-        else if withX then
-          [
-            "--with-x-toolkit=${toolkit}"
-            "--with-xft"
-            "--with-cairo"
-          ]
-        else if withPgtk then
-          [ "--with-pgtk" ]
-        else
-          [
-            "--with-x=no"
-            "--with-xpm=no"
-            "--with-jpeg=no"
-            "--with-png=no"
-            "--with-gif=no"
-            "--with-tiff=no"
-          ])
+        ++ (
+          if withNS then
+            [ "--disable-ns-self-contained" ]
+          else if withX then
+            [
+              "--with-x-toolkit=${toolkit}"
+              "--with-xft"
+              "--with-cairo"
+            ]
+          else if withPgtk then
+            [ "--with-pgtk" ]
+          else
+            [
+              "--with-x=no"
+              "--with-xpm=no"
+              "--with-jpeg=no"
+              "--with-png=no"
+              "--with-gif=no"
+              "--with-tiff=no"
+            ]
+        )
         ++ lib.optionals withMacport [
           "--with-mac"
           "--enable-mac-app=$$out/Applications"
@@ -460,4 +471,6 @@ else
           separately.
         '';
       };
-    }))
+    }
+  )
+)

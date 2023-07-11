@@ -24,9 +24,10 @@ let
   '';
 
   snmpGlobalDefs = with cfg.snmp;
-    optionalString enable (optionalString (socket != null) ''
-      snmp_socket ${socket}
-    ''
+    optionalString enable (
+      optionalString (socket != null) ''
+        snmp_socket ${socket}
+      ''
       + optionalString enableKeepalived ''
         enable_snmp_keepalived
       ''
@@ -42,7 +43,8 @@ let
       + optionalString enableRfcV3 ''
         enable_snmp_rfcv3
       ''
-      + optionalString enableTraps "enable_traps");
+      + optionalString enableTraps "enable_traps"
+    );
 
   vrrpScriptStr = concatStringsSep "\n" (map (s: ''
     vrrp_script ${s.name} {
@@ -67,8 +69,10 @@ let
       ${optionalString i.noPreempt "nopreempt"}
 
       ${
-        optionalString i.useVmac ("use_vmac"
-          + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
+        optionalString i.useVmac (
+          "use_vmac"
+          + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
+        )
       }
       ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 

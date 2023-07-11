@@ -34,7 +34,8 @@ let
     srv:
     settingsFormat.generate "sourcehut-${srv}-config.ini"
     # Each service needs access to only a subset of sections (and secrets).
-    (filterAttrs (k: v: v != null) (mapAttrs (section: v:
+    (filterAttrs (k: v: v != null) (mapAttrs (
+      section: v:
       let
         srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht(::.*)?$" section;
       in
@@ -117,7 +118,8 @@ let
     ;
 
     # Specialized python containing all the modules
-  python = pkgs.sourcehut.python.withPackages (ps:
+  python = pkgs.sourcehut.python.withPackages (
+    ps:
     with ps; [
       gunicorn
       eventlet
@@ -136,7 +138,8 @@ let
       #pagessrht
       pastesrht
       todosrht
-    ]);
+    ]
+  );
   mkOptionNullOrStr =
     description:
     mkOption {
@@ -1063,13 +1066,19 @@ in
         ;
       extraConfig =
         let
-          image_dirs = flatten (mapAttrsToList (distro: revs:
-            mapAttrsToList (rev: archs:
-              mapAttrsToList (arch: image:
+          image_dirs = flatten (mapAttrsToList (
+            distro: revs:
+            mapAttrsToList (
+              rev: archs:
+              mapAttrsToList (
+                arch: image:
                 pkgs.runCommand "buildsrht-images" { } ''
                   mkdir -p $out/${distro}/${rev}/${arch}
                   ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
-                '') archs) revs) cfg.builds.images);
+                ''
+              ) archs
+            ) revs
+          ) cfg.builds.images);
           image_dir_pre = pkgs.symlinkJoin {
             name = "buildsrht-worker-images-pre";
             paths = image_dirs;
@@ -1130,219 +1139,224 @@ in
         ;
     })
 
-    (import ./service.nix "git" (let
-      baseService = {
-        path = [ cfg.git.package ];
-        serviceConfig.BindPaths = [
-            "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
-          ];
-      };
-    in
-    {
-      inherit configIniOfService;
-      mainService = mkMerge [
-        baseService
-        {
-          serviceConfig.StateDirectory = [
-            "sourcehut/gitsrht"
-            "sourcehut/gitsrht/repos"
-          ];
-          preStart = mkIf (versionOlder config.system.stateVersion "22.05")
-            (mkBefore ''
-              # Fix Git hooks of repositories pre-dating https://github.com/NixOS/nixpkgs/pull/133984
-              (
-              set +f
-              shopt -s nullglob
-              for h in /var/lib/sourcehut/gitsrht/repos/~*/*/hooks/{pre-receive,update,post-update}
-              do ln -fnsv /usr/bin/gitsrht-update-hook "$h"; done
-              )
-            '');
-        }
-      ];
-      port = 5001;
-      webhooks = true;
-      extraTimers.gitsrht-periodic = {
-        service = baseService;
-        timerConfig.OnCalendar = [ "*:0/20" ];
-      };
-      extraConfig = mkMerge [
-        {
-          # https://stackoverflow.com/questions/22314298/git-push-results-in-fatal-protocol-error-bad-line-length-character-this
-          # Probably could use gitsrht-shell if output is restricted to just parameters...
-          users.users.${cfg.git.user}.shell = pkgs.bash;
-          services.sourcehut.settings = {
-            "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
-              mkDefault "${cfg.git.user}:${cfg.git.group}";
-          };
-          systemd.services.sshd = baseService;
-        }
-        (mkIf cfg.nginx.enable {
-          services.nginx.virtualHosts."git.${domain}" = {
-            locations."/authorize" = {
-              proxyPass =
-                "http://${cfg.listenAddress}:${toString cfg.git.port}";
-              extraConfig = ''
-                proxy_pass_request_body off;
-                proxy_set_header Content-Length "";
-                proxy_set_header X-Original-URI $request_uri;
-              '';
-            };
-            locations."~ ^/([^/]+)/([^/]+)/(HEAD|info/refs|objects/info/.*|git-upload-pack).*$" = {
-              root = "/var/lib/sourcehut/gitsrht/repos";
-              fastcgiParams = {
-                GIT_HTTP_EXPORT_ALL = "";
-                GIT_PROJECT_ROOT = "$document_root";
-                PATH_INFO = "$uri";
-                SCRIPT_FILENAME = "${cfg.git.package}/bin/git-http-backend";
-              };
-              extraConfig = ''
-                auth_request /authorize;
-                fastcgi_read_timeout 500s;
-                fastcgi_pass unix:/run/gitsrht-fcgiwrap.sock;
-                gzip off;
-              '';
-            };
-          };
-          systemd.sockets.gitsrht-fcgiwrap = {
-            before = [ "nginx.service" ];
-            wantedBy = [
-              "sockets.target"
-              "gitsrht.service"
-            ];
-              # This path remains accessible to nginx.service, which has no RootDirectory=
-            socketConfig.ListenStream = "/run/gitsrht-fcgiwrap.sock";
-            socketConfig.SocketUser = nginx.user;
-            socketConfig.SocketMode = "600";
-          };
-        })
-      ];
-      extraServices.gitsrht-api = {
-        serviceConfig.Restart = "always";
-        serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.git.port + 100)
-          }";
-      };
-      extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
-        serviceConfig = {
-          # Socket is passed by gitsrht-fcgiwrap.socket
-          ExecStart =
-            "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-              toString cfg.git.fcgiwrap.preforkProcess
-            }";
-            # No need for config.ini
-          ExecStartPre = mkForce [ ];
-          User = null;
-          DynamicUser = true;
-          BindReadOnlyPaths = [
+    (import ./service.nix "git" (
+      let
+        baseService = {
+          path = [ cfg.git.package ];
+          serviceConfig.BindPaths = [
               "${
                 cfg.settings."git.sr.ht".repos
               }:/var/lib/sourcehut/gitsrht/repos"
             ];
-          IPAddressDeny = "any";
-          InaccessiblePaths = [
-            "-+/run/postgresql"
-            "-+/run/redis-sourcehut"
-          ];
-          PrivateNetwork = true;
-          RestrictAddressFamilies = mkForce [ "none" ];
-          SystemCallFilter = mkForce [
-            "@system-service"
-            "~@aio"
-            "~@keyring"
-            "~@memlock"
-            "~@privileged"
-            "~@resources"
-            "~@setuid"
-            # @timer is needed for alarm()
-          ];
         };
-      };
-    }
+      in
+      {
+        inherit configIniOfService;
+        mainService = mkMerge [
+          baseService
+          {
+            serviceConfig.StateDirectory = [
+              "sourcehut/gitsrht"
+              "sourcehut/gitsrht/repos"
+            ];
+            preStart = mkIf (versionOlder config.system.stateVersion "22.05")
+              (mkBefore ''
+                # Fix Git hooks of repositories pre-dating https://github.com/NixOS/nixpkgs/pull/133984
+                (
+                set +f
+                shopt -s nullglob
+                for h in /var/lib/sourcehut/gitsrht/repos/~*/*/hooks/{pre-receive,update,post-update}
+                do ln -fnsv /usr/bin/gitsrht-update-hook "$h"; done
+                )
+              '');
+          }
+        ];
+        port = 5001;
+        webhooks = true;
+        extraTimers.gitsrht-periodic = {
+          service = baseService;
+          timerConfig.OnCalendar = [ "*:0/20" ];
+        };
+        extraConfig = mkMerge [
+          {
+            # https://stackoverflow.com/questions/22314298/git-push-results-in-fatal-protocol-error-bad-line-length-character-this
+            # Probably could use gitsrht-shell if output is restricted to just parameters...
+            users.users.${cfg.git.user}.shell = pkgs.bash;
+            services.sourcehut.settings = {
+              "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
+                mkDefault "${cfg.git.user}:${cfg.git.group}";
+            };
+            systemd.services.sshd = baseService;
+          }
+          (mkIf cfg.nginx.enable {
+            services.nginx.virtualHosts."git.${domain}" = {
+              locations."/authorize" = {
+                proxyPass =
+                  "http://${cfg.listenAddress}:${toString cfg.git.port}";
+                extraConfig = ''
+                  proxy_pass_request_body off;
+                  proxy_set_header Content-Length "";
+                  proxy_set_header X-Original-URI $request_uri;
+                '';
+              };
+              locations."~ ^/([^/]+)/([^/]+)/(HEAD|info/refs|objects/info/.*|git-upload-pack).*$" = {
+                root = "/var/lib/sourcehut/gitsrht/repos";
+                fastcgiParams = {
+                  GIT_HTTP_EXPORT_ALL = "";
+                  GIT_PROJECT_ROOT = "$document_root";
+                  PATH_INFO = "$uri";
+                  SCRIPT_FILENAME = "${cfg.git.package}/bin/git-http-backend";
+                };
+                extraConfig = ''
+                  auth_request /authorize;
+                  fastcgi_read_timeout 500s;
+                  fastcgi_pass unix:/run/gitsrht-fcgiwrap.sock;
+                  gzip off;
+                '';
+              };
+            };
+            systemd.sockets.gitsrht-fcgiwrap = {
+              before = [ "nginx.service" ];
+              wantedBy = [
+                "sockets.target"
+                "gitsrht.service"
+              ];
+                # This path remains accessible to nginx.service, which has no RootDirectory=
+              socketConfig.ListenStream = "/run/gitsrht-fcgiwrap.sock";
+              socketConfig.SocketUser = nginx.user;
+              socketConfig.SocketMode = "600";
+            };
+          })
+        ];
+        extraServices.gitsrht-api = {
+          serviceConfig.Restart = "always";
+          serviceConfig.RestartSec = "5s";
+          serviceConfig.ExecStart =
+            "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
+              toString (cfg.git.port + 100)
+            }";
+        };
+        extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
+          serviceConfig = {
+            # Socket is passed by gitsrht-fcgiwrap.socket
+            ExecStart =
+              "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
+                toString cfg.git.fcgiwrap.preforkProcess
+              }";
+              # No need for config.ini
+            ExecStartPre = mkForce [ ];
+            User = null;
+            DynamicUser = true;
+            BindReadOnlyPaths = [
+                "${
+                  cfg.settings."git.sr.ht".repos
+                }:/var/lib/sourcehut/gitsrht/repos"
+              ];
+            IPAddressDeny = "any";
+            InaccessiblePaths = [
+              "-+/run/postgresql"
+              "-+/run/redis-sourcehut"
+            ];
+            PrivateNetwork = true;
+            RestrictAddressFamilies = mkForce [ "none" ];
+            SystemCallFilter = mkForce [
+              "@system-service"
+              "~@aio"
+              "~@keyring"
+              "~@memlock"
+              "~@privileged"
+              "~@resources"
+              "~@setuid"
+              # @timer is needed for alarm()
+            ];
+          };
+        };
+      }
     ))
 
-    (import ./service.nix "hg" (let
-      baseService = {
-        path = [ cfg.hg.package ];
-        serviceConfig.BindPaths = [
-            "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
-          ];
-      };
-    in
-    {
-      inherit configIniOfService;
-      mainService = mkMerge [
-        baseService
-        {
-          serviceConfig.StateDirectory = [
-            "sourcehut/hgsrht"
-            "sourcehut/hgsrht/repos"
-          ];
-        }
-      ];
-      port = 5010;
-      webhooks = true;
-      extraTimers.hgsrht-periodic = {
-        service = baseService;
-        timerConfig.OnCalendar = [ "*:0/20" ];
-      };
-      extraTimers.hgsrht-clonebundles = mkIf cfg.hg.cloneBundles {
-        service = baseService;
-        timerConfig.OnCalendar = [ "daily" ];
-        timerConfig.AccuracySec = "1h";
-      };
-      extraServices.hgsrht-api = {
-        serviceConfig.Restart = "always";
-        serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.hg.port + 100)
-          }";
-      };
-      extraConfig = mkMerge [
-        {
-          users.users.${cfg.hg.user}.shell = pkgs.bash;
-          services.sourcehut.settings = {
-            # Note that git.sr.ht::dispatch is not a typo,
-            # gitsrht-dispatch always uses this section.
-            "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
-              mkDefault "${cfg.hg.user}:${cfg.hg.group}";
-          };
-          systemd.services.sshd = baseService;
-        }
-        (mkIf cfg.nginx.enable {
-          # Allow nginx access to repositories
-          users.users.${nginx.user}.extraGroups = [ cfg.hg.group ];
-          services.nginx.virtualHosts."hg.${domain}" = {
-            locations."/authorize" = {
-              proxyPass = "http://${cfg.listenAddress}:${toString cfg.hg.port}";
-              extraConfig = ''
-                proxy_pass_request_body off;
-                proxy_set_header Content-Length "";
-                proxy_set_header X-Original-URI $request_uri;
-              '';
+    (import ./service.nix "hg" (
+      let
+        baseService = {
+          path = [ cfg.hg.package ];
+          serviceConfig.BindPaths = [
+              "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
+            ];
+        };
+      in
+      {
+        inherit configIniOfService;
+        mainService = mkMerge [
+          baseService
+          {
+            serviceConfig.StateDirectory = [
+              "sourcehut/hgsrht"
+              "sourcehut/hgsrht/repos"
+            ];
+          }
+        ];
+        port = 5010;
+        webhooks = true;
+        extraTimers.hgsrht-periodic = {
+          service = baseService;
+          timerConfig.OnCalendar = [ "*:0/20" ];
+        };
+        extraTimers.hgsrht-clonebundles = mkIf cfg.hg.cloneBundles {
+          service = baseService;
+          timerConfig.OnCalendar = [ "daily" ];
+          timerConfig.AccuracySec = "1h";
+        };
+        extraServices.hgsrht-api = {
+          serviceConfig.Restart = "always";
+          serviceConfig.RestartSec = "5s";
+          serviceConfig.ExecStart =
+            "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
+              toString (cfg.hg.port + 100)
+            }";
+        };
+        extraConfig = mkMerge [
+          {
+            users.users.${cfg.hg.user}.shell = pkgs.bash;
+            services.sourcehut.settings = {
+              # Note that git.sr.ht::dispatch is not a typo,
+              # gitsrht-dispatch always uses this section.
+              "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
+                mkDefault "${cfg.hg.user}:${cfg.hg.group}";
             };
-              # Let clients reach pull bundles. We don't really need to lock this down even for
-              # private repos because the bundles are named after the revision hashes...
-              # so someone would need to know or guess a SHA value to download anything.
-              # TODO: proxyPass to an hg serve service?
-            locations."~ ^/[~^][a-z0-9_]+/[a-zA-Z0-9_.-]+/\\.hg/bundles/.*$" = {
-              root = "/var/lib/nginx/hgsrht/repos";
-              extraConfig = ''
-                auth_request /authorize;
-                gzip off;
-              '';
+            systemd.services.sshd = baseService;
+          }
+          (mkIf cfg.nginx.enable {
+            # Allow nginx access to repositories
+            users.users.${nginx.user}.extraGroups = [ cfg.hg.group ];
+            services.nginx.virtualHosts."hg.${domain}" = {
+              locations."/authorize" = {
+                proxyPass =
+                  "http://${cfg.listenAddress}:${toString cfg.hg.port}";
+                extraConfig = ''
+                  proxy_pass_request_body off;
+                  proxy_set_header Content-Length "";
+                  proxy_set_header X-Original-URI $request_uri;
+                '';
+              };
+                # Let clients reach pull bundles. We don't really need to lock this down even for
+                # private repos because the bundles are named after the revision hashes...
+                # so someone would need to know or guess a SHA value to download anything.
+                # TODO: proxyPass to an hg serve service?
+              locations."~ ^/[~^][a-z0-9_]+/[a-zA-Z0-9_.-]+/\\.hg/bundles/.*$" = {
+                root = "/var/lib/nginx/hgsrht/repos";
+                extraConfig = ''
+                  auth_request /authorize;
+                  gzip off;
+                '';
+              };
             };
-          };
-          systemd.services.nginx = {
-            serviceConfig.BindReadOnlyPaths = [
-                "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
-              ];
-          };
-        })
-      ];
-    }
+            systemd.services.nginx = {
+              serviceConfig.BindReadOnlyPaths = [
+                  "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
+                ];
+            };
+          })
+        ];
+      }
     ))
 
     (import ./service.nix "hub" {
@@ -1358,67 +1372,70 @@ in
       };
     })
 
-    (import ./service.nix "lists" (let
-      srvsrht = "listssrht";
-    in
-    {
-      inherit configIniOfService;
-      port = 5006;
-      webhooks = true;
-      extraServices.listssrht-api = {
-        serviceConfig.Restart = "always";
-        serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart =
-          "${pkgs.sourcehut.listssrht}/bin/listssrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.lists.port + 100)
-          }";
-      };
-        # Receive the mail from Postfix and enqueue them into Redis and PostgreSQL
-      extraServices.listssrht-lmtp = {
-        wants = [ "postfix.service" ];
-        unitConfig.JoinsNamespaceOf =
-          optional cfg.postfix.enable "postfix.service";
-        serviceConfig.ExecStart = "${cfg.python}/bin/listssrht-lmtp";
-          # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
-        serviceConfig.PrivateUsers = mkForce false;
-      };
-        # Dequeue the mails from Redis and dispatch them
-      extraServices.listssrht-process = {
-        serviceConfig = {
-          preStart = ''
-            cp ${
-              pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
-              cfg.lists.process.celeryConfig
-            } \
-               /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
-          '';
-          ExecStart =
-            "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
-            + concatStringsSep " " cfg.lists.process.extraArgs
-            ;
-            # Avoid crashing: os.getloadavg()
-          ProcSubset = mkForce "all";
+    (import ./service.nix "lists" (
+      let
+        srvsrht = "listssrht";
+      in
+      {
+        inherit configIniOfService;
+        port = 5006;
+        webhooks = true;
+        extraServices.listssrht-api = {
+          serviceConfig.Restart = "always";
+          serviceConfig.RestartSec = "5s";
+          serviceConfig.ExecStart =
+            "${pkgs.sourcehut.listssrht}/bin/listssrht-api -b ${cfg.listenAddress}:${
+              toString (cfg.lists.port + 100)
+            }";
         };
-      };
-      extraConfig = mkIf cfg.postfix.enable {
-        users.groups.${postfix.group}.members = [ cfg.lists.user ];
-        services.sourcehut.settings."lists.sr.ht::mail".sock-group =
-          postfix.group;
-        services.postfix = {
-          destination = [ "lists.${domain}" ];
-            # FIXME: an accurate recipient list should be queried
-            # from the lists.sr.ht PostgreSQL database to avoid backscattering.
-            # But usernames are unfortunately not in that database but in meta.sr.ht.
-            # Note that two syntaxes are allowed:
-            # - ~username/list-name@lists.${domain}
-            # - u.username.list-name@lists.${domain}
-          localRecipients = [ "@lists.${domain}" ];
-          transport = ''
-            lists.${domain} lmtp:unix:${cfg.settings."lists.sr.ht::worker".sock}
-          '';
+          # Receive the mail from Postfix and enqueue them into Redis and PostgreSQL
+        extraServices.listssrht-lmtp = {
+          wants = [ "postfix.service" ];
+          unitConfig.JoinsNamespaceOf =
+            optional cfg.postfix.enable "postfix.service";
+          serviceConfig.ExecStart = "${cfg.python}/bin/listssrht-lmtp";
+            # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
+          serviceConfig.PrivateUsers = mkForce false;
         };
-      };
-    }
+          # Dequeue the mails from Redis and dispatch them
+        extraServices.listssrht-process = {
+          serviceConfig = {
+            preStart = ''
+              cp ${
+                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
+                cfg.lists.process.celeryConfig
+              } \
+                 /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
+            '';
+            ExecStart =
+              "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
+              + concatStringsSep " " cfg.lists.process.extraArgs
+              ;
+              # Avoid crashing: os.getloadavg()
+            ProcSubset = mkForce "all";
+          };
+        };
+        extraConfig = mkIf cfg.postfix.enable {
+          users.groups.${postfix.group}.members = [ cfg.lists.user ];
+          services.sourcehut.settings."lists.sr.ht::mail".sock-group =
+            postfix.group;
+          services.postfix = {
+            destination = [ "lists.${domain}" ];
+              # FIXME: an accurate recipient list should be queried
+              # from the lists.sr.ht PostgreSQL database to avoid backscattering.
+              # But usernames are unfortunately not in that database but in meta.sr.ht.
+              # Note that two syntaxes are allowed:
+              # - ~username/list-name@lists.${domain}
+              # - u.username.list-name@lists.${domain}
+            localRecipients = [ "@lists.${domain}" ];
+            transport = ''
+              lists.${domain} lmtp:unix:${
+                cfg.settings."lists.sr.ht::worker".sock
+              }
+            '';
+          };
+        };
+      }
     ))
 
     (import ./service.nix "man" {
@@ -1441,21 +1458,26 @@ in
           ''
             set -x
           ''
-          + concatStringsSep "\n\n" (attrValues (mapAttrs (k: s:
+          + concatStringsSep "\n\n" (attrValues (mapAttrs (
+            k: s:
             let
               srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
               srv = head srvMatch;
               # Configure client(s) as "preauthorized"
             in
-            optionalString (srvMatch != null
+            optionalString (
+              srvMatch != null
               && cfg.${srv}.enable
-              && ((s.oauth-client-id or null) != null)) ''
-                # Configure ${srv}'s OAuth client as "preauthorized"
-                ${postgresql.package}/bin/psql '${
-                  cfg.settings."meta.sr.ht".connection-string
-                }' \
-                  -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-              ''
+              && (
+                (s.oauth-client-id or null) != null
+              )
+            ) ''
+              # Configure ${srv}'s OAuth client as "preauthorized"
+              ${postgresql.package}/bin/psql '${
+                cfg.settings."meta.sr.ht".connection-string
+              }' \
+                -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+            ''
           ) cfg.settings))
           ;
         serviceConfig.ExecStart =
@@ -1471,7 +1493,9 @@ in
                 s = cfg.settings."meta.sr.ht::billing";
               in
               s.enabled == "yes"
-              -> (s.stripe-public-key != null && s.stripe-secret-key != null)
+              -> (
+                s.stripe-public-key != null && s.stripe-secret-key != null
+              )
               ;
             message =
               "If meta.sr.ht::billing is enabled, the keys must be defined.";

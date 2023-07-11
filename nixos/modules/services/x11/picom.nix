@@ -28,7 +28,8 @@ let
     # or an expression "key = { values };"
   mkAttrsString =
     top:
-    mapAttrsToList (k: v:
+    mapAttrsToList (
+      k: v:
       let
         sep =
           if (top && isAttrs v) then

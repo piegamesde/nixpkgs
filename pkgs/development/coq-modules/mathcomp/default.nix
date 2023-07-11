@@ -132,88 +132,100 @@ let
         echo "-I ." >>   Make
         echo "-R . mathcomp.all" >> Make
       '';
-      derivation = mkCoqDerivation ({
-        inherit version pname defaultVersion release releaseRev repo owner;
+      derivation = mkCoqDerivation (
+        {
+          inherit version pname defaultVersion release releaseRev repo owner;
 
-        mlPlugin = versions.isLe "8.6" coq.coq-version;
-        nativeBuildInputs = optionals withDoc [
-          graphviz
-          lua
-        ];
-        buildInputs = [ ncurses ];
-        propagatedBuildInputs = mathcomp-deps;
-
-        buildFlags = optional withDoc "doc";
-
-        preBuild =
-          ''
-            if [[ -f etc/utils/ssrcoqdep ]]
-            then patchShebangs etc/utils/ssrcoqdep
-            fi
-            if [[ -f etc/buildlibgraph ]]
-            then patchShebangs etc/buildlibgraph
-            fi
-          ''
-          + ''
-            cd ${pkgpath}
-          ''
-          + optionalString (package == "all") pkgallMake
-          ;
-
-        meta = {
-          homepage = "https://math-comp.github.io/";
-          license = licenses.cecill-b;
-          maintainers = with maintainers; [
-            vbgl
-            jwiegley
-            cohencyril
+          mlPlugin = versions.isLe "8.6" coq.coq-version;
+          nativeBuildInputs = optionals withDoc [
+            graphviz
+            lua
           ];
-        };
-      } // optionalAttrs (package != "single") {
-        passthru = genAttrs packages mathcomp_;
-      } // optionalAttrs withDoc {
-        htmldoc_template = fetchzip {
-          url =
-            "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
-          sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
-        };
-        postBuild = ''
-          cp -rf _build_doc/* .
-          rm -r _build_doc
-        '';
-        postInstall =
-          let
-            tgt = "$out/share/coq/${coq.coq-version}/";
-          in
-          optionalString withDoc ''
-            mkdir -p ${tgt}
-            cp -r htmldoc ${tgt}
-            cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-          ''
-          ;
-        buildTargets = "doc";
-        extraInstallFlags = [ "-f Makefile.coq" ];
-      });
-      patched-derivation1 = derivation.overrideAttrs (o:
-        optionalAttrs (o.pname != null
+          buildInputs = [ ncurses ];
+          propagatedBuildInputs = mathcomp-deps;
+
+          buildFlags = optional withDoc "doc";
+
+          preBuild =
+            ''
+              if [[ -f etc/utils/ssrcoqdep ]]
+              then patchShebangs etc/utils/ssrcoqdep
+              fi
+              if [[ -f etc/buildlibgraph ]]
+              then patchShebangs etc/buildlibgraph
+              fi
+            ''
+            + ''
+              cd ${pkgpath}
+            ''
+            + optionalString (package == "all") pkgallMake
+            ;
+
+          meta = {
+            homepage = "https://math-comp.github.io/";
+            license = licenses.cecill-b;
+            maintainers = with maintainers; [
+              vbgl
+              jwiegley
+              cohencyril
+            ];
+          };
+        } // optionalAttrs (package != "single") {
+          passthru = genAttrs packages mathcomp_;
+        } // optionalAttrs withDoc {
+          htmldoc_template = fetchzip {
+            url =
+              "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
+            sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
+          };
+          postBuild = ''
+            cp -rf _build_doc/* .
+            rm -r _build_doc
+          '';
+          postInstall =
+            let
+              tgt = "$out/share/coq/${coq.coq-version}/";
+            in
+            optionalString withDoc ''
+              mkdir -p ${tgt}
+              cp -r htmldoc ${tgt}
+              cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
+            ''
+            ;
+          buildTargets = "doc";
+          extraInstallFlags = [ "-f Makefile.coq" ];
+        }
+      );
+      patched-derivation1 = derivation.overrideAttrs (
+        o:
+        optionalAttrs (
+          o.pname != null
           && o.pname == "mathcomp-all"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "1.7" o.version) {
-            preBuild = "";
-            buildPhase = "";
-            installPhase = "echo doing nothing";
-          });
-      patched-derivation = patched-derivation1.overrideAttrs (o:
-        optionalAttrs (versions.isLe "8.7" coq.coq-version
-          || (o.version != "dev" && versions.isLe "1.7" o.version)) {
-            installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
-          });
+          && versions.isLt "1.7" o.version
+        ) {
+          preBuild = "";
+          buildPhase = "";
+          installPhase = "echo doing nothing";
+        }
+      );
+      patched-derivation = patched-derivation1.overrideAttrs (
+        o:
+        optionalAttrs (
+          versions.isLe "8.7" coq.coq-version
+          || (
+            o.version != "dev" && versions.isLe "1.7" o.version
+          )
+        ) { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
+      );
     in
     patched-derivation
     ;
 in
-mathcomp_ (if single then
-  "single"
-else
-  "all")
+mathcomp_ (
+  if single then
+    "single"
+  else
+    "all"
+)

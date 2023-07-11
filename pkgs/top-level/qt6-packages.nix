@@ -11,7 +11,8 @@
   stdenv,
 }:
 
-(lib.makeScope pkgs.newScope (self:
+(lib.makeScope pkgs.newScope (
+  self:
 
   let
     libsForQt6 = self;
@@ -28,26 +29,28 @@
       ;
 
   in
-  (qt6 // {
-    inherit
-      stdenv
-      ;
+  (
+    qt6 // {
+      inherit
+        stdenv
+        ;
 
-      # LIBRARIES
+        # LIBRARIES
 
-    inherit (kdeFrameworks) kcoreaddons;
+      inherit (kdeFrameworks) kcoreaddons;
 
-    qtpbfimageplugin =
-      callPackage ../development/libraries/qtpbfimageplugin { };
+      qtpbfimageplugin =
+        callPackage ../development/libraries/qtpbfimageplugin { };
 
-    quazip = callPackage ../development/libraries/quazip { };
+      quazip = callPackage ../development/libraries/quazip { };
 
-    qxlsx = callPackage ../development/libraries/qxlsx { };
+      qxlsx = callPackage ../development/libraries/qxlsx { };
 
-    poppler = callPackage ../development/libraries/poppler {
-      lcms = pkgs.lcms2;
-      qt6Support = true;
-      suffix = "qt6";
-    };
-  })
+      poppler = callPackage ../development/libraries/poppler {
+        lcms = pkgs.lcms2;
+        qt6Support = true;
+        suffix = "qt6";
+      };
+    }
+  )
 ))

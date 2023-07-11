@@ -83,7 +83,8 @@ let
           --dport ${builtins.toString fwd.sourcePort} \
           -j DNAT --to-destination ${fwd.destination}
 
-        ${concatMapStrings (loopbackip:
+        ${concatMapStrings (
+          loopbackip:
           let
             matchIP =
               if isIPv6 fwd.destination then

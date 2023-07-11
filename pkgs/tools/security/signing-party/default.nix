@@ -163,14 +163,16 @@ stdenv.mkDerivation rec {
         wrapProgram $out/bin/caff --set PERL5LIB \
           ${
             with perlPackages;
-            makePerlPath ([
-              TextTemplate
-              MIMETools
-              MailTools
-              TimeDate
-              NetIDNEncode
-            ]
-              ++ GnuPGInterfaceRuntimeDependencies)
+            makePerlPath (
+              [
+                TextTemplate
+                MIMETools
+                MailTools
+                TimeDate
+                NetIDNEncode
+              ]
+              ++ GnuPGInterfaceRuntimeDependencies
+            )
           } \
           --prefix PATH ":" \
           "${

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -85,5 +86,6 @@ import ./make-test-python.nix ({
           client.wait_until_succeeds("connmanctl tether wifi on nixos-test reproducibility | grep -q 'Enabled'")
           client.wait_until_succeeds("iw wlan0 info | grep -q nixos-test")
     '';
-  })
+  }
+)
 

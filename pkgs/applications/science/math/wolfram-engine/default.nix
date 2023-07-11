@@ -67,20 +67,22 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ++ (with xorg; [
-      libX11
-      libXext
-      libXtst
-      libXi
-      libXmu
-      libXrender
-      libxcb
-      libXcursor
-      libXfixes
-      libXrandr
-      libICE
-      libSM
-    ])
+    ++ (
+      with xorg; [
+        libX11
+        libXext
+        libXtst
+        libXi
+        libXmu
+        libXrender
+        libxcb
+        libXcursor
+        libXfixes
+        libXrandr
+        libICE
+        libSM
+      ]
+    )
     ;
 
     # some bundled libs are found through LD_LIBRARY_PATH
@@ -88,8 +90,9 @@ stdenv.mkDerivation rec {
 
   ldpath =
     lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
+      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
+    )
     ;
 
   unpackPhase = ''

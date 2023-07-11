@@ -44,19 +44,23 @@ buildPythonPackage rec {
         ufo = [ fs ];
         lxml = [ lxml ];
         woff = [
-          (if isPyPy then
-            brotlicffi
-          else
-            brotli)
+          (
+            if isPyPy then
+              brotlicffi
+            else
+              brotli
+          )
           zopfli
         ];
         unicode = lib.optional (pythonOlder "3.11") unicodedata2;
         graphite = [ lz4 ];
         interpolatable = [
-            (if isPyPy then
-              munkres
-            else
-              scipy)
+            (
+              if isPyPy then
+                munkres
+              else
+                scipy
+            )
           ];
         plot = [ matplotlib ];
         symfont = [ sympy ];
@@ -70,14 +74,16 @@ buildPythonPackage rec {
 
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.concatLists (lib.attrVals ([
-      "woff"
-      "interpolatable"
-    ]
+    ++ lib.concatLists (lib.attrVals (
+      [
+        "woff"
+        "interpolatable"
+      ]
       ++ lib.optionals (!skia-pathops.meta.broken) [
           "pathops" # broken
         ]
-      ++ [ "repacker" ]) passthru.optional-dependencies)
+      ++ [ "repacker" ]
+    ) passthru.optional-dependencies)
     ;
 
   pythonImportsCheck = [ "fontTools" ];

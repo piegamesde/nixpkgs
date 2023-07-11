@@ -28,11 +28,13 @@ stdenv.mkDerivation rec {
       perl
     ]
     ++ lib.optionals stdenv.isLinux [ libcap ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      Carbon
-      IOKit
-      iconv
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        Carbon
+        IOKit
+        iconv
+      ]
+    )
     ;
 
   hardeningDisable = [ "format" ];

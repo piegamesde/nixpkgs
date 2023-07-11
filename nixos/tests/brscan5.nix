@@ -1,7 +1,8 @@
 # integration tests for brscan5 sane driver
 #
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -51,4 +52,5 @@ import ./make-test-python.nix ({
       assert """device `brother5:net1;dev0' is a Brother b ADS-1200""" in scanimage
       assert """device `brother5:net1;dev1' is a Brother a ADS-1200""" in scanimage
     '';
-  })
+  }
+)

@@ -58,13 +58,15 @@ stdenv.mkDerivation rec {
       glib-networking
       librest
     ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      (gst-plugins-good.override { gtkSupport = true; })
-      gst-libav
-    ])
+    ++ (
+      with gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-bad
+        (gst-plugins-good.override { gtkSupport = true; })
+        gst-libav
+      ]
+    )
     ;
 
   postPatch = ''

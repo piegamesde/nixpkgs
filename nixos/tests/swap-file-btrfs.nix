@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -46,4 +47,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit('var-swapfile.swap')
       machine.succeed("swapon --show | grep /var/swapfile")
     '';
-  })
+  }
+)

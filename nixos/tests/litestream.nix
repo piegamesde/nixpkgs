@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -100,4 +101,5 @@ import ./make-test-python.nix ({
           "curl -sSfN -u admin:newpass http://127.0.0.1:3000/api/org/users | grep admin\@localhost"
       )
     '';
-  })
+  }
+)

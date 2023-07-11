@@ -34,11 +34,13 @@ stdenv.mkDerivation rec {
     gobject-introspection
     gtk3
     libhandy
-    (python3.withPackages (ps:
+    (python3.withPackages (
+      ps:
       with ps; [
         pygobject3
         requests
-      ]))
+      ]
+    ))
   ];
 
   meta = with lib; {

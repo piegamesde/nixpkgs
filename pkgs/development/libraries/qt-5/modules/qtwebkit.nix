@@ -98,16 +98,18 @@ qtModule {
     ]
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    # with gcc7 this warning blows the log over Hydra's limit
-    "-Wno-expansion-to-defined"
-  ]
-  # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
+  env.NIX_CFLAGS_COMPILE = toString (
+    [
+      # with gcc7 this warning blows the log over Hydra's limit
+      "-Wno-expansion-to-defined"
+    ]
+    # with gcc8, -Wclass-memaccess became part of -Wall and this too exceeds the logging limit
     ++ lib.optional stdenv.cc.isGNU "-Wno-class-memaccess"
       # with clang this warning blows the log over Hydra's limit
     ++ lib.optional stdenv.isDarwin "-Wno-inconsistent-missing-override"
     ++ lib.optional (!stdenv.isDarwin)
-      ''-DNIXPKGS_LIBUDEV="${lib.getLib systemd}/lib/libudev"'');
+      ''-DNIXPKGS_LIBUDEV="${lib.getLib systemd}/lib/libudev"''
+  );
 
   doCheck = false; # fails 13 out of 13 tests (ctest)
 

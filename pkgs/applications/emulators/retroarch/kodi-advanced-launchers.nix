@@ -31,8 +31,9 @@ stdenv.mkDerivation {
 
   buildCommand = ''
     mkdir -p $out/bin
-    ${lib.concatMapStrings
-    (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};") execs}
+    ${lib.concatMapStrings (
+      exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};"
+    ) execs}
   '';
 
   meta = {

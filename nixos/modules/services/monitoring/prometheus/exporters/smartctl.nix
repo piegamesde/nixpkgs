@@ -9,13 +9,15 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.smartctl;
-  args = lib.escapeShellArgs ([
-    "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
-    "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
-    "--smartctl.interval=${cfg.maxInterval}"
-  ]
+  args = lib.escapeShellArgs (
+    [
+      "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
+      "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
+      "--smartctl.interval=${cfg.maxInterval}"
+    ]
     ++ map (device: "--smartctl.device=${device}") cfg.devices
-    ++ cfg.extraFlags);
+    ++ cfg.extraFlags
+  );
 in
 {
   port = 9633;

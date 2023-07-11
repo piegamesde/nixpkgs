@@ -44,7 +44,9 @@ let
       inherit (gpu) minCudaVersion maxCudaVersion;
       lowerBoundSatisfied = strings.versionAtLeast cudaVersion minCudaVersion;
       upperBoundSatisfied =
-        (maxCudaVersion == null)
+        (
+          maxCudaVersion == null
+        )
         || !(strings.versionOlder maxCudaVersion cudaVersion)
         ;
     in
@@ -81,8 +83,9 @@ let
     # Maps the name of a GPU architecture to different versions of that architecture.
     # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
-    (gpu: gpu.archName) supportedGpus;
+    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ] (
+      gpu: gpu.archName
+    ) supportedGpus;
 
     # cudaComputeCapabilityToName :: AttrSet String String
     # Maps the version of a GPU architecture to the name of that architecture.
@@ -112,10 +115,12 @@ let
     # "-gencode=arch=compute_86,code=sm_86" "-gencode=arch=compute_87,code=sm_87" ].
   gencodeMapper =
     feat:
-    lists.map (computeCapability:
+    lists.map (
+      computeCapability:
       "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${
         dropDot computeCapability
-      }")
+      }"
+    )
     ;
 
   formatCapabilities =

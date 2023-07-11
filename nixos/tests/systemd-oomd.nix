@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -59,4 +60,5 @@ import ./make-test-python.nix ({
       with subtest("Service without memory pressure should be untouched"):
           machine.require_unit_state("testchill.service", "active")
     '';
-  })
+  }
+)

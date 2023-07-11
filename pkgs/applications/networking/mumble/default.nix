@@ -39,50 +39,56 @@
 let
   generic =
     overrides: source:
-    stdenv.mkDerivation (source // overrides // {
-      pname = overrides.type;
-      version = source.version;
+    stdenv.mkDerivation (
+      source // overrides // {
+        pname = overrides.type;
+        version = source.version;
 
-      nativeBuildInputs =
-        [
-          cmake
-          pkg-config
-          python3
-          qt5.wrapQtAppsHook
-          qt5.qttools
-        ]
-        ++ (overrides.nativeBuildInputs or [ ])
-        ;
+        nativeBuildInputs =
+          [
+            cmake
+            pkg-config
+            python3
+            qt5.wrapQtAppsHook
+            qt5.qttools
+          ]
+          ++ (
+            overrides.nativeBuildInputs or [ ]
+          )
+          ;
 
-      buildInputs =
-        [
-          avahi
-          boost
-          poco
-          protobuf
-        ]
-        ++ (overrides.buildInputs or [ ])
-        ;
+        buildInputs =
+          [
+            avahi
+            boost
+            poco
+            protobuf
+          ]
+          ++ (
+            overrides.buildInputs or [ ]
+          )
+          ;
 
-      cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
+        cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
 
-      preConfigure = ''
-        patchShebangs scripts
-      '';
+        preConfigure = ''
+          patchShebangs scripts
+        '';
 
-      passthru.tests.connectivity = nixosTests.mumble;
+        passthru.tests.connectivity = nixosTests.mumble;
 
-      meta = with lib; {
-        description = "Low-latency, high quality voice chat software";
-        homepage = "https://mumble.info";
-        license = licenses.bsd3;
-        maintainers = with maintainers; [
-          infinisil
-          felixsinger
-        ];
-        platforms = platforms.linux;
-      };
-    })
+        meta = with lib; {
+          description = "Low-latency, high quality voice chat software";
+          homepage = "https://mumble.info";
+          license = licenses.bsd3;
+          maintainers = with maintainers; [
+            infinisil
+            felixsinger
+          ];
+          platforms = platforms.linux;
+        };
+      }
+    )
     ;
 
   client =
@@ -133,8 +139,10 @@ let
       postFixup = ''
         wrapProgram $out/bin/mumble \
           --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath (lib.optional pulseSupport libpulseaudio
-              ++ lib.optional pipewireSupport pipewire)
+            lib.makeLibraryPath (
+              lib.optional pulseSupport libpulseaudio
+              ++ lib.optional pipewireSupport pipewire
+            )
           }"
       '';
     } source

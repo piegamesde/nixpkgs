@@ -352,18 +352,20 @@ stdenv.mkDerivation rec {
       # but its meson build system does not declare the dependency.
       "-Dapplemedia=disabled"
     ]
-    ++ (if enableGplPlugins then
-      [ "-Dgpl=enabled" ]
-    else
-      [
-        "-Ddts=disabled"
-        "-Dfaad=disabled"
-        "-Diqa=disabled"
-        "-Dmpeg2enc=disabled"
-        "-Dmplex=disabled"
-        "-Dresindvd=disabled"
-        "-Dx265=disabled"
-      ])
+    ++ (
+      if enableGplPlugins then
+        [ "-Dgpl=enabled" ]
+      else
+        [
+          "-Ddts=disabled"
+          "-Dfaad=disabled"
+          "-Diqa=disabled"
+          "-Dmpeg2enc=disabled"
+          "-Dmplex=disabled"
+          "-Dresindvd=disabled"
+          "-Dx265=disabled"
+        ]
+    )
     ;
 
     # Argument list too long

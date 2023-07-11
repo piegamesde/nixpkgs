@@ -241,11 +241,13 @@ stdenv.mkDerivation rec {
       "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
     maintainers =
       teams.freedesktop.members
-      ++ (with maintainers; [
-        domenkozar
-        obadz
-        maxeaubrey
-      ])
+      ++ (
+        with maintainers; [
+          domenkozar
+          obadz
+          maxeaubrey
+        ]
+      )
       ;
     platforms = platforms.linux;
   };

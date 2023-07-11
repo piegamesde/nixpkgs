@@ -150,12 +150,14 @@ in
       {
         assertion =
           cfg.settings != null
-          -> foldl (a: b: a && b) true (mapAttrsToList (mcu: _:
+          -> foldl (a: b: a && b) true (mapAttrsToList (
+            mcu: _:
             mcu != null
             -> (hasAttrByPath [
               "${mcu}"
               "serial"
-            ] cfg.settings)) cfg.firmwares)
+            ] cfg.settings)
+          ) cfg.firmwares)
           ;
         message =
           "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
@@ -229,16 +231,18 @@ in
           IOSchedulingClass = "realtime";
           IOSchedulingPriority = 0;
           UMask = "0002";
-        } // (if cfg.user != null then
-          {
-            Group = cfg.group;
-            User = cfg.user;
-          }
-        else
-          {
-            DynamicUser = true;
-            User = "klipper";
-          });
+        } // (
+          if cfg.user != null then
+            {
+              Group = cfg.group;
+              User = cfg.user;
+            }
+          else
+            {
+              DynamicUser = true;
+              User = "klipper";
+            }
+        );
       }
       ;
 
@@ -251,7 +255,8 @@ in
           else
             b
           ;
-        firmwares = filterAttrs (n: v: v != null) (mapAttrs (mcu:
+        firmwares = filterAttrs (n: v: v != null) (mapAttrs (
+          mcu:
           {
             enable,
             configFile,
@@ -263,8 +268,10 @@ in
               firmwareConfig = configFile;
             }
           else
-            null) cfg.firmwares);
-        firmwareFlasher = mapAttrsToList (mcu: firmware:
+            null
+        ) cfg.firmwares);
+        firmwareFlasher = mapAttrsToList (
+          mcu: firmware:
           pkgs.klipper-flash.override {
             mcu = lib.strings.sanitizeDerivationName mcu;
             klipper-firmware = firmware;
@@ -272,7 +279,8 @@ in
               default cfg.firmwares."${mcu}".serial cfg.settings."${mcu}".serial
               ;
             firmwareConfig = cfg.firmwares."${mcu}".configFile;
-          }) firmwares;
+          }
+        ) firmwares;
       in
       [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
       ;

@@ -37,27 +37,29 @@ stdenv.mkDerivation rec {
   preAutoreconf = "touch config.rpath";
 
   patches =
-    lib.optional
-      (!isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64))
-      (fetchpatch {
-        url =
-          "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
-        sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
-      })
-    ++ (if isFuse3 then
-      [
-        ./fuse3-install.patch
-        ./fuse3-Do-not-set-FUSERMOUNT_DIR.patch
-      ]
-    else
-      [
-        ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch
-        (fetchpatch {
-          url =
-            "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
-          sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
-        })
-      ])
+    lib.optional (
+      !isFuse3 && (stdenv.isAarch64 || stdenv.hostPlatform.isLoongArch64)
+    ) (fetchpatch {
+      url =
+        "https://github.com/libfuse/libfuse/commit/914871b20a901e3e1e981c92bc42b1c93b7ab81b.patch";
+      sha256 = "1w4j6f1awjrycycpvmlv0x5v9gprllh4dnbjxl4dyl2jgbkaw6pa";
+    })
+    ++ (
+      if isFuse3 then
+        [
+          ./fuse3-install.patch
+          ./fuse3-Do-not-set-FUSERMOUNT_DIR.patch
+        ]
+      else
+        [
+          ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch
+          (fetchpatch {
+            url =
+              "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
+            sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
+          })
+        ]
+    )
     ;
 
   nativeBuildInputs =
@@ -94,27 +96,31 @@ stdenv.mkDerivation rec {
 
       substituteInPlace lib/mount_util.c --replace "/bin/" "${util-linux}/bin/"
     ''
-    + (if isFuse3 then
-      ''
-        # The configure phase will delete these files (temporary workaround for
-        # ./fuse3-install_man.patch)
-        install -D -m444 doc/fusermount3.1 $out/share/man/man1/fusermount3.1
-        install -D -m444 doc/mount.fuse3.8 $out/share/man/man8/mount.fuse3.8
-      ''
-    else
-      ''
-        substituteInPlace util/mount.fuse.c --replace '"su"' '"${shadow.su}/bin/su"'
-        sed -e 's@CONFIG_RPATH=/usr/share/gettext/config.rpath@CONFIG_RPATH=${gettext}/share/gettext/config.rpath@' -i makeconf.sh
-        ./makeconf.sh
-      '')
+    + (
+      if isFuse3 then
+        ''
+          # The configure phase will delete these files (temporary workaround for
+          # ./fuse3-install_man.patch)
+          install -D -m444 doc/fusermount3.1 $out/share/man/man1/fusermount3.1
+          install -D -m444 doc/mount.fuse3.8 $out/share/man/man8/mount.fuse3.8
+        ''
+      else
+        ''
+          substituteInPlace util/mount.fuse.c --replace '"su"' '"${shadow.su}/bin/su"'
+          sed -e 's@CONFIG_RPATH=/usr/share/gettext/config.rpath@CONFIG_RPATH=${gettext}/share/gettext/config.rpath@' -i makeconf.sh
+          ./makeconf.sh
+        ''
+    )
     ;
 
   nativeCheckInputs =
     [ which ]
-    ++ (with python3Packages; [
-      python
-      pytest
-    ])
+    ++ (
+      with python3Packages; [
+        python
+        pytest
+      ]
+    )
     ;
 
   checkPhase = ''
@@ -127,16 +133,18 @@ stdenv.mkDerivation rec {
     ''
       cd $out
     ''
-    + (if isFuse3 then
-      ''
-        install -D -m444 etc/fuse.conf $common/etc/fuse.conf
-        install -D -m444 etc/udev/rules.d/99-fuse3.rules $common/etc/udev/rules.d/99-fuse.rules
-      ''
-    else
-      ''
-        cp ${fusePackages.fuse_3.common}/etc/fuse.conf etc/fuse.conf
-        cp ${fusePackages.fuse_3.common}/etc/udev/rules.d/99-fuse.rules etc/udev/rules.d/99-fuse.rules
-      '')
+    + (
+      if isFuse3 then
+        ''
+          install -D -m444 etc/fuse.conf $common/etc/fuse.conf
+          install -D -m444 etc/udev/rules.d/99-fuse3.rules $common/etc/udev/rules.d/99-fuse.rules
+        ''
+      else
+        ''
+          cp ${fusePackages.fuse_3.common}/etc/fuse.conf etc/fuse.conf
+          cp ${fusePackages.fuse_3.common}/etc/udev/rules.d/99-fuse.rules etc/udev/rules.d/99-fuse.rules
+        ''
+    )
     ;
 
   meta = with lib; {

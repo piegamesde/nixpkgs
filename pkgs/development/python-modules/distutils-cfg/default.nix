@@ -9,20 +9,22 @@
 }:
 
 let
-  distutilsCfg = writeText "distutils.cfg" (if overrideCfg != "" then
-    overrideCfg
-  else
-    ''
-      [easy_install]
+  distutilsCfg = writeText "distutils.cfg" (
+    if overrideCfg != "" then
+      overrideCfg
+    else
+      ''
+        [easy_install]
 
-      # don't allow network connections during build to ensure purity
-      allow-hosts = None
+        # don't allow network connections during build to ensure purity
+        allow-hosts = None
 
-      # make sure we always unzip installed packages otherwise setup hooks won't work
-      zip_ok = 0
+        # make sure we always unzip installed packages otherwise setup hooks won't work
+        zip_ok = 0
 
-      ${extraCfg}
-    '');
+        ${extraCfg}
+      ''
+  );
 in
 stdenv.mkDerivation {
   name = "${python.libPrefix}-distutils.cfg";

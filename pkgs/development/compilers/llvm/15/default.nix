@@ -74,9 +74,10 @@ assert let
     ;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
-lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
-("must specify `gitRelease` or `officialRelease`"
-  + (lib.optionalString (gitRelease != null) " — not both"))
+lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
+  "must specify `gitRelease` or `officialRelease`"
+  + (lib.optionalString (gitRelease != null) " — not both")
+)
 ;
 let
   monorepoSrc' = monorepoSrc;
@@ -142,21 +143,24 @@ let
       ;
   };
 
-  tools = lib.makeExtensible (tools:
+  tools = lib.makeExtensible (
+    tools:
     let
-      callPackage = newScope (tools // {
-        inherit
-          stdenv
-          cmake
-          ninja
-          libxml2
-          python3
-          release_version
-          version
-          monorepoSrc
-          buildLlvmTools
-          ;
-      });
+      callPackage = newScope (
+        tools // {
+          inherit
+            stdenv
+            cmake
+            ninja
+            libxml2
+            python3
+            release_version
+            version
+            monorepoSrc
+            buildLlvmTools
+            ;
+        }
+      );
       mkExtraBuildCommands0 =
         cc: ''
           rsrc="$out/resource-root"
@@ -290,8 +294,10 @@ let
           ]
           ++ lib.optional (!stdenv.targetPlatform.isWasm)
             "--unwindlib=libunwind"
-          ++ lib.optional (!stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false) "-lunwind"
+          ++ lib.optional (
+            !stdenv.targetPlatform.isWasm
+            && stdenv.targetPlatform.useLLVM or false
+          ) "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;
       };
@@ -341,20 +347,23 @@ let
     }
   );
 
-  libraries = lib.makeExtensible (libraries:
+  libraries = lib.makeExtensible (
+    libraries:
     let
-      callPackage = newScope (libraries // buildLlvmTools // {
-        inherit
-          stdenv
-          cmake
-          ninja
-          libxml2
-          python3
-          release_version
-          version
-          monorepoSrc
-          ;
-      });
+      callPackage = newScope (
+        libraries // buildLlvmTools // {
+          inherit
+            stdenv
+            cmake
+            ninja
+            libxml2
+            python3
+            release_version
+            version
+            monorepoSrc
+            ;
+        }
+      );
     in
     {
 

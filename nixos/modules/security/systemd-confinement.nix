@@ -13,7 +13,8 @@ let
 in
 {
   options.systemd.services = lib.mkOption {
-    type = types.attrsOf (types.submodule ({
+    type = types.attrsOf (types.submodule (
+      {
         name,
         config,
         ...
@@ -158,7 +159,8 @@ in
                   "ExecStop"
                   "ExecStopPost"
                 ];
-                execPkgs = lib.concatMap (opt:
+                execPkgs = lib.concatMap (
+                  opt:
                   let
                     isSet = config.serviceConfig ? ${opt};
                   in
@@ -177,10 +179,12 @@ in
               ;
           }
           ;
-      }));
+      }
+    ));
   };
 
-  config.assertions = lib.concatLists (lib.mapAttrsToList (name: cfg:
+  config.assertions = lib.concatLists (lib.mapAttrsToList (
+    name: cfg:
     let
       whatOpt =
         optName:
@@ -221,7 +225,8 @@ in
     ]
   ) config.systemd.services);
 
-  config.systemd.packages = lib.concatLists (lib.mapAttrsToList (name: cfg:
+  config.systemd.packages = lib.concatLists (lib.mapAttrsToList (
+    name: cfg:
     let
       rootPaths =
         let

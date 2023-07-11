@@ -56,12 +56,14 @@ stdenv.mkDerivation rec {
     gtk2.dev
     libexif
     sqlite.dev
-    (python3Packages.python.withPackages (pythonPackages:
+    (python3Packages.python.withPackages (
+      pythonPackages:
       with python3Packages; [
         beautifulsoup4
         feedparser
         sqlalchemy
-      ]))
+      ]
+    ))
   ];
 
   postUnpack = ''

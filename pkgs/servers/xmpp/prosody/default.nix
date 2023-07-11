@@ -22,7 +22,8 @@
 with lib;
 
 let
-  luaEnv = lua.withPackages (p:
+  luaEnv = lua.withPackages (
+    p:
     with p;
     [
       luasocket
@@ -35,7 +36,8 @@ let
     ]
     ++ lib.optional withLibevent p.luaevent
     ++ lib.optional withDBI p.luadbi
-    ++ withExtraLuaPackages p);
+    ++ withExtraLuaPackages p
+  );
 in
 stdenv.mkDerivation rec {
   version = "0.12.3"; # also update communityModules
@@ -87,9 +89,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     ${concatMapStringsSep "\n" (module: ''
       cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-    '') (lib.lists.unique (nixosModuleDeps
+    '') (lib.lists.unique (
+      nixosModuleDeps
       ++ withCommunityModules
-      ++ withOnlyInstalledCommunityModules))}
+      ++ withOnlyInstalledCommunityModules
+    ))}
     wrapProgram $out/bin/prosodyctl \
       --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
     make -C tools/migration install

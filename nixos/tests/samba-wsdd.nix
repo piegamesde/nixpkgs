@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }:
@@ -53,4 +54,5 @@ import ./make-test-python.nix ({
           "echo list | ${pkgs.libressl.nc}/bin/nc -N -U /run/wsdd/wsdd.sock | grep -i SERVER-WSDD"
       )
     '';
-  })
+  }
+)

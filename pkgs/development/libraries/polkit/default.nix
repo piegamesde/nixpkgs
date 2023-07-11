@@ -90,10 +90,9 @@ stdenv.mkDerivation rec {
       gobject-introspection
       gtk-doc
     ]
-    ++ lib.optionals (withIntrospection
-      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+    ++ lib.optionals (
+      withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+    ) [ mesonEmulatorHook ]
     ;
 
   buildInputs =
@@ -105,10 +104,12 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [
       # On Linux, fall back to elogind when systemd support is off.
-      (if useSystemd then
-        systemdMinimal
-      else
-        elogind)
+      (
+        if useSystemd then
+          systemdMinimal
+        else
+          elogind
+      )
     ]
     ;
 
@@ -118,14 +119,16 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [
     dbus
-    (python3.pythonForBuild.withPackages (pp:
+    (python3.pythonForBuild.withPackages (
+      pp:
       with pp; [
         dbus-python
         (python-dbusmock.overridePythonAttrs (attrs: {
           # Avoid dependency cycle.
           doCheck = false;
         }))
-      ]))
+      ]
+    ))
   ];
 
   mesonFlags =

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
           for host in "simple.containers", "netmask.containers":
               machine.succeed(f"ping -n -c 1 {host}")
     '';
-  })
+  }
+)

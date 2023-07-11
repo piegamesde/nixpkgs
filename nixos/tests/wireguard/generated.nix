@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     kernelPackages ? null,
@@ -68,4 +69,5 @@ import ../make-test-python.nix ({
       peer1.succeed("ping -c1 10.10.10.2")
       peer2.succeed("ping -c1 10.10.10.1")
     '';
-  })
+  }
+)

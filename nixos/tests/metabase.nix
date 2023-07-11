@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -21,4 +22,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(3000)
       machine.wait_until_succeeds("curl -fL http://localhost:3000/setup | grep Metabase")
     '';
-  })
+  }
+)

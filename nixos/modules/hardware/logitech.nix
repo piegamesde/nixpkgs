@@ -101,10 +101,11 @@ in
         ''
           # nixos: hardware.logitech.lcd
         ''
-        + lib.concatMapStringsSep "\n" (dev:
+        + lib.concatMapStringsSep "\n" (
+          dev:
           ''
-            ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"'')
-          cfg.lcd.devices
+            ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"''
+        ) cfg.lcd.devices
         ;
     };
 

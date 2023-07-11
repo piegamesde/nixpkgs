@@ -110,10 +110,11 @@ in
 
         # Ensure lightdm is used when Pantheon is enabled
         # Without it screen locking will be nonfunctional because of the use of lightlocker
-      warnings = optional
-        (config.services.xserver.displayManager.lightdm.enable != true) ''
-          Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
-        '';
+      warnings = optional (
+        config.services.xserver.displayManager.lightdm.enable != true
+      ) ''
+        Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
+      '';
 
       services.xserver.displayManager.lightdm.greeters.pantheon.enable =
         mkDefault true;
@@ -197,47 +198,55 @@ in
 
         # Global environment
       environment.systemPackages =
-        (with pkgs.pantheon; [
-          elementary-session-settings
-          elementary-settings-daemon
-          gala
-          gnome-settings-daemon
-          (switchboard-with-plugs.override {
-            plugs = cfg.extraSwitchboardPlugs;
-          })
-          (wingpanel-with-indicators.override {
-            indicators = cfg.extraWingpanelIndicators;
-          })
-        ])
-        ++ utils.removePackagesByName ((with pkgs; [
-          desktop-file-utils
-          glib # for gsettings program
-          gnome-menus
-          gnome.adwaita-icon-theme
-          gtk3.out # for gtk-launch program
-          onboard
-          qgnomeplatform
-          sound-theme-freedesktop
-          xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-        ])
-          ++ (with pkgs.pantheon; [
-            # Artwork
-            elementary-gtk-theme
-            elementary-icon-theme
-            elementary-sound-theme
-            elementary-wallpapers
+        (
+          with pkgs.pantheon; [
+            elementary-session-settings
+            elementary-settings-daemon
+            gala
+            gnome-settings-daemon
+            (switchboard-with-plugs.override {
+              plugs = cfg.extraSwitchboardPlugs;
+            })
+            (wingpanel-with-indicators.override {
+              indicators = cfg.extraWingpanelIndicators;
+            })
+          ]
+        )
+        ++ utils.removePackagesByName (
+          (
+            with pkgs; [
+              desktop-file-utils
+              glib # for gsettings program
+              gnome-menus
+              gnome.adwaita-icon-theme
+              gtk3.out # for gtk-launch program
+              onboard
+              qgnomeplatform
+              sound-theme-freedesktop
+              xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+            ]
+          )
+          ++ (
+            with pkgs.pantheon; [
+              # Artwork
+              elementary-gtk-theme
+              elementary-icon-theme
+              elementary-sound-theme
+              elementary-wallpapers
 
-            # Desktop
-            elementary-default-settings
-            elementary-dock
-            elementary-shortcut-overlay
+              # Desktop
+              elementary-default-settings
+              elementary-dock
+              elementary-shortcut-overlay
 
-            # Services
-            elementary-capnet-assist
-            elementary-notifications
-            pantheon-agent-geoclue2
-            pantheon-agent-polkit
-          ])) config.environment.pantheon.excludePackages
+              # Services
+              elementary-capnet-assist
+              elementary-notifications
+              pantheon-agent-geoclue2
+              pantheon-agent-polkit
+            ]
+          )
+        ) config.environment.pantheon.excludePackages
         ;
 
         # Settings from elementary-default-settings
@@ -299,30 +308,33 @@ in
       programs.evince.enable = mkDefault true;
       programs.file-roller.enable = mkDefault true;
 
-      environment.systemPackages = utils.removePackagesByName
-        ([ pkgs.gnome.gnome-font-viewer ]
-          ++ (with pkgs.pantheon;
-            [
-              elementary-calculator
-              elementary-calendar
-              elementary-camera
-              elementary-code
-              elementary-files
-              elementary-mail
-              elementary-music
-              elementary-photos
-              elementary-screenshot
-              elementary-tasks
-              elementary-terminal
-              elementary-videos
-              epiphany
-            ]
-            ++ lib.optionals config.services.flatpak.enable [
-              # Only install appcenter if flatpak is enabled before
-              # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
-              appcenter
-              sideload
-            ])) config.environment.pantheon.excludePackages;
+      environment.systemPackages = utils.removePackagesByName (
+        [ pkgs.gnome.gnome-font-viewer ]
+        ++ (
+          with pkgs.pantheon;
+          [
+            elementary-calculator
+            elementary-calendar
+            elementary-camera
+            elementary-code
+            elementary-files
+            elementary-mail
+            elementary-music
+            elementary-photos
+            elementary-screenshot
+            elementary-tasks
+            elementary-terminal
+            elementary-videos
+            epiphany
+          ]
+          ++ lib.optionals config.services.flatpak.enable [
+            # Only install appcenter if flatpak is enabled before
+            # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
+            appcenter
+            sideload
+          ]
+        )
+      ) config.environment.pantheon.excludePackages;
 
         # needed by screenshot
       fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];

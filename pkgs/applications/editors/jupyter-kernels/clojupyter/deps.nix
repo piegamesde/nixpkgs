@@ -18,11 +18,13 @@ rec {
     {
       extraClasspaths ? [ ]
     }:
-    (builtins.map (dep:
+    (builtins.map (
+      dep:
       if builtins.hasAttr "jar" dep.path then
         dep.path.jar
       else
-        dep.path) packages)
+        dep.path
+    ) packages)
     ++ extraClasspaths
     ;
   makeClasspaths =

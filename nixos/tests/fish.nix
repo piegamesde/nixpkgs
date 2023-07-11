@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -27,4 +28,5 @@ import ./make-test-python.nix ({
           "fish -ic 'echo $fish_complete_path' | grep -q '/share/fish/completions /etc/fish/generated_completions /root/.local/share/fish/generated_completions$'"
       )
     '';
-  })
+  }
+)

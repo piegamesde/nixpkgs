@@ -85,8 +85,9 @@ let
         ./switch-to-configuration.pl
       } $out/bin/switch-to-configuration
       chmod +x $out/bin/switch-to-configuration
-      ${optionalString
-      (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
+      ${optionalString (
+        pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+      ) ''
         if ! output=$($perl/bin/perl -c $out/bin/switch-to-configuration 2>&1); then
           echo "switch-to-configuration syntax is not valid:"
           echo "$output"
@@ -98,8 +99,9 @@ let
 
       echo -n "$extraDependencies" > $out/extra-dependencies
 
-      ${optionalString
-      (!config.boot.isContainer && config.boot.bootspec.enable) ''
+      ${optionalString (
+        !config.boot.isContainer && config.boot.bootspec.enable
+      ) ''
         ${config.boot.bootspec.writer}
         ${optionalString config.boot.bootspec.enableValidation ''
           ${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
@@ -114,35 +116,39 @@ let
     # kernel, systemd units, init scripts, etc.) as well as a script
     # `switch-to-configuration' that activates the configuration and
     # makes it bootable.
-  baseSystem = pkgs.stdenvNoCC.mkDerivation ({
-    name = "nixos-system-${config.system.name}-${config.system.nixos.label}";
-    preferLocalBuild = true;
-    allowSubstitutes = false;
-    buildCommand = systemBuilder;
+  baseSystem = pkgs.stdenvNoCC.mkDerivation (
+    {
+      name = "nixos-system-${config.system.name}-${config.system.nixos.label}";
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      buildCommand = systemBuilder;
 
-    inherit (pkgs) coreutils;
-    systemd = config.systemd.package;
-    shell = "${pkgs.bash}/bin/sh";
-    su = "${pkgs.shadow.su}/bin/su";
-    utillinux = pkgs.util-linux;
+      inherit (pkgs) coreutils;
+      systemd = config.systemd.package;
+      shell = "${pkgs.bash}/bin/sh";
+      su = "${pkgs.shadow.su}/bin/su";
+      utillinux = pkgs.util-linux;
 
-    kernelParams = config.boot.kernelParams;
-    installBootLoader = config.system.build.installBootLoader;
-    activationScript = config.system.activationScripts.script;
-    dryActivationScript = config.system.dryActivationScript;
-    nixosLabel = config.system.nixos.label;
+      kernelParams = config.boot.kernelParams;
+      installBootLoader = config.system.build.installBootLoader;
+      activationScript = config.system.activationScripts.script;
+      dryActivationScript = config.system.dryActivationScript;
+      nixosLabel = config.system.nixos.label;
 
-    inherit (config.system)
-      extraDependencies
-      ;
+      inherit (config.system)
+        extraDependencies
+        ;
 
-      # Needed by switch-to-configuration.
-    perl = pkgs.perl.withPackages (p:
-      with p; [
-        ConfigIniFiles
-        FileSlurp
-      ]);
-  } // config.system.systemBuilderArgs);
+        # Needed by switch-to-configuration.
+      perl = pkgs.perl.withPackages (
+        p:
+        with p; [
+          ConfigIniFiles
+          FileSlurp
+        ]
+      );
+    } // config.system.systemBuilderArgs
+  );
 
     # Handle assertions and warnings
 
@@ -160,13 +166,14 @@ let
     ;
 
     # Replace runtime dependencies
-  system = foldr ({
+  system = foldr (
+    {
       oldDependency,
       newDependency,
     }:
     drv:
-    pkgs.replaceDependency { inherit oldDependency newDependency drv; })
-    baseSystemAssertWarn config.system.replaceRuntimeDependencies;
+    pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+  ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (o: {
     systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
@@ -320,7 +327,8 @@ in
       example = lib.literalExpression
         "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]"
         ;
-      type = types.listOf (types.submodule ({
+      type = types.listOf (types.submodule (
+        {
           ...
         }: {
           options.original = mkOption {
@@ -332,15 +340,18 @@ in
             type = types.package;
             description = lib.mdDoc "The replacement package.";
           };
-        }));
-      apply = map ({
+        }
+      ));
+      apply = map (
+        {
           original,
           replacement,
           ...
         }: {
           oldDependency = original;
           newDependency = replacement;
-        });
+        }
+      );
       description = lib.mdDoc ''
         List of packages to override without doing a full rebuild.
         The original derivation and replacement derivation must have the same

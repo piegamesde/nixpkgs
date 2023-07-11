@@ -19,12 +19,14 @@ let
     sha256 = "sha256-rZsTtHobsgRVmMOjPa1fiKrPsNyFu/gOsmO0cTl5MqQ=";
   };
 
-  gitApi = buildGoModule ({
-    inherit src version;
-    pname = "gitsrht-api";
-    modRoot = "api";
-    vendorSha256 = "sha256-cCs9FUBusaAou9w4TDOg8GKxhRcsPbSNcQpxvFH/+so=";
-  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
+  gitApi = buildGoModule (
+    {
+      inherit src version;
+      pname = "gitsrht-api";
+      modRoot = "api";
+      vendorSha256 = "sha256-cCs9FUBusaAou9w4TDOg8GKxhRcsPbSNcQpxvFH/+so=";
+    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+  );
 
   gitDispatch = buildGoModule {
     inherit src version;

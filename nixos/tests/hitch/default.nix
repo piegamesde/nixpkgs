@@ -1,4 +1,5 @@
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -32,4 +33,5 @@ import ../make-test-python.nix ({
       machine.wait_for_open_port(443)
       assert "We are all good!" in machine.succeed("curl -fk https://localhost:443/index.txt")
     '';
-  })
+  }
+)

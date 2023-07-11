@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -59,4 +60,5 @@ import ./make-test-python.nix ({
       with subtest("custom_cmd"):
           perform_xsslock_test(custom_lockcmd, "xlock")
     '';
-  })
+  }
+)

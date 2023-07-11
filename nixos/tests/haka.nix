@@ -1,6 +1,7 @@
 # This test runs haka and probes it with hakactl
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
       haka.succeed("hakactl status")
       haka.succeed("hakactl stop")
     '';
-  })
+  }
+)

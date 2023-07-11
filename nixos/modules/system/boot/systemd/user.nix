@@ -206,10 +206,12 @@ in
       cfg.timers;
 
       # Generate timer units for all services that have a ‘startAt’ value.
-    systemd.user.timers = mapAttrs (name: service: {
-      wantedBy = [ "timers.target" ];
-      timerConfig.OnCalendar = service.startAt;
-    }) (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
+    systemd.user.timers = mapAttrs (
+      name: service: {
+        wantedBy = [ "timers.target" ];
+        timerConfig.OnCalendar = service.startAt;
+      }
+    ) (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
 
       # Provide the systemd-user PAM service, required to run systemd
       # user instances.
@@ -228,10 +230,10 @@ in
       false; # Restart kills all active sessions.
 
       # enable systemd user tmpfiles
-    systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional
-      (cfg.tmpfiles.rules != [ ]
-        || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users))
-      "basic.target";
+    systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional (
+      cfg.tmpfiles.rules != [ ]
+      || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
+    ) "basic.target";
 
       # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
       # write the tmpfiles.d rules for everyone there
@@ -240,11 +242,13 @@ in
 
       # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
       # we can write a single user's tmpfiles.d rules there
-    users.users = mapAttrs (user: cfg': {
-      packages = optional (cfg'.rules != [ ]) (writeTmpfiles {
-        inherit (cfg') rules;
-        inherit user;
-      });
-    }) cfg.tmpfiles.users;
+    users.users = mapAttrs (
+      user: cfg': {
+        packages = optional (cfg'.rules != [ ]) (writeTmpfiles {
+          inherit (cfg') rules;
+          inherit user;
+        });
+      }
+    ) cfg.tmpfiles.users;
   };
 }

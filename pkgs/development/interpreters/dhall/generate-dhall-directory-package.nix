@@ -12,7 +12,8 @@
 # Dhall imports protected with Dhall integrity checksinto fixed-output
 # derivations (with the `buildDhallUrl` function), so no unrestricted network
 # access is necessary.
-lib.makePackageOverridable ({
+lib.makePackageOverridable (
+  {
     src, # The file to import, relative to the root directory
     file ?
       "package.dhall", # Set to `true` to generate documentation for the package
@@ -28,4 +29,5 @@ lib.makePackageOverridable ({
     '';
 
     nativeBuildInputs = [ dhall-nixpkgs ];
-  })
+  }
+)

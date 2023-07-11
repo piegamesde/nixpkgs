@@ -8,14 +8,16 @@ let
 
   libDefPos =
     prefix: set:
-    builtins.concatMap (name:
+    builtins.concatMap (
+      name:
       [ {
         name = builtins.concatStringsSep "." (prefix ++ [ name ]);
         location = builtins.unsafeGetAttrPos name set;
       } ]
-      ++ nixpkgsLib.optionals
-        (builtins.length prefix == 0 && builtins.isAttrs set.${name})
-        (libDefPos (prefix ++ [ name ]) set.${name})) (builtins.attrNames set)
+      ++ nixpkgsLib.optionals (
+        builtins.length prefix == 0 && builtins.isAttrs set.${name}
+      ) (libDefPos (prefix ++ [ name ]) set.${name})
+    ) (builtins.attrNames set)
     ;
 
   libset =
@@ -71,7 +73,8 @@ let
 
   urlPrefix = "https://github.com/NixOS/nixpkgs/blob/${revision}";
   xmlstrings =
-    (nixpkgsLib.strings.concatMapStrings ({
+    (nixpkgsLib.strings.concatMapStrings (
+      {
         name,
         value,
       }: ''
@@ -85,7 +88,8 @@ let
           in  <literal>&lt;nixpkgs&gt;</literal>.
           </para>
           </section>
-      '') relativeLocs);
+      ''
+    ) relativeLocs);
 
 in
 pkgs.writeText "locations.xml" ''

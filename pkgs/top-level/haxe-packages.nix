@@ -44,44 +44,48 @@ let
       meta,
       ...
     }@attrs:
-    stdenv.mkDerivation (attrs // {
-      name = "${libname}-${version}";
-
-      buildInputs =
-        (attrs.buildInputs or [ ])
-        ++ [
-          haxe
-          neko
-        ]
-        ; # for setup-hook.sh to work
-      src = fetchzip rec {
+    stdenv.mkDerivation (
+      attrs // {
         name = "${libname}-${version}";
-        url = "http://lib.haxe.org/files/3.0/${withCommas name}.zip";
-        inherit sha256;
-        stripRoot = false;
-      };
 
-      installPhase =
-        attrs.installPhase or ''
-          runHook preInstall
+        buildInputs =
           (
-            if [ $(ls $src | wc -l) == 1 ]; then
-              cd $src/* || cd $src
-            else
-              cd $src
-            fi
-            ${installLibHaxe { inherit libname version; }}
+            attrs.buildInputs or [ ]
           )
-          runHook postInstall
-        '';
+          ++ [
+            haxe
+            neko
+          ]
+          ; # for setup-hook.sh to work
+        src = fetchzip rec {
+          name = "${libname}-${version}";
+          url = "http://lib.haxe.org/files/3.0/${withCommas name}.zip";
+          inherit sha256;
+          stripRoot = false;
+        };
 
-      meta = {
-        homepage = "http://lib.haxe.org/p/${libname}";
-        license = lib.licenses.bsd2;
-        platforms = lib.platforms.all;
-        description = throw "please write meta.description";
-      } // attrs.meta;
-    })
+        installPhase =
+          attrs.installPhase or ''
+            runHook preInstall
+            (
+              if [ $(ls $src | wc -l) == 1 ]; then
+                cd $src/* || cd $src
+              else
+                cd $src
+              fi
+              ${installLibHaxe { inherit libname version; }}
+            )
+            runHook postInstall
+          '';
+
+        meta = {
+          homepage = "http://lib.haxe.org/p/${libname}";
+          license = lib.licenses.bsd2;
+          platforms = lib.platforms.all;
+          description = throw "please write meta.description";
+        } // attrs.meta;
+      }
+    )
     ;
 in
 {

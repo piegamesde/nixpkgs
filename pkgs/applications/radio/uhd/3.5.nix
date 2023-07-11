@@ -98,7 +98,8 @@ stdenv.mkDerivation rec {
     ;
 
     # Python + mako are always required for the build itself but not necessary for runtime.
-  pythonEnv = python3.withPackages (ps:
+  pythonEnv = python3.withPackages (
+    ps:
     with ps;
     [ mako ]
     ++ optionals (enableLibuhd_Python_api) [
@@ -108,7 +109,8 @@ stdenv.mkDerivation rec {
     ++ optionals (enableUtils) [
       requests
       six
-    ]);
+    ]
+  );
 
   nativeBuildInputs =
     [

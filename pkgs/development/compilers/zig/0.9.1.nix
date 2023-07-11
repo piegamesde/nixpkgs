@@ -52,11 +52,13 @@ stdenv.mkDerivation rec {
       libxml2
       zlib
     ]
-    ++ (with llvmPackages; [
-      libclang
-      lld
-      llvm
-    ])
+    ++ (
+      with llvmPackages; [
+        libclang
+        lld
+        llvm
+      ]
+    )
     ;
 
   preBuild = ''

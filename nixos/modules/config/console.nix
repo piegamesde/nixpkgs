@@ -143,9 +143,9 @@ in
         (pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
           '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
             ${
-              optionalString
-              (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
-              "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
+              optionalString (
+                config.environment.sessionVariables ? XKB_CONFIG_ROOT
+              ) "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
             } \
             -model '${xkbModel}' -layout '${layout}' \
             -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
@@ -215,10 +215,9 @@ in
             "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
             "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
           ]
-          ++ optionals
-            (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [
-              "${cfg.font}"
-            ]
+          ++ optionals (
+            cfg.font != null && hasPrefix builtins.storeDir cfg.font
+          ) [ "${cfg.font}" ]
           ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [
               "${cfg.keyMap}"
             ]
@@ -249,28 +248,28 @@ in
         ];
       })
 
-      (mkIf (cfg.earlySetup
-        && cfg.font != null
-        && !config.boot.initrd.systemd.enable) {
-          boot.initrd.extraUtilsCommands = ''
-            mkdir -p $out/share/consolefonts
-            ${if substring 0 1 cfg.font == "/" then
-              ''
-                font="${cfg.font}"
-              ''
-            else
-              ''
-                font="$(echo ${
-                  consoleEnv pkgs.kbd
-                }/share/consolefonts/${cfg.font}.*)"
-              ''}
-            if [[ $font == *.gz ]]; then
-              gzip -cd $font > $out/share/consolefonts/font.psf
-            else
-              cp -L $font $out/share/consolefonts/font.psf
-            fi
-          '';
-        })
+      (mkIf (
+        cfg.earlySetup && cfg.font != null && !config.boot.initrd.systemd.enable
+      ) {
+        boot.initrd.extraUtilsCommands = ''
+          mkdir -p $out/share/consolefonts
+          ${if substring 0 1 cfg.font == "/" then
+            ''
+              font="${cfg.font}"
+            ''
+          else
+            ''
+              font="$(echo ${
+                consoleEnv pkgs.kbd
+              }/share/consolefonts/${cfg.font}.*)"
+            ''}
+          if [[ $font == *.gz ]]; then
+            gzip -cd $font > $out/share/consolefonts/font.psf
+          else
+            cp -L $font $out/share/consolefonts/font.psf
+          fi
+        '';
+      })
     ]))
   ];
 

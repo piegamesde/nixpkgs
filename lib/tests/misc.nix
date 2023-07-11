@@ -482,14 +482,18 @@ runTests {
     ("Hello%20World" == strings.escapeURL "Hello World")
     ("Hello%2FWorld" == strings.escapeURL "Hello/World")
     ("42%25" == strings.escapeURL "42%")
-    ("%20%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%09%3A%2F%40%24%27%28%29%2A%2C%3B"
-      == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`	:/@$'()*,;")
+    (
+      "%20%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%09%3A%2F%40%24%27%28%29%2A%2C%3B"
+      == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`	:/@$'()*,;"
+    )
   ];
 
   testToInt = testAllTrue [
     # Naive
     (123 == toInt "123")
-    (0 == toInt "0")
+    (
+      0 == toInt "0"
+    )
     # Whitespace Padding
     (123 == toInt " 123")
     (123 == toInt "123 ")
@@ -503,77 +507,105 @@ runTests {
   ];
 
   testToIntFails = testAllTrue [
-    (builtins.tryEval (toInt "")
+    (
+      builtins.tryEval (toInt "")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt "123 123")
+      }
+    )
+    (
+      builtins.tryEval (toInt "123 123")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt "0 123")
+      }
+    )
+    (
+      builtins.tryEval (toInt "0 123")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " 0d ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " 0d ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " 1d ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " 1d ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " d0 ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " d0 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt "00")
+      }
+    )
+    (
+      builtins.tryEval (toInt "00")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt "01")
+      }
+    )
+    (
+      builtins.tryEval (toInt "01")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt "002")
+      }
+    )
+    (
+      builtins.tryEval (toInt "002")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " 002 ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " 002 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " foo ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " foo ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " foo 123 ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " foo 123 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toInt " foo123 ")
+      }
+    )
+    (
+      builtins.tryEval (toInt " foo123 ")
       == {
         success = false;
         value = false;
-      })
+      }
+    )
   ];
 
   testToIntBase10 = testAllTrue [
     # Naive
     (123 == toIntBase10 "123")
-    (0 == toIntBase10 "0")
+    (
+      0 == toIntBase10 "0"
+    )
     # Whitespace Padding
     (123 == toIntBase10 " 123")
     (123 == toIntBase10 "123 ")
@@ -581,11 +613,15 @@ runTests {
     (123 == toIntBase10 "   123   ")
     (0 == toIntBase10 " 0")
     (0 == toIntBase10 "0 ")
-    (0 == toIntBase10 " 0 ")
+    (
+      0 == toIntBase10 " 0 "
+    )
     # Zero Padding
     (123 == toIntBase10 "0123")
     (123 == toIntBase10 "0000123")
-    (0 == toIntBase10 "000000")
+    (
+      0 == toIntBase10 "000000"
+    )
     # Whitespace and Zero Padding
     (123 == toIntBase10 " 0123")
     (123 == toIntBase10 "0123 ")
@@ -601,56 +637,76 @@ runTests {
   ];
 
   testToIntBase10Fails = testAllTrue [
-    (builtins.tryEval (toIntBase10 "")
+    (
+      builtins.tryEval (toIntBase10 "")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 "123 123")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 "123 123")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 "0 123")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 "0 123")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " 0d ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " 0d ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " 1d ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " 1d ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " d0 ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " d0 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " foo ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " foo ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " foo 123 ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " foo 123 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " foo 00123 ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " foo 00123 ")
       == {
         success = false;
         value = false;
-      })
-    (builtins.tryEval (toIntBase10 " foo00123 ")
+      }
+    )
+    (
+      builtins.tryEval (toIntBase10 " foo00123 ")
       == {
         success = false;
         value = false;
-      })
+      }
+    )
   ];
 
     # LISTS
@@ -705,47 +761,57 @@ runTests {
     ;
 
   testTake = testAllTrue [
-    ([ ]
+    (
+      [ ]
       == (take 0 [
         1
         2
         3
-      ]))
-    ([ 1 ]
+      ])
+    )
+    (
+      [ 1 ]
       == (take 1 [
         1
         2
         3
-      ]))
-    ([
-      1
-      2
-    ]
+      ])
+    )
+    (
+      [
+        1
+        2
+      ]
       == (take 2 [
         1
         2
         3
-      ]))
-    ([
-      1
-      2
-      3
-    ]
+      ])
+    )
+    (
+      [
+        1
+        2
+        3
+      ]
       == (take 3 [
         1
         2
         3
-      ]))
-    ([
-      1
-      2
-      3
-    ]
+      ])
+    )
+    (
+      [
+        1
+        2
+        3
+      ]
       == (take 4 [
         1
         2
         3
-      ]))
+      ])
+    )
   ];
 
   testFoldAttrs = {
@@ -825,10 +891,12 @@ runTests {
     # ATTRSETS
 
   testConcatMapAttrs = {
-    expr = concatMapAttrs (name: value: {
-      ${name} = value;
-      ${name + value} = value;
-    }) {
+    expr = concatMapAttrs (
+      name: value: {
+        ${name} = value;
+        ${name + value} = value;
+      }
+    ) {
       foo = "bar";
       foobar = "baz";
     };
@@ -842,10 +910,12 @@ runTests {
     # code from example
   testFoldlAttrs = {
     expr = {
-      example = foldlAttrs (acc: name: value: {
-        sum = acc.sum + value;
-        names = acc.names ++ [ name ];
-      }) {
+      example = foldlAttrs (
+        acc: name: value: {
+          sum = acc.sum + value;
+          names = acc.names ++ [ name ];
+        }
+      ) {
         sum = 0;
         names = [ ];
       } {
@@ -2232,21 +2302,25 @@ runTests {
   };
   testTypeDescriptionOneOfListOfStrOrBool = {
     expr =
-      (with types;
+      (
+        with types;
         oneOf [
           (listOf bool)
           str
-        ]).description;
+        ]
+      ).description;
     expected = "(list of boolean) or string";
   };
   testTypeDescriptionOneOfListOfStrOrBoolOrNumber = {
     expr =
-      (with types;
+      (
+        with types;
         oneOf [
           (listOf bool)
           str
           number
-        ]).description;
+        ]
+      ).description;
     expected =
       "(list of boolean) or string or signed integer or floating point number";
   };

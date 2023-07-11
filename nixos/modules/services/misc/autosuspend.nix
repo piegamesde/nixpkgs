@@ -25,23 +25,27 @@ let
 
   settingsFormat = pkgs.formats.ini { };
 
-  checks = mapAttrs'
-    (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v))
-    cfg.checks;
-  wakeups = mapAttrs'
-    (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
-    cfg.wakeups;
+  checks = mapAttrs' (
+    n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v)
+  ) cfg.checks;
+  wakeups = mapAttrs' (
+    n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v)
+  ) cfg.wakeups;
 
     # Whether the given check is enabled
   hasCheck =
     class:
-    (filterAttrs (n: v:
+    (filterAttrs (
+      n: v:
       v.enabled
-      && (if v.class == null then
-        n
-      else
-        v.class)
-        == class) cfg.checks)
+      && (
+        if v.class == null then
+          n
+        else
+          v.class
+      )
+        == class
+    ) cfg.checks)
     != { }
     ;
 
@@ -54,8 +58,9 @@ let
     ];
   };
 
-  autosuspend-conf = settingsFormat.generate "autosuspend.conf"
-    ({ general = cfg.settings; } // checks // wakeups);
+  autosuspend-conf = settingsFormat.generate "autosuspend.conf" (
+    { general = cfg.settings; } // checks // wakeups
+  );
 
   autosuspend = cfg.package;
 

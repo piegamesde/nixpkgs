@@ -1,7 +1,8 @@
 let
   testString = "can-use-subgroups";
 in
-import ../make-test-python.nix ({
+import ../make-test-python.nix (
+  {
     pkgs,
     lib,
     php,
@@ -65,4 +66,5 @@ import ../make-test-python.nix ({
         machine.succeed("${php}/bin/php -f ${pcreJitSeallocForkIssue}")
       ''
       ;
-  })
+  }
+)

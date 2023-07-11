@@ -83,12 +83,14 @@ python3Packages.buildPythonApplication rec {
       glibcLocales
       git
     ]
-    ++ (with python3Packages; [
-      pyte
-      pytestCheckHook
-      pytest-mock
-      pytest-subprocess
-    ])
+    ++ (
+      with python3Packages; [
+        pyte
+        pytestCheckHook
+        pytest-mock
+        pytest-subprocess
+      ]
+    )
     ;
 
   propagatedBuildInputs = with python3Packages; [

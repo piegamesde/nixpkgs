@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -39,10 +40,12 @@ import ./make-test-python.nix ({
         systemd.shutdown.test = pkgs.writeScript "test.shutdown" ''
           #!${pkgs.runtimeShell}
           PATH=${
-            lib.makeBinPath (with pkgs; [
-              util-linux
-              coreutils
-            ])
+            lib.makeBinPath (
+              with pkgs; [
+                util-linux
+                coreutils
+              ]
+            )
           }
           mount -t 9p shared -o trans=virtio,version=9p2000.L /tmp/shared
           touch /tmp/shared/shutdown-test
@@ -210,4 +213,5 @@ import ./make-test-python.nix ({
           machine.systemctl("daemon-reexec")  # Rewrites /proc/1/environ
           machine.succeed("grep -q TZDIR=/etc/zoneinfo /proc/1/environ")
     '';
-  })
+  }
+)

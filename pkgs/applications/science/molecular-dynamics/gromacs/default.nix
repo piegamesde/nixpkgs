@@ -70,20 +70,24 @@ stdenv.mkDerivation rec {
       "-DGMX_OPENMP:BOOL=TRUE"
       "-DBUILD_SHARED_LIBS=ON"
     ]
-    ++ (if singlePrec then
-      [ "-DGMX_DOUBLE=OFF" ]
-    else
-      [
-        "-DGMX_DOUBLE=ON"
-        "-DGMX_DEFAULT_SUFFIX=OFF"
-      ])
-    ++ (if enableMpi then
-      [
-        "-DGMX_MPI:BOOL=TRUE"
-        "-DGMX_THREAD_MPI:BOOL=FALSE"
-      ]
-    else
-      [ "-DGMX_MPI:BOOL=FALSE" ])
+    ++ (
+      if singlePrec then
+        [ "-DGMX_DOUBLE=OFF" ]
+      else
+        [
+          "-DGMX_DOUBLE=ON"
+          "-DGMX_DEFAULT_SUFFIX=OFF"
+        ]
+    )
+    ++ (
+      if enableMpi then
+        [
+          "-DGMX_MPI:BOOL=TRUE"
+          "-DGMX_THREAD_MPI:BOOL=FALSE"
+        ]
+      else
+        [ "-DGMX_MPI:BOOL=FALSE" ]
+    )
     ++ lib.optional enableCuda "-DGMX_GPU=CUDA"
     ;
 

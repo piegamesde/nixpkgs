@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -23,4 +24,5 @@ import ./make-test-python.nix ({
       machine.succeed("touch ~/.zshrc")
       machine.succeed("zsh -c 'source /etc/zshrc && echo $ZSH | grep oh-my-zsh-${pkgs.oh-my-zsh.version}'")
     '';
-  })
+  }
+)

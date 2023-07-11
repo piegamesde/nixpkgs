@@ -147,8 +147,10 @@ let
       (lib.optionalString enableStatic
         "-lssl -lbrotlicommon -lssh2 -lz -lnghttp2 -lcrypto")
       # https://github.com/NixOS/nix/commits/74b4737d8f0e1922ef5314a158271acf81cd79f8
-      (lib.optionalString (stdenv.hostPlatform.system == "armv5tel-linux"
-        || stdenv.hostPlatform.system == "armv6l-linux") "-latomic")
+      (lib.optionalString (
+        stdenv.hostPlatform.system == "armv5tel-linux"
+        || stdenv.hostPlatform.system == "armv6l-linux"
+      ) "-latomic")
     ];
 
     preConfigure =
@@ -168,19 +170,20 @@ let
       # removes config.nix entirely and is not present in 2.3.x, we need to
       # patch around an issue where the Nix configure step pulls in the build
       # system's bash and other utilities when cross-compiling.
-      lib.optionalString
-        (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24) ''
-          mkdir tmp/
-          substitute corepkgs/config.nix.in tmp/config.nix.in \
-            --subst-var-by bash ${bash}/bin/bash \
-            --subst-var-by coreutils ${coreutils}/bin \
-            --subst-var-by bzip2 ${bzip2}/bin/bzip2 \
-            --subst-var-by gzip ${gzip}/bin/gzip \
-            --subst-var-by xz ${xz}/bin/xz \
-            --subst-var-by tar ${gnutar}/bin/tar \
-            --subst-var-by tr ${coreutils}/bin/tr
-          mv tmp/config.nix.in corepkgs/config.nix.in
-        ''
+      lib.optionalString (
+        stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24
+      ) ''
+        mkdir tmp/
+        substitute corepkgs/config.nix.in tmp/config.nix.in \
+          --subst-var-by bash ${bash}/bin/bash \
+          --subst-var-by coreutils ${coreutils}/bin \
+          --subst-var-by bzip2 ${bzip2}/bin/bzip2 \
+          --subst-var-by gzip ${gzip}/bin/gzip \
+          --subst-var-by xz ${xz}/bin/xz \
+          --subst-var-by tar ${gnutar}/bin/tar \
+          --subst-var-by tr ${coreutils}/bin/tr
+        mv tmp/config.nix.in corepkgs/config.nix.in
+      ''
       ;
 
     configureFlags =
@@ -201,14 +204,14 @@ let
       ++ lib.optionals stdenv.isLinux [
           "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
         ]
-      ++ lib.optionals
-        (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic) [
-          "--enable-embedded-sandbox-shell"
-        ]
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      ++ lib.optionals (
+        atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic
+      ) [ "--enable-embedded-sandbox-shell" ]
+      ++ lib.optionals (
+        stdenv.hostPlatform != stdenv.buildPlatform
         && stdenv.hostPlatform ? nix
-        && stdenv.hostPlatform.nix
-          ? system) [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
+        && stdenv.hostPlatform.nix ? system
+      ) [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
       ++ lib.optionals (!withLibseccomp) [
         # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
         "--disable-seccomp-sandboxing"

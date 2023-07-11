@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     lib,
     ...
   }: {
@@ -44,4 +45,5 @@ import ./make-test-python.nix ({
           # Wait until server accepts connections
           machine.wait_until_succeeds("curl -fs localhost:8080")
     '';
-  })
+  }
+)

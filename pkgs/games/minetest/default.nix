@@ -197,17 +197,21 @@ let
 
   mkClient =
     version:
-    generic (version // {
-      buildClient = true;
-      buildServer = false;
-    })
+    generic (
+      version // {
+        buildClient = true;
+        buildServer = false;
+      }
+    )
     ;
   mkServer =
     version:
-    generic (version // {
-      buildClient = false;
-      buildServer = true;
-    })
+    generic (
+      version // {
+        buildClient = false;
+        buildServer = true;
+      }
+    )
     ;
 in
 {

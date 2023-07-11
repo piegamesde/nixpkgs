@@ -45,23 +45,25 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ (if stdenv.isDarwin then
-      [
-        Accelerate
-        AGL
-        Cocoa
-        Foundation
-        zlib
-      ]
-    else
-      [
-        libX11
-        libXcursor
-        libXext
-        libXft
-        libXinerama
-        libXrandr
-      ])
+    ++ (
+      if stdenv.isDarwin then
+        [
+          Accelerate
+          AGL
+          Cocoa
+          Foundation
+          zlib
+        ]
+      else
+        [
+          libX11
+          libXcursor
+          libXext
+          libXft
+          libXinerama
+          libXrandr
+        ]
+    )
     ;
 
   doCheck = false;

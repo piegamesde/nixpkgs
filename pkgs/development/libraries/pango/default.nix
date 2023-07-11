@@ -66,12 +66,14 @@ stdenv.mkDerivation rec {
       fribidi
       libthai
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      ApplicationServices
-      Carbon
-      CoreGraphics
-      CoreText
-    ])
+    ++ lib.optionals stdenv.isDarwin (
+      with darwin.apple_sdk.frameworks; [
+        ApplicationServices
+        Carbon
+        CoreGraphics
+        CoreText
+      ]
+    )
     ;
 
   propagatedBuildInputs =

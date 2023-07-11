@@ -12,7 +12,8 @@ in
     #   - nodes.<name>
     #   - default
     # where all nodes include the default
-    ({
+    (
+      {
         config,
         ...
       }: {
@@ -28,7 +29,8 @@ in
             Module that is included in all nodes.
           '';
         };
-      })
+      }
+    )
 
     {
       _file = "default-1.nix";

@@ -11,10 +11,12 @@
 
 let
   py = python3 // {
-    pkgs = python3.pkgs.overrideScope (self: super:
+    pkgs = python3.pkgs.overrideScope (
+      self: super:
       {
         # nothing right now
-      });
+      }
+    );
   };
 
 in

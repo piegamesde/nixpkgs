@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -21,4 +22,5 @@ import ./make-test-python.nix ({
       machine.wait_until_succeeds("curl -sfL http://localhost:8888/ | grep Freenet")
       machine.succeed("systemctl stop freenet")
     '';
-  })
+  }
+)

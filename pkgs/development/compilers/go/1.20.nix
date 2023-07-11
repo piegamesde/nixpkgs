@@ -176,22 +176,25 @@ stdenv.mkDerivation rec {
       # since it is not used for anything we can deleted as well.
       rm src/regexp/syntax/make_perl_groups.pl
     ''
-    + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then
-      ''
-        mv bin/*_*/* bin
-        rmdir bin/*_*
-        ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-          rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
-        ''}
-      ''
-    else
-      lib.optionalString
-      (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
-        rm -rf bin/*_*
-        ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-          rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-        ''}
-      '')
+    + (
+      if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then
+        ''
+          mv bin/*_*/* bin
+          rmdir bin/*_*
+          ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+            rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
+          ''}
+        ''
+      else
+        lib.optionalString (
+          stdenv.hostPlatform.system != stdenv.targetPlatform.system
+        ) ''
+          rm -rf bin/*_*
+          ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+            rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+          ''}
+        ''
+    )
     ;
 
   installPhase = ''

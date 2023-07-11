@@ -51,10 +51,12 @@ let
     ];
     propagatedBuildInputs =
       [ alt-ergo-lib ]
-      ++ (with ocamlPackages; [
-        camlzip
-        psmt2-frontend
-      ])
+      ++ (
+        with ocamlPackages; [
+          camlzip
+          psmt2-frontend
+        ]
+      )
       ;
   };
 

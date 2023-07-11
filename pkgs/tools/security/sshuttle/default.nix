@@ -36,15 +36,17 @@ python3Packages.buildPythonApplication rec {
   postInstall = ''
     wrapProgram $out/bin/sshuttle \
       --prefix PATH : "${
-        lib.makeBinPath ([
-          coreutils
-          openssh
-          procps
-        ]
+        lib.makeBinPath (
+          [
+            coreutils
+            openssh
+            procps
+          ]
           ++ lib.optionals stdenv.isLinux [
             iptables
             nettools
-          ])
+          ]
+        )
       }" \
   '';
 

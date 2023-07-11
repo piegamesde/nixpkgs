@@ -164,8 +164,9 @@ in
         "d '${cfg.stateDir}/web'          0750 supybot supybot - -"
         "L '${cfg.stateDir}/supybot.cfg'  -    -       -       - ${cfg.configFile}"
       ]
-      ++ (flip mapAttrsToList cfg.plugins
-        (name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"))
+      ++ (flip mapAttrsToList cfg.plugins (
+        name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"
+      ))
       ;
 
   };

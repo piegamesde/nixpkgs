@@ -90,9 +90,10 @@ in
         Briefly, the system-wide memory allocator providers are:
 
         - `libc`: the standard allocator provided by libc
-        ${concatStringsSep "\n" (mapAttrsToList (name: value:
-          "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
-          providers)}
+        ${concatStringsSep "\n" (mapAttrsToList (
+          name: value:
+          "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
+        ) providers)}
 
         ::: {.warning}
         Selecting an alternative allocator (i.e., anything other than

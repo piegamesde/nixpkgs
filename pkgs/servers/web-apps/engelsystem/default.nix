@@ -8,7 +8,8 @@
 }:
 
 let
-  phpExt = php.withExtensions ({
+  phpExt = php.withExtensions (
+    {
       enabled,
       all,
     }:
@@ -18,7 +19,8 @@ let
       mysqli
       pdo
       pdo_mysql
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "engelsystem";

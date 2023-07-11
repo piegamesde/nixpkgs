@@ -19,10 +19,12 @@ let
 
     nativeBuildInputs = [ makeWrapper ];
     buildInputs = [
-        (if lib.versionOlder version "4.19" then
-          python2
-        else
-          python3)
+        (
+          if lib.versionOlder version "4.19" then
+            python2
+          else
+            python3
+        )
       ];
 
       # as of 4.9 compilation will fail due to -Werror=format-security

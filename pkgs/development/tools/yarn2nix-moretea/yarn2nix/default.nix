@@ -114,7 +114,8 @@ rec {
         (builtins.attrNames pkgConfig);
 
       postInstall =
-        (builtins.map (key:
+        (builtins.map (
+          key:
           if (pkgConfig.${key} ? postInstall) then
             ''
               for f in $(find -L -path '*/node_modules/${key}' -type d); do
@@ -122,7 +123,8 @@ rec {
               done
             ''
           else
-            "") (builtins.attrNames pkgConfig));
+            ""
+        ) (builtins.attrNames pkgConfig));
 
         # build-time JSON generation to avoid IFD
         # see https://nixos.wiki/wiki/Import_From_Derivation
@@ -189,9 +191,11 @@ rec {
         ${workspaceDependencyLinks}
 
         yarn install ${
-          lib.escapeShellArgs (defaultYarnFlags
+          lib.escapeShellArgs (
+            defaultYarnFlags
             ++ lib.optional ignoreScripts "--ignore-scripts"
-            ++ yarnFlags)
+            ++ yarnFlags
+          )
         }
 
         ${lib.concatStringsSep "\n" postInstall}
@@ -269,7 +273,8 @@ rec {
 
       packagePaths = lib.concatMap (expandGlob src) packageGlobs;
 
-      packages = lib.listToAttrs (map (src:
+      packages = lib.listToAttrs (map (
+        src:
         let
           packageJSON = src + "/package.json";
 
@@ -289,9 +294,10 @@ rec {
             in
             composeAll [
               (lib.filter (x: x != null))
-              (lib.mapAttrsToList (pname: _version:
-                lib.findFirst (package: package.pname == pname) null
-                packageList))
+              (lib.mapAttrsToList (
+                pname: _version:
+                lib.findFirst (package: package.pname == pname) null packageList
+              ))
             ] allDependencies
             ;
 
@@ -302,8 +308,8 @@ rec {
         in
         {
           inherit name;
-          value = mkYarnPackage
-            (builtins.removeAttrs attrs [ "packageOverrides" ] // {
+          value = mkYarnPackage (
+            builtins.removeAttrs attrs [ "packageOverrides" ] // {
               inherit
                 src
                 packageJSON
@@ -313,7 +319,8 @@ rec {
                 packageResolutions
                 workspaceDependencies
                 ;
-            } // lib.attrByPath [ name ] { } packageOverrides);
+            } // lib.attrByPath [ name ] { } packageOverrides
+          );
         }
       ) packagePaths);
     in
@@ -347,9 +354,11 @@ rec {
       version = attrs.version or package.version;
       baseName = unlessNull name "${safeName}-${version}";
 
-      workspaceDependenciesTransitive = lib.unique ((lib.flatten
-        (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
-        ++ workspaceDependencies);
+      workspaceDependenciesTransitive = lib.unique (
+        (lib.flatten
+          (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
+        ++ workspaceDependencies
+      );
 
       deps = mkYarnModules {
         name = "${safeName}-modules-${version}";
@@ -400,107 +409,113 @@ rec {
       '') workspaceDependenciesTransitive;
 
     in
-    stdenv.mkDerivation (builtins.removeAttrs attrs [
-      "yarnNix"
-      "pkgConfig"
-      "workspaceDependencies"
-      "packageResolutions"
-    ] // {
-      inherit src version pname;
+    stdenv.mkDerivation (
+      builtins.removeAttrs attrs [
+        "yarnNix"
+        "pkgConfig"
+        "workspaceDependencies"
+        "packageResolutions"
+      ] // {
+        inherit src version pname;
 
-      name = baseName;
+        name = baseName;
 
-      buildInputs =
-        [
-          yarn
-          nodejs
-          rsync
-        ]
-        ++ extraBuildInputs
-        ;
+        buildInputs =
+          [
+            yarn
+            nodejs
+            rsync
+          ]
+          ++ extraBuildInputs
+          ;
 
-      node_modules = deps + "/node_modules";
+        node_modules = deps + "/node_modules";
 
-      configurePhase =
-        attrs.configurePhase or ''
-          runHook preConfigure
+        configurePhase =
+          attrs.configurePhase or ''
+            runHook preConfigure
 
-          for localDir in npm-packages-offline-cache node_modules; do
-            if [[ -d $localDir || -L $localDir ]]; then
-              echo "$localDir dir present. Removing."
-              rm -rf $localDir
-            fi
-          done
+            for localDir in npm-packages-offline-cache node_modules; do
+              if [[ -d $localDir || -L $localDir ]]; then
+                echo "$localDir dir present. Removing."
+                rm -rf $localDir
+              fi
+            done
 
-          # move convent of . to ./deps/${pname}
-          mv $PWD $NIX_BUILD_TOP/temp
-          mkdir -p "$PWD/deps/${pname}"
-          rm -fd "$PWD/deps/${pname}"
-          mv $NIX_BUILD_TOP/temp "$PWD/deps/${pname}"
-          cd $PWD
+            # move convent of . to ./deps/${pname}
+            mv $PWD $NIX_BUILD_TOP/temp
+            mkdir -p "$PWD/deps/${pname}"
+            rm -fd "$PWD/deps/${pname}"
+            mv $NIX_BUILD_TOP/temp "$PWD/deps/${pname}"
+            cd $PWD
 
-          ln -s ${deps}/deps/${pname}/node_modules "deps/${pname}/node_modules"
+            ln -s ${deps}/deps/${pname}/node_modules "deps/${pname}/node_modules"
 
-          cp -r $node_modules node_modules
-          chmod -R +w node_modules
+            cp -r $node_modules node_modules
+            chmod -R +w node_modules
 
-          ${linkDirFunction}
+            ${linkDirFunction}
 
-          linkDirToDirLinks "$(dirname node_modules/${pname})"
-          ln -s "deps/${pname}" "node_modules/${pname}"
+            linkDirToDirLinks "$(dirname node_modules/${pname})"
+            ln -s "deps/${pname}" "node_modules/${pname}"
 
-          ${workspaceDependencyCopy}
+            ${workspaceDependencyCopy}
 
-          # Help yarn commands run in other phases find the package
-          echo "--cwd deps/${pname}" > .yarnrc
-          runHook postConfigure
-        '';
+            # Help yarn commands run in other phases find the package
+            echo "--cwd deps/${pname}" > .yarnrc
+            runHook postConfigure
+          '';
 
-        # Replace this phase on frontend packages where only the generated
-        # files are an interesting output.
-      installPhase =
-        attrs.installPhase or ''
-          runHook preInstall
+          # Replace this phase on frontend packages where only the generated
+          # files are an interesting output.
+        installPhase =
+          attrs.installPhase or ''
+            runHook preInstall
 
-          mkdir -p $out/{bin,libexec/${pname}}
-          mv node_modules $out/libexec/${pname}/node_modules
-          mv deps $out/libexec/${pname}/deps
+            mkdir -p $out/{bin,libexec/${pname}}
+            mv node_modules $out/libexec/${pname}/node_modules
+            mv deps $out/libexec/${pname}/deps
 
-          node ${
-            ./internal/fixup_bin.js
-          } $out/bin $out/libexec/${pname}/node_modules ${
-            lib.concatStringsSep " " publishBinsFor_
-          }
+            node ${
+              ./internal/fixup_bin.js
+            } $out/bin $out/libexec/${pname}/node_modules ${
+              lib.concatStringsSep " " publishBinsFor_
+            }
 
-          runHook postInstall
-        '';
+            runHook postInstall
+          '';
 
-      doDist = attrs.doDist or true;
+        doDist = attrs.doDist or true;
 
-      distPhase =
-        attrs.distPhase or ''
-          # pack command ignores cwd option
-          rm -f .yarnrc
-          cd $out/libexec/${pname}/deps/${pname}
-          mkdir -p $out/tarballs/
-          yarn pack --offline --ignore-scripts --filename $out/tarballs/${baseName}.tgz
-        '';
+        distPhase =
+          attrs.distPhase or ''
+            # pack command ignores cwd option
+            rm -f .yarnrc
+            cd $out/libexec/${pname}/deps/${pname}
+            mkdir -p $out/tarballs/
+            yarn pack --offline --ignore-scripts --filename $out/tarballs/${baseName}.tgz
+          '';
 
-      passthru = {
-        inherit pname package packageJSON deps;
-        workspaceDependencies = workspaceDependenciesTransitive;
-      } // (attrs.passthru or { });
+        passthru = {
+          inherit pname package packageJSON deps;
+          workspaceDependencies = workspaceDependenciesTransitive;
+        } // (
+          attrs.passthru or { }
+        );
 
-      meta = {
-        inherit (nodejs.meta) platforms;
-      } // lib.optionalAttrs (package ? description) {
-        inherit (package) description;
-      } // lib.optionalAttrs (package ? homepage) {
-        inherit (package) homepage;
-      } // lib.optionalAttrs (package ? license) {
-        license = getLicenseFromSpdxId package.license;
-      } // (attrs.meta or { });
-    })
+        meta = {
+          inherit (nodejs.meta) platforms;
+        } // lib.optionalAttrs (package ? description) {
+          inherit (package) description;
+        } // lib.optionalAttrs (package ? homepage) {
+          inherit (package) homepage;
+        } // lib.optionalAttrs (package ? license) {
+          license = getLicenseFromSpdxId package.license;
+        } // (
+          attrs.meta or { }
+        );
+      }
+    )
     ;
 
   yarn2nix = mkYarnPackage {
@@ -530,7 +545,9 @@ rec {
             spdir = elemAt (splitString "/" subpath) 0;
           in
           elem spdir dirsToInclude
-          || (type == "regular" && elem subpath filesToInclude)
+          || (
+            type == "regular" && elem subpath filesToInclude
+          )
           ;
       in
       builtins.filterSource (mkFilter {

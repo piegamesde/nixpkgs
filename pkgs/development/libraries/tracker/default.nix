@@ -96,17 +96,18 @@ stdenv.mkDerivation rec {
       (lib.mesonEnable "vapi" withIntrospection)
       (lib.mesonBool "test_utils" withIntrospection)
     ]
-    ++ (let
-      # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
-      crossFile = writeText "cross-file.conf" ''
-        [properties]
-        sqlite3_has_fts5 = '${
-          lib.boolToString
-          (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
-        }'
-      '';
-    in
-    [ "--cross-file=${crossFile}" ]
+    ++ (
+      let
+        # https://gitlab.gnome.org/GNOME/tracker/-/blob/master/meson.build#L159
+        crossFile = writeText "cross-file.conf" ''
+          [properties]
+          sqlite3_has_fts5 = '${
+            lib.boolToString
+            (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
+          }'
+        '';
+      in
+      [ "--cross-file=${crossFile}" ]
     )
     ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ]
     ;

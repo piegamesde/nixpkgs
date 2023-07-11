@@ -51,8 +51,9 @@ let
   ];
 
   nonEmptyWithoutTrailingSlash =
-    addCheckDesc "non-empty without trailing slash" types.str
-    (s: isNonEmpty s && (builtins.match ".+/" s) == null);
+    addCheckDesc "non-empty without trailing slash" types.str (
+      s: isNonEmpty s && (builtins.match ".+/" s) == null
+    );
 
   coreFileSystemOpts =
     {
@@ -269,14 +270,17 @@ let
       rootPrefix ? "",
       extraOpts ? (fs: [ ])
     }:
-    concatMapStrings (fs:
+    concatMapStrings (
+      fs:
       (optionalString (isBindMount fs) (escape rootPrefix))
-      + (if fs.device != null then
-        escape fs.device
-      else if fs.label != null then
-        "/dev/disk/by-label/${escape fs.label}"
-      else
-        throw "No device specified for mount point ‘${fs.mountPoint}’.")
+      + (
+        if fs.device != null then
+          escape fs.device
+        else if fs.label != null then
+          "/dev/disk/by-label/${escape fs.label}"
+        else
+          throw "No device specified for mount point ‘${fs.mountPoint}’."
+      )
       + " "
       + escape fs.mountPoint
       + " "
@@ -284,13 +288,16 @@ let
       + " "
       + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
       + " 0 "
-      + (if skipCheck fs then
-        "0"
-      else if fs.mountPoint == "/" then
-        "1"
-      else
-        "2")
-      + "\n") fstabFileSystems
+      + (
+        if skipCheck fs then
+          "0"
+        else if fs.mountPoint == "/" then
+          "1"
+        else
+          "2"
+      )
+      + "\n"
+    ) fstabFileSystems
     ;
 
   initrdFstab = pkgs.writeText "initrd-fstab"
@@ -455,12 +462,14 @@ in
       let
         swapOptions =
           sw:
-          concatStringsSep "," (sw.options
+          concatStringsSep "," (
+            sw.options
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++ optional (sw.discardPolicy != null) "discard${
                 optionalString (sw.discardPolicy != "both")
                 "=${toString sw.discardPolicy}"
-              }")
+              }"
+          )
           ;
       in
       ''

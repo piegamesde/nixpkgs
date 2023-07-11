@@ -49,8 +49,8 @@ let
   bootstrap = rustPlatform.buildRustPackage (args // { auditable = false; });
 
 in
-rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (args
-  // {
+rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
+  args // {
     nativeBuildInputs = [ installShellFiles ];
 
     postInstall = ''
@@ -58,4 +58,5 @@ rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (args
     '';
 
     passthru = { inherit bootstrap; };
-  })
+  }
+)

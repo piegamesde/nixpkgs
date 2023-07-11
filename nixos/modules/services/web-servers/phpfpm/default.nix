@@ -277,12 +277,16 @@ in
   config = mkIf (cfg.pools != { }) {
 
     warnings =
-      mapAttrsToList (pool: poolOpts: ''
-        Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
-      '') (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
-      ++ mapAttrsToList (pool: poolOpts: ''
-        Using config.services.phpfpm.pools.${pool}.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.pools.${pool}.settings.
-      '') (filterAttrs (pool: poolOpts: poolOpts.extraConfig != null) cfg.pools)
+      mapAttrsToList (
+        pool: poolOpts: ''
+          Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
+        ''
+      ) (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
+      ++ mapAttrsToList (
+        pool: poolOpts: ''
+          Using config.services.phpfpm.pools.${pool}.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.pools.${pool}.settings.
+        ''
+      ) (filterAttrs (pool: poolOpts: poolOpts.extraConfig != null) cfg.pools)
       ++ optional (cfg.extraConfig != null) ''
         Using config.services.phpfpm.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.settings.
       ''
@@ -302,7 +306,8 @@ in
       wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.services = mapAttrs' (pool: poolOpts:
+    systemd.services = mapAttrs' (
+      pool: poolOpts:
       nameValuePair "phpfpm-${pool}" {
         description = "PHP FastCGI Process Manager service for pool ${pool}";
         after = [ "network.target" ];
@@ -331,6 +336,7 @@ in
             Restart = "always";
           }
           ;
-      }) cfg.pools;
+      }
+    ) cfg.pools;
   };
 }

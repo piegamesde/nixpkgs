@@ -1,6 +1,7 @@
 # Mutable users tests.
 
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     ...
   }: {
@@ -86,4 +87,5 @@ import ./make-test-python.nix ({
                 assert machine.succeed(f"stat {file}") == expected_stats[file]
       ''
       ;
-  })
+  }
+)

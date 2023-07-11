@@ -86,12 +86,14 @@ stdenv.mkDerivation rec {
       neon
     ]
     ++ lib.optional (withNetRocks && !stdenv.isDarwin) samba # broken on darwin
-    ++ lib.optionals withPython (with python3Packages; [
-      python
-      cffi
-      debugpy
-      pcpp
-    ])
+    ++ lib.optionals withPython (
+      with python3Packages; [
+        python
+        cffi
+        debugpy
+        pcpp
+      ]
+    )
     ++ lib.optionals stdenv.isDarwin [
       IOKit
       Carbon
@@ -115,21 +117,23 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  cmakeFlags = lib.mapAttrsToList (k: v:
+  cmakeFlags = lib.mapAttrsToList (
+    k: v:
     "-D${k}=${
       if v then
         "yes"
       else
         "no"
-    }") {
-      TTYX = withTTYX;
-      USEWX = withGUI;
-      USEUCD = withUCD;
-      COLORER = withColorer;
-      MULTIARC = withMultiArc;
-      NETROCKS = withNetRocks;
-      PYTHON = withPython;
-    };
+    }"
+  ) {
+    TTYX = withTTYX;
+    USEWX = withGUI;
+    USEUCD = withUCD;
+    COLORER = withColorer;
+    MULTIARC = withMultiArc;
+    NETROCKS = withNetRocks;
+    PYTHON = withPython;
+  };
 
   runtimeDeps = [
     unzip

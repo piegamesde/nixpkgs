@@ -84,11 +84,13 @@ in
 
     jupyterhubEnv = mkOption {
       type = types.package;
-      default = pkgs.python3.withPackages (p:
+      default = pkgs.python3.withPackages (
+        p:
         with p; [
           jupyterhub
           jupyterhub-systemdspawner
-        ]);
+        ]
+      );
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub
@@ -107,11 +109,13 @@ in
 
     jupyterlabEnv = mkOption {
       type = types.package;
-      default = pkgs.python3.withPackages (p:
+      default = pkgs.python3.withPackages (
+        p:
         with p; [
           jupyterhub
           jupyterlab
-        ]);
+        ]
+      );
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub

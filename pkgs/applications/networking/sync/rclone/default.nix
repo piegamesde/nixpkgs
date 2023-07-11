@@ -31,10 +31,12 @@ buildGoModule rec {
     "man"
   ];
 
-  buildInputs = lib.optional enableCmount (if stdenv.isDarwin then
-    macfuse-stubs
-  else
-    fuse);
+  buildInputs = lib.optional enableCmount (
+    if stdenv.isDarwin then
+      macfuse-stubs
+    else
+      fuse
+  );
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
@@ -64,7 +66,9 @@ buildGoModule rec {
         installShellCompletion rclone.$shell
       done
     ''
-    + lib.optionalString (enableCmount && !stdenv.isDarwin)
+    + lib.optionalString (
+      enableCmount && !stdenv.isDarwin
+    )
     # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount,
     # as the setuid wrapper is required as non-root on NixOS.
       ''

@@ -394,7 +394,9 @@ rec {
       "MultitouchSupport"
       "SkyLight"
       "UIFoundation"
-    ] (x: tbdOnlyFramework x { })
+    ] (
+      x: tbdOnlyFramework x { }
+    )
     ;
 
   bareFrameworks = lib.mapAttrs framework (import ./frameworks.nix {

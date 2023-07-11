@@ -155,7 +155,8 @@ in
       "services"
       "printing"
       "drivers"
-    ] (config:
+    ] (
+      config:
       let
         enabled = getAttrFromPath [
           "services"
@@ -404,9 +405,10 @@ in
           ""
           "/run/cups/cups.sock"
         ]
-        ++ map (x:
-          replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
-          cfg.listenAddresses
+        ++ map (
+          x:
+          replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
+        ) cfg.listenAddresses
         ;
     };
 

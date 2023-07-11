@@ -6,7 +6,8 @@
   makeWrapper,
 }:
 let
-  pyenv = python3.withPackages (pp:
+  pyenv = python3.withPackages (
+    pp:
     with pp; [
       beautifulsoup4
       certifi
@@ -19,7 +20,8 @@ let
       soupsieve
       stem
       torrequest
-    ]);
+    ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "sherlock";

@@ -1,4 +1,5 @@
-import ./make-test-python.nix ({
+import ./make-test-python.nix (
+  {
     pkgs,
     lib,
     ...
@@ -25,4 +26,5 @@ import ./make-test-python.nix ({
 
       machine.log(machine.succeed("systemd-analyze security zigbee2mqtt.service"))
     '';
-  })
+  }
+)

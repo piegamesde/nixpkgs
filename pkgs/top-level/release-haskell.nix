@@ -40,12 +40,14 @@ let
     # [ drv1 drv2 drv3 ]
   accumulateDerivations =
     jobList:
-    lib.concatMap (attrs:
+    lib.concatMap (
+      attrs:
       if lib.isDerivation attrs then
         [ attrs ]
       else
         lib.optionals (lib.isAttrs attrs)
-        (accumulateDerivations (lib.attrValues attrs))) jobList
+        (accumulateDerivations (lib.attrValues attrs))
+    ) jobList
     ;
 
     # names of all subsets of `pkgs.haskell.packages`
@@ -167,16 +169,16 @@ let
           onlyConfigJobs =
             ghc: jobs:
             let
-              configFilteredJobset = lib.filterAttrs
-                (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
-                jobs;
+              configFilteredJobset = lib.filterAttrs (
+                jobName: platforms: lib.elem ghc (config."${jobName}" or [ ])
+              ) jobs;
 
                 # Remove platforms from each job that are not supported by GHC.
                 # This is important so that we don't build jobs for platforms
                 # where GHC can't be compiled.
-              jobsetWithGHCPlatforms = lib.mapAttrs
-                (_: platforms: lib.intersectLists jobs.ghc platforms)
-                configFilteredJobset;
+              jobsetWithGHCPlatforms = lib.mapAttrs (
+                _: platforms: lib.intersectLists jobs.ghc platforms
+              ) configFilteredJobset;
             in
             jobsetWithGHCPlatforms
             ;
@@ -235,11 +237,13 @@ let
     # }
   removePlatforms =
     platformsToRemove: packageSet:
-    lib.mapAttrsRecursive (_: val:
+    lib.mapAttrsRecursive (
+      _: val:
       if lib.isList val then
         removeMany platformsToRemove val
       else
-        val) packageSet
+        val
+    ) packageSet
     ;
 
   jobs = recursiveUpdateMany [
@@ -557,8 +561,9 @@ let
             # Filter out all Darwin derivations.  We don't want flakey Darwin
             # derivations and flakey Hydra Darwin builders to block the
             # mergeable job from successfully building.
-            filterInLinux = lib.filter (drv:
-              drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
+            filterInLinux = lib.filter (
+              drv: drv.system == "x86_64-linux" || drv.system == "aarch64-linux"
+            );
           in
           filterInLinux (accumulateDerivations [
             # haskell specific tests

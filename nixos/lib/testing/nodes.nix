@@ -23,7 +23,8 @@ let
           key = "nodes";
           _module.args.nodes = config.nodesCompat;
         }
-        ({
+        (
+          {
             config,
             ...
           }: {
@@ -32,7 +33,8 @@ let
               # Ensure we do not use aliases. Ideally this is only set
               # when the test framework is used by Nixpkgs NixOS tests.
             nixpkgs.config.allowAliases = false;
-          })
+          }
+        )
         testModuleArgs.config.extraBaseModules
       ]
       ;
@@ -100,12 +102,14 @@ in
 
   config = {
     _module.args.nodes = config.nodesCompat;
-    nodesCompat = mapAttrs (name: config:
+    nodesCompat = mapAttrs (
+      name: config:
       config // {
         config = lib.warnIf (lib.isInOldestRelease 2211)
           "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
           config;
-      }) config.nodes;
+      }
+    ) config.nodes;
 
     passthru.nodes = config.nodesCompat;
   };

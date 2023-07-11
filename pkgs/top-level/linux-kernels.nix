@@ -57,9 +57,11 @@ let
           broken =
             kernel.meta.broken
             || lib.versions.majorMinor version == "4.14"
-            || (stdenv.isx86_64
+            || (
+              stdenv.isx86_64
               && lib.versionAtLeast version "4.19"
-              && lib.versionOlder version "5.5")
+              && lib.versionOlder version "5.5"
+            )
             ;
         };
       };
@@ -73,7 +75,8 @@ in
 {
   kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix { };
 
-  kernels = recurseIntoAttrs (lib.makeExtensible (self:
+  kernels = recurseIntoAttrs (lib.makeExtensible (
+    self:
     with self;
     let
       callPackage = newScope self;
@@ -339,7 +342,8 @@ in
 
   packagesFor =
     kernel_:
-    lib.makeExtensible (self:
+    lib.makeExtensible (
+      self:
       with self;
       let
         callPackage = newScope self;
@@ -473,8 +477,9 @@ in
 
         nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
 
-        nvidiaPackages = dontRecurseIntoAttrs (lib.makeExtensible
-          (_: callPackage ../os-specific/linux/nvidia-x11 { }));
+        nvidiaPackages = dontRecurseIntoAttrs (lib.makeExtensible (
+          _: callPackage ../os-specific/linux/nvidia-x11 { }
+        ));
 
         nvidia_x11 = nvidiaPackages.stable;
         nvidia_x11_beta = nvidiaPackages.beta;
@@ -725,67 +730,71 @@ in
     linux_rpi4 = packagesFor kernels.linux_rpi4;
   };
 
-  packages = recurseIntoAttrs (vanillaPackages // rtPackages // rpiPackages // {
+  packages = recurseIntoAttrs (
+    vanillaPackages // rtPackages // rpiPackages // {
 
-    # Intentionally lacks recurseIntoAttrs, as -rc kernels will quite likely break out-of-tree modules and cause failed Hydra builds.
-    linux_testing = packagesFor kernels.linux_testing;
-    linux_testing_bcachefs =
-      recurseIntoAttrs (packagesFor kernels.linux_testing_bcachefs);
+      # Intentionally lacks recurseIntoAttrs, as -rc kernels will quite likely break out-of-tree modules and cause failed Hydra builds.
+      linux_testing = packagesFor kernels.linux_testing;
+      linux_testing_bcachefs =
+        recurseIntoAttrs (packagesFor kernels.linux_testing_bcachefs);
 
-    linux_hardened = recurseIntoAttrs
-      (hardenedPackagesFor packageAliases.linux_default.kernel { });
+      linux_hardened = recurseIntoAttrs
+        (hardenedPackagesFor packageAliases.linux_default.kernel { });
 
-    linux_4_14_hardened = recurseIntoAttrs
-      (hardenedPackagesFor kernels.linux_4_14 {
-        stdenv = gcc10Stdenv;
-        buildPackages =
-          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
-      });
-    linux_4_19_hardened = recurseIntoAttrs
-      (hardenedPackagesFor kernels.linux_4_19 {
-        stdenv = gcc10Stdenv;
-        buildPackages =
-          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
-      });
-    linux_5_4_hardened = recurseIntoAttrs
-      (hardenedPackagesFor kernels.linux_5_4 {
-        stdenv = gcc10Stdenv;
-        buildPackages =
-          buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
-      });
-    linux_5_10_hardened =
-      recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 { });
-    linux_5_15_hardened =
-      recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 { });
-    linux_6_1_hardened =
-      recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_1 { });
+      linux_4_14_hardened = recurseIntoAttrs
+        (hardenedPackagesFor kernels.linux_4_14 {
+          stdenv = gcc10Stdenv;
+          buildPackages =
+            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+        });
+      linux_4_19_hardened = recurseIntoAttrs
+        (hardenedPackagesFor kernels.linux_4_19 {
+          stdenv = gcc10Stdenv;
+          buildPackages =
+            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+        });
+      linux_5_4_hardened = recurseIntoAttrs
+        (hardenedPackagesFor kernels.linux_5_4 {
+          stdenv = gcc10Stdenv;
+          buildPackages =
+            buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+        });
+      linux_5_10_hardened =
+        recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 { });
+      linux_5_15_hardened =
+        recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 { });
+      linux_6_1_hardened =
+        recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_1 { });
 
-    linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
-    linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);
-    linux_xanmod = recurseIntoAttrs (packagesFor kernels.linux_xanmod);
-    linux_xanmod_stable =
-      recurseIntoAttrs (packagesFor kernels.linux_xanmod_stable);
-    linux_xanmod_latest =
-      recurseIntoAttrs (packagesFor kernels.linux_xanmod_latest);
+      linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
+      linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);
+      linux_xanmod = recurseIntoAttrs (packagesFor kernels.linux_xanmod);
+      linux_xanmod_stable =
+        recurseIntoAttrs (packagesFor kernels.linux_xanmod_stable);
+      linux_xanmod_latest =
+        recurseIntoAttrs (packagesFor kernels.linux_xanmod_latest);
 
-    hardkernel_4_14 =
-      recurseIntoAttrs (packagesFor kernels.linux_hardkernel_4_14);
+      hardkernel_4_14 =
+        recurseIntoAttrs (packagesFor kernels.linux_hardkernel_4_14);
 
-    linux_libre = recurseIntoAttrs (packagesFor kernels.linux_libre);
+      linux_libre = recurseIntoAttrs (packagesFor kernels.linux_libre);
 
-    linux_latest_libre =
-      recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
-  } // lib.optionalAttrs config.allowAliases {
-    linux_5_18_hardened = throw
-      "linux 5.18 was removed because it has reached its end of life upstream";
-    linux_5_19_hardened = throw
-      "linux 5.19 was removed because it has reached its end of life upstream";
-    linux_6_0_hardened = throw
-      "linux 6.0 was removed because it has reached its end of life upstream";
-    linux_xanmod_tt = throw
-      "linux_xanmod_tt was removed because upstream no longer offers this option"
-      ;
-  });
+      linux_latest_libre =
+        recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
+    } // lib.optionalAttrs config.allowAliases {
+      linux_5_18_hardened = throw
+        "linux 5.18 was removed because it has reached its end of life upstream"
+        ;
+      linux_5_19_hardened = throw
+        "linux 5.19 was removed because it has reached its end of life upstream"
+        ;
+      linux_6_0_hardened = throw
+        "linux 6.0 was removed because it has reached its end of life upstream";
+      linux_xanmod_tt = throw
+        "linux_xanmod_tt was removed because upstream no longer offers this option"
+        ;
+    }
+  );
 
   packageAliases = {
     linux_default = packages.linux_6_1;
