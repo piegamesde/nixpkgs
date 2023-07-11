@@ -196,7 +196,12 @@ let
   # Provided for old usage of these commands.
   compat = with bins;
     lib.mapAttrs makeCompat {
-      procps = [ ps sysctl top watch ];
+      procps = [
+        ps
+        sysctl
+        top
+        watch
+      ];
       util-linux = [
         fsck
         fdisk
@@ -210,6 +215,12 @@ let
         col
         column
       ];
-      nettools = [ arp hostname ifconfig netstat route ];
+      nettools = [
+        arp
+        hostname
+        ifconfig
+        netstat
+        route
+      ];
     };
 in bins // compat

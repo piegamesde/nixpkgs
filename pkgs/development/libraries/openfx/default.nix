@@ -15,7 +15,10 @@ stdenv.mkDerivation {
     sha256 = "0k9ggzr6bisn77mipjfvawg3mv4bz50b63v8f7w1jhldi1sfy548";
   };
 
-  outputs = [ "dev" "out" ];
+  outputs = [
+    "dev"
+    "out"
+  ];
 
   enableParallelBuilding = true;
 

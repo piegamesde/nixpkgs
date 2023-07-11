@@ -20,7 +20,10 @@ buildPythonApplication rec {
     sha256 = "sha256-j6HKi3jTwSgGBrA8PCJJNg+yQqRMo1aqaLgPGf4KAKU=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook testfixtures ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testfixtures
+  ];
 
   disabledTests = [
     # X's in pytest are git tests which won't run in sandbox

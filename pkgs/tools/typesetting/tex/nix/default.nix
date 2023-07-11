@@ -31,10 +31,15 @@ rec {
       inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
         copySources;
 
-      includes = map (x: [ x.key (baseNameOf (toString x.key)) ])
-        (findLaTeXIncludes { inherit rootFile; });
+      includes = map (x: [
+        x.key
+        (baseNameOf (toString x.key))
+      ]) (findLaTeXIncludes { inherit rootFile; });
 
-      buildInputs = [ tex pkgs.perl ] ++ packages;
+      buildInputs = [
+        tex
+        pkgs.perl
+      ] ++ packages;
     };
 
   # Returns the closure of the "dependencies" of a LaTeX source file.
@@ -46,7 +51,7 @@ rec {
     }:
 
     builtins.genericClosure {
-      startSet = [{ key = rootFile; }];
+      startSet = [ { key = rootFile; } ];
 
       operator = {
           key,
@@ -78,11 +83,10 @@ rec {
               ] else if dep.type == "tex" then [
                 ".tex"
                 ""
-              ] else
-                [ "" ];
+              ] else [ "" ];
               fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null
                 (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
-            in if fn != null then [{ key = fn; }] ++ xs else xs;
+            in if fn != null then [ { key = fn; } ] ++ xs else xs;
 
         in pkgs.lib.foldr foundDeps [ ] deps;
     };
@@ -93,7 +97,7 @@ rec {
     }:
 
     builtins.genericClosure {
-      startSet = [{ key = rootFile; }];
+      startSet = [ { key = rootFile; } ];
 
       operator = {
           key,
@@ -106,7 +110,7 @@ rec {
             "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}");
 
         in pkgs.lib.concatMap
-        (x: lib.optionals (builtins.pathExists x) [{ key = x; }])
+        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
         (map (x: dirOf key + ("/" + x)) deps);
     };
 
@@ -118,7 +122,10 @@ rec {
       name = "pdf";
       builder = ./dot2pdf.sh;
       inherit dotGraph fontsConf;
-      buildInputs = [ pkgs.perl pkgs.graphviz ];
+      buildInputs = [
+        pkgs.perl
+        pkgs.graphviz
+      ];
     };
 
   dot2ps = {
@@ -129,7 +136,11 @@ rec {
       name = "ps";
       builder = ./dot2ps.sh;
       inherit dotGraph;
-      buildInputs = [ pkgs.perl pkgs.graphviz pkgs.ghostscript ];
+      buildInputs = [
+        pkgs.perl
+        pkgs.graphviz
+        pkgs.ghostscript
+      ];
     };
 
   lhs2tex = {
@@ -140,10 +151,15 @@ rec {
       name = "tex";
       builder = ./lhs2tex.sh;
       inherit source flags;
-      buildInputs = [ pkgs.lhs2tex pkgs.perl ];
+      buildInputs = [
+        pkgs.lhs2tex
+        pkgs.perl
+      ];
       copyIncludes = ./copy-includes.pl;
-      includes = map (x: [ x.key (baseNameOf (toString x.key)) ])
-        (findLhs2TeXIncludes { rootFile = source; });
+      includes = map (x: [
+        x.key
+        (baseNameOf (toString x.key))
+      ]) (findLhs2TeXIncludes { rootFile = source; });
     };
 
   animateDot = dotGraph: nrFrames:
@@ -184,7 +200,10 @@ rec {
       name = "png";
       inherit postscript;
 
-      buildInputs = [ pkgs.imagemagick pkgs.ghostscript ];
+      buildInputs = [
+        pkgs.imagemagick
+        pkgs.ghostscript
+      ];
 
       buildCommand = ''
         if test -d $postscript; then

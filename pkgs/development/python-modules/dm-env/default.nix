@@ -18,7 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-pDbrHGVMOeDJhqUWzuIYvqcUC1EPzv9j+X60/P89k94=";
   };
 
-  buildInputs = [ absl-py dm-tree numpy ];
+  buildInputs = [
+    absl-py
+    dm-tree
+    numpy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -29,11 +29,18 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace "ffmpeg" "ffmpeg-python"
   '';
-  propagatedBuildInputs = [ aiohttp ffmpeg-python requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    ffmpeg-python
+    requests
+  ];
 
   doCheck = false; # all testse require a network device
 
-  nativeCheckInputs = [ aiounittest pytestCheckHook ];
+  nativeCheckInputs = [
+    aiounittest
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests/test.py" ];
 

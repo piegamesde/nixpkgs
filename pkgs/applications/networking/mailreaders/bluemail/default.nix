@@ -31,10 +31,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-deO+D9HSfj1YEDSO5Io0MA7H8ZK9iFSRwB/e+8GkgOU=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper dpkg wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    dpkg
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ pango gtk3 alsa-lib nss libXdamage libdrm mesa libxshmfence udev ];
+  buildInputs = [
+    pango
+    gtk3
+    alsa-lib
+    nss
+    libXdamage
+    libdrm
+    mesa
+    libxshmfence
+    udev
+  ];
 
   unpackCmd = "${dpkg}/bin/dpkg-deb -x $src debcontents";
 
@@ -50,7 +64,11 @@ stdenv.mkDerivation rec {
 
   makeWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ gcc-unwrapped.lib gtk3 udev ]
+      lib.makeLibraryPath [
+        gcc-unwrapped.lib
+        gtk3
+        udev
+      ]
     }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
   ];

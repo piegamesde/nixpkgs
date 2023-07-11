@@ -22,11 +22,17 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ brotli libsodium ];
+  buildInputs = [
+    brotli
+    libsodium
+  ];
 
   subPackages = [ "main/pg" ];
 
-  tags = [ "brotli" "libsodium" ];
+  tags = [
+    "brotli"
+    "libsodium"
+  ];
 
   ldflags = [
     "-s"

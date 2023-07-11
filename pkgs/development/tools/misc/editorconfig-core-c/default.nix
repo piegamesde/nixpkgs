@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   pname = "editorconfig-core-c";
   version = "0.12.5";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "editorconfig";
@@ -32,7 +35,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
   buildInputs = [ pcre2 ];
 
@@ -52,7 +58,10 @@ stdenv.mkDerivation rec {
       editors, see the EditorConfig website.
     '';
     downloadPage = "https://github.com/editorconfig/editorconfig-core-c";
-    license = with licenses; [ bsd2 bsd3 ];
+    license = with licenses; [
+      bsd2
+      bsd3
+    ];
     maintainers = with maintainers; [ dochang ];
     platforms = platforms.unix;
     mainProgram = "editorconfig";

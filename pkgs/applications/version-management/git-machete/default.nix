@@ -24,7 +24,11 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [ git pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postInstall = ''
     installShellCompletion --bash --name git-machete completion/git-machete.completion.bash

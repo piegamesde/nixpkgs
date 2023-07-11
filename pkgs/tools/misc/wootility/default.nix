@@ -24,8 +24,11 @@ in appimageTools.wrapType2 rec {
 
   multiPkgs = extraPkgs;
   extraPkgs = pkgs:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs)
-    ++ ([ udev wooting-udev-rules xorg.libxkbfile ]);
+    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ ([
+      udev
+      wooting-udev-rules
+      xorg.libxkbfile
+    ]);
   extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
   meta = with lib; {

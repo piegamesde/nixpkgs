@@ -20,7 +20,10 @@ buildOctavePackage rec {
 
   buildInputs = [ gdal ];
 
-  requiredOctavePackages = [ io geometry ];
+  requiredOctavePackages = [
+    io
+    geometry
+  ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/mapping/index.html";

@@ -29,7 +29,10 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  propagatedBuildInputs = [ jsonconversion six ];
+  propagatedBuildInputs = [
+    jsonconversion
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -43,7 +46,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python implementation of Amazon Ion";
     homepage = "https://github.com/amzn/ion-python";
-    sourceProvenance = with sourceTypes; [ fromSource binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
     license = licenses.asl20;
     maintainers = with maintainers; [ terlar ];
   };

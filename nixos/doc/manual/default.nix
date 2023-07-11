@@ -161,9 +161,15 @@ let
   '';
 
   manual-combined = runCommand "nixos-manual-combined" {
-    inputs = lib.sourceFilesBySuffices ./. [ ".xml" ".md" ];
-    nativeBuildInputs =
-      [ pkgs.nixos-render-docs pkgs.libxml2.bin pkgs.libxslt.bin ];
+    inputs = lib.sourceFilesBySuffices ./. [
+      ".xml"
+      ".md"
+    ];
+    nativeBuildInputs = [
+      pkgs.nixos-render-docs
+      pkgs.libxml2.bin
+      pkgs.libxslt.bin
+    ];
     meta.description = "The NixOS manual as plain docbook XML";
   } ''
     ${prepareManualFromMD}
@@ -189,7 +195,10 @@ let
   '';
 
   manpages-combined = runCommand "nixos-manpages-combined.xml" {
-    nativeBuildInputs = [ buildPackages.libxml2.bin buildPackages.libxslt.bin ];
+    nativeBuildInputs = [
+      buildPackages.libxml2.bin
+      buildPackages.libxslt.bin
+    ];
     meta.description = "The NixOS manpages as plain docbook XML";
   } ''
     mkdir generated
@@ -211,8 +220,7 @@ in rec {
     nativeBuildInputs = if allowDocBook then [
       buildPackages.libxml2.bin
       buildPackages.libxslt.bin
-    ] else
-      [ buildPackages.nixos-render-docs ];
+    ] else [ buildPackages.nixos-render-docs ];
     inputs =
       lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
     meta.description = "The NixOS manual in HTML format";
@@ -271,8 +279,11 @@ in rec {
   manualHTMLIndex = "${manualHTML}/share/doc/nixos/index.html";
 
   manualEpub = runCommand "nixos-manual-epub" {
-    nativeBuildInputs =
-      [ buildPackages.libxml2.bin buildPackages.libxslt.bin buildPackages.zip ];
+    nativeBuildInputs = [
+      buildPackages.libxml2.bin
+      buildPackages.libxslt.bin
+      buildPackages.zip
+    ];
   } ''
     # Generate the epub manual.
     dst=$out/share/doc/nixos

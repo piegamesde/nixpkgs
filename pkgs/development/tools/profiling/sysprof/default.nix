@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
   pname = "sysprof";
   version = "3.48.0";
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -47,8 +51,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [ glib gtk4 json-glib pango polkit systemd libadwaita libunwind ];
+  buildInputs = [
+    glib
+    gtk4
+    json-glib
+    pango
+    polkit
+    systemd
+    libadwaita
+    libunwind
+  ];
 
   mesonFlags = [
     "-Dsystemdunitdir=lib/systemd/system"

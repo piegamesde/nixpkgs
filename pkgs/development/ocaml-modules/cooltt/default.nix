@@ -32,7 +32,10 @@ let
 
     duneVersion = "3";
 
-    propagatedBuildInputs = [ ezjsonm findlib ];
+    propagatedBuildInputs = [
+      ezjsonm
+      findlib
+    ];
 
     meta = {
       description = "Extensible Library Management and Path Resolution";
@@ -79,7 +82,10 @@ in buildDunePackage {
 
   nativeBuildInputs = [ menhir ];
 
-  buildInputs = [ cmdliner ppxlib ];
+  buildInputs = [
+    cmdliner
+    ppxlib
+  ];
 
   propagatedBuildInputs = [
     bantorra
@@ -94,7 +100,10 @@ in buildDunePackage {
     containers
   ];
 
-  checkInputs = [ ounit2 qcheck ];
+  checkInputs = [
+    ounit2
+    qcheck
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/RedPRL/cooltt";

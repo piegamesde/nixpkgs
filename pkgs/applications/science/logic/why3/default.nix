@@ -49,7 +49,10 @@ stdenv.mkDerivation rec {
       ppx_sexp_conv
     ] ++
     # Coq Support
-    (with coqPackages; [ coq flocq ]);
+    (with coqPackages; [
+      coq
+      flocq
+    ]);
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip
@@ -63,7 +66,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-verbose-make" ];
 
-  installTargets = [ "install" "install-lib" ];
+  installTargets = [
+    "install"
+    "install-lib"
+  ];
 
   passthru.withProvers = callPackage ./with-provers.nix { };
 
@@ -72,6 +78,9 @@ stdenv.mkDerivation rec {
     homepage = "https://why3.lri.fr/";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice vbgl ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      vbgl
+    ];
   };
 }

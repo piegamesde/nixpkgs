@@ -21,8 +21,12 @@ in lib.checkListOfEnum "${pname}: theme accent" [
   "Sky"
   "Teal"
   "Yellow"
-] [ accent ] lib.checkListOfEnum
-"${pname}: color variant" [ "Latte" "Frappe" "Macchiato" "Mocha" ] [ variant ]
+] [ accent ] lib.checkListOfEnum "${pname}: color variant" [
+  "Latte"
+  "Frappe"
+  "Macchiato"
+  "Mocha"
+] [ variant ]
 
 stdenvNoCC.mkDerivation {
   inherit pname;

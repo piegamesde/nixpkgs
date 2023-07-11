@@ -19,11 +19,18 @@ stdenv.mkDerivation {
     hash = "sha256-aRYMpaPC7dC6EHmmXugvwcQnaizRCQZKFcQX0K2MLM4=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ libX11 libXext ];
+  buildInputs = [
+    libX11
+    libXext
+  ];
 
   dontConfigure = true;
 

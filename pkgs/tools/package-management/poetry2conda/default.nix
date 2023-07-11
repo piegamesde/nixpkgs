@@ -19,20 +19,25 @@ buildPythonApplication rec {
     sha256 = "sha256-UqNoEGgStvqtxhYwExk7wO4SvATaM2kGaFbB5ViJa7U=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "use-poetry-core.patch";
-      url =
-        "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
-      hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "use-poetry-core.patch";
+    url =
+      "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
+    hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
+  }) ];
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ poetry-semver toml ];
+  propagatedBuildInputs = [
+    poetry-semver
+    toml
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    pyyaml
+  ];
 
   meta = with lib; {
     description =

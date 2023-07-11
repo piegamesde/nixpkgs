@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = lib.optionals stdenv.isLinux [ libGLU libGL freeglut ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa OpenGL ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    libGLU
+    libGL
+    freeglut
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    OpenGL
+  ];
 
   postPatch = ''
     substituteInPlace examples/ThirdPartyLibs/Gwen/CMakeLists.txt \

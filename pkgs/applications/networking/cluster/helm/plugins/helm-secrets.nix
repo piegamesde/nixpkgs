@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ getopt sops ];
+  buildInputs = [
+    getopt
+    sops
+  ];
 
   # NOTE: helm-secrets is comprised of shell scripts.
   dontBuild = true;

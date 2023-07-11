@@ -12,7 +12,12 @@
 
   nativeBuildInputs = [ reason ];
 
-  propagatedBuildInputs = [ re cli file-context-printer pastel ];
+  propagatedBuildInputs = [
+    re
+    cli
+    file-context-printer
+    pastel
+  ];
 
   meta = {
     description = "A Jest-inspired testing framework for native OCaml/Reason";

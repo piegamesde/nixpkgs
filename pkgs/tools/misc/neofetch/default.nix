@@ -44,7 +44,10 @@ stdenvNoCC.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   strictDeps = true;
   buildInputs = [ bash ];
@@ -60,15 +63,20 @@ stdenvNoCC.mkDerivation rec {
       }
   '';
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "SYSCONFDIR=${placeholder "out"}/etc" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SYSCONFDIR=${placeholder "out"}/etc"
+  ];
 
   meta = with lib; {
     description = "A fast, highly customizable system info script";
     homepage = "https://github.com/dylanaraps/neofetch";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ alibabzo konimex ];
+    maintainers = with maintainers; [
+      alibabzo
+      konimex
+    ];
     mainProgram = "neofetch";
   };
 }

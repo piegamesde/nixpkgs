@@ -38,7 +38,12 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ mock parameterized pyelftools pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    parameterized
+    pyelftools
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # CLI don't work in the sandbox

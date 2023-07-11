@@ -115,7 +115,10 @@ let
     inherit version unpackPhase patches;
     postPatch = cleanupMindustrySrc;
 
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     # Here we download dependencies for both the server and the client so
     # we only have to specify one hash for 'deps'. Deps can be garbage
     # collected after the build, so this is not really an issue.
@@ -142,9 +145,20 @@ stdenv.mkDerivation rec {
 
   postPatch = cleanupMindustrySrc;
 
-  buildInputs = lib.optionals enableClient [ SDL2 glew alsa-lib ];
-  nativeBuildInputs = [ pkg-config gradle makeWrapper jdk ]
-    ++ lib.optionals enableClient [ ant copyDesktopItems ];
+  buildInputs = lib.optionals enableClient [
+    SDL2
+    glew
+    alsa-lib
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    gradle
+    makeWrapper
+    jdk
+  ] ++ lib.optionals enableClient [
+    ant
+    copyDesktopItems
+  ];
 
   desktopItems = lib.optional enableClient desktopItem;
 
@@ -190,7 +204,11 @@ stdenv.mkDerivation rec {
       makeWrapper ${jdk}/bin/java $out/bin/mindustry \
         --add-flags "-jar $out/share/mindustry.jar" \
         --suffix LD_LIBRARY_PATH : ${
-          lib.makeLibraryPath [ libpulseaudio alsa-lib libjack2 ]
+          lib.makeLibraryPath [
+            libpulseaudio
+            alsa-lib
+            libjack2
+          ]
         } \
         --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib/
 
@@ -225,7 +243,11 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chkno fgaz thekostins ];
+    maintainers = with maintainers; [
+      chkno
+      fgaz
+      thekostins
+    ];
     platforms = platforms.x86_64;
     # Hash mismatch on darwin:
     # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293

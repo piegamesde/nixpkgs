@@ -20,8 +20,15 @@ mkDerivation {
     sha256 = "0mpjvp800x07lp9i3hfcc5f4bqj1fj4w3dyr0zwaxc6wqmm0fdqz";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
-  buildInputs = [ qtbase qtx11extras boost ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
+  buildInputs = [
+    qtbase
+    qtx11extras
+    boost
+  ];
 
   postPatch = ''
     sed -i s/-Werror// twmnd/twmnd.pro

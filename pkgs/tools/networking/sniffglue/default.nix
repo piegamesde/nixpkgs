@@ -22,7 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libpcap libseccomp ];
+  buildInputs = [
+    libpcap
+    libseccomp
+  ];
 
   meta = with lib; {
     description = "Secure multithreaded packet sniffer";

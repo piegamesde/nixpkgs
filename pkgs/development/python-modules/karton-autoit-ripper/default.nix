@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-D+M3JsIN8LUWg8GVweEzySHI7KaBb6cNHHn4pXoq55M=";
   };
 
-  propagatedBuildInputs = [ autoit-ripper karton-core malduck regex ];
+  propagatedBuildInputs = [
+    autoit-ripper
+    karton-core
+    malduck
+    regex
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \

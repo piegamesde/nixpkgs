@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ cryptography django django-appconf ];
+  propagatedBuildInputs = [
+    cryptography
+    django
+    django-appconf
+  ];
 
   pythonImportsCheck = [ "django_cryptography" ];
 

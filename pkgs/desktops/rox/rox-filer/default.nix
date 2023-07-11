@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "a929bd32ee18ef7a2ed48b971574574592c42e34ae09f36604bf663d7c101ba8";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
-  buildInputs = [ libxml2 gtk shared-mime-info libSM ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libxml2
+    gtk
+    shared-mime-info
+    libSM
+  ];
   NIX_LDFLAGS = "-lm";
 
   patches = [
@@ -89,7 +97,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast, lightweight, gtk2 file manager";
     homepage = "http://rox.sourceforge.net/desktop";
-    license = with licenses; [ gpl2 lgpl2 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.eleanor ];
   };

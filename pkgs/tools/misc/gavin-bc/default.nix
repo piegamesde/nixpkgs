@@ -8,8 +8,18 @@
   predefinedBuildType ? "BSD"
 }:
 
-assert lib.elem historyType [ "editline" "readline" "internal" ];
-assert lib.elem predefinedBuildType [ "BSD" "GNU" "GDH" "DBG" "" ];
+assert lib.elem historyType [
+  "editline"
+  "readline"
+  "internal"
+];
+assert lib.elem predefinedBuildType [
+  "BSD"
+  "GNU"
+  "GDH"
+  "DBG"
+  ""
+];
 stdenv.mkDerivation (finalAttrs: {
   pname = "gavin-bc";
   version = "6.5.0";

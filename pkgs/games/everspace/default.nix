@@ -32,9 +32,20 @@ stdenv.mkDerivation rec {
     sha256 = "0jlvxq14k1pxmbr08y8kar0ijlqxcnkfqlvw883j96v9zr34ynj3";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    unzip
+  ];
 
-  buildInputs = [ cairo gdk-pixbuf pango gtk2-x11 openal stdenv.cc.cc.lib ];
+  buildInputs = [
+    cairo
+    gdk-pixbuf
+    pango
+    gtk2-x11
+    openal
+    stdenv.cc.cc.lib
+  ];
 
   runtimeDependencies = [
     libGL
@@ -96,17 +107,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      type = "Application";
-      name = "everspace-gog";
-      desktopName = "EVERSPACE™";
-      comment = meta.description;
-      exec = "everspace";
-      icon = "everspace-gog";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    type = "Application";
+    name = "everspace-gog";
+    desktopName = "EVERSPACE™";
+    comment = meta.description;
+    exec = "everspace";
+    icon = "everspace-gog";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description =

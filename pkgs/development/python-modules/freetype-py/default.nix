@@ -18,13 +18,11 @@ buildPythonPackage rec {
     sha256 = "1k62fx53qrv9nb73mpqi2r11wzbx41qfv5qppvh6rylywnrknf3n";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./library-paths.patch;
-      freetype =
-        "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./library-paths.patch;
+    freetype =
+      "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

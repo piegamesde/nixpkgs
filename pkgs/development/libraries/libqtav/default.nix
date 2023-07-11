@@ -22,7 +22,10 @@ mkDerivation rec {
   pname = "libqtav";
   version = "unstable-2020-09-10";
 
-  nativeBuildInputs = [ extra-cmake-modules qttools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    qttools
+  ];
   buildInputs = [
     qtbase
     qtmultimedia
@@ -61,7 +64,12 @@ mkDerivation rec {
     cp -a "./bin/"* "$out/bin"
   '';
 
-  stripDebugList = [ "lib" "libexec" "bin" "qml" ];
+  stripDebugList = [
+    "lib"
+    "libexec"
+    "bin"
+    "qml"
+  ];
 
   meta = with lib; {
     description = "A multimedia playback framework based on Qt + FFmpeg";

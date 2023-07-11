@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-JANTPvNp7KbSuoFxhXbF4PVk1cyhtY9zqLI+fU7uvXc=";
   };
 
-  propagatedBuildInputs = [ cryptography jeepney ];
+  propagatedBuildInputs = [
+    cryptography
+    jeepney
+  ];
 
   # Needs a D-Bus session
   doCheck = false;

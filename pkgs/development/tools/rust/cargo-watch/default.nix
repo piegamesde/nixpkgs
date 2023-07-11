@@ -23,8 +23,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-BzcKWQSB94H3XOsbwNvJoAHlZwkJvLABIrfFh9Ugfig=";
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ Cocoa CoreServices Foundation libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Cocoa
+    CoreServices
+    Foundation
+    libiconv
+  ];
 
   # `test with_cargo` tries to call cargo-watch as a cargo subcommand
   # (calling cargo-watch with command `cargo watch`)
@@ -38,6 +42,9 @@ rustPlatform.buildRustPackage rec {
     description = "A Cargo subcommand for watching over Cargo project's source";
     homepage = "https://github.com/passcod/cargo-watch";
     license = licenses.cc0;
-    maintainers = with maintainers; [ xrelkd ivan ];
+    maintainers = with maintainers; [
+      xrelkd
+      ivan
+    ];
   };
 }

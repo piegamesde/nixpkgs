@@ -92,7 +92,10 @@ in stdenv.mkDerivation {
     "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     libSM
     SDL
@@ -106,10 +109,8 @@ in stdenv.mkDerivation {
     libGL
   ]
   # switched to gtk3 in 0.47.05
-    ++ (if lib.versionOlder release.unfuckRelease "0.47.05" then
-      [ gtk2 ]
-    else
-      [ gtk3 ]);
+    ++ (if lib.versionOlder release.unfuckRelease
+    "0.47.05" then [ gtk2 ] else [ gtk3 ]);
 
   # Don't strip unused symbols; dfhack hooks into some of them.
   dontStrip = true;
@@ -128,6 +129,9 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/svenstaro/dwarf_fortress_unfuck";
     license = licenses.free;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar numinit ];
+    maintainers = with maintainers; [
+      abbradar
+      numinit
+    ];
   };
 }

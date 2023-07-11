@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-E2ssxdYa27qRk5cCmM7A5VqXGExwXHblR34y+rOUBRI=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
   # Some parts of the game don't compile with glibc 2.34. As soon as
   # this is fixed upstream we can switch to the default build flags.

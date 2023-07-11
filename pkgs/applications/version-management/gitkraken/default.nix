@@ -84,7 +84,11 @@ let
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = builtins.attrNames srcs;
-    maintainers = with maintainers; [ xnwdd evanjs arkivm ];
+    maintainers = with maintainers; [
+      xnwdd
+      evanjs
+      arkivm
+    ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -138,20 +142,25 @@ let
       libxkbcommon
     ];
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        desktopName = "GitKraken";
-        genericName = "Git Client";
-        categories = [ "Development" ];
-        comment = "Graphical Git client from Axosoft";
-      })
-    ];
+    desktopItems = [ (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      desktopName = "GitKraken";
+      genericName = "Git Client";
+      categories = [ "Development" ];
+      comment = "Graphical Git client from Axosoft";
+    }) ];
 
-    nativeBuildInputs = [ copyDesktopItems makeWrapper wrapGAppsHook ];
-    buildInputs = [ gtk3 gnome.adwaita-icon-theme ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      makeWrapper
+      wrapGAppsHook
+    ];
+    buildInputs = [
+      gtk3
+      gnome.adwaita-icon-theme
+    ];
 
     installPhase = ''
       runHook preInstall

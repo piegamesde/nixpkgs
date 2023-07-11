@@ -17,13 +17,13 @@ in {
 
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [{
+      session = [ {
         name = "spectrwm";
         start = ''
           ${pkgs.spectrwm}/bin/spectrwm &
           waitPID=$!
         '';
-      }];
+      } ];
     };
     environment.systemPackages = [ pkgs.spectrwm ];
   };

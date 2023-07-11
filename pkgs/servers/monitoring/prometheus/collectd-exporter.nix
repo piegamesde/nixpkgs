@@ -18,7 +18,10 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) collectd; };
 

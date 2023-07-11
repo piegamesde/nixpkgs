@@ -23,7 +23,10 @@ let
 
     nativeBuildInputs = [ flit-core ];
 
-    nativeCheckInputs = [ pytestCheckHook pretend ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      pretend
+    ];
 
     # Prevent circular dependency with pytest
     doCheck = false;
@@ -35,8 +38,14 @@ let
     meta = with lib; {
       description = "Core utilities for Python packages";
       homepage = "https://github.com/pypa/packaging";
-      license = with licenses; [ bsd2 asl20 ];
-      maintainers = with maintainers; [ bennofs SuperSandro2000 ];
+      license = with licenses; [
+        bsd2
+        asl20
+      ];
+      maintainers = with maintainers; [
+        bennofs
+        SuperSandro2000
+      ];
     };
   };
 in packaging

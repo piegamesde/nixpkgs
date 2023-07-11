@@ -18,13 +18,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-tzBTDJKMuFh9anURy1aKQTmt77tI7wZDZQiOUowuomk=";
   };
 
-  nativeBuildInputs = [ hare scdoc ];
+  nativeBuildInputs = [
+    hare
+    scdoc
+  ];
 
   preConfigure = ''
     export HARECACHE=$(mktemp -d)
   '';
 
-  installFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
+  installFlags = [
+    "PREFIX="
+    "DESTDIR=$(out)"
+  ];
 
   meta = with lib; {
     homepage = "https://himitsustore.org/";

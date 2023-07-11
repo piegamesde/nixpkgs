@@ -14,9 +14,8 @@ let
 in {
   config = {
 
-    system.fsPackages =
-      mkIf (any (fs: fs == "cifs") config.boot.supportedFilesystems)
-      [ pkgs.cifs-utils ];
+    system.fsPackages = mkIf (any (fs: fs == "cifs")
+      config.boot.supportedFilesystems) [ pkgs.cifs-utils ];
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "cifs"

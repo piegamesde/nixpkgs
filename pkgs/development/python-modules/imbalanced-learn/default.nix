@@ -19,7 +19,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ scikit-learn ];
-  nativeCheckInputs = [ pytestCheckHook pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pandas
+  ];
   preCheck = ''
     export HOME=$TMPDIR
   '';

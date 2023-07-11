@@ -34,12 +34,26 @@ buildPythonPackage rec {
       --replace '/tmp/' "$TMPDIR/"
   '';
 
-  propagatedBuildInputs = [ ordered-set orjson ];
+  propagatedBuildInputs = [
+    ordered-set
+    orjson
+  ];
 
-  passthru.optional-dependencies = { cli = [ clevercsv click pyyaml toml ]; };
+  passthru.optional-dependencies = {
+    cli = [
+      clevercsv
+      click
+      pyyaml
+      toml
+    ];
+  };
 
-  nativeCheckInputs = [ jsonpickle numpy pytestCheckHook python-dateutil ]
-    ++ passthru.optional-dependencies.cli;
+  nativeCheckInputs = [
+    jsonpickle
+    numpy
+    pytestCheckHook
+    python-dateutil
+  ] ++ passthru.optional-dependencies.cli;
 
   pythonImportsCheck = [ "deepdiff" ];
 

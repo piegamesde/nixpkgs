@@ -16,7 +16,11 @@
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 let
-  backends = [ "sqlite" "mysql" "postgresql" ];
+  backends = [
+    "sqlite"
+    "mysql"
+    "postgresql"
+  ];
 
   dbPassword = "please_dont_hack";
 
@@ -150,7 +154,11 @@ let
 
                   driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
                 '';
-              in [ pkgs.firefox-unwrapped pkgs.geckodriver testRunner ];
+              in [
+                pkgs.firefox-unwrapped
+                pkgs.geckodriver
+                testRunner
+              ];
 
             }
           ];

@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost clingo re2c ];
+  buildInputs = [
+    boost
+    clingo
+    re2c
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

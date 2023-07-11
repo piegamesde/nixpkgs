@@ -26,9 +26,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
 
-  buildInputs = [ wayland-protocols wayland cairo ];
+  buildInputs = [
+    wayland-protocols
+    wayland
+    cairo
+  ];
 
   meta = with lib; {
     description = "A digital analog clock for Wayland desktops";

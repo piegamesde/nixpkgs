@@ -22,7 +22,10 @@ buildGoModule rec {
     cp ${./go.mod} go.mod
   '';
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   passthru.tests.phylactery = nixosTests.phylactery;
 

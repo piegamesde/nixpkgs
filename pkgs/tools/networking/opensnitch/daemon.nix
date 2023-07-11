@@ -40,10 +40,18 @@ buildGoModule rec {
 
   modRoot = "daemon";
 
-  buildInputs = [ libnetfilter_queue libnfnetlink ];
+  buildInputs = [
+    libnetfilter_queue
+    libnfnetlink
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config protobuf go-protobuf makeWrapper protoc-gen-go-grpc ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+    go-protobuf
+    makeWrapper
+    protoc-gen-go-grpc
+  ];
 
   vendorSha256 = "sha256-jWP0oF+jZRFMi5Y2y0SARMoP8wTKVZ8UWra9JNzdSOw=";
 

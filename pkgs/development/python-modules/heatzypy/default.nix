@@ -28,7 +28,10 @@ buildPythonPackage rec {
       --replace 'version="replace_by_workflow"' 'version="${version}"'
   '';
 
-  propagatedBuildInputs = [ aiohttp requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+  ];
 
   # Module has no tests
   doCheck = false;

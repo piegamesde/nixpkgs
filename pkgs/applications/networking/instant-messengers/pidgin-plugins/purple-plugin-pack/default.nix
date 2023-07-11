@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
       --replace "PIDGIN.get_pkgconfig_variable('datadir')" "'$out/share'"
   '';
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   buildInputs = [ pidgin ];
 

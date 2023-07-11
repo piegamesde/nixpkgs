@@ -13,12 +13,20 @@ let
   cfg = config.programs.mininet;
 
   generatedPath = with pkgs;
-    makeSearchPath "bin" [ iperf ethtool iproute2 socat ];
+    makeSearchPath "bin" [
+      iperf
+      ethtool
+      iproute2
+      socat
+    ];
 
   pyEnv = pkgs.python.withPackages (ps: [ ps.mininet-python ]);
 
   mnexecWrapped = pkgs.runCommand "mnexec-wrapper" {
-    nativeBuildInputs = [ pkgs.makeWrapper pkgs.pythonPackages.wrapPython ];
+    nativeBuildInputs = [
+      pkgs.makeWrapper
+      pkgs.pythonPackages.wrapPython
+    ];
   } ''
     makeWrapper ${pkgs.mininet}/bin/mnexec \
       $out/bin/mnexec \

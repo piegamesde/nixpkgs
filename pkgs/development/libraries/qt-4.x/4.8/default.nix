@@ -73,7 +73,10 @@ stdenv.mkDerivation rec {
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   outputInclude = "out";
 
@@ -295,8 +298,10 @@ stdenv.mkDerivation rec {
     libtiff
     icu
   ] ++ lib.optionals (libmysqlclient != null) [ libmysqlclient ]
-    ++ lib.optionals gtkStyle [ gtk2 gdk-pixbuf ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals gtkStyle [
+      gtk2
+      gdk-pixbuf
+    ] ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       OpenGL
       Cocoa
@@ -305,14 +310,20 @@ stdenv.mkDerivation rec {
       libobjc
     ];
 
-  nativeBuildInputs = [ perl pkg-config which ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+    which
+  ];
 
   enableParallelBuilding = true;
 
   env.NIX_CFLAGS_COMPILE = toString (
     # with gcc7 the warnings blow the log over Hydra's limit
-    [ "-Wno-expansion-to-defined" "-Wno-unused-local-typedefs" ]
-    ++ lib.optional stdenv.isLinux
+    [
+      "-Wno-expansion-to-defined"
+      "-Wno-unused-local-typedefs"
+    ] ++ lib.optional stdenv.isLinux
     "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
     ++ lib.optionals (stdenv.isFreeBSD || stdenv.isDarwin) [
       "-I${glib.dev}/include/glib-2.0"
@@ -346,8 +357,15 @@ stdenv.mkDerivation rec {
     homepage = "https://qt-project.org/";
     description = "A cross-platform application framework for C++";
     license = lib.licenses.lgpl21Plus; # or gpl3
-    maintainers = with lib.maintainers; [ orivej lovek323 sander ];
+    maintainers = with lib.maintainers; [
+      orivej
+      lovek323
+      sander
+    ];
     platforms = lib.platforms.unix;
-    badPlatforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    badPlatforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

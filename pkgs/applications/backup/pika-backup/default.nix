@@ -36,12 +36,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-Va7qLC6WvsLmG9JVmdT1FdIlWP4W/EFmsy7JOagQ+X8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./borg-path.patch;
-      borg = "${borgbackup}/bin/borg";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./borg-path.patch;
+    borg = "${borgbackup}/bin/borg";
+  }) ];
 
   postPatch = ''
     patchShebangs build-aux
@@ -56,9 +54,17 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
-  buildInputs = [ gtk4 libadwaita libsecret ];
+  buildInputs = [
+    gtk4
+    libadwaita
+    libsecret
+  ];
 
   meta = with lib; {
     description = "Simple backups based on borg";

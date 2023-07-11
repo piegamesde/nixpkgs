@@ -39,7 +39,11 @@ in stdenv.mkDerivation (rec {
     "--enable-install-gpg-error-config"
   ];
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   outputBin = "dev"; # deps want just the lib, most likely
 
   # If architecture-dependent MO files aren't available, they're generated

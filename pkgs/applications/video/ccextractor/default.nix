@@ -34,15 +34,26 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../src";
 
-  nativeBuildInputs = [ pkg-config cmake makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    makeWrapper
+  ];
 
   buildInputs = [ zlib ] ++ lib.optional (!stdenv.isLinux) libiconv
-    ++ lib.optionals enableOcr [ leptonica tesseract4 ffmpeg_4 ];
+    ++ lib.optionals enableOcr [
+      leptonica
+      tesseract4
+      ffmpeg_4
+    ];
 
   cmakeFlags = [
     # file RPATH_CHANGE could not write new RPATH:
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optionals enableOcr [ "-DWITH_OCR=on" "-DWITH_HARDSUBX=on" ];
+  ] ++ lib.optionals enableOcr [
+    "-DWITH_OCR=on"
+    "-DWITH_HARDSUBX=on"
+  ];
 
   postInstall = lib.optionalString enableOcr ''
     wrapProgram "$out/bin/ccextractor" \

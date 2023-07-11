@@ -44,7 +44,11 @@ in stdenv.mkDerivation rec {
     inherit (param) sha256;
   };
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+  ];
   propagatedBuildInputs = param.propagatedBuildInputs or [ ];
 
   strictDeps = true;

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ deadbeef gtk3 libdbusmenu ];
+  buildInputs = [
+    deadbeef
+    gtk3
+    libdbusmenu
+  ];
 
   buildFlags = [ "gtk3" ];
 

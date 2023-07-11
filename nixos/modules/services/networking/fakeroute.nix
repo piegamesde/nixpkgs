@@ -30,8 +30,12 @@ in {
       route = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example =
-          [ "216.102.187.130" "4.0.1.122" "198.116.142.34" "63.199.8.242" ];
+        example = [
+          "216.102.187.130"
+          "4.0.1.122"
+          "198.116.142.34"
+          "63.199.8.242"
+        ];
         description = lib.mdDoc ''
           Fake route that will appear after the real
           one to any host running a traceroute.

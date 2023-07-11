@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  setupHooks = [ ../../../build-support/setup-hooks/role.bash ./setup-hook.sh ];
+  setupHooks = [
+    ../../../build-support/setup-hooks/role.bash
+    ./setup-hook.sh
+  ];
 
   postPatch = lib.optionalString ((stdenv.hostPlatform != stdenv.buildPlatform
     && stdenv.hostPlatform.libc == "msvcrt") || stdenv.cc.nativeLibc) ''

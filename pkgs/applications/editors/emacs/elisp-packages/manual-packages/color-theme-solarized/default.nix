@@ -34,7 +34,10 @@ trivialBuild {
     description =
       "Precision colors for machines and people; Emacs implementation";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuelrivas AndersonTorres ];
+    maintainers = with maintainers; [
+      samuelrivas
+      AndersonTorres
+    ];
     inherit (emacs.meta) platforms;
   };
 }

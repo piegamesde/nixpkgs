@@ -17,8 +17,13 @@
 
 let
   kernelSpecFile = writeText "kernel.json" (builtins.toJSON {
-    argv =
-      [ python.interpreter "-m" "ansible_kernel" "-f" "{connection_file}" ];
+    argv = [
+      python.interpreter
+      "-m"
+      "ansible_kernel"
+      "-f"
+      "{connection_file}"
+    ];
     codemirror_mode = "yaml";
     display_name = "Ansible";
     language = "ansible";
@@ -32,8 +37,17 @@ in buildPythonPackage rec {
     hash = "sha256-UJjm9FpmXSznXtaIR2rVv5YJS/H83FvRkNz09vwoe0c=";
   };
 
-  propagatedBuildInputs =
-    [ ipywidgets six docopt tqdm jupyter psutil pyyaml ansible-runner ansible ];
+  propagatedBuildInputs = [
+    ipywidgets
+    six
+    docopt
+    tqdm
+    jupyter
+    psutil
+    pyyaml
+    ansible-runner
+    ansible
+  ];
 
   postPatch = ''
     # remove when merged

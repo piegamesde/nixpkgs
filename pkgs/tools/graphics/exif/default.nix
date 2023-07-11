@@ -36,8 +36,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libexif popt libintl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libexif
+    popt
+    libintl
+  ];
 
   meta = with lib; {
     homepage = "https://libexif.github.io";

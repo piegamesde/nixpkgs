@@ -24,7 +24,10 @@ let
     pname = "${pname}-deps";
     inherit src version;
 
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
@@ -102,7 +105,10 @@ in stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin averelld ];
+    maintainers = with maintainers; [
+      raskin
+      averelld
+    ];
     platforms = platforms.unix;
   };
 }

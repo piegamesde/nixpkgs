@@ -27,9 +27,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ packaging shapely sqlalchemy ];
+  propagatedBuildInputs = [
+    packaging
+    shapely
+    sqlalchemy
+  ];
 
-  nativeCheckInputs = [ alembic psycopg2 pytestCheckHook ];
+  nativeCheckInputs = [
+    alembic
+    psycopg2
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     # tests require live postgis database

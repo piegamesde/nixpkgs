@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ requests-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    requests-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "simplehound" ];
 

@@ -26,8 +26,15 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace "-Werror" "-Wno-error"
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libkate pango cairo ] ++ lib.optional stdenv.isDarwin
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libkate
+    pango
+    cairo
+  ] ++ lib.optional stdenv.isDarwin
     darwin.apple_sdk.frameworks.ApplicationServices;
 
   meta = {

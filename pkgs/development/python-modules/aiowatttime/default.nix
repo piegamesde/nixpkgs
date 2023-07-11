@@ -29,8 +29,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs =
-    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # Ignore the examples directory as the files are prefixed with test_
   disabledTestPaths = [ "examples/" ];

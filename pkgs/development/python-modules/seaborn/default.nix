@@ -27,9 +27,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ matplotlib numpy pandas scipy ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    pandas
+    scipy
+  ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # incompatible with matplotlib 3.7

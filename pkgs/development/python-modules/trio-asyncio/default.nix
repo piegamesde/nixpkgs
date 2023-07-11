@@ -28,9 +28,16 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [ trio outcome sniffio ];
+  propagatedBuildInputs = [
+    trio
+    outcome
+    sniffio
+  ];
 
-  nativeCheckInputs = [ pytest-trio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-trio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     # https://github.com/python-trio/trio-asyncio/issues/112
@@ -41,9 +48,9 @@ buildPythonPackage rec {
     "ignore::trio.TrioDeprecationWarning"
   ];
 
-  disabledTestPaths = [
-    "tests/python" # tries to import internal API test.test_asyncio
-  ];
+  disabledTestPaths =
+    [ "tests/python" # tries to import internal API test.test_asyncio
+    ];
 
   pythonImportsCheck = [ "trio_asyncio" ];
 

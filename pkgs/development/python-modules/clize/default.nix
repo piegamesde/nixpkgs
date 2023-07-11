@@ -28,12 +28,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs docutils od sigtools ];
+  propagatedBuildInputs = [
+    attrs
+    docutils
+    od
+    sigtools
+  ];
 
   passthru.optional-dependencies = { datetime = [ python-dateutil ]; };
 
-  nativeCheckInputs =
-    [ pytestCheckHook python-dateutil pygments repeated-test ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    python-dateutil
+    pygments
+    repeated-test
+  ];
 
   pythonImportsCheck = [ "clize" ];
 

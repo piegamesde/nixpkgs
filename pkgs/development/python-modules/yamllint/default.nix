@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-LYPx0S9zPhYqh+BrF2FJ17ucW65Knl/OHHcdf3A/emU=";
   };
 
-  propagatedBuildInputs = [ pyyaml pathspec ];
+  propagatedBuildInputs = [
+    pyyaml
+    pathspec
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -43,6 +46,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/adrienverge/yamllint/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jonringer mikefaille ];
+    maintainers = with maintainers; [
+      jonringer
+      mikefaille
+    ];
   };
 }

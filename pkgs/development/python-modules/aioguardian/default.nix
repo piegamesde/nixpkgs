@@ -30,11 +30,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout asyncio-dgram docutils voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    asyncio-dgram
+    docutils
+    voluptuous
+  ];
 
-  nativeCheckInputs =
-    [ asyncio-dgram pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    asyncio-dgram
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [ "examples/" ];
 

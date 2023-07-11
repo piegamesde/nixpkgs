@@ -16,7 +16,10 @@ let
     name = "ut2004-game";
     paths = gamePacks;
     ignoreCollisions = true;
-    pathsToLink = [ "/" "/System" ];
+    pathsToLink = [
+      "/"
+      "/System"
+    ];
     postBuild = ''
       ln -s ${lib.getLib SDL}/lib/libSDL-1.2.so.0 $out/System
       ln -s ${lib.getLib openal}/lib/libopenal.so $out/System/openal.so

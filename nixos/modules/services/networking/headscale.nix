@@ -158,7 +158,10 @@ in {
             };
 
             db_type = mkOption {
-              type = types.enum [ "sqlite3" "postgres" ];
+              type = types.enum [
+                "sqlite3"
+                "postgres"
+              ];
               example = "postgres";
               default = "sqlite3";
               description = lib.mdDoc "Database engine to use.";
@@ -304,7 +307,11 @@ in {
 
               scope = mkOption {
                 type = types.listOf types.str;
-                default = [ "openid" "profile" "email" ];
+                default = [
+                  "openid"
+                  "profile"
+                  "email"
+                ];
                 description = lib.mdDoc ''
                   Scopes used in the OIDC flow.
                 '';
@@ -356,7 +363,10 @@ in {
             };
 
             tls_letsencrypt_challenge_type = mkOption {
-              type = types.enum [ "TLS-ALPN-01" "HTTP-01" ];
+              type = types.enum [
+                "TLS-ALPN-01"
+                "HTTP-01"
+              ];
               default = "HTTP-01";
               description = lib.mdDoc ''
                 Type of ACME challenge to use, currently supported types:
@@ -405,40 +415,68 @@ in {
 
   imports = [
     # TODO address + port = listen_addr
-    (mkRenamedOptionModule [ "services" "headscale" "serverUrl" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "serverUrl"
+    ] [
       "services"
       "headscale"
       "settings"
       "server_url"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "privateKeyFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "privateKeyFile"
+    ] [
       "services"
       "headscale"
       "settings"
       "private_key_path"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "derp" "urls" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "derp"
+      "urls"
+    ] [
       "services"
       "headscale"
       "settings"
       "derp"
       "urls"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "derp" "paths" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "derp"
+      "paths"
+    ] [
       "services"
       "headscale"
       "settings"
       "derp"
       "paths"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "derp" "autoUpdate" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "derp"
+      "autoUpdate"
+    ] [
       "services"
       "headscale"
       "settings"
       "derp"
       "auto_update_enable"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "derp" "updateFrequency" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "derp"
+      "updateFrequency"
+    ] [
       "services"
       "headscale"
       "settings"
@@ -449,38 +487,73 @@ in {
       "services"
       "headscale"
       "ephemeralNodeInactivityTimeout"
-    ] [ "services" "headscale" "settings" "ephemeral_node_inactivity_timeout" ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "type" ] [
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "ephemeral_node_inactivity_timeout"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "type"
+    ] [
       "services"
       "headscale"
       "settings"
       "db_type"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "path" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "path"
+    ] [
       "services"
       "headscale"
       "settings"
       "db_path"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "host" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "host"
+    ] [
       "services"
       "headscale"
       "settings"
       "db_host"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "port"
+    ] [
       "services"
       "headscale"
       "settings"
       "db_port"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "name" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "name"
+    ] [
       "services"
       "headscale"
       "settings"
       "db_name"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "database" "user" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "database"
+      "user"
+    ] [
       "services"
       "headscale"
       "settings"
@@ -491,43 +564,77 @@ in {
       "headscale"
       "database"
       "passwordFile"
-    ] [ "services" "headscale" "settings" "db_password_file" ])
-    (mkRenamedOptionModule [ "services" "headscale" "logLevel" ] [
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "db_password_file"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "logLevel"
+    ] [
       "services"
       "headscale"
       "settings"
       "log"
       "level"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "dns" "nameservers" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "dns"
+      "nameservers"
+    ] [
       "services"
       "headscale"
       "settings"
       "dns_config"
       "nameservers"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "dns" "domains" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "dns"
+      "domains"
+    ] [
       "services"
       "headscale"
       "settings"
       "dns_config"
       "domains"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "dns" "magicDns" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "dns"
+      "magicDns"
+    ] [
       "services"
       "headscale"
       "settings"
       "dns_config"
       "magic_dns"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "dns" "baseDomain" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "dns"
+      "baseDomain"
+    ] [
       "services"
       "headscale"
       "settings"
       "dns_config"
       "base_domain"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "openIdConnect" "issuer" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "openIdConnect"
+      "issuer"
+    ] [
       "services"
       "headscale"
       "settings"
@@ -539,47 +646,88 @@ in {
       "headscale"
       "openIdConnect"
       "clientId"
-    ] [ "services" "headscale" "settings" "oidc" "client_id" ])
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "oidc"
+      "client_id"
+    ])
     (mkRenamedOptionModule [
       "services"
       "headscale"
       "openIdConnect"
       "clientSecretFile"
-    ] [ "services" "headscale" "settings" "oidc" "client_secret_path" ])
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "oidc"
+      "client_secret_path"
+    ])
     (mkRenamedOptionModule [
       "services"
       "headscale"
       "tls"
       "letsencrypt"
       "hostname"
-    ] [ "services" "headscale" "settings" "tls_letsencrypt_hostname" ])
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "tls_letsencrypt_hostname"
+    ])
     (mkRenamedOptionModule [
       "services"
       "headscale"
       "tls"
       "letsencrypt"
       "challengeType"
-    ] [ "services" "headscale" "settings" "tls_letsencrypt_challenge_type" ])
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "tls_letsencrypt_challenge_type"
+    ])
     (mkRenamedOptionModule [
       "services"
       "headscale"
       "tls"
       "letsencrypt"
       "httpListen"
-    ] [ "services" "headscale" "settings" "tls_letsencrypt_listen" ])
-    (mkRenamedOptionModule [ "services" "headscale" "tls" "certFile" ] [
+    ] [
+      "services"
+      "headscale"
+      "settings"
+      "tls_letsencrypt_listen"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "tls"
+      "certFile"
+    ] [
       "services"
       "headscale"
       "settings"
       "tls_cert_path"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "tls" "keyFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "tls"
+      "keyFile"
+    ] [
       "services"
       "headscale"
       "settings"
       "tls_key_path"
     ])
-    (mkRenamedOptionModule [ "services" "headscale" "aclPolicyFile" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "headscale"
+      "aclPolicyFile"
+    ] [
       "services"
       "headscale"
       "settings"
@@ -681,12 +829,19 @@ in {
         NoNewPrivileges = true;
         LockPersonality = true;
         RestrictRealtime = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" "@chown" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@chown"
+        ];
         SystemCallArchitectures = "native";
         RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX";
       };
     };
   };
 
-  meta.maintainers = with maintainers; [ kradalby misterio77 ];
+  meta.maintainers = with maintainers; [
+    kradalby
+    misterio77
+  ];
 }

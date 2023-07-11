@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-Y9dTzFCgVmSnbnTE0kEfjpEkXDEA+uOqFHLkSC27YGg=";
   };
 
-  propagatedBuildInputs = [ cryptography requests pykerberos pyspnego ];
+  propagatedBuildInputs = [
+    cryptography
+    requests
+    pykerberos
+    pyspnego
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   # avoid needing to package krb5
   postPatch = ''

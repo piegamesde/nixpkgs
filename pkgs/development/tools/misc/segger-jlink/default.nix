@@ -78,7 +78,10 @@ in stdenv.mkDerivation {
   #runtimeDependencies = [ udev ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ qt4 udev ];
+  buildInputs = [
+    qt4
+    udev
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -122,6 +125,9 @@ in stdenv.mkDerivation {
       "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack";
     license = licenses.unfree;
     platforms = attrNames supported;
-    maintainers = with maintainers; [ FlorianFranzen stargate01 ];
+    maintainers = with maintainers; [
+      FlorianFranzen
+      stargate01
+    ];
   };
 }

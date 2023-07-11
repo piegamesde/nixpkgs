@@ -30,11 +30,21 @@ buildPythonPackage rec {
     hash = "sha256-2tJoIknqcwEvX2mQsrSEEh45pEMpNfeefuXVKSJTwig=";
   };
 
-  propagatedBuildInputs =
-    [ aenum aiohttp async-timeout requests websocket-client websockets ];
+  propagatedBuildInputs = [
+    aenum
+    aiohttp
+    async-timeout
+    requests
+    websocket-client
+    websockets
+  ];
 
-  nativeCheckInputs =
-    [ aiohttp-wsgi pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp-wsgi
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

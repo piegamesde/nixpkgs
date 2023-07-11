@@ -25,23 +25,30 @@ mkDerivation rec {
     hash = "sha256-g5J873U/6mrl27iquPl3BdEGhMxkOdfP15dHr27wa48=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "skip-license-check.patch";
-      url =
-        "https://git.alpinelinux.org/aports/plain/testing/mapbox-gl-native/0002-skip-license-check.patch?id=6751a93dca26b0b3ceec9eb151272253a2fe497e";
-      sha256 = "1yybwzxbvn0lqb1br1fyg7763p2h117s6mkmywkl4l7qg9daa7ba";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "skip-license-check.patch";
+    url =
+      "https://git.alpinelinux.org/aports/plain/testing/mapbox-gl-native/0002-skip-license-check.patch?id=6751a93dca26b0b3ceec9eb151272253a2fe497e";
+    sha256 = "1yybwzxbvn0lqb1br1fyg7763p2h117s6mkmywkl4l7qg9daa7ba";
+  }) ];
 
   postPatch = ''
     # don't use vendored rapidjson
     rm -r vendor/mapbox-base/extras/rapidjson
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ curl libuv glfw3 qtbase rapidjson ];
+  buildInputs = [
+    curl
+    libuv
+    glfw3
+    qtbase
+    rapidjson
+  ];
 
   cmakeFlags = [
     "-DMBGL_WITH_QT=ON"

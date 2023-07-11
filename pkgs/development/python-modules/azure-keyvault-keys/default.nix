@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-bAuy94MgKjSj5ex0hm5iEuWRrHEk8DuWadGwm2giS8Q=";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest cryptography ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+    cryptography
+  ];
 
-  nativeCheckInputs = [ aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp
+    pytestCheckHook
+  ];
 
   pythonNamespaces = [ "azure.keyvault" ];
 

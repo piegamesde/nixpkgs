@@ -22,9 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-wEBD1AILyVGK+ofQf/zZTu7keBUphVZ5HyOMbugvA+Y=";
   };
 
-  propagatedBuildInputs = [ pyjwt python-dateutil requests ];
+  propagatedBuildInputs = [
+    pyjwt
+    python-dateutil
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   disabledTests = [
     # Various tests try to access credential files which are not included with the source distribution

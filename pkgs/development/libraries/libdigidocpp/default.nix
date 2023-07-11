@@ -27,12 +27,30 @@ stdenv.mkDerivation rec {
     hash = "sha256-CNHBPeodU2EzvmQBa9KI+1vGuuD25gSwdU9dVhVG04Q=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config xxd ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    xxd
+  ];
 
-  buildInputs =
-    [ minizip pcsclite opensc openssl xercesc xml-security-c xsd zlib xalanc ];
+  buildInputs = [
+    minizip
+    pcsclite
+    opensc
+    openssl
+    xercesc
+    xml-security-c
+    xsd
+    zlib
+    xalanc
+  ];
 
-  outputs = [ "out" "lib" "dev" "bin" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "bin"
+  ];
 
   # libdigidocpp.so's `PKCS11Signer::PKCS11Signer()` dlopen()s "opensc-pkcs11.so"
   # itself, so add OpenSC to its DT_RUNPATH after the fixupPhase shrinked it.

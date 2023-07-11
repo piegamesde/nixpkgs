@@ -12,7 +12,12 @@ import ./make-test-python.nix ({
     pass = pkgs.writeText "pass" "PassRelay";
   in {
     name = "croc";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 julm ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        hax404
+        julm
+      ];
+    };
 
     nodes = {
       relay = {

@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    pydantic
+  ];
 
-  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -41,8 +41,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uYkIuMzhaWeCZm5aJF4oBYD72OLgwCBuUhDqpg6HQUM=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook asciidoctor pkg-config python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    asciidoctor
+    pkg-config
+    python3Packages.wrapPython
+  ];
 
   buildInputs = [
     cairo

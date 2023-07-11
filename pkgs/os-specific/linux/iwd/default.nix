@@ -22,13 +22,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xI/zl7yYWZpoag7RZIL06aUNVgrHDOBEn93dbWBG48I=";
   };
 
-  outputs = [ "out" "man" "doc" ]
-    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test";
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test";
 
-  nativeBuildInputs =
-    [ autoreconfHook docutils pkg-config python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docutils
+    pkg-config
+    python3Packages.wrapPython
+  ];
 
-  buildInputs = [ ell python3Packages.python readline ];
+  buildInputs = [
+    ell
+    python3Packages.python
+    readline
+  ];
 
   nativeCheckInputs = [ openssl ];
 
@@ -86,6 +97,10 @@ stdenv.mkDerivation rec {
     description = "Wireless daemon for Linux";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dtzWill fpletz maxeaubrey ];
+    maintainers = with maintainers; [
+      dtzWill
+      fpletz
+      maxeaubrey
+    ];
   };
 }

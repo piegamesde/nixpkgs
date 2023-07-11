@@ -30,11 +30,18 @@ buildDotnetModule rec {
 
   projectFile = "ArchiSteamFarm.sln";
   executables = [ "ArchiSteamFarm" ];
-  dotnetFlags = [ "-p:PublishSingleFile=true" "-p:PublishTrimmed=true" ];
+  dotnetFlags = [
+    "-p:PublishSingleFile=true"
+    "-p:PublishTrimmed=true"
+  ];
   dotnetInstallFlags = [ "--framework=net7.0" ];
   selfContainedBuild = true;
 
-  runtimeDeps = [ libkrb5 zlib openssl ];
+  runtimeDeps = [
+    libkrb5
+    zlib
+    openssl
+  ];
 
   doCheck = true;
 
@@ -75,7 +82,13 @@ buildDotnetModule rec {
       "Application with primary purpose of idling Steam cards from multiple accounts simultaneously";
     homepage = "https://github.com/JustArchiNET/ArchiSteamFarm";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ SuperSandro2000 lom ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      lom
+    ];
   };
 }

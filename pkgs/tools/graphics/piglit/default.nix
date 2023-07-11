@@ -40,12 +40,21 @@ stdenv.mkDerivation rec {
     libXrender
     libxcb
     libxkbcommon
-    (python3.withPackages (ps: with ps; [ mako numpy ]))
+    (python3.withPackages (ps:
+      with ps; [
+        mako
+        numpy
+      ]))
     waffle
     wayland
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    ninja
+    pkg-config
+  ];
 
   # Find data dir: piglit searches for the data directory in some places, however as it is wrapped,
   # it search in ../lib/.piglit-wrapped, we just replace the script name with "piglit" again.
@@ -56,7 +65,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/piglit \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL libglvnd ]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libGL
+          libglvnd
+        ]
+      } \
       --prefix PATH : "${waffle}/bin"
   '';
 

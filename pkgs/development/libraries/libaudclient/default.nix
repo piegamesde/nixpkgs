@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib dbus-glib ];
+  buildInputs = [
+    glib
+    dbus-glib
+  ];
 
   meta = with lib; {
     description = "Legacy D-Bus client library for Audacious";

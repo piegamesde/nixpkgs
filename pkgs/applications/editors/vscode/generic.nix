@@ -66,8 +66,16 @@ let
       icon = "code";
       startupNotify = true;
       startupWMClass = shortName;
-      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-      mimeTypes = [ "text/plain" "inode/directory" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+        "Development"
+        "IDE"
+      ];
+      mimeTypes = [
+        "text/plain"
+        "inode/directory"
+      ];
       keywords = [ "vscode" ];
       actions.new-empty-window = {
         name = "New Empty Window";
@@ -84,14 +92,22 @@ let
       exec = executableName + " --open-url %U";
       icon = "code";
       startupNotify = true;
-      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+        "Development"
+        "IDE"
+      ];
       mimeTypes = [ "x-scheme-handler/vscode" ];
       keywords = [ "vscode" ];
       noDisplay = true;
     };
 
-    buildInputs = [ libsecret libXScrnSaver libxshmfence ]
-      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
+    buildInputs = [
+      libsecret
+      libXScrnSaver
+      libxshmfence
+    ] ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
 
     runtimeDependencies = lib.optionals stdenv.isLinux [
       (lib.getLib systemd)

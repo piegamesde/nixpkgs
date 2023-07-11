@@ -23,14 +23,22 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # Clipboard support on X11 and Wayland
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     wrapProgram $out/bin/discordo \
-      --prefix PATH : ${lib.makeBinPath [ xsel wl-clipboard ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          xsel
+          wl-clipboard
+        ]
+      }
   '';
 
   passthru.updateScript =

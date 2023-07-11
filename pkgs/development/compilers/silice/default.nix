@@ -28,7 +28,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config openjdk ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    openjdk
+  ];
   buildInputs = [ libuuid ];
   propagatedBuildInputs = [ (python3.withPackages (p: with p; [ edalize ])) ];
 
@@ -48,8 +52,15 @@ stdenv.mkDerivation rec {
     testProject = project:
       stdenv.mkDerivation {
         name = "${silice.name}-test-${project}";
-        nativeBuildInputs =
-          [ silice yosys nextpnr verilator dfu-util icestorm trellis ];
+        nativeBuildInputs = [
+          silice
+          yosys
+          nextpnr
+          verilator
+          dfu-util
+          icestorm
+          trellis
+        ];
         src = "${src}/projects";
         sourceRoot = "projects/${project}";
         buildPhase = ''

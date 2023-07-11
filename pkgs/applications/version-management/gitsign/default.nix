@@ -21,7 +21,10 @@ buildGoModule rec {
   };
   vendorHash = "sha256-zalysp+90+QM5hX7yUudJW61h+3tQOab7ZpcF5kZSB0=";
 
-  subPackages = [ "." "cmd/gitsign-credential-cache" ];
+  subPackages = [
+    "."
+    "cmd/gitsign-credential-cache"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -50,6 +53,9 @@ buildGoModule rec {
     changelog = "https://github.com/sigstore/gitsign/releases/tag/v${version}";
     description = "Keyless Git signing using Sigstore";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lesuisse developer-guy ];
+    maintainers = with lib.maintainers; [
+      lesuisse
+      developer-guy
+    ];
   };
 }

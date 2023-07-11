@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   pname = "dleyna-core";
   version = "0.7.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   setupHook = ./setup-hook.sh;
 
@@ -23,7 +26,11 @@ stdenv.mkDerivation rec {
     sha256 = "i4L9+iyAdBNtgImbD54jkjYL5hvzeZ2OaAyFrcFmuG0=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   propagatedBuildInputs = [ gupnp ];
 

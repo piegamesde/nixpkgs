@@ -23,8 +23,14 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "gcc" "\$(CC)"
   '';
 
-  nativeBuildInputs = [ ocaml findlib ];
-  buildInputs = [ expat ounit ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
+  buildInputs = [
+    expat
+    ounit
+  ];
 
   strictDeps = true;
 

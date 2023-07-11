@@ -48,7 +48,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [ bc hostname nose ];
+  nativeCheckInputs = [
+    bc
+    hostname
+    nose
+  ];
 
   pythonImportsCheck = [ "ClusterShell" ];
 

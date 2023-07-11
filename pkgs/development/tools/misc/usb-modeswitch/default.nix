@@ -42,17 +42,32 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/usb_modeswitch_dispatcher \
-      --set PATH ${lib.makeBinPath [ util-linux coreutils bash ]}
+      --set PATH ${
+        lib.makeBinPath [
+          util-linux
+          coreutils
+          bash
+        ]
+      }
   '';
 
-  buildInputs = [ libusb1 tcl ];
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  buildInputs = [
+    libusb1
+    tcl
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   meta = with lib; {
     description =
       "A mode switching tool for controlling 'multi-mode' USB devices";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ marcweber peterhoeg ];
+    maintainers = with maintainers; [
+      marcweber
+      peterhoeg
+    ];
     platforms = platforms.linux;
   };
 }

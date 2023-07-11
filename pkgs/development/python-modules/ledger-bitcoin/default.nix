@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ ledgercomm packaging typing-extensions ];
+  propagatedBuildInputs = [
+    ledgercomm
+    packaging
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "ledger_bitcoin" ];
 

@@ -26,9 +26,19 @@ mkDerivation rec {
     sha256 = "1a85vbsi53mhzva49smqwcs61c51wv3ic410nvb9is9nlsbifwan";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
-  buildInputs =
-    [ alsa-lib libv4l qtbase qtmultimedia qttools qtx11extras libXrandr ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
+  buildInputs = [
+    alsa-lib
+    libv4l
+    qtbase
+    qtmultimedia
+    qttools
+    qtx11extras
+    libXrandr
+  ];
 
   patches = [ ./ffmpeg-out-of-box.patch ];
 

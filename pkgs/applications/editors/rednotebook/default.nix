@@ -29,8 +29,16 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ gobject-introspection ];
 
-  propagatedBuildInputs =
-    [ gdk-pixbuf glib gtk3 gtksourceview pango webkitgtk pygobject3 pyyaml ];
+  propagatedBuildInputs = [
+    gdk-pixbuf
+    glib
+    gtk3
+    gtksourceview
+    pango
+    webkitgtk
+    pygobject3
+    pyyaml
+  ];
 
   makeWrapperArgs = [
     "--set GI_TYPELIB_PATH $GI_TYPELIB_PATH"

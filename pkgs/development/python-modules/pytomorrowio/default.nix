@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pytomorrowio" ];
 

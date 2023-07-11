@@ -18,8 +18,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-vPKLQ9hDJdimEAXwIBGgRRlefM8/77xFQoI+0J/lkNs=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ guile guile-commonmark guile-reader ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    guile
+    guile-commonmark
+    guile-reader
+  ];
 
   # Test suite is non-determinisitic in later versions
   doCheck = false;
@@ -58,7 +65,10 @@ stdenv.mkDerivation rec {
       to do things that aren't provided out-of-the-box.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres AluisioASG ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      AluisioASG
+    ];
     platforms = guile.meta.platforms;
   };
 }

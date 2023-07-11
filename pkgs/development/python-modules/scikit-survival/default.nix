@@ -26,10 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-24+8Sociq6u3KnoGSdV5Od5t/OT1uPkv19i3p5ezLjw=";
   };
 
-  nativeBuildInputs = [ cython setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs =
-    [ ecos joblib numexpr numpy osqp pandas scikit-learn scipy ];
+  propagatedBuildInputs = [
+    ecos
+    joblib
+    numexpr
+    numpy
+    osqp
+    pandas
+    scikit-learn
+    scipy
+  ];
 
   pythonImportsCheck = [ "sksurv" ];
 

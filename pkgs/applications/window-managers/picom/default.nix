@@ -111,7 +111,11 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/yshui/picom";
-    maintainers = with maintainers; [ ertes twey thiagokokada ];
+    maintainers = with maintainers; [
+      ertes
+      twey
+      thiagokokada
+    ];
     platforms = platforms.linux;
   };
 }

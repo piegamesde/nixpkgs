@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     ./patch_id3lib_3.8.3_UTF16_writing_bug.diff
   ];
 
-  buildInputs = [ libiconv zlib ];
+  buildInputs = [
+    libiconv
+    zlib
+  ];
 
   src = fetchurl {
     url = "mirror://sourceforge/id3lib/${pname}-${version}.tar.gz";

@@ -37,8 +37,14 @@ stdenv.mkDerivation ({
   meta = with lib; {
     description = "NVIDIA Linux Open GPU Kernel Module";
     homepage = "https://github.com/NVIDIA/open-gpu-kernel-modules";
-    license = with licenses; [ gpl2Plus mit ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    license = with licenses; [
+      gpl2Plus
+      mit
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ nickcao ];
     inherit broken;
   };

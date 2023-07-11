@@ -22,7 +22,11 @@ python3.pkgs.buildPythonApplication rec {
       --replace ', "pyreadline3"' ""
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ psutil requests rich ];
+  propagatedBuildInputs = with python3.pkgs; [
+    psutil
+    requests
+    rich
+  ];
 
   pythonImportsCheck = [ "octosuite" ];
 

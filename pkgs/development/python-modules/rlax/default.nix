@@ -23,10 +23,21 @@ buildPythonPackage rec {
     hash = "sha256-GRqiGacyHZpVKUqfAteMjRV4EtdHkSgfFRj/H76bBVo=";
   };
 
-  buildInputs = [ chex jaxlib distrax tensorflow-probability ];
+  buildInputs = [
+    chex
+    jaxlib
+    distrax
+    tensorflow-probability
+  ];
 
-  nativeCheckInputs =
-    [ bsuite dm-env dm-haiku frozendict optax pytestCheckHook ];
+  nativeCheckInputs = [
+    bsuite
+    dm-env
+    dm-haiku
+    frozendict
+    optax
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rlax" ];
 

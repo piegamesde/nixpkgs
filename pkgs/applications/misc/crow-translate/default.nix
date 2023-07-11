@@ -28,28 +28,36 @@ stdenv.mkDerivation rec {
     hash = "sha256-M2vAH1YAvNOhDsz+BWxvteR8YX89FHtbUcQZr1uVoCs=";
   };
 
-  patches = [
-    (substituteAll {
-      # See https://github.com/NixOS/nixpkgs/issues/86054
-      src = ./fix-qttranslations-path.patch;
-      inherit qttranslations;
-    })
-  ];
+  patches = [ (substituteAll {
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    src = ./fix-qttranslations-path.patch;
+    inherit qttranslations;
+  }) ];
 
   postPatch = ''
     substituteInPlace data/io.crow_translate.CrowTranslate.desktop \
       --replace "Exec=qdbus" "Exec=${lib.getBin qttools}/bin/qdbus"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    qttools
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ kwayland leptonica tesseract4 qtmultimedia qtx11extras ]
-    ++ (with gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-    ]);
+  buildInputs = [
+    kwayland
+    leptonica
+    tesseract4
+    qtmultimedia
+    qtx11extras
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+  ]);
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

@@ -15,7 +15,10 @@ let
           rev = "refs/tags/v12.4.0";
           hash = "sha256-ryJTusUNpvNF2031ICJWK8ScxHIh+LrXYg7nd0ph4aQ=";
         };
-        propagatedBuildInputs = with py.pkgs; [ commonmark pygments ];
+        propagatedBuildInputs = with py.pkgs; [
+          commonmark
+          pygments
+        ];
         doCheck = false;
       });
 

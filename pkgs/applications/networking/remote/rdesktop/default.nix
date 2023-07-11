@@ -26,13 +26,24 @@ stdenv.mkDerivation (rec {
     sha256 = "1s6k1jwd28y38ymk3lfv76ch4arpfwrbdhpkbnwwy3fc4617gb78";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ openssl libX11 libXcursor libtasn1 nettle gnutls ]
-    ++ lib.optional enableCredssp krb5 ++ lib.optional stdenv.isDarwin libiconv;
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    openssl
+    libX11
+    libXcursor
+    libtasn1
+    nettle
+    gnutls
+  ] ++ lib.optional enableCredssp krb5 ++ lib.optional stdenv.isDarwin libiconv;
 
-  configureFlags =
-    [ "--with-ipv6" "--with-openssl=${openssl.dev}" "--disable-smartcard" ]
-    ++ lib.optional (!enableCredssp) "--disable-credssp";
+  configureFlags = [
+    "--with-ipv6"
+    "--with-openssl=${openssl.dev}"
+    "--disable-smartcard"
+  ] ++ lib.optional (!enableCredssp) "--disable-credssp";
 
   meta = {
     description = "Open source client for Windows Terminal Services";

@@ -16,13 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1av11zkfirbixn05hyq4xvilin0ncddfjqzc4zd9pviyp506rdci";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://src.fedoraproject.org/rpms/gcal/raw/master/f/gcal-glibc-no-libio.patch";
-      sha256 = "0l4nw9kgzsay32rsdwvs75pbp4fhx6pfm85paynfbd20cdm2n2kv";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://src.fedoraproject.org/rpms/gcal/raw/master/f/gcal-glibc-no-libio.patch";
+    sha256 = "0l4nw9kgzsay32rsdwvs75pbp4fhx6pfm85paynfbd20cdm2n2kv";
+  }) ];
 
   enableParallelBuilding = true;
 

@@ -306,10 +306,8 @@ let
             (map (drv: drv.__spliced.hostTarget or drv)
               (checkDependencyList "buildInputs" buildInputs'))
           ]
-          [
-            (map (drv: drv.__spliced.targetTarget or drv)
-              (checkDependencyList "depsTargetTarget" depsTargetTarget))
-          ]
+          [ (map (drv: drv.__spliced.targetTarget or drv)
+            (checkDependencyList "depsTargetTarget" depsTargetTarget)) ]
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
@@ -331,11 +329,9 @@ let
               (checkDependencyList "propagatedBuildInputs"
                 propagatedBuildInputs))
           ]
-          [
-            (map (drv: drv.__spliced.targetTarget or drv)
-              (checkDependencyList "depsTargetTargetPropagated"
-                depsTargetTargetPropagated))
-          ]
+          [ (map (drv: drv.__spliced.targetTarget or drv)
+            (checkDependencyList "depsTargetTargetPropagated"
+              depsTargetTargetPropagated)) ]
         ];
 
         computedSandboxProfile =
@@ -401,8 +397,10 @@ let
                 "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}");
             }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
               builder = attrs.realBuilder or stdenv.shell;
-              args =
-                attrs.args or [ "-e" (attrs.builder or ./default-builder.sh) ];
+              args = attrs.args or [
+                "-e"
+                (attrs.builder or ./default-builder.sh)
+              ];
               inherit stdenv;
 
               # The `system` attribute of a derivation has special meaning to Nix.
@@ -471,31 +469,22 @@ let
                 else
                   cmakeFlags;
 
-                crossFlags = [
-                  "-DCMAKE_SYSTEM_NAME=${
+                crossFlags = [ "-DCMAKE_SYSTEM_NAME=${
                     lib.findFirst lib.isString "Generic"
                     (lib.optional (!stdenv.hostPlatform.isRedox)
                       stdenv.hostPlatform.uname.system)
-                  }"
-                ] ++ lib.optionals (stdenv.hostPlatform.uname.processor != null)
-                  [
-                    "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
-                  ] ++ lib.optionals (stdenv.hostPlatform.uname.release != null)
-                  [
-                    "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
-                  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-                    "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
-                  ] ++ lib.optionals (stdenv.buildPlatform.uname.system != null)
-                  [
-                    "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
-                  ] ++ lib.optionals
-                  (stdenv.buildPlatform.uname.processor != null) [
-                    "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
-                  ]
-                  ++ lib.optionals (stdenv.buildPlatform.uname.release != null)
-                  [
-                    "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
-                  ];
+                  }" ] ++ lib.optionals (stdenv.hostPlatform.uname.processor
+                    != null) [ "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}" ]
+                  ++ lib.optionals (stdenv.hostPlatform.uname.release
+                    != null) [ "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}" ]
+                  ++ lib.optionals
+                  (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.system
+                    != null) [ "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}" ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.processor
+                    != null) [ "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}" ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.release
+                    != null) [ "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}" ];
               in explicitFlags
               ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
               crossFlags;
@@ -545,9 +534,8 @@ let
                   [binaries]
                   llvm-config = 'llvm-config-native'
                 '';
-                crossFlags =
-                  lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-                  [ "--cross-file=${crossFile}" ];
+                crossFlags = lib.optionals (stdenv.hostPlatform
+                  != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
               in crossFlags ++ explicitFlags;
 
               inherit patches;
@@ -578,7 +566,10 @@ let
             __sandboxProfile = let
               profiles = [ stdenv.extraSandboxProfile ]
                 ++ computedSandboxProfile ++ computedPropagatedSandboxProfile
-                ++ [ propagatedSandboxProfile sandboxProfile ];
+                ++ [
+                  propagatedSandboxProfile
+                  sandboxProfile
+                ];
               final = lib.concatStringsSep "\n"
                 (lib.filter (x: x != "") (lib.unique profiles));
             in final;
@@ -587,8 +578,12 @@ let
                 ++ [ propagatedSandboxProfile ]);
             __impureHostDeps = computedImpureHostDeps
               ++ computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps
-              ++ __impureHostDeps ++ stdenv.__extraImpureHostDeps
-              ++ [ "/dev/zero" "/dev/random" "/dev/urandom" "/bin/sh" ];
+              ++ __impureHostDeps ++ stdenv.__extraImpureHostDeps ++ [
+                "/dev/zero"
+                "/dev/random"
+                "/dev/urandom"
+                "/bin/sh"
+              ];
             __propagatedImpureHostDeps = computedPropagatedImpureHostDeps
               ++ __propagatedImpureHostDeps;
           } //
@@ -669,7 +664,10 @@ let
           # binaries). By writing this to $out, Nix can find and register
           # them as runtime dependencies (since Nix greps for store paths
           # through $out to find them)
-          args = [ "-c" "export > $out" ];
+          args = [
+            "-c"
+            "export > $out"
+          ];
 
           # inputDerivation produces the inputs; not the outputs, so any
           # restrictions on what used to be the outputs don't serve a purpose

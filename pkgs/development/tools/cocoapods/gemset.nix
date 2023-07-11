@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -22,7 +27,10 @@
     version = "2.8.4";
   };
   algoliasearch = {
-    dependencies = [ "httpclient" "json" ];
+    dependencies = [
+      "httpclient"
+      "json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -151,7 +159,10 @@
     version = "1.0.1";
   };
   cocoapods-trunk = {
-    dependencies = [ "nap" "netrc" ];
+    dependencies = [
+      "nap"
+      "netrc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -374,8 +385,14 @@
     version = "2.0.6";
   };
   xcodeproj = {
-    dependencies =
-      [ "CFPropertyList" "atomos" "claide" "colored2" "nanaimo" "rexml" ];
+    dependencies = [
+      "CFPropertyList"
+      "atomos"
+      "claide"
+      "colored2"
+      "nanaimo"
+      "rexml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -21,17 +21,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-7PZNNUMaCZEBf0lOCqkquewRgZPooBOjIbGF7JlLnEo=";
   };
 
-  nativeBuildInputs = with ocamlPackages; [ ocamlbuild findlib ocaml z3 sail ];
-  buildInputs = with ocamlPackages; [ zlib linksem ];
+  nativeBuildInputs = with ocamlPackages; [
+    ocamlbuild
+    findlib
+    ocaml
+    z3
+    sail
+  ];
+  buildInputs = with ocamlPackages; [
+    zlib
+    linksem
+  ];
   strictDeps = true;
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
-      hash = "sha256-tDgkGhcbT6phoCAvilxMI56YUuUqQFgvh+2QduOjdMg=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/riscv/sail-riscv/pull/250/commits/8bd37c484b83a8ce89c8bb7a001b8ae34dc4d77f.patch";
+    hash = "sha256-tDgkGhcbT6phoCAvilxMI56YUuUqQFgvh+2QduOjdMg=";
+  }) ];
 
   postPatch = ''
     rm -r prover_snapshots

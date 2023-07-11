@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ botocore ];
 
-  buildInputs = [ docutils mock pytestCheckHook wheel ];
+  buildInputs = [
+    docutils
+    mock
+    pytestCheckHook
+    wheel
+  ];
 
   disabledTestPaths = [
     # Requires network access

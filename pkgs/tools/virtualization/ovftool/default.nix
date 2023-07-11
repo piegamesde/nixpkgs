@@ -74,9 +74,21 @@ in stdenv.mkDerivation rec {
   # Maintainers: try downloading a NixOS OVA and run the following to test:
   # `./result/bin/ovftool https://channels.nixos.org/nixos-unstable/latest-nixos-x86_64-linux.ova nixos.ovf`
   # Some dependencies are not loaded until operations actually occur!
-  buildInputs = [ glibc libxcrypt c-ares expat icu60 xercesc zlib ];
+  buildInputs = [
+    glibc
+    libxcrypt
+    c-ares
+    expat
+    icu60
+    xercesc
+    zlib
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    unzip
+  ];
 
   preferLocalBuild = true;
 
@@ -155,7 +167,10 @@ in stdenv.mkDerivation rec {
     description = "VMWare tools for working with OVF, OVA, and VMX images";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ numinit wolfangaukang ];
+    maintainers = with maintainers; [
+      numinit
+      wolfangaukang
+    ];
     platforms = builtins.attrNames ovftoolSystems;
   };
 }

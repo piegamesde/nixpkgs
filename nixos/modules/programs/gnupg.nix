@@ -146,11 +146,11 @@ in {
       fi
     '';
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
       message =
         "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
-    }];
+    } ];
   };
 
   # uses attributes of the linked package

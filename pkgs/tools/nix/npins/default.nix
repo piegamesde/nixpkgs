@@ -18,7 +18,11 @@
 }:
 
 let
-  runtimePath = lib.makeBinPath [ nix nix-prefetch-git git ];
+  runtimePath = lib.makeBinPath [
+    nix
+    nix-prefetch-git
+    git
+  ];
   sources = (builtins.fromJSON (builtins.readFile ./sources.json)).pins;
 in rustPlatform.buildRustPackage rec {
   pname = "npins";

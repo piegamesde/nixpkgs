@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-gD9MreJQPaxziy02Wt3BGFiIoQ/+pW3KqiNfNlTijJY=";
   };
 
-  nativeCheckInputs = [ jsonschema pytestCheckHook ];
+  nativeCheckInputs = [
+    jsonschema
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "cvss" ];
 

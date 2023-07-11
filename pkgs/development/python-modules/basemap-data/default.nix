@@ -28,7 +28,10 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://matplotlib.org/basemap/";
     description = "Data assets for matplotlib basemap";
-    license = with licenses; [ mit lgpl3Plus ];
+    license = with licenses; [
+      mit
+      lgpl3Plus
+    ];
     maintainers = with maintainers; [ ];
   };
 }

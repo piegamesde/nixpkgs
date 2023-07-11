@@ -20,7 +20,10 @@ in rustPlatform.buildRustPackage {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # Headers are not handled by cargo nor buildRustPackage
   postInstall = ''
@@ -35,7 +38,10 @@ in rustPlatform.buildRustPackage {
   meta = {
     description = "A C API for Rust's regular expression library";
     homepage = "https://crates.io/crates/rure";
-    license = [ lib.licenses.mit lib.licenses.asl20 ];
+    license = [
+      lib.licenses.mit
+      lib.licenses.asl20
+    ];
     maintainers = [ lib.maintainers.sternenseemann ];
   };
 }

@@ -48,7 +48,12 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [ stestr testscenarios ddt requests-mock ];
+  nativeCheckInputs = [
+    stestr
+    testscenarios
+    ddt
+    requests-mock
+  ];
 
   checkPhase = ''
     stestr run

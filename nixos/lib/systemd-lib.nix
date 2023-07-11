@@ -14,8 +14,19 @@ in rec {
 
   shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
 
-  mkPathSafeName =
-    lib.replaceStrings [ "@" ":" "\\" "[" "]" ] [ "-" "-" "-" "" "" ];
+  mkPathSafeName = lib.replaceStrings [
+    "@"
+    ":"
+    "\\"
+    "["
+    "]"
+  ] [
+    "-"
+    "-"
+    "-"
+    ""
+    ""
+  ];
 
   # a type for options that take a unit name
   unitNameType = types.strMatching
@@ -42,7 +53,12 @@ in rec {
         ln -s /dev/null "$out/$name"
       '';
 
-  boolValues = [ true false "yes" "no" ];
+  boolValues = [
+    true
+    false
+    "yes"
+    "no"
+  ];
 
   digits = map toString (range 0 9);
 
@@ -51,8 +67,12 @@ in rec {
       l = reverseList (stringToCharacters s);
       suffix = head l;
       nums = tail l;
-    in elem suffix ([ "K" "M" "G" "T" ] ++ digits)
-    && all (num: elem num digits) nums;
+    in elem suffix ([
+      "K"
+      "M"
+      "G"
+      "T"
+    ] ++ digits) && all (num: elem num digits) nums;
 
   assertByteFormat = name: group: attr:
     optional (attr ? ${name} && !isByteFormat attr.${name})
@@ -281,7 +301,13 @@ in rec {
 
   makeJobScript = name: text:
     let
-      scriptName = replaceStrings [ "\\" "@" ] [ "-" "_" ] (shellEscape name);
+      scriptName = replaceStrings [
+        "\\"
+        "@"
+      ] [
+        "-"
+        "_"
+      ] (shellEscape name);
       out = (pkgs.writeShellScriptBin scriptName ''
         set -e
         ${text}

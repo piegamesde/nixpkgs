@@ -14,7 +14,10 @@
 buildPythonPackage rec {
   pname = "pynacl";
   version = "1.5.0";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -33,7 +36,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cffi ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   SODIUM_INSTALL = "system";
 

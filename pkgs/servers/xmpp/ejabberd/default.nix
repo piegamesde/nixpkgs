@@ -36,15 +36,30 @@
 }:
 
 let
-  ctlpath = lib.makeBinPath [ bash gnused gnugrep coreutils util-linux procps ];
+  ctlpath = lib.makeBinPath [
+    bash
+    gnused
+    gnugrep
+    coreutils
+    util-linux
+    procps
+  ];
 in stdenv.mkDerivation rec {
   pname = "ejabberd";
   version = "23.01";
 
-  nativeBuildInputs = [ makeWrapper autoreconfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoreconfHook
+  ];
 
-  buildInputs = [ erlang openssl expat libyaml gd ]
-    ++ lib.optional withSqlite sqlite ++ lib.optional withPam pam
+  buildInputs = [
+    erlang
+    openssl
+    expat
+    libyaml
+    gd
+  ] ++ lib.optional withSqlite sqlite ++ lib.optional withPam pam
     ++ lib.optional withZlib zlib;
 
   src = fetchurl {
@@ -60,10 +75,22 @@ in stdenv.mkDerivation rec {
 
     inherit src version;
 
-    configureFlags = [ "--enable-all" "--with-sqlite3=${sqlite.dev}" ];
+    configureFlags = [
+      "--enable-all"
+      "--with-sqlite3=${sqlite.dev}"
+    ];
 
-    nativeBuildInputs =
-      [ git erlang openssl expat libyaml sqlite pam zlib autoreconfHook ];
+    nativeBuildInputs = [
+      git
+      erlang
+      openssl
+      expat
+      libyaml
+      sqlite
+      pam
+      zlib
+      autoreconfHook
+    ];
 
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
@@ -119,7 +146,11 @@ in stdenv.mkDerivation rec {
       -e 's,\(^ *CONNLOCKDIR=\).*,\1/var/lock/ejabberdctl,' \
       $out/sbin/ejabberdctl
     wrapProgram $out/lib/eimp-*/priv/bin/eimp --prefix LD_LIBRARY_PATH : "${
-      lib.makeLibraryPath [ libpng libjpeg libwebp ]
+      lib.makeLibraryPath [
+        libpng
+        libjpeg
+        libwebp
+      ]
     }"
     rm $out/bin/{mix,iex,elixir}
   '';
@@ -129,6 +160,9 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "https://www.ejabberd.im";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sander abbradar ];
+    maintainers = with maintainers; [
+      sander
+      abbradar
+    ];
   };
 }

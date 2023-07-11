@@ -20,14 +20,23 @@ python3Packages.buildPythonApplication rec {
     sha256 = "LFUzrGHr8jmUqoIcKokC0gNDVmW1EUZlj9eI+GDycvI=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ gtk3 poppler_gi ]
-    ++ lib.optional withGstreamer libcanberra-gtk3;
+  buildInputs = [
+    gtk3
+    poppler_gi
+  ] ++ lib.optional withGstreamer libcanberra-gtk3;
 
   propagatedBuildInputs = with python3Packages;
-    [ pycairo pygobject3 setuptools watchdog ]
-    ++ lib.optional withVLC python-vlc;
+    [
+      pycairo
+      pygobject3
+      setuptools
+      watchdog
+    ] ++ lib.optional withVLC python-vlc;
 
   doCheck = false; # there are no tests
 

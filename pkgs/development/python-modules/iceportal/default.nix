@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpx
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "iceportal" ];
 

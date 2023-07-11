@@ -23,14 +23,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ openldap perl samba ];
+  buildInputs = [
+    openldap
+    perl
+    samba
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
     cp enum4linux.pl $out/bin/enum4linux
 
     wrapProgram $out/bin/enum4linux \
-      --prefix PATH : ${lib.makeBinPath [ samba openldap ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          samba
+          openldap
+        ]
+      }
   '';
 
   meta = with lib; {

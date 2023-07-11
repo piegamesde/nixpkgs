@@ -296,7 +296,11 @@
   "acro" = {
     revision = 62925;
     stripPrefix = 0;
-    deps = [ "etoolbox" "l3kernel" "l3packages" ];
+    deps = [
+      "etoolbox"
+      "l3kernel"
+      "l3packages"
+    ];
     sha512.run =
       "25c0dc9cda98db7ead55613aea92946cd90e7edfa1213d59966eb8fdd93ae1bc7b532f7849c43fb8fa77291b23dc5d8dc80cba4584c991a7b38e55564bd59ea3";
     sha512.doc =
@@ -463,7 +467,11 @@
   "adjustbox" = {
     revision = 64967;
     stripPrefix = 0;
-    deps = [ "collectbox" "graphics" "xkeyval" ];
+    deps = [
+      "collectbox"
+      "graphics"
+      "xkeyval"
+    ];
     sha512.run =
       "ac12b052b2112d5bcd942888ab69fa20aca6e2b392bf868959b8573ee8611d93042de3f90eace1519a89d0da64d2dcb3046e26fb0f86f46ea3e673e2a2aee2c8";
     sha512.doc =
@@ -674,7 +682,14 @@
   };
   "aleph" = {
     revision = 62387;
-    deps = [ "cm" "hyphen-base" "knuth-lib" "lambda" "latex" "plain" ];
+    deps = [
+      "cm"
+      "hyphen-base"
+      "knuth-lib"
+      "lambda"
+      "latex"
+      "plain"
+    ];
     hasFormats = true;
     sha512.run =
       "222d0c7045ddfdde5f0ca0ebe20a029c32fd0d4f35326c5ead6bf4ebbcadc86a2a2ff609bca3a6c3a04a09828c50c885f49ef9da0e6e548c18c2633400865c7f";
@@ -1044,7 +1059,14 @@
   };
   "amstex" = {
     revision = 63708;
-    deps = [ "amsfonts" "cm" "hyphen-base" "knuth-lib" "plain" "tex" ];
+    deps = [
+      "amsfonts"
+      "cm"
+      "hyphen-base"
+      "knuth-lib"
+      "plain"
+      "tex"
+    ];
     hasFormats = true;
     sha512.run =
       "d92156cc5a01152776378c8809993b2ccbc9e917125d2ecfd2a06482401008385928e279a8832f328f7a8f4f3eeb746f9725e4986e4eb2f478c20a432ea8698e";
@@ -2092,7 +2114,11 @@
   "auto-pst-pdf" = {
     revision = 56596;
     stripPrefix = 0;
-    deps = [ "ifplatform" "iftex" "xkeyval" ];
+    deps = [
+      "ifplatform"
+      "iftex"
+      "xkeyval"
+    ];
     sha512.run =
       "5c1f85a0ec5aa4173181b087a1f5f8e30be6d8c21c3461999a85b42032d45292aa6f8aae4922a5e97d073fff5b2c9d114cd30f5d5bb73ef523718e891ce59473";
     sha512.doc =
@@ -3039,7 +3065,10 @@
   "bangla" = {
     revision = 65786;
     stripPrefix = 0;
-    deps = [ "charissil" "doulossil" ];
+    deps = [
+      "charissil"
+      "doulossil"
+    ];
     sha512.run =
       "1559fc1599e2586c660ab544a5d7e279240a966da677fb658162e8497e17b574308f90f51823ed861d52c2d0f4c0b836316866b2d5cc1b0c3ebfa82caa9334d0";
     sha512.doc =
@@ -3961,7 +3990,10 @@
   };
   "bibcop" = {
     revision = 65816;
-    deps = [ "iexec" "pgfopts" ];
+    deps = [
+      "iexec"
+      "pgfopts"
+    ];
     sha512.run =
       "a035642f1b1827f0b6b4d15b4115054b9ab3ff49d7d369f3e304cab5964a707b23865b837c6b156b913e33fe8ae5589941e6ff284ee0b62454a9eb8ec77f3442";
     sha512.doc =
@@ -4015,7 +4047,13 @@
   "biblatex" = {
     revision = 66405;
     stripPrefix = 0;
-    deps = [ "etoolbox" "kvoptions" "logreq" "pdftexcmds" "url" ];
+    deps = [
+      "etoolbox"
+      "kvoptions"
+      "logreq"
+      "pdftexcmds"
+      "url"
+    ];
     sha512.run =
       "7269a29d39552dc9041644c186917662f874ca70f70240b57b00c5a3de9413634ce8fccb82a04a9fa63f0a884bea6eb8d2ae61b0d8263b237c3a335d7b5aac84";
     sha512.doc =
@@ -4398,7 +4436,13 @@
   "biblatex-ms" = {
     revision = 66481;
     stripPrefix = 0;
-    deps = [ "etoolbox" "kvoptions" "logreq" "pdftexcmds" "url" ];
+    deps = [
+      "etoolbox"
+      "kvoptions"
+      "logreq"
+      "pdftexcmds"
+      "url"
+    ];
     sha512.run =
       "5bbf3e0d88a7bb26e141329fd6347736d27236156b999d362d4d23c42260591f01921f5bf269697d273ecf74dc736a79d8e4780f408b867fcc5600ab54f94c48";
     sha512.doc =
@@ -5146,7 +5190,11 @@
   "blopentype" = {
     revision = 65441;
     stripPrefix = 0;
-    deps = [ "gates" "texapi" "yax" ];
+    deps = [
+      "gates"
+      "texapi"
+      "yax"
+    ];
     sha512.run =
       "a58ba583f2c9cdc9d262f2ae60704164e4aa1ec9b6a1b7f5df97598cb3cef0b85badd62b641e5b388822d8ab84bb993521d9fec08b0be71088ec62f069bdd856";
     sha512.doc =
@@ -7419,7 +7467,14 @@
   "cjk" = {
     revision = 60865;
     stripPrefix = 0;
-    deps = [ "arphic" "cns" "garuda-c90" "norasi-c90" "uhc" "wadalab" ];
+    deps = [
+      "arphic"
+      "cns"
+      "garuda-c90"
+      "norasi-c90"
+      "uhc"
+      "wadalab"
+    ];
     sha512.run =
       "b13712912e479dab68cab9027042be8cb11047ebf9c034f532c857e83d28f19dfea5a1748685cfe1847c7372f2d0982f79736525694d937c88962c5262094585";
     sha512.doc =
@@ -7559,7 +7614,10 @@
   "clicks" = {
     revision = 64602;
     stripPrefix = 0;
-    deps = [ "etoolbox" "xkeyval" ];
+    deps = [
+      "etoolbox"
+      "xkeyval"
+    ];
     sha512.run =
       "7218b2bf0f28a0ed382e4884aa30b59c2d8bff76a3d7a09461e5e3ebf1f41648889005db3c79fe203a4d3753a65f76a48058582e25f57e61d972e8256657712e";
     sha512.doc =
@@ -12609,7 +12667,10 @@
   "collection-texworks" = {
     revision = 54074;
     stripPrefix = 0;
-    deps = [ "collection-basic" "texworks" ];
+    deps = [
+      "collection-basic"
+      "texworks"
+    ];
     sha512.run =
       "b1f38877115fb6efc9b63a5591c399b799f3a258e342d5e198b74b582628461ad67ea7c1ab76e5ae83a3e8e538c62ac3e7c5b3d3f1d29c093331843067cfec57";
   };
@@ -13322,7 +13383,10 @@
   "context-gantt" = {
     revision = 47085;
     stripPrefix = 0;
-    deps = [ "context" "hatching" ];
+    deps = [
+      "context"
+      "hatching"
+    ];
     sha512.run =
       "e0c61179f4ecdf93c13dbfe19f59487fbce55e1a0dece76ac025a88a452e7168c5e3b84e53c01bcae4cc412993be36eb554dc5f7299fc1205f4070aa07a834cf";
     sha512.doc =
@@ -13491,7 +13555,10 @@
   "context-vim" = {
     revision = 62071;
     stripPrefix = 0;
-    deps = [ "context" "context-filter" ];
+    deps = [
+      "context"
+      "context-filter"
+    ];
     sha512.run =
       "12100c7aa3eb555cf9dbe72454a96e63feda52329a8a192ff86ba30477acab4ebaaf84c15a79f16d4e3f95cef02baf8146e5810b8c9e8e94c25ba1317bf4fc2c";
     sha512.doc =
@@ -14016,7 +14083,11 @@
   "crumbs" = {
     revision = 64602;
     stripPrefix = 0;
-    deps = [ "catchfile" "etoolbox" "xkeyval" ];
+    deps = [
+      "catchfile"
+      "etoolbox"
+      "xkeyval"
+    ];
     sha512.run =
       "f4e3e045665c16d02c6b1cf2d43957fcbfe38ceb17b6bed9445803d4134a3ad2c22b552230ed685d42c33864169c782c9ef51ba47669d7a975e699ec532a1f76";
     sha512.doc =
@@ -14681,7 +14752,12 @@
   "datatool" = {
     revision = 52663;
     stripPrefix = 0;
-    deps = [ "fp" "substr" "xfor" "xkeyval" ];
+    deps = [
+      "fp"
+      "substr"
+      "xfor"
+      "xkeyval"
+    ];
     sha512.run =
       "323b1526a32eb4e0d81db77278d66ebb6ac91fa357f7f76c8ac1f199efdc4be17ae4f8fb83fe55f3ac9cfb8a18d163a85d6c21cc11c26e4dea0db5f85dc12dd5";
     sha512.doc =
@@ -14754,7 +14830,11 @@
   "datetime2" = {
     revision = 63102;
     stripPrefix = 0;
-    deps = [ "etoolbox" "tracklang" "xkeyval" ];
+    deps = [
+      "etoolbox"
+      "tracklang"
+      "xkeyval"
+    ];
     sha512.run =
       "7f2ad65f95e3881e5016647bff85b10138faaa7d26d097bdce0ec7b30cc0d913a43c2a45b0caa69a6669e54725122cf1a86117d0d4f543caba67058423af7f62";
     sha512.doc =
@@ -15335,8 +15415,14 @@
   "debate" = {
     revision = 64846;
     stripPrefix = 0;
-    deps =
-      [ "listings" "listingsutf8" "pdfcol" "tcolorbox" "xcolor" "xkeyval" ];
+    deps = [
+      "listings"
+      "listingsutf8"
+      "pdfcol"
+      "tcolorbox"
+      "xcolor"
+      "xkeyval"
+    ];
     sha512.run =
       "88f9ff3f473dfbd84509adfe4491d15b7c20229361afde9cbce382be0441378cd6bb7d306c9b0a424dc065f34ab2d86eca8a0334d00fd3a5bae513776c418815";
     sha512.doc =
@@ -15391,7 +15477,10 @@
   "dehyph-exptl" = {
     revision = 66401;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "278e3c30cd1f107075fec4cc4d9301e97a19500398d2c4e87cc9df43479db5abca70cd3fe9bde3c3ff7545d0674bfda799dcd4211137a54cca22851ef1f31ffa";
@@ -15867,7 +15956,13 @@
   "docshots" = {
     revision = 65141;
     stripPrefix = 0;
-    deps = [ "fancyvrb" "iexec" "pdfcrop" "pgf" "pgf-blur" ];
+    deps = [
+      "fancyvrb"
+      "iexec"
+      "pdfcrop"
+      "pgf"
+      "pgf-blur"
+    ];
     sha512.run =
       "1d4ce9b3bd39d12bc4fc2630c3f9116e7030d623700e951fa99e5bd25fcb2965765d5bf32a709eb9ea2ebd39382ef1ef33205ddd24c6cd5e9b75136de0ff18c2";
     sha512.doc =
@@ -16671,7 +16766,13 @@
   "easyfloats" = {
     revision = 57204;
     stripPrefix = 0;
-    deps = [ "caption" "environ" "etoolbox" "float" "pgf" ];
+    deps = [
+      "caption"
+      "environ"
+      "etoolbox"
+      "float"
+      "pgf"
+    ];
     sha512.run =
       "2d02a55fc3d50e5fb79ebe8188300db47aaecb42089843033c569ee0508a38f81e9409d872535e1f7fe3b13a067bdabbf8249073b803c8d232d08aa1d5520d48";
     sha512.doc =
@@ -17644,8 +17745,15 @@
   "eolang" = {
     revision = 66283;
     stripPrefix = 0;
-    deps =
-      [ "amsfonts" "amsmath" "fancyvrb" "iexec" "pgf" "pgfopts" "stmaryrd" ];
+    deps = [
+      "amsfonts"
+      "amsmath"
+      "fancyvrb"
+      "iexec"
+      "pgf"
+      "pgfopts"
+      "stmaryrd"
+    ];
     sha512.run =
       "992fa67344e812c7eeea80ce93f1bc7327bb0eb1782e65fbc8a31b2dbab33059532a2ee6445ee5768e15cf5ee7945123d5e3eaa527e72dbeb1a2a16afc2ecabd";
     sha512.doc =
@@ -19297,7 +19405,14 @@
   "ffcode" = {
     revision = 65170;
     stripPrefix = 0;
-    deps = [ "environ" "microtype" "minted" "pgf" "tcolorbox" "xkeyval" ];
+    deps = [
+      "environ"
+      "microtype"
+      "minted"
+      "pgf"
+      "tcolorbox"
+      "xkeyval"
+    ];
     sha512.run =
       "e76c0605b8a074d1827a73a3ba4e9fae40ade590b01e90ee10593c4484e0a534cebb556bf49389fa03355424910cc349b73fbae2827153fc717be69d38d007e0";
     sha512.doc =
@@ -20251,7 +20366,14 @@
   "fontspec" = {
     revision = 63386;
     stripPrefix = 0;
-    deps = [ "euenc" "iftex" "l3kernel" "l3packages" "lm" "xunicode" ];
+    deps = [
+      "euenc"
+      "iftex"
+      "l3kernel"
+      "l3packages"
+      "lm"
+      "xunicode"
+    ];
     sha512.run =
       "fc4516b96eefa9cb896488510f5ac531446acfa7993abc2f361751e06fe95128afbaadad393dd7ce8c22ea731c81ba99cd8182ce8205c55f78f64a69ba815996";
     sha512.doc =
@@ -21007,7 +21129,11 @@
   "gbt7714" = {
     revision = 64633;
     stripPrefix = 0;
-    deps = [ "bibtex" "natbib" "url" ];
+    deps = [
+      "bibtex"
+      "natbib"
+      "url"
+    ];
     sha512.run =
       "f2f869bf4d507ac76ee576f1bb739bc5e5681d3f2cb1db64841f90dfb22a9b18aab04c5722e231280cb94f055ab002ed99fc965bdbb3d2bdeb8d953f704e73b2";
     sha512.doc =
@@ -21155,7 +21281,10 @@
   "geometry" = {
     revision = 61719;
     stripPrefix = 0;
-    deps = [ "graphics" "iftex" ];
+    deps = [
+      "graphics"
+      "iftex"
+    ];
     sha512.run =
       "ed64996404299bd8379197b293baed752ff064e04eec87ffafdfd55cf21c2c48174560eb1c3bcdb0b06190badb9d9cc699aaa7a2ac8a5c537b0c818a423770fc";
     sha512.doc =
@@ -22080,7 +22209,10 @@
   "graphics" = {
     revision = 64892;
     stripPrefix = 0;
-    deps = [ "graphics-cfg" "graphics-def" ];
+    deps = [
+      "graphics-cfg"
+      "graphics-def"
+    ];
     sha512.run =
       "e123ddcd0af8ddd37519076b86a443ff74af4da4a960446708c344a2fe75b700a4700db71414cfe06470532ef863926e5e45b9292f81dfed07f60323543e92cf";
     sha512.doc =
@@ -23466,7 +23598,10 @@
   "href-ul" = {
     revision = 64880;
     stripPrefix = 0;
-    deps = [ "hyperref" "ulem" ];
+    deps = [
+      "hyperref"
+      "ulem"
+    ];
     sha512.run =
       "fd3ddb8d494b5b6a80bddf3e28747cb872452d8bf56e0e59cdbd19e811a235683ac0aff7e92e358f7b9f352cfc2b6c03f2263248cc13e147e4dad649fb331381";
     sha512.doc =
@@ -23801,7 +23936,10 @@
   "hyphen-afrikaans" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "0f969847994b3b377c752c23f802e8c51b4076efc2d43ad2560a72b83cea3bf0a64d7df18a59afe4289a4547a9f23cf81b0c365a499be85a2467579941fa9700";
@@ -23810,7 +23948,10 @@
   "hyphen-ancientgreek" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "3f91560ecf78c5540fd4f5d9890f6aa7a57bcd3a41095985785505b82e40793b91a5da3a01bdc021b11c32db3dd7030a104686b34b496c9094acfb85509cd007";
@@ -23819,7 +23960,10 @@
   "hyphen-arabic" = {
     revision = 54568;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "85012062097dd4b624cb39c68b293169a25ab3c9cd15b4474c3a3ffbe4b8ab13d6856c6c70a580da45a2d210952df2d9760682da3917cfd24d17772dc2ccce7f";
@@ -23827,7 +23971,10 @@
   "hyphen-armenian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "59538414bf5a4701199100fbd9d5247999a36bc28c7c6ef2a28deb9024e01605d48839f00f345c848365853ac3a9f1aab7402f44860532d7a5c099d2f27ee189";
@@ -23845,7 +23992,10 @@
   "hyphen-basque" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "b90680dc5692824d60ca603e8bdd2fcade7cc772c8c0f9538d579704fb16165db2baf0c466ccaff46d92491b4a678fa86a127c0d106dbef6d640dfd2f887663d";
@@ -23856,7 +24006,10 @@
   "hyphen-belarusian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "19b9bd10d2357d0cb6ecc9ddb5e46b65b3c0eec1b2917a78311f255c1609bbb86595ce617d331271a72de934ae4001597f4a04d61b3810e34f3b197b21cab193";
@@ -23865,7 +24018,10 @@
   "hyphen-bulgarian" = {
     revision = 58685;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "9763e6ece053594b01cd9255a8a3551eb6b86ab082f6f9283664e256c55d43b9513b624774a650d83215d656334751f569496030187c1c78e2fe80f2d10f2f1f";
@@ -23874,7 +24030,10 @@
   "hyphen-catalan" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "37189e09ee902f2c5145f30180b51211091b07d7d04125c98f1b7c424ad27f6899424b78cd17c559509076eeeb957b4f268fb4130807e7fafb461174fed8200b";
@@ -23883,7 +24042,10 @@
   "hyphen-chinese" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a78b70095fcfe297e2d85a49108affd5d48451ff4740461eed46d395410a665011614c9a89dff37e9477ee3803de6ebaa68595ac39222f2968a4124355ea7fa7";
@@ -23892,7 +24054,10 @@
   "hyphen-churchslavonic" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "c44b3f5fec7b44958336dcfb1a43c5b71fd1715262278863f5fcd74d7ec0cc6f1d572b741256d791e6979f15e4b0fcda8058725e27f17e1deb6e5df5fdb007ab";
@@ -23901,7 +24066,10 @@
   "hyphen-coptic" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "fe36adfe900e23f2b0c3e9c3a3d96b608c49bf597222537d355d6a68e2f87f587db78a1921ab1c9a80ea175529e353524c35e99b83ef7f5515ab7c0aacd2f680";
@@ -23910,7 +24078,10 @@
   "hyphen-croatian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "8355d0aa95bb2e72bfc45015f9ae9f6a138f94441387a4daadfec5be4060878f6e69d05eab15432d99c256c1a3f68c122d5c915164fe343459d658a4543ddf42";
@@ -23919,7 +24090,10 @@
   "hyphen-czech" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "f5c8b08c2db716dfa6d36fcf337b4e18372978d04e28ff2c8ed0a0b3866f4bb3efb7b498fedbfde5052fc504b8677ae553c2dce73701e219632d8c5460d7e826";
@@ -23928,7 +24102,10 @@
   "hyphen-danish" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "954543a3fb81ff00d9c58315ba59d7a5e3430217dda6c1453bcb7ffb0516025dea4b877eb9d66c9f80ccc69d3d4895bdc6ae1b611d8394435fa647b8b806559d";
@@ -23937,7 +24114,10 @@
   "hyphen-dutch" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "111371e47ca29069a5a9144d694858dd899b19e2b38d0c793b1e4884c69ae2d62398aacb4cd89e23246fc025e42872875bc808c1f327ac1502fac88c962e6c14";
@@ -23947,7 +24127,10 @@
   "hyphen-english" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a305cf89138e4327844d43a7e21773e31ac97a4655e4d58ae9a46dc0df565e432330debf704c37b4ad552561357521eba0b676755544ceb9c4f21ace09d6dd2c";
@@ -23956,7 +24139,10 @@
   "hyphen-esperanto" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "ed2976e9fb3eec5d2f0759348b284129e43bf161db571dd21270335388b8aec57e1b8393bc9b246f8a6e9cde22f93a4cb3c1a03dcadd64fdda3d70b576789050";
@@ -23965,7 +24151,10 @@
   "hyphen-estonian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "0eb91153214aaca8c3b5816f5315f9afdeb7c19521c87c79ea2b35e82217bfb23c8bb774baf810206f4413fc663e441ebe6b4962880ca0dbcda9209d2acce3b8";
@@ -23974,7 +24163,10 @@
   "hyphen-ethiopic" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a1532603758e7f774acba7c13ee74f0046ff187598ca86b2e93b91da31317f03fdbab5d4d7c0814978fb2ac159bd6e5a48e6e734c19758da21ad0a031844f52b";
@@ -23985,7 +24177,10 @@
   "hyphen-farsi" = {
     revision = 54568;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "5b02582769a55bb07d81e748e83170c16aca1c33b0a240cf547fa9c2212f2be52223e258229c760ddc5dd730419bd9e761614cc4fb3b3ba8102841bb779af511";
@@ -23993,7 +24188,10 @@
   "hyphen-finnish" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "6aa171d77952165cdcb1b667885f16dd382124ed70ed1db80a9a89553d972720d8ff5f0da1b36669e02c3030d9ff362ab77ba1fa2ba45cddfb460018f0c0191d";
@@ -24002,7 +24200,10 @@
   "hyphen-french" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "b9d2d05311a90f4caa6c4e8aa8a2e80e9c15fc3552f03f0ac6ec70d386610612715deb6e778247248355a3a209fb2413d6d2aee12f18bc35d5a334870b612507";
@@ -24011,7 +24212,10 @@
   "hyphen-friulan" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "d1775a9b6e6b7fa155e44c93271e2ccb41bd1ec143ea0cf624841ad48a123db924dd134e6e60b862a808ad2058ed5b86cb34d98e5728b9dccd3997ba2f06932e";
@@ -24020,7 +24224,10 @@
   "hyphen-galician" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "2d707542f80dc94ad20c0daa776df23b773a5e6ccb261e11db675e1e89f5f303a4f5cd50d97f491cc7ea8b0f3c0d3f6391707812a95d4e72cca3afa7815e566f";
@@ -24031,7 +24238,10 @@
   "hyphen-georgian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "edaf041a2f92b0f7dbf28042c81838e8fd781cf9c3ad529c314227c94917ce4e8728ca676f8bd42e2a81bae76b11aabc1e22896e3ef9cd38ca4b718bc58fa0cb";
@@ -24040,7 +24250,11 @@
   "hyphen-german" = {
     revision = 59807;
     stripPrefix = 0;
-    deps = [ "dehyph" "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "dehyph"
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "c27389dea67ffd0d45419d484b0c72577b2d5b8234266483add078b970d5d994d41f7cf9a1509ad93efe9489501f986127ea717135c5f57588094393e0d7219e";
@@ -24049,7 +24263,10 @@
   "hyphen-greek" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "3da84f41aaf7e5d4be0ce609e4d119e65c9189ff6662051cb7e879e9e373d990ef1c59ac7cfead1bdbc6e55b52d4b3ed28d157b22dbec43e5226f16872d5a7de";
@@ -24061,7 +24278,10 @@
   "hyphen-hungarian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "868a4c3f4d0eda078054026bd1ec35e05c2f4013e093bf58147bfa2d861814242b55a900ce60384767558c9552ff9d41cf447e2a157bae83bd2877251012d96b";
@@ -24072,7 +24292,10 @@
   "hyphen-icelandic" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "69add7ccde189e86810e2a82692a260de9a9fcc0ba011352881d202d4f4c94c4dbd84fe36dff40ef9b9ad3e8e990947cc61022307790f13cad56744f3ef5e41f";
@@ -24081,7 +24304,10 @@
   "hyphen-indic" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "765be1c13ef3445b056b61c24460cc2f18bad038c04541bf4773c7f61c6d26be25d3079b260a1b9623e2f01155ec52eb5bc87b0ea9234e50a5ca24dd8a7a5937";
@@ -24090,7 +24316,10 @@
   "hyphen-indonesian" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "3f04a63010c02d77cb229c90aec9f1079557493958573be9ce992ac5ae3c229f01f9abc0cac785d9340ff48aa169a01f8b327ecb2e255bef57f1fe85d04d1d2a";
@@ -24099,7 +24328,10 @@
   "hyphen-interlingua" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "dfed82ea70f25d452726b5cd03d8e060bddc23cbbc5deebab2ddad93ce6744c38d357327fbe570bf7a1444f62cee0cc422a6c7d066d6693a238d851b4fe46e32";
@@ -24108,7 +24340,10 @@
   "hyphen-irish" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "478a77c4ab8231a3041c3427075f16c072f58a394eced8ff0cd5da6544f3f2fd65722f33fd8344e18060c96f09bd18b90af71f8508639fc9c59d29d704d9e348";
@@ -24117,7 +24352,10 @@
   "hyphen-italian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "4e79ee31893d6c948a3aac8588d4beb75d89f89df973b1e39cd63894e008af55f8dca774194d7eb105fb0aef692b17bb645d5bd85cca7debafd74aabf241bc30";
@@ -24127,7 +24365,10 @@
   "hyphen-kurmanji" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "e5114da178fc841b1079130c01f8729ac94f0e3592dbd479f44a978ea009fd75b410d6130d9badd6227d115d8f6dad3ed4b553dbfbf4f80be5d1c2adf108e2fa";
@@ -24136,7 +24377,10 @@
   "hyphen-latin" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "9d0db7fcad4ca764379957fa22f9daede79898bcacfbdb62abe54318a52dd82a66f8e39542c18008e3f6b6d0db284b1e9b891531d3c8f3c9cf22c764e83d57b3";
@@ -24146,7 +24390,10 @@
   "hyphen-latvian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "85aeadb0cb3c5de9ef48057132ccd958d17f014b07b56b9ebe2186a709c4e7646fad260e156718e43ec3eac88681654f88c9b53a6d71fb3eaee934dcb4439ed9";
@@ -24155,7 +24402,10 @@
   "hyphen-lithuanian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "7a691e3c55c768b9ea5ef13552dc42025ab613df0a0d5c0d54aad58b63da11a93e59bc53e6a8211d5e054cbea8500846da01e9619bbee723d648e2d369a49d55";
@@ -24164,7 +24414,10 @@
   "hyphen-macedonian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "f88208291212874df493151581205d1b270b2d4278176c42e11edac9b344b73c2ee859f93b6947e4a6003a00abc4d3753024add9caf84f114c8a0cec72aa8c8d";
@@ -24173,7 +24426,10 @@
   "hyphen-mongolian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "159562a8feb25918bc422e7dc78a46423c7fff2f3c61016a0162761411999a5555be3c6e36cf967d5034f65c12f4b0834ae0c0423c2f3ab17a65034b1803dc72";
@@ -24182,7 +24438,10 @@
   "hyphen-norwegian" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "8b02e90bfcdf3c6d4bd1966b21e0512069f1749c638d537e9553f68e61e0bc325db8d3b462f45650db4376c7a769c2cde3e0c0601d7de272898a23cd2251c064";
@@ -24191,7 +24450,10 @@
   "hyphen-occitan" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "b0743d1f6083dac7a347e22aed19d0c5d76119582e4862557a55b817b17dddaa69a2150f14daf6b08689278dd61b27c1b6ed45df5601dd6327bf185a7a46a5c6";
@@ -24200,7 +24462,10 @@
   "hyphen-piedmontese" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "fa7fc73edd582ba20b8236507385f0a30f477bb9c79e35fea56aa4020be966b9c4a16a327848dd051fa4cf6e6117ef8a51eb92ed6cb72f6993cb290fa5cd5ca3";
@@ -24209,7 +24474,10 @@
   "hyphen-polish" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "5580b3865ff8d20d475cb962b0257b909ff0e410b6776cb8153145fb0ee42b2f777069413bc6b3622c8c52318aba1ba836210e8972c5b6a47ef978c24fc8848a";
@@ -24219,7 +24487,10 @@
   "hyphen-portuguese" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "9d9ab3e616522ab9837bb7c7509127f998c442e96f96ee6b6fc0fdc9ac53fd03319d0c0ce28e23a35f1ae0ebb840cdeb19e8ab6444549c33059b28e7b307486e";
@@ -24228,7 +24499,10 @@
   "hyphen-romanian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "124a93a633731dc1b3d6cbf2fc9b8489bf0737911a0c25ea44dbdfffa07c165ba5804dfd7e9cbe0be3b6eceb9fd6e95daefcae2356ee140f644416bbe1b13507";
@@ -24237,7 +24511,10 @@
   "hyphen-romansh" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a69d3881493c70cfd58e3d79ed76ce6f18bbcb43e1683f31270eafeb743b366a3c52c9945ff94db333e88ca18145263ba74002f5e78bb42d7aefa48c66af7955";
@@ -24246,7 +24523,11 @@
   "hyphen-russian" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" "ruhyphen" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+      "ruhyphen"
+    ];
     hasHyphens = true;
     sha512.run =
       "f17852dffbb8f5c337b8316b92c2b0a60a318df491231047d9c0930d55d8b2be3274ec94d0d87085d53e06e89c585d47250f046300bf3890ce751f6f2052d348";
@@ -24255,7 +24536,10 @@
   "hyphen-sanskrit" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "e84b6ca93e922c9c6edf03f4dbec1fae9eef2462379ef2fd0f3508a5048b54819c5ba12e0d76bafe1336666ca74ba95e27f63224fa048068bc515f3bc41f6eba";
@@ -24266,7 +24550,10 @@
   "hyphen-serbian" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "390aa9c116b6db7b362fc57aa0758a4c489c5fe33c718fb37675b17a9772a463ce532a2ace3e1ef90275b4afef5ea8d6cff71a7abe625d84e3f461c115306452";
@@ -24276,7 +24563,10 @@
   "hyphen-slovak" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a0786980e0cda7029a72075023520acdc998b83226e85deb0b8186ee4293560321517d507f74fbe68f1d68a16cd8af67aae68baead9176f9cc687bcc7d0a72e1";
@@ -24285,7 +24575,10 @@
   "hyphen-slovenian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "a605c9149ae452df8b2c25aa0f6bcdde53150e4485147a065f1f56c9740c3544c5c7f9c6049aea913916a62aabaf40777cf6f0f76a858e485c0bd09826a6ef5b";
@@ -24294,7 +24587,10 @@
   "hyphen-spanish" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "d6783537ff44a326b83c2004afd63f5bdbd162fa4865138c2e6d34c9e6a103ac41dd7b382454646b09c74970f8e0d5827a5f4af617936f74fd300b2054a096d4";
@@ -24308,7 +24604,10 @@
   "hyphen-swedish" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "5f993ae6b22eadb87b6a1839bfa7d78a0dccc1107c5afbec8c248ed001018da38bb179e29f2430cffa90283221b20c5475346a8d5566edf16152266257f2a37d";
@@ -24317,7 +24616,10 @@
   "hyphen-thai" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "8336eee03250859ab4328ad3c1fe437d2af688ef56b43be49c45838965ffe033befa84cdf600e9f48cdf60cbbfbff44450c830bd4c34556f680c5096ed3aecc4";
@@ -24326,7 +24628,10 @@
   "hyphen-turkish" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "5c7023e01bf59af4d36bd451f51ae00c445711c7ecf109c9d835f1d689446d7b0b1b2627b7f9e84e4f4a8ceff52227ff280ac64481e1d29d538a30e093dace85";
@@ -24337,7 +24642,10 @@
   "hyphen-turkmen" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "c984bb7f09c5816c36a7a790f16df1750ee90f36e2130994ecd1db63f26afb650245985699a80da9b4d7004ad67106771d8c7b79262438369aee3f52fd8374cf";
@@ -24348,7 +24656,11 @@
   "hyphen-ukrainian" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" "ukrhyph" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+      "ukrhyph"
+    ];
     hasHyphens = true;
     sha512.run =
       "05a9111b358c659159c6edfd38b9ce3d78febd794cc82968dc3e2acdc3612786304721fbd07f00f0a8278f4c2e46a1bfad821b5da45e60546d6acb5bf9068d08";
@@ -24357,7 +24669,10 @@
   "hyphen-uppersorbian" = {
     revision = 58609;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "b2cb1bcd953ffabbd3f5acd8c72e9c60415fd300004de56ee446fc77d381aac1db65d613a2f591d3d0e45f2a12ff5340457ae3061b4c77de502923932383bdcb";
@@ -24366,7 +24681,10 @@
   "hyphen-welsh" = {
     revision = 58652;
     stripPrefix = 0;
-    deps = [ "hyph-utf8" "hyphen-base" ];
+    deps = [
+      "hyph-utf8"
+      "hyphen-base"
+    ];
     hasHyphens = true;
     sha512.run =
       "12a23e0b9d00eb4381e3c97ecbb449faf5a73b755a17fc0301f1cbad5d0babb370aeec16dcdd316cefb56e142873abaa685288b1a1d3c7dcb76a07a9ef127ac6";
@@ -24556,7 +24874,10 @@
   "iexec" = {
     revision = 64908;
     stripPrefix = 0;
-    deps = [ "tools" "xkeyval" ];
+    deps = [
+      "tools"
+      "xkeyval"
+    ];
     sha512.run =
       "7e6c55383a22d2b47858e02b0d7023a7d130a089c550c0d4aa387035374ba6e0266b35a2f825e4d0bc4fb084bab42686df610f8f6f9007ff155bf7c150383cb1";
     sha512.doc =
@@ -26350,7 +26671,10 @@
   "kotex-oblivoir" = {
     revision = 66516;
     stripPrefix = 0;
-    deps = [ "kotex-utf" "memoir" ];
+    deps = [
+      "kotex-utf"
+      "memoir"
+    ];
     sha512.run =
       "29d7c6a98c086b7e3b9b857151250bc9e5e1e28b52f5215b61a0b30fe96278d0571a117d245a40e141e7724641a4d5e9439ca960b6888c07f2d8347b67ccae05";
     sha512.doc =
@@ -26492,7 +26816,11 @@
   "kvmap" = {
     revision = 56361;
     stripPrefix = 0;
-    deps = [ "amsmath" "l3experimental" "pgf" ];
+    deps = [
+      "amsmath"
+      "l3experimental"
+      "pgf"
+    ];
     sha512.run =
       "54a107c866519e6ce6cb69bd8c13ae085813c4adf235592e32cbfb2bd7eb8039ff8e1fe165f43892367a28ac0984874581424e733b1d3722796204df96d840f3";
     sha512.doc =
@@ -26819,7 +27147,12 @@
   "latex" = {
     revision = 65161;
     stripPrefix = 0;
-    deps = [ "latex-fonts" "latexconfig" "luatex" "pdftex" ];
+    deps = [
+      "latex-fonts"
+      "latexconfig"
+      "luatex"
+      "pdftex"
+    ];
     sha512.run =
       "de95ba089738862d57b1139a21da57a8263cbe9ff81a7ab43608ce23fde57b4630057a95c99ecb7be712bc864e0c07a56429019d7aa9f63c01f47a995d5d567d";
     sha512.doc =
@@ -27790,7 +28123,12 @@
   "libertine" = {
     revision = 64359;
     stripPrefix = 0;
-    deps = [ "fontaxes" "iftex" "mweights" "xkeyval" ];
+    deps = [
+      "fontaxes"
+      "iftex"
+      "mweights"
+      "xkeyval"
+    ];
     sha512.run =
       "7b95b6612f5b46298cddf459184f11752a4b050110bd1d0271e43e364aa5da58c9e27d3b72119b76e863a19ab0987ea408d749ecf18ff40da1ab8a585e31c7cf";
     sha512.doc =
@@ -28419,7 +28757,10 @@
   };
   "lollipop" = {
     revision = 45678;
-    deps = [ "cm" "hyphen-base" ];
+    deps = [
+      "cm"
+      "hyphen-base"
+    ];
     hasFormats = true;
     sha512.run =
       "81557b83acfa4ad42dfa6fb1a65ea42bc33885da444ee23bc3c67a899df7b3ac2c19a1607305b5ec10b503980365c5d29ac3598339fc186a05417ea5bca60a78";
@@ -29282,7 +29623,10 @@
   "lualatex-math" = {
     revision = 61464;
     stripPrefix = 0;
-    deps = [ "etoolbox" "filehook" ];
+    deps = [
+      "etoolbox"
+      "filehook"
+    ];
     sha512.run =
       "16c945e72165acd9f4bcf20f81e6c5df9ec22f19d45cbb8f076763d2d1a1a2e230938dabbadfcc065e3a060487885ac2edb223aae22d12f6981f5fca5c0f951f";
     sha512.doc =
@@ -29392,7 +29736,12 @@
   };
   "luaotfload" = {
     revision = 64616;
-    deps = [ "lm" "lua-alt-getopt" "lua-uni-algos" "lualibs" ];
+    deps = [
+      "lm"
+      "lua-alt-getopt"
+      "lua-uni-algos"
+      "lualibs"
+    ];
     sha512.run =
       "70f27796fdfe61e0337239a2962052eb2896478358fca0f271287db06a1d2de2f83cd7394d0ec6c281e9a5779ec396e2993f53b8b045ed7a09cb17f100a4a477";
     sha512.doc =
@@ -30298,7 +30647,10 @@
   "mathpazo" = {
     revision = 52663;
     stripPrefix = 0;
-    deps = [ "fpl" "palatino" ];
+    deps = [
+      "fpl"
+      "palatino"
+    ];
     sha512.run =
       "72bfba52e37abd933cb7b1b19dd813c3c76438591c94f9c407cabb8a44c8c67f78fae04442027287e5bf30b7239c3703ece4271194716882773eeb50d4cb2f47";
     sha512.doc =
@@ -30766,7 +31118,10 @@
   };
   "metafont" = {
     revision = 62387;
-    deps = [ "kpathsea" "modes" ];
+    deps = [
+      "kpathsea"
+      "modes"
+    ];
     hasFormats = true;
     sha512.run =
       "4e287680b7b14497133165a45ed668dd326e587a305475d90f4b545aa1973a0e6001fef2e3a9afa5fd2f343497d109f4670fcc0f4c0263b20624dbbad1f21bd3";
@@ -31020,7 +31375,10 @@
   };
   "mflua" = {
     revision = 62774;
-    deps = [ "luatex" "metafont" ];
+    deps = [
+      "luatex"
+      "metafont"
+    ];
     hasFormats = true;
     sha512.run =
       "fa735fa117e7bd433339efbb709caa5fc25007088500dd5e4f6999cc417d188fd43435f74d526186880ac857f9bfc52e1fb7f1055974cea959e28536150b1a19";
@@ -31096,7 +31454,14 @@
   "mhchem" = {
     revision = 61456;
     stripPrefix = 0;
-    deps = [ "amsmath" "chemgreek" "graphics" "l3kernel" "l3packages" "tools" ];
+    deps = [
+      "amsmath"
+      "chemgreek"
+      "graphics"
+      "l3kernel"
+      "l3packages"
+      "tools"
+    ];
     sha512.run =
       "fffeb1ce083d8eb3da6543409e5cc735c9699f9145114c8325c336b93d2dab2a9976fc448c6324318407c3af888cb91cc7764fcf3bd24369e4940f00dda66429";
     sha512.doc =
@@ -32515,7 +32880,11 @@
   "naive-ebnf" = {
     revision = 66029;
     stripPrefix = 0;
-    deps = [ "filecontentsdef" "l3kernel" "pgfopts" ];
+    deps = [
+      "filecontentsdef"
+      "l3kernel"
+      "pgfopts"
+    ];
     sha512.run =
       "cfa82893728524f15e26758cfd25b42cce7499ad48fb5362899cbcd8717e57e3f8a18d680d5f4493b66e9de910b3c16b251ba23a11401b83da03f88a8d15940b";
     sha512.doc =
@@ -35059,7 +35428,12 @@
   "pdfpages" = {
     revision = 65319;
     stripPrefix = 0;
-    deps = [ "eso-pic" "graphics" "oberdiek" "tools" ];
+    deps = [
+      "eso-pic"
+      "graphics"
+      "oberdiek"
+      "tools"
+    ];
     sha512.run =
       "c29f811574dde6dcd717255d40df7234d0916d6e7e4fe4c25e62639123bcdf4464e3e285c335c11bf2a289e8ca6391278611a0073fbd3ac8a071790717b2778a";
     sha512.doc =
@@ -35374,7 +35748,14 @@
   "pgf" = {
     revision = 65553;
     stripPrefix = 0;
-    deps = [ "atveryend" "fp" "graphics" "ms" "pdftexcmds" "xcolor" ];
+    deps = [
+      "atveryend"
+      "fp"
+      "graphics"
+      "ms"
+      "pdftexcmds"
+      "xcolor"
+    ];
     sha512.run =
       "d7fbf0dc83f88a2f6d2de3117365d3f4ac2379ecbc530e343bc3e02ac8083e9a9843d479d375d086e39b6377b21d2fcba22883485e040fab1601642ba80128b9";
     sha512.doc =
@@ -35417,7 +35798,11 @@
   "pgf-pie" = {
     revision = 63603;
     stripPrefix = 0;
-    deps = [ "carlisle" "latex" "pgf" ];
+    deps = [
+      "carlisle"
+      "latex"
+      "pgf"
+    ];
     sha512.run =
       "3e5cdb5def0918ab1c3d38d35bb85f07711144d1fcaf0f3af8b2c5e0eacd9af6c3b92bc6e1f45438e40d7f5838770b91ab513970cdd9a3f7dad2918eefb875f6";
     sha512.doc =
@@ -35448,7 +35833,10 @@
   "pgf-umlcd" = {
     revision = 63386;
     stripPrefix = 0;
-    deps = [ "latex" "pgf" ];
+    deps = [
+      "latex"
+      "pgf"
+    ];
     sha512.run =
       "a55281a157a2a347f1c9d82679cd663f4493e03123d14dbef0d71582613772252b693a25b3d3e5b72b948c4fd12d0d7b0354d2e38083583b550d7cfb5e634d93";
     sha512.doc =
@@ -35459,7 +35847,10 @@
   "pgf-umlsd" = {
     revision = 55342;
     stripPrefix = 0;
-    deps = [ "latex" "pgf" ];
+    deps = [
+      "latex"
+      "pgf"
+    ];
     sha512.run =
       "6b015603e3daa362e473d795d32fa785ce247b58ec9f88872fe4bdb4fa660000bd87da2369de556f998485a6fcb6dd49aaca549b0470b41adacba5a278453197";
     sha512.doc =
@@ -36422,7 +36813,10 @@
   "polski" = {
     revision = 60322;
     stripPrefix = 0;
-    deps = [ "hyphen-polish" "pl" ];
+    deps = [
+      "hyphen-polish"
+      "pl"
+    ];
     sha512.run =
       "24bdb98990f66e89085056e6ad3e0930dd16d0f4bbd07a2c9a49931796e143505276d2025fee21b2b52d927c3b2992d31f4edae4668cdb549f6f00ef43dc1c69";
     sha512.doc =
@@ -36445,7 +36839,14 @@
   "polyglossia" = {
     revision = 65792;
     stripPrefix = 0;
-    deps = [ "etoolbox" "filehook" "fontspec" "iftex" "makecmds" "xkeyval" ];
+    deps = [
+      "etoolbox"
+      "filehook"
+      "fontspec"
+      "iftex"
+      "makecmds"
+      "xkeyval"
+    ];
     sha512.run =
       "c6d044ae7de7893de975d7bfc36c7f793c22cc91436c614d817f6328017223e303581ca3d870b0c6698979924437370729542c3e03be059eb90956d25eb7102b";
     sha512.doc =
@@ -36716,7 +37117,11 @@
   "prettytok" = {
     revision = 63842;
     stripPrefix = 0;
-    deps = [ "filecontentsdef" "l3kernel" "precattl" ];
+    deps = [
+      "filecontentsdef"
+      "l3kernel"
+      "precattl"
+    ];
     sha512.run =
       "8b9f5e9fec9d50b9f688115e00ad6fde21adfb9cef69e020fb297abcfe489cc6fde08d2ad4b72ea5f6b8e0b7499a97c798e8c0bd306d298427fcd19b6365c300";
     sha512.doc =
@@ -37107,7 +37512,11 @@
   "psnfss" = {
     revision = 54694;
     stripPrefix = 0;
-    deps = [ "graphics" "symbol" "zapfding" ];
+    deps = [
+      "graphics"
+      "symbol"
+      "zapfding"
+    ];
     sha512.run =
       "f7d1acebcd1d32a691221f396220358f3bb15dff2e2cebec4b537b1b790b68d8ce1164711983a52b4f04d6e470df2e3e5fec63bb1d3bf39fe205d5f0351299de";
     sha512.doc =
@@ -38542,7 +38951,12 @@
   "pythonimmediate" = {
     revision = 66465;
     stripPrefix = 0;
-    deps = [ "currfile" "l3packages" "precattl" "saveenv" ];
+    deps = [
+      "currfile"
+      "l3packages"
+      "precattl"
+      "saveenv"
+    ];
     sha512.run =
       "f9e984788484a7fbc839a31c2d410d3f0c91408a67079f0c9557506e31e61e9359de25ca00b27d1c1cf875a8a618c0d3e4ad966d8520c061ad3db6fb1c78dcbb";
     sha512.doc =
@@ -39309,7 +39723,10 @@
   "rerunfilecheck" = {
     revision = 63869;
     stripPrefix = 0;
-    deps = [ "atveryend" "uniquecounter" ];
+    deps = [
+      "atveryend"
+      "uniquecounter"
+    ];
     sha512.run =
       "464daf4ee4f443f4ff329e28b928df94e83e83696e3e5604de7b51beb61c25a0ce50dc00b35d2cc8d0cabb32d10bc28c3c06069f5dd7eafd9fdb2d44a3adf313";
     sha512.doc =
@@ -40179,7 +40596,10 @@
   "scheme-basic" = {
     revision = 54191;
     stripPrefix = 0;
-    deps = [ "collection-basic" "collection-latex" ];
+    deps = [
+      "collection-basic"
+      "collection-latex"
+    ];
     sha512.run =
       "027a1cd0dd4fc5da2427864bb49fc885a00bec6e8a74da24ce9cd781c69bf4288ddfc3c790307ed48052a8fc00c1989d3939b253da6638370adbb1c43348749b";
   };
@@ -40338,7 +40758,11 @@
   "scheme-infraonly" = {
     revision = 54191;
     stripPrefix = 0;
-    deps = [ "hyphen-base" "kpathsea" "texlive-scripts" ];
+    deps = [
+      "hyphen-base"
+      "kpathsea"
+      "texlive-scripts"
+    ];
     sha512.run =
       "f3e449bf0b34deb9ae776685f386245c4ca9644f2175ae51e9c62faa00e3cfac30fa2aa07fbd83b15b21d487ca368c09a18742d2434047783350698ced3b20b9";
   };
@@ -40766,7 +41190,14 @@
   "sdaps" = {
     revision = 65345;
     stripPrefix = 0;
-    deps = [ "environ" "lastpage" "pgf" "qrcode" "sectsty" "translator" ];
+    deps = [
+      "environ"
+      "lastpage"
+      "pgf"
+      "qrcode"
+      "sectsty"
+      "translator"
+    ];
     sha512.run =
       "57559707a9a5a2a924a767b25ed2f86759826a31788fb2662aa2e3ad2889b2266009ec9754c48ce923561c7587c78b23ab56731322a619b4a225775b7beb91b2";
     sha512.doc =
@@ -41771,7 +42202,10 @@
   "siunitx" = {
     revision = 66370;
     stripPrefix = 0;
-    deps = [ "l3kernel" "l3packages" ];
+    deps = [
+      "l3kernel"
+      "l3packages"
+    ];
     sha512.run =
       "6c063dd7eaf851733aeb69d82ab38b1f1f894bdf5c206e62233887c4ed62e699b7a349358ec39e1287842bfc7f7509e51bf8bf5b5b9fd7f1071eea9493677416";
     sha512.doc =
@@ -42086,7 +42520,10 @@
   "soulpos" = {
     revision = 60772;
     stripPrefix = 0;
-    deps = [ "oberdiek" "soul" ];
+    deps = [
+      "oberdiek"
+      "soul"
+    ];
     sha512.run =
       "2b4d2fcaa687ff7d229706e563f739356a450a8ef02180f3c98432b11d027cd097fa895c3c971a944329b8657c74b4d2cf566110919e511e6883706561332678";
     sha512.doc =
@@ -42476,7 +42913,13 @@
   "standalone" = {
     revision = 64677;
     stripPrefix = 0;
-    deps = [ "adjustbox" "currfile" "filemod" "gincltex" "xkeyval" ];
+    deps = [
+      "adjustbox"
+      "currfile"
+      "filemod"
+      "gincltex"
+      "xkeyval"
+    ];
     sha512.run =
       "8e74a676232ffe9fbe93ee3a1095c0c29cd65bd23f8e4602308d8fc1abfde9025c01e8ba379782d4c79d3349b4298806419735c624436a7b0c93e2170c592efb";
     sha512.doc =
@@ -44020,7 +44463,13 @@
   };
   "tex" = {
     revision = 62387;
-    deps = [ "cm" "hyphen-base" "knuth-lib" "kpathsea" "plain" ];
+    deps = [
+      "cm"
+      "hyphen-base"
+      "knuth-lib"
+      "kpathsea"
+      "plain"
+    ];
     hasFormats = true;
     sha512.run =
       "7d177346a2df7e7dbd2fce3635a8860c0deee30271beeba585091f8027c796678a3dc9cda2952a073c9ca02e26cd656a3bdcabe4661c23e81af350a987d7e4aa";
@@ -44156,7 +44605,10 @@
   };
   "tex4ebook" = {
     revision = 66333;
-    deps = [ "make4ht" "tex4ht" ];
+    deps = [
+      "make4ht"
+      "tex4ht"
+    ];
     sha512.run =
       "5ed55a074d557cc433780b838fa0a53a3bd8428a192ddc1bfd71c306a110041663ceb0d6931b580e150ebd7f5f07145796ebd12bfd7d1c986e7feb74803dc104";
     sha512.doc =
@@ -44590,7 +45042,13 @@
   };
   "texsis" = {
     revision = 45678;
-    deps = [ "cm" "hyphen-base" "knuth-lib" "plain" "tex" ];
+    deps = [
+      "cm"
+      "hyphen-base"
+      "knuth-lib"
+      "plain"
+      "tex"
+    ];
     hasFormats = true;
     sha512.run =
       "7309726b33eadf8290e596aab50bb1af95600a067338b352c1ac092643a8c6d4142180d0146abbbb828a38fb08fdd9ae03da6572e6c221afcd151a51430a423e";
@@ -45201,7 +45659,10 @@
   "tikz-feynman" = {
     revision = 56615;
     stripPrefix = 0;
-    deps = [ "iftex" "pgfopts" ];
+    deps = [
+      "iftex"
+      "pgfopts"
+    ];
     sha512.run =
       "34c147e6ee16643e99d2c8fa789b39aea6f3b9ae7de93fd5c65d1b0daca1e9514d484b5b38892a0cffa1aeedcd405df0bc6621bf68e587311bc9fe45205c29fc";
     sha512.doc =
@@ -45963,7 +46424,10 @@
   "to-be-determined" = {
     revision = 64882;
     stripPrefix = 0;
-    deps = [ "soul" "xcolor" ];
+    deps = [
+      "soul"
+      "xcolor"
+    ];
     sha512.run =
       "a7c6b60844601f81bb659f57e212cfdc9e7cf72f24bfc662aed9dd26ebb9385187ebf44d82b59b637544b920c05dd5e3a698b69a0ef7ace4b57cd7531d240e3f";
     sha512.doc =
@@ -46036,7 +46500,12 @@
   "todonotes" = {
     revision = 65699;
     stripPrefix = 0;
-    deps = [ "pgf" "tools" "xcolor" "xkeyval" ];
+    deps = [
+      "pgf"
+      "tools"
+      "xcolor"
+      "xkeyval"
+    ];
     sha512.run =
       "c3430bf32562d19a9a9fcfacf5f61d10bdaa7cc00d6fc271338b9a962bb16ad372290c401da9b8428dc0528ba185f38d94e1a07cf096f34b3d835b4474729252";
     sha512.doc =
@@ -46566,7 +47035,14 @@
   "tufte-latex" = {
     revision = 37649;
     stripPrefix = 0;
-    deps = [ "changepage" "ifmtarg" "paralist" "placeins" "sauerj" "xifthen" ];
+    deps = [
+      "changepage"
+      "ifmtarg"
+      "paralist"
+      "placeins"
+      "sauerj"
+      "xifthen"
+    ];
     sha512.run =
       "6dd01a5a6faf37439ca9aab23534f99050b84bfac16df48545417ee03e72700344c25b2de3262e8e28406da705d50296473a815fa14b701c609b3715f01405d1";
     sha512.doc =
@@ -47389,7 +47865,10 @@
   "unicode-math" = {
     revision = 61719;
     stripPrefix = 0;
-    deps = [ "fontspec" "lm-math" ];
+    deps = [
+      "fontspec"
+      "lm-math"
+    ];
     sha512.run =
       "05dd4b08e8e766c2c8e719a12aa5a28259bc429fb1f1d05850e865ef258ab5e1372a785a2787098ea50bb31c852727ba8269ca656ce55ee0a7355fe4fd7344cc";
     sha512.doc =
@@ -50268,7 +50747,10 @@
   "zref-vario" = {
     revision = 65453;
     stripPrefix = 0;
-    deps = [ "tools" "zref-clever" ];
+    deps = [
+      "tools"
+      "zref-clever"
+    ];
     sha512.run =
       "c3b2965bae0c8354e60cdd8de29cbb45dde04180d4c7955376f1889622d1eac35365fb14cfd79615c5bd98909039c4d4e8bb02bf6225bc6f40a8a95d40137a90";
     sha512.doc =

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  installFlags = [ "PREFIX=$(out)" "MANPREFIX=$(out)/share/man" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "MANPREFIX=$(out)/share/man"
+  ];
 
   meta = {
     homepage = "https://github.com/uobikiemukot/yaft";

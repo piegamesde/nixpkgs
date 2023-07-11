@@ -63,7 +63,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # All files installed to /etc are just static data that can go in the store
-  makeFlags = [ "PREFIX=$(out)" "ETCDIR=$(out)/etc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "ETCDIR=$(out)/etc"
+  ];
 
   postInstall = ''
     # trafgen and bpfc can call out to cpp to process config files.

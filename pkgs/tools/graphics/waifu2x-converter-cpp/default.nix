@@ -29,10 +29,15 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [ opencv3 ] ++ lib.optional cudaSupport cudatoolkit
-    ++ lib.optional stdenv.isDarwin OpenCL
-    ++ lib.optionals stdenv.isLinux [ ocl-icd opencl-headers ];
+    ++ lib.optional stdenv.isDarwin OpenCL ++ lib.optionals stdenv.isLinux [
+      ocl-icd
+      opencl-headers
+    ];
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
   preFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/waifu2x-converter-cpp --prefix LD_LIBRARY_PATH : "${ocl-icd}/lib"

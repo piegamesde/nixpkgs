@@ -87,7 +87,12 @@ in gcc12Stdenv.mkDerivation {
     "-DITTAPI_SOURCE_DIR=${ittapi}"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -128,8 +133,16 @@ in gcc12Stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
+    maintainers = with maintainers; [
+      abbradar
+      neonfuz
+      ilian
+      zane
+    ];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

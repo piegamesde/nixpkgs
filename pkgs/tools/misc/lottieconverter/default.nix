@@ -20,9 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libpng rlottie giflib ];
+  buildInputs = [
+    libpng
+    rlottie
+    giflib
+  ];
 
-  cmakeFlags = [ "-DSYSTEM_RL=1" "-DSYSTEM_GL=1" ];
+  cmakeFlags = [
+    "-DSYSTEM_RL=1"
+    "-DSYSTEM_GL=1"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -35,6 +42,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lottie converter utility";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ CRTified nickcao ];
+    maintainers = with maintainers; [
+      CRTified
+      nickcao
+    ];
   };
 })

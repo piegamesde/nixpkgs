@@ -90,9 +90,18 @@ in {
       systemd.services.sssd = {
         description = "System Security Services Daemon";
         wantedBy = [ "multi-user.target" ];
-        before = [ "systemd-user-sessions.service" "nss-user-lookup.target" ];
-        after = [ "network-online.target" "nscd.service" ];
-        requires = [ "network-online.target" "nscd.service" ];
+        before = [
+          "systemd-user-sessions.service"
+          "nss-user-lookup.target"
+        ];
+        after = [
+          "network-online.target"
+          "nscd.service"
+        ];
+        requires = [
+          "network-online.target"
+          "nscd.service"
+        ];
         wants = [ "nss-user-lookup.target" ];
         restartTriggers = [
           config.environment.etc."nscd.conf".source

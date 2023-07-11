@@ -322,12 +322,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !cfg.redisCreateLocally
         || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
       message =
         "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
-    }];
+    } ];
 
     systemd.services.nitter = {
       description = "Nitter (An alternative Twitter front-end)";
@@ -347,10 +347,8 @@ in {
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.server.port < 1024) then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+        CapabilityBoundingSet = if (cfg.server.port
+          < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -367,12 +365,19 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0077";
       };
     };

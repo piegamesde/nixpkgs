@@ -223,7 +223,10 @@ in [
         hostPlatform = localSystem;
         targetPlatform = localSystem;
         inherit config;
-        initialPath = [ "/" "/usr" ];
+        initialPath = [
+          "/"
+          "/usr"
+        ];
         shell = "${bootstrapTools}/bin/bash";
         fetchurlBoot = null;
         cc = null;

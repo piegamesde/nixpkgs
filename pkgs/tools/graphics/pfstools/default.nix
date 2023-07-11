@@ -32,7 +32,11 @@ mkDerivation rec {
     sha256 = "sha256-m/aESYVmMibCGZjutDwmGsuOSziRuakbcpVUQGKJ18o=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   cmakeFlags = [ "-DWITH_MATLAB=false" ];
 
@@ -53,18 +57,38 @@ mkDerivation rec {
     echo "FIND_PACKAGE_HANDLE_STANDARD_ARGS(NETPBM DEFAULT_MSG NETPBM_LIBRARY NETPBM_INCLUDE_DIR)" >> cmake/FindNETPBM.cmake
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs =
-    [ openexr zlib imagemagick6 fftwFloat fftw gsl libexif perl qtbase netpbm ]
-    ++ (if stdenv.isDarwin then
-      (with darwin.apple_sdk.frameworks; [ OpenGL GLUT ])
-    else [
-      libGLU
-      libGL
-      freeglut
-    ]) ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; });
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    openexr
+    zlib
+    imagemagick6
+    fftwFloat
+    fftw
+    gsl
+    libexif
+    perl
+    qtbase
+    netpbm
+  ] ++ (if stdenv.isDarwin then
+    (with darwin.apple_sdk.frameworks; [
+      OpenGL
+      GLUT
+    ])
+  else [
+    libGLU
+    libGL
+    freeglut
+  ]) ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; });
 
-  patches = [ ./glut.patch ./threads.patch ./pfstools.patch ./pfsalign.patch ];
+  patches = [
+    ./glut.patch
+    ./threads.patch
+    ./pfstools.patch
+    ./pfsalign.patch
+  ];
 
   meta = with lib; {
     homepage = "https://pfstools.sourceforge.net/";

@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
   pname = "appstream-glib";
   version = "0.8.2";
 
-  outputs = [ "out" "dev" "man" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "installedTests"
+  ];
   outputBin = "dev";
 
   src = fetchFromGitHub {
@@ -65,16 +70,21 @@ stdenv.mkDerivation rec {
     libuuid
   ];
 
-  propagatedBuildInputs = [ glib gdk-pixbuf ];
-
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      pngquant = "${pngquant}/bin/pngquant";
-    })
+  propagatedBuildInputs = [
+    glib
+    gdk-pixbuf
   ];
 
-  mesonFlags = [ "-Drpm=false" "-Dstemmer=false" "-Ddep11=false" ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    pngquant = "${pngquant}/bin/pngquant";
+  }) ];
+
+  mesonFlags = [
+    "-Drpm=false"
+    "-Dstemmer=false"
+    "-Ddep11=false"
+  ];
 
   doCheck = false; # fails at least 1 test
 

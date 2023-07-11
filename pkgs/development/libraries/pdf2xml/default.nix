@@ -15,7 +15,10 @@ stdenv.mkDerivation {
   };
   sourceRoot = "pdf2xml/pdf2xml";
 
-  buildInputs = [ libxml2 libxpdf ];
+  buildInputs = [
+    libxml2
+    libxpdf
+  ];
 
   patches = [ ./pdf2xml.patch ];
 

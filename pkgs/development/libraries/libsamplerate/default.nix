@@ -21,12 +21,18 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsndfile ]
-    ++ optionals stdenv.isDarwin [ ApplicationServices CoreServices ];
+  buildInputs = [ libsndfile ] ++ optionals stdenv.isDarwin [
+    ApplicationServices
+    CoreServices
+  ];
 
   configureFlags = [ "--disable-fftw" ];
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   postConfigure = optionalString stdenv.isDarwin ''
     # need headers from the Carbon.framework in /System/Library/Frameworks to

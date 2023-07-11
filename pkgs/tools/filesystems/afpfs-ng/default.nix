@@ -25,7 +25,12 @@ stdenv.mkDerivation {
   #    `full_url'; afpcmd-cmdline_afp.o:/build/source/cmdline/cmdline_afp.c:27: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ fuse readline libgcrypt gmp ];
+  buildInputs = [
+    fuse
+    readline
+    libgcrypt
+    gmp
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/simonvetter/afpfs-ng";

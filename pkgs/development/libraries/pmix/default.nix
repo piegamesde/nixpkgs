@@ -30,9 +30,21 @@ stdenv.mkDerivation rec {
     patchShebangs ./config
   '';
 
-  nativeBuildInputs = [ pandoc perl autoconf automake libtool flex ];
+  nativeBuildInputs = [
+    pandoc
+    perl
+    autoconf
+    automake
+    libtool
+    flex
+  ];
 
-  buildInputs = [ libevent hwloc munge zlib ];
+  buildInputs = [
+    libevent
+    hwloc
+    munge
+    zlib
+  ];
 
   configureFlags = [
     "--with-libevent=${libevent.dev}"

@@ -28,9 +28,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ sphinx matplotlib ];
+  propagatedBuildInputs = [
+    sphinx
+    matplotlib
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook beautifulsoup4 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    beautifulsoup4
+  ];
 
   pythonImportsCheck = [ "sphinxext.opengraph" ];
 

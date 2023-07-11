@@ -42,11 +42,20 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ cmake perl pkg-config ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo ])
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    pkg-config
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+  ]) ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [ openssl sqlcipher sqlite ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [
+    openssl
+    sqlcipher
+    sqlite
+  ] ++ lib.optionals stdenv.isDarwin [
     CoreFoundation
     Security
     SystemConfiguration
@@ -63,7 +72,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/deltachat/deltachat-core-rust/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dotlambda srapenne ];
+    maintainers = with maintainers; [
+      dotlambda
+      srapenne
+    ];
     platforms = platforms.unix;
   };
 }

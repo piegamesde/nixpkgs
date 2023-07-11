@@ -42,8 +42,14 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs =
-    [ gtksourceview4 gspell libhandy poppler_gi webkitgtk_4_1 librsvg ];
+  buildInputs = [
+    gtksourceview4
+    gspell
+    libhandy
+    poppler_gi
+    webkitgtk_4_1
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3

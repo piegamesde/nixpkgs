@@ -16,12 +16,22 @@
 let
   version = "0.8.0";
   # list of all theoretically available targets
-  targets = [ "genode" "hvt" "muen" "spt" "virtio" "xen" ];
+  targets = [
+    "genode"
+    "hvt"
+    "muen"
+    "spt"
+    "virtio"
+    "xen"
+  ];
 in stdenv.mkDerivation {
   pname = "solo5";
   inherit version;
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
   buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
 
   src = fetchurl {
@@ -55,13 +65,23 @@ in stdenv.mkDerivation {
       --replace "cp " "cp --no-preserve=mode "
 
     wrapProgram $out/bin/solo5-virtio-mkimage \
-      --prefix PATH : ${lib.makeBinPath [ dosfstools mtools parted syslinux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          dosfstools
+          mtools
+          parted
+          syslinux
+        ]
+      }
 
     runHook postInstall
   '';
 
   doCheck = stdenv.hostPlatform.isLinux;
-  nativeCheckInputs = [ util-linux qemu ];
+  nativeCheckInputs = [
+    util-linux
+    qemu
+  ];
   checkPhase = ''
     runHook preCheck
     patchShebangs tests
@@ -79,8 +99,16 @@ in stdenv.mkDerivation {
         os,
       }:
       "${arch}-${os}") (cartesianProductOfSets {
-        arch = [ "aarch64" "x86_64" ];
-        os = [ "freebsd" "genode" "linux" "openbsd" ];
+        arch = [
+          "aarch64"
+          "x86_64"
+        ];
+        os = [
+          "freebsd"
+          "genode"
+          "linux"
+          "openbsd"
+        ];
       });
   };
 

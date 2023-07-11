@@ -34,8 +34,14 @@ buildPythonPackage rec {
     zope_deprecation
   ];
 
-  nativeCheckInputs =
-    [ nose coverage beautifulsoup4 flaky pyramid pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    coverage
+    beautifulsoup4
+    flaky
+    pyramid
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "Form library with advanced features like nested forms";

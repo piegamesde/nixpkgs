@@ -40,8 +40,11 @@ in stdenv.mkDerivation {
     inherit (branch) rev hash;
   };
 
-  nativeBuildInputs = [ pkg-config cmake spirv-tools ]
-    ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    spirv-tools
+  ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 
@@ -54,13 +57,16 @@ in stdenv.mkDerivation {
     "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
     # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ] ++ lib.optionals (llvmMajor != "11")
-    [ "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}" ];
+  ] ++ lib.optionals (llvmMajor
+    != "11") [ "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}" ];
 
   # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
   doCheck = false;
 
-  makeFlags = [ "all" "llvm-spirv" ];
+  makeFlags = [
+    "all"
+    "llvm-spirv"
+  ];
 
   postInstall = ''
     install -D tools/llvm-spirv/llvm-spirv $out/bin/llvm-spirv

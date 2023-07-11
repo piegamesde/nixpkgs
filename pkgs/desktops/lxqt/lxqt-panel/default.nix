@@ -40,7 +40,11 @@ mkDerivation rec {
     sha256 = "tSj7GGIvneYapkyqqgSMJtPGApC1fdpiId2XgQF5xf0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    lxqt-build-tools
+  ];
 
   buildInputs = [
     alsa-lib

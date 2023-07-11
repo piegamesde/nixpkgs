@@ -19,7 +19,10 @@ buildDunePackage rec {
     hash = "sha256-nI8fdArYynR70PUJIgyogGBCe4gFhfVzuRdZzFGKqOc=";
   };
 
-  propagatedBuildInputs = [ seq stdlib-shims ];
+  propagatedBuildInputs = [
+    seq
+    stdlib-shims
+  ];
 
   meta = {
     inherit (src.meta) homepage;

@@ -27,9 +27,17 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "--cov" ""
   '';
 
-  propagatedBuildInputs = [ regex csvw clldutils ];
+  propagatedBuildInputs = [
+    regex
+    csvw
+    clldutils
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytest-mock
+  ];
 
   meta = with lib; {
     description =

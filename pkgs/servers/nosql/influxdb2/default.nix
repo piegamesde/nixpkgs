@@ -71,10 +71,17 @@ in buildGoModule {
   version = version;
   inherit src;
 
-  nativeBuildInputs = [ go-bindata pkg-config perl ];
+  nativeBuildInputs = [
+    go-bindata
+    pkg-config
+    perl
+  ];
 
   vendorSha256 = "sha256-02x+HsWkng7OnKVSfkQR8LL1Qk42Bdrw0IMtBpS7xQc=";
-  subPackages = [ "cmd/influxd" "cmd/telemetryd" ];
+  subPackages = [
+    "cmd/influxd"
+    "cmd/telemetryd"
+  ];
 
   PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
@@ -110,12 +117,18 @@ in buildGoModule {
 
   tags = [ "assets" ];
 
-  ldflags = [ "-X main.commit=v${version}" "-X main.version=${version}" ];
+  ldflags = [
+    "-X main.commit=v${version}"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     description = "An open-source distributed time series database";
     license = licenses.mit;
     homepage = "https://influxdata.com/";
-    maintainers = with maintainers; [ abbradar danderson ];
+    maintainers = with maintainers; [
+      abbradar
+      danderson
+    ];
   };
 }

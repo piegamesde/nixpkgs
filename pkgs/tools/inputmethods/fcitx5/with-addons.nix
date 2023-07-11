@@ -12,7 +12,12 @@
 symlinkJoin {
   name = "fcitx5-with-addons-${fcitx5.version}";
 
-  paths = [ fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk ] ++ addons;
+  paths = [
+    fcitx5
+    fcitx5-configtool
+    fcitx5-qt
+    fcitx5-gtk
+  ] ++ addons;
 
   nativeBuildInputs = [ makeWrapper ];
 

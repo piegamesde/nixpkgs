@@ -29,7 +29,10 @@ let
     ];
 
   # compatible if libc is compatible
-  libcModules = [ "regex_posix" "sslrehashsignal" ];
+  libcModules = [
+    "regex_posix"
+    "sslrehashsignal"
+  ];
 
   # compatible if libc++ is compatible
   # TODO(sternenseemann):
@@ -81,16 +84,14 @@ in {
 let
   extras = {
     # GPLv2 compatible
-    argon2 = [
-      (libargon2 // {
-        meta = libargon2.meta // {
-          # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
-          # updating this here is important that meta.license is accurate
-          # libargon2 is licensed under either ASL20 or CC0.
-          license = lib.licenses.cc0;
-        };
-      })
-    ];
+    argon2 = [ (libargon2 // {
+      meta = libargon2.meta // {
+        # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
+        # updating this here is important that meta.license is accurate
+        # libargon2 is licensed under either ASL20 or CC0.
+        license = lib.licenses.cc0;
+      };
+    }) ];
     ldap = [ openldap ];
     mysql = [ libmysqlclient ];
     pgsql = [ postgresql ];
@@ -140,9 +141,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-TKjUgy8S76gn9a9hbrWehb6BGI+dSFn1gYc0MCppyJk=";
   };
 
-  outputs = [ "bin" "lib" "man" "doc" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "man"
+    "doc"
+    "out"
+  ];
 
-  nativeBuildInputs = [ perl pkg-config ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
   buildInputs = extraInputs;
 
   configurePhase = ''

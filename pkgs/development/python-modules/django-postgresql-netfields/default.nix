@@ -26,7 +26,11 @@ buildPythonPackage rec {
     hash = "sha256-I+X4yfadtiiZlW7QhfwVbK1qyWn/khH9fWXszCo9uro=";
   };
 
-  propagatedBuildInputs = [ django netaddr six ];
+  propagatedBuildInputs = [
+    django
+    netaddr
+    six
+  ];
 
   # tests need a postgres database
   doCheck = false;

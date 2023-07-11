@@ -12,7 +12,11 @@ buildDunePackage {
   inherit (dns) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ mirage-crypto dns base64 ];
+  propagatedBuildInputs = [
+    mirage-crypto
+    dns
+    base64
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ httplib2 ];
-  buildInputs = [ mock coverage ];
+  buildInputs = [
+    mock
+    coverage
+  ];
 
   # ServerNotFoundError: Unable to find the server at oauth-sandbox.sevengoslings.net
   doCheck = false;

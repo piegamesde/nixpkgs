@@ -11374,8 +11374,10 @@ let
           sources."color-convert-2.0.1"
           sources."color-name-1.1.4"
           (sources."cp-file-9.1.0" // {
-            dependencies =
-              [ sources."p-event-4.2.0" sources."p-timeout-3.2.0" ];
+            dependencies = [
+              sources."p-event-4.2.0"
+              sources."p-timeout-3.2.0"
+            ];
           })
           sources."decompress-response-5.0.0"
           sources."emoji-regex-9.2.2"
@@ -11432,16 +11434,20 @@ let
             dependencies = [ sources."type-fest-2.19.0" ];
           })
           (sources."read-pkg-up-9.1.0" // {
-            dependencies =
-              [ sources."find-up-6.3.0" sources."type-fest-2.19.0" ];
+            dependencies = [
+              sources."find-up-6.3.0"
+              sources."type-fest-2.19.0"
+            ];
           })
           sources."slash-4.0.0"
           sources."string-width-5.1.2"
           sources."strip-ansi-7.0.1"
           sources."type-fest-0.10.0"
           (sources."update-notifier-5.1.0" // {
-            dependencies =
-              [ sources."chalk-4.1.2" sources."supports-color-7.2.0" ];
+            dependencies = [
+              sources."chalk-4.1.2"
+              sources."supports-color-7.2.0"
+            ];
           })
           sources."uuid-8.3.2"
           sources."yocto-queue-1.0.0"
@@ -11618,8 +11624,10 @@ let
           sources."aggregate-error-4.0.1"
           sources."brace-expansion-2.0.1"
           (sources."del-7.0.0" // {
-            dependencies =
-              [ sources."is-path-inside-4.0.0" sources."p-map-5.5.0" ];
+            dependencies = [
+              sources."is-path-inside-4.0.0"
+              sources."p-map-5.5.0"
+            ];
           })
           sources."filter-obj-5.1.0"
           sources."find-up-6.3.0"
@@ -11876,8 +11884,10 @@ let
         dependencies = [ sources."ini-1.3.8" ];
       })
       (sources."configstore-5.0.1" // {
-        dependencies =
-          [ sources."dot-prop-5.3.0" sources."write-file-atomic-3.0.3" ];
+        dependencies = [
+          sources."dot-prop-5.3.0"
+          sources."write-file-atomic-3.0.3"
+        ];
       })
       sources."console-control-strings-1.1.0"
       (sources."content-disposition-0.5.4" // {
@@ -11908,7 +11918,10 @@ let
       })
       sources."core-util-is-1.0.2"
       (sources."cp-file-10.0.0" // {
-        dependencies = [ sources."p-event-5.0.1" sources."p-timeout-5.1.0" ];
+        dependencies = [
+          sources."p-event-5.0.1"
+          sources."p-timeout-5.1.0"
+        ];
       })
       (sources."cpy-8.1.2" // {
         dependencies = [
@@ -11976,10 +11989,16 @@ let
         ];
       })
       (sources."decompress-tarbz2-4.1.1" // {
-        dependencies = [ sources."file-type-6.2.0" sources."is-stream-1.1.0" ];
+        dependencies = [
+          sources."file-type-6.2.0"
+          sources."is-stream-1.1.0"
+        ];
       })
       (sources."decompress-targz-4.1.1" // {
-        dependencies = [ sources."file-type-5.2.0" sources."is-stream-1.1.0" ];
+        dependencies = [
+          sources."file-type-5.2.0"
+          sources."is-stream-1.1.0"
+        ];
       })
       (sources."decompress-unzip-4.0.1" // {
         dependencies = [
@@ -12035,7 +12054,10 @@ let
           sources."decompress-response-3.3.0"
           sources."get-stream-4.1.0"
           (sources."got-8.3.2" // {
-            dependencies = [ sources."get-stream-3.0.0" sources."pify-3.0.0" ];
+            dependencies = [
+              sources."get-stream-3.0.0"
+              sources."pify-3.0.0"
+            ];
           })
           sources."http-cache-semantics-3.8.1"
           sources."is-plain-obj-1.1.0"
@@ -12174,7 +12196,10 @@ let
       sources."fill-range-7.0.1"
       sources."filter-obj-2.0.2"
       (sources."finalhandler-1.2.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."find-up-5.0.0"
       sources."flush-write-stream-2.0.0"
@@ -12275,16 +12300,20 @@ let
           sources."has-flag-3.0.0"
           sources."is-fullwidth-code-point-2.0.0"
           (sources."string-width-2.1.1" // {
-            dependencies =
-              [ sources."ansi-regex-3.0.1" sources."strip-ansi-4.0.0" ];
+            dependencies = [
+              sources."ansi-regex-3.0.1"
+              sources."strip-ansi-4.0.0"
+            ];
           })
           sources."strip-ansi-5.2.0"
           sources."supports-color-5.5.0"
         ];
       })
       (sources."inquirer-autocomplete-prompt-1.4.0" // {
-        dependencies =
-          [ sources."ansi-escapes-4.3.2" sources."type-fest-0.21.3" ];
+        dependencies = [
+          sources."ansi-escapes-4.3.2"
+          sources."type-fest-0.21.3"
+        ];
       })
       sources."into-stream-3.1.0"
       sources."ipaddr.js-1.9.1"
@@ -12600,8 +12629,10 @@ let
       sources."open-8.4.0"
       (sources."opn-5.5.0" // { dependencies = [ sources."is-wsl-1.1.0" ]; })
       (sources."ora-5.4.1" // {
-        dependencies =
-          [ sources."cli-cursor-3.1.0" sources."restore-cursor-3.1.0" ];
+        dependencies = [
+          sources."cli-cursor-3.1.0"
+          sources."restore-cursor-3.1.0"
+        ];
       })
       sources."os-name-5.0.1"
       sources."os-tmpdir-1.0.2"
@@ -12701,11 +12732,16 @@ let
       sources."random-bytes-1.0.0"
       sources."range-parser-1.2.1"
       (sources."raw-body-2.5.1" // {
-        dependencies = [ sources."depd-2.0.0" sources."http-errors-2.0.0" ];
+        dependencies = [
+          sources."depd-2.0.0"
+          sources."http-errors-2.0.0"
+        ];
       })
       (sources."rc-1.2.8" // {
-        dependencies =
-          [ sources."ini-1.3.8" sources."strip-json-comments-2.0.1" ];
+        dependencies = [
+          sources."ini-1.3.8"
+          sources."strip-json-comments-2.0.1"
+        ];
       })
       sources."react-is-17.0.2"
       sources."read-package-json-fast-2.0.3"
@@ -12747,7 +12783,10 @@ let
       sources."resolve-url-0.2.1"
       sources."responselike-2.0.1"
       (sources."restore-cursor-2.0.0" // {
-        dependencies = [ sources."mimic-fn-1.2.0" sources."onetime-2.0.1" ];
+        dependencies = [
+          sources."mimic-fn-1.2.0"
+          sources."onetime-2.0.1"
+        ];
       })
       sources."ret-0.1.15"
       sources."retry-0.13.1"
@@ -12896,18 +12935,24 @@ let
         dependencies = [ sources."type-fest-0.16.0" ];
       })
       (sources."terminal-link-2.1.1" // {
-        dependencies =
-          [ sources."ansi-escapes-4.3.2" sources."type-fest-0.21.3" ];
+        dependencies = [
+          sources."ansi-escapes-4.3.2"
+          sources."type-fest-0.21.3"
+        ];
       })
       sources."text-hex-1.0.0"
       sources."through-2.3.8"
       (sources."through2-filter-3.0.0" // {
-        dependencies =
-          [ sources."readable-stream-2.3.7" sources."through2-2.0.5" ];
+        dependencies = [
+          sources."readable-stream-2.3.7"
+          sources."through2-2.0.5"
+        ];
       })
       (sources."through2-map-3.0.0" // {
-        dependencies =
-          [ sources."readable-stream-2.3.7" sources."through2-2.0.5" ];
+        dependencies = [
+          sources."readable-stream-2.3.7"
+          sources."through2-2.0.5"
+        ];
       })
       sources."time-zone-1.0.0"
       sources."timed-out-4.0.1"
@@ -13046,7 +13091,10 @@ let
       sources."y18n-5.0.8"
       sources."yallist-4.0.0"
       (sources."yargs-17.6.0" // {
-        dependencies = [ sources."cliui-8.0.1" sources."yargs-parser-21.1.1" ];
+        dependencies = [
+          sources."cliui-8.0.1"
+          sources."yargs-parser-21.1.1"
+        ];
       })
       sources."yauzl-2.10.0"
       sources."yn-3.1.1"

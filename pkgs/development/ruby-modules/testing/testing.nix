@@ -48,13 +48,10 @@ let
         (getAttr subName tests)) (attrNames tests)))
     else if isFunction tests then
       let res = tests under;
-      in if isBool res then
-        [
-          (prefixName name
-            (if tests under then passed "passed" else failed "failed"))
-        ]
+      in if isBool res then [ (prefixName name (if tests under then
+        passed "passed"
       else
-        [ (prefixName name res) ]
+        failed "failed")) ] else [ (prefixName name res) ]
     else [
       failed
       (name ": not a function, list or set")

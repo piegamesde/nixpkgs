@@ -26,11 +26,21 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.12";
 
-  propagatedBuildInputs = [ eqaf bigarray-compat hex ff-sig ff alcotest ];
+  propagatedBuildInputs = [
+    eqaf
+    bigarray-compat
+    hex
+    ff-sig
+    ff
+    alcotest
+  ];
 
   buildInputs = [ zarith ];
 
-  checkInputs = [ alcotest bisect_ppx ];
+  checkInputs = [
+    alcotest
+    bisect_ppx
+  ];
 
   meta = {
     description = "Mec - Mini Elliptic Curve library";

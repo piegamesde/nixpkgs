@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
     sha256 = "1npdixwxxn3s9q1f365x9n9rc5xgfz39hxf23faqvlrklgbhj0q6";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   patches = [
     # CVE-2021-36217 / CVE-2021-3502
@@ -52,15 +56,30 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config gettext glib ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    glib
+  ];
 
-  buildInputs = [ libdaemon dbus glib expat libiconv libevent ]
-    ++ (with perlPackages; [ perl XMLParser ])
-    ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
+  buildInputs = [
+    libdaemon
+    dbus
+    glib
+    expat
+    libiconv
+    libevent
+  ] ++ (with perlPackages; [
+    perl
+    XMLParser
+  ]) ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
     ++ lib.optionals gtk3Support [ gtk3 ] ++ lib.optionals qt5Support [ qt5 ];
 
-  propagatedBuildInputs = lib.optionals withPython
-    (with python.pkgs; [ python pygobject3 dbus-python ]);
+  propagatedBuildInputs = lib.optionals withPython (with python.pkgs; [
+    python
+    pygobject3
+    dbus-python
+  ]);
 
   configureFlags = [
     "--disable-gdbm"
@@ -114,7 +133,10 @@ stdenv.mkDerivation rec {
     homepage = "http://avahi.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lovek323 globin ];
+    maintainers = with maintainers; [
+      lovek323
+      globin
+    ];
 
     longDescription = ''
       Avahi is a system which facilitates service discovery on a local

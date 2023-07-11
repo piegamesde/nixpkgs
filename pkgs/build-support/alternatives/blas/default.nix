@@ -180,7 +180,10 @@ stdenv.mkDerivation {
   pname = "blas";
   inherit version;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = (blasProvider'.meta or { }) // {
     description =

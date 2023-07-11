@@ -28,14 +28,25 @@ buildPythonPackage rec {
     hash = "sha256-6Nx12xEEPSWZE6XORU3I5HYM7vIjbAWPu7vNrzR4W24=";
   };
 
-  nativeBuildInputs = [ setuptools-scm setuptools-scm-git-archive ];
+  nativeBuildInputs = [
+    setuptools-scm
+    setuptools-scm-git-archive
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs =
-    [ defusedxml keyring requests-oauthlib requests-toolbelt ];
+  propagatedBuildInputs = [
+    defusedxml
+    keyring
+    requests-oauthlib
+    requests-toolbelt
+  ];
 
-  nativeCheckInputs = [ flaky pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    flaky
+    pytestCheckHook
+    requests-mock
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

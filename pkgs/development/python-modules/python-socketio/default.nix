@@ -27,14 +27,24 @@ buildPythonPackage rec {
     hash = "sha256-3Do3Ql48cmhvrFe14ZYvWH0xi3T8hJ2LP0FyyWin580=";
   };
 
-  propagatedBuildInputs = [ bidict python-engineio ];
+  propagatedBuildInputs = [
+    bidict
+    python-engineio
+  ];
 
   passthru.optional-dependencies = {
-    client = [ requests websocket-client ];
+    client = [
+      requests
+      websocket-client
+    ];
     asyncio_client = [ aiohttp ];
   };
 
-  nativeCheckInputs = [ mock msgpack pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    msgpack
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "socketio" ];
 

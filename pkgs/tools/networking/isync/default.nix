@@ -28,9 +28,16 @@ stdenv.mkDerivation rec {
     ./work-around-unexpected-EOF-error-messages-at-end-of-SSL-connections.patch
   ];
 
-  nativeBuildInputs = [ pkg-config perl ];
-  buildInputs = [ openssl db cyrus_sasl zlib ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    openssl
+    db
+    cyrus_sasl
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     homepage = "http://isync.sourceforge.net/";
@@ -45,7 +52,10 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos lheckemann ];
+    maintainers = with maintainers; [
+      primeos
+      lheckemann
+    ];
     mainProgram = "mbsync";
   };
 }

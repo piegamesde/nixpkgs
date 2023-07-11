@@ -60,7 +60,12 @@ in mkDerivation rec {
     kf5gpgmepp
   ];
 
-  nativeBuildInputs = [ cmake pkg-config qttools gnupg ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    gnupg
+  ];
 
   postPatch = "echo ${version} > src/trojita-version"
     + lib.optionalString withI18n ''
@@ -73,7 +78,10 @@ in mkDerivation rec {
   meta = with lib; {
     description = "A Qt IMAP e-mail client";
     homepage = "http://trojita.flaska.net/";
-    license = with licenses; [ gpl2 gpl3 ];
+    license = with licenses; [
+      gpl2
+      gpl3
+    ];
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.linux;
   };

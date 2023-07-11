@@ -19,10 +19,8 @@ in stdenv.mkDerivation rec {
     sha256 = "1jkjvvnjcyxpql97xjjx0kwvy70kxpiznr2zpjy2hhci5s10zmpq";
   };
 
-  patches = [
-    ./darwin.patch
-  ]
-  # Patches from Gentoo
+  patches = [ ./darwin.patch ]
+    # Patches from Gentoo
     ++ builtins.map ({
         pfile,
         sha256,
@@ -94,6 +92,9 @@ in stdenv.mkDerivation rec {
     homepage = "http://fy.chalmers.se/~appro/linux/DVD+RW/tools";
     description = "Tools for mastering Blu-ray and DVD+-RW/+-R media";
     platforms = platforms.unix;
-    license = with licenses; [ gpl2 publicDomain ];
+    license = with licenses; [
+      gpl2
+      publicDomain
+    ];
   };
 }

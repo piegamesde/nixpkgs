@@ -54,7 +54,10 @@ stdenv.mkDerivation rec {
     findXMLCatalogs
   ];
 
-  mesonFlags = [ "-Ddocs=true" "-Dmans=true" ];
+  mesonFlags = [
+    "-Ddocs=true"
+    "-Dmans=true"
+  ];
 
   buildInputs = [
     libxcb
@@ -114,7 +117,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A tiling window manager";
     homepage = "https://i3wm.org";
-    maintainers = with maintainers; [ modulistic fpletz globin ];
+    maintainers = with maintainers; [
+      modulistic
+      fpletz
+      globin
+    ];
     license = licenses.bsd3;
     platforms = platforms.all;
 

@@ -38,15 +38,30 @@ buildPythonPackage rec {
     hash = "sha256-KoTHBrGD6M3rkXoxUadRXhroRUbWKaL/rE6Rd2mxw4c=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ furo poetry-core sphinxHook ];
+  nativeBuildInputs = [
+    furo
+    poetry-core
+    sphinxHook
+  ];
 
-  propagatedBuildInputs = [ babel flask jinja2 pytz ];
+  propagatedBuildInputs = [
+    babel
+    flask
+    jinja2
+    pytz
+  ];
 
   pythonImportsCheck = [ "flask_babel" ];
 
-  checkInputs = [ pytest-mock pytestCheckHook ];
+  checkInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     changelog =

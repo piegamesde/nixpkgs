@@ -27,15 +27,25 @@ buildGoModule rec {
 
   patches = [ ./000-add-nixos-dirs-to-default-wallpapers.patch ];
 
-  excludedPackages = [
-    "./pkg/event/cmd" # Development tools
-  ];
+  excludedPackages = [ "./pkg/event/cmd" # Development tools
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXcursor libXmu libXpm libheif wayland xbitmaps ];
+  buildInputs = [
+    libX11
+    libXcursor
+    libXmu
+    libXpm
+    libheif
+    wayland
+    xbitmaps
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preCheck = let
     skippedTests = [

@@ -31,16 +31,19 @@ buildPythonPackage rec {
     hash = "sha256-exVB1STX8OsFnQ0pzSuR3O/FrvG2GR5MdZa8tZ9IJvI=";
   };
 
-  propagatedBuildInputs = [ boto3 jsonschema pydantic typing-extensions ];
-
-  patches = [
-    (fetchpatch {
-      # relax typing-extenions dependency
-      url =
-        "https://github.com/aws/serverless-application-model/commit/d1c26f7ad9510a238ba570d511d5807a81379d0a.patch";
-      hash = "sha256-nh6MtRgi0RrC8xLkLbU6/Ec0kYtxIG/fgjn/KLiAM0E=";
-    })
+  propagatedBuildInputs = [
+    boto3
+    jsonschema
+    pydantic
+    typing-extensions
   ];
+
+  patches = [ (fetchpatch {
+    # relax typing-extenions dependency
+    url =
+      "https://github.com/aws/serverless-application-model/commit/d1c26f7ad9510a238ba570d511d5807a81379d0a.patch";
+    hash = "sha256-nh6MtRgi0RrC8xLkLbU6/Ec0kYtxIG/fgjn/KLiAM0E=";
+  }) ];
 
   postPatch = ''
     substituteInPlace requirements/base.txt \

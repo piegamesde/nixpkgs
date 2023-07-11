@@ -132,7 +132,10 @@ in pythonPackages.buildPythonApplication rec {
     fixup_yarn_lock
     nodejs
   ];
-  buildInputs = [ zlib pythonPackages.wheel ];
+  buildInputs = [
+    zlib
+    pythonPackages.wheel
+  ];
 
   propagatedBuildInputs = with pythonPackages; [
     flask

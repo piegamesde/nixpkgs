@@ -37,7 +37,10 @@ in stdenv.mkDerivation rec {
     sha256 = "17k518vrdrya5c9dqhpmm4g0h2vlkq1iy87sg2ngzygypbli1xvn";
   };
 
-  buildInputs = [ libX11 libXt ] ++ lib.optionals withJpegSupport [ libjpeg ]
+  buildInputs = [
+    libX11
+    libXt
+  ] ++ lib.optionals withJpegSupport [ libjpeg ]
     ++ lib.optionals withPngSupport [ libpng ]
     ++ lib.optionals withTiffSupport [ libtiff ];
 

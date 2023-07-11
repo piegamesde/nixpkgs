@@ -21,10 +21,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ perl libparserutils libwapcaplet buildsystem ];
+  buildInputs = [
+    perl
+    libparserutils
+    libwapcaplet
+    buildsystem
+  ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=implicit-fallthrough"
@@ -41,7 +48,10 @@ stdenv.mkDerivation rec {
       license.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

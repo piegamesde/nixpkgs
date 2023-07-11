@@ -27,9 +27,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-YWVKmvUHq1QSpTCP0UBfSxqWTIWjxOF0gVE7qljCOyY=";
   };
 
-  outputs = [ "bin" "out" "dev" "doc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ cmake unzip ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
 
   buildInputs = [
     boost

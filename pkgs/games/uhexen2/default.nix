@@ -19,7 +19,13 @@ stdenv.mkDerivation rec {
     rev = "4ef664bc41e3998b0d2a55ff1166dadf34c936be";
   };
 
-  buildInputs = [ SDL libogg libvorbis libmad xdelta ];
+  buildInputs = [
+    SDL
+    libogg
+    libvorbis
+    libmad
+    xdelta
+  ];
 
   preBuild = ''
     makeFiles=(

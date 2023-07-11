@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  libPath = lib.makeLibraryPath [ gtk3 libXtst ];
+  libPath = lib.makeLibraryPath [
+    gtk3
+    libXtst
+  ];
 
   desktopItem = makeDesktopItem {
     name = "XMind";
@@ -46,7 +49,10 @@ stdenv.mkDerivation rec {
     desktopName = "XMind";
     comment = meta.description;
     categories = [ "Office" ];
-    mimeTypes = [ "application/xmind" "x-scheme-handler/xmind" ];
+    mimeTypes = [
+      "application/xmind"
+      "x-scheme-handler/xmind"
+    ];
   };
 
   installPhase = let
@@ -98,7 +104,10 @@ stdenv.mkDerivation rec {
       and save to Evernote.
     '';
     homepage = "https://www.xmind.net/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     mainProgram = "XMind";
     license = licenses.unfree;
     platforms = platforms.linux;

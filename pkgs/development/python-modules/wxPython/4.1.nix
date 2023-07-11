@@ -67,10 +67,18 @@ in buildPythonPackage rec {
   # https://github.com/wxWidgets/Phoenix/issues/1316
   doCheck = false;
 
-  nativeBuildInputs = [ which doxygen gtk3 pkg-config setuptools ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    which
+    doxygen
+    gtk3
+    pkg-config
+    setuptools
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ gtk3 ncurses ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    gtk3
+    ncurses
+  ] ++ lib.optionals stdenv.isLinux [
     libXinerama
     libSM
     libXxf86vm
@@ -99,7 +107,11 @@ in buildPythonPackage rec {
     WebKit
   ];
 
-  propagatedBuildInputs = [ pillow numpy six ];
+  propagatedBuildInputs = [
+    pillow
+    numpy
+    six
+  ];
 
   DOXYGEN = "${doxygen}/bin/doxygen";
 

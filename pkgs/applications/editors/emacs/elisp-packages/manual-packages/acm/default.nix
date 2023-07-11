@@ -26,6 +26,9 @@ melpaBuild {
     description = "Asynchronous Completion Menu";
     homepage = "https://github.com/manateelazycat/lsp-bridge";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fxttr kira-bruneau ];
+    maintainers = with maintainers; [
+      fxttr
+      kira-bruneau
+    ];
   };
 }

@@ -40,8 +40,12 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  nativeCheckInputs =
-    [ freezegun pytest-asyncio pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # # Our two manual scans succeeded and the periodic one was attempted

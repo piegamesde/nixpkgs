@@ -52,7 +52,10 @@ in python.pkgs.buildPythonApplication rec {
     gdal
   ];
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     sqlite
@@ -63,11 +66,24 @@ in python.pkgs.buildPythonApplication rec {
     gdk-pixbuf
   ];
 
-  makeWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ perl gpsbabel ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      perl
+      gpsbabel
+    ])
+  ];
 
-  nativeCheckInputs = [ glibcLocales perl xvfb-run ]
-    ++ (with python.pkgs; [ mysqlclient psycopg2 ]);
+  nativeCheckInputs = [
+    glibcLocales
+    perl
+    xvfb-run
+  ] ++ (with python.pkgs; [
+    mysqlclient
+    psycopg2
+  ]);
 
   checkPhase = ''
     env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \
@@ -80,7 +96,10 @@ in python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/pytrainer/pytrainer";
     description = "Application for logging and graphing sporting excursions";
-    maintainers = with maintainers; [ rycee dotlambda ];
+    maintainers = with maintainers; [
+      rycee
+      dotlambda
+    ];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

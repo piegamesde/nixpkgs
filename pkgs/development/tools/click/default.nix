@@ -65,16 +65,27 @@ buildPythonApplication {
     ./dbus-test-runner.patch
   ];
 
-  buildInputs = [ libgee json-glib properties-cpp ];
+  buildInputs = [
+    libgee
+    json-glib
+    properties-cpp
+  ];
 
-  propagatedBuildInputs = [ debian pygobject3 setuptools ];
+  propagatedBuildInputs = [
+    debian
+    pygobject3
+    setuptools
+  ];
 
   meta = {
     description =
       "A tool to build click packages. Mainly used for Ubuntu Touch.";
     homepage = "https://gitlab.com/ubports/development/core/click";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ilyakooo0 OPNA2608 ];
+    maintainers = with lib.maintainers; [
+      ilyakooo0
+      OPNA2608
+    ];
     platforms = lib.platforms.linux;
   };
 }

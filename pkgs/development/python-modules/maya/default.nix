@@ -19,17 +19,21 @@ buildPythonPackage rec {
     sha256 = "1x88k4irpckvd7jf2yvqjw1s52hjqbxym1r1d928yb3fkj7rvlxs";
   };
 
-  patches = [
-    (fetchpatch {
-      # https://github.com/kennethreitz/maya/issues/112
-      # Merged, so should be in next release.
-      url =
-        "https://github.com/kennethreitz/maya/commit/f69a93b1103130139cdec30511777823957fb659.patch";
-      sha256 = "152ba7amv9dhhx1wcklfalsdzsxggik9f7rsrikms921lq9xqc8h";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # https://github.com/kennethreitz/maya/issues/112
+    # Merged, so should be in next release.
+    url =
+      "https://github.com/kennethreitz/maya/commit/f69a93b1103130139cdec30511777823957fb659.patch";
+    sha256 = "152ba7amv9dhhx1wcklfalsdzsxggik9f7rsrikms921lq9xqc8h";
+  }) ];
 
-  propagatedBuildInputs = [ dateparser humanize pendulum ruamel-yaml tzlocal ];
+  propagatedBuildInputs = [
+    dateparser
+    humanize
+    pendulum
+    ruamel-yaml
+    tzlocal
+  ];
 
   # No tests
   doCheck = false;

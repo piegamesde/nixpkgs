@@ -29,13 +29,24 @@ buildPythonPackage rec {
     hash = "sha256-fAJB1gk8zTS/mW5KzWr3z26qctZc/EQlk//WM1Xwpl0=";
   };
 
-  propagatedBuildInputs =
-    [ chacha20poly1305-reuseable cryptography h11 orjson zeroconf ];
+  propagatedBuildInputs = [
+    chacha20poly1305-reuseable
+    cryptography
+    h11
+    orjson
+    zeroconf
+  ];
 
-  passthru.optional-dependencies.QRCode = [ base36 pyqrcode ];
+  passthru.optional-dependencies.QRCode = [
+    base36
+    pyqrcode
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ]
-    ++ passthru.optional-dependencies.QRCode;
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.QRCode;
 
   disabledTestPaths = [
     # Disable tests requiring network access

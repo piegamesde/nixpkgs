@@ -101,8 +101,12 @@ in {
             };
 
             type = mkOption {
-              type =
-                types.enum [ "socks4" "socks5" "http-connect" "http-relay" ];
+              type = types.enum [
+                "socks4"
+                "socks5"
+                "http-connect"
+                "http-relay"
+              ];
               description = lib.mdDoc "Type of proxy.";
             };
 

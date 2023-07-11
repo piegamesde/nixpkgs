@@ -14,8 +14,10 @@ let
   opt = options.hardware.system76;
 
   kpkgs = config.boot.kernelPackages;
-  modules = [ "system76" "system76-io" ]
-    ++ (optional (versionOlder kpkgs.kernel.version "5.5") "system76-acpi");
+  modules = [
+    "system76"
+    "system76-io"
+  ] ++ (optional (versionOlder kpkgs.kernel.version "5.5") "system76-acpi");
   modulePackages = map (m: kpkgs.${m}) modules;
   moduleConfig = mkIf cfg.kernel-modules.enable {
     boot.extraModulePackages = modulePackages;
@@ -97,5 +99,9 @@ in {
     };
   };
 
-  config = mkMerge [ moduleConfig firmwareConfig powerConfig ];
+  config = mkMerge [
+    moduleConfig
+    firmwareConfig
+    powerConfig
+  ];
 }

@@ -24,8 +24,14 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ faker ];
 
-  nativeCheckInputs =
-    [ django flask flask-sqlalchemy mongoengine pytestCheckHook sqlalchemy ];
+  nativeCheckInputs = [
+    django
+    flask
+    flask-sqlalchemy
+    mongoengine
+    pytestCheckHook
+    sqlalchemy
+  ];
 
   # Checks for MongoDB requires an a running DB
   disabledTests = [ "MongoEngineTestCase" ];

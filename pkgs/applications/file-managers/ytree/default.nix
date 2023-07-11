@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bnqLf2jv5tNlq+M6HQbXOa2F8io9VN3QrsJKNHjWZkI=";
   };
 
-  buildInputs = [ ncurses readline ];
+  buildInputs = [
+    ncurses
+    readline
+  ];
 
   # don't save timestamp, in order to improve reproducibility
   postPatch = ''

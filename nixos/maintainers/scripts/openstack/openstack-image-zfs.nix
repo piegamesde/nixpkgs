@@ -30,7 +30,10 @@ in {
     };
 
     format = mkOption {
-      type = types.enum [ "raw" "qcow2" ];
+      type = types.enum [
+        "raw"
+        "qcow2"
+      ];
       default = "qcow2";
       description = lib.mdDoc "The image format to output";
     };

@@ -42,7 +42,14 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [ geopy nose pysolr python-dateutil requests whoosh ];
+  nativeCheckInputs = [
+    geopy
+    nose
+    pysolr
+    python-dateutil
+    requests
+    whoosh
+  ];
 
   meta = with lib; {
     description = "Pluggable search for Django";

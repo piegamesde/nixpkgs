@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
     rev = "r${rev}";
   };
 
-  nativeBuildInputs = [ cmake pkg-config perl vala ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    perl
+    vala
+  ];
   buildInputs = [
     gtk2
     pcre

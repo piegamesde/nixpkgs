@@ -25,12 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-o2MDsrSkR0fMA5I8AoQcJrpwNGO5lXJn8O47tQN7U6o=";
   };
 
-  nativeBuildInputs = [ setuptools wheel ];
+  nativeBuildInputs = [
+    setuptools
+    wheel
+  ];
 
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [ unittestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    pyyaml
+  ];
 
   pythonImportsCheck = [ "markdown" ];
 

@@ -39,6 +39,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/eliben/pyelftools";
     changelog = "https://github.com/eliben/pyelftools/blob/v${version}/CHANGES";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ igsha pamplemousse ];
+    maintainers = with maintainers; [
+      igsha
+      pamplemousse
+    ];
   };
 }

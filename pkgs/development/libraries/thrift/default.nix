@@ -29,12 +29,21 @@ stdenv.mkDerivation rec {
   # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
   pythonPath = [ ];
 
-  nativeBuildInputs = [ bison cmake flex pkg-config ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    flex
+    pkg-config
+  ];
 
   buildInputs = [ boost ]
     ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
 
-  propagatedBuildInputs = [ libevent openssl zlib ];
+  propagatedBuildInputs = [
+    libevent
+    openssl
+    zlib
+  ];
 
   postPatch = ''
     # Python 3.10 related failures:
@@ -89,24 +98,26 @@ stdenv.mkDerivation rec {
     "-DOPENSSL_USE_STATIC_LIBS=ON"
   ];
 
-  disabledTests = [ "PythonTestSSLSocket" "PythonThriftTNonblockingServer" ]
-    ++ lib.optionals stdenv.isDarwin [
-      # Tests that hang up in the Darwin sandbox
-      "SecurityTest"
-      "SecurityFromBufferTest"
-      "python_test"
+  disabledTests = [
+    "PythonTestSSLSocket"
+    "PythonThriftTNonblockingServer"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Tests that hang up in the Darwin sandbox
+    "SecurityTest"
+    "SecurityFromBufferTest"
+    "python_test"
 
-      # Tests that fail in the Darwin sandbox when trying to use network
-      "UnitTests"
-      "TInterruptTest"
-      "TServerIntegrationTest"
-      "processor"
-      "TNonblockingServerTest"
-      "TNonblockingSSLServerTest"
-      "StressTest"
-      "StressTestConcurrent"
-      "StressTestNonBlocking"
-    ];
+    # Tests that fail in the Darwin sandbox when trying to use network
+    "UnitTests"
+    "TInterruptTest"
+    "TServerIntegrationTest"
+    "processor"
+    "TNonblockingServerTest"
+    "TNonblockingSSLServerTest"
+    "StressTest"
+    "StressTestConcurrent"
+    "StressTestNonBlocking"
+  ];
 
   doCheck = !static;
 

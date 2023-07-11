@@ -38,7 +38,10 @@ let
 
       buildInputs = [ perlPackages.perl ] ++ buildInputs;
 
-      nativeBuildInputs = [ autoreconfHook makeWrapper ];
+      nativeBuildInputs = [
+        autoreconfHook
+        makeWrapper
+      ];
 
       prePatch = with lib; ''
         rm -rf GLPlugin

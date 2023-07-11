@@ -37,13 +37,23 @@ in buildPythonPackage {
     sed -i 's/^protobuf.*/protobuf/' requirements.txt
   '';
 
-  propagatedBuildInputs =
-    [ coqpit fsspec protobuf psutil soundfile tensorboardx torch-bin ];
+  propagatedBuildInputs = [
+    coqpit
+    fsspec
+    protobuf
+    psutil
+    soundfile
+    tensorboardx
+    torch-bin
+  ];
 
   # only one test and that requires training data from the internet
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook torchvision-bin ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    torchvision-bin
+  ];
 
   pythonImportsCheck = [ "trainer" ];
 

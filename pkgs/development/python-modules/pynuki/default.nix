@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ pynacl requests ];
+  propagatedBuildInputs = [
+    pynacl
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

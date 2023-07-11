@@ -26,8 +26,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-JzSyX9zvUkhCEpNwTMneTZpCRgaYxHZ1wP215YnMI78=";
   };
 
-  nativeBuildInputs = [ meson pkg-config ninja perl ];
-  buildInputs = [ kmod (lib.getLib open-isns) openssl systemd util-linux ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    perl
+  ];
+  buildInputs = [
+    kmod
+    (lib.getLib open-isns)
+    openssl
+    systemd
+    util-linux
+  ];
 
   preConfigure = ''
     patchShebangs .
@@ -54,6 +65,9 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://www.open-iscsi.com";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cleverca22 zaninime ];
+    maintainers = with maintainers; [
+      cleverca22
+      zaninime
+    ];
   };
 }

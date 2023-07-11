@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zo9emLpHiDv6kekbx55NOibxWN2Zg7XngzGkUqSx+PI=";
   };
 
-  buildInputs = [ fltk libjpeg ];
+  buildInputs = [
+    fltk
+    libjpeg
+  ];
 
   patchPhase =
     "sed -i 's#PATH=/bin:/usr/bin rm#'${coreutils}/bin/rm'#' seaview.cxx";

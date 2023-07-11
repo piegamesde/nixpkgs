@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ wrapt ];
 
-  nativeCheckInputs = [ nose coverage ];
+  nativeCheckInputs = [
+    nose
+    coverage
+  ];
 
   checkPhase = ''
     nosetests

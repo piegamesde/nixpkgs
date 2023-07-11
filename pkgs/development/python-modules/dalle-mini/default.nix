@@ -27,8 +27,17 @@ buildPythonPackage rec {
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs =
-    [ einops emoji flax ftfy jax pillow transformers unidecode wandb ];
+  propagatedBuildInputs = [
+    einops
+    emoji
+    flax
+    ftfy
+    jax
+    pillow
+    transformers
+    unidecode
+    wandb
+  ];
 
   doCheck = false; # no upstream tests
 

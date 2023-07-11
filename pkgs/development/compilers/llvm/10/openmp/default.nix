@@ -16,10 +16,14 @@ stdenv.mkDerivation rec {
 
   src = fetch pname "0i4bn84lkpm5w3qkpvwm5z6jdj8fynp7d3bcasa1xyq4is6757yi";
 
-  nativeBuildInputs = [ cmake perl ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
+  nativeBuildInputs = [
+    cmake
+    perl
   ];
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
+    llvm
+  else
+    targetLlvm) ];
 
   meta = llvm_meta // {
     homepage = "https://openmp.llvm.org/";
@@ -33,6 +37,9 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code is dual licensed under the MIT license and the UIUC
     # License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

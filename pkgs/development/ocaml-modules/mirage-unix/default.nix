@@ -19,7 +19,11 @@ buildDunePackage rec {
     hash = "sha256-U1oLznUDBcJLcVygfSiyl5qRLDM27cm/WrjT0vSGhPg=";
   };
 
-  propagatedBuildInputs = [ lwt duration mirage-runtime ];
+  propagatedBuildInputs = [
+    lwt
+    duration
+    mirage-runtime
+  ];
   doCheck = true;
 
   meta = with lib; {

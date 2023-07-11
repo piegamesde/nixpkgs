@@ -30,7 +30,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl zlib ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    openssl
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   doCheck = false; # integration tests depend on changing cargo config
 

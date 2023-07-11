@@ -59,7 +59,10 @@ in let
 in let
   x11env = buildEnv {
     name = "x11env";
-    paths = [ libX11 xorgproto ];
+    paths = [
+      libX11
+      xorgproto
+    ];
   };
   x11lib = x11env + "/lib";
   x11inc = x11env + "/include";
@@ -77,8 +80,10 @@ in stdenv.mkDerivation (args // {
   prefixKey = "-prefix ";
   configureFlags = let
     flags = new: old: if lib.versionAtLeast version "4.08" then new else old;
-  in optionals useX11
-  (flags [ "--x-libraries=${x11lib}" "--x-includes=${x11inc}" ] [
+  in optionals useX11 (flags [
+    "--x-libraries=${x11lib}"
+    "--x-includes=${x11inc}"
+  ] [
     "-x11lib"
     x11lib
     "-x11include"
@@ -105,7 +110,10 @@ in stdenv.mkDerivation (args // {
   # does not exist. So, disable these configure flags on `aarch64-darwin`.
   # See #144785 for details.
   configurePlatforms = lib.optionals (lib.versionAtLeast version "4.08"
-    && !(stdenv.isDarwin && stdenv.isAarch64)) [ "host" "target" ];
+    && !(stdenv.isDarwin && stdenv.isAarch64)) [
+      "host"
+      "target"
+    ];
   # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
   hardeningDisable = lib.optional
     (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
@@ -127,12 +135,13 @@ in stdenv.mkDerivation (args // {
   # we place nixpkgs-specific targets to a separate file and set
   # sequential order among them as a single rule.
   makefile = ./Makefile.nixpkgs;
-  buildFlags = if useNativeCompilers then
-    [ "nixpkgs_world_bootstrap_world_opt" ]
-  else
-    [ "nixpkgs_world" ];
+  buildFlags =
+    if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
   buildInputs = optional (lib.versionOlder version "4.07") ncurses
-    ++ optionals useX11 [ libX11 xorgproto ];
+    ++ optionals useX11 [
+      libX11
+      xorgproto
+    ];
   propagatedBuildInputs = optional spaceTimeSupport libunwind;
   installTargets = [ "install" ] ++ optional useNativeCompilers "installopt";
   preConfigure = optionalString (lib.versionOlder version "4.04") ''

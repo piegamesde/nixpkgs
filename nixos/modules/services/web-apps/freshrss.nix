@@ -11,7 +11,10 @@ let
 
   poolName = "freshrss";
 in {
-  meta.maintainers = with maintainers; [ etu stunkymonkey ];
+  meta.maintainers = with maintainers; [
+    etu
+    stunkymonkey
+  ];
 
   options.services.freshrss = {
     enable = mkEnableOption (mdDoc "FreshRSS feed reader");
@@ -51,7 +54,11 @@ in {
 
     database = {
       type = mkOption {
-        type = types.enum [ "sqlite" "pgsql" "mysql" ];
+        type = types.enum [
+          "sqlite"
+          "pgsql"
+          "mysql"
+        ];
         default = "sqlite";
         description = mdDoc "Database type.";
         example = "pgsql";
@@ -153,7 +160,11 @@ in {
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
       SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
+      SystemCallFilter = [
+        "@system-service"
+        "~@resources"
+        "~@privileged"
+      ];
       UMask = "0007";
       Type = "oneshot";
       User = cfg.user;
@@ -218,11 +229,9 @@ in {
     };
     users.groups."${cfg.user}" = { };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${
         config.users.users.${cfg.user}.group
-      } - -"
-    ];
+      } - -" ];
 
     systemd.services.freshrss-config = let
       settingsFlags = concatStringsSep " \\\n    "

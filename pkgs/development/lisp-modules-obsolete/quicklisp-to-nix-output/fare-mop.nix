@@ -9,7 +9,10 @@ args@{
   description =
     "Utilities using the MOP; notably make informative pretty-printing trivial";
 
-  deps = [ args."closer-mop" args."fare-utils" ];
+  deps = [
+    args."closer-mop"
+    args."fare-utils"
+  ];
 
   src = fetchurl {
     url =

@@ -51,6 +51,10 @@ in appimageTools.wrapType2 rec {
       "Linux Electron Onenote - A Linux compatible version of OneNote";
     license = licenses.mit;
     maintainers = with maintainers; [ tiagolobocastro ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "armv7l-linux"
+    ];
   };
 }

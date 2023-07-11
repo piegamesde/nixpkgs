@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "HXo1r5xc7MrLJE7jwt65skVyDYUQrFx+b0tvmUfmeJw=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -40,7 +43,13 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libepoxy ];
 
-  propagatedBuildInputs = [ glibmm gtk3 atkmm cairomm pangomm ];
+  propagatedBuildInputs = [
+    glibmm
+    gtk3
+    atkmm
+    cairomm
+    pangomm
+  ];
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=764521
   doCheck = false;

@@ -25,8 +25,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages =
-    [ "cmd/ansible-operator" "cmd/helm-operator" "cmd/operator-sdk" ];
+  subPackages = [
+    "cmd/ansible-operator"
+    "cmd/helm-operator"
+    "cmd/operator-sdk"
+  ];
 
   # operator-sdk uses the go compiler at runtime
   allowGoReference = true;

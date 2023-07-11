@@ -14,7 +14,10 @@ import ./make-test-python.nix ({
           ${pkgs.btrfs-progs}/bin/mkfs.btrfs -f -L aux1 /dev/vdb
           ${pkgs.btrfs-progs}/bin/mkfs.btrfs -f -L aux2 /dev/vdc
         '';
-        virtualisation.emptyDiskImages = [ 4096 4096 ];
+        virtualisation.emptyDiskImages = [
+          4096
+          4096
+        ];
         virtualisation.fileSystems = {
           "/aux1" = { # filesystem configured to be deduplicated
             device = "/dev/disk/by-label/aux1";

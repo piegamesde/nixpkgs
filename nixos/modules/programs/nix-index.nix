@@ -39,7 +39,10 @@ in {
           with the 'programs.nix-index.${name}' option.
         '';
       };
-    in [ (checkOpt "enableBashIntegration") (checkOpt "enableZshIntegration") ];
+    in [
+      (checkOpt "enableBashIntegration")
+      (checkOpt "enableZshIntegration")
+    ];
 
     environment.systemPackages = [ cfg.package ];
 

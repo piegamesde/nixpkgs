@@ -86,7 +86,11 @@ buildPythonPackage rec {
     quimb
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio freezegun ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    freezegun
+  ];
 
   disabledTestPaths = lib.optionals (!withContribRequires) [
     # Requires external (unpackaged) libraries, so untested
@@ -110,7 +114,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/quantumlib/cirq";
     changelog = "https://github.com/quantumlib/Cirq/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger fab ];
+    maintainers = with maintainers; [
+      drewrisinger
+      fab
+    ];
     broken = (stdenv.isLinux && stdenv.isAarch64);
   };
 }

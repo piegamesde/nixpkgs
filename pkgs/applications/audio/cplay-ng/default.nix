@@ -22,7 +22,12 @@ python3.pkgs.buildPythonApplication rec {
 
   postInstall = ''
     wrapProgram $out/bin/cplay-ng \
-      --prefix PATH : ${lib.makeBinPath [ mpv pulseaudio ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          mpv
+          pulseaudio
+        ]
+      }
   '';
 
   meta = with lib; {

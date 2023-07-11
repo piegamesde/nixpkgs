@@ -28,7 +28,11 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
-    nativeBuildInputs = [ gradle openjdk17 perl ];
+    nativeBuildInputs = [
+      gradle
+      openjdk17
+      perl
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -51,7 +55,10 @@ let
 in stdenv.mkDerivation {
   inherit pname src version;
 
-  nativeBuildInputs = [ gradle openjdk17 ];
+  nativeBuildInputs = [
+    gradle
+    openjdk17
+  ];
 
   # use our offline deps
   postPatch = ''

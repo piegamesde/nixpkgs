@@ -25,7 +25,10 @@
 
 mkDerivation {
   pname = "plasma-disks";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kcmutils
     kconfig
@@ -47,5 +50,9 @@ mkDerivation {
     plasma-workspace
     systemsettings
   ];
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 }

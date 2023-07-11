@@ -29,7 +29,11 @@ mkDerivation rec {
   '';
 
   # LaTeX is used from $PATH, as people often want to have it with extra pkgs
-  nativeBuildInputs = [ pkg-config makeWrapper python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    python3
+  ];
   buildInputs = [
     qtbase
     qtsvg
@@ -38,14 +42,13 @@ mkDerivation rec {
     hunspell # enchant
   ];
 
-  configureFlags = [
-    "--enable-qt5"
+  configureFlags = [ "--enable-qt5"
     #"--without-included-boost"
     /* Boost is a huge dependency from which 1.4 MB of libs would be used.
         Using internal boost stuff only increases executable by around 0.2 MB.
     */
     #"--without-included-mythes" # such a small library isn't worth a separate package
-  ];
+    ];
 
   enableParallelBuilding = true;
   doCheck = true;

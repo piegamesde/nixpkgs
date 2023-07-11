@@ -42,7 +42,10 @@ let
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
   llvm = (llvmPackages.llvm.override {
-    llvmTargetsToBuild = [ "NATIVE" "NVPTX" ];
+    llvmTargetsToBuild = [
+      "NATIVE"
+      "NVPTX"
+    ];
     # Upstream CI sets these too:
     # targetProjects = [ "mlir" ];
     extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
@@ -161,7 +164,13 @@ in buildPythonPackage {
     llvmPackages.mlir
   ];
 
-  buildInputs = [ gtest libxml2.dev ncurses pybind11 zlib ];
+  buildInputs = [
+    gtest
+    libxml2.dev
+    ncurses
+    pybind11
+    zlib
+  ];
 
   propagatedBuildInputs = [ filelock ];
 
@@ -200,9 +209,8 @@ in buildPythonPackage {
     ln -s ${ptxas} ${ptxasDestination}
   '';
 
-  checkInputs = [
-    cmake # ctest
-  ];
+  checkInputs = [ cmake # ctest
+    ];
   dontUseSetuptoolsCheck = true;
   preCheck =
     # build/temp* refers to build_ext.build_temp (looked up in the build logs)

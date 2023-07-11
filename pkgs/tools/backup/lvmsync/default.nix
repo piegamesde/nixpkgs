@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
     homepage = "https://theshed.hezmatt.org/lvmsync/";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine nicknovitski ];
+    maintainers = with maintainers; [
+      jluttine
+      nicknovitski
+    ];
   };
 
 }

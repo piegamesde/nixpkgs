@@ -19,14 +19,12 @@ in stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-+yIKkTvfVbLnFBoXSKGebB1A8KqpaRmsLh8SsNuI9Dc=";
   };
-  patches = [
-    (fetchpatch {
-      name = "fix-aarch64.patch";
-      url =
-        "https://github.com/lkrg-org/lkrg/commit/a4e5c00f13f7081b346bc3736e4c035e3d17d3f7.patch";
-      sha256 = "sha256-DPscqi+DySHwFxGuGe7P2itPkoyb3XGu5Xp2S/ezP4Y=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-aarch64.patch";
+    url =
+      "https://github.com/lkrg-org/lkrg/commit/a4e5c00f13f7081b346bc3736e4c035e3d17d3f7.patch";
+    sha256 = "sha256-DPscqi+DySHwFxGuGe7P2itPkoyb3XGu5Xp2S/ezP4Y=";
+  }) ];
 
   hardeningDisable = [ "pic" ];
 

@@ -23,9 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-pFTF2SQ9giRzPhG24FLqLPJRXaFdQ7Xi5EeltS7J3DI=";
   };
 
-  outputs = [ "out" "testsout" ];
+  outputs = [
+    "out"
+    "testsout"
+  ];
 
-  propagatedBuildInputs = [ httpx sanic websockets ];
+  propagatedBuildInputs = [
+    httpx
+    sanic
+    websockets
+  ];
 
   postInstall = ''
     mkdir $testsout

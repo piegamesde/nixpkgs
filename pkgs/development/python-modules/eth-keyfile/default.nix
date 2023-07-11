@@ -27,7 +27,11 @@ buildPythonPackage rec {
       --replace "'setuptools-markdown'" ""
   '';
 
-  propagatedBuildInputs = [ eth-keys eth-utils pycryptodome ];
+  propagatedBuildInputs = [
+    eth-keys
+    eth-utils
+    pycryptodome
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

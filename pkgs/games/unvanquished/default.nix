@@ -125,7 +125,10 @@ let
     outputHash = "sha256-ua9Q5E5C4t8z/yNQp6qn1i9NNDAk4ohzvgpMbCBxb8Q=";
     outputHashMode = "recursive";
 
-    nativeBuildInputs = [ aria2 cacert ];
+    nativeBuildInputs = [
+      aria2
+      cacert
+    ];
 
     buildCommand = ''
       bash $src/download-paks --cache=$(pwd) --version=${version} $out
@@ -144,7 +147,11 @@ in stdenv.mkDerivation rec {
     chmod +w -R daemon/external_deps/"$TARGET"/
   '';
 
-  nativeBuildInputs = [ cmake unvanquished-binary-deps copyDesktopItems ];
+  nativeBuildInputs = [
+    cmake
+    unvanquished-binary-deps
+    copyDesktopItems
+  ];
 
   buildInputs = [
     gmp
@@ -183,7 +190,11 @@ in stdenv.mkDerivation rec {
       comment = "FPS/RTS Game - Aliens vs. Humans";
       icon = "unvanquished";
       exec = "unvanquished";
-      categories = [ "Game" "ActionGame" "StrategyGame" ];
+      categories = [
+        "Game"
+        "ActionGame"
+        "StrategyGame"
+      ];
       prefersNonDefaultGPU = true;
     })
     (makeDesktopItem {

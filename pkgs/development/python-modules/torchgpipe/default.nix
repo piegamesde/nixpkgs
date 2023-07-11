@@ -28,8 +28,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ torch ];
 
   nativeCheckInputs = [ pytestCheckHook ];
-  disabledTests =
-    [ "test_inplace_on_requires_grad" "test_input_requiring_grad" ];
+  disabledTests = [
+    "test_inplace_on_requires_grad"
+    "test_input_requiring_grad"
+  ];
 
   meta = with lib; {
     description =

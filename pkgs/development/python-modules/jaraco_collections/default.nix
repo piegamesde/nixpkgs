@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ jaraco_classes jaraco_text ];
+  propagatedBuildInputs = [
+    jaraco_classes
+    jaraco_text
+  ];
 
   pythonNamespaces = [ "jaraco" ];
 

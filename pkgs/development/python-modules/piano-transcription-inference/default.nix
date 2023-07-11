@@ -31,7 +31,13 @@ buildPythonPackage rec {
     hash = "sha256-w/qXMHJb9Kdi8cFLyAzVmG6s2gGwJvWkolJc1geHYUE=";
   };
 
-  propagatedBuildInputs = [ librosa matplotlib mido torch torchlibrosa ];
+  propagatedBuildInputs = [
+    librosa
+    matplotlib
+    mido
+    torch
+    torchlibrosa
+  ];
 
   patches = [
     # Fix run against librosa 0.10.0

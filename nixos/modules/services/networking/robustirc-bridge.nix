@@ -26,7 +26,10 @@ in {
   config = mkIf cfg.enable {
     systemd.services.robustirc-bridge = {
       description = "RobustIRC bridge";
-      documentation = [ "man:robustirc-bridge(1)" "https://robustirc.net/" ];
+      documentation = [
+        "man:robustirc-bridge(1)"
+        "https://robustirc.net/"
+      ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

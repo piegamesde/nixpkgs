@@ -20,15 +20,25 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./installdir.patch ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-  buildInputs = with xorg; [ xorgproto libXext ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = with xorg; [
+    xorgproto
+    libXext
+  ];
 
   propagatedBuildInputs = [ xorg.libX11 ];
 
-  mesonFlags = lib.optionals stdenv.isLinux
-    [ "-Dmoduledir=${mesa.drivers.driverLink}/lib/vdpau" ];
+  mesonFlags = lib.optionals
+    stdenv.isLinux [ "-Dmoduledir=${mesa.drivers.driverLink}/lib/vdpau" ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lX11";
 

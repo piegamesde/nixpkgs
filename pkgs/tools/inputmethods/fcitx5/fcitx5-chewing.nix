@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zfaq5pkHcB12iFvXWvvzmX9mpcXAZSri9lVlzfePLAQ=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules gettext ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    gettext
+  ];
 
-  buildInputs = [ fcitx5 libchewing ];
+  buildInputs = [
+    fcitx5
+    libchewing
+  ];
 
   meta = with lib; {
     description = "Chewing wrapper for Fcitx5";

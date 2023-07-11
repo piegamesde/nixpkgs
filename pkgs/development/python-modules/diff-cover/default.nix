@@ -30,11 +30,23 @@ buildPythonPackage rec {
     hash = "sha256-pLMCSoMeTzjCLoCZRfCdCmp7pmLcjjDSjxprIaPt6/w=";
   };
 
-  propagatedBuildInputs =
-    [ chardet jinja2 jinja2_pluralize pluggy pygments tomli ];
+  propagatedBuildInputs = [
+    chardet
+    jinja2
+    jinja2_pluralize
+    pluggy
+    pygments
+    tomli
+  ];
 
-  nativeCheckInputs =
-    [ pycodestyle pyflakes pylint pytest-datadir pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pycodestyle
+    pyflakes
+    pylint
+    pytest-datadir
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests check for flake8

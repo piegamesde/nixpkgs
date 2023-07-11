@@ -24,16 +24,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-u2mg4hpcjPXzuZjYKIC4lgqGJPFRB9baHvaiu/YafZw=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+  ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf libpng zlib ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    libpng
+    zlib
+  ];
 
   dontConfigure = true;
 
   makefile = "makefile";
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "BIN_DIR=${placeholder "out"}/bin/" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "BIN_DIR=${placeholder "out"}/bin/"
+  ];
 
   # TODO: remove the setting below when the next version arrives
   # https://github.com/riksweeney/edgar/pull/57

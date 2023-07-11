@@ -15,14 +15,14 @@ import ./make-test-python.nix ({
           networking.useDHCP = false;
           networking.interfaces = {
             eth1 = {
-              ipv6.addresses = [{
+              ipv6.addresses = [ {
                 address = "fd23::1";
                 prefixLength = 112;
-              }];
-              ipv6.routes = [{
+              } ];
+              ipv6.routes = [ {
                 address = "fd42::";
                 prefixLength = 112;
-              }];
+              } ];
             };
           };
         };
@@ -38,10 +38,10 @@ import ./make-test-python.nix ({
           networking.useDHCP = false;
           networking.interfaces = {
             eth1 = {
-              ipv6.addresses = [{
+              ipv6.addresses = [ {
                 address = "fd23::2";
                 prefixLength = 112;
-              }];
+              } ];
             };
           };
           services.ndppd = {

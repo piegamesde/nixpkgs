@@ -21,7 +21,10 @@
 }:
 mkDerivation {
   pname = "plasma-remotecontrollers";
-  nativeBuildInputs = [ extra-cmake-modules pkg-config ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    pkg-config
+  ];
   buildInputs = [
     kconfig
     knotifications

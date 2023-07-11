@@ -35,17 +35,29 @@ in buildPythonPackage {
   };
 
   # listed in backend/src/hatchling/ouroboros.py
-  propagatedBuildInputs = [ editables packaging pathspec pluggy ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+  propagatedBuildInputs = [
+    editables
+    packaging
+    pathspec
+    pluggy
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  pythonImportsCheck = [ "hatchling" "hatchling.build" ];
+  pythonImportsCheck = [
+    "hatchling"
+    "hatchling.build"
+  ];
 
   # tries to fetch packages from the internet
   doCheck = false;
 
   # listed in /backend/tests/downstream/requirements.txt
-  nativeCheckInputs = [ build packaging requests virtualenv ];
+  nativeCheckInputs = [
+    build
+    packaging
+    requests
+    virtualenv
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -63,6 +75,9 @@ in buildPythonPackage {
     changelog =
       "https://github.com/pypa/hatch/releases/tag/hatchling-v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ofek ];
+    maintainers = with maintainers; [
+      hexa
+      ofek
+    ];
   };
 }

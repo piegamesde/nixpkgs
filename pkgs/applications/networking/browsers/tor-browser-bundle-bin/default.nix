@@ -94,7 +94,10 @@ let
     ++ lib.optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
-  fteLibPath = lib.makeLibraryPath [ stdenv.cc.cc gmp ];
+  fteLibPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    gmp
+  ];
 
   # Upstream source
   version = "12.0.5";
@@ -151,7 +154,11 @@ in stdenv.mkDerivation rec {
     desktopName = "Tor Browser";
     genericName = "Web Browser";
     comment = meta.description;
-    categories = [ "Network" "WebBrowser" "Security" ];
+    categories = [
+      "Network"
+      "WebBrowser"
+      "Security"
+    ];
   };
 
   buildPhase = ''

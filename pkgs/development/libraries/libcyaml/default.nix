@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libyaml ];
 
-  makeFlags = [ "VARIANT=release" "PREFIX=$(out)" ];
+  makeFlags = [
+    "VARIANT=release"
+    "PREFIX=$(out)"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/tlsa/libcyaml";

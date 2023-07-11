@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gdk-pixbuf gtk3 ];
+  buildInputs = [
+    gdk-pixbuf
+    gtk3
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 
@@ -47,7 +50,10 @@ stdenv.mkDerivation rec {
     description = "Multiple USB File Flasher";
     homepage = "https://github.com/pop-os/popsicle";
     changelog = "https://github.com/pop-os/popsicle/releases/tag/${version}";
-    maintainers = with maintainers; [ _13r0ck figsoda ];
+    maintainers = with maintainers; [
+      _13r0ck
+      figsoda
+    ];
     license = licenses.mit;
     platforms = platforms.linux;
   };

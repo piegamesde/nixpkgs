@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ openssl zlib ];
+  buildInputs = [
+    openssl
+    zlib
+  ];
 
   meta = with lib; {
     description = "Network authentication tool";

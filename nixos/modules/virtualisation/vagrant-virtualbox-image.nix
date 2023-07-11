@@ -7,7 +7,10 @@
 }:
 
 {
-  imports = [ ./vagrant-guest.nix ./virtualbox-image.nix ];
+  imports = [
+    ./vagrant-guest.nix
+    ./virtualbox-image.nix
+  ];
 
   virtualbox.params = {
     audio = "none";

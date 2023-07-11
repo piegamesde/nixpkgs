@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pillow ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace tox.ini \

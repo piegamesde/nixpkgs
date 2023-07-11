@@ -45,7 +45,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk-vnc gtk3 libhandy libsecret libxml2 gtk-frdp ];
+  buildInputs = [
+    glib
+    gtk-vnc
+    gtk3
+    libhandy
+    libsecret
+    libxml2
+    gtk-frdp
+  ];
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 

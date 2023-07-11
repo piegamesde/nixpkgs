@@ -30,12 +30,22 @@ let
           withLDAP ? false
         }: {
           mailmanEnv = self.python3.withPackages (ps:
-            [ mailman ps.psycopg2 ]
-            ++ lib.optional withHyperkitty mailman-hyperkitty
-            ++ lib.optionals withLDAP [ ps.python-ldap ps.django-auth-ldap ]);
+            [
+              mailman
+              ps.psycopg2
+            ] ++ lib.optional withHyperkitty mailman-hyperkitty
+            ++ lib.optionals withLDAP [
+              ps.python-ldap
+              ps.django-auth-ldap
+            ]);
           webEnv = self.python3.withPackages (ps:
-            [ web ps.psycopg2 ]
-            ++ lib.optionals withLDAP [ ps.python-ldap ps.django-auth-ldap ]);
+            [
+              web
+              ps.psycopg2
+            ] ++ lib.optionals withLDAP [
+              ps.python-ldap
+              ps.django-auth-ldap
+            ]);
         };
     });
 

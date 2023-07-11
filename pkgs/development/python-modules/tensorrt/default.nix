@@ -20,8 +20,11 @@ in buildPythonPackage rec {
   # We unpack the wheel ourselves because of the odd packaging.
   dontUseWheelUnpack = true;
 
-  nativeBuildInputs =
-    [ unzip autoPatchelfHook cudaPackages.autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [
+    unzip
+    autoPatchelfHook
+    cudaPackages.autoAddOpenGLRunpathHook
+  ];
 
   preUnpack = ''
     mkdir -p dist
@@ -31,7 +34,10 @@ in buildPythonPackage rec {
 
   sourceRoot = ".";
 
-  buildInputs = [ cudaPackages.cudnn cudaPackages.tensorrt ];
+  buildInputs = [
+    cudaPackages.cudnn
+    cudaPackages.tensorrt
+  ];
 
   pythonCheckImports = [ "tensorrt" ];
 

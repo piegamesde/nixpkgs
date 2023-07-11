@@ -30,9 +30,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ requests appdirs filelock distro ];
+  propagatedBuildInputs = [
+    requests
+    appdirs
+    filelock
+    distro
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   pythonImportsCheck = [ "iterative_telemetry" ];
 

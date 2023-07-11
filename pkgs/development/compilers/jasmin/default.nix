@@ -21,7 +21,12 @@ in stdenv.mkDerivation rec {
     sha256 = "17a41vr96glcdrdbk88805wwvv1r6w8wg7if23yhd0n6rrl0r8ga";
   };
 
-  nativeBuildInputs = [ unzip jdk ant makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    jdk
+    ant
+    makeWrapper
+  ];
 
   buildPhase = "ant all";
   installPhase = ''

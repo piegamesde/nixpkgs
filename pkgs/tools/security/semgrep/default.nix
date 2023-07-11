@@ -34,7 +34,10 @@ in buildPythonApplication rec {
   # copies the binary but doesn't retain the executable bit
   SEMGREP_SKIP_BIN = true;
 
-  pythonRelaxDeps = [ "boltons" "glom" ];
+  pythonRelaxDeps = [
+    "boltons"
+    "glom"
+  ];
 
   propagatedBuildInputs = with pythonPackages; [
     attrs
@@ -59,7 +62,10 @@ in buildPythonApplication rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ git pytestCheckHook ] ++ (with pythonPackages; [
+  nativeCheckInputs = [
+    git
+    pytestCheckHook
+  ] ++ (with pythonPackages; [
     pytest-snapshot
     pytest-mock
     pytest-freezegun

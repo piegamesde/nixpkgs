@@ -37,11 +37,22 @@ buildPythonPackage rec {
       --replace "snitun==" "snitun>=" \
   '';
 
-  propagatedBuildInputs =
-    [ acme aiohttp atomicwrites-homeassistant attrs pycognito snitun ];
+  propagatedBuildInputs = [
+    acme
+    aiohttp
+    atomicwrites-homeassistant
+    attrs
+    pycognito
+    snitun
+  ];
 
-  nativeCheckInputs =
-    [ pytest-aiohttp pytest-timeout pytestCheckHook syrupy xmltodict ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytest-timeout
+    pytestCheckHook
+    syrupy
+    xmltodict
+  ];
 
   pythonImportsCheck = [ "hass_nabucasa" ];
 

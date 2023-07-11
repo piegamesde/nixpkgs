@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-sf419qXzJUe1zTGhXAYNmrhj3Aiv8BjNc9x40bZR7dQ=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook teamcity-messages testtools ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    teamcity-messages
+    testtools
+  ];
 
   disabledTests = [ "test_failed_test_case" ];
 

@@ -24,9 +24,17 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs =
-    [ autoreconfHook autoconf-archive pkg-config bash-completion ];
-  buildInputs = [ libjpeg libpng ncurses ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+    bash-completion
+  ];
+  buildInputs = [
+    libjpeg
+    libpng
+    ncurses
+  ];
 
   installFlags = [ "bashcompdir=\${out}/share/bash-completion/completions" ];
 

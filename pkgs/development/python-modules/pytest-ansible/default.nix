@@ -33,7 +33,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ansible-core ];
 
-  nativeCheckInputs = [ coverage pytestCheckHook ];
+  nativeCheckInputs = [
+    coverage
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

@@ -32,10 +32,21 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pytz setuptools six tzlocal ];
+  propagatedBuildInputs = [
+    pytz
+    setuptools
+    six
+    tzlocal
+  ];
 
-  nativeCheckInputs =
-    [ gevent pytest-asyncio pytest-tornado pytestCheckHook tornado twisted ];
+  nativeCheckInputs = [
+    gevent
+    pytest-asyncio
+    pytest-tornado
+    pytestCheckHook
+    tornado
+    twisted
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -48,7 +59,10 @@ buildPythonPackage rec {
     "test_add_live_job"
     "test_add_pending_job"
     "test_shutdown"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_submit_job" "test_max_instances" ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    "test_submit_job"
+    "test_max_instances"
+  ];
 
   pythonImportsCheck = [ "apscheduler" ];
 

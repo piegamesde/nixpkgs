@@ -18,19 +18,24 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl openssl sqlite ];
-
-  patches = [
-    (fetchurl {
-      # Note: fetchurl seems to be unhappy with openwrt git
-      # server's URLs containing semicolons. Using the github mirror instead.
-      url =
-        "https://raw.githubusercontent.com/openwrt/openwrt/eefed841b05c3cd4c65a78b50ce0934d879e6acf/package/network/services/hostapd/patches/300-noscan.patch";
-      sha256 = "08p5frxhpq1rp2nczkscapwwl8g9nc4fazhjpxic5bcbssc3sb00";
-    })
+  buildInputs = [
+    libnl
+    openssl
+    sqlite
   ];
 
-  outputs = [ "out" "man" ];
+  patches = [ (fetchurl {
+    # Note: fetchurl seems to be unhappy with openwrt git
+    # server's URLs containing semicolons. Using the github mirror instead.
+    url =
+      "https://raw.githubusercontent.com/openwrt/openwrt/eefed841b05c3cd4c65a78b50ce0934d879e6acf/package/network/services/hostapd/patches/300-noscan.patch";
+    sha256 = "08p5frxhpq1rp2nczkscapwwl8g9nc4fazhjpxic5bcbssc3sb00";
+  }) ];
+
+  outputs = [
+    "out"
+    "man"
+  ];
 
   extraConfig = ''
     CONFIG_DRIVER_WIRED=y
@@ -85,7 +90,10 @@ stdenv.mkDerivation rec {
     description =
       "A user space daemon for access point and authentication servers";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ninjatrappeur hexa ];
+    maintainers = with maintainers; [
+      ninjatrappeur
+      hexa
+    ];
     platforms = platforms.linux;
   };
 }

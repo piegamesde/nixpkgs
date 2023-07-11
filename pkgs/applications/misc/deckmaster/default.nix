@@ -24,7 +24,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # Let the app find Roboto-*.ttf files (hard-coded file names).
   postFixup = ''

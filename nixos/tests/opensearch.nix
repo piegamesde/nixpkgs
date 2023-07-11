@@ -38,7 +38,10 @@ in {
           chown open_search:open_search /var/opensearch_test
           chmod 0700 /var/opensearch_test
         '';
-        deps = [ "users" "groups" ];
+        deps = [
+          "users"
+          "groups"
+        ];
       };
       users = {
         groups.open_search = { };

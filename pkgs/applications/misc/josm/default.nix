@@ -56,7 +56,10 @@ in stdenv.mkDerivation rec {
     changelog = "https://josm.openstreetmap.de/wiki/Changelog";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rycee sikmir ];
+    maintainers = with maintainers; [
+      rycee
+      sikmir
+    ];
     platforms = platforms.all;
   };
 }

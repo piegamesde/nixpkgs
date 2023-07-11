@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0lrmy2n3ax7f208k0k8l3yz0j5cpz05hv4hx1nnxzn0c51z1pc31";
   };
 
-  buildInputs = [ hmmer perl ];
+  buildInputs = [
+    hmmer
+    perl
+  ];
 
   buildPhase = ''
     sed -e "s,profileDB = .*,profileDB = \"$out/share/ITSx_db/HMMs\";," -i ITSx

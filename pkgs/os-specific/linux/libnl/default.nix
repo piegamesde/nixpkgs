@@ -23,12 +23,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ty9NdWKWB29MTRfG5OJlSE0mSTN3Wy+sR4KtuExXcB4=";
   };
 
-  outputs = [ "bin" "dev" "out" "man" ] ++ lib.optional pythonSupport "py";
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+  ] ++ lib.optional pythonSupport "py";
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook bison flex pkg-config file ]
-    ++ lib.optional pythonSupport swig;
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    pkg-config
+    file
+  ] ++ lib.optional pythonSupport swig;
 
   postBuild = lib.optionalString (pythonSupport) ''
     cd python

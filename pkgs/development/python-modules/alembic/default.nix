@@ -24,13 +24,19 @@ buildPythonPackage rec {
     hash = "sha256-TTvTLs27e7+0ip/p5tb9aoMaG1nQPibikiECNzc+fbU=";
   };
 
-  propagatedBuildInputs = [ mako python-dateutil sqlalchemy ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+  propagatedBuildInputs = [
+    mako
+    python-dateutil
+    sqlalchemy
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   pythonImportsCheck = [ "alembic" ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   meta = with lib; {
     homepage = "https://bitbucket.org/zzzeek/alembic";

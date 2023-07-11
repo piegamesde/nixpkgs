@@ -20,7 +20,10 @@ trivialBuild rec {
 
   buildInputs = propagatedUserEnvPkgs;
 
-  propagatedUserEnvPkgs = [ evil markdown-mode ];
+  propagatedUserEnvPkgs = [
+    evil
+    markdown-mode
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Somelauw/evil-markdown";

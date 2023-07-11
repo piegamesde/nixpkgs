@@ -24,10 +24,15 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "attrs" ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ]
-    ++ (with python3Packages; [ poetry-core pythonRelaxDepsHook ]);
+  nativeBuildInputs = [ wrapQtAppsHook ] ++ (with python3Packages; [
+    poetry-core
+    pythonRelaxDepsHook
+  ]);
 
-  buildInputs = [ ffmpeg qtbase ];
+  buildInputs = [
+    ffmpeg
+    qtbase
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     appdirs

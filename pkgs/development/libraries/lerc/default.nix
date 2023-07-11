@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   pname = "lerc";
   version = "4.0.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "esri";

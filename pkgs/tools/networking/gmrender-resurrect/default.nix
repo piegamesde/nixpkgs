@@ -36,8 +36,15 @@ in stdenv.mkDerivation {
     sha256 = "sha256-FR5bMjwPnY1/PNdPRiaxoY1keogq40M06YOaoks4zVY=";
   };
 
-  buildInputs = [ gstreamer libupnp ];
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
+  buildInputs = [
+    gstreamer
+    libupnp
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+  ];
 
   postInstall = ''
     for prog in "$out/bin/"*; do
@@ -51,6 +58,9 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/hzeller/gmrender-resurrect";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ koral hzeller ];
+    maintainers = with maintainers; [
+      koral
+      hzeller
+    ];
   };
 }

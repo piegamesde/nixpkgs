@@ -32,10 +32,21 @@ python3Packages.buildPythonApplication rec {
     export LD_LIBRARY_PATH=${libpulseaudio}/lib
   '';
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  propagatedBuildInputs = [ pango gtk3 ]
-    ++ (with python3Packages; [ pulsectl click pycairo pygobject3 pyyaml ]);
+  propagatedBuildInputs = [
+    pango
+    gtk3
+  ] ++ (with python3Packages; [
+    pulsectl
+    click
+    pycairo
+    pygobject3
+    pyyaml
+  ]);
 
   # with strictDeps importing "gi.repository.Gtk" fails with "gi.RepositoryError: Typelib file for namespace 'Pango', version '1.0' not found"
   strictDeps = false;

@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-FxB9ToXd6PZ1eUrMWDAtbOmKclTuA/QdP72WsG7za5Y=";
   };
 
-  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
+  propagatedBuildInputs = [
+    msrest
+    msrestazure
+    azure-common
+    azure-mgmt-core
+  ];
 
   # has no tests
   doCheck = false;

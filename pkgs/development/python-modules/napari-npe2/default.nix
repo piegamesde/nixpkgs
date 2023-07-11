@@ -40,8 +40,16 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs =
-    [ appdirs build magicgui pydantic pytomlpp pyyaml rich typer ];
+  propagatedBuildInputs = [
+    appdirs
+    build
+    magicgui
+    pydantic
+    pytomlpp
+    pyyaml
+    rich
+    typer
+  ];
 
   pythonImportsCheck = [ "npe2" ];
 

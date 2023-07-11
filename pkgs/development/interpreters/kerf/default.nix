@@ -26,14 +26,24 @@ stdenv.mkDerivation rec {
   };
 
   sourceRoot = "source/src";
-  buildInputs = [ libedit zlib ncurses ] ++ lib.optionals stdenv.isDarwin
-    ([ Accelerate ] ++ lib.optionals stdenv.isx86_64 # && isDarwin
-      [ CoreGraphics CoreVideo ]);
+  buildInputs = [
+    libedit
+    zlib
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
+    ++ lib.optionals stdenv.isx86_64 # && isDarwin
+    [
+      CoreGraphics
+      CoreVideo
+    ]);
 
   nativeCheckInputs = [ expect ];
   doCheck = true;
 
-  makeFlags = [ "kerf" "kerf_test" ];
+  makeFlags = [
+    "kerf"
+    "kerf_test"
+  ];
 
   # avoid a huge amount of warnings to make failures clearer
   env.NIX_CFLAGS_COMPILE = toString (map (x: "-Wno-${x}") [

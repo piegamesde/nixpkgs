@@ -65,7 +65,10 @@ let
   deps = stdenvNoCC.mkDerivation ({
     name = "${name}-dart-deps";
 
-    nativeBuildInputs = [ dart git ];
+    nativeBuildInputs = [
+      dart
+      git
+    ];
 
     # avoid pub phase
     dontBuild = true;
@@ -133,8 +136,11 @@ let
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars
-      ++ [ "GIT_PROXY_COMMAND" "NIX_GIT_SSL_CAINFO" "SOCKS_SERVER" ];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "NIX_GIT_SSL_CAINFO"
+      "SOCKS_SERVER"
+    ];
 
     # Patching shebangs introduces input references to this fixed-output derivation.
     # This triggers a bug in Nix, causing the output path to change unexpectedly.
@@ -151,11 +157,18 @@ let
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = if vendorHash != "" then vendorHash else lib.fakeSha256;
-  } // (removeAttrs drvArgs [ "name" "pname" ]));
+  } // (removeAttrs drvArgs [
+    "name"
+    "pname"
+  ]));
 
   depsListDrv = stdenvNoCC.mkDerivation ({
     name = "${name}-dart-deps-list.json";
-    nativeBuildInputs = [ hook dart jq ];
+    nativeBuildInputs = [
+      hook
+      dart
+      jq
+    ];
 
     configurePhase = ''
       runHook preConfigure
@@ -176,7 +189,10 @@ let
     # work at all anyway due to https://github.com/NixOS/nix/issues/6660.
     name = "${name}-dart-deps-setup-hook";
     substitutions = { inherit deps; };
-    propagatedBuildInputs = [ dart git ];
+    propagatedBuildInputs = [
+      dart
+      git
+    ];
     passthru = {
       files = deps.outPath;
       depsListFile = depsListDrv.outPath;

@@ -25,8 +25,19 @@ mkDerivation {
     sha256 = "lNJg2LCpFcTewSA00s7omUtzhVxycAXvo6wEM/JjrN0=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook cmake ninja pkg-config ];
-  buildInputs = [ eigen zlib libpng boost guile_3_0 ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    cmake
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    eigen
+    zlib
+    libpng
+    boost
+    guile_3_0
+  ];
 
   preConfigure = ''
     substituteInPlace studio/src/guile/interpreter.cpp \
@@ -63,8 +74,14 @@ mkDerivation {
     description =
       "Infrastructure for solid modeling with F-Reps in C, C++, and Guile";
     homepage = "https://libfive.com/";
-    maintainers = with maintainers; [ hodapp kovirobi ];
-    license = with licenses; [ mpl20 gpl2Plus ];
+    maintainers = with maintainers; [
+      hodapp
+      kovirobi
+    ];
+    license = with licenses; [
+      mpl20
+      gpl2Plus
+    ];
     platforms = with platforms; linux ++ darwin;
   };
 }

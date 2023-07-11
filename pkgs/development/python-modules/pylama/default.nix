@@ -32,12 +32,10 @@ let
       hash = "sha256-WOGtZ412tX3YH42JCd5HIngunluwtMmQrOSUZp23LPU=";
     };
 
-    patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        git = "${lib.getBin git}/bin/git";
-      })
-    ];
+    patches = [ (substituteAll {
+      src = ./paths.patch;
+      git = "${lib.getBin git}/bin/git";
+    }) ];
 
     propagatedBuildInputs = [
       eradicate
@@ -53,7 +51,10 @@ let
     # escape infinite recursion pylint -> isort -> pylama
     doCheck = false;
 
-    nativeCheckInputs = [ pylint pytestCheckHook ];
+    nativeCheckInputs = [
+      pylint
+      pytestCheckHook
+    ];
 
     preCheck = ''
       export HOME=$TEMP

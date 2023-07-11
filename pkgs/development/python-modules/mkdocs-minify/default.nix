@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-ajXkEKLBC86Y8YzDCZXd6x6QtLLrCDJkb6kDrRE536o=";
   };
 
-  propagatedBuildInputs = [ csscompressor htmlmin jsmin mkdocs ];
+  propagatedBuildInputs = [
+    csscompressor
+    htmlmin
+    jsmin
+    mkdocs
+  ];
 
-  nativeCheckInputs = [ mkdocs pytestCheckHook ];
+  nativeCheckInputs = [
+    mkdocs
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "mkdocs" ];
 

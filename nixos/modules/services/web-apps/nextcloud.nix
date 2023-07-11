@@ -26,10 +26,7 @@ let
         # use OpenSSL 1.1 for RC4 Nextcloud encryption if user
         # has acknowledged the brokenness of the ciphers (RC4).
         # TODO: remove when https://github.com/nextcloud/server/issues/32003 is fixed.
-        ++ (if cfg.enableBrokenCiphersForSSE then
-          [ cfg.phpPackage.extensions.openssl-legacy ]
-        else
-          [ cfg.phpPackage.extensions.openssl ])
+        ++ (if cfg.enableBrokenCiphersForSSE then [ cfg.phpPackage.extensions.openssl-legacy ] else [ cfg.phpPackage.extensions.openssl ])
         ++ optional cfg.enableImagemagick imagick
         # Optionally enabled depending on caching settings
         ++ optional cfg.caching.apcu apcu ++ optional cfg.caching.redis redis
@@ -70,13 +67,28 @@ let
 in {
 
   imports = [
-    (mkRemovedOptionModule [ "services" "nextcloud" "config" "adminpass" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "nextcloud"
+      "config"
+      "adminpass"
+    ] ''
       Please use `services.nextcloud.config.adminpassFile' instead!
     '')
-    (mkRemovedOptionModule [ "services" "nextcloud" "config" "dbpass" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "nextcloud"
+      "config"
+      "dbpass"
+    ] ''
       Please use `services.nextcloud.config.dbpassFile' instead!
     '')
-    (mkRemovedOptionModule [ "services" "nextcloud" "nginx" "enable" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "nextcloud"
+      "nginx"
+      "enable"
+    ] ''
       The nextcloud module supports `nginx` as reverse-proxy by default and doesn't
       support other reverse-proxies officially.
 
@@ -88,7 +100,11 @@ in {
       Further details about this can be found in the `Nextcloud`-section of the NixOS-manual
       (which can be opened e.g. by running `nixos-help`).
     '')
-    (mkRemovedOptionModule [ "services" "nextcloud" "disableImagemagick" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "nextcloud"
+      "disableImagemagick"
+    ] ''
       Use services.nextcloud.enableImagemagick instead.
     '')
   ];
@@ -200,7 +216,12 @@ in {
         lib.mdDoc "Log level value between 0 (DEBUG) and 4 (FATAL).";
     };
     logType = mkOption {
-      type = types.enum [ "errorlog" "file" "syslog" "systemd" ];
+      type = types.enum [
+        "errorlog"
+        "file"
+        "syslog"
+        "systemd"
+      ];
       default = "syslog";
       description = lib.mdDoc ''
         Logging backend to use.
@@ -217,11 +238,17 @@ in {
       type = types.package;
       description =
         lib.mdDoc "Which package to use for the Nextcloud instance.";
-      relatedPackages = [ "nextcloud25" "nextcloud26" ];
+      relatedPackages = [
+        "nextcloud25"
+        "nextcloud26"
+      ];
     };
     phpPackage = mkOption {
       type = types.package;
-      relatedPackages = [ "php80" "php81" ];
+      relatedPackages = [
+        "php80"
+        "php81"
+      ];
       defaultText = "pkgs.php";
       description = lib.mdDoc ''
         PHP package to use for Nextcloud.
@@ -293,7 +320,12 @@ in {
     };
 
     poolSettings = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type = with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = "32";
@@ -337,7 +369,11 @@ in {
 
     config = {
       dbtype = mkOption {
-        type = types.enum [ "sqlite" "pgsql" "mysql" ];
+        type = types.enum [
+          "sqlite"
+          "pgsql"
+          "mysql"
+        ];
         default = "sqlite";
         description = lib.mdDoc "Database type.";
       };
@@ -416,7 +452,10 @@ in {
       };
 
       overwriteProtocol = mkOption {
-        type = types.nullOr (types.enum [ "http" "https" ]);
+        type = types.nullOr (types.enum [
+          "http"
+          "https"
+        ]);
         default = null;
         example = "https";
 
@@ -762,7 +801,7 @@ in {
     }
 
     {
-      assertions = [{
+      assertions = [ {
         assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
         message = ''
           Using `services.nextcloud.database.createLocally` (that now defaults
@@ -779,7 +818,7 @@ in {
           `services.nextcloud.config.dbhost` to use socket authentication
           instead of password.
         '';
-      }];
+      } ];
     }
 
     {
@@ -1107,8 +1146,10 @@ in {
         group = "nextcloud";
         isSystemUser = true;
       };
-      users.groups.nextcloud.members =
-        [ "nextcloud" config.services.nginx.user ];
+      users.groups.nextcloud.members = [
+        "nextcloud"
+        config.services.nginx.user
+      ];
 
       environment.systemPackages = [ occ ];
 
@@ -1116,21 +1157,21 @@ in {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.config.dbname ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.config.dbuser;
           ensurePermissions = { "${cfg.config.dbname}.*" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
 
       services.postgresql = mkIf pgsqlLocal {
         enable = true;
         ensureDatabases = [ cfg.config.dbname ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.config.dbuser;
           ensurePermissions = {
             "DATABASE ${cfg.config.dbname}" = "ALL PRIVILEGES";
           };
-        }];
+        } ];
       };
 
       services.nginx.enable = mkDefault true;

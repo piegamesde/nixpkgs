@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
   pname = "eog";
   version = "44.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -86,7 +90,11 @@ stdenv.mkDerivation rec {
     # In postInstall to run before gappsWrapperArgsHook.
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-        extraLoaders = [ librsvg webp-pixbuf-loader libheif.out ];
+        extraLoaders = [
+          librsvg
+          webp-pixbuf-loader
+          libheif.out
+        ];
       }
     }"
   '';

@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ bleak bleak-retry-connector ];
+  propagatedBuildInputs = [
+    bleak
+    bleak-retry-connector
+  ];
 
   # Module has no tests
   doCheck = false;

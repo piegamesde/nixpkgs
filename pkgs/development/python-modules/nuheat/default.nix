@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ mock parameterized pytestCheckHook responses ];
+  nativeCheckInputs = [
+    mock
+    parameterized
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "nuheat" ];
 

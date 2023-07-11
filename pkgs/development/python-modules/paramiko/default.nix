@@ -41,17 +41,29 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ bcrypt cryptography pyasn1 six ]
-    ++ passthru.optional-dependencies.ed25519; # remove on 3.0 update
+  propagatedBuildInputs = [
+    bcrypt
+    cryptography
+    pyasn1
+    six
+  ] ++ passthru.optional-dependencies.ed25519; # remove on 3.0 update
 
   passthru.optional-dependencies = {
-    gssapi = [ pyasn1 gssapi ];
-    ed25519 = [ pynacl bcrypt ];
+    gssapi = [
+      pyasn1
+      gssapi
+    ];
+    ed25519 = [
+      pynacl
+      bcrypt
+    ];
     invoke = [ invoke ];
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   disabledTestPaths = [
     # disable tests that require pytest-relaxed, which is broken

@@ -26,10 +26,19 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-/rO4wtOVBegWaDVAoyJr172ocMy8tMfQ9qv+7/XFi30=";
   };
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
-  buildInputs =
-    [ libxfce4util libxfce4ui xfce4-panel glib gtk3 hicolor-icon-theme ];
+  buildInputs = [
+    libxfce4util
+    libxfce4ui
+    xfce4-panel
+    glib
+    gtk3
+    hicolor-icon-theme
+  ];
 
   hardeningDisable = [ "format" ];
 

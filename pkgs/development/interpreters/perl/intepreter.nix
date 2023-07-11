@@ -49,7 +49,11 @@ in stdenv.mkDerivation (rec {
 
   strictDeps = true;
   # TODO: Add a "dev" output containing the header files.
-  outputs = [ "out" "man" "devdoc" ] ++ lib.optional crossCompiling "mini";
+  outputs = [
+    "out"
+    "man"
+    "devdoc"
+  ] ++ lib.optional crossCompiling "mini";
   setOutputFlags = false;
 
   # On FreeBSD, if Perl is built with threads support, having
@@ -73,8 +77,10 @@ in stdenv.mkDerivation (rec {
     # Enable TLS/SSL verification in HTTP::Tiny by default
     ./http-tiny-verify-ssl-by-default.patch
   ] ++ lib.optional stdenv.isSunOS ./ld-shared.patch
-    ++ lib.optionals stdenv.isDarwin [ ./cpp-precomp.patch ./sw_vers.patch ]
-    ++ lib.optional crossCompiling ./MakeMaker-cross.patch;
+    ++ lib.optionals stdenv.isDarwin [
+      ./cpp-precomp.patch
+      ./sw_vers.patch
+    ] ++ lib.optional crossCompiling ./MakeMaker-cross.patch;
 
   # This is not done for native builds because pwd may need to come from
   # bootstrap tools when building bootstrap perl.
@@ -104,10 +110,13 @@ in stdenv.mkDerivation (rec {
   ] else [
     "-de"
     "-Dcc=cc"
-  ]) ++ [ "-Uinstallusrbinperl" "-Dinstallstyle=lib/perl5" ]
-    ++ lib.optional (!crossCompiling) "-Duseshrplib"
-    ++ [ "-Dlocincpth=${libcInc}/include" "-Dloclibpth=${libcLib}/lib" ]
-    ++ lib.optionals
+  ]) ++ [
+    "-Uinstallusrbinperl"
+    "-Dinstallstyle=lib/perl5"
+  ] ++ lib.optional (!crossCompiling) "-Duseshrplib" ++ [
+    "-Dlocincpth=${libcInc}/include"
+    "-Dloclibpth=${libcLib}/lib"
+  ] ++ lib.optionals
     ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
       "-Dusedevel"
       "-Uversiononly"
@@ -253,7 +262,10 @@ in stdenv.mkDerivation (rec {
     sha256 = "sha256-m9UCoTQgXBxSgk9Q1Zv6wl3Qnd0aZm/jEPXkcMKti8U=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc makeWrapper ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+    makeWrapper
+  ];
 
   postUnpack = ''
     unpackFile ${perl-cross-src}
@@ -261,7 +273,11 @@ in stdenv.mkDerivation (rec {
     cp -R ${perl-cross-src.name}/* perl-${version}/
   '';
 
-  configurePlatforms = [ "build" "host" "target" ];
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
   # TODO merge setup hooks
   setupHook = ./setup-hook-cross.sh;

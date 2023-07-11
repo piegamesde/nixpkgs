@@ -56,8 +56,10 @@ in stdenvNoCC.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeBinaryWrapper installShellFiles ]
-    ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    installShellFiles
+  ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
 
   installPhase = ''
     runHook preInstall

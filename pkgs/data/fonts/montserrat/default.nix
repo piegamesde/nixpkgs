@@ -34,6 +34,9 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.fontspace.com/julieta-ulanovsky/montserrat";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ scolobb jk ];
+    maintainers = with maintainers; [
+      scolobb
+      jk
+    ];
   };
 }

@@ -49,7 +49,11 @@ let
       sha256 = "1ackh0xs4ip7mk34bam8zd4qdymkdk0dgv8x0f2mf6gbyzzyh7lp";
     };
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ libpng flex bison ];
+    buildInputs = [
+      libpng
+      flex
+      bison
+    ];
   };
   buildPlugin = {
       pluginName,
@@ -160,7 +164,11 @@ in stdenv.mkDerivation {
     sha256 = "sha256-KuXJmmIsvwl4uqmAxXqWU+273jsdWrCuUSwWn5vuu8M=";
   };
 
-  nativeBuildInputs = [ qmake4Hook pkg-config python2Packages.wrapPython ];
+  nativeBuildInputs = [
+    qmake4Hook
+    pkg-config
+    python2Packages.wrapPython
+  ];
 
   buildInputs = [
     qt4

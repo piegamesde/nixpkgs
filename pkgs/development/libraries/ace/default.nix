@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+  ];
   buildInputs = [ perl ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-security" ];

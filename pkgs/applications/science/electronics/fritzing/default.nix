@@ -39,16 +39,27 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-smvfuxQWF/LMFFXHOKb3zUZsEet/XoiaxXOR5QMaYzw=";
   };
 
-  buildInputs = [ qtbase qtsvg qtserialport boost libgit2 quazip libngspice ];
-  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
-
-  patches = [
-    (fetchpatch {
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
-      sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
-    })
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtserialport
+    boost
+    libgit2
+    quazip
+    libngspice
   ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
+
+  patches = [ (fetchpatch {
+    url =
+      "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
+    sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
+  }) ];
 
   postPatch = ''
     substituteInPlace phoenix.pro \
@@ -79,8 +90,14 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source prototyping tool for Arduino-based projects";
     homepage = "https://fritzing.org/";
-    license = with licenses; [ gpl3 cc-by-sa-30 ];
-    maintainers = with maintainers; [ robberer muscaln ];
+    license = with licenses; [
+      gpl3
+      cc-by-sa-30
+    ];
+    maintainers = with maintainers; [
+      robberer
+      muscaln
+    ];
     platforms = platforms.linux;
   };
 }

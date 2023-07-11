@@ -24,10 +24,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ mediastreamer openh264 ];
+  buildInputs = [
+    mediastreamer
+    openh264
+  ];
 
   # Do not build static libraries
-  cmakeFlags = [ "-DENABLE_STATIC=NO" "-DCMAKE_SKIP_INSTALL_RPATH=ON" ];
+  cmakeFlags = [
+    "-DENABLE_STATIC=NO"
+    "-DCMAKE_SKIP_INSTALL_RPATH=ON"
+  ];
 
   # CMAKE_INSTALL_PREFIX has no effect so let's install manually. See:
   # https://gitlab.linphone.org/BC/public/msopenh264/issues/1

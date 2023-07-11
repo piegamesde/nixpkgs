@@ -41,7 +41,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ systemd ncurses ];
+  buildInputs = [
+    systemd
+    ncurses
+  ];
 
   hardeningDisable = [ "format" ];
 

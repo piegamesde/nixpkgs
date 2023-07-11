@@ -25,10 +25,21 @@ buildPythonPackage rec {
     sha256 = "1jqqrn7ig9kylcc8xbslxmchzghr9jgffaab3g3y3nyghk8azlgj";
   };
 
-  propagatedBuildInputs = [ scikit-learn numpy scipy jinja2 ];
+  propagatedBuildInputs = [
+    scikit-learn
+    numpy
+    scipy
+    jinja2
+  ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook networkx matplotlib igraph plotly ipywidgets ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    networkx
+    matplotlib
+    igraph
+    plotly
+    ipywidgets
+  ];
 
   meta = with lib; {
     description =

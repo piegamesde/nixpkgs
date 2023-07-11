@@ -27,9 +27,15 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.aspnetcore_7_0;
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ stdenv.cc.cc.lib zlib ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    zlib
+  ];
 
-  runtimeDeps = [ openssl zlib ];
+  runtimeDeps = [
+    openssl
+    zlib
+  ];
 
   preConfigure = ''
     makeWrapperArgs+=(

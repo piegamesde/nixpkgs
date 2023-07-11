@@ -29,7 +29,10 @@ let
     name = "cryptomator-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk maven ];
+    nativeBuildInputs = [
+      jdk
+      maven
+    ];
     buildInputs = [ jre ];
 
     buildPhase = ''
@@ -91,7 +94,10 @@ in stdenv.mkDerivation rec {
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "--module org.cryptomator.desktop/org.cryptomator.launcher.Cryptomator" \
       --prefix PATH : "$out/share/cryptomator/libs/:${
-        lib.makeBinPath [ jre glib ]
+        lib.makeBinPath [
+          jre
+          glib
+        ]
       }" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fuse ]}" \
       --set JAVA_HOME "${jre.home}"
@@ -108,9 +114,19 @@ in stdenv.mkDerivation rec {
     cp ${src}/dist/linux/common/application-vnd.cryptomator.vault.xml $out/share/mime/packages/application-vnd.cryptomator.vault.xml
   '';
 
-  nativeBuildInputs =
-    [ autoPatchelfHook maven makeShellWrapper wrapGAppsHook jdk ];
-  buildInputs = [ fuse jre glib jffi ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    maven
+    makeShellWrapper
+    wrapGAppsHook
+    jdk
+  ];
+  buildInputs = [
+    fuse
+    jre
+    glib
+    jffi
+  ];
 
   meta = with lib; {
     description = "Free client-side encryption for your cloud files";

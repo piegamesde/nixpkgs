@@ -25,9 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-pSRtLmg6ly4hh6hxS1ws+BVsBkYp+amxqHPBcw2eJFo=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ postgresql sphinxHook sphinx-better-theme ];
+  nativeBuildInputs = [
+    postgresql
+    sphinxHook
+    sphinx-better-theme
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ openssl ];
 
@@ -42,7 +49,10 @@ buildPythonPackage rec {
     description =
       "PostgreSQL database adapter for the Python programming language";
     homepage = "https://www.psycopg.org";
-    license = with licenses; [ lgpl3Plus zpl20 ];
+    license = with licenses; [
+      lgpl3Plus
+      zpl20
+    ];
     maintainers = with maintainers; [ ];
   };
 }

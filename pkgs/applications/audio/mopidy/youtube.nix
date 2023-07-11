@@ -18,10 +18,19 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3.pkgs;
-    [ beautifulsoup4 cachetools pykka requests youtube-dl ytmusicapi ]
-    ++ [ mopidy ];
+    [
+      beautifulsoup4
+      cachetools
+      pykka
+      requests
+      youtube-dl
+      ytmusicapi
+    ] ++ [ mopidy ];
 
-  nativeCheckInputs = with python3.pkgs; [ vcrpy pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    vcrpy
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Test requires a YouTube API key

@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Nff44WAQwSbkRpUHb9ANsQWWH2B819gtwQdXAjWJJls=";
   };
 
-  propagatedBuildInputs = [ argcomplete typeguard ];
+  propagatedBuildInputs = [
+    argcomplete
+    typeguard
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

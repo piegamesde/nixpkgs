@@ -18,8 +18,16 @@ runCommandLocal "nuget-to-nix" {
     src = ./nuget-to-nix.sh;
     inherit runtimeShell;
 
-    binPath =
-      lib.makeBinPath [ nix coreutils jq yq curl gnugrep gawk dotnet-sdk ];
+    binPath = lib.makeBinPath [
+      nix
+      coreutils
+      jq
+      yq
+      curl
+      gnugrep
+      gawk
+      dotnet-sdk
+    ];
   };
 
   meta.description =

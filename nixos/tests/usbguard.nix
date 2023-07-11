@@ -10,7 +10,10 @@ import ./make-test-python.nix ({
       }: {
         services.usbguard = {
           enable = true;
-          IPCAllowedUsers = [ "alice" "root" ];
+          IPCAllowedUsers = [
+            "alice"
+            "root"
+          ];
 
           # As virtual USB devices get attached to the "QEMU USB Hub" we need to
           # allow Hubs. Otherwise we would have to explicitly allow them too.

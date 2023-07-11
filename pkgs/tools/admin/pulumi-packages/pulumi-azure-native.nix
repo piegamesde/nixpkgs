@@ -19,6 +19,9 @@ mkPulumiPackage rec {
     description = "Native Azure Pulumi Provider";
     homepage = "https://github.com/pulumi/pulumi-azure-native";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veehaitch trundle ];
+    maintainers = with maintainers; [
+      veehaitch
+      trundle
+    ];
   };
 }

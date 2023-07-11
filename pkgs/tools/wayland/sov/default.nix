@@ -27,8 +27,17 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ meson pkg-config wayland-scanner ninja ];
-  buildInputs = [ wayland wayland-protocols freetype ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    wayland-scanner
+    ninja
+  ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+    freetype
+  ];
 
   meta = with lib; {
     description =

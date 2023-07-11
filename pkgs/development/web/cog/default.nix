@@ -38,7 +38,13 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [ cmake pkg-config wayland makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wayland
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   depsBuildsBuild = [ pkg-config ];
 

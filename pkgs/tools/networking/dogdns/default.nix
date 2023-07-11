@@ -28,12 +28,18 @@ rustPlatform.buildRustPackage rec {
     ./remove-date-info.patch
   ];
 
-  nativeBuildInputs = [ installShellFiles just pandoc ]
-    ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    just
+    pandoc
+  ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
   buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   postBuild = ''
     just man
@@ -55,7 +61,10 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line DNS client";
     homepage = "https://dns.lookup.dog";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ bbigras figsoda ];
+    maintainers = with maintainers; [
+      bbigras
+      figsoda
+    ];
     mainProgram = "dog";
   };
 }

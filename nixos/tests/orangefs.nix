@@ -40,10 +40,10 @@ import ./make-test-python.nix ({
 
         services.orangefs.client = {
           enable = true;
-          fileSystems = [{
+          fileSystems = [ {
             target = "tcp://server1:3334/orangefs";
             mountPoint = "/orangefs";
-          }];
+          } ];
         };
       };
 

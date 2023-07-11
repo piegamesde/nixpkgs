@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-lwPEy4VVe2D36T3t0vnEodL6L8/Q6adOTGqWI0m7YpM=";
   };
 
-  nativeBuildInputs = [ unzip copyDesktopItems ];
+  nativeBuildInputs = [
+    unzip
+    copyDesktopItems
+  ];
   buildInputs = [ jre ];
 
   desktopItems = lib.optional (!stdenv.isDarwin) (makeDesktopItem {
@@ -30,7 +33,11 @@ stdenv.mkDerivation rec {
     comment = "Visually query and analyse your XML data";
     desktopName = "BaseX XML Database";
     genericName = "XML database tool";
-    categories = [ "Development" "Utility" "Database" ];
+    categories = [
+      "Development"
+      "Utility"
+      "Database"
+    ];
     mimeTypes = [ "text/xml" ];
   });
 

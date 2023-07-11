@@ -27,8 +27,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ gnutls readline zlib libidn2 gmp libiconv libunistring gettext ];
+  buildInputs = [
+    gnutls
+    readline
+    zlib
+    libidn2
+    gmp
+    libiconv
+    libunistring
+    gettext
+  ];
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 

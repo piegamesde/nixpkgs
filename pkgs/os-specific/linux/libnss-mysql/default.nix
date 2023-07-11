@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "1fhsswa3h2nkhjkyjxxqnj07rlx6bmfvd8j521snimx2jba8h0d6";
   };
 
-  nativeBuildInputs = [ autoreconfHook which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    which
+  ];
   buildInputs = [ libmysqlclient ];
 
   configureFlags = [ "--sysconfdir=/etc" ];

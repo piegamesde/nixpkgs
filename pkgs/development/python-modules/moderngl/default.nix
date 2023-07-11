@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-tmwY1/SrepS+P5655MpoNurR2lAtYugbf3pIFQ4u05E=";
   };
 
-  buildInputs = [ libGL libX11 ];
+  buildInputs = [
+    libGL
+    libX11
+  ];
 
   propagatedBuildInputs = [ glcontext ];
 

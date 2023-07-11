@@ -36,7 +36,10 @@ buildPythonPackage rec {
     hash = "sha256-9ruk3PMcWNLOIGth5fo91/miyF17lgERWL3F4y4as18=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreServices
+    libiconv
+  ];
 
   nativeBuildInputs = [ ] ++ (with rustPlatform; [
     cargoSetupHook
@@ -47,8 +50,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ anyio ];
 
-  nativeCheckInputs =
-    [ dirty-equals pytest-mock pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    dirty-equals
+    pytest-mock
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   postPatch = ''
     sed -i "/^requires-python =.*/a version = '${version}'" pyproject.toml

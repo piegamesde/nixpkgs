@@ -38,9 +38,17 @@ let
   # cups-files.conf tells cupsd to use this tree.
   bindir = pkgs.buildEnv {
     name = "cups-progs";
-    paths = [ cups.out additionalBackends cups-filters pkgs.ghostscript ]
-      ++ cfg.drivers;
-    pathsToLink = [ "/lib" "/share/cups" "/bin" ];
+    paths = [
+      cups.out
+      additionalBackends
+      cups-filters
+      pkgs.ghostscript
+    ] ++ cfg.drivers;
+    pathsToLink = [
+      "/lib"
+      "/share/cups"
+      "/bin"
+    ];
     postBuild = cfg.bindirCmds;
     ignoreCollisions = true;
   };
@@ -114,16 +122,32 @@ let
 in {
 
   imports = [
-    (mkChangedOptionModule [ "services" "printing" "gutenprint" ] [
+    (mkChangedOptionModule [
+      "services"
+      "printing"
+      "gutenprint"
+    ] [
       "services"
       "printing"
       "drivers"
     ] (config:
       let
-        enabled = getAttrFromPath [ "services" "printing" "gutenprint" ] config;
+        enabled = getAttrFromPath [
+          "services"
+          "printing"
+          "gutenprint"
+        ] config;
       in if enabled then [ pkgs.gutenprint ] else [ ]))
-    (mkRemovedOptionModule [ "services" "printing" "cupsFilesConf" ] "")
-    (mkRemovedOptionModule [ "services" "printing" "cupsdConf" ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "printing"
+      "cupsFilesConf"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "printing"
+      "cupsdConf"
+    ] "")
   ];
 
   ###### interface
@@ -345,7 +369,10 @@ in {
 
     systemd.sockets.cups = mkIf cfg.startWhenNeeded {
       wantedBy = [ "sockets.target" ];
-      listenStreams = [ "" "/run/cups/cups.sock" ] ++ map (x:
+      listenStreams = [
+        ""
+        "/run/cups/cups.sock"
+      ] ++ map (x:
         replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
         cfg.listenAddresses;
     };

@@ -93,7 +93,11 @@ in {
     extraOptions = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "--verbose" "--debug" "--unsupported-gpu" ];
+      example = [
+        "--verbose"
+        "--debug"
+        "--unsupported-gpu"
+      ];
       description = lib.mdDoc ''
         Command line arguments passed to launch Sway. Please DO NOT report
         issues if you use an unsupported GPU (proprietary drivers).
@@ -102,7 +106,12 @@ in {
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [ swaylock swayidle foot dmenu ];
+      default = with pkgs; [
+        swaylock
+        swayidle
+        foot
+        dmenu
+      ];
       defaultText = literalExpression ''
         with pkgs; [ swaylock swayidle foot dmenu ];
       '';
@@ -123,13 +132,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.extraSessionCommands != "" -> cfg.wrapperFeatures.base;
       message = ''
         The extraSessionCommands for Sway will not be run if
         wrapperFeatures.base is disabled.
       '';
-    }];
+    } ];
     environment = {
       systemPackages = optional (cfg.package != null) cfg.package
         ++ cfg.extraPackages;
@@ -159,5 +168,8 @@ in {
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
 
-  meta.maintainers = with lib.maintainers; [ primeos colemickens ];
+  meta.maintainers = with lib.maintainers; [
+    primeos
+    colemickens
+  ];
 }

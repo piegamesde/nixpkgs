@@ -192,7 +192,11 @@ in {
 
         policy = mkOption {
           default = "hard_open";
-          type = types.enum [ "hard_open" "hard_init" "soft" ];
+          type = types.enum [
+            "hard_open"
+            "hard_init"
+            "soft"
+          ];
           description = lib.mdDoc ''
             Specifies the policy to use for reconnecting to an unavailable
             LDAP server. The default is `hard_open`, which
@@ -233,7 +237,11 @@ in {
       optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
 
     system.activationScripts = mkIf (!cfg.daemon.enable) {
-      ldap = stringAfter [ "etc" "groups" "users" ] ''
+      ldap = stringAfter [
+        "etc"
+        "groups"
+        "users"
+      ] ''
         if test -f "${cfg.bind.passwordFile}" ; then
           umask 0077
           conf="$(mktemp)"
@@ -278,8 +286,11 @@ in {
           mv -fT "$conf" /run/nslcd/nslcd.conf
         '';
 
-        restartTriggers =
-          [ nslcdConfig cfg.bind.passwordFile cfg.daemon.rootpwmodpwFile ];
+        restartTriggers = [
+          nslcdConfig
+          cfg.bind.passwordFile
+          cfg.daemon.rootpwmodpwFile
+        ];
 
         serviceConfig = {
           ExecStart = "${nslcdWrapped}/bin/nslcd";
@@ -297,12 +308,15 @@ in {
 
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "users" "ldap" "bind" "password" ] [
-      "users"
-      "ldap"
-      "bind"
-      "passwordFile"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "users"
+    "ldap"
+    "bind"
+    "password"
+  ] [
+    "users"
+    "ldap"
+    "bind"
+    "passwordFile"
+  ]) ];
 }

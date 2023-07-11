@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-coO+WBnv5HT14ym719qr3Plm1JuiaNdAvD1QVPj65oU=";
   };
 
-  propagatedBuildInputs = [ bleak click ];
+  propagatedBuildInputs = [
+    bleak
+    click
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pykulersky" ];
 

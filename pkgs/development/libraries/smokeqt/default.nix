@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake smokegen ];
+  nativeBuildInputs = [
+    cmake
+    smokegen
+  ];
   buildInputs = [ qt4 ];
 
   cmakeFlags = [ "-DCMAKE_CXX_STANDARD=98" ];

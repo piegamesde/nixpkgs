@@ -33,9 +33,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
-  nativeBuildInputs = [ autoconf automake gettext libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    libtool
+    pkg-config
+  ];
 
   buildInputs = [ libiconv ];
 
@@ -45,11 +55,13 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-udev=${placeholder "out"}/lib/udev" ];
 
-  configurePlatforms = [ "build" "host" ];
+  configurePlatforms = [
+    "build"
+    "host"
+  ];
 
-  makeFlags = lib.optionals
-    (stdenv.isLinux && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ];
+  makeFlags = lib.optionals (stdenv.isLinux && !stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ];
 
   enableParallelBuilding = true;
 

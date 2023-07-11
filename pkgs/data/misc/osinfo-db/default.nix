@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VGugTsxekzui1/PztDM6KYDUrk38UoSYm5xUdY8rkIg=";
   };
 
-  nativeBuildInputs = [ osinfo-db-tools gettext libxml2 ];
+  nativeBuildInputs = [
+    osinfo-db-tools
+    gettext
+    libxml2
+  ];
 
   installPhase = ''
     osinfo-db-import --dir "$out/share/osinfo" "${src}"

@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng libX11 libXext libXi libXtst ];
+  buildInputs = [
+    libpng
+    libX11
+    libXext
+    libXi
+    libXtst
+  ];
 
   meta = {
     homepage = "https://www.hoopajoo.net/projects/xautomation.html";

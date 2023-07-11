@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-TWAOML6nsLX3TYqoQ9fcSjrUmC4byXOfczfkmSaSa0k=";
   };
 
-  propagatedBuildInputs = [ bitstruct diskcache prompt-toolkit pyparsing ];
+  propagatedBuildInputs = [
+    bitstruct
+    diskcache
+    prompt-toolkit
+    pyparsing
+  ];
 
   checkPhase = ''
     ${python.interpreter} setup.py test

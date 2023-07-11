@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
       --replace "set(CMAKE_OSX_ARCHITECTURES x86_64)" ""
   '';
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [ zlib ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     libX11

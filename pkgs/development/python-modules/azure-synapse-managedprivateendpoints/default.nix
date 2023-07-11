@@ -17,7 +17,11 @@ buildPythonPackage rec {
     sha256 = "900eaeaccffdcd01012b248a7d049008c92807b749edd1c9074ca9248554c17e";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+  ];
 
   pythonNamespaces = [ "azure.synapse" ];
 

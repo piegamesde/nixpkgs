@@ -26,26 +26,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FsmR0fFb9bU9G3oUyJU1eDLcoZ6OQ2//TINlPrW6lU0=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "file-offset-bits-64-linux.patch";
-      url =
-        "https://github.com/michaelrsweet/pappl/commit/7ec4ce4331b6637c54a37943269e05d15ff6dd47.patch";
-      sha256 = "sha256-x5lriopWw6Mn2qjv19flsleEzPMHU4jYWRy0y6hTL5k=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "file-offset-bits-64-linux.patch";
+    url =
+      "https://github.com/michaelrsweet/pappl/commit/7ec4ce4331b6637c54a37943269e05d15ff6dd47.patch";
+    sha256 = "sha256-x5lriopWw6Mn2qjv19flsleEzPMHU4jYWRy0y6hTL5k=";
+  }) ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ cups libjpeg libpng libusb1 zlib ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      # upstream mentions these are not needed for Mac
-      # see: https://github.com/michaelrsweet/pappl#requirements
-      avahi
-      gnutls
-    ] ++ lib.optionals withPAMSupport [ pam ];
+  buildInputs = [
+    cups
+    libjpeg
+    libpng
+    libusb1
+    zlib
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    # upstream mentions these are not needed for Mac
+    # see: https://github.com/michaelrsweet/pappl#requirements
+    avahi
+    gnutls
+  ] ++ lib.optionals withPAMSupport [ pam ];
 
   # testing requires some networking
   # doCheck = true;

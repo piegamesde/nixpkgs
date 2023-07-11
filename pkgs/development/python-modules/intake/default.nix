@@ -39,16 +39,37 @@ buildPythonPackage rec {
     hash = "sha256-7A9wuuOQyGhdGj6T5VY+NrZjEOf/y8dCzSkHuPhNsKI=";
   };
 
-  propagatedBuildInputs =
-    [ appdirs dask entrypoints fsspec msgpack jinja2 pandas pyyaml ];
+  propagatedBuildInputs = [
+    appdirs
+    dask
+    entrypoints
+    fsspec
+    msgpack
+    jinja2
+    pandas
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ intake-parquet pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    intake-parquet
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   passthru.optional-dependencies = {
-    server = [ msgpack python-snappy tornado ];
-    dataframe = [ msgpack-numpy pyarrow ];
-    plot = [ hvplot bokeh panel ];
+    server = [
+      msgpack
+      python-snappy
+      tornado
+    ];
+    dataframe = [
+      msgpack-numpy
+      pyarrow
+    ];
+    plot = [
+      hvplot
+      bokeh
+      panel
+    ];
     remote = [ requests ];
   };
 

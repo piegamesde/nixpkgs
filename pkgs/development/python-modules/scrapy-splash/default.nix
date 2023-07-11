@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-7PEwJk3AjgxGHIYH7K13dGimStAd7bJinA+BvV/NcpU=";
   };
 
-  propagatedBuildInputs = [ scrapy six ];
+  propagatedBuildInputs = [
+    scrapy
+    six
+  ];
 
   # no tests
   doCheck = false;

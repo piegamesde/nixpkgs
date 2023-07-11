@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ]
     ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ ncurses5 zlib gmp ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [
+    ncurses5
+    zlib
+    gmp
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -49,8 +53,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Modern, statically-typed purely functional language";
     homepage = "https://unisonweb.org/";
-    license = with licenses; [ mit bsd3 ];
+    license = with licenses; [
+      mit
+      bsd3
+    ];
     maintainers = [ maintainers.virusdave ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
   };
 }

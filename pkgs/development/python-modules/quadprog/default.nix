@@ -31,7 +31,10 @@ buildPythonPackage rec {
     cython quadprog/quadprog.pyx
   '';
 
-  nativeCheckInputs = [ pytestCheckHook scipy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    scipy
+  ];
 
   pytestFlagsArray = [
     # test fails on aarch64-darwin

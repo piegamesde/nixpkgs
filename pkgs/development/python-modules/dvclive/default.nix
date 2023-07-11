@@ -31,7 +31,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ dvc dvc-studio-client funcy ruamel-yaml scmrepo ];
+  propagatedBuildInputs = [
+    dvc
+    dvc-studio-client
+    funcy
+    ruamel-yaml
+    scmrepo
+  ];
 
   # Circular dependency with dvc
   doCheck = false;

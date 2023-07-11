@@ -19,13 +19,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libgphoto2 fuse glib libtool ];
+  buildInputs = [
+    libgphoto2
+    fuse
+    glib
+    libtool
+  ];
 
   meta = with lib; {
     description = "Fuse FS to mount a digital camera";
     homepage = "http://www.gphoto.org/";
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
-    license = with licenses; [ lgpl2 gpl2 ];
+    license = with licenses; [
+      lgpl2
+      gpl2
+    ];
   };
 }

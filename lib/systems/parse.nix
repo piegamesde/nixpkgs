@@ -51,7 +51,13 @@ in rec {
   ################################################################################
 
   # Reasonable power of 2
-  types.bitWidth = enum [ 8 16 32 64 128 ];
+  types.bitWidth = enum [
+    8
+    16
+    32
+    64
+    128
+  ];
 
   ################################################################################
 
@@ -620,12 +626,12 @@ in rec {
 
     androideabi = { };
     android = {
-      assertions = [{
+      assertions = [ {
         assertion = platform: !platform.isAarch32;
         message = ''
           The "android" ABI is not for 32-bit ARM. Use "androideabi" instead.
         '';
-      }];
+      } ];
     };
 
     gnueabi = { float = "soft"; };
@@ -725,17 +731,25 @@ in rec {
         };
       "3" =
         # cpu-kernel-environment
-        if elemAt l 1 == "linux"
-        || elem (elemAt l 2) [ "eabi" "eabihf" "elf" "gnu" ] then {
+        if elemAt l 1 == "linux" || elem (elemAt l 2) [
+          "eabi"
+          "eabihf"
+          "elf"
+          "gnu"
+        ] then {
           cpu = elemAt l 0;
           kernel = elemAt l 1;
           abi = elemAt l 2;
           vendor = "unknown";
         }
         # cpu-vendor-os
-        else if elemAt l 1 == "apple"
-        || elem (elemAt l 2) [ "wasi" "redox" "mmixware" "ghcjs" "mingw32" ]
-        || hasPrefix "freebsd" (elemAt l 2) || hasPrefix "netbsd" (elemAt l 2)
+        else if elemAt l 1 == "apple" || elem (elemAt l 2) [
+          "wasi"
+          "redox"
+          "mmixware"
+          "ghcjs"
+          "mingw32"
+        ] || hasPrefix "freebsd" (elemAt l 2) || hasPrefix "netbsd" (elemAt l 2)
         || hasPrefix "genode" (elemAt l 2) then {
           cpu = elemAt l 0;
           vendor = elemAt l 1;

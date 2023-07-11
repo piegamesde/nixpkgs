@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ intltool iconnamingutils gtk2 ];
+  nativeBuildInputs = [
+    intltool
+    iconnamingutils
+    gtk2
+  ];
 
   dontDropIconThemeCache = true;
 

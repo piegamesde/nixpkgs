@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ glib cairo libuuid pango gtk3 ];
+  buildInputs = [
+    glib
+    cairo
+    libuuid
+    pango
+    gtk3
+  ];
 
   dontUnpack = true;
 

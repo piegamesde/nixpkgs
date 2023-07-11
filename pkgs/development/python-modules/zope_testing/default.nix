@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   doCheck = !isPyPy;
 
-  propagatedBuildInputs = [ zope_interface zope_exceptions zope_location ];
+  propagatedBuildInputs = [
+    zope_interface
+    zope_exceptions
+    zope_location
+  ];
 
   meta = with lib; {
     description = "Zope testing helpers";

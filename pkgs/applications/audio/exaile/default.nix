@@ -47,23 +47,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GZyCuPy57NhGwgbLMrRKW5xmc1Udon7WtsrD4upviuQ=";
   };
 
-  nativeBuildInputs = [ gobject-introspection makeWrapper wrapGAppsHook ]
-    ++ lib.optionals documentationSupport [
-      help2man
-      python3.pkgs.sphinx
-      python3.pkgs.sphinx-rtd-theme
-    ] ++ lib.optional translationSupport gettext;
+  nativeBuildInputs = [
+    gobject-introspection
+    makeWrapper
+    wrapGAppsHook
+  ] ++ lib.optionals documentationSupport [
+    help2man
+    python3.pkgs.sphinx
+    python3.pkgs.sphinx-rtd-theme
+  ] ++ lib.optional translationSupport gettext;
 
-  buildInputs = [ iconTheme gtk3 ]
-    ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
-    ++ (with python3.pkgs; [
-      bsddb3
-      dbus-python
-      mutagen
-      pygobject3
-      pycairo
-      gst-python
-    ]) ++ lib.optional deviceDetectionSupport udisks
+  buildInputs = [
+    iconTheme
+    gtk3
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+  ]) ++ (with python3.pkgs; [
+    bsddb3
+    dbus-python
+    mutagen
+    pygobject3
+    pycairo
+    gst-python
+  ]) ++ lib.optional deviceDetectionSupport udisks
     ++ lib.optional notificationSupport libnotify
     ++ lib.optional scalableIconSupport librsvg
     ++ lib.optional bpmCounterSupport gst_all_1.gst-plugins-bad

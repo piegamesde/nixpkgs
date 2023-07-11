@@ -60,7 +60,10 @@ in {
       repositories = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "/srv/git" "/home/user/git/repo2" ];
+        example = [
+          "/srv/git"
+          "/home/user/git/repo2"
+        ];
         description = lib.mdDoc ''
           A whitelist of paths of git repositories, or directories containing repositories
           all of which would be published. Paths must not end in "/".

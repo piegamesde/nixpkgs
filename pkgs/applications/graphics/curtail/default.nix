@@ -41,7 +41,11 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ appstream-glib gettext gtk3 ];
+  buildInputs = [
+    appstream-glib
+    gettext
+    gtk3
+  ];
 
   propagatedBuildInputs = [ python3.pkgs.pygobject3 ];
 
@@ -55,7 +59,12 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath [ jpegoptim libwebp optipng pngquant ]
+        lib.makeBinPath [
+          jpegoptim
+          libwebp
+          optipng
+          pngquant
+        ]
       }"
     )
   '';

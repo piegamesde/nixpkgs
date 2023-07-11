@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "raven" ];
 
-  passthru.optional-dependencies = { flask = [ blinker flask ]; };
+  passthru.optional-dependencies = {
+    flask = [
+      blinker
+      flask
+    ];
+  };
 
   meta = {
     description =

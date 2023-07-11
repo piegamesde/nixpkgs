@@ -26,9 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2c+anQ17lrdFy+cbjoYY94EFxYUcS+4mZrwbrLohfUg=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ granite gtk3 libgee libhandy ];
+  buildInputs = [
+    granite
+    gtk3
+    libgee
+    libhandy
+  ];
 
   patches = [ ./plugs-path-env.patch ];
 

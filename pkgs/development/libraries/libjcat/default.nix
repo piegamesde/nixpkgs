@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
   pname = "libjcat";
   version = "0.1.13";
 
-  outputs = [ "bin" "out" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "hughsie";
@@ -49,7 +56,12 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ glib json-glib gnutls gpgme ];
+  buildInputs = [
+    glib
+    json-glib
+    gnutls
+    gpgme
+  ];
 
   mesonFlags = [
     "-Dgtkdoc=true"

@@ -22,5 +22,8 @@ stdenv.mkDerivation {
     sha256 = "0xv9ymivp8fnyc5xcyh1vamxnx90bzw66wlld813fvm6q2gsiknk";
   };
 
-  configureFlags = [ "--without-initdir" "--disable-lynx" ];
+  configureFlags = [
+    "--without-initdir"
+    "--disable-lynx"
+  ];
 }

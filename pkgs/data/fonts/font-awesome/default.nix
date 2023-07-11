@@ -36,7 +36,10 @@ let
         homepage = "https://fontawesome.com/";
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ abaldeau johnazoidberg ];
+        maintainers = with maintainers; [
+          abaldeau
+          johnazoidberg
+        ];
       };
     };
 in {

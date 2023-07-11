@@ -34,11 +34,24 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "grpcio" ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ environs grpcio mmh3 pandas ujson ];
+  propagatedBuildInputs = [
+    environs
+    grpcio
+    mmh3
+    pandas
+    ujson
+  ];
 
-  nativeCheckInputs = [ grpcio-testing pytestCheckHook scikit-learn ];
+  nativeCheckInputs = [
+    grpcio-testing
+    pytestCheckHook
+    scikit-learn
+  ];
 
   pythonImportsCheck = [ "pymilvus" ];
 

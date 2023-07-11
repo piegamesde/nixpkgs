@@ -69,15 +69,21 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  propagatedBuildInputs = [ devtools pyupgrade typing-extensions ];
+  propagatedBuildInputs = [
+    devtools
+    pyupgrade
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];
     email = [ email-validator ];
   };
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   pytestFlagsArray = [
     # https://github.com/pydantic/pydantic/issues/4817

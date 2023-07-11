@@ -25,8 +25,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uDx28jmjNUyzJbgTJiHbjI9U5mYb9bnfl/9AjbxNUWA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
-  buildInputs = [ gettext gtk libconfuse pcre2 vte ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    gettext
+    gtk
+    libconfuse
+    pcre2
+    vte
+  ];
 
   LD_LIBRARY_PATH =
     "${expat.out}/lib"; # ugly hack for xgettext to work during build

@@ -19,7 +19,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/httpx" ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # Tests require network access
   doCheck = false;

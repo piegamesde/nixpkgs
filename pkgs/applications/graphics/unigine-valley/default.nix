@@ -46,7 +46,12 @@ in stdenv.mkDerivation rec {
   sourceRoot = "Unigine_Valley-${version}";
   instPath = "lib/unigine/valley";
 
-  nativeBuildInputs = [ file makeWrapper imagemagick copyDesktopItems ];
+  nativeBuildInputs = [
+    file
+    makeWrapper
+    imagemagick
+    copyDesktopItems
+  ];
 
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc # libstdc++.so.6
@@ -114,15 +119,13 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Valley";
-      exec = "valley";
-      genericName = "A GPU Stress test tool from the UNIGINE";
-      icon = "Valley";
-      desktopName = "Valley Benchmark";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Valley";
+    exec = "valley";
+    genericName = "A GPU Stress test tool from the UNIGINE";
+    icon = "Valley";
+    desktopName = "Valley Benchmark";
+  }) ];
 
   stripDebugList = [ "${instPath}/bin" ];
 
@@ -133,7 +136,10 @@ in stdenv.mkDerivation rec {
     license =
       lib.licenses.unfree; # see also: $out/$instPath/documentation/License.pdf
     maintainers = [ lib.maintainers.kierdavis ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     mainProgram = "valley";
   };
 }

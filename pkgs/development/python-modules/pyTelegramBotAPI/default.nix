@@ -44,8 +44,10 @@ buildPythonPackage rec {
     watchdog = [ watchdog ];
   };
 
-  checkInputs = [ pytestCheckHook requests ]
-    ++ passthru.optional-dependencies.watchdog
+  checkInputs = [
+    pytestCheckHook
+    requests
+  ] ++ passthru.optional-dependencies.watchdog
     ++ passthru.optional-dependencies.aiohttp;
 
   pythonImportsCheck = [ "telebot" ];

@@ -22,7 +22,11 @@ stdenvNoCC.mkDerivation rec {
   };
 
   # Inkscape is needed in a just recipe where it is used to export the SVG icon to several different sized PNGs.
-  nativeBuildInputs = [ just inkscape makeWrapper ];
+  nativeBuildInputs = [
+    just
+    inkscape
+    makeWrapper
+  ];
   postPatch = ''
     patchShebangs --host ${pname}
     substituteInPlace ./justfile \

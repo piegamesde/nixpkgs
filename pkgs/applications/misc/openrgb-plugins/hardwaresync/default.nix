@@ -47,9 +47,18 @@ stdenv.mkDerivation rec {
     rm -r dependencies/lhwm-cpp-wrapper
   '';
 
-  buildInputs = [ qtbase glib libgtop lm_sensors ];
+  buildInputs = [
+    qtbase
+    glib
+    libgtop
+    lm_sensors
+  ];
 
-  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/OpenRGBDevelopers/OpenRGBHardwareSyncPlugin";

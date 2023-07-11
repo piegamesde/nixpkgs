@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../fizz";
 
-  cmakeFlags = [ "-Wno-dev" ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-  ];
+  cmakeFlags = [ "-Wno-dev" ] ++ lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
   NIX_LDFLAGS = "-lz";
 
@@ -62,6 +62,9 @@ stdenv.mkDerivation rec {
       "https://github.com/facebookincubator/fizz/releases/tag/v${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pierreis kylesferrazza ];
+    maintainers = with maintainers; [
+      pierreis
+      kylesferrazza
+    ];
   };
 }

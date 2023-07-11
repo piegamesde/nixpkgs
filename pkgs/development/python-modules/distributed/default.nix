@@ -43,7 +43,11 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools setuptools-scm versioneer ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    versioneer
+  ];
 
   propagatedBuildInputs = [
     click
@@ -74,6 +78,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh costrouc ];
+    maintainers = with maintainers; [
+      teh
+      costrouc
+    ];
   };
 }

@@ -41,7 +41,10 @@ mkDerivation {
   pname = "kdelibs4support";
   patches = [ ./nix-kde-include-dir.patch ];
   setupHook = ./setup-hook.sh;
-  nativeBuildInputs = [ extra-cmake-modules qttools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    qttools
+  ];
   propagatedNativeBuildInputs = [ kdoctools ];
   buildInputs = [
     kcompletion
@@ -82,5 +85,8 @@ mkDerivation {
     "-DDocBookXML4_DTD_DIR=${docbook_xml_dtd_45}/xml/dtd/docbook"
     "-DDocBookXML4_DTD_VERSION=4.5"
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

@@ -106,8 +106,14 @@ in stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ wayland-scanner meson ninja ncurses scdoc pkg-config ]
-    ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ];
+  nativeBuildInputs = [
+    wayland-scanner
+    meson
+    ninja
+    ncurses
+    scdoc
+    pkg-config
+  ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ];
 
   buildInputs = [
     tllist
@@ -169,7 +175,11 @@ in stdenv.mkDerivation rec {
     moveToOutput share/foot/themes "$themes"
   '';
 
-  outputs = [ "out" "terminfo" "themes" ];
+  outputs = [
+    "out"
+    "terminfo"
+    "themes"
+  ];
 
   passthru.tests = {
     clang-default-compilation =

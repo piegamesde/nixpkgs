@@ -28,7 +28,11 @@ buildGoModule rec {
     "-X github.com/zcash/lightwalletd/common.BuildUser=nixbld"
   ];
 
-  excludedPackages = [ "genblocks" "testclient" "zap" ];
+  excludedPackages = [
+    "genblocks"
+    "testclient"
+    "zap"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = lightwalletd;

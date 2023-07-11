@@ -37,11 +37,27 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ perl pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ ffmpeg glib libGLU mesa proj wxGTK32 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Carbon Cocoa ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libICE libX11 ];
+  buildInputs = [
+    ffmpeg
+    glib
+    libGLU
+    mesa
+    proj
+    wxGTK32
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    Carbon
+    Cocoa
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libICE
+    libX11
+  ];
 
   postPatch = ''
     patchShebangs .

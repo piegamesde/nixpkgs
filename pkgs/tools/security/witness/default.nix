@@ -23,8 +23,11 @@ buildGoModule rec {
   # We only want the witness binary, not the helper utilities for generating docs.
   subPackages = [ "." ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/testifysec/witness/cmd.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/testifysec/witness/cmd.Version=v${version}"
+  ];
 
   # Feed in all tests for testing
   # This is because subPackages above limits what is built to just what we
@@ -64,6 +67,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/testifysec/witness/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fkautz jk ];
+    maintainers = with maintainers; [
+      fkautz
+      jk
+    ];
   };
 }

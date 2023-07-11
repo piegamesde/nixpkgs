@@ -99,8 +99,15 @@ in {
             '';
           };
           auth = mkOption {
-            type = types.listOf (types.enum [ "none" "iponly" "strong" ]);
-            example = [ "iponly" "strong" ];
+            type = types.listOf (types.enum [
+              "none"
+              "iponly"
+              "strong"
+            ]);
+            example = [
+              "iponly"
+              "strong"
+            ];
             description = lib.mdDoc ''
               Authentication type. The following values are valid:
 
@@ -132,7 +139,10 @@ in {
             type = types.listOf (types.submodule {
               options = {
                 rule = mkOption {
-                  type = types.enum [ "allow" "deny" ];
+                  type = types.enum [
+                    "allow"
+                    "deny"
+                  ];
                   example = "allow";
                   description = lib.mdDoc ''
                     ACL rule. The following values are valid:
@@ -144,7 +154,11 @@ in {
                 users = mkOption {
                   type = types.listOf types.str;
                   default = [ ];
-                  example = [ "user1" "user2" "user3" ];
+                  example = [
+                    "user1"
+                    "user2"
+                    "user3"
+                  ];
                   description = lib.mdDoc ''
                     List of users, use empty list for any.
                   '';
@@ -152,7 +166,10 @@ in {
                 sources = mkOption {
                   type = types.listOf types.str;
                   default = [ ];
-                  example = [ "127.0.0.1" "192.168.1.0/24" ];
+                  example = [
+                    "127.0.0.1"
+                    "192.168.1.0/24"
+                  ];
                   description = lib.mdDoc ''
                     List of source IP range, use empty list for any.
                   '';
@@ -160,7 +177,10 @@ in {
                 targets = mkOption {
                   type = types.listOf types.str;
                   default = [ ];
-                  example = [ "127.0.0.1" "192.168.1.0/24" ];
+                  example = [
+                    "127.0.0.1"
+                    "192.168.1.0/24"
+                  ];
                   description = lib.mdDoc ''
                     List of target IP ranges, use empty list for any.
                     May also contain host names instead of addresses.
@@ -171,7 +191,10 @@ in {
                 targetPorts = mkOption {
                   type = types.listOf types.int;
                   default = [ ];
-                  example = [ 80 443 ];
+                  example = [
+                    80
+                    443
+                  ];
                   description = lib.mdDoc ''
                     List of target ports, use empty list for any.
                   '';
@@ -274,7 +297,10 @@ in {
           nserver = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            example = [ "127.0.0.53" "192.168.1.3:5353/tcp" ];
+            example = [
+              "127.0.0.53"
+              "192.168.1.3:5353/tcp"
+            ];
             description = lib.mdDoc ''
               List of nameservers to use.
 

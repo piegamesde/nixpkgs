@@ -136,7 +136,12 @@ in {
       };
 
       serverProperties = mkOption {
-        type = with types; attrsOf (oneOf [ bool int str ]);
+        type = with types;
+          attrsOf (oneOf [
+            bool
+            int
+            str
+          ]);
         default = { };
         example = literalExpression ''
           {
@@ -206,7 +211,10 @@ in {
       description = "Minecraft Server Service";
       wantedBy = [ "multi-user.target" ];
       requires = [ "minecraft-server.socket" ];
-      after = [ "network.target" "minecraft-server.socket" ];
+      after = [
+        "network.target"
+        "minecraft-server.socket"
+      ];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/minecraft-server ${cfg.jvmOpts}";
@@ -234,7 +242,10 @@ in {
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -281,12 +292,12 @@ in {
       allowedTCPPorts = [ defaultServerPort ];
     });
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.eula;
       message = "You must agree to Mojangs EULA to run minecraft-server."
         + " Read https://account.mojang.com/documents/minecraft_eula and"
         + " set `services.minecraft-server.eula` to `true` if you agree.";
-    }];
+    } ];
 
   };
 }

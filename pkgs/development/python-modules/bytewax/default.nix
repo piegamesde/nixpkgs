@@ -49,9 +49,16 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ openssl cyrus_sasl protobuf ];
+  buildInputs = [
+    openssl
+    cyrus_sasl
+    protobuf
+  ];
 
-  propagatedBuildInputs = [ dill multiprocess ];
+  propagatedBuildInputs = [
+    dill
+    multiprocess
+  ];
 
   checkInputs = [ pytestCheckHook ];
 
@@ -59,7 +66,10 @@ buildPythonPackage rec {
     description = "Python Stream Processing";
     homepage = "https://github.com/bytewax/bytewax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mslingsby kfollesdal ];
+    maintainers = with maintainers; [
+      mslingsby
+      kfollesdal
+    ];
     # mismatched type expected u8, found i8
     broken = stdenv.isAarch64;
   };

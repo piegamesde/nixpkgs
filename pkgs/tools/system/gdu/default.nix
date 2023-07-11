@@ -53,6 +53,9 @@ buildGoModule rec {
     homepage = "https://github.com/dundee/gdu";
     changelog = "https://github.com/dundee/gdu/releases/tag/v${version}";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab zowoq ];
+    maintainers = with maintainers; [
+      fab
+      zowoq
+    ];
   };
 }

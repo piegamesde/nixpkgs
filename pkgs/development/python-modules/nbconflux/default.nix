@@ -21,12 +21,21 @@ buildPythonPackage rec {
     sha256 = "1708qkb275d6f7b4b5zmqx3i0jh56nrx2n9rwwp5nbaah5p2wwlh";
   };
 
-  propagatedBuildInputs = [ nbconvert requests ];
+  propagatedBuildInputs = [
+    nbconvert
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   JUPYTER_PATH = "${nbconvert}/share/jupyter";
-  disabledTests = [ "test_post_to_confluence" "test_optional_components" ];
+  disabledTests = [
+    "test_post_to_confluence"
+    "test_optional_components"
+  ];
 
   meta = with lib; {
     description =

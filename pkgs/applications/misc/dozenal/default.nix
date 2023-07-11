@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
   # some include hardcodes the lua libraries path. This is a patch for that
   patches = [ ./lua-header.patch ];
   preBuild = "cd dozenal";
-  buildInputs = [ ncurses hdate lua5_2 ];
+  buildInputs = [
+    ncurses
+    hdate
+    lua5_2
+  ];
 
   # Parallel builds fail due to no dependencies between subdirs.
   # As a result some subdirs are atempted to build twice:

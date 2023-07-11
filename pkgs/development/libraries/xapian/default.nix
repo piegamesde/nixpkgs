@@ -24,9 +24,16 @@ let
         inherit hash;
       };
 
-      outputs = [ "out" "man" "doc" ];
+      outputs = [
+        "out"
+        "man"
+        "doc"
+      ];
 
-      buildInputs = [ libuuid zlib ];
+      buildInputs = [
+        libuuid
+        zlib
+      ];
       nativeBuildInputs = [ autoreconfHook ];
 
       doCheck = true;

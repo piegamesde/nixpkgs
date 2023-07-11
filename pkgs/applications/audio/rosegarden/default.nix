@@ -35,8 +35,14 @@ stdenv.mkDerivation rec {
     substituteInPlace src/CMakeLists.txt --replace svnheader svnversion
   '';
 
-  nativeBuildInputs =
-    [ cmake makedepend perl pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    makedepend
+    perl
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dssi

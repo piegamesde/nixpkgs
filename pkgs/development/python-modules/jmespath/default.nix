@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-kCYbIG1t79WP3V6F9Hi/YzopAXmJBr4q04kVDFxg7b4=";
   };
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/jmespath/jmespath.py";

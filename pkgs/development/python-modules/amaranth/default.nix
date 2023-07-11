@@ -61,13 +61,25 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "${realVersion}";
 
-  nativeBuildInputs = [ git setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    git
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ jinja2 pyvcd setuptools ]
-    ++ lib.optional (pythonOlder "3.9") importlib-resources
+  propagatedBuildInputs = [
+    jinja2
+    pyvcd
+    setuptools
+  ] ++ lib.optional (pythonOlder "3.9") importlib-resources
     ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
-  nativeCheckInputs = [ pytestCheckHook symbiyosys yices yosys ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    symbiyosys
+    yices
+    yosys
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -87,6 +99,9 @@ buildPythonPackage rec {
       "A modern hardware definition language and toolchain based on Python";
     homepage = "https://amaranth-lang.org/docs/amaranth";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ emily thoughtpolice ];
+    maintainers = with maintainers; [
+      emily
+      thoughtpolice
+    ];
   };
 }

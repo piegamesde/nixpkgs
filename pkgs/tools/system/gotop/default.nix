@@ -11,7 +11,10 @@ buildGoModule rec {
   pname = "gotop";
   version = "4.2.0";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "xxxserxxx";
@@ -23,7 +26,11 @@ buildGoModule rec {
   proxyVendor = true;
   vendorSha256 = "sha256-KLeVSrPDS1lKsKFemRmgxT6Pxack3X3B/btSCOUSUFY=";
 
-  ldflags = [ "-s" "-w" "-X main.Version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=v${version}"
+  ];
 
   # prevent `error: 'TARGET_OS_MAC' is not defined`
   env.CGO_CFLAGS = "-Wno-undef-prefix";

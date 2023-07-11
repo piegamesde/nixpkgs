@@ -29,7 +29,11 @@ buildGoModule {
     sha256 = "sha256-AOR/p+DW83f2+BOxm2rFXBCrotcIyunK3UzQ/dnauWY=";
   };
 
-  subPackages = [ "bind" "cmd/gobind" "cmd/gomobile" ];
+  subPackages = [
+    "bind"
+    "cmd/gobind"
+    "cmd/gomobile"
+  ];
 
   # Fails with: go: cannot find GOROOT directory
   doCheck = false;

@@ -67,7 +67,14 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ automake autoconf libtool pkg-config file intltool ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+    pkg-config
+    file
+    intltool
+  ];
 
   buildInputs = [
     faad2

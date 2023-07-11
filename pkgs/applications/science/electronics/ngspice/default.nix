@@ -23,8 +23,20 @@ stdenv.mkDerivation rec {
     sha256 = "1gpcic6b6xk3g4956jcsqljf33kj5g43cahmydq6m8rn39sadvlv";
   };
 
-  nativeBuildInputs = [ flex bison ];
-  buildInputs = [ readline libX11 libICE libXaw libXmu libXext libXt fftw ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
+  buildInputs = [
+    readline
+    libX11
+    libICE
+    libXaw
+    libXmu
+    libXext
+    libXt
+    fftw
+  ];
 
   configureFlags = [
     "--enable-x"
@@ -37,8 +49,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Next Generation Spice (Electronic Circuit Simulator)";
     homepage = "http://ngspice.sourceforge.net";
-    license = with licenses; [ "BSD" gpl2 ];
-    maintainers = with maintainers; [ bgamari rongcuid ];
+    license = with licenses; [
+      "BSD"
+      gpl2
+    ];
+    maintainers = with maintainers; [
+      bgamari
+      rongcuid
+    ];
     platforms = platforms.unix;
   };
 }

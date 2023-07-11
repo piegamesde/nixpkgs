@@ -34,13 +34,17 @@ in rec {
       homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
       maintainers = with maintainers; [ qknight ];
-      license = [ licenses.mit licenses.asl20 ];
+      license = [
+        licenses.mit
+        licenses.asl20
+      ];
     };
 
     nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
-    buildInputs = [ bash ]
-      ++ lib.optionals (!stdenv.isDarwin) [ gcc.cc.lib zlib ]
-      ++ lib.optional stdenv.isDarwin Security;
+    buildInputs = [ bash ] ++ lib.optionals (!stdenv.isDarwin) [
+      gcc.cc.lib
+      zlib
+    ] ++ lib.optional stdenv.isDarwin Security;
 
     postPatch = ''
       patchShebangs .
@@ -76,7 +80,10 @@ in rec {
       homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
       maintainers = with maintainers; [ qknight ];
-      license = [ licenses.mit licenses.asl20 ];
+      license = [
+        licenses.mit
+        licenses.asl20
+      ];
     };
 
     nativeBuildInputs = [ makeWrapper ]

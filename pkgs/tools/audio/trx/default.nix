@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
   # the libraries. This patch adds that flag.
   patches = [ ./add_bctoolbox_ldlib.patch ];
 
-  buildInputs = [ alsa-lib libopus ortp bctoolbox ];
+  buildInputs = [
+    alsa-lib
+    libopus
+    ortp
+    bctoolbox
+  ];
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {

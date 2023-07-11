@@ -23,8 +23,13 @@ stdenv.mkDerivation {
     sha256 = "1g98snlh96z4sqw9sfd7fxgamh45pcj3lh1kcmng7mirvrcn2pam";
   };
 
-  nativeBuildInputs =
-    [ cmake extra-cmake-modules gtk3 plasma-framework kwindowsystem ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    gtk3
+    plasma-framework
+    kwindowsystem
+  ];
 
   propagatedBuildInputs = [ hicolor-icon-theme ];
 

@@ -23,10 +23,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-q0VrN+5Ypq4ga/gI5MlyRaMdD8NxzuaZ804KaRQzpRs=";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   meta = with lib; {
     description = "A Conventional commit cli";

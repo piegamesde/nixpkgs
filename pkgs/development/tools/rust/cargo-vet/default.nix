@@ -32,6 +32,9 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ figsoda jk ];
+    maintainers = with maintainers; [
+      figsoda
+      jk
+    ];
   };
 }

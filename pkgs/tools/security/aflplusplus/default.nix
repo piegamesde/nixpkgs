@@ -47,9 +47,17 @@ let
 
     # Note: libcgroup isn't needed for building, just for the afl-cgroup
     # script.
-    nativeBuildInputs = [ makeWrapper which clang gcc ];
-    buildInputs = [ llvm python gmp ]
-      ++ lib.optional (wine != null) python.pkgs.wrapPython;
+    nativeBuildInputs = [
+      makeWrapper
+      which
+      clang
+      gcc
+    ];
+    buildInputs = [
+      llvm
+      python
+      gmp
+    ] ++ lib.optional (wine != null) python.pkgs.wrapPython;
 
     postPatch = ''
       # Replace the CLANG_BIN variables with the correct path
@@ -127,7 +135,10 @@ let
         wrapPythonProgramsIn $out/bin ${python.pkgs.pefile}
     '';
 
-    nativeInstallCheckInputs = [ perl file ];
+    nativeInstallCheckInputs = [
+      perl
+      file
+    ];
     doInstallCheck = true;
     installCheckPhase = ''
       # replace references to tools in build directory with references to installed locations
@@ -151,8 +162,14 @@ let
       '';
       homepage = "https://aflplus.plus";
       license = lib.licenses.asl20;
-      platforms = [ "x86_64-linux" "i686-linux" ];
-      maintainers = with lib.maintainers; [ ris mindavi ];
+      platforms = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
+      maintainers = with lib.maintainers; [
+        ris
+        mindavi
+      ];
     };
   };
 in aflplusplus

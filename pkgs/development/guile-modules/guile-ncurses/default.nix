@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile libffi ncurses ];
+  buildInputs = [
+    guile
+    libffi
+    ncurses
+  ];
 
   preConfigure = ''
     configureFlags="$configureFlags --with-guilesitedir=$out/share/guile/site"

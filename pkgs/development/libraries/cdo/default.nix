@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   version = "2.0.5";
 
   # Dependencies
-  buildInputs = [ curl netcdf hdf5 ];
+  buildInputs = [
+    curl
+    netcdf
+    hdf5
+  ];
 
   src = fetchurl {
     url =

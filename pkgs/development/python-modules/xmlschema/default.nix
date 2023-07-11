@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ elementpath ];
 
-  nativeCheckInputs = [ jinja2 lxml pytestCheckHook ];
+  nativeCheckInputs = [
+    jinja2
+    lxml
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "xmlschema" ];
 

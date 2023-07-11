@@ -33,7 +33,10 @@ buildPythonPackage rec {
       --replace " --cov-report=term-missing --cov=elastic_transport" ""
   '';
 
-  propagatedBuildInputs = [ urllib3 certifi ];
+  propagatedBuildInputs = [
+    urllib3
+    certifi
+  ];
 
   nativeCheckInputs = [
     aiohttp

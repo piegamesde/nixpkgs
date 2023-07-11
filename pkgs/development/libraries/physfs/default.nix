@@ -21,7 +21,10 @@ let
         inherit sha256;
       };
 
-      nativeBuildInputs = [ cmake doxygen ];
+      nativeBuildInputs = [
+        cmake
+        doxygen
+      ];
 
       buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 

@@ -41,9 +41,12 @@ in stdenv.mkDerivation rec {
     makeFlagsArray=(
       VPATH=$(cat $NIX_CC/nix-support/orig-libc)/lib
       PROGRAMS="${
-        lib.concatStringsSep " "
-        ([ "dropbear" "dbclient" "dropbearkey" "dropbearconvert" ]
-          ++ lib.optionals enableSCP [ "scp" ])
+        lib.concatStringsSep " " ([
+          "dropbear"
+          "dbclient"
+          "dropbearkey"
+          "dropbearconvert"
+        ] ++ lib.optionals enableSCP [ "scp" ])
       }"
     )
   '';
@@ -58,8 +61,13 @@ in stdenv.mkDerivation rec {
     ./pass-path.patch
   ];
 
-  buildInputs = [ zlib libxcrypt ]
-    ++ lib.optionals enableStatic [ glibc.static zlib.static ];
+  buildInputs = [
+    zlib
+    libxcrypt
+  ] ++ lib.optionals enableStatic [
+    glibc.static
+    zlib.static
+  ];
 
   meta = with lib; {
     description = "A small footprint implementation of the SSH 2 protocol";

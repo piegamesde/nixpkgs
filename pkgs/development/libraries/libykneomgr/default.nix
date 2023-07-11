@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcsclite libzip help2man ];
+  buildInputs = [
+    pcsclite
+    libzip
+    help2man
+  ];
 
   configureFlags = [ "--with-backend=pcsc" ];
 

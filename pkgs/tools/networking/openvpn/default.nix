@@ -65,7 +65,10 @@ let
         downloadPage = "https://openvpn.net/community-downloads/";
         homepage = "https://openvpn.net/";
         license = licenses.gpl2Only;
-        maintainers = with maintainers; [ viric peterhoeg ];
+        maintainers = with maintainers; [
+          viric
+          peterhoeg
+        ];
         platforms = platforms.unix;
       };
     };

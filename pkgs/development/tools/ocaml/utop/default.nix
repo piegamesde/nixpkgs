@@ -20,7 +20,12 @@ let
     version = "2.10.0";
     sha256 = "sha256-R10WovnqYcYCrDJnPuIQx2zHaPchSYfXDAaVMsJ4LQA=";
     duneVersion = "3";
-    propagatedBuildInputs = [ findlib lambda-term zed logs ];
+    propagatedBuildInputs = [
+      findlib
+      lambda-term
+      zed
+      logs
+    ];
   } else {
     version = "2.9.2";
     sha256 = "sha256-kvFBCe69TRQIWvZV47SH7ISus9k8afGRw5WLKzKqw08=";
@@ -41,7 +46,10 @@ in buildDunePackage rec {
     sha256 = switch.sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper cppo ];
+  nativeBuildInputs = [
+    makeWrapper
+    cppo
+  ];
 
   postFixup = let
     path = "etc/utop/env";

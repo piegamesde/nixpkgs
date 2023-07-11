@@ -31,7 +31,10 @@ buildPythonPackage rec {
     cmake
   ];
 
-  buildInputs = [ pybind11 LASzip ];
+  buildInputs = [
+    pybind11
+    LASzip
+  ];
 
   checkInputs = [ pytestCheckHook ];
 

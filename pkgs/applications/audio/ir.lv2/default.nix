@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "1p6makmgr898fakdxzl4agh48qqwgv1k1kwm8cgq187n0mhiknp6";
   };
 
-  buildInputs = [ fftw gtk2 lv2 libsamplerate libsndfile zita-convolver ];
+  buildInputs = [
+    fftw
+    gtk2
+    lv2
+    libsamplerate
+    libsndfile
+    zita-convolver
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

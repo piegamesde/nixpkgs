@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1ygahl3r26r38ai8yyblq9nhf3v5i6n6r6672p5wf88wg5h9n0rz";
   };
 
-  makeFlags = [ "PREFIX=$(out)" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "DESTDIR=$(out)"
+  ];
 
   prePatch = ''
     sed -i 's@usb_modeswitch@${usb-modeswitch}/lib/udev/usb_modeswitch@g' 40-usb_modeswitch.rules

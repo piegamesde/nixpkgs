@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0bkvd4a1v496w0vlvqyi1a6p25ssgpkchxxxi8899sb72wlds54d";
   };
 
-  buildInputs = [ SDL SDL_image SDL_mixer ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_mixer
+  ];
 
   preConfigure = ''
     sed -i s,/usr/local,$out, Makefile

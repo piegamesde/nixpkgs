@@ -32,8 +32,16 @@ in stdenv.mkDerivation {
     sha256 = "17kpql0f27xxz4jjw84vpas5f5sn4vdqwv10g151rc3rswbwln1z";
   };
 
-  nativeBuildInputs = [ ninja python3 ];
-  buildInputs = [ curl libxml2 objc4 ICU ];
+  nativeBuildInputs = [
+    ninja
+    python3
+  ];
+  buildInputs = [
+    curl
+    libxml2
+    objc4
+    ICU
+  ];
 
   patches = [ ./0001-Add-missing-TARGET_OS_-defines.patch ];
 

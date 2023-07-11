@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pln3cdozZPEodfXeUtTbBvhHb5yqE4uu0VKA95Zv6ro=";
   };
 
-  nativeBuildInputs = [ makeWrapper yarn2nix-moretea.fixup_yarn_lock ];
-  buildInputs = [ yarn nodejs ];
+  nativeBuildInputs = [
+    makeWrapper
+    yarn2nix-moretea.fixup_yarn_lock
+  ];
+  buildInputs = [
+    yarn
+    nodejs
+  ];
 
   # Replace the inline call to yarn with our sequalize wrapper. This should be
   # the only occurrence:
@@ -90,7 +96,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.getoutline.com/";
     changelog = "https://github.com/outline/outline/releases";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ cab404 yrd ];
+    maintainers = with maintainers; [
+      cab404
+      yrd
+    ];
     platforms = platforms.linux;
   };
 }

@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-VeywijUgLcSxaqlkFkZMqZQn2u2ZmCL1CcJ7eW+C9k4=";
   };
 
-  buildInputs = [ curl openssl ];
+  buildInputs = [
+    curl
+    openssl
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

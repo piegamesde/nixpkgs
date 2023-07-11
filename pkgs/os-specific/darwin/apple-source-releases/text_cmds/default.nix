@@ -10,7 +10,12 @@
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [ ncurses bzip2 zlib xz ];
+  buildInputs = [
+    ncurses
+    bzip2
+    zlib
+    xz
+  ];
 
   # patches to use ncursees
   # disables md5

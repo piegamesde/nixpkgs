@@ -25,10 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-YlNOvK7ZXUHYdRX1NFEdZ646NGLtGXU1YgAjN6RY2QE=";
   };
 
-  propagatedBuildInputs =
-    [ biopython docopt flametree numpy proglog python-codon-tables ];
+  propagatedBuildInputs = [
+    biopython
+    docopt
+    flametree
+    numpy
+    proglog
+    python-codon-tables
+  ];
 
-  nativeCheckInputs = [ primer3 genome-collector matplotlib pytestCheckHook ];
+  nativeCheckInputs = [
+    primer3
+    genome-collector
+    matplotlib
+    pytestCheckHook
+  ];
 
   # Disable tests which requires network access
   disabledTests = [

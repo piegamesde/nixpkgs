@@ -81,7 +81,10 @@ in stdenv.mkDerivation rec {
       --replace "unknown" "${builtins.substring 0 10 src.rev}"
   '';
 
-  makeFlags = optionals (debug) [ "CFLAGS+=-Og" "CFLAGS+=-ggdb" ];
+  makeFlags = optionals (debug) [
+    "CFLAGS+=-Og"
+    "CFLAGS+=-ggdb"
+  ];
 
   # some ngspice tests attempt to write to $HOME/.cache/
   XDG_CACHE_HOME = "$TMP";

@@ -47,7 +47,12 @@ in {
   };
 
   removeGitDependenciesHook = makeRemoveSpecialDependenciesHook {
-    fields = [ "git" "branch" "rev" "tag" ];
+    fields = [
+      "git"
+      "branch"
+      "rev"
+      "tag"
+    ];
     kind = "git";
   };
 
@@ -58,7 +63,10 @@ in {
     makeSetupHook ({
       name = "pip-build-hook.sh";
       substitutions = { inherit pythonInterpreter pythonSitePackages; };
-    } // (makeSetupHookArgs [ pip wheel ])) ./pip-build-hook.sh) { };
+    } // (makeSetupHookArgs [
+      pip
+      wheel
+    ])) ./pip-build-hook.sh) { };
 
   poetry2nixFixupHook = callPackage (_:
     makeSetupHook {

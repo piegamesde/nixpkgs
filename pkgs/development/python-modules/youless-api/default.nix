@@ -25,7 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-49/HmkGr87aDhr8GEtARpXvr2RcgmLdAqhvMLI5x+vQ=";
   };
 
-  propagatedBuildInputs = [ certifi chardet idna requests urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    chardet
+    idna
+    requests
+    urllib3
+  ];
 
   nativeCheckInputs = [ nose ];
 

@@ -67,7 +67,11 @@ in stdenv.mkDerivation rec {
       --replace "configuration.default.ini" "$out/share/botamusique/configuration.default.ini"
   '';
 
-  nativeBuildInputs = [ makeWrapper nodejs python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+    nodejs
+    python3Packages.wrapPython
+  ];
 
   pythonPath = with python3Packages; [
     flask

@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0ay6gn43pnm7r1jamwgpycl67bjg5n87ncl27jb01w2x6x70z0i3";
   };
 
-  nativeBuildInputs = [ flex installShellFiles which ];
+  nativeBuildInputs = [
+    flex
+    installShellFiles
+    which
+  ];
   buildInputs = [ ncurses ];
 
   checkPhase = ''

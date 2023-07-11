@@ -21,6 +21,14 @@ buildDunePackage {
 
   nativeBuildInputs = [ ppx_sexp_conv ];
 
-  propagatedBuildInputs =
-    [ lwt cstruct netchannel mirage-net mirage-xen io-page lwt-dllist logs ];
+  propagatedBuildInputs = [
+    lwt
+    cstruct
+    netchannel
+    mirage-net
+    mirage-xen
+    io-page
+    lwt-dllist
+    logs
+  ];
 }

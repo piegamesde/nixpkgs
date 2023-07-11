@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
-  buildInputs = [ ncurses libiconv ];
+  buildInputs = [
+    ncurses
+    libiconv
+  ];
 
   preBuild = ''
     sed -i s/gcc/cc/g Makefile

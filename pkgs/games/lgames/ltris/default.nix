@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-wjziFFTAOJxSl6fvLhTv6ATZQGJefusDhqKXgOwsRvY=";
   };
 
-  buildInputs = [ SDL SDL_mixer ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -30,7 +33,10 @@ stdenv.mkDerivation rec {
     homepage = "https://lgames.sourceforge.io/LTris/";
     description = "Tetris clone from the LGames series";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ciil ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      ciil
+    ];
     inherit (SDL.meta) platforms;
   };
 }

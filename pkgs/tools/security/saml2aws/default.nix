@@ -21,7 +21,10 @@ buildGoModule rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ AppKit ];
 
-  subPackages = [ "." "cmd/saml2aws" ];
+  subPackages = [
+    "."
+    "cmd/saml2aws"
+  ];
 
   ldflags = [ "-X main.Version=${version}" ];
 

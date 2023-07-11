@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-FBrAZ9MhPGPwJhVXslu5mvVIJ7gPDiCK/3EuPAq6RNw=";
   };
 
-  propagatedBuildInputs = [ mkdocs beautifulsoup4 ];
+  propagatedBuildInputs = [
+    mkdocs
+    beautifulsoup4
+  ];
 
   pythonImportsCheck = [ "mkdocs_swagger_ui_tag" ];
 

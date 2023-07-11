@@ -29,11 +29,17 @@ in buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  excludedPackages = [ "tools" "docgen" ];
+  excludedPackages = [
+    "tools"
+    "docgen"
+  ];
 
   ldflags = let t = "github.com/k3d-io/k3d/v5/version";
-  in [ "-s" "-w" "-X ${t}.Version=v${version}" ]
-  ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=v${version}"
+  ] ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
 
   preCheck = ''
     # skip test that uses networking

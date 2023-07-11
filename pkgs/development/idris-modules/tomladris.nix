@@ -9,7 +9,10 @@ build-idris-package {
   pname = "tomladris";
   version = "2017-11-14";
 
-  idrisDeps = [ lightyear contrib ];
+  idrisDeps = [
+    lightyear
+    contrib
+  ];
 
   src = fetchFromGitHub {
     owner = "emptyflash";
@@ -22,6 +25,9 @@ build-idris-package {
     description = "TOML parser for Idris";
     homepage = "https://github.com/emptyflash/tomladris";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ siddharthist brainrape ];
+    maintainers = with lib.maintainers; [
+      siddharthist
+      brainrape
+    ];
   };
 }

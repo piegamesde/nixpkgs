@@ -38,9 +38,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ attrs requests ];
+  propagatedBuildInputs = [
+    attrs
+    requests
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "todoist_api_python" ];
 

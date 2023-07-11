@@ -106,7 +106,10 @@ in buildFHSEnv {
     homepage = "https://www.lwks.com/";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ antonxy vojta001 ];
+    maintainers = with lib.maintainers; [
+      antonxy
+      vojta001
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

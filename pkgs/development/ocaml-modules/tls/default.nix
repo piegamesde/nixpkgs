@@ -61,7 +61,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest cstruct-unix ounit2 randomconv ];
+  checkInputs = [
+    alcotest
+    cstruct-unix
+    ounit2
+    randomconv
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mirleft/ocaml-tls";

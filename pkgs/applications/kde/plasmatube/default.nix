@@ -17,7 +17,10 @@
 mkDerivation {
   pname = "plasmatube";
 
-  nativeBuildInputs = [ extra-cmake-modules wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     kcoreaddons

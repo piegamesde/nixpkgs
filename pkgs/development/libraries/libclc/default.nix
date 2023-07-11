@@ -34,8 +34,16 @@ in stdenv.mkDerivation rec {
                 'find_program( LLVM_SPIRV llvm-spirv PATHS "${spirv-llvm-translator}/bin" NO_DEFAULT_PATH )'
   '';
 
-  nativeBuildInputs = [ cmake ninja python3 spirv-llvm-translator ];
-  buildInputs = [ llvm clang-unwrapped ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+    spirv-llvm-translator
+  ];
+  buildInputs = [
+    llvm
+    clang-unwrapped
+  ];
   strictDeps = true;
   cmakeFlags = [ "-DCMAKE_INSTALL_INCLUDEDIR=include" ];
 

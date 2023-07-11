@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   pname = "ell";
   version = "0.56";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/libs/ell/ell.git";
@@ -19,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aCQ7I4XgxswQRfzzZG3MYe+W3dPWWex5MErMc0ZilSA=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   nativeCheckInputs = [ dbus ];
 
@@ -38,6 +44,10 @@ stdenv.mkDerivation rec {
       "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 dtzWill maxeaubrey ];
+    maintainers = with maintainers; [
+      mic92
+      dtzWill
+      maxeaubrey
+    ];
   };
 }

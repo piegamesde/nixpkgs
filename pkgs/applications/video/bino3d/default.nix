@@ -21,7 +21,13 @@ mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ ffmpeg_4 glew libass openal qtbase ];
+  buildInputs = [
+    ffmpeg_4
+    glew
+    libass
+    openal
+    qtbase
+  ];
 
   enableParallelBuilding = true;
 

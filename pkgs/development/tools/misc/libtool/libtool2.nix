@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BOlsJATqcMWQxUbrpCAqThJyLGQAFsErmy8c49SB6ag=";
   };
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   # FILECMD was added in libtool 2.4.7; previous versions hardwired `/usr/bin/file`
   #   https://lists.gnu.org/archive/html/autotools-announce/2022-03/msg00000.html
@@ -43,8 +46,14 @@ stdenv.mkDerivation rec {
   # As libtool is an early bootstrap dependency try hard not to
   # add autoconf and automake or help2man dependencies here. That way we can
   # avoid pulling in perl and get away with just an `m4` depend.
-  nativeBuildInputs = [ m4 file ];
-  propagatedBuildInputs = [ m4 file ];
+  nativeBuildInputs = [
+    m4
+    file
+  ];
+  propagatedBuildInputs = [
+    m4
+    file
+  ];
 
   # Don't fixup "#! /bin/sh" in Libtool, otherwise it will use the
   # "fixed" path in generated files!

@@ -79,7 +79,10 @@ in python3.pkgs.buildPythonApplication {
       ckcc-protocol
       keepkey
       trezor
-    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
+    ] ++ lib.optionals enableQt [
+      pyqt5
+      qdarkstyle
+    ];
 
   preBuild = ''
     sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py

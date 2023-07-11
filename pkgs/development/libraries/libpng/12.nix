@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1izw9ybm27llk8531w6h4jp4rk2rxy2s9vil16nwik5dp0amyqxl";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   propagatedBuildInputs = [ zlib ];
 

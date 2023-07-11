@@ -30,7 +30,13 @@ in buildPythonPackage rec {
     sed -i "s,'boost_python','boost_python${pythonVersion}',g" setup.py
   '';
 
-  buildInputs = [ boost freetype ftgl libGLU libGL ];
+  buildInputs = [
+    boost
+    freetype
+    ftgl
+    libGLU
+    libGL
+  ];
 
   meta = with lib; {
     description = "Python bindings for FTGL (FreeType for OpenGL)";

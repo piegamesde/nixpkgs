@@ -181,7 +181,13 @@ in {
                 Path to file containing the password.
               '';
             };
-            permissions = let perms = [ "read" "add" "control" "admin" ];
+            permissions = let
+              perms = [
+                "read"
+                "add"
+                "control"
+                "admin"
+              ];
             in mkOption {
               type = types.listOf (types.enum perms);
               default = [ "read" ];
@@ -203,7 +209,12 @@ in {
           }
           {
             passwordFile = "/var/lib/secrets/mpd_admin_password";
-            permissions = [ "read" "add" "control" "admin" ];
+            permissions = [
+              "read"
+              "add"
+              "control"
+              "admin"
+            ];
           }
         ];
       };
@@ -255,7 +266,10 @@ in {
       serviceConfig = {
         User = "${cfg.user}";
         # Note: the first "" overrides the ExecStart from the upstream unit
-        ExecStart = [ "" "${pkgs.mpd}/bin/mpd --systemd /run/mpd/mpd.conf" ];
+        ExecStart = [
+          ""
+          "${pkgs.mpd}/bin/mpd --systemd /run/mpd/mpd.conf"
+        ];
         RuntimeDirectory = "mpd";
         StateDirectory = [ ]
           ++ optionals (cfg.dataDir == "/var/lib/${name}") [ name ]

@@ -41,10 +41,19 @@ stdenv.mkDerivation {
     sha256 = "0ns12q7vg9yand4dmdsps1917cavfbw67yl5q7bm6kb4ia5kkx13";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
-  nativeBuildInputs =
-    [ autoconf automake libtool autoreconfHook installShellFiles ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    autoreconfHook
+    installShellFiles
+  ];
   buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
     ++ lib.optional enableTapiSupport libtapi;
 
@@ -72,8 +81,10 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
-  configurePlatforms = [ "build" "host" ]
-    ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+  configurePlatforms = [
+    "build"
+    "host"
+  ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
   configureFlags = [ "--disable-clang-as" ] ++ lib.optionals enableTapiSupport [
     "--enable-tapi-support"
     "--with-libtapi=${libtapi}"

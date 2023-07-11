@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ codecserver protobuf csdr icu ];
+  buildInputs = [
+    codecserver
+    protobuf
+    csdr
+    icu
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/jketterl/digiham";

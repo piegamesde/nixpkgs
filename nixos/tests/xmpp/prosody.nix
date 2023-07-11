@@ -49,11 +49,10 @@ in import ../make-test-python.nix {
           ${nodes.server.config.networking.primaryIPAddress} conference.example.com
           ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
         '';
-        environment.systemPackages = [
-          (pkgs.callPackage ./xmpp-sendmessage.nix {
+        environment.systemPackages =
+          [ (pkgs.callPackage ./xmpp-sendmessage.nix {
             connectTo = "example.com";
-          })
-        ];
+          }) ];
       };
     server = {
         config,
@@ -68,7 +67,10 @@ in import ../make-test-python.nix {
           ${config.networking.primaryIPAddress} uploads.example.com
         '';
         networking.firewall.enable = false;
-        environment.systemPackages = [ (createUsers pkgs) (delUsers pkgs) ];
+        environment.systemPackages = [
+          (createUsers pkgs)
+          (delUsers pkgs)
+        ];
         services.prosody = {
           enable = true;
           ssl.cert = "${cert pkgs}/cert.pem";
@@ -79,7 +81,7 @@ in import ../make-test-python.nix {
             ssl.cert = "${cert pkgs}/cert.pem";
             ssl.key = "${cert pkgs}/key.pem";
           };
-          muc = [{ domain = "conference.example.com"; }];
+          muc = [ { domain = "conference.example.com"; } ];
           uploadHttp = { domain = "uploads.example.com"; };
         };
       };

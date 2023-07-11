@@ -21,7 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-/q2zlawBoL5fyJFVRSRGwrnEEqmdY+rAKQgxOBY9XBs=";
   };
 
-  propagatedBuildInputs = [ bokeh colorcet holoviews pandas ];
+  propagatedBuildInputs = [
+    bokeh
+    colorcet
+    holoviews
+    pandas
+  ];
 
   # Many tests require a network connection
   doCheck = false;

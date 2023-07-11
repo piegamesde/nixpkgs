@@ -37,8 +37,16 @@ stdenv.mkDerivation (rec {
     hash = "sha256-gg3g/0Ki29FnGqKv9lDTs5oA9NjH23qQ+hTdVtSU+zo=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper which python3 ];
-  buildInputs = [ libxml2 z3 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    which
+    python3
+  ];
+  buildInputs = [
+    libxml2
+    z3
+  ];
 
   # Sandbox disallows network access, so disabling problematic networking tests
   patches = [
@@ -77,12 +85,16 @@ stdenv.mkDerivation (rec {
     make configure build_flags=-j$NIX_BUILD_CORES
   '';
 
-  makeFlags = [ "PONYC_VERSION=${version}" "prefix=${placeholder "out"}" ]
-    ++ lib.optionals stdenv.isDarwin
+  makeFlags = [
+    "PONYC_VERSION=${version}"
+    "prefix=${placeholder "out"}"
+  ] ++ lib.optionals stdenv.isDarwin
     ([ "bits=64" ] ++ lib.optional (!lto) "lto=no");
 
-  env.NIX_CFLAGS_COMPILE =
-    toString [ "-Wno-error=redundant-move" "-Wno-error=implicit-fallthrough" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-Wno-error=redundant-move"
+    "-Wno-error=implicit-fallthrough"
+  ];
 
   doCheck = true;
 
@@ -94,7 +106,11 @@ stdenv.mkDerivation (rec {
            --prefix PATH ":" "${stdenv.cc}/bin" \
            --set-default CC "$CC" \
            --prefix PONYPATH : "${
-             lib.makeLibraryPath [ pcre2 openssl (placeholder "out") ]
+             lib.makeLibraryPath [
+               pcre2
+               openssl
+               (placeholder "out")
+             ]
            }"
     '';
 
@@ -108,7 +124,15 @@ stdenv.mkDerivation (rec {
       "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
     homepage = "https://www.ponylang.org";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kamilchm patternspandemic redvers ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      kamilchm
+      patternspandemic
+      redvers
+    ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
   };
 })

@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXpm libXext libXfixes libXmu ];
+  buildInputs = [
+    libX11
+    libXpm
+    libXext
+    libXfixes
+    libXmu
+  ];
 
   meta = with lib; {
     description = "A system tray for Windowmaker";

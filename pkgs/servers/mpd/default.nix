@@ -84,7 +84,10 @@ let
   featureDependencies = {
     # Storage plugins
     udisks = [ dbus ];
-    webdav = [ curl expat ];
+    webdav = [
+      curl
+      expat
+    ];
     # Input plugins
     curl = [ curl ];
     io_uring = [ liburing ];
@@ -118,8 +121,15 @@ let
     pulse = [ libpulseaudio ];
     shout = [ libshout ];
     # Commercial services
-    qobuz = [ curl libgcrypt yajl ];
-    soundcloud = [ curl yajl ];
+    qobuz = [
+      curl
+      libgcrypt
+      yajl
+    ];
+    soundcloud = [
+      curl
+      yajl
+    ];
     # Client support
     libmpdclient = [ libmpdclient ];
     # Tag support
@@ -133,11 +143,17 @@ let
     syslog = [ ];
     systemd = [ systemd ];
     yajl = [ yajl ];
-    zeroconf = [ avahi dbus ];
+    zeroconf = [
+      avahi
+      dbus
+    ];
   };
 
   nativeFeatureDependencies = {
-    documentation = [ doxygen python3Packages.sphinx ];
+    documentation = [
+      doxygen
+      python3Packages.sphinx
+    ];
   };
 
   run = {
@@ -147,15 +163,18 @@ let
       # Disable platform specific features if needed
       # using libmad to decode mp3 files on darwin is causing a segfault -- there
       # is probably a solution, but I'm disabling it for now
-      platformMask =
-        lib.optionals stdenv.isDarwin [ "mad" "pulse" "jack" "smbclient" ]
-        ++ lib.optionals (!stdenv.isLinux) [
-          "alsa"
-          "pipewire"
-          "io_uring"
-          "systemd"
-          "syslog"
-        ];
+      platformMask = lib.optionals stdenv.isDarwin [
+        "mad"
+        "pulse"
+        "jack"
+        "smbclient"
+      ] ++ lib.optionals (!stdenv.isLinux) [
+        "alsa"
+        "pipewire"
+        "io_uring"
+        "systemd"
+        "syslog"
+      ];
 
       knownFeatures = builtins.attrNames featureDependencies
         ++ builtins.attrNames nativeFeatureDependencies;
@@ -197,10 +216,16 @@ let
         #    Run-time dependency GTest found: YES 1.10.0
         gtest
       ] ++ concatAttrVals features_ featureDependencies
-        ++ lib.optionals stdenv.isDarwin [ AudioToolbox AudioUnit ];
+        ++ lib.optionals stdenv.isDarwin [
+          AudioToolbox
+          AudioUnit
+        ];
 
-      nativeBuildInputs = [ meson ninja pkg-config ]
-        ++ concatAttrVals features_ nativeFeatureDependencies;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+      ] ++ concatAttrVals features_ nativeFeatureDependencies;
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -220,14 +245,19 @@ let
 
       mesonAutoFeatures = "disabled";
 
-      outputs = [ "out" "doc" ]
-        ++ lib.optional (builtins.elem "documentation" features_) "man";
+      outputs = [
+        "out"
+        "doc"
+      ] ++ lib.optional (builtins.elem "documentation" features_) "man";
 
-      CXXFLAGS = lib.optionals stdenv.isDarwin
-        [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
+      CXXFLAGS = lib.optionals
+        stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
 
-      mesonFlags = [ "-Dtest=true" "-Dmanpages=true" "-Dhtml_manual=true" ]
-        ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
+      mesonFlags = [
+        "-Dtest=true"
+        "-Dmanpages=true"
+        "-Dhtml_manual=true"
+      ] ++ map (x: "-D${x}=enabled") features_ ++ map (x: "-D${x}=disabled")
         (lib.subtractLists features_ knownFeatures)
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
         ++ lib.optional (builtins.elem "systemd" features_)
@@ -239,7 +269,11 @@ let
         description = "A flexible, powerful daemon for playing music";
         homepage = "https://www.musicpd.org/";
         license = licenses.gpl2Only;
-        maintainers = with maintainers; [ astsmtl ehmry tobim ];
+        maintainers = with maintainers; [
+          astsmtl
+          ehmry
+          tobim
+        ];
         platforms = platforms.unix;
 
         longDescription = ''
@@ -278,8 +312,15 @@ in {
       "sqlite"
       "soundcloud"
       "qobuz"
-    ] ++ lib.optionals stdenv.isLinux [ "alsa" "systemd" "syslog" "io_uring" ]
-      ++ lib.optionals (!stdenv.isDarwin) [ "mad" "jack" ];
+    ] ++ lib.optionals stdenv.isLinux [
+      "alsa"
+      "systemd"
+      "syslog"
+      "io_uring"
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      "mad"
+      "jack"
+    ];
   };
   mpdWithFeatures = run;
 }

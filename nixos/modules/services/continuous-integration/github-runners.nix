@@ -49,5 +49,8 @@ in {
       })));
   };
 
-  meta.maintainers = with maintainers; [ veehaitch newam ];
+  meta.maintainers = with maintainers; [
+    veehaitch
+    newam
+  ];
 }

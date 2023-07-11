@@ -71,7 +71,10 @@ buildPythonPackage rec {
     "tests/performance/test_performance.py"
   ];
 
-  pythonImportsCheck = [ "google.cloud.logging" "google.cloud.logging_v2" ];
+  pythonImportsCheck = [
+    "google.cloud.logging"
+    "google.cloud.logging_v2"
+  ];
 
   meta = with lib; {
     description = "Stackdriver Logging API client library";

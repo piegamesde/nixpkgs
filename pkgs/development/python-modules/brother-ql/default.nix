@@ -23,7 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-H1xXoDnwEsnCBDl/RwAB9267dINCHr3phdDLPGFOhmA=";
   };
 
-  propagatedBuildInputs = [ future packbits pillow pyusb click attrs ];
+  propagatedBuildInputs = [
+    future
+    packbits
+    pillow
+    pyusb
+    click
+    attrs
+  ];
 
   meta = with lib; {
     description =

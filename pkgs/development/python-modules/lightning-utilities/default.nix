@@ -32,11 +32,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ packaging typing-extensions ];
+  propagatedBuildInputs = [
+    packaging
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "lightning_utilities" ];
 
-  nativeCheckInputs = [ pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   disabledTests = [
     "lightning_utilities.core.enums.StrEnum"

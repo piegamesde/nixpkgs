@@ -121,7 +121,10 @@ in rustPlatform.buildRustPackage {
   pname = "tree-sitter";
   inherit src version cargoSha256;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    CoreServices
+  ];
   nativeBuildInputs = [ which ] ++ lib.optionals webUISupport [ emscripten ];
 
   postPatch = lib.optionalString (!webUISupport) ''
@@ -174,6 +177,9 @@ in rustPlatform.buildRustPackage {
       * Dependency-free so that the runtime library (which is written in pure C) can be embedded in any application
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ Profpatsch oxalica ];
+    maintainers = with maintainers; [
+      Profpatsch
+      oxalica
+    ];
   };
 }

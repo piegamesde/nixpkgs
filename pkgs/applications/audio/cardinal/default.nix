@@ -43,7 +43,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake file pkg-config makeWrapper python3 ];
+  nativeBuildInputs = [
+    cmake
+    file
+    pkg-config
+    makeWrapper
+    python3
+  ];
   buildInputs = [
     dbus
     freetype
@@ -62,7 +68,10 @@ stdenv.mkDerivation rec {
   ];
 
   hardeningDisable = [ "format" ];
-  makeFlags = [ "SYSDEPS=true" "PREFIX=$(out)" ];
+  makeFlags = [
+    "SYSDEPS=true"
+    "PREFIX=$(out)"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/Cardinal \

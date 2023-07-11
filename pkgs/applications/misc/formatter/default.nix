@@ -32,20 +32,30 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8lZ0jUwHuc3Kntz73Btj6dJvkW2bvShu2KWTSQszbJo=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
-      exfat = "${exfat}/bin/mkfs.exfat";
-      fat = "${dosfstools}/bin/mkfs.fat";
-      ntfs = "${ntfs3g}/bin/mkfs.ntfs";
-      hfsplus = "${hfsprogs}/bin/mkfs.hfsplus";
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
+    exfat = "${exfat}/bin/mkfs.exfat";
+    fat = "${dosfstools}/bin/mkfs.fat";
+    ntfs = "${ntfs3g}/bin/mkfs.ntfs";
+    hfsplus = "${hfsprogs}/bin/mkfs.hfsplus";
+  }) ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    vala
+    pkg-config
+    python3
+    wrapGAppsHook
   ];
 
-  nativeBuildInputs = [ meson ninja vala pkg-config python3 wrapGAppsHook ];
-
-  buildInputs = [ glib gtk3 libgee pantheon.granite ];
+  buildInputs = [
+    glib
+    gtk3
+    libgee
+    pantheon.granite
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

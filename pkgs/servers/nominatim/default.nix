@@ -37,7 +37,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-sKI/KBKveb5kAWJ7y1xw+ZF1thynr402rJhVjkIdFMo=";
   };
 
-  nativeBuildInputs = [ cmake clang-tools git pandoc php ];
+  nativeBuildInputs = [
+    cmake
+    clang-tools
+    git
+    pandoc
+    php
+  ];
 
   buildInputs = [
     bzip2

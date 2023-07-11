@@ -24,10 +24,18 @@ mkDerivation rec {
     sha256 = "sha256-6FLj/hVY13WO7sMgHCHV57eMJu39cwQHXQX7m0lmv4I=";
   };
 
-  buildInputs =
-    [ qtmultimedia qtquickcontrols2 qtkeychain libquotient libsecret ];
+  buildInputs = [
+    qtmultimedia
+    qtquickcontrols2
+    qtkeychain
+    libquotient
+    libsecret
+  ];
 
-  nativeBuildInputs = [ cmake qttools ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ];
 
   postInstall = if stdenv.isDarwin then ''
     mkdir -p $out/Applications

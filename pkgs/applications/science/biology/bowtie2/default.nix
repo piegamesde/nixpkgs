@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ tbb zlib python3 perl ];
+  buildInputs = [
+    tbb
+    zlib
+    python3
+    perl
+  ];
 
   meta = with lib; {
     description =

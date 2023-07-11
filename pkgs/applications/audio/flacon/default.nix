@@ -31,8 +31,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-59p5x+d7Vmxx+bdBDxrlf4+NRIdUBuRk+DqohV98XYY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
-  buildInputs = [ qtbase qttools libuchardet taglib ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    libuchardet
+    taglib
+  ];
 
   bin_path = lib.makeBinPath [
     shntool

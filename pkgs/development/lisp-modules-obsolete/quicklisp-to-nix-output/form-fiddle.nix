@@ -8,7 +8,10 @@ args@{
 
   description = "A collection of utilities to destructure lambda forms.";
 
-  deps = [ args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

@@ -28,11 +28,19 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ autoreconfHook makeWrapper perlPackages.perl pkg-config ]
-    ++ (with ocamlPackages; [ ocaml findlib ]);
-  buildInputs = [ libxml2 ] ++ (with perlPackages; [ perl IOStringy ])
-    ++ lib.optionals stdenv.isDarwin [ libintl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    perlPackages.perl
+    pkg-config
+  ] ++ (with ocamlPackages; [
+    ocaml
+    findlib
+  ]);
+  buildInputs = [ libxml2 ] ++ (with perlPackages; [
+    perl
+    IOStringy
+  ]) ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   enableParallelBuilding = true;
 

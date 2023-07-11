@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "298c3c655da587f6cab8a666e9f4b150320032431062dea91353988d45c8b883";
   };
 
-  propagatedBuildInputs = [ coverage nose ];
+  propagatedBuildInputs = [
+    coverage
+    nose
+  ];
 
   meta = with lib; {
     description =

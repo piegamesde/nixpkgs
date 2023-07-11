@@ -12,7 +12,12 @@ let
   #
   # dpkg-deb -I ${odafileconverter.src} | grep Version
   version = "21.11.0.0";
-  rpath = "$ORIGIN:${lib.makeLibraryPath [ stdenv.cc.cc qtbase ]}";
+  rpath = "$ORIGIN:${
+      lib.makeLibraryPath [
+        stdenv.cc.cc
+        qtbase
+      ]
+    }";
 
 in mkDerivation {
   pname = "oda-file-converter";

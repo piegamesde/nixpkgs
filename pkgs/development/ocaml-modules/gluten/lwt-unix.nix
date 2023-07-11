@@ -12,5 +12,9 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ faraday-lwt-unix gluten-lwt lwt_ssl ];
+  propagatedBuildInputs = [
+    faraday-lwt-unix
+    gluten-lwt
+    lwt_ssl
+  ];
 }

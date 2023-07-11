@@ -63,22 +63,22 @@ in buildDunePackage rec {
   duneVersion = "3";
 
   # atdgen is both a library and executable
-  nativeBuildInputs = [ perl ] ++ [
-    (if lib.versionAtLeast version "1.15" || version == "dev" then
+  nativeBuildInputs = [ perl ]
+    ++ [ (if lib.versionAtLeast version "1.15" || version == "dev" then
       menhir
     else
-      camlp5)
-  ] ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
+      camlp5) ]
+    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
     atdgen;
   buildInputs = [ ncurses ]
     ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
     atdgen;
 
-  propagatedBuildInputs = [ re stdlib-shims ]
-    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then
-      [ menhirLib ]
-    else
-      [ camlp5 ])
+  propagatedBuildInputs = [
+    re
+    stdlib-shims
+  ] ++ (if lib.versionAtLeast version "1.15" || version
+  == "dev" then [ menhirLib ] else [ camlp5 ])
     ++ (if lib.versionAtLeast version "1.13" || version == "dev" then [
       ppxlib
       ppx_deriving

@@ -24,8 +24,17 @@ stdenv.mkDerivation rec {
   # breaks cross-compilation (replaces references to malloc with rpl_malloc).
   # Re-generate with nixpkgs's autoconf. This requires glib to be present in
   # nativeBuildInputs for its m4 macros to be present.
-  nativeBuildInputs = [ autoreconfHook glib pkg-config ];
-  buildInputs = [ glib libuuid popt elfutils ];
+  nativeBuildInputs = [
+    autoreconfHook
+    glib
+    pkg-config
+  ];
+  buildInputs = [
+    glib
+    libuuid
+    popt
+    elfutils
+  ];
 
   # --enable-debug-info (default) requires the configure script to run host
   # executables to determine the elfutils library version, which cannot be done

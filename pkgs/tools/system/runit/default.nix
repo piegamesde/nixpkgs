@@ -20,14 +20,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-ar-ranlib.patch ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   sourceRoot = "admin/${pname}-${version}";
 
   doCheck = true;
 
-  buildInputs = lib.optionals static [ stdenv.cc.libc stdenv.cc.libc.static ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
+  buildInputs = lib.optionals static [
+    stdenv.cc.libc
+    stdenv.cc.libc.static
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
 
   postPatch = ''
     sed -i "s,\(#define RUNIT\) .*,\1 \"$out/bin/runit\"," src/runit.h

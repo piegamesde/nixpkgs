@@ -41,7 +41,13 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ pantheon.granite glib libgee gsettings-desktop-schemas gtk3 ];
+  buildInputs = [
+    pantheon.granite
+    glib
+    libgee
+    gsettings-desktop-schemas
+    gtk3
+  ];
 
   postInstall = ''
     ${glib.dev}/bin/glib-compile-schemas $out/share/glib-2.0/schemas

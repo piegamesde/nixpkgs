@@ -21,9 +21,16 @@ stdenv.mkDerivation {
     sha256 = "1y05x8lfyxvkjg6c87cfd0xxmb22c88scx8fq3gah7hjy5i42v93";
   };
 
-  nativeBuildInputs = [ autoreconfHook intltool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ libgnome libgnomeui ];
+  buildInputs = [
+    libgnome
+    libgnomeui
+  ];
 
   propagatedUserEnvPkgs = [ GConf ];
 

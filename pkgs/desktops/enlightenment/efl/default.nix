@@ -67,7 +67,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2fg6oP2TNPRN7rTklS3A5RRGg6+seG/uvOYDCVFhfRU=";
   };
 
-  nativeBuildInputs = [ meson ninja gtk3 pkg-config check ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gtk3
+    pkg-config
+    check
+  ];
 
   buildInputs = [
     fontconfig
@@ -204,9 +210,16 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Enlightenment foundation libraries";
     homepage = "https://enlightenment.org/";
-    license = with licenses; [ bsd2 lgpl2Only licenses.zlib ];
+    license = with licenses; [
+      bsd2
+      lgpl2Only
+      licenses.zlib
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers;
-      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+      [
+        matejc
+        ftrvxmtrx
+      ] ++ teams.enlightenment.members;
   };
 }

@@ -33,11 +33,14 @@ buildGoModule rec {
 
   CGO_ENABLED = if stdenv.isLinux then 1 else 0;
 
-  ldflags = [ "-s" "-w" "-X github.com/werf/werf/pkg/werf.Version=${src.rev}" ]
-    ++ lib.optionals (CGO_ENABLED == 1) [
-      "-extldflags=-static"
-      "-linkmode external"
-    ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/werf/werf/pkg/werf.Version=${src.rev}"
+  ] ++ lib.optionals (CGO_ENABLED == 1) [
+    "-extldflags=-static"
+    "-linkmode external"
+  ];
 
   tags = [
     "containers_image_openpgp"

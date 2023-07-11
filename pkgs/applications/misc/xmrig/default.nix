@@ -33,8 +33,16 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libuv libmicrohttpd openssl hwloc ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon CoreServices OpenCL ];
+  buildInputs = [
+    libuv
+    libmicrohttpd
+    openssl
+    hwloc
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    CoreServices
+    OpenCL
+  ];
 
   inherit donateLevel;
 

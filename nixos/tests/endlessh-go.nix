@@ -37,7 +37,10 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          environment.systemPackages = with pkgs; [ curl netcat ];
+          environment.systemPackages = with pkgs; [
+            curl
+            netcat
+          ];
         };
     };
 

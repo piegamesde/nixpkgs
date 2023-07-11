@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-TUCN8kW44X6iGbSJURurcz/Tc2eCH1xgmXH1sMOMOXs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo makeWrapper ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+    makeWrapper
+  ];
 
-  buildInputs = [ guile guile-config ];
+  buildInputs = [
+    guile
+    guile-config
+  ];
 
   enableParallelBuilding = true;
 

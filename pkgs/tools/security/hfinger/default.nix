@@ -18,7 +18,10 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3.pkgs;
-    [ fnvhash python-magic ] ++ [ wireshark-cli ];
+    [
+      fnvhash
+      python-magic
+    ] ++ [ wireshark-cli ];
 
   # Project has no tests
   doCheck = false;

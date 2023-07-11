@@ -45,6 +45,9 @@ python3.pkgs.buildPythonApplication rec {
     description = "Yet another simple static gallery generator";
     homepage = "http://sigal.saimon.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ domenkozar matthiasbeyer ];
+    maintainers = with maintainers; [
+      domenkozar
+      matthiasbeyer
+    ];
   };
 }

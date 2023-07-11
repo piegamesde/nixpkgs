@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-uS0NwyFqidhrMG7thHM0qau22B/kI16c8aXEUuNdioQ=";
   };
 
-  nativeCheckInputs = [ pytest-mockito pytestCheckHook robotframework ];
+  nativeCheckInputs = [
+    pytest-mockito
+    pytestCheckHook
+    robotframework
+  ];
 
   preCheck = ''
     export PYTHONPATH="atest:utest/helpers:$PYTHONPATH"

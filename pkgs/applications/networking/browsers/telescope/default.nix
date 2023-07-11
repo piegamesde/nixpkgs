@@ -23,14 +23,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9gZeBAC7AGU5vb+692npjKbbqFEAr9iGLu1u68EJ0W8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config bison ];
-
-  buildInputs = [ libevent libressl ncurses ]
-    ++ lib.optional stdenv.isDarwin memstreamHook;
-
-  configureFlags = [
-    "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    bison
   ];
+
+  buildInputs = [
+    libevent
+    libressl
+    ncurses
+  ] ++ lib.optional stdenv.isDarwin memstreamHook;
+
+  configureFlags =
+    [ "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc" ];
 
   meta = with lib; {
     description = "Telescope is a w3m-like browser for Gemini";

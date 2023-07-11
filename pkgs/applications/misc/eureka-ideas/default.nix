@@ -24,8 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libgit2 openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    libgit2
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   useNextest = true;
 

@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-xVumVmiLMHJp3SItE8eL8OBPeq58HtOOiK9LL8SP4CQ=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   preConfigure = ''
     if [ $doCheck -eq 1 ]; then
@@ -32,7 +35,12 @@ stdenv.mkDerivation rec {
     fi
   '';
 
-  nativeCheckInputs = [ gtest lit nodejs filecheck ];
+  nativeCheckInputs = [
+    gtest
+    lit
+    nodejs
+    filecheck
+  ];
   checkPhase = ''
     LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib python3 ../check.py $tests
   '';

@@ -86,7 +86,10 @@ stdenv.mkDerivation rec {
     polkit
     sassc
     upower
-  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+  ]);
 
   passthru.providedSessions = [ "budgie-desktop" ];
 
@@ -96,6 +99,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop";
     platforms = platforms.linux;
     maintainers = [ maintainers.federicoschonborn ];
-    license = with licenses; [ gpl2Plus lgpl21Plus cc-by-sa-30 ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+      cc-by-sa-30
+    ];
   };
 }

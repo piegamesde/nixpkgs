@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H";
 
-  buildInputs = [ libroxml proj_7 yaml-cpp_0_3 boost ];
+  buildInputs = [
+    libroxml
+    proj_7
+    yaml-cpp_0_3
+    boost
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/sembruk/osm2xmap";

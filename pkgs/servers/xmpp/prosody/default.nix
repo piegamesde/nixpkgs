@@ -40,7 +40,11 @@ in stdenv.mkDerivation rec {
   # The following community modules are necessary for the nixos module
   # prosody module to comply with XEP-0423 and provide a working
   # default setup.
-  nixosModuleDeps = [ "cloud_notify" "vcard_muc" "http_upload" ];
+  nixosModuleDeps = [
+    "cloud_notify"
+    "vcard_muc"
+    "http_upload"
+  ];
   src = fetchurl {
     url = "https://prosody.im/downloads/source/${pname}-${version}.tar.gz";
     sha256 = "sha256-NdoNAx/0YECi1jjgBNQlXiSbYyP+YhLbnd12tAHbIQE=";
@@ -56,7 +60,12 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ luaEnv libidn openssl icu ] ++ withExtraLibs;
+  buildInputs = [
+    luaEnv
+    libidn
+    openssl
+    icu
+  ] ++ withExtraLibs;
 
   configureFlags = [
     "--ostype=linux"

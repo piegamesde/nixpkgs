@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ postgresql ];
 
-  makeFlags = [ "BISON=${bison}/bin/bison" "FLEX=${flex}/bin/flex" ];
+  makeFlags = [
+    "BISON=${bison}/bin/bison"
+    "FLEX=${flex}/bin/flex"
+  ];
 
   installPhase = ''
     install -D -t $out/lib *.so

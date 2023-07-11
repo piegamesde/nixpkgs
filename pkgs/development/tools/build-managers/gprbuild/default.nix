@@ -17,7 +17,11 @@ stdenv.mkDerivation {
   # (future) gprbuild wrapper.
   inherit (gprbuild-boot) version src setupHook meta;
 
-  nativeBuildInputs = [ gnat gprbuild-boot which ];
+  nativeBuildInputs = [
+    gnat
+    gprbuild-boot
+    which
+  ];
 
   propagatedBuildInputs = [ xmlada ];
 
@@ -27,8 +31,8 @@ stdenv.mkDerivation {
     # confusingly, for gprbuild --target is autoconf --host
     "TARGET=${stdenv.hostPlatform.config}"
     "prefix=${placeholder "out"}"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isStatic)
-    [ "LIBRARY_TYPE=relocatable" ];
+  ] ++ lib.optionals
+    (!stdenv.hostPlatform.isStatic) [ "LIBRARY_TYPE=relocatable" ];
 
   # Fixes gprbuild being linked statically always
   patches = lib.optional (!stdenv.hostPlatform.isStatic) (fetchpatch {
@@ -38,9 +42,15 @@ stdenv.mkDerivation {
     sha256 = "1r3xsp1pk9h666mm8mdravkybmd5gv2f751x2ffb1kxnwq1rwiyn";
   });
 
-  buildFlags = [ "all" "libgpr.build" ];
+  buildFlags = [
+    "all"
+    "libgpr.build"
+  ];
 
-  installFlags = [ "all" "libgpr.install" ];
+  installFlags = [
+    "all"
+    "libgpr.install"
+  ];
 
   # link gprconfig_kb db from gprbuild-boot into build dir,
   # the install process copies its contents to $out

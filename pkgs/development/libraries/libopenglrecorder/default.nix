@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "13s2d7qs8z4w0gb3hx03n97xmwl07d4s473m4gw90qcvmz217kiz";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libjpeg libvpx openh264 ]
-    ++ lib.optionals withPulse [ libpulseaudio libvorbis ];
+  buildInputs = [
+    libjpeg
+    libvpx
+    openh264
+  ] ++ lib.optionals withPulse [
+    libpulseaudio
+    libvorbis
+  ];
 
   meta = with lib; {
     description =

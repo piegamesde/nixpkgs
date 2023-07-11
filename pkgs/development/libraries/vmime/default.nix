@@ -27,8 +27,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DUcGQcT7hp5Rs2Z5C8wo+3BYwWqED0KrF3h3vgLiiow=";
   };
 
-  buildInputs = [ gsasl gnutls zlib libtasn1 libgcrypt gtk3 ];
-  nativeBuildInputs = [ pkg-config cmake ];
+  buildInputs = [
+    gsasl
+    gnutls
+    zlib
+    libtasn1
+    libgcrypt
+    gtk3
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   cmakeFlags = [ "-DVMIME_SENDMAIL_PATH=${sendmailPath}" ];
 

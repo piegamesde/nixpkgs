@@ -46,10 +46,23 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config intltool ]
-    ++ lib.optionals stdenv.isDarwin [ autoreconfHook ];
-  buildInputs = [ atk cairo glib gtk2 pango libxml2Python perl gettext ]
-    ++ lib.optionals stdenv.isDarwin [ gnome-common gtk-mac-integration-gtk2 ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ] ++ lib.optionals stdenv.isDarwin [ autoreconfHook ];
+  buildInputs = [
+    atk
+    cairo
+    glib
+    gtk2
+    pango
+    libxml2Python
+    perl
+    gettext
+  ] ++ lib.optionals stdenv.isDarwin [
+    gnome-common
+    gtk-mac-integration-gtk2
+  ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     intltoolize --force

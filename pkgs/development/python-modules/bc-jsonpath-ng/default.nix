@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Uho+slKmKkTrcJBKi+9GJv1JrvDrTP4/6uqmMn3qptU=";
   };
 
-  propagatedBuildInputs = [ decorator ply ];
+  propagatedBuildInputs = [
+    decorator
+    ply
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

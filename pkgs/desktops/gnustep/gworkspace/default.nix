@@ -17,7 +17,12 @@ in gsmakeDerivation {
   # additional dependencies:
   # - PDFKit framework from http://gap.nongnu.org/
   # - TODO: to --enable-gwmetadata, need libDBKit as well as sqlite!
-  buildInputs = [ back base gui system_preferences ];
+  buildInputs = [
+    back
+    base
+    gui
+    system_preferences
+  ];
   configureFlags = [ "--with-inotify" ];
   meta = { description = "A workspace manager for GNUstep"; };
 }

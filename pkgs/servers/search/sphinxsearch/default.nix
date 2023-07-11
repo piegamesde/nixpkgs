@@ -20,8 +20,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--program-prefix=sphinxsearch-" "--enable-id64" ]
-    ++ lib.optionals (!enableMysql) [ "--without-mysql" ];
+  configureFlags = [
+    "--program-prefix=sphinxsearch-"
+    "--enable-id64"
+  ] ++ lib.optionals (!enableMysql) [ "--without-mysql" ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -42,6 +44,9 @@ stdenv.mkDerivation rec {
     homepage = "http://sphinxsearch.com";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ederoyd46 valodim ];
+    maintainers = with lib.maintainers; [
+      ederoyd46
+      valodim
+    ];
   };
 }

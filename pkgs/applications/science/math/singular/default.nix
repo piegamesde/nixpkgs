@@ -53,8 +53,10 @@ stdenv.mkDerivation rec {
     forceFetchGit = true;
   };
 
-  configureFlags = [ "--with-ntl=${ntl}" "--disable-pyobject-module" ]
-    ++ lib.optionals enableDocs [ "--enable-doc-build" ]
+  configureFlags = [
+    "--with-ntl=${ntl}"
+    "--disable-pyobject-module"
+  ] ++ lib.optionals enableDocs [ "--enable-doc-build" ]
     ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
   prePatch = ''
@@ -120,12 +122,15 @@ stdenv.mkDerivation rec {
   # singular tests are a bit complicated, see
   # https://github.com/Singular/Singular/tree/spielwiese/Tst
   # https://www.singular.uni-kl.de/forum/viewtopic.php?f=10&t=2773
-  testsToRun =
-    [ "Old/universal.lst" "Buch/buch.lst" "Plural/short.lst" "Old/factor.tst" ]
-    ++ lib.optionals enableGfanlib [
-      # tests that require gfanlib
-      "Short/ok_s.lst"
-    ];
+  testsToRun = [
+    "Old/universal.lst"
+    "Buch/buch.lst"
+    "Plural/short.lst"
+    "Old/factor.tst"
+  ] ++ lib.optionals enableGfanlib [
+    # tests that require gfanlib
+    "Short/ok_s.lst"
+  ];
 
   # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;

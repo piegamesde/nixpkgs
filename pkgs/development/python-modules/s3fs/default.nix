@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   buildInputs = [ docutils ];
 
-  propagatedBuildInputs = [ aiobotocore aiohttp fsspec ];
+  propagatedBuildInputs = [
+    aiobotocore
+    aiohttp
+    fsspec
+  ];
 
   # Depends on `moto` which has a long dependency chain with exact
   # version requirements that can't be made to work with current

@@ -101,7 +101,13 @@ in {
           };
 
           hardware_handler = mkOption {
-            type = nullOr (enum [ "emc" "rdac" "hp_sw" "alua" "ana" ]);
+            type = nullOr (enum [
+              "emc"
+              "rdac"
+              "hp_sw"
+              "alua"
+              "ana"
+            ]);
             default = null;
             description =
               lib.mdDoc "The hardware handler to use for this device type";
@@ -208,7 +214,10 @@ in {
           };
 
           rr_weight = mkOption {
-            type = nullOr (enum [ "priorities" "uniform" ]);
+            type = nullOr (enum [
+              "priorities"
+              "uniform"
+            ]);
             default = null; # real default: "uniform"
             description = lib.mdDoc ''
               If set to priorities the multipath configurator will assign path weights
@@ -271,7 +280,10 @@ in {
           };
 
           flush_on_last_del = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "no"
             description = lib.mdDoc ''
               If set to "yes" multipathd will disable queueing when the last path to a
@@ -280,7 +292,10 @@ in {
           };
 
           user_friendly_names = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "no"
             description = lib.mdDoc ''
               If set to "yes", using the bindings file /etc/multipath/bindings
@@ -292,7 +307,10 @@ in {
           };
 
           detect_prio = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "yes"
             description = lib.mdDoc ''
               If set to "yes", multipath will try to detect if the device supports
@@ -304,7 +322,10 @@ in {
           };
 
           detect_checker = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "yes"
             description = lib.mdDoc ''
               If set to "yes", multipath will try to detect if the device supports
@@ -314,7 +335,10 @@ in {
           };
 
           deferred_remove = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "no"
             description = lib.mdDoc ''
               If set to "yes", multipathd will do a deferred remove instead of a
@@ -405,7 +429,10 @@ in {
           };
 
           skip_kpartx = mkOption {
-            type = nullOr (enum [ "yes" "no" ]);
+            type = nullOr (enum [
+              "yes"
+              "no"
+            ]);
             default = null; # real default: "no"
             description = lib.mdDoc
               "If set to yes, kpartx will not automatically create partitions on the device";
@@ -603,12 +630,18 @@ in {
     systemd.packages = [ cfg.package ];
 
     environment.systemPackages = [ cfg.package ];
-    boot.kernelModules = [ "dm-multipath" "dm-service-time" ];
+    boot.kernelModules = [
+      "dm-multipath"
+      "dm-service-time"
+    ];
 
     # We do not have systemd in stage-1 boot so must invoke `multipathd`
     # with the `-1` argument which disables systemd calls. Invoke `multipath`
     # to display the multipath mappings in the output of `journalctl -b`.
-    boot.initrd.kernelModules = [ "dm-multipath" "dm-service-time" ];
+    boot.initrd.kernelModules = [
+      "dm-multipath"
+      "dm-service-time"
+    ];
     boot.initrd.postDeviceCommands = ''
       modprobe -a dm-multipath dm-service-time
       multipathd -s

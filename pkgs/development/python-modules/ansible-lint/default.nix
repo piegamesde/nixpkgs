@@ -59,7 +59,11 @@ buildPythonPackage rec {
   # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
 
-  nativeCheckInputs = [ flaky pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    flaky
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   preCheck = ''
     # ansible wants to write to $HOME and crashes if it can't

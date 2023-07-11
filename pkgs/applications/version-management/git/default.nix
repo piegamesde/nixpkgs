@@ -112,21 +112,39 @@ in stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  nativeBuildInputs = [ gettext perlPackages.perl makeWrapper pkg-config ]
-    ++ lib.optionals withManual [
-      asciidoc
-      texinfo
-      xmlto
-      docbook2x
-      docbook_xsl
-      docbook_xml_dtd_45
-      libxslt
+  nativeBuildInputs = [
+    gettext
+    perlPackages.perl
+    makeWrapper
+    pkg-config
+  ] ++ lib.optionals withManual [
+    asciidoc
+    texinfo
+    xmlto
+    docbook2x
+    docbook_xsl
+    docbook_xml_dtd_45
+    libxslt
+  ];
+  buildInputs = [
+    curl
+    openssl
+    zlib
+    expat
+    cpio
+    libiconv
+    bash
+  ] ++ lib.optionals perlSupport [ perlPackages.perl ]
+    ++ lib.optionals guiSupport [
+      tcl
+      tk
+    ] ++ lib.optionals withpcre2 [ pcre2 ] ++ lib.optionals stdenv.isDarwin [
+      Security
+      CoreServices
+    ] ++ lib.optionals withLibsecret [
+      glib
+      libsecret
     ];
-  buildInputs = [ curl openssl zlib expat cpio libiconv bash ]
-    ++ lib.optionals perlSupport [ perlPackages.perl ]
-    ++ lib.optionals guiSupport [ tcl tk ] ++ lib.optionals withpcre2 [ pcre2 ]
-    ++ lib.optionals stdenv.isDarwin [ Security CoreServices ]
-    ++ lib.optionals withLibsecret [ glib libsecret ];
 
   # required to support pthread_cancel()
   NIX_LDFLAGS =
@@ -145,30 +163,24 @@ in stdenv.mkDerivation (finalAttrs: {
     makeFlagsArray+=( perllibdir=$out/$(perl -MConfig -wle 'print substr $Config{installsitelib}, 1 + length $Config{siteprefixexp}') )
   '';
 
-  makeFlags = [
-    "prefix=\${out}"
-  ]
-  # Git does not allow setting a shell separately for building and run-time.
-  # Therefore lets leave it at the default /bin/sh when cross-compiling
+  makeFlags = [ "prefix=\${out}" ]
+    # Git does not allow setting a shell separately for building and run-time.
+    # Therefore lets leave it at the default /bin/sh when cross-compiling
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
-    "SHELL_PATH=${stdenv.shell}" ++ (if perlSupport then
-      [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
-    else
-      [ "NO_PERL=1" ]) ++ (if pythonSupport then
-        [ "PYTHON_PATH=${python3}/bin/python" ]
-      else
-        [ "NO_PYTHON=1" ]) ++ lib.optionals stdenv.isSunOS [
-          "INSTALL=install"
-          "NO_INET_NTOP="
-          "NO_INET_PTON="
-        ] ++ (if stdenv.isDarwin then
-          [ "NO_APPLE_COMMON_CRYPTO=1" ]
-        else
-          [ "sysconfdir=/etc" ]) ++ lib.optionals stdenv.hostPlatform.isMusl [
-            "NO_SYS_POLL_H=1"
-            "NO_GETTEXT=YesPlease"
-          ] ++ lib.optional withpcre2 "USE_LIBPCRE2=1"
-    ++ lib.optional (!nlsSupport) "NO_GETTEXT=1"
+    "SHELL_PATH=${stdenv.shell}"
+    ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
+    ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
+    ++ lib.optionals stdenv.isSunOS [
+      "INSTALL=install"
+      "NO_INET_NTOP="
+      "NO_INET_PTON="
+    ]
+    ++ (if stdenv.isDarwin then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      "NO_SYS_POLL_H=1"
+      "NO_GETTEXT=YesPlease"
+    ] ++ lib.optional withpcre2 "USE_LIBPCRE2=1" ++ lib.optional (!nlsSupport)
+    "NO_GETTEXT=1"
     # git-gui refuses to start with the version of tk distributed with
     # macOS Catalina. We can prevent git from building the .app bundle
     # by specifying an invalid tk framework. The postInstall step will
@@ -178,9 +190,8 @@ in stdenv.mkDerivation (finalAttrs: {
     # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
     ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
-  disallowedReferences =
-    lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ stdenv.shellPackage ];
+  disallowedReferences = lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ stdenv.shellPackage ];
 
   postBuild = ''
     make -C contrib/subtree
@@ -357,8 +368,10 @@ in stdenv.mkDerivation (finalAttrs: {
   installCheckTarget = "test";
 
   # see also installCheckFlagsArray
-  installCheckFlags =
-    [ "DEFAULT_TEST_TARGET=prove" "PERL_PATH=${buildPackages.perl}/bin/perl" ];
+  installCheckFlags = [
+    "DEFAULT_TEST_TARGET=prove"
+    "PERL_PATH=${buildPackages.perl}/bin/perl"
+  ];
 
   preInstallCheck = ''
     installCheckFlagsArray+=(
@@ -438,8 +451,12 @@ in stdenv.mkDerivation (finalAttrs: {
     disable_test t0028-working-tree-encoding
   '';
 
-  stripDebugList =
-    [ "lib" "libexec" "bin" "share/git/contrib/credential/libsecret" ];
+  stripDebugList = [
+    "lib"
+    "libexec"
+    "bin"
+    "share/git/contrib/credential/libsecret"
+  ];
 
   passthru = {
     shellPath = "/bin/git-shell";
@@ -463,6 +480,10 @@ in stdenv.mkDerivation (finalAttrs: {
     '';
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ primeos wmertens globin ];
+    maintainers = with lib.maintainers; [
+      primeos
+      wmertens
+      globin
+    ];
   };
 })

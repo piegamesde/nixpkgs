@@ -40,8 +40,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-+KHpvz7nfwGXjzDAK/V+2JDRT1sa0kXDkg7XcRyvSP8=";
   };
 
-  nativeBuildInputs = [ pkg-config python3 ]
-    ++ lib.optionals withGtk [ cmake ninja wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+  ] ++ lib.optionals withGtk [
+    cmake
+    ninja
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     libX11
@@ -50,9 +56,14 @@ stdenv.mkDerivation rec {
     zlib
   ]
   # on non-Linux platforms this will build without sound support on X11 build
-    ++ lib.optionals stdenv.isLinux [ alsa-lib pulseaudio ]
-    ++ lib.optionals (!withGtk) [ libpng libXext libXinerama ]
-    ++ lib.optionals withGtk [
+    ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      pulseaudio
+    ] ++ lib.optionals (!withGtk) [
+      libpng
+      libXext
+      libXinerama
+    ] ++ lib.optionals withGtk [
       gtkmm3
       libepoxy
       libselinux
@@ -102,7 +113,11 @@ stdenv.mkDerivation rec {
       license = licenses.unfreeRedistributable // {
         url = "https://github.com/snes9xgit/snes9x/blob/${version}/LICENSE";
       };
-      maintainers = with maintainers; [ qknight xfix thiagokokada ];
+      maintainers = with maintainers; [
+        qknight
+        xfix
+        thiagokokada
+      ];
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
     };

@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fontconfig libX11 libXext libXft ncurses ];
+  buildInputs = [
+    fontconfig
+    libX11
+    libXext
+    libXft
+    ncurses
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -29,7 +29,10 @@ rustPlatform.buildRustPackage rec {
     # gracefully exit while doing work.
     # See: https://github.com/rustwasm/wasm-pack/issues/650
     libressl
-  ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    curl
+    Security
+  ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

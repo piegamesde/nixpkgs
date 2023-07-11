@@ -18,7 +18,10 @@ buildPecl rec {
     sha256 = "sha256-QTqZRHh57mRkg0HT9qQS13emGobB0IRqM+mdImAPgtE=";
   };
 
-  buildInputs = [ curl pcre2 ];
+  buildInputs = [
+    curl
+    pcre2
+  ];
 
   meta = with lib; {
     description = "Datadog Tracing PHP Client";

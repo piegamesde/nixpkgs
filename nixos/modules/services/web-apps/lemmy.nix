@@ -12,10 +12,11 @@ in {
   meta.maintainers = with maintainers; [ happysalada ];
   meta.doc = ./lemmy.md;
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "lemmy" "jwtSecretPath" ]
-      "As of v0.13.0, Lemmy auto-generates the JWT secret.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "lemmy"
+    "jwtSecretPath"
+  ] "As of v0.13.0, Lemmy auto-generates the JWT secret.") ];
 
   options.services.lemmy = {
 
@@ -69,7 +70,11 @@ in {
             description = lib.mdDoc "Enable Captcha.";
           };
           difficulty = mkOption {
-            type = types.enum [ "easy" "medium" "hard" ];
+            type = types.enum [
+              "easy"
+              "medium"
+              "hard"
+            ];
             default = "medium";
             description = lib.mdDoc "The difficultly of the captcha to solve.";
           };
@@ -108,11 +113,11 @@ in {
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.settings.database.database ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.settings.database.user;
         ensurePermissions."DATABASE ${cfg.settings.database.database}" =
           "ALL PRIVILEGES";
-      }];
+      } ];
     };
 
     services.pict-rs.enable = true;
@@ -151,12 +156,12 @@ in {
       };
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.database.createLocally -> cfg.settings.database.host
         == "localhost" || cfg.settings.database.host == "/run/postgresql";
       message =
         "if you want to create the database locally, you need to use a local database";
-    }];
+    } ];
 
     systemd.services.lemmy = {
       description = "Lemmy server";

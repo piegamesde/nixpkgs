@@ -62,7 +62,13 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ glib gtk4 libadwaita systemd gsettings-desktop-schemas ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    systemd
+    gsettings-desktop-schemas
+  ];
 
   mesonFlags = [ "-Dman=true" ];
 

@@ -89,7 +89,11 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AX4m1XZ+yXp74E3slFGyI3CGu2eYU+eXNN2EY+ivdfk=";
   };
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   # Unpack subproject sources
   postUnpack = ''
@@ -115,8 +119,14 @@ in stdenv.mkDerivation (finalAttrs: {
     (substituteAll {
       src = ./hardcode-dependencies.patch;
 
-      path =
-        lib.makeBinPath [ coreutils curl glxinfo gnugrep gnused xdg-utils ];
+      path = lib.makeBinPath [
+        coreutils
+        curl
+        glxinfo
+        gnugrep
+        gnused
+        xdg-utils
+      ];
 
       libdbus = dbus.lib;
       inherit hwdata;
@@ -127,8 +137,8 @@ in stdenv.mkDerivation (finalAttrs: {
     substituteInPlace bin/mangohud.in \
       --subst-var-by libraryPath ${
         lib.makeSearchPath "lib/mangohud" ([ (placeholder "out") ]
-          ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux")
-          [ mangohud32 ])
+          ++ lib.optionals
+          (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ])
       } \
       --subst-var-by dataDir ${placeholder "out"}/share
 
@@ -165,8 +175,15 @@ in stdenv.mkDerivation (finalAttrs: {
     libX11
   ];
 
-  buildInputs = [ dbus nlohmann_json spdlog ]
-    ++ lib.optionals gamescopeSupport [ glew glfw xorg.libXrandr ];
+  buildInputs = [
+    dbus
+    nlohmann_json
+    spdlog
+  ] ++ lib.optionals gamescopeSupport [
+    glew
+    glfw
+    xorg.libXrandr
+  ];
 
   doCheck = true;
 
@@ -205,6 +222,9 @@ in stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/flightlessmango/MangoHud";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau zeratax ];
+    maintainers = with maintainers; [
+      kira-bruneau
+      zeratax
+    ];
   };
 })

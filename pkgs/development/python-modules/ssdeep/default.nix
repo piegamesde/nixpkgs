@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   buildInputs = [ ssdeep ];
 
-  propagatedBuildInputs = [ cffi six ];
+  propagatedBuildInputs = [
+    cffi
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

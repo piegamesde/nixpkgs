@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-jHyeVCmyy9ipbVaF7GSW19DOVpU9EQJoLcGq9uos+eY=";
   };
 
-  nativeBuildInputs = [ pkg-config rubberband scons ];
-  buildInputs = [ libsamplerate libsndfile liblo libjack2 boost ];
+  nativeBuildInputs = [
+    pkg-config
+    rubberband
+    scons
+  ];
+  buildInputs = [
+    libsamplerate
+    libsndfile
+    liblo
+    libjack2
+    boost
+  ];
   prefixKey = "PREFIX=";
 
   meta = {

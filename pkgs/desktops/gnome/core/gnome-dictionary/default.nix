@@ -64,8 +64,12 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ];
 
-  buildInputs =
-    [ gtk3 glib gsettings-desktop-schemas gnome.adwaita-icon-theme ];
+  buildInputs = [
+    gtk3
+    glib
+    gsettings-desktop-schemas
+    gnome.adwaita-icon-theme
+  ];
 
   doCheck = true;
 

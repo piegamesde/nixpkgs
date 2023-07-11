@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0m7rc9v8nz6w9x4x96maza139kin6lg4hscy6i13fna4672ds9jd";
   };
 
-  buildInputs = [ pciutils libx86 zlib ];
+  buildInputs = [
+    pciutils
+    libx86
+    zlib
+  ];
 
   patchPhase = ''
     substituteInPlace Makefile.in --replace '$(libdir)/libpci.a' ""

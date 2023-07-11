@@ -13,7 +13,12 @@ import ./make-test-python.nix ({
   in {
     name = "gerrit";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ flokli zimbatm ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        flokli
+        zimbatm
+      ];
+    };
 
     nodes = {
       server = {
@@ -21,7 +26,10 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          networking.firewall.allowedTCPPorts = [ 80 2222 ];
+          networking.firewall.allowedTCPPorts = [
+            80
+            2222
+          ];
 
           services.gerrit = {
             enable = true;
@@ -30,7 +38,10 @@ import ./make-test-python.nix ({
             jvmHeapLimit = "1g";
 
             plugins = [ lfs ];
-            builtinPlugins = [ "hooks" "webhooks" ];
+            builtinPlugins = [
+              "hooks"
+              "webhooks"
+            ];
             settings = {
               gerrit.canonicalWebUrl = "http://server";
               lfs.plugin = "lfs";

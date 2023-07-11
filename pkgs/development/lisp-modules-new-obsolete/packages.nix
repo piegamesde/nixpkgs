@@ -72,7 +72,10 @@ let
           "https://gitlab.common-lisp.net/asdf/asdf/-/archive/3.3.5.3/asdf-3.3.5.3.tar.gz";
         sha256 = "0aw200awhg58smmbdmz80bayzmbm1a6547gv0wmc8yv89gjqldbv";
       };
-      systems = [ "asdf" "uiop" ];
+      systems = [
+        "asdf"
+        "uiop"
+      ];
     };
 
     uiop = asdf.overrideLispAttrs (o: { pname = "uiop"; });
@@ -92,7 +95,11 @@ let
       };
       version = "0.24.1";
       pname = "cffi";
-      lispLibs = with ql; [ alexandria babel trivial-features ];
+      lispLibs = with ql; [
+        alexandria
+        babel
+        trivial-features
+      ];
       javaLibs = optionals isJVM [ jna ];
     };
 
@@ -114,7 +121,10 @@ let
         sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
       };
       systems = [ "cl-unicode" ];
-      lispLibs = with ql; [ cl-ppcre flexi-streams ];
+      lispLibs = with ql; [
+        cl-ppcre
+        flexi-streams
+      ];
     };
 
     jzon = build-asdf-system {
@@ -177,7 +187,10 @@ let
         flexi-streams
         parachute
       ];
-      systems = [ "tar-file" "tar-file/test" ];
+      systems = [
+        "tar-file"
+        "tar-file/test"
+      ];
     };
 
     cl-tar = build-asdf-system {
@@ -240,7 +253,10 @@ let
           "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
         sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
       };
-      lispLibs = [ lessp rollback ] ++ [ ql.local-time ];
+      lispLibs = [
+        lessp
+        rollback
+      ] ++ [ ql.local-time ];
     };
 
     cl-fuse = build-with-compile-into-pwd {
@@ -252,7 +268,10 @@ let
     cl-containers = build-asdf-system {
       inherit (ql.cl-containers) pname version src;
       lispLibs = ql.cl-containers.lispLibs ++ [ ql.moptilities ];
-      systems = [ "cl-containers" "cl-containers/with-moptilities" ];
+      systems = [
+        "cl-containers"
+        "cl-containers/with-moptilities"
+      ];
     };
 
     swank = build-with-compile-into-pwd {
@@ -295,8 +314,11 @@ let
       inherit (ql.nyxt) pname lisp;
       version = "2.2.4";
 
-      lispLibs = ql.nyxt.lispLibs
-        ++ (with ql; [ cl-cffi-gtk cl-webkit2 mk-string-metrics ]);
+      lispLibs = ql.nyxt.lispLibs ++ (with ql; [
+        cl-cffi-gtk
+        cl-webkit2
+        mk-string-metrics
+      ]);
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -361,8 +383,15 @@ let
       };
 
       buildInputs = [ pkgs.qt4 ];
-      nativeBuildInputs = [ pkgs.smokegen pkgs.smokeqt ];
-      nativeLibs = [ pkgs.qt4 pkgs.smokegen pkgs.smokeqt ];
+      nativeBuildInputs = [
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
+      nativeLibs = [
+        pkgs.qt4
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
 
       systems = [ "qt" ];
 

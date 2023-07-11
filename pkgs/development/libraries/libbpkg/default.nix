@@ -11,7 +11,11 @@
 stdenv.mkDerivation rec {
   pname = "libbpkg";
   version = "0.15.0";
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/libbpkg-${version}.tar.gz";

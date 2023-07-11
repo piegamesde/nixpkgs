@@ -17,7 +17,12 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ swig ];
 
-  buildInputs = [ openssl expat libevent python ];
+  buildInputs = [
+    openssl
+    expat
+    libevent
+    python
+  ];
 
   postPatch = ''
     substituteInPlace Makefile.in \
@@ -48,8 +53,11 @@ in stdenv.mkDerivation rec {
       --replace "-L.libs $PWD/libunbound.la" "-L$out/${python.sitePackages}"
   '';
 
-  installFlags =
-    [ "configfile=\${out}/etc/unbound/unbound.conf" "pyunbound-install" "lib" ];
+  installFlags = [
+    "configfile=\${out}/etc/unbound/unbound.conf"
+    "pyunbound-install"
+    "lib"
+  ];
 
   # All we want is the Unbound Python module
   postInstall = ''

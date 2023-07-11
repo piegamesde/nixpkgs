@@ -53,8 +53,14 @@ stdenv.mkDerivation rec {
     ./cmakelists.patch
   ];
 
-  nativeBuildInputs =
-    [ addOpenGLRunpath wrapGAppsHook cmake glslang nasm pkg-config ];
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    wrapGAppsHook
+    cmake
+    glslang
+    nasm
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2
@@ -124,6 +130,9 @@ stdenv.mkDerivation rec {
     homepage = "https://cemu.info";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zhaofengli baduhai ];
+    maintainers = with maintainers; [
+      zhaofengli
+      baduhai
+    ];
   };
 }

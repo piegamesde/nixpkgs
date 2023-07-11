@@ -8,5 +8,8 @@ mkDerivation {
   pname = "attica";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ qtbase ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

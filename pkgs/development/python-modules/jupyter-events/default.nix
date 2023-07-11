@@ -40,14 +40,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ jsonschema python-json-logger pyyaml traitlets ]
-    ++ jsonschema.optional-dependencies.format
+  propagatedBuildInputs = [
+    jsonschema
+    python-json-logger
+    pyyaml
+    traitlets
+  ] ++ jsonschema.optional-dependencies.format
     ++ jsonschema.optional-dependencies.format-nongpl;
 
-  passthru.optional-dependencies = { cli = [ click rich ]; };
+  passthru.optional-dependencies = {
+    cli = [
+      click
+      rich
+    ];
+  };
 
-  nativeCheckInputs = [ pytest-asyncio pytest-console-scripts pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-console-scripts
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export PATH="$out/bin:$PATH"

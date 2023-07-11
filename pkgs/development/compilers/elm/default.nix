@@ -37,7 +37,10 @@ let
               description = "A delightful language for reliable webapps";
               homepage = "https://elm-lang.org/";
               license = licenses.bsd3;
-              maintainers = with maintainers; [ domenkozar turbomack ];
+              maintainers = with maintainers; [
+                domenkozar
+                turbomack
+              ];
             }) (self.callPackage ./packages/elm.nix { });
 
             elmi-to-json = justStaticExecutables (overrideCabal (drv: {
@@ -107,7 +110,10 @@ let
                 "Formats Elm source code according to a standard set of rules based on the official Elm Style Guide";
               homepage = "https://github.com/avh4/elm-format";
               license = licenses.bsd3;
-              maintainers = with maintainers; [ avh4 turbomack ];
+              maintainers = with maintainers; [
+                avh4
+                turbomack
+              ];
             }) (self.callPackage ./packages/elm-format.nix { }));
           };
         in elmPkgs // {
@@ -244,8 +250,10 @@ in lib.makeScope pkgs.newScope (self:
       };
 
       elm-spa = nodePkgs."elm-spa".overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ])
-          ++ [ makeWrapper old.nodejs.pkgs.node-gyp-build ];
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+          makeWrapper
+          old.nodejs.pkgs.node-gyp-build
+        ];
 
         meta = with lib;
           nodePkgs."elm-spa".meta // {
@@ -268,8 +276,10 @@ in lib.makeScope pkgs.newScope (self:
       };
 
       elm-pages = nodePkgs."elm-pages".overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ])
-          ++ [ makeWrapper old.nodejs.pkgs.node-gyp-build ];
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+          makeWrapper
+          old.nodejs.pkgs.node-gyp-build
+        ];
 
         # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
         # need to patch in one of the build phases instead.
@@ -283,7 +293,11 @@ in lib.makeScope pkgs.newScope (self:
         postFixup = ''
           wrapProgram $out/bin/elm-pages --prefix PATH : ${
             with pkgs.elmPackages;
-            lib.makeBinPath [ elm elm-review elm-optimize-level-2 ]
+            lib.makeBinPath [
+              elm
+              elm-review
+              elm-optimize-level-2
+            ]
           }
         '';
 
@@ -292,7 +306,10 @@ in lib.makeScope pkgs.newScope (self:
             description = "A statically typed site generator for Elm.";
             homepage = "https://github.com/dillonkearns/elm-pages";
             license = licenses.bsd3;
-            maintainers = [ maintainers.turbomack maintainers.jali-clarke ];
+            maintainers = [
+              maintainers.turbomack
+              maintainers.jali-clarke
+            ];
           };
       });
 

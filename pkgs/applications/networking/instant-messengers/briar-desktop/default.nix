@@ -29,7 +29,10 @@ in stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper p7zip ];
+  nativeBuildInputs = [
+    makeWrapper
+    p7zip
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib}

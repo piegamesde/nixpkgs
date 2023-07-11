@@ -28,14 +28,28 @@ buildPythonPackage rec {
     hash = "sha256-+/ilyJPJtLmbzH7Y+z6FAJV6ET9BAYYDhtBmNVIPfPs=";
   };
 
-  buildInputs = [ pillow glibcLocales ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = [
+    pillow
+    glibcLocales
+  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  nativeBuildInputs = [ cython gfortran ];
+  nativeBuildInputs = [
+    cython
+    gfortran
+  ];
 
-  propagatedBuildInputs = [ numpy scipy numpy.blas joblib threadpoolctl ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    numpy.blas
+    joblib
+    threadpoolctl
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

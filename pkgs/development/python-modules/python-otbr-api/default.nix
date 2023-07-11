@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp bitstruct cryptography voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    bitstruct
+    cryptography
+    voluptuous
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

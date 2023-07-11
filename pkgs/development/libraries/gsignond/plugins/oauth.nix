@@ -43,7 +43,13 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ glib gnutls gsignond json-glib libsoup ];
+  buildInputs = [
+    glib
+    gnutls
+    gsignond
+    json-glib
+    libsoup
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

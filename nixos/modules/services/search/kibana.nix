@@ -195,7 +195,10 @@ in {
     systemd.services.kibana = {
       description = "Kibana Service";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "elasticsearch.service" ];
+      after = [
+        "network.target"
+        "elasticsearch.service"
+      ];
       environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}"

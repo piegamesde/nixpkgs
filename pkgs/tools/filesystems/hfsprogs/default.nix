@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
   sourceRoot = "diskdev_cmds-" + version;
   patches = [ "../debian/patches/*.patch" ];
 
-  buildInputs = [ openssl libbsd ];
+  buildInputs = [
+    openssl
+    libbsd
+  ];
   makefile = "Makefile.lnx";
 
   # Inspired by PKGBUILD of https://www.archlinux.org/packages/community/x86_64/hfsprogs/

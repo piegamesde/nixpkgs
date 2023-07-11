@@ -60,8 +60,12 @@ buildPythonApplication rec {
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook pytest-mock pytest-rerunfailures pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    pytest-rerunfailures
+    pytest-xdist
+  ];
 
   pytestFlagsArray = [ "-m 'not network'" ];
 

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   pname = "egl-wayland";
   version = "1.1.11";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "Nvidia";
@@ -46,9 +49,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs = [ libGL libX11 libdrm wayland wayland-protocols ];
+  buildInputs = [
+    libGL
+    libX11
+    libdrm
+    wayland
+    wayland-protocols
+  ];
 
   propagatedBuildInputs = [ eglexternalplatform ];
 

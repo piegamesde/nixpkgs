@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+  ];
 
   disabledTests = [
     # Comparison of CLI output fails

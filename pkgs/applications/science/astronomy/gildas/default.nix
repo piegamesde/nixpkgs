@@ -16,7 +16,12 @@
   ncurses,
 }:
 
-let python3Env = python3.withPackages (ps: with ps; [ numpy setuptools ]);
+let
+  python3Env = python3.withPackages (ps:
+    with ps; [
+      numpy
+      setuptools
+    ]);
 
 in stdenv.mkDerivation rec {
   srcVersion = "feb23a";
@@ -33,13 +38,29 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-A6jtcC8QMtJ7YcNaPiOjwNPDGPAjmRA3jZLEt5iBONE=";
   };
 
-  nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
+  nativeBuildInputs = [
+    pkg-config
+    groff
+    perl
+    getopt
+    gfortran
+    which
+  ];
 
-  buildInputs = [ gtk2-x11 lesstif cfitsio python3Env ncurses ]
-    ++ lib.optionals stdenv.isDarwin
+  buildInputs = [
+    gtk2-x11
+    lesstif
+    cfitsio
+    python3Env
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
 
-  patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ];
+  patches = [
+    ./wrapper.patch
+    ./clang.patch
+    ./aarch64.patch
+  ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
@@ -81,7 +102,10 @@ in stdenv.mkDerivation rec {
       plotting, widgets).'';
     homepage = "http://www.iram.fr/IRAMFR/GILDAS/gildas.html";
     license = lib.licenses.free;
-    maintainers = [ lib.maintainers.bzizou lib.maintainers.smaret ];
+    maintainers = [
+      lib.maintainers.bzizou
+      lib.maintainers.smaret
+    ];
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

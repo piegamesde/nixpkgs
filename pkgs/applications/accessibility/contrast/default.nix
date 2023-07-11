@@ -47,7 +47,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ cairo glib gtk4 libadwaita pango ];
+  buildInputs = [
+    cairo
+    glib
+    gtk4
+    libadwaita
+    pango
+  ];
 
   meta = with lib; {
     description =

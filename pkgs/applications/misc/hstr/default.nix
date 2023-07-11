@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-OuLy1aiEwUJDGy3+UXYF1Vx1nNXic46WIZEM1xrIPfA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ readline ncurses gettext ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    readline
+    ncurses
+    gettext
+  ];
 
   configureFlags = [ "--prefix=$(out)" ];
 

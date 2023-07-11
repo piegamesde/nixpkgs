@@ -20,13 +20,19 @@ in stdenv.mkDerivation (args // {
   patches = args.patches or patches.${pname} or [ ];
 
   buildInputs = args.buildInputs or [ ];
-  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ cmake ninja perl ]
-    ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
+  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    cmake
+    ninja
+    perl
+  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
   propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
   moveToDev = false;
 
-  outputs = args.outputs or [ "out" "dev" ];
+  outputs = args.outputs or [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = args.dontWrapQtApps or true;
 
@@ -34,8 +40,16 @@ in stdenv.mkDerivation (args // {
     {
       homepage = "https://www.qt.io/";
       description = "A cross-platform application framework for C++";
-      license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
-      maintainers = with maintainers; [ milahu nickcao ];
+      license = with licenses; [
+        fdl13Plus
+        gpl2Plus
+        lgpl21Plus
+        lgpl3Plus
+      ];
+      maintainers = with maintainers; [
+        milahu
+        nickcao
+      ];
       platforms = platforms.unix;
     } // (args.meta or { });
 })

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ tcl tk ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    tcl
+    tk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   hardeningDisable = [ "format" ];
 
@@ -27,7 +30,10 @@ stdenv.mkDerivation rec {
   '';
 
   # Needs the path to `tclConfig.sh' and `tkConfig.sh'.
-  configureFlags = [ "--with-tcl=${tcl}/lib" "--with-tk=${tk}/lib" ];
+  configureFlags = [
+    "--with-tcl=${tcl}/lib"
+    "--with-tk=${tk}/lib"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/wishwn --set TK_LIBRARY "${tk}/lib/${tk.libPrefix}"

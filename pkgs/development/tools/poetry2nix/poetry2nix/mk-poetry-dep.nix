@@ -38,9 +38,13 @@ pythonPackages.callPackage ({
       supportedRegex =
         ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
       matchesVersion = fname:
-        builtins.match ("^.*"
-          + builtins.replaceStrings [ "." "+" ] [ "\\." "\\+" ] version + ".*$")
-        fname != null;
+        builtins.match ("^.*" + builtins.replaceStrings [
+          "."
+          "+"
+        ] [
+          "\\."
+          "\\+"
+        ] version + ".*$") fname != null;
       hasSupportedExtension = fname:
         builtins.match supportedRegex fname != null;
       isCompatibleEgg = fname:

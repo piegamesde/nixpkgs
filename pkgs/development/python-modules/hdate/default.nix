@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ astral pytz ];
+  propagatedBuildInputs = [
+    astral
+    pytz
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -27,7 +27,10 @@ buildPythonPackage rec {
     patchShebangs tests/cgiapp_data/
   '';
 
-  propagatedBuildInputs = [ setuptools six ];
+  propagatedBuildInputs = [
+    setuptools
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -29,9 +29,20 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/deepin-draw" "$out/bin/deepin-draw"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qt5integration qtsvg dtkwidget qt5platform-plugins ];
+  buildInputs = [
+    qtbase
+    qt5integration
+    qtsvg
+    dtkwidget
+    qt5platform-plugins
+  ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

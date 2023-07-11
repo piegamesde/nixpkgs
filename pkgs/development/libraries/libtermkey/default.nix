@@ -18,10 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "02dks6bj7n23lj005yq41azf95wh3hapmgc2lzyh12vigkjh67rg";
   };
 
-  makeFlags = [ "PREFIX=$(out)" "LIBTOOL=${libtool}/bin/libtool" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "LIBTOOL=${libtool}/bin/libtool"
+  ];
 
-  nativeBuildInputs = [ libtool pkg-config ];
-  buildInputs = [ ncurses unibilium ];
+  nativeBuildInputs = [
+    libtool
+    pkg-config
+  ];
+  buildInputs = [
+    ncurses
+    unibilium
+  ];
 
   strictDeps = true;
 

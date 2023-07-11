@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-cJkrBt4HRH2SX4YWo+gK4rd7uyZRzLUvFXJ6L5nxzeM=";
   };
 
-  propagatedBuildInputs = [ aiohttp netifaces urllib3 ];
+  propagatedBuildInputs = [
+    aiohttp
+    netifaces
+    urllib3
+  ];
 
-  nativeCheckInputs = [ freezegun pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pydaikin" ];
 

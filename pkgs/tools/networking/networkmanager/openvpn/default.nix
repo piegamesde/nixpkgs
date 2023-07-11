@@ -31,17 +31,29 @@ stdenv.mkDerivation rec {
     sha256 = "V0XUEH8zmKl6+7k/aSObUQyeRet/ti1g2e0Kcpf00QE=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit kmod openvpn;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit kmod openvpn;
+  }) ];
+
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    file
+    libxml2
   ];
 
-  nativeBuildInputs = [ gettext pkg-config file libxml2 ];
-
-  buildInputs = [ openvpn networkmanager glib ]
-    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
+  buildInputs = [
+    openvpn
+    networkmanager
+    glib
+  ] ++ lib.optionals withGnome [
+    gtk3
+    gtk4
+    libsecret
+    libnma
+    libnma-gtk4
+  ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "ansi.colour" "ansi.color" ];
+  pythonImportsCheck = [
+    "ansi.colour"
+    "ansi.color"
+  ];
 
   meta = with lib; {
     description = "ANSI cursor movement and graphics";

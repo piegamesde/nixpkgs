@@ -7,7 +7,10 @@
 }:
 
 appleDerivation' stdenvNoCC {
-  propagatedBuildInputs = [ libdispatch xnu ];
+  propagatedBuildInputs = [
+    libdispatch
+    xnu
+  ];
 
   installPhase = ''
     mkdir -p $out/include/pthread/

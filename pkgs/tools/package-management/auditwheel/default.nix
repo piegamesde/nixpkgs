@@ -19,9 +19,15 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ pbr ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pyelftools setuptools ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pyelftools
+    setuptools
+  ];
 
-  nativeCheckInputs = with python3.pkgs; [ pretend pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pretend
+    pytestCheckHook
+  ];
 
   # Integration tests require docker and networking
   disabledTestPaths = [ "tests/integration" ];
@@ -31,8 +37,17 @@ python3.pkgs.buildPythonApplication rec {
     PATH= PYTHONPATH= $out/bin/auditwheel --version > /dev/null
   '';
 
-  makeWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ bzip2 gnutar patchelf unzip ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      bzip2
+      gnutar
+      patchelf
+      unzip
+    ])
+  ];
 
   meta = with lib; {
     description = "Auditing and relabeling cross-distribution Linux wheels";

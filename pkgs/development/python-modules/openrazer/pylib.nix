@@ -13,7 +13,11 @@ in buildPythonPackage (common // {
 
   sourceRoot = "source/pylib";
 
-  propagatedBuildInputs = [ dbus-python numpy openrazer-daemon ];
+  propagatedBuildInputs = [
+    dbus-python
+    numpy
+    openrazer-daemon
+  ];
 
   # no tests run
   doCheck = false;

@@ -20,9 +20,20 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cross.patch ];
 
-  outputs = [ "out" "dev" "doc" "man" "devman" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+    "devman"
+  ];
 
-  nativeBuildInputs = [ libtool ghostscript groff autoreconfHook ];
+  nativeBuildInputs = [
+    libtool
+    ghostscript
+    groff
+    autoreconfHook
+  ];
 
   enableParallelBuilding = true;
 

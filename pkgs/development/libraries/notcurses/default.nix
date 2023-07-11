@@ -26,12 +26,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8SJeqLcV4xp968YgGsJccsgpB5wwaJDaoWsaYxf8upM=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pandoc pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pandoc
+    pkg-config
+  ];
 
-  buildInputs = [ libdeflate libunistring ncurses zlib ]
-    ++ lib.optional qrcodegenSupport qrcodegen
+  buildInputs = [
+    libdeflate
+    libunistring
+    ncurses
+    zlib
+  ] ++ lib.optional qrcodegenSupport qrcodegen
     ++ lib.optional multimediaSupport ffmpeg;
 
   cmakeFlags = lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"

@@ -37,9 +37,19 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config protobuf makeWrapper git installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+    makeWrapper
+    git
+    installShellFiles
+  ];
 
-  buildInputs = [ dbus.dev libnftnl libmnl ];
+  buildInputs = [
+    dbus.dev
+    libnftnl
+    libmnl
+  ];
 
   # talpid-core wants libwg.a in build/lib/{triple}
   preBuild = ''

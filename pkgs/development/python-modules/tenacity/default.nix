@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-Q68DeCK9ACkCWHfzstl8xNe7DCmRAAo9WdcVF8XJaeA=";
   };
 
-  nativeBuildInputs = [ pbr setuptools-scm ];
+  nativeBuildInputs = [
+    pbr
+    setuptools-scm
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook tornado typeguard ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    tornado
+    typeguard
+  ];
 
   pythonImportsCheck = [ "tenacity" ];
 

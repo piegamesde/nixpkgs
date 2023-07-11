@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
     ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libvolk.so)
   '';
 
-  nativeBuildInputs = [ cmake python3 python3.pkgs.mako ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    python3.pkgs.mako
+  ];
 
   doCheck = true;
 

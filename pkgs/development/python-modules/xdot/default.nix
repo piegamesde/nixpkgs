@@ -23,8 +23,16 @@ buildPythonPackage rec {
   };
 
   disabled = !isPy3k;
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
-  propagatedBuildInputs = [ pygobject3 graphviz gtk3 numpy ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
+  propagatedBuildInputs = [
+    pygobject3
+    graphviz
+    gtk3
+    numpy
+  ];
   nativeCheckInputs = [ xvfb-run ];
 
   postInstall = ''

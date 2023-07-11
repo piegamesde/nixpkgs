@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-gG0kbB3yaFU4DcBKupnBS7UFuU1hIMThdUHCuqufKzc=";
   };
 
-  propagatedBuildInputs = [ krakenex pandas ];
+  propagatedBuildInputs = [
+    krakenex
+    pandas
+  ];
 
   # tests require network connection
   doCheck = false;

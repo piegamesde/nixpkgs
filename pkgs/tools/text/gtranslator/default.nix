@@ -33,8 +33,15 @@ stdenv.mkDerivation rec {
     sha256 = "Kme8v+ZDBhsGltiaEIR9UL81kF/zNhuYcTV9PjQi8Ts=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config itstool gettext python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    itstool
+    gettext
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     libxml2

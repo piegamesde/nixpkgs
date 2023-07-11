@@ -25,16 +25,22 @@ buildPythonPackage rec {
     hash = "sha256-IYkx6OKypzpY6zVKKI4DoP1fscRYMmGsbkwHhmZGjJM=";
   };
 
-  propagatedBuildInputs = [ google-auth google-crc32c ];
+  propagatedBuildInputs = [
+    google-auth
+    google-crc32c
+  ];
 
   passthru.optional-dependencies = {
     requests = [ requests ];
     aiohttp = [ aiohttp ];
   };
 
-  nativeCheckInputs =
-    [ google-cloud-testutils mock pytest-asyncio pytestCheckHook ]
-    ++ passthru.optional-dependencies.requests;
+  nativeCheckInputs = [
+    google-cloud-testutils
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.requests;
 
   preCheck = ''
     # prevent shadowing imports
@@ -45,8 +51,10 @@ buildPythonPackage rec {
     rm tests/system/requests/test_download.py
   '';
 
-  pythonImportsCheck =
-    [ "google._async_resumable_media" "google.resumable_media" ];
+  pythonImportsCheck = [
+    "google._async_resumable_media"
+    "google.resumable_media"
+  ];
 
   meta = with lib; {
     description = "Utilities for Google Media Downloads and Resumable Uploads";

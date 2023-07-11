@@ -21,7 +21,12 @@
   enableTcmalloc ? true
 }:
 
-assert lib.assertOneOf "backend" backend [ "opencl" "cuda" "tensorrt" "eigen" ];
+assert lib.assertOneOf "backend" backend [
+  "opencl"
+  "cuda"
+  "tensorrt"
+  "eigen"
+];
 
 # N.b. older versions of cuda toolkit (e.g. 10) do not support newer versions
 # of gcc.  If you need to use cuda10, please override stdenv with gcc8Stdenv
@@ -39,9 +44,15 @@ stdenv.mkDerivation rec {
 
   fakegit = writeShellScriptBin "git" "echo ${githash}";
 
-  nativeBuildInputs = [ cmake makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
 
-  buildInputs = [ libzip boost ] ++ lib.optionals (backend == "eigen") [ eigen ]
+  buildInputs = [
+    libzip
+    boost
+  ] ++ lib.optionals (backend == "eigen") [ eigen ]
     ++ lib.optionals (backend == "cuda") [
       cudaPackages.cudnn
       cudaPackages.cudatoolkit
@@ -50,8 +61,10 @@ stdenv.mkDerivation rec {
       cudaPackages.cudatoolkit
       cudaPackages.tensorrt
       mesa.drivers
-    ] ++ lib.optionals (backend == "opencl") [ opencl-headers ocl-icd ]
-    ++ lib.optionals enableContrib [ openssl ]
+    ] ++ lib.optionals (backend == "opencl") [
+      opencl-headers
+      ocl-icd
+    ] ++ lib.optionals enableContrib [ openssl ]
     ++ lib.optionals enableTcmalloc [ gperftools ];
 
   cmakeFlags = [ "-DNO_GIT_REVISION=ON" ]

@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qT0vEqUISprR1pOPaO3r/HHA/Zt07Af/0WyY950MEgI=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper unzip ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +39,13 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/crowdin \
       --argv0 crowdin \
       --add-flags "-jar $out/lib/crowdin-cli.jar" \
-      --prefix PATH : ${lib.makeBinPath [ gawk gnugrep git ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          gawk
+          gnugrep
+          git
+        ]
+      }
 
     runHook postInstall
   '';

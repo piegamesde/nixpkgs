@@ -36,11 +36,23 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = with lib;
-    [ mecab kytea libedit openssl libxcrypt ] ++ optional lz4Support lz4
-    ++ optional zlibSupport zlib
-    ++ optionals suggestSupport [ zeromq libevent msgpack ];
+    [
+      mecab
+      kytea
+      libedit
+      openssl
+      libxcrypt
+    ] ++ optional lz4Support lz4 ++ optional zlibSupport zlib
+    ++ optionals suggestSupport [
+      zeromq
+      libevent
+      msgpack
+    ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   configureFlags = with lib;
     optional zlibSupport "--with-zlib" ++ optional lz4Support "--with-lz4";

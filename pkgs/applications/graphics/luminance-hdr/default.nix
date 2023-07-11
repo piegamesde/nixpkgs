@@ -50,7 +50,10 @@ mkDerivation rec {
     openexr
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://qtpfsgui.sourceforge.net/";

@@ -20,9 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WCTCDOjBxVOkD06jF9wF2ELoyMhWa4lnZz82GbI1Axs=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
   meta = {
     homepage = "https://www.doomretro.com/";

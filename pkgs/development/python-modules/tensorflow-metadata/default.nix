@@ -33,7 +33,11 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [ absl-py googleapis-common-protos protobuf ];
+  propagatedBuildInputs = [
+    absl-py
+    googleapis-common-protos
+    protobuf
+  ];
 
   # has no tests
   doCheck = false;

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-P3Ng9bD16AX7DJac/Y168GSWLTIAD3I1aLblYIDQiyk=";
   };
 
-  propagatedBuildInputs = [ dulwich mercurial ];
+  propagatedBuildInputs = [
+    dulwich
+    mercurial
+  ];
 
   pythonImportsCheck = [ "hggit" ];
 

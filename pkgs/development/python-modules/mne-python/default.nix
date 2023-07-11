@@ -33,11 +33,25 @@ buildPythonPackage rec {
     hash = "sha256-jvrk6m1Cd5ig2LXq6sAIbHDhmtG1gH/7WNAc7oet+tg=";
   };
 
-  propagatedBuildInputs =
-    [ decorator jinja2 matplotlib numpy pooch scipy setuptools tqdm ];
+  propagatedBuildInputs = [
+    decorator
+    jinja2
+    matplotlib
+    numpy
+    pooch
+    scipy
+    setuptools
+    tqdm
+  ];
 
-  nativeCheckInputs =
-    [ h5py nibabel pandas pytestCheckHook scikit-learn pytest-timeout ];
+  nativeCheckInputs = [
+    h5py
+    nibabel
+    pandas
+    pytestCheckHook
+    scikit-learn
+    pytest-timeout
+  ];
 
   preCheck = ''
     export HOME=$TMP

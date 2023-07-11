@@ -38,7 +38,10 @@ buildDunePackage {
     VideoToolbox
   ];
 
-  propagatedBuildInputs = [ ffmpeg-av ffmpeg.dev ];
+  propagatedBuildInputs = [
+    ffmpeg-av
+    ffmpeg.dev
+  ];
 
   doCheck = true;
 

@@ -16,7 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-5gZ8S0NR4JzKBIdi/xYtVmFg9ObbCSkT7sz+OKWnK/U=";
   };
 
-  propagatedBuildInputs = [ blessings colorama glob2 ];
+  propagatedBuildInputs = [
+    blessings
+    colorama
+    glob2
+  ];
 
   pythonImportsCheck = [ "ronin" ];
 

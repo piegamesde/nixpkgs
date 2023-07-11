@@ -37,7 +37,10 @@ stdenvNoCC.mkDerivation rec {
     description = "Free programming font with cursive italics and ligatures";
     homepage = "https://rubjo.github.io/victor-mono";
     license = licenses.ofl;
-    maintainers = with maintainers; [ jpotier dtzWill ];
+    maintainers = with maintainers; [
+      jpotier
+      dtzWill
+    ];
     platforms = platforms.all;
   };
 }

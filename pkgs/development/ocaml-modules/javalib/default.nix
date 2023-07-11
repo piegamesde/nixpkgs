@@ -23,11 +23,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-XaI7GTU/O5UEWuYX4yqaIRmEoH7FuvCg/+gtKbE/P1s=";
   };
 
-  nativeBuildInputs = [ which ocaml findlib ];
+  nativeBuildInputs = [
+    which
+    ocaml
+    findlib
+  ];
 
   strictDeps = true;
 
-  patches = [ ./configure.sh.patch ./Makefile.config.example.patch ];
+  patches = [
+    ./configure.sh.patch
+    ./Makefile.config.example.patch
+  ];
 
   createFindlibDestdir = true;
 
@@ -38,7 +45,10 @@ stdenv.mkDerivation rec {
   dontAddStaticConfigureFlags = true;
   configurePlatforms = [ ];
 
-  propagatedBuildInputs = [ camlzip extlib ];
+  propagatedBuildInputs = [
+    camlzip
+    extlib
+  ];
 
   meta = with lib; {
     description =

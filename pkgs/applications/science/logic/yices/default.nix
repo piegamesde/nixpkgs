@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
   postPatch = "patchShebangs tests/regress/check.sh";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ cudd gmp-static gperf libpoly ];
+  buildInputs = [
+    cudd
+    gmp-static
+    gperf
+    libpoly
+  ];
   configureFlags = [
     "--with-static-gmp=${gmp-static.out}/lib/libgmp.a"
     "--with-static-gmp-include-dir=${gmp-static.dev}/include"

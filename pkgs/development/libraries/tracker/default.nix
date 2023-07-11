@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
   pname = "tracker";
   version = "3.5.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -58,7 +62,10 @@ stdenv.mkDerivation rec {
     gi-docgen
     graphviz
     (python3.pythonForBuild.withPackages (p: [ p.pygobject3 ]))
-  ] ++ lib.optionals withIntrospection [ gobject-introspection vala ];
+  ] ++ lib.optionals withIntrospection [
+    gobject-introspection
+    vala
+  ];
 
   buildInputs = [
     glib

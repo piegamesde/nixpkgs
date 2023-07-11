@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ packaging ];
 
-  propagatedBuildInputs = [ matplotlib numpy ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+  ];
 
   # Project has no tests
   doCheck = false;

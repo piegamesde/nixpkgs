@@ -6,7 +6,10 @@ args@{
   baseName = "arnesi";
   version = "20170403-git";
 
-  parasites = [ "arnesi/cl-ppcre-extras" "arnesi/slime-extras" ];
+  parasites = [
+    "arnesi/cl-ppcre-extras"
+    "arnesi/slime-extras"
+  ];
 
   description =
     "A bag-of-tools utilities library used to aid in implementing the bese.it toolkit";

@@ -36,9 +36,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  cmakeFlags =
-    [ "-DAF_BUILD_OPENCL=OFF" "-DAF_BUILD_EXAMPLES=OFF" "-DBUILD_TESTING=OFF" ]
-    ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
+  cmakeFlags = [
+    "-DAF_BUILD_OPENCL=OFF"
+    "-DAF_BUILD_EXAMPLES=OFF"
+    "-DBUILD_TESTING=OFF"
+  ] ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
 
   patches = [ ./no-download.patch ];
 
@@ -55,7 +57,11 @@ stdenv.mkDerivation rec {
     export CUDA_PATH="${cudatoolkit}"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   strictDeps = true;
 

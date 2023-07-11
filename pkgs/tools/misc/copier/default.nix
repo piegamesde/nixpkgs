@@ -19,8 +19,10 @@ python3.pkgs.buildPythonApplication rec {
 
   POETRY_DYNAMIC_VERSIONING_BYPASS = version;
 
-  nativeBuildInputs =
-    [ python3.pkgs.poetry-core python3.pkgs.poetry-dynamic-versioning ];
+  nativeBuildInputs = [
+    python3.pkgs.poetry-core
+    python3.pkgs.poetry-dynamic-versioning
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     colorama

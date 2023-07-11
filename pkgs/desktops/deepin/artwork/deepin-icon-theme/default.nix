@@ -20,7 +20,10 @@ stdenvNoCC.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  nativeBuildInputs = [ gtk3 xcursorgen ];
+  nativeBuildInputs = [
+    gtk3
+    xcursorgen
+  ];
 
   propagatedBuildInputs = [ papirus-icon-theme ];
 

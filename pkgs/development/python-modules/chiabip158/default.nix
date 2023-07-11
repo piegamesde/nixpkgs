@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-t0Fnsh9B83KiT5dFVVfHs7sm9HyNbMsp6goj3esoph8=";
   };
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
   buildInputs = [ pybind11 ];
 

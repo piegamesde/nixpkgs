@@ -116,7 +116,13 @@ in {
       };
 
       backendSettings = lib.mkOption {
-        type = with lib.types; attrsOf (nullOr (oneOf [ str int bool float ]));
+        type = with lib.types;
+          attrsOf (nullOr (oneOf [
+            str
+            int
+            bool
+            float
+          ]));
         default = { };
         example = lib.literalExpression ''
           {
@@ -415,7 +421,12 @@ in {
           };
 
           authentication = lib.mkOption {
-            type = with lib.types; nullOr (enum [ "plain" "login" "cram_md5" ]);
+            type = with lib.types;
+              nullOr (enum [
+                "plain"
+                "login"
+                "cram_md5"
+              ]);
             default = null;
             description = lib.mdDoc ''
               Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html
@@ -676,16 +687,18 @@ in {
       allow_impersonation = true;
     };
 
-    services.redis.servers.discourse =
-      lib.mkIf (lib.elem cfg.redis.host [ "localhost" "127.0.0.1" ]) {
-        enable = true;
-        bind = cfg.redis.host;
-        port = cfg.backendSettings.redis_port;
-      };
+    services.redis.servers.discourse = lib.mkIf (lib.elem cfg.redis.host [
+      "localhost"
+      "127.0.0.1"
+    ]) {
+      enable = true;
+      bind = cfg.redis.host;
+      port = cfg.backendSettings.redis_port;
+    };
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
-      ensureUsers = [{ name = "discourse"; }];
+      ensureUsers = [ { name = "discourse"; } ];
     };
 
     # The postgresql module doesn't currently support concepts like
@@ -727,8 +740,11 @@ in {
           "postgresql.service"
           "discourse-postgresql.service"
         ];
-      path = cfg.package.runtimeDeps
-        ++ [ postgresqlPackage pkgs.replace-secret cfg.package.rake ];
+      path = cfg.package.runtimeDeps ++ [
+        postgresqlPackage
+        pkgs.replace-secret
+        cfg.package.rake
+      ];
       environment = cfg.package.runtimeEnv // {
         UNICORN_TIMEOUT = builtins.toString cfg.unicornTimeout;
         UNICORN_SIDEKIQS = builtins.toString cfg.sidekiqProcesses;
@@ -825,8 +841,11 @@ in {
           "sockets"
         ];
         RuntimeDirectoryMode = "0750";
-        StateDirectory =
-          map (p: "discourse/" + p) [ "uploads" "backups" "tmp" ];
+        StateDirectory = map (p: "discourse/" + p) [
+          "uploads"
+          "backups"
+          "tmp"
+        ];
         StateDirectoryMode = "0750";
         LogsDirectory = "discourse";
         TimeoutSec = "infinity";
@@ -995,7 +1014,10 @@ in {
         after = [ "discourse.service" ];
         wantedBy = [ "discourse.service" ];
         partOf = [ "discourse.service" ];
-        path = [ cfg.package.rake pkgs.jq ];
+        path = [
+          cfg.package.rake
+          pkgs.jq
+        ];
         preStart = lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit

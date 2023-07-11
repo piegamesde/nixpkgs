@@ -55,8 +55,10 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isLinux libcec
     ++ lib.optional withRPiDispmanx libraspberrypi;
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ]
-    ++ lib.optional stdenv.isDarwin perl; # for macos bundle
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin perl; # for macos bundle
 
   patchPhase = ''
     patchShebangs test/testrunner.sh
@@ -82,7 +84,10 @@ stdenv.mkDerivation rec {
     description = "An opensource Bias or Ambient Lighting implementation";
     homepage = "https://github.com/hyperion-project/hyperion.ng";
     license = licenses.mit;
-    maintainers = with maintainers; [ algram kazenyuk ];
+    maintainers = with maintainers; [
+      algram
+      kazenyuk
+    ];
     platforms = platforms.unix;
   };
 }

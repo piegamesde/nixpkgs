@@ -33,11 +33,22 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ future numpy qdldl scipy ];
+  propagatedBuildInputs = [
+    future
+    numpy
+    qdldl
+    scipy
+  ];
 
-  nativeCheckInputs = [ cvxopt pytestCheckHook ];
+  nativeCheckInputs = [
+    cvxopt
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "osqp" ];
 

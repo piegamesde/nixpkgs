@@ -30,9 +30,15 @@ buildPythonPackage rec {
     hash = "sha256-Nz6c+4py7dKUvhTxZmJWOiIM7PD7Jt56qxr5optom4I=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    jupyter-packaging
+    pythonRelaxDepsHook
+  ];
 
-  pythonRelaxDeps = [ "jupyter-ydoc" "jupyter-server-ydoc" ];
+  pythonRelaxDeps = [
+    "jupyter-ydoc"
+    "jupyter-server-ydoc"
+  ];
 
   propagatedBuildInputs = [
     ipython
@@ -47,7 +53,11 @@ buildPythonPackage rec {
     jinja2
   ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  makeWrapperArgs = [ "--set" "JUPYTERLAB_DIR" "$out/share/jupyter/lab" ];
+  makeWrapperArgs = [
+    "--set"
+    "JUPYTERLAB_DIR"
+    "$out/share/jupyter/lab"
+  ];
 
   # Depends on npm
   doCheck = false;
@@ -60,6 +70,9 @@ buildPythonPackage rec {
     description = "Jupyter lab environment notebook server extension";
     license = with licenses; [ bsd3 ];
     homepage = "https://jupyter.org/";
-    maintainers = with maintainers; [ zimbatm costrouc ];
+    maintainers = with maintainers; [
+      zimbatm
+      costrouc
+    ];
   };
 }

@@ -34,7 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./000-dont-set-compiler.diff ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     cairo

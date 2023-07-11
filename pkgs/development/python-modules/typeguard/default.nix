@@ -16,7 +16,10 @@ buildPythonPackage rec {
   pname = "typeguard";
   version = "2.13.3";
   disabled = pythonOlder "3.5";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchPypi {
     inherit pname version;
@@ -37,7 +40,10 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace " --cov" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook typing-extensions ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    typing-extensions
+  ];
 
   disabledTestPaths = [
     # mypy tests aren't passing with latest mypy

@@ -15,7 +15,10 @@ bundlerApp {
     description = "A tool for executable specifications";
     homepage = "https://cucumber.io/";
     license = with licenses; mit;
-    maintainers = with maintainers; [ manveru nicknovitski ];
+    maintainers = with maintainers; [
+      manveru
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

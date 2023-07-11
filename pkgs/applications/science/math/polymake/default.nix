@@ -36,13 +36,37 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BMkLgms6JsWmPhi+MZv/Eqie8BKL+KaPtk3xBZSyWfM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ninja ant perl ];
+  nativeBuildInputs = [
+    makeWrapper
+    ninja
+    ant
+    perl
+  ];
 
-  buildInputs =
-    [ perl gmp mpfr flint boost bliss ppl singular cddlib lrs nauty openjdk ]
-    ++ (with perlPackages; [ JSON TermReadLineGnu TermReadKey XMLSAX ]);
+  buildInputs = [
+    perl
+    gmp
+    mpfr
+    flint
+    boost
+    bliss
+    ppl
+    singular
+    cddlib
+    lrs
+    nauty
+    openjdk
+  ] ++ (with perlPackages; [
+    JSON
+    TermReadLineGnu
+    TermReadKey
+    XMLSAX
+  ]);
 
-  ninjaFlags = [ "-C" "build/Opt" ];
+  ninjaFlags = [
+    "-C"
+    "build/Opt"
+  ];
 
   postInstall = ''
     for i in "$out"/bin/*; do

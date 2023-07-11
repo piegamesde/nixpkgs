@@ -51,7 +51,13 @@ buildPythonApplication rec {
       --replace "~=" ">="
   '';
 
-  nativeBuildInputs = [ html5lib invoke openpyxl poetry-core tidylib ];
+  nativeBuildInputs = [
+    html5lib
+    invoke
+    openpyxl
+    poetry-core
+    tidylib
+  ];
 
   propagatedBuildInputs = [
     beautifulsoup4

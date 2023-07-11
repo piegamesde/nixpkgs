@@ -36,7 +36,12 @@ stdenv.mkDerivation {
 
   patches = [ ./fix-paths.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus
@@ -60,11 +65,11 @@ stdenv.mkDerivation {
     cd greeter
   '';
 
-  passthru.xgreeters = linkFarm "enso-os-greeter-xgreeters" [{
+  passthru.xgreeters = linkFarm "enso-os-greeter-xgreeters" [ {
     path =
       "${lightdm-enso-os-greeter}/share/xgreeters/pantheon-greeter.desktop";
     name = "pantheon-greeter.desktop";
-  }];
+  } ];
 
   postFixup = ''
     substituteInPlace $out/share/xgreeters/pantheon-greeter.desktop \

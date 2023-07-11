@@ -19,7 +19,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "08rcbd14vn7312rmk2hyvdzvhibri31c4r5lzdrwb1n1y9q761qm";
   };
 
-  propagatedBuildInputs = [ git awscli python3.pkgs.python-gnupg ];
+  propagatedBuildInputs = [
+    git
+    awscli
+    python3.pkgs.python-gnupg
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/doc/${pname} $out/${python3.sitePackages}

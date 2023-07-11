@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit blas64; };
 
-  nativeBuildInputs = [ gfortran python3 ];
+  nativeBuildInputs = [
+    gfortran
+    python3
+  ];
 
   buildInputs = [ amd-blis ];
 

@@ -16,7 +16,12 @@ let
         in if (res.success && res.value != null) then res.value else "null";
     in makeTest {
       name = "hostname-${fqdn}";
-      meta = with pkgs.lib.maintainers; { maintainers = [ primeos blitz ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [
+          primeos
+          blitz
+        ];
+      };
 
       nodes.machine = {
           lib,

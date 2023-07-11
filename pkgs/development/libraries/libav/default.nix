@@ -108,9 +108,18 @@ in let
           "--enable-cross-compile"
         ];
 
-      nativeBuildInputs = [ pkg-config perl ];
-      buildInputs = [ lame yasm zlib bzip2 SDL bash ]
-        ++ [ perl ] # for install-man target
+      nativeBuildInputs = [
+        pkg-config
+        perl
+      ];
+      buildInputs = [
+        lame
+        yasm
+        zlib
+        bzip2
+        SDL
+        bash
+      ] ++ [ perl ] # for install-man target
         ++ optional mp3Support lame ++ optional speexSupport speex
         ++ optional theoraSupport libtheora ++ optional vorbisSupport libvorbis
         ++ optional vpxSupport libvpx ++ optional x264Support x264
@@ -120,11 +129,19 @@ in let
 
       enableParallelBuilding = true;
 
-      outputs = [ "bin" "dev" "out" ];
+      outputs = [
+        "bin"
+        "dev"
+        "out"
+      ];
       setOutputFlags = false;
 
       # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
-      buildFlags = [ "all" "alltools" "install-man" ];
+      buildFlags = [
+        "all"
+        "alltools"
+        "install-man"
+      ];
 
       postInstall = ''
         moveToOutput bin "$bin"

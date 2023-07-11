@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     ./0001-plotutils-png-support.diff
   ];
 
-  buildInputs = [ gsl plotutils postgresql ];
+  buildInputs = [
+    gsl
+    plotutils
+    postgresql
+  ];
 
   postInstall = let
     pdfdoc = fetchurl {

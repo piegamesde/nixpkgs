@@ -12,8 +12,11 @@ callPackage ../../../tools/rust/maturin/pyo3-test/generic.nix {
   #
   format = "setuptools";
 
-  nativeBuildInputs = [ setuptools-rust ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   preConfigure = ''
     # sourceRoot puts Cargo.lock in the wrong place due to the

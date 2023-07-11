@@ -51,7 +51,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ ed ];
-  buildInputs = [ perl which ] ++ (if !stdenv.isDarwin then [
+  buildInputs = [
+    perl
+    which
+  ] ++ (if !stdenv.isDarwin then [
     fontconfig
     freetype # fontsrv uses these
     libX11

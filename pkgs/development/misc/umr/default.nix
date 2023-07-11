@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-U1VP1AicSGWzBwzz99i7+3awATZocw5jaqtAxuRNaBE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config llvmPackages.llvm.dev ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    llvmPackages.llvm.dev
+  ];
 
   buildInputs = [
     bash-completion

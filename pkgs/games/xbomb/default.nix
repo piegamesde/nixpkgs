@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0692gjw28qvh8wj9l58scjw6kxj7jdyb3yzgcgs9wcznq11q839m";
   };
 
-  buildInputs = [ libX11 libXaw ];
+  buildInputs = [
+    libX11
+    libXaw
+  ];
 
   makeFlags = [ "INSTDIR=${placeholder "out"}" ];
 

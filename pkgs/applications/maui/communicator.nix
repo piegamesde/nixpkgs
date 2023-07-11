@@ -22,7 +22,10 @@
 mkDerivation {
   pname = "communicator";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

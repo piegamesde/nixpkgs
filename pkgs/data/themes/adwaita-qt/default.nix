@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "adwaita-qt";
   version = "1.4.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "FedoraQt";
@@ -25,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t9vv1KcMUg8Qe7lhVMN4GO+VPoT7QzeoQ6hV4fesA8U=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   buildInputs = [ qtbase ] ++ lib.optionals stdenv.isLinux [ xorg.libxcb ]
     ++ lib.optionals (!useQt6) [ qt5.qtx11extras ]

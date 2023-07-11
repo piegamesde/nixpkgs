@@ -17,7 +17,10 @@ let
         pkgs,
         ...
       }: {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         virtualisation.memorySize = 2047;
         services.xserver.enable = true;
@@ -38,7 +41,10 @@ let
         nodes = { "${name}" = machine; };
 
         meta = with pkgs.lib.maintainers; {
-          maintainers = [ synthetica turion ];
+          maintainers = [
+            synthetica
+            turion
+          ];
         };
         enableOCR = true;
 

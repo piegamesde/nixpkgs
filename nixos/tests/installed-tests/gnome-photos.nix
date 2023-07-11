@@ -18,7 +18,10 @@ makeInstalledTest {
         (stdenv.mkDerivation {
           name = "desktop-gsettings";
           dontUnpack = true;
-          nativeBuildInputs = [ glib wrapGAppsHook ];
+          nativeBuildInputs = [
+            glib
+            wrapGAppsHook
+          ];
           buildInputs = [ gsettings-desktop-schemas ];
           installPhase = ''
             runHook preInstall

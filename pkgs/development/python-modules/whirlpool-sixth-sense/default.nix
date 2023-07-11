@@ -28,9 +28,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aioconsole aiohttp websockets ];
+  propagatedBuildInputs = [
+    aioconsole
+    aiohttp
+    websockets
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   # https://github.com/abmantis/whirlpool-sixth-sense/issues/15
   doCheck = false;

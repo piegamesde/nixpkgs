@@ -40,7 +40,11 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 cairo ];
+  buildInputs = [
+    glib
+    gtk3
+    cairo
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

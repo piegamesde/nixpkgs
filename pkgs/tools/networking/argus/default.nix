@@ -25,9 +25,23 @@ stdenv.mkDerivation rec {
     sha256 = "1zzf688dbbcb5z2r9v1p28rddns6znzx35nc05ygza6lp7aknkna";
   };
 
-  nativeBuildInputs = [ pkg-config bison flex ];
-  buildInputs = [ libpcap cyrus_sasl tcp_wrappers ];
-  propagatedBuildInputs = [ procps which wget lsof net-snmp ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+  ];
+  buildInputs = [
+    libpcap
+    cyrus_sasl
+    tcp_wrappers
+  ];
+  propagatedBuildInputs = [
+    procps
+    which
+    wget
+    lsof
+    net-snmp
+  ];
 
   patchPhase = ''
      substituteInPlace events/argus-extip.pl \

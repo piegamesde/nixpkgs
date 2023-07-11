@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   # Check are disable since they requiered a working K8S cluster
   # TODO: add a nixosTest to be able to perform the package check

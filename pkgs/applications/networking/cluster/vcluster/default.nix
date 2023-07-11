@@ -22,7 +22,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # Test is disabled because e2e tests expect k8s.
   doCheck = false;
@@ -45,6 +48,9 @@ buildGoModule rec {
     downloadPage = "https://github.com/loft-sh/vcluster";
     homepage = "https://www.vcluster.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterromfeldhk berryp ];
+    maintainers = with maintainers; [
+      peterromfeldhk
+      berryp
+    ];
   };
 }

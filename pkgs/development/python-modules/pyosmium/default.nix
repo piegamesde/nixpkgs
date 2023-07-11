@@ -35,13 +35,25 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libosmium protozero boost expat bzip2 zlib pybind11 lz4 ];
+  buildInputs = [
+    libosmium
+    protozero
+    boost
+    expat
+    bzip2
+    zlib
+    pybind11
+    lz4
+  ];
 
   propagatedBuildInputs = [ requests ];
 
   preBuild = "cd ..";
 
-  nativeCheckInputs = [ pytestCheckHook shapely ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    shapely
+  ];
 
   meta = with lib; {
     description = "Python bindings for libosmium";

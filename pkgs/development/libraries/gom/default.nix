@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   pname = "gom";
   version = "0.4";
 
-  outputs = [ "out" "py" ];
+  outputs = [
+    "out"
+    "py"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -28,15 +31,23 @@ stdenv.mkDerivation rec {
 
   patches = [ ./longer-stress-timeout.patch ];
 
-  nativeBuildInputs = [ gobject-introspection meson ninja pkg-config ];
-
-  buildInputs = [ gdk-pixbuf glib sqlite python3.pkgs.pygobject3 ];
-
-  mesonFlags = [
-    "-Dpygobject-override-dir=${
-      placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
+  nativeBuildInputs = [
+    gobject-introspection
+    meson
+    ninja
+    pkg-config
   ];
+
+  buildInputs = [
+    gdk-pixbuf
+    glib
+    sqlite
+    python3.pkgs.pygobject3
+  ];
+
+  mesonFlags = [ "-Dpygobject-override-dir=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides" ];
 
   # Success is more likely on x86_64
   doCheck = stdenv.isx86_64;

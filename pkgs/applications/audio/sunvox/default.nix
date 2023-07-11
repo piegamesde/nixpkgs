@@ -10,7 +10,13 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc alsa-lib libX11 libXi SDL2 ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    alsa-lib
+    libX11
+    libXi
+    SDL2
+  ];
   arch = if stdenv.isAarch64 then
     "arm64"
   else if stdenv.isAarch32 then
@@ -53,6 +59,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.warmplace.ru/soft/sunvox/";
     maintainers = with maintainers; [ puffnfresh ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

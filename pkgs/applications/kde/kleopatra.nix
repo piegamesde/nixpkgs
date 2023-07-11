@@ -22,7 +22,10 @@
 mkDerivation {
   pname = "kleopatra";
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
 
   buildInputs = [
     boost
@@ -43,7 +46,11 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kleopatra/";
     description = "Certificate manager and unified crypto GUI";
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+      fdl12Plus
+    ];
     maintainers = kdepimTeam;
   };
 }

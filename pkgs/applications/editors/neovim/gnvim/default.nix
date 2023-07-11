@@ -25,7 +25,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildInputs = [ gtk webkitgtk ];
+  buildInputs = [
+    gtk
+    webkitgtk
+  ];
 
   # The default build script tries to get the version through Git, so we
   # replace it

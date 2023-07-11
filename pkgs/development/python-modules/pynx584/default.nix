@@ -24,9 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-nF8+LbKqy/GrnPpykS5wEQMPoFYxi40pfM3Ys/UXCeo=";
   };
 
-  propagatedBuildInputs = [ flask prettytable pyserial requests stevedore ];
+  propagatedBuildInputs = [
+    flask
+    prettytable
+    pyserial
+    requests
+    stevedore
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nx584" ];
 

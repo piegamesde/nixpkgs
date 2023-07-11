@@ -111,7 +111,11 @@ in {
 
       hwMode = mkOption {
         default = "g";
-        type = types.enum [ "a" "b" "g" ];
+        type = types.enum [
+          "a"
+          "b"
+          "g"
+        ];
         description = lib.mdDoc ''
           Operation mode.
           (a = IEEE 802.11a, b = IEEE 802.11b, g = IEEE 802.11g).

@@ -32,11 +32,25 @@ buildPythonPackage rec {
     sha256 = "059sc7iar90lc2y9mppdis5ddfcxyirz03gmsfb0307f5dsa1dhj";
   };
 
-  propagatedBuildInputs = [ sqlalchemy pycrypto cryptography ]
-    ++ lib.optionals (isPy27) [ funcsigs pycryptopp ];
+  propagatedBuildInputs = [
+    sqlalchemy
+    pycrypto
+    cryptography
+  ] ++ lib.optionals (isPy27) [
+    funcsigs
+    pycryptopp
+  ];
 
-  nativeCheckInputs =
-    [ glibcLocales python-memcached mock nose pylibmc pymongo redis webtest ];
+  nativeCheckInputs = [
+    glibcLocales
+    python-memcached
+    mock
+    nose
+    pylibmc
+    pymongo
+    redis
+    webtest
+  ];
 
   # Can not run memcached tests because it immediately tries to connect
   postPatch = ''

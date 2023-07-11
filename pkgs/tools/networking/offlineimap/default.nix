@@ -21,8 +21,13 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "0y3giaz9i8vvczlxkbwymfkn3vi9fv599dy4pc2pn2afxsl4mg2w";
   };
 
-  nativeBuildInputs =
-    [ asciidoc docbook_xsl installShellFiles libxml2 libxslt ];
+  nativeBuildInputs = [
+    asciidoc
+    docbook_xsl
+    installShellFiles
+    libxml2
+    libxslt
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     certifi

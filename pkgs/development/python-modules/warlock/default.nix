@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ jsonpatch jsonschema ];
+  propagatedBuildInputs = [
+    jsonpatch
+    jsonschema
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -63,12 +63,12 @@ in {
           named 'autossh-{session.name}'.
         '';
 
-        example = [{
+        example = [ {
           name = "socks-peer";
           user = "bill";
           monitoringPort = 20000;
           extraArguments = "-N -D4343 billremote@socks.host.net";
-        }];
+        } ];
 
       };
     };

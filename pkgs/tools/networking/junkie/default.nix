@@ -37,8 +37,15 @@ stdenv.mkDerivation rec {
       sed -i '10i#undef IP_DONTFRAG' include/junkie/proto/ip.h
     '';
 
-  buildInputs = [ libpcap guile openssl ];
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [
+    libpcap
+    guile
+    openssl
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   configureFlags = [
     "GUILELIBDIR=\${out}/share/guile/site"
     "GUILECACHEDIR=\${out}/lib/guile/ccache"

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-96W9bzWEZ3EN4wtnDT3G3pvLdcI4SIhGJWBVPU3rNZ4=";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
   cmakeFlags = [ "-DUSE_GNU_INSTALL_CONVENTION=ON" ];
 

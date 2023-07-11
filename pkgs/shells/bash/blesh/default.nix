@@ -20,7 +20,10 @@ stdenvNoCC.mkDerivation rec {
   dontBuild = true;
 
   doCheck = true;
-  nativeCheckInputs = [ bashInteractive glibcLocales ];
+  nativeCheckInputs = [
+    bashInteractive
+    glibcLocales
+  ];
   preCheck = "export LC_ALL=en_US.UTF-8";
 
   installPhase = ''

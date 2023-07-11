@@ -32,11 +32,10 @@ stdenv.mkDerivation rec {
     ./swap-priority-4-and-5-in-get_config_path.patch
   ];
 
-  installFlags = [
-    "install-config"
+  installFlags = [ "install-config"
     # TODO: check on next update if that works and remove postInstall
     # "install-zsh-completion"
-  ];
+    ];
 
   postInstall = ''
     ./tools/install.sh -D -m 644 completions/_proxychains $out/share/zsh/site_functions/_proxychains4

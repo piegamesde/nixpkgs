@@ -141,8 +141,9 @@ let
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
     ++ lib.optional
     (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
-    ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt")
-    [ "threadapi=win32" ] ++ extraB2Args);
+    ++ lib.optionals
+    (stdenv.hostPlatform.libc == "msvcrt") [ "threadapi=win32" ]
+    ++ extraB2Args);
 
 in stdenv.mkDerivation {
   pname = "boost";
@@ -262,14 +263,21 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ which boost-build ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = [ expat zlib bzip2 libiconv ]
-    ++ lib.optional (lib.versionAtLeast version "1.69") zstd
+  nativeBuildInputs = [
+    which
+    boost-build
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = [
+    expat
+    zlib
+    bzip2
+    libiconv
+  ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
     ++ lib.optional (lib.versionAtLeast version "1.65") xz
-    ++ lib.optional enableIcu icu
-    ++ lib.optionals enablePython [ libxcrypt python ]
-    ++ lib.optional enableNumpy python.pkgs.numpy;
+    ++ lib.optional enableIcu icu ++ lib.optionals enablePython [
+      libxcrypt
+      python
+    ] ++ lib.optional enableNumpy python.pkgs.numpy;
 
   configureScript = "./bootstrap.sh";
   configurePlatforms = [ ];
@@ -309,6 +317,9 @@ in stdenv.mkDerivation {
     $RANLIB "$out/lib/"*.a
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   setOutputFlags = false;
 }

@@ -25,9 +25,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-AHhKfy2AAcDBcknzNb8DAzm51RQqFQDuWN+Hp5731Yk=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ openssl gtk3 gdk-pixbuf pango atk cairo ];
+  buildInputs = [
+    openssl
+    gtk3
+    gdk-pixbuf
+    pango
+    atk
+    cairo
+  ];
 
   postInstall = "make PREFIX=$out copy-data";
 

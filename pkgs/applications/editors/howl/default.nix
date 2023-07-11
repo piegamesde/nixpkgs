@@ -24,8 +24,14 @@ stdenv.mkDerivation rec {
   # The Makefile uses "/usr/local" if not explicitly overridden
   installFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ gtk3 librsvg ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    gtk3
+    librsvg
+  ];
   enableParallelBuilding = true;
 
   # Required for the program to properly load its SVG assets
@@ -42,7 +48,10 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ pacien ];
 
     # LuaJIT and Howl builds fail for x86_64-darwin and aarch64-linux respectively
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }
 

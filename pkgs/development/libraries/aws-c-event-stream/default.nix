@@ -25,8 +25,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ aws-c-cal aws-c-common aws-c-io aws-checksums s2n-tls ]
-    ++ lib.optional stdenv.hostPlatform.isMusl libexecinfo;
+  buildInputs = [
+    aws-c-cal
+    aws-c-common
+    aws-c-io
+    aws-checksums
+    s2n-tls
+  ] ++ lib.optional stdenv.hostPlatform.isMusl libexecinfo;
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS:BOOL=ON" ];
 
@@ -38,6 +43,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-event-stream";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej eelco ];
+    maintainers = with maintainers; [
+      orivej
+      eelco
+    ];
   };
 }

@@ -24,7 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ hypothesis mock nose2 pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    mock
+    nose2
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "dpath" ];
 

@@ -29,7 +29,11 @@ mkDerivation rec {
     sha256 = "070njci5zyzahmz3nqyp660chxnqx1mxp31w17syfllvrw403qmg";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+  ];
 
   buildInputs = with gst_all_1; [
     qtquickcontrols2
@@ -62,7 +66,12 @@ mkDerivation rec {
       messages, and file sharing.
     '';
     homepage = "https://www.kaidan.im";
-    license = with licenses; [ gpl3Plus mit asl20 cc-by-sa-40 ];
+    license = with licenses; [
+      gpl3Plus
+      mit
+      asl20
+      cc-by-sa-40
+    ];
     maintainers = with maintainers; [ astro ];
     platforms = with platforms; linux;
   };

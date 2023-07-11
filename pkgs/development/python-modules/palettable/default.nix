@@ -18,8 +18,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck =
-    [ "palettable" "palettable.matplotlib" "palettable.tableau" ];
+  pythonImportsCheck = [
+    "palettable"
+    "palettable.matplotlib"
+    "palettable.tableau"
+  ];
 
   meta = with lib; {
     description = "A library of color palettes";

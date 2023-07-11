@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
 
   src = cosmopolitan.dist;
 
-  nativeBuildInputs = [ bintools-unwrapped unzip ];
+  nativeBuildInputs = [
+    bintools-unwrapped
+    unzip
+  ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [ "o//third_party/python" ];

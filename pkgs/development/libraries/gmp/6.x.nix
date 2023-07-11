@@ -33,7 +33,11 @@ in let
     #outputs TODO: split $cxx due to libstdc++ dependency
     # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
     # - see #5855 for related discussion
-    outputs = [ "out" "dev" "info" ];
+    outputs = [
+      "out"
+      "dev"
+      "info"
+    ];
     passthru.static = self.out;
 
     strictDeps = true;
@@ -71,7 +75,10 @@ in let
     meta = with lib; {
       homepage = "https://gmplib.org/";
       description = "GNU multiple precision arithmetic library";
-      license = with licenses; [ lgpl3Only gpl2Only ];
+      license = with licenses; [
+        lgpl3Only
+        gpl2Only
+      ];
 
       longDescription = ''
         GMP is a free library for arbitrary precision arithmetic, operating

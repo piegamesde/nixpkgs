@@ -44,8 +44,16 @@ let
     "LD_LIBRARY_PATH"
   else
     throw "unsupported platform";
-  libraries = [ libunwind libuuid icu curl openssl_1_1 ]
-    ++ (if stdenv.isLinux then [ pam lttng-ust ] else [ darwin.Libsystem ]);
+  libraries = [
+    libunwind
+    libuuid
+    icu
+    curl
+    openssl_1_1
+  ] ++ (if stdenv.isLinux then [
+    pam
+    lttng-ust
+  ] else [ darwin.Libsystem ]);
 in stdenv.mkDerivation rec {
   pname = "powershell";
   version = "7.3.2";
@@ -102,11 +110,22 @@ in stdenv.mkDerivation rec {
     description =
       "Powerful cross-platform (Windows, Linux, and macOS) shell and scripting language based on .NET";
     homepage = "https://github.com/PowerShell/PowerShell";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
-    maintainers = with maintainers; [ yrashk srgom p3psi ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
+    maintainers = with maintainers; [
+      yrashk
+      srgom
+      p3psi
+    ];
     mainProgram = "pwsh";
-    platforms =
-      [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
     license = with licenses; [ mit ];
   };
 

@@ -36,7 +36,11 @@ in buildPythonPackage {
 
   format = "setuptools";
 
-  propagatedBuildInputs = [ numpy pillow setuptools ];
+  propagatedBuildInputs = [
+    numpy
+    pillow
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

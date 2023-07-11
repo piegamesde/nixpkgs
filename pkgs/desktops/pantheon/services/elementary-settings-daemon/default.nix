@@ -43,8 +43,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [ accountsservice dbus geoclue2 glib gtk3 granite libgee systemd ];
+  buildInputs = [
+    accountsservice
+    dbus
+    geoclue2
+    glib
+    gtk3
+    granite
+    libgee
+    systemd
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

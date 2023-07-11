@@ -47,7 +47,7 @@ let
     arg:
     if builtins.isPath arg then {
       args = args
-        ++ [{ __rawShell = ''"''$${builtins.toString maxArgIndex}"''; }];
+        ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
       maxArgIndex = maxArgIndex + 1;
       paths = paths ++ [ arg ];
     } else {

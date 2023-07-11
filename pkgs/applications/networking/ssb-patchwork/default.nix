@@ -52,7 +52,11 @@ in symlinkJoin {
     '';
     homepage = "https://www.scuttlebutt.nz/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ asymmetric ninjatrappeur cyplo ];
+    maintainers = with maintainers; [
+      asymmetric
+      ninjatrappeur
+      cyplo
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

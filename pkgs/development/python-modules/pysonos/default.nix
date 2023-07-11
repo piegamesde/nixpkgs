@@ -28,13 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-gBOknYHL5nQWFVhCbLN0Ah+1fovcNY4P2myryZnUadk=";
   };
 
-  propagatedBuildInputs = [ ifaddr requests xmltodict ];
-
-  nativeCheckInputs = [ pytestCheckHook mock requests-mock ];
-
-  disabledTests = [
-    "test_desc_from_uri" # test requires network access
+  propagatedBuildInputs = [
+    ifaddr
+    requests
+    xmltodict
   ];
+
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    requests-mock
+  ];
+
+  disabledTests = [ "test_desc_from_uri" # test requires network access
+    ];
 
   meta = with lib; {
     description = "A SoCo fork with fixes for Home Assistant";

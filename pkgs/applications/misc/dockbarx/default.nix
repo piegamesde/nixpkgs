@@ -21,10 +21,18 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-WMRTtprDHUbOOYVHshx7WpBlYshbiDjI12Rw3tQQuPI=";
   };
 
-  nativeBuildInputs =
-    [ glib.dev gobject-introspection python3Packages.polib wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib.dev
+    gobject-introspection
+    python3Packages.polib
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 libwnck keybinder3 ];
+  buildInputs = [
+    gtk3
+    libwnck
+    keybinder3
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     dbus-python

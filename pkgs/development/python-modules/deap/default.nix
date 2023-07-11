@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-h3LxsP/wQtXlFrCuusLHBiQwRap9DejguGWPOAGBzzE=";
   };
 
-  propagatedBuildInputs = [ numpy matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    matplotlib
+  ];
 
   nativeCheckInputs = [ nose ];
   checkPhase = ''

@@ -56,7 +56,10 @@ buildPythonPackage rec {
     python-multipart
   ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests require access to /etc/resolv.conf

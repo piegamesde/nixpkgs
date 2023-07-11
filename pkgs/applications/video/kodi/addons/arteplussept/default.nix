@@ -19,7 +19,11 @@ buildKodiAddon rec {
     hash = "sha256-B4IIYwWrQ5U+aPl9nzAN3HWaQjHX1G+hxpicBgBAwiA=";
   };
 
-  propagatedBuildInputs = [ dateutil requests xbmcswift2 ];
+  propagatedBuildInputs = [
+    dateutil
+    requests
+    xbmcswift2
+  ];
 
   passthru = {
     updateScript =

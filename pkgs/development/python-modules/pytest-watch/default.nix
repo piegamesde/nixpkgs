@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ colorama docopt watchdog ];
+  propagatedBuildInputs = [
+    colorama
+    docopt
+    watchdog
+  ];
 
   # No Tests
   doCheck = false;

@@ -31,10 +31,20 @@ buildPythonApplication rec {
     sha256 = "sha256-T5T3EJS8ef8uo+P9qkC+7I70qv+4PFrnhImr04Fz57U=";
   };
 
-  propagatedBuildInputs =
-    [ itsdangerous jinja2 misaka html5lib werkzeug bleach flask-caching ];
+  propagatedBuildInputs = [
+    itsdangerous
+    jinja2
+    misaka
+    html5lib
+    werkzeug
+    bleach
+    flask-caching
+  ];
 
-  nativeBuildInputs = [ cffi nodejs ];
+  nativeBuildInputs = [
+    cffi
+    nodejs
+  ];
 
   preBuild = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
@@ -43,7 +53,10 @@ buildPythonApplication rec {
     make js
   '';
 
-  nativeCheckInputs = [ pytest pytest-cov ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+  ];
 
   checkPhase = ''
     pytest

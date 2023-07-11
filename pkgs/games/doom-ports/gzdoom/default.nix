@@ -36,9 +36,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-F3p2X/hjPV9fuaA7T2bQTP6SlKcfc8GniJgv8BcopGw=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ cmake copyDesktopItems makeWrapper ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    copyDesktopItems
+    makeWrapper
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2
@@ -64,16 +73,17 @@ stdenv.mkDerivation rec {
       --replace "ret_var(Hash)" "ret_var(\"${src.rev}\")"
   '';
 
-  cmakeFlags = [ "-DDYN_GTK=OFF" "-DDYN_OPENAL=OFF" ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gzdoom";
-      exec = "gzdoom";
-      desktopName = "GZDoom";
-      categories = [ "Game" ];
-    })
+  cmakeFlags = [
+    "-DDYN_GTK=OFF"
+    "-DDYN_OPENAL=OFF"
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "gzdoom";
+    exec = "gzdoom";
+    desktopName = "GZDoom";
+    categories = [ "Game" ];
+  }) ];
 
   postInstall = ''
     mv $out/bin/gzdoom $out/share/games/doom/gzdoom
@@ -90,6 +100,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ azahi lassulus ];
+    maintainers = with maintainers; [
+      azahi
+      lassulus
+    ];
   };
 }

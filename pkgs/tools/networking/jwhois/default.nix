@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sed -i -e "s|/usr/bin/lynx|${lynx}/bin/lynx|g" $out/etc/jwhois.conf
   '';
 
-  patches = [ ./connect.patch ./service-name.patch ];
+  patches = [
+    ./connect.patch
+    ./service-name.patch
+  ];
 
   makeFlags = [ "AR=${stdenv.cc.bintools.targetPrefix}ar" ];
 

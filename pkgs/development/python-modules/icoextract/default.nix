@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-x0GEV0PUbkAzoUJgAqup9bHd7iYttGyzIZNdo8KsFyo=";
   };
 
-  propagatedBuildInputs = [ pefile pillow ];
+  propagatedBuildInputs = [
+    pefile
+    pillow
+  ];
 
   # tests expect mingw and multiarch
   doCheck = false;

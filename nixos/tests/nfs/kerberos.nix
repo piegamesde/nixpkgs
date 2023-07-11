@@ -48,7 +48,11 @@ import ../make-test-python.nix ({
             "/data" = {
               device = "server.nfs.test:/";
               fsType = "nfs";
-              options = [ "nfsvers=4" "sec=krb5p" "noauto" ];
+              options = [
+                "nfsvers=4"
+                "sec=krb5p"
+                "noauto"
+              ];
             };
           };
         };
@@ -72,10 +76,10 @@ import ../make-test-python.nix ({
 
           services.kerberos_server.enable = true;
           services.kerberos_server.realms = {
-            "NFS.TEST".acl = [{
+            "NFS.TEST".acl = [ {
               access = "all";
               principal = "admin/admin";
-            }];
+            } ];
           };
 
           services.nfs.server.enable = true;

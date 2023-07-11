@@ -29,7 +29,10 @@ in {
     };
 
     backend = mkOption {
-      type = types.enum [ "x11" "wayland" ];
+      type = types.enum [
+        "x11"
+        "wayland"
+      ];
       default = "x11";
       description = lib.mdDoc ''
         Backend to use in qtile: `x11` or `wayland`.
@@ -56,7 +59,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [{
+    services.xserver.windowManager.session = [ {
       name = "qtile";
       start = ''
         ${pyEnv}/bin/qtile start -b ${cfg.backend} \
@@ -66,7 +69,7 @@ in {
         } &
         waitPID=$!
       '';
-    }];
+    } ];
 
     environment.systemPackages = [
       # pkgs.qtile is currently a buildenv of qtile and its dependencies.

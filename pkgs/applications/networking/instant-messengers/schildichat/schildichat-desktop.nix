@@ -39,8 +39,13 @@ in stdenv.mkDerivation rec {
     sha256 = pinData.desktopYarnHash;
   };
 
-  nativeBuildInputs =
-    [ yarn fixup_yarn_lock nodejs makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    yarn
+    fixup_yarn_lock
+    nodejs
+    makeWrapper
+    copyDesktopItems
+  ];
   inherit (element-desktop) seshat keytar;
 
   configurePhase = ''
@@ -106,19 +111,21 @@ in stdenv.mkDerivation rec {
 
   # The desktop item properties should be kept in sync with data from upstream:
   # https://github.com/schildichat/element-desktop/blob/sc/package.json
-  desktopItems = [
-    (makeDesktopItem {
-      name = "schildichat-desktop";
-      exec = "${executableName} %u";
-      icon = "schildichat";
-      desktopName = "SchildiChat";
-      genericName = "Matrix Client";
-      comment = meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
-      startupWMClass = "schildichat";
-      mimeTypes = [ "x-scheme-handler/element" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "schildichat-desktop";
+    exec = "${executableName} %u";
+    icon = "schildichat";
+    desktopName = "SchildiChat";
+    genericName = "Matrix Client";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "InstantMessaging"
+      "Chat"
+    ];
+    startupWMClass = "schildichat";
+    mimeTypes = [ "x-scheme-handler/element" ];
+  }) ];
 
   passthru.updateScript = ./update.sh;
 
@@ -126,7 +133,10 @@ in stdenv.mkDerivation rec {
     description = "Matrix client / Element Desktop fork";
     homepage = "https://schildi.chat/";
     changelog = "https://github.com/SchildiChat/schildichat-desktop/releases";
-    maintainers = teams.matrix.members ++ (with maintainers; [ kloenk yuka ]);
+    maintainers = teams.matrix.members ++ (with maintainers; [
+      kloenk
+      yuka
+    ]);
     license = licenses.asl20;
     platforms = platforms.all;
   };

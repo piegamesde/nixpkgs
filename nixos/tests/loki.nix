@@ -24,17 +24,17 @@ import ./make-test-python.nix ({
               http_listen_port = 9080;
               grpc_listen_port = 0;
             };
-            clients = [{ url = "http://localhost:3100/loki/api/v1/push"; }];
-            scrape_configs = [{
+            clients = [ { url = "http://localhost:3100/loki/api/v1/push"; } ];
+            scrape_configs = [ {
               job_name = "system";
-              static_configs = [{
+              static_configs = [ {
                 targets = [ "localhost" ];
                 labels = {
                   job = "varlogs";
                   __path__ = "/var/log/*log";
                 };
-              }];
-            }];
+              } ];
+            } ];
           };
         };
       };

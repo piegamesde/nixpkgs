@@ -43,4 +43,8 @@ in import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
   meta = defaultMeta // meta;
 }
 
-  // removeAttrs args [ "files" "fileSpecs" "meta" ])
+  // removeAttrs args [
+    "files"
+    "fileSpecs"
+    "meta"
+  ])

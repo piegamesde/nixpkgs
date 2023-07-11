@@ -38,14 +38,14 @@ in {
     # for tempo-cli and friends
     environment.systemPackages = [ pkgs.tempo ];
 
-    assertions = [{
+    assertions = [ {
       assertion = ((cfg.settings == { }) != (cfg.configFile == null));
       message = ''
         Please specify a configuration for Tempo with either
         'services.tempo.settings' or
         'services.tempo.configFile'.
       '';
-    }];
+    } ];
 
     systemd.services.tempo = {
       description = "Grafana Tempo Service Daemon";

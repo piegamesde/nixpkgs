@@ -32,7 +32,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-0WZSjKtgvIIpwGcp5wc4OPu6aNaytXRQTLAniDXIeIg=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   buildCommand = ''
     dir=$out/share/wp-cli

@@ -15,7 +15,10 @@ buildPythonApplication rec {
     sha256 = "sha256-OwREpfWaP0tdAjMGjGpVIAQn8rlTTjSfT+0t5g/2yjQ=";
   };
 
-  propagatedBuildInputs = [ ffmpeg ffmpeg-progress-yield ];
+  propagatedBuildInputs = [
+    ffmpeg
+    ffmpeg-progress-yield
+  ];
 
   checkPhase = ''
     $out/bin/ffmpeg-normalize --help > /dev/null

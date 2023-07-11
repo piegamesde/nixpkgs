@@ -14,7 +14,16 @@
 stdenv.mkDerivation rec {
   pname = "gle";
   version = "3.1.0";
-  buildInputs = [ libGLU libGL freeglut libX11 libXt libXmu libXi libXext ];
+  buildInputs = [
+    libGLU
+    libGL
+    freeglut
+    libX11
+    libXt
+    libXmu
+    libXi
+    libXext
+  ];
   src = fetchurl {
     urls = [
       "mirror://sourceforge/project/gle/gle/gle-${version}/gle-${version}.tar.gz"

@@ -95,10 +95,10 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ lists.optionals (strings.versionOlder cudaVersion "11.8") [
-        cuda_nvprof # <cuda_profiler_api.h>
-      ] ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
-        cuda_profiler_api # <cuda_profiler_api.h>
+      ] ++ lists.optionals (strings.versionOlder cudaVersion
+        "11.8") [ cuda_nvprof # <cuda_profiler_api.h>
+      ] ++ lists.optionals (strings.versionAtLeast cudaVersion
+        "11.8") [ cuda_profiler_api # <cuda_profiler_api.h>
       ] ++ cuda-common-redist;
   };
 
@@ -121,12 +121,23 @@ stdenv.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs = [ cmake ninja gfortran ]
-    ++ lists.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    gfortran
+  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [ libpthreadstubs lapack blas ]
-    ++ lists.optionals cudaSupport [ cuda-redist ]
-    ++ lists.optionals rocmSupport [ hip hipblas hipsparse openmp ];
+  buildInputs = [
+    libpthreadstubs
+    lapack
+    blas
+  ] ++ lists.optionals cudaSupport [ cuda-redist ]
+    ++ lists.optionals rocmSupport [
+      hip
+      hipblas
+      hipsparse
+      openmp
+    ];
 
   cmakeFlags = [ "-DGPU_TARGET=${gpuTargetString}" ]
     ++ lists.optionals cudaSupport [
@@ -141,7 +152,10 @@ stdenv.mkDerivation {
       "-DMAGMA_ENABLE_HIP=ON"
     ];
 
-  buildFlags = [ "magma" "magma_sparse" ];
+  buildFlags = [
+    "magma"
+    "magma_sparse"
+  ];
 
   doCheck = false;
 

@@ -40,9 +40,17 @@ buildPythonPackage rec {
     sed -i '/(\(Dict\|List\)/d' tests/test_json.py tests/test_bson.py
   '';
 
-  propagatedBuildInputs = [ more-properties typing-inspect toolz toposort ];
+  propagatedBuildInputs = [
+    more-properties
+    typing-inspect
+    toolz
+    toposort
+  ];
 
-  nativeCheckInputs = [ bson pytestCheckHook ];
+  nativeCheckInputs = [
+    bson
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [
     "dataclasses_serialization.bson"

@@ -41,17 +41,28 @@ let
       hash = "sha256-n04b9yUoUMH2H7t8um/8h5XaL3hzY/uNMYmOKTVKEPA=";
     };
 
-    nativeBuildInputs = [ pybind11 setuptools ];
+    nativeBuildInputs = [
+      pybind11
+      setuptools
+    ];
 
     propagatedBuildInputs = [ numpy ];
 
     passthru.optional-depdendencies = {
-      bokeh = [ bokeh chromedriver selenium ];
+      bokeh = [
+        bokeh
+        chromedriver
+        selenium
+      ];
     };
 
     doCheck = false; # infinite recursion with matplotlib, tests in passthru
 
-    nativeCheckInputs = [ matplotlib pillow pytestCheckHook ];
+    nativeCheckInputs = [
+      matplotlib
+      pillow
+      pytestCheckHook
+    ];
 
     passthru.tests = {
       check = countourpy.overridePythonAttrs (_: { doCheck = true; });

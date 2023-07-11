@@ -22,10 +22,17 @@ let
     comment = "Easy-to-use digital logic designer and circuit simulator";
     exec = "digital";
     icon = "digital";
-    categories = [ "Education" "Electronics" ];
+    categories = [
+      "Education"
+      "Electronics"
+    ];
     mimeTypes = [ "text/x-digital" ];
     terminal = false;
-    keywords = [ "simulator" "digital" "circuits" ];
+    keywords = [
+      "simulator"
+      "digital"
+      "circuits"
+    ];
   };
 
   # Use the "no-git-rev" maven profile, which deactivates the plugin that
@@ -70,7 +77,11 @@ in stdenv.mkDerivation rec {
     outputHash = "1Cgw+5V2E/RENMRMm368+2yvY7y6v9gTlo+LRgrCXcE=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems maven makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    maven
+    makeWrapper
+  ];
 
   buildPhase = ''
     mvn package --offline ${mvnOptions} -Dmaven.repo.local=${mavenDeps}
@@ -94,7 +105,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/hneemann/Digital";
     description = pkgDescription;
     license = licenses.gpl3Only;
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ Dettorer ];
   };
 }

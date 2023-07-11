@@ -39,7 +39,11 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ ppxlib ];
 
-  checkInputs = [ ounit ppx_deriving ppx_sexp_conv ];
+  checkInputs = [
+    ounit
+    ppx_deriving
+    ppx_sexp_conv
+  ];
 
   doCheck = true;
 

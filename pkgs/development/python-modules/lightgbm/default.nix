@@ -33,9 +33,17 @@ buildPythonPackage rec {
   dontUseCmakeConfigure = true;
 
   buildInputs = (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
-    ++ (lib.optionals gpuSupport [ boost ocl-icd opencl-headers ]);
+    ++ (lib.optionals gpuSupport [
+      boost
+      ocl-icd
+      opencl-headers
+    ]);
 
-  propagatedBuildInputs = [ numpy scipy scikit-learn ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    scikit-learn
+  ];
 
   buildPhase = ''
     ${python.pythonForBuild.interpreter} setup.py bdist_wheel ${
@@ -61,6 +69,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/microsoft/LightGBM/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ teh costrouc ];
+    maintainers = with lib.maintainers; [
+      teh
+      costrouc
+    ];
   };
 }

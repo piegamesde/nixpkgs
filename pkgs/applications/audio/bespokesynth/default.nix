@@ -74,10 +74,16 @@ in stdenv.mkDerivation rec {
 
   cmakeBuildType = "Release";
 
-  cmakeFlags = lib.optionals enableVST2
-    [ "-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK" ];
+  cmakeFlags = lib.optionals
+    enableVST2 [ "-DBESPOKE_VST2_SDK_LOCATION=${vst-sdk}/VST2_SDK" ];
 
-  nativeBuildInputs = [ python3 makeWrapper cmake pkg-config ninja ];
+  nativeBuildInputs = [
+    python3
+    makeWrapper
+    cmake
+    pkg-config
+    ninja
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     # List obtained in https://github.com/BespokeSynth/BespokeSynth/blob/main/azure-pipelines.yml
@@ -136,7 +142,12 @@ in stdenv.mkDerivation rec {
         ]
       }' \
       --prefix LD_LIBRARY_PATH : '${
-        lib.makeLibraryPath [ libXrandr libXinerama libXcursor libXScrnSaver ]
+        lib.makeLibraryPath [
+          libXrandr
+          libXinerama
+          libXcursor
+          libXScrnSaver
+        ]
       }'
   '';
 
@@ -145,7 +156,11 @@ in stdenv.mkDerivation rec {
       "Software modular synth with controllers support, scripting and VST";
     homepage = "https://github.com/awwbees/BespokeSynth";
     license = with licenses; [ gpl3Plus ] ++ lib.optional enableVST2 unfree;
-    maintainers = with maintainers; [ astro tobiasBora OPNA2608 ];
+    maintainers = with maintainers; [
+      astro
+      tobiasBora
+      OPNA2608
+    ];
     mainProgram = "BespokeSynth";
     platforms = platforms.all;
   };

@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     sha256 = "0ybvwv24g8awxjl2asgvx6l2ghn4limcm48ylha68dkpy3607di6";
   };
 
-  nativeBuildInputs = [ pkg-config gettext libtool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    libtool
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     glib
@@ -56,7 +61,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The MATE Power Manager";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ gpl2Plus fdl11Plus ];
+    license = with licenses; [
+      gpl2Plus
+      fdl11Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members ++ (with maintainers; [ chpatrick ]);
   };

@@ -23,15 +23,25 @@ buildPythonPackage rec {
     hash = "sha256-aWkx49zmgBzJt4xin1QwYd1+tnpxFVsD0bOeoXKipfk=";
   };
 
-  buildInputs = [ setuptools-scm cython pybind11 ];
+  buildInputs = [
+    setuptools-scm
+    cython
+    pybind11
+  ];
 
-  propagatedBuildInputs = [ numpy scikit-learn ];
+  propagatedBuildInputs = [
+    numpy
+    scikit-learn
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "hmmlearn" ];
 
-  pytestFlagsArray = [ "--pyargs" "hmmlearn" ];
+  pytestFlagsArray = [
+    "--pyargs"
+    "hmmlearn"
+  ];
 
   meta = with lib; {
     description = "Hidden Markov Models in Python with scikit-learn like API";

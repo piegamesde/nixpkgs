@@ -17,8 +17,11 @@
 }:
 
 rec {
-  version = builtins.concatStringsSep "."
-    (lib.attrVals [ "major" "minor" "patch" ] versionAttr);
+  version = builtins.concatStringsSep "." (lib.attrVals [
+    "major"
+    "minor"
+    "patch"
+  ] versionAttr);
   src = if overrideSrc != { } then
     overrideSrc
   else
@@ -60,11 +63,13 @@ rec {
   # If python-support is disabled, we probably don't want it referenced
     ++ lib.optionals (!hasFeature "python-support") [ python ];
   # Gcc references from examples
-  stripDebugList = [ "lib" "bin" ]
-    ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
+  stripDebugList = [
+    "lib"
+    "bin"
+  ] ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
-    ++ lib.optionals (hasFeature "gr-qtgui")
-    [ "share/gnuradio/examples/qt-gui" ];
+    ++ lib.optionals
+    (hasFeature "gr-qtgui") [ "share/gnuradio/examples/qt-gui" ];
   postInstall = ""
     # Gcc references
     + lib.optionalString (hasFeature "gnuradio-runtime") ''
@@ -103,6 +108,11 @@ rec {
     homepage = "https://www.gnuradio.org";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ doronbehar bjornfor fpletz jiegec ];
+    maintainers = with maintainers; [
+      doronbehar
+      bjornfor
+      fpletz
+      jiegec
+    ];
   };
 }

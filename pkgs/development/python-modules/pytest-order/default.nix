@@ -21,8 +21,12 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook pytest-xdist pytest-dependency pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+    pytest-dependency
+    pytest-mock
+  ];
 
   meta = {
     description =

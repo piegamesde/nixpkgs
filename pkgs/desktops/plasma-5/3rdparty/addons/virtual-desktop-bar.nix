@@ -19,7 +19,11 @@ mkDerivation rec {
     sha256 = "192ns6c2brzq46pg385n0v1ydbz52aaa8f5dgfw5251hrw9c7bxg";
   };
 
-  buildInputs = [ kwindowsystem plasma-framework qtx11extras ];
+  buildInputs = [
+    kwindowsystem
+    plasma-framework
+    qtx11extras
+  ];
 
   nativeBuildInputs = [ extra-cmake-modules ];
 

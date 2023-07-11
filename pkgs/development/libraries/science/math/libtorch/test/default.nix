@@ -15,15 +15,18 @@ let
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
-    paths = [ cudatoolkit.out cudatoolkit.lib ];
+    paths = [
+      cudatoolkit.out
+      cudatoolkit.lib
+    ];
   };
 
   # We do not have access to /run/opengl-driver/lib in the sandbox,
   # so use a stub instead.
-  cudaStub = linkFarm "cuda-stub" [{
+  cudaStub = linkFarm "cuda-stub" [ {
     name = "libcuda.so.1";
     path = "${cudatoolkit}/lib/stubs/libcuda.so";
-  }];
+  } ];
 
 in stdenv.mkDerivation {
   pname = "libtorch-test";
@@ -35,8 +38,8 @@ in stdenv.mkDerivation {
 
   buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
 
-  cmakeFlags = lib.optionals cudaSupport
-    [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
+  cmakeFlags = lib.optionals
+    cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
 
   doCheck = true;
 

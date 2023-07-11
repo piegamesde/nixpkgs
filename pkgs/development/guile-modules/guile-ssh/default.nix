@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+    which
+  ];
   buildInputs = [ guile ];
   propagatedBuildInputs = [ libssh ];
 

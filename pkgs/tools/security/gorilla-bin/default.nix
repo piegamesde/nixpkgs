@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     sha256 = "19ir6x4c01825hpx2wbbcxkk70ymwbw4j03v8b2xc13ayylwzx0r";
   };
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
 
   unpackCmd = ''
     mkdir gorilla;

@@ -57,7 +57,11 @@ in rec {
     let pkg = callPackage yarnNix { };
     in pkg.offline_cache;
 
-  defaultYarnFlags = [ "--offline" "--frozen-lockfile" "--ignore-engines" ];
+  defaultYarnFlags = [
+    "--offline"
+    "--frozen-lockfile"
+    "--ignore-engines"
+  ];
 
   mkYarnModules = {
       name ?
@@ -118,7 +122,11 @@ in rec {
       inherit preBuild postBuild name;
       dontUnpack = true;
       dontInstall = true;
-      nativeBuildInputs = [ yarn nodejs git ] ++ extraNativeBuildInputs;
+      nativeBuildInputs = [
+        yarn
+        nodejs
+        git
+      ] ++ extraNativeBuildInputs;
       buildInputs = extraBuildInputs;
 
       configurePhase = lib.optionalString (offlineCache ? outputHash) ''
@@ -209,9 +217,7 @@ in rec {
               (builtins.readDir base));
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null) children;
-        in if globElems == [ ] then
-          [ base ]
-        else
+        in if globElems == [ ] then [ base ] else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
           matchingChildren;
 
@@ -334,7 +340,11 @@ in rec {
 
       name = baseName;
 
-      buildInputs = [ yarn nodejs rsync ] ++ extraBuildInputs;
+      buildInputs = [
+        yarn
+        nodejs
+        rsync
+      ] ++ extraBuildInputs;
 
       node_modules = deps + "/node_modules";
 
@@ -435,8 +445,14 @@ in rec {
         in elem spdir dirsToInclude
         || (type == "regular" && elem subpath filesToInclude);
     in builtins.filterSource (mkFilter {
-      dirsToInclude = [ "bin" "lib" ];
-      filesToInclude = [ "package.json" "yarn.lock" ];
+      dirsToInclude = [
+        "bin"
+        "lib"
+      ];
+      filesToInclude = [
+        "package.json"
+        "yarn.lock"
+      ];
       root = src;
     }) src;
 
@@ -449,7 +465,10 @@ in rec {
     # we import package.json from the unfiltered source
     packageJSON = ./package.json;
 
-    yarnFlags = defaultYarnFlags ++ [ "--ignore-scripts" "--production=true" ];
+    yarnFlags = defaultYarnFlags ++ [
+      "--ignore-scripts"
+      "--production=true"
+    ];
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
 

@@ -30,6 +30,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nvarner/typst-lsp";
     changelog = "https://github.com/nvarner/typst-lsp/releases/tag/${src.rev}";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ figsoda GaetanLepage ];
+    maintainers = with maintainers; [
+      figsoda
+      GaetanLepage
+    ];
   };
 }

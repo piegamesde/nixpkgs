@@ -51,22 +51,39 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config python3Packages.python gtest ]
-    ++ lib.optionals pythonSupport
-    (with python3Packages; [ setuptools wheel pip pythonOutputDistHook ]);
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.python
+    gtest
+  ] ++ lib.optionals pythonSupport (with python3Packages; [
+    setuptools
+    wheel
+    pip
+    pythonOutputDistHook
+  ]);
 
-  buildInputs =
-    [ libpng zlib howard-hinnant-date nlohmann_json boost oneDNN protobuf ]
-    ++ lib.optionals pythonSupport [
-      nsync
-      python3Packages.numpy
-      python3Packages.pybind11
-      python3Packages.packaging
-    ];
+  buildInputs = [
+    libpng
+    zlib
+    howard-hinnant-date
+    nlohmann_json
+    boost
+    oneDNN
+    protobuf
+  ] ++ lib.optionals pythonSupport [
+    nsync
+    python3Packages.numpy
+    python3Packages.pybind11
+    python3Packages.packaging
+  ];
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output
-  outputs = [ "out" "dev" ] ++ lib.optionals pythonSupport [ "dist" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals pythonSupport [ "dist" ];
 
   enableParallelBuilding = true;
 
@@ -127,6 +144,10 @@ stdenv.mkDerivation rec {
     # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer puffnfresh ck3d ];
+    maintainers = with maintainers; [
+      jonringer
+      puffnfresh
+      ck3d
+    ];
   };
 }

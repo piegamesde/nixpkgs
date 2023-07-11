@@ -70,42 +70,66 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "mbpfan" "pollingInterval" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "pollingInterval"
+    ] [
       "services"
       "mbpfan"
       "settings"
       "general"
       "polling_interval"
     ])
-    (mkRenamedOptionModule [ "services" "mbpfan" "maxTemp" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "maxTemp"
+    ] [
       "services"
       "mbpfan"
       "settings"
       "general"
       "max_temp"
     ])
-    (mkRenamedOptionModule [ "services" "mbpfan" "lowTemp" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "lowTemp"
+    ] [
       "services"
       "mbpfan"
       "settings"
       "general"
       "low_temp"
     ])
-    (mkRenamedOptionModule [ "services" "mbpfan" "highTemp" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "highTemp"
+    ] [
       "services"
       "mbpfan"
       "settings"
       "general"
       "high_temp"
     ])
-    (mkRenamedOptionModule [ "services" "mbpfan" "minFanSpeed" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "minFanSpeed"
+    ] [
       "services"
       "mbpfan"
       "settings"
       "general"
       "min_fan1_speed"
     ])
-    (mkRenamedOptionModule [ "services" "mbpfan" "maxFanSpeed" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "mbpfan"
+      "maxFanSpeed"
+    ] [
       "services"
       "mbpfan"
       "settings"
@@ -122,14 +146,20 @@ in {
       general.max_temp = mkDefault 70;
     };
 
-    boot.kernelModules = [ "coretemp" "applesmc" ];
+    boot.kernelModules = [
+      "coretemp"
+      "applesmc"
+    ];
     environment.systemPackages = [ cfg.package ];
     environment.etc."mbpfan.conf".source = settingsFile;
 
     systemd.services.mbpfan = {
       description = "A fan manager daemon for MacBook Pro";
       wantedBy = [ "sysinit.target" ];
-      after = [ "syslog.target" "sysinit.target" ];
+      after = [
+        "syslog.target"
+        "sysinit.target"
+      ];
       restartTriggers = [ config.environment.etc."mbpfan.conf".source ];
       serviceConfig = {
         Type = "simple";

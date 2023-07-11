@@ -28,7 +28,12 @@ buildPythonPackage rec {
     sed 's/=.*//' -i requirements/*.txt
   '';
 
-  nativeCheckInputs = [ pytest pytest-runner pytest-cov coverage ];
+  nativeCheckInputs = [
+    pytest
+    pytest-runner
+    pytest-cov
+    coverage
+  ];
 
   meta = with lib; {
     description =

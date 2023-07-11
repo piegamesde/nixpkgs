@@ -21,12 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-Dfr+CCOdqubBb6po9gtXddQMQRByXhp8VFrUx/tm1Og=";
   };
 
-  propagatedBuildInputs = [ redis requests six urllib3 ];
+  propagatedBuildInputs = [
+    redis
+    requests
+    six
+    urllib3
+  ];
 
   # Tests want to access the spotify API
   doCheck = false;
 
-  pythonImportsCheck = [ "spotipy" "spotipy.oauth2" ];
+  pythonImportsCheck = [
+    "spotipy"
+    "spotipy.oauth2"
+  ];
 
   meta = with lib; {
     description = "Library for the Spotify Web API";

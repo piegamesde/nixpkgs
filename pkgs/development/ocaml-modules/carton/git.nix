@@ -24,8 +24,17 @@ buildDunePackage {
   inherit (carton) version src postPatch;
   duneVersion = "3";
 
-  propagatedBuildInputs =
-    [ carton carton-lwt bigstringaf lwt fpath result fmt decompress astring ];
+  propagatedBuildInputs = [
+    carton
+    carton-lwt
+    bigstringaf
+    lwt
+    fpath
+    result
+    fmt
+    decompress
+    astring
+  ];
 
   inherit (carton) meta;
 }

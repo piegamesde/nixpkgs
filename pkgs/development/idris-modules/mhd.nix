@@ -11,7 +11,10 @@ build-idris-package {
   version = "2016-04-22";
 
   ipkgName = "MHD";
-  idrisDeps = [ contrib effects ];
+  idrisDeps = [
+    contrib
+    effects
+  ];
 
   extraBuildInputs = [ libmicrohttpd ];
 

@@ -73,7 +73,11 @@ let
     '';
   };
   optionPort = mkOption {
-    type = with types; nullOr (oneOf [ port (enum [ "auto" ]) ]);
+    type = with types;
+      nullOr (oneOf [
+        port
+        (enum [ "auto" ])
+      ]);
     default = null;
   };
   optionPorts = optionName:
@@ -192,7 +196,13 @@ let
                 config,
                 ...
               }:
-              let flags = [ "IPv4Only" "IPv6Only" "NoAdvertise" "NoListen" ];
+              let
+                flags = [
+                  "IPv4Only"
+                  "IPv6Only"
+                  "NoAdvertise"
+                  "NoListen"
+                ];
               in {
                 options = {
                   addr = optionAddress;
@@ -272,7 +282,12 @@ in {
       "client"
       "dns"
       "automapHostsSuffixes"
-    ] [ "services" "tor" "settings" "AutomapHostsSuffixes" ])
+    ] [
+      "services"
+      "tor"
+      "settings"
+      "AutomapHostsSuffixes"
+    ])
     (mkRemovedOptionModule [
       "services"
       "tor"
@@ -280,19 +295,38 @@ in {
       "dns"
       "isolationOptions"
     ] "Use services.tor.settings.DNSPort instead.")
-    (mkRemovedOptionModule [ "services" "tor" "client" "dns" "listenAddress" ]
-      "Use services.tor.settings.DNSPort instead.")
-    (mkRemovedOptionModule [ "services" "tor" "client" "privoxy" "enable" ]
-      "Use services.privoxy.enable and services.privoxy.enableTor instead.")
-    (mkRemovedOptionModule [ "services" "tor" "client" "socksIsolationOptions" ]
-      "Use services.tor.settings.SOCKSPort instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "client"
+      "dns"
+      "listenAddress"
+    ] "Use services.tor.settings.DNSPort instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "client"
+      "privoxy"
+      "enable"
+    ] "Use services.privoxy.enable and services.privoxy.enableTor instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "client"
+      "socksIsolationOptions"
+    ] "Use services.tor.settings.SOCKSPort instead.")
     (mkRemovedOptionModule [
       "services"
       "tor"
       "client"
       "socksListenAddressFaster"
     ] "Use services.tor.settings.SOCKSPort instead.")
-    (mkRenamedOptionModule [ "services" "tor" "client" "socksPolicy" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "client"
+      "socksPolicy"
+    ] [
       "services"
       "tor"
       "settings"
@@ -312,86 +346,160 @@ in {
       "transparentProxy"
       "listenAddress"
     ] "Use services.tor.settings.TransPort instead.")
-    (mkRenamedOptionModule [ "services" "tor" "controlPort" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "controlPort"
+    ] [
       "services"
       "tor"
       "settings"
       "ControlPort"
     ])
-    (mkRemovedOptionModule [ "services" "tor" "extraConfig" ]
-      "Please use services.tor.settings instead.")
-    (mkRenamedOptionModule [ "services" "tor" "hiddenServices" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "extraConfig"
+    ] "Please use services.tor.settings instead.")
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "hiddenServices"
+    ] [
       "services"
       "tor"
       "relay"
       "onionServices"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "accountingMax" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "accountingMax"
+    ] [
       "services"
       "tor"
       "settings"
       "AccountingMax"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "accountingStart" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "accountingStart"
+    ] [
       "services"
       "tor"
       "settings"
       "AccountingStart"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "address" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "address"
+    ] [
       "services"
       "tor"
       "settings"
       "Address"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "bandwidthBurst" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "bandwidthBurst"
+    ] [
       "services"
       "tor"
       "settings"
       "BandwidthBurst"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "bandwidthRate" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "bandwidthRate"
+    ] [
       "services"
       "tor"
       "settings"
       "BandwidthRate"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "bridgeTransports" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "bridgeTransports"
+    ] [
       "services"
       "tor"
       "settings"
       "ServerTransportPlugin"
       "transports"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "contactInfo" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "contactInfo"
+    ] [
       "services"
       "tor"
       "settings"
       "ContactInfo"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "exitPolicy" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "exitPolicy"
+    ] [
       "services"
       "tor"
       "settings"
       "ExitPolicy"
     ])
-    (mkRemovedOptionModule [ "services" "tor" "relay" "isBridge" ]
-      "Use services.tor.relay.role instead.")
-    (mkRemovedOptionModule [ "services" "tor" "relay" "isExit" ]
-      "Use services.tor.relay.role instead.")
-    (mkRenamedOptionModule [ "services" "tor" "relay" "nickname" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "isBridge"
+    ] "Use services.tor.relay.role instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "isExit"
+    ] "Use services.tor.relay.role instead.")
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "nickname"
+    ] [
       "services"
       "tor"
       "settings"
       "Nickname"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "port"
+    ] [
       "services"
       "tor"
       "settings"
       "ORPort"
     ])
-    (mkRenamedOptionModule [ "services" "tor" "relay" "portSpec" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "tor"
+      "relay"
+      "portSpec"
+    ] [
       "services"
       "tor"
       "settings"
@@ -501,7 +609,12 @@ in {
         };
 
         role = mkOption {
-          type = types.enum [ "exit" "relay" "bridge" "private-bridge" ];
+          type = types.enum [
+            "exit"
+            "relay"
+            "bridge"
+            "private-bridge"
+          ];
           description = lib.mdDoc ''
             Your role in Tor network. There're several options:
 
@@ -592,9 +705,8 @@ in {
           example = {
             "example.org/www" = {
               map = [ 80 ];
-              authorizedClients = [
-                "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              ];
+              authorizedClients =
+                [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
             };
           };
           type = types.attrsOf (types.submodule ({
@@ -633,7 +745,10 @@ in {
                   }: {
                     options = {
                       authType = mkOption {
-                        type = types.enum [ "basic" "stealth" ];
+                        type = types.enum [
+                          "basic"
+                          "stealth"
+                        ];
                         description = lib.mdDoc ''
                           Either `"basic"` for a general-purpose authorization protocol
                           or `"stealth"` for a less scalable protocol
@@ -664,9 +779,8 @@ in {
                 '';
                 type = with types; listOf str;
                 default = [ ];
-                example = [
-                  "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                ];
+                example =
+                  [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
               };
               options.map = mkOption {
                 description =
@@ -704,7 +818,11 @@ in {
               options.version = mkOption {
                 description =
                   lib.mdDoc (descriptionGeneric "HiddenServiceVersion");
-                type = with types; nullOr (enum [ 2 3 ]);
+                type = with types;
+                  nullOr (enum [
+                    2
+                    3
+                  ]);
                 default = null;
               };
               options.settings = mkOption {
@@ -715,8 +833,12 @@ in {
                 default = { };
                 type = types.submodule {
                   freeformType = with types;
-                    (attrsOf (nullOr (oneOf [ str int bool (listOf str) ])))
-                    // {
+                    (attrsOf (nullOr (oneOf [
+                      str
+                      int
+                      bool
+                      (listOf str)
+                    ]))) // {
                       description = "settings option";
                     };
                   options.HiddenServiceAllowUnknownPorts =
@@ -775,7 +897,12 @@ in {
         default = { };
         type = types.submodule {
           freeformType = with types;
-            (attrsOf (nullOr (oneOf [ str int bool (listOf str) ]))) // {
+            (attrsOf (nullOr (oneOf [
+              str
+              int
+              bool
+              (listOf str)
+            ]))) // {
               description = "settings option";
             };
           options.Address = optionString "Address";
@@ -794,7 +921,10 @@ in {
           options.AutomapHostsOnResolve = optionBool "AutomapHostsOnResolve";
           options.AutomapHostsSuffixes = optionStrings "AutomapHostsSuffixes"
             // {
-              default = [ ".onion" ".exit" ];
+              default = [
+                ".onion"
+                ".exit"
+              ];
               example = [ ".onion" ];
             };
           options.BandwidthBurst = optionBandwidth "BandwidthBurst";
@@ -832,7 +962,7 @@ in {
           options.ControlPort = mkOption rec {
             description = lib.mdDoc (descriptionGeneric "ControlPort");
             default = [ ];
-            example = [{ port = 9051; }];
+            example = [ { port = 9051; } ];
             type = with types;
               oneOf [
                 port
@@ -845,8 +975,11 @@ in {
                       ...
                     }:
                     let
-                      flags =
-                        [ "GroupWritable" "RelaxDirModeCheck" "WorldWritable" ];
+                      flags = [
+                        "GroupWritable"
+                        "RelaxDirModeCheck"
+                        "WorldWritable"
+                      ];
                     in {
                       options = {
                         unix = optionUnix;
@@ -966,25 +1099,23 @@ in {
             description = lib.mdDoc (descriptionGeneric "HidServAuth");
             default = [ ];
             type = with types;
-              listOf (oneOf [
-                (submodule {
-                  options = {
-                    onion = mkOption {
-                      type = strMatching "[a-z2-7]{16}\\.onion";
-                      description = lib.mdDoc "Onion address.";
-                      example = "xxxxxxxxxxxxxxxx.onion";
-                    };
-                    auth = mkOption {
-                      type = strMatching "[A-Za-z0-9+/]{22}";
-                      description = lib.mdDoc "Authentication cookie.";
-                    };
+              listOf (oneOf [ (submodule {
+                options = {
+                  onion = mkOption {
+                    type = strMatching "[a-z2-7]{16}\\.onion";
+                    description = lib.mdDoc "Onion address.";
+                    example = "xxxxxxxxxxxxxxxx.onion";
                   };
-                })
-              ]);
-            example = [{
+                  auth = mkOption {
+                    type = strMatching "[A-Za-z0-9+/]{22}";
+                    description = lib.mdDoc "Authentication cookie.";
+                  };
+                };
+              }) ]);
+            example = [ {
               onion = "xxxxxxxxxxxxxxxx.onion";
               auth = "xxxxxxxxxxxxxxxxxxxxxx";
-            }];
+            } ];
           };
           options.HiddenServiceNonAnonymousMode =
             optionBool "HiddenServiceNonAnonymousMode";
@@ -1023,7 +1154,16 @@ in {
             description =
               lib.mdDoc (descriptionGeneric "PublishServerDescriptor");
             type = with types;
-              nullOr (enum [ false true 0 1 "0" "1" "v3" "bridge" ]);
+              nullOr (enum [
+                false
+                true
+                0
+                1
+                "0"
+                "1"
+                "v3"
+                "bridge"
+              ]);
             default = null;
           };
           options.ReducedExitPolicy = optionBool "ReducedExitPolicy";
@@ -1056,7 +1196,12 @@ in {
                     transports = mkOption {
                       description = lib.mdDoc "List of pluggable transports.";
                       type = listOf str;
-                      example = [ "obfs2" "obfs3" "obfs4" "scramblesuit" ];
+                      example = [
+                        "obfs2"
+                        "obfs3"
+                        "obfs4"
+                        "scramblesuit"
+                      ];
                     };
                     exec = mkOption {
                       type = types.str;
@@ -1076,16 +1221,16 @@ in {
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
             default =
-              if cfg.settings.HiddenServiceNonAnonymousMode == true then [{
+              if cfg.settings.HiddenServiceNonAnonymousMode == true then [ {
                 port = 0;
-              }] else
+              } ] else
                 [ ];
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
               else [ ]
             '';
-            example = [{ port = 9090; }];
+            example = [ { port = 9090; } ];
             type = types.listOf (optionSOCKSPort true);
           };
           options.TestingTorNetwork = optionBool "TestingTorNetwork";
@@ -1093,7 +1238,12 @@ in {
           options.TransProxyType = mkOption {
             description = lib.mdDoc (descriptionGeneric "TransProxyType");
             type = with types;
-              nullOr (enum [ "default" "TPROXY" "ipfw" "pf-divert" ]);
+              nullOr (enum [
+                "default"
+                "TPROXY"
+                "ipfw"
+                "pf-divert"
+              ]);
             default = null;
           };
           #options.TruncateLogFile
@@ -1130,21 +1280,20 @@ in {
         actually hide your hidden services. In either case, you can
         always create a container/VM with a separate Tor daemon instance.
       '' ++ flatten (mapAttrsToList (n: o:
-        optionals (o.settings.HiddenServiceVersion == 2) [
-          (optional (o.settings.HiddenServiceExportCircuitID != null) ''
+        optionals (o.settings.HiddenServiceVersion == 2) [ (optional
+          (o.settings.HiddenServiceExportCircuitID != null) ''
             HiddenServiceExportCircuitID is used in the HiddenService: ${n}
             but this option is only for v3 hidden services.
-          '')
-        ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
-          (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
-            HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
-            but this option is only for v2 hidden services.
-          '')
-          (optional (o.settings.RendPostPeriod != null) ''
-            RendPostPeriod is used in the HiddenService: ${n}
-            but this option is only for v2 hidden services.
-          '')
-        ]) cfg.relay.onionServices);
+          '') ] ++ optionals (o.settings.HiddenServiceVersion != 2) [
+            (optional (o.settings.HiddenServiceAuthorizeClient != null) ''
+              HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
+              but this option is only for v2 hidden services.
+            '')
+            (optional (o.settings.RendPostPeriod != null) ''
+              RendPostPeriod is used in the HiddenService: ${n}
+              but this option is only for v2 hidden services.
+            '')
+          ]) cfg.relay.onionServices);
 
     users.groups.tor.gid = config.ids.gids.tor;
     users.users.tor = {
@@ -1161,15 +1310,18 @@ in {
         GeoIPv6File = "${cfg.package.geoip}/share/tor/geoip6";
       })
       (mkIf cfg.controlSocket.enable {
-        ControlPort = [{
+        ControlPort = [ {
           unix = runDir + "/control";
           GroupWritable = true;
           RelaxDirModeCheck = true;
-        }];
+        } ];
       })
       (mkIf cfg.relay.enable (optionalAttrs (cfg.relay.role != "exit") {
         ExitPolicy = mkForce [ "reject *:*" ];
-      } // optionalAttrs (elem cfg.relay.role [ "bridge" "private-bridge" ]) {
+      } // optionalAttrs (elem cfg.relay.role [
+        "bridge"
+        "private-bridge"
+      ]) {
         BridgeRelay = true;
         ExtORPort.port = mkDefault "auto";
         ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
@@ -1197,15 +1349,15 @@ in {
       (mkIf cfg.client.enable ({
         SOCKSPort = [ cfg.client.socksListenAddress ];
       } // optionalAttrs cfg.client.transparentProxy.enable {
-        TransPort = [{
+        TransPort = [ {
           addr = "127.0.0.1";
           port = 9040;
-        }];
+        } ];
       } // optionalAttrs cfg.client.dns.enable {
-        DNSPort = [{
+        DNSPort = [ {
           addr = "127.0.0.1";
           port = 9053;
-        }];
+        } ];
         AutomapHostsOnResolve = true;
       } // optionalAttrs (flatten
         (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
@@ -1214,12 +1366,12 @@ in {
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = concatMap (o:
-        if isInt o && o > 0 then
-          [ o ]
-        else if o ? "port" && isInt o.port && o.port > 0 then
-          [ o.port ]
-        else
-          [ ]) (flatten [ cfg.settings.ORPort cfg.settings.DirPort ]);
+        if isInt o && o > 0 then [ o ] else if o ? "port" && isInt o.port
+        && o.port > 0 then [ o.port ] else
+          [ ]) (flatten [
+            cfg.settings.ORPort
+            cfg.settings.DirPort
+          ]);
     };
 
     systemd.services.tor = {
@@ -1289,7 +1441,10 @@ in {
         ];
         RuntimeDirectoryMode = "0710";
         StateDirectoryMode = "0700";
-        StateDirectory = [ "tor" "tor/onion" ] ++ flatten (mapAttrsToList
+        StateDirectory = [
+          "tor"
+          "tor/onion"
+        ] ++ flatten (mapAttrsToList
           (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
           cfg.relay.onionServices);
         # The following options are only to optimize:
@@ -1299,11 +1454,13 @@ in {
         #InaccessiblePaths = [ "-+${runDir}/root" ];
         UMask = "0066";
         BindPaths = [ stateDir ];
-        BindReadOnlyPaths = [ storeDir "/etc" ]
-          ++ optionals config.services.resolved.enable [
-            "/run/systemd/resolve/stub-resolv.conf"
-            "/run/systemd/resolve/resolv.conf"
-          ];
+        BindReadOnlyPaths = [
+          storeDir
+          "/etc"
+        ] ++ optionals config.services.resolved.enable [
+          "/run/systemd/resolve/stub-resolv.conf"
+          "/run/systemd/resolve/resolv.conf"
+        ];
         AmbientCapabilities = [ "" ]
           ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet = [ "" ]
@@ -1331,8 +1488,12 @@ in {
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies =
-          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

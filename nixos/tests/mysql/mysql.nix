@@ -20,7 +20,12 @@ let
     }:
     makeTest {
       inherit name;
-      meta = with lib.maintainers; { maintainers = [ ajs124 das_j ]; };
+      meta = with lib.maintainers; {
+        maintainers = [
+          ajs124
+          das_j
+        ];
+      };
 
       nodes = {
         ${name} = {
@@ -44,10 +49,10 @@ let
 
             services.mysql = {
               enable = true;
-              initialDatabases = [{
+              initialDatabases = [ {
                 name = "testdb3";
                 schema = ./testdb.sql;
-              }];
+              } ];
               # note that using pkgs.writeText here is generally not a good idea,
               # as it will store the password in world-readable /nix/store ;)
               initialScript = pkgs.writeText "mysql-init.sql"
@@ -61,7 +66,10 @@ let
                   FLUSH PRIVILEGES;
                 '');
 
-              ensureDatabases = [ "testdb" "testdb2" ];
+              ensureDatabases = [
+                "testdb"
+                "testdb2"
+              ];
               ensureUsers = [
                 {
                   name = "testuser";

@@ -45,8 +45,15 @@ else
       sha256 = cargoSha256;
     };
 
-    nativeBuildInputs = [ cmake corrosion extra-cmake-modules ]
-      ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+    nativeBuildInputs = [
+      cmake
+      corrosion
+      extra-cmake-modules
+    ] ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
     buildInputs = [
       kconfig

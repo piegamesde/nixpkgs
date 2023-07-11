@@ -30,9 +30,15 @@ buildPythonPackage rec {
       --replace "--cov=numpydoc" ""
   '';
 
-  propagatedBuildInputs = [ jinja2 sphinx ];
+  propagatedBuildInputs = [
+    jinja2
+    sphinx
+  ];
 
-  nativeCheckInputs = [ matplotlib pytestCheckHook ];
+  nativeCheckInputs = [
+    matplotlib
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # https://github.com/numpy/numpydoc/issues/373

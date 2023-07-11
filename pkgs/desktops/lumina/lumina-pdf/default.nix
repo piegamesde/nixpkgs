@@ -21,16 +21,24 @@ mkDerivation rec {
 
   sourceRoot = "source/src-qt5";
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
-  buildInputs = [ qtbase poppler ];
+  buildInputs = [
+    qtbase
+    poppler
+  ];
 
   postPatch = ''
     sed -i '1i\#include <memory>\' Renderer-poppler.cpp
   '';
 
-  qmakeFlags =
-    [ "CONFIG+=WITH_I18N" "LRELEASE=${lib.getDev qttools}/bin/lrelease" ];
+  qmakeFlags = [
+    "CONFIG+=WITH_I18N"
+    "LRELEASE=${lib.getDev qttools}/bin/lrelease"
+  ];
 
   enableParallelBuilding = false;
 

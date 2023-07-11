@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "1xi6df93ggkpmwckwbi356v7m32zv5qry8s45hvsps66dz438kmi";
   };
 
-  nativeBuildInputs = [ cython pkgconfig ];
+  nativeBuildInputs = [
+    cython
+    pkgconfig
+  ];
 
   buildInputs = [ capnproto ];
 
@@ -32,7 +35,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://capnproto.github.io/pycapnp/";
-    maintainers = with maintainers; [ cstrahan lukeadams ];
+    maintainers = with maintainers; [
+      cstrahan
+      lukeadams
+    ];
     license = licenses.bsd2;
   };
 }

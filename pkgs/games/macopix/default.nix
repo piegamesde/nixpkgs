@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk openssl ];
+  buildInputs = [
+    gtk
+    openssl
+  ];
 
   preConfigure = ''
     # Build fails on Linux with windres.

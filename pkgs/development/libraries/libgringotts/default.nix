@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ zlib bzip2 libmcrypt libmhash ];
+  buildInputs = [
+    zlib
+    bzip2
+    libmcrypt
+    libmhash
+  ];
 
   meta = with lib; {
     description =

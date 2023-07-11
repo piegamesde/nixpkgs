@@ -21,11 +21,17 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-8wEHvLBi4JIKeQ//+lbZUSNIVGhZNkwjoUviZLOINqA=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
   separateDebugInfo = stdenv.isLinux && stdenv.hostPlatform.libc != "musl";
 
-  configureFlags = [ "--enable-cplusplus" "--with-libatomic-ops=none" ]
-    ++ lib.optional enableMmap "--enable-mmap"
+  configureFlags = [
+    "--enable-cplusplus"
+    "--with-libatomic-ops=none"
+  ] ++ lib.optional enableMmap "--enable-mmap"
     ++ lib.optional enableLargeConfig "--enable-large-config";
 
   # This stanza can be dropped when a release fixes this issue:

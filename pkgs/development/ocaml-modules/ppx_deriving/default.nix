@@ -44,7 +44,10 @@ in buildDunePackage rec {
   strictDeps = true;
 
   nativeBuildInputs = [ cppo ];
-  buildInputs = [ findlib ppxlib ];
+  buildInputs = [
+    findlib
+    ppxlib
+  ];
   propagatedBuildInputs = [
     (if params.useOMP2 then
       ocaml-migrate-parsetree-2

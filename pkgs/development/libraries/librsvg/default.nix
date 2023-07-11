@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
   pname = "librsvg";
   version = "2.55.1";
 
-  outputs = [ "out" "dev" ] ++ lib.optionals withIntrospection [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withIntrospection [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -64,7 +67,10 @@ stdenv.mkDerivation rec {
     python3Packages.docutils
     vala
     rustPlatform.cargoSetupHook
-  ] ++ lib.optionals withIntrospection [ gobject-introspection gi-docgen ];
+  ] ++ lib.optionals withIntrospection [
+    gobject-introspection
+    gi-docgen
+  ];
 
   buildInputs = [
     libxml2
@@ -72,9 +78,17 @@ stdenv.mkDerivation rec {
     pango
     libintl
     vala # for share/vala/Makefile.vapigen
-  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices Foundation libobjc ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    ApplicationServices
+    Foundation
+    libobjc
+  ];
 
-  propagatedBuildInputs = [ glib gdk-pixbuf cairo ];
+  propagatedBuildInputs = [
+    glib
+    gdk-pixbuf
+    cairo
+  ];
 
   configureFlags = [
     (lib.enableFeature withIntrospection "introspection")
@@ -152,7 +166,13 @@ stdenv.mkDerivation rec {
           "sh"
           "-c"
           ''
-            PATH=${lib.makeBinPath [ common-updater-scripts jq nix ]}
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+                jq
+                nix
+              ]
+            }
             # update-source-version does not allow updating to the same version so we need to clear it temporarily.
             # Get the current version so that we can restore it later.
             latestVersion=$(nix-instantiate --eval -A librsvg.version | jq --raw-output)

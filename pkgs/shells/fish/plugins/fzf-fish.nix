@@ -24,8 +24,16 @@ in buildFishPlugin rec {
     sha256 = "sha256-haNSqXJzLL3JGvD4JrASVmhLJz6i9lna6/EdojXdFOo=";
   };
 
-  nativeCheckInputs = [ fzf fd util-linux procps ];
-  checkPlugins = [ clownfish fishtape_3 ];
+  nativeCheckInputs = [
+    fzf
+    fd
+    util-linux
+    procps
+  ];
+  checkPlugins = [
+    clownfish
+    fishtape_3
+  ];
   checkFunctionDirs = [ "./functions" ];
   checkPhase = ''
     # Disable git tests which inspect the project's git repo, which isn't
@@ -49,6 +57,9 @@ in buildFishPlugin rec {
     description = "Augment your fish command line with fzf key bindings";
     homepage = "https://github.com/PatrickF1/fzf.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ pacien natsukium ];
+    maintainers = with maintainers; [
+      pacien
+      natsukium
+    ];
   };
 }

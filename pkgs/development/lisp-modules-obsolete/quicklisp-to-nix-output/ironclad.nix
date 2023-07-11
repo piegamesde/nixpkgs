@@ -101,7 +101,11 @@ args@{
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."rt" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."rt"
+  ];
 
   src = fetchurl {
     url =

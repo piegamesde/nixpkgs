@@ -27,7 +27,13 @@ buildDunePackage rec {
 
   buildInputs = [ cmdliner ];
 
-  propagatedBuildInputs = [ angstrom ipaddr base64 pecu uutf ];
+  propagatedBuildInputs = [
+    angstrom
+    ipaddr
+    base64
+    pecu
+    uutf
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

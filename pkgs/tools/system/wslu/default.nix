@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
       --subst-var out
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     description = "A collection of utilities for Windows Subsystem for Linux";

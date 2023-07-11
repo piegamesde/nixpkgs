@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     owner = "git-latexdiff";
   };
 
-  buildInputs = [ git bash ];
+  buildInputs = [
+    git
+    bash
+  ];
 
   dontBuild = true;
 

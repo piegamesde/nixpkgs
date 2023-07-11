@@ -18,14 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9eX6j/cvN/CoqrHrh9mZEsUJ8viDWIGxIva1xFwIK7c=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./exec-path.patch;
-      # sendto device selection is removed in gnome-bluetooth 42
-      # https://github.com/elementary/gnome-bluetooth-contract/issues/1
-      gnome_bluetooth = gnome-bluetooth_1_0;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./exec-path.patch;
+    # sendto device selection is removed in gnome-bluetooth 42
+    # https://github.com/elementary/gnome-bluetooth-contract/issues/1
+    gnome_bluetooth = gnome-bluetooth_1_0;
+  }) ];
 
   dontConfigure = true;
 

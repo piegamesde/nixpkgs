@@ -33,17 +33,29 @@ buildGoModule rec {
     hash = "sha256-GmNyjXt5eskf59e9dt1OLB4gayBFbk/pG+7dJ5qoO+Q=";
   };
 
-  nativeBuildInputs = [ nodejs npmHooks.npmConfigHook ];
+  nativeBuildInputs = [
+    nodejs
+    npmHooks.npmConfigHook
+  ];
 
   overrideModAttrs = _: {
-    nativeBuildInputs = [ enumer go git cacert mockgen ];
+    nativeBuildInputs = [
+      enumer
+      go
+      git
+      cacert
+      mockgen
+    ];
 
     preBuild = ''
       make assets
     '';
   };
 
-  tags = [ "release" "test" ];
+  tags = [
+    "release"
+    "test"
+  ];
 
   ldflags = [
     "-X github.com/evcc-io/evcc/server.Version=${version}"

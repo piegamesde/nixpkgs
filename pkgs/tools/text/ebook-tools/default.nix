@@ -17,8 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "1bi7wsz3p5slb43kj7lgb3r6lb91lvb6ldi556k4y50ix6b5khyb";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libxml2 libzip ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libxml2
+    libzip
+  ];
 
   meta = with lib; {
     homepage = "http://ebook-tools.sourceforge.net";

@@ -81,7 +81,10 @@ stdenv.mkDerivation rec {
     runHook preFixup
     wrapProgram $out/bin/therion \
       --prefix PATH : ${
-        lib.makeBinPath [ survex texlive.combined.scheme-tetex ]
+        lib.makeBinPath [
+          survex
+          texlive.combined.scheme-tetex
+        ]
       }
     wrapProgram $out/bin/xtherion \
       --prefix PATH : ${lib.makeBinPath [ tk ]}

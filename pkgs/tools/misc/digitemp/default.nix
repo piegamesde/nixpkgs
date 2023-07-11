@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "LOCK=no" "ds9097" "ds9097u" ];
+  makeFlags = [
+    "LOCK=no"
+    "ds9097"
+    "ds9097u"
+  ];
 
   installPhase = ''
     runHook preInstall

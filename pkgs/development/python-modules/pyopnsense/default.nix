@@ -22,9 +22,18 @@ buildPythonPackage rec {
     sha256 = "06rssdb3zhccnm63z96mw5yd38d9i99fgigfcdxn9divalbbhp5a";
   };
 
-  propagatedBuildInputs = [ pbr six requests ];
+  propagatedBuildInputs = [
+    pbr
+    six
+    requests
+  ];
 
-  nativeCheckInputs = [ fixtures mock pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    fixtures
+    mock
+    pytest-cov
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyopnsense" ];
 

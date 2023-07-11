@@ -16,7 +16,11 @@ let
 
   # Aliases added 2023-03-21
   versionLoop = f:
-    lib.lists.foldr (version: acc: (f version) // acc) { } [ "25" "24" "23" ];
+    lib.lists.foldr (version: acc: (f version) // acc) { } [
+      "25"
+      "24"
+      "23"
+    ];
 
   interpretersAliases = versionLoop (version: {
     "erlangR${version}" = self.interpreters."erlang_${version}";

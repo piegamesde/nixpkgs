@@ -20,10 +20,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ perl libparserutils buildsystem ];
+  buildInputs = [
+    perl
+    libparserutils
+    buildsystem
+  ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+  ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/projects/hubbub/";
@@ -39,7 +45,10 @@ stdenv.mkDerivation rec {
       content well.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.vrthra
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

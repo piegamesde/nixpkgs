@@ -22,8 +22,18 @@ mkDerivation rec {
     sha256 = "1612lkwsfzc59wvdj2zbj5cwsyw66bwn31jrzjrxvygxdh4ab069";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
-  buildInputs = [ qtbase qttools qtmultimedia libvorbis libtar libxml2 ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtmultimedia
+    libvorbis
+    libtar
+    libxml2
+  ];
 
   postPatch = ''
     substituteInPlace stopmotion.pro --replace '$$[QT_INSTALL_BINS]' '${

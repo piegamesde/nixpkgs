@@ -23,7 +23,12 @@ let
   };
 
   tincConfType = with types;
-    let valueType = oneOf [ bool str int ];
+    let
+      valueType = oneOf [
+        bool
+        str
+        int
+      ];
     in attrsOf (either valueType (listOf valueType));
 
   addressSubmodule = {
@@ -272,7 +277,10 @@ in {
 
                 interfaceType = mkOption {
                   default = "tun";
-                  type = types.enum [ "tun" "tap" ];
+                  type = types.enum [
+                    "tun"
+                    "tap"
+                  ];
                   description = lib.mdDoc ''
                     The type of virtual interface used for the network connection.
                   '';
@@ -394,8 +402,9 @@ in {
         description = "Tinc Daemon - ${network}";
         wantedBy = [ "multi-user.target" ];
         path = [ data.package ];
-        reloadTriggers = mkIf (versionAtLeast version "1.1pre")
-          [ (builtins.toJSON etcConfig) ];
+        reloadTriggers =
+          mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON
+            etcConfig) ];
         restartTriggers =
           mkIf (versionOlder version "1.1pre") [ (builtins.toJSON etcConfig) ];
         serviceConfig = {
@@ -466,5 +475,8 @@ in {
       (network: _: nameValuePair "tinc.${network}" { });
   });
 
-  meta.maintainers = with maintainers; [ minijackson mic92 ];
+  meta.maintainers = with maintainers; [
+    minijackson
+    mic92
+  ];
 }

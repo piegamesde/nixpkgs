@@ -21,11 +21,23 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0kqqfzq6bh03n7kxb9vd483bqi1cklfvj35a7h4iqk96sq1xv8z6";
   };
 
-  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib gtk3 libnotify ];
+  buildInputs = [
+    glib
+    gtk3
+    libnotify
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ chardet pygobject3 requests ];
+  propagatedBuildInputs = with python3Packages; [
+    chardet
+    pygobject3
+    requests
+  ];
 
   # Patch the many hardcoded uses of /usr/share/ and /usr/bin
   postPatch = ''
@@ -54,6 +66,9 @@ python3Packages.buildPythonApplication rec {
     longDescription =
       "BleachBit helps you easily clean your computer to free space and maintain privacy.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leonardoce mbprtpmnr ];
+    maintainers = with maintainers; [
+      leonardoce
+      mbprtpmnr
+    ];
   };
 }

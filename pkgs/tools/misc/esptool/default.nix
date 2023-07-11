@@ -23,7 +23,10 @@ python3.pkgs.buildPythonApplication rec {
     reedsolo
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pyelftools pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pyelftools
+    pytestCheckHook
+  ];
 
   # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''
@@ -43,7 +46,10 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/espressif/esptool";
     license = licenses.gpl2Plus;
     maintainers = with maintainers;
-      [ dezgeg dotlambda ] ++ teams.lumiguide.members;
+      [
+        dezgeg
+        dotlambda
+      ] ++ teams.lumiguide.members;
     platforms = with platforms; linux ++ darwin;
   };
 }

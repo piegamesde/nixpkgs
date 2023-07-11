@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "07kwika1zdq62s5p5z94xznm77dxjxdg8k0hrg7wygz50151nzmx";
   };
 
-  buildInputs = [ libpcap openssl libnetfilter_queue libnfnetlink ];
+  buildInputs = [
+    libpcap
+    openssl
+    libnetfilter_queue
+    libnfnetlink
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

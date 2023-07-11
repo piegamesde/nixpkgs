@@ -20,12 +20,25 @@ python3Packages.buildPythonApplication rec {
   };
 
   buildInputs = [ qt5.qtwayland ];
-  propagatedBuildInputs = with python3Packages; [ git pyqt5 qtpy send2trash ];
-  nativeBuildInputs = [ gettext qt5.wrapQtAppsHook ];
-  nativeCheckInputs = with python3Packages; [ git pytestCheckHook ];
+  propagatedBuildInputs = with python3Packages; [
+    git
+    pyqt5
+    qtpy
+    send2trash
+  ];
+  nativeBuildInputs = [
+    gettext
+    qt5.wrapQtAppsHook
+  ];
+  nativeCheckInputs = with python3Packages; [
+    git
+    pytestCheckHook
+  ];
 
-  disabledTestPaths = [ "qtpy/" "contrib/win32" ]
-    ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ];
+  disabledTestPaths = [
+    "qtpy/"
+    "contrib/win32"
+  ] ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

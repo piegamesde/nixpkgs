@@ -222,53 +222,54 @@ in rec {
         src = mkLib "src/best-lib.rs";
       };
       crateBinWithPath = {
-        crateBin = [{
+        crateBin = [ {
           name = "test_binary1";
           path = "src/foobar.rs";
-        }];
+        } ];
         src = mkBin "src/foobar.rs";
       };
       crateBinNoPath1 = {
-        crateBin = [{ name = "my-binary2"; }];
+        crateBin = [ { name = "my-binary2"; } ];
         src = mkBin "src/my_binary2.rs";
       };
       crateBinNoPath2 = {
-        crateBin = [ { name = "my-binary3"; } { name = "my-binary4"; } ];
+        crateBin = [
+          { name = "my-binary3"; }
+          { name = "my-binary4"; }
+        ];
         src = symlinkJoin {
           name = "buildRustCrateMultipleBinariesCase";
-          paths =
-            [ (mkBin "src/bin/my_binary3.rs") (mkBin "src/bin/my_binary4.rs") ];
+          paths = [
+            (mkBin "src/bin/my_binary3.rs")
+            (mkBin "src/bin/my_binary4.rs")
+          ];
         };
       };
       crateBinNoPath3 = {
-        crateBin = [{ name = "my-binary5"; }];
+        crateBin = [ { name = "my-binary5"; } ];
         src = mkBin "src/bin/main.rs";
       };
       crateBinNoPath4 = {
-        crateBin = [{ name = "my-binary6"; }];
+        crateBin = [ { name = "my-binary6"; } ];
         src = mkBin "src/main.rs";
       };
       crateBinRename1 = {
-        crateBin = [{ name = "my-binary-rename1"; }];
+        crateBin = [ { name = "my-binary-rename1"; } ];
         src = mkBinExtern "src/main.rs" "foo_renamed";
-        dependencies = [
-          (mkHostCrate {
-            crateName = "foo";
-            src = mkLib "src/lib.rs";
-          })
-        ];
+        dependencies = [ (mkHostCrate {
+          crateName = "foo";
+          src = mkLib "src/lib.rs";
+        }) ];
         crateRenames = { "foo" = "foo_renamed"; };
       };
       crateBinRename2 = {
-        crateBin = [{ name = "my-binary-rename2"; }];
+        crateBin = [ { name = "my-binary-rename2"; } ];
         src = mkBinExtern "src/main.rs" "foo_renamed";
-        dependencies = [
-          (mkHostCrate {
-            crateName = "foo";
-            libName = "foolib";
-            src = mkLib "src/lib.rs";
-          })
-        ];
+        dependencies = [ (mkHostCrate {
+          crateName = "foo";
+          libName = "foolib";
+          src = mkLib "src/lib.rs";
+        }) ];
         crateRenames = { "foo" = "foo_renamed"; };
       };
       crateBinRenameMultiVersion = let
@@ -286,19 +287,20 @@ in rec {
         crateName = "my_bin";
         src = symlinkJoin {
           name = "my_bin_src";
-          paths = [
-            (mkFile "src/main.rs" ''
-              #[test]
-              fn my_lib_01() { assert_eq!(lib01::version, "0.1.2"); }
+          paths = [ (mkFile "src/main.rs" ''
+            #[test]
+            fn my_lib_01() { assert_eq!(lib01::version, "0.1.2"); }
 
-              #[test]
-              fn my_lib_02() { assert_eq!(lib02::version, "0.2.1"); }
+            #[test]
+            fn my_lib_02() { assert_eq!(lib02::version, "0.2.1"); }
 
-              fn main() { }
-            '')
-          ];
+            fn main() { }
+          '') ];
         };
-        dependencies = [ depCrate01 depCrate02 ];
+        dependencies = [
+          depCrate01
+          depCrate02
+        ];
         crateRenames = {
           "my_lib" = [
             {
@@ -312,8 +314,10 @@ in rec {
           ];
         };
         buildTests = true;
-        expectedTestOutputs =
-          [ "test my_lib_01 ... ok" "test my_lib_02 ... ok" ];
+        expectedTestOutputs = [
+          "test my_lib_01 ... ok"
+          "test my_lib_02 ... ok"
+        ];
       };
       rustLibTestsDefault = {
         src = mkTestFile "src/lib.rs" "baz";
@@ -336,7 +340,10 @@ in rec {
           ];
         };
         buildTests = true;
-        expectedTestOutputs = [ "test bar ... ok" "test something ... ok" ];
+        expectedTestOutputs = [
+          "test bar ... ok"
+          "test something ... ok"
+        ];
       };
       rustBinTestsCombined = {
         src = symlinkJoin {
@@ -376,13 +383,11 @@ in rec {
           extern crate somerlib;
           fn main() {}
         '';
-        dependencies = [
-          (mkHostCrate {
-            crateName = "somerlib";
-            type = [ "rlib" ];
-            src = mkLib "src/lib.rs";
-          })
-        ];
+        dependencies = [ (mkHostCrate {
+          crateName = "somerlib";
+          type = [ "rlib" ];
+          src = mkLib "src/lib.rs";
+        }) ];
       };
       buildScriptDeps = let
         depCrate = buildRustCrate: boolVal:
@@ -417,7 +422,10 @@ in rec {
       };
       buildScriptFeatureEnv = {
         crateName = "build-script-feature-env";
-        features = [ "some-feature" "crate/another_feature" ];
+        features = [
+          "some-feature"
+          "crate/another_feature"
+        ];
         src = symlinkJoin {
           name = "build-script-feature-env";
           paths = [
@@ -555,7 +563,10 @@ in rec {
               printf("hello");
             }
           '';
-        in [ a b ];
+        in [
+          a
+          b
+        ];
       };
       rustCargoTomlInSubDir = {
         # The "workspace_member" can be set to the sub directory with the crate to build.
@@ -596,11 +607,9 @@ in rec {
         edition = "2018";
         src = symlinkJoin {
           name = "proc-macro-in-prelude";
-          paths = [
-            (mkFile "src/lib.rs" ''
-              use proc_macro::TokenTree;
-            '')
-          ];
+          paths = [ (mkFile "src/lib.rs" ''
+            use proc_macro::TokenTree;
+          '') ];
         };
       };
     };
@@ -618,10 +627,10 @@ in rec {
     crateBinWithPathOutputs = assertOutputs {
       name = "crateBinWithPath";
       crateArgs = {
-        crateBin = [{
+        crateBin = [ {
           name = "test_binary1";
           path = "src/foobar.rs";
-        }];
+        } ];
         src = mkBin "src/foobar.rs";
       };
       expectedFiles = [ "./bin/test_binary1" ];
@@ -631,10 +640,10 @@ in rec {
       name = "crateBinWithPath";
       crateArgs = {
         release = false;
-        crateBin = [{
+        crateBin = [ {
           name = "test_binary1";
           path = "src/foobar.rs";
-        }];
+        } ];
         src = mkBin "src/foobar.rs";
       };
       expectedFiles = [ "./bin/test_binary1" ]
@@ -648,7 +657,7 @@ in rec {
     crateBinNoPath1Outputs = assertOutputs {
       name = "crateBinNoPath1";
       crateArgs = {
-        crateBin = [{ name = "my-binary2"; }];
+        crateBin = [ { name = "my-binary2"; } ];
         src = mkBin "src/my_binary2.rs";
       };
       expectedFiles = [ "./bin/my-binary2" ];

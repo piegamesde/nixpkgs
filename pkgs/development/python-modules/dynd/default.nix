@@ -33,8 +33,14 @@ buildPythonPackage rec {
   # figure out.
   doCheck = !isPy3k;
   nativeBuildInputs = [ pkgs.cmake ];
-  buildInputs = [ pkgs.libdynd.dev cython ];
-  propagatedBuildInputs = [ numpy pkgs.libdynd ];
+  buildInputs = [
+    pkgs.libdynd.dev
+    cython
+  ];
+  propagatedBuildInputs = [
+    numpy
+    pkgs.libdynd
+  ];
 
   meta = with lib; {
     homepage = "http://libdynd.org";

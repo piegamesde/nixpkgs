@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1k4v53pm3xivwg9vq2kndpcmah0yn4679r5jzxvg38bbkfdk86c1";
   };
 
-  buildInputs = [ fzf xclip ];
+  buildInputs = [
+    fzf
+    xclip
+  ];
 
   preInstall = ''
     substituteInPlace unipicker \
@@ -28,7 +31,10 @@ stdenv.mkDerivation rec {
       --replace "fzf" "${fzf}/bin/fzf"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "DESTDIR=$(out)"
+  ];
 
   meta = with lib; {
     description =

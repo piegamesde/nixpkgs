@@ -17,7 +17,10 @@ let
 
   cfg = config.services.geoclue2;
 
-  defaultWhitelist = [ "gnome-shell" "io.elementary.desktop.agent-geoclue2" ];
+  defaultWhitelist = [
+    "gnome-shell"
+    "io.elementary.desktop.agent-geoclue2"
+  ];
 
   appConfigModule = types.submodule ({
       name,

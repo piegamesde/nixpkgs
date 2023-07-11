@@ -76,8 +76,16 @@ in stdenv.mkDerivation rec {
     xmlto
   ];
 
-  buildInputs =
-    [ (lib.getDev glib) libxcrypt gnutls json-glib krb5 libssh polkit udev ];
+  buildInputs = [
+    (lib.getDev glib)
+    libxcrypt
+    gnutls
+    json-glib
+    krb5
+    libssh
+    polkit
+    udev
+  ];
 
   postPatch = ''
     # Instead of requiring Internet access to do an npm install to generate the package-lock.json
@@ -170,7 +178,12 @@ in stdenv.mkDerivation rec {
     runHook preFixup
 
     wrapProgram $out/libexec/cockpit-certificate-helper \
-      --prefix PATH : ${lib.makeBinPath [ coreutils openssl ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          openssl
+        ]
+      } \
       --run 'cd $(mktemp -d)'
 
     wrapProgram $out/share/cockpit/motd/update-motd \

@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "coqpit" "coqpit.coqpit" ];
+  pythonImportsCheck = [
+    "coqpit"
+    "coqpit.coqpit"
+  ];
 
   meta = with lib; {
     description =

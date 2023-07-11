@@ -71,7 +71,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/akiraux/Akira";
     license = licenses.gpl3Plus;
     maintainers = with maintainers;
-      [ Br1ght0ne neonfuz ] ++ teams.pantheon.members;
+      [
+        Br1ght0ne
+        neonfuz
+      ] ++ teams.pantheon.members;
     platforms = platforms.linux;
     mainProgram = "com.github.akiraux.akira";
   };

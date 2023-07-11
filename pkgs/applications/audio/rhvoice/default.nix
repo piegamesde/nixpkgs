@@ -33,9 +33,18 @@ stdenv.mkDerivation rec {
     ./honor_nix_environment.patch
   ];
 
-  nativeBuildInputs = [ ensureNewerSourcesForZipFilesHook pkg-config scons ];
+  nativeBuildInputs = [
+    ensureNewerSourcesForZipFilesHook
+    pkg-config
+    scons
+  ];
 
-  buildInputs = [ glibmm libpulseaudio libao speechd ];
+  buildInputs = [
+    glibmm
+    libpulseaudio
+    libao
+    speechd
+  ];
 
   meta = {
     description =

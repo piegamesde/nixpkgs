@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
   pname = "cowsay";
   version = "3.7.0";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "cowsay-org";
@@ -58,6 +61,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/cowsay-org/cowsay/releases/tag/v${version}";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rob anthonyroussel ];
+    maintainers = with maintainers; [
+      rob
+      anthonyroussel
+    ];
   };
 }

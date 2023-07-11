@@ -33,9 +33,18 @@ buildPythonPackage rec {
 
   # strong cycle with paramaterized
   doCheck = false;
-  nativeCheckInputs = [ pyftpdlib mock psutil pytestCheckHook ];
-  propagatedBuildInputs = [ six appdirs pytz setuptools ]
-    ++ lib.optionals (!isPy3k) [ backports_os ]
+  nativeCheckInputs = [
+    pyftpdlib
+    mock
+    psutil
+    pytestCheckHook
+  ];
+  propagatedBuildInputs = [
+    six
+    appdirs
+    pytz
+    setuptools
+  ] ++ lib.optionals (!isPy3k) [ backports_os ]
     ++ lib.optionals (!pythonAtLeast "3.6") [ typing ]
     ++ lib.optionals (!pythonAtLeast "3.5") [ scandir ]
     ++ lib.optionals (!pythonAtLeast "3.5") [ enum34 ];

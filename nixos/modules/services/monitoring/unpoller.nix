@@ -15,12 +15,13 @@ let
   });
 
 in {
-  imports = [
-    (lib.mkRenamedOptionModule [ "services" "unifi-poller" ] [
-      "services"
-      "unpoller"
-    ])
-  ];
+  imports = [ (lib.mkRenamedOptionModule [
+    "services"
+    "unifi-poller"
+  ] [
+    "services"
+    "unpoller"
+  ]) ];
 
   options.services.unpoller = {
     enable = mkEnableOption (lib.mdDoc "unpoller");
@@ -213,7 +214,11 @@ in {
           '';
         };
         sites = mkOption {
-          type = with types; either (enum [ "default" "all" ]) (listOf str);
+          type = with types;
+            either (enum [
+              "default"
+              "all"
+            ]) (listOf str);
           default = "all";
           description = lib.mdDoc ''
             List of site names for which statistics should be exported.

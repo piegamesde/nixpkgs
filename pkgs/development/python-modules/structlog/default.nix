@@ -27,7 +27,11 @@ buildPythonPackage rec {
     hash = "sha256-+r+M+uTXdNBWQf0TGQuZgsCXg2CBKwH8ZE2+uAe0Dzg=";
   };
 
-  nativeBuildInputs = [ hatch-fancy-pypi-readme hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-fancy-pypi-readme
+    hatch-vcs
+    hatchling
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -36,8 +40,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "structlog" ];
 
-  nativeCheckInputs =
-    [ freezegun pretend pytest-asyncio pytestCheckHook simplejson ];
+  nativeCheckInputs = [
+    freezegun
+    pretend
+    pytest-asyncio
+    pytestCheckHook
+    simplejson
+  ];
 
   meta = with lib; {
     description = "Painless structural logging";

@@ -172,7 +172,10 @@ let
           --exclude-regex="$(
             <${
               pkgs.closureInfo {
-                rootPaths = [ config.system.build.toplevel regInfo ];
+                rootPaths = [
+                  config.system.build.toplevel
+                  regInfo
+                ];
               }
             }/store-paths \
               sed -e 's^.*/^^g' \
@@ -303,15 +306,27 @@ let
 in {
   imports = [
     ../profiles/qemu-guest.nix
-    (mkRenamedOptionModule [ "virtualisation" "pathsInNixDB" ] [
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "pathsInNixDB"
+    ] [
       "virtualisation"
       "additionalPaths"
     ])
-    (mkRemovedOptionModule [ "virtualisation" "bootDevice" ]
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "bootDevice"
+    ]
       "This option was renamed to `virtualisation.rootDevice`, as it was incorrectly named and misleading. Take the time to review what you want to do and look at the new options like `virtualisation.{bootLoaderDevice, bootPartition}`, open an issue in case of issues.")
-    (mkRemovedOptionModule [ "virtualisation" "efiVars" ]
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "efiVars"
+    ]
       "This option was removed, it is possible to provide a template UEFI variable with `virtualisation.efi.variables` ; if this option is important to you, open an issue")
-    (mkRemovedOptionModule [ "virtualisation" "persistBootDevice" ]
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "persistBootDevice"
+    ]
       "Boot device is always persisted if you use a bootloader through the root disk image ; if this does not work for your usecase, please examine carefully what `virtualisation.{bootDevice, rootDevice, bootPartition}` options offer you and open an issue explaining your need.`")
   ];
 
@@ -488,7 +503,10 @@ in {
     virtualisation.forwardPorts = mkOption {
       type = types.listOf (types.submodule {
         options.from = mkOption {
-          type = types.enum [ "host" "guest" ];
+          type = types.enum [
+            "host"
+            "guest"
+          ];
           default = "host";
           description = lib.mdDoc ''
             Controls the direction in which the ports are mapped:
@@ -500,7 +518,10 @@ in {
           '';
         };
         options.proto = mkOption {
-          type = types.enum [ "tcp" "udp" ];
+          type = types.enum [
+            "tcp"
+            "udp"
+          ];
           default = "tcp";
           description = lib.mdDoc "The protocol to forward.";
         };
@@ -566,7 +587,10 @@ in {
     virtualisation.vlans = mkOption {
       type = types.listOf types.ints.unsigned;
       default = [ 1 ];
-      example = [ 1 2 ];
+      example = [
+        1
+        2
+      ];
       description = lib.mdDoc ''
         Virtual networks to which the VM is connected.  Each
         number «N» in this list causes
@@ -640,9 +664,12 @@ in {
 
       consoles = mkOption {
         type = types.listOf types.str;
-        default =
-          let consoles = [ "${qemu-common.qemuSerialDevice},115200n8" "tty0" ];
-          in if cfg.graphics then consoles else reverseList consoles;
+        default = let
+          consoles = [
+            "${qemu-common.qemuSerialDevice},115200n8"
+            "tty0"
+          ];
+        in if cfg.graphics then consoles else reverseList consoles;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
           The output console devices to pass to the kernel command line via the
@@ -679,7 +706,11 @@ in {
       };
 
       diskInterface = mkOption {
-        type = types.enum [ "virtio" "scsi" "ide" ];
+        type = types.enum [
+          "virtio"
+          "scsi"
+          "ide"
+        ];
         default = "virtio";
         example = "scsi";
         description =
@@ -1008,19 +1039,19 @@ in {
     ];
 
     virtualisation.qemu.drives = mkMerge [
-      (mkIf (cfg.diskImage != null) [{
+      (mkIf (cfg.diskImage != null) [ {
         name = "root";
         file = ''"$NIX_DISK_IMAGE"'';
         driveExtraOpts.cache = "writeback";
         driveExtraOpts.werror = "report";
         deviceExtraOpts.bootindex = "1";
-      }])
-      (mkIf cfg.useNixStoreImage [{
+      } ])
+      (mkIf cfg.useNixStoreImage [ {
         name = "nix-store";
         file = ''"$TMPDIR"/store.img'';
         deviceExtraOpts.bootindex = "2";
         driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
-      }])
+      } ])
       (imap0 (idx: _: {
         file = "$(pwd)/empty${toString idx}.qcow2";
         driveExtraOpts.werror = "report";
@@ -1044,9 +1075,11 @@ in {
         value.device = tag;
         value.fsType = "9p";
         value.neededForBoot = true;
-        value.options =
-          [ "trans=virtio" "version=9p2000.L" "msize=${toString cfg.msize}" ]
-          ++ lib.optional (tag == "nix-store") "cache=loose";
+        value.options = [
+          "trans=virtio"
+          "version=9p2000.L"
+          "msize=${toString cfg.msize}"
+        ] ++ lib.optional (tag == "nix-store") "cache=loose";
       };
     in lib.mkMerge [
       (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
@@ -1096,7 +1129,7 @@ in {
 
     boot.initrd.systemd =
       lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore) {
-        mounts = [{
+        mounts = [ {
           where = "/sysroot/nix/store";
           what = "overlay";
           type = "overlay";
@@ -1107,7 +1140,7 @@ in {
           requires = [ "rw-store.service" ];
           after = [ "rw-store.service" ];
           unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
-        }];
+        } ];
         services.rw-store = {
           unitConfig = {
             DefaultDependencies = false;

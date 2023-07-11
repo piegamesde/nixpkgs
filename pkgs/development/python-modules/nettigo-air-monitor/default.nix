@@ -27,10 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-6pLdaBeyTIrsAzkr83Iywta+K4Vx3nt0QyL8opHNwV8=";
   };
 
-  propagatedBuildInputs = [ aiohttp aqipy-atmotech dacite orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    aqipy-atmotech
+    dacite
+    orjson
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytest-error-for-skips
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nettigo_air_monitor" ];
 

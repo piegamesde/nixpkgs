@@ -66,7 +66,10 @@ in buildPythonPackage rec {
 
   ] ++ dotnetPkgs;
 
-  buildInputs = [ glib mono ];
+  buildInputs = [
+    glib
+    mono
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook

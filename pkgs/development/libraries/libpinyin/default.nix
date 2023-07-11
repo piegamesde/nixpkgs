@@ -29,14 +29,22 @@ in stdenv.mkDerivation rec {
     tar -xzf ${modelData} -C $sourceRoot/data
   '';
 
-  nativeBuildInputs = [ autoreconfHook glib db pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    glib
+    db
+    pkg-config
+  ];
 
   meta = with lib; {
     description =
       "Library for intelligent sentence-based Chinese pinyin input method";
     homepage = "https://github.com/libpinyin/libpinyin";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ linsui ericsagnes ];
+    maintainers = with maintainers; [
+      linsui
+      ericsagnes
+    ];
     platforms = platforms.linux;
   };
 }

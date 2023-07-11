@@ -28,9 +28,16 @@ buildPythonPackage rec {
       --replace "face==20.1.1" "face"
   '';
 
-  propagatedBuildInputs = [ boltons attrs face ];
+  propagatedBuildInputs = [
+    boltons
+    attrs
+    face
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyyaml
+  ];
 
   preCheck = ''
     # test_cli.py checks the output of running "glom"

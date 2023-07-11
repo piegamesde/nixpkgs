@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [ python3Packages.python patch ];
+  buildInputs = [
+    python3Packages.python
+    patch
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 

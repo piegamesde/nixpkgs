@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [ sip-module "sipconfig" ];
+  pythonImportsCheck = [
+    sip-module
+    "sipconfig"
+  ];
 
   doCheck = true;
 
@@ -38,7 +41,10 @@ buildPythonPackage rec {
     description = "Creates C++ bindings for Python modules";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lovek323 sander ];
+    maintainers = with maintainers; [
+      lovek323
+      sander
+    ];
     platforms = platforms.all;
   };
 }

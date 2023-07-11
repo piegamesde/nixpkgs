@@ -26,8 +26,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs =
-    [ coreutils findutils gawk gnugrep gnused mktemp openssl which ];
+  buildInputs = [
+    coreutils
+    findutils
+    gawk
+    gnugrep
+    gnused
+    mktemp
+    openssl
+    which
+  ];
 
   prePatch = ''
     substituteInPlace $pname --replace PATH= NOT_PATH=

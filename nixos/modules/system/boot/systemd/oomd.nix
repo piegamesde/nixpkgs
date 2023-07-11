@@ -23,7 +23,12 @@ in {
       (lib.mdDoc "oomd on all user services (`user@.service`)");
 
     extraConfig = lib.mkOption {
-      type = with lib.types; attrsOf (oneOf [ str int bool ]);
+      type = with lib.types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = { };
       example =
         lib.literalExpression ''{ DefaultMemoryPressureDurationSec = "20s"; }'';
@@ -35,8 +40,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.additionalUpstreamSystemUnits =
-      [ "systemd-oomd.service" "systemd-oomd.socket" ];
+    systemd.additionalUpstreamSystemUnits = [
+      "systemd-oomd.service"
+      "systemd-oomd.socket"
+    ];
     systemd.services.systemd-oomd.wantedBy = [ "multi-user.target" ];
 
     environment.etc."systemd/oomd.conf".text =

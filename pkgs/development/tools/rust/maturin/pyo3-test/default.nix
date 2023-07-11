@@ -6,5 +6,8 @@
 python3.pkgs.callPackage ./generic.nix {
   buildAndTestSubdir = "examples/word-count";
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 }

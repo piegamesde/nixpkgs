@@ -22,8 +22,17 @@ mkDerivation rec {
     sha256 = "sha256-4/QSjgHvRgIduS/AXbT7osRTdOdgR7On3CbjRnGbwHU=";
   };
 
-  nativeBuildInputs = [ cmake qttools ];
-  buildInputs = [ libjpeg libpng libtiff boost qtbase ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ];
+  buildInputs = [
+    libjpeg
+    libpng
+    libtiff
+    boost
+    qtbase
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/vigri/scantailor-advanced";

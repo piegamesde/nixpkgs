@@ -43,8 +43,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = lib.optionals enableVTK [ vtk ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices Cocoa libiconv ]
-    ++ lib.optionals enablePython [ swig python ];
+    ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Cocoa
+      libiconv
+    ] ++ lib.optionals enablePython [
+      swig
+      python
+    ];
 
   disabledTests = [
     # require networking:
@@ -75,7 +81,10 @@ stdenv.mkDerivation rec {
       GDCM includes a file format definition and a network communications protocol, both of which should be extended to provide a full set of tools for a researcher or small medical imaging vendor to interface with an existing medical database.
     '';
     homepage = "https://gdcm.sourceforge.net/";
-    license = with licenses; [ bsd3 asl20 ];
+    license = with licenses; [
+      bsd3
+      asl20
+    ];
     maintainers = with maintainers; [ tfmoraes ];
     platforms = platforms.all;
   };

@@ -60,8 +60,10 @@ in {
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.imwheel}/bin/imwheel "
-          + escapeShellArgs ([ "--detach" "--kill" ] ++ cfg.extraOptions);
+        ExecStart = "${pkgs.imwheel}/bin/imwheel " + escapeShellArgs ([
+          "--detach"
+          "--kill"
+        ] ++ cfg.extraOptions);
         ExecStop = "${pkgs.procps}/bin/pkill imwheel";
         RestartSec = 3;
         Restart = "always";

@@ -16,11 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-66U9Gz9uNFYyuwmnt1LsfO09Y+xRU6hIOA84gMXWGIk=";
   };
 
-  buildInputs = [ bzip2 zlib ];
+  buildInputs = [
+    bzip2
+    zlib
+  ];
 
   patches = [ ./darwin-rpath-universal.patch ];
 
-  configureFlags = [ "--with-bzip2=${bzip2.out}" "--enable-reentrant" ];
+  configureFlags = [
+    "--with-bzip2=${bzip2.out}"
+    "--enable-reentrant"
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -45,7 +51,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/changes.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ xbreak hjones2199 ];
+    maintainers = with maintainers; [
+      xbreak
+      hjones2199
+    ];
     platforms = with platforms; linux ++ darwin;
   };
 }

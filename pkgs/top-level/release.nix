@@ -24,9 +24,7 @@
     "aarch64-linux"
     "aarch64-darwin"
   ],
-  limitedSupportedSystems ? [
-    "i686-linux"
-  ]
+  limitedSupportedSystems ? [ "i686-linux" ]
   # Strip most of attributes when evaluating to spare memory usage
   ,
   scrubJobs ? true
@@ -48,8 +46,10 @@ let
 
   systemsWithAnySupport = supportedSystems ++ limitedSupportedSystems;
 
-  supportDarwin = lib.genAttrs [ "x86_64" "aarch64" ]
-    (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
+  supportDarwin = lib.genAttrs [
+    "x86_64"
+    "aarch64"
+  ] (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
@@ -221,9 +221,18 @@ let
       idrisPackages = packagePlatforms pkgs.idrisPackages;
       agdaPackages = packagePlatforms pkgs.agdaPackages;
 
-      pkgsLLVM.stdenv = [ "x86_64-linux" "aarch64-linux" ];
-      pkgsMusl.stdenv = [ "x86_64-linux" "aarch64-linux" ];
-      pkgsStatic.stdenv = [ "x86_64-linux" "aarch64-linux" ];
+      pkgsLLVM.stdenv = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      pkgsMusl.stdenv = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      pkgsStatic.stdenv = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       tests = packagePlatforms pkgs.tests;
 

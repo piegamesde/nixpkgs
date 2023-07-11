@@ -25,8 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RIhDXzpmrYUOwj5OYzjWKJw0cwE+L3t/9pIkg/hFXA0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
-  buildInputs = [ lz4 xz zlib lzo zstd fuse ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+  ];
+  buildInputs = [
+    lz4
+    xz
+    zlib
+    lzo
+    zstd
+    fuse
+  ];
 
   meta = {
     description = "FUSE filesystem to mount squashfs archives";

@@ -24,14 +24,26 @@ buildPythonPackage rec {
     hash = "sha256-RNjCcCnNhtr5a+29Bx+k427a03MSooqvnuiDQ8cT8FA=";
   };
 
-  propagatedBuildInputs = [ huggingface-hub pyyaml torch torchvision ];
+  propagatedBuildInputs = [
+    huggingface-hub
+    pyyaml
+    torch
+    torchvision
+  ];
 
-  nativeCheckInputs = [ expecttest pytestCheckHook pytest-timeout ];
+  nativeCheckInputs = [
+    expecttest
+    pytestCheckHook
+    pytest-timeout
+  ];
   pytestFlagsArray = [ "tests" ];
   # takes too long and also tries to download models:
   disabledTestPaths = [ "tests/test_models.py" ];
 
-  pythonImportsCheck = [ "timm" "timm.data" ];
+  pythonImportsCheck = [
+    "timm"
+    "timm.data"
+  ];
 
   meta = with lib; {
     description = "PyTorch image models, scripts, and pretrained weights";

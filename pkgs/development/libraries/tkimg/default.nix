@@ -23,7 +23,10 @@ tcl.mkTclDerivation rec {
     "--with-tkinclude=${tk.dev}/include"
   ];
 
-  buildInputs = [ xorg.libX11 tcllib ];
+  buildInputs = [
+    xorg.libX11
+    tcllib
+  ];
 
   meta = {
     homepage = "https://sourceforge.net/projects/tkimg/";

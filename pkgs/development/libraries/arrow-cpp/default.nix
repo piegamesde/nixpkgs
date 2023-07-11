@@ -157,15 +157,21 @@ in stdenv.mkDerivation rec {
     utf8proc
     zlib
     zstd
-  ] ++ lib.optionals enableFlight [ grpc openssl protobuf sqlite ]
-    ++ lib.optionals enableS3 [ aws-sdk-cpp-arrow openssl ]
-    ++ lib.optionals enableGcs [
-      crc32c
-      curl
-      google-cloud-cpp
-      grpc
-      nlohmann_json
-    ];
+  ] ++ lib.optionals enableFlight [
+    grpc
+    openssl
+    protobuf
+    sqlite
+  ] ++ lib.optionals enableS3 [
+    aws-sdk-cpp-arrow
+    openssl
+  ] ++ lib.optionals enableGcs [
+    crc32c
+    curl
+    google-cloud-cpp
+    grpc
+    nlohmann_json
+  ];
 
   preConfigure = ''
     patchShebangs build-support/
@@ -213,11 +219,11 @@ in stdenv.mkDerivation rec {
     "-DPARQUET_BUILD_EXECUTABLES=ON"
     "-DPARQUET_REQUIRE_ENCRYPTION=ON"
   ] ++ lib.optionals (!enableShared) [ "-DARROW_TEST_LINKAGE=static" ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
+    ++ lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
     ] ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
-    ++ lib.optionals enableS3
-    [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ];
+    ++ lib.optionals
+    enableS3 [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ];
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
@@ -249,8 +255,11 @@ in stdenv.mkDerivation rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeInstallCheckInputs = [ perl which sqlite ]
-    ++ lib.optionals enableS3 [ minio ]
+  nativeInstallCheckInputs = [
+    perl
+    which
+    sqlite
+  ] ++ lib.optionals enableS3 [ minio ]
     ++ lib.optionals enableFlight [ python3 ];
 
   disabledTests = [
@@ -274,7 +283,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://arrow.apache.org/docs/cpp/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ tobim veprbl cpcloud ];
+    maintainers = with maintainers; [
+      tobim
+      veprbl
+      cpcloud
+    ];
   };
   passthru = { inherit enableFlight enableJemalloc enableS3 enableGcs; };
 }

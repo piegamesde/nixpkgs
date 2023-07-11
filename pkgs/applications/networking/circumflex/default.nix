@@ -24,7 +24,12 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/clx \
-      --prefix PATH : ${lib.makeBinPath [ less ncurses ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          less
+          ncurses
+        ]
+      }
   '';
 
   meta = with lib; {

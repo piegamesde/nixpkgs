@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ coin3d qtbase ];
+  buildInputs = [
+    coin3d
+    qtbase
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   dontWrapQtApps = true;
 
@@ -32,7 +38,10 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     description =
       "Glue between Coin high-level 3D visualization library and Qt";
-    maintainers = with maintainers; [ gebner viric ];
+    maintainers = with maintainers; [
+      gebner
+      viric
+    ];
     platforms = platforms.linux;
   };
 }

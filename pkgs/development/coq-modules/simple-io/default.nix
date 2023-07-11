@@ -29,8 +29,11 @@ mkCoqDerivation {
     "1yp7ca36jyl9kz35ghxig45x6cd0bny2bpmy058359p94wc617ax";
   mlPlugin = true;
   nativeBuildInputs = [ coq.ocamlPackages.cppo ];
-  propagatedBuildInputs = [ coq-ext-lib ]
-    ++ (with coq.ocamlPackages; [ ocaml findlib ocamlbuild ]);
+  propagatedBuildInputs = [ coq-ext-lib ] ++ (with coq.ocamlPackages; [
+    ocaml
+    findlib
+    ocamlbuild
+  ]);
 
   doCheck = true;
   checkTarget = "test";

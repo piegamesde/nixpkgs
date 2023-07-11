@@ -15,14 +15,31 @@ import ./make-test-python.nix ({
       performance = { inherit raft_multiplier; };
     };
 
-    allConsensusServerHosts = [ "192.168.1.1" "192.168.1.2" "192.168.1.3" ];
+    allConsensusServerHosts = [
+      "192.168.1.1"
+      "192.168.1.2"
+      "192.168.1.3"
+    ];
 
-    allConsensusClientHosts = [ "192.168.2.1" "192.168.2.2" ];
+    allConsensusClientHosts = [
+      "192.168.2.1"
+      "192.168.2.2"
+    ];
 
     firewallSettings = {
       # See https://www.consul.io/docs/install/ports.html
-      allowedTCPPorts = [ 8301 8302 8600 8500 8300 ];
-      allowedUDPPorts = [ 8301 8302 8600 ];
+      allowedTCPPorts = [
+        8301
+        8302
+        8600
+        8500
+        8300
+      ];
+      allowedUDPPorts = [
+        8301
+        8302
+        8600
+      ];
     };
 
     client = index:
@@ -34,10 +51,10 @@ import ./make-test-python.nix ({
       in {
         environment.systemPackages = [ pkgs.consul ];
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
           prefixLength = 16;
-        }];
+        } ];
         networking.firewall = firewallSettings;
 
         services.consul = {
@@ -62,10 +79,10 @@ import ./make-test-python.nix ({
         ip =
           thisConsensusServerHost; # since we already use IPs to identify servers
       in {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
           prefixLength = 16;
-        }];
+        } ];
         networking.firewall = firewallSettings;
 
         services.consul = assert builtins.elem thisConsensusServerHost

@@ -25,7 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-odtMbPHty3NUqz+4UAw+8dsK6AMZer41/BAX8cK5Rek=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 click requests pyyaml schema ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    click
+    requests
+    pyyaml
+    schema
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

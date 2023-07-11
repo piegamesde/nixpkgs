@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-6VWt8AwfCwxxXoKJeaI37Ev37nCCe9l/Xhe/gnYNyzA=";
   };
 
-  propagatedBuildInputs = [ zope_interface webob ];
+  propagatedBuildInputs = [
+    zope_interface
+    webob
+  ];
 
   meta = with lib; {
     description = "WSGI Authentication Middleware / API";

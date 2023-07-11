@@ -27,8 +27,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ expat libcdio libcdio-paranoia libpulseaudio smooth uriparser zlib ];
+  buildInputs = [
+    expat
+    libcdio
+    libcdio-paranoia
+    libpulseaudio
+    smooth
+    uriparser
+    zlib
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 

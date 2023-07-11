@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     dpkg-deb -x $src $out
   '';
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   dontBuild = true;
 
@@ -54,7 +57,11 @@ stdenv.mkDerivation rec {
 
     sed -n '/!ENDOFWFILTER!/,/!ENDOFWFILTER!/p' "$dir/cupswrapper/cupswrappermfc9140cdn" | sed '1 br; b; :r s/.*/printer_model=mfc9140cdn; cat <<!ENDOFWFILTER!/'  | bash > $out/lib/cups/filter/brother_lpdwrapper_mfc9140cdn
     sed -i "/#! \/bin\/sh/a PATH=${
-      lib.makeBinPath [ coreutils gnused gnugrep ]
+      lib.makeBinPath [
+        coreutils
+        gnused
+        gnugrep
+      ]
     }:\$PATH" $out/lib/cups/filter/brother_lpdwrapper_mfc9140cdn
     chmod +x $out/lib/cups/filter/brother_lpdwrapper_mfc9140cdn
   '';

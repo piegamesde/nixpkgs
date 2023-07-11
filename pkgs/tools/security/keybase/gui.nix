@@ -44,7 +44,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-FMhbMSuJHq5d5E0dTVAk02y85UXmhtKZYk4qcbnhRxI=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -81,7 +84,10 @@ in stdenv.mkDerivation rec {
     mesa.out
   ];
 
-  runtimeDependencies = [ (lib.getLib udev) libappindicator-gtk3 ];
+  runtimeDependencies = [
+    (lib.getLib udev)
+    libappindicator-gtk3
+  ];
 
   dontBuild = true;
   dontConfigure = true;

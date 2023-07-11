@@ -23,14 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "jDRecvMaHjf1UGPgsVmXMBsBGU7WmHcv2HrrUMuxAas=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix_gmenu.patch;
-      gmenu_path = "${gnome-menus}/lib/girepository-1.0";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix_gmenu.patch;
+    gmenu_path = "${gnome-menus}/lib/girepository-1.0";
+  }) ];
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext glib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    glib
+  ];
 
   mesonFlags = [ "-Dextension_set=all" ];
 

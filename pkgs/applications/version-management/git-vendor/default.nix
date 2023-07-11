@@ -21,7 +21,12 @@ in stdenv.mkDerivation {
     inherit sha256;
   };
 
-  outputs = [ "bin" "man" "doc" "out" ];
+  outputs = [
+    "bin"
+    "man"
+    "doc"
+    "out"
+  ];
 
   PREFIX = (placeholder "out");
   BINPREFIX = "${placeholder "bin"}/bin";
@@ -35,7 +40,10 @@ in stdenv.mkDerivation {
   postInstall = ''
     ${
       skawarePackages.cleanPackaging.commonFileActions {
-        docFiles = [ "LICENSE" "README.md" ];
+        docFiles = [
+          "LICENSE"
+          "README.md"
+        ];
         noiseFiles = [
           "bin/git-vendor"
           "Makefile"

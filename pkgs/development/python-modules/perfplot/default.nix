@@ -28,7 +28,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ dufte matplotlib numpy pipdate rich tqdm ];
+  propagatedBuildInputs = [
+    dufte
+    matplotlib
+    numpy
+    pipdate
+    rich
+    tqdm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

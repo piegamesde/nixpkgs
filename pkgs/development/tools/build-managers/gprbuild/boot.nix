@@ -31,7 +31,10 @@ in stdenv.mkDerivation {
     sha256 = "1ciaq4nh98vd7r5i11v353c1ms9s5yph0yxk4fkryc6bvkm4666x";
   };
 
-  nativeBuildInputs = [ gnat which ];
+  nativeBuildInputs = [
+    gnat
+    which
+  ];
 
   postPatch = ''
     # The Makefile uses gprbuild to build gprbuild which

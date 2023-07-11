@@ -19,7 +19,10 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ debtcollector stestr ];
+  nativeCheckInputs = [
+    debtcollector
+    stestr
+  ];
 
   checkPhase = ''
     stestr run

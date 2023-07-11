@@ -22,8 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5ll4a/1Ughx0s2l/mcIsp1g4oNoNhm0RWvY/tXDvPGE=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-  buildInputs = [ libassuan libgpg-error popt bemenu ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    libassuan
+    libgpg-error
+    popt
+    bemenu
+  ];
 
   meta = with lib; {
     description = "Pinentry implementation based on bemenu";

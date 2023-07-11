@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-t8PzimNW7JWvWU3lZHo+b5K3R6he35HhBQPu1hxK51U=";
 
-  nativeBuildInputs = [ go-bindata installShellFiles ];
+  nativeBuildInputs = [
+    go-bindata
+    installShellFiles
+  ];
 
   # GIT_{COMMIT,DIRTY} filled in blank to prevent trying to run git and ending up blank anyway
   buildPhase = ''
@@ -84,6 +87,10 @@ buildGoModule rec {
       through a consistent and repeatable workflow.
     '';
     license = licenses.mpl20;
-    maintainers = with maintainers; [ winpat jk techknowlogick ];
+    maintainers = with maintainers; [
+      winpat
+      jk
+      techknowlogick
+    ];
   };
 }

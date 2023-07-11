@@ -21,9 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "1kj74c9zy9yxkjx7pz96mzqc13cf10yfmlgprr8sfd4ay192bzi2";
   };
 
-  nativeBuildInputs = [ vala intltool pkg-config ];
+  nativeBuildInputs = [
+    vala
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ libkkc ibus skk-dicts gtk3 ];
+  buildInputs = [
+    libkkc
+    ibus
+    skk-dicts
+    gtk3
+  ];
 
   postInstall = ''
     ln -s ${skk-dicts}/share $out/share/skk

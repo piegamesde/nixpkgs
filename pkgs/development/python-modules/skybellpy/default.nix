@@ -23,10 +23,17 @@ buildPythonPackage rec {
     sha256 = "1ghvm0pcdyhq6xfjc2dkldd701x77w07077sx09xsk6q2milmvzz";
   };
 
-  propagatedBuildInputs = [ colorlog requests ];
+  propagatedBuildInputs = [
+    colorlog
+    requests
+  ];
 
-  nativeCheckInputs =
-    [ pytest-sugar pytest-timeout pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytest-sugar
+    pytest-timeout
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "skybellpy" ];
 

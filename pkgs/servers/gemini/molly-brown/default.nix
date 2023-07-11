@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-czfHnXS9tf5vQQNXhWH7DStmhsorSc4Di/yZuv4LHRk=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   passthru.tests.basic = nixosTests.molly-brown;
 

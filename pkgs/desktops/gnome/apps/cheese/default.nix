@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
   pname = "cheese";
   version = "44.0.1";
 
-  outputs = [ "out" "man" "devdoc" ];
+  outputs = [
+    "out"
+    "man"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/cheese/${

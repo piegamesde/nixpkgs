@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   pname = "xmloscopy";
   version = "0.1.3";
 
-  nativeBuildInputs = [ makeWrapper dev_only_shellcheck ];
+  nativeBuildInputs = [
+    makeWrapper
+    dev_only_shellcheck
+  ];
 
   spath = lib.makeBinPath [
     fzf

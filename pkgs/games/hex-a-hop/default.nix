@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j6gKRq+8b1NDwP1WcCaScfmwNxAl78CfK6pemROrRak=";
   };
 
-  buildInputs = [ SDL SDL_mixer SDL_ttf ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    SDL_ttf
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

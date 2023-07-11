@@ -27,7 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-ZVmQnxqLHKr275Xx0lOID3BZZFTmn/PMHpYhBFSxT7I=";
   };
 
-  propagatedBuildInputs = [ future numpy scipy matplotlib scikit-learn torch ];
+  propagatedBuildInputs = [
+    future
+    numpy
+    scipy
+    matplotlib
+    scikit-learn
+    torch
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

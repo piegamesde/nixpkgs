@@ -10,7 +10,11 @@
   Foundation,
 }:
 
-let binPath = lib.makeBinPath [ imagemagick ffmpeg ];
+let
+  binPath = lib.makeBinPath [
+    imagemagick
+    ffmpeg
+  ];
 in rustPlatform.buildRustPackage rec {
   pname = "t-rec";
   version = "0.7.6";
@@ -23,8 +27,10 @@ in rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ imagemagick ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Foundation ];
+  buildInputs = [ imagemagick ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Foundation
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/t-rec" --prefix PATH : "${binPath}"

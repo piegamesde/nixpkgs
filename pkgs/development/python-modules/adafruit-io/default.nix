@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ paho-mqtt requests ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

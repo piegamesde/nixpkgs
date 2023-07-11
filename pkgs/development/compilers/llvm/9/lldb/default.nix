@@ -45,24 +45,39 @@ stdenv.mkDerivation rec {
     ./lldb-gdb-remote-no-libcompress.patch
   ];
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake python3 which swig lit makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [
-      # for scripts/generate-vers.pl
-      perl
-    ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    which
+    swig
+    lit
+    makeWrapper
+  ] ++ lib.optionals stdenv.isDarwin [
+    # for scripts/generate-vers.pl
+    perl
+  ];
 
-  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.libobjc
-      darwin.apple_sdk.libs.xpc
-      darwin.apple_sdk.frameworks.Foundation
-      darwin.bootstrap_cmds
-      darwin.apple_sdk.frameworks.Carbon
-      darwin.apple_sdk.frameworks.Cocoa
-      darwin.apple_sdk.frameworks.DebugSymbols
-    ];
+  buildInputs = [
+    ncurses
+    zlib
+    libedit
+    libxml2
+    libllvm
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.libobjc
+    darwin.apple_sdk.libs.xpc
+    darwin.apple_sdk.frameworks.Foundation
+    darwin.bootstrap_cmds
+    darwin.apple_sdk.frameworks.Carbon
+    darwin.apple_sdk.frameworks.Cocoa
+    darwin.apple_sdk.frameworks.DebugSymbols
+  ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];

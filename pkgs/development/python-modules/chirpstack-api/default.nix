@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   sourceRoot = "source/python/src";
 
-  propagatedBuildInputs = [ google-api-core grpcio ];
+  propagatedBuildInputs = [
+    google-api-core
+    grpcio
+  ];
 
   # Module has no tests
   doCheck = false;

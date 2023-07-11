@@ -19,10 +19,20 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  propagatedBuildInputs =
-    [ ipaddr functoria mirage-runtime bos astring logs stdlib-shims ];
+  propagatedBuildInputs = [
+    ipaddr
+    functoria
+    mirage-runtime
+    bos
+    astring
+    logs
+    stdlib-shims
+  ];
 
   # Tests need opam-monorepo
   doCheck = false;

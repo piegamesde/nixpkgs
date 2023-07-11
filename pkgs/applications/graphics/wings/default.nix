@@ -19,13 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "1xcmifs4vq2810pqqvsjsm8z3lz24ys4c05xkh82nyppip2s89a3";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch";
-      hash = "sha256-DHT1TiYoowloIWrdutBu70mL+557cTFr1dRcNgwbkpE=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch";
+    hash = "sha256-DHT1TiYoowloIWrdutBu70mL+557cTFr1dRcNgwbkpE=";
+  }) ];
 
   postPatch = ''
     find . -type f -name "Makefile" -exec sed -i 's,-Werror ,,' {} \;
@@ -38,7 +36,12 @@ stdenv.mkDerivation rec {
     find . -type f -name "*.[eh]rl" -exec sed -i 's,wings/intl_tools/,../intl_tools/,' {} \;
   '';
 
-  buildInputs = [ erlang cl libGL libGLU ];
+  buildInputs = [
+    erlang
+    cl
+    libGL
+    libGLU
+  ];
 
   ERL_LIBS = "${cl}/lib/erlang/lib";
 

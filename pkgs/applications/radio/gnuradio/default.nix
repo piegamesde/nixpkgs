@@ -63,7 +63,11 @@ let
   featuresInfo = {
     # Needed always
     basic = {
-      native = [ cmake pkg-config orc ];
+      native = [
+        cmake
+        pkg-config
+        orc
+      ];
       runtime = [
         volk
         boost
@@ -73,7 +77,10 @@ let
       # when gr-qtgui is disabled, icu needs to be included, otherwise
       # building with boost 1.7x fails
         ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
-      pythonNative = with python.pkgs; [ mako six ];
+      pythonNative = with python.pkgs; [
+        mako
+        six
+      ];
     };
     doxygen = {
       native = [ doxygen ];
@@ -95,7 +102,10 @@ let
       pythonRuntime = [ python.pkgs.pybind11 ];
     };
     gr-ctrlport = {
-      runtime = [ libunwind thrift ];
+      runtime = [
+        libunwind
+        thrift
+      ];
       pythonRuntime = with python.pkgs; [
         python.pkgs.thrift
         # For gr-perf-monitorx
@@ -105,9 +115,20 @@ let
       cmakeEnableFlag = "GR_CTRLPORT";
     };
     gnuradio-companion = {
-      pythonRuntime = with python.pkgs; [ pyyaml mako numpy pygobject3 ];
+      pythonRuntime = with python.pkgs; [
+        pyyaml
+        mako
+        numpy
+        pygobject3
+      ];
       native = [ python.pkgs.pytest ];
-      runtime = [ gtk3 pango gobject-introspection cairo libsndfile ];
+      runtime = [
+        gtk3
+        pango
+        gobject-introspection
+        cairo
+        libsndfile
+      ];
       cmakeEnableFlag = "GRC";
     };
     jsonyaml_blocks = {
@@ -129,20 +150,28 @@ let
     gr-filter = {
       runtime = [ fftwFloat ];
       cmakeEnableFlag = "GR_FILTER";
-      pythonRuntime = with python.pkgs; [ scipy pyqtgraph ];
+      pythonRuntime = with python.pkgs; [
+        scipy
+        pyqtgraph
+      ];
     };
     gr-analog = { cmakeEnableFlag = "GR_ANALOG"; };
     gr-digital = { cmakeEnableFlag = "GR_DIGITAL"; };
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
-      runtime = [ ] ++ lib.optionals stdenv.isLinux [ alsa-lib libjack2 ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+      runtime = [ ] ++ lib.optionals stdenv.isLinux [
+        alsa-lib
+        libjack2
+      ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = { cmakeEnableFlag = "GR_CHANNELS"; };
     gr-pdu = {
       cmakeEnableFlag = "GR_PDU";
-      runtime = [ libiio libad9361 ];
+      runtime = [
+        libiio
+        libad9361
+      ];
     };
     gr-iio = {
       cmakeEnableFlag = "GR_IIO";
@@ -150,7 +179,10 @@ let
     };
     common-precompiled-headers = { cmakeEnableFlag = "COMMON_PCH"; };
     gr-qtgui = {
-      runtime = [ qt5.qtbase libsForQt5.qwt ];
+      runtime = [
+        qt5.qtbase
+        libsForQt5.qwt
+      ];
       pythonRuntime = [ python.pkgs.pyqt5 ];
       cmakeEnableFlag = "GR_QTGUI";
     };
@@ -186,12 +218,18 @@ let
       cmakeEnableFlag = "GR_VIDEO_SDL";
     };
     gr-vocoder = {
-      runtime = [ codec2 gsm ];
+      runtime = [
+        codec2
+        gsm
+      ];
       cmakeEnableFlag = "GR_VOCODER";
     };
     gr-wavelet = {
       cmakeEnableFlag = "GR_WAVELET";
-      runtime = [ gsl libsodium ];
+      runtime = [
+        gsl
+        libsodium
+      ];
     };
     gr-zeromq = {
       runtime = [ cppzmq ];

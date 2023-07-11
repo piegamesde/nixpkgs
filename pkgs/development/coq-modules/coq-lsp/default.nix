@@ -54,7 +54,10 @@ mkCoqDerivation rec {
     homepage = "https://github.com/ejgallego/coq-lsp";
     changelog =
       "https://github.com/ejgallego/coq-lsp/blob/${defaultVersion}/CHANGES.md";
-    maintainers = with maintainers; [ alizter marsam ];
+    maintainers = with maintainers; [
+      alizter
+      marsam
+    ];
     license = licenses.lgpl21Only;
   };
 }

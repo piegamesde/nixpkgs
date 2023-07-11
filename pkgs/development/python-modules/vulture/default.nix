@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toml ];
 
-  nativeCheckInputs = [ pint pytestCheckHook ];
+  nativeCheckInputs = [
+    pint
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "vulture" ];
 

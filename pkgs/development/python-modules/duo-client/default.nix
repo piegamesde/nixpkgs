@@ -27,9 +27,17 @@ buildPythonPackage rec {
       --replace "flake8" ""
   '';
 
-  propagatedBuildInputs = [ setuptools six ];
+  propagatedBuildInputs = [
+    setuptools
+    six
+  ];
 
-  nativeCheckInputs = [ freezegun mock nose2 pytz ];
+  nativeCheckInputs = [
+    freezegun
+    mock
+    nose2
+    pytz
+  ];
 
   pythonImportsCheck = [ "duo_client" ];
 

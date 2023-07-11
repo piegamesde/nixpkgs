@@ -83,7 +83,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace 3rdParty/simpleini/CMakeLists.txt --replace "${simpleini.url}" "${simpleini}"
   '';
 
-  cmakeFlags = [ "-DBINARY_RELEASE=ON" "-DVERSION_NUM=${version}" ];
+  cmakeFlags = [
+    "-DBINARY_RELEASE=ON"
+    "-DVERSION_NUM=${version}"
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -92,7 +95,15 @@ in stdenv.mkDerivation rec {
     smpq # used to build devilutionx.mpq
   ];
 
-  buildInputs = [ bzip2 fmt libpng libsodium SDL2 SDL_audiolib SDL2_image ];
+  buildInputs = [
+    bzip2
+    fmt
+    libpng
+    libsodium
+    SDL2
+    SDL_audiolib
+    SDL2_image
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -119,7 +130,10 @@ in stdenv.mkDerivation rec {
     longDescription =
       "In order to play this game a copy of diabdat.mpq is required. Place a copy of diabdat.mpq in ~/.local/share/diasurgical/devilution before executing the game.";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ karolchmist aanderse ];
+    maintainers = with maintainers; [
+      karolchmist
+      aanderse
+    ];
     platforms = platforms.linux ++ platforms.windows;
   };
 }

@@ -25,11 +25,23 @@ buildPythonPackage rec {
     leaveDotGit = true;
   };
 
-  buildInputs = [ sphinx django ];
+  buildInputs = [
+    sphinx
+    django
+  ];
 
-  nativeBuildInputs = [ setuptools-scm gitMinimal ];
+  nativeBuildInputs = [
+    setuptools-scm
+    gitMinimal
+  ];
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook mock celery redis ];
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+    mock
+    celery
+    redis
+  ];
 
   postPatch = ''
     # We don't want to generate coverage

@@ -20,11 +20,17 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   patches = [ ./use-nixpkgs-libpng.patch ];
 
-  buildInputs = [ boost libpng ];
+  buildInputs = [
+    boost
+    libpng
+  ];
 
   cmakeDir = "../src";
 

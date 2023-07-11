@@ -72,8 +72,13 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs =
-    [ deepdiff pytest-aiohttp pytest-asyncio pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    deepdiff
+    pytest-aiohttp
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=legacy" ];
 

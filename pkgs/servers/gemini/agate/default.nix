@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-6Z+mcQAJwW7tm4SBbrHwHIwiqlFV+PIa5I2onU2rPts=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''

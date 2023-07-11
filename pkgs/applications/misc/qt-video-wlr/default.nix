@@ -37,7 +37,12 @@ in stdenv.mkDerivation rec {
     sha256 = "135kfyg1b61xvfpk8vpk4qyw6s9q1mn3a6lfkrqrhl0dz9kka9lx";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wrapQtAppsHook
+  ];
   buildInputs = [
     wayland
     pixman

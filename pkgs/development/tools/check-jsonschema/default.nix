@@ -20,9 +20,18 @@ buildPythonApplication rec {
     hash = "sha256-7cXnV27LCG1MXDH28UBmUC4sLooH2gKvGYF3YijLB38=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml jsonschema requests click ];
+  propagatedBuildInputs = [
+    ruamel-yaml
+    jsonschema
+    requests
+    click
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+    responses
+  ];
 
   pytestFlagsArray = [
     # DeprecationWarning: Accessing jsonschema.draft3_format_checker is deprecated and will be removed in a future release. Instead, use the FORMAT_CHECKER attribute on the corresponding Validator.
@@ -35,7 +44,10 @@ buildPythonApplication rec {
     export no_proxy='*';
   '';
 
-  pythonImportsCheck = [ "check_jsonschema" "check_jsonschema.cli" ];
+  pythonImportsCheck = [
+    "check_jsonschema"
+    "check_jsonschema.cli"
+  ];
 
   meta = with lib; {
     description = "A jsonschema CLI and pre-commit hook";

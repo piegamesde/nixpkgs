@@ -42,7 +42,10 @@ buildPythonPackage rec {
     extras = {
       ufo = [ fs ];
       lxml = [ lxml ];
-      woff = [ (if isPyPy then brotlicffi else brotli) zopfli ];
+      woff = [
+        (if isPyPy then brotlicffi else brotli)
+        zopfli
+      ];
       unicode = lib.optional (pythonOlder "3.11") unicodedata2;
       graphite = [ lz4 ];
       interpolatable = [ (if isPyPy then munkres else scipy) ];
@@ -54,9 +57,10 @@ buildPythonPackage rec {
     };
   in extras // { all = lib.concatLists (lib.attrValues extras); };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals
-    ([ "woff" "interpolatable" ] ++ lib.optionals (!skia-pathops.meta.broken) [
-      "pathops" # broken
+  nativeCheckInputs = [ pytestCheckHook ] ++ lib.concatLists (lib.attrVals ([
+    "woff"
+    "interpolatable"
+  ] ++ lib.optionals (!skia-pathops.meta.broken) [ "pathops" # broken
     ] ++ [ "repacker" ]) passthru.optional-dependencies);
 
   pythonImportsCheck = [ "fontTools" ];

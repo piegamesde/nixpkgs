@@ -22,9 +22,19 @@ stdenv.mkDerivation {
     sha256 = "sha256-3SR73AHQlYSEYpJLtQ/aJ1UITZGq7aA9tQKxBsn/yuc=";
   };
 
-  buildInputs = [ alsa-lib gtk3 libGL libGLU libX11 xcbutil ];
+  buildInputs = [
+    alsa-lib
+    gtk3
+    libGL
+    libGLU
+    libX11
+    xcbutil
+  ];
 
-  nativeBuildInputs = [ upx pkg-config ];
+  nativeBuildInputs = [
+    upx
+    pkg-config
+  ];
 
   postPatch = ''
     # Disable default definition of RUN_COMMODORE64

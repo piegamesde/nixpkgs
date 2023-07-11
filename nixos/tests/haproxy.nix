@@ -29,10 +29,10 @@ import ./make-test-python.nix ({
             virtualHosts.localhost = {
               documentRoot = pkgs.writeTextDir "index.txt" "We are all good!";
               adminAddr = "notme@yourhost.local";
-              listen = [{
+              listen = [ {
                 ip = "::1";
                 port = 8000;
-              }];
+              } ];
             };
           };
         };

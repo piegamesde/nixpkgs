@@ -26,7 +26,11 @@ buildPythonPackage rec {
     substituteInPlace ./setup.py --replace 'version="dev",' 'version="0.0",'
   '';
 
-  propagatedBuildInputs = [ numpy periodictable scipy ];
+  propagatedBuildInputs = [
+    numpy
+    periodictable
+    scipy
+  ];
 
   nativeCheckInputs = [ fields ];
 

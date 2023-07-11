@@ -16,8 +16,12 @@
 
 let
   # Allow to remove some executables from the $PATH of the wrapped binary
-  searchPath = lib.makeBinPath
-    (lib.filter (x: x != null) [ lisp-compiler rlwrap tk gnuplot ]);
+  searchPath = lib.makeBinPath (lib.filter (x: x != null) [
+    lisp-compiler
+    rlwrap
+    tk
+    gnuplot
+  ]);
 in stdenv.mkDerivation rec {
   pname = "maxima";
   # old version temporarily kept for sage due to
@@ -29,8 +33,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-/pAWJ2lwvvIUoaJENIVYZEUU1/36pPyLnQ6Hr8u059w=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook lisp-compiler makeWrapper python3 texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    lisp-compiler
+    makeWrapper
+    python3
+    texinfo
+  ];
 
   strictDeps = true;
 

@@ -21,11 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-MPDSCp49UzU/sg62m34i5vAaU+1PIbPhfdQI8L5QUaA=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ glibcLocales nose numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    nose
+    numpy
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # FileNotFoundError: [Errno 2] No such file or directory: 'data/genes.fasta.gz'

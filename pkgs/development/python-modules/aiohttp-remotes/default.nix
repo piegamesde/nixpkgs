@@ -25,7 +25,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ aiohttp ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -34,8 +37,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aiohttp_remotes" ];
 
-  pytestFlagsArray =
-    [ "-W" "ignore::DeprecationWarning" "--asyncio-mode=auto" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+    "--asyncio-mode=auto"
+  ];
 
   meta = with lib; {
     description = "Set of useful tools for aiohttp.web server";

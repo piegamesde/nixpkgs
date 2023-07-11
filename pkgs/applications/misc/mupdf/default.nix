@@ -80,54 +80,75 @@ in stdenv.mkDerivation rec {
     ++ lib.optional (enableGL || enableX11) copyDesktopItems
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
-  buildInputs = [ freetype harfbuzz openjpeg jbig2dec libjpeg gumbo ]
-    ++ lib.optional stdenv.isDarwin xcbuild
-    ++ lib.optionals enableX11 [ libX11 libXext libXi libXrandr ]
-    ++ lib.optionals enableCurl [ curl openssl ] ++ lib.optionals enableGL
-    (if stdenv.isDarwin then
-      with darwin.apple_sdk.frameworks; [ GLUT OpenGL ]
-    else [
-      freeglut-mupdf
-      libGLU
-    ]);
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  buildInputs = [
+    freetype
+    harfbuzz
+    openjpeg
+    jbig2dec
+    libjpeg
+    gumbo
+  ] ++ lib.optional stdenv.isDarwin xcbuild ++ lib.optionals enableX11 [
+    libX11
+    libXext
+    libXi
+    libXrandr
+  ] ++ lib.optionals enableCurl [
+    curl
+    openssl
+  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+    with darwin.apple_sdk.frameworks; [
+      GLUT
+      OpenGL
+    ]
+  else [
+    freeglut-mupdf
+    libGLU
+  ]);
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
 
   preConfigure = ''
     # Don't remove mujs because upstream version is incompatible
     rm -rf thirdparty/{curl,freetype,glfw,harfbuzz,jbig2dec,libjpeg,openjpeg,zlib}
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = pname;
-      comment = meta.description;
-      icon = "mupdf";
-      exec = "${pname} %f";
-      terminal = false;
-      mimeTypes = [
-        "application/epub+zip"
-        "application/oxps"
-        "application/pdf"
-        "application/vnd.ms-xpsdocument"
-        "application/x-cbz"
-        "application/x-pdf"
-      ];
-      categories = [ "Graphics" "Viewer" ];
-      keywords = [
-        "mupdf"
-        "comic"
-        "document"
-        "ebook"
-        "viewer"
-        "cbz"
-        "epub"
-        "fb2"
-        "pdf"
-        "xps"
-      ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = pname;
+    comment = meta.description;
+    icon = "mupdf";
+    exec = "${pname} %f";
+    terminal = false;
+    mimeTypes = [
+      "application/epub+zip"
+      "application/oxps"
+      "application/pdf"
+      "application/vnd.ms-xpsdocument"
+      "application/x-cbz"
+      "application/x-pdf"
+    ];
+    categories = [
+      "Graphics"
+      "Viewer"
+    ];
+    keywords = [
+      "mupdf"
+      "comic"
+      "document"
+      "ebook"
+      "viewer"
+      "cbz"
+      "epub"
+      "fb2"
+      "pdf"
+      "xps"
+    ];
+  }) ];
 
   postInstall = ''
     mkdir -p "$out/lib/pkgconfig"
@@ -161,7 +182,10 @@ in stdenv.mkDerivation rec {
     description =
       "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ vrthra fpletz ];
+    maintainers = with maintainers; [
+      vrthra
+      fpletz
+    ];
     platforms = platforms.unix;
   };
 }

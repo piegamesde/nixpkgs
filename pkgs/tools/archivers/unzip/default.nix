@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  patchFlags = [ "-p1" "-F3" ];
+  patchFlags = [
+    "-p1"
+    "-F3"
+  ];
 
   patches = [
     ./CVE-2014-8139.diff

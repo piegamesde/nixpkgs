@@ -177,12 +177,18 @@ let
     vendorSha256 = k3sVendorSha256;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libseccomp sqlite.dev ];
+    buildInputs = [
+      libseccomp
+      sqlite.dev
+    ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [ "libsqlite3" "linux" ];
+    tags = [
+      "libsqlite3"
+      "linux"
+    ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -216,7 +222,10 @@ let
     };
     vendorSha256 = null;
     buildInputs = [ btrfs-progs ];
-    subPackages = [ "cmd/containerd" "cmd/containerd-shim-runc-v2" ];
+    subPackages = [
+      "cmd/containerd"
+      "cmd/containerd-shim-runc-v2"
+    ];
     ldflags = versionldflags;
   };
 in buildGoModule rec {
@@ -265,10 +274,20 @@ in buildGoModule rec {
 
   buildInputs = k3sRuntimeDeps;
 
-  nativeBuildInputs = [ makeWrapper rsync yq-go zstd ];
+  nativeBuildInputs = [
+    makeWrapper
+    rsync
+    yq-go
+    zstd
+  ];
 
   # embedded in the final k3s cli
-  propagatedBuildInputs = [ k3sCNIPlugins k3sContainerd k3sServer runc ];
+  propagatedBuildInputs = [
+    k3sCNIPlugins
+    k3sContainerd
+    k3sServer
+    runc
+  ];
 
   # We override most of buildPhase due to peculiarities in k3s's build.
   # Specifically, it has a 'go generate' which runs part of the package. See

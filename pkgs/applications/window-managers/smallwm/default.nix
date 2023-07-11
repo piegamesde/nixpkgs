@@ -20,14 +20,26 @@ stdenv.mkDerivation rec {
     sha256 = "0cqhy81ymdcdyvgi55a401rr96h2akskcxi9ddzjbln4a71yjlz8";
   };
 
-  nativeBuildInputs = [ doxygen graphviz ];
-  buildInputs = [ libX11 libXrandr ];
+  nativeBuildInputs = [
+    doxygen
+    graphviz
+  ];
+  buildInputs = [
+    libX11
+    libXrandr
+  ];
 
   dontConfigure = true;
 
-  makeFlags = [ "CC=${stdenv.cc}/bin/cc" "CXX=${stdenv.cc}/bin/c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc}/bin/cc"
+    "CXX=${stdenv.cc}/bin/c++"
+  ];
 
-  buildFlags = [ "all" "doc" ];
+  buildFlags = [
+    "all"
+    "doc"
+  ];
 
   installPhase = ''
     install -dm755 $out/bin $out/share/doc/${pname}-${version}

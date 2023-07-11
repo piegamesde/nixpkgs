@@ -41,7 +41,10 @@ lib.makeOverridable ({
     complPath = completionDirs ++ map (vendorDir "completions") pluginPkgs;
     funcPath = functionDirs ++ map (vendorDir "functions") pluginPkgs;
     confPath = confDirs ++ (map (vendorDir "conf") pluginPkgs)
-      ++ (map (vendorDir "conf") [ localFishConfig shellAliasesFishConfig ]);
+      ++ (map (vendorDir "conf") [
+        localFishConfig
+        shellAliasesFishConfig
+      ]);
 
   in writeShellApplication {
     inherit runtimeInputs;

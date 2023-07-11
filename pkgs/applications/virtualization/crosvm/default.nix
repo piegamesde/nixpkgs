@@ -30,11 +30,23 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "ath0x9dfQCWWU9+zKyYLC6Q/QXupifHhdQxrS+N2UWw=";
 
-  nativeBuildInputs =
-    [ pkg-config protobuf python3 rustPlatform.bindgenHook wayland-scanner ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+    python3
+    rustPlatform.bindgenHook
+    wayland-scanner
+  ];
 
-  buildInputs =
-    [ libcap libdrm libepoxy minijail virglrenderer wayland wayland-protocols ];
+  buildInputs = [
+    libcap
+    libdrm
+    libepoxy
+    minijail
+    virglrenderer
+    wayland
+    wayland-protocols
+  ];
 
   preConfigure = ''
     patchShebangs third_party/minijail/tools/*.py
@@ -46,7 +58,11 @@ rustPlatform.buildRustPackage rec {
   PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR =
     "${wayland-protocols}/share/wayland-protocols/stable";
 
-  buildFeatures = [ "default" "virgl_renderer" "virgl_renderer_next" ];
+  buildFeatures = [
+    "default"
+    "virgl_renderer"
+    "virgl_renderer_next"
+  ];
 
   passthru.updateScript = ./update.py;
 
@@ -55,6 +71,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://chromium.googlesource.com/crosvm/crosvm/";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.bsd3;
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

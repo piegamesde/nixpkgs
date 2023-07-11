@@ -57,11 +57,21 @@ in stdenv.mkDerivation rec {
 
   # FIXME: might be nice to put different APIs in different outputs
   # (e.g. libaws-cpp-sdk-s3.so in output "s3").
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake curl ];
+  nativeBuildInputs = [
+    cmake
+    curl
+  ];
 
-  buildInputs = [ curl openssl zlib ] ++ lib.optionals (stdenv.isDarwin
+  buildInputs = [
+    curl
+    openssl
+    zlib
+  ] ++ lib.optionals (stdenv.isDarwin
     && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))) [
       CoreAudio
       AudioToolbox
@@ -107,7 +117,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/aws/aws-sdk-cpp";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ eelco orivej ];
+    maintainers = with maintainers; [
+      eelco
+      orivej
+    ];
     # building ec2 runs out of memory: cc1plus: out of memory allocating 33554372 bytes after a total of 74424320 bytes
     broken = stdenv.buildPlatform.is32bit
       && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis));

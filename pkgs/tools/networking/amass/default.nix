@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-om7tiYZn8nAOZ3jjAmF0Ncs1OPjiY8v7QW0RSY1Tv6o=";
 
-  outputs = [ "out" "wordlists" ];
+  outputs = [
+    "out"
+    "wordlists"
+  ];
 
   postInstall = ''
     mkdir -p $wordlists
@@ -44,6 +47,9 @@ buildGoModule rec {
     homepage = "https://owasp.org/www-project-amass/";
     changelog = "https://github.com/OWASP/Amass/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit fab ];
+    maintainers = with maintainers; [
+      kalbasit
+      fab
+    ];
   };
 }

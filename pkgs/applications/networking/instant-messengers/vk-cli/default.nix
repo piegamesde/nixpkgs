@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ p7zip ];
 
-  buildInputs = [ curl ncurses openssl ];
+  buildInputs = [
+    curl
+    ncurses
+    openssl
+  ];
 
   unpackPhase = ''
     mkdir -p $TMP/
@@ -37,7 +41,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     patchelf $out/bin/vk-cli \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${lib.makeLibraryPath [ curl glibc ]}"
+      --set-rpath "${
+        lib.makeLibraryPath [
+          curl
+          glibc
+        ]
+      }"
   '';
 
   meta = with lib; {

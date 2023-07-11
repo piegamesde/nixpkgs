@@ -22,8 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-85xMGzBrLdfsl5wOlNYP5pCD0uz5rwUcrF7zvtdyx0o=";
   };
 
-  nativeBuildInputs = [ autoconf automake gettext libtool ];
-  buildInputs = [ attr libuuid libxfs ncurses ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    libtool
+  ];
+  buildInputs = [
+    attr
+    libuuid
+    libxfs
+    ncurses
+  ];
 
   postPatch = ''
     substituteInPlace Makefile \

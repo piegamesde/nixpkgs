@@ -17,7 +17,13 @@ stdenv.mkDerivation {
   installPhase = ''
     install -vD ${./nix-prefetch-docker} $out/bin/$name;
     wrapProgram $out/bin/$name \
-      --prefix PATH : ${lib.makeBinPath [ nix skopeo jq ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          skopeo
+          jq
+        ]
+      } \
       --set HOME /homeless-shelter
   '';
 

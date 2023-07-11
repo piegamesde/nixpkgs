@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cups ghostscript dpkg a2ps ];
+  buildInputs = [
+    cups
+    ghostscript
+    dpkg
+    a2ps
+  ];
 
   dontUnpack = true;
 
@@ -57,7 +62,12 @@ stdenv.mkDerivation rec {
       #substituteInPlace $f \
       wrapProgram $f \
         --prefix PATH : ${
-          lib.makeBinPath [ coreutils ghostscript gnugrep gnused ]
+          lib.makeBinPath [
+            coreutils
+            ghostscript
+            gnugrep
+            gnused
+          ]
         }
     done
 
@@ -69,7 +79,15 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/opt/brother/Printers/HLL2390DW/lpd/lpdfilter \
       --prefix PATH ":" ${
-        lib.makeBinPath [ ghostscript a2ps file gnused gnugrep coreutils which ]
+        lib.makeBinPath [
+          ghostscript
+          a2ps
+          file
+          gnused
+          gnugrep
+          coreutils
+          which
+        ]
       }
   '';
 

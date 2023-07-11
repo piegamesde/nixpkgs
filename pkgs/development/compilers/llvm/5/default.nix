@@ -107,7 +107,10 @@ let
       libcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
-        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 

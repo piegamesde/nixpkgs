@@ -39,15 +39,27 @@ buildPythonPackage rec {
     hash = "sha256-AimG5tyTRBETpivC2BwCuoR4o7y98YT6u5sogJlcmoo=";
   };
 
-  propagatedBuildInputs = [ requests websocket-client ];
+  propagatedBuildInputs = [
+    requests
+    websocket-client
+  ];
 
   passthru.optional-dependencies = {
-    async = [ aiohttp websockets ];
-    encrypted = [ cryptography py3rijndael ];
+    async = [
+      aiohttp
+      websockets
+    ];
+    encrypted = [
+      cryptography
+      py3rijndael
+    ];
   };
 
-  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ]
-    ++ passthru.optional-dependencies.async
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.encrypted;
 
   pythonImportsCheck = [ "samsungtvws" ];

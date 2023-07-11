@@ -34,7 +34,14 @@ buildDunePackage rec {
   propagatedBuildInputs = [ optint ]
     ++ lib.optionals withFreestanding [ ocaml-freestanding ];
 
-  checkInputs = [ alcotest bos astring fmt fpath rresult ];
+  checkInputs = [
+    alcotest
+    bos
+    astring
+    fmt
+    fpath
+    rresult
+  ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

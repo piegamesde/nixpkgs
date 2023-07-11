@@ -16,7 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "1h9ncvj23qbbni958knzsli8dvybcswcjbx0qjjgi922nf848l3g";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = lib.optional stdenv.targetPlatform.isMinGW ./mingw-no-fortify.patch;
 

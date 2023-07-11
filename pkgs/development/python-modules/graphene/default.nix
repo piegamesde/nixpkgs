@@ -31,7 +31,11 @@ buildPythonPackage rec {
     hash = "sha256-kwF6oXp06w7r1PbPoJTCQ9teTExYMoqvIZDhtv5QNn8=";
   };
 
-  propagatedBuildInputs = [ aniso8601 graphql-core graphql-relay ];
+  propagatedBuildInputs = [
+    aniso8601
+    graphql-core
+    graphql-relay
+  ];
 
   nativeCheckInputs = [
     promise

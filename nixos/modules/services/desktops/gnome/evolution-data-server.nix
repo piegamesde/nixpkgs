@@ -20,13 +20,23 @@ with lib;
       "gnome3"
       "evolution-data-server"
       "enable"
-    ] [ "services" "gnome" "evolution-data-server" "enable" ])
+    ] [
+      "services"
+      "gnome"
+      "evolution-data-server"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "gnome3"
       "evolution-data-server"
       "plugins"
-    ] [ "services" "gnome" "evolution-data-server" "plugins" ])
+    ] [
+      "services"
+      "gnome"
+      "evolution-data-server"
+      "plugins"
+    ])
   ];
 
   ###### interface

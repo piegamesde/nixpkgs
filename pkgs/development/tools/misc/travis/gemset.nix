@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -196,7 +201,10 @@
     version = "1.0.1";
   };
   pry = {
-    dependencies = [ "coderay" "method_source" ];
+    dependencies = [
+      "coderay"
+      "method_source"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -217,7 +225,10 @@
     version = "4.0.5";
   };
   pusher-client = {
-    dependencies = [ "json" "websocket" ];
+    dependencies = [
+      "json"
+      "websocket"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "18ymxz34gmg7jff3h0nyzp5vdg5i06dbdxlrdl2nq4hf14qwj1f4";

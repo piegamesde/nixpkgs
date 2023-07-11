@@ -27,7 +27,10 @@ buildPythonPackage rec {
   # nixbld user on hydra
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "supervisor" ];
 

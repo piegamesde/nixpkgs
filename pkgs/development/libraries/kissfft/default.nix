@@ -49,15 +49,16 @@ in stdenv.mkDerivation rec {
     "KISSFFT_OPENMP=${option enableOpenmp}"
   ];
 
-  buildInputs = lib.optionals (withTools && datatype != "simd") [
-    libpng
-  ]
-  # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
+  buildInputs = lib.optionals (withTools && datatype != "simd") [ libpng ]
+    # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
     ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp;
 
   doCheck = true;
 
-  nativeCheckInputs = [ py (if datatype == "float" then fftwFloat else fftw) ];
+  nativeCheckInputs = [
+    py
+    (if datatype == "float" then fftwFloat else fftw)
+  ];
 
   checkFlags = [ "testsingle" ];
 

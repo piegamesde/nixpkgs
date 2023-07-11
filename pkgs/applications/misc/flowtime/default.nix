@@ -38,8 +38,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita libxml2 libgee ]
-    ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-bad ]);
+  buildInputs = [
+    libadwaita
+    libxml2
+    libgee
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+  ]);
 
   meta = with lib; {
     description = "Get what motivates you done, without losing concentration";

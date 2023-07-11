@@ -24,8 +24,10 @@ buildPythonPackage rec {
 
   PACKAGE_VERSION = version;
 
-  propagatedBuildInputs = [ aiodns aiohttp ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  propagatedBuildInputs = [
+    aiodns
+    aiohttp
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pythonImportsCheck = [ "forecast_solar" ];
 

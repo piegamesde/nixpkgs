@@ -32,9 +32,17 @@ stdenv.mkDerivation {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs = [ wayland wayland-protocols ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+  ];
 
   installPhase = ''
     runHook preInstall

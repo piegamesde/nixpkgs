@@ -19,8 +19,16 @@ python3Packages.buildPythonApplication {
   };
 
   nativeCheckInputs = [ python3Packages.coverage ];
-  buildInputs = [ zlib libjpeg ];
-  propagatedBuildInputs = with python3Packages; [ ffmpeg pillow requests x256 ];
+  buildInputs = [
+    zlib
+    libjpeg
+  ];
+  propagatedBuildInputs = with python3Packages; [
+    ffmpeg
+    pillow
+    requests
+    x256
+  ];
 
   meta = with lib; {
     description = "Render gifs as ASCII art in your cli";

@@ -29,8 +29,13 @@ stdenv.mkDerivation rec {
     ocamlPackages.findlib
   ];
   buildInputs = with ocamlPackages;
-    [ ocamlPackages.ocaml calendar curses gettext-stub ocaml_libvirt ]
-    ++ [ libxml2 ];
+    [
+      ocamlPackages.ocaml
+      calendar
+      curses
+      gettext-stub
+      ocaml_libvirt
+    ] ++ [ libxml2 ];
 
   prePatch = ''
     substituteInPlace ocaml-dep.sh.in --replace '#!/bin/bash' '#!${stdenv.shell}'

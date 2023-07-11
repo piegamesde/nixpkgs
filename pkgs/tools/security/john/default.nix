@@ -63,12 +63,32 @@ stdenv.mkDerivation rec {
     export AS=$CC
     export LD=$CC
   '';
-  configureFlags = [ "--disable-native-tests" "--with-systemwide" ];
+  configureFlags = [
+    "--disable-native-tests"
+    "--with-systemwide"
+  ];
 
-  buildInputs = [ openssl nss nspr libkrb5 gmp zlib libpcap re2 ];
-  nativeBuildInputs = [ gcc python3Packages.wrapPython perl makeWrapper ];
-  propagatedBuildInputs = (with python3Packages; [ dpkt scapy lxml ])
-    ++ # For pcap2john.py
+  buildInputs = [
+    openssl
+    nss
+    nspr
+    libkrb5
+    gmp
+    zlib
+    libpcap
+    re2
+  ];
+  nativeBuildInputs = [
+    gcc
+    python3Packages.wrapPython
+    perl
+    makeWrapper
+  ];
+  propagatedBuildInputs = (with python3Packages; [
+    dpkt
+    scapy
+    lxml
+  ]) ++ # For pcap2john.py
     (with perlPackages; [
       DigestMD4
       DigestSHA1
@@ -105,7 +125,10 @@ stdenv.mkDerivation rec {
     description = "John the Ripper password cracker";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/openwall/john/";
-    maintainers = with maintainers; [ offline matthewbauer ];
+    maintainers = with maintainers; [
+      offline
+      matthewbauer
+    ];
     platforms = platforms.unix;
   };
 }

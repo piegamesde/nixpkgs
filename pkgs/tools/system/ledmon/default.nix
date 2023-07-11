@@ -18,12 +18,17 @@ stdenv.mkDerivation rec {
     sha256 = "1lz59606vf2sws5xwijxyffm8kxcf8p9qbdpczsq1b5mm3dk6lvp";
   };
 
-  nativeBuildInputs = [
-    perl # for pod2man
+  nativeBuildInputs = [ perl # for pod2man
+    ];
+  buildInputs = [
+    udev
+    sg3_utils
   ];
-  buildInputs = [ udev sg3_utils ];
 
-  installTargets = [ "install" "install-systemd" ];
+  installTargets = [
+    "install"
+    "install-systemd"
+  ];
 
   makeFlags = [
     "MAN_INSTDIR=${placeholder "out"}/share/man"

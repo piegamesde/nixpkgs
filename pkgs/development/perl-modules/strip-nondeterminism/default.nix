@@ -14,7 +14,10 @@ buildPerlPackage rec {
   pname = "strip-nondeterminism";
   version = "1.13.1";
 
-  outputs = [ "out" "dev" ]; # no "devdoc"
+  outputs = [
+    "out"
+    "dev"
+  ]; # no "devdoc"
 
   src = fetchFromGitLab {
     owner = "reproducible-builds";
@@ -26,7 +29,10 @@ buildPerlPackage rec {
 
   strictDeps = true;
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
-  buildInputs = [ ArchiveZip ArchiveCpio ];
+  buildInputs = [
+    ArchiveZip
+    ArchiveCpio
+  ];
 
   nativeCheckInputs = [ SubOverride ];
 
@@ -62,6 +68,9 @@ buildPerlPackage rec {
       "A Perl module for stripping bits of non-deterministic information";
     homepage = "https://reproducible-builds.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pSub artturin ];
+    maintainers = with maintainers; [
+      pSub
+      artturin
+    ];
   };
 }

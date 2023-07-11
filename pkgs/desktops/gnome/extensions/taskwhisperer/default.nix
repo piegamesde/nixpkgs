@@ -31,13 +31,11 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      task = "${taskwarrior}/bin/task";
-      shell = runtimeShell;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    task = "${taskwarrior}/bin/task";
+    shell = runtimeShell;
+  }) ];
 
   meta = with lib; {
     description = "GNOME Shell TaskWarrior GUI";

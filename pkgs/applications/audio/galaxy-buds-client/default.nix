@@ -27,11 +27,23 @@ buildDotnetModule rec {
   nugetDeps = ./deps.nix;
   dotnetFlags = [ "-p:Runtimeidentifier=linux-x64" ];
 
-  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems graphicsmagick ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    copyDesktopItems
+    graphicsmagick
+  ];
 
-  buildInputs = [ stdenv.cc.cc.lib fontconfig ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    fontconfig
+  ];
 
-  runtimeDeps = [ libglvnd xorg.libSM xorg.libICE xorg.libX11 ];
+  runtimeDeps = [
+    libglvnd
+    xorg.libSM
+    xorg.libICE
+    xorg.libX11
+  ];
 
   postFixup = ''
     mkdir -p $out/share/icons/hicolor/256x256/apps/

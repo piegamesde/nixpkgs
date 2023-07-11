@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper dpkg ];
+  nativeBuildInputs = [
+    makeWrapper
+    dpkg
+  ];
 
   unpackPhase =
     "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";

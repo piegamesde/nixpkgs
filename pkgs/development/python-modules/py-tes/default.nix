@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-HZeyCQHiqfdquWQD5axS73JDjDMUieONwm5VyA+vTFk=";
   };
 
-  propagatedBuildInputs = [ attrs future python-dateutil requests ];
+  propagatedBuildInputs = [
+    attrs
+    future
+    python-dateutil
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "tes" ];
 

@@ -28,8 +28,16 @@ stdenv.mkDerivation rec {
     rev = "r${rev}";
   };
 
-  nativeBuildInputs =
-    [ autoconf automake libtool flex perl check pkg-config python3 ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    flex
+    perl
+    check
+    pkg-config
+    python3
+  ];
   hardeningDisable = [ "format" ];
 
   preConfigure = ''

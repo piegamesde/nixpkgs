@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "neard";
   version = "0.18";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -24,13 +27,25 @@ stdenv.mkDerivation rec {
     sha256 = "wBPjEVMV4uEdFrXw8cjOmvvNuiaACq2RJF/ZtKXck4s=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook autoconf-archive pkg-config python2Packages.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+    python2Packages.wrapPython
+  ];
 
-  buildInputs = [ systemd glib dbus libnl ]
-    ++ (with python2Packages; [ python ]);
+  buildInputs = [
+    systemd
+    glib
+    dbus
+    libnl
+  ] ++ (with python2Packages; [ python ]);
 
-  pythonPath = with python2Packages; [ pygobject2 dbus-python pygtk ];
+  pythonPath = with python2Packages; [
+    pygobject2
+    dbus-python
+    pygtk
+  ];
 
   strictDeps = true;
 

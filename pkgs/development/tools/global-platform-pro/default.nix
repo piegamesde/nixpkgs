@@ -29,7 +29,10 @@ in stdenv.mkDerivation rec {
   deps = stdenv.mkDerivation {
     name = "${pname}-${version}-deps";
     inherit src;
-    nativeBuildInputs = [ jdk maven ];
+    nativeBuildInputs = [
+      jdk
+      maven
+    ];
     installPhase = ''
       # Download the dependencies
       while ! mvn package "-Dmaven.repo.local=$out/.m2" -Dmaven.wagon.rto=5000; do
@@ -47,7 +50,11 @@ in stdenv.mkDerivation rec {
     outputHash = "1qwgvz6l5wia8q5824c9f3iwyapfskljhqf1z09fw6jjj1jy3b15";
   };
 
-  nativeBuildInputs = [ jdk maven makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    maven
+    makeWrapper
+  ];
 
   buildPhase = ''
     cp -dpR "${deps}/.m2" ./

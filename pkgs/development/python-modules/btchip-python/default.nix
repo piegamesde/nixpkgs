@@ -23,7 +23,10 @@ buildPythonPackage rec {
       --replace "python-pyscard>=1.6.12-4build1" "python-pyscard>=1.6.12"
   '';
 
-  propagatedBuildInputs = [ hidapi ecdsa ];
+  propagatedBuildInputs = [
+    hidapi
+    ecdsa
+  ];
 
   passthru.optional-dependencies.smartcard = [ pyscard ];
 

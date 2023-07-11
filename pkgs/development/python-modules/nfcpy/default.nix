@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-HFWOCiz6ISfxEeC6KPKNKGZoHvFjFGUn7QJWnwvJKYw=";
   };
 
-  propagatedBuildInputs = [ libusb1 ndeflib pydes pyserial ];
+  propagatedBuildInputs = [
+    libusb1
+    ndeflib
+    pydes
+    pyserial
+  ];
 
-  nativeCheckInputs = [ mock pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nfc" ];
 

@@ -22,7 +22,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-cJyUBatQBjD6RG+jesJ0JRhWghPRBACc/HQl+2aCTd0=";
   };
 
-  buildInputs = [ ncurses tcl openssl pam libkrb5 openldap libxcrypt ];
+  buildInputs = [
+    ncurses
+    tcl
+    openssl
+    pam
+    libkrb5
+    openldap
+    libxcrypt
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -37,7 +45,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Console mail reader";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raskin rhendric ];
+    maintainers = with maintainers; [
+      raskin
+      rhendric
+    ];
     platforms = platforms.linux;
     homepage = "https://alpineapp.email/";
   };

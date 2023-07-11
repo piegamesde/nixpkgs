@@ -51,7 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-base";
   version = "1.22.2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = let inherit (finalAttrs) pname version;
   in fetchurl {
@@ -90,10 +93,14 @@ stdenv.mkDerivation (finalAttrs: {
     pango
   ] ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
     ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-    ++ lib.optionals enableAlsa [ alsa-lib ]
-    ++ lib.optionals enableX11 [ libXext libXi libXv ]
-    ++ lib.optionals enableWayland [ wayland wayland-protocols ]
-    ++ lib.optional enableCocoa Cocoa
+    ++ lib.optionals enableAlsa [ alsa-lib ] ++ lib.optionals enableX11 [
+      libXext
+      libXi
+      libXv
+    ] ++ lib.optionals enableWayland [
+      wayland
+      wayland-protocols
+    ] ++ lib.optional enableCocoa Cocoa
     ++ lib.optional enableCdparanoia cdparanoia;
 
   propagatedBuildInputs = [ gstreamer ];
@@ -107,8 +114,9 @@ stdenv.mkDerivation (finalAttrs: {
         ++ lib.optional enableCocoa "cocoa")
     }"
     (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "-Dtests=disabled" ] ++ lib.optional (!enableX11) "-Dx11=disabled"
+  ] ++ lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dtests=disabled" ]
+    ++ lib.optional (!enableX11) "-Dx11=disabled"
     # TODO How to disable Wayland?
     ++ lib.optional (!enableGl) "-Dgl=disabled"
     ++ lib.optional (!enableAlsa) "-Dalsa=disabled"

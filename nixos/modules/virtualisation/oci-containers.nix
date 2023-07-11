@@ -250,16 +250,14 @@ let
         "docker.socket"
       ]
       # if imageFile is not set, the service needs the network to download the image from the registry
-        ++ lib.optionals (container.imageFile == null)
-        [ "network-online.target" ] ++ dependsOn;
+        ++ lib.optionals
+        (container.imageFile == null) [ "network-online.target" ] ++ dependsOn;
       requires = dependsOn;
       environment = proxy_env;
 
-      path = if cfg.backend == "docker" then
-        [ config.virtualisation.docker.package ]
-      else if cfg.backend == "podman" then
-        [ config.virtualisation.podman.package ]
-      else
+      path = if cfg.backend
+      == "docker" then [ config.virtualisation.docker.package ] else if cfg.backend
+      == "podman" then [ config.virtualisation.podman.package ] else
         throw "Unhandled backend: ${cfg.backend}";
 
       preStart = ''
@@ -342,23 +340,24 @@ let
     };
 
 in {
-  imports = [
-    (lib.mkChangedOptionModule [ "docker-containers" ] [
-      "virtualisation"
-      "oci-containers"
-    ] (oldcfg: {
-      backend = "docker";
-      containers = lib.mapAttrs (n: v:
-        builtins.removeAttrs
-        (v // { extraOptions = v.extraDockerOptions or [ ]; })
-        [ "extraDockerOptions" ]) oldcfg.docker-containers;
-    }))
-  ];
+  imports = [ (lib.mkChangedOptionModule [ "docker-containers" ] [
+    "virtualisation"
+    "oci-containers"
+  ] (oldcfg: {
+    backend = "docker";
+    containers = lib.mapAttrs (n: v:
+      builtins.removeAttrs (v // {
+        extraOptions = v.extraDockerOptions or [ ];
+      }) [ "extraDockerOptions" ]) oldcfg.docker-containers;
+  })) ];
 
   options.virtualisation.oci-containers = {
 
     backend = mkOption {
-      type = types.enum [ "podman" "docker" ];
+      type = types.enum [
+        "podman"
+        "docker"
+      ];
       default = if versionAtLeast config.system.stateVersion "22.05" then
         "podman"
       else

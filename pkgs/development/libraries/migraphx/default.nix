@@ -50,17 +50,22 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UDhm+j9qs4Rk81C1PE4kkacytfY2StYbfsCOtFL+p6s=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config cmake rocm-cmake hip clang-tools-extra python3Packages.python ]
-    ++ lib.optionals buildDocs [
-      latex
-      doxygen
-      sphinx
-      docutils
-      ghostscript
-      python3Packages.sphinx-rtd-theme
-      python3Packages.breathe
-    ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    rocm-cmake
+    hip
+    clang-tools-extra
+    python3Packages.python
+  ] ++ lib.optionals buildDocs [
+    latex
+    doxygen
+    sphinx
+    docutils
+    ghostscript
+    python3Packages.sphinx-rtd-theme
+    python3Packages.breathe
+  ];
 
   buildInputs = [
     openmp

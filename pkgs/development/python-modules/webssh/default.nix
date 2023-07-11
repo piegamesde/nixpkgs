@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-mRestRJukaf7ti3vIs/MM/R+zpGmK551j5HAM2chBsE=";
   };
 
-  propagatedBuildInputs = [ paramiko tornado ];
+  propagatedBuildInputs = [
+    paramiko
+    tornado
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

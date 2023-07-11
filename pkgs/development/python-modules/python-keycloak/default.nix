@@ -32,7 +32,12 @@ buildPythonPackage rec {
 
   buildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ python-jose urllib3 requests requests-toolbelt ];
+  propagatedBuildInputs = [
+    python-jose
+    urllib3
+    requests
+    requests-toolbelt
+  ];
 
   # Test fixtures require a running keycloak instance
   doCheck = false;

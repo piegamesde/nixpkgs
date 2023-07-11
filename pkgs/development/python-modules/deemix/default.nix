@@ -23,8 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-xEahzA1PIrGPfnnOcuXQLVQpSVOUFk6/0v9ViLgWCwk=";
   };
 
-  propagatedBuildInputs =
-    [ spotipy click pycryptodomex mutagen requests deezer-py ];
+  propagatedBuildInputs = [
+    spotipy
+    click
+    pycryptodomex
+    mutagen
+    requests
+    deezer-py
+  ];
 
   # Project has no tests
   doCheck = false;

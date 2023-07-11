@@ -20,7 +20,10 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ menhir ];
-  propagatedBuildInputs = [ menhirLib fmt ];
+  propagatedBuildInputs = [
+    menhirLib
+    fmt
+  ];
 
   # Testr are not compatible with menhir 20211128
   doCheck = false;

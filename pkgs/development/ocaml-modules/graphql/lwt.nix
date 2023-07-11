@@ -12,7 +12,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ graphql ocaml_lwt ];
+  propagatedBuildInputs = [
+    graphql
+    ocaml_lwt
+  ];
 
   checkInputs = [ alcotest ];
 

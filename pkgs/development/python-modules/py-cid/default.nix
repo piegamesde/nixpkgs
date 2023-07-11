@@ -31,10 +31,18 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  propagatedBuildInputs =
-    [ base58 py-multibase py-multicodec morphys py-multihash ];
+  propagatedBuildInputs = [
+    base58
+    py-multibase
+    py-multicodec
+    morphys
+    py-multihash
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "cid" ];
 

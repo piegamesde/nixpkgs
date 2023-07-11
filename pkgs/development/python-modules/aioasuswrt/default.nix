@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ asyncssh ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

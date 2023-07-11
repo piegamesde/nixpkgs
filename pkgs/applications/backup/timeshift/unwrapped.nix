@@ -39,9 +39,20 @@ stdenv.mkDerivation rec {
       --replace "file_copy(app_conf_path_default, app_conf_path);" "if (!dir_exists(file_parent(app_conf_path))){dir_create(file_parent(app_conf_path));};file_copy(app_conf_path_default, app_conf_path);"
   '';
 
-  nativeBuildInputs = [ gettext pkg-config vala which ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    vala
+    which
+  ];
 
-  buildInputs = [ gtk3 json-glib libgee vte xapp ];
+  buildInputs = [
+    gtk3
+    json-glib
+    libgee
+    vte
+    xapp
+  ];
 
   preBuild = ''
     makeFlagsArray+=( \
@@ -60,6 +71,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/timeshift";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ShamrockLee bobby285271 ];
+    maintainers = with maintainers; [
+      ShamrockLee
+      bobby285271
+    ];
   };
 }

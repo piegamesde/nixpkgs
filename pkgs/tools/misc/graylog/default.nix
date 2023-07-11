@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  makeWrapperArgs = [ "--set-default" "JAVA_HOME" "${openjdk11_headless}" ];
+  makeWrapperArgs = [
+    "--set-default"
+    "JAVA_HOME"
+    "${openjdk11_headless}"
+  ];
 
   passthru.tests = { inherit (nixosTests) graylog; };
 

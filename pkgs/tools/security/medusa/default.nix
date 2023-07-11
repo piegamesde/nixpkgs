@@ -31,12 +31,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   configureFlags = [ "--enable-module-ssh=yes" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ freerdp openssl libssh2 ];
+  buildInputs = [
+    freerdp
+    openssl
+    libssh2
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/jmk-foofus/medusa";

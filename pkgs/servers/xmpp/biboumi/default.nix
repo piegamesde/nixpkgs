@@ -33,10 +33,26 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./catch.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config python3Packages.sphinx ];
-  buildInputs = [ libuuid expat sqlite libiconv libidn botan2 systemd udns ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.sphinx
+  ];
+  buildInputs = [
+    libuuid
+    expat
+    sqlite
+    libiconv
+    libidn
+    botan2
+    systemd
+    udns
+  ];
 
-  buildFlags = [ "all" "man" ];
+  buildFlags = [
+    "all"
+    "man"
+  ];
 
   preConfigure = ''
     substituteInPlace CMakeLists.txt --replace /etc/biboumi $out/etc/biboumi

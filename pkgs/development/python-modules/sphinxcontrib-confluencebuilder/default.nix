@@ -17,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-RyShQt/t8tnE5ZHM0WDQ+jrvXem3y24tCpj3s6Thq+g=";
   };
 
-  propagatedBuildInputs = [ docutils sphinx requests jinja2 ];
+  propagatedBuildInputs = [
+    docutils
+    sphinx
+    requests
+    jinja2
+  ];
 
   # Tests are disabled due to a circular dependency on Sphinx
   doCheck = false;

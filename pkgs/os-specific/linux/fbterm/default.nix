@@ -24,8 +24,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-vRUZgFpA1IkzkLzl7ImT+Yff5XqjFbUlkHmj/hd7XDE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ncurses ];
-  buildInputs = [ gpm freetype fontconfig ncurses ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    ncurses
+  ];
+  buildInputs = [
+    gpm
+    freetype
+    fontconfig
+    ncurses
+  ];
 
   # preConfigure = ''
   #   sed -e '/ifdef SYS_signalfd/atypedef long long loff_t;' -i src/fbterm.cpp
@@ -89,7 +98,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Framebuffer terminal emulator";
     homepage = "https://salsa.debian.org/debian/fbterm";
-    maintainers = with maintainers; [ lovesegfault raskin ];
+    maintainers = with maintainers; [
+      lovesegfault
+      raskin
+    ];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-fq7zKWgpDJEh98Nblz4swwL/sHbQGMkGjS9cqLLYX7A=";
   };
 
-  propagatedBuildInputs = [ gevent gunicorn ];
+  propagatedBuildInputs = [
+    gevent
+    gunicorn
+  ];
 
   # Module has no test
   doCheck = false;

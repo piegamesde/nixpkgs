@@ -33,8 +33,11 @@ in rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = with lib;
-    [ openssl ] ++ optionals stdenv.isDarwin [ libiconv Security CoreServices ]
-    ++ optional (dbBackend == "mysql") libmysqlclient
+    [ openssl ] ++ optionals stdenv.isDarwin [
+      libiconv
+      Security
+      CoreServices
+    ] ++ optional (dbBackend == "mysql") libmysqlclient
     ++ optional (dbBackend == "postgresql") postgresql;
 
   buildFeatures = dbBackend;
@@ -49,6 +52,9 @@ in rustPlatform.buildRustPackage rec {
     description = "Unofficial Bitwarden compatible server written in Rust";
     homepage = "https://github.com/dani-garcia/vaultwarden";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ msteen ivan ];
+    maintainers = with maintainers; [
+      msteen
+      ivan
+    ];
   };
 }

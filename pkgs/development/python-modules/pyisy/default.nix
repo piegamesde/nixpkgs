@@ -33,7 +33,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ aiohttp colorlog python-dateutil requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    colorlog
+    python-dateutil
+    requests
+  ];
 
   # no tests implemented
   doCheck = false;

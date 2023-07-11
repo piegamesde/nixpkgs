@@ -22,16 +22,29 @@ buildPythonPackage rec {
     hash = "sha256-y9PYlGSPLpZl9Ad2AFuDKIopH0LRETLp35aiZtLcXzM=";
   };
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   pythonRelaxDeps = [ "rapidfuzz" ];
 
-  propagatedBuildInputs = [ crashtest rapidfuzz ];
+  propagatedBuildInputs = [
+    crashtest
+    rapidfuzz
+  ];
 
-  pythonImportsCheck =
-    [ "cleo" "cleo.application" "cleo.commands.command" "cleo.helpers" ];
+  pythonImportsCheck = [
+    "cleo"
+    "cleo.application"
+    "cleo.commands.command"
+    "cleo.helpers"
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/python-poetry/cleo";

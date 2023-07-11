@@ -24,9 +24,20 @@ stdenv.mkDerivation {
     sha256 = "0ay6ir9zg9l0264x5xwd7c6j8qmwlhrifkkkjd1yrjh9sqxyfj7f";
   };
 
-  nativeBuildInputs = [ gobject-introspection meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gobject-introspection
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ glib gsignond json-glib libsoup ];
+  buildInputs = [
+    glib
+    gsignond
+    json-glib
+    libsoup
+  ];
 
   PKG_CONFIG_GSIGNOND_GPLUGINSDIR =
     "${placeholder "out"}/lib/gsignond/gplugins";

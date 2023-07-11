@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-XDqWxTyaFEWPdXMTklcNQxqql73ESXAIF6TjMFHaj7g=";
   };
 
-  nativeBuildInputs = [ glib gnome.gnome-shell ];
+  nativeBuildInputs = [
+    glib
+    gnome.gnome-shell
+  ];
 
   patches = [
     # GNOME 44 compatibility

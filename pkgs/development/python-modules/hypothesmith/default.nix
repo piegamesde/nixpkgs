@@ -32,9 +32,17 @@ buildPythonPackage rec {
       --replace "--cov-fail-under=100" ""
   '';
 
-  propagatedBuildInputs = [ hypothesis lark libcst ];
+  propagatedBuildInputs = [
+    hypothesis
+    lark
+    libcst
+  ];
 
-  nativeCheckInputs = [ parso pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    parso
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   pytestFlagsArray = [ "-v" ];
 

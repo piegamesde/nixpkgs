@@ -32,7 +32,12 @@ stdenv.mkDerivation rec {
     sha256 = "0b63qvw9r8kaqw36bk3a9zwxc41h8fr6498indkw4glrj0awqz9c";
   };
 
-  nativeBuildInputs = [ autoreconfHook gettext perl pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    perl
+    pkg-config
+  ];
 
   buildInputs = [
     bzip2
@@ -47,7 +52,10 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--enable-contrast" "--enable-dst-correction" ];
+  configureFlags = [
+    "--enable-contrast"
+    "--enable-dst-correction"
+  ];
 
   postInstall = lib.optionalString addThumbnailer ''
     mkdir -p $out/share/thumbnailers
@@ -72,6 +80,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ asbachb ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

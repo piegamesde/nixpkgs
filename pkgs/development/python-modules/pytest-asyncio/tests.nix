@@ -18,5 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytest-asyncio ];
 
-  nativeCheckInputs = [ flaky hypothesis pytest-trio pytestCheckHook ];
+  nativeCheckInputs = [
+    flaky
+    hypothesis
+    pytest-trio
+    pytestCheckHook
+  ];
 }

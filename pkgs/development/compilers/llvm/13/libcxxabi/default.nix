@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   inherit src;
   sourceRoot = "source/${pname}";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = lib.optionalString stdenv.isDarwin ''
     export TRIPLE=x86_64-apple-darwin
@@ -30,13 +33,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gnu-install-dirs.patch ];
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
   buildInputs = lib.optional withLibunwind libunwind;
 
   cmakeFlags = [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]
-    ++ lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind)
-    [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
+    ++ lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ] ++ lib.optionals
+    (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
@@ -81,7 +86,10 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

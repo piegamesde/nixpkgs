@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ jdk ant ];
+  nativeBuildInputs = [
+    jdk
+    ant
+  ];
 
   patches = [ ./javacup-0.11b_beta20160615-build-xml-git.patch ];
 

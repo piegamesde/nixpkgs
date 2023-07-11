@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cFlNx59PaI5GvbEKUplNEq5HVCNt40ZJUvMj2UIbe2A=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   meta = with lib; {
     description = "SubNetCalc is an IPv4/IPv6 subnet address calculator";

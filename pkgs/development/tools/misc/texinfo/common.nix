@@ -65,22 +65,31 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   # A native compiler is needed to build tools needed at build time
-  depsBuildBuild = [ buildPackages.stdenv.cc perl ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+    perl
+  ];
 
-  buildInputs = [ xz.bin bash libintl ]
-    ++ optionals stdenv.isSunOS [ libiconv gawk ]
-    ++ optional interactive ncurses;
+  buildInputs = [
+    xz.bin
+    bash
+    libintl
+  ] ++ optionals stdenv.isSunOS [
+    libiconv
+    gawk
+  ] ++ optional interactive ncurses;
 
-  configureFlags = [
-    "PERL=${buildPackages.perl}/bin/perl"
-  ]
-  # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
-  # fallbacks.
+  configureFlags = [ "PERL=${buildPackages.perl}/bin/perl" ]
+    # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
+    # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
     ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk";
 
   installFlags = [ "TEXMF=$(out)/texmf-dist" ];
-  installTargets = [ "install" "install-tex" ];
+  installTargets = [
+    "install"
+    "install-tex"
+  ];
 
   nativeCheckInputs = [ procps ];
 
@@ -107,7 +116,10 @@ stdenv.mkDerivation {
     changelog = "https://git.savannah.gnu.org/cgit/texinfo.git/plain/NEWS";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vrthra oxij ];
+    maintainers = with maintainers; [
+      vrthra
+      oxij
+    ];
     # see comment above in patches section
     broken = stdenv.hostPlatform.isPower64
       && lib.strings.versionOlder version "6.0";

@@ -32,7 +32,12 @@ buildPythonPackage rec {
     hash = "sha256-f28Dgc/ixSwbhkAgPaLLVpdLJuI5UN37GnazfZFvGX4=";
   };
 
-  nativeCheckInputs = [ matplotlib networkx numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    matplotlib
+    networkx
+    numpy
+    pytestCheckHook
+  ];
   nativeBuildInputs = [ dos2unix ];
   propagatedBuildInputs = [ cffi ] ++ lib.optionals gurobiSupport
     ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);

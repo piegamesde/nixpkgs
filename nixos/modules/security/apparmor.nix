@@ -21,10 +21,17 @@ let
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "security" "apparmor" "confineSUIDApplications" ]
+    (mkRemovedOptionModule [
+      "security"
+      "apparmor"
+      "confineSUIDApplications"
+    ]
       "Please use the new options: `security.apparmor.policies.<policy>.enable'.")
-    (mkRemovedOptionModule [ "security" "apparmor" "profiles" ]
-      "Please use the new option: `security.apparmor.policies'.")
+    (mkRemovedOptionModule [
+      "security"
+      "apparmor"
+      "profiles"
+    ] "Please use the new option: `security.apparmor.policies'.")
     apparmor/includes.nix
     apparmor/profiles.nix
   ];
@@ -114,8 +121,10 @@ in {
       # which does not recurse into sub-directories.
     }) (attrNames cfg.policies);
 
-    environment.systemPackages =
-      [ pkgs.apparmor-utils pkgs.apparmor-bin-utils ];
+    environment.systemPackages = [
+      pkgs.apparmor-utils
+      pkgs.apparmor-bin-utils
+    ];
     environment.etc."apparmor.d".source = pkgs.linkFarm "apparmor.d" (
       # It's important to put only enabledPolicies here and not all cfg.policies
       # because aa-remove-unknown reads profiles from all /etc/apparmor.d/*
@@ -174,10 +183,16 @@ in {
         sed '1,/\[qualifiers\]/d' $footer >> $out
       '';
 
-    boot.kernelParams = [ "apparmor=1" "security=apparmor" ];
+    boot.kernelParams = [
+      "apparmor=1"
+      "security=apparmor"
+    ];
 
     systemd.services.apparmor = {
-      after = [ "local-fs.target" "systemd-journald-audit.socket" ];
+      after = [
+        "local-fs.target"
+        "systemd-journald-audit.socket"
+      ];
       before = [ "sysinit.target" ];
       wantedBy = [ "multi-user.target" ];
       unitConfig = {
@@ -188,8 +203,10 @@ in {
       # Reloading instead of restarting enables to load new AppArmor profiles
       # without necessarily restarting all services which have Requires=apparmor.service
       reloadIfChanged = true;
-      restartTriggers =
-        [ etc."apparmor/parser.conf".source etc."apparmor.d".source ];
+      restartTriggers = [
+        etc."apparmor/parser.conf".source
+        etc."apparmor.d".source
+      ];
       serviceConfig = let
         killUnconfinedConfinables = pkgs.writeShellScript "apparmor-kill" ''
           set -eu
@@ -227,7 +244,10 @@ in {
           # (because AppArmor can only start to confine new processes).
           optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
         ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
-        CacheDirectory = [ "apparmor" "apparmor/logprof" ];
+        CacheDirectory = [
+          "apparmor"
+          "apparmor/logprof"
+        ];
         CacheDirectoryMode = "0700";
       };
     };

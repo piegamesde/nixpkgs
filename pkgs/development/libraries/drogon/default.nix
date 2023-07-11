@@ -44,12 +44,21 @@ stdenv.mkDerivation rec {
     "-DBUILD_EXAMPLES=OFF"
   ];
 
-  propagatedBuildInputs = [ jsoncpp libossp_uuid zlib openssl brotli c-ares ]
-    ++ lib.optional sqliteSupport sqlite
+  propagatedBuildInputs = [
+    jsoncpp
+    libossp_uuid
+    zlib
+    openssl
+    brotli
+    c-ares
+  ] ++ lib.optional sqliteSupport sqlite
     ++ lib.optional postgresSupport postgresql ++ lib.optional redisSupport
     hiredis
     # drogon uses mariadb for mysql (see https://github.com/drogonframework/drogon/wiki/ENG-02-Installation#Library-Dependencies)
-    ++ lib.optionals mysqlSupport [ libmysqlclient mariadb ];
+    ++ lib.optionals mysqlSupport [
+      libmysqlclient
+      mariadb
+    ];
 
   patches = [
     # this part of the test would normally fail because it attempts to configure a CMake project that uses find_package on itself

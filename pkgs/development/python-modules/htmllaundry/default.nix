@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ nose ];
-  propagatedBuildInputs = [ six lxml ];
+  propagatedBuildInputs = [
+    six
+    lxml
+  ];
 
   # some tests fail, probably because of changes in lxml
   # not relevant for me, if releavnt for you, fix it...

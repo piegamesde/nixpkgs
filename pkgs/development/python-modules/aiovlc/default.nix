@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiovlc" ];
 

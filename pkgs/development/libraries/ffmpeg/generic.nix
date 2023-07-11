@@ -403,7 +403,11 @@
 let
   inherit (lib) optional optionals optionalString enableFeature versionAtLeast;
 
-in assert lib.elem ffmpegVariant [ "headless" "small" "full" ];
+in assert lib.elem ffmpegVariant [
+  "headless"
+  "small"
+  "full"
+];
 
 # *  Licensing dependencies
 assert withGPLv3 -> withGPL;
@@ -616,7 +620,10 @@ stdenv.mkDerivation (finalAttrs: {
       "--cross-prefix=${stdenv.cc.targetPrefix}"
       "--enable-cross-compile"
       "--host-cc=${buildPackages.stdenv.cc}/bin/cc"
-    ] ++ optionals stdenv.cc.isClang [ "--cc=clang" "--cxx=clang++" ];
+    ] ++ optionals stdenv.cc.isClang [
+      "--cc=clang"
+      "--cxx=clang++"
+    ];
 
   # ffmpeg embeds the configureFlags verbatim in its binaries and because we
   # configure binary, include, library dir etc., this causes references in
@@ -629,40 +636,49 @@ stdenv.mkDerivation (finalAttrs: {
     lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
   } config.h";
 
-  nativeBuildInputs =
-    [ removeReferencesTo addOpenGLRunpath perl pkg-config texinfo yasm ];
+  nativeBuildInputs = [
+    removeReferencesTo
+    addOpenGLRunpath
+    perl
+    pkg-config
+    texinfo
+    yasm
+  ];
 
   # TODO This was always in buildInputs before, why?
-  buildInputs = optionals withFullDeps [ libdc1394 ]
-    ++ optionals (withFullDeps && !stdenv.isDarwin)
-    [ libraw1394 ] # TODO where does this belong to
-    ++ optionals (withNvdec || withNvenc) [
-      (if (lib.versionAtLeast version "6") then
-        nv-codec-headers-11
-      else
-        nv-codec-headers)
-    ] ++ optionals withAlsa [ alsa-lib ] ++ optionals withAom [ libaom ]
-    ++ optionals withAss [ libass ] ++ optionals withBluray [ libbluray ]
-    ++ optionals withBs2b [ libbs2b ] ++ optionals withBzlib [ bzip2 ]
-    ++ optionals withCaca [ libcaca ] ++ optionals withCelt [ celt ]
-    ++ optionals withCudaLLVM [ clang ] ++ optionals withDav1d [ dav1d ]
-    ++ optionals withDrm [ libdrm ] ++ optionals withFdkAac [ fdk_aac ]
+  buildInputs = optionals withFullDeps [ libdc1394 ] ++ optionals (withFullDeps
+    && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
+    ++ optionals (withNvdec || withNvenc) [ (if (lib.versionAtLeast version
+      "6") then
+      nv-codec-headers-11
+    else
+      nv-codec-headers) ] ++ optionals withAlsa [ alsa-lib ]
+    ++ optionals withAom [ libaom ] ++ optionals withAss [ libass ]
+    ++ optionals withBluray [ libbluray ] ++ optionals withBs2b [ libbs2b ]
+    ++ optionals withBzlib [ bzip2 ] ++ optionals withCaca [ libcaca ]
+    ++ optionals withCelt [ celt ] ++ optionals withCudaLLVM [ clang ]
+    ++ optionals withDav1d [ dav1d ] ++ optionals withDrm [ libdrm ]
+    ++ optionals withFdkAac [ fdk_aac ]
     ++ optionals withFontconfig [ fontconfig ]
     ++ optionals withFreetype [ freetype ] ++ optionals withFrei0r [ frei0r ]
     ++ optionals withFribidi [ fribidi ] ++ optionals withGlslang [ glslang ]
     ++ optionals withGme [ game-music-emu ] ++ optionals withGnutls [ gnutls ]
-    ++ optionals withGsm [ gsm ] ++ optionals withIconv
-    [ libiconv ] # On Linux this should be in libc, do we really need it?
+    ++ optionals withGsm [ gsm ] ++ optionals
+    withIconv [ libiconv ] # On Linux this should be in libc, do we really need it?
     ++ optionals withJack [ libjack2 ] ++ optionals withLadspa [ ladspaH ]
-    ++ optionals withLibplacebo [ libplacebo vulkan-headers ]
-    ++ optionals withLzma [ xz ] ++ optionals withMfx [ intel-media-sdk ]
+    ++ optionals withLibplacebo [
+      libplacebo
+      vulkan-headers
+    ] ++ optionals withLzma [ xz ] ++ optionals withMfx [ intel-media-sdk ]
     ++ optionals withModplug [ libmodplug ] ++ optionals withMp3lame [ lame ]
     ++ optionals withMysofa [ libmysofa ] ++ optionals withOgg [ libogg ]
-    ++ optionals withOpenal [ openal ]
-    ++ optionals withOpencl [ ocl-icd opencl-headers ]
-    ++ optionals withOpencoreAmrnb [ opencore-amr ]
-    ++ optionals withOpengl [ libGL libGLU ]
-    ++ optionals withOpenh264 [ openh264 ]
+    ++ optionals withOpenal [ openal ] ++ optionals withOpencl [
+      ocl-icd
+      opencl-headers
+    ] ++ optionals withOpencoreAmrnb [ opencore-amr ] ++ optionals withOpengl [
+      libGL
+      libGLU
+    ] ++ optionals withOpenh264 [ openh264 ]
     ++ optionals withOpenjpeg [ openjpeg ]
     ++ optionals withOpenmpt [ libopenmpt ] ++ optionals withOpus [ libopus ]
     ++ optionals withPulse [ libpulseaudio ] ++ optionals withRav1e [ rav1e ]
@@ -676,13 +692,16 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optionals withVmaf [ libvmaf ]
     ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
     ++ optionals withVorbis [ libvorbis ] ++ optionals withVpx [ libvpx ]
-    ++ optionals withV4l2 [ libv4l ]
-    ++ optionals withVulkan [ vulkan-headers vulkan-loader ]
-    ++ optionals withWebp [ libwebp ] ++ optionals withX264 [ x264 ]
+    ++ optionals withV4l2 [ libv4l ] ++ optionals withVulkan [
+      vulkan-headers
+      vulkan-loader
+    ] ++ optionals withWebp [ libwebp ] ++ optionals withX264 [ x264 ]
     ++ optionals withX265 [ x265 ] ++ optionals withXavs [ xavs ]
-    ++ optionals withXcb [ libxcb ]
-    ++ optionals withXlib [ libX11 libXv libXext ]
-    ++ optionals withXml2 [ libxml2 ] ++ optionals withXvid [ xvidcore ]
+    ++ optionals withXcb [ libxcb ] ++ optionals withXlib [
+      libX11
+      libXv
+      libXext
+    ] ++ optionals withXml2 [ libxml2 ] ++ optionals withXvid [ xvidcore ]
     ++ optionals withZimg [ zimg ] ++ optionals withZlib [ zlib ]
     ++ optionals withZmq [ zeromq4 ] ++ optionals stdenv.isDarwin [
       # TODO fine-grained flags
@@ -720,10 +739,12 @@ stdenv.mkDerivation (finalAttrs: {
     }" make check -j$NIX_BUILD_CORES
   '';
 
-  outputs = optionals withBin
-    [ "bin" ] # The first output is the one that gets symlinked by default!
-    ++ optionals withLib [ "lib" "dev" ] ++ optionals withDoc [ "doc" ]
-    ++ optionals withManPages [ "man" ] ++ [
+  outputs = optionals
+    withBin [ "bin" ] # The first output is the one that gets symlinked by default!
+    ++ optionals withLib [
+      "lib"
+      "dev"
+    ] ++ optionals withDoc [ "doc" ] ++ optionals withManPages [ "man" ] ++ [
       "data"
       "out"
     ] # We need an "out" output because we get an error otherwise. It's just an empty dir.

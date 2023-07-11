@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libinklevel ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
     description =

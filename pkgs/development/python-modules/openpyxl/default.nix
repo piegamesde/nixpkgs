@@ -20,7 +20,11 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ jdcal et_xmlfile lxml ];
+  propagatedBuildInputs = [
+    jdcal
+    et_xmlfile
+    lxml
+  ];
 
   postPatch = ''
     # LICENSE.rst is missing, and setup.cfg currently doesn't contain anything useful anyway

@@ -29,8 +29,15 @@ buildPythonPackage rec {
     hash = "sha256-sE6AlT01Rou427i9w+xwUTMflKxUr0Heqt2l+Y2AMmU=";
   };
 
-  nativeCheckInputs =
-    [ aiohttp eventlet mock requests tornado websocket-client pytestCheckHook ];
+  nativeCheckInputs = [
+    aiohttp
+    eventlet
+    mock
+    requests
+    tornado
+    websocket-client
+    pytestCheckHook
+  ];
 
   doCheck = !stdenv.isDarwin;
 

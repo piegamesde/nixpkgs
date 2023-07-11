@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libbsd libressl ];
+  buildInputs = [
+    libbsd
+    libressl
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

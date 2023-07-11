@@ -23,22 +23,22 @@ in import ./make-test-python.nix ({
         networking.firewall.allowedTCPPorts = [ 80 ];
         services.nghttpx = {
           enable = true;
-          frontends = [{
+          frontends = [ {
             server = {
               host = "*";
               port = 80;
             };
 
             params = { tls = "no-tls"; };
-          }];
-          backends = [{
+          } ];
+          backends = [ {
             server = {
               host = "webserver";
               port = 80;
             };
             patterns = [ "/" ];
             params.proto = "http/1.1";
-          }];
+          } ];
         };
       };
 

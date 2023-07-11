@@ -42,13 +42,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ argcomplete colorlog packaging virtualenv ]
-    ++ lib.optionals (pythonOlder "3.8") [
-      typing-extensions
-      importlib-metadata
-    ];
+  propagatedBuildInputs = [
+    argcomplete
+    colorlog
+    packaging
+    virtualenv
+  ] ++ lib.optionals (pythonOlder "3.8") [
+    typing-extensions
+    importlib-metadata
+  ];
 
-  checkInputs = [ jinja2 tox pytestCheckHook ];
+  checkInputs = [
+    jinja2
+    tox
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nox" ];
 
@@ -62,6 +70,9 @@ buildPythonPackage rec {
     homepage = "https://nox.thea.codes/";
     changelog = "https://github.com/wntrblm/nox/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar fab ];
+    maintainers = with maintainers; [
+      doronbehar
+      fab
+    ];
   };
 }

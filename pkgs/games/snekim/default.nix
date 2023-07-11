@@ -21,7 +21,10 @@ nimPackages.buildNimPackage rec {
 
   strictDeps = true;
 
-  buildInputs = [ nimPackages.nimraylib-now raylib ];
+  buildInputs = [
+    nimPackages.nimraylib-now
+    raylib
+  ];
 
   nimFlags = [ "-d:nimraylib_now_shared" ];
 

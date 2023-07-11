@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ ply six tornado ];
+  propagatedBuildInputs = [
+    ply
+    six
+    tornado
+  ];
 
   # Not all needed files seems to be present
   doCheck = false;

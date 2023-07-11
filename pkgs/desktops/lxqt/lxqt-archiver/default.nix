@@ -26,10 +26,21 @@ mkDerivation rec {
     sha256 = "C38c/jCyRur7jQSgU2ByasCQnollHgy3/mUoNv61OCU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    lxqt-build-tools
+  ];
 
-  buildInputs =
-    [ json-glib libexif libfm-qt menu-cache qtbase qttools qtx11extras ];
+  buildInputs = [
+    json-glib
+    libexif
+    libfm-qt
+    menu-cache
+    qtbase
+    qttools
+    qtx11extras
+  ];
 
   hardeningDisable = [ "format" ];
 

@@ -25,8 +25,15 @@ buildPythonPackage rec {
     hash = "sha256-NGDPEETuM7rYbo8kXYoRWLJWpa/lWLKEvaaiDzSWYZ4=";
   };
 
-  propagatedBuildInputs =
-    [ opencv4 torch onnx onnxruntime pillow pywavelets numpy ];
+  propagatedBuildInputs = [
+    opencv4
+    torch
+    onnx
+    onnxruntime
+    pillow
+    pywavelets
+    numpy
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

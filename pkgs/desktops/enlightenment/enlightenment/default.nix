@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VttdIGuCG5qIMdJucT5BCscLIlWm9D/N98Ae794jt6I=";
   };
 
-  nativeBuildInputs = [ gettext meson ninja pkg-config ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib
@@ -51,7 +56,10 @@ stdenv.mkDerivation rec {
     bluez5 # for bluetooth configuration and control
     ++ lib.optional pulseSupport
     libpulseaudio # for proper audio device control and redirection
-    ++ lib.optionals waylandSupport [ wayland-protocols xwayland ];
+    ++ lib.optionals waylandSupport [
+      wayland-protocols
+      xwayland
+    ];
 
   patches = [
     # Executables cannot be made setuid in nix store. They should be
@@ -79,6 +87,9 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = with maintainers;
-      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+      [
+        matejc
+        ftrvxmtrx
+      ] ++ teams.enlightenment.members;
   };
 }

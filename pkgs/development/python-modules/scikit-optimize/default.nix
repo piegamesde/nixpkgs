@@ -23,7 +23,13 @@ buildPythonPackage rec {
     sha256 = "0hsq6pmryimxc275yrcy4bv217bx7ma6rz0q6m4138bv4zgq18d1";
   };
 
-  propagatedBuildInputs = [ matplotlib numpy scipy scikit-learn pyaml ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    scipy
+    scikit-learn
+    pyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

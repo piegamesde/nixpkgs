@@ -20,8 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6sN7l2n76cP0uvPrZMYaa1mtTyqgXf3culoaxK301WA=";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf ];
-  buildInputs = [ fuse samba glib attr libsecret ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+  ];
+  buildInputs = [
+    fuse
+    samba
+    glib
+    attr
+    libsecret
+  ];
 
   meta = with lib; {
     description = "A FUSE FS for mounting Samba shares";

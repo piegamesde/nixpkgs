@@ -14,28 +14,40 @@ import ./make-test-python.nix ({
         ...
       }:
       with lib; {
-        swapDevices = mkOverride 0 [{
+        swapDevices = mkOverride 0 [ {
           device = "/root/swapfile";
           size = 128;
-        }];
+        } ];
         environment.variables.EDITOR = mkOverride 0 "emacs";
         documentation.nixos.enable = mkOverride 0 true;
         systemd.tmpfiles.rules = [ "d /tmp 1777 root root 10d" ];
         virtualisation.fileSystems = {
           "/tmp2" = {
             fsType = "tmpfs";
-            options = [ "mode=1777" "noauto" ];
+            options = [
+              "mode=1777"
+              "noauto"
+            ];
           };
           # Tests https://discourse.nixos.org/t/how-to-make-a-derivations-executables-have-the-s-permission/8555
           "/user-mount/point" = {
             device = "/user-mount/source";
             fsType = "none";
-            options = [ "bind" "rw" "user" "noauto" ];
+            options = [
+              "bind"
+              "rw"
+              "user"
+              "noauto"
+            ];
           };
           "/user-mount/denied-point" = {
             device = "/user-mount/denied-source";
             fsType = "none";
-            options = [ "bind" "rw" "noauto" ];
+            options = [
+              "bind"
+              "rw"
+              "noauto"
+            ];
           };
         };
         systemd.automounts = singleton {

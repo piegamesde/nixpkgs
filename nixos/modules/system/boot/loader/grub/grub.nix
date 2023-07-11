@@ -99,7 +99,10 @@ let
           util-linux
           mdadm
         ] ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
-          ++ optionals cfg.useOSProber [ busybox os-prober ]);
+          ++ optionals cfg.useOSProber [
+            busybox
+            os-prober
+          ]);
       font = if cfg.font == null then
         ""
       else
@@ -114,10 +117,12 @@ let
     (concatMap (args: args.devices) cfg.mirroredBoots);
 
   convertedFont = (pkgs.runCommand "grub-font-converted.pf2" { }
-    (builtins.concatStringsSep " "
-      ([ "${realGrub}/bin/grub-mkfont" cfg.font "--output" "$out" ]
-        ++ (optional (cfg.fontSize != null)
-          "--size ${toString cfg.fontSize}"))));
+    (builtins.concatStringsSep " " ([
+      "${realGrub}/bin/grub-mkfont"
+      cfg.font
+      "--output"
+      "$out"
+    ] ++ (optional (cfg.fontSize != null) "--size ${toString cfg.fontSize}"))));
 
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
@@ -346,9 +351,8 @@ in {
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [
-          "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"
-        ];
+        example =
+          [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -531,7 +535,10 @@ in {
       };
 
       splashMode = mkOption {
-        type = types.enum [ "normal" "stretch" ];
+        type = types.enum [
+          "normal"
+          "stretch"
+        ];
         default = "stretch";
         description = lib.mdDoc ''
           Whether to stretch the image or show the image in the top-left corner unstretched.
@@ -631,7 +638,11 @@ in {
 
       fsIdentifier = mkOption {
         default = "uuid";
-        type = types.enum [ "uuid" "label" "provided" ];
+        type = types.enum [
+          "uuid"
+          "label"
+          "provided"
+        ];
         description = lib.mdDoc ''
           Determines how GRUB will identify devices when generating the
           configuration file. A value of uuid / label signifies that grub
@@ -788,11 +799,11 @@ in {
 
       boot.loader.grub.devices = optional (cfg.device != "") cfg.device;
 
-      boot.loader.grub.mirroredBoots = optionals (cfg.devices != [ ]) [{
+      boot.loader.grub.mirroredBoots = optionals (cfg.devices != [ ]) [ {
         path = "/boot";
         inherit (cfg) devices;
         inherit (efi) efiSysMountPoint;
-      }];
+      } ];
 
       boot.loader.supportsInitrdSecrets = true;
 
@@ -913,44 +924,72 @@ in {
   ];
 
   imports = [
-    (mkRemovedOptionModule [ "boot" "loader" "grub" "bootDevice" ] "")
-    (mkRenamedOptionModule [ "boot" "copyKernels" ] [
+    (mkRemovedOptionModule [
+      "boot"
+      "loader"
+      "grub"
+      "bootDevice"
+    ] "")
+    (mkRenamedOptionModule [
+      "boot"
+      "copyKernels"
+    ] [
       "boot"
       "loader"
       "grub"
       "copyKernels"
     ])
-    (mkRenamedOptionModule [ "boot" "extraGrubEntries" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "extraGrubEntries"
+    ] [
       "boot"
       "loader"
       "grub"
       "extraEntries"
     ])
-    (mkRenamedOptionModule [ "boot" "extraGrubEntriesBeforeNixos" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "extraGrubEntriesBeforeNixos"
+    ] [
       "boot"
       "loader"
       "grub"
       "extraEntriesBeforeNixOS"
     ])
-    (mkRenamedOptionModule [ "boot" "grubDevice" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "grubDevice"
+    ] [
       "boot"
       "loader"
       "grub"
       "device"
     ])
-    (mkRenamedOptionModule [ "boot" "bootMount" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "bootMount"
+    ] [
       "boot"
       "loader"
       "grub"
       "bootDevice"
     ])
-    (mkRenamedOptionModule [ "boot" "grubSplashImage" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "grubSplashImage"
+    ] [
       "boot"
       "loader"
       "grub"
       "splashImage"
     ])
-    (mkRemovedOptionModule [ "boot" "loader" "grub" "extraInitrd" ] ''
+    (mkRemovedOptionModule [
+      "boot"
+      "loader"
+      "grub"
+      "extraInitrd"
+    ] ''
       This option has been replaced with the bootloader agnostic
       boot.initrd.secrets option. To migrate to the initrd secrets system,
       extract the extraInitrd archive into your main filesystem:

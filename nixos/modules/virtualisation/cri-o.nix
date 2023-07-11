@@ -26,13 +26,27 @@ in {
       mkEnableOption (lib.mdDoc "Container Runtime Interface for OCI (CRI-O)");
 
     storageDriver = mkOption {
-      type = types.enum [ "aufs" "btrfs" "devmapper" "overlay" "vfs" "zfs" ];
+      type = types.enum [
+        "aufs"
+        "btrfs"
+        "devmapper"
+        "overlay"
+        "vfs"
+        "zfs"
+      ];
       default = "overlay";
       description = lib.mdDoc "Storage driver to be used";
     };
 
     logLevel = mkOption {
-      type = types.enum [ "trace" "debug" "info" "warn" "error" "fatal" ];
+      type = types.enum [
+        "trace"
+        "debug"
+        "info"
+        "warn"
+        "error"
+        "fatal"
+      ];
       default = "info";
       description = lib.mdDoc "Log level to be used";
     };
@@ -99,7 +113,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package pkgs.cri-tools ];
+    environment.systemPackages = [
+      cfg.package
+      pkgs.cri-tools
+    ];
 
     environment.etc."crictl.yaml".source = "${cfg.package}/etc/crictl.yaml";
 

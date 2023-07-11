@@ -26,13 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-C44jMn8kwoM/dO43g9aQyqKGTrGV8oHrMhd8SZRpc/s=";
   };
 
-  propagatedBuildInputs = [ python-dateutil botocore ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    python-dateutil
+    botocore
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   passthru.optional-dependencies = { signal = [ blinker ]; };
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ]
-    ++ passthru.optional-dependencies.signal;
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.signal;
 
   pythonImportsCheck = [ "pynamodb" ];
 

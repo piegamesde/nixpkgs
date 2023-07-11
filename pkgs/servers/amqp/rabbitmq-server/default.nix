@@ -34,8 +34,8 @@ let
     procps
     gnused
     coreutils # used by helper scripts
-  ] ++ lib.optionals stdenv.isLinux
-    [ systemd ]); # for systemd unit activation check
+  ] ++ lib.optionals
+    stdenv.isLinux [ systemd ]); # for systemd unit activation check
 
 in stdenv.mkDerivation rec {
   pname = "rabbitmq-server";
@@ -48,16 +48,41 @@ in stdenv.mkDerivation rec {
     hash = "sha256-gZcUWN8SnCb93zUTqWDYtxUrT5655gfEnMax1NLHh+M=";
   };
 
-  nativeBuildInputs =
-    [ unzip xmlto docbook_xml_dtd_45 docbook_xsl zip rsync python3 ];
-  buildInputs = [ erlang elixir libxml2 libxslt glibcLocales ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Carbon Cocoa ];
+  nativeBuildInputs = [
+    unzip
+    xmlto
+    docbook_xml_dtd_45
+    docbook_xsl
+    zip
+    rsync
+    python3
+  ];
+  buildInputs = [
+    erlang
+    elixir
+    libxml2
+    libxslt
+    glibcLocales
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Carbon
+    Cocoa
+  ];
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
-  installFlags =
-    [ "PREFIX=${placeholder "out"}" "RMQ_ERLAPP_DIR=${placeholder "out"}" ];
-  installTargets = [ "install" "install-man" ];
+  installFlags = [
+    "PREFIX=${placeholder "out"}"
+    "RMQ_ERLAPP_DIR=${placeholder "out"}"
+  ];
+  installTargets = [
+    "install"
+    "install-man"
+  ];
 
   preBuild = ''
     export LANG=C.UTF-8 # fix elixir locale warning

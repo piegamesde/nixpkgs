@@ -23,7 +23,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hunHcYWxboCWM+SYH5u09MKP0b7U/9CVfhC6vLVpc3Q=";
   };
 
-  buildInputs = [ fontconfig libX11 libXft libXinerama libXpm libXrender ];
+  buildInputs = [
+    fontconfig
+    libX11
+    libXft
+    libXinerama
+    libXpm
+    libXrender
+  ];
 
   postPatch = let
     configFile = if lib.isDerivation conf || builtins.isPath conf then

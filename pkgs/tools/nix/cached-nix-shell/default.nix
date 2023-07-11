@@ -34,7 +34,10 @@ in rustPlatform.buildRustPackage rec {
   # https://github.com/BLAKE3-team/BLAKE3/blob/0.3.1/c/README.md#building
   BLAKE3_CSRC = "${blake3-src}/c";
 
-  nativeBuildInputs = [ nix ronn ];
+  nativeBuildInputs = [
+    nix
+    ronn
+  ];
 
   postBuild = ''
     make -f nix/Makefile post-build

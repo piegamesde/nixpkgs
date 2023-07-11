@@ -13,7 +13,10 @@ buildDunePackage rec {
 
   inherit (menhirLib) version src;
 
-  buildInputs = [ menhirLib menhirSdk ];
+  buildInputs = [
+    menhirLib
+    menhirSdk
+  ];
 
   meta = menhirSdk.meta // {
     description = "A LR(1) parser generator for OCaml";

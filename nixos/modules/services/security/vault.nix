@@ -45,8 +45,10 @@ let
   allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
   configOptions = escapeShellArgs (lib.optional cfg.dev "-dev"
     ++ lib.optional (cfg.dev && cfg.devRootTokenID != null)
-    "-dev-root-token-id=${cfg.devRootTokenID}"
-    ++ (concatMap (p: [ "-config" p ]) allConfigPaths));
+    "-dev-root-token-id=${cfg.devRootTokenID}" ++ (concatMap (p: [
+      "-config"
+      p
+    ]) allConfigPaths));
 
 in {
   options = {

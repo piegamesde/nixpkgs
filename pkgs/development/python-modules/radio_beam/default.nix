@@ -25,9 +25,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ astropy numpy scipy six ];
+  propagatedBuildInputs = [
+    astropy
+    numpy
+    scipy
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook matplotlib pytest-astropy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    matplotlib
+    pytest-astropy
+  ];
 
   meta = {
     description = "Tools for Beam IO and Manipulation";

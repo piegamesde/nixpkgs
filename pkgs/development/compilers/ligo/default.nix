@@ -120,7 +120,10 @@ ocamlPackages.buildDunePackage rec {
     ./scripts/changelog-generation.sh
   '';
 
-  nativeCheckInputs = [ cacert ocamlPackages.ca-certs ];
+  nativeCheckInputs = [
+    cacert
+    ocamlPackages.ca-certs
+  ];
 
   doCheck = false; # Tests fail, but could not determine the reason
 

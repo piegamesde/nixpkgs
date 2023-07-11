@@ -17,9 +17,17 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-L7uM5v2CYGFHYxzBUKlMF+ChtjBM24GZ8NuyoQaOU6U=";
   };
 
-  pythonRelaxDeps = [ "aiorun" "aiosqlite" "click" "pyunifiprotect" ];
+  pythonRelaxDeps = [
+    "aiorun"
+    "aiosqlite"
+    "click"
+    "pyunifiprotect"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiocron

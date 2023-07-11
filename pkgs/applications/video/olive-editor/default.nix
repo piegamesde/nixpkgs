@@ -45,7 +45,12 @@ stdenv.mkDerivation {
     runHook postPatch
   '';
 
-  nativeBuildInputs = [ pkg-config which cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    which
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     ffmpeg_4

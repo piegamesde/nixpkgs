@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
       --replace "get_git_head_revision" "#get_git_head_revision"
   '';
 
-  nativeBuildInputs = [ cmake gperf ];
+  nativeBuildInputs = [
+    cmake
+    gperf
+  ];
 
   buildInputs = [
     file # for libmagic
@@ -40,11 +43,14 @@ stdenv.mkDerivation rec {
     readline
     sqlite
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
-
-  cmakeFlags = [
-    "-DHAS_WHATSAPP=OFF" # go module build required
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    Foundation
   ];
+
+  cmakeFlags = [ "-DHAS_WHATSAPP=OFF" # go module build required
+    ];
 
   meta = with lib; {
     description =

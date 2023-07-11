@@ -23,8 +23,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ py-cpuinfo ]
-    ++ lib.optionals (pythonOlder "3.4") [ pathlib statistics ];
+  propagatedBuildInputs = [ py-cpuinfo ] ++ lib.optionals (pythonOlder "3.4") [
+    pathlib
+    statistics
+  ];
 
   # Circular dependency
   doCheck = false;

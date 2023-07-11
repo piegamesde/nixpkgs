@@ -7,7 +7,11 @@
   python,
 }:
 
-let pythonEnv = python.withPackages (ps: [ ps.sympy ps.mpmath ]);
+let
+  pythonEnv = python.withPackages (ps: [
+    ps.sympy
+    ps.mpmath
+  ]);
 
 in buildOctavePackage rec {
   pname = "symbolic";

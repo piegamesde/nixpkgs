@@ -166,7 +166,10 @@ in {
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "--advertise-addr" "[fe80::f6f2:::]" ];
+        example = [
+          "--advertise-addr"
+          "[fe80::f6f2:::]"
+        ];
         description = lib.mdDoc ''
           Extra CLI arguments passed to {command}`cockroach start`.
           For the full list of supported argumemnts, check <https://www.cockroachlabs.com/docs/stable/cockroach-start.html#flags>
@@ -176,11 +179,11 @@ in {
   };
 
   config = mkIf config.services.cockroachdb.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !cfg.insecure -> cfg.certsDir != null;
       message =
         "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
-    }];
+    } ];
 
     environment.systemPackages = [ crdb ];
 
@@ -196,14 +199,22 @@ in {
       cockroachdb.gid = config.ids.gids.cockroachdb;
     };
 
-    networking.firewall.allowedTCPPorts =
-      lib.optionals cfg.openPorts [ cfg.http.port cfg.listen.port ];
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openPorts [
+      cfg.http.port
+      cfg.listen.port
+    ];
 
     systemd.services.cockroachdb = {
       description = "CockroachDB Server";
-      documentation = [ "man:cockroach(1)" "https://www.cockroachlabs.com" ];
+      documentation = [
+        "man:cockroach(1)"
+        "https://www.cockroachlabs.com"
+      ];
 
-      after = [ "network.target" "time-sync.target" ];
+      after = [
+        "network.target"
+        "time-sync.target"
+      ];
       requires = [ "time-sync.target" ];
       wantedBy = [ "multi-user.target" ];
 

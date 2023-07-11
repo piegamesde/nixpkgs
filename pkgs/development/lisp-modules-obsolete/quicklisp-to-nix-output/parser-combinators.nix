@@ -8,7 +8,10 @@ args@{
 
   description = "An implementation of parser combinators for Common Lisp";
 
-  deps = [ args."alexandria" args."iterate" ];
+  deps = [
+    args."alexandria"
+    args."iterate"
+  ];
 
   src = fetchurl {
     url =

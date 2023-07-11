@@ -139,8 +139,12 @@ in {
               '';
             };
             cryptDefault = mkOption {
-              type = types.nullOr
-                (types.enum [ "md5" "sha256" "sha512" "blowfish" ]);
+              type = types.nullOr (types.enum [
+                "md5"
+                "sha256"
+                "sha512"
+                "blowfish"
+              ]);
               default = null;
               example = "blowfish";
               description = lib.mdDoc

@@ -22,9 +22,15 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-VGXnUdJDbD8bGdXRbIkC4wgAmSUK2gh/XEYLaPfaaLg=";
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
-  buildInputs = lib.optionals stdenv.isDarwin [ IOKit Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    IOKit
+    Security
+  ];
 
-  cargoBuildFlags = [ "--package" "oxigraph_server" ];
+  cargoBuildFlags = [
+    "--package"
+    "oxigraph_server"
+  ];
 
   # requires packaging of the associated python modules
   doCheck = false;
@@ -32,8 +38,15 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/oxigraph/oxigraph";
     description = "SPARQL graph database";
-    platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
     maintainers = with maintainers; [ astro ];
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
   };
 }

@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib nss ];
+  buildInputs = [
+    glib
+    nss
+  ];
 
   meta = with lib; {
     description = "Smart card emulation library";

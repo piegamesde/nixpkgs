@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
     description = "Simple hotkey daemon for macOS";
     homepage = "https://github.com/koekeishiya/skhd";
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ cmacrae lnl7 periklis ];
+    maintainers = with maintainers; [
+      cmacrae
+      lnl7
+      periklis
+    ];
     license = licenses.mit;
   };
 }

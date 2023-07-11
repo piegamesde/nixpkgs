@@ -23,10 +23,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-Uiut1rHk6LV+giW6e0nvgn35ffTLaLbU/HkQ92xf32k=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libmediainfo wxGTK32 desktop-file-utils libSM imagemagick ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    libmediainfo
+    wxGTK32
+    desktop-file-utils
+    libSM
+    imagemagick
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   sourceRoot = "./MediaInfo/Project/GNU/GUI/";
 

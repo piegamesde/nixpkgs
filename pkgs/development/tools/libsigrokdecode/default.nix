@@ -25,8 +25,15 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace '[python-3.8-embed]' '[python3-embed]'
   '';
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ glib python3 libxcrypt ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    glib
+    python3
+    libxcrypt
+  ];
   nativeCheckInputs = [ check ];
   doCheck = true;
 

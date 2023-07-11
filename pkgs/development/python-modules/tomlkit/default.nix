@@ -19,10 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-cblS5XIWiJN/sCz501TbzweFBmFJ0oVeRFMevdK2XXM=";
   };
 
-  propagatedBuildInputs = lib.optionals isPy27 [ enum34 functools32 ]
-    ++ lib.optional isPy27 typing;
+  propagatedBuildInputs = lib.optionals isPy27 [
+    enum34
+    functools32
+  ] ++ lib.optional isPy27 typing;
 
-  nativeCheckInputs = [ pyaml pytestCheckHook ];
+  nativeCheckInputs = [
+    pyaml
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "tomlkit" ];
 

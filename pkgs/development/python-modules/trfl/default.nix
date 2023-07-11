@@ -23,11 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-UsDUKJCHSJ4gP+P95Pm7RsPpqTJqJhrsW47C7fTZ77I=";
   };
 
-  buildInputs = [ absl-py dm-tree numpy wrapt ];
+  buildInputs = [
+    absl-py
+    dm-tree
+    numpy
+    wrapt
+  ];
 
-  propagatedBuildInputs = [ tensorflow tensorflow-probability ];
+  propagatedBuildInputs = [
+    tensorflow
+    tensorflow-probability
+  ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "trfl" ];
 

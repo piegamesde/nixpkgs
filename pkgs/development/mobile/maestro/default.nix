@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   dontUnpack = true;
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir $out

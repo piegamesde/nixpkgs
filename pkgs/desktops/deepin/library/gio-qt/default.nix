@@ -23,11 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/wLaVR31T+EcT6D5Cw0QIjZasioPWC74KNmt1tckwXk=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ]
-    ++ lib.optionals buildDocs [ doxygen qttools.dev ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ] ++ lib.optionals buildDocs [
+    doxygen
+    qttools.dev
+  ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" "-DPROJECT_VERSION=${version}" ]
-    ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+    "-DPROJECT_VERSION=${version}"
+  ] ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ];
 
   propagatedBuildInputs = [ glibmm ];
 

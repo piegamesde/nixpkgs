@@ -19,7 +19,12 @@ buildPythonPackage rec {
     sha256 = "1xcfb3f2a2q99i8anpdzq8s743jgkk2a3rpar48b2dhs7l15rbsd";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout pytz xmltodict ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    pytz
+    xmltodict
+  ];
 
   # Project has no tests
   doCheck = false;

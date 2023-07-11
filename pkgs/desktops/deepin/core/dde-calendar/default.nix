@@ -27,14 +27,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8/UXq9W3Gb1Lg/nOji6zcHJts6lgY2uDxvrBxQs3Zio=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "chore-use-GNUInstallDirs-in-CmakeLists.patch";
-      url =
-        "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch";
-      sha256 = "sha256-pvgxZPczs/lkwNjysNuVu+1AY69VZlxOn7hR9A02/3M=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "chore-use-GNUInstallDirs-in-CmakeLists.patch";
+    url =
+      "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch";
+    sha256 = "sha256-pvgxZPczs/lkwNjysNuVu+1AY69VZlxOn7hR9A02/3M=";
+  }) ];
 
   postPatch = ''
     substituteInPlace calendar-service/src/dbmanager/huanglidatabase.cpp \
@@ -52,9 +50,19 @@ stdenv.mkDerivation rec {
       --replace "ADD_SUBDIRECTORY(tests)" " "
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ dtkwidget qt5platform-plugins dde-qt-dbus-factory gtest ];
+  buildInputs = [
+    dtkwidget
+    qt5platform-plugins
+    dde-qt-dbus-factory
+    gtest
+  ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

@@ -16,11 +16,20 @@
 }:
 
 let
-  darwinDeps = [ libunwind libedit ];
+  darwinDeps = [
+    libunwind
+    libedit
+  ];
   linuxDeps = [ ncurses6 ];
 
   buildInputs = if stdenv.isDarwin then darwinDeps else linuxDeps;
-  nativeBuildInputs = [ installShellFiles cmake xz which autoconf ];
+  nativeBuildInputs = [
+    installShellFiles
+    cmake
+    xz
+    which
+    autoconf
+  ];
 
 in buildGoPackage rec {
   pname = "cockroach";
@@ -65,7 +74,10 @@ in buildGoPackage rec {
     runHook postInstall
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   # fails with `GOFLAGS=-trimpath`
   allowGoReference = true;
@@ -77,7 +89,14 @@ in buildGoPackage rec {
     homepage = "https://www.cockroachlabs.com";
     description = "A scalable, survivable, strongly-consistent SQL database";
     license = licenses.bsl11;
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
-    maintainers = with maintainers; [ rushmorem thoughtpolice ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [
+      rushmorem
+      thoughtpolice
+    ];
   };
 }

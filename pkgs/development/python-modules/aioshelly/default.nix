@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-eqZyCQ96CasBlO++QcQ/HiVWWeB2jQltHXZRbIfub7Q=";
   };
 
-  propagatedBuildInputs = [ aiohttp bluetooth-data-tools orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    bluetooth-data-tools
+    orjson
+  ];
 
   # Project has no test
   doCheck = false;

@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-A2PVhQuKVTZ/nDKyy+vZVBNLB/3xujBYBzUEWcTIYYg=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ openwsman openssl ];
+  buildInputs = [
+    openwsman
+    openssl
+  ];
 
   postPatch = ''
     touch AUTHORS NEWS README

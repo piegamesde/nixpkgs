@@ -23,7 +23,10 @@ buildPythonPackage rec {
       --replace "all: api" ""
   '';
 
-  propagatedBuildInputs = [ srht pyyaml ];
+  propagatedBuildInputs = [
+    srht
+    pyyaml
+  ];
 
   preBuild = ''
     export PKGVER=${version}

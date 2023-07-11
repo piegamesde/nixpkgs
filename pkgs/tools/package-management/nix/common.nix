@@ -84,8 +84,13 @@ let
 
     inherit src patches;
 
-    outputs = [ "out" "dev" ]
-      ++ lib.optionals enableDocumentation [ "man" "doc" ];
+    outputs = [
+      "out"
+      "dev"
+    ] ++ lib.optionals enableDocumentation [
+      "man"
+      "doc"
+    ];
 
     hardeningEnable = lib.optionals (!stdenv.isDarwin) [ "pie" ];
 
@@ -101,11 +106,21 @@ let
     ] ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
       ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ];
 
-    buildInputs =
-      [ boost brotli bzip2 curl editline libsodium openssl sqlite xz ]
-      ++ lib.optionals stdenv.isDarwin [ Security ]
-      ++ lib.optionals atLeast24 [ gtest libarchive lowdown ]
-      ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
+    buildInputs = [
+      boost
+      brotli
+      bzip2
+      curl
+      editline
+      libsodium
+      openssl
+      sqlite
+      xz
+    ] ++ lib.optionals stdenv.isDarwin [ Security ] ++ lib.optionals atLeast24 [
+      gtest
+      libarchive
+      lowdown
+    ] ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
       ++ lib.optionals atLeast214 [ rapidcheck ]
       ++ lib.optionals withLibseccomp [ libseccomp ]
       ++ lib.optionals withAWS [ aws-sdk-cpp ];
@@ -161,21 +176,20 @@ let
       ++ lib.optionals (!atLeast24) [
         # option was removed in 2.4
         "--disable-init-state"
-      ] ++ lib.optionals atLeast214
-      [ "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include" ]
-      ++ lib.optionals stdenv.isLinux
-      [ "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox" ]
-      ++ lib.optionals
-      (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic)
-      [ "--enable-embedded-sandbox-shell" ] ++ lib.optionals
-      (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform ? nix
-        && stdenv.hostPlatform.nix ? system)
-      [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
+      ] ++ lib.optionals atLeast214 [ "CXXFLAGS=-I${
+        lib.getDev rapidcheck
+      }/extras/gtest/include" ] ++ lib.optionals
+      stdenv.isLinux [ "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox" ]
+      ++ lib.optionals (atLeast210 && stdenv.isLinux
+        && stdenv.hostPlatform.isStatic) [ "--enable-embedded-sandbox-shell" ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+        && stdenv.hostPlatform ? nix && stdenv.hostPlatform.nix
+        ? system) [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
       ++ lib.optionals (!withLibseccomp) [
         # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
         "--disable-seccomp-sandboxing"
-      ] ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic)
-      [ "--enable-lto" ];
+      ] ++ lib.optionals
+      (atLeast210 && stdenv.cc.isGNU && !enableStatic) [ "--enable-lto" ];
 
     makeFlags = [
       # gcc runs multi-threaded LTO using make and does not yet detect the new fifo:/path style
@@ -232,7 +246,11 @@ let
       '';
       homepage = "https://nixos.org/";
       license = licenses.lgpl2Plus;
-      maintainers = with maintainers; [ eelco lovesegfault artturin ];
+      maintainers = with maintainers; [
+        eelco
+        lovesegfault
+        artturin
+      ];
       platforms = platforms.unix;
       outputsToInstall = [ "out" ] ++ optional enableDocumentation "man";
     };

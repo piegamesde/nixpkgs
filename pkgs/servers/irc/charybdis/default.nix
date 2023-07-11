@@ -34,8 +34,15 @@ stdenv.mkDerivation rec {
     "--with-program-prefix=charybdis-"
   ];
 
-  nativeBuildInputs = [ autoreconfHook bison flex ];
-  buildInputs = [ openssl gnutls ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+  ];
+  buildInputs = [
+    openssl
+    gnutls
+  ];
 
   meta = with lib; {
     description = "IRCv3 server designed to be highly scalable";

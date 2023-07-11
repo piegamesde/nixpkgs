@@ -41,11 +41,26 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEM_OPENSSL=ON"
   ];
 
-  nativeBuildInputs = [ cmake ninja pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ cmark git hunspell libssh2 lua5_4 openssl qtbase qttools ]
-    ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ CoreFoundation Security ]);
+  buildInputs = [
+    cmark
+    git
+    hunspell
+    libssh2
+    lua5_4
+    openssl
+    qtbase
+    qttools
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    CoreFoundation
+    Security
+  ]);
 
   postInstall = ''
     mkdir -p $out/bin

@@ -27,15 +27,28 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-scrollkeeper" ];
 
-  nativeBuildInputs = [ pkg-config bison flex autoreconfHook txt2man which ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+    autoreconfHook
+    txt2man
+    which
+  ];
 
-  buildInputs = [ glib readline ];
+  buildInputs = [
+    glib
+    readline
+  ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = ".mdb (MS Access) format tools";
-    license = with licenses; [ gpl2 lgpl2 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+    ];
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
     inherit (src.meta) homepage;

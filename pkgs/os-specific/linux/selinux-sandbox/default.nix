@@ -41,7 +41,10 @@ stdenv.mkDerivation rec {
     xmodmap
     dbus
   ];
-  propagatedBuildInputs = [ pygobject3 selinux-python ];
+  propagatedBuildInputs = [
+    pygobject3
+    selinux-python
+  ];
 
   postPatch = ''
     # Fix setuid install
@@ -66,7 +69,10 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/test" "${coreutils}/bin/test" \
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "SYSCONFDIR=$(out)/etc/sysconfig" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SYSCONFDIR=$(out)/etc/sysconfig"
+  ];
 
   postFixup = ''
     wrapPythonPrograms

@@ -24,8 +24,12 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ kwindowsystem libfm-qt lxqt-qtplugin qtx11extras ]
-    ++ extraQtStyles;
+  buildInputs = [
+    kwindowsystem
+    libfm-qt
+    lxqt-qtplugin
+    qtx11extras
+  ] ++ extraQtStyles;
 
   passthru.updateScript = gitUpdater { };
 

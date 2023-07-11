@@ -18,7 +18,10 @@ in eggDerivation {
   };
 
   name = "egg2nix-${version}";
-  buildInputs = with chickenEggs; [ args matchable ];
+  buildInputs = with chickenEggs; [
+    args
+    matchable
+  ];
 
   meta = {
     description = "Generate nix-expression from CHICKEN scheme eggs";

@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZN0vadGbjGj9U2wPqvHLjS9fsk3DNCbXoNvzUfnn8IM=";
   };
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
   buildPhase = with xorg;
     let
       stunnelBinary = if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -38,7 +41,13 @@ stdenv.mkDerivation rec {
       runHook preBuild
 
       patchelf --set-rpath "${
-        lib.makeLibraryPath [ libX11 libXext libXrender libXtst libXi ]
+        lib.makeLibraryPath [
+          libX11
+          libXext
+          libXrender
+          libXtst
+          libXi
+        ]
       }" ./jre/lib/libawt_xawt.so
       patchelf --set-rpath "${
         lib.makeLibraryPath [ freetype ]
@@ -71,7 +80,10 @@ stdenv.mkDerivation rec {
     #           and user configuration is written to files in the CWD
     makeWrapper $out/jre/bin/java $out/bin/IPMIView \
       --set LD_LIBRARY_PATH "${
-        lib.makeLibraryPath [ fontconfig gcc-unwrapped.lib ]
+        lib.makeLibraryPath [
+          fontconfig
+          gcc-unwrapped.lib
+        ]
       }" \
       --prefix PATH : "$out/jre/bin:${iputils}/bin:${psmisc}/bin" \
       --add-flags "-jar $out/IPMIView20.jar" \
@@ -84,9 +96,15 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.unfree;
     maintainers = with maintainers; [ vlaci ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

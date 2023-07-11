@@ -50,7 +50,13 @@ python3Packages.buildPythonApplication rec {
     sassc
   ];
 
-  buildInputs = [ libadwaita libportal libportal-gtk4 librsvg libsoup_3 ];
+  buildInputs = [
+    libadwaita
+    libportal
+    libportal-gtk4
+    librsvg
+    libsoup_3
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     anyascii

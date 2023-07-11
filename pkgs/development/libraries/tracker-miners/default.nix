@@ -101,8 +101,15 @@ stdenv.mkDerivation rec {
     libxml2
     poppler
     taglib
-  ] ++ lib.optionals stdenv.isLinux [ libseccomp networkmanager systemd upower ]
-    ++ lib.optionals stdenv.isDarwin [ 0.0 fsprogs ];
+  ] ++ lib.optionals stdenv.isLinux [
+    libseccomp
+    networkmanager
+    systemd
+    upower
+  ] ++ lib.optionals stdenv.isDarwin [
+    0.0
+    fsprogs
+  ];
 
   mesonFlags = [
     # TODO: tests do not like our sandbox

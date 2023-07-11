@@ -17,7 +17,10 @@ buildGoModule rec {
     hash = "sha256-HDyHvHa8yCz59AifHxQ0LAuC/xPXQInuUYURx7bL3oE=";
   };
 
-  patches = [ ./inject_version_info.diff ./use_tmpdir_on_darwin.diff ];
+  patches = [
+    ./inject_version_info.diff
+    ./use_tmpdir_on_darwin.diff
+  ];
 
   ldflags = [
     "-s"
@@ -31,6 +34,9 @@ buildGoModule rec {
     homepage = "https://github.com/caddyserver/xcaddy";
     description = "Build Caddy with plugins";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tjni indeednotjames ];
+    maintainers = with maintainers; [
+      tjni
+      indeednotjames
+    ];
   };
 }

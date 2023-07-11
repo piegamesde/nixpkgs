@@ -28,14 +28,20 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ libusb1 systemd ];
+  buildInputs = [
+    libusb1
+    systemd
+  ];
 
   preConfigure = ''
     substituteInPlace Makefile \
       --replace /usr/local/bin/dmrconfig $out/bin/dmrconfig
   '';
 
-  makeFlags = [ "VERSION=${version}" "GITCOUNT=0" ];
+  makeFlags = [
+    "VERSION=${version}"
+    "GITCOUNT=0"
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/lib/udev/rules.d

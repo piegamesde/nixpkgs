@@ -126,10 +126,12 @@ assert withXwidgets -> withGTK3 && webkitgtk != null;
 assert withTreeSitter -> tree-sitter != null;
 
 let
-  libGccJitLibraryPaths =
-    [ "${lib.getLib libgccjit}/lib/gcc" "${lib.getLib stdenv.cc.libc}/lib" ]
-    ++ lib.optionals (stdenv.cc ? cc.libgcc)
-    [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
+  libGccJitLibraryPaths = [
+    "${lib.getLib libgccjit}/lib/gcc"
+    "${lib.getLib stdenv.cc.libc}/lib"
+  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${
+      lib.getLib stdenv.cc.cc.libgcc
+    }/lib" ];
 in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
 (finalAttrs:
   (lib.optionalAttrs nativeComp {
@@ -140,24 +142,21 @@ in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
     inherit version;
 
-    patches = patches fetchpatch ++ lib.optionals nativeComp [
-      (substituteAll {
-        src = if lib.versionOlder finalAttrs.version "29" then
-          ./native-comp-driver-options-28.patch
-        else
-          ./native-comp-driver-options.patch;
-        backendPath = (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'')
-          ([
-            # Paths necessary so the JIT compiler finds its libraries:
-            "${lib.getLib libgccjit}/lib"
-          ] ++ libGccJitLibraryPaths ++ [
-            # Executable paths necessary for compilation (ld, as):
-            "${lib.getBin stdenv.cc.cc}/bin"
-            "${lib.getBin stdenv.cc.bintools}/bin"
-            "${lib.getBin stdenv.cc.bintools.bintools}/bin"
-          ])));
-      })
-    ];
+    patches = patches fetchpatch ++ lib.optionals nativeComp [ (substituteAll {
+      src = if lib.versionOlder finalAttrs.version "29" then
+        ./native-comp-driver-options-28.patch
+      else
+        ./native-comp-driver-options.patch;
+      backendPath = (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') ([
+        # Paths necessary so the JIT compiler finds its libraries:
+        "${lib.getLib libgccjit}/lib"
+      ] ++ libGccJitLibraryPaths ++ [
+        # Executable paths necessary for compilation (ld, as):
+        "${lib.getBin stdenv.cc.cc}/bin"
+        "${lib.getBin stdenv.cc.bintools}/bin"
+        "${lib.getBin stdenv.cc.bintools.bintools}/bin"
+      ])));
+    }) ];
 
     src = if macportVersion != null then
       fetchFromBitbucket {
@@ -185,7 +184,10 @@ in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       # and was hard to maintain for emacs-overlay.
       (lib.concatStrings (map (fn: ''
         sed -i 's#(${fn} "gvfs-fuse-daemon")#(${fn} "gvfs-fuse-daemon") (${fn} ".gvfsd-fuse-wrapped")#' lisp/net/tramp-gvfs.el
-      '') [ "tramp-compat-process-running-p" "tramp-process-running-p" ]))
+      '') [
+        "tramp-compat-process-running-p"
+        "tramp-process-running-p"
+      ]))
 
       # Reduce closure size by cleaning the environment of the emacs dumper
       ''
@@ -205,33 +207,57 @@ in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       ""
     ];
 
-    nativeBuildInputs = [ pkg-config makeWrapper ]
-      ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
+    nativeBuildInputs = [
+      pkg-config
+      makeWrapper
+    ] ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
       ++ lib.optionals srcRepo [ autoreconfHook ]
       ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
       wrapGAppsHook;
 
-    buildInputs = [ ncurses gconf libxml2 gnutls gettext jansson harfbuzz.dev ]
-      ++ lib.optionals stdenv.isLinux [ dbus libselinux alsa-lib acl gpm ]
-      ++ lib.optionals withSystemd [ systemd ]
-      ++ lib.optionals withX [ libXaw Xaw3d gconf cairo ]
-      ++ lib.optionals (withX || withPgtk) [
-        libXpm
-        libpng
-        libjpeg
-        giflib
-        libtiff
-      ] ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
+    buildInputs = [
+      ncurses
+      gconf
+      libxml2
+      gnutls
+      gettext
+      jansson
+      harfbuzz.dev
+    ] ++ lib.optionals stdenv.isLinux [
+      dbus
+      libselinux
+      alsa-lib
+      acl
+      gpm
+    ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withX [
+      libXaw
+      Xaw3d
+      gconf
+      cairo
+    ] ++ lib.optionals (withX || withPgtk) [
+      libXpm
+      libpng
+      libjpeg
+      giflib
+      libtiff
+    ] ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
       ++ lib.optionals withImageMagick [ imagemagick ]
-      ++ lib.optionals (stdenv.isLinux && withX) [ m17n_lib libotf ]
-      ++ lib.optional (withX && withGTK2) gtk2-x11
+      ++ lib.optionals (stdenv.isLinux && withX) [
+        m17n_lib
+        libotf
+      ] ++ lib.optional (withX && withGTK2) gtk2-x11
       ++ lib.optional (withX && withGTK3) gtk3-x11
       ++ lib.optional (!stdenv.isDarwin && withGTK3) gsettings-desktop-schemas
       ++ lib.optional withPgtk gtk3 ++ lib.optional (withX && withMotif) motif
       ++ lib.optional withSQLite3 sqlite ++ lib.optional withWebP libwebp
-      ++ lib.optionals (withX && withXwidgets) [ webkitgtk glib-networking ]
-      ++ lib.optionals withNS [ AppKit GSS ImageIO ]
-      ++ lib.optionals withMacport [
+      ++ lib.optionals (withX && withXwidgets) [
+        webkitgtk
+        glib-networking
+      ] ++ lib.optionals withNS [
+        AppKit
+        GSS
+        ImageIO
+      ] ++ lib.optionals withMacport [
         AppKit
         Carbon
         Cocoa
@@ -254,15 +280,11 @@ in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       "--disable-build-details" # for a (more) reproducible build
       "--with-modules"
     ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
-      ++ (if withNS then
-        [ "--disable-ns-self-contained" ]
-      else if withX then [
+      ++ (if withNS then [ "--disable-ns-self-contained" ] else if withX then [
         "--with-x-toolkit=${toolkit}"
         "--with-xft"
         "--with-cairo"
-      ] else if withPgtk then
-        [ "--with-pgtk" ]
-      else [
+      ] else if withPgtk then [ "--with-pgtk" ] else [
         "--with-x=no"
         "--with-xpm=no"
         "--with-jpeg=no"
@@ -281,7 +303,10 @@ in (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation
       ++ lib.optional (!withToolkitScrollBars) "--without-toolkit-scroll-bars"
       ++ lib.optional withTreeSitter "--with-tree-sitter";
 
-    installTargets = [ "tags" "install" ];
+    installTargets = [
+      "tags"
+      "install"
+    ];
 
     postInstall = ''
       mkdir -p $out/share/emacs/site-lisp

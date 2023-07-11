@@ -18,7 +18,10 @@ import ./make-test-python.nix ({
         config,
         ...
       }: {
-        imports = [ ./common/auto.nix ./common/user-account.nix ];
+        imports = [
+          ./common/auto.nix
+          ./common/user-account.nix
+        ];
 
         # Seems to very rarely get interrupted by oom-killer
         virtualisation.memorySize = 2047;

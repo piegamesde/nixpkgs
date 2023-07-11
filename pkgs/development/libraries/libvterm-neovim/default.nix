@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JaitnBVIU2jf0Kip3KGuyP6lwn2j+nTsUY1dN4fww5c=";
   };
 
-  nativeBuildInputs = [ perl libtool ];
+  nativeBuildInputs = [
+    perl
+    libtool
+  ];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"

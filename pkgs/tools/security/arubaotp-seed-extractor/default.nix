@@ -19,7 +19,12 @@ python3Packages.buildPythonApplication {
 
   nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  pythonPath = with python3Packages; [ pycryptodome pyotp qrcode requests ];
+  pythonPath = with python3Packages; [
+    pycryptodome
+    pyotp
+    qrcode
+    requests
+  ];
 
   installPhase = ''
     libdir="$out/lib/${python3Packages.python.libPrefix}/site-packages/arubaotp-seed-extractor"

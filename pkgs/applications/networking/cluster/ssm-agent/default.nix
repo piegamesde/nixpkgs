@@ -132,6 +132,9 @@ in buildGoPackage rec {
     homepage = "https://github.com/aws/amazon-ssm-agent";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ copumpkin manveru ];
+    maintainers = with maintainers; [
+      copumpkin
+      manveru
+    ];
   };
 }

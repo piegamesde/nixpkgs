@@ -18,7 +18,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-GvMiOEC3Y/pGG++Z+XCgLVADKymUR9shDxjx3xIz8u0=";
 
-  subPackages = [ "cmd/nebula" "cmd/nebula-cert" ];
+  subPackages = [
+    "cmd/nebula"
+    "cmd/nebula-cert"
+  ];
 
   ldflags = [ "-X main.Build=${version}" ];
 
@@ -44,7 +47,10 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/slackhq/nebula";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne numinit ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      numinit
+    ];
   };
 
 }

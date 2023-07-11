@@ -12,7 +12,11 @@ let
   cfg = config.services.statsd;
 
   isBuiltinBackend = name:
-    builtins.elem name [ "graphite" "console" "repeater" ];
+    builtins.elem name [
+      "graphite"
+      "console"
+      "repeater"
+    ];
 
   backendsToPackages = let
     mkMap = list: name:

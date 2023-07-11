@@ -32,11 +32,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ awkward numpy packaging ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    awkward
+    numpy
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook lz4 pytest-timeout scikit-hep-testdata xxhash zstandard ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    lz4
+    pytest-timeout
+    scikit-hep-testdata
+    xxhash
+    zstandard
+  ];
 
   preCheck = ''
     export HOME="$(mktemp -d)"

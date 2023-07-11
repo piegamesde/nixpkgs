@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "0jl2kxwpvf2n8974zzyp69mqhsbjnjcqm39y0jvijvjb1iy8iman";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk2 gtk3 ];
+  buildInputs = [
+    gtk2
+    gtk3
+  ];
 
   autoreconfPhase = ''
     patchShebangs ./autogen.sh

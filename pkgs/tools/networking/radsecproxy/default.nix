@@ -19,10 +19,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl nettle ];
+  buildInputs = [
+    openssl
+    nettle
+  ];
 
-  configureFlags =
-    [ "--with-ssl=${openssl.dev}" "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "--with-ssl=${openssl.dev}"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   meta = with lib; {
     homepage = "https://radsecproxy.github.io/";

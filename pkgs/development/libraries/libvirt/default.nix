@@ -97,8 +97,10 @@ let
     openssh
     pmutils
     systemd
-  ] ++ lib.optionals enableIscsi [ libiscsi openiscsi ]
-    ++ lib.optionals enableZfs [ zfs ]);
+  ] ++ lib.optionals enableIscsi [
+    libiscsi
+    openiscsi
+  ] ++ lib.optionals enableZfs [ zfs ]);
 
 in assert enableXen -> isLinux && isx86_64;
 assert enableCeph -> isLinux;
@@ -123,13 +125,11 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./0001-meson-patch-in-an-install-prefix-for-building-on-nix.patch ]
-    ++ lib.optionals enableZfs [
-      (substituteAll {
-        src = ./0002-substitute-zfs-and-zpool-commands.patch;
-        zfs = "${zfs}/bin/zfs";
-        zpool = "${zfs}/bin/zpool";
-      })
-    ];
+    ++ lib.optionals enableZfs [ (substituteAll {
+      src = ./0002-substitute-zfs-and-zpool-commands.patch;
+      zfs = "${zfs}/bin/zfs";
+      zpool = "${zfs}/bin/zpool";
+    }) ];
 
   # remove some broken tests
   postPatch = ''
@@ -212,11 +212,17 @@ stdenv.mkDerivation rec {
     parted
     systemd
     util-linux
-  ] ++ lib.optionals isDarwin [ AppKit Carbon gmp libiconv ]
-    ++ lib.optionals enableCeph [ ceph ]
+  ] ++ lib.optionals isDarwin [
+    AppKit
+    Carbon
+    gmp
+    libiconv
+  ] ++ lib.optionals enableCeph [ ceph ]
     ++ lib.optionals enableGlusterfs [ glusterfs ]
-    ++ lib.optionals enableIscsi [ libiscsi openiscsi ]
-    ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ];
+    ++ lib.optionals enableIscsi [
+      libiscsi
+      openiscsi
+    ] ++ lib.optionals enableXen [ xen ] ++ lib.optionals enableZfs [ zfs ];
 
   preConfigure = let
     overrides = {
@@ -370,6 +376,10 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/libvirt/libvirt/-/raw/v${version}/NEWS.rst";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz globin lovesegfault ];
+    maintainers = with maintainers; [
+      fpletz
+      globin
+      lovesegfault
+    ];
   };
 }

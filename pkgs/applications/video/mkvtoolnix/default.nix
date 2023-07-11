@@ -55,9 +55,15 @@ in stdenv.mkDerivation rec {
     sha256 = "c3I2ULSvKBTYIm1chVHPkaV0TxblLglBjzeUJ5TRmGw=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook docbook_xsl gettext gtest libxslt pkg-config rake ]
-    ++ optional withGUI wrapQtAppsHook;
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook_xsl
+    gettext
+    gtest
+    libxslt
+    pkg-config
+    rake
+  ] ++ optional withGUI wrapQtAppsHook;
 
   # 1. qtbase and qtmultimedia are needed without the GUI
   # 2. we have utf8cpp in nixpkgs but it doesn't find it
@@ -118,7 +124,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://mkvtoolnix.download/";
     license = licenses.gpl2Only;
     mainProgram = if withGUI then "mkvtoolnix-gui" else "mkvtoolnix";
-    maintainers = with maintainers; [ codyopel rnhmjoj ];
+    maintainers = with maintainers; [
+      codyopel
+      rnhmjoj
+    ];
     platforms = platforms.unix;
   };
 }

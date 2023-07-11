@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
   else
     "makefile.linux"; # I think Linux is a safe default...
 
-  makeFlags = [ "CC=${stdenv.cc}/bin/cc" "-C src/" ];
+  makeFlags = [
+    "CC=${stdenv.cc}/bin/cc"
+    "-C src/"
+  ];
 
   preInstall = ''
     install -d $out/bin $out/share/doc/${pname}-${version} $out/lib/teco/macros

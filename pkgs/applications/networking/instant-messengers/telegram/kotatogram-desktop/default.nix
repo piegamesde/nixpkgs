@@ -93,7 +93,10 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./kf594.patch ./shortcuts-binary-path.patch ];
+  patches = [
+    ./kf594.patch
+    ./shortcuts-binary-path.patch
+  ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioInputALSA.cpp \
@@ -111,13 +114,18 @@ in stdenv.mkDerivation rec {
       --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
   '';
 
-  nativeBuildInputs =
-    [ pkg-config cmake ninja python3 wrapQtAppsHook removeReferencesTo ]
-    ++ lib.optionals stdenv.isLinux [
-      # to build bundled libdispatch
-      clang
-      extra-cmake-modules
-    ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    python3
+    wrapQtAppsHook
+    removeReferencesTo
+  ] ++ lib.optionals stdenv.isLinux [
+    # to build bundled libdispatch
+    clang
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     qtbase
@@ -178,7 +186,10 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-DTDESKTOP_API_TEST=ON" "-DDESKTOP_APP_QT6=OFF" ];
+  cmakeFlags = [
+    "-DTDESKTOP_API_TEST=ON"
+    "-DDESKTOP_APP_QT6=OFF"
+  ];
 
   installPhase = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

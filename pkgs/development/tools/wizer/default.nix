@@ -23,9 +23,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-S9h47aGG5UhwNoOnUHFrtEyByg8iCMC88Cspb/6tb8c=";
 
-  cargoBuildFlags = [ "--bin" pname ];
+  cargoBuildFlags = [
+    "--bin"
+    pname
+  ];
 
-  buildFeatures = [ "env_logger" "structopt" ];
+  buildFeatures = [
+    "env_logger"
+    "structopt"
+  ];
 
   # Setting $HOME to a temporary directory is necessary to prevent checks from failing, as
   # the test suite creates a cache directory at $HOME/Library/Caches/BytecodeAlliance.wasmtime.
@@ -39,6 +45,9 @@ rustPlatform.buildRustPackage rec {
     description = "The WebAssembly pre-initializer";
     homepage = "https://github.com/bytecodealliance/wizer";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins amesgen ];
+    maintainers = with maintainers; [
+      lucperkins
+      amesgen
+    ];
   };
 }

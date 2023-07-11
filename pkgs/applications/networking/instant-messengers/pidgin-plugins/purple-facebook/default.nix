@@ -51,8 +51,10 @@ in stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  makeFlags =
-    [ "PLUGIN_DIR_PURPLE=/lib/pidgin/" "DATA_ROOT_DIR_PURPLE=/share" ];
+  makeFlags = [
+    "PLUGIN_DIR_PURPLE=/lib/pidgin/"
+    "DATA_ROOT_DIR_PURPLE=/share"
+  ];
 
   installPhase = ''
     mkdir -p $out/lib/purple-2
@@ -60,7 +62,11 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ pidgin glib json-glib ];
+  buildInputs = [
+    pidgin
+    glib
+    json-glib
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

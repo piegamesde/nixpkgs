@@ -39,8 +39,20 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config buildSymlinks ];
-  buildInputs = [ gettext ncurses cscope luajit ruby tcl perl python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    buildSymlinks
+  ];
+  buildInputs = [
+    gettext
+    ncurses
+    cscope
+    luajit
+    ruby
+    tcl
+    perl
+    python3
+  ];
 
   patches = [ ./macvim.patch ];
 
@@ -177,7 +189,10 @@ in stdenv.mkDerivation {
     description = "Vim - the text editor - for macOS";
     homepage = "https://github.com/macvim-dev/macvim";
     license = licenses.vim;
-    maintainers = with maintainers; [ cstrahan lilyball ];
+    maintainers = with maintainers; [
+      cstrahan
+      lilyball
+    ];
     platforms = platforms.darwin;
     hydraPlatforms =
       [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile

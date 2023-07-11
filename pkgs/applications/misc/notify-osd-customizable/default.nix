@@ -26,7 +26,11 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "./autogen.sh --libexecdir=$(out)/bin";
 
-  nativeBuildInputs = [ pkg-config makeWrapper libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    libtool
+  ];
   buildInputs = [
     glib
     libwnck

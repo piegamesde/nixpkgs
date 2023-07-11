@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytestCheckHook keyring ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    keyring
+  ];
 
   pythonImportsCheck = [ "keyrings.alt" ];
 

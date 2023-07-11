@@ -30,13 +30,28 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [ "aiohttp" "oss2" ];
+  pythonRelaxDeps = [
+    "aiohttp"
+    "oss2"
+  ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ aiohttp oss2 ];
+  propagatedBuildInputs = [
+    aiohttp
+    oss2
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytest-asyncio pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytest-asyncio
+    pytestCheckHook
+    requests
+  ];
 
   pythonImportsCheck = [ "aiooss2" ];
 

@@ -19,7 +19,11 @@ buildPythonPackage rec {
     sha256 = "0n9vi6b0y8b41fd7m9p361y3qb5m3b9p9d8g4fasqi7yy4mw2hns";
   };
 
-  propagatedBuildInputs = [ requests zeroconf wakeonlan ];
+  propagatedBuildInputs = [
+    requests
+    zeroconf
+    wakeonlan
+  ];
 
   checkPhase = ''
     ${python.interpreter} setup.py test

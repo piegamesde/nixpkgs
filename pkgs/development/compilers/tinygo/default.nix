@@ -52,21 +52,30 @@ in buildGoModule rec {
     ./0003-Use-out-path-as-build-id-on-darwin.patch
   ];
 
-  nativeCheckInputs = [ avrgcc binaryen ];
+  nativeCheckInputs = [
+    avrgcc
+    binaryen
+  ];
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ llvm clang.cc ]
-    ++ lib.optionals stdenv.isDarwin [ zlib ncurses libffi libxml2 xar ];
+  buildInputs = [
+    llvm
+    clang.cc
+  ] ++ lib.optionals stdenv.isDarwin [
+    zlib
+    ncurses
+    libffi
+    libxml2
+    xar
+  ];
 
   doCheck = (stdenv.buildPlatform.canExecute stdenv.hostPlatform);
   inherit tinygoTests;
 
   allowGoReference = true;
   tags = [ "llvm${llvmMajor}" ];
-  ldflags = [
-    "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${
+  ldflags = [ "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${
       placeholder "out"
-    }/share/tinygo"
-  ];
+    }/share/tinygo" ];
   subPackages = [ "." ];
 
   # Output contains static libraries for different arm cpus
@@ -160,7 +169,13 @@ in buildGoModule rec {
 
     wrapProgram $out/bin/tinygo \
       --prefix PATH : ${
-        lib.makeBinPath [ go avrdude openocd avrgcc binaryen ]
+        lib.makeBinPath [
+          go
+          avrdude
+          openocd
+          avrgcc
+          binaryen
+        ]
       }:$out/libexec/tinygo
 
     runHook postInstall
@@ -172,6 +187,9 @@ in buildGoModule rec {
     homepage = "https://tinygo.org/";
     description = "Go compiler for small places";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Madouura muscaln ];
+    maintainers = with maintainers; [
+      Madouura
+      muscaln
+    ];
   };
 }

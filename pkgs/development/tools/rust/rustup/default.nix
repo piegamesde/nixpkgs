@@ -17,9 +17,8 @@
 }:
 
 let
-  libPath = lib.makeLibraryPath [
-    zlib # libz.so.1
-  ];
+  libPath = lib.makeLibraryPath [ zlib # libz.so.1
+    ];
 
 in rustPlatform.buildRustPackage rec {
   pname = "rustup";
@@ -39,17 +38,27 @@ in rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ (curl.override { inherit openssl; }) zlib ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Security libiconv xz ];
+  buildInputs = [
+    (curl.override { inherit openssl; })
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+    libiconv
+    xz
+  ];
 
   buildFeatures = [ "no-self-update" ];
 
   checkFeatures = [ ];
 
-  patches = lib.optionals stdenv.isLinux [
-    (runCommand "0001-dynamically-patchelf-binaries.patch" {
+  patches = lib.optionals stdenv.isLinux [ (runCommand
+    "0001-dynamically-patchelf-binaries.patch" {
       CC = stdenv.cc;
       patchelf = patchelf;
       libPath = "$ORIGIN/../lib:${libPath}";
@@ -59,8 +68,7 @@ in rustPlatform.buildRustPackage rec {
         --subst-var patchelf \
         --subst-var dynamicLinker \
         --subst-var libPath
-    '')
-  ];
+    '') ];
 
   doCheck = !stdenv.isAarch64 && !stdenv.isDarwin;
 

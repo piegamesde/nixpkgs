@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
     "${placeholder "out"}/lib/systemd/system";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ udev libevdev libconfig ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    udev
+    libevdev
+    libconfig
+  ];
 
   meta = with lib; {
     description = "Unofficial userspace driver for HID++ Logitech devices";

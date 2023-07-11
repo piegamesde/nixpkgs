@@ -23,9 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-k7Cl2QYkaGOZaTo8v5Wg9Wqh8x0WC5i9Sggqj8eeECY=";
   };
 
-  propagatedBuildInputs = [ django django-polymorphic djangorestframework six ];
+  propagatedBuildInputs = [
+    django
+    django-polymorphic
+    djangorestframework
+    six
+  ];
 
-  nativeCheckInputs = [ pytest-django pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rest_polymorphic" ];
 

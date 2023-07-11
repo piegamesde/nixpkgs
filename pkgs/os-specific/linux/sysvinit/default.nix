@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libxcrypt ];
 
-  makeFlags = [ "SULOGINLIBS=-lcrypt" "ROOT=$(out)" "MANDIR=/share/man" ];
+  makeFlags = [
+    "SULOGINLIBS=-lcrypt"
+    "ROOT=$(out)"
+    "MANDIR=/share/man"
+  ];
 
   preInstall = ''
     substituteInPlace src/Makefile --replace /usr /

@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ Carbon Cocoa ];
+  buildInputs = [
+    Carbon
+    Cocoa
+  ];
 
   buildPhase = ''
     make install

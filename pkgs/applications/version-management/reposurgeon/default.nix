@@ -19,7 +19,10 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [ asciidoctor ruby ];
+  nativeBuildInputs = [
+    asciidoctor
+    ruby
+  ];
 
   postBuild = ''
     patchShebangs .

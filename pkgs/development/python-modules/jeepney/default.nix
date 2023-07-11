@@ -28,8 +28,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs =
-    [ async-timeout dbus pytest pytest-trio pytest-asyncio testpath trio ];
+  nativeCheckInputs = [
+    async-timeout
+    dbus
+    pytest
+    pytest-trio
+    pytest-asyncio
+    testpath
+    trio
+  ];
 
   checkPhase = ''
     runHook preCheck

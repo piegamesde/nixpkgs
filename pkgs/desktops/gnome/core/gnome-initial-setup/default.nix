@@ -48,14 +48,19 @@ stdenv.mkDerivation rec {
     sha256 = "WTz8bcj4KphnG5TANbl9vojvVucIeAsq0dIyTk0Eu/8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./0001-fix-paths.patch;
-      inherit tzdata libgnomekbd;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0001-fix-paths.patch;
+    inherit tzdata libgnomekbd;
+  }) ];
 
-  nativeBuildInputs = [ gettext meson ninja pkg-config systemd wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+    systemd
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     accountsservice

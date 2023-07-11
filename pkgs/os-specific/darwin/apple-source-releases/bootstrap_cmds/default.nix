@@ -14,7 +14,10 @@ let
     (stdenv.targetPlatform.config + "-");
 
 in appleDerivation {
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
 
   buildPhase = ''
     cd migcom.tproj

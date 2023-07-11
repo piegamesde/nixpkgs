@@ -13,7 +13,11 @@ args@{
     See: http://www.ergy.com/FSet.html
   '';
 
-  deps = [ args."misc-extensions" args."mt19937" args."named-readtables" ];
+  deps = [
+    args."misc-extensions"
+    args."mt19937"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url =

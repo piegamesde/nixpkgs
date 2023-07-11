@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aXpPn6tpSOwWL/34qlpJ+on/H+X7303J1jwvwcVOTNs=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -50,7 +54,12 @@ stdenv.mkDerivation rec {
     libdrm
   ];
 
-  runtimeDependencies = [ coreutils openssl (lib.getLib udev) libappindicator ];
+  runtimeDependencies = [
+    coreutils
+    openssl
+    (lib.getLib udev)
+    libappindicator
+  ];
 
   unpackPhase = ''
     runHook preUnpack

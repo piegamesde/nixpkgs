@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "sha256-ZxvJPDj+r7KSyXpYNQIgnda5OS77GOFM901ZHgR6c4k=";
   };
 
-  propagatedBuildInputs = [ requests sphinx ];
+  propagatedBuildInputs = [
+    requests
+    sphinx
+  ];
 
   pythonImportsCheck = [ "instaloader" ];
 

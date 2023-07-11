@@ -48,8 +48,10 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = with pkgs; [ openresolv ];
       serviceConfig = {
-        Environment =
-          [ "NB_CONFIG=/var/lib/netbird/config.json" "NB_LOG_FILE=console" ];
+        Environment = [
+          "NB_CONFIG=/var/lib/netbird/config.json"
+          "NB_LOG_FILE=console"
+        ];
         ExecStart = "${cfg.package}/bin/netbird service run";
         Restart = "always";
         RuntimeDirectory = "netbird";

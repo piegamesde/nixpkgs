@@ -36,20 +36,29 @@ stdenv.mkDerivation rec {
   # Tries to run `pkexec --version` to get version.
   # however the binary won't be suid so it returns
   # an error preventing the program from detection
-  patches = [
-    (substituteAll {
-      src = ./polkit.patch;
-      polkit_version = polkit.version;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./polkit.patch;
+    polkit_version = polkit.version;
+  }) ];
 
   enableParallelBuilding = true;
 
   configureFlags = [ "--disable-doc" ];
 
-  buildInputs =
-    [ parted glib libuuid gtkmm3 libxml2 polkit.bin gnome.adwaita-icon-theme ];
-  nativeBuildInputs = [ gettext pkg-config wrapGAppsHook ];
+  buildInputs = [
+    parted
+    glib
+    libuuid
+    gtkmm3
+    libxml2
+    polkit.bin
+    gnome.adwaita-icon-theme
+  ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
   preConfigure = ''
     # For ITS rules

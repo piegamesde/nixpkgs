@@ -30,10 +30,24 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gettext wrapGAppsHook4 libxml2 glib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    wrapGAppsHook4
+    libxml2
+    glib
+  ];
 
-  buildInputs = [ gtk4 glib gnome-desktop harfbuzz libadwaita fribidi ];
+  buildInputs = [
+    gtk4
+    glib
+    gnome-desktop
+    harfbuzz
+    libadwaita
+    fribidi
+  ];
 
   # Do not run meson-postinstall.sh
   preConfigure = "sed -i '2,$ d'  meson-postinstall.sh";

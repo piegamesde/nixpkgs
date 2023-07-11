@@ -26,8 +26,17 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cmakelists.patch ];
 
-  nativeBuildInputs = [ cmake flex bison ];
-  buildInputs = [ qt4 libX11 gperf adms ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+  ];
+  buildInputs = [
+    qt4
+    libX11
+    gperf
+    adms
+  ];
 
   meta = {
     description = "Integrated circuit simulator";

@@ -8,7 +8,12 @@ args@{
 
   description = "Common Lisp MySQL library bindings";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

@@ -34,13 +34,20 @@ mkDerivation rec {
       --replace gio/gunixconnection.h gio/gunixfdlist.h
   '';
 
-  nativeBuildInputs = [ cmake pkg-config setupHook ];
-
-  buildInputs = [ qtbase glib pcre ];
-
-  propagatedBuildInputs = [
-    perl # needed by LXQtTranslateDesktop.cmake
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    setupHook
   ];
+
+  buildInputs = [
+    qtbase
+    glib
+    pcre
+  ];
+
+  propagatedBuildInputs = [ perl # needed by LXQtTranslateDesktop.cmake
+    ];
 
   setupHook = ./setup-hook.sh;
 

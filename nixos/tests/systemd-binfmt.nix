@@ -34,7 +34,10 @@ in {
   basic = makeTest {
     name = "systemd-binfmt";
     nodes.machine = {
-      boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
+      boot.binfmt.emulatedSystems = [
+        "armv7l-linux"
+        "aarch64-linux"
+      ];
     };
 
     testScript = let

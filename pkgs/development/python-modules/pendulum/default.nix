@@ -25,8 +25,10 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ poetry-core ];
-  propagatedBuildInputs = [ python-dateutil pytzdata ]
-    ++ lib.optional (pythonOlder "3.5") typing
+  propagatedBuildInputs = [
+    python-dateutil
+    pytzdata
+  ] ++ lib.optional (pythonOlder "3.5") typing
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # No tests

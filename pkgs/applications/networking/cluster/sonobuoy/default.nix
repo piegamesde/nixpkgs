@@ -42,6 +42,10 @@ in buildGoModule rec {
 
     homepage = "https://sonobuoy.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ carlosdagos saschagrunert wilsonehusin ];
+    maintainers = with maintainers; [
+      carlosdagos
+      saschagrunert
+      wilsonehusin
+    ];
   };
 }

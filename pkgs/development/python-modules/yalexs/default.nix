@@ -29,11 +29,21 @@ buildPythonPackage rec {
     hash = "sha256-dUiaz1adXsiVji1YZYkYN6NCFGzAWIBPjVTeyvUaiqU=";
   };
 
-  propagatedBuildInputs =
-    [ aiofiles aiohttp pubnub pyjwt python-dateutil requests ];
+  propagatedBuildInputs = [
+    aiofiles
+    aiohttp
+    pubnub
+    pyjwt
+    python-dateutil
+    requests
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses aiounittest pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    aioresponses
+    aiounittest
+    pytestCheckHook
+    requests-mock
+  ];
 
   postPatch = ''
     # Not used requirement

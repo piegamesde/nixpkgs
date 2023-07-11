@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook cmake gettext ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    cmake
+    gettext
+  ];
 
   cmakeFlags = [ "-DwxWidgets_LIBRARIES=${wxGTK}/lib" ];
 

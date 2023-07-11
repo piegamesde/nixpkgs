@@ -18,9 +18,18 @@ mkXfceDerivation {
 
   sha256 = "sha256-2WA7EtDmNl8XP0wK00iyQcSqV3mnfHNJZTKhBJ/YWPQ=";
 
-  nativeBuildInputs = [ intltool gettext ];
+  nativeBuildInputs = [
+    intltool
+    gettext
+  ];
 
-  buildInputs = [ thunar glib gtk3 libxfce4util taglib ];
+  buildInputs = [
+    thunar
+    glib
+    gtk3
+    libxfce4util
+    taglib
+  ];
 
   meta = with lib; {
     description =

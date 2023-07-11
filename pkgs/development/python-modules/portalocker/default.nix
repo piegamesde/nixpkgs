@@ -22,11 +22,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ redis ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mypy ];
-
-  disabledTests = [
-    "test_combined" # no longer compatible with setuptools>=58
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mypy
   ];
+
+  disabledTests = [ "test_combined" # no longer compatible with setuptools>=58
+    ];
 
   pythonImportsCheck = [ "portalocker" ];
 

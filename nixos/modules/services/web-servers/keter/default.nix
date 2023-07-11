@@ -32,10 +32,10 @@ in {
       type = lib.types.attrs;
       default = {
         ip-from-header = true;
-        listeners = [{
+        listeners = [ {
           host = "*4";
           port = 6981;
-        }];
+        } ];
       };
       # You want that ip-from-header in the nginx setup case
       # so it's not set to 127.0.0.1.
@@ -127,14 +127,21 @@ in {
         mkdir -p ${incoming}
         { tail -F ${cfg.keterRoot}/log/keter/current.log -n 0 & ${cfg.keterPackage}/bin/keter ${globalKeterConfigFile}; }
       '';
-      wantedBy = [ "multi-user.target" "nginx.service" ];
+      wantedBy = [
+        "multi-user.target"
+        "nginx.service"
+      ];
 
       serviceConfig = {
         Restart = "always";
         RestartSec = "10s";
       };
 
-      after = [ "network.target" "local-fs.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "local-fs.target"
+        "postgresql.service"
+      ];
     };
 
     # On deploy this will load our app, by moving it into the incoming dir

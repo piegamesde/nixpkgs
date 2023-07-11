@@ -34,7 +34,11 @@ stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
     runHook postConfigure
   '';
 
-  buildFlags = [ "DEBUG=false" "default" "man-page" ];
+  buildFlags = [
+    "DEBUG=false"
+    "default"
+    "man-page"
+  ];
 
   checkTarget = "nunit test";
 

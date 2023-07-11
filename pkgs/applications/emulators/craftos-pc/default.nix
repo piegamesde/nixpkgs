@@ -40,8 +40,17 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-a7oMLfjZUkEWPjxDDywlSW4qLhcQrCXPPY2BEOgiafU=";
   };
 
-  buildInputs =
-    [ patchelf poco openssl SDL2 SDL2_mixer ncurses libpng pngpp libwebp ];
+  buildInputs = [
+    patchelf
+    poco
+    openssl
+    SDL2
+    SDL2_mixer
+    ncurses
+    libpng
+    pngpp
+    libwebp
+  ];
 
   preBuild = ''
     cp -R ${craftos2-lua}/* ./craftos2-lua/
@@ -64,9 +73,15 @@ in stdenv.mkDerivation rec {
     description =
       "An implementation of the CraftOS-PC API written in C++ using SDL";
     homepage = "https://www.craftos-pc.cc";
-    license = with licenses; [ mit free ];
+    license = with licenses; [
+      mit
+      free
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ siraben tomodachi94 ];
+    maintainers = with maintainers; [
+      siraben
+      tomodachi94
+    ];
     mainProgram = "craftos";
   };
 }

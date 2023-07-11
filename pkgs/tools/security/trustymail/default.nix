@@ -22,8 +22,14 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   propagatedBuildInputs = with python3.pkgs;
-    [ dnspython docopt publicsuffixlist pydns pyspf requests ]
-    ++ publicsuffixlist.optional-dependencies.update;
+    [
+      dnspython
+      docopt
+      publicsuffixlist
+      pydns
+      pyspf
+      requests
+    ] ++ publicsuffixlist.optional-dependencies.update;
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 

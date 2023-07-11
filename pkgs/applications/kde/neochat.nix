@@ -35,7 +35,12 @@
 mkDerivation {
   pname = "neochat";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     cmark

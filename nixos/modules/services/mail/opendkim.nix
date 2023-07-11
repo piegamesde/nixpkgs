@@ -26,16 +26,21 @@ let
     keyFile
     "-s"
     cfg.selector
-  ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
+  ] ++ optionals (cfg.configFile != null) [
+    "-x"
+    cfg.configFile
+  ];
 
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "opendkim" "keyFile" ] [
-      "services"
-      "opendkim"
-      "keyPath"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "opendkim"
+    "keyFile"
+  ] [
+    "services"
+    "opendkim"
+    "keyPath"
+  ]) ];
 
   ###### interface
 
@@ -169,12 +174,18 @@ in {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6 AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6 AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @resources"
+        ];
         UMask = "0077";
       };
     };

@@ -74,18 +74,20 @@ in {
         set -g tmate-server-ed25519-fingerprint "@ed25519_fingerprint@"
         set -g tmate-server-rsa-fingerprint "@rsa_fingerprint@"
       '';
-    in [
-      (pkgs.writeShellApplication {
-        name = "tmate-client-config";
-        runtimeInputs = with pkgs; [ openssh coreutils sd ];
-        text = ''
-          RSA_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_rsa_key.pub" | cut -d ' ' -f 2)"
-          ED25519_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_ed25519_key.pub" | cut -d ' ' -f 2)"
-          sd -sp '@ed25519_fingerprint@' "$ED25519_SIG" ${tmate-config} | \
-            sd -sp '@rsa_fingerprint@' "$RSA_SIG"
-        '';
-      })
-    ];
+    in [ (pkgs.writeShellApplication {
+      name = "tmate-client-config";
+      runtimeInputs = with pkgs; [
+        openssh
+        coreutils
+        sd
+      ];
+      text = ''
+        RSA_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_rsa_key.pub" | cut -d ' ' -f 2)"
+        ED25519_SIG="$(ssh-keygen -l -E SHA256 -f "${keysDir}/ssh_host_ed25519_key.pub" | cut -d ' ' -f 2)"
+        sd -sp '@ed25519_fingerprint@' "$ED25519_SIG" ${tmate-config} | \
+          sd -sp '@rsa_fingerprint@' "$RSA_SIG"
+      '';
+    }) ];
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";

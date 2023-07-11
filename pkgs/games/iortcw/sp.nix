@@ -36,11 +36,21 @@ stdenv.mkDerivation rec {
 
   installTargets = [ "copyfiles" ];
 
-  buildInputs = [ opusfile libogg SDL2 freetype libjpeg openal curl ];
+  buildInputs = [
+    opusfile
+    libogg
+    SDL2
+    freetype
+    libjpeg
+    openal
+    curl
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString [ "-I${SDL2.dev}/include/SDL2" "-I${opusfile.dev}/include/opus" ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I${SDL2.dev}/include/SDL2"
+    "-I${opusfile.dev}/include/opus"
+  ];
   NIX_CFLAGS_LINK = [ "-lSDL2" ];
 
   postInstall = ''

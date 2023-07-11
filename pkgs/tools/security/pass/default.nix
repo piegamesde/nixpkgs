@@ -87,12 +87,17 @@ in stdenv.mkDerivation rec {
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 
-  patches = [ ./set-correct-program-name-for-sleep.patch ./extension-dir.patch ]
-    ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch;
+  patches = [
+    ./set-correct-program-name-for-sleep.patch
+    ./extension-dir.patch
+  ] ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installFlags = [ "PREFIX=$(out)" "WITH_ALLCOMP=yes" ];
+  installFlags = [
+    "PREFIX=$(out)"
+    "WITH_ALLCOMP=yes"
+  ];
 
   postInstall = ''
     # Install Emacs Mode. NOTE: We can't install the necessary
@@ -119,8 +124,13 @@ in stdenv.mkDerivation rec {
       qrencode
     ] ++ optional stdenv.isDarwin openssl ++ optional x11Support xclip
       ++ optional waylandSupport wl-clipboard
-      ++ optionals (waylandSupport && dmenuSupport) [ ydotool dmenu-wayland ]
-      ++ optionals (x11Support && dmenuSupport) [ xdotool dmenu ]);
+      ++ optionals (waylandSupport && dmenuSupport) [
+        ydotool
+        dmenu-wayland
+      ] ++ optionals (x11Support && dmenuSupport) [
+        xdotool
+        dmenu
+      ]);
 
   postFixup = ''
     # Fix program name in --help
@@ -178,7 +188,13 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.passwordstore.org/";
     license = licenses.gpl2Plus;
     mainProgram = "pass";
-    maintainers = with maintainers; [ lovek323 fpletz tadfisher globin ma27 ];
+    maintainers = with maintainers; [
+      lovek323
+      fpletz
+      tadfisher
+      globin
+      ma27
+    ];
     platforms = platforms.unix;
 
     longDescription = ''

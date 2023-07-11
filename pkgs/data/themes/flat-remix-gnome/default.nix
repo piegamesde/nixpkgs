@@ -21,7 +21,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-5V3ECbQe3/5bhHnMR1pzvehs1eh0u9U7E1voDiqo9cY=";
   };
 
-  nativeBuildInputs = [ glib fake-dconf ];
+  nativeBuildInputs = [
+    glib
+    fake-dconf
+  ];
   makeFlags = [ "PREFIX=$(out)" ];
 
   # make install will back up this file, it will fail if the file doesn't exist.

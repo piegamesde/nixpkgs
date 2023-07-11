@@ -35,7 +35,11 @@
   libsForQt5,
 }:
 
-assert lib.elem defaultGuiType [ "" "gtk3" "qt5" ];
+assert lib.elem defaultGuiType [
+  ""
+  "gtk3"
+  "qt5"
+];
 assert defaultGuiType == "gtk3" -> withGtk3;
 assert defaultGuiType == "qt5" -> withQt5;
 
@@ -71,8 +75,10 @@ in stdenv.mkDerivation (finalAttrs: {
         WebUI/static/js/languages.js tool/languages.json
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ]
-    ++ optional (withQt5 || withGtk3) copyDesktopItems
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ] ++ optional (withQt5 || withGtk3) copyDesktopItems
     ++ optional withQt5 wrapQtAppsHook;
 
   buildInputs = [
@@ -93,19 +99,17 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g
     ++ optional withXfs xfsprogs ++ optional withQt5 qtbase;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Ventoy";
-      desktopName = "Ventoy";
-      comment =
-        "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
-      icon = "VentoyLogo";
-      exec = "ventoy-gui";
-      terminal = false;
-      categories = [ "Utility" ];
-      startupNotify = true;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Ventoy";
+    desktopName = "Ventoy";
+    comment =
+      "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
+    icon = "VentoyLogo";
+    exec = "ventoy-gui";
+    terminal = false;
+    categories = [ "Utility" ];
+    startupNotify = true;
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -193,7 +197,12 @@ in stdenv.mkDerivation (finalAttrs: {
     changelog = "https://www.ventoy.net/doc_news.html";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ AndersonTorres ];
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" "mipsel-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+      "mipsel-linux"
+    ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 })

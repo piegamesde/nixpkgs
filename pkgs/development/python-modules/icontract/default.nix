@@ -33,10 +33,19 @@ buildPythonPackage rec {
     export ICONTRACT_SLOW=1
   '';
 
-  propagatedBuildInputs = [ asttokens typing-extensions ];
+  propagatedBuildInputs = [
+    asttokens
+    typing-extensions
+  ];
 
-  nativeCheckInputs =
-    [ astor asyncstdlib deal dpcontracts numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    astor
+    asyncstdlib
+    deal
+    dpcontracts
+    numpy
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # mypy decorator checks don't pass. For some reason mypy
@@ -59,6 +68,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/Parquery/icontract/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador thiagokokada ];
+    maintainers = with maintainers; [
+      gador
+      thiagokokada
+    ];
   };
 }

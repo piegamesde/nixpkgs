@@ -11,7 +11,10 @@ trivialBuild {
 
   inherit (urweb) src version;
 
-  packageRequires = [ cl-lib flycheck ];
+  packageRequires = [
+    cl-lib
+    flycheck
+  ];
 
   postUnpack = ''
     sourceRoot=$sourceRoot/src/elisp

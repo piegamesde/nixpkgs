@@ -26,10 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-iSSEZgPkK7RrZfU11z7hUk+JbFsCPH/SD16e+/f6TFU=";
   };
 
-  propagatedBuildInputs = [ dnspython greenlet six ]
-    ++ lib.optionals (pythonOlder "3.5") [ monotonic ];
+  propagatedBuildInputs = [
+    dnspython
+    greenlet
+    six
+  ] ++ lib.optionals (pythonOlder "3.5") [ monotonic ];
 
-  nativeCheckInputs = [ pytestCheckHook nose ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+  ];
 
   doCheck = !stdenv.isDarwin;
 

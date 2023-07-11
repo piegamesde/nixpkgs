@@ -117,11 +117,15 @@ let
 
     log = {
 
-      log.level =
-        mkParamDef (types.enum [ "debug" "info" "warn" "error" "fatal" ])
-        "info" ''
-          Log filtering level.
-        '';
+      log.level = mkParamDef (types.enum [
+        "debug"
+        "info"
+        "warn"
+        "error"
+        "fatal"
+      ]) "info" ''
+        Log filtering level.
+      '';
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -660,12 +664,12 @@ let
   };
 
   assertRelativeStateDir = cmd: {
-    assertions = [{
+    assertions = [ {
       assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
       message =
         "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
         + " It should be a directory relative to /var/lib.";
-    }];
+    } ];
   };
 
 in {
@@ -748,7 +752,10 @@ in {
       ];
       systemd.services.thanos-sidecar = {
         wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" "prometheus.service" ];
+        after = [
+          "network.target"
+          "prometheus.service"
+        ];
         serviceConfig = {
           User = "prometheus";
           Restart = "always";

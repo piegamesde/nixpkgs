@@ -7,7 +7,12 @@
   libarchive,
 }:
 
-let pythonEnv = python3.withPackages (ps: with ps; [ cheetah3 lxml ]);
+let
+  pythonEnv = python3.withPackages (ps:
+    with ps; [
+      cheetah3
+      lxml
+    ]);
 in stdenv.mkDerivation rec {
   pname = "sickgear";
   version = "0.25.60";
@@ -25,7 +30,10 @@ in stdenv.mkDerivation rec {
   doCheck = false;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pythonEnv libarchive ];
+  buildInputs = [
+    pythonEnv
+    libarchive
+  ];
 
   postPatch = ''
     substituteInPlace sickgear.py --replace "/usr/bin/env python2" "/usr/bin/env python"

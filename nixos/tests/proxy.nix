@@ -28,7 +28,10 @@ import ./make-test-python.nix ({
           services.httpd = {
             enable = true;
             adminAddr = "bar@example.org";
-            extraModules = [ "proxy_balancer" "lbmethod_byrequests" ];
+            extraModules = [
+              "proxy_balancer"
+              "lbmethod_byrequests"
+            ];
             extraConfig = ''
               ExtendedStatus on
             '';

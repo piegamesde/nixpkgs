@@ -23,13 +23,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase =
-    let binPath = lib.makeBinPath [ openssh perl gnutar bash inotify-tools ];
-    in ''
-      mkdir -p $out/bin
-      cp sshlatex $out/bin
-      wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"
-    '';
+  installPhase = let
+    binPath = lib.makeBinPath [
+      openssh
+      perl
+      gnutar
+      bash
+      inotify-tools
+    ];
+  in ''
+    mkdir -p $out/bin
+    cp sshlatex $out/bin
+    wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"
+  '';
 
   meta = with lib; {
     description = "A collection of hacks to efficiently run LaTeX via ssh";

@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libressl ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   meta = with lib; {
     homepage = "https://www.openntpd.org/";

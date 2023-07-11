@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-fpksS7lbaYwjf7NuPFE44wvyGcT5d+ERBCJmZoKXaWA=";
   };
-  buildInputs = [ boost nix nlohmann_json ];
+  buildInputs = [
+    boost
+    nix
+    nlohmann_json
+  ];
   nativeBuildInputs = [
     meson
     ninja
@@ -32,7 +36,10 @@ stdenv.mkDerivation rec {
     description = "Hydra's builtin hydra-eval-jobs as a standalone";
     homepage = "https://github.com/nix-community/nix-eval-jobs";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ adisbladis mic92 ];
+    maintainers = with lib.maintainers; [
+      adisbladis
+      mic92
+    ];
     platforms = lib.platforms.unix;
   };
 }

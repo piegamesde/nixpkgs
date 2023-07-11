@@ -18,9 +18,15 @@ mkDerivation rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ kio fuse3 ];
+  buildInputs = [
+    kio
+    fuse3
+  ];
 
   meta = with lib; {
     description = "FUSE Interface for KIO";

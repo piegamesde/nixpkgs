@@ -52,8 +52,16 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    bqstorage = [ google-cloud-bigquery-storage grpcio pyarrow ];
-    pandas = [ db-dtypes pandas pyarrow ];
+    bqstorage = [
+      google-cloud-bigquery-storage
+      grpcio
+      pyarrow
+    ];
+    pandas = [
+      db-dtypes
+      pandas
+      pyarrow
+    ];
     tqdm = [ tqdm ];
     ipython = [ ipython ];
   };
@@ -110,7 +118,10 @@ buildPythonPackage rec {
     "tests/system/test_pandas.py"
   ];
 
-  pythonImportsCheck = [ "google.cloud.bigquery" "google.cloud.bigquery_v2" ];
+  pythonImportsCheck = [
+    "google.cloud.bigquery"
+    "google.cloud.bigquery_v2"
+  ];
 
   meta = with lib; {
     description = "Google BigQuery API client library";

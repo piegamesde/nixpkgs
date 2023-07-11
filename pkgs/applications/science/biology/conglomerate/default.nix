@@ -23,18 +23,36 @@ stdenv.mkDerivation rec {
     sha256 = "1mlqgmy3jc13bv7d01rjwldxq0p4ayqic85xcl222hhifi3w2prr";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ libminc zlib bicpl ];
-  propagatedBuildInputs = [ coreutils minc_tools ]
-    ++ (with perlPackages; [ perl GetoptTabular MNI-Perllib ]);
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    libminc
+    zlib
+    bicpl
+  ];
+  propagatedBuildInputs = [
+    coreutils
+    minc_tools
+  ] ++ (with perlPackages; [
+    perl
+    GetoptTabular
+    MNI-Perllib
+  ]);
 
-  cmakeFlags =
-    [ "-DLIBMINC_DIR=${libminc}/lib/cmake" "-DBICPL_DIR=${bicpl}/lib" ];
+  cmakeFlags = [
+    "-DLIBMINC_DIR=${libminc}/lib/cmake"
+    "-DBICPL_DIR=${bicpl}/lib"
+  ];
 
   postFixup = ''
     for p in $out/bin/*; do
       wrapProgram $p --prefix PERL5LIB : $PERL5LIB --set PATH "${
-        lib.makeBinPath [ coreutils minc_tools ]
+        lib.makeBinPath [
+          coreutils
+          minc_tools
+        ]
       }";
     done
   '';

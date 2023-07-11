@@ -42,11 +42,17 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
   doCheck = false;
   # requires running mysql and postgres instances; see docker-compose.yml
 
-  pythonImportsCheck = [ "siuba" "siuba.data" ];
+  pythonImportsCheck = [
+    "siuba"
+    "siuba.data"
+  ];
 
   meta = with lib; {
     description = "Use dplyr-like syntax with pandas and SQL";

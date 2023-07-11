@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ aresponses pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    aresponses
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   postPatch = ''
     # Upstream doesn't set version in the repo

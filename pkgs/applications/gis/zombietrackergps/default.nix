@@ -21,7 +21,13 @@ mkDerivation rec {
     sha256 = "sha256-qRhCAOVWyDLD3WDptPRQVq+VwyFu83XQNaL5TMsGs4Y=";
   };
 
-  buildInputs = [ ldutils qtcharts qtsvg marble.dev qtwebengine ];
+  buildInputs = [
+    ldutils
+    qtcharts
+    qtsvg
+    marble.dev
+    qtwebengine
+  ];
 
   nativeBuildInputs = [ qmake ];
 

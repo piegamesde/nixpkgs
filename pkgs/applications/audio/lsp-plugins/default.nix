@@ -25,10 +25,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lNrIsXW3ZNKMFwsl5qowWqK/ZaCaQUAlrSscnsOxvVg=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ pkg-config php makeWrapper ];
-  buildInputs = [ jack2 libsndfile libGLU libGL lv2 cairo ladspaH libXrandr ];
+  nativeBuildInputs = [
+    pkg-config
+    php
+    makeWrapper
+  ];
+  buildInputs = [
+    jack2
+    libsndfile
+    libGLU
+    libGL
+    lv2
+    cairo
+    ladspaH
+    libXrandr
+  ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

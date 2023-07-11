@@ -24,10 +24,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zwKK8TPEATAgJwHh04hurzU3NrhyHA70qkf5kXW1yQc=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake xxd ];
-  buildInputs = [ openssl libwebsockets json_c libuv zlib ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    xxd
+  ];
+  buildInputs = [
+    openssl
+    libwebsockets
+    json_c
+    libuv
+    zlib
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = {
     description = "Share your terminal over the web";

@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib bzip2 perl ] ++ lib.optionals stdenv.isLinux [ libcap ]
-    ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ Carbon IOKit iconv ]);
+  buildInputs = [
+    zlib
+    bzip2
+    perl
+  ] ++ lib.optionals stdenv.isLinux [ libcap ] ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [
+      Carbon
+      IOKit
+      iconv
+    ]);
 
   hardeningDisable = [ "format" ];
   env.NIX_CFLAGS_COMPILE =
@@ -67,8 +74,8 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/wodim $out/bin/cdrecord
   '';
 
-  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "-DBITFIELDS_HTOL=0" ];
+  cmakeFlags = lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

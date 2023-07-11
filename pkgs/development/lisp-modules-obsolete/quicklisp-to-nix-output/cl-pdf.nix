@@ -8,7 +8,11 @@ args@{
 
   description = "Common Lisp PDF Generation Library";
 
-  deps = [ args."iterate" args."uiop" args."zpb-ttf" ];
+  deps = [
+    args."iterate"
+    args."uiop"
+    args."zpb-ttf"
+  ];
 
   src = fetchurl {
     url =

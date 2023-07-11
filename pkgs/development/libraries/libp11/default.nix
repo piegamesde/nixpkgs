@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-enginesdir=${placeholder "out"}/lib/engines" ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config libtool ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    libtool
+  ];
 
   buildInputs = [ openssl ];
 

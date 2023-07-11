@@ -28,12 +28,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tc882rsnhsCLHeNZmjsaVH5V96n5wesgePW0TPROg3g=";
   };
 
-  outputs = [ "bin" "dev" "out" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+  ];
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ autoreconfHook ]
-    ++ lib.optionals enablePython [ python3 swig ];
+  nativeBuildInputs = [ autoreconfHook ] ++ lib.optionals enablePython [
+    python3
+    swig
+  ];
   buildInputs = [ bash ];
 
   configureFlags = [

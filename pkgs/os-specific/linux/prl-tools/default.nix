@@ -25,8 +25,10 @@ let
   kernelVersion = kernel.modDirVersion;
   kernelDir = "${kernel.dev}/lib/modules/${kernelVersion}";
 
-  libPath =
-    lib.concatStringsSep ":" [ "${glib.out}/lib" "${xorg.libXrandr}/lib" ];
+  libPath = lib.concatStringsSep ":" [
+    "${glib.out}/lib"
+    "${xorg.libXrandr}/lib"
+  ];
   scriptPath = lib.concatStringsSep ":" [
     "${bash}/bin"
     "${cups}/sbin"
@@ -48,10 +50,19 @@ in stdenv.mkDerivation rec {
     hash = "sha256-FpAbQQapIcZ7GsGjH4ZeJ81Ke+NUF7GvgV1wEDLKoUU=";
   };
 
-  hardeningDisable = [ "pic" "format" ];
+  hardeningDisable = [
+    "pic"
+    "format"
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook bbe makeWrapper p7zip perl undmg ]
-    ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    bbe
+    makeWrapper
+    p7zip
+    perl
+    undmg
+  ] ++ kernel.moduleBuildDependencies;
 
   buildInputs = [
     dbus-glib
@@ -65,7 +76,10 @@ in stdenv.mkDerivation rec {
     zlib
   ];
 
-  runtimeDependencies = [ glib xorg.libXrandr ];
+  runtimeDependencies = [
+    glib
+    xorg.libXrandr
+  ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -179,7 +193,10 @@ in stdenv.mkDerivation rec {
     description = "Parallels Tools for Linux guests";
     homepage = "https://parallels.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ catap wegank ];
+    maintainers = with maintainers; [
+      catap
+      wegank
+    ];
     platforms = platforms.linux;
   };
 }

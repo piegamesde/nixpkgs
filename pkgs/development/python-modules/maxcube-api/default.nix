@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  pythonImportsCheck = [ "maxcube" "maxcube.cube" ];
+  pythonImportsCheck = [
+    "maxcube"
+    "maxcube.cube"
+  ];
 
   meta = with lib; {
     description = "eQ-3/ELV MAX! Cube Python API";

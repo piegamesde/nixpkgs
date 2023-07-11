@@ -28,13 +28,23 @@ buildPythonPackage rec {
     hash = "sha256-YqEtW02VvEeUsLIHLz6+V6juMtWPEIk2tLoKTUdY6YE=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ email-validator flask flask-wtf mongoengine ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    email-validator
+    flask
+    flask-wtf
+    mongoengine
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   passthru.optional-dependencies = {
-    wtf = [ flask-wtf wtforms ] ++ wtforms.optional-dependencies.email;
+    wtf = [
+      flask-wtf
+      wtforms
+    ] ++ wtforms.optional-dependencies.email;
     # toolbar = [
     #   flask-debugtoolbar
     # ];

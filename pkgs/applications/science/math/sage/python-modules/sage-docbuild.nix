@@ -11,7 +11,10 @@ buildPythonPackage rec {
   pname = "sage-docbuild";
   src = sage-src;
 
-  propagatedBuildInputs = [ sphinx jupyter-sphinx ];
+  propagatedBuildInputs = [
+    sphinx
+    jupyter-sphinx
+  ];
 
   preBuild = ''
     cd pkgs/sage-docbuild

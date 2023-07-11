@@ -36,7 +36,10 @@ let
         ${p7zip}/bin/7z x $src
       '';
 
-      nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+      nativeBuildInputs = [
+        autoPatchelfHook
+        makeWrapper
+      ];
 
       buildInputs = [
         stdenv.cc.cc.lib
@@ -69,7 +72,10 @@ let
         description =
           "Software synthesizer that features real-time MIDI-control of digital physically modeled pianos and related instruments";
         license = licenses.unfree;
-        platforms = [ "x86_64-linux" "aarch64-linux" ];
+        platforms = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
         maintainers = [ maintainers.mausch ];
       };
     };
@@ -159,7 +165,10 @@ let
     fetchWithCurlScript {
       inherit name sha256;
 
-      impureEnvVars = [ "NIX_MODARTT_USERNAME" "NIX_MODARTT_PASSWORD" ];
+      impureEnvVars = [
+        "NIX_MODARTT_USERNAME"
+        "NIX_MODARTT_PASSWORD"
+      ];
 
       script = ''
         if [ -z "''${NIX_MODARTT_USERNAME}" -o -z "''${NIX_MODARTT_PASSWORD}" ]; then

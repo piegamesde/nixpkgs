@@ -38,14 +38,36 @@ mkDerivation rec {
 
     # crude fix for https://github.com/organicmaps/organicmaps/issues/1862
     echo "echo ${
-      lib.replaceStrings [ "." "-" ] [ "" "" ] version
+      lib.replaceStrings [
+        "."
+        "-"
+      ] [
+        ""
+        ""
+      ] version
     }" > tools/unix/version.sh
   '';
 
-  nativeBuildInputs = [ cmake ninja pkg-config which python3 rsync ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    which
+    python3
+    rsync
+  ];
 
   # Most dependencies are vendored
-  buildInputs = [ qtbase qtsvg libGLU libGL zlib icu freetype pugixml ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    libGLU
+    libGL
+    zlib
+    icu
+    freetype
+    pugixml
+  ];
 
   # Yes, this is PRE configure. The configure phase uses cmake
   preConfigure = ''
@@ -55,7 +77,10 @@ mkDerivation rec {
   passthru = {
     updateScript = nix-update-script {
       attrPath = pname;
-      extraArgs = [ "-vr" "(.*)-android" ];
+      extraArgs = [
+        "-vr"
+        "(.*)-android"
+      ];
     };
   };
 

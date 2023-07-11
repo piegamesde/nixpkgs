@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   # needed for aarch64-darwin
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ gfortran lhapdf python3 zlib ];
+  buildInputs = [
+    gfortran
+    lhapdf
+    python3
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

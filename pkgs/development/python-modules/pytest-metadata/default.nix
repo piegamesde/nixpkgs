@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-/MZT9l/jA1tHiCC1KE+/D1KANiLuP2Ci+u16fTuh9B4=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools-scm ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools-scm
+  ];
 
   buildInputs = [ pytest ];
 

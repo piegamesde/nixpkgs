@@ -28,7 +28,12 @@ buildPythonApplication rec {
       --replace "python-dateutil==2.8.2" "python-dateutil"
   '';
 
-  propagatedBuildInputs = [ requests twitch-python pytz python-dateutil ];
+  propagatedBuildInputs = [
+    requests
+    twitch-python
+    pytz
+    python-dateutil
+  ];
 
   doCheck = false; # no tests
 

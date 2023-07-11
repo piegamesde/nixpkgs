@@ -28,11 +28,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ networkx numpy ];
+  propagatedBuildInputs = [
+    networkx
+    numpy
+  ];
 
   pythonImportsCheck = [ "community" ];
 
-  nativeCheckInputs = [ pandas scipy ];
+  nativeCheckInputs = [
+    pandas
+    scipy
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/taynaud/python-louvain";

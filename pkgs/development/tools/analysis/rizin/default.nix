@@ -95,7 +95,11 @@ stdenv.mkDerivation rec {
       "UNIX-like reverse engineering framework and command-line toolset.";
     homepage = "https://rizin.re/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ raskin makefu mic92 ];
+    maintainers = with lib.maintainers; [
+      raskin
+      makefu
+      mic92
+    ];
     platforms = with lib.platforms; unix;
   };
 }

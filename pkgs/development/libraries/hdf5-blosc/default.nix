@@ -20,10 +20,17 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-external-blosc.patch ];
 
-  outputs = [ "out" "dev" "plugin" ];
+  outputs = [
+    "out"
+    "dev"
+    "plugin"
+  ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ c-blosc hdf5 ];
+  buildInputs = [
+    c-blosc
+    hdf5
+  ];
 
   preConfigure = ''
     substituteInPlace CMakeLists.txt --replace 'set(BLOSC_INSTALL_DIR "''${CMAKE_CURRENT_BINARY_DIR}/blosc")' 'set(BLOSC_INSTALL_DIR "${c-blosc}")'

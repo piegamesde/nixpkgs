@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-YPLlrlV8UyoaNtE+LgX7jpZkR7jbSe/2WRR0v0cfACY=";
   };
 
-  propagatedBuildInputs = [ cloudscraper requests ];
+  propagatedBuildInputs = [
+    cloudscraper
+    requests
+  ];
 
   # Module has no tests
   doCheck = false;

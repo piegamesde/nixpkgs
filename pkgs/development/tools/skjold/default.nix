@@ -19,7 +19,12 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [ click packaging pyyaml toml ];
+  propagatedBuildInputs = with python3.pkgs; [
+    click
+    packaging
+    pyyaml
+    toml
+  ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytest-mock

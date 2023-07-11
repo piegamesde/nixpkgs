@@ -90,8 +90,10 @@ let
           }@innerArgs:
           let
             allArgs = args // prevArgs // innerArgs;
-            filteredArgs =
-              builtins.removeAttrs allArgs [ "extensions" "extraConfig" ];
+            filteredArgs = builtins.removeAttrs allArgs [
+              "extensions"
+              "extraConfig"
+            ];
             php = generic filteredArgs;
 
             php-packages = (callPackage ../../../top-level/php-packages.nix {
@@ -206,20 +208,22 @@ let
 
         enableParallelBuilding = true;
 
-        nativeBuildInputs =
-          [ autoconf automake bison flex libtool pkg-config re2c ]
-          ++ lib.optional stdenv.isDarwin xcbuild;
+        nativeBuildInputs = [
+          autoconf
+          automake
+          bison
+          flex
+          libtool
+          pkg-config
+          re2c
+        ] ++ lib.optional stdenv.isDarwin xcbuild;
 
         buildInputs =
           # PCRE extension
-          [
-            pcre2
-          ]
+          [ pcre2 ]
 
           # Enable sapis
-          ++ lib.optionals pearSupport [
-            libxml2.dev
-          ]
+          ++ lib.optionals pearSupport [ libxml2.dev ]
 
           # Misc deps
           ++ lib.optional apxs2Support apacheHttpd
@@ -232,14 +236,10 @@ let
 
         configureFlags =
           # Disable all extensions
-          [
-            "--disable-all"
-          ]
+          [ "--disable-all" ]
 
           # PCRE
-          ++ [
-            "--with-external-pcre=${pcre2.dev}"
-          ]
+          ++ [ "--with-external-pcre=${pcre2.dev}" ]
 
           # Enable sapis
           ++ lib.optional (!cgiSupport) "--disable-cgi"
@@ -315,7 +315,10 @@ let
 
         separateDebugInfo = true;
 
-        outputs = [ "out" "dev" ];
+        outputs = [
+          "out"
+          "dev"
+        ];
 
         passthru = {
           updateScript = let
@@ -323,7 +326,13 @@ let
                 lib.versions.minor version
               }-update-script" ''
                 set -o errexit
-                PATH=${lib.makeBinPath [ common-updater-scripts curl jq ]}
+                PATH=${
+                  lib.makeBinPath [
+                    common-updater-scripts
+                    curl
+                    jq
+                  ]
+                }
                 new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
                   lib.versions.major version
                 }"."${lib.versions.majorMinor version}".version')
@@ -352,7 +361,10 @@ let
           mainProgram = "php";
           maintainers = teams.php.members;
           platforms = platforms.all;
-          outputsToInstall = [ "out" "dev" ];
+          outputsToInstall = [
+            "out"
+            "dev"
+          ];
         };
       };
     in attrs // phpAttrsOverrides attrs);

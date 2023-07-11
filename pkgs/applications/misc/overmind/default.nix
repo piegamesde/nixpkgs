@@ -15,7 +15,10 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/overmind" --prefix PATH : "${
-      lib.makeBinPath [ tmux which ]
+      lib.makeBinPath [
+        tmux
+        which
+      ]
     }"
   '';
 

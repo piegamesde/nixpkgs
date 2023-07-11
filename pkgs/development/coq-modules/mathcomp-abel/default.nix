@@ -9,24 +9,39 @@
 
 mkCoqDerivation {
 
-  namePrefix = [ "coq" "mathcomp" ];
+  namePrefix = [
+    "coq"
+    "mathcomp"
+  ];
   pname = "abel";
   owner = "math-comp";
 
   inherit version;
   defaultVersion = with lib;
     with versions;
-    lib.switch [ coq.version mathcomp.version ] [
+    lib.switch [
+      coq.version
+      mathcomp.version
+    ] [
       {
-        cases = [ (range "8.10" "8.16") (range "1.12.0" "1.15.0") ];
+        cases = [
+          (range "8.10" "8.16")
+          (range "1.12.0" "1.15.0")
+        ];
         out = "1.2.1";
       }
       {
-        cases = [ (range "8.10" "8.15") (range "1.12.0" "1.14.0") ];
+        cases = [
+          (range "8.10" "8.15")
+          (range "1.12.0" "1.14.0")
+        ];
         out = "1.2.0";
       }
       {
-        cases = [ (range "8.10" "8.14") (range "1.11.0" "1.12.0") ];
+        cases = [
+          (range "8.10" "8.14")
+          (range "1.11.0" "1.12.0")
+        ];
         out = "1.1.2";
       }
     ] null;
@@ -40,7 +55,10 @@ mkCoqDerivation {
   release."1.0.0".sha256 =
     "190jd8hb8anqsvr9ysr514pm5sh8qhw4030ddykvwxx9d9q6rbp3";
 
-  propagatedBuildInputs = [ mathcomp.field mathcomp-real-closed ];
+  propagatedBuildInputs = [
+    mathcomp.field
+    mathcomp-real-closed
+  ];
 
   meta = with lib; {
     description = "Abel - Galois and Abel - Ruffini Theorems";

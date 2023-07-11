@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hz2XkT5m4ri5wVR2ciL9Gx73zr+RdW5snjWnUg300c8=";
   };
 
-  nativeBuildInputs = [ bison flex which ];
+  nativeBuildInputs = [
+    bison
+    flex
+    which
+  ];
 
   buildInputs = [ verilog ];
 

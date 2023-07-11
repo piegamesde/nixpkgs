@@ -24,8 +24,18 @@ buildPythonPackage rec {
     sha256 = "1bf89ae58050bbd32c7307199046117feee245c2fd9ab6255c7308522b7ca149";
   };
 
-  propagatedBuildInputs =
-    [ cloudpickle future networkx numpy py4j pymongo pyspark scipy six tqdm ];
+  propagatedBuildInputs = [
+    cloudpickle
+    future
+    networkx
+    numpy
+    py4j
+    pymongo
+    pyspark
+    scipy
+    six
+    tqdm
+  ];
 
   # tries to use /homeless-shelter to mimic container usage, etc
   doCheck = false;

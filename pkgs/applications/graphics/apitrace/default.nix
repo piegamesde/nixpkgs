@@ -29,9 +29,21 @@ stdenv.mkDerivation rec {
 
   # LD_PRELOAD wrappers need to be statically linked to work against all kinds
   # of games -- so it's fine to use e.g. bundled snappy.
-  buildInputs = [ libX11 procps python3 libdwarf qtbase gtest brotli ];
+  buildInputs = [
+    libX11
+    procps
+    python3
+    libdwarf
+    qtbase
+    gtest
+    brotli
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   # Don't automatically wrap all binaries, I prefer to explicitly only wrap
   # `qapitrace`.

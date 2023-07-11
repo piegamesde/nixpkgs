@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
 
   passthru = { inherit components mpi; };
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [
+    cmake
+    pkgconfig
+  ];
   buildInputs = lib.optionals withMPI [ mpi ];
   propagatedBuildInputs = [ python.pkgs.numpy ]
     ++ lib.optionals withMPI [ python.pkgs.mpi4py ];

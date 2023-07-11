@@ -23,8 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-lTDA1Rad9aYI/ymU/0xzdJHmebUGcpVJ0GW7D0Ujdko=";
   };
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 geojson lxml matplotlib numpy pandas ujson xarray ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    geojson
+    lxml
+    matplotlib
+    numpy
+    pandas
+    ujson
+    xarray
+  ];
 
   # tests touch network
   doCheck = false;

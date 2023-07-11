@@ -24,6 +24,9 @@ buildGoModule rec {
     homepage = "https://ipfscluster.io";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Luflosi jglukasik ];
+    maintainers = with maintainers; [
+      Luflosi
+      jglukasik
+    ];
   };
 }

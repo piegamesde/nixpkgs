@@ -25,7 +25,13 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy scipy matplotlib networkx nibabel ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+    networkx
+    nibabel
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   doCheck = !stdenv.isDarwin; # tests hang indefinitely

@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl glibc ] ++ (with perlPackages; [
+  buildInputs = [
+    perl
+    glibc
+  ] ++ (with perlPackages; [
     LWP
     LWPProtocolHttps
     MozillaCA
@@ -72,6 +75,9 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.rvl ];
     inherit version;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

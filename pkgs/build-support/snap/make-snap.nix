@@ -66,7 +66,10 @@ let
   ];
 
 in runCommand "squashfs.img" {
-  nativeBuildInputs = [ squashfsTools jq ];
+  nativeBuildInputs = [
+    squashfsTools
+    jq
+  ];
 
   closureInfo = closureInfo { rootPaths = [ snap_yaml ]; };
 } ''

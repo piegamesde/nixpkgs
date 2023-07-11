@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "1mxi7b1vrzg25x85lqk8c77iziqrqyz18mqkfjlz09sxp5wfs9w4";
   };
 
-  nativeBuildInputs = [ faust meson ninja pkg-config ];
+  nativeBuildInputs = [
+    faust
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     boost

@@ -39,7 +39,10 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = [ fake-lsb-release pkgs.coreutils ];
+      path = [
+        fake-lsb-release
+        pkgs.coreutils
+      ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/amazon-ssm-agent";
         KillMode = "process";
@@ -52,13 +55,13 @@ in {
 
     # Add user that Session Manager needs, and give it sudo.
     # This is consistent with Amazon Linux 2 images.
-    security.sudo.extraRules = [{
+    security.sudo.extraRules = [ {
       users = [ "ssm-user" ];
-      commands = [{
+      commands = [ {
         command = "ALL";
         options = [ "NOPASSWD" ];
-      }];
-    }];
+      } ];
+    } ];
     # On Amazon Linux 2 images, the ssm-user user is pretty much a
     # normal user with its own group. We do the same.
     users.groups.ssm-user = { };

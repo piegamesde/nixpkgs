@@ -33,6 +33,9 @@ stdenv.mkDerivation rec {
       It does not trigger "IO: Broken pipe" or "IO: Connection reset" spam bugs on the server side.
     '';
     maintainers = with lib.maintainers; [ dermetfan ];
-    license = with lib.licenses; [ zlib libpng ];
+    license = with lib.licenses; [
+      zlib
+      libpng
+    ];
   };
 }

@@ -80,9 +80,18 @@ let
         wget
         curl
         iksemel
-      ] ++ lib.optionals withOpus [ libopus opusfile libogg ]
-        ++ lib.optionals ldapSupport [ openldap ];
-      nativeBuildInputs = [ util-linux pkg-config autoconf libtool automake ];
+      ] ++ lib.optionals withOpus [
+        libopus
+        opusfile
+        libogg
+      ] ++ lib.optionals ldapSupport [ openldap ];
+      nativeBuildInputs = [
+        util-linux
+        pkg-config
+        autoconf
+        libtool
+        automake
+      ];
 
       patches = [
         # We want the Makefile to install the default /var skeleton
@@ -162,7 +171,11 @@ let
           "Software implementation of a telephone private branch exchange (PBX)";
         homepage = "https://www.asterisk.org/";
         license = licenses.gpl2Only;
-        maintainers = with maintainers; [ auntie DerTim1 yorickvp ];
+        maintainers = with maintainers; [
+          auntie
+          DerTim1
+          yorickvp
+        ];
       };
     };
 
@@ -204,8 +217,12 @@ let
       };
     }) (lib.importJSON ./versions.json);
 
-  updateScript_python =
-    python39.withPackages (p: with p; [ packaging beautifulsoup4 requests ]);
+  updateScript_python = python39.withPackages (p:
+    with p; [
+      packaging
+      beautifulsoup4
+      requests
+    ]);
   updateScript = writeScript "asterisk-update" ''
     #!/usr/bin/env bash
     exec ${updateScript_python}/bin/python ${toString ./update.py}

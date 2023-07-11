@@ -42,7 +42,7 @@ let
     extraSources = cfg.nixos.extraModuleSources;
     options = let
       scrubbedEval = evalModules {
-        modules = [{ _module.check = false; }] ++ docModules.eager;
+        modules = [ { _module.check = false; } ] ++ docModules.eager;
         specialArgs = specialArgs // {
           pkgs = scrubDerivations "pkgs" pkgs;
           # allow access to arbitrary options for eager modules, eg for getting
@@ -139,7 +139,10 @@ let
 
   in pkgs.symlinkJoin {
     name = "nixos-help";
-    paths = [ helpScript desktopItem ];
+    paths = [
+      helpScript
+      desktopItem
+    ];
   };
 
 in {
@@ -150,17 +153,29 @@ in {
     ./meta.nix
     ../config/system-path.nix
     ../system/etc/etc.nix
-    (mkRenamedOptionModule [ "programs" "info" "enable" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "info"
+      "enable"
+    ] [
       "documentation"
       "info"
       "enable"
     ])
-    (mkRenamedOptionModule [ "programs" "man" "enable" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "man"
+      "enable"
+    ] [
       "documentation"
       "man"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "nixosManual" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "nixosManual"
+      "enable"
+    ] [
       "documentation"
       "nixos"
       "enable"
@@ -325,12 +340,12 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      assertions = [{
+      assertions = [ {
         assertion = !(cfg.man.man-db.enable && cfg.man.mandoc.enable);
         message = ''
           man-db and mandoc can't be used as the default man page viewer at the same time!
         '';
-      }];
+      } ];
     }
 
     # The actual implementation for this lives in man-db.nix or mandoc.nix,
@@ -377,8 +392,10 @@ in {
       '';
 
       environment.systemPackages = [ ]
-        ++ optional cfg.man.enable manual.manpages
-        ++ optionals cfg.doc.enable [ manual.manualHTML nixos-help ];
+        ++ optional cfg.man.enable manual.manpages ++ optionals cfg.doc.enable [
+          manual.manualHTML
+          nixos-help
+        ];
     })
 
   ]);

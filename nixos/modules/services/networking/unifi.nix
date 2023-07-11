@@ -132,7 +132,10 @@ in {
       # This a HACK to fix missing dependencies of dynamic libs extracted from jars
       environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
       # Make sure package upgrades trigger a service restart
-      restartTriggers = [ cfg.unifiPackage cfg.mongodbPackage ];
+      restartTriggers = [
+        cfg.unifiPackage
+        cfg.mongodbPackage
+      ];
 
       serviceConfig = {
         Type = "simple";
@@ -207,9 +210,16 @@ in {
 
   };
   imports = [
-    (mkRemovedOptionModule [ "services" "unifi" "dataDir" ]
-      "You should move contents of dataDir to /var/lib/unifi/data")
-    (mkRenamedOptionModule [ "services" "unifi" "openPorts" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "unifi"
+      "dataDir"
+    ] "You should move contents of dataDir to /var/lib/unifi/data")
+    (mkRenamedOptionModule [
+      "services"
+      "unifi"
+      "openPorts"
+    ] [
       "services"
       "unifi"
       "openFirewall"

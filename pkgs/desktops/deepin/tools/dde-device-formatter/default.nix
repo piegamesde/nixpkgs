@@ -26,24 +26,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Mi48dSDCoKhr8CGt9z64/9d7+r9QSrPPICv+R5VDuaU=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "chore-do-not-use-hardcode-path.patch";
-      url =
-        "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
-      sha256 = "sha256-i/VqJ6EmCyhE6weHKUB66bW6b51gLyssIAzb5li4aJM=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "chore-do-not-use-hardcode-path.patch";
+    url =
+      "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
+    sha256 = "sha256-i/VqJ6EmCyhE6weHKUB66bW6b51gLyssIAzb5li4aJM=";
+  }) ];
 
   postPatch = ''
     substituteInPlace dde-device-formatter.pro --replace "/usr" "$out"
     patchShebangs *.sh
   '';
 
-  nativeBuildInputs =
-    [ qmake qttools pkg-config wrapQtAppsHook deepin-gettext-tools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+    deepin-gettext-tools
+  ];
 
-  buildInputs = [ dtkwidget udisks2-qt5 qtx11extras ];
+  buildInputs = [
+    dtkwidget
+    udisks2-qt5
+    qtx11extras
+  ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

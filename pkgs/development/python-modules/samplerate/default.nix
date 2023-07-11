@@ -30,7 +30,10 @@ buildPythonPackage rec {
       'lib_filename = "${libsamplerate.out}/lib/libsamplerate${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  propagatedBuildInputs = [ cffi numpy ];
+  propagatedBuildInputs = [
+    cffi
+    numpy
+  ];
 
   pythonImportsCheck = [ "samplerate" ];
 

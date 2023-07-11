@@ -24,19 +24,29 @@ buildPythonPackage rec {
     hash = "sha256-pl5Qs7llmUna+i85hMl14UhTDkibPEcMaRnsPM7ODFg=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ async-timeout ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=dbus_fast --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck =
-    [ "dbus_fast" "dbus_fast.aio" "dbus_fast.service" "dbus_fast.message" ];
+  pythonImportsCheck = [
+    "dbus_fast"
+    "dbus_fast.aio"
+    "dbus_fast.service"
+    "dbus_fast.message"
+  ];
 
   disabledTests = [
     # Test require a running Dbus instance

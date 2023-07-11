@@ -20,7 +20,10 @@ in stdenv.mkDerivation {
   pname = "dropbox-cli";
   inherit version;
 
-  outputs = [ "out" "nautilusExtension" ];
+  outputs = [
+    "out"
+    "nautilusExtension"
+  ];
 
   src = fetchurl {
     url =
@@ -48,22 +51,26 @@ in stdenv.mkDerivation {
     gdk-pixbuf
     # only for build, the install command also wants to use GTK through introspection
     # but we are using Nix for installation so we will not need that.
-    (python3.withPackages (ps: with ps; [ docutils pygobject3 ]))
+    (python3.withPackages (ps:
+      with ps; [
+        docutils
+        pygobject3
+      ]))
   ];
 
-  buildInputs = [ python3 gtk3 gnome.nautilus ];
+  buildInputs = [
+    python3
+    gtk3
+    gnome.nautilus
+  ];
 
-  configureFlags = [
-    "--with-nautilus-extension-dir=${
+  configureFlags = [ "--with-nautilus-extension-dir=${
       placeholder "nautilusExtension"
-    }/lib/nautilus/extensions-3.0"
-  ];
+    }/lib/nautilus/extensions-3.0" ];
 
-  makeFlags = [
-    "EMBLEM_DIR=${
+  makeFlags = [ "EMBLEM_DIR=${
       placeholder "nautilusExtension"
-    }/share/nautilus-dropbox/emblems"
-  ];
+    }/share/nautilus-dropbox/emblems" ];
 
   meta = {
     homepage = "https://www.dropbox.com";

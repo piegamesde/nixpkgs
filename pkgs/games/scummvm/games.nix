@@ -12,7 +12,10 @@
 let
   desktopItem = name: short: long: description:
     makeDesktopItem {
-      categories = [ "Game" "AdventureGame" ];
+      categories = [
+        "Game"
+        "AdventureGame"
+      ];
       comment = description;
       desktopName = long;
       exec = "@out@/bin/${short}";
@@ -51,7 +54,13 @@ let
         "files"
         "version"
       ];
-      pname = lib.replaceStrings [ " " ":" ] [ "-" "" ] (lib.toLower plong);
+      pname = lib.replaceStrings [
+        " "
+        ":"
+      ] [
+        "-"
+        ""
+      ] (lib.toLower plong);
     in stdenv.mkDerivation ({
       name = "${pname}-${version}";
 
@@ -117,7 +126,10 @@ in {
       sha256 = "0ivj1vflfpih5bs5a902mab88s4d77fwm3ya3fk7pammzc8gjqzz";
     };
     sourceRoot = ".";
-    docs = [ "README" "license-original.txt" ];
+    docs = [
+      "README"
+      "license-original.txt"
+    ];
     files = [ "data.b25c" ];
   };
 
@@ -139,7 +151,10 @@ in {
     # };
     # };
     sourceRoot = ".";
-    docs = [ "readme.txt" "drascula.doc" ];
+    docs = [
+      "readme.txt"
+      "drascula.doc"
+    ];
     files = [ "Packet.001" ];
   };
 
@@ -155,7 +170,11 @@ in {
     };
     sourceRoot = ".";
     docs = [ "license.txt" ];
-    files = [ "DREAMWEB.*" "SPEECH" "track01.flac" ];
+    files = [
+      "DREAMWEB.*"
+      "SPEECH"
+      "track01.flac"
+    ];
   };
 
   flight-of-the-amazon-queen = generic rec {
@@ -182,7 +201,12 @@ in {
       url = "mirror://sourceforge/scummvm/lure-${version}.zip";
       sha256 = "0201i70qcs1m797kvxjx3ygkhg6kcl5yf49sihba2ga8l52q45zk";
     };
-    docs = [ "README" "*.txt" "*.pdf" "*.PDF" ];
+    docs = [
+      "README"
+      "*.txt"
+      "*.pdf"
+      "*.PDF"
+    ];
     files = [ "*.vga" ];
   };
 }

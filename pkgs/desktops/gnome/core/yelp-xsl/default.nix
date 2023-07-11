@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I4vhULFlMIDOE5lxMw/TbTomWV4NagQKLAML89IAW80=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext itstool libxml2 libxslt ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    itstool
+    libxml2
+    libxslt
+  ];
 
   doCheck = true;
 

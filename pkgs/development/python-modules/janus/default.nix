@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # also fails upstream: https://github.com/aio-libs/janus/pull/258
   disabledTests = [ "test_format" ];

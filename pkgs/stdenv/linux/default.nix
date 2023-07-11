@@ -524,8 +524,12 @@ in assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isFromBootstrapFiles prevStage.coreutils;
     assert isFromBootstrapFiles prevStage.gnugrep;
     assert isBuiltByNixpkgsCompiler prevStage.patchelf;
-    assert lib.all isBuiltByNixpkgsCompiler
-      (with prevStage; [ gmp isl_0_20 libmpc mpfr ]);
+    assert lib.all isBuiltByNixpkgsCompiler (with prevStage; [
+      gmp
+      isl_0_20
+      libmpc
+      mpfr
+    ]);
     stageFun prevStage {
       name = "bootstrap-stage3";
 
@@ -600,7 +604,10 @@ in assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           shell = self.bash + "/bin/bash";
         };
       };
-      extraNativeBuildInputs = [ prevStage.patchelf prevStage.xz ] ++
+      extraNativeBuildInputs = [
+        prevStage.patchelf
+        prevStage.xz
+      ] ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
         prevStage.updateAutotoolsGnuConfigScriptsHook;
@@ -659,7 +666,10 @@ in assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         allowedRequisites = with prevStage;
           with lib;
           # Simple executable tools
-          concatMap (p: [ (getBin p) (getLib p) ]) [
+          concatMap (p: [
+            (getBin p)
+            (getLib p)
+          ]) [
             gzip
             bzip2
             xz
@@ -680,11 +690,20 @@ in assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             file
           ]
           # Library dependencies
-          ++ map getLib ([ attr acl zlib pcre libidn2 libunistring ]
-            ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv)
+          ++ map getLib ([
+            attr
+            acl
+            zlib
+            pcre
+            libidn2
+            libunistring
+          ] ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv)
           # More complicated cases
-          ++ (map (x: getOutput x (getLibc prevStage)) [ "out" "dev" "bin" ])
-          ++ [
+          ++ (map (x: getOutput x (getLibc prevStage)) [
+            "out"
+            "dev"
+            "bin"
+          ]) ++ [
             linuxHeaders # propagated from .dev
             binutils
             gcc
@@ -697,7 +716,12 @@ in assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ++ lib.optionals (!localSystem.isx86 || localSystem.libc == "musl") [
             prevStage.updateAutotoolsGnuConfigScriptsHook
             prevStage.gnu-config
-          ] ++ (with gcc-unwrapped.passthru; [ gmp libmpc mpfr isl ]);
+          ] ++ (with gcc-unwrapped.passthru; [
+            gmp
+            libmpc
+            mpfr
+            isl
+          ]);
 
         overrides = self: super:
           {

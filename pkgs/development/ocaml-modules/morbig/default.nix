@@ -24,7 +24,12 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ menhir ];
 
-  propagatedBuildInputs = [ menhirLib ppx_deriving_yojson visitors yojson ];
+  propagatedBuildInputs = [
+    menhirLib
+    ppx_deriving_yojson
+    visitors
+    yojson
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/colis-anr/${pname}";

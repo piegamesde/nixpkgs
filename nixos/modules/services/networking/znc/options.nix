@@ -118,8 +118,16 @@ in {
       confOptions = {
         modules = mkOption {
           type = types.listOf types.str;
-          default = [ "webadmin" "adminlog" ];
-          example = [ "partyline" "webadmin" "adminlog" "log" ];
+          default = [
+            "webadmin"
+            "adminlog"
+          ];
+          example = [
+            "partyline"
+            "webadmin"
+            "adminlog"
+            "log"
+          ];
           description = lib.mdDoc ''
             A list of modules to include in the `znc.conf` file.
           '';
@@ -127,8 +135,16 @@ in {
 
         userModules = mkOption {
           type = types.listOf types.str;
-          default = [ "chansaver" "controlpanel" ];
-          example = [ "chansaver" "controlpanel" "fish" "push" ];
+          default = [
+            "chansaver"
+            "controlpanel"
+          ];
+          example = [
+            "chansaver"
+            "controlpanel"
+            "fish"
+            "push"
+          ];
           description = lib.mdDoc ''
             A list of user modules to include in the `znc.conf` file.
           '';
@@ -267,10 +283,12 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "znc" "zncConf" ] ''
-      Instead of `services.znc.zncConf = "... foo ...";`, use
-      `services.znc.configFile = pkgs.writeText "znc.conf" "... foo ...";`.
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "znc"
+    "zncConf"
+  ] ''
+    Instead of `services.znc.zncConf = "... foo ...";`, use
+    `services.znc.configFile = pkgs.writeText "znc.conf" "... foo ...";`.
+  '') ];
 }

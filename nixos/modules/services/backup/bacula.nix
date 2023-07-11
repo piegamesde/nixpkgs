@@ -134,7 +134,10 @@ let
         };
 
         monitor = mkOption {
-          type = types.enum [ "no" "yes" ];
+          type = types.enum [
+            "no"
+            "yes"
+          ];
           default = "no";
           example = "yes";
           description = lib.mdDoc ''
@@ -542,7 +545,10 @@ in {
     services.postgresql.enable = dir_cfg.enable == true;
 
     systemd.services.bacula-dir = mkIf dir_cfg.enable {
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       description = "Bacula Director Daemon";
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];

@@ -10,7 +10,11 @@ args@{
     A few different kinds of queues, with optional
     multithreading synchronization.'';
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."jpl-util" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."jpl-util"
+  ];
 
   src = fetchurl {
     url =

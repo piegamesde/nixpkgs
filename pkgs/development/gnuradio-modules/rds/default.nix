@@ -36,13 +36,23 @@ in mkDerivation {
   inherit version src;
   disabledForGRafter = "3.9";
 
-  buildInputs = [ logLib mpir boost gmp icu ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
-      thrift
-      python.pkgs.thrift
-    ];
+  buildInputs = [
+    logLib
+    mpir
+    boost
+    gmp
+    icu
+  ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+    thrift
+    python.pkgs.thrift
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config swig python ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    swig
+    python
+  ];
 
   meta = with lib; {
     description = "Gnuradio block for radio data system";

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ xtl xsimd ];
+  propagatedBuildInputs = [
+    xtl
+    xsimd
+  ];
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 

@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
       --replace /usr/include/libusb-1.0 ${libusb1.dev}/include/libusb-1.0
   '';
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "prefix=" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "prefix="
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

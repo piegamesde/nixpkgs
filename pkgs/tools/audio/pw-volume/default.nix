@@ -23,7 +23,10 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/smasher164/pw-volume/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ astro figsoda ];
+    maintainers = with maintainers; [
+      astro
+      figsoda
+    ];
     platforms = platforms.linux;
   };
 }

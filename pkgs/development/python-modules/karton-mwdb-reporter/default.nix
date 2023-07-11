@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-QVxczXT74Xt0AtCSDm4nhIK4qtHQ6bqmVNb/CALZSE4=";
   };
 
-  propagatedBuildInputs = [ karton-core mwdblib ];
+  propagatedBuildInputs = [
+    karton-core
+    mwdblib
+  ];
 
   # Project has no tests
   doCheck = false;

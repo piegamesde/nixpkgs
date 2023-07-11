@@ -37,8 +37,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     mkdir -p "$out/lib/noweb"
   '';
 
-  makeFlags = lib.optionals useIcon [ "LIBSRC=icon" "ICONC=icont" ]
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = lib.optionals useIcon [
+    "LIBSRC=icon"
+    "ICONC=icont"
+  ] ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   preInstall = ''
     mkdir -p "$tex/tex/latex/noweb"
@@ -51,7 +53,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     )
   '';
 
-  installTargets = [ "install-code" "install-tex" "install-elisp" ];
+  installTargets = [
+    "install-code"
+    "install-tex"
+    "install-elisp"
+  ];
 
   postInstall = ''
     substituteInPlace "$out/bin/cpif" --replace "PATH=/bin:/usr/bin" ""
@@ -74,7 +80,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     ln -s "$tex" "$out/share/texmf"
   '';
 
-  outputs = [ "out" "tex" ];
+  outputs = [
+    "out"
+    "tex"
+  ];
 
   passthru = {
     tlType = "run";

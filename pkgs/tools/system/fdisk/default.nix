@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "04nd7civ561x2lwcmxhsqbprml3178jfc58fy1v7hzqg5k4nbhy3";
   };
 
-  buildInputs = [ parted libuuid gettext guile ];
+  buildInputs = [
+    parted
+    libuuid
+    gettext
+    guile
+  ];
 
   doCheck = true;
 

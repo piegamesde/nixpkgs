@@ -36,8 +36,12 @@ stdenv.mkDerivation (finalAttrs: {
     (python3.withPackages (p: [ p.docutils ]))
   ];
 
-  buildInputs = [ libyaml pcre2 libxml2 jansson ]
-    ++ lib.optional stdenv.isDarwin libiconv
+  buildInputs = [
+    libyaml
+    pcre2
+    libxml2
+    jansson
+  ] ++ lib.optional stdenv.isDarwin libiconv
     ++ lib.optional stdenv.isLinux libseccomp;
 
   configureFlags = [ "--enable-tmpdir=/tmp" ];
@@ -53,7 +57,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  checkFlags = [ "man-test" "tlib" "tmain" "tutil" "units" ];
+  checkFlags = [
+    "man-test"
+    "tlib"
+    "tmain"
+    "tutil"
+    "units"
+  ];
 
   meta = with lib; {
     homepage = "https://docs.ctags.io/en/latest/";

@@ -85,7 +85,14 @@ stdenv.mkDerivation rec {
     mv VERSION VERSION.txt
   '';
 
-  outputs = [ "bin" "dev" "dev_private" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "dev_private"
+    "out"
+    "man"
+    "doc"
+  ];
 
   postFixup = ''
     moveToOutput include/tif_config.h $dev_private
@@ -96,10 +103,19 @@ stdenv.mkDerivation rec {
 
   # If you want to change to a different build system, please make
   # sure cross-compilation works first!
-  nativeBuildInputs = [ autoreconfHook pkg-config sphinx ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    sphinx
+  ];
 
   # TODO: opengl support (bogus configure detection)
-  propagatedBuildInputs = [ libdeflate libjpeg xz zlib ];
+  propagatedBuildInputs = [
+    libdeflate
+    libjpeg
+    xz
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

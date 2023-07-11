@@ -29,10 +29,17 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "python-gnupg" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ paho-mqtt psutil python-gnupg sentry-sdk ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    psutil
+    python-gnupg
+    sentry-sdk
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

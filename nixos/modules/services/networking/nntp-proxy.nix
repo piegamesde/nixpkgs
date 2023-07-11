@@ -152,7 +152,13 @@ in {
       };
 
       verbosity = mkOption {
-        type = types.enum [ "error" "warning" "notice" "info" "debug" ];
+        type = types.enum [
+          "error"
+          "warning"
+          "notice"
+          "info"
+          "debug"
+        ];
         default = "info";
         example = "error";
         description = lib.mdDoc ''
@@ -224,7 +230,10 @@ in {
 
     systemd.services.nntp-proxy = {
       description = "NNTP proxy";
-      after = [ "network.target" "nss-lookup.target" ];
+      after = [
+        "network.target"
+        "nss-lookup.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = { User = "nntp-proxy"; };
       serviceConfig.ExecStart = "${nntp-proxy}/bin/nntp-proxy ${confFile}";

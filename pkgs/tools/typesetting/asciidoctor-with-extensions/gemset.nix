@@ -94,7 +94,11 @@
     version = "1.2022.5";
   };
   asciidoctor-epub3 = {
-    dependencies = [ "asciidoctor" "gepub" "mime-types" ];
+    dependencies = [
+      "asciidoctor"
+      "gepub"
+      "mime-types"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -105,7 +109,10 @@
     version = "1.5.1";
   };
   asciidoctor-html5s = {
-    dependencies = [ "asciidoctor" "thread_safe" ];
+    dependencies = [
+      "asciidoctor"
+      "thread_safe"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -116,7 +123,11 @@
     version = "0.5.1";
   };
   asciidoctor-mathematical = {
-    dependencies = [ "asciidoctor" "asciimath" "mathematical" ];
+    dependencies = [
+      "asciidoctor"
+      "asciimath"
+      "mathematical"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -159,7 +170,11 @@
     version = "2.3.2";
   };
   asciidoctor-revealjs = {
-    dependencies = [ "asciidoctor" "concurrent-ruby" "thread_safe" ];
+    dependencies = [
+      "asciidoctor"
+      "concurrent-ruby"
+      "thread_safe"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -170,7 +185,10 @@
     version = "4.1.0";
   };
   asciidoctor-rouge = {
-    dependencies = [ "asciidoctor" "rouge" ];
+    dependencies = [
+      "asciidoctor"
+      "rouge"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -213,7 +231,10 @@
     version = "1.0.10";
   };
   citeproc-ruby = {
-    dependencies = [ "citeproc" "csl" ];
+    dependencies = [
+      "citeproc"
+      "csl"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -244,7 +265,10 @@
     version = "1.1.10";
   };
   csl = {
-    dependencies = [ "namae" "rexml" ];
+    dependencies = [
+      "namae"
+      "rexml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -277,7 +301,10 @@
     version = "1.12.0";
   };
   gepub = {
-    dependencies = [ "nokogiri" "rubyzip" ];
+    dependencies = [
+      "nokogiri"
+      "rubyzip"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -381,7 +408,10 @@
     version = "1.1.1";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -402,7 +432,13 @@
     version = "0.9.0";
   };
   pdf-reader = {
-    dependencies = [ "Ascii85" "afm" "hashery" "ruby-rc4" "ttfunk" ];
+    dependencies = [
+      "Ascii85"
+      "afm"
+      "hashery"
+      "ruby-rc4"
+      "ttfunk"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -423,7 +459,10 @@
     version = "0.3.5";
   };
   prawn = {
-    dependencies = [ "pdf-core" "ttfunk" ];
+    dependencies = [
+      "pdf-core"
+      "ttfunk"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -445,7 +484,11 @@
     version = "3.0.0";
   };
   prawn-svg = {
-    dependencies = [ "css_parser" "prawn" "rexml" ];
+    dependencies = [
+      "css_parser"
+      "prawn"
+      "rexml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -467,7 +510,10 @@
     version = "0.2.2";
   };
   prawn-templates = {
-    dependencies = [ "pdf-reader" "prawn" ];
+    dependencies = [
+      "pdf-reader"
+      "prawn"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

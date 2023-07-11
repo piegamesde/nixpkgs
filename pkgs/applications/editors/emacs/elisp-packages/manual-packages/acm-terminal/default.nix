@@ -22,7 +22,10 @@ in melpaBuild {
 
   commit = rev;
 
-  packageRequires = [ acm popon ];
+  packageRequires = [
+    acm
+    popon
+  ];
 
   recipe = writeText "recipe" ''
     (acm-terminal :repo "twlz0ne/acm-terminal" :fetcher github)

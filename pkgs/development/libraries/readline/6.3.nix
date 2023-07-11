@@ -14,7 +14,13 @@ stdenv.mkDerivation {
     sha256 = "0hzxr9jxqqx5sxsv9vmlxdnvlr9vi4ih1avjb869hbs6p5qn1fjn";
   };
 
-  outputs = [ "out" "dev" "man" "doc" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+    "info"
+  ];
 
   strictDeps = true;
   propagatedBuildInputs = [ ncurses ];
@@ -25,8 +31,10 @@ stdenv.mkDerivation {
   # This test requires running host code
     "bash_cv_wcwidth_broken=no";
 
-  patches = [ ./link-against-ncurses.patch ./no-arch_only-6.3.patch ]
-    ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
+  patches = [
+    ./link-against-ncurses.patch
+    ./no-arch_only-6.3.patch
+  ] ++ lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
     ++ (let
       patch = nr: sha256:
         fetchurl {

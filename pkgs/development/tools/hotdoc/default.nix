@@ -35,9 +35,17 @@ buildPythonApplication rec {
     hash = "sha256-ESOmWeLJSXLDKBPsMBGR0zPbJHEqg/fj0G3VjUfPAJg=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake flex ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    flex
+  ];
 
-  buildInputs = [ glib json-glib libxml2.dev ];
+  buildInputs = [
+    glib
+    json-glib
+    libxml2.dev
+  ];
 
   propagatedBuildInputs = [
     appdirs
@@ -67,7 +75,10 @@ buildPythonApplication rec {
   ];
 
   # Run the tests by package instead of current dir
-  pytestFlagsArray = [ "--pyargs" "hotdoc" ];
+  pytestFlagsArray = [
+    "--pyargs"
+    "hotdoc"
+  ];
 
   disabledTests = [
     # Test does not correctly handle path normalization for test comparison

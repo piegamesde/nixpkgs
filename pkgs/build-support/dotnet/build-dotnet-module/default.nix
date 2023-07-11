@@ -166,7 +166,10 @@ let
 
   nuget-source = symlinkJoin {
     name = "${name}-nuget-source";
-    paths = [ dependenciesSource sdkSource ];
+    paths = [
+      dependenciesSource
+      sdkSource
+    ];
   };
 in stdenvNoCC.mkDerivation (args // {
   nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
@@ -197,9 +200,7 @@ in stdenvNoCC.mkDerivation (args // {
 
     fetch-deps = let
       flags = dotnetFlags ++ dotnetRestoreFlags;
-      runtimeIds = if runtimeId != null then
-        [ runtimeId ]
-      else
+      runtimeIds = if runtimeId != null then [ runtimeId ] else
         map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
       defaultDepsFile =
         # Wire in the nugetDeps file such that running the script with no args

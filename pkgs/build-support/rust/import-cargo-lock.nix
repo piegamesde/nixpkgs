@@ -128,7 +128,10 @@ let
 
   # Replaces values inherited by workspace members.
   replaceWorkspaceValues = writers.writePython3 "replace-workspace-values" {
-    libraries = with python3Packages; [ tomli tomli-w ];
+    libraries = with python3Packages; [
+      tomli
+      tomli-w
+    ];
     flakeIgnore = [ "E501" ];
   } (builtins.readFile ./replace-workspace-values.py);
 

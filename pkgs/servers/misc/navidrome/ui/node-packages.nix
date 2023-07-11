@@ -15009,8 +15009,10 @@ let
         dependencies = [ sources."semver-6.3.0" ];
       })
       (sources."@babel/eslint-parser-7.19.1" // {
-        dependencies =
-          [ sources."eslint-visitor-keys-2.1.0" sources."semver-6.3.0" ];
+        dependencies = [
+          sources."eslint-visitor-keys-2.1.0"
+          sources."semver-6.3.0"
+        ];
       })
       (sources."@babel/generator-7.19.3" // {
         dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
@@ -15178,8 +15180,10 @@ let
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       (sources."@istanbuljs/load-nyc-config-1.1.0" // {
-        dependencies =
-          [ sources."camelcase-5.3.1" sources."resolve-from-5.0.0" ];
+        dependencies = [
+          sources."camelcase-5.3.1"
+          sources."resolve-from-5.0.0"
+        ];
       })
       sources."@istanbuljs/schema-0.1.3"
       (sources."@jest/console-27.5.1" // {
@@ -15264,8 +15268,10 @@ let
       sources."@material-ui/types-5.1.0"
       sources."@material-ui/utils-4.11.3"
       (sources."@nicolo-ribaudo/eslint-scope-5-internals-5.1.1-v1" // {
-        dependencies =
-          [ sources."eslint-scope-5.1.1" sources."estraverse-4.3.0" ];
+        dependencies = [
+          sources."eslint-scope-5.1.1"
+          sources."estraverse-4.3.0"
+        ];
       })
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
@@ -15386,8 +15392,10 @@ let
       sources."@typescript-eslint/types-5.38.1"
       sources."@typescript-eslint/typescript-estree-5.38.1"
       (sources."@typescript-eslint/utils-5.38.1" // {
-        dependencies =
-          [ sources."eslint-scope-5.1.1" sources."estraverse-4.3.0" ];
+        dependencies = [
+          sources."eslint-scope-5.1.1"
+          sources."estraverse-4.3.0"
+        ];
       })
       sources."@typescript-eslint/visitor-keys-5.38.1"
       sources."@webassemblyjs/ast-1.11.1"
@@ -15419,8 +15427,10 @@ let
       sources."agent-base-6.0.2"
       sources."ajv-6.12.6"
       (sources."ajv-formats-2.1.1" // {
-        dependencies =
-          [ sources."ajv-8.11.0" sources."json-schema-traverse-1.0.0" ];
+        dependencies = [
+          sources."ajv-8.11.0"
+          sources."json-schema-traverse-1.0.0"
+        ];
       })
       sources."ajv-keywords-3.5.2"
       (sources."ansi-align-3.0.0" // {
@@ -15481,8 +15491,10 @@ let
       sources."babel-preset-jest-27.5.1"
       sources."babel-preset-react-app-10.0.1"
       (sources."babel-runtime-6.26.0" // {
-        dependencies =
-          [ sources."core-js-2.6.11" sources."regenerator-runtime-0.11.1" ];
+        dependencies = [
+          sources."core-js-2.6.11"
+          sources."regenerator-runtime-0.11.1"
+        ];
       })
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
@@ -15494,8 +15506,11 @@ let
       sources."bluebird-3.7.2"
       sources."blueimp-md5-2.19.0"
       (sources."body-parser-1.20.0" // {
-        dependencies =
-          [ sources."bytes-3.1.2" sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."bytes-3.1.2"
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."bonjour-service-1.0.14"
       sources."boolbase-1.0.0"
@@ -15571,7 +15586,10 @@ let
       sources."commondir-1.0.1"
       sources."compressible-2.0.18"
       (sources."compression-1.7.4" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."compute-scroll-into-view-1.0.17"
       sources."concat-map-0.0.1"
@@ -15621,7 +15639,10 @@ let
       sources."cssnano-preset-default-5.2.12"
       sources."cssnano-utils-3.1.0"
       (sources."csso-4.2.0" // {
-        dependencies = [ sources."css-tree-1.1.3" sources."mdn-data-2.0.14" ];
+        dependencies = [
+          sources."css-tree-1.1.3"
+          sources."mdn-data-2.0.14"
+        ];
       })
       sources."cssom-0.4.4"
       (sources."cssstyle-2.3.0" // {
@@ -15655,7 +15676,10 @@ let
       sources."detect-newline-3.1.0"
       sources."detect-node-2.1.0"
       (sources."detect-port-alt-1.1.6" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."detective-5.2.1"
       sources."diacritic-0.0.2"
@@ -15746,12 +15770,18 @@ let
       })
       sources."eslint-plugin-flowtype-8.0.3"
       (sources."eslint-plugin-import-2.26.0" // {
-        dependencies =
-          [ sources."debug-2.6.9" sources."doctrine-2.1.0" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."doctrine-2.1.0"
+          sources."ms-2.0.0"
+        ];
       })
       sources."eslint-plugin-jest-25.7.0"
       (sources."eslint-plugin-jsx-a11y-6.6.1" // {
-        dependencies = [ sources."emoji-regex-9.2.2" sources."semver-6.3.0" ];
+        dependencies = [
+          sources."emoji-regex-9.2.2"
+          sources."semver-6.3.0"
+        ];
       })
       (sources."eslint-plugin-react-7.31.8" // {
         dependencies = [
@@ -15826,15 +15856,20 @@ let
         dependencies = [ sources."tslib-2.3.1" ];
       })
       (sources."filelist-1.0.4" // {
-        dependencies =
-          [ sources."brace-expansion-2.0.1" sources."minimatch-5.1.0" ];
+        dependencies = [
+          sources."brace-expansion-2.0.1"
+          sources."minimatch-5.1.0"
+        ];
       })
       sources."filesize-8.0.7"
       sources."fill-range-7.0.1"
       sources."final-form-4.20.2"
       sources."final-form-arrays-3.0.2"
       (sources."finalhandler-1.2.0" // {
-        dependencies = [ sources."debug-2.6.9" sources."ms-2.0.0" ];
+        dependencies = [
+          sources."debug-2.6.9"
+          sources."ms-2.0.0"
+        ];
       })
       sources."find-cache-dir-3.3.2"
       sources."find-up-4.1.0"
@@ -16217,8 +16252,10 @@ let
           sources."jest-regex-util-28.0.2"
           sources."jest-util-28.1.3"
           (sources."jest-watcher-28.1.3" // {
-            dependencies =
-              [ sources."string-length-4.0.2" sources."strip-ansi-6.0.1" ];
+            dependencies = [
+              sources."string-length-4.0.2"
+              sources."strip-ansi-6.0.1"
+            ];
           })
           (sources."pretty-format-28.1.3" // {
             dependencies = [ sources."ansi-styles-5.2.0" ];
@@ -16663,7 +16700,10 @@ let
       sources."resolve-from-4.0.0"
       sources."resolve-pathname-3.0.0"
       (sources."resolve-url-loader-4.0.0" // {
-        dependencies = [ sources."picocolors-0.2.1" sources."postcss-7.0.39" ];
+        dependencies = [
+          sources."picocolors-0.2.1"
+          sources."postcss-7.0.39"
+        ];
       })
       sources."resolve.exports-1.1.0"
       sources."responselike-1.0.2"
@@ -16784,8 +16824,10 @@ let
       sources."symbol-observable-1.2.0"
       sources."symbol-tree-3.2.4"
       (sources."tailwindcss-3.1.8" // {
-        dependencies =
-          [ sources."glob-parent-6.0.2" sources."quick-lru-5.1.1" ];
+        dependencies = [
+          sources."glob-parent-6.0.2"
+          sources."quick-lru-5.1.1"
+        ];
       })
       sources."tapable-2.2.1"
       sources."temp-dir-2.0.0"
@@ -16795,7 +16837,10 @@ let
       sources."term-size-2.2.1"
       sources."terminal-link-2.1.1"
       (sources."terser-5.15.0" // {
-        dependencies = [ sources."acorn-8.8.0" sources."commander-2.20.3" ];
+        dependencies = [
+          sources."acorn-8.8.0"
+          sources."commander-2.20.3"
+        ];
       })
       (sources."terser-webpack-plugin-5.3.6" // {
         dependencies = [
@@ -16824,7 +16869,10 @@ let
       sources."trim-newlines-3.0.1"
       sources."tryer-1.0.1"
       (sources."tsconfig-paths-3.14.1" // {
-        dependencies = [ sources."json5-1.0.2" sources."strip-bom-3.0.0" ];
+        dependencies = [
+          sources."json5-1.0.2"
+          sources."strip-bom-3.0.0"
+        ];
       })
       sources."tslib-1.14.1"
       sources."tsutils-3.21.0"

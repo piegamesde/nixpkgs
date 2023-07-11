@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-SXIs9AUXWm1H49MVDT4z6msNPaW5sAU20rcsWZ7ERdU=";
   };
 
-  propagatedBuildInputs = [ requests requests-oauthlib voluptuous ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+    voluptuous
+  ];
 
   # Module no tests
   doCheck = false;

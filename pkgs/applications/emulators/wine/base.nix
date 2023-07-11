@@ -65,14 +65,22 @@ in stdenv.mkDerivation
     # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
 
-    nativeBuildInputs = [ bison flex fontforge makeWrapper pkg-config ]
-      ++ lib.optionals supportFlags.mingwSupport
+    nativeBuildInputs = [
+      bison
+      flex
+      fontforge
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals supportFlags.mingwSupport
       (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin);
 
     buildInputs = toBuildInputs pkgArches (with supportFlags;
       (pkgs:
-        [ pkgs.freetype pkgs.perl pkgs.libunwind ]
-        ++ lib.optional stdenv.isLinux pkgs.libcap
+        [
+          pkgs.freetype
+          pkgs.perl
+          pkgs.libunwind
+        ] ++ lib.optional stdenv.isLinux pkgs.libcap
         ++ lib.optional stdenv.isDarwin pkgs.libinotify-kqueue
         ++ lib.optional cupsSupport pkgs.cups
         ++ lib.optional gettextSupport pkgs.gettext
@@ -103,10 +111,16 @@ in stdenv.mkDerivation
           gst-plugins-ugly
           gst-libav
           (gst-plugins-bad.override { enableZbar = false; })
-        ]) ++ lib.optionals gtkSupport [ pkgs.gtk3 pkgs.glib ]
-        ++ lib.optionals openclSupport [ pkgs.opencl-headers pkgs.ocl-icd ]
-        ++ lib.optionals tlsSupport [ pkgs.openssl pkgs.gnutls ]
-        ++ lib.optionals (openglSupport && !stdenv.isDarwin) [
+        ]) ++ lib.optionals gtkSupport [
+          pkgs.gtk3
+          pkgs.glib
+        ] ++ lib.optionals openclSupport [
+          pkgs.opencl-headers
+          pkgs.ocl-icd
+        ] ++ lib.optionals tlsSupport [
+          pkgs.openssl
+          pkgs.gnutls
+        ] ++ lib.optionals (openglSupport && !stdenv.isDarwin) [
           pkgs.libGLU
           pkgs.libGL
           pkgs.mesa.osmesa
@@ -159,8 +173,8 @@ in stdenv.mkDerivation
     configureFlags = prevConfigFlags
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
-      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport)
-      [ "--without-x" ];
+      ++ lib.optionals
+      (stdenv.isDarwin && !supportFlags.xineramaSupport) [ "--without-x" ];
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add
     # them to the RPATH so that the user doesn't have to set them in
@@ -245,7 +259,12 @@ in stdenv.mkDerivation
         (lib.remove "x86_64-darwin" prevPlatforms)
       else
         prevPlatforms;
-      maintainers = with lib.maintainers; [ avnik raskin bendlas jmc-figueira ];
+      maintainers = with lib.maintainers; [
+        avnik
+        raskin
+        bendlas
+        jmc-figueira
+      ];
       inherit mainProgram;
     };
   })

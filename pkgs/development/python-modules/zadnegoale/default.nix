@@ -26,10 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-ij8xou8LXC4/BUTApIV6xSgb7ethwLyrHNJvBgxSBYM=";
   };
 
-  propagatedBuildInputs = [ aiohttp dacite orjson ];
+  propagatedBuildInputs = [
+    aiohttp
+    dacite
+    orjson
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytest-error-for-skips
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "zadnegoale" ];
 

@@ -32,10 +32,18 @@
 let
   pnameBase = "sublimetext4";
   packageAttribute = "sublime4${lib.optionalString dev "-dev"}";
-  binaries =
-    [ "sublime_text" "plugin_host-3.3" "plugin_host-3.8" "crash_reporter" ];
+  binaries = [
+    "sublime_text"
+    "plugin_host-3.3"
+    "plugin_host-3.8"
+    "crash_reporter"
+  ];
   primaryBinary = "sublime_text";
-  primaryBinaryAliases = [ "subl" "sublime" "sublime4" ];
+  primaryBinaryAliases = [
+    "subl"
+    "sublime"
+    "sublime4"
+  ];
   downloadUrl = arch:
     "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://download.sublimetext.com/latest/${
@@ -43,9 +51,17 @@ let
     }";
   versionFile = builtins.toString ./packages.nix;
 
-  neededLibraries =
-    [ xorg.libX11 xorg.libXtst glib libglvnd openssl_1_1 gtk3 cairo pango curl ]
-    ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ];
+  neededLibraries = [
+    xorg.libX11
+    xorg.libXtst
+    glib
+    libglvnd
+    openssl_1_1
+    gtk3
+    cairo
+    pango
+    curl
+  ] ++ lib.optionals (lib.versionAtLeast buildVersion "4145") [ sqlite ];
 in let
   binaryPackage = stdenv.mkDerivation rec {
     pname = "${pnameBase}-bin";
@@ -55,8 +71,16 @@ in let
 
     dontStrip = true;
     dontPatchELF = true;
-    buildInputs = [ glib gtk3 ]; # for GSETTINGS_SCHEMAS_PATH
-    nativeBuildInputs = [ zip unzip makeWrapper wrapGAppsHook ];
+    buildInputs = [
+      glib
+      gtk3
+    ]; # for GSETTINGS_SCHEMAS_PATH
+    nativeBuildInputs = [
+      zip
+      unzip
+      makeWrapper
+      wrapGAppsHook
+    ];
 
     # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
     patchPhase = ''
@@ -165,7 +189,12 @@ in stdenv.mkDerivation (rec {
     updateScript = let
       script = writeShellScript "${packageAttribute}-update-script" ''
         set -o errexit
-        PATH=${lib.makeBinPath [ common-updater-scripts curl ]}
+        PATH=${
+          lib.makeBinPath [
+            common-updater-scripts
+            curl
+          ]
+        }
 
         versionFile=$1
         latestVersion=$(curl -s "${versionUrl}")
@@ -182,15 +211,26 @@ in stdenv.mkDerivation (rec {
             update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
         done
       '';
-    in [ script versionFile ];
+    in [
+      script
+      versionFile
+    ];
   };
 
   meta = with lib; {
     description = "Sophisticated text editor for code, markup and prose";
     homepage = "https://www.sublimetext.com/";
-    maintainers = with maintainers; [ jtojnar wmertens demin-dmitriy zimbatm ];
+    maintainers = with maintainers; [
+      jtojnar
+      wmertens
+      demin-dmitriy
+      zimbatm
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 })

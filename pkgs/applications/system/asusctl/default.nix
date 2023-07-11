@@ -59,9 +59,17 @@ rustPlatform.buildRustPackage rec {
       --replace /usr/bin/sleep ${coreutils}/bin/sleep
   '';
 
-  nativeBuildInputs = [ pkg-config cmake rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    rustPlatform.bindgenHook
+  ];
 
-  buildInputs = [ systemd fontconfig gtk3 ];
+  buildInputs = [
+    systemd
+    fontconfig
+    gtk3
+  ];
 
   # upstream has minimal tests, so don't rebuild twice
   doCheck = false;
@@ -80,6 +88,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/asus-linux/asusctl";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ k900 aacebedo ];
+    maintainers = with maintainers; [
+      k900
+      aacebedo
+    ];
   };
 }

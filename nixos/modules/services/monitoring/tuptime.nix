@@ -78,7 +78,10 @@ in {
         description = "Tuptime scheduled sync timer";
         # this timer should be started if the service is started
         # even if the timer was previously stopped
-        wantedBy = [ "tuptime.service" "timers.target" ];
+        wantedBy = [
+          "tuptime.service"
+          "timers.target"
+        ];
         # this timer should be stopped if the service is stopped
         partOf = [ "tuptime.service" ];
         timerConfig = {

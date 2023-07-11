@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-51SKS6OOXIFT1L3YICR6a4QGSz/rbB8V+Z0u0jMO474=";
   };
 
-  propagatedBuildInputs = [ grandalf matplotlib ];
+  propagatedBuildInputs = [
+    grandalf
+    matplotlib
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -77,7 +77,10 @@ buildPythonPackage rec {
   # uvloop usage is buggy
   #SANIC_NO_UVLOOP = true;
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" "-vvv" ];
+  pytestFlagsArray = [
+    "--asyncio-mode=auto"
+    "-vvv"
+  ];
 
   disabledTests = [
     # Require networking
@@ -127,6 +130,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/sanic-org/sanic/";
     changelog = "https://github.com/sanic-org/sanic/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc AluisioASG ];
+    maintainers = with maintainers; [
+      costrouc
+      AluisioASG
+    ];
   };
 }

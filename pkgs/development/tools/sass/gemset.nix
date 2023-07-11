@@ -42,7 +42,10 @@
     version = "3.7.4";
   };
   sass-listen = {
-    dependencies = [ "rb-fsevent" "rb-inotify" ];
+    dependencies = [
+      "rb-fsevent"
+      "rb-inotify"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

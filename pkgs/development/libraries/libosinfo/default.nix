@@ -32,8 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-olLgD8WA3rIdoNqMCqA7jDHoRAuESMi5gUP6tHfTIwU=";
   };
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   nativeBuildInputs = [
     pkg-config
@@ -46,15 +48,22 @@ stdenv.mkDerivation rec {
     docbook_xsl
     perl # for pod2man
   ];
-  buildInputs = [ glib libsoup_3 libxml2 libxslt ];
-  nativeCheckInputs = [ check curl perl ];
-
-  patches = [
-    (substituteAll {
-      src = ./osinfo-db-data-dir.patch;
-      osinfo_db_data_dir = "${osinfo-db}/share";
-    })
+  buildInputs = [
+    glib
+    libsoup_3
+    libxml2
+    libxslt
   ];
+  nativeCheckInputs = [
+    check
+    curl
+    perl
+  ];
+
+  patches = [ (substituteAll {
+    src = ./osinfo-db-data-dir.patch;
+    osinfo_db_data_dir = "${osinfo-db}/share";
+  }) ];
 
   mesonFlags = [
     "-Dwith-usb-ids-path=${hwdata}/share/hwdata/usb.ids"

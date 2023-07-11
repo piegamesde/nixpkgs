@@ -20,8 +20,11 @@ buildGoModule rec {
 
   subPackages = [ "main" ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/aliyun/aliyun-cli/cli.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/aliyun/aliyun-cli/cli.Version=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/main $out/bin/aliyun

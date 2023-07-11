@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ more-itertools ];
 
-  nativeCheckInputs = [ pytest pytest-flake8 ];
+  nativeCheckInputs = [
+    pytest
+    pytest-flake8
+  ];
 
   checkPhase = ''
     pytest

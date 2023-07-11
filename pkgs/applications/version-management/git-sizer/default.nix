@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-oRlsD99XiI/0ZWibjyRcycmGab+vMbXrV5hIdIyUDYg=";
 
-  ldflags = [ "-s" "-w" "-X main.BuildVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.BuildVersion=${version}"
+  ];
 
   doCheck = false;
 

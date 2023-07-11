@@ -4,7 +4,11 @@
 }:
 godot.overrideAttrs (oldAttrs: rec {
   pname = "godot-headless";
-  sconsFlags = [ "target=release_debug" "platform=server" "tools=yes" ];
+  sconsFlags = [
+    "target=release_debug"
+    "platform=server"
+    "tools=yes"
+  ];
   installPhase = ''
     mkdir -p "$out/bin"
     cp bin/godot_server.* $out/bin/godot-headless
@@ -17,5 +21,8 @@ godot.overrideAttrs (oldAttrs: rec {
   '';
   meta.description =
     "Free and Open Source 2D and 3D game engine (headless build)";
-  meta.maintainers = with lib.maintainers; [ twey yusdacra ];
+  meta.maintainers = with lib.maintainers; [
+    twey
+    yusdacra
+  ];
 })

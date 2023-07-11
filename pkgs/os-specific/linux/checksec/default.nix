@@ -28,7 +28,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = let
-    path = lib.makeBinPath [ findutils file binutils-unwrapped sysctl openssl ];
+    path = lib.makeBinPath [
+      findutils
+      file
+      binutils-unwrapped
+      sysctl
+      openssl
+    ];
   in ''
     mkdir -p $out/bin
     install checksec $out/bin
@@ -43,6 +49,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.trapkit.de/tools/checksec/";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice globin ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      globin
+    ];
   };
 }

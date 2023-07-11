@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ glibmm gtkmm3 gtksourceview4 ];
+  propagatedBuildInputs = [
+    glibmm
+    gtkmm3
+    gtksourceview4
+  ];
 
   meta = with lib; {
     platforms = platforms.linux;

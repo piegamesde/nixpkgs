@@ -58,7 +58,12 @@ stdenv.mkDerivation rec {
   dontAddStaticConfigureFlags = true;
   createFindlibDestdir = true;
 
-  nativeBuildInputs = [ which cmake ocaml findlib ];
+  nativeBuildInputs = [
+    which
+    cmake
+    ocaml
+    findlib
+  ];
 
   propagatedBuildInputs = [ ctypes ];
 

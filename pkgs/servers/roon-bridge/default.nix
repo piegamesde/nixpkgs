@@ -12,7 +12,13 @@
 }:
 let
   version = "1.8-1125";
-  urlVersion = builtins.replaceStrings [ "." "-" ] [ "00" "0" ] version;
+  urlVersion = builtins.replaceStrings [
+    "."
+    "-"
+  ] [
+    "00"
+    "0"
+  ] version;
   host = stdenv.hostPlatform.system;
   system = if host == "x86_64-linux" then
     "linuxx64"
@@ -37,9 +43,16 @@ in stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs = [ alsa-lib zlib stdenv.cc.cc.lib ];
+  buildInputs = [
+    alsa-lib
+    zlib
+    stdenv.cc.cc.lib
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   installPhase = let
     fixBin = binPath: ''
@@ -49,9 +62,18 @@ in stdenv.mkDerivation {
         wrapProgram ${binPath} \
           --argv0 "$(basename ${binPath})" \
           --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath [ alsa-lib ffmpeg openssl ]
+            lib.makeLibraryPath [
+              alsa-lib
+              ffmpeg
+              openssl
+            ]
           }" \
-          --prefix PATH : "${lib.makeBinPath [ alsa-utils ffmpeg ]}"
+          --prefix PATH : "${
+            lib.makeBinPath [
+              alsa-utils
+              ffmpeg
+            ]
+          }"
       )
     '';
   in ''
@@ -81,6 +103,9 @@ in stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [ lovesegfault ];
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

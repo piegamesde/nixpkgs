@@ -39,12 +39,22 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-MokE7Ej8mLHTQeLYvKr7PPlsNG6ul91fqfXDlGu5JpI=";
   };
 
-  nativeBuildInputs = [ cmake ninja ]
-    ++ lib.optionals (!buildRockCompiler) [ hip ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ] ++ lib.optionals (!buildRockCompiler) [ hip ];
 
-  buildInputs = [ git libxml2 libedit python3 ];
+  buildInputs = [
+    git
+    libxml2
+    libedit
+    python3
+  ];
 
-  propagatedBuildInputs = [ zlib ncurses ];
+  propagatedBuildInputs = [
+    zlib
+    ncurses
+  ];
 
   cmakeFlags = [
     "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}"
@@ -65,14 +75,19 @@ in stdenv.mkDerivation (finalAttrs: {
   else
     "check-mlir-miopen-build-only";
 
-  postInstall =
-    let libPath = lib.makeLibraryPath [ zlib ncurses hip stdenv.cc.cc ];
-    in lib.optionals (!buildRockCompiler) ''
-      mkdir -p $external/lib
-      cp -a external/llvm-project/llvm/lib/{*.a*,*.so*} $external/lib
-      patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
-      patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
-    '';
+  postInstall = let
+    libPath = lib.makeLibraryPath [
+      zlib
+      ncurses
+      hip
+      stdenv.cc.cc
+    ];
+  in lib.optionals (!buildRockCompiler) ''
+    mkdir -p $external/lib
+    cp -a external/llvm-project/llvm/lib/{*.a*,*.so*} $external/lib
+    patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
+    patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
+  '';
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;

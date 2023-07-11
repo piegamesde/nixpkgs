@@ -17,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CQYY5aKRDe6F7GrBJfqt0t/rjjdZnr/c/cqhr6yVACA=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -46,8 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
       processing applications.
     '';
     license = lib.licenses.cecill-c;
-    maintainers =
-      [ lib.maintainers.AndersonTorres lib.maintainers.lilyinstarlight ];
+    maintainers = [
+      lib.maintainers.AndersonTorres
+      lib.maintainers.lilyinstarlight
+    ];
     platforms = lib.platforms.unix;
   };
 })

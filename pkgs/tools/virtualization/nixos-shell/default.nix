@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/nixos-shell \
-      --prefix PATH : ${lib.makeBinPath [ nix jq ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          jq
+        ]
+      }
   '';
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];

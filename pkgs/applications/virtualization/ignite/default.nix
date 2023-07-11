@@ -44,7 +44,10 @@ buildGoModule rec {
       --replace 'IGNITE_GIT_TREE_STATE="dirty"' 'IGNITE_GIT_TREE_STATE="clean"'
   '';
 
-  nativeBuildInputs = [ git makeWrapper ];
+  nativeBuildInputs = [
+    git
+    makeWrapper
+  ];
 
   buildInputs = [ firecracker ];
 
@@ -56,7 +59,12 @@ buildGoModule rec {
   postInstall = ''
     for prog in hack ignite ignited ignite-spawn; do
         wrapProgram "$out/bin/$prog" --prefix PATH : ${
-          lib.makeBinPath [ cni-plugins firecracker containerd runc ]
+          lib.makeBinPath [
+            cni-plugins
+            firecracker
+            containerd
+            runc
+          ]
         }
     done
   '';

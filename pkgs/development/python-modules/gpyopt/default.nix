@@ -30,7 +30,13 @@ buildPythonPackage rec {
 
   checkPhase = "nosetests -v GPyOpt/testing";
 
-  propagatedBuildInputs = [ setuptools numpy scipy gpy emcee ];
+  propagatedBuildInputs = [
+    setuptools
+    numpy
+    scipy
+    gpy
+    emcee
+  ];
 
   pythonImportsCheck = [ "GPyOpt" ];
 

@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "12qhkshpp1wjfpjmjccsyi6wscqyqvaa19j85prjpyf65i9jg0gf";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config zathura_core ];
-  buildInputs = [ poppler girara ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    zathura_core
+  ];
+  buildInputs = [
+    poppler
+    girara
+  ];
 
   PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 

@@ -20,7 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXft libXrandr ];
+  buildInputs = [
+    libX11
+    libXft
+    libXrandr
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 
@@ -28,7 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.uninformativ.de/git/bevelbar/file/README.html";
     description = "X11 status bar with beveled borders";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres neeasade ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      neeasade
+    ];
     platforms = platforms.linux;
   };
 })

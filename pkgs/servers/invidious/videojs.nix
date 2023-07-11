@@ -15,7 +15,12 @@ in stdenvNoCC.mkDerivation {
 
   builder = ./videojs.sh;
 
-  nativeBuildInputs = [ cacert crystal openssl pkg-config ];
+  nativeBuildInputs = [
+    cacert
+    crystal
+    openssl
+    pkg-config
+  ];
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

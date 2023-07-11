@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  configureFlags = [ "--enable-video-hash=no" "--enable-audio-hash=no" ];
+  configureFlags = [
+    "--enable-video-hash=no"
+    "--enable-audio-hash=no"
+  ];
   postInstall = ''
     cp ${cimg}/include/CImg.h $out/include/
   '';

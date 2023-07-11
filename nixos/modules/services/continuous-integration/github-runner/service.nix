@@ -34,15 +34,23 @@ in {
 
   wantedBy = [ "multi-user.target" ];
   wants = [ "network-online.target" ];
-  after = [ "network.target" "network-online.target" ];
+  after = [
+    "network.target"
+    "network-online.target"
+  ];
 
   environment = {
     HOME = workDir;
     RUNNER_ROOT = stateDir;
   } // cfg.extraEnvironment;
 
-  path = (with pkgs; [ bash coreutils git gnutar gzip ])
-    ++ [ config.nix.package ] ++ cfg.extraPackages;
+  path = (with pkgs; [
+    bash
+    coreutils
+    git
+    gnutar
+    gzip
+  ]) ++ [ config.nix.package ] ++ cfg.extraPackages;
 
   serviceConfig = mkMerge [
     {
@@ -90,7 +98,11 @@ in {
         currentConfigTokenPath =
           "$STATE_DIRECTORY/${currentConfigTokenFilename}";
 
-        runnerCredFiles = [ ".credentials" ".credentials_rsaparams" ".runner" ];
+        runnerCredFiles = [
+          ".credentials"
+          ".credentials_rsaparams"
+          ".runner"
+        ];
         unconfigureRunner = writeScript "unconfigure" ''
           copy_tokens() {
             # Copy the configured token file to the state dir and allow the service user to read the file
@@ -184,11 +196,18 @@ in {
             lib.concatStringsSep "," runnerCredFiles
           }} "$WORK_DIRECTORY/"
         '';
-      in map (x: "${x} ${escapeShellArgs [ stateDir workDir logsDir ]}") [
-        "+${unconfigureRunner}" # runs as root
-        configureRunner
-        setupWorkDir
-      ];
+      in map (x:
+        "${x} ${
+          escapeShellArgs [
+            stateDir
+            workDir
+            logsDir
+          ]
+        }") [
+          "+${unconfigureRunner}" # runs as root
+          configureRunner
+          setupWorkDir
+        ];
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
       # to trigger a fresh registration.
@@ -253,8 +272,12 @@ in {
         "~setdomainname"
         "~sethostname"
       ];
-      RestrictAddressFamilies =
-        mkBefore [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+      RestrictAddressFamilies = mkBefore [
+        "AF_INET"
+        "AF_INET6"
+        "AF_UNIX"
+        "AF_NETLINK"
+      ];
 
       BindPaths = lib.optionals (cfg.workDir != null) [ cfg.workDir ];
 

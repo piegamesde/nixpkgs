@@ -30,9 +30,15 @@ in stdenv.mkDerivation rec {
     dpkg -x $src .
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
-  buildInputs = [ alsa-lib stdenv.cc.cc.lib ];
+  buildInputs = [
+    alsa-lib
+    stdenv.cc.cc.lib
+  ];
 
   dontConfigure = true;
   dontBuild = true;

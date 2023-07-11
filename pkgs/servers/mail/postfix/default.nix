@@ -39,12 +39,19 @@ let
     "-DHAS_MYSQL"
     "-I${libmysqlclient.dev}/include/mysql"
     "-L${libmysqlclient}/lib/mysql"
-  ] ++ lib.optional withSQLite "-DHAS_SQLITE"
-    ++ lib.optionals withLDAP [ "-DHAS_LDAP" "-DUSE_LDAP_SASL" ]);
-  auxlibs = lib.concatStringsSep " "
-    ([ "-ldb" "-lnsl" "-lresolv" "-lsasl2" "-lcrypto" "-lssl" ]
-      ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
-      ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
+  ] ++ lib.optional withSQLite "-DHAS_SQLITE" ++ lib.optionals withLDAP [
+    "-DHAS_LDAP"
+    "-DUSE_LDAP_SASL"
+  ]);
+  auxlibs = lib.concatStringsSep " " ([
+    "-ldb"
+    "-lnsl"
+    "-lresolv"
+    "-lsasl2"
+    "-lcrypto"
+    "-lssl"
+  ] ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
+    ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
 
 in stdenv.mkDerivation rec {
   pname = "postfix";
@@ -56,9 +63,18 @@ in stdenv.mkDerivation rec {
     hash = "sha256-o62AKb0sawxXZHeg93v50sC3YcuqDvv+9Hlp7+purek=";
   };
 
-  nativeBuildInputs = [ makeWrapper m4 ];
-  buildInputs = [ db openssl cyrus_sasl icu libnsl pcre2 ]
-    ++ lib.optional withPgSQL postgresql
+  nativeBuildInputs = [
+    makeWrapper
+    m4
+  ];
+  buildInputs = [
+    db
+    openssl
+    cyrus_sasl
+    icu
+    libnsl
+    pcre2
+  ] ++ lib.optional withPgSQL postgresql
     ++ lib.optional withMySQL libmysqlclient ++ lib.optional withSQLite sqlite
     ++ lib.optional withLDAP openldap;
 
@@ -121,10 +137,22 @@ in stdenv.mkDerivation rec {
     cp -rv installdir/etc $out
     sed -e '/^PATH=/d' -i $out/libexec/postfix/post-install
     wrapProgram $out/libexec/postfix/post-install \
-      --prefix PATH ":" ${lib.makeBinPath [ coreutils findutils gnugrep ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          coreutils
+          findutils
+          gnugrep
+        ]
+      }
     wrapProgram $out/libexec/postfix/postfix-script \
       --prefix PATH ":" ${
-        lib.makeBinPath [ coreutils findutils gnugrep gawk gnused ]
+        lib.makeBinPath [
+          coreutils
+          findutils
+          gnugrep
+          gawk
+          gnused
+        ]
       }
   '';
 
@@ -139,8 +167,15 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.postfix.org/";
     description = "A fast, easy to administer, and secure mail server";
-    license = with licenses; [ ipl10 epl20 ];
+    license = with licenses; [
+      ipl10
+      epl20
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin dotlambda lewo ];
+    maintainers = with maintainers; [
+      globin
+      dotlambda
+      lewo
+    ];
   };
 }

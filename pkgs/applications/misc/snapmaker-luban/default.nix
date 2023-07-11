@@ -47,7 +47,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CPeTTnwykaa58tpA7Aznrvrs0DqxOKjspZjHrT+e9tw=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook copyDesktopItems ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+    copyDesktopItems
+  ];
 
   buildInputs = [
     alsa-lib
@@ -123,16 +127,17 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "snapmaker-luban";
-      icon = "snapmaker-luban";
-      desktopName = "Snapmaker Luban";
-      genericName = meta.description;
-      categories = [ "Office" "Printing" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "snapmaker-luban";
+    icon = "snapmaker-luban";
+    desktopName = "Snapmaker Luban";
+    genericName = meta.description;
+    categories = [
+      "Office"
+      "Printing"
+    ];
+  }) ];
 
   meta = with lib; {
     description =

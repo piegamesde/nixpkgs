@@ -27,9 +27,19 @@ buildPythonPackage rec {
     sha256 = "1vpg8varvfx0nj6xscdfm7m118hzsfz7qfzn28r9rsfvrhr0dlcw";
   };
 
-  propagatedBuildInputs =
-    [ boto3 diskcache packaging numpy requests scikitimage six tifffile ]
-    ++ lib.optionals isPy27 [ pathlib enum34 ];
+  propagatedBuildInputs = [
+    boto3
+    diskcache
+    packaging
+    numpy
+    requests
+    scikitimage
+    six
+    tifffile
+  ] ++ lib.optionals isPy27 [
+    pathlib
+    enum34
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

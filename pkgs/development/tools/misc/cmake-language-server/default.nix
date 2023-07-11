@@ -31,9 +31,17 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [ cmake-format pygls ];
+  propagatedBuildInputs = [
+    cmake-format
+    pygls
+  ];
 
-  nativeCheckInputs = [ cmake cmake-format pytest-datadir pytestCheckHook ];
+  nativeCheckInputs = [
+    cmake
+    cmake-format
+    pytest-datadir
+    pytestCheckHook
+  ];
 
   dontUseCmakeConfigure = true;
 

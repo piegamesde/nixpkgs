@@ -23,8 +23,15 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config docutils ];
-  buildInputs = [ varnish libmhash ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    docutils
+  ];
+  buildInputs = [
+    varnish
+    libmhash
+  ];
 
   postPatch = ''
     substituteInPlace autogen.sh  --replace "''${dataroot}/aclocal"                  "${varnish.dev}/share/aclocal"

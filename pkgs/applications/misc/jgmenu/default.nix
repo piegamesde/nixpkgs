@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UC92zyuMVjyMLNEOBMElO8wCWYgwWRZAGLEOdTPNMak=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    python3Packages.wrapPython
+  ];
 
   buildInputs = [
     pango

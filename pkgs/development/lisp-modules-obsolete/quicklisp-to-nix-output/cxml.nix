@@ -6,7 +6,12 @@ args@{
   baseName = "cxml";
   version = "20200610-git";
 
-  parasites = [ "cxml/dom" "cxml/klacks" "cxml/test" "cxml/xml" ];
+  parasites = [
+    "cxml/dom"
+    "cxml/klacks"
+    "cxml/test"
+    "cxml/xml"
+  ];
 
   description = "Closure XML - a Common Lisp XML parser";
 

@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-3iZ9/d78nAnK2+Kv0+0tuvZcfSV6ZF6QRF3xYL3NqV4=";
   };
 
-  propagatedBuildInputs = [ aiohttp requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+  ];
 
   pythonImportsCheck = [ "meraki" ];
 

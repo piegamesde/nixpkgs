@@ -82,8 +82,11 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   preFixup = let
-    binPath = makeBinPath ([ cdrtools dvdauthor dvdplusrwtools ]
-      ++ optionals dvdisasterSupport [ dvdisaster ]);
+    binPath = makeBinPath ([
+      cdrtools
+      dvdauthor
+      dvdplusrwtools
+    ] ++ optionals dvdisasterSupport [ dvdisaster ]);
   in ''
     gappsWrapperArgs+=(
       --prefix PATH : "${binPath}"

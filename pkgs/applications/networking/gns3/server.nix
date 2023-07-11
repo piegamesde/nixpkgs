@@ -23,7 +23,12 @@ python3.pkgs.buildPythonApplication {
     sha256 = sha256Hash;
   };
 
-  pythonRelaxDeps = [ "aiofiles" "jsonschema" "psutil" "sentry-sdk" ];
+  pythonRelaxDeps = [
+    "aiofiles"
+    "jsonschema"
+    "psutil"
+    "sentry-sdk"
+  ];
 
   nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 

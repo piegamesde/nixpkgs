@@ -27,11 +27,22 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake pybind11 ];
+  nativeBuildInputs = [
+    cmake
+    pybind11
+  ];
 
-  buildInputs = [ abseil-cpp pybind11 ];
+  buildInputs = [
+    abseil-cpp
+    pybind11
+  ];
 
-  nativeCheckInputs = [ absl-py attrs numpy wrapt ];
+  nativeCheckInputs = [
+    absl-py
+    attrs
+    numpy
+    wrapt
+  ];
 
   pythonImportsCheck = [ "tree" ];
 
@@ -40,6 +51,9 @@ buildPythonPackage rec {
     description = "Tree is a library for working with nested data structures.";
     homepage = "https://github.com/deepmind/tree";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ndl ];
+    maintainers = with maintainers; [
+      samuela
+      ndl
+    ];
   };
 }

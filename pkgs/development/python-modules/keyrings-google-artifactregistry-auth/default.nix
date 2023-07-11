@@ -19,9 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-vrA3+/awws4R2BAxn9wYDKuIZdqioWsQnDr3MYL/5E0=";
   };
 
-  buildInputs = [ setuptools-scm toml ];
+  buildInputs = [
+    setuptools-scm
+    toml
+  ];
 
-  propagatedBuildInputs = [ google-auth keyring pluggy requests ];
+  propagatedBuildInputs = [
+    google-auth
+    keyring
+    pluggy
+    requests
+  ];
 
   pythonImportsCheck = [ "keyrings.gauth" ];
 

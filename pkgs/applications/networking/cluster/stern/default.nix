@@ -24,7 +24,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X github.com/stern/stern/cmd.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/stern/stern/cmd.version=${version}"
+  ];
 
   postInstall = let
     stern = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
@@ -42,7 +46,10 @@ buildGoModule rec {
     description = "Multi pod and container log tailing for Kubernetes";
     homepage = "https://github.com/stern/stern";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mbode preisschild ];
+    maintainers = with maintainers; [
+      mbode
+      preisschild
+    ];
     platforms = platforms.unix;
   };
 }

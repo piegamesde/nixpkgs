@@ -22,7 +22,10 @@ buildDunePackage {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dune-configurator ]
     ++ lib.optionals stdenv.isDarwin [ VideoToolbox ];
-  propagatedBuildInputs = [ ffmpeg-avutil ffmpeg.dev ];
+  propagatedBuildInputs = [
+    ffmpeg-avutil
+    ffmpeg.dev
+  ];
 
   doCheck = true;
 

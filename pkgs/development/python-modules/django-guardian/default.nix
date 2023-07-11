@@ -20,14 +20,22 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [ django-environ mock pytestCheckHook pytest-django ];
+  nativeCheckInputs = [
+    django-environ
+    mock
+    pytestCheckHook
+    pytest-django
+  ];
 
   pythonImportsCheck = [ "guardian" ];
 
   meta = with lib; {
     description = "Per object permissions for Django";
     homepage = "https://github.com/django-guardian/django-guardian";
-    license = with licenses; [ mit bsd2 ];
+    license = with licenses; [
+      mit
+      bsd2
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

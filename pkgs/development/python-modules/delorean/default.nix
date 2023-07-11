@@ -19,7 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-/md4bhIzhSOEi+xViKZYxNQl4S1T61HP74cL7I9XYTQ=";
   };
 
-  propagatedBuildInputs = [ babel humanize python-dateutil pytz tzlocal ];
+  propagatedBuildInputs = [
+    babel
+    humanize
+    python-dateutil
+    pytz
+    tzlocal
+  ];
 
   pythonImportsCheck = [ "delorean" ];
 

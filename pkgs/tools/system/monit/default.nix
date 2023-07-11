@@ -22,12 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Gs6InAGDRzqdcBYN9lM7tuEzjcE1T1koUHgD4eKoY7U=";
   };
 
-  nativeBuildInputs = [ bison flex ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin
-    [ darwin.apple_sdk.frameworks.DiskArbitration ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ] ++ lib.optionals
+    stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.DiskArbitration ];
 
-  buildInputs = [ zlib.dev libxcrypt ] ++ lib.optionals useSSL [ openssl ]
-    ++ lib.optionals usePAM [ pam ];
+  buildInputs = [
+    zlib.dev
+    libxcrypt
+  ] ++ lib.optionals useSSL [ openssl ] ++ lib.optionals usePAM [ pam ];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure --replace "-framework System" "-lSystem"
@@ -36,8 +40,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ (lib.withFeature usePAM "pam") ] ++ (if useSSL then [
     "--with-ssl-incl-dir=${openssl.dev}/include"
     "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
-  ] else
-    [ "--without-ssl" ])
+  ] else [ "--without-ssl" ])
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # will need to check both these are true for musl
       "libmonit_cv_setjmp_available=yes"
@@ -48,7 +51,11 @@ stdenv.mkDerivation rec {
     homepage = "https://mmonit.com/monit/";
     description = "Monitoring system";
     license = lib.licenses.agpl3;
-    maintainers = with lib.maintainers; [ raskin wmertens ryantm ];
+    maintainers = with lib.maintainers; [
+      raskin
+      wmertens
+      ryantm
+    ];
     platforms = with lib; platforms.linux ++ platforms.darwin;
   };
 }

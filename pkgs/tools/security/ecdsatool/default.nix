@@ -20,7 +20,11 @@ stdenv.mkDerivation {
     ./configure --prefix=$out
   '';
 
-  nativeBuildInputs = with pkgs; [ openssl autoconf automake ];
+  nativeBuildInputs = with pkgs; [
+    openssl
+    autoconf
+    automake
+  ];
   buildInputs = with pkgs; [ libuecc ];
 
   meta = with lib; {

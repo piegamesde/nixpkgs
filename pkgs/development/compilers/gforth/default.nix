@@ -24,14 +24,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-3+ObHhsPvW44UFiN0GWOhwo7aiqhjwxNY8hw2Wv4MK0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook texinfo bootForth swig ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+    bootForth
+    swig
+  ];
   buildInputs = [ libffi ];
 
   passthru = { inherit bootForth; };
 
-  configureFlags = [ "--with-lispdir=${lispDir}" ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
-    [ "--build=x86_64-apple-darwin" ];
+  configureFlags = [ "--with-lispdir=${lispDir}" ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isx86_64) [ "--build=x86_64-apple-darwin" ];
 
   preConfigure = ''
     mkdir -p ${lispDir}

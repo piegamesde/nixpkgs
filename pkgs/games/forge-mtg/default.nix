@@ -54,7 +54,10 @@ in stdenv.mkDerivation {
   pname = "forge-mtg";
   inherit version src patches;
 
-  nativeBuildInputs = [ maven makeWrapper ];
+  nativeBuildInputs = [
+    maven
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -80,7 +83,13 @@ in stdenv.mkDerivation {
     for commandToInstall in forge forge-adventure; do
       chmod 555 $out/share/forge/$commandToInstall.sh
       makeWrapper $out/share/forge/$commandToInstall.sh $out/bin/$commandToInstall \
-        --prefix PATH : ${lib.makeBinPath [ coreutils openjdk gnused ]} \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            coreutils
+            openjdk
+            gnused
+          ]
+        } \
         --set JAVA_HOME ${openjdk}/lib/openjdk \
         --set SENTRY_DSN ""
     done

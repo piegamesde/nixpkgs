@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wVisE4YAK52yfeM2itnBqCmhRKlrKRs0NEppQzZPok8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ glib libcap libseccomp libslirp ];
+  buildInputs = [
+    glib
+    libcap
+    libseccomp
+    libslirp
+  ];
 
   enableParallelBuilding = true;
   strictDeps = true;

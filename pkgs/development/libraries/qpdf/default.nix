@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-UZq973X93E+Ll1IKjfJNPQuQwBFOU3egFGODgXV21x0=";
   };
 
-  nativeBuildInputs = [ cmake perl ];
+  nativeBuildInputs = [
+    cmake
+    perl
+  ];
 
-  buildInputs = [ zlib libjpeg ];
+  buildInputs = [
+    zlib
+    libjpeg
+  ];
 
   preConfigure = ''
     patchShebangs qtest/bin/qtest-driver

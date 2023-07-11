@@ -26,7 +26,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoconf automake gettext libtool python3 wxGTK ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    libtool
+    python3
+    wxGTK
+  ];
 
   buildInputs = lib.optionals stdenv.cc.isClang [ openmp ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ];

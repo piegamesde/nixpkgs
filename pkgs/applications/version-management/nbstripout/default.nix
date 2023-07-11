@@ -21,10 +21,19 @@ python3.pkgs.buildPythonApplication rec {
     substituteInPlace tests/test-git.t --replace "echo" "${coreutils}/bin/echo"
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ ipython nbformat ];
+  propagatedBuildInputs = with python3.pkgs; [
+    ipython
+    nbformat
+  ];
 
-  nativeCheckInputs = [ coreutils git mercurial ]
-    ++ (with python3.pkgs; [ pytest-cram pytestCheckHook ]);
+  nativeCheckInputs = [
+    coreutils
+    git
+    mercurial
+  ] ++ (with python3.pkgs; [
+    pytest-cram
+    pytestCheckHook
+  ]);
 
   preCheck = ''
     export HOME=$(mktemp -d)

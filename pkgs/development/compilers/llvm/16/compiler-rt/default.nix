@@ -37,28 +37,31 @@ in stdenv.mkDerivation {
   inherit src;
   sourceRoot = "${src.name}/${baseName}";
 
-  nativeBuildInputs = [ cmake ninja python3 libllvm.dev ]
-    ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+    libllvm.dev
+  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ];
 
   cmakeFlags = [
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
     "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.libc == "glibc")
-    [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
+  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.libc
+    == "glibc") [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"
       "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
       "-DCOMPILER_RT_BUILD_MEMPROF=OFF"
       "-DCOMPILER_RT_BUILD_ORC=OFF" # may be possible to build with musl if necessary
-    ] ++ lib.optionals (useLLVM || bareMetal)
-    [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+    ] ++ lib.optionals
+    (useLLVM || bareMetal) [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
     ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
@@ -83,7 +86,10 @@ in stdenv.mkDerivation {
       "-DCOMPILER_RT_ENABLE_IOS=OFF"
     ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     ./X86-support-extension.patch # Add support for i486 i586 i686 by reusing i386 config
@@ -147,6 +153,9 @@ in stdenv.mkDerivation {
     '';
     # "All of the code in the compiler-rt project is dual licensed under the MIT
     # license and the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

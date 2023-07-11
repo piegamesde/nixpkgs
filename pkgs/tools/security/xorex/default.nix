@@ -25,7 +25,10 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ colorama pefile ];
+  propagatedBuildInputs = with python3.pkgs; [
+    colorama
+    pefile
+  ];
 
   meta = with lib; {
     description = "XOR Key Extractor";

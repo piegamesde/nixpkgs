@@ -28,7 +28,10 @@ in stdenv.mkDerivation rec {
 
   passAsFile = [ "paths" ];
 
-  nativeBuildInputs = [ glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+  ];
 
   buildInputs = lib.forEach selectedIndicators (x: x.buildInputs)
     ++ selectedIndicators;

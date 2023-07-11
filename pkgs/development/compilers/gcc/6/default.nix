@@ -144,8 +144,17 @@ let
     sha256 = "02lda2imivsvsis8rnzmbrbp8rh1kb8vmq4i67pqhkwz7lf8y6dz";
   };
 
-  xlibs =
-    [ libX11 libXt libSM libICE libXtst libXrender libXrandr libXi xorgproto ];
+  xlibs = [
+    libX11
+    libXt
+    libSM
+    libICE
+    libXtst
+    libXrender
+    libXrandr
+    libXi
+    xorgproto
+  ];
 
   javaAwtGtk = langJava && x11Support;
 
@@ -173,8 +182,10 @@ let
   };
 
   # We need all these X libraries when building AWT with GTK.
-in assert x11Support -> (filter (x: x == null) ([ gtk2 libart_lgpl ] ++ xlibs))
-  == [ ];
+in assert x11Support -> (filter (x: x == null) ([
+  gtk2
+  libart_lgpl
+] ++ xlibs)) == [ ];
 
 stdenv.mkDerivation ({
   pname = "${crossNameAddon}${name}";
@@ -219,7 +230,10 @@ stdenv.mkDerivation ({
 
   libc_dev = stdenv.cc.libc_dev;
 
-  hardeningDisable = [ "format" "pie" ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ];
 
   postPatch =
     # This should kill all the stdinc frameworks that gcc and friends like to
@@ -265,7 +279,11 @@ stdenv.mkDerivation ({
 
   dontDisableStatic = true;
 
-  configurePlatforms = [ "build" "host" "target" ];
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
@@ -303,11 +321,17 @@ stdenv.mkDerivation ({
   CPATH = optionals (targetPlatform == hostPlatform)
     (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
       ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
-      ++ optionals javaAwtGtk [ gmp mpfr ]));
+      ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
     ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [ gmp mpfr ]));
+      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
 
   inherit (callFile ../common/extra-target-flags.nix { })
     EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
@@ -330,7 +354,10 @@ stdenv.mkDerivation ({
 
   // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt" && crossStageStatic) {
-      makeFlags = [ "all-gcc" "all-target-libgcc" ];
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
       installTargets = "install-gcc install-target-libgcc";
     }
 

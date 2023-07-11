@@ -60,6 +60,9 @@ in stdenv.mkDerivation {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    maintainers = with maintainers; [ bobvanderlinden brodes ];
+    maintainers = with maintainers; [
+      bobvanderlinden
+      brodes
+    ];
   };
 }

@@ -25,13 +25,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QvwSNuIph/ea3dAGQ0VhOiOmPmQtnqleCEebRpH2SgE=";
   };
 
-  nativeBuildInputs = [ cmake python3 pkg-config ];
-  buildInputs =
-    [ libX11 libXxf86vm libXrandr vulkan-headers libGL vulkan-loader wayland ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    pkg-config
+  ];
+  buildInputs = [
+    libX11
+    libXxf86vm
+    libXrandr
+    vulkan-headers
+    libGL
+    vulkan-loader
+    wayland
+  ];
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 
-  outputs = [ "out" "dev" "layers" ];
+  outputs = [
+    "out"
+    "dev"
+    "layers"
+  ];
 
   # https://github.com/KhronosGroup/OpenXR-SDK-Source/issues/305
   postPatch = ''

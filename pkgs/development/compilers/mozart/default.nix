@@ -42,7 +42,11 @@ in stdenv.mkDerivation rec {
     cp ${bootcompiler} bootcompiler/bootcompiler.jar
   '';
 
-  nativeBuildInputs = [ cmake makeWrapper unzip ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    unzip
+  ];
 
   cmakeFlags = [
     "-DBoost_USE_STATIC_LIBS=OFF"
@@ -57,11 +61,21 @@ in stdenv.mkDerivation rec {
     wrapProgram $out/bin/oz --set OZEMACS ${emacs}/bin/emacs
   '';
 
-  buildInputs = [ pinnedBoost gmp emacs jre_headless tcl tk ];
+  buildInputs = [
+    pinnedBoost
+    gmp
+    emacs
+    jre_headless
+    tcl
+    tk
+  ];
 
   meta = with lib; {
     description = "An open source implementation of Oz 3";
-    maintainers = with maintainers; [ layus h7x4 ];
+    maintainers = with maintainers; [
+      layus
+      h7x4
+    ];
     license = licenses.bsd2;
     homepage = "https://mozart.github.io";
   };

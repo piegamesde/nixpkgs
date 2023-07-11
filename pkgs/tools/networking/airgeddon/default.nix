@@ -89,27 +89,34 @@ let
     util-linux
     ccze
     systemd
-  ] ++ lib.optionals supportWpaWps [ bully pixiewps reaverwps-t6x ]
-    ++ lib.optionals supportHashCracking [
-      asleap
-      crunch
-      hashcat
-      hcxdumptool
-      hcxtools
-      john
-      wireshark-cli
-    ] ++ lib.optionals supportEvilTwin [
-      bettercap
-      dhcp
-      dnsmasq
-      ettercap
-      hostapd
-      lighttpd
-      openssl
-      mdk4
-      nftables
-      apparmor-bin-utils
-    ] ++ lib.optionals supportX11 [ xterm xorg.xset xorg.xdpyinfo ];
+  ] ++ lib.optionals supportWpaWps [
+    bully
+    pixiewps
+    reaverwps-t6x
+  ] ++ lib.optionals supportHashCracking [
+    asleap
+    crunch
+    hashcat
+    hcxdumptool
+    hcxtools
+    john
+    wireshark-cli
+  ] ++ lib.optionals supportEvilTwin [
+    bettercap
+    dhcp
+    dnsmasq
+    ettercap
+    hostapd
+    lighttpd
+    openssl
+    mdk4
+    nftables
+    apparmor-bin-utils
+  ] ++ lib.optionals supportX11 [
+    xterm
+    xorg.xset
+    xorg.xdpyinfo
+  ];
 in stdenv.mkDerivation rec {
   pname = "airgeddon";
   version = "11.11";

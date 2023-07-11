@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-fjnheHWjIDbJY1iXCRKCpqTCwtUWK9YXbynRCZquQ7c=";
   };
 
-  propagatedBuildInputs = [ jinja2 pyyaml ];
+  propagatedBuildInputs = [
+    jinja2
+    pyyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

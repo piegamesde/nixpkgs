@@ -93,8 +93,13 @@ let
       rm -r $out/libexec
     '';
 
-    nativeBuildInputs =
-      [ autoreconfHook gettext libxml2 pkg-config wrapGAppsHook ];
+    nativeBuildInputs = [
+      autoreconfHook
+      gettext
+      libxml2
+      pkg-config
+      wrapGAppsHook
+    ];
 
     buildInputs = [
       glib
@@ -172,13 +177,19 @@ let
           panelModulesEnv = buildEnv {
             name = "gnome-panel-modules-env";
             # We always want to find the built-in panel applets.
-            paths = [ gnome-panel gnome-flashback ] ++ panelModulePackages;
+            paths = [
+              gnome-panel
+              gnome-flashback
+            ] ++ panelModulePackages;
             pathsToLink = [ "/lib/gnome-panel/modules" ];
           };
 
           executable = stdenv.mkDerivation {
             name = "gnome-flashback-${wmName}";
-            nativeBuildInputs = [ glib wrapGAppsHook ];
+            nativeBuildInputs = [
+              glib
+              wrapGAppsHook
+            ];
             buildInputs = [ gnome-flashback ] ++ lib.optionals enableGnomePanel
               ([ gnome-panel ] ++ panelModulePackages);
 
@@ -200,9 +211,11 @@ let
                 --add-flags "--session=gnome-flashback-${wmName} --builtin" \
                 --set-default XDG_CURRENT_DESKTOP 'GNOME-Flashback:GNOME' \
                 --prefix XDG_DATA_DIRS : '${
-                  lib.makeSearchPath "share"
-                  ([ wmApplication gnomeSession gnome-flashback ]
-                    ++ lib.optional enableGnomePanel gnome-panel)
+                  lib.makeSearchPath "share" ([
+                    wmApplication
+                    gnomeSession
+                    gnome-flashback
+                  ] ++ lib.optional enableGnomePanel gnome-panel)
                 }' \
                 "''${gappsWrapperArgs[@]}" \
                 ${

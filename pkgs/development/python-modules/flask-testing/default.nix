@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [ blinker pytestCheckHook ];
+  nativeCheckInputs = [
+    blinker
+    pytestCheckHook
+  ];
 
   # Some of the tests use localhost networking on darwin
   doCheck = !stdenv.isDarwin;

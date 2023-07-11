@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uBwcntmLmIAztbIOHEDx0Y0/kcoJqAHqBOM2yBiRHrU=";
   };
 
-  nativeBuildInputs = [ installShellFiles python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    installShellFiles
+    python3.pkgs.wrapPython
+  ];
 
   dontConfigure = true;
   dontBuild = true;

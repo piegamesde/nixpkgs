@@ -45,7 +45,11 @@ let
     };
   };
 
-  anki-build-python = python3.withPackages (ps: with ps; [ pip mypy-protobuf ]);
+  anki-build-python = python3.withPackages (ps:
+    with ps; [
+      pip
+      mypy-protobuf
+    ]);
 
   # anki shells out to git to check its revision, and also to update submodules
   # We don't actually need the submodules, so we stub that out
@@ -76,7 +80,11 @@ let
 
   pyEnv = buildEnv {
     name = "anki-pyenv-${version}";
-    paths = with python3.pkgs; [ pip fakePipSync anki-build-python ];
+    paths = with python3.pkgs; [
+      pip
+      fakePipSync
+      anki-build-python
+    ];
     pathsToLink = [ "/bin" ];
   };
 
@@ -90,7 +98,11 @@ let
     pname = "anki-nodemodules";
     inherit version src yarnOfflineCache;
 
-    nativeBuildInputs = [ fixup_yarn_lock yarn nodejs-slim ];
+    nativeBuildInputs = [
+      fixup_yarn_lock
+      yarn
+      nodejs-slim
+    ];
 
     configurePhase = ''
       export HOME=$NIX_BUILD_TOP
@@ -108,7 +120,11 @@ let
 in python3.pkgs.buildPythonApplication {
   inherit pname version src;
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   patches = [
     ./patches/gl-fixup.patch
@@ -130,7 +146,11 @@ in python3.pkgs.buildPythonApplication {
     qt6.wrapQtAppsHook
     rsync
   ] ++ lib.optional stdenv.isDarwin swift;
-  nativeCheckInputs = with python3.pkgs; [ pytest mock astroid ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytest
+    mock
+    astroid
+  ];
 
   buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
   propagatedBuildInputs = with python3.pkgs;
@@ -176,7 +196,10 @@ in python3.pkgs.buildPythonApplication {
       waitress
       werkzeug
       zipp
-    ] ++ lib.optionals stdenv.isDarwin [ AVKit CoreAudio ];
+    ] ++ lib.optionals stdenv.isDarwin [
+      AVKit
+      CoreAudio
+    ];
 
   # Activate optimizations
   RELEASE = true;
@@ -261,6 +284,10 @@ in python3.pkgs.buildPythonApplication {
     '';
     license = licenses.agpl3Plus;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ oxij Profpatsch euank ];
+    maintainers = with maintainers; [
+      oxij
+      Profpatsch
+      euank
+    ];
   };
 }

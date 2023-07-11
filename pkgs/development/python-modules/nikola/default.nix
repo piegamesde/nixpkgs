@@ -87,7 +87,11 @@ buildPythonPackage rec {
     yapsy
   ];
 
-  nativeCheckInputs = [ freezegun mock pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -25,7 +25,10 @@ buildPythonPackage rec {
   pname = "sphinx-hoverxref";
   version = "1.3.0";
   format = "flit";
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "readthedocs";
@@ -49,7 +52,10 @@ buildPythonPackage rec {
     sphinxemoji
   ];
 
-  propagatedBuildInputs = [ sphinx sphinxcontrib-jquery ];
+  propagatedBuildInputs = [
+    sphinx
+    sphinxcontrib-jquery
+  ];
 
   pythonImportsCheck = [ "hoverxref" ];
 

@@ -30,9 +30,15 @@ in stdenv.mkDerivation (finalAttrs: {
   patches = [ ./cmake.patch ];
   sourceRoot = "${finalAttrs.src.name}/lib/comgr";
 
-  nativeBuildInputs = [ cmake rocm-cmake ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
-  buildInputs = [ rocm-device-libs libxml2 ];
+  buildInputs = [
+    rocm-device-libs
+    libxml2
+  ];
 
   cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;X86" ];
 

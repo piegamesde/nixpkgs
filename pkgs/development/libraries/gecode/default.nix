@@ -27,8 +27,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
   dontWrapQtApps = true;
-  nativeBuildInputs = [ bison flex ];
-  buildInputs = [ perl gmp mpfr ] ++ lib.optional enableGist qtbase;
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
+  buildInputs = [
+    perl
+    gmp
+    mpfr
+  ] ++ lib.optional enableGist qtbase;
 
   meta = with lib; {
     license = licenses.mit;

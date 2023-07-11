@@ -16,7 +16,12 @@ appleDerivation' stdenv {
   meta.broken = stdenv.cc.nativeLibc;
 
   nativeBuildInputs = lib.optionals (!headersOnly) [ bootstrap_cmds ];
-  buildInputs = lib.optionals (!headersOnly) [ launchd ppp IOKit eap8021x ];
+  buildInputs = lib.optionals (!headersOnly) [
+    launchd
+    ppp
+    IOKit
+    eap8021x
+  ];
 
   propagatedBuildInputs = lib.optionals (!headersOnly) [ Security ];
 

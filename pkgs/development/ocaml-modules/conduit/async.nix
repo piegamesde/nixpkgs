@@ -19,10 +19,21 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  buildInputs = [ ppx_sexp_conv ppx_here ];
+  buildInputs = [
+    ppx_sexp_conv
+    ppx_here
+  ];
 
-  propagatedBuildInputs =
-    [ async async_ssl conduit uri ipaddr ipaddr-sexp core sexplib ];
+  propagatedBuildInputs = [
+    async
+    async_ssl
+    conduit
+    uri
+    ipaddr
+    ipaddr-sexp
+    core
+    sexplib
+  ];
 
   meta = conduit.meta // {
     description = "A network connection establishment library for Async";

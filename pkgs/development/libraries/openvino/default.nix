@@ -68,7 +68,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-Ie58zTNatiYZZQJ8kJh/+HlSetQjhAtf2Us83z1jGv4=";
   };
 
-  outputs = [ "out" "python" ];
+  outputs = [
+    "out"
+    "python"
+  ];
 
   nativeBuildInputs = [
     addOpenGLRunpath
@@ -77,16 +80,19 @@ in stdenv.mkDerivation rec {
     git
     libarchive
     pkg-config
-    (python.withPackages (ps: with ps; [ cython pybind11 setuptools ]))
+    (python.withPackages (ps:
+      with ps; [
+        cython
+        pybind11
+        setuptools
+      ]))
     shellcheck
   ];
 
-  patches = [
-    (substituteAll {
-      src = ./cmake.patch;
-      inherit (lib) version;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./cmake.patch;
+    inherit (lib) version;
+  }) ];
 
   postPatch = ''
     mkdir -p temp/vpu/firmware/{pcie,usb}-ma2x8x
@@ -141,7 +147,14 @@ in stdenv.mkDerivation rec {
 
   autoPatchelfIgnoreMissingDeps = [ "libngraph_backend.so" ];
 
-  buildInputs = [ libusb1 libxml2 opencv protobuf pugixml tbb ];
+  buildInputs = [
+    libusb1
+    libxml2
+    opencv
+    protobuf
+    pugixml
+    tbb
+  ];
 
   enableParallelBuilding = true;
 

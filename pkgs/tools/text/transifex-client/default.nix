@@ -25,8 +25,14 @@ buildPythonApplication rec {
 
   pythonRelaxDeps = [ "python-slugify" ];
 
-  propagatedBuildInputs =
-    [ gitpython python-slugify requests setuptools six urllib3 ];
+  propagatedBuildInputs = [
+    gitpython
+    python-slugify
+    requests
+    setuptools
+    six
+    urllib3
+  ];
 
   # Requires external resources
   doCheck = false;

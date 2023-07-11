@@ -24,7 +24,12 @@ buildPythonPackage rec {
     sha256 = "041k0037anwaxp2mh7mdk8rdsw9hdr3arigyyqfxfn35x8j41c3k";
   };
 
-  propagatedBuildInputs = [ requests dataclasses-json responses limiter ];
+  propagatedBuildInputs = [
+    requests
+    dataclasses-json
+    responses
+    limiter
+  ];
 
   # Tests requires an API token
   doCheck = false;

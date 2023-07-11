@@ -8,7 +8,10 @@ args@{
 
   description = "cl-paths: vectorial paths manipulation";
 
-  deps = [ args."cl-aa" args."cl-paths" ];
+  deps = [
+    args."cl-aa"
+    args."cl-paths"
+  ];
 
   src = fetchurl {
     url =

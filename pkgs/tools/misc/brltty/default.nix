@@ -27,7 +27,11 @@ stdenv.mkDerivation rec {
     sha256 = "14psxwlvgyi2fj1zh8rfykyjcjaya8xa7yg574bxd8y8n49n8hvb";
   };
 
-  nativeBuildInputs = [ pkg-config python3.pkgs.cython tcl ];
+  nativeBuildInputs = [
+    pkg-config
+    python3.pkgs.cython
+    tcl
+  ];
   buildInputs = [ bluez ] ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional systemdSupport systemd;
 
@@ -60,7 +64,11 @@ stdenv.mkDerivation rec {
     "--with-updatable-directory=/var/lib/brltty"
     "--with-api-socket-path=/var/lib/BrlAPI"
   ];
-  installFlags = [ "install-systemd" "install-udev" "install-polkit" ];
+  installFlags = [
+    "install-systemd"
+    "install-udev"
+    "install-polkit"
+  ];
 
   preConfigure = ''
     substituteInPlace configure --replace /sbin/ldconfig ldconfig

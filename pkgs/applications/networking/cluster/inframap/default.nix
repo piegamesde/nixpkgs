@@ -14,8 +14,11 @@ buildGoModule rec {
     hash = "sha256-Ol2FkCP7Wq7FcwOaDw9d20v4jkNIfewdMErz/kJR0/g=";
   };
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/cycloidio/inframap/cmd.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/cycloidio/inframap/cmd.Version=${version}"
+  ];
 
   vendorHash = "sha256-fD/u0gYfbhyYWjXtBDtL7zWRu7b7mzpLPEjB+ictP6o=";
 

@@ -18,8 +18,14 @@
 }:
 
 let
-  bins = lib.optionals enableAlsaUtils [ alsa-utils coreutils ]
-    ++ lib.optionals enableNetwork [ dnsutils iproute2 wirelesstools ];
+  bins = lib.optionals enableAlsaUtils [
+    alsa-utils
+    coreutils
+  ] ++ lib.optionals enableNetwork [
+    dnsutils
+    iproute2
+    wirelesstools
+  ];
 
 in rustPlatform.buildRustPackage rec {
   pname = "dwm-status";
@@ -32,8 +38,16 @@ in rustPlatform.buildRustPackage rec {
     sha256 = "sha256-GkTPEmsnHFLUvbasAOXOQjFKs1Y9aaG87uyPvnQaT8Y=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ dbus gdk-pixbuf libnotify xorg.libX11 ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    dbus
+    gdk-pixbuf
+    libnotify
+    xorg.libX11
+  ];
 
   cargoSha256 = "sha256-eRfXUnyzOfVSEiwjLCaNbETUPXVU2Ed2VUNM9FjS5YE=";
 

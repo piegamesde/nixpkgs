@@ -27,9 +27,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ requests tqdm ];
+  propagatedBuildInputs = [
+    requests
+    tqdm
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    vcrpy
+  ];
 
   pythonImportsCheck = [ "habanero" ];
 

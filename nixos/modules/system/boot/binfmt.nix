@@ -214,13 +214,14 @@ let
   };
 
 in {
-  imports = [
-    (lib.mkRenamedOptionModule [ "boot" "binfmtMiscRegistrations" ] [
-      "boot"
-      "binfmt"
-      "registrations"
-    ])
-  ];
+  imports = [ (lib.mkRenamedOptionModule [
+    "boot"
+    "binfmtMiscRegistrations"
+  ] [
+    "boot"
+    "binfmt"
+    "registrations"
+  ]) ];
 
   options = {
     boot.binfmt = {
@@ -241,7 +242,10 @@ in {
                 default = "magic";
                 description = lib.mdDoc
                   "Whether to recognize executables by magic number or extension.";
-                type = types.enum [ "magic" "extension" ];
+                type = types.enum [
+                  "magic"
+                  "extension"
+                ];
               };
 
               offset = mkOption {
@@ -347,7 +351,11 @@ in {
 
       emulatedSystems = mkOption {
         default = [ ];
-        example = [ "wasm32-wasi" "x86_64-windows" "aarch64-linux" ];
+        example = [
+          "wasm32-wasi"
+          "x86_64-windows"
+          "aarch64-linux"
+        ];
         description = lib.mdDoc ''
           List of systems to emulate. Will also configure Nix to
           support your new systems.

@@ -89,9 +89,12 @@ in stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.isDarwin ./darwin.patch;
 
-  nativeBuildInputs =
-    [ cmake makeWrapper python310Packages.wrapPython llvmPackages.llvm.dev ]
-    ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    python310Packages.wrapPython
+    llvmPackages.llvm.dev
+  ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
   buildInputs = [
     boost
     ffmpeg
@@ -122,32 +125,37 @@ in stdenv.mkDerivation rec {
     potrace
     libharu
     libepoxy
-  ] ++ lib.optionals (!stdenv.isAarch64) [ openimagedenoise embree ]
-    ++ (if (!stdenv.isDarwin) then [
-      libXi
-      libX11
-      libXext
-      libXrender
-      libGLU
-      libGL
-      openal
-      libXxf86vm
-      openxr-loader
-      # OpenVDB currently doesn't build on darwin
-      openvdb
-    ] else [
-      llvmPackages.openmp
-      SDL
-      Cocoa
-      CoreGraphics
-      ForceFeedback
-      OpenAL
-      OpenGL
-    ]) ++ lib.optional jackaudioSupport libjack2
+  ] ++ lib.optionals (!stdenv.isAarch64) [
+    openimagedenoise
+    embree
+  ] ++ (if (!stdenv.isDarwin) then [
+    libXi
+    libX11
+    libXext
+    libXrender
+    libGLU
+    libGL
+    openal
+    libXxf86vm
+    openxr-loader
+    # OpenVDB currently doesn't build on darwin
+    openvdb
+  ] else [
+    llvmPackages.openmp
+    SDL
+    Cocoa
+    CoreGraphics
+    ForceFeedback
+    OpenAL
+    OpenGL
+  ]) ++ lib.optional jackaudioSupport libjack2
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional colladaSupport opencollada
     ++ lib.optional spaceNavSupport libspnav;
-  pythonPath = with python310Packages; [ numpy requests ];
+  pythonPath = with python310Packages; [
+    numpy
+    requests
+  ];
 
   postPatch = ''
     # allow usage of dynamically linked embree
@@ -197,8 +205,9 @@ in stdenv.mkDerivation rec {
     "-DWITH_TBB=ON"
     "-DWITH_IMAGE_OPENJPEG=ON"
     "-DWITH_OPENCOLLADA=${if colladaSupport then "ON" else "OFF"}"
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch64
-    [ "-DWITH_CYCLES_EMBREE=OFF" ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals
+    stdenv.hostPlatform.isAarch64 [ "-DWITH_CYCLES_EMBREE=OFF" ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DWITH_CYCLES_OSL=OFF" # requires LLVM
       "-DWITH_OPENVDB=OFF" # OpenVDB currently doesn't build on darwin
 
@@ -251,8 +260,15 @@ in stdenv.mkDerivation rec {
     # say: "We've decided to cancel the BL offering for an indefinite period."
     # OptiX, enabled with cudaSupport, is non-free.
     license = with licenses; [ gpl2Plus ] ++ optional cudaSupport unfree;
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ goibhniu veprbl ];
+    maintainers = with maintainers; [
+      goibhniu
+      veprbl
+    ];
   };
 }

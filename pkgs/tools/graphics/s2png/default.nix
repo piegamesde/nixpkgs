@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ diffutils gd ];
-  installFlags = [ "prefix=" "DESTDIR=$(out)" ];
+  buildInputs = [
+    diffutils
+    gd
+  ];
+  installFlags = [
+    "prefix="
+    "DESTDIR=$(out)"
+  ];
 
   meta = {
     homepage = "https://github.com/dbohdan/s2png/";

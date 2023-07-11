@@ -39,7 +39,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q0Z9HKfebAlV/ZkZJUM+IvpmIwhw5fZsRJhnXQF3bCo=";
   };
 
-  nativeBuildInputs = [ cmake gtest libxslt.bin pkg-config triehash ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+    libxslt.bin
+    pkg-config
+    triehash
+  ];
 
   buildInputs = [
     bzip2

@@ -27,14 +27,23 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ dbus openssl ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation Security ];
+  buildInputs = [
+    dbus
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    Foundation
+    Security
+  ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
-  env.NIX_CFLAGS_COMPILE =
-    toString (lib.optionals stdenv.isDarwin [ "-framework" "AppKit" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
+    "-framework"
+    "AppKit"
+  ]);
 
   # Requires network access
   doCheck = false;

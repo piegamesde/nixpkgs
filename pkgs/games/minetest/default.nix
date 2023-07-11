@@ -98,7 +98,12 @@ let
       env.NIX_CFLAGS_COMPILE =
         "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
-      nativeBuildInputs = [ cmake doxygen graphviz ninja ];
+      nativeBuildInputs = [
+        cmake
+        doxygen
+        graphviz
+        ninja
+      ];
 
       buildInputs = [
         irrlichtmtInput
@@ -112,17 +117,26 @@ let
         ncurses
         gmp
         libspatialindex
-      ] ++ optionals stdenv.isDarwin [ libiconv OpenGL OpenAL Carbon Cocoa ]
-        ++ optionals buildClient [
-          libpng
-          libjpeg
-          libGLU
-          openal
-          libogg
-          libvorbis
-          xorg.libX11
-        ]
-        ++ optionals buildServer [ leveldb postgresql hiredis prometheus-cpp ];
+      ] ++ optionals stdenv.isDarwin [
+        libiconv
+        OpenGL
+        OpenAL
+        Carbon
+        Cocoa
+      ] ++ optionals buildClient [
+        libpng
+        libjpeg
+        libGLU
+        openal
+        libogg
+        libvorbis
+        xorg.libX11
+      ] ++ optionals buildServer [
+        leveldb
+        postgresql
+        hiredis
+        prometheus-cpp
+      ];
 
       postPatch = ''
         substituteInPlace src/filesys.cpp --replace "/bin/rm" "${coreutils}/bin/rm"
@@ -144,7 +158,11 @@ let
         description = "Infinite-world block sandbox game";
         license = licenses.lgpl21Plus;
         platforms = platforms.linux ++ platforms.darwin;
-        maintainers = with maintainers; [ pyrolagus fpletz fgaz ];
+        maintainers = with maintainers; [
+          pyrolagus
+          fpletz
+          fgaz
+        ];
       };
     };
 

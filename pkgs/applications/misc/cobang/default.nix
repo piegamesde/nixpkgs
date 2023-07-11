@@ -39,7 +39,10 @@ buildPythonApplication rec {
 
   patches = [ ./0001-Poetry-core-and-pillow-9.patch ];
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = [
     gst-python

@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "1l9yjf9say0mcqnnjkyj4z3f6y83bnx4jsycd1h10p3m8afbh8my";
   };
 
-  propagatedBuildInputs = [ i3lock imagemagick scrot playerctl ];
+  propagatedBuildInputs = [
+    i3lock
+    imagemagick
+    scrot
+    playerctl
+  ];
 
   makeFlags = [ "PREFIX=$(out)/bin" ];
 

@@ -20,11 +20,18 @@ buildPythonPackage rec {
     sha256 = "2da740487d08ea63dfdf718f5d4ba11e590c99ddf5481549edebf7a3a42ca536";
   };
 
-  nativeBuildInputs = [ setuptools-scm toml ];
+  nativeBuildInputs = [
+    setuptools-scm
+    toml
+  ];
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ requests psutil zc_lockfile ];
+  propagatedBuildInputs = [
+    requests
+    psutil
+    zc_lockfile
+  ];
 
   # no tests in PyPI tarball
   doCheck = false;

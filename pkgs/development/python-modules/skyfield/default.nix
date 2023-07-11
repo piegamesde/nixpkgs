@@ -23,9 +23,19 @@ buildPythonPackage rec {
     hash = "sha256-aoSkuLhZcEy+13EJQOBHV2/rgmN6aZQHqfj4OOirOG0=";
   };
 
-  propagatedBuildInputs = [ certifi numpy sgp4 jplephem ];
+  propagatedBuildInputs = [
+    certifi
+    numpy
+    sgp4
+    jplephem
+  ];
 
-  nativeCheckInputs = [ pandas ipython matplotlib assay ];
+  nativeCheckInputs = [
+    pandas
+    ipython
+    matplotlib
+    assay
+  ];
 
   checkPhase = ''
     runHook preCheck

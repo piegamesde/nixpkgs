@@ -21,7 +21,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LbGTVUs1XXR+QfDhCxX9UMkQ3bnk4z0ckl94Cwwe9IQ=";
   };
 
-  buildInputs = [ SDL alsa-lib gcc-unwrapped libICE libSM libX11 libXext ];
+  buildInputs = [
+    SDL
+    alsa-lib
+    gcc-unwrapped
+    libICE
+    libSM
+    libX11
+    libXext
+  ];
 
   postFixup = ''
     patchelf --set-rpath ${

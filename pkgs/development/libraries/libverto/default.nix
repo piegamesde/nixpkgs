@@ -24,7 +24,10 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-csoJ0WdKyrza8kBSMKoaItKvcbijI6Wl8nWCbywPScQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   buildInputs = optional glibSupport glib ++ optional libevSupport libev
     ++ optional libeventSupport libevent;

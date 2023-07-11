@@ -26,7 +26,10 @@ let
     # Prevent infinite recursion with pytest
     doCheck = false;
 
-    nativeCheckInputs = [ func-timeout jaraco_itertools ];
+    nativeCheckInputs = [
+      func-timeout
+      jaraco_itertools
+    ];
 
     pythonImportsCheck = [ "zipp" ];
 

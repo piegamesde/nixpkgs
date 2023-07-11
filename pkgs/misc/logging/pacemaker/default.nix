@@ -40,7 +40,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vsHWNKCrHJIgXlJYyZZEUfuIUBnaejPrPCM1HrYOTKQ=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
   buildInputs = [
     bash
@@ -93,6 +98,9 @@ stdenv.mkDerivation rec {
       "Pacemaker is an open source, high availability resource manager suitable for both small and large clusters.";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ryantm astro ];
+    maintainers = with maintainers; [
+      ryantm
+      astro
+    ];
   };
 }

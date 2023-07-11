@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-BCgSCOnuIqjpROpEtkzkvIXK7dIO0dNYsPmQSwXfmTQ=";
   };
 
-  propagatedBuildInputs = [ pygame python-i18n ];
+  propagatedBuildInputs = [
+    pygame
+    python-i18n
+  ];
 
   postPatch = ''
     substituteInPlace pygame_gui/core/utility.py \

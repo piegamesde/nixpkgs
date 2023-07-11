@@ -51,9 +51,21 @@ in buildPythonPackage rec {
     cd ..
   '';
 
-  buildInputs = [ openfst kaldi ];
-  nativeBuildInputs = [ scikit-build cmake ];
-  propagatedBuildInputs = [ ush requests numpy cffi six ];
+  buildInputs = [
+    openfst
+    kaldi
+  ];
+  nativeBuildInputs = [
+    scikit-build
+    cmake
+  ];
+  propagatedBuildInputs = [
+    ush
+    requests
+    numpy
+    cffi
+    six
+  ];
 
   doCheck = false; # no tests exist
 

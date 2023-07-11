@@ -20,11 +20,19 @@ in stdenv.mkDerivation rec {
   # In general, static library (.a) goes to "dev", shared (.so) to
   # "lib". In case of static build, there is no .so library, so "lib"
   # output is useless and empty.
-  outputs = [ "out" "dev" "man" ] ++ lib.optional (!static) "lib";
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ] ++ lib.optional (!static) "lib";
   separateDebugInfo = true;
-  makeFlags =
-    [ "prefix=$(out)" "CC=${cc}" "AR=${ar}" "RANLIB=${ranlib}" "static" ]
-    ++ lib.optional (!static) "shared";
+  makeFlags = [
+    "prefix=$(out)"
+    "CC=${cc}"
+    "AR=${ar}"
+    "RANLIB=${ranlib}"
+    "static"
+  ] ++ lib.optional (!static) "shared";
   postInstall = ''
     mkdir -p $dev/lib $out/bin
     mv $out/lib/libcdb.a $dev/lib

@@ -28,8 +28,11 @@ buildPythonPackage rec {
       --replace "_fetch_archives(_parse_sources())" "pass"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ninja ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
   buildInputs = [ pybind11 ]
     ++ lib.optionals cudaSupport [ cudaPackages.cudnn ];
   propagatedBuildInputs = [ torch ];

@@ -22,8 +22,14 @@ else
       sha256 = "0smfwrj8qhzknhzawygxi0vgl2af4vyi652fkma59rzjpvscqrnn";
     };
 
-    nativeBuildInputs = [ ocaml findlib ];
-    buildInputs = [ astring pprint ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
+    buildInputs = [
+      astring
+      pprint
+    ];
 
     strictDeps = true;
 

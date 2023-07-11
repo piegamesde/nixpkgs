@@ -43,7 +43,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ requests-mock defusedxml ];
+  checkInputs = [
+    requests-mock
+    defusedxml
+  ];
 
   pythonImportsCheck = [ "asf_search" ];
 

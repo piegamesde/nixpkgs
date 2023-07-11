@@ -47,7 +47,13 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 gobject-introspection libhandy librsvg ];
+  buildInputs = [
+    glib
+    gtk3
+    gobject-introspection
+    libhandy
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
@@ -71,6 +77,9 @@ python3.pkgs.buildPythonApplication rec {
       "https://github.com/tchx84/Portfolio/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dotlambda chuangzhu ];
+    maintainers = with maintainers; [
+      dotlambda
+      chuangzhu
+    ];
   };
 }

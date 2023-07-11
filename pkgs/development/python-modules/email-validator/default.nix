@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-JW6Yrotm3HjUOUtNFxRorkrJKjzuwIXwjpUuMWEyLV0=";
   };
 
-  propagatedBuildInputs = [ dnspython idna ];
+  propagatedBuildInputs = [
+    dnspython
+    idna
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

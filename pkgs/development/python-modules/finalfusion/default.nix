@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy toml ];
+  propagatedBuildInputs = [
+    numpy
+    toml
+  ];
 
   nativeCheckInputs = [ pytest ];
 

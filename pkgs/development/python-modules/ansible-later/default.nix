@@ -54,7 +54,10 @@ buildPythonPackage rec {
     "yamllint"
   ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     ansible
@@ -73,7 +76,10 @@ buildPythonPackage rec {
     yamllint
   ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postInstall = ''
     rm $out/lib/python*/site-packages/LICENSE

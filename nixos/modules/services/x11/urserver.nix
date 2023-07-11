@@ -14,8 +14,14 @@ in {
   config = lib.mkIf cfg.enable {
 
     networking.firewall = {
-      allowedTCPPorts = [ 9510 9512 ];
-      allowedUDPPorts = [ 9511 9512 ];
+      allowedTCPPorts = [
+        9510
+        9512
+      ];
+      allowedUDPPorts = [
+        9511
+        9512
+      ];
     };
 
     systemd.user.services.urserver = {

@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
     gtk3 # for gtk-update-icon-cache
   ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   postPatch = ''
     patchShebangs meson_post_install.py

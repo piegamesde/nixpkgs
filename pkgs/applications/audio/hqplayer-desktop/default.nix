@@ -31,7 +31,10 @@ mkDerivation rec {
     ${rpmextract}/bin/rpmextract $src
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook rpmextract ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    rpmextract
+  ];
 
   buildInputs = [
     alsa-lib

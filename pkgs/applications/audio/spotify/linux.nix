@@ -123,7 +123,11 @@ in stdenv.mkDerivation {
       "5e8f4a1901c26e9bb5986e048226d8a15f5bc4c2acf16b20a404f228ef142e4d21c6a88a4a54c8d9e654ba5b15cb1fea1cdc50c21fbe8e3c374e241a44adf12d";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook makeShellWrapper squashfsTools ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    makeShellWrapper
+    squashfsTools
+  ];
 
   dontStrip = true;
   dontPatchELF = true;

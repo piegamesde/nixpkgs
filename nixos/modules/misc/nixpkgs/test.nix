@@ -5,7 +5,13 @@
   stdenv,
 }:
 let
-  eval = mod: evalMinimalConfig { imports = [ ../nixpkgs.nix mod ]; };
+  eval = mod:
+    evalMinimalConfig {
+      imports = [
+        ../nixpkgs.nix
+        mod
+      ];
+    };
   withHost = eval { nixpkgs.hostPlatform = "aarch64-linux"; };
   withHostAndBuild = eval {
     nixpkgs.hostPlatform = "aarch64-linux";
@@ -18,14 +24,19 @@ let
     nixpkgs.system = "x86_64-linux";
     nixpkgs.localSystem.system = "x86_64-darwin";
     nixpkgs.crossSystem.system = "i686-linux";
-    imports = [{
+    imports = [ {
       _file = "repeat.nix";
       nixpkgs.hostPlatform = "aarch64-linux";
-    }];
+    } ];
   };
   getErrors = module:
     let
-      uncheckedEval = lib.evalModules { modules = [ ../nixpkgs.nix module ]; };
+      uncheckedEval = lib.evalModules {
+        modules = [
+          ../nixpkgs.nix
+          module
+        ];
+      };
     in map (ass: ass.message)
     (lib.filter (ass: !ass.assertion) uncheckedEval.config.assertions);
 in lib.recurseIntoAttrs {
@@ -41,7 +52,7 @@ in lib.recurseIntoAttrs {
     assert withHostAndBuild._module.args.pkgs.stdenv.buildPlatform.system
       == "aarch64-darwin";
     assert builtins.trace (lib.head (getErrors ambiguous)) getErrors ambiguous
-      == [''
+      == [ ''
         Your system configures nixpkgs with the platform parameters:
         nixpkgs.hostPlatform, with values defined in:
           - repeat.nix
@@ -59,7 +70,7 @@ in lib.recurseIntoAttrs {
 
         For a future proof system configuration, we recommend to remove
         the legacy definitions.
-      ''];
+      '' ];
     assert getErrors {
       nixpkgs.localSystem = pkgs.stdenv.hostPlatform;
       nixpkgs.hostPlatform = pkgs.stdenv.hostPlatform;

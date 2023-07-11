@@ -31,7 +31,10 @@ buildPythonPackage rec {
     description =
       "Parser like ConfigParser but for updating configuration files";
     homepage = "https://configupdater.readthedocs.io/en/latest/";
-    license = with licenses; [ mit psfl ];
+    license = with licenses; [
+      mit
+      psfl
+    ];
     maintainers = with maintainers; [ ris ];
   };
 }

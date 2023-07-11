@@ -34,7 +34,11 @@ buildDotnetModule rec {
   projectFile = "Jellyfin.Server/Jellyfin.Server.csproj";
   executables = [ "jellyfin" ];
   nugetDeps = ./nuget-deps.nix;
-  runtimeDeps = [ ffmpeg fontconfig freetype ];
+  runtimeDeps = [
+    ffmpeg
+    fontconfig
+    freetype
+  ];
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
   dotnetBuildFlags = [ "--no-self-contained" ];
@@ -55,7 +59,12 @@ buildDotnetModule rec {
     homepage = "https://jellyfin.org/";
     # https://github.com/jellyfin/jellyfin/issues/610#issuecomment-537625510
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nyanloutre minijackson purcell jojosch ];
+    maintainers = with maintainers; [
+      nyanloutre
+      minijackson
+      purcell
+      jojosch
+    ];
     platforms = dotnet-runtime.meta.platforms;
   };
 }

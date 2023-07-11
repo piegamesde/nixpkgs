@@ -25,7 +25,15 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ atk cairo gdk-pixbuf glib gtk3 openssl pango ];
+  buildInputs = [
+    atk
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    openssl
+    pango
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

@@ -89,8 +89,10 @@ in buildPythonPackage rec {
 
   # Prebuilt wheels are dynamically linked against things that nix can't find.
   # Run `autoPatchelfHook` to automagically fix them.
-  nativeBuildInputs =
-    lib.optionals cudaSupport [ autoPatchelfHook addOpenGLRunpath ];
+  nativeBuildInputs = lib.optionals cudaSupport [
+    autoPatchelfHook
+    addOpenGLRunpath
+  ];
   # Dynamic link dependencies
   buildInputs = [ stdenv.cc.cc ];
 
@@ -113,12 +115,19 @@ in buildPythonPackage rec {
       # For some reason `makeLibraryPath` on `cudatoolkit_11` maps to
       # <cudatoolkit_11.lib>/lib which is different from <cudatoolkit_11>/lib.
       patchelf --set-rpath "$rpath:${cudatoolkit}/lib:${
-        lib.makeLibraryPath [ cudatoolkit.lib cudnn ]
+        lib.makeLibraryPath [
+          cudatoolkit.lib
+          cudnn
+        ]
       }" $file
     done
   '';
 
-  propagatedBuildInputs = [ absl-py flatbuffers scipy ];
+  propagatedBuildInputs = [
+    absl-py
+    flatbuffers
+    scipy
+  ];
 
   # Note that cudatoolkit is snecessary since jaxlib looks for "ptxas" in $PATH.
   # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for
@@ -136,6 +145,10 @@ in buildPythonPackage rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];
-    platforms = [ "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

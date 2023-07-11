@@ -29,7 +29,10 @@ buildGoModule rec {
     "-X github.com/ava-labs/coreth/cmd/abigen.gitDate=1970-01-01"
   ];
 
-  subPackages = [ "cmd/abigen" "plugin" ];
+  subPackages = [
+    "cmd/abigen"
+    "plugin"
+  ];
 
   postInstall = "mv $out/bin/{plugin,evm}";
 

@@ -17,11 +17,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jowvzJgvnKZ9y7HZXi3HRrFzmkZovCCzo8W+Yy7bNOQ=";
   };
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   outputBin = "dev"; # libassuan-config
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  buildInputs = [ npth gettext ];
+  buildInputs = [
+    npth
+    gettext
+  ];
 
   configureFlags = [
     # Required for cross-compilation.

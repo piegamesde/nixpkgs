@@ -27,7 +27,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiowinreg colorama pycryptodomex tqdm unicrypto ];
+  propagatedBuildInputs = [
+    aiowinreg
+    colorama
+    pycryptodomex
+    tqdm
+    unicrypto
+  ];
 
   # Module has no tests
   doCheck = false;

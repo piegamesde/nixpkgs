@@ -59,10 +59,17 @@ let
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "redmine" "extraConfig" ]
-      "Use services.redmine.settings instead.")
-    (mkRemovedOptionModule [ "services" "redmine" "database" "password" ]
-      "Use services.redmine.database.passwordFile instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "redmine"
+      "extraConfig"
+    ] "Use services.redmine.settings instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "redmine"
+      "database"
+      "password"
+    ] "Use services.redmine.database.passwordFile instead.")
   ];
 
   # interface
@@ -169,7 +176,10 @@ in {
 
       database = {
         type = mkOption {
-          type = types.enum [ "mysql2" "postgresql" ];
+          type = types.enum [
+            "mysql2"
+            "postgresql"
+          ];
           example = "postgresql";
           default = "mysql2";
           description = lib.mdDoc "Database engine to use.";
@@ -349,21 +359,21 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     # create symlinks for the basic directory layout the redmine package expects

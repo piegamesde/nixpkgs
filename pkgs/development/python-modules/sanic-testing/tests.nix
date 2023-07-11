@@ -15,7 +15,11 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook sanic ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    sanic
+  ];
 
   pythonImportsCheck = [ "sanic_testing" ];
 }

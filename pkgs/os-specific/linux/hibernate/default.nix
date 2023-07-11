@@ -15,7 +15,11 @@ in stdenv.mkDerivation {
     sha256 = "0ib5bac3spbcwmhf8f9apjbll8x7fgqj4k1s5q3srijh793rfifh";
   };
 
-  patches = [ ./install.patch ./gen-manpages.patch ./hibernate.patch ];
+  patches = [
+    ./install.patch
+    ./gen-manpages.patch
+    ./hibernate.patch
+  ];
 
   buildInputs = [ gawk ];
 

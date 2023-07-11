@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-jBoXHBWdRtFdVWn3cCGCiIOhIdb5uvdY1kH8HlSwWuU=";
   };
 
-  propagatedBuildInputs = [ docutils readme_renderer packaging pygments ];
+  propagatedBuildInputs = [
+    docutils
+    readme_renderer
+    packaging
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

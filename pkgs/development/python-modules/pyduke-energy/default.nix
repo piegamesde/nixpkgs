@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-g+s9YaVFOCKaBGR5o9cPk4kcIW4BffFHTtmDNE8f/zE=";
   };
 
-  propagatedBuildInputs = [ aiohttp jsonpickle paho-mqtt python-dateutil ];
+  propagatedBuildInputs = [
+    aiohttp
+    jsonpickle
+    paho-mqtt
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyduke_energy" ];
 

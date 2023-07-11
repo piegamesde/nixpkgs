@@ -29,9 +29,15 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
-  buildInputs = [ vulkan-loader vulkan-headers ];
+  buildInputs = [
+    vulkan-loader
+    vulkan-headers
+  ];
 
   meta = with lib; {
     description =

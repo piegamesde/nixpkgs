@@ -33,17 +33,20 @@ stdenv.mkDerivation rec {
     sha256 = "1sdf1ssa81ib6k0mc5m2jzbjl4jd1yv6ahv5dwx2x9w4b2pyqg1c";
   };
 
-  patches = [
-    (fetchpatch2 {
-      name = "curl-8.patch";
-      url =
-        "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
-      sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
-    })
-  ];
+  patches = [ (fetchpatch2 {
+    name = "curl-8.patch";
+    url =
+      "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
+    sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
+  }) ];
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake flex bison pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+    pkg-config
+  ];
   buildInputs = [
     libpcap
     libnet

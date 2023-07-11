@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-jwxxKfr/SI1yfjSQbYqggWxBwusBZNYySHwZXHftgFs=";
   };
 
-  propagatedBuildInputs = [ w3lib parsel jmespath itemadapter ];
+  propagatedBuildInputs = [
+    w3lib
+    parsel
+    jmespath
+    itemadapter
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

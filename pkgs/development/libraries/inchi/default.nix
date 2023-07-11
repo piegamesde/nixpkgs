@@ -30,7 +30,10 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   enableParallelBuilding = true;
 

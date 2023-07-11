@@ -167,7 +167,12 @@ in {
       xserverArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-ac" "-logverbose" "-verbose" "-nolisten tcp" ];
+        example = [
+          "-ac"
+          "-logverbose"
+          "-verbose"
+          "-nolisten tcp"
+        ];
         description = lib.mdDoc "List of arguments for the X server.";
       };
 
@@ -411,7 +416,7 @@ in {
       }
     ];
 
-    warnings = mkIf (dmDefault != null || wmDefault != null) [''
+    warnings = mkIf (dmDefault != null || wmDefault != null) [ ''
       The following options are deprecated:
         ${
           concatStringsSep "\n  " (map ({
@@ -436,7 +441,7 @@ in {
       Please use
         services.xserver.displayManager.defaultSession = "${defaultSessionFromLegacyOptions}";
       instead.
-    ''];
+    '' ];
 
     services.xserver.displayManager.xserverBin = "${xorg.xorgserver.out}/bin/X";
 
@@ -545,19 +550,36 @@ in {
       "displayManager"
       "job"
       "logsXsession"
-    ] [ "services" "xserver" "displayManager" "job" "logToFile" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "job"
+      "logToFile"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "displayManager"
       "logToJournal"
-    ] [ "services" "xserver" "displayManager" "job" "logToJournal" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "job"
+      "logToJournal"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "displayManager"
       "extraSessionFilesPackages"
-    ] [ "services" "xserver" "displayManager" "sessionPackages" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "sessionPackages"
+    ])
   ];
 
 }

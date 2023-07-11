@@ -17,13 +17,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aSI9TR1wSyMA0SKkbavk+IugRfW4ZEgpzrNiXn0F5ak=";
   };
 
-  cmakeFlags = [ "-DGENERATE_SRS_SECRET=OFF" "-DINIT_FLAVOR=systemd" ];
+  cmakeFlags = [
+    "-DGENERATE_SRS_SECRET=OFF"
+    "-DINIT_FLAVOR=systemd"
+  ];
 
   preConfigure = ''
     sed -i "s,\"/etc\",\"$out/etc\",g" CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake help2man ];
+  nativeBuildInputs = [
+    cmake
+    help2man
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/roehling/postsrsd";

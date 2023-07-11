@@ -23,8 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-kS48aHC719wUdc2WcJa9geoMUcLHSj7ZsoRZYAhF2a0=";
   };
 
-  propagatedBuildInputs = [ networkx numpy scipy ];
-  nativeCheckInputs = [ matplotlib nose pytestCheckHook ];
+  propagatedBuildInputs = [
+    networkx
+    numpy
+    scipy
+  ];
+  nativeCheckInputs = [
+    matplotlib
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "skfuzzy" ];
 

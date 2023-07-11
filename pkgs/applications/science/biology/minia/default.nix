@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [ "-Wformat" ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ hdf5 boost ];
+  buildInputs = [
+    hdf5
+    boost
+  ];
 
   prePatch = ''
     rm -rf thirdparty/gatb-core/gatb-core/thirdparty/{hdf5,boost}

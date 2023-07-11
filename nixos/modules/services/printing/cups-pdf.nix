@@ -32,12 +32,21 @@ let
   cups-pdf-wrapped = pkgs.buildEnv {
     name = "${pkgs.cups-pdf-to-pdf.name}-wrapped";
     # using the wrapper as first path ensures it is used
-    paths = [ cups-pdf-wrapper pkgs.cups-pdf-to-pdf ];
+    paths = [
+      cups-pdf-wrapper
+      pkgs.cups-pdf-to-pdf
+    ];
     ignoreCollisions = true;
   };
 
   instanceSettings = name: {
-    freeformType = with lib.types; nullOr (oneOf [ int str path package ]);
+    freeformType = with lib.types;
+      nullOr (oneOf [
+        int
+        str
+        path
+        package
+      ]);
     # override defaults:
     # inject instance name into paths,
     # also avoid conflicts between user names and special dirs

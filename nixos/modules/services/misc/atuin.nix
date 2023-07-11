@@ -62,16 +62,19 @@ in {
     # enable postgres to host atuin db
     services.postgresql = {
       enable = true;
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "atuin";
         ensurePermissions = { "DATABASE atuin" = "ALL PRIVILEGES"; };
-      }];
+      } ];
       ensureDatabases = [ "atuin" ];
     };
 
     systemd.services.atuin = {
       description = "atuin server";
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

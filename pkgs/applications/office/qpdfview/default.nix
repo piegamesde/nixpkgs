@@ -24,10 +24,21 @@ mkDerivation rec {
     hash = "sha256-RO/EQKRhy911eps5bxRh7novQ2ToHfVb0CIfkQIZvpk=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
+  nativeBuildInputs = [
+    qmake
+    pkg-config
+  ];
 
-  buildInputs =
-    [ qtbase qtsvg poppler djvulibre libspectre cups file ghostscript ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    poppler
+    djvulibre
+    libspectre
+    cups
+    file
+    ghostscript
+  ];
 
   preConfigure = ''
     qmakeFlags+=(*.pro)

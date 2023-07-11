@@ -87,17 +87,20 @@ import ../make-test-python.nix ({
       ovpnserver = {
           ...
         }: {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
 
           # Enable NAT and forward port 12345 to port 1234
           networking.nat = {
             enable = true;
             internalInterfaces = [ "tun0" ];
             externalInterface = "eth2";
-            forwardPorts = [{
+            forwardPorts = [ {
               destination = "10.8.0.2:1234";
               sourcePort = 12345;
-            }];
+            } ];
           };
 
           # Trust tun0 and allow the VPN Server to be reached

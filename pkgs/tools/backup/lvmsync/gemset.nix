@@ -8,7 +8,10 @@
     version = "0.15.1";
   };
   lvmsync = {
-    dependencies = [ "git-version-bump" "treetop" ];
+    dependencies = [
+      "git-version-bump"
+      "treetop"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "02mdrvfibvab4p4yrdzxvndhy8drss3ri7izybcwgpbyc7isk8mv";

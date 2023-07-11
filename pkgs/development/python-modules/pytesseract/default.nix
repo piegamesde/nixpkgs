@@ -22,18 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-CyKXtaIE/8iPLqi0GHVUgTeJDYZyWBjkRvOKJJKCxZo=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./tesseract-binary.patch;
-      drv = tesseract;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./tesseract-binary.patch;
+    drv = tesseract;
+  }) ];
 
   nativeBuildInputs = [ setuptools ];
 
   buildInputs = [ tesseract ];
 
-  propagatedBuildInputs = [ packaging pillow ];
+  propagatedBuildInputs = [
+    packaging
+    pillow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

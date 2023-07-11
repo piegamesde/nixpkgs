@@ -26,10 +26,19 @@ buildPythonPackage rec {
     hash = "sha256-Ywa3m/aUp+CBRdA80a9P2eDwlZfsVYFGbE7ZLggVfwM=";
   };
 
-  propagatedBuildInputs =
-    [ async-timeout noiseprotocol protobuf.out protobuf.dev zeroconf ];
+  propagatedBuildInputs = [
+    async-timeout
+    noiseprotocol
+    protobuf.out
+    protobuf.dev
+    zeroconf
+  ];
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aioesphomeapi" ];
 
@@ -39,6 +48,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/esphome/aioesphomeapi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab hexa ];
+    maintainers = with maintainers; [
+      fab
+      hexa
+    ];
   };
 }

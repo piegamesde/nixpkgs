@@ -34,7 +34,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [ pytestCheckHook selenium ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    selenium
+  ];
 
   pythonImportsCheck = [ "branca" ];
 
@@ -43,8 +46,10 @@ buildPythonPackage rec {
     "tests/test_utilities.py"
   ];
 
-  disabledTests =
-    [ "test_rendering_utf8_iframe" "test_rendering_figure_notebook" ];
+  disabledTests = [
+    "test_rendering_utf8_iframe"
+    "test_rendering_figure_notebook"
+  ];
 
   meta = with lib; {
     description = "Generate complex HTML+JS pages with Python";

@@ -38,7 +38,10 @@ buildPythonPackage rec {
     hash = "sha256-ihY07Bb37t7g0Rbx5ft8SCAyia2S2kLglRnccdlWwBA=";
   };
 
-  nativeBuildInputs = [ flit-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    flit-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     click
@@ -61,7 +64,10 @@ buildPythonPackage rec {
     sphinx-multitoc-numbering
   ];
 
-  pythonRelaxDeps = [ "docutils" "sphinx-design" ];
+  pythonRelaxDeps = [
+    "docutils"
+    "sphinx-design"
+  ];
 
   pythonImportsCheck = [ "jupyter_book" ];
 

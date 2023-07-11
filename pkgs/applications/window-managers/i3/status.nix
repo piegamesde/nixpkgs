@@ -36,7 +36,13 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_45
     docbook_xsl
   ];
-  buildInputs = [ libconfuse yajl alsa-lib libpulseaudio libnl ];
+  buildInputs = [
+    libconfuse
+    yajl
+    alsa-lib
+    libpulseaudio
+    libnl
+  ];
 
   meta = {
     description =

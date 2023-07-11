@@ -26,9 +26,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-8MtRYNJJVhZzE5Ds1HSk+Ej3FUD/z2hGZAsuCeGzWb4=";
   };
 
-  nativeBuildInputs = [ meson sassc pkg-config glib ninja python3 ];
-  buildInputs = [ gtk3 gnome.gnome-themes-extra ];
-  propagatedBuildInputs = [ humanity-icon-theme hicolor-icon-theme ];
+  nativeBuildInputs = [
+    meson
+    sassc
+    pkg-config
+    glib
+    ninja
+    python3
+  ];
+  buildInputs = [
+    gtk3
+    gnome.gnome-themes-extra
+  ];
+  propagatedBuildInputs = [
+    humanity-icon-theme
+    hicolor-icon-theme
+  ];
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   dontDropIconThemeCache = true;
@@ -39,8 +52,16 @@ stdenv.mkDerivation rec {
     description =
       "Ubuntu community theme 'yaru' - default Ubuntu theme since 18.10";
     homepage = "https://github.com/ubuntu/yaru";
-    license = with licenses; [ cc-by-sa-40 gpl3Plus lgpl21Only lgpl3Only ];
+    license = with licenses; [
+      cc-by-sa-40
+      gpl3Plus
+      lgpl21Only
+      lgpl3Only
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fortuneteller2k maxeaubrey ];
+    maintainers = with maintainers; [
+      fortuneteller2k
+      maxeaubrey
+    ];
   };
 }

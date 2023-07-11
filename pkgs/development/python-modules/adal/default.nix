@@ -25,9 +25,16 @@ buildPythonPackage rec {
     sed -i '/cryptography/d' setup.py
   '';
 
-  propagatedBuildInputs = [ pyjwt python-dateutil requests ];
+  propagatedBuildInputs = [
+    pyjwt
+    python-dateutil
+    requests
+  ];
 
-  nativeCheckInputs = [ httpretty pytestCheckHook ];
+  nativeCheckInputs = [
+    httpretty
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # AssertionError: 'Mex [23 chars]tp error:...

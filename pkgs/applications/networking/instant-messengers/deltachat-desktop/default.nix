@@ -67,8 +67,11 @@ in buildNpmPackage rec {
 
   npmDepsHash = "sha256-cTvNU4LO74pcw4Ybo9iftEis2yDA2SqGtrs4v+xAi5c=";
 
-  nativeBuildInputs = [ makeWrapper pkg-config python3 ]
-    ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
   buildInputs = [ libdeltachat' ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ];
@@ -121,7 +124,11 @@ in buildNpmPackage rec {
     desktopName = "Delta Chat";
     genericName = "Delta Chat";
     comment = meta.description;
-    categories = [ "Network" "InstantMessaging" "Chat" ];
+    categories = [
+      "Network"
+      "InstantMessaging"
+      "Chat"
+    ];
     startupWMClass = "DeltaChat";
     mimeTypes = [
       "x-scheme-handler/openpgp4fpr"

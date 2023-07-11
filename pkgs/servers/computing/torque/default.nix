@@ -31,8 +31,22 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config flex bison libxml2 ];
-  buildInputs = [ openssl groff libxml2 util-linux libtool which boost ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    flex
+    bison
+    libxml2
+  ];
+  buildInputs = [
+    openssl
+    groff
+    libxml2
+    util-linux
+    libtool
+    which
+    boost
+  ];
 
   enableParallelBuilding = true;
 

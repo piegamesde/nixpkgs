@@ -19,8 +19,10 @@ buildGoModule rec {
 
   nativeCheckInputs = [ git ];
 
-  ldflags =
-    [ "-X main.GitExactTag=${version}" "-X main.GitLastTag=${version}" ];
+  ldflags = [
+    "-X main.GitExactTag=${version}"
+    "-X main.GitLastTag=${version}"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

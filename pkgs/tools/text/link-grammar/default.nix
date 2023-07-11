@@ -17,7 +17,12 @@ let
     pname = "link-grammar";
     version = "5.10.5";
 
-    outputs = [ "bin" "out" "dev" "man" ];
+    outputs = [
+      "bin"
+      "out"
+      "dev"
+      "man"
+    ];
 
     src = fetchurl {
       url =
@@ -25,9 +30,16 @@ let
       sha256 = "sha256-MkcQzYEyl1/5zLU1CXMvdVhHOxwZ8XiSAAo97bhhiu0=";
     };
 
-    nativeBuildInputs = [ pkg-config python3 flex ];
+    nativeBuildInputs = [
+      pkg-config
+      python3
+      flex
+    ];
 
-    buildInputs = [ sqlite libedit ];
+    buildInputs = [
+      sqlite
+      libedit
+    ];
 
     configureFlags = [ "--disable-java-bindings" ];
 
@@ -35,7 +47,10 @@ let
 
     passthru.tests = {
       quick = runCommand "link-grammar-quick-test" {
-        buildInputs = [ link-grammar dieHook ];
+        buildInputs = [
+          link-grammar
+          dieHook
+        ];
       } ''
         echo "Furiously sleep ideas green colorless." | link-parser en | grep "No complete linkages found." || die "Grammaticaly invalid sentence was parsed."
         echo "Colorless green ideas sleep furiously." | link-parser en | grep "Found .* linkages." || die "Grammaticaly valid sentence was not parsed."

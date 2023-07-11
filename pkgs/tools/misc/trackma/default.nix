@@ -35,17 +35,24 @@ in python3.pkgs.buildPythonApplication rec {
     fetchSubmodules = true; # for anime-relations submodule
   };
 
-  nativeBuildInputs = [ copyDesktopItems ]
-    ++ lib.optionals withGTK [ wrapGAppsHook gobject-introspection ]
-    ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [ copyDesktopItems ] ++ lib.optionals withGTK [
+    wrapGAppsHook
+    gobject-introspection
+  ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
 
-  buildInputs = lib.optionals withGTK [ glib gtk3 ];
+  buildInputs = lib.optionals withGTK [
+    glib
+    gtk3
+  ];
 
   propagatedBuildInputs = with python3.pkgs;
     ([ urllib3 ] ++ lib.optionals withQT [ pyqt5 ]
       ++ lib.optionals withGTK [ pycairo ] ++ lib.optionals withCurses [ urwid ]
-      ++ lib.optionals stdenv.isLinux [ dbus-python pygobject3 pyinotify ]
-      ++ lib.optionals (withGTK || withQT) [ pillow ]);
+      ++ lib.optionals stdenv.isLinux [
+        dbus-python
+        pygobject3
+        pyinotify
+      ] ++ lib.optionals (withGTK || withQT) [ pillow ]);
 
   dontWrapQtApps = true;
   dontWrapGApps = true;

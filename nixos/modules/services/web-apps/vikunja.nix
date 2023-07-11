@@ -51,7 +51,10 @@ in {
       '';
     };
     frontendScheme = mkOption {
-      type = types.enum [ "http" "https" ];
+      type = types.enum [
+        "http"
+        "https"
+      ];
       description = lib.mdDoc ''
         Whether the site is available via http or https.
         This does not configure https or ACME in nginx!
@@ -74,7 +77,11 @@ in {
     };
     database = {
       type = mkOption {
-        type = types.enum [ "sqlite" "mysql" "postgres" ];
+        type = types.enum [
+          "sqlite"
+          "mysql"
+          "postgres"
+        ];
         example = "postgres";
         default = "sqlite";
         description = lib.mdDoc "Database engine to use.";

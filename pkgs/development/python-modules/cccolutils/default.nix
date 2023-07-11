@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   buildInputs = [ krb5 ];
 
-  propagatedBuildInputs = [ git gitpython mock ];
+  propagatedBuildInputs = [
+    git
+    gitpython
+    mock
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

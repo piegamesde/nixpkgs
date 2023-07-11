@@ -10,7 +10,11 @@ stdenv.mkDerivation rec {
   pname = "source-highlight";
   version = "3.1.9";
 
-  outputs = [ "out" "doc" "dev" ];
+  outputs = [
+    "out"
+    "doc"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnu/src-highlite/${pname}-${version}.tar.gz";

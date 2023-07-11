@@ -45,10 +45,10 @@ in import ./make-test-python.nix ({
         {
           imports = [ basicConfig ];
 
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.2";
             prefixLength = 24;
-          }];
+          } ];
 
           services.cjdns = {
             UDPInterface = {
@@ -73,10 +73,10 @@ in import ./make-test-python.nix ({
             CJDNS_ADMIN_PASSWORD=FOOBAR
           '';
 
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.1";
             prefixLength = 24;
-          }];
+          } ];
 
           services.cjdns = {
             authorizedPasswords = [ carolPassword ];

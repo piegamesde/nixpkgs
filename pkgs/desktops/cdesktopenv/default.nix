@@ -89,8 +89,14 @@ in stdenv.mkDerivation rec {
     ksh
     libxcrypt
   ];
-  nativeBuildInputs =
-    [ bison ncompress autoPatchelfHook makeWrapper fakeroot rpcsvc-proto ];
+  nativeBuildInputs = [
+    bison
+    ncompress
+    autoPatchelfHook
+    makeWrapper
+    fakeroot
+    rpcsvc-proto
+  ];
   # build fails otherwise
   enableParallelBuilding = false;
 
@@ -150,6 +156,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/cdesktopenv/";
     license = licenses.lgpl2;
     maintainers = [ ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

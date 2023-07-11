@@ -92,7 +92,13 @@ in stdenv.mkDerivation rec {
     "-GNinja"
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper ninja gfortran wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    ninja
+    gfortran
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     libGLU
@@ -119,8 +125,12 @@ in stdenv.mkDerivation rec {
       done;
     '';
 
-  propagatedBuildInputs =
-    [ (python3.withPackages (ps: with ps; [ numpy matplotlib mpi4py ])) ];
+  propagatedBuildInputs = [ (python3.withPackages (ps:
+    with ps; [
+      numpy
+      matplotlib
+      mpi4py
+    ])) ];
 
   meta = with lib; {
     homepage = "https://www.paraview.org/";

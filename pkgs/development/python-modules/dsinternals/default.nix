@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-C1ar9c4F4WI5ICX7PJe8FzVwK8bxZds+kMBpttEp9Ko=";
   };
 
-  propagatedBuildInputs = [ pyopenssl pycryptodomex ];
+  propagatedBuildInputs = [
+    pyopenssl
+    pycryptodomex
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

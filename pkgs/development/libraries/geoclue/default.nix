@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
   pname = "geoclue";
   version = "2.7.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -55,14 +59,24 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib json-glib libsoup_3 avahi gobject-introspection ]
-    ++ lib.optionals withDemoAgent [ libnotify gdk-pixbuf ]
-    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
+  buildInputs = [
+    glib
+    json-glib
+    libsoup_3
+    avahi
+    gobject-introspection
+  ] ++ lib.optionals withDemoAgent [
+    libnotify
+    gdk-pixbuf
+  ] ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
 
-  propagatedBuildInputs = [ glib glib-networking ];
+  propagatedBuildInputs = [
+    glib
+    glib-networking
+  ];
 
   mesonFlags = [
     "-Dsystemd-system-unit-dir=${placeholder "out"}/etc/systemd/system"
@@ -88,7 +102,10 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin && withDemoAgent;
     description = "Geolocation framework and some data providers";
     homepage = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home";
-    maintainers = with maintainers; [ raskin mimame ];
+    maintainers = with maintainers; [
+      raskin
+      mimame
+    ];
     platforms = with platforms; linux ++ darwin;
     license = licenses.lgpl2Plus;
   };

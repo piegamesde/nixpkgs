@@ -40,6 +40,9 @@ stdenv.mkDerivation rec {
       "A commandline fuzzy finder that prioritizes matches on filenames";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dit7ya mmlb ];
+    maintainers = with maintainers; [
+      dit7ya
+      mmlb
+    ];
   };
 }

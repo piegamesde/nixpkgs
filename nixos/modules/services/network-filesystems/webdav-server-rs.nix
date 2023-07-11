@@ -122,7 +122,10 @@ in {
         ExecStart =
           "${pkgs.webdav-server-rs}/bin/webdav-server -c ${cfg.configFile}";
 
-        CapabilityBoundingSet = [ "CAP_SETUID" "CAP_SETGID" ];
+        CapabilityBoundingSet = [
+          "CAP_SETUID"
+          "CAP_SETGID"
+        ];
 
         NoExecPaths = [ "/" ];
         ExecPaths = [ "/nix/store" ];

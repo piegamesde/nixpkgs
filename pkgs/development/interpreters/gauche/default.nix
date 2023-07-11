@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "0ki1w7sa10ivmg51sqjskby0gsznb0d3738nz80x589033km5hmb";
   };
 
-  nativeBuildInputs = [ gaucheBootstrap pkg-config texinfo autoreconfHook ];
+  nativeBuildInputs = [
+    gaucheBootstrap
+    pkg-config
+    texinfo
+    autoreconfHook
+  ];
 
-  buildInputs = [ libiconv gdbm openssl zlib mbedtls cacert ];
+  buildInputs = [
+    libiconv
+    gdbm
+    openssl
+    zlib
+    mbedtls
+    cacert
+  ];
 
   autoreconfPhase = ''
     ./DIST gen

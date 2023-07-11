@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ wxGTK32 boost firebird ];
+  buildInputs = [
+    wxGTK32
+    boost
+    firebird
+  ];
 
   meta = with lib; {
     description = "Database administration tool for Firebird RDBMS";

@@ -26,13 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-5xdNADorWP0+Mac/u8RdWqUT3mLL1C1Df3i5ZYvV+Wc=";
   };
 
-  propagatedBuildInputs = [ configobj tabulate ]
-    ++ tabulate.optional-dependencies.widechars;
+  propagatedBuildInputs = [
+    configobj
+    tabulate
+  ] ++ tabulate.optional-dependencies.widechars;
 
   passthru.optional-dependencies = { styles = [ pygments ]; };
 
-  nativeCheckInputs = [ pytestCheckHook mock ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   meta = with lib; {
     description = "Python helpers for common CLI tasks";

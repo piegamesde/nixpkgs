@@ -41,12 +41,27 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config pruneLibtoolFiles flex bison ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    pruneLibtoolFiles
+    flex
+    bison
+  ];
 
-  buildInputs = [ libmnl libnetfilter_conntrack libnfnetlink libnftnl libpcap ];
+  buildInputs = [
+    libmnl
+    libnetfilter_conntrack
+    libnfnetlink
+    libnftnl
+    libpcap
+  ];
 
   preConfigure = ''
     export NIX_LDFLAGS="$NIX_LDFLAGS -lmnl -lnftnl"

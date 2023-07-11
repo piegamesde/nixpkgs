@@ -22,7 +22,11 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy pysam matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    pysam
+    matplotlib
+  ];
 
   checkPhase = lib.optionalString isPy27 ''
     ${python.interpreter} python2/test/test_general.py

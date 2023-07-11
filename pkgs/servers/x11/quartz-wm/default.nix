@@ -18,7 +18,10 @@ in stdenv.mkDerivation {
     url = "http://xquartz-dl.macosforge.org/src/quartz-wm-${version}.tar.xz";
     sha256 = "1j8zd3p7rhay1s3sxq6anw78k5s59mx44xpqla2ianl62346a5g9";
   };
-  patches = [ ./no_title_crash.patch ./extern-patch.patch ];
+  patches = [
+    ./no_title_crash.patch
+    ./extern-patch.patch
+  ];
   configureFlags = [ "--enable-xplugin-dock-support" ];
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

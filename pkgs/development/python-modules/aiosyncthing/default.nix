@@ -22,10 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-vn8S2/kRW5C2Hbes9oLM4LGm1jWWK0zeLdujR14y6EI=";
   };
 
-  propagatedBuildInputs = [ aiohttp yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    yarl
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses expects pytestCheckHook pytest-asyncio pytest-mock ];
+  nativeCheckInputs = [
+    aioresponses
+    expects
+    pytestCheckHook
+    pytest-asyncio
+    pytest-mock
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoctor ];
 
-  outputs = [ "out" "lib" "themes" ];
+  outputs = [
+    "out"
+    "lib"
+    "themes"
+  ];
 
   propagatedBuildInputs = [
     file

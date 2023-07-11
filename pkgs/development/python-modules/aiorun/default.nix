@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-  nativeCheckInputs = [ pytestCheckHook uvloop ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    uvloop
+  ];
 
   # allow for writable directory for darwin
   preBuild = ''

@@ -33,7 +33,13 @@ buildPythonPackage rec {
     hash = "sha256-alXuo6TGDX2ko6VIKpAtyrg0EBkxEnC3DabH8GYqEs0=";
   };
 
-  propagatedBuildInputs = [ aniso8601 flask jsonschema pytz werkzeug ];
+  propagatedBuildInputs = [
+    aniso8601
+    flask
+    jsonschema
+    pytz
+    werkzeug
+  ];
 
   nativeCheckInputs = [
     blinker

@@ -33,7 +33,10 @@ let
     inherit version;
     nativeBuildInputs = [ cmake ];
     buildInputs = [ python ];
-    cmakeFlags = [ "-DBUILD_DEMO=OFF" "-DDISABLE_PYTHON2=ON" ];
+    cmakeFlags = [
+      "-DBUILD_DEMO=OFF"
+      "-DDISABLE_PYTHON2=ON"
+    ];
   };
 
 in buildGo118Module rec {
@@ -52,12 +55,20 @@ in buildGo118Module rec {
     "cmd/trace-agent"
   ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [ rtloader ] ++ lib.optionals withSystemd [ systemd ];
   PKG_CONFIG_PATH = "${python}/lib/pkgconfig";
 
-  tags = [ "ec2" "python" "process" "log" "secrets" ]
-    ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
+  tags = [
+    "ec2"
+    "python"
+    "process"
+    "log"
+    "secrets"
+  ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"
@@ -95,8 +106,10 @@ in buildGo118Module rec {
       --set PYTHONPATH "$out/${python.sitePackages}"''
     + lib.optionalString withSystemd ''
       \
-           --prefix LD_LIBRARY_PATH : ''
-    + lib.makeLibraryPath [ (lib.getLib systemd) rtloader ];
+           --prefix LD_LIBRARY_PATH : '' + lib.makeLibraryPath [
+        (lib.getLib systemd)
+        rtloader
+      ];
 
   meta = with lib; {
     description = ''
@@ -105,7 +118,12 @@ in buildGo118Module rec {
     '';
     homepage = "https://www.datadoghq.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ thoughtpolice domenkozar rvl viraptor ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      domenkozar
+      rvl
+      viraptor
+    ];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

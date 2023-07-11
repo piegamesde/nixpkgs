@@ -27,13 +27,20 @@ buildGoModule rec {
     hash = "sha256-h0fipw3lJKy+VkGkh1XbZ6wUOg4001uURoJpjNq7QOs=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   vendorHash = null;
 
   doCheck = false;
 
-  nativeBuildInputs = [ go-md2man installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    go-md2man
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ gpgme ] ++ lib.optionals stdenv.isLinux [
     btrfs-progs

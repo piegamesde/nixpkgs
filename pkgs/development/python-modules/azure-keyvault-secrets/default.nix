@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-+owR1P9XpAteQgegJSx90p0Kk5logFa0nX4rTENtOlo=";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+  ];
 
   pythonNamespaces = [ "azure.keyvault" ];
 

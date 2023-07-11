@@ -19,8 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "1cbpc45f8qbdkd62p12s3q2rdq6fa5xdzwmcwd3xrj55bzkspnwm";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ];
-  buildInputs = [ gtk2 gpgme libgpg-error libassuan ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
+  buildInputs = [
+    gtk2
+    gpgme
+    libgpg-error
+    libassuan
+  ];
 
   meta = with lib; {
     description = "Graphical user interface for the GnuPG";

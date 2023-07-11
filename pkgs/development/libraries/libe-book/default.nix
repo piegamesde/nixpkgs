@@ -22,7 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fo2P808ngxrKO8b5zFMsL5DSBXx3iWO4hP89HjTf4fk=";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gperf librevenge libxml2 boost icu cppunit zlib liblangtag ];
+  buildInputs = [
+    gperf
+    librevenge
+    libxml2
+    boost
+    icu
+    cppunit
+    zlib
+    liblangtag
+  ];
   # Boost 1.59 compatability fix
   # Attempt removing when updating
   postPatch = ''

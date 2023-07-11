@@ -4,7 +4,12 @@
   ...
 }: {
   name = "aesmd";
-  meta = { maintainers = with lib.maintainers; [ trundle veehaitch ]; };
+  meta = {
+    maintainers = with lib.maintainers; [
+      trundle
+      veehaitch
+    ];
+  };
 
   nodes.machine = {
       lib,

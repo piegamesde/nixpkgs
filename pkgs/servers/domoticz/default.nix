@@ -46,7 +46,11 @@ stdenv.mkDerivation rec {
     cereal
   ];
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

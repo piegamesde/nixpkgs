@@ -30,7 +30,11 @@ mkDerivation rec {
     sha256 = "0jp63fby052rapjjaz413b1wjz4qsgpxh82y2d75jzimch0n5s02";
   };
 
-  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kconfig

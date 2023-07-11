@@ -30,14 +30,24 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ astropy casa-formats-io radio_beam joblib six dask ];
-  nativeCheckInputs = [ pytestCheckHook aplpy pytest-astropy ];
+  propagatedBuildInputs = [
+    astropy
+    casa-formats-io
+    radio_beam
+    joblib
+    six
+    dask
+  ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    aplpy
+    pytest-astropy
+  ];
 
   # On x86_darwin, this test fails with "Fatal Python error: Aborted"
   # when sandbox = true.
-  disabledTestPaths = lib.optionals stdenv.isDarwin
-    [ "spectral_cube/tests/test_visualization.py" ];
+  disabledTestPaths = lib.optionals
+    stdenv.isDarwin [ "spectral_cube/tests/test_visualization.py" ];
 
   meta = {
     description =

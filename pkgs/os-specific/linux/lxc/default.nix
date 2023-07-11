@@ -31,8 +31,13 @@ stdenv.mkDerivation rec {
     sha256 = "1vyk2j5w9gfyh23w3ar09cycyws16mxh3clbb33yhqzwcs1jy96v";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config perl docbook2x python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    perl
+    docbook2x
+    python3Packages.wrapPython
+  ];
   buildInputs = [
     pam
     libapparmor

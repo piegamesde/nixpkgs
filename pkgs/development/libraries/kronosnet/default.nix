@@ -30,15 +30,34 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NEmkgKTm+R4lzqjbQTyQ6TDpjoTQtMKiTpzn25HUfYk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config doxygen ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    doxygen
+  ];
 
-  buildInputs =
-    [ libqb libxml2 libnl lksctp-tools nss openssl bzip2 lzo lz4 xz zlib zstd ];
+  buildInputs = [
+    libqb
+    libxml2
+    libnl
+    lksctp-tools
+    nss
+    openssl
+    bzip2
+    lzo
+    lz4
+    xz
+    zlib
+    zstd
+  ];
 
   meta = with lib; {
     description = "VPN on steroids";
     homepage = "https://kronosnet.org/";
-    license = with licenses; [ lgpl21Plus gpl2Plus ];
+    license = with licenses; [
+      lgpl21Plus
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ ryantm ];
   };
 }

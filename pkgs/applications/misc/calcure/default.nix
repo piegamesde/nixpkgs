@@ -16,9 +16,17 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-CWuyBjIhEYb3zOIXT0+pVs9fFahMi04yq2sJjDMwKTI=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.setuptools python3.pkgs.wheel ];
+  nativeBuildInputs = [
+    python3.pkgs.setuptools
+    python3.pkgs.wheel
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ jdatetime holidays ics attrs ];
+  propagatedBuildInputs = with python3.pkgs; [
+    jdatetime
+    holidays
+    ics
+    attrs
+  ];
 
   pythonImportsCheck = [ "calcure" ];
 

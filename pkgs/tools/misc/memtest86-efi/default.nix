@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ util-linux jq mtools ];
+  nativeBuildInputs = [
+    util-linux
+    jq
+    mtools
+  ];
 
   installPhase = ''
     runHook preInstall

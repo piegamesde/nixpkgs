@@ -7,8 +7,18 @@
 let
   pio-pkgs = pkgs:
     let inherit (platformio-core) python;
-    in (with pkgs; [ platformio-core zlib git xdg-user-dirs ncurses ])
-    ++ (with python.pkgs; [ python setuptools pip bottle ]);
+    in (with pkgs; [
+      platformio-core
+      zlib
+      git
+      xdg-user-dirs
+      ncurses
+    ]) ++ (with python.pkgs; [
+      python
+      setuptools
+      pip
+      bottle
+    ]);
 
 in buildFHSEnv {
   name = "platformio";

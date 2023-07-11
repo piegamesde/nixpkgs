@@ -20,16 +20,17 @@ stdenv.mkDerivation rec {
     name = "dtools";
   };
 
-  patches = [
-    (fetchpatch {
-      # part of https://github.com/dlang/tools/pull/441
-      url =
-        "https://github.com/dlang/tools/commit/6c6a042d1b08e3ec1790bd07a7f69424625ee866.patch"; # Fix LDC arm64 build
-      sha256 = "sha256-x6EclTYN1Y5FG57KLhbBK0BZicSYcZoWO7MTVcP4T18=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # part of https://github.com/dlang/tools/pull/441
+    url =
+      "https://github.com/dlang/tools/commit/6c6a042d1b08e3ec1790bd07a7f69424625ee866.patch"; # Fix LDC arm64 build
+    sha256 = "sha256-x6EclTYN1Y5FG57KLhbBK0BZicSYcZoWO7MTVcP4T18=";
+  }) ];
 
-  nativeBuildInputs = [ ldc gnumake42 ]; # fails with make 4.4
+  nativeBuildInputs = [
+    ldc
+    gnumake42
+  ]; # fails with make 4.4
   buildInputs = [ curl ];
 
   makeCmd = ''

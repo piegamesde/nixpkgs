@@ -61,7 +61,10 @@ buildPythonPackage rec {
       --replace 'botocore = ">=1.12.6"' 'botocore = "*"'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook toml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    toml
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

@@ -42,16 +42,21 @@ buildPythonPackage rec {
     hash = "sha256-GkqfSyApOFKPIiIYXhgaRZuMawk7PRYmxGDhnRI+Rz0=";
   };
 
-  propagatedBuildInputs = [ isodate html5lib pyparsing ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    isodate
+    html5lib
+    pyparsing
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
     html = [ html5lib ];
     networkx = [ networkx ];
   };
 
-  nativeCheckInputs = [ pytest-cov pytestCheckHook ]
-    ++ passthru.optional-dependencies.networkx
+  nativeCheckInputs = [
+    pytest-cov
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.networkx
     ++ passthru.optional-dependencies.html;
 
   pytestFlagsArray = [

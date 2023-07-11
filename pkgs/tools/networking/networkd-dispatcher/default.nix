@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
     sed -i '/ConditionPathExistsGlob/g' networkd-dispatcher.service
   '';
 
-  nativeBuildInputs = [ asciidoc makeWrapper python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    asciidoc
+    makeWrapper
+    python3Packages.wrapPython
+  ];
 
   checkInputs = with python3Packages; [
     dbus-python
@@ -45,7 +49,11 @@ stdenv.mkDerivation rec {
     pytestCheckHook
   ];
 
-  pythonPath = with python3Packages; [ configparser dbus-python pygobject3 ];
+  pythonPath = with python3Packages; [
+    configparser
+    dbus-python
+    pygobject3
+  ];
 
   installPhase = ''
     runHook preInstall

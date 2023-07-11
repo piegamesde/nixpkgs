@@ -57,17 +57,21 @@ let
       # We do this so we have a build->build, not build->host, C compiler.
       depsBuildBuild = [ buildPackages.stdenv.cc ];
       # `elf-header` is null when libc provides `elf.h`.
-      nativeBuildInputs = [ perl elf-header ]
-        ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [ bison flex rsync ]
-        ++ lib.optionals
+      nativeBuildInputs = [
+        perl
+        elf-header
+      ] ++ lib.optionals stdenvNoCC.hostPlatform.isAndroid [
+        bison
+        flex
+        rsync
+      ] ++ lib.optionals
         (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips) [
           darwin-endian-h
           darwin-byteswap-h
         ];
 
-      extraIncludeDirs = lib.optionals
-        (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
-        [ "ppc" ];
+      extraIncludeDirs = lib.optionals (with stdenvNoCC.hostPlatform;
+        isPower && is32bit && isBigEndian) [ "ppc" ];
 
       inherit patches;
 
@@ -134,8 +138,8 @@ in {
         }.x/linux-${version}.tar.xz";
       hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
     };
-    patches = [
-      ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
-    ];
+    patches =
+      [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
+      ];
   };
 }

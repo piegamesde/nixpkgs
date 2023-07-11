@@ -18,10 +18,10 @@ import ./make-test-python.nix ({
 
         networking = {
           useDHCP = false;
-          interfaces.eth1.ipv6.addresses = [{
+          interfaces.eth1.ipv6.addresses = [ {
             address = "fd12::1";
             prefixLength = 64;
-          }];
+          } ];
         };
 
         services.radvd = {

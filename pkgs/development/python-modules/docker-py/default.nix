@@ -20,7 +20,12 @@ buildPythonPackage rec {
   # The tests access the network.
   doCheck = false;
 
-  propagatedBuildInputs = [ six requests websocket-client docker_pycreds ];
+  propagatedBuildInputs = [
+    six
+    requests
+    websocket-client
+    docker_pycreds
+  ];
 
   meta = {
     description = "Python library for the Docker Remote API";

@@ -29,9 +29,13 @@ buildPythonPackage rec {
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs =
-    [ django python3-openid pyjwt requests requests-oauthlib ]
-    ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs = [
+    django
+    python3-openid
+    pyjwt
+    requests
+    requests-oauthlib
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   checkPhase = ''
     # test is out of date

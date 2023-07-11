@@ -28,12 +28,23 @@ buildDunePackage rec {
     hash = "sha256-6PMxZQfPiDTFbj9gOO2tW5FHF0MUP5tOySjkYg+QwGA=";
   };
 
-  propagatedBuildInputs =
-    [ h2 httpaf mimic-happy-eyeballs mirage-clock paf tcpip x509 ];
+  propagatedBuildInputs = [
+    h2
+    httpaf
+    mimic-happy-eyeballs
+    mirage-clock
+    paf
+    tcpip
+    x509
+  ];
 
   doCheck = true;
-  checkInputs =
-    [ alcotest-lwt mirage-clock-unix mirage-crypto-rng mirage-time-unix ];
+  checkInputs = [
+    alcotest-lwt
+    mirage-clock-unix
+    mirage-crypto-rng
+    mirage-time-unix
+  ];
 
   meta = {
     description = "HTTP client for MirageOS";

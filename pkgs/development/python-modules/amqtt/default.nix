@@ -39,11 +39,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ docopt passlib pyyaml setuptools transitions websockets ];
+  propagatedBuildInputs = [
+    docopt
+    passlib
+    pyyaml
+    setuptools
+    transitions
+    websockets
+  ];
 
-  nativeCheckInputs =
-    [ hypothesis pytest-logdog pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytest-logdog
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

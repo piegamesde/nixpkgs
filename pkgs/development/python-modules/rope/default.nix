@@ -28,7 +28,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pytoolconfig ]
     ++ pytoolconfig.optional-dependencies.global;
 
-  nativeCheckInputs = [ pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   disabledTests = [
     "test_search_submodule"

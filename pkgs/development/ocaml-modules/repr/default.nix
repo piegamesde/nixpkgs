@@ -25,7 +25,14 @@ buildDunePackage rec {
   duneVersion = "3";
   strictDeps = true;
 
-  propagatedBuildInputs = [ base64 either fmt jsonm uutf optint ];
+  propagatedBuildInputs = [
+    base64
+    either
+    fmt
+    jsonm
+    uutf
+    optint
+  ];
 
   meta = with lib; {
     description =

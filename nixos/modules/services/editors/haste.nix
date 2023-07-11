@@ -42,11 +42,11 @@ in {
         staticMaxAge = mkDefault 86400;
         recompressStaticAssets = mkDefault false;
 
-        logging = mkDefault [{
+        logging = mkDefault [ {
           level = "verbose";
           type = "Console";
           colorize = true;
-        }];
+        } ];
 
         keyGenerator = mkDefault { type = "phonetic"; };
 
@@ -80,7 +80,10 @@ in {
           }";
       };
 
-      path = with pkgs; [ pkg coreutils ];
+      path = with pkgs; [
+        pkg
+        coreutils
+      ];
     };
   };
 }

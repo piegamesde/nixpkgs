@@ -21,9 +21,17 @@ mkDerivation rec {
     sha256 = "0qkjzgjplgwczhk6959iah4ilvazpprv7yb809jy75kkp1jw8mwk";
   };
 
-  buildInputs = [ kdecoration plasma-workspace qtbase qt5.qtx11extras ];
+  buildInputs = [
+    kdecoration
+    plasma-workspace
+    qtbase
+    qt5.qtx11extras
+  ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   meta = with lib; {
     description =

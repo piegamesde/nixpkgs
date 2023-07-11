@@ -19,8 +19,13 @@ in buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  nativeBuildInputs =
-    [ sip qmake pyqt-builder qscintilla pythonPackages.setuptools ];
+  nativeBuildInputs = [
+    sip
+    qmake
+    pyqt-builder
+    qscintilla
+    pythonPackages.setuptools
+  ];
   buildInputs = [ qtbase ];
   propagatedBuildInputs = [ pyqt5 ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ];

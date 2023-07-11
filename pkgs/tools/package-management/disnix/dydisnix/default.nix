@@ -27,8 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "00f341274hwwil8mlgcgq331vfca9sscvpdbgkxsjvbhcqd8qa52";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake libtool ];
-  buildInputs = [ glib libxml2 libxslt getopt nix disnix libiconv gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    glib
+    libxml2
+    libxslt
+    getopt
+    nix
+    disnix
+    libiconv
+    gettext
+  ];
 
   preConfigure = ''
     ./bootstrap

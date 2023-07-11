@@ -39,7 +39,10 @@ python3.pkgs.buildPythonApplication rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ python3 pkg-config ];
+  depsBuildBuild = [
+    python3
+    pkg-config
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -49,15 +52,21 @@ python3.pkgs.buildPythonApplication rec {
     libxslt # for xsltproc
   ];
 
-  buildInputs = [ docbook_xml_dtd_43 docbook-xsl-nons libxslt ]
-    ++ lib.optionals withDblatex [ dblatex ];
+  buildInputs = [
+    docbook_xml_dtd_43
+    docbook-xsl-nons
+    libxslt
+  ] ++ lib.optionals withDblatex [ dblatex ];
 
   pythonPath = with python3.pkgs; [
     pygments # Needed for https://gitlab.gnome.org/GNOME/gtk-doc/blob/GTK_DOC_1_32/meson.build#L42
     lxml
   ];
 
-  mesonFlags = [ "-Dtests=false" "-Dyelp_manual=false" ];
+  mesonFlags = [
+    "-Dtests=false"
+    "-Dyelp_manual=false"
+  ];
 
   doCheck = false; # requires a lot of stuff
   doInstallCheck = false; # fails

@@ -25,7 +25,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ nghttp2 git readline icu zlib openssl c-ares ];
+  buildInputs = [
+    nghttp2
+    git
+    readline
+    icu
+    zlib
+    openssl
+    c-ares
+  ];
 
   nativeCheckInputs = [ gbenchmark ];
 

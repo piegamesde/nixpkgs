@@ -52,7 +52,10 @@
     version = "1.1.2";
   };
   gettext = {
-    dependencies = [ "locale" "text" ];
+    dependencies = [
+      "locale"
+      "text"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -63,7 +66,11 @@
     version = "3.2.9";
   };
   gettext-setup = {
-    dependencies = [ "fast_gettext" "gettext" "locale" ];
+    dependencies = [
+      "fast_gettext"
+      "gettext"
+      "locale"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

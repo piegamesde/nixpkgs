@@ -98,7 +98,10 @@ in {
   imports = [
     ./assertions.nix
     ./meta.nix
-    (mkRemovedOptionModule [ "nixpkgs" "initialSystem" ]
+    (mkRemovedOptionModule [
+      "nixpkgs"
+      "initialSystem"
+    ]
       "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore.")
   ];
 

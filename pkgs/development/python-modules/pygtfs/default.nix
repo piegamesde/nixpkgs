@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ docopt pytz six sqlalchemy ];
+  propagatedBuildInputs = [
+    docopt
+    pytz
+    six
+    sqlalchemy
+  ];
 
   nativeCheckInputs = [ nose ];
 

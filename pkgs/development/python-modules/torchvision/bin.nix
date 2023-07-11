@@ -36,9 +36,15 @@ in buildPythonPackage {
       cuda_cudart
     ];
 
-  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    addOpenGLRunpath
+  ];
 
-  propagatedBuildInputs = [ pillow torch-bin ];
+  propagatedBuildInputs = [
+    pillow
+    torch-bin
+  ];
 
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;

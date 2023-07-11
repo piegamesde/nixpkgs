@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib libpng ];
+  buildInputs = [
+    zlib
+    libpng
+  ];
 
   meta = {
     description =

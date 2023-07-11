@@ -41,7 +41,10 @@ in {
   config = mkIf cfg.enable {
     systemd.services.heapster = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "cadvisor.service" "kube-apiserver.service" ];
+      after = [
+        "cadvisor.service"
+        "kube-apiserver.service"
+      ];
 
       serviceConfig = {
         ExecStart =

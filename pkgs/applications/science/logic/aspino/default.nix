@@ -25,7 +25,10 @@ in stdenv.mkDerivation {
     hash = "sha256-R1TpBDGdq+NQQzmzqk0wYaz2Hns3qru0AkAyFPQasPA=";
   };
 
-  buildInputs = [ zlib boost ];
+  buildInputs = [
+    zlib
+    boost
+  ];
 
   postPatch = ''
     substituteInPlace Makefile \

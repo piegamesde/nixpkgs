@@ -27,7 +27,10 @@ buildPythonPackage rec {
     echo '__version__ = "${version}"' > ./src/hcl/version.py
   '';
 
-  nativeCheckInputs = [ coverage pytest ];
+  nativeCheckInputs = [
+    coverage
+    pytest
+  ];
 
   # https://github.com/virtuald/pyhcl/blob/51a7524b68fe21e175e157b8af931016d7a357ad/tests/run_tests.sh#L4
   checkPhase = ''

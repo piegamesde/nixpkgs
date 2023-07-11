@@ -43,8 +43,12 @@ stdenv.mkDerivation rec {
   pname = "vips";
   version = "8.14.2";
 
-  outputs = [ "bin" "out" "man" "dev" ]
-    ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "man"
+    "dev"
+  ] ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ];
 
   src = fetchFromGitHub {
     owner = "libvips";
@@ -58,9 +62,13 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs =
-    [ pkg-config meson ninja docbook-xsl-nons gobject-introspection ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    docbook-xsl-nons
+    gobject-introspection
+  ] ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ];
 
   buildInputs = [
     glib
@@ -89,7 +97,10 @@ stdenv.mkDerivation rec {
     libjxl
     openslide
     libheif
-  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    ApplicationServices
+    Foundation
+  ];
 
   # Required by .pc file
   propagatedBuildInputs = [ glib ];

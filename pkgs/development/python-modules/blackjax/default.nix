@@ -35,8 +35,14 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [ fastprogress jax jaxlib jaxopt optax typing-extensions ];
+  propagatedBuildInputs = [
+    fastprogress
+    jax
+    jaxlib
+    jaxopt
+    optax
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   disabledTestPaths = [ "tests/test_benchmarks.py" ];

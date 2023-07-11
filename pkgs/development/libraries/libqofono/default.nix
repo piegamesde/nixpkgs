@@ -42,7 +42,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qtdeclarative ];
+  buildInputs = [
+    qtbase
+    qtdeclarative
+  ];
 
   meta = with lib; {
     description =

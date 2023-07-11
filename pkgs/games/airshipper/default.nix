@@ -79,7 +79,10 @@ in rustPlatform.buildRustPackage {
     libXi
     libXcursor
   ];
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   RUSTC_BOOTSTRAP = 1; # We need rust unstable features
 
@@ -106,8 +109,14 @@ in rustPlatform.buildRustPackage {
   '';
 
   doCheck = false;
-  cargoBuildFlags = [ "--package" "airshipper" ];
-  cargoTestFlags = [ "--package" "airshipper" ];
+  cargoBuildFlags = [
+    "--package"
+    "airshipper"
+  ];
+  cargoTestFlags = [
+    "--package"
+    "airshipper"
+  ];
 
   meta = with lib; {
     description = "Provides automatic updates for the voxel RPG Veloren.";

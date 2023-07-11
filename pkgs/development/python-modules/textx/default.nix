@@ -35,11 +35,22 @@ let
       substituteInPlace setup.cfg --replace "click >=7.0, <8.0" "click >=7.0"
     '';
 
-    outputs = [ "out" "testout" ];
+    outputs = [
+      "out"
+      "testout"
+    ];
 
-    nativeBuildInputs = [ mkdocs twine ];
+    nativeBuildInputs = [
+      mkdocs
+      twine
+    ];
 
-    propagatedBuildInputs = [ arpeggio click future setuptools ];
+    propagatedBuildInputs = [
+      arpeggio
+      click
+      future
+      setuptools
+    ];
 
     postInstall = ''
       # FileNotFoundError: [Errno 2] No such file or directory: '$out/lib/python3.10/site-packages/textx/textx.tx
@@ -79,7 +90,10 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/data_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [ textx textx-types-dsl ];
+    propagatedBuildInputs = [
+      textx
+      textx-types-dsl
+    ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -94,7 +108,10 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/flow_codegen";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [ click textx ];
+    propagatedBuildInputs = [
+      click
+      textx
+    ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";

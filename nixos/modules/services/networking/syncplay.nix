@@ -10,9 +10,16 @@ with lib;
 let
   cfg = config.services.syncplay;
 
-  cmdArgs = [ "--port" cfg.port ]
-    ++ optionals (cfg.salt != null) [ "--salt" cfg.salt ]
-    ++ optionals (cfg.certDir != null) [ "--tls" cfg.certDir ];
+  cmdArgs = [
+    "--port"
+    cfg.port
+  ] ++ optionals (cfg.salt != null) [
+    "--salt"
+    cfg.salt
+  ] ++ optionals (cfg.certDir != null) [
+    "--tls"
+    cfg.certDir
+  ];
 
 in {
   options = {

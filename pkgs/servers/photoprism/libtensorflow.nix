@@ -53,13 +53,16 @@ in stdenv.mkDerivation rec {
   '';
 
   # Patch library to use our libc, libstdc++ and others
-  patchPhase =
-    let rpath = lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc.lib ];
-    in ''
-      chmod -R +w lib
-      patchelf --set-rpath "${rpath}:$out/lib" lib/libtensorflow.so
-      patchelf --set-rpath "${rpath}" lib/libtensorflow_framework.so
-    '';
+  patchPhase = let
+    rpath = lib.makeLibraryPath [
+      stdenv.cc.libc
+      stdenv.cc.cc.lib
+    ];
+  in ''
+    chmod -R +w lib
+    patchelf --set-rpath "${rpath}:$out/lib" lib/libtensorflow.so
+    patchelf --set-rpath "${rpath}" lib/libtensorflow_framework.so
+  '';
 
   buildPhase = ''
     # Write pkg-config file.
@@ -82,7 +85,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dl.photoprism.app/tensorflow/";
     description = "Libtensorflow version for usage with photoprism backend";
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     license = licenses.asl20;
     maintainers = with maintainers; [ benesim ];
   };

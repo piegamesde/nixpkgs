@@ -71,7 +71,10 @@ python3Packages.buildPythonApplication rec {
     xvfb-run
   ];
 
-  patches = [ ./fix-path.patch ./fix-extensions.patch ];
+  patches = [
+    ./fix-path.patch
+    ./fix-extensions.patch
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --subst-var out

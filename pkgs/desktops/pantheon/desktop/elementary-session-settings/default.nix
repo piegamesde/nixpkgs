@@ -98,9 +98,19 @@ in stdenv.mkDerivation rec {
     sha256 = "1faglpa7q3a4335gnd074a3lnsdspyjdnskgy4bfnf6xmwjx7kjx";
   };
 
-  nativeBuildInputs = [ desktop-file-utils meson ninja pkg-config ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ gnome-keyring gnome-settings-daemon onboard orca ];
+  buildInputs = [
+    gnome-keyring
+    gnome-settings-daemon
+    onboard
+    orca
+  ];
 
   mesonFlags = [
     "-Dmimeapps-list=false"

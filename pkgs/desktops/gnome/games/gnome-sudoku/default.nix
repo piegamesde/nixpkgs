@@ -43,7 +43,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gtk3 libgee json-glib qqwing ];
+  buildInputs = [
+    gtk3
+    libgee
+    json-glib
+    qqwing
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

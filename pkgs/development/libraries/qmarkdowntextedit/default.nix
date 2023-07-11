@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TEb2w48MZ8U1INVvUiS1XohdvnVLBCTba31AwATd/oE=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   qmakeFlags = [
     "qmarkdowntextedit-lib.pro"

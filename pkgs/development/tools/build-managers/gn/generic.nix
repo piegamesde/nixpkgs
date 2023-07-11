@@ -38,7 +38,10 @@ in stdenv.mkDerivation {
     inherit rev sha256;
   };
 
-  nativeBuildInputs = [ ninja python3 ];
+  nativeBuildInputs = [
+    ninja
+    python3
+  ];
   buildInputs = lib.optionals stdenv.isDarwin (with darwin;
     with apple_sdk.frameworks; [
       libobjc
@@ -67,6 +70,10 @@ in stdenv.mkDerivation {
     homepage = "https://gn.googlesource.com/gn";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ stesie matthewbauer primeos ];
+    maintainers = with maintainers; [
+      stesie
+      matthewbauer
+      primeos
+    ];
   };
 }

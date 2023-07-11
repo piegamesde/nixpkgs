@@ -34,7 +34,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-/0o3Fl6/jx5zu854TCqMyOz/8mnEyEC9lpZ6ij/tbHc=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     # modernise cmake files, also fixes them for multiple outputs
@@ -62,11 +65,20 @@ in stdenv.mkDerivation rec {
     (mkFlag doCheck "BUILD_TESTING")
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libpng libtiff zlib lcms2 ]
-    ++ lib.optionals jpipServerSupport [ curl fcgi ]
-    ++ lib.optional (jpipLibSupport) jdk;
+  buildInputs = [
+    libpng
+    libtiff
+    zlib
+    lcms2
+  ] ++ lib.optionals jpipServerSupport [
+    curl
+    fcgi
+  ] ++ lib.optional (jpipLibSupport) jdk;
 
   doCheck = (!stdenv.isAarch64
     && !stdenv.hostPlatform.isPower64); # tests fail on aarch64-linux and powerpc64

@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtquicktimeline";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

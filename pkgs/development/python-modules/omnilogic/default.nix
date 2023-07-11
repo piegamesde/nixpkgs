@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-ySK2T5T+Qdq8nVQqluIARR89KmM1N3oD44oLydwcs7E=";
   };
 
-  propagatedBuildInputs = [ aiohttp xmltodict ];
+  propagatedBuildInputs = [
+    aiohttp
+    xmltodict
+  ];
 
   # Project has no tests
   doCheck = false;

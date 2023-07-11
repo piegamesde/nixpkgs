@@ -26,10 +26,18 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ perl groff libxml2 python2 libffi ]
-    ++ lib.optional stdenv.isLinux valgrind;
+  buildInputs = [
+    perl
+    groff
+    libxml2
+    python2
+    libffi
+  ] ++ lib.optional stdenv.isLinux valgrind;
 
-  propagatedBuildInputs = [ ncurses zlib ];
+  propagatedBuildInputs = [
+    ncurses
+    zlib
+  ];
 
   # hacky fix: created binaries need to be run before installation
   preBuild = ''
@@ -39,8 +47,10 @@ stdenv.mkDerivation {
   postBuild = "rm -fR $out";
 
   cmakeFlags = with stdenv;
-    [ "-DLLVM_ENABLE_FFI=ON" "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
-    ++ lib.optional (!isDarwin) "-DBUILD_SHARED_LIBS=ON";
+    [
+      "-DLLVM_ENABLE_FFI=ON"
+      "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+    ] ++ lib.optional (!isDarwin) "-DBUILD_SHARED_LIBS=ON";
 
   meta = {
     description =

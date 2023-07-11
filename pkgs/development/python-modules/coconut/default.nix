@@ -24,10 +24,20 @@ buildPythonPackage rec {
     hash = "sha256-+OrVNtre7kAfU5L7/6DadZxFNWVt5raF6HLGXHHpOvE=";
   };
 
-  propagatedBuildInputs =
-    [ cpyparsing ipykernel mypy pygments prompt-toolkit watchdog ];
+  propagatedBuildInputs = [
+    cpyparsing
+    ipykernel
+    mypy
+    pygments
+    prompt-toolkit
+    watchdog
+  ];
 
-  nativeCheckInputs = [ pexpect pytestCheckHook tkinter ];
+  nativeCheckInputs = [
+    pexpect
+    pytestCheckHook
+    tkinter
+  ];
 
   # Currently most tests have performance issues
   pytestFlagsArray = [ "coconut/tests/constants_test.py" ];

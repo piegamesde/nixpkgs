@@ -25,7 +25,10 @@ stdenv.mkDerivation {
     sourceRoot=.
   '';
 
-  buildInputs = [ bash steam-run ];
+  buildInputs = [
+    bash
+    steam-run
+  ];
 
   dontBuild = true;
 

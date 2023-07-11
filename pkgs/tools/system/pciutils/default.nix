@@ -22,8 +22,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ which zlib ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
+  buildInputs = [
+    which
+    zlib
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [ kmod ];
 
   preConfigure = lib.optionalString (!stdenv.cc.isGNU) ''
@@ -39,7 +41,10 @@ stdenv.mkDerivation rec {
     "DNS=yes"
   ];
 
-  installTargets = [ "install" "install-lib" ];
+  installTargets = [
+    "install"
+    "install-lib"
+  ];
 
   postInstall = ''
     # Remove update-pciids as it won't work on nixos

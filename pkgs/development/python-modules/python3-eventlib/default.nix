@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-LFW3rCGa7A8tk6SjgYgjkLQ+72GE2WN8wG+XkXYTAoQ=";
   };
 
-  propagatedBuildInputs = [ zope_interface twisted greenlet ];
+  propagatedBuildInputs = [
+    zope_interface
+    twisted
+    greenlet
+  ];
 
   dontUseSetuptoolsCheck = true;
 

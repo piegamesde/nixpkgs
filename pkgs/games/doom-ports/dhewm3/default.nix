@@ -36,17 +36,28 @@ stdenv.mkDerivation rec {
     cd "$(ls -d dhewm3-*.src)"/neo
   '';
 
-  nativeBuildInputs = [ cmake copyDesktopItems ];
-  buildInputs = [ SDL2 libGLU libGL zlib libjpeg libogg libvorbis openal curl ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "dhewm3";
-      exec = "dhewm3";
-      desktopName = "Doom 3";
-      categories = [ "Game" ];
-    })
+  nativeBuildInputs = [
+    cmake
+    copyDesktopItems
   ];
+  buildInputs = [
+    SDL2
+    libGLU
+    libGL
+    zlib
+    libjpeg
+    libogg
+    libvorbis
+    openal
+    curl
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "dhewm3";
+    exec = "dhewm3";
+    desktopName = "Doom 3";
+    categories = [ "Game" ];
+  }) ];
 
   hardeningDisable = [ "format" ];
 

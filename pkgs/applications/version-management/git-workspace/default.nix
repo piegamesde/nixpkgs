@@ -26,8 +26,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   passthru.tests.version = testers.testVersion { package = git-workspace; };
 

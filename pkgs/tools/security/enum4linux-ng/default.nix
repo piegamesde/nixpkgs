@@ -19,7 +19,12 @@ buildPythonApplication rec {
     hash = "sha256-qO34sVK8eunALPCzLoCqWkO78tG4iEavij8jClCRi88=";
   };
 
-  propagatedBuildInputs = [ impacket ldap3 pyyaml samba ];
+  propagatedBuildInputs = [
+    impacket
+    ldap3
+    pyyaml
+    samba
+  ];
 
   # It's only a script and not a Python module. Project has no tests
   doCheck = false;

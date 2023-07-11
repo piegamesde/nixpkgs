@@ -31,12 +31,20 @@ in stdenv.mkDerivation rec {
 
   createFindlibDestdir = true;
 
-  nativeBuildInputs = [ ocaml findlib ocamlbuild camlp4 ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+    camlp4
+  ];
   propagatedBuildInputs = [ camlp4 ];
 
   strictDeps = true;
 
-  buildFlags = [ "all" "all.opt" ];
+  buildFlags = [
+    "all"
+    "all.opt"
+  ];
 
   meta = {
     inherit (src.meta) homepage;

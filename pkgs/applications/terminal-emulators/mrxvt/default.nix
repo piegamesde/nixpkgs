@@ -24,7 +24,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXft libXi xorgproto libSM libICE freetype which ];
+  buildInputs = [
+    libX11
+    libXft
+    libXi
+    xorgproto
+    libSM
+    libICE
+    freetype
+    which
+  ];
 
   configureFlags = [
     "--with-x"
@@ -51,8 +60,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
-    knownVulnerabilities = [
-      "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)"
-    ];
+    knownVulnerabilities =
+      [ "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)" ];
   };
 }

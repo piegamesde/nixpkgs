@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ click pydantic toml ];
+  propagatedBuildInputs = [
+    click
+    pydantic
+    toml
+  ];
 
   checkInputs = [ pytestCheckHook ];
 

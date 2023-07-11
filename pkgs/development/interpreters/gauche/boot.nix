@@ -21,9 +21,19 @@ stdenv.mkDerivation rec {
     sha256 = "1yzpszhw52vkpr65r5d4khf3489mnnvnw58dd2wsvvx7499k5aac";
   };
 
-  nativeBuildInputs = [ pkg-config texinfo ];
+  nativeBuildInputs = [
+    pkg-config
+    texinfo
+  ];
 
-  buildInputs = [ libiconv gdbm openssl zlib mbedtls cacert ];
+  buildInputs = [
+    libiconv
+    gdbm
+    openssl
+    zlib
+    mbedtls
+    cacert
+  ];
 
   postPatch = ''
     patchShebangs .

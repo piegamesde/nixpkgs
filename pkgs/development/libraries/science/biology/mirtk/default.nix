@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [ "-DWITH_VTK=ON" "-DBUILD_ALL_MODULES=ON" "-DWITH_TBB=ON" ];
+  cmakeFlags = [
+    "-DWITH_VTK=ON"
+    "-DBUILD_ALL_MODULES=ON"
+    "-DWITH_TBB=ON"
+  ];
 
   doCheck = true;
 
@@ -39,8 +43,18 @@ stdenv.mkDerivation rec {
     install -Dm644 -t "$out/share/bash-completion/completions/mirtk" share/completion/bash/mirtk
   '';
 
-  nativeBuildInputs = [ cmake gtest ];
-  buildInputs = [ boost eigen python3 vtk_8 zlib tbb ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ];
+  buildInputs = [
+    boost
+    eigen
+    python3
+    vtk_8
+    zlib
+    tbb
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/BioMedIA/MIRTK";

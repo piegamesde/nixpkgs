@@ -22,7 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost libGL libGLU libX11 ];
+  buildInputs = [
+    boost
+    libGL
+    libGLU
+    libX11
+  ];
 
   cmakeFlags = [ "-DCOIN_USE_CPACK=OFF" ];
 
@@ -31,7 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     description =
       "High-level, retained-mode toolkit for effective 3D graphics development";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gebner viric ];
+    maintainers = with maintainers; [
+      gebner
+      viric
+    ];
     platforms = platforms.linux;
   };
 })

@@ -20,7 +20,11 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-2Xa5q+o/AYDwG+JYeXTUfMTJk/kln16J8KRcXILNE6c=";
   };
 
-  extraBuildInputs = [ bzip2 zlib kodi.ffmpeg ];
+  extraBuildInputs = [
+    bzip2
+    zlib
+    kodi.ffmpeg
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/xbmc/inputstream.ffmpegdirect/";

@@ -23,10 +23,21 @@ buildPythonPackage rec {
     sha256 = "0i56062k54dlg5iz3qyl1ykww62mpkp8jr4n450h0c60dm0b7ha8";
   };
 
-  propagatedBuildInputs =
-    [ chart-studio colorlover ipython ipywidgets numpy pandas six statsmodels ];
+  propagatedBuildInputs = [
+    chart-studio
+    colorlover
+    ipython
+    ipywidgets
+    numpy
+    pandas
+    six
+    statsmodels
+  ];
 
-  nativeCheckInputs = [ pytest nose ];
+  nativeCheckInputs = [
+    pytest
+    nose
+  ];
 
   # ignore tests which are incompatible with pandas>=1.0
   # https://github.com/santosjorge/cufflinks/issues/236

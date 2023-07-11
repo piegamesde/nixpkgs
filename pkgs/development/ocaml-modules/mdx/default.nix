@@ -31,13 +31,28 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ cppo ];
-  propagatedBuildInputs =
-    [ astring fmt logs csexp ocaml-version odoc-parser re findlib ];
-  checkInputs = [ alcotest lwt ];
+  propagatedBuildInputs = [
+    astring
+    fmt
+    logs
+    csexp
+    ocaml-version
+    odoc-parser
+    re
+    findlib
+  ];
+  checkInputs = [
+    alcotest
+    lwt
+  ];
 
   doCheck = true;
 
-  outputs = [ "bin" "lib" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "out"
+  ];
 
   installPhase = ''
     runHook preInstall

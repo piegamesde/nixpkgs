@@ -33,7 +33,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     maintainers = [ maintainers.khumba ];
     license = [ licenses.gpl2Plus ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     broken = versionOlder kernel.version "4.14";
     description = "DKMS module for controlling System76 I/O board";
     homepage = "https://github.com/pop-os/system76-io-dkms";

@@ -24,7 +24,10 @@ in mkXfceDerivation {
 
   sha256 = "sha256-B3Q5d3KBN5m8wY82CIbIugJC8nNS+OcgKchn+TGrDhc=";
 
-  nativeBuildInputs = [ intltool gettext ];
+  nativeBuildInputs = [
+    intltool
+    gettext
+  ];
   propagatedBuildInputs = [ pythonEnv ];
 
   configurePhase = ''

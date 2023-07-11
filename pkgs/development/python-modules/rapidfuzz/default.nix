@@ -31,11 +31,20 @@ buildPythonPackage rec {
     hash = "sha256-rpUrMHIBr7sb0Cib6WYdLJ3KOPEgRnB0DCV/df1uE1A=";
   };
 
-  nativeBuildInputs = [ cmake cython_3 ninja scikit-build setuptools ];
+  nativeBuildInputs = [
+    cmake
+    cython_3
+    ninja
+    scikit-build
+    setuptools
+  ];
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ rapidfuzz-cpp taskflow ];
+  buildInputs = [
+    rapidfuzz-cpp
+    taskflow
+  ];
 
   preBuild = ''
     export RAPIDFUZZ_BUILD_EXTENSION=1
@@ -43,9 +52,8 @@ buildPythonPackage rec {
     export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString
-    (lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
-      "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
+    && stdenv.isDarwin) [ "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
     ]);
 
   propagatedBuildInputs = [ numpy ];
@@ -54,7 +62,11 @@ buildPythonPackage rec {
     export RAPIDFUZZ_IMPLEMENTATION=cpp
   '';
 
-  nativeCheckInputs = [ hypothesis pandas pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pandas
+    pytestCheckHook
+  ];
 
   disabledTests = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     # segfaults

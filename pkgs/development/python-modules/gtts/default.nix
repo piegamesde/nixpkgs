@@ -26,10 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-dbIcx6U5TIy3CteUGrZqcWqOJoZD2HILaJmKDY+j/II=";
   };
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 click gtts-token requests six urllib3 twine ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    click
+    gtts-token
+    requests
+    six
+    urllib3
+    twine
+  ];
 
-  nativeCheckInputs = [ pytest mock testfixtures ];
+  nativeCheckInputs = [
+    pytest
+    mock
+    testfixtures
+  ];
 
   # majority of tests just try to call out to Google's Translate API endpoint
   doCheck = false;

@@ -19,7 +19,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-oDHDVb0zuAC49yPfmNe7xuFKaA1BRZGr75XwsLqugHs=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gtk3 ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gtk3
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     build
@@ -31,8 +34,16 @@ python3.pkgs.buildPythonApplication rec {
     send2trash
   ];
 
-  buildInputs = [ gtk3 librsvg ]
-    ++ (with xorg; [ libX11 libXxf86vm libXext libXinerama libXrandr ]);
+  buildInputs = [
+    gtk3
+    librsvg
+  ] ++ (with xorg; [
+    libX11
+    libXxf86vm
+    libXext
+    libXinerama
+    libXrandr
+  ]);
 
   doCheck =
     false; # Tests try to access an X11 session and dbus in weird locations.

@@ -20,7 +20,12 @@ let
   pkg = pkgs.limesurvey;
 
   configType = with types;
-    oneOf [ (attrsOf configType) str int bool ] // {
+    oneOf [
+      (attrsOf configType)
+      str
+      int
+      bool
+    ] // {
       description =
         "limesurvey config type (str, int, bool or attribute set thereof)";
     };
@@ -61,14 +66,22 @@ in {
 
     database = {
       type = mkOption {
-        type = types.enum [ "mysql" "pgsql" "odbc" "mssql" ];
+        type = types.enum [
+          "mysql"
+          "pgsql"
+          "odbc"
+          "mssql"
+        ];
         example = "pgsql";
         default = "mysql";
         description = lib.mdDoc "Database engine to use.";
       };
 
       dbEngine = mkOption {
-        type = types.enum [ "MyISAM" "InnoDB" ];
+        type = types.enum [
+          "MyISAM"
+          "InnoDB"
+        ];
         default = "InnoDB";
         description = lib.mdDoc "Database storage engine to use.";
       };
@@ -150,7 +163,12 @@ in {
     };
 
     poolConfig = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type = with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -239,13 +257,13 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" =
             "SELECT, CREATE, INSERT, UPDATE, DELETE, ALTER, DROP, INDEX";
         };
-      }];
+      } ];
     };
 
     services.phpfpm.pools.limesurvey = {

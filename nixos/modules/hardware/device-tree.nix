@@ -118,10 +118,11 @@ let
       });
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "hardware" "deviceTree" "base" ]
-      "Use hardware.deviceTree.kernelPackage instead")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "hardware"
+    "deviceTree"
+    "base"
+  ] "Use hardware.deviceTree.kernelPackage instead") ];
 
   options = {
     hardware.deviceTree = {

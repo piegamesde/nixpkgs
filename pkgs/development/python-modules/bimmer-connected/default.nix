@@ -31,9 +31,18 @@ buildPythonPackage rec {
 
   PBR_VERSION = version;
 
-  propagatedBuildInputs = [ aiofile httpx pycryptodome pyjwt ];
+  propagatedBuildInputs = [
+    aiofile
+    httpx
+    pycryptodome
+    pyjwt
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook respx time-machine ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    respx
+    time-machine
+  ];
 
   pythonImportsCheck = [ "bimmer_connected" ];
 

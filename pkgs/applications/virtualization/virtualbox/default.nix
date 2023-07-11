@@ -81,11 +81,19 @@ in stdenv.mkDerivation {
     sha256 = "f146d9a86a35af0abb010e628636fd800cb476cc2ce82f95b0c0ca876e1756ff";
   };
 
-  outputs = [ "out" "modsrc" ];
+  outputs = [
+    "out"
+    "modsrc"
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config which docbook_xsl docbook_xml_dtd_43 yasm glslang ]
-    ++ optional (!headless) wrapQtAppsHook;
+  nativeBuildInputs = [
+    pkg-config
+    which
+    docbook_xsl
+    docbook_xml_dtd_43
+    yasm
+    glslang
+  ] ++ optional (!headless) wrapQtAppsHook;
 
   # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;
@@ -115,12 +123,25 @@ in stdenv.mkDerivation {
     python3
   ] ++ optional javaBindings jdk ++ optional pythonBindings
     python3 # Python is needed even when not building bindings
-    ++ optional pulseSupport libpulseaudio
-    ++ optionals headless [ libXrandr libGL ]
-    ++ optionals (!headless) [ qtbase qtx11extras libXinerama SDL ]
-    ++ optionals enableWebService [ gsoap zlib ];
+    ++ optional pulseSupport libpulseaudio ++ optionals headless [
+      libXrandr
+      libGL
+    ] ++ optionals (!headless) [
+      qtbase
+      qtx11extras
+      libXinerama
+      SDL
+    ] ++ optionals enableWebService [
+      gsoap
+      zlib
+    ];
 
-  hardeningDisable = [ "format" "fortify" "pic" "stackprotector" ];
+  hardeningDisable = [
+    "format"
+    "fortify"
+    "pic"
+    "stackprotector"
+  ];
 
   prePatch = ''
     set -x
@@ -153,16 +174,15 @@ in stdenv.mkDerivation {
     set +x
   '';
 
-  patches = optional enableHardening ./hardened.patch ++ [
-    ./extra_symbols.patch
-  ]
-  # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
-  # the correct environment variables needed for Qt to work, specifically QT_PLUGIN_PATH.
-  # This is because VirtualBoxVM would detect that it is wrapped that and refuse to run,
-  # and also because it would unset QT_PLUGIN_PATH for security reasons. We work around
-  # these issues by patching the code to set QT_PLUGIN_PATH to the necessary paths,
-  # after the code that unsets it. Note that qtsvg is included so that SVG icons from
-  # the user's icon theme can be loaded.
+  patches = optional enableHardening ./hardened.patch
+    ++ [ ./extra_symbols.patch ]
+    # When hardening is enabled, we cannot use wrapQtApp to ensure that VirtualBoxVM sees
+    # the correct environment variables needed for Qt to work, specifically QT_PLUGIN_PATH.
+    # This is because VirtualBoxVM would detect that it is wrapped that and refuse to run,
+    # and also because it would unset QT_PLUGIN_PATH for security reasons. We work around
+    # these issues by patching the code to set QT_PLUGIN_PATH to the necessary paths,
+    # after the code that unsets it. Note that qtsvg is included so that SVG icons from
+    # the user's icon theme can be loaded.
     ++ optional (!headless && enableHardening) (substituteAll {
       src = ./qt-env-vars.patch;
       qtPluginPath =
@@ -309,7 +329,10 @@ in stdenv.mkDerivation {
 
   meta = {
     description = "PC emulator";
-    sourceProvenance = with lib.sourceTypes; [ fromSource binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
     license = licenses.gpl2;
     homepage = "https://www.virtualbox.org/";
     maintainers = with maintainers; [ sander ];

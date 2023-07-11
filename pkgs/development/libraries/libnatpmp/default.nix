@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1c1n8n7mp0amsd6vkz32n8zj3vnsckv308bb7na0dg0r8969rap1";
   };
 
-  makeFlags = [ "INSTALLPREFIX=$(out)" "CC:=$(CC)" ];
+  makeFlags = [
+    "INSTALLPREFIX=$(out)"
+    "CC:=$(CC)"
+  ];
 
   nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames;
 

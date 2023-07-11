@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = with pkgs; [ swig qmake cmake ];
+  nativeBuildInputs = with pkgs; [
+    swig
+    qmake
+    cmake
+  ];
 
   buildInputs = with pkgs;
     with xorg; [

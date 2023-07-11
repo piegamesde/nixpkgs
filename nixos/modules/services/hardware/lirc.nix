@@ -72,7 +72,10 @@ in {
       unitConfig.Documentation = [ "man:lircd(8)" ];
 
       serviceConfig = {
-        RuntimeDirectory = [ "lirc" "lirc/lock" ];
+        RuntimeDirectory = [
+          "lirc"
+          "lirc/lock"
+        ];
 
         # Service runtime directory and socket share same folder.
         # Following hacks are necessary to get everything right:

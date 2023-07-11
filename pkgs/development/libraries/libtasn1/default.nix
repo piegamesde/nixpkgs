@@ -31,10 +31,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GTfwqEelEsGtLEcBwGRfBZZz1vKXRfWXtMx/409YqX8=";
   });
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
-  nativeBuildInputs = [ texinfo perl ];
+  nativeBuildInputs = [
+    texinfo
+    perl
+  ];
 
   doCheck = true;
   preCheck = if stdenv.isDarwin then

@@ -24,7 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs pluggy six pyhamcrest ];
+  propagatedBuildInputs = [
+    attrs
+    pluggy
+    six
+    pyhamcrest
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m doctest ./src/container.py

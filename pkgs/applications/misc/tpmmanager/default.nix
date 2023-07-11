@@ -34,9 +34,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase trousers ];
+  buildInputs = [
+    qtbase
+    trousers
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

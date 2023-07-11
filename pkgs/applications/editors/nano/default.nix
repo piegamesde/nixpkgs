@@ -40,7 +40,10 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ texinfo ] ++ lib.optional enableNls gettext;
   buildInputs = [ ncurses ];
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -89,7 +92,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.nano-editor.org/";
     description = "A small, user-friendly console text editor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ joachifm nequissimus ];
+    maintainers = with maintainers; [
+      joachifm
+      nequissimus
+    ];
     platforms = platforms.all;
   };
 }

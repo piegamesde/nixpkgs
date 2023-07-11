@@ -133,7 +133,14 @@ stdenv.mkDerivation rec {
   in [
     "--set"
     "PERL5LIB"
-    "${makePerlPath [ LWP LWPProtocolHttps HTTPMessage URI HTTPDate TryTiny ]}"
+    "${makePerlPath [
+      LWP
+      LWPProtocolHttps
+      HTTPMessage
+      URI
+      HTTPDate
+      TryTiny
+    ]}"
     "--prefix"
     "PATH"
     ":"
@@ -149,7 +156,10 @@ stdenv.mkDerivation rec {
     description = "Probe for hardware, check operability and find drivers";
     homepage = "https://github.com/linuxhw/hw-probe";
     platforms = with platforms; (linux ++ freebsd ++ netbsd ++ openbsd);
-    license = with licenses; [ lgpl21 bsdOriginal ];
+    license = with licenses; [
+      lgpl21
+      bsdOriginal
+    ];
     maintainers = with maintainers; [ rehno-lindeque ];
   };
 }

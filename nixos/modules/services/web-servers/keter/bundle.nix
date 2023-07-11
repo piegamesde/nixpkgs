@@ -12,7 +12,7 @@
 }:
 
 let
-  str.stanzas = [{
+  str.stanzas = [ {
     # we just use nix as an absolute path so we're not bundling any binaries
     type = "webapp";
     /* Note that we're not actually putting the executable in the bundle,
@@ -21,7 +21,7 @@ let
     */
     exec = keterExecutable;
     host = keterDomain;
-  }];
+  } ];
   configFile = writeTextFile {
     name = "keter.yml";
     text = (lib.generators.toYAML { } str);

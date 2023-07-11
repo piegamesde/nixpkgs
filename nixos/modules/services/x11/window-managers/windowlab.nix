@@ -15,10 +15,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [{
+      session = [ {
         name = "windowlab";
         start = "${pkgs.windowlab}/bin/windowlab";
-      }];
+      } ];
     };
     environment.systemPackages = [ pkgs.windowlab ];
   };

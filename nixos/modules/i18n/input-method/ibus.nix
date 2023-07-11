@@ -13,8 +13,10 @@ let
   ibusEngine = types.package // {
     name = "ibus-engine";
     check = x:
-      (lib.types.package.check x)
-      && (attrByPath [ "meta" "isIbusEngine" ] false x);
+      (lib.types.package.check x) && (attrByPath [
+        "meta"
+        "isIbusEngine"
+      ] false x);
   };
 
   impanel = optionalString (cfg.panel != null) "--panel=${cfg.panel}";
@@ -32,14 +34,16 @@ let
     '';
   };
 in {
-  imports = [
-    (mkRenamedOptionModule [ "programs" "ibus" "plugins" ] [
-      "i18n"
-      "inputMethod"
-      "ibus"
-      "engines"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "programs"
+    "ibus"
+    "plugins"
+  ] [
+    "i18n"
+    "inputMethod"
+    "ibus"
+    "engines"
+  ]) ];
 
   options = {
     i18n.inputMethod.ibus = {

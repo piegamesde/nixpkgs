@@ -319,8 +319,12 @@ in {
                   nullOr (submodule {
                     options = {
                       type = mkOption {
-                        type =
-                          enum [ "external" "simple" "staggered" "trashcan" ];
+                        type = enum [
+                          "external"
+                          "simple"
+                          "staggered"
+                          "trashcan"
+                        ];
                         description = mdDoc ''
                           The type of versioning.
                           See <https://docs.syncthing.net/users/versioning.html>.
@@ -551,13 +555,20 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "syncthing" "useInotify" ] ''
-      This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
-      It can be enabled on a per-folder basis through the web interface.
-    '')
-  ] ++ map (o:
-    mkRenamedOptionModule [ "services" "syncthing" "declarative" o ] [
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "syncthing"
+    "useInotify"
+  ] ''
+    This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
+    It can be enabled on a per-folder basis through the web interface.
+  '') ] ++ map (o:
+    mkRenamedOptionModule [
+      "services"
+      "syncthing"
+      "declarative"
+      o
+    ] [
       "services"
       "syncthing"
       o
@@ -577,7 +588,10 @@ in {
 
     networking.firewall = mkIf cfg.openDefaultPorts {
       allowedTCPPorts = [ 22000 ];
-      allowedUDPPorts = [ 21027 22000 ];
+      allowedUDPPorts = [
+        21027
+        22000
+      ];
     };
 
     systemd.packages = [ pkgs.syncthing ];

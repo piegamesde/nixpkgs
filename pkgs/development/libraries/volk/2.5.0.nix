@@ -23,14 +23,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/macports/macports-ports/e83a55ef196d4283be438c052295b2fc44f3df5b/science/volk/files/patch-cpu_features-add-support-for-ARM64.diff";
-      sha256 = "sha256-MNUntVvKZC4zuQsxGQCItaUaaQ1d31re2qjyPFbySmI=";
-      extraPrefix = "";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://raw.githubusercontent.com/macports/macports-ports/e83a55ef196d4283be438c052295b2fc44f3df5b/science/volk/files/patch-cpu_features-add-support-for-ARM64.diff";
+    sha256 = "sha256-MNUntVvKZC4zuQsxGQCItaUaaQ1d31re2qjyPFbySmI=";
+    extraPrefix = "";
+  }) ];
 
   cmakeFlags = lib.optionals (!enableModTool) [ "-DENABLE_MODTOOL=OFF" ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
@@ -43,7 +41,11 @@ stdenv.mkDerivation rec {
     ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc} $(readlink -f $out/lib/libvolk.so)
   '';
 
-  nativeBuildInputs = [ cmake python3 python3.pkgs.mako ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    python3.pkgs.mako
+  ];
 
   doCheck = true;
 

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zkQ6sS0EUmiigv3T7To+tG3XbFbR3XEbFo15oQ0bWf0=";
   };
 
-  nativeBuildInputs = [ cmake doxygen ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+  ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-fPIC"

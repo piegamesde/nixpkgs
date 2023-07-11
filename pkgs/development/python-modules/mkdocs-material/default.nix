@@ -32,7 +32,11 @@ buildPythonPackage rec {
     hash = "sha256-GIzHgCU4BzHuQMBleGn9DcJBm+pQ7/JP67e8eIcyhpc=";
   };
 
-  nativeBuildInputs = [ hatch-requirements-txt hatch-nodejs-version hatchling ];
+  nativeBuildInputs = [
+    hatch-requirements-txt
+    hatch-nodejs-version
+    hatchling
+  ];
 
   propagatedBuildInputs = [
     colorama

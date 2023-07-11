@@ -20,9 +20,15 @@ buildPythonPackage rec {
     sha256 = "17la76hn4r1jv67dzz8x2pzl608r0mnvz854407mchlzj6rhsxza";
   };
 
-  nativeBuildInputs = [ cmake pybind11 ];
+  nativeBuildInputs = [
+    cmake
+    pybind11
+  ];
 
-  propagatedBuildInputs = [ xtensor numpy ];
+  propagatedBuildInputs = [
+    xtensor
+    numpy
+  ];
 
   dontUseSetuptoolsBuild = true;
   dontUsePipInstall = true;

@@ -28,19 +28,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BSJu3jB7b5G2ThXBUHUNnBGl55EXe3nIzdBdgfOWDSM=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
-  nativeBuildInputs = [ buildPackages.stdenv.cc pkg-config cmake ];
+  nativeBuildInputs = [
+    buildPackages.stdenv.cc
+    pkg-config
+    cmake
+  ];
 
-  buildInputs = [ glib libsndfile libjack2 ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib libpulseaudio ]
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      AudioUnit
-      CoreAudio
-      CoreMIDI
-      CoreServices
-    ];
+  buildInputs = [
+    glib
+    libsndfile
+    libjack2
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    libpulseaudio
+  ] ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    AudioUnit
+    CoreAudio
+    CoreMIDI
+    CoreServices
+  ];
 
   cmakeFlags = [
     "-Denable-framework=off"
@@ -53,7 +66,10 @@ stdenv.mkDerivation rec {
       "Real-time software synthesizer based on the SoundFont 2 specifications";
     homepage = "https://www.fluidsynth.org";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ goibhniu lovek323 ];
+    maintainers = with maintainers; [
+      goibhniu
+      lovek323
+    ];
     platforms = platforms.unix;
   };
 }

@@ -31,10 +31,15 @@ buildPythonPackage rec {
     hash = "sha256-znPKXpVyCechmiI8tx93I1yd8qz00/J/hhujjpSBrFM=";
   };
 
-  nativeBuildInputs = [ hatchling hatch-vcs ];
+  nativeBuildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
-  propagatedBuildInputs = [ numpy packaging ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   passthru.optional-dependencies = rec {
     all = dicom ++ dicomfs ++ minc2 ++ spm ++ zstd;
@@ -47,9 +52,13 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [ git pytest-doctestplus pytest-httpserver pytest-xdist pytestCheckHook ]
-    ++ passthru.optional-dependencies.all;
+  nativeCheckInputs = [
+    git
+    pytest-doctestplus
+    pytest-httpserver
+    pytest-xdist
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all;
 
   preCheck = ''
     export PATH=$out/bin:$PATH

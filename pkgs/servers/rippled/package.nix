@@ -4467,8 +4467,10 @@
     };
     deps = { };
     optionalDependencies = { };
-    peerDependencies =
-      [ self.by-version."chai"."2.3.0" self.by-version."sinon"."1.14.1" ];
+    peerDependencies = [
+      self.by-version."chai"."2.3.0"
+      self.by-version."sinon"."1.14.1"
+    ];
     os = [ ];
     cpu = [ ];
   };

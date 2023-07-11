@@ -32,7 +32,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ django ]
     ++ passthru.optional-dependencies.phonenumbers;
 
-  nativeCheckInputs = [ babel djangorestframework ];
+  nativeCheckInputs = [
+    babel
+    djangorestframework
+  ];
 
   pythonImportsCheck = [ "phonenumber_field" ];
 

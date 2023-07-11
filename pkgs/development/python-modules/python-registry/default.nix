@@ -19,9 +19,15 @@ buildPythonPackage rec {
     sha256 = "0gwx5jcribgmmbz0ikhz8iphz7yj2d2nmk24nkdrjd3y5irly11s";
   };
 
-  propagatedBuildInputs = [ enum-compat unicodecsv ];
+  propagatedBuildInputs = [
+    enum-compat
+    unicodecsv
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook six ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    six
+  ];
 
   disabledTestPaths = [ "samples" ];
 

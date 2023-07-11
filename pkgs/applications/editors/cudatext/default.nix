@@ -29,7 +29,11 @@
   additionalLexers ? [ "Nix" ]
 }:
 
-assert builtins.elem widgetset [ "gtk2" "gtk3" "qt5" ];
+assert builtins.elem widgetset [
+  "gtk2"
+  "gtk3"
+  "qt5"
+];
 
 let
   deps = lib.mapAttrs (name: spec:
@@ -55,8 +59,10 @@ in stdenv.mkDerivation rec {
       --replace "AllowProgramUpdates:= true;" "AllowProgramUpdates:= false;"
   '';
 
-  nativeBuildInputs = [ lazarus fpc ]
-    ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook;
+  nativeBuildInputs = [
+    lazarus
+    fpc
+  ] ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook;
 
   buildInputs = [ libX11 ] ++ lib.optionals (lib.hasPrefix "gtk" widgetset) [
     pango

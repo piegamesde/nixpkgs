@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qthttpserver";
-  qtInputs = [ qtbase qtwebsockets ];
+  qtInputs = [
+    qtbase
+    qtwebsockets
+  ];
 }

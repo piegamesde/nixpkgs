@@ -22,7 +22,10 @@ buildPythonPackage rec {
     sha256 = "198vfv78hilpg0d0mjzchzp9zk6239wnra61vlsgwpcgz66d2bgv";
   };
 
-  nativeCheckInputs = [ commentjson pytestCheckHook ];
+  nativeCheckInputs = [
+    commentjson
+    pytestCheckHook
+  ];
   # TODO: reenable after updating to >= 1.0.0
   # https://github.com/sarugaku/resolvelib/issues/114
   disabledTests = [

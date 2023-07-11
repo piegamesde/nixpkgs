@@ -30,10 +30,18 @@ in stdenv.mkDerivation rec {
     sha256 = "0prhqibivxzmz90k79zpwx3c97h8wa61rk5ihi9a5651mnc46mna";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ openal alure ] ++ optionals (legacy) [ libXtst libX11 ]
-    ++ optionals (!legacy) [ libinput ];
+  buildInputs = [
+    openal
+    alure
+  ] ++ optionals (legacy) [
+    libXtst
+    libX11
+  ] ++ optionals (!legacy) [ libinput ];
 
   makeFlags = optionals (!legacy) [ "libinput=1" ];
 

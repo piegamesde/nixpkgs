@@ -42,7 +42,11 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-/dih2LoqgRrAsVdHRwld28T8pXgqnzapnQhqkXnxbbc=";
   };
 
-  outputs = [ "out" "dev" "lib" ] ++ lib.optional withDevdoc "devdoc";
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ] ++ lib.optional withDevdoc "devdoc";
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -54,7 +58,10 @@ in stdenv.mkDerivation rec {
     pkg-config
 
     docbook_xml_dtd_42 # for the man pages
-  ] ++ lib.optionals withDevdoc [ docbook_xml_dtd_43 gtk-doc ];
+  ] ++ lib.optionals withDevdoc [
+    docbook_xml_dtd_43
+    gtk-doc
+  ];
   buildInputs = [
     xz
     zstd
@@ -104,7 +111,10 @@ in stdenv.mkDerivation rec {
     downloadPage = "https://www.kernel.org/pub/linux/utils/kernel/kmod/";
     changelog =
       "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/plain/NEWS?h=v${version}";
-    license = with licenses; [ lgpl21Plus gpl2Plus ]; # GPLv2+ for tools
+    license = with licenses; [
+      lgpl21Plus
+      gpl2Plus
+    ]; # GPLv2+ for tools
     platforms = platforms.linux;
     maintainers = with maintainers; [ artturin ];
   };

@@ -18,7 +18,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-CL6VXe7heyBbGX0qI4uaD7g7DLiFbykSfOcWemnEe8U=";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [ openssl ];
 
   meta = with lib; {

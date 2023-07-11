@@ -37,7 +37,11 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ moto paramiko pytestCheckHook ];
+  nativeCheckInputs = [
+    moto
+    paramiko
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "smart_open" ];
 

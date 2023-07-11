@@ -21,10 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "1c6ab1s9bbkjbmcfv2mny273r66dlz7sgxsmzfwi0fm2vcb2lwim";
   };
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
-  buildInputs = [ glib libwnck ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs = [
+    glib
+    libwnck
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/xsuspender \

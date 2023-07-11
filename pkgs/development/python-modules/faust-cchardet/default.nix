@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-jTOqxBss/FAb8nMkU62H6O4ysmirD2FTA9mtvxXh43k=";
   };
 
-  nativeBuildInputs = [ cython pkgconfig setuptools wheel ];
+  nativeBuildInputs = [
+    cython
+    pkgconfig
+    setuptools
+    wheel
+  ];
 
   postFixup = ''
     # fake cchardet distinfo, so packages that depend on cchardet
@@ -42,6 +47,9 @@ buildPythonPackage rec {
     description = "High-speed universal character encoding detector";
     homepage = "https://github.com/faust-streaming/cChardet";
     license = lib.licenses.mpl11;
-    maintainers = with lib.maintainers; [ dotlambda ivan ];
+    maintainers = with lib.maintainers; [
+      dotlambda
+      ivan
+    ];
   };
 }

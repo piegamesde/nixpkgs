@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jrIsErKeHP9CMUWsrD42RmfmApP7J091OLA5JNY0fe0=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [
     openssl
     db48
@@ -39,8 +42,10 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [ "--disable-bench" "--with-boost-libdir=${boost.out}/lib" ]
-    ++ lib.optionals (!doCheck) [ "--enable-tests=no" ];
+  configureFlags = [
+    "--disable-bench"
+    "--with-boost-libdir=${boost.out}/lib"
+  ] ++ lib.optionals (!doCheck) [ "--enable-tests=no" ];
 
   # Always check during Hydra builds
   doCheck = true;

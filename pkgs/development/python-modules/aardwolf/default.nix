@@ -44,8 +44,13 @@ buildPythonPackage rec {
 
   cargoRoot = "aardwolf/utils/rlers";
 
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook setuptools-rust ]
-    ++ (with rustPlatform.rust; [ cargo rustc ]);
+  nativeBuildInputs = [
+    rustPlatform.cargoSetupHook
+    setuptools-rust
+  ] ++ (with rustPlatform.rust; [
+    cargo
+    rustc
+  ]);
 
   propagatedBuildInputs = [
     arc4

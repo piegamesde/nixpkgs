@@ -37,8 +37,17 @@ resholve.mkDerivation rec {
     default = {
       scripts = [ "bin/pdf2odt" ];
       interpreter = "${bash}/bin/bash";
-      inputs =
-        [ coreutils bc file imagemagick gawk gnused ghostscript zip findutils ];
+      inputs = [
+        coreutils
+        bc
+        file
+        imagemagick
+        gawk
+        gnused
+        ghostscript
+        zip
+        findutils
+      ];
     };
   };
 

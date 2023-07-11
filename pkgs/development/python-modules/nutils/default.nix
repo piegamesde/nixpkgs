@@ -24,7 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-KCvUBE3qbX6v1HahBj4/jjM8ujvFGtWNuH1D+bTHrQ0=";
   };
 
-  propagatedBuildInputs = [ numpy treelog stringly ];
+  propagatedBuildInputs = [
+    numpy
+    treelog
+    stringly
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -29,14 +29,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-U2ReSrJwjAXUdRmwixC0DQXht/h/6rV8SOf5e2NozIs=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  propagatedBuildInputs = [ bzip2 lz4 snappy zlib zstd ];
+  propagatedBuildInputs = [
+    bzip2
+    lz4
+    snappy
+    zlib
+    zstd
+  ];
 
   buildInputs = lib.optional enableJemalloc jemalloc
     ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads;
 
-  outputs = [ "out" "tools" ];
+  outputs = [
+    "out"
+    "tools"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
     "-Wno-error=deprecated-copy"
@@ -98,6 +110,9 @@ stdenv.mkDerivation rec {
       "https://github.com/facebook/rocksdb/raw/v${version}/HISTORY.md";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ adev magenbluten ];
+    maintainers = with maintainers; [
+      adev
+      magenbluten
+    ];
   };
 }

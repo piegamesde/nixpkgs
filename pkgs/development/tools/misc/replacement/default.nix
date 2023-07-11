@@ -19,7 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ ruamel-yaml ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook sh ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    sh
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/siriobalmelli/replacement";

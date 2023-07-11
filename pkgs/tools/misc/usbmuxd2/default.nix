@@ -24,7 +24,10 @@ let
       # Set package version so we don't require git
       sed -i '/AC_INIT/s/m4_esyscmd.*/${version})/' configure.ac
     '';
-    nativeBuildInputs = [ autoreconfHook pkg-config ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
     meta = with lib; {
       description = "Helper library used by usbmuxd2";
       homepage = "https://github.com/tihmstar/libgeneral";
@@ -51,9 +54,18 @@ in clangStdenv.mkDerivation rec {
     sed -i 's/libgeneral >= 39/libgeneral/' configure.ac
   '';
 
-  nativeBuildInputs = [ autoreconfHook clang pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    clang
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ avahi libgeneral libimobiledevice libusb1 ];
+  propagatedBuildInputs = [
+    avahi
+    libgeneral
+    libimobiledevice
+    libusb1
+  ];
 
   configureFlags = [
     "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"

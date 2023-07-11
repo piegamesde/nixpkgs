@@ -23,21 +23,27 @@ stdenv.mkDerivation rec {
     sha256 = "1q6g2pnrn5gqn9jqnm3975v9hh60hc5gn9x3zbrdjgy0n3wpxwm9";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      libhangul = "${libhangul}/lib/libhangul.so.1";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    libhangul = "${libhangul}/lib/libhangul.so.1";
+  }) ];
 
-  nativeBuildInputs = [ appstream-glib gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    appstream-glib
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3
     ibus
     libhangul
-    (python3.withPackages
-      (pypkgs: with pypkgs; [ pygobject3 (toPythonModule ibus) ]))
+    (python3.withPackages (pypkgs:
+      with pypkgs; [
+        pygobject3
+        (toPythonModule ibus)
+      ]))
   ];
 
   meta = with lib; {

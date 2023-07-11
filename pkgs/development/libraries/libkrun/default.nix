@@ -38,13 +38,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = with rustPlatform;
-    [ cargoSetupHook rust.cargo rust.rustc ]
-    ++ lib.optional sevVariant pkg-config;
+    [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ] ++ lib.optional sevVariant pkg-config;
 
   buildInputs = [ (libkrunfw.override { inherit sevVariant; }) ]
-    ++ lib.optionals stdenv.isLinux [ glibc glibc.static ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Hypervisor dtc ]
-    ++ lib.optional sevVariant openssl;
+    ++ lib.optionals stdenv.isLinux [
+      glibc
+      glibc.static
+    ] ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      Hypervisor
+      dtc
+    ] ++ lib.optional sevVariant openssl;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ]
     ++ lib.optional sevVariant "SEV=1";

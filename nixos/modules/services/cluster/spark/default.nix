@@ -106,7 +106,11 @@ in with lib; {
     systemd = {
       services = {
         spark-master = lib.mkIf cfg.master.enable {
-          path = with pkgs; [ procps openssh nettools ];
+          path = with pkgs; [
+            procps
+            openssh
+            nettools
+          ];
           description = "spark master service.";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
@@ -131,7 +135,12 @@ in with lib; {
           };
         };
         spark-worker = lib.mkIf cfg.worker.enable {
-          path = with pkgs; [ procps openssh nettools rsync ];
+          path = with pkgs; [
+            procps
+            openssh
+            nettools
+            rsync
+          ];
           description = "spark master service.";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];

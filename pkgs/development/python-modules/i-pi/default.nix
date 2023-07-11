@@ -21,11 +21,18 @@ buildPythonPackage rec {
     sha256 = "0d0ag57aa0fsqjwya27fyj8alimjvlxzgh6hxjqy1k4ap9h3n1cy";
   };
 
-  nativeBuildInputs = [ gfortran makeWrapper ];
+  nativeBuildInputs = [
+    gfortran
+    makeWrapper
+  ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ pytest mock pytest-mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+    pytest-mock
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/i-pi \
@@ -35,7 +42,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description =
       "A universal force engine for ab initio and force field driven (path integral) molecular dynamics";
-    license = with licenses; [ gpl3Only mit ];
+    license = with licenses; [
+      gpl3Only
+      mit
+    ];
     homepage = "http://ipi-code.org/";
     platforms = platforms.linux;
     maintainers = [ maintainers.sheepforce ];

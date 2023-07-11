@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VQ1ZkXaZ5sUbtWa/GreTr5uXvnZ2Go6owJ2ZBK25zns=";
   };
 
-  buildInputs = [ qtbase libX11 libXtst openssl libscrypt ];
-  nativeBuildInputs = [ qmake qttools wrapQtAppsHook ];
+  buildInputs = [
+    qtbase
+    libX11
+    libXtst
+    openssl
+    libscrypt
+  ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    wrapQtAppsHook
+  ];
 
   # Upstream install is mostly defunct. It hardcodes target.path and doesn't
   # install anything but the binary.
@@ -58,7 +68,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/bkueng/qMasterPassword";
     license = licenses.gpl3;
-    maintainers = with lib.maintainers; [ tadeokondrak teutat3s ];
+    maintainers = with lib.maintainers; [
+      tadeokondrak
+      teutat3s
+    ];
     platforms = platforms.all;
   };
 }

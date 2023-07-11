@@ -26,7 +26,10 @@ buildPythonPackage rec {
     # pygraphviz depends on graphviz executables and wc being in PATH
     (substituteAll {
       src = ./path.patch;
-      path = lib.makeBinPath [ graphviz coreutils ];
+      path = lib.makeBinPath [
+        graphviz
+        coreutils
+      ];
     })
   ];
 
@@ -48,6 +51,9 @@ buildPythonPackage rec {
     description = "Python interface to Graphviz graph drawing package";
     homepage = "https://github.com/pygraphviz/pygraphviz";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ matthiasbeyer dotlambda ];
+    maintainers = with maintainers; [
+      matthiasbeyer
+      dotlambda
+    ];
   };
 }

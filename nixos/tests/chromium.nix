@@ -41,7 +41,10 @@ in mapAttrs (channel: chromiumPkg:
   makeTest {
     name = "chromium-${channel}";
     meta = {
-      maintainers = with maintainers; [ aszlig primeos ];
+      maintainers = with maintainers; [
+        aszlig
+        primeos
+      ];
     } // optionalAttrs (chromiumPkg.meta ? timeout) {
       # https://github.com/NixOS/hydra/issues/591#issuecomment-435125621
       # Note: optionalAttrs is used since meta.timeout is not set for Google Chrome
@@ -53,7 +56,10 @@ in mapAttrs (channel: chromiumPkg:
     nodes.machine = {
         ...
       }: {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
         virtualisation.memorySize = 2047;
         test-support.displayManager.auto.user = user;
         environment = {

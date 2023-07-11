@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ astroid packaging poetry-semver toml ];
+  propagatedBuildInputs = [
+    astroid
+    packaging
+    poetry-semver
+    toml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

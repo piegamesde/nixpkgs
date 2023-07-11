@@ -88,10 +88,17 @@ stdenv.mkDerivation rec {
     rtmidi
     boost
     aubio
-  ] ++ lib.optionals withTauWidget [ qtwebengine ]
-    ++ lib.optionals withImGui [ gl3w SDL2 fmt ];
+  ] ++ lib.optionals withTauWidget [ qtwebengine ] ++ lib.optionals withImGui [
+    gl3w
+    SDL2
+    fmt
+  ];
 
-  nativeCheckInputs = [ parallel supercollider-with-sc3-plugins jack2 ];
+  nativeCheckInputs = [
+    parallel
+    supercollider-with-sc3-plugins
+    jack2
+  ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_LIBS=ON"
@@ -182,7 +189,11 @@ stdenv.mkDerivation rec {
     # Wrap Qt GUI (distributed binary)
     wrapQtApp $out/bin/sonic-pi \
       --prefix PATH : ${
-        lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
+        lib.makeBinPath [
+          ruby
+          supercollider-with-sc3-plugins
+          jack2
+        ]
       }
 
     # If ImGui was built
@@ -191,7 +202,11 @@ stdenv.mkDerivation rec {
       makeWrapper $out/app/build/gui/imgui/sonic-pi-imgui $out/bin/sonic-pi-imgui \
         --inherit-argv0 \
         --prefix PATH : ${
-          lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
+          lib.makeBinPath [
+            ruby
+            supercollider-with-sc3-plugins
+            jack2
+          ]
         }
     fi
 
@@ -201,18 +216,23 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  stripDebugList = [ "app" "bin" ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "sonic-pi";
-      exec = "sonic-pi";
-      icon = "sonic-pi";
-      desktopName = "Sonic Pi";
-      comment = meta.description;
-      categories = [ "Audio" "AudioVideo" "Education" ];
-    })
+  stripDebugList = [
+    "app"
+    "bin"
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "sonic-pi";
+    exec = "sonic-pi";
+    icon = "sonic-pi";
+    desktopName = "Sonic Pi";
+    comment = meta.description;
+    categories = [
+      "Audio"
+      "AudioVideo"
+      "Education"
+    ];
+  }) ];
 
   passthru.updateScript = ./update.sh;
 

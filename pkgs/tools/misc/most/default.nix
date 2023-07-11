@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     ./parallel-make.patch
   ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   makeFlags = [ "DOC_DIR=${placeholder "doc"}/share/doc/most" ];
 
@@ -34,7 +37,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-slang=${slang.dev}" ];
 
-  buildInputs = [ slang ncurses ];
+  buildInputs = [
+    slang
+    ncurses
+  ];
 
   enableParallelBuilding = true;
 

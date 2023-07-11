@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-fE5klk4ToayRyUmE2xtcMMsH4VKOKZHqvBCa9GG84rU=";
   };
 
-  propagatedBuildInputs = [ attrs voluptuous ];
+  propagatedBuildInputs = [
+    attrs
+    voluptuous
+  ];
 
   # Project has no tests
   doCheck = false;

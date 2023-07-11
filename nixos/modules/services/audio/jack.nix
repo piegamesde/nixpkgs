@@ -218,11 +218,11 @@ in {
         jack_connect system:capture_2 ploop:playback_2
       '';
 
-      assertions = [{
+      assertions = [ {
         assertion = !(cfg.alsa.enable && cfg.loopback.enable);
         message =
           "For JACK both alsa and loopback options shouldn't be used at the same time.";
-      }];
+      } ];
 
       users.users.jackaudio = {
         group = "jackaudio";

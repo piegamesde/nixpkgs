@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-OtEAeAchoZEfV6FlgJt+omWnhjMFrLZnCCIIIMr4qg0=";
   };
 
-  nativeCheckInputs = [ mock pytest ];
+  nativeCheckInputs = [
+    mock
+    pytest
+  ];
 
   checkPhase = ''
     # based on tox.ini

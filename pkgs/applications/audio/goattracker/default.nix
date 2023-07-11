@@ -18,8 +18,14 @@ let
     genericName = "Music Tracker";
     exec = if isStereo then "gt2stereo" else "goattrk2";
     icon = "goattracker";
-    categories = [ "AudioVideo" "AudioVideoEditing" ];
-    keywords = [ "tracker" "music" ];
+    categories = [
+      "AudioVideo"
+      "AudioVideoEditing"
+    ];
+    keywords = [
+      "tracker"
+      "music"
+    ];
   };
 
 in stdenv.mkDerivation rec {
@@ -40,7 +46,11 @@ in stdenv.mkDerivation rec {
   };
   sourceRoot = "src";
 
-  nativeBuildInputs = [ copyDesktopItems unzip imagemagick ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    unzip
+    imagemagick
+  ];
   buildInputs = [ SDL ];
 
   # PREFIX gets treated as BINDIR.

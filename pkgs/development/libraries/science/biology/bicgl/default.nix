@@ -24,12 +24,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libminc bicpl mesa_glu ]
-    ++ lib.optionals stdenv.isDarwin [ GLUT ]
+  buildInputs = [
+    libminc
+    bicpl
+    mesa_glu
+  ] ++ lib.optionals stdenv.isDarwin [ GLUT ]
     ++ lib.optionals stdenv.isLinux [ freeglut ];
 
-  cmakeFlags =
-    [ "-DLIBMINC_DIR=${libminc}/lib/cmake" "-DBICPL_DIR=${bicpl}/lib" ];
+  cmakeFlags = [
+    "-DLIBMINC_DIR=${libminc}/lib/cmake"
+    "-DBICPL_DIR=${bicpl}/lib"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/${owner}/${pname}";

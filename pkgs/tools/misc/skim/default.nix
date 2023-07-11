@@ -17,7 +17,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  outputs = [ "out" "vim" ];
+  outputs = [
+    "out"
+    "vim"
+  ];
 
   cargoHash = "sha256-jBcgoWbmBOgU7M71lr4OXOe2S6NAXl+I8D+ZtT45Vos=";
 

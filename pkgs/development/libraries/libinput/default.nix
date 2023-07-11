@@ -29,8 +29,12 @@ let
   mkFlag = optSet: flag: "-D${flag}=${lib.boolToString optSet}";
 
   sphinx-build = let
-    env = python3.withPackages
-      (pp: with pp; [ sphinx recommonmark sphinx-rtd-theme ]);
+    env = python3.withPackages (pp:
+      with pp; [
+        sphinx
+        recommonmark
+        sphinx-rtd-theme
+      ]);
     # Expose only the sphinx-build binary to avoid contaminating
     # everything with Sphinx’s Python environment.
   in runCommand "sphinx-build" { } ''
@@ -42,7 +46,11 @@ in stdenv.mkDerivation rec {
   pname = "libinput";
   version = "1.23.0";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -54,8 +62,15 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./udev-absolute-path.patch ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ]
-    ++ lib.optionals documentationSupport [ doxygen graphviz sphinx-build ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ] ++ lib.optionals documentationSupport [
+    doxygen
+    graphviz
+    sphinx-build
+  ];
 
   buildInputs = [
     libevdev
@@ -77,7 +92,10 @@ in stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ udev ];
 
-  nativeCheckInputs = [ check valgrind ];
+  nativeCheckInputs = [
+    check
+    valgrind
+  ];
 
   mesonFlags = [
     (mkFlag documentationSupport "documentation")

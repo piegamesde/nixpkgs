@@ -26,13 +26,19 @@ buildPythonPackage rec {
     hash = "sha256-n88MxwYQ4O2kBy/W0Zvi3FtIlhZQQRCssB/lYrFNvps=";
   };
 
-  propagatedBuildInputs = [ asgiref django ];
+  propagatedBuildInputs = [
+    asgiref
+    django
+  ];
 
   passthru.optional-dependencies = { daphne = [ daphne ]; };
 
-  nativeCheckInputs =
-    [ async-timeout pytest-asyncio pytest-django pytestCheckHook ]
-    ++ passthru.optional-dependencies.daphne;
+  nativeCheckInputs = [
+    async-timeout
+    pytest-asyncio
+    pytest-django
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.daphne;
 
   pythonImportsCheck = [ "channels" ];
 

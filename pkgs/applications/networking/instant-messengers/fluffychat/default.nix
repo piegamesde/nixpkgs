@@ -26,7 +26,11 @@ flutter.buildFlutterApplication rec {
     icon = "fluffychat";
     desktopName = "Fluffychat";
     genericName = "Chat with your friends (matrix client)";
-    categories = [ "Chat" "Network" "InstantMessaging" ];
+    categories = [
+      "Chat"
+      "Network"
+      "InstantMessaging"
+    ];
   };
   nativeBuildInputs = [ imagemagick ];
 
@@ -50,8 +54,14 @@ flutter.buildFlutterApplication rec {
     description = "Chat with your friends (matrix client)";
     homepage = "https://fluffychat.im/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ mkg20001 gilice ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [
+      mkg20001
+      gilice
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     sourceProvenance = [ sourceTypes.fromSource ];
   };
 }

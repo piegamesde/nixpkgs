@@ -15,7 +15,11 @@ buildPythonPackage rec {
     sha256 = "c0347ece920b7009d94551983a01f42db02920ca8d7b0ff36d24a337e2c937f7";
   };
 
-  propagatedBuildInputs = [ click multimethod numpy ];
+  propagatedBuildInputs = [
+    click
+    multimethod
+    numpy
+  ];
 
   # no tests
   doCheck = false;

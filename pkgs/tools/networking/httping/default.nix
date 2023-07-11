@@ -34,9 +34,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gettext ];
 
-  buildInputs = [ fftw libintl ncurses openssl ];
+  buildInputs = [
+    fftw
+    libintl
+    ncurses
+    openssl
+  ];
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     homepage = "https://vanheusden.com/httping";

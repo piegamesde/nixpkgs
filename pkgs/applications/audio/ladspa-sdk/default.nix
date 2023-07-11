@@ -20,8 +20,10 @@ stdenv.mkDerivation rec {
     sed -i 's@/usr/@$(out)/@g'  Makefile
   '';
 
-  makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" "CPP=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CPP=${stdenv.cc.targetPrefix}c++"
+  ];
 
   # The default target also runs tests, which we don't want to do in
   # the build phase as it would break cross.

@@ -31,7 +31,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "hierarkey" ];
 
-  nativeCheckInputs = [ django-extensions pytest-django pytestCheckHook ];
+  nativeCheckInputs = [
+    django-extensions
+    pytest-django
+    pytestCheckHook
+  ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 

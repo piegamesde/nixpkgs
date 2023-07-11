@@ -20,7 +20,10 @@ stdenv.mkDerivation {
 
   patches = [ ./use-nix-profiles.patch ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 keybinder ];
+  buildInputs = [
+    gtk2
+    keybinder
+  ];
 
   preConfigure = ''
     export PREFIX=$out

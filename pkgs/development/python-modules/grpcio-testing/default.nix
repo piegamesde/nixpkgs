@@ -25,7 +25,10 @@ buildPythonPackage rec {
       --replace "'grpcio>={version}'.format(version=grpc_version.VERSION)" "'grpcio'"
   '';
 
-  propagatedBuildInputs = [ grpcio protobuf ];
+  propagatedBuildInputs = [
+    grpcio
+    protobuf
+  ];
 
   pythonImportsCheck = [ "grpc_testing" ];
 

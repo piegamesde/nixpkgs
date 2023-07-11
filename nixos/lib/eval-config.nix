@@ -78,7 +78,10 @@ in let
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
-    modules = baseModules ++ extraModules ++ [ pkgsModule modulesModule ];
+    modules = baseModules ++ extraModules ++ [
+      pkgsModule
+      modulesModule
+    ];
   });
 
   # Extra arguments that are useful for constructing a similar configuration.

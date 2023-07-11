@@ -164,7 +164,11 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  preFixup = let libPath = lib.makeLibraryPath [ ffmpeg libpulseaudio ];
+  preFixup = let
+    libPath = lib.makeLibraryPath [
+      ffmpeg
+      libpulseaudio
+    ];
   in ''
         gappsWrapperArgs+=(
           --prefix LD_LIBRARY_PATH : "${libPath}"
@@ -190,8 +194,14 @@ stdenv.mkDerivation rec {
     changelog =
       "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      OPNA2608
+    ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 
   passthru = {

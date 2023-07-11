@@ -49,7 +49,10 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ] ++ lib.optional stdenv.isDarwin gtk4; # for gtk4-update-icon-cache
 
-  buildInputs = [ librsvg libadwaita ];
+  buildInputs = [
+    librsvg
+    libadwaita
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

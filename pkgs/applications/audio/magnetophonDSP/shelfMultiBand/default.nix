@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1b1h4z5fs2xm7wvw11p9wnd0bxs3m88124f5phh0gwvpsdrd0im5";
   };
 
-  buildInputs = [ faust2jaqt faust2lv2 ];
+  buildInputs = [
+    faust2jaqt
+    faust2lv2
+  ];
 
   buildPhase = ''
     faust2jaqt -vec -double -time -t 99999 shelfMultiBand.dsp

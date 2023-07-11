@@ -47,7 +47,12 @@ buildDunePackage {
     uutf
   ];
 
-  checkInputs = [ vector hex alcotest qcheck-alcotest ];
+  checkInputs = [
+    vector
+    hex
+    alcotest
+    qcheck-alcotest
+  ];
 
   doCheck = true;
 

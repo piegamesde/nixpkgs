@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [ beaker pyramid ];
+  propagatedBuildInputs = [
+    beaker
+    pyramid
+  ];
 
   meta = with lib; {
     description = "Beaker session factory backend for Pyramid";

@@ -20,13 +20,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ urwid ];
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch";
-      hash = "sha256-fA+30d2uVaoNCg4rtoWLNPvrZtq41Co4vcmM80hkURs=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch";
+    hash = "sha256-fA+30d2uVaoNCg4rtoWLNPvrZtq41Co4vcmM80hkURs=";
+  }) ];
 
   nativeCheckInputs = [ glibcLocales ];
   LC_ALL = "en_US.UTF-8";

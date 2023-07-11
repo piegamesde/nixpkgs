@@ -20,7 +20,12 @@ stdenv.mkDerivation {
 
   patches = [ ./library-path.patch ];
 
-  buildInputs = [ curl cjson olm luaffi ];
+  buildInputs = [
+    curl
+    cjson
+    olm
+    luaffi
+  ];
 
   postPatch = ''
     substituteInPlace matrix.lua \

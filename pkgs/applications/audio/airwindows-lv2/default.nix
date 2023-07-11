@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-06mfTvt0BXHUGZG2rnEbuOPIP+jD76mQZTo+m4b4lo4=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
   buildInputs = [ lv2 ];
 
   meta = with lib; {

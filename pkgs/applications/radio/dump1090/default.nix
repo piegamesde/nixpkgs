@@ -24,13 +24,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libbladeRF libusb1 ncurses rtl-sdr hackrf ]
-    ++ lib.optional stdenv.isLinux limesuite;
+  buildInputs = [
+    libbladeRF
+    libusb1
+    ncurses
+    rtl-sdr
+    hackrf
+  ] ++ lib.optional stdenv.isLinux limesuite;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang
     "-Wno-implicit-function-declaration -Wno-int-conversion";
 
-  buildFlags = [ "dump1090" "view1090" ];
+  buildFlags = [
+    "dump1090"
+    "view1090"
+  ];
 
   doCheck = true;
 

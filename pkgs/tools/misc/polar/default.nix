@@ -36,7 +36,10 @@ in stdenv.mkDerivation rec {
       substituteInPlace $script --replace "#{File.dirname(__FILE__)}/lib" "$out/lib/polar"
     done
   '';
-  buildInputs = [ gems ruby ];
+  buildInputs = [
+    gems
+    ruby
+  ];
 
   # See: https://nixos.wiki/wiki/Packaging/Ruby
   #

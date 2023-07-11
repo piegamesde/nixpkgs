@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [ pytestCheckHook setuptools testpath ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    setuptools
+    testpath
+  ];
 
   disabledTests = [
     # fail to import setuptools

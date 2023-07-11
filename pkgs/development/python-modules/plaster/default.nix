@@ -18,5 +18,8 @@ buildPythonPackage rec {
     py.test
   '';
 
-  nativeCheckInputs = [ pytest pytest-cov ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+  ];
 }

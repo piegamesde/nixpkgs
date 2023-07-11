@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   # Note: Glib support is optional, but it's quite useful (e.g., it's used by
   # Guile-GNOME).
-  buildInputs = [ guile glib guile-lib ];
+  buildInputs = [
+    guile
+    glib
+    guile-lib
+  ];
 
   propagatedBuildInputs = [ libffi ];
 

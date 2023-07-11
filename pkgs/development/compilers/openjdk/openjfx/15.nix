@@ -39,8 +39,23 @@ let
         sha256 = "019glq8rhn6amy3n5jc17vi2wpf1pxpmmywvyz1ga8n09w7xscq1";
       };
 
-      buildInputs = [ gtk3 libXtst libXxf86vm glib alsa-lib ffmpeg_4-headless ];
-      nativeBuildInputs = [ gradle_ perl pkg-config cmake gperf python3 ruby ];
+      buildInputs = [
+        gtk3
+        libXtst
+        libXxf86vm
+        glib
+        alsa-lib
+        ffmpeg_4-headless
+      ];
+      nativeBuildInputs = [
+        gradle_
+        perl
+        pkg-config
+        cmake
+        gperf
+        python3
+        ruby
+      ];
 
       dontUseCmakeConfigure = true;
 

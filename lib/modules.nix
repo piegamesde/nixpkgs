@@ -319,10 +319,10 @@ in rec {
         (applyModuleArgsIfFunction fallbackKey m args)
       else if isList m then
         let
-          defs = [{
+          defs = [ {
             file = fallbackFile;
             value = m;
-          }];
+          } ];
         in throw
         "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
           showDefs defs
@@ -370,10 +370,10 @@ in rec {
         key = module.key;
         module = module;
         modules = collectedImports.modules;
-        disabled = (if module.disabledModules != [ ] then [{
+        disabled = (if module.disabledModules != [ ] then [ {
           file = module._file;
           disabled = module.disabledModules;
-        }] else
+        } ] else
           [ ]) ++ collectedImports.disabled;
       }) initialModules);
 
@@ -442,10 +442,19 @@ in rec {
   unifyModuleSyntax = file: key: m:
     let
       addMeta = config:
-        if m ? meta then mkMerge [ config { meta = m.meta; } ] else config;
+        if m ? meta then
+          mkMerge [
+            config
+            { meta = m.meta; }
+          ]
+        else
+          config;
       addFreeformType = config:
         if m ? freeformType then
-          mkMerge [ config { _module.freeformType = m.freeformType; } ]
+          mkMerge [
+            config
+            { _module.freeformType = m.freeformType; }
+          ]
         else
           config;
     in if m ? config || m ? options then
@@ -605,10 +614,10 @@ in rec {
           else
             mapAttrs (n: f module) subtree) modules);
       # an attrset 'name' => list of submodules that declare ‘name’.
-      declsByName = byName "options" (module: option: [{
+      declsByName = byName "options" (module: option: [ {
         inherit (module) _file;
         options = option;
-      }]) options;
+      } ]) options;
       # an attrset 'name' => list of submodules that define ‘name’.
       defnsByName = byName "config" (module: value:
         map (config: {
@@ -616,10 +625,10 @@ in rec {
           inherit config;
         }) (pushDownProperties value)) configs;
       # extract the definitions for each loc
-      defnsByName' = byName "config" (module: value: [{
+      defnsByName' = byName "config" (module: value: [ {
         inherit (module) file;
         inherit value;
-      }]) configs;
+      } ]) configs;
 
       # Convert an option tree decl to a submodule option decl
       optionTreeToOption = decl:
@@ -629,7 +638,7 @@ in rec {
           decl // {
             options = mkOption {
               type = types.submoduleWith {
-                modules = [{ options = decl.options; }];
+                modules = [ { options = decl.options; } ];
                 # `null` is not intended for use by modules. It is an internal
                 # value that means "whatever the user has declared elsewhere".
                 # This might become obsolete with https://github.com/NixOS/nixpkgs/issues/162398
@@ -882,7 +891,7 @@ in rec {
       map (mapAttrs (n: v: mkOverride cfg.priority v))
       (pushDownProperties cfg.content)
     else # FIXME: handle mkOrder?
-      [ cfg ];
+    [ cfg ];
 
   /* Given a config value, expand mkMerge properties, and discharge
      any mkIf conditions.  That is, this is the place where mkIf
@@ -902,8 +911,7 @@ in rec {
         if def.condition then dischargeProperties def.content else [ ]
       else
         throw "‘mkIf’ called with a non-Boolean condition"
-    else
-      [ def ];
+    else [ def ];
 
   /* Given a list of config values, process the mkOverride properties,
      that is, return the values that have the highest (that is,
@@ -1095,7 +1103,7 @@ in rec {
           }' can no longer be used since it's been removed. ${replacementInstructions}";
       });
       config.assertions = let opt = getAttrFromPath optionName options;
-      in [{
+      in [ {
         assertion = !opt.isDefined;
         message = ''
           The option definition `${showOption optionName}' in ${
@@ -1103,7 +1111,7 @@ in rec {
           } no longer has any effect; please remove it.
           ${replacementInstructions}
         '';
-      }];
+      } ];
     };
 
   /* Return a module that causes a warning to be shown if the

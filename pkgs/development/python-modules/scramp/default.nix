@@ -29,7 +29,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ asn1crypto ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Upstream uses versioningit to set the version

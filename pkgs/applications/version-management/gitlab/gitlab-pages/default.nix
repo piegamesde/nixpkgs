@@ -24,6 +24,9 @@ buildGoModule rec {
     changelog =
       "https://gitlab.com/gitlab-org/gitlab-pages/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ajs124 das_j ];
+    maintainers = with maintainers; [
+      ajs124
+      das_j
+    ];
   };
 }

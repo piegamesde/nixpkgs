@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ glpk gmp ];
+  buildInputs = [
+    glpk
+    gmp
+  ];
 
   installFlags = [ "install-exec" ];
 

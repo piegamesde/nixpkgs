@@ -68,7 +68,10 @@ stdenv.mkDerivation rec {
   dontDisableStatic = true;
 
   nativeBuildInputs = [ which ];
-  buildInputs = [ openssl readline ];
+  buildInputs = [
+    openssl
+    readline
+  ];
   enableParallelBuilding = true;
   # ln: failed to create symbolic link '...-eresi-0.83-a3-phoenix//bin/elfsh': No such file or directory
   # make: *** [Makefile:108: install64] Error 1

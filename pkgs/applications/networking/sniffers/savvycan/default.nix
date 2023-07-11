@@ -23,9 +23,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-agvCl8c7LqGyIKe0K3PdzuBUqTJZtUr434134olbUMw=";
   };
 
-  buildInputs = [ qtbase qttools qtserialbus qtserialport qtdeclarative ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtserialbus
+    qtserialport
+    qtdeclarative
+  ];
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   meta = with lib; {
     description = "QT based cross platform canbus tool";

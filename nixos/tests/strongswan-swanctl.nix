@@ -53,11 +53,17 @@ import ./make-test-python.nix ({
         }:
         let strongswan = config.services.strongswan-swanctl.package;
         in {
-          virtualisation.vlans = [ 0 1 ];
+          virtualisation.vlans = [
+            0
+            1
+          ];
           networking = {
             dhcpcd.enable = false;
             firewall = {
-              allowedUDPPorts = [ 4500 500 ];
+              allowedUDPPorts = [
+                4500
+                500
+              ];
               extraCommands = allowESP;
             };
             nat = {

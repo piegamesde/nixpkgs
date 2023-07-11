@@ -30,7 +30,10 @@
 
 mkDerivation {
   pname = "plasma-framework";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kactivities
     karchive
@@ -54,5 +57,9 @@ mkDerivation {
     kirigami2
     qtquickcontrols2
   ];
-  propagatedBuildInputs = [ kpackage kservice qtbase ];
+  propagatedBuildInputs = [
+    kpackage
+    kservice
+    qtbase
+  ];
 }

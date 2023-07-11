@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ snappy ];
   # We don't use a release tarball so we don't have a `./configure` script to
   # run. That's why we generate it.
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "A compression/decompression tool based on snappy";

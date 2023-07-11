@@ -16,7 +16,13 @@
     version = "1.2.1";
   };
   doing = {
-    dependencies = [ "chronic" "deep_merge" "gli" "haml" "json" ];
+    dependencies = [
+      "chronic"
+      "deep_merge"
+      "gli"
+      "haml"
+      "json"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "1y42yc7h45sz9hqj3g1dd77ipx58l7v64i7mrsj3is2f5rszd1rv";

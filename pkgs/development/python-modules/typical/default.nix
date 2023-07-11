@@ -35,10 +35,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ fastjsonschema future-typing inflection orjson pendulum ujson ];
+  propagatedBuildInputs = [
+    fastjsonschema
+    future-typing
+    inflection
+    orjson
+    pendulum
+    ujson
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mypy pydantic sqlalchemy pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mypy
+    pydantic
+    sqlalchemy
+    pandas
+  ];
 
   patches = [
     # Switch to poetry-core, https://github.com/seandstewart/typical/pull/193

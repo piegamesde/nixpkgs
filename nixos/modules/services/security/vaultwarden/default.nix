@@ -57,18 +57,23 @@ let
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
 
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "bitwarden_rs" ] [
-      "services"
-      "vaultwarden"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "bitwarden_rs"
+  ] [
+    "services"
+    "vaultwarden"
+  ]) ];
 
   options.services.vaultwarden = with types; {
     enable = mkEnableOption (lib.mdDoc "vaultwarden");
 
     dbBackend = mkOption {
-      type = enum [ "sqlite" "mysql" "postgresql" ];
+      type = enum [
+        "sqlite"
+        "mysql"
+        "postgresql"
+      ];
       default = "sqlite";
       description = lib.mdDoc ''
         Which database backend vaultwarden will be using.
@@ -84,7 +89,11 @@ in {
     };
 
     config = mkOption {
-      type = attrsOf (nullOr (oneOf [ bool int str ]));
+      type = attrsOf (nullOr (oneOf [
+        bool
+        int
+        str
+      ]));
       default = { };
       example = literalExpression ''
         {
@@ -195,11 +204,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
       message =
         "Backups for database backends other than sqlite will need customization";
-    }];
+    } ];
 
     users.users.vaultwarden = {
       inherit group;

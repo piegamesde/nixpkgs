@@ -22,15 +22,19 @@ let
 in {
   meta = { maintainers = teams.enlightenment.members; };
 
-  imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "xserver"
-      "desktopManager"
-      "e19"
-      "enable"
-    ] [ "services" "xserver" "desktopManager" "enlightenment" "enable" ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "xserver"
+    "desktopManager"
+    "e19"
+    "enable"
+  ] [
+    "services"
+    "xserver"
+    "desktopManager"
+    "enlightenment"
+    "enable"
+  ]) ];
 
   options = {
 
@@ -104,7 +108,10 @@ in {
 
     environment.etc."X11/xkb".source = xcfg.xkbDir;
 
-    fonts.fonts = [ pkgs.dejavu_fonts pkgs.ubuntu_font_family ];
+    fonts.fonts = [
+      pkgs.dejavu_fonts
+      pkgs.ubuntu_font_family
+    ];
 
     services.udisks2.enable = true;
     services.upower.enable = config.powerManagement.enable;

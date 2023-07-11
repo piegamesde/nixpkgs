@@ -23,9 +23,15 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  qmakeFlags = [ "QBS_INSTALL_PREFIX=$(out)" "qbs.pro" ];
+  qmakeFlags = [
+    "QBS_INSTALL_PREFIX=$(out)"
+    "qbs.pro"
+  ];
 
-  buildInputs = [ qtbase qtscript ];
+  buildInputs = [
+    qtbase
+    qtscript
+  ];
 
   meta = with lib; {
     description =

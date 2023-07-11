@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "8MusGvNhTxa8Sm8WiSwRaVIfZOeXmgcO4T6H9LqFGLs=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   dontWrapQtApps = true;
 

@@ -29,7 +29,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/restic" ];
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   passthru.tests.restic = nixosTests.restic;
 
@@ -54,6 +57,9 @@ buildGoModule rec {
     description = "A backup program that is fast, efficient and secure";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.bsd2;
-    maintainers = [ maintainers.mbrgm maintainers.dotlambda ];
+    maintainers = [
+      maintainers.mbrgm
+      maintainers.dotlambda
+    ];
   };
 }

@@ -29,10 +29,23 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ meson ninja pkg-config makeWrapper installShellFiles wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    makeWrapper
+    installShellFiles
+    wayland-scanner
+  ];
 
-  buildInputs = [ wlroots wayland wayland-protocols egl-wayland glew-egl mpv ];
+  buildInputs = [
+    wlroots
+    wayland
+    wayland-protocols
+    egl-wayland
+    glew-egl
+    mpv
+  ];
 
   preInstall = ''
     mv ../mpvpaper.man ../mpvpaper.1

@@ -120,6 +120,9 @@ else
       license = lib.licenses.unfree;
 
       maintainers = [ lib.maintainers.bluescreen303 ];
-      platforms = [ "i686-linux" "x86_64-linux" ];
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
     };
   }

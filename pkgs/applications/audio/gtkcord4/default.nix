@@ -28,7 +28,11 @@ buildGoModule rec {
     hash = "sha256-WrKZRRJAbEzcCRcFUTa7PxahQ3YADhfWaKlB4uJjVk0=";
   };
 
-  nativeBuildInputs = [ gobject-introspection pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     cairo
@@ -60,6 +64,10 @@ buildGoModule rec {
     description = "GTK4 Discord client in Go, attempt #4.";
     homepage = "https://github.com/diamondburned/gtkcord4";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hmenke urandom aleksana ];
+    maintainers = with maintainers; [
+      hmenke
+      urandom
+      aleksana
+    ];
   };
 }

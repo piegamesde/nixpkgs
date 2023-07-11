@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-+M+K8WzQqxQUGgAgGPK+isf3gKK7HOrdI6nNW/V8Wv0=";
   };
 
-  propagatedBuildInputs = [ sphinx sphinxcontrib-tikz ];
+  propagatedBuildInputs = [
+    sphinx
+    sphinxcontrib-tikz
+  ];
 
   # No tests
   doCheck = false;

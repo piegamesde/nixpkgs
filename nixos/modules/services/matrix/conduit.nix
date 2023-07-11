@@ -13,7 +13,10 @@ let
   format = pkgs.formats.toml { };
   configFile = format.generate "conduit.toml" cfg.settings;
 in {
-  meta.maintainers = with maintainers; [ pstn piegames ];
+  meta.maintainers = with maintainers; [
+    pstn
+    piegames
+  ];
   options.services.matrix-conduit = {
     enable = mkEnableOption (lib.mdDoc "matrix-conduit");
 
@@ -97,7 +100,10 @@ in {
             '';
           };
           global.database_backend = mkOption {
-            type = types.enum [ "sqlite" "rocksdb" ];
+            type = types.enum [
+              "sqlite"
+              "rocksdb"
+            ];
             default = "sqlite";
             example = "rocksdb";
             description = lib.mdDoc ''
@@ -122,8 +128,10 @@ in {
       description = "Conduit Matrix Server";
       documentation = [ "https://gitlab.com/famedly/conduit/" ];
       wantedBy = [ "multi-user.target" ];
-      environment =
-        lib.mkMerge ([ { CONDUIT_CONFIG = configFile; } cfg.extraEnvironment ]);
+      environment = lib.mkMerge ([
+        { CONDUIT_CONFIG = configFile; }
+        cfg.extraEnvironment
+      ]);
       serviceConfig = {
         DynamicUser = true;
         User = "conduit";
@@ -138,11 +146,17 @@ in {
         PrivateDevices = true;
         PrivateMounts = true;
         PrivateUsers = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         StateDirectory = "matrix-conduit";
         ExecStart = "${cfg.package}/bin/conduit";
         Restart = "on-failure";

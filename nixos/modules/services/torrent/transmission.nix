@@ -22,13 +22,21 @@ let
   settingsFile = settingsFormat.generate "settings.json" cfg.settings;
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "transmission" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "transmission"
+      "port"
+    ] [
       "services"
       "transmission"
       "settings"
       "rpc-port"
     ])
-    (mkAliasOptionModuleMD [ "services" "transmission" "openFirewall" ] [
+    (mkAliasOptionModuleMD [
+      "services"
+      "transmission"
+      "openFirewall"
+    ] [
       "services"
       "transmission"
       "openPeerPorts"
@@ -307,14 +315,12 @@ in {
 
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
-        ExecStartPre = [
-          ("+" + pkgs.writeShellScript "transmission-prestart" ''
-            set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
-            ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
-            install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
-             '${cfg.home}/${settingsDir}/settings.json'
-          '')
-        ];
+        ExecStartPre = [ ("+" + pkgs.writeShellScript "transmission-prestart" ''
+          set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
+          ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
+          install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
+           '${cfg.home}/${settingsDir}/settings.json'
+        '') ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
             escapeShellArgs cfg.extraFlags
@@ -340,8 +346,10 @@ in {
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
-        BindPaths = [ "${cfg.home}/${settingsDir}" cfg.settings.download-dir ]
-          ++ optional cfg.settings.incomplete-dir-enabled
+        BindPaths = [
+          "${cfg.home}/${settingsDir}"
+          cfg.settings.download-dir
+        ] ++ optional cfg.settings.incomplete-dir-enabled
           cfg.settings.incomplete-dir ++ optional
           (cfg.settings.watch-dir-enabled
             && cfg.settings.trash-original-torrent-files)
@@ -396,7 +404,11 @@ in {
         RemoveIPC = true;
         # AF_UNIX may become usable one day:
         # https://github.com/transmission/transmission/issues/441
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -437,14 +449,14 @@ in {
 
     networking.firewall = mkMerge [
       (mkIf cfg.openPeerPorts (if cfg.settings.peer-port-random-on-start then {
-        allowedTCPPortRanges = [{
+        allowedTCPPortRanges = [ {
           from = cfg.settings.peer-port-random-low;
           to = cfg.settings.peer-port-random-high;
-        }];
-        allowedUDPPortRanges = [{
+        } ];
+        allowedUDPPortRanges = [ {
           from = cfg.settings.peer-port-random-low;
           to = cfg.settings.peer-port-random-high;
-        }];
+        } ];
       } else {
         allowedTCPPorts = [ cfg.settings.peer-port ];
         allowedUDPPorts = [ cfg.settings.peer-port ];

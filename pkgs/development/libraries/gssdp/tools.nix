@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ gssdp_1_6 gtk4 libsoup_3 ];
+  buildInputs = [
+    gssdp_1_6
+    gtk4
+    libsoup_3
+  ];
 
   preConfigure = ''
     cd tools

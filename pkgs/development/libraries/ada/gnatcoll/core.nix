@@ -19,13 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "11q66xszqvpc9jyyzivcakik27d23yniahjdznb47wyqkxphm1dl";
   };
 
-  nativeBuildInputs = [ gprbuild which gnat ];
+  nativeBuildInputs = [
+    gprbuild
+    which
+    gnat
+  ];
 
   # propagate since gprbuild needs to find
   # referenced GPR project definitions
-  propagatedBuildInputs = [
-    gprbuild # libgpr
-  ];
+  propagatedBuildInputs = [ gprbuild # libgpr
+    ];
 
   makeFlags = [
     "prefix=${placeholder "out"}"

@@ -46,8 +46,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [ blueprint-compiler gtk4 json-glib libsoup_3 libbacktrace text-engine ];
+  buildInputs = [
+    blueprint-compiler
+    gtk4
+    json-glib
+    libsoup_3
+    libbacktrace
+    text-engine
+  ];
 
   meta = with lib; {
     description = "Desktop app for managing GNOME shell extensions";

@@ -22,10 +22,20 @@ buildPythonPackage rec {
 
   leaveDotGit = true;
 
-  nativeBuildInputs = [ cython nose ];
-  propagatedBuildInputs = [ numpy scipy attrs ];
+  nativeBuildInputs = [
+    cython
+    nose
+  ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    attrs
+  ];
 
-  pythonImportsCheck = [ "iodata" "iodata.overlap_accel" ];
+  pythonImportsCheck = [
+    "iodata"
+    "iodata.overlap_accel"
+  ];
   doCheck =
     false; # Requires roberto or nose and a lenghtly setup to find the cython modules
 

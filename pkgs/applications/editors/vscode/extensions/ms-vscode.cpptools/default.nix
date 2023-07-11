@@ -49,9 +49,18 @@ in vscode-utils.buildVscodeMarketplaceExtension rec {
     arch = "linux-x64";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
-  buildInputs = [ jq lttng-ust libkrb5 zlib stdenv.cc.cc.lib ];
+  buildInputs = [
+    jq
+    lttng-ust
+    libkrb5
+    zlib
+    stdenv.cc.cc.lib
+  ];
 
   postPatch = ''
     mv ./package.json ./package_orig.json
@@ -90,7 +99,10 @@ in vscode-utils.buildVscodeMarketplaceExtension rec {
     homepage =
       "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.jraygauthier lib.maintainers.stargate01 ];
+    maintainers = [
+      lib.maintainers.jraygauthier
+      lib.maintainers.stargate01
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

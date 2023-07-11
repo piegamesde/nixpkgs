@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "f4a87fc4af2c9c7d42badd4192ca9b529f32c9d96fdc8daea7e29c509226df5f";
   };
 
-  propagatedBuildInputs = [ libftdi1 libusb1 ];
+  propagatedBuildInputs = [
+    libftdi1
+    libusb1
+  ];
 
   postPatch = ''
     substituteInPlace pylibftdi/driver.py \

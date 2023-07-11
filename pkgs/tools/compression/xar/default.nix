@@ -21,8 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "0ghmsbs6xwg1092v7pjcibmk5wkyifwxw6ygp08gfz25d2chhipf";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libxml2 xz openssl zlib bzip2 fts ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libxml2
+    xz
+    openssl
+    zlib
+    bzip2
+    fts
+  ];
 
   patches = [
     ./0001-Add-useless-descriptions-to-AC_DEFINE.patch

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     rm pytest.ini
   '';
 
-  nativeBuildInputs = [ setuptools-scm pytest ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pytest
+  ];
 
   checkPhase = ''
     py.test tests

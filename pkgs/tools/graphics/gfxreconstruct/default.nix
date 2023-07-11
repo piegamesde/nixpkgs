@@ -28,9 +28,22 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libX11 libxcb lz4 python3 wayland xcbutilkeysyms zlib zstd ];
+  buildInputs = [
+    libX11
+    libxcb
+    lz4
+    python3
+    wayland
+    xcbutilkeysyms
+    zlib
+    zstd
+  ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
   # The python script searches in subfolders, but we want to search in the same bin directory
   prePatch = ''

@@ -22,7 +22,10 @@ in stdenv.mkDerivation {
     sha256 = "sha256-sO07g3j1Qejato2LWJ2FrW3AzfMCcBz46HEw7aKxojQ=";
   };
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   postInstall = ''
     rm $out/bin/steamdeps
@@ -51,6 +54,9 @@ in stdenv.mkDerivation {
     description = "A digital distribution platform";
     homepage = "https://store.steampowered.com/";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ jagajaga jonringer ];
+    maintainers = with maintainers; [
+      jagajaga
+      jonringer
+    ];
   };
 }

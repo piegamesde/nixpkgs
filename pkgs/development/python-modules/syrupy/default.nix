@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ colored ];
 
-  nativeCheckInputs = [ invoke pytest ];
+  nativeCheckInputs = [
+    invoke
+    pytest
+  ];
 
   checkPhase = ''
     runHook preCheck

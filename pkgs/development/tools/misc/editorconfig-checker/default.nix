@@ -38,6 +38,9 @@ buildGoModule rec {
       "A tool to verify that your files are in harmony with your .editorconfig";
     homepage = "https://editorconfig-checker.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ uri-canva zowoq ];
+    maintainers = with maintainers; [
+      uri-canva
+      zowoq
+    ];
   };
 }

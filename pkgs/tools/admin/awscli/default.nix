@@ -45,8 +45,18 @@ buildPythonApplication rec {
       --replace "rsa>=3.1.2,<4.8" "rsa<5,>=3.1.2"
   '';
 
-  propagatedBuildInputs =
-    [ botocore bcdoc s3transfer six colorama docutils rsa pyyaml groff less ];
+  propagatedBuildInputs = [
+    botocore
+    bcdoc
+    s3transfer
+    six
+    colorama
+    docutils
+    rsa
+    pyyaml
+    groff
+    less
+  ];
 
   postInstall = ''
     mkdir -p $out/share/bash-completion/completions

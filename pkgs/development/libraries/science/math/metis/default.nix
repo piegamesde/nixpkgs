@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     # remove once updated past https://github.com/KarypisLab/METIS/commit/521a2c360dc21ace5c4feb6dc0b7992433e3cb0f
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
-  nativeBuildInputs = [ unzip cmake ];
+  nativeBuildInputs = [
+    unzip
+    cmake
+  ];
 
   meta = {
     description = "Serial graph partitioning and fill-reducing matrix ordering";

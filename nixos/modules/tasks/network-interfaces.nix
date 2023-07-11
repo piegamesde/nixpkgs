@@ -110,8 +110,12 @@ let
       };
 
       type = mkOption {
-        type = types.nullOr
-          (types.enum [ "unicast" "local" "broadcast" "multicast" ]);
+        type = types.nullOr (types.enum [
+          "unicast"
+          "local"
+          "broadcast"
+          "multicast"
+        ]);
         default = null;
         description = lib.mdDoc ''
           Type of the route.  See the `Route types` section
@@ -348,7 +352,11 @@ let
           default = if hasPrefix "tun" name then "tun" else "tap";
           defaultText =
             literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
-          type = with types; enum [ "tun" "tap" ];
+          type = with types;
+            enum [
+              "tun"
+              "tap"
+            ];
           description = lib.mdDoc ''
             The type of interface to create.
             The default is TUN for an interface name starting
@@ -392,12 +400,21 @@ let
           (config:
             let bool = getAttrFromPath [ "preferTempAddress" ] config;
             in if bool then "default" else "enabled"))
-        (mkRenamedOptionModule [ "ip4" ] [ "ipv4" "addresses" ])
-        (mkRenamedOptionModule [ "ip6" ] [ "ipv6" "addresses" ])
+        (mkRenamedOptionModule [ "ip4" ] [
+          "ipv4"
+          "addresses"
+        ])
+        (mkRenamedOptionModule [ "ip6" ] [
+          "ipv6"
+          "addresses"
+        ])
         (mkRemovedOptionModule [ "subnetMask" ] ''
           Supply a prefix length instead; use option
           networking.interfaces.<name>.ipv{4,6}.addresses'')
-        (mkMergedOptionModule [ [ "ipAddress" ] [ "prefixLength" ] ] [
+        (mkMergedOptionModule [
+          [ "ipAddress" ]
+          [ "prefixLength" ]
+        ] [
           "ipv4"
           "addresses"
         ] (cfg:
@@ -406,7 +423,10 @@ let
             address = ipAddress;
             prefixLength = prefixLength;
           }))
-        (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
+        (mkMergedOptionModule [
+          [ "ipv6Address" ]
+          [ "ipv6PrefixLength" ]
+        ] [
           "ipv6"
           "addresses"
         ] (cfg:
@@ -634,7 +654,10 @@ in {
     networking.nameservers = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "130.161.158.4" "130.161.33.17" ];
+      example = [
+        "130.161.158.4"
+        "130.161.33.17"
+      ];
       description = lib.mdDoc ''
         The list of nameservers.  It can be left empty if it is auto-detected through DHCP.
       '';
@@ -642,7 +665,10 @@ in {
 
     networking.search = mkOption {
       default = [ ];
-      example = [ "example.com" "home.arpa" ];
+      example = [
+        "example.com"
+        "home.arpa"
+      ];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         The list of search paths used when resolving domain names.
@@ -682,10 +708,10 @@ in {
     networking.interfaces = mkOption {
       default = { };
       example = {
-        eth0.ipv4.addresses = [{
+        eth0.ipv4.addresses = [ {
           address = "131.211.84.78";
           prefixLength = 25;
-        }];
+        } ];
       };
       description = lib.mdDoc ''
         The configuration for each network interface.  If
@@ -757,7 +783,11 @@ in {
             # TODO: custom "openflow version" type, with list from existing openflow protocols
             supportedOpenFlowVersions = mkOption {
               type = types.listOf types.str;
-              example = [ "OpenFlow10" "OpenFlow13" "OpenFlow14" ];
+              example = [
+                "OpenFlow10"
+                "OpenFlow13"
+                "OpenFlow14"
+              ];
               default = [ "OpenFlow13" ];
               description = lib.mdDoc ''
                 Supported versions to enable on this switch.
@@ -796,8 +826,14 @@ in {
     networking.bridges = mkOption {
       default = { };
       example = {
-        br0.interfaces = [ "eth0" "eth1" ];
-        br1.interfaces = [ "eth2" "wlan0" ];
+        br0.interfaces = [
+          "eth0"
+          "eth1"
+        ];
+        br1.interfaces = [
+          "eth2"
+          "wlan0"
+        ];
       };
       description = lib.mdDoc ''
         This option allows you to define Ethernet bridge devices
@@ -813,7 +849,10 @@ in {
           options = {
 
             interfaces = mkOption {
-              example = [ "eth0" "eth1" ];
+              example = [
+                "eth0"
+                "eth1"
+              ];
               type = types.listOf types.str;
               description = lib.mdDoc
                 "The physical network interfaces connected by the bridge.";
@@ -863,7 +902,11 @@ in {
           options = {
 
             interfaces = mkOption {
-              example = [ "enp4s0f0" "enp4s0f1" "wlan0" ];
+              example = [
+                "enp4s0f0"
+                "enp4s0f1"
+                "wlan0"
+              ];
               type = types.listOf types.str;
               description = lib.mdDoc "The interfaces to bond together";
             };
@@ -1105,7 +1148,10 @@ in {
                 type = nullOr (submodule {
                   options = {
                     type = mkOption {
-                      type = enum [ "fou" "gue" ];
+                      type = enum [
+                        "fou"
+                        "gue"
+                      ];
                       description = lib.mdDoc ''
                         Selects encapsulation type. See
                         {manpage}`ip-link(8)` for details.
@@ -1211,7 +1257,13 @@ in {
             };
 
             type = mkOption {
-              type = with types; enum [ "tun" "tap" "tun6" "tap6" ];
+              type = with types;
+                enum [
+                  "tun"
+                  "tap"
+                  "tun6"
+                  "tap6"
+                ];
               default = "tap";
               example = "tap";
               apply = v:
@@ -1323,7 +1375,13 @@ in {
             };
 
             type = mkOption {
-              type = types.enum [ "managed" "ibss" "monitor" "mesh" "wds" ];
+              type = types.enum [
+                "managed"
+                "ibss"
+                "monitor"
+                "mesh"
+                "wds"
+              ];
               default = "managed";
               example = "ibss";
               description = lib.mdDoc ''
@@ -1453,11 +1511,11 @@ in {
       message = ''
         Setting a MAC Address for tun device ${i.name} isn't supported.
       '';
-    })) ++ [{
+    })) ++ [ {
       assertion = cfg.hostId == null
         || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
       message = "Invalid value given to the networking.hostId option.";
-    }];
+    } ];
 
     boot.kernelModules = [ ] ++ optional hasVirtuals "tun"
       ++ optional hasSits "sit" ++ optional hasGres "gre"
@@ -1535,12 +1593,15 @@ in {
     environment.etc.hostname =
       mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
 
-    environment.systemPackages =
-      [ pkgs.host pkgs.iproute2 pkgs.iputils pkgs.nettools ]
-      ++ optionals config.networking.wireless.enable [
-        pkgs.wirelesstools # FIXME: obsolete?
-        pkgs.iw
-      ] ++ bridgeStp;
+    environment.systemPackages = [
+      pkgs.host
+      pkgs.iproute2
+      pkgs.iputils
+      pkgs.nettools
+    ] ++ optionals config.networking.wireless.enable [
+      pkgs.wirelesstools # FIXME: obsolete?
+      pkgs.iw
+    ] ++ bridgeStp;
 
     # The network-interfaces target is kept for backwards compatibility.
     # New modules must NOT use it.

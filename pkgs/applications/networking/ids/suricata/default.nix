@@ -48,8 +48,15 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-TaXk6R5JmSYzpgJM4Qr+ZEElWyd1qPIPHvGIvREprGY=";
   };
 
-  nativeBuildInputs = [ clang llvm makeWrapper pkg-config ]
-    ++ lib.optionals rustSupport [ rustc cargo ];
+  nativeBuildInputs = [
+    clang
+    llvm
+    makeWrapper
+    pkg-config
+  ] ++ lib.optionals rustSupport [
+    rustc
+    cargo
+  ];
 
   buildInputs = [
     jansson
@@ -72,8 +79,10 @@ in stdenv.mkDerivation rec {
     pcre
     python
     zlib
-  ] ++ lib.optional hyperscanSupport hyperscan
-    ++ lib.optionals redisSupport [ redis hiredis ];
+  ] ++ lib.optional hyperscanSupport hyperscan ++ lib.optionals redisSupport [
+    redis
+    hiredis
+  ];
 
   enableParallelBuilding = true;
 
@@ -136,7 +145,10 @@ in stdenv.mkDerivation rec {
     "sysconfdir=\${out}/etc"
   ];
 
-  installTargets = [ "install" "install-conf" ];
+  installTargets = [
+    "install"
+    "install-conf"
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/suricatasc" \

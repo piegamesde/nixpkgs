@@ -46,6 +46,9 @@ stdenv.mkDerivation rec {
     # files in the S3 bucket:
     #
     #   https://s3-us-west-2.amazonaws.com/confluent.cloud?prefix=ccloud-cli/archives/1.25.0/&delimiter=/%27
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

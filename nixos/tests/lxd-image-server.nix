@@ -18,7 +18,12 @@ import ./make-test-python.nix ({
   in {
     name = "lxd-image-server";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ mkg20001 patryk27 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        mkg20001
+        patryk27
+      ];
+    };
 
     nodes.machine = {
         lib,

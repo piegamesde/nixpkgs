@@ -39,10 +39,20 @@ stdenv.mkDerivation rec {
     "-Dsystemduserunitdir=${placeholder "out"}/etc/systemd/user"
   ];
 
-  nativeBuildInputs =
-    [ pkg-config meson ninja gettext itstool libxml2 wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    gettext
+    itstool
+    libxml2
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib systemd ];
+  buildInputs = [
+    glib
+    systemd
+  ];
 
   doCheck = true;
 

@@ -7,8 +7,12 @@
   isFull ? false,
   enableGateway ? false,
   pname ? "kuma",
-  components ?
-    lib.optionals isFull [ "kumactl" "kuma-cp" "kuma-prometheus-sd" "kuma-dp" ]
+  components ? lib.optionals isFull [
+    "kumactl"
+    "kuma-cp"
+    "kuma-prometheus-sd"
+    "kuma-dp"
+  ]
 }:
 
 buildGoModule rec {

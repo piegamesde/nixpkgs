@@ -44,52 +44,92 @@ let
     "0p9mr8g1qma6h10qf7014dv98ln90dfkwn76ynagpww7qap8s966";
 
   defaultVersion = with versions;
-    lib.switch [ coq.version mathcomp.version ] [
+    lib.switch [
+      coq.version
+      mathcomp.version
+    ] [
       {
-        cases = [ (isGe "8.14") (isGe "1.13.0") ];
+        cases = [
+          (isGe "8.14")
+          (isGe "1.13.0")
+        ];
         out = "0.6.1";
       }
       {
-        cases = [ (isGe "8.14") (range "1.13" "1.15") ];
+        cases = [
+          (isGe "8.14")
+          (range "1.13" "1.15")
+        ];
         out = "0.5.2";
       }
       {
-        cases = [ (range "8.13" "8.15") (range "1.13" "1.14") ];
+        cases = [
+          (range "8.13" "8.15")
+          (range "1.13" "1.14")
+        ];
         out = "0.5.1";
       }
       {
-        cases = [ (range "8.13" "8.15") (range "1.12" "1.14") ];
+        cases = [
+          (range "8.13" "8.15")
+          (range "1.12" "1.14")
+        ];
         out = "0.3.13";
       }
       {
-        cases = [ (range "8.11" "8.14") (range "1.12" "1.13") ];
+        cases = [
+          (range "8.11" "8.14")
+          (range "1.12" "1.13")
+        ];
         out = "0.3.10";
       }
       {
-        cases = [ (range "8.11" "8.12") "1.11.0" ];
+        cases = [
+          (range "8.11" "8.12")
+          "1.11.0"
+        ];
         out = "0.3.4";
       }
       {
-        cases = [ (range "8.10" "8.12") "1.11.0" ];
+        cases = [
+          (range "8.10" "8.12")
+          "1.11.0"
+        ];
         out = "0.3.3";
       }
       {
-        cases = [ (range "8.10" "8.11") "1.11.0" ];
+        cases = [
+          (range "8.10" "8.11")
+          "1.11.0"
+        ];
         out = "0.3.1";
       }
       {
-        cases = [ (range "8.8" "8.11") (range "1.8" "1.10") ];
+        cases = [
+          (range "8.8" "8.11")
+          (range "1.8" "1.10")
+        ];
         out = "0.2.3";
       }
     ] null;
 
   # list of analysis packages sorted by dependency order
-  packages = [ "classical" "analysis" ];
+  packages = [
+    "classical"
+    "analysis"
+  ];
 
   mathcomp_ = package:
     let
-      classical-deps = [ mathcomp.algebra mathcomp-finmap hierarchy-builder ];
-      analysis-deps = [ mathcomp.field mathcomp-bigenough ];
+      classical-deps = [
+        mathcomp.algebra
+        mathcomp-finmap
+        hierarchy-builder
+      ];
+      analysis-deps = [
+        mathcomp.field
+        mathcomp-bigenough
+      ];
       intra-deps = if package == "single" then
         [ ]
       else
@@ -107,11 +147,18 @@ let
       derivation = mkCoqDerivation ({
         inherit version pname defaultVersion release repo owner;
 
-        namePrefix = [ "coq" "mathcomp" ];
+        namePrefix = [
+          "coq"
+          "mathcomp"
+        ];
 
-        propagatedBuildInputs = intra-deps
-          ++ optionals (elem package [ "classical" "single" ]) classical-deps
-          ++ optionals (elem package [ "analysis" "single" ]) analysis-deps;
+        propagatedBuildInputs = intra-deps ++ optionals (elem package [
+          "classical"
+          "single"
+        ]) classical-deps ++ optionals (elem package [
+          "analysis"
+          "single"
+        ]) analysis-deps;
 
         preBuild = ''
           cd ${pkgpath}

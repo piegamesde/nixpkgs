@@ -23,7 +23,14 @@ mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ libusb1 libX11 libXtst qtbase libglvnd stdenv.cc.cc.lib ];
+  buildInputs = [
+    libusb1
+    libX11
+    libXtst
+    qtbase
+    libglvnd
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

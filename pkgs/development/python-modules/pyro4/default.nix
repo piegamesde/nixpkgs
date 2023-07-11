@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ serpent ];
 
-  buildInputs = [ dill cloudpickle msgpack ];
+  buildInputs = [
+    dill
+    cloudpickle
+    msgpack
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,7 +45,11 @@ buildPythonPackage rec {
     "tests/PyroTests/test_naming.py"
   ];
 
-  disabledTests = [ "StartNSfunc" "Broadcast" "GetIP" ];
+  disabledTests = [
+    "StartNSfunc"
+    "Broadcast"
+    "GetIP"
+  ];
 
   # otherwise the tests hang the build
   __darwinAllowLocalNetworking = true;

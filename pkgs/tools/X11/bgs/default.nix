@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXinerama imlib2 ];
+  buildInputs = [
+    libX11
+    libXinerama
+    imlib2
+  ];
 
   preConfigure = ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk'';
 

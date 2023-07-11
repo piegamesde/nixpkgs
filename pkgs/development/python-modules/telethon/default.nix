@@ -31,9 +31,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ rsa pyaes ];
+  propagatedBuildInputs = [
+    rsa
+    pyaes
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests/telethon" ];
 

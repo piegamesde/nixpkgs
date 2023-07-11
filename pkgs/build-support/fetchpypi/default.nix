@@ -49,5 +49,9 @@ in makeOverridable ({
     hash ? "",
     ...
   }@attrs:
-  let url = computeUrl (builtins.removeAttrs attrs [ "sha256" "hash" ]);
+  let
+    url = computeUrl (builtins.removeAttrs attrs [
+      "sha256"
+      "hash"
+    ]);
   in fetchurl { inherit url sha256 hash; })

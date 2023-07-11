@@ -6,7 +6,10 @@
 }:
 
 appleDerivation' stdenvNoCC {
-  nativeBuildInputs = [ ed unifdef ];
+  nativeBuildInputs = [
+    ed
+    unifdef
+  ];
 
   installPhase = ''
     export SRCROOT=$PWD

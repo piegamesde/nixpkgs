@@ -51,13 +51,20 @@ let
       postPatch = extraPatch;
 
       # $out for the library and $examples for the example programs (in examples):
-      outputs = [ "out" "examples" ];
+      outputs = [
+        "out"
+        "examples"
+      ];
 
       strictDeps = true;
       depsBuildBuild = [ pkg-config ];
 
-      nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ]
-        ++ extraNativeBuildInputs;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+        wayland-scanner
+      ] ++ extraNativeBuildInputs;
 
       buildInputs = [
         ffmpeg_4
@@ -107,7 +114,10 @@ let
           "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
         license = licenses.mit;
         platforms = platforms.linux;
-        maintainers = with maintainers; [ primeos synthetica ];
+        maintainers = with maintainers; [
+          primeos
+          synthetica
+        ];
       };
     };
 

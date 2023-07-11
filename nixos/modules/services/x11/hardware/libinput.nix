@@ -24,7 +24,10 @@ let
     };
 
     accelProfile = mkOption {
-      type = types.enum [ "flat" "adaptive" ];
+      type = types.enum [
+        "flat"
+        "adaptive"
+      ];
       default = "adaptive";
       example = "flat";
       description = lib.mdDoc ''
@@ -72,7 +75,11 @@ let
     };
 
     clickMethod = mkOption {
-      type = types.nullOr (types.enum [ "none" "buttonareas" "clickfinger" ]);
+      type = types.nullOr (types.enum [
+        "none"
+        "buttonareas"
+        "clickfinger"
+      ]);
       default = null;
       example = "buttonareas";
       description = lib.mdDoc ''
@@ -116,7 +123,12 @@ let
     };
 
     scrollMethod = mkOption {
-      type = types.enum [ "twofinger" "edge" "button" "none" ];
+      type = types.enum [
+        "twofinger"
+        "edge"
+        "button"
+        "none"
+      ];
       default = "twofinger";
       example = "edge";
       description = lib.mdDoc ''
@@ -136,7 +148,11 @@ let
     };
 
     sendEventsMode = mkOption {
-      type = types.enum [ "disabled" "enabled" "disabled-on-external-mouse" ];
+      type = types.enum [
+        "disabled"
+        "enabled"
+        "disabled-on-external-mouse"
+      ];
       default = "enabled";
       example = "disabled";
       description = lib.mdDoc ''
@@ -154,7 +170,10 @@ let
     };
 
     tappingButtonMap = mkOption {
-      type = types.nullOr (types.enum [ "lrm" "lmr" ]);
+      type = types.nullOr (types.enum [
+        "lrm"
+        "lmr"
+      ]);
       default = null;
       description = lib.mdDoc ''
         Set the button mapping for 1/2/3-finger taps to left/right/middle or left/middle/right, respectively.
@@ -244,7 +263,12 @@ let
 in {
 
   imports = (map (option:
-    mkRenamedOptionModule ([ "services" "xserver" "libinput" option ]) [
+    mkRenamedOptionModule ([
+      "services"
+      "xserver"
+      "libinput"
+      option
+    ]) [
       "services"
       "xserver"
       "libinput"

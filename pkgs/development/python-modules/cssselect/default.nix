@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytestCheckHook lxml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    lxml
+  ];
 
   pythonImportsCheck = [ "cssselect" ];
 

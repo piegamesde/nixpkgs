@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-pATiprTELt8GrEkeKjILPfpdNDVoex5t+Mc+6Gg7cPY=";
   };
 
-  propagatedBuildInputs = [ matplotlib pandas ];
+  propagatedBuildInputs = [
+    matplotlib
+    pandas
+  ];
 
   # tests are only included on GitHub where this version misses a tag
   # and half of them fail

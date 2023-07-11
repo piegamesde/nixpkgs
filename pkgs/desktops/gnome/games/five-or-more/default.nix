@@ -40,7 +40,11 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ gtk3 librsvg libgnome-games-support ];
+  buildInputs = [
+    gtk3
+    librsvg
+    libgnome-games-support
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file

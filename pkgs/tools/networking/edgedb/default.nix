@@ -46,20 +46,26 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper pkg-config perl ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    pkg-config
+    perl
+  ];
 
-  buildInputs = [ curl ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices Security libiconv xz ];
+  buildInputs = [ curl ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    Security
+    libiconv
+    xz
+  ];
 
   checkFeatures = [ ];
 
-  patches = [
-    (substituteAll {
-      src = ./0001-dynamically-patchelf-binaries.patch;
-      inherit patchelf;
-      dynamicLinker = stdenv.cc.bintools.dynamicLinker;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0001-dynamically-patchelf-binaries.patch;
+    inherit patchelf;
+    dynamicLinker = stdenv.cc.bintools.dynamicLinker;
+  }) ];
 
   doCheck = false;
 

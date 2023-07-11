@@ -29,8 +29,15 @@ stdenv.mkDerivation rec {
   '';
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ meson ninja wayland-scanner ];
-  nativeCheckInputs = [ python3 wayland ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wayland-scanner
+  ];
+  nativeCheckInputs = [
+    python3
+    wayland
+  ];
 
   mesonFlags = [ "-Dtests=${lib.boolToString doCheck}" ];
 

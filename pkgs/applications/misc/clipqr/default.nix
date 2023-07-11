@@ -29,28 +29,40 @@ buildGoModule rec {
 
   vendorSha256 = "5kAOSyVbvot4TX/XfRNe1/zZk6fa7pS1Dvn9nz11u3U=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
-  buildInputs =
-    [ libGL libX11 libXcursor libXext libXi libXinerama libXrandr mesa ];
+  buildInputs = [
+    libGL
+    libX11
+    libXcursor
+    libXext
+    libXi
+    libXinerama
+    libXrandr
+    mesa
+  ];
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+  ];
 
   postInstall = ''
     install -Dm644 icon.svg $out/share/icons/hicolor/scalable/apps/clipqr.svg
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "ClipQR";
-      desktopName = "ClipQR";
-      exec = "clipqr";
-      categories = [ "Utility" ];
-      icon = "clipqr";
-      comment = "Scan QR codes on screen and from camera";
-      genericName = "ClipQR";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "ClipQR";
+    desktopName = "ClipQR";
+    exec = "clipqr";
+    categories = [ "Utility" ];
+    icon = "clipqr";
+    comment = "Scan QR codes on screen and from camera";
+    genericName = "ClipQR";
+  }) ];
 
   meta = with lib; {
     description =

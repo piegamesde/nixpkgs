@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  buildInputs = [ ncurses libressl ];
+  buildInputs = [
+    ncurses
+    libressl
+  ];
 
   CFLAGS = lib.optionals stdenv.isDarwin [ "-D_DARWIN_C_SOURCE" ];
 

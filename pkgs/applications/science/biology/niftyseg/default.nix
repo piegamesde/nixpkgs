@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen zlib ];
+  buildInputs = [
+    eigen
+    zlib
+  ];
 
   meta = with lib; {
     homepage =

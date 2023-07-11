@@ -31,18 +31,37 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0ba5skn5s6qh0blf6bvivzvqc2l8v488l9n3x98pmf6nygrikfdb";
 
-  nativeBuildInputs = [ extra-cmake-modules pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ libX11 libXtst libXi libnotify xclip openssl ]
-    ++ lib.optionals stdenv.isLinux [ xdotool ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
+  buildInputs = [
+    libX11
+    libXtst
+    libXi
+    libnotify
+    xclip
+    openssl
+  ] ++ lib.optionals stdenv.isLinux [ xdotool ]
+    ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+      Foundation
+    ];
 
   # Some tests require networking
   doCheck = false;
 
   postInstall = ''
     wrapProgram $out/bin/espanso \
-      --prefix PATH : ${lib.makeBinPath [ libnotify xclip ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          libnotify
+          xclip
+        ]
+      }
   '';
 
   meta = with lib; {

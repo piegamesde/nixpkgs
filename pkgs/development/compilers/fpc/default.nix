@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
     sha256 = "85ef993043bb83f999e2212f1bca766eb71f6f973d362e2290475dbaaf50161f";
   };
 
-  buildInputs = [ startFPC gawk ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [
+    startFPC
+    gawk
+  ] ++ lib.optionals stdenv.isDarwin [
     libiconv
     darwin.apple_sdk.frameworks.CoreFoundation
   ];
@@ -32,16 +35,16 @@ in stdenv.mkDerivation rec {
   glibc = stdenv.cc.libc.out;
 
   # Patch paths for linux systems. Other platforms will need their own patches.
-  patches = [
-    ./mark-paths.patch # mark paths for later substitution in postPatch
-  ] ++ lib.optional stdenv.isAarch64 (fetchpatch {
-    # backport upstream patch for aarch64 glibc 2.34
-    url =
-      "https://gitlab.com/freepascal.org/fpc/source/-/commit/a20a7e3497bccf3415bf47ccc55f133eb9d6d6a0.patch";
-    hash = "sha256-xKTBwuOxOwX9KCazQbBNLhMXCqkuJgIFvlXewHY63GM=";
-    stripLen = 1;
-    extraPrefix = "fpcsrc/";
-  });
+  patches =
+    [ ./mark-paths.patch # mark paths for later substitution in postPatch
+    ] ++ lib.optional stdenv.isAarch64 (fetchpatch {
+      # backport upstream patch for aarch64 glibc 2.34
+      url =
+        "https://gitlab.com/freepascal.org/fpc/source/-/commit/a20a7e3497bccf3415bf47ccc55f133eb9d6d6a0.patch";
+      hash = "sha256-xKTBwuOxOwX9KCazQbBNLhMXCqkuJgIFvlXewHY63GM=";
+      stripLen = 1;
+      extraPrefix = "fpcsrc/";
+    });
 
   postPatch = ''
     # substitute the markers set by the mark-paths patch
@@ -60,7 +63,10 @@ in stdenv.mkDerivation rec {
     (with darwin.apple_sdk.frameworks;
       "-F${CoreFoundation}/Library/Frameworks");
 
-  makeFlags = [ "NOGDB=1" "FPC=${startFPC}/bin/fpc" ];
+  makeFlags = [
+    "NOGDB=1"
+    "FPC=${startFPC}/bin/fpc"
+  ];
 
   installFlags = [ "INSTALL_PREFIX=\${out}" ];
 
@@ -83,7 +89,10 @@ in stdenv.mkDerivation rec {
     description = "Free Pascal Compiler from a source distribution";
     homepage = "https://www.freepascal.org";
     maintainers = [ maintainers.raskin ];
-    license = with licenses; [ gpl2 lgpl2 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+    ];
     platforms = platforms.unix;
   };
 }

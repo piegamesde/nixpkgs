@@ -30,7 +30,10 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ pkg-config libappindicator-gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    libappindicator-gtk3
+  ];
   buildInputs = [ libappindicator-gtk3 ];
 
   doCheck = false; # Display required

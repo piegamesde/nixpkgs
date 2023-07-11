@@ -121,8 +121,10 @@ in {
       description = "ejabberd server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = [ pkgs.findutils pkgs.coreutils ]
-        ++ lib.optional cfg.imagemagick pkgs.imagemagick;
+      path = [
+        pkgs.findutils
+        pkgs.coreutils
+      ] ++ lib.optional cfg.imagemagick pkgs.imagemagick;
 
       serviceConfig = {
         User = cfg.user;

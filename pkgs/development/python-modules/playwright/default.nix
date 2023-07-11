@@ -59,9 +59,15 @@ in buildPythonPackage rec {
       --replace "@driver@" "${driver}/bin/playwright"
   '';
 
-  nativeBuildInputs = [ git setuptools-scm ];
+  nativeBuildInputs = [
+    git
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ greenlet pyee ];
+  propagatedBuildInputs = [
+    greenlet
+    pyee
+  ];
 
   postInstall = ''
     ln -s ${driver} $out/${python.sitePackages}/playwright/driver
@@ -87,8 +93,16 @@ in buildPythonPackage rec {
       "Python version of the Playwright testing and automation library";
     homepage = "https://github.com/microsoft/playwright-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick yrd SuperSandro2000 ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      techknowlogick
+      yrd
+      SuperSandro2000
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

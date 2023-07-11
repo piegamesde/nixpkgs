@@ -34,7 +34,11 @@
 let
   neovimLuaEnv = lua.withPackages (ps:
     (with ps;
-      [ lpeg luabitop mpack ] ++ lib.optionals doCheck [
+      [
+        lpeg
+        luabitop
+        mpack
+      ] ++ lib.optionals doCheck [
         nvim-client
         luv
         coxpcall
@@ -49,11 +53,18 @@ let
         deterministicStringIds = true;
         self = deterministicLuajit;
       };
-    in deterministicLuajit.withPackages (ps: [ ps.mpack ps.lpeg ])
+    in deterministicLuajit.withPackages (ps: [
+      ps.mpack
+      ps.lpeg
+    ])
   else
     lua;
 
-  pyEnv = python3.withPackages (ps: with ps; [ pynvim msgpack ]);
+  pyEnv = python3.withPackages (ps:
+    with ps; [
+      pynvim
+      msgpack
+    ]);
 in stdenv.mkDerivation rec {
   pname = "neovim-unwrapped";
   version = "0.9.0";
@@ -91,8 +102,13 @@ in stdenv.mkDerivation rec {
     neovimLuaEnv
     tree-sitter
     unibilium
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv CoreServices ]
-    ++ lib.optionals doCheck [ glibcLocales procps ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    CoreServices
+  ] ++ lib.optionals doCheck [
+    glibcLocales
+    procps
+  ];
 
   inherit doCheck;
 
@@ -102,7 +118,11 @@ in stdenv.mkDerivation rec {
     make functionaltest
   '';
 
-  nativeBuildInputs = [ cmake gettext pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+  ];
 
   # extra programs test via `make functionaltest`
   nativeCheckInputs = [
@@ -170,8 +190,14 @@ in stdenv.mkDerivation rec {
     # Contributions committed after b17d96 are licensed under Apache 2.0 unless
     # those contributions were copied from Vim (identified in the commit logs
     # by the vim-patch token). See LICENSE for details."
-    license = with licenses; [ asl20 vim ];
-    maintainers = with maintainers; [ manveru rvolosatovs ];
+    license = with licenses; [
+      asl20
+      vim
+    ];
+    maintainers = with maintainers; [
+      manveru
+      rvolosatovs
+    ];
     platforms = platforms.unix;
   };
 }

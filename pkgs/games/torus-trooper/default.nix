@@ -66,9 +66,16 @@ in stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ unzip gdc ];
+  nativeBuildInputs = [
+    unzip
+    gdc
+  ];
 
-  buildInputs = [ SDL SDL_mixer bulletml ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    bulletml
+  ];
 
   installPhase = ''
     install -Dm755 torus-trooper $out/bin/torus-trooper

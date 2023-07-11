@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "4c74bd31b581f6d2b36d575bb537b1f29469509f560f5050339a48195d48929b";
   };
 
-  propagatedBuildInputs = [ mohawk requests ];
+  propagatedBuildInputs = [
+    mohawk
+    requests
+  ];
 
   meta = with lib; {
     description =

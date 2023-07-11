@@ -17,13 +17,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/ratpoints/patches/sturm_and_rp_private.patch?id=1615f58890e8f9881c4228c78a6b39b9aab1303a";
-      sha256 = "0q3wajncyfr3gahd8gwk9x7g56zw54lpywrl63lqk7drkf60mrcl";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://git.sagemath.org/sage.git/plain/build/pkgs/ratpoints/patches/sturm_and_rp_private.patch?id=1615f58890e8f9881c4228c78a6b39b9aab1303a";
+    sha256 = "0q3wajncyfr3gahd8gwk9x7g56zw54lpywrl63lqk7drkf60mrcl";
+  }) ];
 
   buildInputs = [ gmp ];
 

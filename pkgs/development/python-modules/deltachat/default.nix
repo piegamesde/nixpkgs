@@ -23,14 +23,25 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
   format = "pyproject";
 
-  nativeBuildInputs =
-    [ cffi pkg-config pkgconfig setuptools setuptools-scm wheel ];
+  nativeBuildInputs = [
+    cffi
+    pkg-config
+    pkgconfig
+    setuptools
+    setuptools-scm
+    wheel
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   buildInputs = [ libdeltachat ];
 
-  propagatedBuildInputs = [ cffi imap-tools pluggy requests ];
+  propagatedBuildInputs = [
+    cffi
+    imap-tools
+    pluggy
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "1.8.2";
 
-  outputs = [ "out" "dev" "devdoc" ] ++ lib.optionals enableGlade [ "glade" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ] ++ lib.optionals enableGlade [ "glade" ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -41,16 +45,28 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [ gobject-introspection gi-docgen meson ninja pkg-config vala ]
-    ++ lib.optionals enableGlade [
-      libxml2 # for xmllint
+  nativeBuildInputs = [
+    gobject-introspection
+    gi-docgen
+    meson
+    ninja
+    pkg-config
+    vala
+  ] ++ lib.optionals enableGlade [ libxml2 # for xmllint
     ];
 
-  buildInputs = [ gdk-pixbuf gtk3 ] ++ lib.optionals enableGlade [ glade ];
+  buildInputs = [
+    gdk-pixbuf
+    gtk3
+  ] ++ lib.optionals enableGlade [ glade ];
 
-  nativeCheckInputs =
-    [ xvfb-run at-spi2-atk at-spi2-core librsvg hicolor-icon-theme ];
+  nativeCheckInputs = [
+    xvfb-run
+    at-spi2-atk
+    at-spi2-core
+    librsvg
+    hicolor-icon-theme
+  ];
 
   mesonFlags = [
     "-Dgtk_doc=true"

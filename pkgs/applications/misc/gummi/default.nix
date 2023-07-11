@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-71n71KjLmICp4gznd27NlbyA3kayje3hYk/cwkOXEO0=";
   };
 
-  nativeBuildInputs = [ pkg-config intltool autoreconfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    autoreconfHook
+    wrapGAppsHook
+  ];
   buildInputs = [
     glib
     gtksourceview3

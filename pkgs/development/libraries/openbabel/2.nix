@@ -37,9 +37,19 @@ stdenv.mkDerivation rec {
     sed '1i#include <ctime>' -i include/openbabel/obutil.h # gcc12
   '';
 
-  buildInputs = [ zlib libxml2 eigen python3 cairo pcre ];
+  buildInputs = [
+    zlib
+    libxml2
+    eigen
+    python3
+    cairo
+    pcre
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description =

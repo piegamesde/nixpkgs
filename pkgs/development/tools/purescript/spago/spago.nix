@@ -121,7 +121,13 @@ mkDerivation {
     with-utf8
     zlib
   ];
-  executableHaskellDepends = [ ansi-terminal base text turtle with-utf8 ];
+  executableHaskellDepends = [
+    ansi-terminal
+    base
+    text
+    turtle
+    with-utf8
+  ];
   testHaskellDepends = [
     base
     containers

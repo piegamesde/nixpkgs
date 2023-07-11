@@ -155,7 +155,10 @@ in stdenv.mkDerivation {
     homepage = "https://www.skype.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ panaeon jraygauthier ];
+    maintainers = with maintainers; [
+      panaeon
+      jraygauthier
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

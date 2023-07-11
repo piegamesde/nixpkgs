@@ -36,7 +36,14 @@ stdenv.mkDerivation (finalAttrs: {
     ./use-gd-package.patch
   ];
 
-  buildInputs = [ zlib libX11 libpng gd freetype libjpeg ];
+  buildInputs = [
+    zlib
+    libX11
+    libpng
+    gd
+    freetype
+    libjpeg
+  ];
 
   hardeningDisable = [ "format" ];
 

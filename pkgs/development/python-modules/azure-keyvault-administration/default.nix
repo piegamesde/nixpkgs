@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-PuKjui0OP0ODNErjbjJ90hOgee97JDrVT2sh+MufxWY=";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest six ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+    six
+  ];
 
   # no tests in pypi tarball
   doCheck = false;

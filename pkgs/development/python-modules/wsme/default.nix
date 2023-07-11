@@ -36,7 +36,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ netaddr pytz simplegeneric six webob ];
+  propagatedBuildInputs = [
+    netaddr
+    pytz
+    simplegeneric
+    six
+    webob
+  ];
 
   nativeCheckInputs = [
     nose

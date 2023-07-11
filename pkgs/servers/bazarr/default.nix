@@ -10,7 +10,11 @@
   nixosTests,
 }:
 
-let runtimeProgDeps = [ ffmpeg unar ];
+let
+  runtimeProgDeps = [
+    ffmpeg
+    unar
+  ];
 in stdenv.mkDerivation rec {
   pname = "bazarr";
   version = "1.2.0";
@@ -23,12 +27,17 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-rlph8On/dc9Xyx8/KQzp4vX49wY4fr1oTtBEyfVhrsc=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
-  buildInputs = [
-    (python3.withPackages
-      (ps: [ ps.lxml ps.numpy ps.gevent ps.gevent-websocket ]))
-  ] ++ runtimeProgDeps;
+  buildInputs = [ (python3.withPackages (ps: [
+    ps.lxml
+    ps.numpy
+    ps.gevent
+    ps.gevent-websocket
+  ])) ] ++ runtimeProgDeps;
 
   installPhase = ''
     runHook preInstall

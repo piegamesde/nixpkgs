@@ -28,16 +28,29 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp beautifulsoup4 httpx importlib-metadata multidict typer yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    beautifulsoup4
+    httpx
+    importlib-metadata
+    multidict
+    typer
+    yarl
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =
       "A proxy to capture authentication information from a webpage";
     homepage = "https://github.com/alandtse/auth_capture_proxy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ graham33 hexa ];
+    maintainers = with maintainers; [
+      graham33
+      hexa
+    ];
   };
 }

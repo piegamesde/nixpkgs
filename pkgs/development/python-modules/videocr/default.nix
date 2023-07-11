@@ -17,7 +17,12 @@ buildPythonPackage rec {
     sha256 = "1clifwczvhvbaw2spgxkkyqsbqh21vyfw3rh094pxfmq89ylyj63";
   };
 
-  propagatedBuildInputs = [ levenshtein pytesseract opencv4 fuzzywuzzy ];
+  propagatedBuildInputs = [
+    levenshtein
+    pytesseract
+    opencv4
+    fuzzywuzzy
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

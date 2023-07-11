@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [ ocaml findlib ];
+  nativeBuildInputs = with ocamlPackages; [
+    ocaml
+    findlib
+  ];
 
   buildPhase = "./build -nointeract";
   installPhase = ''
@@ -32,6 +35,9 @@ stdenv.mkDerivation rec {
     homepage = "https://bblanche.gitlabpages.inria.fr/proverif/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thoughtpolice vbgl ];
+    maintainers = with lib.maintainers; [
+      thoughtpolice
+      vbgl
+    ];
   };
 }

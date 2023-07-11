@@ -20,6 +20,9 @@ buildGoModule rec {
     description = "Translate bash scripts to fish";
     homepage = "https://github.com/bouk/babelfish";
     license = licenses.mit;
-    maintainers = with maintainers; [ bouk kevingriffin ];
+    maintainers = with maintainers; [
+      bouk
+      kevingriffin
+    ];
   };
 }

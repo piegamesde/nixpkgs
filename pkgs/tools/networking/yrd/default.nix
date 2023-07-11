@@ -15,7 +15,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1yx1hr8z4cvlb3yi24dwafs0nxq41k4q477jc9q24w61a0g662ps";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ argh requests ];
+  propagatedBuildInputs = with python3.pkgs; [
+    argh
+    requests
+  ];
 
   nativeCheckInputs = with python3.pkgs; [ nose ];
 

@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config git ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    git
+  ];
   buildInputs = [
     boehmgc
     zlib
@@ -83,7 +87,10 @@ stdenv.mkDerivation rec {
       licenses.mit # overall, other libs
       "https://github.com/HaxeFoundation/neko/blob/v2-3-0/LICENSE#L24-L40" # boehm gc
     ];
-    maintainers = [ maintainers.marcweber maintainers.locallycompact ];
+    maintainers = [
+      maintainers.marcweber
+      maintainers.locallycompact
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

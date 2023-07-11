@@ -54,8 +54,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs =
-    [ cmake pkg-config qttools deepin-gettext-tools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    deepin-gettext-tools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget
@@ -72,7 +77,10 @@ stdenv.mkDerivation rec {
     libnl
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" "-DUSE_DEEPIN_WAYLAND=OFF" ];
+  cmakeFlags = [
+    "-DVERSION=${version}"
+    "-DUSE_DEEPIN_WAYLAND=OFF"
+  ];
 
   strictDeps = true;
 

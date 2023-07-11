@@ -46,7 +46,11 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ numpy scipy pandas ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    pandas
+  ];
 
   passthru.optional-dependencies = {
     plot = [ matplotlib ];
@@ -63,7 +67,11 @@ buildPythonPackage rec {
       nbsphinx
       openpyxl
     ];
-    qtapps = [ qtpy pyqtgraph pyqt5 ];
+    qtapps = [
+      qtpy
+      pyqtgraph
+      pyqt5
+    ];
   };
 
   nativeCheckInputs = [

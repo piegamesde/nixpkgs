@@ -45,7 +45,14 @@ buildPythonApplication rec {
     urwidtrees
   ];
 
-  nativeCheckInputs = [ future gawk gnupg mock procps pytestCheckHook ];
+  nativeCheckInputs = [
+    future
+    gawk
+    gnupg
+    mock
+    procps
+    pytestCheckHook
+  ];
 
   postBuild = lib.optionalString withManpage [ "make -C docs man" ];
 

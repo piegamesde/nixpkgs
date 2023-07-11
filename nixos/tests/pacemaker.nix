@@ -8,10 +8,10 @@ import ./make-test-python.nix ({
 
     nodes = let
       node = i: {
-        networking.interfaces.eth1.ipv4.addresses = [{
+        networking.interfaces.eth1.ipv4.addresses = [ {
           address = "192.168.0.${toString i}";
           prefixLength = 24;
-        }];
+        } ];
 
         services.corosync = {
           enable = true;
@@ -19,10 +19,8 @@ import ./make-test-python.nix ({
           nodelist = lib.imap (i: name: {
             nodeid = i;
             inherit name;
-            ring_addrs = [
-              (builtins.head
-                nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address
-            ];
+            ring_addrs = [ (builtins.head
+              nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address ];
           }) (builtins.attrNames nodes);
         };
         environment.etc."corosync/authkey" = {

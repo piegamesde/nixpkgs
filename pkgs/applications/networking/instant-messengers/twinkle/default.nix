@@ -46,7 +46,12 @@ mkDerivation rec {
     ilbc
   ];
 
-  nativeBuildInputs = [ cmake bison flex bcg729 ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+    bcg729
+  ];
 
   cmakeFlags = [
     "-DWITH_G729=On"

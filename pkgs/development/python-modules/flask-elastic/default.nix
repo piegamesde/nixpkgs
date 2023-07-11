@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "0hqkwff6z78aspkf1cf815qwp02g3ch1y9dhm5v2ap8vakyac0az";
   };
 
-  propagatedBuildInputs = [ flask elasticsearch ];
+  propagatedBuildInputs = [
+    flask
+    elasticsearch
+  ];
   doCheck = false; # no tests
 
   meta = with lib; {

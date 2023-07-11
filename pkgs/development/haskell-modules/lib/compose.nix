@@ -551,10 +551,10 @@ rec {
             builtins.concatMap (drv:
               if !lib.isDerivation drv then
                 [ ]
-              else [{
+              else [ {
                 key = drv.outPath;
                 val = drv;
-              }]) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
+              } ]) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
       });
   in overrideCabal (old: {
     benchmarkPkgconfigDepends =

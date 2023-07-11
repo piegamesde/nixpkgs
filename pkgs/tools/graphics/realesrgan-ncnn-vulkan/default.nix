@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-17k6fewVEXxx7hi+vPXjHAOq4IIUHLh7WC80CwTeFKI=";
   };
 
-  patches = [ ./cmakelists.patch ./models_path.patch ];
+  patches = [
+    ./cmakelists.patch
+    ./models_path.patch
+  ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_NCNN=1"
@@ -43,8 +46,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ vulkan-headers vulkan-loader glslang libwebp ncnn ]
-    ++ lib.optional (!stdenv.isDarwin) libgcc;
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+    glslang
+    libwebp
+    ncnn
+  ] ++ lib.optional (!stdenv.isDarwin) libgcc;
 
   postPatch = ''
     substituteInPlace main.cpp --replace REPLACE_MODELS $out/share/models

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b7Av17wu6Ar/npKOiwYqzlvBFSIuXTpqTacM1sxtBvc=";
   };
 
-  buildInputs = [ ant jdk ];
+  buildInputs = [
+    ant
+    jdk
+  ];
 
   # build only the "package" target, which generates the fop command.
   buildPhase = ''

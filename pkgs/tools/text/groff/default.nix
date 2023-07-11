@@ -38,7 +38,13 @@ stdenv.mkDerivation rec {
     sha256 = "14q2mldnr1vx0l9lqp9v2f6iww24gj28iyh4j2211hyynx67p3p7";
   };
 
-  outputs = [ "out" "man" "doc" "info" "perl" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+    "info"
+    "perl"
+  ];
 
   # Parallel build is failing for missing depends. Known upstream as:
   #   https://savannah.gnu.org/bugs/?62084
@@ -90,15 +96,20 @@ stdenv.mkDerivation rec {
   # Required due to the patch that changes .ypp files.
     ++ lib.optional
     (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison;
-  buildInputs = [ perl bash ] ++ lib.optionals enableGhostscript [
+  buildInputs = [
+    perl
+    bash
+  ] ++ lib.optionals enableGhostscript [
     ghostscript
     gawk
     libX11
     libXaw
     libXt
     libXmu
-  ] ++ lib.optionals enableHtml [ psutils netpbm ]
-    ++ lib.optionals enableIconv [ iconv ]
+  ] ++ lib.optionals enableHtml [
+    psutils
+    netpbm
+  ] ++ lib.optionals enableIconv [ iconv ]
     ++ lib.optionals enableLibuchardet [ libuchardet ];
 
   # Builds running without a chroot environment may detect the presence
@@ -110,8 +121,8 @@ stdenv.mkDerivation rec {
       "--with-gs=${lib.getBin ghostscript}/bin/gs"
       "--with-awk=${lib.getBin gawk}/bin/gawk"
       "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "gl_cv_func_signbit=yes" ];
+    ] ++ lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ "gl_cv_func_signbit=yes" ];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff
@@ -180,6 +191,9 @@ stdenv.mkDerivation rec {
       implementation of the -mm macros.
     '';
 
-    outputsToInstall = [ "out" "perl" ];
+    outputsToInstall = [
+      "out"
+      "perl"
+    ];
   };
 }

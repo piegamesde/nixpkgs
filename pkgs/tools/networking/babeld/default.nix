@@ -14,10 +14,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-HbIrYZMHDqJFChq1EZb9cvWKEyn3gMsDiOLksud2jLs=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "ETCDIR=${placeholder "out"}/etc" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "ETCDIR=${placeholder "out"}/etc"
+  ];
 
   passthru.tests.babeld = nixosTests.babeld;
 

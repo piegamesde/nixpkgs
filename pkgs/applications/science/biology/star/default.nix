@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-  buildFlags = [ "STAR" "STARlong" ];
+  buildFlags = [
+    "STAR"
+    "STARlong"
+  ];
 
   enableParallelBuilding = true;
 

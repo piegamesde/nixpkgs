@@ -15,7 +15,13 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ awa cstruct mtime lwt mirage-crypto-rng ];
+  propagatedBuildInputs = [
+    awa
+    cstruct
+    mtime
+    lwt
+    mirage-crypto-rng
+  ];
 
   doCheck = true;
   nativeCheckInputs = [ awa ];

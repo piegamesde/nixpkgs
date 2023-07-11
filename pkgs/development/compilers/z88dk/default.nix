@@ -50,14 +50,25 @@ stdenv.mkDerivation rec {
     "git_count=0"
   ];
 
-  nativeBuildInputs = [ which makeWrapper unzip ];
-  buildInputs = [ libxml2 m4 uthash ];
+  nativeBuildInputs = [
+    which
+    makeWrapper
+    unzip
+  ];
+  buildInputs = [
+    libxml2
+    m4
+    uthash
+  ];
 
   preInstall = ''
     mkdir -p $out/{bin,share}
   '';
 
-  installTargets = [ "libs" "install" ];
+  installTargets = [
+    "libs"
+    "install"
+  ];
 
   meta = with lib; {
     homepage = "https://www.z88dk.org";

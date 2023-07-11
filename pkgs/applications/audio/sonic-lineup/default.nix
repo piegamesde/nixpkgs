@@ -73,7 +73,10 @@ stdenv.mkDerivation rec {
     libjack2
   ];
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   enableParallelBuilding = true;
 

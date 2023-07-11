@@ -53,7 +53,12 @@ in stdenv.mkDerivation (rec {
   # Don't remove runtime deps.
   dontPatchELF = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    wrapGAppsHook
+    dpkg
+  ];
   buildInputs = extraBuildInputs ++ (with xorg; [
     libXi
     libXcursor
@@ -84,8 +89,12 @@ in stdenv.mkDerivation (rec {
     expat
     stdenv.cc.cc
   ];
-  runtimeDependencies =
-    [ stdenv.cc.cc.lib (lib.getLib udev) libnotify libappindicator-gtk3 ];
+  runtimeDependencies = [
+    stdenv.cc.cc.lib
+    (lib.getLib udev)
+    libnotify
+    libappindicator-gtk3
+  ];
 
   unpackPhase = "dpkg-deb -x $src .";
 

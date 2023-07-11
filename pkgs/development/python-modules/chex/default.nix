@@ -24,11 +24,21 @@ buildPythonPackage rec {
     hash = "sha256-VolRlLLgKga9S17ByVrYya9VPtu9yiOnvt/WmlE1DOc=";
   };
 
-  propagatedBuildInputs = [ absl-py cloudpickle dm-tree jax numpy toolz ];
+  propagatedBuildInputs = [
+    absl-py
+    cloudpickle
+    dm-tree
+    jax
+    numpy
+    toolz
+  ];
 
   pythonImportsCheck = [ "chex" ];
 
-  nativeCheckInputs = [ jaxlib pytestCheckHook ];
+  nativeCheckInputs = [
+    jaxlib
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # See https://github.com/deepmind/chex/issues/204.

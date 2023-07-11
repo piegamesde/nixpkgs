@@ -42,10 +42,17 @@ gcc8Stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches =
-    [ ./seastar-configure-script-paths.patch ./configure-etc-osrelease.patch ];
+  patches = [
+    ./seastar-configure-script-paths.patch
+    ./configure-etc-osrelease.patch
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake makeWrapper ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    makeWrapper
+    ninja
+  ];
 
   buildInputs = [
     antlr3

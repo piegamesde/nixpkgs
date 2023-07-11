@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-5g7FSdlwGeohbjOX3ErTKn83VDFtWV7fVq6zziAjCq0=";
   };
 
-  nativeCheckInputs = [ py pytestCheckHook pytest-benchmark pytest-mock ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+    pytest-benchmark
+    pytest-mock
+  ];
 
   disabledTests = [
     # Disable CLI tests

@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ black toml ];
+  propagatedBuildInputs = [
+    black
+    toml
+  ];
 
   # does not contain tests
   doCheck = false;

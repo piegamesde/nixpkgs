@@ -15,7 +15,13 @@ mkDerivation rec {
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [ kirigami2 ktextwidgets libksane qtquickcontrols2 kpurpose ];
+  buildInputs = [
+    kirigami2
+    ktextwidgets
+    libksane
+    qtquickcontrols2
+    kpurpose
+  ];
 
   meta = with lib; {
     description = "KDE utility to scan images and multi-page documents";

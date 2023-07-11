@@ -39,8 +39,10 @@ let
         inherit sha256;
       };
 
-      passthru.updateScript =
-        [ ./update-zen.py (if isLqx then "lqx" else "zen") ];
+      passthru.updateScript = [
+        ./update-zen.py
+        (if isLqx then "lqx" else "zen")
+      ];
 
       extraMeta = {
         branch = lib.versions.majorMinor version + "/master";

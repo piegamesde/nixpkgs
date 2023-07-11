@@ -22,8 +22,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Wn3fXAft+sju8FhX6YFHRvqt815NhTlfhLJarSemvm0=";
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
-  buildInputs = [ pcsclite nettle ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
+  buildInputs = [
+    pcsclite
+    nettle
+  ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
 
   passthru = {
     tests.version = testers.testVersion { package = openpgp-card-tools; };

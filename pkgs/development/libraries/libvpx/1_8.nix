@@ -126,7 +126,11 @@ stdenv.mkDerivation rec {
       configure
   '';
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
   setOutputFlags = false;
 
   configurePlatforms = [ ];
@@ -222,13 +226,18 @@ stdenv.mkDerivation rec {
     ++ optional experimentalFpMbStatsSupport "--enable-fp-mb-stats"
     ++ optional experimentalEmulateHardwareSupport "--enable-emulate-hardware";
 
-  nativeBuildInputs = [ perl yasm ];
-
-  buildInputs = [ ] ++ optionals unitTestsSupport [ coreutils curl ];
-
-  NIX_LDFLAGS = [
-    "-lpthread" # fixes linker errors
+  nativeBuildInputs = [
+    perl
+    yasm
   ];
+
+  buildInputs = [ ] ++ optionals unitTestsSupport [
+    coreutils
+    curl
+  ];
+
+  NIX_LDFLAGS = [ "-lpthread" # fixes linker errors
+    ];
 
   enableParallelBuilding = true;
 

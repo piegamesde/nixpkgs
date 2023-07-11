@@ -42,12 +42,17 @@ in mkDerivation rec {
     sha256 = "1sz21ijzvhf5avblikffykbqa8zdq3sbg32g2dmyxv5w211v3lvz";
   };
 
-  buildInputs = [ qtbase qtscript qtquickcontrols qtdeclarative elfutils.dev ]
-    ++ lib.optionals withClangPlugins [
-      llvmPackages_8.libclang
-      clang_qt_vendor
-      llvmPackages_8.llvm
-    ];
+  buildInputs = [
+    qtbase
+    qtscript
+    qtquickcontrols
+    qtdeclarative
+    elfutils.dev
+  ] ++ lib.optionals withClangPlugins [
+    llvmPackages_8.libclang
+    clang_qt_vendor
+    llvmPackages_8.llvm
+  ];
 
   nativeBuildInputs = [ qmake ];
 
@@ -116,6 +121,11 @@ in mkDerivation rec {
     homepage = "https://wiki.qt.io/Category:Tools::QtCreator";
     license = "LGPL";
     maintainers = [ lib.maintainers.akaWolf ];
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+      "armv7l-linux"
+    ];
   };
 }

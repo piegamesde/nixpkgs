@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sed -i s,/usr/bin/gzip,gzip, Makefile.in
   '';
 
-  buildInputs = [ libtiff gettext ];
+  buildInputs = [
+    libtiff
+    gettext
+  ];
 
   preInstall = ''
     mkdir -p $out/lib

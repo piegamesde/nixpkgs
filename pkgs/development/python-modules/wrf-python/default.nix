@@ -30,7 +30,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  propagatedBuildInputs = [ basemap numpy setuptools xarray wrapt ];
+  propagatedBuildInputs = [
+    basemap
+    numpy
+    setuptools
+    xarray
+    wrapt
+  ];
 
   nativeCheckInputs = [ netcdf4 ];
 

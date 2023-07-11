@@ -25,7 +25,10 @@ let
 
       {
         _module.args = {
-          baseModules = [ ../documentation.nix ../version.nix ];
+          baseModules = [
+            ../documentation.nix
+            ../version.nix
+          ];
           extraModules = [ ];
           inherit modules;
         };

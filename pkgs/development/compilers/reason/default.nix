@@ -30,12 +30,28 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper menhir ocaml menhir cppo dune_3 findlib ];
+  nativeBuildInputs = [
+    makeWrapper
+    menhir
+    ocaml
+    menhir
+    cppo
+    dune_3
+    findlib
+  ];
 
-  buildInputs = [ fix menhirSdk ppxlib utop ]
-    ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
+  buildInputs = [
+    fix
+    menhirSdk
+    ppxlib
+    utop
+  ] ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
 
-  propagatedBuildInputs = [ menhirLib merlin-extend ppx_derivers ];
+  propagatedBuildInputs = [
+    menhirLib
+    merlin-extend
+    ppx_derivers
+  ];
 
   buildFlags = [ "build" ]; # do not "make tests" before reason lib is installed
 

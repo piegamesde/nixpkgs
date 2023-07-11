@@ -45,7 +45,10 @@ in {
       options.media_dir = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "/data/media" "V,/home/alice/video" ];
+        example = [
+          "/data/media"
+          "V,/home/alice/video"
+        ];
         description = lib.mdDoc ''
           Directories to be scanned for media files.
           The `A,` `V,` `P,` prefixes restrict a directory to audio, video or image files.
@@ -100,19 +103,28 @@ in {
           "Defines the type of messages that should be logged and down to which level of importance.";
       };
       options.inotify = mkOption {
-        type = types.enum [ "yes" "no" ];
+        type = types.enum [
+          "yes"
+          "no"
+        ];
         default = "no";
         description = lib.mdDoc
           "Whether to enable inotify monitoring to automatically discover new files.";
       };
       options.enable_tivo = mkOption {
-        type = types.enum [ "yes" "no" ];
+        type = types.enum [
+          "yes"
+          "no"
+        ];
         default = "no";
         description = lib.mdDoc
           "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
       };
       options.wide_links = mkOption {
-        type = types.enum [ "yes" "no" ];
+        type = types.enum [
+          "yes"
+          "no"
+        ];
         default = "no";
         description = lib.mdDoc
           "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
@@ -121,33 +133,61 @@ in {
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "minidlna" "config" ] "")
-    (mkRemovedOptionModule [ "services" "minidlna" "extraConfig" ] "")
-    (mkRenamedOptionModule [ "services" "minidlna" "loglevel" ] [
+    (mkRemovedOptionModule [
+      "services"
+      "minidlna"
+      "config"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "minidlna"
+      "extraConfig"
+    ] "")
+    (mkRenamedOptionModule [
+      "services"
+      "minidlna"
+      "loglevel"
+    ] [
       "services"
       "minidlna"
       "settings"
       "log_level"
     ])
-    (mkRenamedOptionModule [ "services" "minidlna" "rootContainer" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "minidlna"
+      "rootContainer"
+    ] [
       "services"
       "minidlna"
       "settings"
       "root_container"
     ])
-    (mkRenamedOptionModule [ "services" "minidlna" "mediaDirs" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "minidlna"
+      "mediaDirs"
+    ] [
       "services"
       "minidlna"
       "settings"
       "media_dir"
     ])
-    (mkRenamedOptionModule [ "services" "minidlna" "friendlyName" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "minidlna"
+      "friendlyName"
+    ] [
       "services"
       "minidlna"
       "settings"
       "friendly_name"
     ])
-    (mkRenamedOptionModule [ "services" "minidlna" "announceInterval" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "minidlna"
+      "announceInterval"
+    ] [
       "services"
       "minidlna"
       "settings"

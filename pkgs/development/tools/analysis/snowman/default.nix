@@ -20,7 +20,10 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost qtbase ];
+  buildInputs = [
+    boost
+    qtbase
+  ];
 
   postUnpack = ''
     export sourceRoot=$sourceRoot/src

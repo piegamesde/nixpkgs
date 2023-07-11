@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ gnat12 gprbuild python3 ocaml makeWrapper ];
+  nativeBuildInputs = [
+    gnat12
+    gprbuild
+    python3
+    ocaml
+    makeWrapper
+  ];
 
   buildInputs = [
     gnatcoll-core

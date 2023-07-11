@@ -99,10 +99,10 @@ in {
         };
         alertmanager = {
           interval = "15s";
-          servers = [{
+          servers = [ {
             name = "prod";
             uri = "http://alertmanager.example.com";
-          }];
+          } ];
         };
       };
     };

@@ -22,9 +22,15 @@ stdenv.mkDerivation {
     export LIBRARY_PATH=${libev}/lib
   '';
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
-  buildInputs = [ libev openssl ];
+  buildInputs = [
+    libev
+    openssl
+  ];
 
   meta = with lib; {
     description = "run command on mailbox change";

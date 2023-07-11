@@ -19,10 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-e8MGJGirulCv8+y4sizmdxlgNgCYkGiO9FM6qn+S5uQ=";
   };
 
-  nativeBuildInputs = with python.pkgs; [ cython makeWrapper ];
+  nativeBuildInputs = with python.pkgs; [
+    cython
+    makeWrapper
+  ];
 
-  buildInputs = [ python ] ++ (with python.pkgs; [ numpy matplotlib ])
-    ++ lib.optionals withRootSupport [ root ];
+  buildInputs = [ python ] ++ (with python.pkgs; [
+    numpy
+    matplotlib
+  ]) ++ lib.optionals withRootSupport [ root ];
 
   propagatedBuildInputs = [ zlib ];
 

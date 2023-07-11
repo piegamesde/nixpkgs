@@ -53,10 +53,23 @@ in stdenv.mkDerivation {
 
   dontAddPrefix = true;
 
-  nativeBuildInputs = [ makeWrapper cmake ];
-  buildInputs = [ libjpeg zlib libpng libGL SDL2 ];
+  nativeBuildInputs = [
+    makeWrapper
+    cmake
+  ];
+  buildInputs = [
+    libjpeg
+    zlib
+    libpng
+    libGL
+    SDL2
+  ];
 
-  outputs = [ "out" "openjo" "openja" ];
+  outputs = [
+    "out"
+    "openjo"
+    "openja"
+  ];
 
   # move from $out/JediAcademy to $out/opt/JediAcademy
   preConfigure = ''

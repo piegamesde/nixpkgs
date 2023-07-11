@@ -20,13 +20,28 @@ buildPythonPackage rec {
   pname = "grpcio";
   format = "setuptools";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cython pkg-config ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+  ];
 
-  buildInputs = [ c-ares openssl zlib ];
-  propagatedBuildInputs = [ six protobuf ]
-    ++ lib.optionals (isPy27) [ enum34 futures ];
+  buildInputs = [
+    c-ares
+    openssl
+    zlib
+  ];
+  propagatedBuildInputs = [
+    six
+    protobuf
+  ] ++ lib.optionals (isPy27) [
+    enum34
+    futures
+  ];
 
   preBuild = ''
     export GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS="$NIX_BUILD_CORES"

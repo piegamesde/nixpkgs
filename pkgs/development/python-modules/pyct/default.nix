@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-3Z9KxcvY43w1LAQDYGLTxfZ+/sdtQEdh7xawy/JqpqA=";
   };
 
-  propagatedBuildInputs = [ param pyyaml requests ];
+  propagatedBuildInputs = [
+    param
+    pyyaml
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

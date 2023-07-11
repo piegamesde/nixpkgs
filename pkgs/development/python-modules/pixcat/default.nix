@@ -20,7 +20,12 @@ buildPythonPackage rec {
     sha256 = "657c8fe04513caecccd6086b347aa4b85db6b4c0f761b162cb9cd789abe7abb6";
   };
 
-  propagatedBuildInputs = [ blessed docopt pillow requests ];
+  propagatedBuildInputs = [
+    blessed
+    docopt
+    pillow
+    requests
+  ];
 
   pythonImportsCheck = [ "pixcat" ];
 

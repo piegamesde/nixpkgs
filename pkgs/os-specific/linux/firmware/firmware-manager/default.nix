@@ -49,7 +49,11 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ openssl gtk3 udev ];
+  buildInputs = [
+    openssl
+    gtk3
+    udev
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 

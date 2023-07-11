@@ -31,9 +31,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp orjson python-slugify voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    orjson
+    python-slugify
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ pydevccu pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pydevccu
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   # Starting with 0.30 the tests are broken, check with the next major release
   doCheck = false;

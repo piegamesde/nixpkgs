@@ -30,7 +30,11 @@ in python3Packages.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = with python3Packages; [ pywbem requests setuptools ];
+  propagatedBuildInputs = with python3Packages; [
+    pywbem
+    requests
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://www.claudiokuenzler.com/nagios-plugins/";

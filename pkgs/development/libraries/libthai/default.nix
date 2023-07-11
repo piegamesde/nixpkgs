@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   pname = "libthai";
   version = "0.1.29";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -22,7 +25,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ installShellFiles (lib.getBin libdatrie) pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    (lib.getBin libdatrie)
+    pkg-config
+  ];
 
   buildInputs = [ libdatrie ];
 

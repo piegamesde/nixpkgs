@@ -36,9 +36,18 @@ buildPythonPackage rec {
       --replace '"pytest-runner",' ""
   '';
 
-  nativeBuildInputs = [ cython git pkgconfig setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    git
+    pkgconfig
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ future numpy pyusb ];
+  propagatedBuildInputs = [
+    future
+    numpy
+    pyusb
+  ];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d
@@ -46,7 +55,11 @@ buildPythonPackage rec {
   '';
 
   # few backends enabled, but still some tests
-  nativeCheckInputs = [ pytestCheckHook mock zipp ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    zipp
+  ];
 
   setupPyBuildFlags = [ "--without-cseabreeze" ];
 

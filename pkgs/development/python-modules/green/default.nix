@@ -29,7 +29,12 @@ buildPythonPackage rec {
       --subst-var-by green "$out/bin/green"
   '';
 
-  propagatedBuildInputs = [ colorama coverage unidecode lxml ];
+  propagatedBuildInputs = [
+    colorama
+    coverage
+    unidecode
+    lxml
+  ];
 
   # let green run it's own test suite
   checkPhase = ''

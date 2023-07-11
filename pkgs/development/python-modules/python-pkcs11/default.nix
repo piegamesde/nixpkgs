@@ -21,9 +21,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ cython setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ cached-property asn1crypto ];
+  propagatedBuildInputs = [
+    cached-property
+    asn1crypto
+  ];
 
   # Test require additional setup
   doCheck = false;

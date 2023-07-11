@@ -97,7 +97,10 @@ in {
           The name of the TPM command transmission interface (TCTI) library to
           use.
         '';
-        type = lib.types.enum [ "tabrmd" "device" ];
+        type = lib.types.enum [
+          "tabrmd"
+          "device"
+        ];
         default = "device";
       };
 
@@ -146,7 +149,10 @@ in {
       users.groups.${cfg.tssGroup} = lib.mkIf (cfg.tssGroup == "tss") { };
 
       environment.variables = lib.mkIf cfg.tctiEnvironment.enable
-        (lib.attrsets.genAttrs [ "TPM2TOOLS_TCTI" "TPM2_PKCS11_TCTI" ] (_:
+        (lib.attrsets.genAttrs [
+          "TPM2TOOLS_TCTI"
+          "TPM2_PKCS11_TCTI"
+        ] (_:
           "${cfg.tctiEnvironment.interface}:${
             if cfg.tctiEnvironment.interface == "tabrmd" then
               cfg.tctiEnvironment.tabrmdConf

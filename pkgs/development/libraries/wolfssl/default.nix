@@ -37,7 +37,12 @@ stdenv.mkDerivation rec {
     "--enable-tls13"
   ];
 
-  outputs = [ "dev" "doc" "lib" "out" ];
+  outputs = [
+    "dev"
+    "doc"
+    "lib"
+    "out"
+  ];
 
   propagatedBuildInputs = [ ] ++ lib.optionals stdenv.isDarwin [ Security ];
   nativeBuildInputs = [ autoreconfHook ];

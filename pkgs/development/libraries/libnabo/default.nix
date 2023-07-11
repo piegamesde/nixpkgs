@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen boost ];
+  buildInputs = [
+    eigen
+    boost
+  ];
 
   cmakeFlags = [ "-DEIGEN_INCLUDE_DIR=${eigen}/include/eigen3" ];
 

@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Wj9o3wWbtHsEi6LFH4xDpwVR9BwcWc472jJ/QFDQZvY=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -39,7 +42,11 @@ stdenv.mkDerivation rec {
     fftw
   ];
 
-  qmakeFlags = [ "CONFIG+=jpeg2000" "CONFIG+=pdf" "CONFIG+=log4cpp_null" ];
+  qmakeFlags = [
+    "CONFIG+=jpeg2000"
+    "CONFIG+=pdf"
+    "CONFIG+=log4cpp_null"
+  ];
 
   POPPLER_INCLUDE = "${poppler.dev}/include/poppler/qt5";
 

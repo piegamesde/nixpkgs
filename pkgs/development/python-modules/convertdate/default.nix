@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-iOHK3UJulXJJR50nhiVgfk3bt+CAtG3BRySJ8DkBuJE=";
   };
 
-  propagatedBuildInputs = [ pymeeus pytz ];
+  propagatedBuildInputs = [
+    pymeeus
+    pytz
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

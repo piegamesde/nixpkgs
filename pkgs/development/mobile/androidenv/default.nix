@@ -18,7 +18,10 @@ rec {
 
   androidPkgs_9_0 = composeAndroidPackages {
     platformVersions = [ "28" ];
-    abiVersions = [ "x86" "x86_64" ];
+    abiVersions = [
+      "x86"
+      "x86_64"
+    ];
   };
 
   test-suite = pkgs.callPackage ./test-suite.nix { };

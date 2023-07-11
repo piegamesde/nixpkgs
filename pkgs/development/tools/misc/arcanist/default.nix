@@ -36,12 +36,21 @@ in stdenv.mkDerivation {
     sha256 = "0x847fw74mzrbhzpgc4iqgvs6dsf4svwfa707dsbxi78fn2lxbl7";
   };
 
-  patches =
-    [ ./dont-require-python3-in-path.patch ./shellcomplete-strlen-null.patch ];
+  patches = [
+    ./dont-require-python3-in-path.patch
+    ./shellcomplete-strlen-null.patch
+  ];
 
-  buildInputs = [ php python3 ];
+  buildInputs = [
+    php
+    python3
+  ];
 
-  nativeBuildInputs = [ bison flex installShellFiles ];
+  nativeBuildInputs = [
+    bison
+    flex
+    installShellFiles
+  ];
 
   postPatch = lib.optionalString stdenv.isAarch64 ''
     substituteInPlace support/xhpast/Makefile \

@@ -32,7 +32,10 @@ mkDerivation rec {
     sha256 = "sha256-1BC4EjCCLAuCIOV+jJn3pfKKW7UJI5tfC+wg0FUgB64=";
   };
 
-  nativeBuildInputs = [ rpmextract autoPatchelfHook ];
+  nativeBuildInputs = [
+    rpmextract
+    autoPatchelfHook
+  ];
 
   buildInputs = [
     libuuid
@@ -51,7 +54,10 @@ mkDerivation rec {
     glib # For libgobject
     stdenv.cc.cc # For libstdc++
     xorg.libX11
-  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+  ]);
 
   unpackPhase = ''
     rpmextract $src

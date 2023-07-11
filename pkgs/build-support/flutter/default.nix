@@ -42,9 +42,17 @@ let
     args // {
       inherit flutterBuildFlags runtimeDependencies;
 
-      outputs = [ "out" "debug" ];
+      outputs = [
+        "out"
+        "debug"
+      ];
 
-      nativeBuildInputs = [ makeWrapper deps flutter jq ] ++ nativeBuildInputs;
+      nativeBuildInputs = [
+        makeWrapper
+        deps
+        flutter
+        jq
+      ] ++ nativeBuildInputs;
 
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''

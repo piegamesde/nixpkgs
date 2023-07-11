@@ -27,7 +27,10 @@ in {
       };
 
       operation = mkOption {
-        type = types.enum [ "switch" "boot" ];
+        type = types.enum [
+          "switch"
+          "boot"
+        ];
         default = "switch";
         example = "boot";
         description = lib.mdDoc ''
@@ -166,20 +169,19 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = !((cfg.channel != null) && (cfg.flake != null));
       message = ''
         The options 'system.autoUpgrade.channels' and 'system.autoUpgrade.flake' cannot both be set.
       '';
-    }];
+    } ];
 
     system.autoUpgrade.flags = (if cfg.flake == null then
       [ "--no-build-output" ] ++ optionals (cfg.channel != null) [
         "-I"
         "nixpkgs=${cfg.channel}/nixexprs.tar.xz"
       ]
-    else
-      [ "--flake ${cfg.flake}" ]);
+    else [ "--flake ${cfg.flake}" ]);
 
     systemd.services.nixos-upgrade = {
       description = "NixOS Upgrade";

@@ -30,7 +30,15 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ cppo ];
 
-  buildInputs = [ bigarray-compat containers findlib integers num ppxlib re ];
+  buildInputs = [
+    bigarray-compat
+    containers
+    findlib
+    integers
+    num
+    ppxlib
+    re
+  ];
 
   propagatedBuildInputs = [ ctypes ];
 

@@ -27,10 +27,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DvE0/bR4mVfqCw/c/1h75M8DfCiNPZ2h6Jl6ySk1qxs=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ geoclue2 granite gtk3 libgee ];
+  buildInputs = [
+    geoclue2
+    granite
+    gtk3
+    libgee
+  ];
 
   # This should be provided by a post_install.py script - See -> https://github.com/elementary/pantheon-agent-geoclue2/pull/21
   postInstall = ''

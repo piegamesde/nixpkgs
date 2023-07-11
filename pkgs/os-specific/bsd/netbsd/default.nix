@@ -33,15 +33,13 @@ let
   netbsdSetupHook =
     makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
-  defaultMakeFlags = [
-    "MKSOFTFLOAT=${
+  defaultMakeFlags = [ "MKSOFTFLOAT=${
       if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
       == "soft" then
         "yes"
       else
         "no"
-    }"
-  ];
+    }" ];
 
 in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 (self:
@@ -112,7 +110,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         strictDeps = true;
 
         meta = with lib; {
-          maintainers = with maintainers; [ matthewbauer qyliss ];
+          maintainers = with maintainers; [
+            matthewbauer
+            qyliss
+          ];
           platforms = platforms.unix;
           license = licenses.bsd2;
         };
@@ -193,14 +194,19 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       sha256 = "1vsxg7136nlhc72vpa664vs22874xh7ila95nkmsd8crn3z3cyn0";
       inherit version;
 
-      setupHooks =
-        [ ../../../build-support/setup-hooks/role.bash ./compat-setup-hook.sh ];
+      setupHooks = [
+        ../../../build-support/setup-hooks/role.bash
+        ./compat-setup-hook.sh
+      ];
 
       preConfigure = ''
         make include/.stamp configure nbtool_config.h.in defs.mk.in
       '';
 
-      configurePlatforms = [ "build" "host" ];
+      configurePlatforms = [
+        "build"
+        "host"
+      ];
       configureFlags = [ "--cache-file=config.cache" ]
         ++ lib.optionals stdenv.hostPlatform.isMusl [
           # We include this header in our musl package only for legacy
@@ -211,7 +217,12 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         ];
 
       nativeBuildInputs = with buildPackages.netbsd;
-        commonDeps ++ [ bsdSetupHook netbsdSetupHook makeMinimal rsync ];
+        commonDeps ++ [
+          bsdSetupHook
+          netbsdSetupHook
+          makeMinimal
+          rsync
+        ];
 
       buildInputs = with self; commonDeps;
 
@@ -306,7 +317,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       path = "usr.bin/xinstall";
       version = "9.2";
       sha256 = "1f6pbz3qv1qcrchdxif8p5lbmnwl8b9nq615hsd3cyl4avd5bfqj";
-      extraPaths = with self; [ mtree.src make.src ];
+      extraPaths = with self; [
+        mtree.src
+        make.src
+      ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -371,8 +385,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 
         runHook postInstall
       '';
-      setupHooks =
-        [ ../../../build-support/setup-hooks/role.bash ./fts-setup-hook.sh ];
+      setupHooks = [
+        ../../../build-support/setup-hooks/role.bash
+        ./fts-setup-hook.sh
+      ];
     };
 
     # Don't add this to nativeBuildInputs directly.  Use statHook instead.
@@ -492,10 +508,8 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths = [
-        (fetchNetBSD "share/mk" "9.2"
-          "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
-      ];
+      extraPaths = [ (fetchNetBSD "share/mk" "9.2"
+        "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy") ];
     };
 
     mtree = mkDerivation {
@@ -740,7 +754,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
 
     headers = symlinkJoin {
       name = "netbsd-headers-9.2";
-      paths = with self; [ include sys-headers libpthread-headers ];
+      paths = with self; [
+        include
+        sys-headers
+        libpthread-headers
+      ];
       meta.platforms = lib.platforms.netbsd;
     };
     ##
@@ -761,7 +779,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       path = "lib/libutil";
       version = "9.2";
       sha256 = "02gm5a5zhh8qp5r5q5r7x8x6x50ir1i0ncgsnfwh1vnrz6mxbq7z";
-      extraPaths = with self; [ common libc.src sys.src ];
+      extraPaths = with self; [
+        common
+        libc.src
+        sys.src
+      ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -782,7 +804,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       path = "lib/libedit";
       version = "9.2";
       sha256 = "1wqhngraxwqk4jgrf5f18jy195yrp7c06n1gf31pbplq79mg1bcj";
-      buildInputs = with self; [ libterminfo libcurses ];
+      buildInputs = with self; [
+        libterminfo
+        libcurses
+      ];
       propagatedBuildInputs = with self; compatIfNeeded;
       SHLIBINSTALLDIR = "$(out)/lib";
       makeFlags = defaultMakeFlags
@@ -830,11 +855,8 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       postInstall = ''
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
-      extraPaths = with self;
-        [
-          (fetchNetBSD "share/terminfo" "9.2"
-            "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
-        ];
+      extraPaths = with self; [ (fetchNetBSD "share/terminfo" "9.2"
+        "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7") ];
     };
 
     libcurses = mkDerivation {
@@ -939,7 +961,12 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       dontBuild = false;
       buildInputs = with self; [ headers ];
       SHLIBINSTALLDIR = "$(out)/lib";
-      extraPaths = with self; [ common libc.src librt.src sys.src ];
+      extraPaths = with self; [
+        common
+        libc.src
+        librt.src
+        sys.src
+      ];
     };
 
     libresolv = mkDerivation {
@@ -989,7 +1016,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         rsync
       ];
       buildInputs = with self; [ headers ];
-      extraPaths = with self; [ sys.src ld_elf_so.src ];
+      extraPaths = with self; [
+        sys.src
+        ld_elf_so.src
+      ];
     };
 
     ld_elf_so = mkDerivation {
@@ -1001,8 +1031,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       # Hack to prevent a symlink being installed here for compatibility.
       SHLINKINSTALLDIR = "/usr/libexec";
       USE_FORT = "yes";
-      makeFlags = defaultMakeFlags
-        ++ [ "BINDIR=$(out)/libexec" "CLIBOBJ=${self.libc}/lib" ];
+      makeFlags = defaultMakeFlags ++ [
+        "BINDIR=$(out)/libexec"
+        "CLIBOBJ=${self.libc}/lib"
+      ];
       extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
     };
 
@@ -1027,10 +1059,8 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
       USE_FORT = "yes";
       MKPROFILE = "no";
       extraPaths = with self;
-        _mainLibcExtraPaths ++ [
-          (fetchNetBSD "external/bsd/jemalloc" "9.2"
-            "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
-        ];
+        _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2"
+          "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook
@@ -1048,7 +1078,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
         rsync
         rpcgen
       ];
-      buildInputs = with self; [ headers csu ];
+      buildInputs = with self; [
+        headers
+        csu
+      ];
       env.NIX_CFLAGS_COMPILE = "-B${self.csu}/lib -fcommon";
       meta.platforms = lib.platforms.netbsd;
       SHLIBINSTALLDIR = "$(out)/lib";

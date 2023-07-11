@@ -24,9 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-nLeJAAsJUKFAetZSAQmOtXP+3ZRHvCTFAzycSkK+kiI=";
   };
 
-  propagatedBuildInputs = [ aiohttp furl jsonschema requests xmltodict ];
+  propagatedBuildInputs = [
+    aiohttp
+    furl
+    jsonschema
+    requests
+    xmltodict
+  ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pook" ];
 

@@ -22,6 +22,9 @@ buildPythonPackage {
     description = "Library for managing Btrfs filesystems";
     homepage = "https://btrfs.wiki.kernel.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ raskin lopsided98 ];
+    maintainers = with maintainers; [
+      raskin
+      lopsided98
+    ];
   };
 }

@@ -32,11 +32,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ dataclasses-json pycryptodome pytz ];
+  propagatedBuildInputs = [
+    dataclasses-json
+    pycryptodome
+    pytz
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-cases pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-cases
+    pytestCheckHook
+  ];
 
-  pythonImportsCheck = [ "pysiaalarm" "pysiaalarm.aio" ];
+  pythonImportsCheck = [
+    "pysiaalarm"
+    "pysiaalarm.aio"
+  ];
 
   meta = with lib; {
     description =

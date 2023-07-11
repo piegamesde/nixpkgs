@@ -66,7 +66,12 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  nativeCheckInputs = [ freezegun networkx pydot factory_boy ];
+  nativeCheckInputs = [
+    freezegun
+    networkx
+    pydot
+    factory_boy
+  ];
 
   pythonImportsCheck = [ "silk" ];
 

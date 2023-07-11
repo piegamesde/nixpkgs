@@ -29,10 +29,18 @@ buildPythonPackage rec {
     hash = "sha256-VOIpowxPvYmufnj9MM/vMtZQDIOxorAhMCNK0fX/j1U=";
   };
 
-  propagatedBuildInputs = [ requests toml types-toml urllib3 ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    requests
+    toml
+    types-toml
+    urllib3
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpserver pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpserver
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "responses" ];
 

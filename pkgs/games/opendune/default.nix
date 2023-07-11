@@ -33,7 +33,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib libpulseaudio SDL2 SDL2_image SDL2_mixer ];
+  buildInputs = [
+    alsa-lib
+    libpulseaudio
+    SDL2
+    SDL2_image
+    SDL2_mixer
+  ];
 
   enableParallelBuilding = true;
 

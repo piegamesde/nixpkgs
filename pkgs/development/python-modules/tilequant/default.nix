@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   buildInputs = [ gitpython ];
 
-  propagatedBuildInputs = [ click ordered-set pillow sortedcollections ];
+  propagatedBuildInputs = [
+    click
+    ordered-set
+    pillow
+    sortedcollections
+  ];
 
   doCheck = false; # there are no tests
 
@@ -38,6 +43,9 @@ buildPythonPackage rec {
       "Tool for quantizing image colors using tile-based palette restrictions";
     homepage = "https://github.com/SkyTemple/tilequant";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 xfix ];
+    maintainers = with maintainers; [
+      marius851000
+      xfix
+    ];
   };
 }

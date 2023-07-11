@@ -22,8 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-Gc+qoTa1EE4/YmJvUSqVG+zZ50wfohvWOe/fLJ/vgb0=";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # Module has no tests
   doCheck = false;

@@ -16,7 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-2vDjAdEL8eNje5bm/1m+Fdi+PCGxpXwpxe2KvlLYB58=";
   };
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook qt6.qtbase ];
+  nativeBuildInputs = [
+    qt6.wrapQtAppsHook
+    qt6.qtbase
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     cython
@@ -52,6 +55,9 @@ python3.pkgs.buildPythonApplication rec {
       generally display and analyze the resulting data.
     '';
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zaninime tmarkus ];
+    maintainers = with maintainers; [
+      zaninime
+      tmarkus
+    ];
   };
 }

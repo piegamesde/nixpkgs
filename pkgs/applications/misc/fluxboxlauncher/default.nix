@@ -24,10 +24,21 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "024h1dk0bhc5s4dldr6pqabrgcqih9p8cys5lqgkgz406y4vyzvf";
   };
 
-  nativeBuildInputs =
-    [ wrapGAppsHook gobject-introspection pango gdk-pixbuf atk gettext ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+    pango
+    gdk-pixbuf
+    atk
+    gettext
+  ];
 
-  buildInputs = [ glibcLocales gtk3 python3 fluxbox ];
+  buildInputs = [
+    glibcLocales
+    gtk3
+    python3
+    fluxbox
+  ];
 
   makeWrapperArgs = [
     "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive"

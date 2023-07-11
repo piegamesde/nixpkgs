@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex ];
 
-  buildInputs = [ libuuid libx86emu perl ];
+  buildInputs = [
+    libuuid
+    libx86emu
+    perl
+  ];
 
   postPatch = ''
     # VERSION and changelog are usually generated using Git

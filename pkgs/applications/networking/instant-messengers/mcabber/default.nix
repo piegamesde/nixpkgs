@@ -33,10 +33,20 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ncurses glib loudmouth libotr gpgme ];
+  buildInputs = [
+    openssl
+    ncurses
+    glib
+    loudmouth
+    libotr
+    gpgme
+  ];
 
-  configureFlags =
-    [ "--with-openssl=${openssl.dev}" "--enable-modules" "--enable-otr" ];
+  configureFlags = [
+    "--with-openssl=${openssl.dev}"
+    "--enable-modules"
+    "--enable-otr"
+  ];
 
   doCheck = true;
 

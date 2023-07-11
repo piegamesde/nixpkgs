@@ -22,10 +22,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-dfdrXp05eJALTQnx2F3GxRWKMA+Icj0mRPcb72z7qMw=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ openssl zlib ]
-    ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ];
+  buildInputs = [
+    openssl
+    zlib
+  ] ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ];
 
   postPatch = ''
     sed -i CMakeLists.txt -e '/.*set(DEST\ .*/d'
@@ -49,7 +54,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rui314/mold";
     changelog = "https://github.com/rui314/mold/releases/tag/v${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ azahi nitsky ];
+    maintainers = with maintainers; [
+      azahi
+      nitsky
+    ];
     platforms = platforms.unix;
   };
 }

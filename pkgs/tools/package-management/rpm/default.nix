@@ -36,10 +36,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-KhcVLXGHqzDt8sL7WGRjvfY4jee1g3SAlVZZ5ekFRVQ=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [
     cpio
     zlib
@@ -59,8 +66,14 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux libcap;
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
-  propagatedBuildInputs = [ popt nss db bzip2 libarchive libbfd ]
-    ++ lib.optional stdenv.isLinux elfutils;
+  propagatedBuildInputs = [
+    popt
+    nss
+    db
+    bzip2
+    libarchive
+    libbfd
+  ] ++ lib.optional stdenv.isLinux elfutils;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
@@ -106,7 +119,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.rpm.org/";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     description = "The RPM Package Manager";
     maintainers = with maintainers; [ copumpkin ];
     platforms = platforms.linux;

@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     ./configure --prefix $out
   '';
 
-  buildInputs = [ postgresql openssl ];
+  buildInputs = [
+    postgresql
+    openssl
+  ];
 
   meta = with lib; {
     description = "A fast replacement for PGAdmin";

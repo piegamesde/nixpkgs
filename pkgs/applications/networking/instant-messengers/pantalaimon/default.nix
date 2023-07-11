@@ -56,10 +56,19 @@ buildPythonApplication rec {
     peewee
     prompt-toolkit
     setuptools
-  ] ++ matrix-nio.optional-dependencies.e2e
-    ++ lib.optionals enableDbusUi [ dbus-python notify2 pygobject3 pydbus ];
+  ] ++ matrix-nio.optional-dependencies.e2e ++ lib.optionals enableDbusUi [
+    dbus-python
+    notify2
+    pygobject3
+    pydbus
+  ];
 
-  nativeCheckInputs = [ pytest faker pytest-aiohttp aioresponses ];
+  nativeCheckInputs = [
+    pytest
+    faker
+    pytest-aiohttp
+    aioresponses
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

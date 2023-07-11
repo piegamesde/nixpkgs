@@ -68,7 +68,10 @@ buildPythonPackage rec {
     export DB_NAME=":memory:";
   '';
 
-  unittestFlagsArray = [ "-s" "trytond.tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "trytond.tests"
+  ];
 
   meta = with lib; {
     description = "The server of the Tryton application platform";
@@ -83,6 +86,9 @@ buildPythonPackage rec {
     homepage = "http://www.tryton.org/";
     changelog = "https://hg.tryton.org/trytond/file/${version}/CHANGELOG";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ udono johbo ];
+    maintainers = with maintainers; [
+      udono
+      johbo
+    ];
   };
 }

@@ -24,9 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-X3gsQZZD90vk0JGMDStjlW723ceiEn8Hy7gDOnWrNm8=";
   };
 
-  propagatedBuildInputs = [ brotli certifi gevent six ];
+  propagatedBuildInputs = [
+    brotli
+    certifi
+    gevent
+    six
+  ];
 
-  nativeCheckInputs = [ dpkt pytestCheckHook urllib3 ];
+  nativeCheckInputs = [
+    dpkt
+    pytestCheckHook
+    urllib3
+  ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -19,8 +19,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-eTADcUW9b6l47BkWF9YLxdcgvMbCzWTjLF28FneJHg8=";
 
-  ldflags =
-    [ "-s" "-w" "-X main.toolVersion=${tag}" "-X main.builtBy=nixpkgs" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.toolVersion=${tag}"
+    "-X main.builtBy=nixpkgs"
+  ];
 
   doCheck = true;
 

@@ -27,9 +27,18 @@ buildDunePackage rec {
   };
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ either seq ];
+  propagatedBuildInputs = [
+    either
+    seq
+  ];
 
-  checkInputs = [ gen iter qcheck-core uutf yojson ];
+  checkInputs = [
+    gen
+    iter
+    qcheck-core
+    uutf
+    yojson
+  ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

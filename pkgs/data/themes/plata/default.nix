@@ -49,10 +49,18 @@ stdenv.mkDerivation rec {
     sha256 = "1iwvlv9qcrjyfbzab00vjqafmp3vdybz1hi02r6lwbgvwyfyrifk";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config parallel sassc inkscape libxml2 glib ]
-    ++ lib.optionals mateSupport [ gtk3 marco ]
-    ++ lib.optional telegramSupport zip;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    parallel
+    sassc
+    inkscape
+    libxml2
+    glib
+  ] ++ lib.optionals mateSupport [
+    gtk3
+    marco
+  ] ++ lib.optional telegramSupport zip;
 
   buildInputs = [ gtk_engines ];
 
@@ -92,7 +100,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A GTK theme based on Material Design Refresh";
     homepage = "https://gitlab.com/tista500/plata-theme";
-    license = with licenses; [ gpl2 cc-by-sa-40 ];
+    license = with licenses; [
+      gpl2
+      cc-by-sa-40
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.tadfisher ];
   };

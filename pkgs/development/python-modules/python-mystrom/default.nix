@@ -17,12 +17,21 @@ buildPythonPackage rec {
     hash = "sha256-Kqv5rUdwkynOzssID77gVYyzs0CDR/bUWh6zpt5zOP8=";
   };
 
-  propagatedBuildInputs = [ aiohttp click requests setuptools ];
+  propagatedBuildInputs = [
+    aiohttp
+    click
+    requests
+    setuptools
+  ];
 
   # no tests are present
   doCheck = false;
 
-  pythonImportsCheck = [ "pymystrom.bulb" "pymystrom.pir" "pymystrom.switch" ];
+  pythonImportsCheck = [
+    "pymystrom.bulb"
+    "pymystrom.pir"
+    "pymystrom.switch"
+  ];
 
   meta = with lib; {
     description = "Python API client for interacting with myStrom devices";

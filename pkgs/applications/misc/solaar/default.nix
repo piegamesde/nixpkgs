@@ -24,11 +24,21 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2LD1vMmQvibcnAgBwjfSBJysTnUGptGzPHfi/7tZ0hg=";
   };
 
-  outputs = [ "out" "udev" ];
+  outputs = [
+    "out"
+    "udev"
+  ];
 
-  nativeBuildInputs = [ gdk-pixbuf gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gdk-pixbuf
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ libappindicator librsvg ];
+  buildInputs = [
+    libappindicator
+    librsvg
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     evdev
@@ -73,7 +83,11 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://pwr-solaar.github.io/Solaar/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ spinus ysndr oxalica ];
+    maintainers = with maintainers; [
+      spinus
+      ysndr
+      oxalica
+    ];
     platforms = platforms.linux;
   };
 }

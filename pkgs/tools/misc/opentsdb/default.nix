@@ -19,22 +19,18 @@ let
   jdk = jdk8;
   jre = jdk8.jre;
   artifacts = {
-    apache = [
-      (fetchMavenArtifact {
-        groupId = "org.apache.commons";
-        artifactId = "commons-math3";
-        version = "3.4.1";
-        hash = "sha256-0QdbFKcQhwOLC/0Zjw992OSbWzUp2OLrqZ59nrhWXks=";
-      })
-    ];
-    guava = [
-      (fetchMavenArtifact {
-        groupId = "com.google.guava";
-        artifactId = "guava";
-        version = "18.0";
-        hash = "sha256-1mT7/APS5c6cqypE+wHx0L+d/r7MwaRzsfnqMfefb5k=";
-      })
-    ];
+    apache = [ (fetchMavenArtifact {
+      groupId = "org.apache.commons";
+      artifactId = "commons-math3";
+      version = "3.4.1";
+      hash = "sha256-0QdbFKcQhwOLC/0Zjw992OSbWzUp2OLrqZ59nrhWXks=";
+    }) ];
+    guava = [ (fetchMavenArtifact {
+      groupId = "com.google.guava";
+      artifactId = "guava";
+      version = "18.0";
+      hash = "sha256-1mT7/APS5c6cqypE+wHx0L+d/r7MwaRzsfnqMfefb5k=";
+    }) ];
     gwt = [
       (fetchMavenArtifact {
         groupId = "com.google.gwt";
@@ -55,24 +51,20 @@ let
         hash = "sha256-JJsjcRlQmIrwpOtMweH12e/Ut5NG8R50VPiOAMMGEdc=";
       })
     ];
-    hamcrest = [
-      (fetchMavenArtifact {
-        url =
-          "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
-        groupId = "org.hamcrest";
-        artifactId = "hamcrest-core";
-        version = "1.3";
-        hash = "sha256-Zv3vkelzk0jfeglqo4SlaF9Oh1WEzOiThqekclHE2Ok=";
-      })
-    ];
-    hbase = [
-      (fetchMavenArtifact {
-        groupId = "org.hbase";
-        artifactId = "asynchbase";
-        version = "1.8.2";
-        hash = "sha256-D7mKprHMW23dE0SzdNsagv3Hp2G5HUN7sKfs1nVzQF4=";
-      })
-    ];
+    hamcrest = [ (fetchMavenArtifact {
+      url =
+        "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
+      groupId = "org.hamcrest";
+      artifactId = "hamcrest-core";
+      version = "1.3";
+      hash = "sha256-Zv3vkelzk0jfeglqo4SlaF9Oh1WEzOiThqekclHE2Ok=";
+    }) ];
+    hbase = [ (fetchMavenArtifact {
+      groupId = "org.hbase";
+      artifactId = "asynchbase";
+      version = "1.8.2";
+      hash = "sha256-D7mKprHMW23dE0SzdNsagv3Hp2G5HUN7sKfs1nVzQF4=";
+    }) ];
     jackson = [
       (fetchMavenArtifact {
         groupId = "com.fasterxml.jackson.core";
@@ -93,22 +85,18 @@ let
         hash = "sha256-D7TgecEY51LMlMFa0i5ngrDfxdwJFF9IE/s52C5oYEc=";
       })
     ];
-    javacc = [
-      (fetchMavenArtifact {
-        groupId = "net.java.dev.javacc";
-        artifactId = "javacc";
-        version = "6.1.2";
-        hash = "sha256-7Qxclglhz+tDE4LPAVKCewEVZ0fbN5LRv5PoHjLCBKs=";
-      })
-    ];
-    javassist = [
-      (fetchMavenArtifact {
-        groupId = "org.javassist";
-        artifactId = "javassist";
-        version = "3.21.0-GA";
-        hash = "sha256-eqWeAx+UGYSvB9rMbKhebcm9OkhemqJJTLwDTvoSJdA=";
-      })
-    ];
+    javacc = [ (fetchMavenArtifact {
+      groupId = "net.java.dev.javacc";
+      artifactId = "javacc";
+      version = "6.1.2";
+      hash = "sha256-7Qxclglhz+tDE4LPAVKCewEVZ0fbN5LRv5PoHjLCBKs=";
+    }) ];
+    javassist = [ (fetchMavenArtifact {
+      groupId = "org.javassist";
+      artifactId = "javassist";
+      version = "3.21.0-GA";
+      hash = "sha256-eqWeAx+UGYSvB9rMbKhebcm9OkhemqJJTLwDTvoSJdA=";
+    }) ];
     jexl = [
       (fetchMavenArtifact {
         groupId = "commons-logging";
@@ -123,22 +111,18 @@ let
         hash = "sha256-A8mp+uXaeM5SwL8kRnzDc1W34jGW3/SDniwP8BigEwY=";
       })
     ];
-    jgrapht = [
-      (fetchMavenArtifact {
-        groupId = "org.jgrapht";
-        artifactId = "jgrapht-core";
-        version = "0.9.1";
-        hash = "sha256-5u8cEVaJ7aCBQrhtUkYg2mQ7bp8BNAUletB/QtxcaXg=";
-      })
-    ];
-    junit = [
-      (fetchMavenArtifact {
-        groupId = "junit";
-        artifactId = "junit";
-        version = "4.11";
-        hash = "sha256-kKjhYD7spI5+h586+8lWBxUyKYXzmidPb2BwtD+dBv4=";
-      })
-    ];
+    jgrapht = [ (fetchMavenArtifact {
+      groupId = "org.jgrapht";
+      artifactId = "jgrapht-core";
+      version = "0.9.1";
+      hash = "sha256-5u8cEVaJ7aCBQrhtUkYg2mQ7bp8BNAUletB/QtxcaXg=";
+    }) ];
+    junit = [ (fetchMavenArtifact {
+      groupId = "junit";
+      artifactId = "junit";
+      version = "4.11";
+      hash = "sha256-kKjhYD7spI5+h586+8lWBxUyKYXzmidPb2BwtD+dBv4=";
+    }) ];
     kryo = [
       (fetchMavenArtifact {
         groupId = "org.ow2.asm";
@@ -180,47 +164,37 @@ let
         hash = "sha256-7NjyT5spQShOmPFU/zND5yDLMcj0e2dVSxRXRfWW87g=";
       })
     ];
-    mockito = [
-      (fetchMavenArtifact {
-        groupId = "org.mockito";
-        artifactId = "mockito-core";
-        version = "1.9.5";
-        hash = "sha256-+XSDuglEufoTOqKWOHZN2+rbUew9vAIHTFj6LK7NB/o=";
-      })
-    ];
-    netty = [
-      (fetchMavenArtifact {
-        groupId = "io.netty";
-        artifactId = "netty";
-        version = "3.10.6.Final";
-        hash = "sha256-h2ilD749k6iNjmAA6l1o4w9Q3JFbN2TDxYcPcMT7O0k=";
-      })
-    ];
-    objenesis = [
-      (fetchMavenArtifact {
-        groupId = "org.objenesis";
-        artifactId = "objenesis";
-        version = "1.3";
-        hash = "sha256-3U7z0wkQY6T+xXjLsrvmwfkhwACRuimT3Nmv0l/5REo=";
-      })
-    ];
-    powermock = [
-      (fetchMavenArtifact {
-        groupId = "org.powermock";
-        artifactId = "powermock-mockito-release-full";
-        version = "1.5.4";
-        classifier = "full";
-        hash = "sha256-GWXaFG/ZtPlc7uKrghQHNAPzEu2k5VGYCYTXIlbylb4=";
-      })
-    ];
-    protobuf = [
-      (fetchMavenArtifact {
-        groupId = "com.google.protobuf";
-        artifactId = "protobuf-java";
-        version = "2.5.0";
-        hash = "sha256-4MHGRXXABWAXJefGoCzr+eEoXoiPdWsqHXP/qNclzHQ=";
-      })
-    ];
+    mockito = [ (fetchMavenArtifact {
+      groupId = "org.mockito";
+      artifactId = "mockito-core";
+      version = "1.9.5";
+      hash = "sha256-+XSDuglEufoTOqKWOHZN2+rbUew9vAIHTFj6LK7NB/o=";
+    }) ];
+    netty = [ (fetchMavenArtifact {
+      groupId = "io.netty";
+      artifactId = "netty";
+      version = "3.10.6.Final";
+      hash = "sha256-h2ilD749k6iNjmAA6l1o4w9Q3JFbN2TDxYcPcMT7O0k=";
+    }) ];
+    objenesis = [ (fetchMavenArtifact {
+      groupId = "org.objenesis";
+      artifactId = "objenesis";
+      version = "1.3";
+      hash = "sha256-3U7z0wkQY6T+xXjLsrvmwfkhwACRuimT3Nmv0l/5REo=";
+    }) ];
+    powermock = [ (fetchMavenArtifact {
+      groupId = "org.powermock";
+      artifactId = "powermock-mockito-release-full";
+      version = "1.5.4";
+      classifier = "full";
+      hash = "sha256-GWXaFG/ZtPlc7uKrghQHNAPzEu2k5VGYCYTXIlbylb4=";
+    }) ];
+    protobuf = [ (fetchMavenArtifact {
+      groupId = "com.google.protobuf";
+      artifactId = "protobuf-java";
+      version = "2.5.0";
+      hash = "sha256-4MHGRXXABWAXJefGoCzr+eEoXoiPdWsqHXP/qNclzHQ=";
+    }) ];
     slf4j = [
       (fetchMavenArtifact {
         groupId = "org.slf4j";
@@ -235,14 +209,12 @@ let
         hash = "sha256-aZgMA4yhsTGSZWFZFhfZwl+r/Hspgor5FZfKhXDPNf4=";
       })
     ];
-    suasync = [
-      (fetchMavenArtifact {
-        groupId = "com.stumbleupon";
-        artifactId = "async";
-        version = "1.4.0";
-        hash = "sha256-FJ1HH68JOkjNtkShjLTJ8K4NO/A/qu88ap7J7SEndrM=";
-      })
-    ];
+    suasync = [ (fetchMavenArtifact {
+      groupId = "com.stumbleupon";
+      artifactId = "async";
+      version = "1.4.0";
+      hash = "sha256-FJ1HH68JOkjNtkShjLTJ8K4NO/A/qu88ap7J7SEndrM=";
+    }) ];
     validation-api = [
       (fetchMavenArtifact {
         groupId = "javax.validation";
@@ -258,14 +230,12 @@ let
         hash = "sha256-o5TVKpt/4rsU8HGNKzyDCP/o836RGVYBI5jVXJ+fm1Q=";
       })
     ];
-    zookeeper = [
-      (fetchMavenArtifact {
-        groupId = "org.apache.zookeeper";
-        artifactId = "zookeeper";
-        version = "3.4.6";
-        hash = "sha256-ijdaHvmMvA4fbp39DZbZFLdNN60AtL+Bvrd/qPNNM64=";
-      })
-    ];
+    zookeeper = [ (fetchMavenArtifact {
+      groupId = "org.apache.zookeeper";
+      artifactId = "zookeeper";
+      version = "3.4.6";
+      hash = "sha256-ijdaHvmMvA4fbp39DZbZFLdNN60AtL+Bvrd/qPNNM64=";
+    }) ];
   };
 in stdenv.mkDerivation rec {
   pname = "opentsdb";
@@ -278,9 +248,19 @@ in stdenv.mkDerivation rec {
     hash = "sha256-899m1H0UCLsI/bnSrNFnnny4MxSw3XBzf7rgDuEajDs=";
   };
 
-  nativeBuildInputs = [ autoconf automake makeWrapper ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    makeWrapper
+  ];
 
-  buildInputs = [ curl jdk nettools python3 git ];
+  buildInputs = [
+    curl
+    jdk
+    nettools
+    python3
+    git
+  ];
 
   preConfigure = ''
     chmod +x build-aux/fetchdep.sh.in

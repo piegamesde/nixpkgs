@@ -42,7 +42,12 @@ stdenv.mkDerivation rec {
     patchShebangs translate_generation.sh generate_gtest_report.sh
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget

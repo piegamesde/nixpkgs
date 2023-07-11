@@ -26,8 +26,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ libxml2 ncurses libsigcxx libpar2 gnutls libgcrypt zlib openssl ];
+  buildInputs = [
+    libxml2
+    ncurses
+    libsigcxx
+    libpar2
+    gnutls
+    libgcrypt
+    zlib
+    openssl
+  ];
 
   enableParallelBuilding = true;
 

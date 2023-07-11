@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
     sha256 = "0nha555fhhn0j5wmzmdc7bh93ckzwwdm8mwmzma5whkzslv09xa1";
   };
 
-  nativeBuildInputs = [ pkg-config gettext iconnamingutils ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    iconnamingutils
+  ];
 
   buildInputs = [ librsvg ];
 

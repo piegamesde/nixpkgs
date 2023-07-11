@@ -26,7 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-JT2PX53N39H+EaThPHo2ol+BUjDQniSQlKMLiYD8NoM=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake rocprim hip ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    rocprim
+    hip
+  ];
 
   buildInputs = lib.optionals buildTests [ gtest ];
 
@@ -40,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARKS=ON" ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [
-      "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
+    ++ lib.optionals (buildTests
+      || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
     ];
 
   postInstall = lib.optionalString buildTests ''

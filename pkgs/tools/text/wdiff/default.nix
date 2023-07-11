@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/wdiff/";
     description = "Comparing files on a word by word basis";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ eelco SuperSandro2000 ];
+    maintainers = with maintainers; [
+      eelco
+      SuperSandro2000
+    ];
     platforms = platforms.unix;
   };
 }

@@ -73,7 +73,12 @@ let
                       'ENGINESDIR=$(OPENSSLDIR)/engines-{- $sover_dirname -}'
         '';
 
-      outputs = [ "bin" "dev" "out" "man" ] ++ lib.optional withDocs "doc"
+      outputs = [
+        "bin"
+        "dev"
+        "out"
+        "man"
+      ] ++ lib.optional withDocs "doc"
         # Separate output for the runtime dependencies of the static build.
         # Specifically, move OPENSSLDIR into this output, as its path will be
         # compiled into 'libcrypto.a'. This makes it a runtime dependency of
@@ -240,7 +245,11 @@ let
           description =
             "A cryptographic library that implements the SSL and TLS protocols";
           license = licenses.openssl;
-          pkgConfigModules = [ "libcrypto" "libssl" "openssl" ];
+          pkgConfigModules = [
+            "libcrypto"
+            "libssl"
+            "openssl"
+          ];
           platforms = platforms.all;
         } // extraMeta;
     });

@@ -31,10 +31,21 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-uDF22wlL3BlMQ/+Wmtgyjp4CVN6sDnjqjEPB4SeQuPk=";
 
-  nativeBuildInputs = [ pkg-config python3 makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    makeWrapper
+  ];
 
-  buildInputs = [ pixman libpng libjpeg librsvg giflib cairo pango ]
-    ++ lib.optionals stdenv.isDarwin [ CoreText ];
+  buildInputs = [
+    pixman
+    libpng
+    libjpeg
+    librsvg
+    giflib
+    cairo
+    pango
+  ] ++ lib.optionals stdenv.isDarwin [ CoreText ];
 
   postInstall = ''
     makeWrapper ${nodePackages.ts-node}/bin/ts-node $out/bin/lv_img_conv --add-flags $out/lib/node_modules/lv_img_conv/lib/cli.ts

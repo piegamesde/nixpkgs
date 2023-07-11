@@ -38,7 +38,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 libgee pantheon.granite ];
+  buildInputs = [
+    glib
+    gtk3
+    libgee
+    pantheon.granite
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

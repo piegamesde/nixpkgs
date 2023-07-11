@@ -45,7 +45,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IaSgul2L0L343TVT3ujgBoMt6tITwjJaBNOVJPCBDtI=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+  ];
 
   buildInputs = [
     alsa-lib
@@ -88,8 +92,12 @@ stdenv.mkDerivation rec {
     xorg.libXtst
   ];
 
-  runtimeDependencies =
-    [ (lib.getLib systemd) libnotify libdbusmenu xdg-utils ];
+  runtimeDependencies = [
+    (lib.getLib systemd)
+    libnotify
+    libdbusmenu
+    xdg-utils
+  ];
 
   unpackPhase = "dpkg-deb -x $src .";
 

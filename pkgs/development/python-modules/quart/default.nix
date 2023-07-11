@@ -67,7 +67,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "quart" ];
 
-  nativeCheckInputs = [ hypothesis mock py pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    mock
+    py
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

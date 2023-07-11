@@ -31,7 +31,12 @@ in callPackage pkg {
     librsvg
   ];
   drvParams = {
-    nativeBuildInputs = [ gobject-introspection cmake makeWrapper intltool ];
+    nativeBuildInputs = [
+      gobject-introspection
+      cmake
+      makeWrapper
+      intltool
+    ];
     postFixup = ''
       wrapProgram $out/bin/gcdemu \
         --set PYTHONPATH "$PYTHONPATH" \

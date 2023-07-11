@@ -40,7 +40,10 @@ in stdenvNoCC.mkDerivation (finalAttrs: {
       It incorporates symbols and ligatures used in the European region.
     '';
     platforms = platforms.all;
-    maintainers = with maintainers; [ leenaars minijackson ];
+    maintainers = with maintainers; [
+      leenaars
+      minijackson
+    ];
     license = licenses.cc0;
   };
 })

@@ -40,7 +40,11 @@ buildDunePackage rec {
     json-data-encoding-bson
   ];
 
-  checkInputs = [ alcotest crowbar ppx_expect ];
+  checkInputs = [
+    alcotest
+    crowbar
+    ppx_expect
+  ];
 
   doCheck = true;
 

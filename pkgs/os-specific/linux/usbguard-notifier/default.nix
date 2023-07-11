@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-gWvCGSbOuey2ELAPD2WCG4q77IClL0S7rE2RaUJDc1I=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config asciidoc ];
-  buildInputs = [ libqb usbguard librsvg libnotify ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    asciidoc
+  ];
+  buildInputs = [
+    libqb
+    usbguard
+    librsvg
+    libnotify
+  ];
 
   configureFlags = [ "CPPFLAGS=-I${catch2}/include/catch2" ];
 

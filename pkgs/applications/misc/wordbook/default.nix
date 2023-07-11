@@ -38,9 +38,17 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib gtk4 librsvg libadwaita ];
+  buildInputs = [
+    glib
+    gtk4
+    librsvg
+    libadwaita
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 wn ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pygobject3
+    wn
+  ];
 
   # prevent double wrapping
   dontWrapGApps = true;

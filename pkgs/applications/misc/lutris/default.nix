@@ -86,7 +86,10 @@ in buildPythonApplication rec {
     sha256 = "sha256-rsiXm7L/M85ot6NrTyy//lMRFlLPJYve9y6Erg9Ugxg=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
   buildInputs = [
     atk
     gdk-pixbuf
@@ -124,7 +127,11 @@ in buildPythonApplication rec {
       --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
   '';
 
-  nativeCheckInputs = [ xvfb-run nose2 flake8 ] ++ requiredTools;
+  nativeCheckInputs = [
+    xvfb-run
+    nose2
+    flake8
+  ] ++ requiredTools;
   checkPhase = ''
     runHook preCheck
 

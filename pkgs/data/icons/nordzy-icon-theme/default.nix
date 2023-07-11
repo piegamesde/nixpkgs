@@ -23,7 +23,10 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs install.sh
   '';
 
-  nativeBuildInputs = [ gtk3 jdupes ];
+  nativeBuildInputs = [
+    gtk3
+    jdupes
+  ];
 
   dontDropIconThemeCache = true;
 

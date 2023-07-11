@@ -21,9 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-RPpi7pPFHGxXIWBY2S0qkRa3E6SocanRajqDuZ4wwfk=";
   };
 
-  propagatedBuildInputs = [ google-api-core google-cloud-core ];
+  propagatedBuildInputs = [
+    google-api-core
+    google-cloud-core
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   preCheck = ''
     # don#t shadow python imports

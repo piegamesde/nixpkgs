@@ -39,11 +39,24 @@ stdenv.mkDerivation rec {
 
   hardeningEnable = [ "pie" ];
 
-  nativeBuildInputs = [ cmake pkg-config perl ];
-  buildInputs = [ glib openssl pcre sqlite ragel icu jemalloc libsodium ]
-    ++ lib.optional withHyperscan hyperscan
-    ++ lib.optionals withBlas [ blas lapack ] ++ lib.optional withLuaJIT luajit
-    ++ lib.optional (!withLuaJIT) lua;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    glib
+    openssl
+    pcre
+    sqlite
+    ragel
+    icu
+    jemalloc
+    libsodium
+  ] ++ lib.optional withHyperscan hyperscan ++ lib.optionals withBlas [
+    blas
+    lapack
+  ] ++ lib.optional withLuaJIT luajit ++ lib.optional (!withLuaJIT) lua;
 
   cmakeFlags = [
     # pcre2 jit seems to cause crashes: https://github.com/NixOS/nixpkgs/pull/181908
@@ -63,7 +76,12 @@ stdenv.mkDerivation rec {
     homepage = "https://rspamd.com";
     license = licenses.asl20;
     description = "Advanced spam filtering system";
-    maintainers = with maintainers; [ avnik fpletz globin lewo ];
+    maintainers = with maintainers; [
+      avnik
+      fpletz
+      globin
+      lewo
+    ];
     platforms = with platforms; linux;
   };
 }

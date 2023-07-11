@@ -23,8 +23,13 @@
 let
   pythonEnv = python.withPackages (p:
     with p;
-    [ cffi cryptography openssl crcmod numpy ]
-    ++ lib.optional (with-gce) google-compute-engine);
+    [
+      cffi
+      cryptography
+      openssl
+      crcmod
+      numpy
+    ] ++ lib.optional (with-gce) google-compute-engine);
 
   data = import ./data.nix { };
   sources = system:
@@ -45,7 +50,10 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ python ];
 
-  nativeBuildInputs = [ jq makeWrapper ];
+  nativeBuildInputs = [
+    jq
+    makeWrapper
+  ];
 
   patches = [
     # For kubectl configs, don't store the absolute path of the `gcloud` binary as it can be garbage-collected
@@ -136,7 +144,12 @@ in stdenv.mkDerivation rec {
     license = licenses.free;
     homepage = "https://cloud.google.com/sdk/";
     changelog = "https://cloud.google.com/sdk/docs/release-notes";
-    maintainers = with maintainers; [ iammrinal0 pradyuman stephenmw zimbatm ];
+    maintainers = with maintainers; [
+      iammrinal0
+      pradyuman
+      stephenmw
+      zimbatm
+    ];
     platforms = builtins.attrNames data.googleCloudSdkPkgs;
     mainProgram = "gcloud";
   };

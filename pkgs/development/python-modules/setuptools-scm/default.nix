@@ -21,10 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-bFCDRadxqtfVbr/w5wYovysOx1c3Yr6ZYCFHMN4njyc=";
   };
 
-  nativeBuildInputs = [ packaging setuptools typing-extensions ];
+  nativeBuildInputs = [
+    packaging
+    setuptools
+    typing-extensions
+  ];
 
-  propagatedBuildInputs = [ packaging setuptools typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    packaging
+    setuptools
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   pythonImportsCheck = [ "setuptools_scm" ];
 

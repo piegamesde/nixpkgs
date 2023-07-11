@@ -21,7 +21,11 @@ buildPythonPackage rec {
   };
   nativeBuildInputs = [ pytest-runner ];
   propagatedBuildInputs = [ requests ];
-  nativeCheckInputs = [ pytest pytest-runner requests-mock ];
+  nativeCheckInputs = [
+    pytest
+    pytest-runner
+    requests-mock
+  ];
 
   checkPhase = ''
     ${python.interpreter} setup.py test

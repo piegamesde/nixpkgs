@@ -460,10 +460,10 @@ let
         id = builtins.toString
           (builtins.getAttr idAttr (builtins.getAttr name set));
         exists = builtins.hasAttr id acc;
-        newAcc = acc // (builtins.listToAttrs [{
+        newAcc = acc // (builtins.listToAttrs [ {
           name = id;
           value = true;
-        }]);
+        } ]);
       in if dup then
         args
       else if exists then
@@ -505,9 +505,24 @@ let
 
 in {
   imports = [
-    (mkAliasOptionModuleMD [ "users" "extraUsers" ] [ "users" "users" ])
-    (mkAliasOptionModuleMD [ "users" "extraGroups" ] [ "users" "groups" ])
-    (mkRenamedOptionModule [ "security" "initialRootPassword" ] [
+    (mkAliasOptionModuleMD [
+      "users"
+      "extraUsers"
+    ] [
+      "users"
+      "users"
+    ])
+    (mkAliasOptionModuleMD [
+      "users"
+      "extraGroups"
+    ] [
+      "users"
+      "groups"
+    ])
+    (mkRenamedOptionModule [
+      "security"
+      "initialRootPassword"
+    ] [
       "users"
       "users"
       "root"
@@ -705,7 +720,12 @@ in {
         install -m 0700 -d /root
         install -m 0755 -d /home
 
-        ${pkgs.perl.withPackages (p: [ p.FileSlurp p.JSON ])}/bin/perl \
+        ${
+          pkgs.perl.withPackages (p: [
+            p.FileSlurp
+            p.JSON
+          ])
+        }/bin/perl \
         -w ${./update-users-groups.pl} ${spec}
       '';
     };
@@ -752,8 +772,10 @@ in {
         };
       }) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
 
-    environment.profiles =
-      [ "$HOME/.nix-profile" "/etc/profiles/per-user/$USER" ];
+    environment.profiles = [
+      "$HOME/.nix-profile"
+      "/etc/profiles/per-user/$USER"
+    ];
 
     # systemd initrd
     boot.initrd.systemd = lib.mkIf config.boot.initrd.systemd.enable {
@@ -878,7 +900,11 @@ in {
           logging in as that user impossible. You can fix it with:
           programs.${shell}.enable = true;
         '';
-      }) [ "fish" "xonsh" "zsh" ])));
+      }) [
+        "fish"
+        "xonsh"
+        "zsh"
+      ])));
 
     warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users
       (_: user:

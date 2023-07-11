@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LeU4PJ1UKfGqkRKq0/Mn9gjwNmXCy0/2SbjWJrjlOyU=";
   };
 
-  nativeBuildInputs = [ cmake doctest ];
+  nativeBuildInputs = [
+    cmake
+    doctest
+  ];
 
-  buildInputs = [ nlohmann_json libuuid xtl ];
+  buildInputs = [
+    nlohmann_json
+    libuuid
+    xtl
+  ];
 
   cmakeFlags = [ "-DXEUS_BUILD_TESTS=ON" ];
 

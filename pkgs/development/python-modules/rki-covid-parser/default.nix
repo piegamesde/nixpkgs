@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Tests require netowrk access

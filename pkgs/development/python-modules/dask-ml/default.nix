@@ -45,8 +45,12 @@ buildPythonPackage rec {
   # has non-standard build from source, and pypi doesn't include tests
   doCheck = false;
 
-  pythonImportsCheck =
-    [ "dask_ml" "dask_ml.naive_bayes" "dask_ml.wrappers" "dask_ml.utils" ];
+  pythonImportsCheck = [
+    "dask_ml"
+    "dask_ml.naive_bayes"
+    "dask_ml.wrappers"
+    "dask_ml.utils"
+  ];
 
   meta = with lib; {
     description = "Scalable Machine Learn with Dask";

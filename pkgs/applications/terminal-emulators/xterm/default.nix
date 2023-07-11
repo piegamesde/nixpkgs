@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper pkg-config fontconfig ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    fontconfig
+  ];
 
   buildInputs = [
     xorg.libXaw
@@ -114,7 +118,10 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://invisible-island.net/xterm";
     license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ nequissimus vrthra ];
+    maintainers = with lib.maintainers; [
+      nequissimus
+      vrthra
+    ];
     platforms = with lib.platforms; linux ++ darwin;
     changelog = "https://invisible-island.net/xterm/xterm.log.html";
   };

@@ -23,7 +23,13 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [ locket numpy pandas pyzmq toolz ];
+  propagatedBuildInputs = [
+    locket
+    numpy
+    pandas
+    pyzmq
+    toolz
+  ];
 
   checkPhase = ''
     rm partd/tests/test_zmq.py # requires network & fails

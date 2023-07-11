@@ -24,5 +24,8 @@ let
 in symlinkJoin {
   name = "run-npush-${npush.version}";
 
-  paths = [ npush runScript ];
+  paths = [
+    npush
+    runScript
+  ];
 }

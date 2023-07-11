@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-PPXJHatJKve9fIjveVYRnTSIDHFmnSDWTnkgO91twJs=";
   };
 
-  propagatedBuildInputs = [ requests arrow python-box ];
+  propagatedBuildInputs = [
+    requests
+    arrow
+    python-box
+  ];
 
-  nativeCheckInputs = [ pytest-datafiles pytest-vcr pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-datafiles
+    pytest-vcr
+    pytestCheckHook
+    responses
+  ];
 
   disabledTests = [
     # Test requires network access

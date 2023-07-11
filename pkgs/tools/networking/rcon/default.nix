@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bHm6JeWmpg42VZQXikHl+BMx9zimRLBQWemTqOxyLhw=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glib libbsd check pcre ];
+  buildInputs = [
+    glib
+    libbsd
+    check
+    pcre
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/n0la/rcon";

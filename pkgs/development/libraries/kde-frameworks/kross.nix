@@ -17,8 +17,15 @@
 
 mkDerivation {
   pname = "kross";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [ kcompletion kcoreaddons kxmlgui ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  buildInputs = [
+    kcompletion
+    kcoreaddons
+    kxmlgui
+  ];
   propagatedBuildInputs = [
     ki18n
     kiconthemes

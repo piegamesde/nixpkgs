@@ -29,7 +29,11 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-+AwIYhnqp984Banwb7zmB5yzenExfLLU1oGJSxeTl/M=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     SDL2
@@ -65,7 +69,10 @@ in stdenv.mkDerivation (finalAttrs: {
     changelog =
       "https://github.com/mgba-emu/mgba/blob/${finalAttrs.version}/CHANGES";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ MP2E AndersonTorres ];
+    maintainers = with maintainers; [
+      MP2E
+      AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 })

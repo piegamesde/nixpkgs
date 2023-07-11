@@ -36,7 +36,12 @@ mkDerivation rec {
     ./spuce.patch
   ];
 
-  nativeBuildInputs = [ cmake pkg-config doxygen wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    doxygen
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     pcre

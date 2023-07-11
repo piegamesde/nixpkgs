@@ -29,14 +29,23 @@
 # it may be worth thinking about using multiple derivation outputs
 # In that case its about 6MB which could be separated
 
-let pythonModules = pp: [ pp.mako pp.markdown ];
+let
+  pythonModules = pp: [
+    pp.mako
+    pp.markdown
+  ];
 in stdenv.mkDerivation (finalAttrs: {
   pname = "gobject-introspection";
   version = "1.76.1";
 
   # outputs TODO: share/gobject-introspection-1.0/tests is needed during build
   # by pygobject3 (and maybe others), but it's only searched in $out
-  outputs = [ "out" "dev" "devdoc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -78,16 +87,18 @@ in stdenv.mkDerivation (finalAttrs: {
     (buildPackages.python3.withPackages pythonModules)
     finalAttrs.setupHook # move .gir files
     # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ gobject-introspection-unwrapped ];
+  ] ++ lib.optionals (stdenv.buildPlatform
+    != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
 
   buildInputs = [ (python3.withPackages pythonModules) ];
 
-  nativeCheckInputs = lib.optionals stdenv.isDarwin [
-    cctools # for otool
-  ];
+  nativeCheckInputs = lib.optionals stdenv.isDarwin [ cctools # for otool
+    ];
 
-  propagatedBuildInputs = [ libffi glib ];
+  propagatedBuildInputs = [
+    libffi
+    glib
+  ];
 
   mesonFlags = [
     "--datadir=${placeholder "dev"}/share"
@@ -107,8 +118,8 @@ in stdenv.mkDerivation (finalAttrs: {
     }"
     "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
     # can't use canExecute, we need prebuilt when cross
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "-Dgi_cross_use_prebuilt_gi=true" ];
+  ] ++ lib.optionals (stdenv.buildPlatform
+    != stdenv.hostPlatform) [ "-Dgi_cross_use_prebuilt_gi=true" ];
 
   doCheck = !stdenv.isAarch64;
 
@@ -154,11 +165,16 @@ in stdenv.mkDerivation (finalAttrs: {
     description =
       "A middleware layer between C libraries and language bindings";
     homepage = "https://gi.readthedocs.io/";
-    maintainers = teams.gnome.members
-      ++ (with maintainers; [ lovek323 artturin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [
+      lovek323
+      artturin
+    ]);
     pkgConfigModules = [ "gobject-introspection-1.0" ];
     platforms = platforms.unix;
-    license = with licenses; [ gpl2 lgpl2 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+    ];
 
     longDescription = ''
       GObject introspection is a middleware layer between C libraries (using

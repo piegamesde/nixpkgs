@@ -26,7 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-dY2TPo15RRWrv7LheUNJSQl4d/HeptSMM/wQirRSI5w=";
   };
 
-  propagatedBuildInputs = [ django python-dateutil pytz icalendar ];
+  propagatedBuildInputs = [
+    django
+    python-dateutil
+    pytz
+    icalendar
+  ];
 
   checkPhase = ''
     runHook preCheck

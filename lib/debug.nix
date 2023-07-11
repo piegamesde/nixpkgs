@@ -241,11 +241,11 @@ in rec {
       && ((testsToRun == [ ]) || elem name tests.tests)
       && (test.expr != test.expected)
 
-      then [{
+      then [ {
         inherit name;
         expected = test.expected;
         result = test.expr;
-      }] else
+      } ] else
         [ ]) tests));
 
   /* Create a test assuming that list elements are `true`.

@@ -19,7 +19,10 @@ clangStdenv.mkDerivation rec {
     sha256 = "sha256-wggyCL5uEsnJDxkYAUsXOjoO1MNQBGB05E6aSpsNcl0=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   doCheck = false;
 

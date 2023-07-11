@@ -25,9 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "cz4JJ/NKBYBv5bw18BBfwtWtxPWGBmrwSHgTZ1hS3Qk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib gtk3 freerdp ];
+  buildInputs = [
+    glib
+    gtk3
+    freerdp
+  ];
 
   passthru = { updateScript = unstableGitUpdater { }; };
 

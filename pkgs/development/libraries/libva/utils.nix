@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t8N+MQ/HueQWtNzEzfAPZb4q7FjFNhpTmX4JbJ5ZGqM=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ libdrm libva libX11 libXext libXfixes wayland ];
+  buildInputs = [
+    libdrm
+    libva
+    libX11
+    libXext
+    libXfixes
+    wayland
+  ];
 
   meta = with lib; {
     description = "A collection of utilities and examples for VA-API";

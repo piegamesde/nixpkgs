@@ -27,7 +27,11 @@ in buildGoModule rec {
   meta = with lib; {
     homepage = "http://www.gitlab.com/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin talyz yayayayaka ];
+    maintainers = with maintainers; [
+      globin
+      talyz
+      yayayayaka
+    ];
     license = licenses.mit;
   };
 }

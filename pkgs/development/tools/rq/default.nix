@@ -34,6 +34,10 @@ rustPlatform.buildRustPackage rec {
     description = "A tool for doing record analysis and transformation";
     homepage = "https://github.com/dflemstr/rq";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ aristid Br1ght0ne figsoda ];
+    maintainers = with maintainers; [
+      aristid
+      Br1ght0ne
+      figsoda
+    ];
   };
 }

@@ -40,7 +40,12 @@ stdenv.mkDerivation rec {
     sha256 = "11yj1zl8hdnqbynkbyzg8kwyx1jl8c87x8f8qyllpk0s6cg304d0";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
 
   dontWrapGApps = true;
 
@@ -52,9 +57,13 @@ stdenv.mkDerivation rec {
     qtbase
     qtmultimedia
     qttools
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
-    ++ lib.optionals useMupdf [ freetype gumbo jbig2dec mupdf openjpeg ]
-    ++ lib.optionals usePoppler [ poppler ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ] ++ lib.optionals useMupdf [
+    freetype
+    gumbo
+    jbig2dec
+    mupdf
+    openjpeg
+  ] ++ lib.optionals usePoppler [ poppler ];
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"
@@ -76,8 +85,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Modular multi screen pdf presentation viewer";
     homepage = "https://github.com/stiglers-eponym/BeamerPresenter";
-    license = with licenses; [ agpl3 gpl3Plus ];
+    license = with licenses; [
+      agpl3
+      gpl3Plus
+    ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ pacien dotlambda ];
+    maintainers = with maintainers; [
+      pacien
+      dotlambda
+    ];
   };
 }

@@ -19,7 +19,13 @@ stdenvNoCC.mkDerivation rec {
   };
 
   makeFlags = [
-    "TOOLPATH=${lib.makeBinPath [ coreutils gnused less ]}"
+    "TOOLPATH=${
+      lib.makeBinPath [
+        coreutils
+        gnused
+        less
+      ]
+    }"
     "PREFIX=$(out)"
     "SHELL=${binSh}"
   ];

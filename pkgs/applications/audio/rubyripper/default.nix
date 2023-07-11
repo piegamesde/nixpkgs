@@ -25,11 +25,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ cddiscid cdparanoia ruby ];
+  buildInputs = [
+    cddiscid
+    cdparanoia
+    ruby
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/rrip_cli \
-      --prefix PATH : ${lib.makeBinPath [ cddiscid cdparanoia ruby ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          cddiscid
+          cdparanoia
+          ruby
+        ]
+      }
   '';
 
   meta = with lib; {

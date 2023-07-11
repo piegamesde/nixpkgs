@@ -68,7 +68,12 @@ in {
       extraOptions = mkOption {
         type = types.listOf types.str;
         default = [ "--shortlog" ];
-        example = [ "--verbose" "--no-http" "--ipv4only" "--no-host" ];
+        example = [
+          "--verbose"
+          "--no-http"
+          "--ipv4only"
+          "--no-host"
+        ];
         description = lib.mdDoc "Additional wsdd options.";
       };
     };
@@ -133,8 +138,12 @@ in {
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies =
-          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

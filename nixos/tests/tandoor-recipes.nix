@@ -24,10 +24,10 @@ import ./make-test-python.nix ({
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "tandoor_recipes" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "tandoor_recipes";
             ensurePermissions."DATABASE tandoor_recipes" = "ALL PRIVILEGES";
-          }];
+          } ];
         };
 
         systemd.services = {

@@ -42,8 +42,14 @@ buildPythonPackage rec {
       --replace "pycryptodome>=3.16.0" "pycryptodome"
   '';
 
-  propagatedBuildInputs =
-    [ ical pycryptodome pydantic python-dateutil pyyaml requests ];
+  propagatedBuildInputs = [
+    ical
+    pycryptodome
+    pydantic
+    python-dateutil
+    pyyaml
+    requests
+  ];
 
   nativeCheckInputs = [
     freezegun

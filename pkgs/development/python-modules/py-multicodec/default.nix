@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytest-runner ];
 
-  propagatedBuildInputs = [ varint six morphys ];
+  propagatedBuildInputs = [
+    varint
+    six
+    morphys
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

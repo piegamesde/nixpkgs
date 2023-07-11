@@ -35,9 +35,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-orWv+hUFrUOQKVn9vgnlvOxXsR7TM/pgRY/7nGLvujg=";
   };
 
-  mesonFlags = [ "-Dselinux=false" "-Dappindicator=yes" ];
+  mesonFlags = [
+    "-Dselinux=false"
+    "-Dappindicator=yes"
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   buildInputs = [
     libnma

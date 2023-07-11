@@ -68,7 +68,13 @@ in python.pkgs.buildPythonApplication rec {
     # platformio is used in esphomeyaml/platformio_api.py
     # esptool is used in esphomeyaml/__main__.py
     # git is used in esphomeyaml/writer.py
-    "--prefix PATH : ${lib.makeBinPath [ platformio esptool_3 git ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        platformio
+        esptool_3
+        git
+      ]
+    }"
     "--set ESPHOME_USE_SUBPROCESS ''"
   ];
 
@@ -104,6 +110,9 @@ in python.pkgs.buildPythonApplication rec {
       mit # The C++/runtime codebase of the ESPHome project (file extensions .c, .cpp, .h, .hpp, .tcc, .ino)
       gpl3Only # The python codebase and all other parts of this codebase
     ];
-    maintainers = with maintainers; [ globin hexa ];
+    maintainers = with maintainers; [
+      globin
+      hexa
+    ];
   };
 }

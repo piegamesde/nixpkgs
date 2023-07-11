@@ -27,8 +27,10 @@ stdenv.mkDerivation rec {
       --replace '`sw_vers -productVersion`' '"$MACOSX_DEPLOYMENT_TARGET"'
   '';
 
-  buildInputs = [ perl ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ApplicationServices ];
+  buildInputs = [ perl ] ++ lib.optionals stdenv.isDarwin [
+    CoreServices
+    ApplicationServices
+  ];
   doCheck = false; # MoarVM does not come with its own test suite
 
   configureScript = "${perl}/bin/perl ./Configure.pl";
@@ -38,7 +40,11 @@ stdenv.mkDerivation rec {
       "VM with adaptive optimization and JIT compilation, built for Rakudo";
     homepage = "https://moarvm.org";
     license = licenses.artistic2;
-    maintainers = with maintainers; [ thoughtpolice vrthra sgo ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      vrthra
+      sgo
+    ];
     mainProgram = "moar";
     platforms = platforms.unix;
   };

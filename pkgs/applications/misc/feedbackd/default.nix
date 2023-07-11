@@ -33,7 +33,11 @@ in stdenv.mkDerivation rec {
   pname = "feedbackd";
   version = "0.1.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "source.puri.sm";
@@ -44,13 +48,10 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    (fetchpatch2 {
-      url =
-        "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
-      hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
-    })
-  ];
+  patches = [ (fetchpatch2 {
+    url = "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
+    hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
+  }) ];
 
   depsBuildBuild = [ pkg-config ];
 
@@ -68,9 +69,17 @@ in stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gsound json-glib libgudev ];
+  buildInputs = [
+    glib
+    gsound
+    json-glib
+    libgudev
+  ];
 
-  mesonFlags = [ "-Dgtk_doc=true" "-Dman=true" ];
+  mesonFlags = [
+    "-Dgtk_doc=true"
+    "-Dman=true"
+  ];
 
   nativeCheckInputs = [ dbus ];
 
@@ -98,7 +107,10 @@ in stdenv.mkDerivation rec {
       "A daemon to provide haptic (and later more) feedback on events";
     homepage = "https://source.puri.sm/Librem5/feedbackd";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pacman99 tomfitzhenry ];
+    maintainers = with maintainers; [
+      pacman99
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

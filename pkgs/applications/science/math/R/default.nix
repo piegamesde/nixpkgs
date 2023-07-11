@@ -95,7 +95,12 @@ stdenv.mkDerivation (finalAttrs: {
     tcl
     tk
     jdk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa Foundation libobjc libcxx ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    Foundation
+    libobjc
+    libcxx
+  ];
 
   patches = [ ./no-usr-local-search-paths.patch ];
 
@@ -151,7 +156,11 @@ stdenv.mkDerivation (finalAttrs: {
     echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"
   '';
 
-  installTargets = [ "install" "install-info" "install-pdf" ];
+  installTargets = [
+    "install"
+    "install-info"
+    "install-pdf"
+  ];
 
   # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
   # but Nix cannot detect it as a run-time dependency because the installed file

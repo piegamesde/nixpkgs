@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-aHF3E/fLN+j/T4W9lvuVSMy6iRSEn+ARWmL01rY+ixs=";
   };
 
-  nativeCheckInputs = [ pytz unittestCheckHook ];
+  nativeCheckInputs = [
+    pytz
+    unittestCheckHook
+  ];
 
   pythonImportsCheck = [ "backports.datetime_fromisoformat" ];
 

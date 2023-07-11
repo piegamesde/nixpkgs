@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-ElckfplwUI1tFFbT4zDNGQnEtCsl4PChvDJSbW86IbQ=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook perl ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    perl
+  ];
 
   buildInputs = [
     gtk3
@@ -56,6 +60,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.abisource.com/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ylwghst sna ];
+    maintainers = with maintainers; [
+      pSub
+      ylwghst
+      sna
+    ];
   };
 }

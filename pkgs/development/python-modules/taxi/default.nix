@@ -21,9 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-iIy3odDX3QzVG80AFp81m8AYKES4JjlDp49GGpuIHLI=";
   };
 
-  propagatedBuildInputs = [ appdirs requests click setuptools ];
+  propagatedBuildInputs = [
+    appdirs
+    requests
+    click
+    setuptools
+  ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "taxi" ];
 

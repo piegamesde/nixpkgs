@@ -30,6 +30,9 @@ mkDerivation (rec {
     platforms = lib.platforms.unix;
     # broken since Agda 2.6.1
     broken = true;
-    maintainers = with lib.maintainers; [ alexarice turion ];
+    maintainers = with lib.maintainers; [
+      alexarice
+      turion
+    ];
   };
 })

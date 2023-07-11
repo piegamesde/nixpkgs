@@ -75,12 +75,20 @@ let
 
   # Deprecate top level options that are redundant.
   deprecateTopLevelOption = config:
-    lib.mkRenamedOptionModule ([ "services" "epgstation" ] ++ config)
-    ([ "services" "epgstation" "settings" ] ++ config);
+    lib.mkRenamedOptionModule ([
+      "services"
+      "epgstation"
+    ] ++ config) ([
+      "services"
+      "epgstation"
+      "settings"
+    ] ++ config);
 
   removeOption = config: instruction:
-    lib.mkRemovedOptionModule ([ "services" "epgstation" ] ++ config)
-    instruction;
+    lib.mkRemovedOptionModule ([
+      "services"
+      "epgstation"
+    ] ++ config) instruction;
 in {
   meta.maintainers = with lib.maintainers; [ midchildan ];
 
@@ -236,11 +244,11 @@ in {
         options.encode = lib.mkOption {
           type = with lib.types; listOf attrs;
           description = lib.mdDoc "Encoding presets for recorded videos.";
-          default = [{
+          default = [ {
             name = "H.264";
             cmd = "%NODE% ${cfg.package}/libexec/enc.js";
             suffix = ".mp4";
-          }];
+          } ];
           defaultText = lib.literalExpression ''
             [
               {
@@ -256,13 +264,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = !(lib.hasAttr "readOnlyOnce" cfg.settings);
       message = ''
         The option config.${opt.settings}.readOnlyOnce can no longer be used
         since it's been removed. No replacements are available.
       '';
-    }];
+    } ];
 
     environment.etc = {
       "epgstation/epgUpdaterLogConfig.yml".source = logConfig;
@@ -271,7 +279,10 @@ in {
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = with cfg.settings; [ port socketioPort ];
+      allowedTCPPorts = with cfg.settings; [
+        port
+        socketioPort
+      ];
     };
 
     users.users.epgstation = {

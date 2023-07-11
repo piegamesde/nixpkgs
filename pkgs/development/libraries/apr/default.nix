@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     rm test/testsock.*
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   outputBin = "dev";
 
   preConfigure = ''

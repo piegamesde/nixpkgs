@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-wYW6hI0Ti9gKtk/wxIbdY5KaPMs/p+Ve9ceeRqXihQI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ libimobiledevice libusb1 ];
+  propagatedBuildInputs = [
+    libimobiledevice
+    libusb1
+  ];
 
   configureFlags = [
     "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"

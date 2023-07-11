@@ -17,10 +17,18 @@ let
 in assert lib.getVersion wineUnstable == patch.version;
 
 (lib.overrideDerivation wineUnstable (self: {
-  buildInputs = build-inputs [ "perl" "util-linux" "autoconf" "gitMinimal" ]
-    self.buildInputs;
-  nativeBuildInputs = [ autoconf hexdump perl python3 ]
-    ++ self.nativeBuildInputs;
+  buildInputs = build-inputs [
+    "perl"
+    "util-linux"
+    "autoconf"
+    "gitMinimal"
+  ] self.buildInputs;
+  nativeBuildInputs = [
+    autoconf
+    hexdump
+    perl
+    python3
+  ] ++ self.nativeBuildInputs;
 
   name = "${self.name}-staging";
 

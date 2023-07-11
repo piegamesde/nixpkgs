@@ -37,12 +37,21 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pydeck" ];
 
-  nativeCheckInputs = [ pytestCheckHook pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pandas
+  ];
 
   # tries to start a jupyter server
   disabledTests = [ "test_nbconvert" ];
 
-  propagatedBuildInputs = [ ipykernel ipywidgets jinja2 numpy traitlets ];
+  propagatedBuildInputs = [
+    ipykernel
+    ipywidgets
+    jinja2
+    numpy
+    traitlets
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/visgl/deck.gl/tree/master/bindings/pydeck";

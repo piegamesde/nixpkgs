@@ -63,18 +63,18 @@ let
       https-enabled = false;
     };
 
-    graphite = [{ enabled = false; }];
+    graphite = [ { enabled = false; } ];
 
-    udp = [{ enabled = false; }];
+    udp = [ { enabled = false; } ];
 
-    collectd = [{
+    collectd = [ {
       enabled = false;
       typesdb = "${pkgs.collectd-data}/share/collectd/types.db";
       database = "collectd_db";
       bind-address = ":25826";
-    }];
+    } ];
 
-    opentsdb = [{ enabled = false; }];
+    opentsdb = [ { enabled = false; } ];
 
     continuous_queries = {
       enabled = true;

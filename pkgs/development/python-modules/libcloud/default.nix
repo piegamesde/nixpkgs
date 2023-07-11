@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-FIqeUAaWVEMqfTSZeVTpFDTdOOv2iDLrnHXUQrPmL60=";
   };
 
-  propagatedBuildInputs = [ pycrypto requests ];
+  propagatedBuildInputs = [
+    pycrypto
+    requests
+  ];
 
   preConfigure = ''
     cp libcloud/test/secrets.py-dist libcloud/test/secrets.py

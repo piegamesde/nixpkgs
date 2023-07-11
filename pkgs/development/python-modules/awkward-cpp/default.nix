@@ -22,8 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-2xyRwh+IuJo5tGF27cZ6CLN/coPBai7VFZ48h0YTxho=";
   };
 
-  nativeBuildInputs = [ cmake pybind11 scikit-build-core ]
-    ++ scikit-build-core.optional-dependencies.pyproject;
+  nativeBuildInputs = [
+    cmake
+    pybind11
+    scikit-build-core
+  ] ++ scikit-build-core.optional-dependencies.pyproject;
 
   propagatedBuildInputs = [ numpy ];
 

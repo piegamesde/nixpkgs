@@ -24,9 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-WTUmrK4cD9oOpsSEOfZ8OUMJTFQv52n4uQ/p5sbMSHE=";
   };
 
-  nativeBuildInputs = [ cython setuptools-scm ];
+  nativeBuildInputs = [
+    cython
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ numpy scipy pandas patsy matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    pandas
+    patsy
+    matplotlib
+  ];
 
   # Huge test suites with several test failures
   doCheck = false;

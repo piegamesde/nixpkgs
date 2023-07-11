@@ -16,14 +16,27 @@ stdenv.mkDerivation rec {
   pname = "serd";
   version = "0.30.16";
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://download.drobilla.net/${pname}-${version}.tar.xz";
     hash = "sha256-9Q9IbaUZzdjQOyDJ5CQU5FkTP1okRBHY5jyu+NmskUY=";
   };
 
-  nativeBuildInputs = [ doxygen mandoc meson ninja pkg-config python3 sphinx ];
+  nativeBuildInputs = [
+    doxygen
+    mandoc
+    meson
+    ninja
+    pkg-config
+    python3
+    sphinx
+  ];
 
   postPatch = ''
     patchShebangs .

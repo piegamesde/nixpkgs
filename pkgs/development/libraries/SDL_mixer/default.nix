@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ SDL libogg libvorbis fluidsynth smpeg libmikmod ];
+  buildInputs = [
+    SDL
+    libogg
+    libvorbis
+    fluidsynth
+    smpeg
+    libmikmod
+  ];
 
-  configureFlags = [ "--disable-music-ogg-shared" "--disable-music-mod-shared" ]
-    ++ lib.optional enableNativeMidi " --enable-music-native-midi-gpl"
+  configureFlags = [
+    "--disable-music-ogg-shared"
+    "--disable-music-mod-shared"
+  ] ++ lib.optional enableNativeMidi " --enable-music-native-midi-gpl"
     ++ lib.optionals stdenv.isDarwin [
       "--disable-sdltest"
       "--disable-smpegtest"

@@ -35,9 +35,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
-  buildInputs = [ glib libintl ];
+  buildInputs = [
+    glib
+    libintl
+  ];
 
   postPatch = ''
     substituteInPlace src/install.c \

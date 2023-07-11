@@ -4,7 +4,11 @@
   fetchFromGitHub,
 }:
 
-let bins = [ "crane" "gcrane" ];
+let
+  bins = [
+    "crane"
+    "gcrane"
+  ];
 
 in buildGoModule rec {
   pname = "go-containerregistry";
@@ -18,7 +22,10 @@ in buildGoModule rec {
   };
   vendorHash = null;
 
-  subPackages = [ "cmd/crane" "cmd/gcrane" ];
+  subPackages = [
+    "cmd/crane"
+    "cmd/gcrane"
+  ];
 
   outputs = [ "out" ] ++ bins;
 

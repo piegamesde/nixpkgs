@@ -26,9 +26,21 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "yISTF2iNh9pzTJBjA1YxBSAH8qh5m2xsyRUmWIC1X7Q=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext wrapGAppsHook python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    wrapGAppsHook
+    python3
+  ];
 
-  buildInputs = [ glib gtk3 gdk-pixbuf libgnome-games-support ];
+  buildInputs = [
+    glib
+    gtk3
+    gdk-pixbuf
+    libgnome-games-support
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py

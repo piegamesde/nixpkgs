@@ -95,7 +95,11 @@ let
   else
     null;
 
-  args = removeAttrs args' [ "overrideModAttrs" "vendorSha256" "vendorHash" ];
+  args = removeAttrs args' [
+    "overrideModAttrs"
+    "vendorSha256"
+    "vendorHash"
+  ];
 
   go-modules = if hasAnyVendorHash then
     stdenv.mkDerivation (let
@@ -103,8 +107,11 @@ let
 
         name = "${name}-go-modules";
 
-        nativeBuildInputs = (args.nativeBuildInputs or [ ])
-          ++ [ go git cacert ];
+        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+          go
+          git
+          cacert
+        ];
 
         inherit (args) src;
         inherit (go) GOOS GOARCH;
@@ -123,8 +130,11 @@ let
 
         GO111MODULE = "on";
 
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars
-          ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" "GOPROXY" ];
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+          "GIT_PROXY_COMMAND"
+          "SOCKS_SERVER"
+          "GOPROXY"
+        ];
 
         configurePhase = args.modConfigurePhase or ''
           runHook preConfigure

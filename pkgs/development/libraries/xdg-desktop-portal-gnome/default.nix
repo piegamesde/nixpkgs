@@ -30,7 +30,12 @@ stdenv.mkDerivation rec {
     sha256 = "NoLFRsgZIqW6adYthvacDCaxfJCWgj9YFJ0LVbvw7ts=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     fontconfig
@@ -50,7 +55,10 @@ stdenv.mkDerivation rec {
     # In postInstall to run before gappsWrapperArgsHook.
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-        extraLoaders = [ librsvg webp-pixbuf-loader ];
+        extraLoaders = [
+          librsvg
+          webp-pixbuf-loader
+        ];
       }
     }"
   '';

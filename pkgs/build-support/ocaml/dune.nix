@@ -63,11 +63,18 @@ else
 
     strictDeps = true;
 
-  } // (builtins.removeAttrs args [ "minimalOCamlVersion" "duneVersion" ]) // {
+  } // (builtins.removeAttrs args [
+    "minimalOCamlVersion"
+    "duneVersion"
+  ]) // {
 
     name = "ocaml${ocaml.version}-${pname}-${version}";
 
-    nativeBuildInputs = [ ocaml Dune findlib ] ++ nativeBuildInputs;
+    nativeBuildInputs = [
+      ocaml
+      Dune
+      findlib
+    ] ++ nativeBuildInputs;
 
     meta = (args.meta or { }) // {
       platforms = args.meta.platforms or ocaml.meta.platforms;

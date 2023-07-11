@@ -27,10 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-gXDuStgCBH6YW3SsAjEvQq7l+Vf8+Z8sle1TnLRtNwo=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout defusedxml python-didl-lite voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    defusedxml
+    python-didl-lite
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   disabledTests = [
     # socket.gaierror: [Errno -2] Name or service not known

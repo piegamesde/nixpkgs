@@ -50,7 +50,10 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ beautifulsoup4 pytestCheckHook ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests require network access

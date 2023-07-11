@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Be6okg3zmbdbdlB4/uwioUxn6CZUay/istiIoiFrsJk=";
   };
 
-  propagatedBuildInputs = [ click rich ];
+  propagatedBuildInputs = [
+    click
+    rich
+  ];
 
   # Module has no test
   doCheck = false;

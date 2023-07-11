@@ -53,7 +53,11 @@ stdenv.mkDerivation rec {
     libmysqlclient
     netcdf
     pdal
-  ] ++ (with python3Packages; [ python-dateutil numpy wxPython_4_2 ]);
+  ] ++ (with python3Packages; [
+    python-dateutil
+    numpy
+    wxPython_4_2
+  ]);
 
   buildInputs = [
     cairo
@@ -139,6 +143,9 @@ stdenv.mkDerivation rec {
       "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mpickering willcohen ];
+    maintainers = with lib.maintainers; [
+      mpickering
+      willcohen
+    ];
   };
 }

@@ -42,12 +42,10 @@ stdenv.mkDerivation {
     libsamplerate
   ];
 
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/paulnasca/paulstretch_cpp/pull/12.patch";
-      sha256 = "0lx1rfrs53afkiz1drp456asqgj5yv6hx3lkc01165cv1jsbw6q4";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url = "https://github.com/paulnasca/paulstretch_cpp/pull/12.patch";
+    sha256 = "0lx1rfrs53afkiz1drp456asqgj5yv6hx3lkc01165cv1jsbw6q4";
+  }) ];
 
   buildPhase = ''
     bash compile_linux_fftw_jack.sh

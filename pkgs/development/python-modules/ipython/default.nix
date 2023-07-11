@@ -66,7 +66,10 @@ buildPythonPackage rec {
       --replace "--ipdoctest-modules" "--ipdoctest-modules --ignore=IPython/core/display.py"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook testpath ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    testpath
+  ];
 
   disabledTests = [
     # UnboundLocalError: local variable 'child' referenced before assignment
@@ -84,6 +87,9 @@ buildPythonPackage rec {
         lib.versions.major version
       }.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bjornfor fridh ];
+    maintainers = with maintainers; [
+      bjornfor
+      fridh
+    ];
   };
 }

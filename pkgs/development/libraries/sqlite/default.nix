@@ -36,10 +36,17 @@ in stdenv.mkDerivation rec {
     hash = "sha256-6YwQDdHaTjD6Rgdh2rfAuRpQt4XhZ/jFesxGUU+ulJk=";
   };
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
   separateDebugInfo = stdenv.isLinux;
 
-  buildInputs = [ zlib ] ++ lib.optionals interactive [ readline ncurses ];
+  buildInputs = [ zlib ] ++ lib.optionals interactive [
+    readline
+    ncurses
+  ];
 
   # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
@@ -115,7 +122,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.sqlite.org/";
     license = licenses.publicDomain;
     mainProgram = "sqlite3";
-    maintainers = with maintainers; [ eelco np ];
+    maintainers = with maintainers; [
+      eelco
+      np
+    ];
     platforms = platforms.unix ++ platforms.windows;
   };
 }

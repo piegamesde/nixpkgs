@@ -45,13 +45,11 @@ buildPythonPackage rec {
     hash = "sha256-acGIhIWC1nUQiN0iwb1kLKxz+ytIqYIW4VXF45Tx50g=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
-      mudraw = "${lib.getBin mupdf}/bin/mudraw";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
+    mudraw = "${lib.getBin mupdf}/bin/mudraw";
+  }) ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -62,7 +60,12 @@ buildPythonPackage rec {
 
   buildInputs = [ qpdf ];
 
-  nativeBuildInputs = [ pybind11 setuptools setuptools-scm wheel ];
+  nativeBuildInputs = [
+    pybind11
+    setuptools
+    setuptools-scm
+    wheel
+  ];
 
   nativeCheckInputs = [
     attrs
@@ -74,8 +77,12 @@ buildPythonPackage rec {
     python-xmp-toolkit
   ];
 
-  propagatedBuildInputs = [ deprecation lxml packaging pillow ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    deprecation
+    lxml
+    packaging
+    pillow
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   pythonImportsCheck = [ "pikepdf" ];
 
@@ -83,7 +90,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/pikepdf/pikepdf";
     description = "Read and write PDFs with Python, powered by qpdf";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kiwi dotlambda ];
+    maintainers = with maintainers; [
+      kiwi
+      dotlambda
+    ];
     changelog =
       "https://github.com/pikepdf/pikepdf/blob/${src.rev}/docs/releasenotes/version${
         lib.versions.major version

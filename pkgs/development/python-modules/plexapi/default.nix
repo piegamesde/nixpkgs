@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-yq1tQ6xJn+IxrKXwUVeLhki6sdkwzu9hHSILsLJdPPY=";
   };
 
-  propagatedBuildInputs = [ requests tqdm websocket-client ];
+  propagatedBuildInputs = [
+    requests
+    tqdm
+    websocket-client
+  ];
 
   # Tests require a running Plex instance
   doCheck = false;

@@ -20,7 +20,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ astropy-helpers ];
 
-  nativeCheckInputs = [ astropy pillow pytestCheckHook ];
+  nativeCheckInputs = [
+    astropy
+    pillow
+    pytestCheckHook
+  ];
 
   # Disable automatic update of the astropy-helper module
   postPatch = ''

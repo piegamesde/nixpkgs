@@ -49,7 +49,10 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ xar cpio ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    xar
+    cpio
+  ];
 
   unpackPhase = lib.optionalString stdenv.isDarwin ''
     xar -xf $src
@@ -82,7 +85,10 @@ in stdenv.mkDerivation {
     description = "1Password command-line tool";
     homepage = "https://developer.1password.com/docs/cli/";
     downloadPage = "https://app-updates.agilebits.com/product_history/CLI2";
-    maintainers = with maintainers; [ joelburget marsam ];
+    maintainers = with maintainers; [
+      joelburget
+      marsam
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     inherit mainProgram platforms;

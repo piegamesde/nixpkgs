@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "1f0jdyqqb5g86zdpbcyn16x94yjigsfiv2kf73dvni5rp1vafbq1";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   buildInputs = [
     glib
@@ -45,10 +48,16 @@ stdenv.mkDerivation rec {
       --replace "/etc/xdg/autostart" "$out/etc/xdg/autostart"
   '';
 
-  configureFlags =
-    [ "CFLAGS=-Wno-error" "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "CFLAGS=-Wno-error"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "$(out)/lib/systemd/user";
   PKG_CONFIG_INDICATOR3_0_4_INDICATORDIR = "$(out)/lib/indicators3/7/";

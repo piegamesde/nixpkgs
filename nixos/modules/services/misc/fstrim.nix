@@ -39,7 +39,12 @@ in {
     systemd.packages = [ pkgs.util-linux ];
 
     systemd.timers.fstrim = {
-      timerConfig = { OnCalendar = [ "" cfg.interval ]; };
+      timerConfig = {
+        OnCalendar = [
+          ""
+          cfg.interval
+        ];
+      };
       wantedBy = [ "timers.target" ];
     };
 

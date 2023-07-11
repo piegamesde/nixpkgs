@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ packagekit ];
 
-  nativeBuildInputs = [ cmake pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ];
 
   dontWrapQtApps = true;
 

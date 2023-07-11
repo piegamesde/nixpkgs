@@ -19,12 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-18+38QunEdEGdirQOT+528vYqiqDuUr/CWRQtXKf4rs=";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout slixmpp ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    slixmpp
+  ];
 
   # aioharmony does not seem to include tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioharmony.harmonyapi" "aioharmony.harmonyclient" ];
+  pythonImportsCheck = [
+    "aioharmony.harmonyapi"
+    "aioharmony.harmonyclient"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ehendrix23/aioharmony";

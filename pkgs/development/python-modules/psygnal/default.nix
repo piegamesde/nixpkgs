@@ -30,12 +30,23 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  buildInputs = [ hatch-vcs hatchling ];
+  buildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ mypy-extensions typing-extensions ];
+  propagatedBuildInputs = [
+    mypy-extensions
+    typing-extensions
+  ];
 
-  nativeCheckInputs =
-    [ numpy pydantic pytest-mypy-plugins pytestCheckHook wrapt ];
+  nativeCheckInputs = [
+    numpy
+    pydantic
+    pytest-mypy-plugins
+    pytestCheckHook
+    wrapt
+  ];
 
   pythonImportsCheck = [ "psygnal" ];
 

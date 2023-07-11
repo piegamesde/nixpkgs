@@ -35,6 +35,6 @@ in buildMongoDB {
         "https://aur.archlinux.org/cgit/aur.git/plain/mongodb-4.4.15-adjust-cache-alignment-assumptions.patch.arm64?h=mongodb44";
       sha256 = "Ah4zdSFgXUJ/HSN8VRLJqDpNy3CjMCBnRqlpALXzx+g=";
     })
-  ] ++ lib.optionals stdenv.isDarwin
-    [ ./asio-no-experimental-string-view-4-2.patch ];
+  ] ++ lib.optionals
+    stdenv.isDarwin [ ./asio-no-experimental-string-view-4-2.patch ];
 }

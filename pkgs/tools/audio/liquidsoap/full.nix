@@ -11,7 +11,12 @@
   curl,
   ffmpeg,
   youtube-dl,
-  runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ]
+  runtimePackages ? [
+    awscli2
+    curl
+    ffmpeg
+    youtube-dl
+  ]
 }:
 
 let
@@ -109,7 +114,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Swiss-army knife for multimedia streaming";
     homepage = "https://www.liquidsoap.info/";
-    maintainers = with maintainers; [ dandellion ehmry ];
+    maintainers = with maintainers; [
+      dandellion
+      ehmry
+    ];
     license = licenses.gpl2Plus;
     platforms = ocamlPackages.ocaml.meta.platforms or [ ];
   };

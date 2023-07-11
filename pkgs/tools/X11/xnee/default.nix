@@ -46,11 +46,22 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 xorgproto libXext libXtst gtk2 libXi texinfo ];
+  buildInputs = [
+    libX11
+    xorgproto
+    libXext
+    libXtst
+    gtk2
+    libXi
+    texinfo
+  ];
 
   configureFlags =
     # Do a static build because `libxnee' doesn't get installed anyway.
-    [ "--disable-gnome-applet" "--enable-static" ];
+    [
+      "--disable-gnome-applet"
+      "--enable-static"
+    ];
 
   # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
   # lacks libXi.

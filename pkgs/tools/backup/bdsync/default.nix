@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "0kx422cp1bxr62i1mi7dzrpwmys1kdp865rcymdp4knb5rr5864k";
   };
 
-  nativeBuildInputs = [ pandoc which ];
+  nativeBuildInputs = [
+    pandoc
+    which
+  ];
   buildInputs = [ openssl ];
 
   postPatch = ''

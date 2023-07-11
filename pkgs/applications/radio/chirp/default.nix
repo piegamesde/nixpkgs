@@ -18,7 +18,10 @@ python3.pkgs.buildPythonApplication rec {
     rev = "33402b7c545c5a92b7042369867e7eb75ef32a59";
     hash = "sha256-duSEpd2GBBskoKNFos5X9wFtsjRct1918VhZd1T2rvU=";
   };
-  buildInputs = [ glib gsettings-desktop-schemas ];
+  buildInputs = [
+    glib
+    gsettings-desktop-schemas
+  ];
   nativeBuildInputs = [ wrapGAppsHook ];
   propagatedBuildInputs = with python3.pkgs; [
     future

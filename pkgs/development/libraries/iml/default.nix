@@ -13,7 +13,10 @@ stdenv.mkDerivation rec {
     url = "http://www.cs.uwaterloo.ca/~astorjoh/iml-${version}.tar.bz2";
     sha256 = "0akwhhz9b40bz6lrfxpamp7r7wkk48p455qbn04mfnl9a1l6db8x";
   };
-  buildInputs = [ gmp blas ];
+  buildInputs = [
+    gmp
+    blas
+  ];
   nativeBuildInputs = [ autoreconfHook ];
   configureFlags = [
     "--with-gmp-include=${gmp.dev}/include"

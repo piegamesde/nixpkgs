@@ -16,7 +16,11 @@
 
 mkDerivation {
   pname = "kded";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    wrapGAppsHook
+  ];
   buildInputs = [
     gsettings-desktop-schemas
     kconfig
@@ -26,7 +30,10 @@ mkDerivation {
     kservice
     qtbase
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   setupHook = propagate "out";
   dontWrapGApps = true;
   preFixup = ''

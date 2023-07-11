@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   pname = "imgcat";
   version = "2.5.1";
 
-  buildInputs = [ ncurses cimg ];
+  buildInputs = [
+    ncurses
+    cimg
+  ];
 
   preConfigure = ''
     sed -i -e "s|-ltermcap|-L ${ncurses}/lib -lncurses|" Makefile

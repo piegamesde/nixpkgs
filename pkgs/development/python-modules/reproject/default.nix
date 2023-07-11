@@ -26,11 +26,23 @@ buildPythonPackage rec {
     hash = "sha256-OKxPPKcVVrEVUGR8Zaphn7ur9HOuqQKa9gnMo2RQQME=";
   };
 
-  nativeBuildInputs = [ astropy-extension-helpers cython setuptools-scm ];
+  nativeBuildInputs = [
+    astropy-extension-helpers
+    cython
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ astropy astropy-healpix numpy scipy ];
+  propagatedBuildInputs = [
+    astropy
+    astropy-healpix
+    numpy
+    scipy
+  ];
 
-  nativeCheckInputs = [ pytest-astropy pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-astropy
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [
     "build/lib*"

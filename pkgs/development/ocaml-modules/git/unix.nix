@@ -50,7 +50,13 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs = [ awa awa-mirage cmdliner mirage-clock tcpip ];
+  buildInputs = [
+    awa
+    awa-mirage
+    cmdliner
+    mirage-clock
+    tcpip
+  ];
   propagatedBuildInputs = [
     rresult
     result

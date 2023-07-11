@@ -23,9 +23,15 @@ buildPythonPackage rec {
     sha256 = "1z789hgk71a6rj6mqp9srpzamg06g58hs2p1l1p344cfnkj5a4kc";
   };
 
-  propagatedBuildInputs = [ numpy sympy ];
+  propagatedBuildInputs = [
+    numpy
+    sympy
+  ];
 
-  nativeCheckInputs = [ pytest scipy ];
+  nativeCheckInputs = [
+    pytest
+    scipy
+  ];
   checkPhase = "pytest transforms3d";
 
   meta = with lib; {

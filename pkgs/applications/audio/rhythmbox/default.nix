@@ -31,7 +31,10 @@
   wrapGAppsHook,
   desktop-file-utils,
   gst_all_1,
-  gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ],
+  gst_plugins ? with gst_all_1; [
+    gst-plugins-good
+    gst-plugins-ugly
+  ],
   check,
 }:
 
@@ -92,7 +95,10 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ check ];
 
-  mesonFlags = [ "-Ddaap=enabled" "-Dtests=disabled" ];
+  mesonFlags = [
+    "-Ddaap=enabled"
+    "-Dtests=disabled"
+  ];
 
   # Requires DISPLAY
   doCheck = false;

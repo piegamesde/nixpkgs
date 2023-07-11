@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     url = "https://erratique.ch/software/note/releases/note-${version}.tbz";
     hash = "sha256-b35XcaDUXQLqwkNfsJKX5A1q1pAhw/mgdwyOdacZiiY=";
   };
-  buildInputs = [ ocaml findlib ocamlbuild topkg ];
+  buildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+    topkg
+  ];
   inherit (topkg) buildPhase installPhase;
 
   meta = {

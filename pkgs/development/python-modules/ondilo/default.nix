@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-MI6K+41I/IVi+GRBdmRIHbljULDFLAwpo3W8tdxCOBM=";
   };
 
-  propagatedBuildInputs = [ oauthlib requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    oauthlib
+    requests
+    requests-oauthlib
+  ];
 
   # Project has no tests
   doCheck = false;

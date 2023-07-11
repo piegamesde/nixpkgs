@@ -36,12 +36,25 @@ buildPythonApplication rec {
     substituteInPlace setup.py --replace /usr/share share
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ gtk3 pango ];
+  buildInputs = [
+    gtk3
+    pango
+  ];
 
-  propagatedBuildInputs =
-    [ pillow pycurl beautifulsoup4 pygeoip pygobject3 cairocffi selenium ];
+  propagatedBuildInputs = [
+    pillow
+    pycurl
+    beautifulsoup4
+    pygeoip
+    pygobject3
+    cairocffi
+    selenium
+  ];
 
   # Project has no tests
   doCheck = false;

@@ -15,7 +15,14 @@ let
 
     inherit ruby;
     gemdir = ./.;
-    groups = [ "development" "ldap" "markdown" "minimagick" "openid" "test" ];
+    groups = [
+      "development"
+      "ldap"
+      "markdown"
+      "minimagick"
+      "openid"
+      "test"
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "redmine";
@@ -27,7 +34,11 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
+  buildInputs = [
+    rubyEnv
+    rubyEnv.wrappedRuby
+    rubyEnv.bundler
+  ];
 
   # taken from https://www.redmine.org/issues/33784
   # can be dropped when the upstream bug is closed and the fix is present in the upstream release
@@ -54,7 +65,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.redmine.org/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aanderse felixsinger ];
+    maintainers = with maintainers; [
+      aanderse
+      felixsinger
+    ];
     license = licenses.gpl2;
   };
 }

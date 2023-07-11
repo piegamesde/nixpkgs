@@ -24,8 +24,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ defcon lxml fonttools fs fontmath fontparts mutatormath ];
+  propagatedBuildInputs = [
+    defcon
+    lxml
+    fonttools
+    fs
+    fontmath
+    fontparts
+    mutatormath
+  ];
 
   checkPhase = ''
     runHook preCheck

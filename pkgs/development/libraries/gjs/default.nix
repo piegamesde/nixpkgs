@@ -26,12 +26,23 @@
   nixosTests,
 }:
 
-let testDeps = [ gtk3 atk pango.out gdk-pixbuf harfbuzz ];
+let
+  testDeps = [
+    gtk3
+    atk
+    pango.out
+    gdk-pixbuf
+    harfbuzz
+  ];
 in stdenv.mkDerivation rec {
   pname = "gjs";
   version = "1.76.0";
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gjs/${
@@ -57,18 +68,23 @@ in stdenv.mkDerivation rec {
     libxml2 # for xml-stripblanks
     dbus # for dbus-run-session
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ cairo readline libsysprof-capture spidermonkey_102 ];
+  buildInputs = [
+    cairo
+    readline
+    libsysprof-capture
+    spidermonkey_102
+  ];
 
   nativeCheckInputs = [ xvfb-run ] ++ testDeps;
 
   propagatedBuildInputs = [ glib ];
 
   mesonFlags = [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
-    ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl)
-    [ "-Dprofiler=disabled" ];
+    ++ lib.optionals
+    (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [ "-Dprofiler=disabled" ];
 
   doCheck = !stdenv.isDarwin;
 

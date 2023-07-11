@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals withAtopgpu [ python3.pkgs.wrapPython ];
 
-  buildInputs = [ zlib ncurses ] ++ lib.optionals withAtopgpu [ python3 ];
+  buildInputs = [
+    zlib
+    ncurses
+  ] ++ lib.optionals withAtopgpu [ python3 ];
 
   pythonPath = lib.optionals withAtopgpu [ python3.pkgs.pynvml ];
 

@@ -30,7 +30,11 @@ mkDerivation rec {
     sha256 = "jhz1OHnPvjZMSo8+X/pf8rVLjPPSEiE7BDLnhUp/Vbk=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    lxqt-build-tools
+  ];
 
   buildInputs = [
     qtbase

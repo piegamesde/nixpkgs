@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libGLU libGL qt5.qtbase boost ];
+  buildInputs = [
+    libGLU
+    libGL
+    qt5.qtbase
+    boost
+  ];
 
   dontWrapQtApps = true;
 

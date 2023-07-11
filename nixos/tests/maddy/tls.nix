@@ -28,10 +28,10 @@ import ../make-test-python.nix ({
             };
             tls = {
               loader = "file";
-              certificates = [{
+              certificates = [ {
                 certPath = "${certs.${domain}.cert}";
                 keyPath = "${certs.${domain}.key}";
-              }];
+              } ];
             };
             # Enable TLS listeners. Configuring this via the module is not yet
             # implemented.
@@ -44,7 +44,10 @@ import ../make-test-python.nix ({
             ] options.services.maddy.config.default;
           };
           # Not covered by openFirewall yet
-          networking.firewall.allowedTCPPorts = [ 993 465 ];
+          networking.firewall.allowedTCPPorts = [
+            993
+            465
+          ];
         };
 
       client = {

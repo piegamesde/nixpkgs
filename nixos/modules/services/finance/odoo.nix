@@ -90,7 +90,10 @@ in {
 
       systemd.services.odoo = {
         wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" "postgresql.service" ];
+        after = [
+          "network.target"
+          "postgresql.service"
+        ];
 
         # pg_dump
         path = [ config.services.postgresql.package ];
@@ -111,10 +114,10 @@ in {
       services.postgresql = {
         enable = true;
 
-        ensureUsers = [{
+        ensureUsers = [ {
           name = "odoo";
           ensurePermissions = { "DATABASE odoo" = "ALL PRIVILEGES"; };
-        }];
+        } ];
         ensureDatabases = [ "odoo" ];
       };
     });

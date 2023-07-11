@@ -19,7 +19,11 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXext libXft ];
+  buildInputs = [
+    libX11
+    libXext
+    libXft
+  ];
 
   postPatch = ''
     mv Makefile Makefile.orig

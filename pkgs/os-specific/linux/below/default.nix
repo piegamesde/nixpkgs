@@ -26,8 +26,15 @@ rustPlatform.buildRustPackage rec {
   # bpf code compilation
   hardeningDisable = [ "stackprotector" ];
 
-  nativeBuildInputs = [ clang pkg-config rustfmt ];
-  buildInputs = [ elfutils zlib ];
+  nativeBuildInputs = [
+    clang
+    pkg-config
+    rustfmt
+  ];
+  buildInputs = [
+    elfutils
+    zlib
+  ];
 
   # needs /sys/fs/cgroup
   doCheck = false;

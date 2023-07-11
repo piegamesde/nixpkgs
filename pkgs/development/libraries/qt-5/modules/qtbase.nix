@@ -163,20 +163,34 @@ in stdenv.mkDerivation (finalAttrs: {
       xcbutilwm
     ] ++ lib.optional libGLSupported libGL);
 
-  buildInputs = [ python3 at-spi2-core ] ++ lib.optionals (!stdenv.isDarwin)
+  buildInputs = [
+    python3
+    at-spi2-core
+  ] ++ lib.optionals (!stdenv.isDarwin)
     ([ libinput ] ++ lib.optional withGtk3 gtk3)
     ++ lib.optional developerBuild gdb ++ lib.optional (cups != null) cups
     ++ lib.optional (mysqlSupport) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql;
 
-  nativeBuildInputs = [ bison flex gperf lndir perl pkg-config which ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+  nativeBuildInputs = [
+    bison
+    flex
+    gperf
+    lndir
+    perl
+    pkg-config
+    which
+  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   propagatedNativeBuildInputs = [ lndir ];
 
   enableParallelBuilding = true;
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   inherit patches;
 
@@ -324,9 +338,7 @@ in stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
     "-developer-build"
     "-no-warnings-are-errors"
-  ] ++ (if (!stdenv.hostPlatform.isx86_64) then
-    [ "-no-sse2" ]
-  else [
+  ] ++ (if (!stdenv.hostPlatform.isx86_64) then [ "-no-sse2" ] else [
     "-sse2"
     "${lib.optionalString (!stdenv.hostPlatform.sse3Support) "-no"}-sse3"
     "${lib.optionalString (!stdenv.hostPlatform.ssse3Support) "-no"}-ssse3"
@@ -334,7 +346,10 @@ in stdenv.mkDerivation (finalAttrs: {
     "${lib.optionalString (!stdenv.hostPlatform.sse4_2Support) "-no"}-sse4.2"
     "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
     "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
-  ]) ++ [ "-no-mips_dsp" "-no-mips_dspr2" ] ++ [
+  ]) ++ [
+    "-no-mips_dsp"
+    "-no-mips_dspr2"
+  ] ++ [
     "-system-zlib"
     "-L"
     "${zlib.out}/lib"
@@ -445,8 +460,18 @@ in stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://www.qt.io/";
     description = "A cross-platform application framework for C++";
-    license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
-    maintainers = with maintainers; [ qknight ttuegel periklis bkchr ];
+    license = with licenses; [
+      fdl13Plus
+      gpl2Plus
+      lgpl21Plus
+      lgpl3Plus
+    ];
+    maintainers = with maintainers; [
+      qknight
+      ttuegel
+      periklis
+      bkchr
+    ];
     pkgConfigModules = [
       "Qt5Concurrent"
       "Qt5Core"

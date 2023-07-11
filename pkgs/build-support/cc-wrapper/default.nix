@@ -110,7 +110,13 @@ let
   # without interfering. For the moment, it is defined as the target triple,
   # adjusted to be a valid bash identifier. This should be considered an
   # unstable implementation detail, however.
-  suffixSalt = replaceStrings [ "-" "." ] [ "_" "_" ] targetPlatform.config;
+  suffixSalt = replaceStrings [
+    "-"
+    "."
+  ] [
+    "_"
+    "_"
+  ] targetPlatform.config;
 
   expand-response-params = lib.optionalString
     ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc
@@ -183,7 +189,10 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [ "out" ] ++ optionals propagateDoc [ "man" "info" ];
+  outputs = [ "out" ] ++ optionals propagateDoc [
+    "man"
+    "info"
+  ];
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -657,9 +666,10 @@ stdenv.mkDerivation {
 
   meta = let cc_ = if cc != null then cc else { };
   in (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { }) // {
-    description =
-      lib.attrByPath [ "meta" "description" ] "System C compiler" cc_
-      + " (wrapper script)";
+    description = lib.attrByPath [
+      "meta"
+      "description"
+    ] "System C compiler" cc_ + " (wrapper script)";
     priority = 10;
   };
 }

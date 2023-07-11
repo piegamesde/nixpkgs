@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1gkbm9ahj2mgqrkrfpibzclsriqgsbsvjh19fr815vpd9f6snkxv";
   };
 
-  buildInputs = [ perl ronn ];
+  buildInputs = [
+    perl
+    ronn
+  ];
 
   unpackCmd = "";
   dontBuild = true;

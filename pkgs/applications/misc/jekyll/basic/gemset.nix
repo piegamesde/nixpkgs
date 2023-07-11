@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -42,7 +47,10 @@
     version = "1.1.10";
   };
   em-websocket = {
-    dependencies = [ "eventmachine" "http_parser.rb" ];
+    dependencies = [
+      "eventmachine"
+      "http_parser.rb"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -93,7 +101,10 @@
     version = "4.0.1";
   };
   html-pipeline = {
-    dependencies = [ "activesupport" "nokogiri" ];
+    dependencies = [
+      "activesupport"
+      "nokogiri"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -163,7 +174,10 @@
     version = "0.8.0";
   };
   jekyll-mentions = {
-    dependencies = [ "html-pipeline" "jekyll" ];
+    dependencies = [
+      "html-pipeline"
+      "jekyll"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -218,7 +232,11 @@
     version = "2.2.1";
   };
   jemoji = {
-    dependencies = [ "gemoji" "html-pipeline" "jekyll" ];
+    dependencies = [
+      "gemoji"
+      "html-pipeline"
+      "jekyll"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -261,7 +279,10 @@
     version = "4.0.3";
   };
   listen = {
-    dependencies = [ "rb-fsevent" "rb-inotify" ];
+    dependencies = [
+      "rb-fsevent"
+      "rb-inotify"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -302,7 +323,10 @@
     version = "5.16.3";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

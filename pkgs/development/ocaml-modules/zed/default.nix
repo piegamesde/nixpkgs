@@ -17,12 +17,22 @@ let
     version = "3.2.0";
     sha256 = "sha256-6yKHE30nVFXo8hGdCx+GO4VYYGbi802aMdN2XuYMJ7w=";
     duneVersion = "3";
-    propagatedBuildInputs = [ react result uchar uutf uucp uuseg ];
+    propagatedBuildInputs = [
+      react
+      result
+      uchar
+      uutf
+      uucp
+      uuseg
+    ];
   } else {
     version = "3.1.0";
     sha256 = "04vr1a94imsghm98iigc35rhifsz0rh3qz2qm0wam2wvp6vmrx0p";
     duneVersion = "2";
-    propagatedBuildInputs = [ charInfo_width react ];
+    propagatedBuildInputs = [
+      charInfo_width
+      react
+    ];
   };
 
 in buildDunePackage rec {

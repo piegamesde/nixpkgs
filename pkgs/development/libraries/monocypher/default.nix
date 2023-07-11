@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" ];
+  makeFlags = [
+    "AR:=$(AR)"
+    "CC:=$(CC)"
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
@@ -32,7 +35,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Boring crypto that simply works";
     homepage = "https://monocypher.org";
-    license = with licenses; [ bsd2 cc0 ];
+    license = with licenses; [
+      bsd2
+      cc0
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ sikmir ];
   };

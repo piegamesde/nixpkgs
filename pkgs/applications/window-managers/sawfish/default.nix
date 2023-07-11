@@ -30,8 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gWs8W/pMtQjbH8FEifzNAj3siZzxPd6xm8PmXXhyr10=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook gettext librep makeWrapper pkg-config texinfo which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    librep
+    makeWrapper
+    pkg-config
+    texinfo
+    which
+  ];
   buildInputs = [
     gdk-pixbuf-xlib
     gtk2

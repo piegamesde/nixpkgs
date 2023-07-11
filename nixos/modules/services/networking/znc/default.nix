@@ -71,9 +71,17 @@ let
   in concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
-    zncAtom = nullOr (oneOf [ int bool str ]);
+    zncAtom = nullOr (oneOf [
+      int
+      bool
+      str
+    ]);
     zncAttr = attrsOf (nullOr zncConf);
-    zncAll = oneOf [ zncAtom (listOf zncAtom) zncAttr ];
+    zncAll = oneOf [
+      zncAtom
+      (listOf zncAtom)
+      zncAttr
+    ];
     zncConf = attrsOf (zncAll // {
       # Since this is a recursive type and the description by default contains
       # the description of its subtypes, infinite recursion would occur without
@@ -285,12 +293,19 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = [ cfg.dataDir ];
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0027";
       };
       preStart = ''

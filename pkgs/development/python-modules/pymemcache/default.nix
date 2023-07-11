@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ faker mock pytestCheckHook zstd ];
+  nativeCheckInputs = [
+    faker
+    mock
+    pytestCheckHook
+    zstd
+  ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg

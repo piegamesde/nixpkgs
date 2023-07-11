@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NlDt6jJv5U0/Y0YUdkSZUI++7ErphAAvCGrfHQwHGSY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ zlib ];
   propagatedBuildInputs = [ libzen ];
 

@@ -27,8 +27,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs =
-    [ pytest-flakes pytest-mock pytest-socket pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-flakes
+    pytest-mock
+    pytest-socket
+    pytestCheckHook
+  ];
 
   patches = [
     # Switch to poetry-core, https://github.com/niksite/url-normalize/pull/28

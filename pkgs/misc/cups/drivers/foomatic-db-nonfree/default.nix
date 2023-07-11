@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-cRZH0CXg03FEqUJdxaNnPVXjf8+ct86PjhL59WQbw60=";
   };
 
-  nativeBuildInputs = [ autoconf automake perl ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    perl
+  ];
 
   # sed-substitute indirection is more robust against
   # characters in paths that might need escaping

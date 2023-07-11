@@ -27,12 +27,25 @@ python3.pkgs.buildPythonApplication rec {
 
   format = "other";
 
-  nativeBuildInputs =
-    [ wrapGAppsHook meson ninja gettext gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    meson
+    ninja
+    gettext
+    gobject-introspection
+  ];
 
-  buildInputs = [ pango gdk-pixbuf atk gtk3 ];
+  buildInputs = [
+    pango
+    gdk-pixbuf
+    atk
+    gtk3
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pycairo pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pycairo
+    pygobject3
+  ];
 
   preConfigure = ''
     # app bundle for macos

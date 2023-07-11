@@ -24,8 +24,16 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/host";
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libbtbb libpcap libusb1 bluez ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libbtbb
+    libpcap
+    libusb1
+    bluez
+  ];
 
   cmakeFlags = lib.optionals stdenv.isLinux [
     "-DINSTALL_UDEV_RULES=TRUE"

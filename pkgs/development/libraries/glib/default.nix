@@ -123,44 +123,68 @@ in stdenv.mkDerivation (finalAttrs: {
       ./skip-timer-test.patch
     ];
 
-  outputs = [ "bin" "out" "dev" "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   setupHook = ./setup-hook.sh;
 
-  buildInputs = [ libelf finalAttrs.setupHook pcre2 ]
-    ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
-      bash
-      gnum4 # install glib-gettextize and m4 macros for other apps to use
-    ] ++ lib.optionals stdenv.isLinux [
-      libselinux
-      util-linuxMinimal # for libmount
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      AppKit
-      Carbon
-      Cocoa
-      CoreFoundation
-      CoreServices
-      Foundation
-    ]) ++ lib.optionals buildDocs [
-      # Note: this needs to be both in buildInputs and nativeBuildInputs. The
-      # Meson gtkdoc module uses find_program to look it up (-> build dep), but
-      # glib's own Meson configuration uses the host pkg-config to find its
-      # version (-> host dep). We could technically go and fix this in glib, add
-      # pkg-config to depsBuildBuild, but this would be a futile exercise since
-      # Meson's gtkdoc integration does not support cross compilation[1] anyway
-      # and this derivation disables the docs build when cross compiling.
-      #
-      # [1] https://github.com/mesonbuild/meson/issues/2003
-      gtk-doc
-    ];
+  buildInputs = [
+    libelf
+    finalAttrs.setupHook
+    pcre2
+  ] ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
+    bash
+    gnum4 # install glib-gettextize and m4 macros for other apps to use
+  ] ++ lib.optionals stdenv.isLinux [
+    libselinux
+    util-linuxMinimal # for libmount
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    AppKit
+    Carbon
+    Cocoa
+    CoreFoundation
+    CoreServices
+    Foundation
+  ]) ++ lib.optionals buildDocs [
+    # Note: this needs to be both in buildInputs and nativeBuildInputs. The
+    # Meson gtkdoc module uses find_program to look it up (-> build dep), but
+    # glib's own Meson configuration uses the host pkg-config to find its
+    # version (-> host dep). We could technically go and fix this in glib, add
+    # pkg-config to depsBuildBuild, but this would be a futile exercise since
+    # Meson's gtkdoc integration does not support cross compilation[1] anyway
+    # and this derivation disables the docs build when cross compiling.
+    #
+    # [1] https://github.com/mesonbuild/meson/issues/2003
+    gtk-doc
+  ];
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config perl python3 gettext libxslt docbook_xsl ]
-    ++ lib.optionals buildDocs [ gtk-doc docbook_xml_dtd_45 libxml2 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    perl
+    python3
+    gettext
+    libxslt
+    docbook_xsl
+  ] ++ lib.optionals buildDocs [
+    gtk-doc
+    docbook_xml_dtd_45
+    libxml2
+  ];
 
-  propagatedBuildInputs = [ zlib libffi gettext libiconv ];
+  propagatedBuildInputs = [
+    zlib
+    libffi
+    gettext
+    libiconv
+  ];
 
   mesonFlags = [
     # Avoid the need for gobject introspection binaries in PATH in cross-compiling case.
@@ -168,9 +192,11 @@ in stdenv.mkDerivation (finalAttrs: {
     "-Dgtk_doc=${lib.boolToString buildDocs}"
     "-Dnls=enabled"
     "-Ddevbindir=${placeholder "dev"}/bin"
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-Dman=true" # broken on Darwin
-  ] ++ lib.optionals stdenv.isFreeBSD [ "-Db_lundef=false" "-Dxattr=false" ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [ "-Dman=true" # broken on Darwin
+    ] ++ lib.optionals stdenv.isFreeBSD [
+      "-Db_lundef=false"
+      "-Dxattr=false"
+    ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=nonnull"
@@ -236,7 +262,11 @@ in stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  nativeCheckInputs = [ tzdata desktop-file-utils shared-mime-info ];
+  nativeCheckInputs = [
+    tzdata
+    desktop-file-utils
+    shared-mime-info
+  ];
 
   preCheck =
     lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false ''
@@ -290,9 +320,15 @@ in stdenv.mkDerivation (finalAttrs: {
     description = "C library of programming buildings blocks";
     homepage = "https://wiki.gnome.org/Projects/GLib";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members
-      ++ (with maintainers; [ lovek323 raskin ]);
-    pkgConfigModules = [ "gio-2.0" "gobject-2.0" "gthread-2.0" ];
+    maintainers = teams.gnome.members ++ (with maintainers; [
+      lovek323
+      raskin
+    ]);
+    pkgConfigModules = [
+      "gio-2.0"
+      "gobject-2.0"
+      "gthread-2.0"
+    ];
     platforms = platforms.unix;
 
     longDescription = ''

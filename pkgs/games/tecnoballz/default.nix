@@ -21,9 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WRW76e+/eXE/KwuyOjzTPFQnKwNznbIrUrz14fnvgug=";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
 
-  buildInputs = [ SDL SDL_mixer SDL_image libmikmod tinyxml ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    SDL_image
+    libmikmod
+    tinyxml
+  ];
 
   # Newer compilers introduced warnings
   postPatch = ''

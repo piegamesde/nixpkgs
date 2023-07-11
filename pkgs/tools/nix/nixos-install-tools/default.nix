@@ -43,7 +43,10 @@ in (buildEnv {
   passthru.tests = {
     nixos-tests = lib.recurseIntoAttrs nixosTests.installer;
     nixos-install-help = runCommand "test-nixos-install-help" {
-      nativeBuildInputs = [ man nixos-install-tools ];
+      nativeBuildInputs = [
+        man
+        nixos-install-tools
+      ];
       meta.description = ''
         Make sure that --help works. It's somewhat non-trivial because it
         requires man.

@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SGDORHX+lk6PS5/sPAmKZLfZD99/A7XvDPDnuAygDAM=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ rofi-unwrapped libqalculate glib cairo ];
+  buildInputs = [
+    rofi-unwrapped
+    libqalculate
+    glib
+    cairo
+  ];
 
   patches = [ ./0001-Patch-plugindir-to-output.patch ];
 
@@ -38,7 +47,10 @@ stdenv.mkDerivation rec {
     description = "Do live calculations in rofi!";
     homepage = "https://github.com/svenstaro/rofi-calc";
     license = licenses.mit;
-    maintainers = with maintainers; [ luc65r albakham ];
+    maintainers = with maintainers; [
+      luc65r
+      albakham
+    ];
     platforms = with platforms; linux;
   };
 }

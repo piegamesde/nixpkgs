@@ -177,7 +177,12 @@ in {
     };
 
     logLevel = mkOption {
-      type = types.enum [ "error" "warn" "notice" "info" ];
+      type = types.enum [
+        "error"
+        "warn"
+        "notice"
+        "info"
+      ];
       default = "error";
       description = lib.mdDoc ''
         Verbosity of logs

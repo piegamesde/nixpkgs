@@ -65,10 +65,16 @@ in stdenv.mkDerivation (finalAttrs: {
   pname = "gtk+3";
   version = "3.24.37";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
   outputBin = "dev";
 
-  setupHooks = [ ./hooks/drop-icon-theme-cache.sh gtkCleanImmodulesCache ];
+  setupHooks = [
+    ./hooks/drop-icon-theme-cache.sh
+    gtkCleanImmodulesCache
+  ];
 
   src = let inherit (finalAttrs) version;
   in fetchurl {
@@ -90,22 +96,31 @@ in stdenv.mkDerivation (finalAttrs: {
   ];
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [ gettext makeWrapper meson ninja pkg-config python3 sassc gdk-pixbuf ]
-    ++ finalAttrs.setupHooks ++ lib.optionals withIntrospection [
-      gobject-introspection
-      docbook_xml_dtd_43
-      docbook-xsl-nons
-      gtk-doc
-      # For xmllint
-      libxml2
-    ] ++ lib.optionals
-    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ] ++ lib.optionals waylandSupport [ wayland-scanner ];
+  nativeBuildInputs = [
+    gettext
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    python3
+    sassc
+    gdk-pixbuf
+  ] ++ finalAttrs.setupHooks ++ lib.optionals withIntrospection [
+    gobject-introspection
+    docbook_xml_dtd_43
+    docbook-xsl-nons
+    gtk-doc
+    # For xmllint
+    libxml2
+  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-  buildInputs =
-    [ libxkbcommon (libepoxy.override { inherit x11Support; }) isocodes ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
+  buildInputs = [
+    libxkbcommon
+    (libepoxy.override { inherit x11Support; })
+    isocodes
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ];
   #TODO: colord?
 
@@ -133,8 +148,11 @@ in stdenv.mkDerivation (finalAttrs: {
       # explicitly propagated, always needed
       Cocoa
       QuartzCore
-    ] ++ lib.optionals waylandSupport [ libGL wayland wayland-protocols ]
-    ++ lib.optionals xineramaSupport [ libXinerama ]
+    ] ++ lib.optionals waylandSupport [
+      libGL
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals xineramaSupport [ libXinerama ]
     ++ lib.optionals cupsSupport [ cups ];
 
   mesonFlags = [
@@ -229,8 +247,13 @@ in stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gtk.org/";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ raskin ] ++ teams.gnome.members;
-    pkgConfigModules = [ "gdk-3.0" "gtk+-3.0" ]
-      ++ lib.optionals x11Support [ "gdk-x11-3.0" "gtk+-x11-3.0" ];
+    pkgConfigModules = [
+      "gdk-3.0"
+      "gtk+-3.0"
+    ] ++ lib.optionals x11Support [
+      "gdk-x11-3.0"
+      "gtk+-x11-3.0"
+    ];
     platforms = platforms.all;
     changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${version}/NEWS";
   };

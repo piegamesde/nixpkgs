@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
     ./load-extensions-from-env.patch
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   buildInputs = [
     glib
@@ -54,8 +57,14 @@ stdenv.mkDerivation rec {
     libgsf
   ];
 
-  nativeBuildInputs =
-    [ meson pkg-config ninja wrapGAppsHook intltool shared-mime-info ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    wrapGAppsHook
+    intltool
+    shared-mime-info
+  ];
 
   mesonFlags = [
     # use locales from cinnamon-translations
@@ -68,7 +77,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/linuxmint/nemo";
     description = "File browser for Cinnamon";
-    license = [ licenses.gpl2 licenses.lgpl2 ];
+    license = [
+      licenses.gpl2
+      licenses.lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
     mainProgram = "nemo";

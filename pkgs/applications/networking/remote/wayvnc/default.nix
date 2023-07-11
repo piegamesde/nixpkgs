@@ -32,9 +32,24 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
 
-  buildInputs = [ aml jansson libxkbcommon mesa neatvnc pam pixman wayland ];
+  buildInputs = [
+    aml
+    jansson
+    libxkbcommon
+    mesa
+    neatvnc
+    pam
+    pixman
+    wayland
+  ];
 
   mesonFlags = [ (lib.mesonBool "tests" true) ];
 

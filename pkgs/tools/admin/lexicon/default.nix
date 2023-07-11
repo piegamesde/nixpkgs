@@ -36,11 +36,22 @@ buildPythonApplication rec {
     gransy = [ zeep ];
     ddns = [ dnspython ];
     oci = [ oci ];
-    full = [ boto3 dnspython localzone oci softlayer zeep ];
+    full = [
+      boto3
+      dnspython
+      localzone
+      oci
+      softlayer
+      zeep
+    ];
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook pytest-xdist vcrpy ]
-    ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytest-xdist
+    vcrpy
+  ] ++ passthru.optional-dependencies.full;
 
   disabledTestPaths = [
     # Tests require network access

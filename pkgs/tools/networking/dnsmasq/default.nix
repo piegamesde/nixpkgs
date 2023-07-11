@@ -14,8 +14,10 @@
 }:
 
 let
-  copts = lib.concatStringsSep " " ([ "-DHAVE_IDN" "-DHAVE_DNSSEC" ]
-    ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
+  copts = lib.concatStringsSep " " ([
+    "-DHAVE_IDN"
+    "-DHAVE_DNSSEC"
+  ] ++ lib.optionals dbusSupport [ "-DHAVE_DBUS" ]
     ++ lib.optionals stdenv.isLinux [ "-DHAVE_CONNTRACK" ]);
 in stdenv.mkDerivation rec {
   pname = "dnsmasq";
@@ -75,7 +77,10 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ nettle libidn ] ++ lib.optionals dbusSupport [ dbus ]
+  buildInputs = [
+    nettle
+    libidn
+  ] ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals stdenv.isLinux [ libnetfilter_conntrack ];
 
   passthru.tests = {
@@ -92,6 +97,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.thekelleys.org.uk/dnsmasq/doc.html";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ eelco fpletz globin ];
+    maintainers = with maintainers; [
+      eelco
+      fpletz
+      globin
+    ];
   };
 }

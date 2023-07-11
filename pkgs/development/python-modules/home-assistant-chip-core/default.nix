@@ -89,7 +89,10 @@ buildPythonPackage rec {
       "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

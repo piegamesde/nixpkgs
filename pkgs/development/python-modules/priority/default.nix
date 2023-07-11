@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "priority" ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "A pure-Python implementation of the HTTP/2 priority tree";

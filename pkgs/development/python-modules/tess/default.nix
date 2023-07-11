@@ -20,7 +20,10 @@ buildPythonPackage {
 
   buildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   meta = with lib; {
     description =

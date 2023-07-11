@@ -28,9 +28,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  checkInputs = [ pytestCheckHook pytest-benchmark ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-benchmark
+  ];
 
   pythonImportsCheck = [ "pure_protobuf" ];
 

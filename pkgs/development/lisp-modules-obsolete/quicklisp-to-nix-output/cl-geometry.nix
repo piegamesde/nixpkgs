@@ -8,7 +8,10 @@ args@{
 
   description = "Library for two dimensional geometry.";
 
-  deps = [ args."iterate" args."trees" ];
+  deps = [
+    args."iterate"
+    args."trees"
+  ];
 
   src = fetchurl {
     url =

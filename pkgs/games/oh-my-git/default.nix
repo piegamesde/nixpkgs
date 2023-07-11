@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XqxliMVU55D5JSt7Yo5btvZnnTlagSukyhXv6Akgklo=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems godot-headless ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    godot-headless
+  ];
 
   buildInputs = [
     alsa-lib
@@ -59,17 +62,15 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "oh-my-git";
-      exec = "oh-my-git";
-      icon = "oh-my-git";
-      desktopName = "oh-my-git";
-      comment = "An interactive Git learning game!";
-      genericName = "An interactive Git learning game!";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "oh-my-git";
+    exec = "oh-my-git";
+    icon = "oh-my-git";
+    desktopName = "oh-my-git";
+    comment = "An interactive Git learning game!";
+    genericName = "An interactive Git learning game!";
+    categories = [ "Game" ];
+  }) ];
 
   # patch shebangs so that e.g. the fake-editor script works:
   # error: /usr/bin/env 'perl': No such file or directory

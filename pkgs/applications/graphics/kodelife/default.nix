@@ -66,9 +66,18 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+    dpkg
+  ];
 
-  buildInputs = [ stdenv.cc.cc.lib alsa-lib gstreamer gst-plugins-base ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    alsa-lib
+    gstreamer
+    gst-plugins-base
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -93,8 +102,15 @@ in stdenv.mkDerivation rec {
     description = "Real-time GPU shader editor";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ prusnak lilyinstarlight ];
-    platforms = [ "aarch64-linux" "armv7l-linux" "x86_64-linux" ];
+    maintainers = with maintainers; [
+      prusnak
+      lilyinstarlight
+    ];
+    platforms = [
+      "aarch64-linux"
+      "armv7l-linux"
+      "x86_64-linux"
+    ];
     mainProgram = "KodeLife";
   };
 }

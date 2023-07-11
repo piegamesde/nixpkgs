@@ -21,7 +21,13 @@ buildDunePackage rec {
     substituteInPlace src/unix/dune --replace "mtime mtime.clock" "mtime"
   '';
 
-  propagatedBuildInputs = [ gnuplot lwt metrics mtime uuidm ];
+  propagatedBuildInputs = [
+    gnuplot
+    lwt
+    metrics
+    mtime
+    uuidm
+  ];
 
   nativeCheckInputs = [ gnuplot ];
   checkInputs = [ metrics-lwt ];

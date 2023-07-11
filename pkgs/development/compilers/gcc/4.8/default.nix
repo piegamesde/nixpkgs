@@ -93,15 +93,14 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch ++ [
-      (fetchpatch {
-        name = "libc_name_p.diff"; # needed to build with gcc6
-        url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
-        sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
-        excludes = [ "gcc/cp/ChangeLog" ];
-      })
-    ] ++ [ # glibc-2.26
+    ++ optional hostPlatform.isDarwin ../gfortran-darwin-NXConstStr.patch
+    ++ [ (fetchpatch {
+      name = "libc_name_p.diff"; # needed to build with gcc6
+      url =
+        "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=ec1cc0263f1";
+      sha256 = "01jd7pdarh54ki498g6sz64ijl9a1l5f9v8q2696aaxalvh2vwzl";
+      excludes = [ "gcc/cp/ChangeLog" ];
+    }) ] ++ [ # glibc-2.26
       ../struct-ucontext-4.8.patch
       ../sigsegv-not-declared.patch
       ../res_state-not-declared.patch
@@ -131,8 +130,17 @@ let
     sha256 = "02lda2imivsvsis8rnzmbrbp8rh1kb8vmq4i67pqhkwz7lf8y6dz";
   };
 
-  xlibs =
-    [ libX11 libXt libSM libICE libXtst libXrender libXrandr libXi xorgproto ];
+  xlibs = [
+    libX11
+    libXt
+    libSM
+    libICE
+    libXtst
+    libXrender
+    libXrandr
+    libXi
+    xorgproto
+  ];
 
   javaAwtGtk = langJava && x11Support;
 
@@ -159,8 +167,10 @@ let
   };
 
   # We need all these X libraries when building AWT with GTK.
-in assert x11Support -> (filter (x: x == null) ([ gtk2 libart_lgpl ] ++ xlibs))
-  == [ ];
+in assert x11Support -> (filter (x: x == null) ([
+  gtk2
+  libart_lgpl
+] ++ xlibs)) == [ ];
 
 stdenv.mkDerivation ({
   pname = "${crossNameAddon}${name}";
@@ -175,9 +185,17 @@ stdenv.mkDerivation ({
 
   inherit patches;
 
-  hardeningDisable = [ "format" "pie" ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ];
 
-  outputs = [ "out" "lib" "man" "info" ];
+  outputs = [
+    "out"
+    "lib"
+    "man"
+    "info"
+  ];
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
@@ -211,7 +229,11 @@ stdenv.mkDerivation ({
 
   dontDisableStatic = true;
 
-  configurePlatforms = [ "build" "host" "target" ];
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
@@ -249,11 +271,17 @@ stdenv.mkDerivation ({
   CPATH = optionals (targetPlatform == hostPlatform)
     (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
       ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
-      ++ optionals javaAwtGtk [ gmp mpfr ]));
+      ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
     ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [ gmp mpfr ]));
+      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
 
   inherit (callFile ../common/extra-target-flags.nix { })
     EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
@@ -261,7 +289,10 @@ stdenv.mkDerivation ({
   passthru = {
     inherit langC langCC langObjC langObjCpp langFortran langGo version;
     isGNU = true;
-    hardeningUnsupportedFlags = [ "stackprotector" "fortify3" ];
+    hardeningUnsupportedFlags = [
+      "stackprotector"
+      "fortify3"
+    ];
   };
 
   enableParallelBuilding = true;
@@ -276,7 +307,10 @@ stdenv.mkDerivation ({
 
   // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt" && crossStageStatic) {
-      makeFlags = [ "all-gcc" "all-target-libgcc" ];
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
       installTargets = "install-gcc install-target-libgcc";
     }
 

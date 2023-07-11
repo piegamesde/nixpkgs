@@ -24,7 +24,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-eibUACIOfIsCgPYJ57Hq29S80XT6w4VbpjvaX7XasdE=";
 
-  nativeBuildInputs = [ makeWrapper pkg-config pandoc ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    pandoc
+  ];
 
   buildInputs = [ openssl ];
 
@@ -36,7 +40,11 @@ buildGoModule rec {
     "-X main.BuildDate=unknown"
   ];
 
-  subPackages = [ "." "gocryptfs-xray" "contrib/statfs" ];
+  subPackages = [
+    "."
+    "gocryptfs-xray"
+    "contrib/statfs"
+  ];
 
   postBuild = ''
     pushd Documentation/
@@ -60,7 +68,11 @@ buildGoModule rec {
     description = "Encrypted overlay filesystem written in Go";
     license = licenses.mit;
     homepage = "https://nuetzlich.net/gocryptfs/";
-    maintainers = with maintainers; [ flokli offline prusnak ];
+    maintainers = with maintainers; [
+      flokli
+      offline
+      prusnak
+    ];
     platforms = platforms.unix;
   };
 }

@@ -3,7 +3,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "caddy";
-    meta = with pkgs.lib.maintainers; { maintainers = [ xfix Br1ght0ne ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        xfix
+        Br1ght0ne
+      ];
+    };
 
     nodes = {
       webserver = {

@@ -16,7 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-WVK45U9e3qyZFi9wSRHNi9+1u4TetlZkYXAZN7LVqhE=";
   };
 
-  propagatedBuildInputs = [ certifi click requests ];
+  propagatedBuildInputs = [
+    certifi
+    click
+    requests
+  ];
 
   pythonImportsCheck = [ "gistyc" ];
 

@@ -20,7 +20,12 @@ buildDunePackage rec {
     sha256 = "sha256-vq4kwaz4QUG9x0fGEbQMAuDGjlT3/6lm8xiXTUqJmZM=";
   };
 
-  propagatedBuildInputs = [ astring fmt logs ocaml_lwt ];
+  propagatedBuildInputs = [
+    astring
+    fmt
+    logs
+    ocaml_lwt
+  ];
 
   meta = {
     homepage = "https://github.com/mirage/irmin-watcher";

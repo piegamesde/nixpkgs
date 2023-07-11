@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-7vpGEVU3q61l++LgMqzRs0Y9m/njNa9LCRbfTk0yBuA=";
   };
 
-  buildInputs = [ cyrus_sasl libmemcached zlib ];
+  buildInputs = [
+    cyrus_sasl
+    libmemcached
+    zlib
+  ];
 
   setupPyBuildFlags = [ "--with-sasl2" ];
 

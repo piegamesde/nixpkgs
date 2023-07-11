@@ -20,7 +20,10 @@ mkFranzDerivation rec {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--override-filename" ./default.nix ];
+      extraArgs = [
+        "--override-filename"
+        ./default.nix
+      ];
     };
   };
 

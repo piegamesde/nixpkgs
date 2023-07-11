@@ -10,5 +10,8 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ gluten lwt ];
+  propagatedBuildInputs = [
+    gluten
+    lwt
+  ];
 }

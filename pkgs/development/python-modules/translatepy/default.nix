@@ -21,8 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-cx5OeBrB8il8KrcyOmQbQ7VCXoaA5RP++oTTxCs/PcM=";
   };
 
-  propagatedBuildInputs =
-    [ requests beautifulsoup4 pyuseragents safeio inquirer ];
+  propagatedBuildInputs = [
+    requests
+    beautifulsoup4
+    pyuseragents
+    safeio
+    inquirer
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   disabledTestPaths = [

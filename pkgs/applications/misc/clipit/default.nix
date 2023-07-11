@@ -27,12 +27,30 @@ stdenv.mkDerivation rec {
     intltoolize --copy --force --automake
   '';
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook autoreconfHook intltool ];
-  configureFlags = [ "--with-gtk3" "--enable-appindicator=yes" ];
-  buildInputs = [ gtk3 libayatana-appindicator ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    autoreconfHook
+    intltool
+  ];
+  configureFlags = [
+    "--with-gtk3"
+    "--enable-appindicator=yes"
+  ];
+  buildInputs = [
+    gtk3
+    libayatana-appindicator
+  ];
 
-  gappsWrapperArgs =
-    [ "--prefix" "PATH" ":" "${lib.makeBinPath [ xdotool which ]}" ];
+  gappsWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [
+      xdotool
+      which
+    ]}"
+  ];
 
   meta = with lib; {
     description = "Lightweight GTK Clipboard Manager";

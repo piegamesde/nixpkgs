@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pydantic ];
 
-  nativeCheckInputs = [ httpx pytestCheckHook ];
+  nativeCheckInputs = [
+    httpx
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Test require network access

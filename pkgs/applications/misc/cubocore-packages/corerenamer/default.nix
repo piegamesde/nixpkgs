@@ -20,9 +20,16 @@ mkDerivation rec {
     sha256 = "sha256-hjI7KK+/u7OcqyjrZkRtBTfo8obDNqdudlFYcJR0dl8=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A batch file renamer from the C Suite";

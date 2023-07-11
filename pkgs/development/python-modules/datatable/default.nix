@@ -40,9 +40,18 @@ buildPythonPackage rec {
   '';
   DT_RELEASE = "1";
 
-  propagatedBuildInputs = [ typesentry blessed ];
-  buildInputs = [ llvm pipInstallHook ];
-  nativeCheckInputs = [ docutils pytestCheckHook ];
+  propagatedBuildInputs = [
+    typesentry
+    blessed
+  ];
+  buildInputs = [
+    llvm
+    pipInstallHook
+  ];
+  nativeCheckInputs = [
+    docutils
+    pytestCheckHook
+  ];
 
   LLVM = llvm;
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin

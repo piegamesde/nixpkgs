@@ -27,7 +27,14 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
 
   postInstall = let
-    path = lib.makeBinPath [ coreutils gawk git gnugrep ncurses util-linux ];
+    path = lib.makeBinPath [
+      coreutils
+      gawk
+      git
+      gnugrep
+      ncurses
+      util-linux
+    ];
   in ''
     wrapProgram $out/bin/git-quick-stats --suffix PATH : ${path}
   '';

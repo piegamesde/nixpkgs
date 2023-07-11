@@ -43,7 +43,11 @@ stdenv.mkDerivation rec {
     sha256 = "049bj3jg3ldi3n11nx8xvh6pll68g7dcxz51q6z1gyyfxxws1qpj";
   };
 
-  nativeBuildInputs = [ cmake doxygen pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+  ];
 
   buildInputs = [
     fmt

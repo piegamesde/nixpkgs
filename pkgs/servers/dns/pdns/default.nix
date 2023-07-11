@@ -91,6 +91,10 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ mic92 disassembler nickcao ];
+    maintainers = with maintainers; [
+      mic92
+      disassembler
+      nickcao
+    ];
   };
 }

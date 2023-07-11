@@ -17,8 +17,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/ctrtool";
 
-  makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+  ];
   enableParallelBuilding = true;
 
   installPhase =

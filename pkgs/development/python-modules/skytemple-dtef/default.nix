@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-QL+nLmjz0wCED2RjidIDK0tB6mAPnoaSJWpyLFu0pP4=";
   };
 
-  propagatedBuildInputs = [ pillow skytemple-files ];
+  propagatedBuildInputs = [
+    pillow
+    skytemple-files
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -33,6 +36,9 @@ buildPythonPackage rec {
       "A format for standardized rule-based tilesets with 256 adjacency combinations";
     homepage = "https://github.com/SkyTemple/skytemple-dtef";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 xfix ];
+    maintainers = with maintainers; [
+      marius851000
+      xfix
+    ];
   };
 }

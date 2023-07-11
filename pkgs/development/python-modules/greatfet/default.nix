@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ future pyusb ipython pygreat ];
+  propagatedBuildInputs = [
+    future
+    pyusb
+    ipython
+    pygreat
+  ];
 
   doCheck = false;
 

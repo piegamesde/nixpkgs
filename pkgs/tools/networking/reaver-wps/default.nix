@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libpcap sqlite ];
+  buildInputs = [
+    libpcap
+    sqlite
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: crypto/dh_groups.o:src/crypto/../globule.h:141: multiple definition of

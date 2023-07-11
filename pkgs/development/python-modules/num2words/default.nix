@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ docopt ];
 
-  nativeCheckInputs = [ delegator-py pytest ];
+  nativeCheckInputs = [
+    delegator-py
+    pytest
+  ];
 
   checkPhase = ''
     pytest -k 'not cli_with_lang'

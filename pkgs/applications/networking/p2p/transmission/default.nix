@@ -57,7 +57,10 @@ in stdenv.mkDerivation {
     })
   ];
 
-  outputs = [ "out" "apparmor" ];
+  outputs = [
+    "out"
+    "apparmor"
+  ];
 
   cmakeFlags = let mkFlag = opt: if opt then "ON" else "OFF";
   in [
@@ -69,15 +72,30 @@ in stdenv.mkDerivation {
     "-DINSTALL_LIB=${mkFlag installLib}"
   ];
 
-  nativeBuildInputs = [ pkg-config cmake ]
-    ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
     ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
-  buildInputs =
-    [ openssl curl libevent zlib pcre libb64 libutp miniupnpc dht libnatpmp ]
-    ++ lib.optionals enableQt [ qt5.qttools qt5.qtbase ]
-    ++ lib.optionals enableGTK3 [ gtk3 xorg.libpthreadstubs ]
-    ++ lib.optionals enableSystemd [ systemd ]
+  buildInputs = [
+    openssl
+    curl
+    libevent
+    zlib
+    pcre
+    libb64
+    libutp
+    miniupnpc
+    dht
+    libnatpmp
+  ] ++ lib.optionals enableQt [
+    qt5.qttools
+    qt5.qtbase
+  ] ++ lib.optionals enableGTK3 [
+    gtk3
+    xorg.libpthreadstubs
+  ] ++ lib.optionals enableSystemd [ systemd ]
     ++ lib.optionals stdenv.isLinux [ inotify-tools ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
@@ -90,9 +108,15 @@ in stdenv.mkDerivation {
       include <abstractions/nameservice>
       include <abstractions/ssl_certs>
       include "${
-        apparmorRulesFromClosure { name = "transmission-daemon"; }
-        ([ curl libevent openssl pcre zlib libnatpmp miniupnpc ]
-          ++ lib.optionals enableSystemd [ systemd ]
+        apparmorRulesFromClosure { name = "transmission-daemon"; } ([
+          curl
+          libevent
+          openssl
+          pcre
+          zlib
+          libnatpmp
+          miniupnpc
+        ] ++ lib.optionals enableSystemd [ systemd ]
           ++ lib.optionals stdenv.isLinux [ inotify-tools ])
       }"
       r @{PROC}/sys/kernel/random/uuid,
@@ -129,7 +153,10 @@ in stdenv.mkDerivation {
     '';
     homepage = "http://www.transmissionbt.com/";
     license = lib.licenses.gpl2Plus; # parts are under MIT
-    maintainers = with lib.maintainers; [ astsmtl vcunat ];
+    maintainers = with lib.maintainers; [
+      astsmtl
+      vcunat
+    ];
     platforms = lib.platforms.unix;
   };
 

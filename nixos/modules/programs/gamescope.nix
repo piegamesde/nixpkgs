@@ -45,7 +45,10 @@ in {
     args = mkOption {
       type = types.listOf types.string;
       default = [ ];
-      example = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
+      example = [
+        "--rt"
+        "--prefer-vk-device 8086:9bc4"
+      ];
       description = mdDoc ''
         Arguments passed to GameScope on startup.
       '';

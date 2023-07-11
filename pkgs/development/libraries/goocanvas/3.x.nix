@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "goocanvas";
   version = "3.0.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/goocanvas/${
@@ -26,10 +30,19 @@ stdenv.mkDerivation rec {
     sha256 = "06j05g2lmwvklmv51xsb7gm7rszcarhm01sal41jfp0qzrbpa2k7";
   };
 
-  nativeBuildInputs =
-    [ pkg-config gettext gobject-introspection gtk-doc python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    gobject-introspection
+    gtk-doc
+    python3
+  ];
 
-  buildInputs = [ cairo gtk3 glib ];
+  buildInputs = [
+    cairo
+    gtk3
+    glib
+  ];
 
   PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "$(dev)/share/gir-1.0";
   PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR =

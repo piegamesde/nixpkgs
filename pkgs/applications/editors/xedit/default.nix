@@ -30,8 +30,17 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config utilmacros ];
-  buildInputs = [ libX11 libXaw libXmu libXt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    utilmacros
+  ];
+  buildInputs = [
+    libX11
+    libXaw
+    libXmu
+    libXt
+  ];
 
   configureFlags = [
     "--with-lispdir=$out/share/X11/xedit/lisp"

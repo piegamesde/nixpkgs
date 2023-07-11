@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   preConfigure = lib.optionalString
     (stdenv.buildPlatform.isx86_64 || stdenv.hostPlatform.isi686) ''
@@ -60,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "http://www.videolan.org/developers/x264.html";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ spwhitt tadeokondrak ];
+    maintainers = with maintainers; [
+      spwhitt
+      tadeokondrak
+    ];
   };
 }

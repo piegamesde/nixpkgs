@@ -34,7 +34,11 @@ in python3.pkgs.buildPythonApplication {
     })
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ appdirs numpy pexpect ];
+  propagatedBuildInputs = with python3.pkgs; [
+    appdirs
+    numpy
+    pexpect
+  ];
 
   doCheck = false;
 

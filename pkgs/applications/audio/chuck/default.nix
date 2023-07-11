@@ -27,8 +27,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hIwsC9rYgXWSTFqUufKGqoT0Gnsf4nR4KQ0iSVbj8xg=";
   };
 
-  nativeBuildInputs = [ flex bison which ]
-    ++ lib.optionals stdenv.isDarwin [ DarwinTools xcbuild ];
+  nativeBuildInputs = [
+    flex
+    bison
+    which
+  ] ++ lib.optionals stdenv.isDarwin [
+    DarwinTools
+    xcbuild
+  ];
 
   buildInputs = [ libsndfile ] ++ lib.optional (!stdenv.isDarwin) alsa-lib
     ++ lib.optionals stdenv.isDarwin [
@@ -43,7 +49,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./darwin-limits.patch ];
 
-  makeFlags = [ "-C src" "DESTDIR=$(out)/bin" ];
+  makeFlags = [
+    "-C src"
+    "DESTDIR=$(out)/bin"
+  ];
   buildFlags = [ (if stdenv.isDarwin then "mac" else "linux-alsa") ];
 
   meta = with lib; {

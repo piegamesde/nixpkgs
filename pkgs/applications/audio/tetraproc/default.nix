@@ -45,7 +45,10 @@ stdenv.mkDerivation rec {
     xorg.libXrender
   ];
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=''" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX=''"
+  ];
 
   preConfigure = ''
     cd ./source/

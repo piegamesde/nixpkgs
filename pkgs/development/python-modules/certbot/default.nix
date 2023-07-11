@@ -55,9 +55,16 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  buildInputs = [ dialog gnureadline ];
+  buildInputs = [
+    dialog
+    gnureadline
+  ];
 
-  nativeCheckInputs = [ python-dateutil pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    python-dateutil
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   pytestFlagsArray = [
     "-o cache_dir=$(mktemp -d)"

@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-mVZ0v1rGSyViycVlQEcxCeUw02veEMJi1aUpYSGtVWU=";
   };
 
-  propagatedBuildInputs = [ requests requests_ntlm six xmltodict ];
+  propagatedBuildInputs = [
+    requests
+    requests_ntlm
+    six
+    xmltodict
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "winrm" ];
 
@@ -35,6 +43,9 @@ buildPythonPackage rec {
     description = "Python library for Windows Remote Management";
     homepage = "https://github.com/diyan/pywinrm";
     license = licenses.mit;
-    maintainers = with maintainers; [ elasticdog kamadorueda ];
+    maintainers = with maintainers; [
+      elasticdog
+      kamadorueda
+    ];
   };
 }

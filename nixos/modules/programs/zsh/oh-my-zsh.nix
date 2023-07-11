@@ -38,25 +38,45 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "programs" "zsh" "oh-my-zsh" "enable" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "zsh"
+      "oh-my-zsh"
+      "enable"
+    ] [
       "programs"
       "zsh"
       "ohMyZsh"
       "enable"
     ])
-    (mkRenamedOptionModule [ "programs" "zsh" "oh-my-zsh" "theme" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "zsh"
+      "oh-my-zsh"
+      "theme"
+    ] [
       "programs"
       "zsh"
       "ohMyZsh"
       "theme"
     ])
-    (mkRenamedOptionModule [ "programs" "zsh" "oh-my-zsh" "custom" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "zsh"
+      "oh-my-zsh"
+      "custom"
+    ] [
       "programs"
       "zsh"
       "ohMyZsh"
       "custom"
     ])
-    (mkRenamedOptionModule [ "programs" "zsh" "oh-my-zsh" "plugins" ] [
+    (mkRenamedOptionModule [
+      "programs"
+      "zsh"
+      "oh-my-zsh"
+      "plugins"
+    ] [
       "programs"
       "zsh"
       "ohMyZsh"
@@ -157,11 +177,11 @@ in {
       source $ZSH/oh-my-zsh.sh
     '';
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.custom != null -> cfg.customPkgs == [ ];
       message =
         "If `cfg.custom` is set for `ZSH_CUSTOM`, `customPkgs` can't be used!";
-    }];
+    } ];
 
   };
 

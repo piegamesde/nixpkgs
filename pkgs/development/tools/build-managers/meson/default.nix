@@ -76,9 +76,16 @@ python3.pkgs.buildPythonApplication rec {
 
   setupHook = ./setup-hook.sh;
 
-  nativeCheckInputs = [ ninja pkg-config ];
-  checkInputs = [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation OpenGL AppKit Cocoa ];
+  nativeCheckInputs = [
+    ninja
+    pkg-config
+  ];
+  checkInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [
+    Foundation
+    OpenGL
+    AppKit
+    Cocoa
+  ];
   checkPhase = ''
     runHook preCheck
 
@@ -137,7 +144,11 @@ python3.pkgs.buildPythonApplication rec {
       code.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jtojnar mbe AndersonTorres ];
+    maintainers = with maintainers; [
+      jtojnar
+      mbe
+      AndersonTorres
+    ];
     inherit (python3.meta) platforms;
   };
 }

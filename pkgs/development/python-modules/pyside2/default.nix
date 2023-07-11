@@ -31,13 +31,20 @@ disabledIf (pythonAtLeast "3.11") (stdenv.mkDerivation rec {
     cd sources/pyside2
   '';
 
-  cmakeFlags =
-    [ "-DBUILD_TESTS=OFF" "-DPYTHON_EXECUTABLE=${python.interpreter}" ];
+  cmakeFlags = [
+    "-DBUILD_TESTS=OFF"
+    "-DPYTHON_EXECUTABLE=${python.interpreter}"
+  ];
 
   env.NIX_CFLAGS_COMPILE =
     "-I${qt5.qtdeclarative.dev}/include/QtQuick/${qt5.qtdeclarative.version}/QtQuick";
 
-  nativeBuildInputs = [ cmake ninja qt5.qmake python ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    qt5.qmake
+    python
+  ];
 
   buildInputs = (with qt5; [
     qtbase

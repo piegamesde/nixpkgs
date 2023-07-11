@@ -23,7 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-3Tr6WvYuHddc0vGb8li6hZLk2GgfXr67/T2AnYQ7qeo=";
   };
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [ pysigma ];
 
@@ -31,8 +34,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck =
-    [ "sigma.backends.insight_idr" "sigma.pipelines.insight_idr" ];
+  pythonImportsCheck = [
+    "sigma.backends.insight_idr"
+    "sigma.pipelines.insight_idr"
+  ];
 
   meta = with lib; {
     description =

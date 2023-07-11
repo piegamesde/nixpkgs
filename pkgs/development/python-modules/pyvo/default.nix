@@ -37,9 +37,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ astropy requests ];
+  propagatedBuildInputs = [
+    astropy
+    requests
+  ];
 
-  nativeCheckInputs = [ pillow pytestCheckHook pytest-astropy requests-mock ];
+  nativeCheckInputs = [
+    pillow
+    pytestCheckHook
+    pytest-astropy
+    requests-mock
+  ];
 
   disabledTestPaths = [
     # touches network

@@ -16,7 +16,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-ChVVXUjm6y71iRs64Kv63oiOG1GSqmx6J0YiGtEI0ao=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ requests sectools xlsxwriter ];
+  propagatedBuildInputs = with python3.pkgs; [
+    requests
+    sectools
+    xlsxwriter
+  ];
 
   # Project has no test
   doCheck = false;

@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ gviz-api protobuf werkzeug ];
+  propagatedBuildInputs = [
+    gviz-api
+    protobuf
+    werkzeug
+  ];
 
   meta = with lib; {
     description = "Profile Tensorboard Plugin.";

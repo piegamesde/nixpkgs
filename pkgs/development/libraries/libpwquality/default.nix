@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
   pname = "libpwquality";
   version = "1.4.5";
 
-  outputs = [ "out" "dev" "lib" "man" ] ++ lib.optionals enablePython [ "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+  ] ++ lib.optionals enablePython [ "py" ];
 
   src = fetchFromGitHub {
     owner = "libpwquality";
@@ -32,8 +37,10 @@ stdenv.mkDerivation rec {
     ./python-binding-prefix.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook perl ]
-    ++ lib.optionals enablePython [ python ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+  ] ++ lib.optionals enablePython [ python ];
   buildInputs = [ cracklib ] ++ lib.optionals enablePAM [ pam ];
 
   configureFlags =

@@ -41,8 +41,13 @@ in buildPythonApplication rec {
       --replace "version=get_version()," "version='${version}',"
   '';
 
-  propagatedBuildInputs =
-    [ colorclass pyyaml requests setuptools terminaltables ];
+  propagatedBuildInputs = [
+    colorclass
+    pyyaml
+    requests
+    setuptools
+    terminaltables
+  ];
 
   postConfigure = ''
     python3 -m linodecli bake ${spec} --skip-config

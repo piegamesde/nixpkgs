@@ -31,8 +31,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ bluetooth-sensor-state-data pycryptodomex sensor-state-data ];
+  propagatedBuildInputs = [
+    bluetooth-sensor-state-data
+    pycryptodomex
+    sensor-state-data
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

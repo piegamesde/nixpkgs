@@ -34,7 +34,16 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp sh/tools/simple-dlna-browser $outputWrapped
     makeWrapper $outputWrapped $outputWrapper \
-      --prefix PATH : ${lib.makeBinPath [ curl gawk gnugrep gnused socat wget ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          curl
+          gawk
+          gnugrep
+          gnused
+          socat
+          wget
+        ]
+      }
 
     # Set the program name to a fixed value
     # Normally it is guessed by the filename, but we don't want it to be the name of the wrapper

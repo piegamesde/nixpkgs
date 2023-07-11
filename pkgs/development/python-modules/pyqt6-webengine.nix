@@ -44,7 +44,10 @@ buildPythonPackage rec {
     export MAKEFLAGS+=" -j$NIX_BUILD_CORES"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontWrapQtApps = true;
 
@@ -79,6 +82,9 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ LunNova nrdxp ];
+    maintainers = with maintainers; [
+      LunNova
+      nrdxp
+    ];
   };
 }

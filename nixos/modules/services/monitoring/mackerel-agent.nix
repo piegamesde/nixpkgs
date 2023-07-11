@@ -52,12 +52,22 @@ in {
 
         options.host_status = {
           on_start = mkOption {
-            type = types.enum [ "working" "standby" "maintenance" "poweroff" ];
+            type = types.enum [
+              "working"
+              "standby"
+              "maintenance"
+              "poweroff"
+            ];
             description = lib.mdDoc "Host status after agent startup.";
             default = "working";
           };
           on_stop = mkOption {
-            type = types.enum [ "working" "standby" "maintenance" "poweroff" ];
+            type = types.enum [
+              "working"
+              "standby"
+              "maintenance"
+              "poweroff"
+            ];
             description = lib.mdDoc "Host status after agent shutdown.";
             default = "poweroff";
           };
@@ -89,7 +99,10 @@ in {
     # upstream service file in https://git.io/JUt4Q
     systemd.services.mackerel-agent = {
       description = "mackerel.io agent";
-      after = [ "network-online.target" "nss-lookup.target" ];
+      after = [
+        "network-online.target"
+        "nss-lookup.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         MACKEREL_PLUGIN_WORKDIR = mkDefault "%C/mackerel-agent";

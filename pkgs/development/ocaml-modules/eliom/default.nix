@@ -31,9 +31,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:1yn8mqxv9yz51x81j8wv1jn7l7crm8azp1m2g4zn5nz2s4nmfv6q";
   };
 
-  nativeBuildInputs = [ ocaml which findlib opaline ocamlbuild ];
-  buildInputs =
-    [ js_of_ocaml-ocamlbuild js_of_ocaml-ppx_deriving_json ocamlnet ];
+  nativeBuildInputs = [
+    ocaml
+    which
+    findlib
+    opaline
+    ocamlbuild
+  ];
+  buildInputs = [
+    js_of_ocaml-ocamlbuild
+    js_of_ocaml-ppx_deriving_json
+    ocamlnet
+  ];
 
   propagatedBuildInputs = [
     js_of_ocaml-lwt

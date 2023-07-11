@@ -23,13 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-lfT4lgW4n3k5Fs2Owng8JoHGYDwjoKTzaKhEf35O+VA=";
   };
 
-  propagatedBuildInputs = [ google-api-core libcst proto-plus ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    libcst
+    proto-plus
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
-  pythonImportsCheck =
-    [ "google.cloud.iam_credentials" "google.cloud.iam_credentials_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.iam_credentials"
+    "google.cloud.iam_credentials_v1"
+  ];
 
   meta = with lib; {
     description = "IAM Service Account Credentials API client library";
@@ -37,6 +46,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/googleapis/python-iam/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler SuperSandro2000 ];
+    maintainers = with maintainers; [
+      austinbutler
+      SuperSandro2000
+    ];
   };
 }

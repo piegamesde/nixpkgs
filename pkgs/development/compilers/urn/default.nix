@@ -19,7 +19,10 @@ let
   urn-rt = buildEnv {
     name = "urn-rt-${version}";
     ignoreCollisions = true;
-    paths = if useLuaJit then [ luajit readline ] else [ lua ];
+    paths = if useLuaJit then [
+      luajit
+      readline
+    ] else [ lua ];
   };
 
   inherit (lib) optionalString concatMapStringsSep;

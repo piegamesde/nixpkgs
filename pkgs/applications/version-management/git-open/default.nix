@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Bag2rI2uR7ilkg2ozjR8tPXqKz5XjiY7WAUJKTVTXd8=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper pandoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    pandoc
+  ];
 
   buildPhase = ''
     # marked-man is broken and severly outdated.

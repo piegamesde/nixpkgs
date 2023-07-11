@@ -19,7 +19,10 @@
   includeSources ? false,
   includeSystemImages ? false,
   systemImageTypes ? [ "google_apis_playstore" ],
-  abiVersions ? [ "armeabi-v7a" "arm64-v8a" ],
+  abiVersions ? [
+    "armeabi-v7a"
+    "arm64-v8a"
+  ],
   cmakeVersions ? [ ],
   includeNDK ? false,
   ndkVersion ? "25.1.8937393",
@@ -49,11 +52,24 @@ let
       addons ? [ ]
     }:
     let
-      mkRepoRuby = (ruby.withPackages (pkgs: with pkgs; [ slop nokogiri ]));
+      mkRepoRuby = (ruby.withPackages (pkgs:
+        with pkgs; [
+          slop
+          nokogiri
+        ]));
       mkRepoRubyArguments = lib.lists.flatten [
-        (builtins.map (package: [ "--packages" "${package}" ]) packages)
-        (builtins.map (image: [ "--images" "${image}" ]) images)
-        (builtins.map (addon: [ "--addons" "${addon}" ]) addons)
+        (builtins.map (package: [
+          "--packages"
+          "${package}"
+        ]) packages)
+        (builtins.map (image: [
+          "--images"
+          "${image}"
+        ]) images)
+        (builtins.map (addon: [
+          "--addons"
+          "${addon}"
+        ]) addons)
       ];
     in stdenv.mkDerivation {
       name = "androidenv-repo-json";
@@ -131,8 +147,12 @@ in rec {
       ...
     }@args:
     let
-      extraParams =
-        removeAttrs args [ "package" "os" "buildInputs" "patchInstructions" ];
+      extraParams = removeAttrs args [
+        "package"
+        "os"
+        "buildInputs"
+        "patchInstructions"
+      ];
     in deployAndroidPackages ({
       inherit os buildInputs meta;
       packages = [ package ];
@@ -225,8 +245,11 @@ in rec {
         availablePackages = map (abiVersion:
           system-images-packages.${apiVersion}.${type}.${abiVersion})
           (builtins.filter (abiVersion:
-            lib.hasAttrByPath [ apiVersion type abiVersion ]
-            system-images-packages) abiVersions);
+            lib.hasAttrByPath [
+              apiVersion
+              type
+              abiVersion
+            ] system-images-packages) abiVersions);
 
         instructions = builtins.listToAttrs (map (package: {
           name = package.name;

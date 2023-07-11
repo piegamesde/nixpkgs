@@ -24,12 +24,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZLNsyp82UnsveEfDKzH8WfRh/Y/PQlXq8Ma+jIZl9Gk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ tokyocabinet ncurses ]
-    ++ lib.optionals enableCairo [ cairo pango ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    tokyocabinet
+    ncurses
+  ] ++ lib.optionals enableCairo [
+    cairo
+    pango
+  ];
 
-  configureFlags =
-    lib.optionals (!enableCairo) [ "--disable-x11" "--disable-cairo" ];
+  configureFlags = lib.optionals (!enableCairo) [
+    "--disable-x11"
+    "--disable-cairo"
+  ];
 
   meta = with lib; {
     homepage = "http://duc.zevv.nl/";

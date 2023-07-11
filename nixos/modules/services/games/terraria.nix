@@ -17,8 +17,13 @@ let
     large = 3;
   };
   valFlag = name: val:
-    optionalString (val != null)
-    ''-${name} "${escape [ "\\" ''"'' ] (toString val)}"'';
+    optionalString (val != null) ''
+      -${name} "${
+        escape [
+          "\\"
+          ''"''
+        ] (toString val)
+      }"'';
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)
@@ -99,7 +104,11 @@ in {
       };
 
       autoCreatedWorldSize = mkOption {
-        type = types.enum [ "small" "medium" "large" ];
+        type = types.enum [
+          "small"
+          "medium"
+          "large"
+        ];
         default = "medium";
         description = lib.mdDoc ''
           Specifies the size of the auto-created world if `worldPath` does not

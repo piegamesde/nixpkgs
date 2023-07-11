@@ -25,15 +25,32 @@ stdenv.mkDerivation rec {
     sha256 = "0svgk4sc9kdhcsfyvbvgm5vpbg3sfr6z5rliflrw49v3x2i4vxq5";
   };
 
-  configureFlags = [ "--disable-broken-oss" "--enable-alsa-mmap" ];
+  configureFlags = [
+    "--disable-broken-oss"
+    "--enable-alsa-mmap"
+  ];
 
-  outputs = [ "out" "dev" "man" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ];
 
   buildInputs = [ ] ++ lib.optional usePulseAudio libpulseaudio
-    ++ lib.optionals stdenv.isLinux [ alsa-lib libcap ]
-    ++ lib.optionals stdenv.isDarwin [ CoreAudio CoreServices AudioUnit ];
+    ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      libcap
+    ] ++ lib.optionals stdenv.isDarwin [
+      CoreAudio
+      CoreServices
+      AudioUnit
+    ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     longDescription = ''

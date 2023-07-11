@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  cmakeFlags = [ "-DBUILD_TESTS=OFF" "-DCMAKE_PROJECT_VERSION=${version}" ];
+  cmakeFlags = [
+    "-DBUILD_TESTS=OFF"
+    "-DCMAKE_PROJECT_VERSION=${version}"
+  ];
 
   meta = with lib; {
     description = "The WebAssembly Binary Toolkit";

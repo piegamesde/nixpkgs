@@ -40,7 +40,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ flatpak glib granite7 gtk4 libxml2 ];
+  buildInputs = [
+    flatpak
+    glib
+    granite7
+    gtk4
+    libxml2
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

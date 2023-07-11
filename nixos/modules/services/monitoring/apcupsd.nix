@@ -85,7 +85,10 @@ let
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";
     # Put wrappers first so they "win"
-    paths = [ wrappedBinaries pkgs.apcupsd ];
+    paths = [
+      wrappedBinaries
+      pkgs.apcupsd
+    ];
   };
 
 in {
@@ -152,7 +155,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = let hooknames = builtins.attrNames cfg.hooks;
       in all (x: elem x eventList) hooknames;
       message = ''
@@ -160,7 +163,7 @@ in {
         Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
         Valid attribute names  : ${toString eventList}
       '';
-    }];
+    } ];
 
     # Give users access to the "apcaccess" tool
     environment.systemPackages = [ apcupsdWrapped ];

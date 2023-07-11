@@ -85,7 +85,10 @@ let
 
   paths.hylafax-faxq = {
     description = "HylaFAX queue manager sendq watch";
-    documentation = [ "man:faxq(8)" "man:sendq(5)" ];
+    documentation = [
+      "man:faxq(8)"
+      "man:sendq(5)"
+    ];
     wantedBy = [ "multi-user.target" ];
     pathConfig.PathExistsGlob = [ "${cfg.spoolAreaPath}/sendq/q*" ];
   };
@@ -237,7 +240,10 @@ let
       bindsTo = [ "dev-%i.device" ];
       requires = [ "hylafax-spool.service" ];
       after = bindsTo ++ requires;
-      before = [ "hylafax-faxq.service" "getty.target" ];
+      before = [
+        "hylafax-faxq.service"
+        "getty.target"
+      ];
       unitConfig.StopWhenUnneeded = true;
       unitConfig.AssertFileNotEmpty = "${cfg.spoolAreaPath}/etc/config.%I";
       serviceConfig.UtmpIdentifier = "%I";

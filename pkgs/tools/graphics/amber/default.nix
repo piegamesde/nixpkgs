@@ -56,10 +56,16 @@ in stdenv.mkDerivation rec {
     hash = "sha256-+xFYlUs13khT6r475eJJ+XS875h2sb+YbJ8ZN4MOSAA=";
   };
 
-  buildInputs = [ vulkan-headers vulkan-loader ];
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config python3 ]
-    ++ lib.optionals stdenv.isDarwin [ cctools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
   # Tests are disabled so we do not have to pull in googletest and more dependencies
   cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];

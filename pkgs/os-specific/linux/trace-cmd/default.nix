@@ -40,9 +40,18 @@ stdenv.mkDerivation rec {
     sourceHighlight
   ];
 
-  buildInputs = [ libtraceevent libtracefs zstd ];
+  buildInputs = [
+    libtraceevent
+    libtracefs
+    zstd
+  ];
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+  ];
 
   MANPAGE_DOCBOOK_XSL = "${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
 
@@ -61,7 +70,11 @@ stdenv.mkDerivation rec {
     make libs doc -j$NIX_BUILD_CORES
   '';
 
-  installTargets = [ "install_cmd" "install_libs" "install_doc" ];
+  installTargets = [
+    "install_cmd"
+    "install_libs"
+    "install_doc"
+  ];
   installFlags = [
     "LDCONFIG=false"
     "bindir=${placeholder "out"}/bin"
@@ -75,8 +88,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "User-space tools for the Linux kernel ftrace subsystem";
     homepage = "https://www.trace-cmd.org/";
-    license = with licenses; [ lgpl21Only gpl2Only ];
+    license = with licenses; [
+      lgpl21Only
+      gpl2Only
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice basvandijk ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      basvandijk
+    ];
   };
 }

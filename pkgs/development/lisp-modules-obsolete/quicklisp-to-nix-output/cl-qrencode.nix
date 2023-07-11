@@ -8,7 +8,11 @@ args@{
 
   description = "QR code 2005 encoder in Common Lisp";
 
-  deps = [ args."salza2" args."trivial-gray-streams" args."zpng" ];
+  deps = [
+    args."salza2"
+    args."trivial-gray-streams"
+    args."zpng"
+  ];
 
   src = fetchurl {
     url =

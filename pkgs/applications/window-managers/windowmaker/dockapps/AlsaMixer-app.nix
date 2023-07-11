@@ -16,7 +16,12 @@ stdenv.mkDerivation rec {
   src = dockapps-sources;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXpm libXext alsa-lib ];
+  buildInputs = [
+    libX11
+    libXpm
+    libXext
+    alsa-lib
+  ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname})

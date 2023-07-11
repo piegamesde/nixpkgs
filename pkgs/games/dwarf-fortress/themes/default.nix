@@ -16,7 +16,10 @@ listToAttrs (map (v: {
     sha256 = v.sha256;
     meta = with lib; {
       platforms = platforms.all;
-      maintainers = [ maintainers.matthewbauer maintainers.shazow ];
+      maintainers = [
+        maintainers.matthewbauer
+        maintainers.shazow
+      ];
       license = licenses.free;
     };
   };

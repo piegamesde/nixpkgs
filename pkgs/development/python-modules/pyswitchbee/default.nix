@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ aiohttp awesomeversion packaging ];
+  propagatedBuildInputs = [
+    aiohttp
+    awesomeversion
+    packaging
+  ];
 
   # Module doesn't have tests
   doCheck = false;

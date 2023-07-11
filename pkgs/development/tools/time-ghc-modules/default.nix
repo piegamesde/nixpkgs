@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp ./time-ghc-modules $out/bin/time-ghc-modules
     wrapProgram $out/bin/time-ghc-modules --prefix PATH : ${
-      lib.makeBinPath [ sqlite python3 coreutils findutils gnused ]
+      lib.makeBinPath [
+        sqlite
+        python3
+        coreutils
+        findutils
+        gnused
+      ]
     } \
                                           --set PROCESS_SCRIPT $out/lib/process \
                                           --set HTML_FILE $out/lib/index.html

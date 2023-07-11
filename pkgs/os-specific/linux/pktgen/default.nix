@@ -28,19 +28,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wBLGwVdn3ymUTVv7J/kbQYz4WNIgV246PHg51+FStUo=";
   };
 
-  patches = [
-    (fetchpatch {
-      # Ealier DPDK deprecated some macros, which were finally removed in >= 22.11
-      url =
-        "https://github.com/pktgen/Pktgen-DPDK/commit/089ef94ac04629f7380f5e618443bcacb2cef5ab.patch";
-      sha256 = "sha256-ITU/dIfu7QPpdIVYuCuDhDG9rVF+n8i1YYn9bFmQUME=";
-    })
+  patches = [ (fetchpatch {
+    # Ealier DPDK deprecated some macros, which were finally removed in >= 22.11
+    url =
+      "https://github.com/pktgen/Pktgen-DPDK/commit/089ef94ac04629f7380f5e618443bcacb2cef5ab.patch";
+    sha256 = "sha256-ITU/dIfu7QPpdIVYuCuDhDG9rVF+n8i1YYn9bFmQUME=";
+  }) ];
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-
-  buildInputs = [ dpdk libbsd libpcap lua5_3 numactl which ]
-    ++ lib.optionals withGtk [ gtk2 ];
+  buildInputs = [
+    dpdk
+    libbsd
+    libpcap
+    lua5_3
+    numactl
+    which
+  ] ++ lib.optionals withGtk [ gtk2 ];
 
   RTE_SDK = dpdk;
   GUI = lib.optionalString withGtk "true";

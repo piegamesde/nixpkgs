@@ -35,9 +35,16 @@ buildGoModule rec {
     "-X ${prefix}.BuildDate=1980-01-01T00:00:00Z"
   ];
 
-  tags = [ "nonetwork" "nodocker" "promtail_journal_enabled" ];
+  tags = [
+    "nonetwork"
+    "nodocker"
+    "promtail_journal_enabled"
+  ];
 
-  subPackages = [ "cmd/grafana-agent" "cmd/grafana-agentctl" ];
+  subPackages = [
+    "cmd/grafana-agent"
+    "cmd/grafana-agentctl"
+  ];
 
   # uses go-systemd, which uses libsystemd headers
   # https://github.com/coreos/go-systemd/issues/351
@@ -69,6 +76,9 @@ buildGoModule rec {
       "A lightweight subset of Prometheus and more, optimized for Grafana Cloud";
     license = licenses.asl20;
     homepage = "https://grafana.com/products/cloud";
-    maintainers = with maintainers; [ flokli indeednotjames ];
+    maintainers = with maintainers; [
+      flokli
+      indeednotjames
+    ];
   };
 }

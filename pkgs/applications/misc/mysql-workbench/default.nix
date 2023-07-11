@@ -87,7 +87,14 @@ in stdenv.mkDerivation rec {
     rm -f build/CMakeCache.txt
   '';
 
-  nativeBuildInputs = [ cmake ninja pkg-config jre swig wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    jre
+    swig
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3

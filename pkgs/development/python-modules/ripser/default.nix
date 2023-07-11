@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy scipy scikit-learn persim ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    scikit-learn
+    persim
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

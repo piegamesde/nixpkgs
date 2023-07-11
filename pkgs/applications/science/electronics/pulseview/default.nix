@@ -33,8 +33,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-8EL3ej4bNb8wZmMw427Dj6uNJIw2k8N7fjXUAcO/q8s=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     glib

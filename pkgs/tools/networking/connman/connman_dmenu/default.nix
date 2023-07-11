@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "061fi83pai4n19l9d7wq6wwj2d7cixwkhkh742c5ibmw1wb274yk";
   };
 
-  buildInputs = [ connman dmenu ];
+  buildInputs = [
+    connman
+    dmenu
+  ];
 
   dontBuild = true;
 

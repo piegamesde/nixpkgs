@@ -27,9 +27,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-tlSsHu7JnXO+sorVuWWubNUNdb9X0/pCaiGG5Y0X/g8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper protobuf perl ];
-  buildInputs = [ protobuf ncurses zlib openssl bash-completion perl ]
-    ++ lib.optional withUtempter libutempter;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    makeWrapper
+    protobuf
+    perl
+  ];
+  buildInputs = [
+    protobuf
+    ncurses
+    zlib
+    openssl
+    bash-completion
+    perl
+  ] ++ lib.optional withUtempter libutempter;
 
   strictDeps = true;
 
@@ -69,7 +81,10 @@ stdenv.mkDerivation rec {
       especially over Wi-Fi, cellular, and long-distance links.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ viric SuperSandro2000 ];
+    maintainers = with maintainers; [
+      viric
+      SuperSandro2000
+    ];
     platforms = platforms.unix;
   };
 }

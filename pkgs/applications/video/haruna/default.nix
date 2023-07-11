@@ -63,7 +63,12 @@ mkDerivation rec {
     qtquickcontrols2
   ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/multimedia/haruna";

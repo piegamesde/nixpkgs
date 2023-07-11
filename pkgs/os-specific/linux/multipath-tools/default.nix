@@ -45,8 +45,19 @@ stdenv.mkDerivation rec {
     sed '1i#include <assert.h>' -i tests/{util,vpd}.c
   '';
 
-  nativeBuildInputs = [ pkg-config perl ];
-  buildInputs = [ systemd lvm2 libaio readline liburcu json_c linuxHeaders ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    systemd
+    lvm2
+    libaio
+    readline
+    liburcu
+    json_c
+    linuxHeaders
+  ];
 
   makeFlags = [
     "LIB=lib"

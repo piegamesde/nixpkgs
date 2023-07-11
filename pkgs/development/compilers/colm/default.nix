@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cross-compile.patch ];
 
-  nativeBuildInputs = [ makeWrapper asciidoc autoreconfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    asciidoc
+    autoreconfHook
+  ];
 
   doCheck = true;
 

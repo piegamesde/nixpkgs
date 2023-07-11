@@ -44,10 +44,21 @@ in stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ iodine networkmanager glib ]
-    ++ lib.optionals withGnome [ gtk3 libsecret libnma ];
+  buildInputs = [
+    iodine
+    networkmanager
+    glib
+  ] ++ lib.optionals withGnome [
+    gtk3
+    libsecret
+    libnma
+  ];
 
-  nativeBuildInputs = [ intltool autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    autoreconfHook
+    pkg-config
+  ];
 
   # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";

@@ -34,10 +34,19 @@ buildPythonPackage rec {
       --replace "pyparsing>=2.4*" "pyparsing>=2.4"
   '';
 
-  propagatedBuildInputs = [ chardet pycurl six setuptools pyparsing ]
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ];
+  propagatedBuildInputs = [
+    chardet
+    pycurl
+    six
+    setuptools
+    pyparsing
+  ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ];
 
-  nativeCheckInputs = [ netaddr pytest pytestCheckHook ];
+  nativeCheckInputs = [
+    netaddr
+    pytest
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

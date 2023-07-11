@@ -27,8 +27,12 @@ buildPythonPackage rec {
     hash = "sha256-Q4jaH/W9ptcp8m28rxv6AgoqUqe5HwqBI+29pRZggCw=";
   };
 
-  propagatedBuildInputs =
-    [ google-auth google-cloud-core google-resumable-media requests ];
+  propagatedBuildInputs = [
+    google-auth
+    google-cloud-core
+    google-resumable-media
+    requests
+  ];
 
   passthru.optional-dependencies = { protobuf = [ protobuf ]; };
 

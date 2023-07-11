@@ -40,8 +40,22 @@ in mkDerivation {
     sha256 = "sha256-8gpNORTJclYUYp57Vw/0YO3XC9Idurt0a79fhqx0+mo=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ninja copyDesktopItems ];
-  buildInputs = [ qtbase qttools opencv4 procps eigen libXdmcp libevdev aruco ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+    copyDesktopItems
+  ];
+  buildInputs = [
+    qtbase
+    qttools
+    opencv4
+    procps
+    eigen
+    libXdmcp
+    libevdev
+    aruco
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wall -Wextra -Wpedantic -ffast-math -O3";
   dontWrapQtApps = true;
@@ -56,20 +70,18 @@ in mkDerivation {
     wrapQtApp $out/bin/opentrack
   '';
 
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = "opentrack";
-      exec = "opentrack";
-      icon = fetchurl {
-        url =
-          "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
-        sha256 = "0d114zk78f7nnrk89mz4gqn7yk3k71riikdn29w6sx99h57f6kgn";
-      };
-      desktopName = name;
-      genericName = "Head tracking software";
-      categories = [ "Utility" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem rec {
+    name = "opentrack";
+    exec = "opentrack";
+    icon = fetchurl {
+      url =
+        "https://github.com/opentrack/opentrack/raw/opentrack-${version}/gui/images/opentrack.png";
+      sha256 = "0d114zk78f7nnrk89mz4gqn7yk3k71riikdn29w6sx99h57f6kgn";
+    };
+    desktopName = name;
+    genericName = "Head tracking software";
+    categories = [ "Utility" ];
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/opentrack/opentrack";

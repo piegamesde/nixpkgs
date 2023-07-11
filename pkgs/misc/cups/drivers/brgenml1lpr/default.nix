@@ -60,7 +60,13 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ cups perl stdenv.cc.libc ghostscript which ];
+  buildInputs = [
+    cups
+    perl
+    stdenv.cc.libc
+    ghostscript
+    which
+  ];
 
   dontBuild = true;
 

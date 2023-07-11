@@ -32,11 +32,20 @@ stdenv.mkDerivation rec {
     comment = "Eclipse-based LDAP browser and directory client";
     desktopName = "Apache Directory Studio";
     genericName = "Apache Directory Studio";
-    categories = [ "Java" "Network" ];
+    categories = [
+      "Java"
+      "Network"
+    ];
   };
 
-  buildInputs = [ glib libsecret ];
-  nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
+  buildInputs = [
+    glib
+    libsecret
+  ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+  ];
 
   installPhase = ''
     dest="$out/libexec/ApacheDirectoryStudio"
@@ -58,7 +67,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Eclipse-based LDAP browser and directory client";
     homepage = "https://directory.apache.org/studio/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.asl20;
     # Upstream supports macOS and Windows too.
     platforms = platforms.linux;

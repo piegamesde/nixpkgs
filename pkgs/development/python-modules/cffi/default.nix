@@ -40,14 +40,20 @@ else
         # Drop py.code usage from tests, no longer depend on the deprecated py package
         url =
           "https://foss.heptapod.net/pypy/cffi/-/commit/9c7d865e17ec16a847090a3e0d1498b698b99756.patch";
-        excludes = [ "README.md" "requirements.txt" ];
+        excludes = [
+          "README.md"
+          "requirements.txt"
+        ];
         hash = "sha256-HSuLLIYXXGGCPccMNLV7o1G3ppn2P0FGCrPjqDv2e7k=";
       })
       (fetchpatch {
         #  Replace py.test usage with pytest
         url =
           "https://foss.heptapod.net/pypy/cffi/-/commit/bd02e1b122612baa74a126e428bacebc7889e897.patch";
-        excludes = [ "README.md" "requirements.txt" ];
+        excludes = [
+          "README.md"
+          "requirements.txt"
+        ];
         hash = "sha256-+2daRTvxtyrCPimOEAmVbiVm1Bso9hxGbaAbd03E+ws=";
       })
     ] ++ lib.optionals (pythonAtLeast "3.11") [
@@ -90,7 +96,10 @@ else
     ];
 
     meta = with lib; {
-      maintainers = with maintainers; [ domenkozar lnl7 ];
+      maintainers = with maintainers; [
+        domenkozar
+        lnl7
+      ];
       homepage = "https://cffi.readthedocs.org/";
       license = licenses.mit;
       description = "Foreign Function Interface for Python calling C code";

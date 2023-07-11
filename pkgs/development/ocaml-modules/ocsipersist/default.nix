@@ -10,7 +10,10 @@ buildDunePackage {
   inherit (ocsipersist-lib) src version;
   duneVersion = "3";
 
-  buildInputs = [ ocsipersist-pgsql ocsipersist-sqlite ];
+  buildInputs = [
+    ocsipersist-pgsql
+    ocsipersist-sqlite
+  ];
 
   propagatedBuildInputs = [ ocsipersist-lib ];
 

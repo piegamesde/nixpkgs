@@ -26,17 +26,27 @@ buildPythonPackage rec {
     hash = "sha256-zl5+22r0KMqdBKIlBe+8xxgh6h9am34USc1dLy+VGyY=";
   };
 
-  propagatedBuildInputs = [ cryptography requests pyjwt ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    cryptography
+    requests
+    pyjwt
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [ mypy pytestCheckHook responses ];
+  nativeCheckInputs = [
+    mypy
+    pytestCheckHook
+    responses
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
     --replace "pyjwt[crypto]>=2.0.0,<3.0.0" "pyjwt[crypto]>=2.0.0,<3.0.0"
   '';
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   pythonImportsCheck = [ "globus_sdk" ];
 

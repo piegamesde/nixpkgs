@@ -34,9 +34,17 @@ in buildPythonPackage rec {
     hash = "sha256-cd2xE5rYLl3NOv/DZjmHRPCe224k4XyPjo9aXV1ZhvU=";
   };
 
-  propagatedBuildInputs = [ requests requests-toolbelt pyjwt ];
+  propagatedBuildInputs = [
+    requests
+    requests-toolbelt
+    pyjwt
+  ];
 
-  nativeCheckInputs = [ arangodb mock pytestCheckHook ];
+  nativeCheckInputs = [
+    arangodb
+    mock
+    pytestCheckHook
+  ];
 
   # arangodb is compiled only for particular target architectures
   # (i.e. "haswell"). Thus, these tests may not pass reproducibly,

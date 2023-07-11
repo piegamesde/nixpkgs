@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-gyl/jfbptHz/gHkkVGWShhv1Z7o9fa9nJIz27U2A6wg=";
   };
 
-  nativeBuildInputs = [ autoconf-archive autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoconf-archive
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ cppunit libsigcxx openssl zlib ];
+  buildInputs = [
+    cppunit
+    libsigcxx
+    openssl
+    zlib
+  ];
 
   enableParallelBuilding = true;
 
@@ -35,7 +44,10 @@ stdenv.mkDerivation rec {
     description =
       "A BitTorrent library written in C++ for *nix, with focus on high performance and good code";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ebzzry codyopel ];
+    maintainers = with maintainers; [
+      ebzzry
+      codyopel
+    ];
     platforms = platforms.unix;
   };
 }

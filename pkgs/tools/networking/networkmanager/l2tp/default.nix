@@ -32,17 +32,29 @@ stdenv.mkDerivation rec {
     hash = "sha256-EfWvh4uSzWFadZAHTqsKa3un2FQ6WUbHLoHo9gSS7bE=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit strongswan xl2tpd;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit strongswan xl2tpd;
+  }) ];
+
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-
-  buildInputs = [ networkmanager ppp glib openssl nss ]
-    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
+  buildInputs = [
+    networkmanager
+    ppp
+    glib
+    openssl
+    nss
+  ] ++ lib.optionals withGnome [
+    gtk3
+    gtk4
+    libsecret
+    libnma
+    libnma-gtk4
+  ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
@@ -60,6 +72,9 @@ stdenv.mkDerivation rec {
     inherit (networkmanager.meta) platforms;
     homepage = "https://github.com/nm-l2tp/network-manager-l2tp";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ abbradar obadz ];
+    maintainers = with maintainers; [
+      abbradar
+      obadz
+    ];
   };
 }

@@ -86,8 +86,14 @@ in buildPythonPackage rec {
   # keep Nose around since running the tests by hand is possible from Python or bash
   nativeCheckInputs = [ nose ];
   # setuptools needed for cuda support
-  propagatedBuildInputs =
-    [ libgpuarray_ numpy numpy.blas scipy setuptools six ];
+  propagatedBuildInputs = [
+    libgpuarray_
+    numpy
+    numpy.blas
+    scipy
+    setuptools
+    six
+  ];
 
   pythonImportsCheck = [ "theano" ];
 

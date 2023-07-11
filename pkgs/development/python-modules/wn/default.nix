@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ requests tomli ];
+  propagatedBuildInputs = [
+    requests
+    tomli
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

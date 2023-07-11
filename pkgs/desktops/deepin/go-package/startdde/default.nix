@@ -51,7 +51,12 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [ gettext pkg-config jq wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    jq
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     go-dbus-factory

@@ -11,10 +11,11 @@ with lib;
 
 let cfg = config.virtualisation.lxd;
 in {
-  imports = [
-    (mkRemovedOptionModule [ "virtualisation" "lxd" "zfsPackage" ]
-      "Override zfs in an overlay instead to override it globally")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "virtualisation"
+    "lxd"
+    "zfsPackage"
+  ] "Override zfs in an overlay instead to override it globally") ];
 
   ###### interface
 
@@ -175,14 +176,14 @@ in {
     users.groups.lxd = { };
 
     users.users.root = {
-      subUidRanges = [{
+      subUidRanges = [ {
         startUid = 1000000;
         count = 65536;
-      }];
-      subGidRanges = [{
+      } ];
+      subGidRanges = [ {
         startGid = 1000000;
         count = 65536;
-      }];
+      } ];
     };
 
     boot.kernel.sysctl = mkIf cfg.recommendedSysctlSettings {
@@ -196,7 +197,11 @@ in {
       "kernel.keys.maxkeys" = 2000;
     };
 
-    boot.kernelModules = [ "veth" "xt_comment" "xt_CHECKSUM" "xt_MASQUERADE" ]
-      ++ optionals (!config.networking.nftables.enable) [ "iptable_mangle" ];
+    boot.kernelModules = [
+      "veth"
+      "xt_comment"
+      "xt_CHECKSUM"
+      "xt_MASQUERADE"
+    ] ++ optionals (!config.networking.nftables.enable) [ "iptable_mangle" ];
   };
 }

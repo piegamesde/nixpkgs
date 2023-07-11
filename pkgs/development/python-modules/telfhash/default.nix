@@ -26,7 +26,12 @@ buildPythonPackage rec {
        --replace "py-tlsh" "tlsh"
   '';
 
-  propagatedBuildInputs = [ capstone pyelftools tlsh packaging ];
+  propagatedBuildInputs = [
+    capstone
+    pyelftools
+    tlsh
+    packaging
+  ];
 
   nativeCheckInputs = [ nose ];
 

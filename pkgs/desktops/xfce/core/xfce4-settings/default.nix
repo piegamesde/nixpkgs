@@ -41,7 +41,10 @@ mkXfceDerivation {
     xfconf
   ];
 
-  configureFlags = [ "--enable-pluggable-dialogs" "--enable-sound-settings" ];
+  configureFlags = [
+    "--enable-pluggable-dialogs"
+    "--enable-sound-settings"
+  ];
 
   meta = with lib; {
     description = "Settings manager for Xfce";

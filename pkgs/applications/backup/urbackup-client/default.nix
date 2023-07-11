@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i1g3xUhspqQRfIUhy6STOWNuncK3tMFocJw652r1X9g=";
   };
 
-  buildInputs = [ wxGTK32 zlib zstd ];
+  buildInputs = [
+    wxGTK32
+    zlib
+    zstd
+  ];
 
   configureFlags = [ "--enable-embedded-cryptopp" ];
 

@@ -84,7 +84,13 @@ stdenv.mkDerivation rec {
 
     updateScript = writeShellScript "update-blackfire" ''
       set -o errexit
-      export PATH="${lib.makeBinPath [ curl jq common-updater-scripts ]}"
+      export PATH="${
+        lib.makeBinPath [
+          curl
+          jq
+          common-updater-scripts
+        ]
+      }"
       NEW_VERSION=$(curl -s https://blackfire.io/api/v1/releases | jq .cli --raw-output)
 
       if [[ "${version}" = "$NEW_VERSION" ]]; then

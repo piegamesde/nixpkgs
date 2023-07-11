@@ -199,14 +199,25 @@ let
 
 in {
 
-  imports =
-    [ (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ]) ]
-    ++ flip map [ "4" "6" ] (postfix:
-      mkRemovedOptionModule [ "services" "dhcpd${postfix}" "stateDir" ] ''
-        The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
-        This means the directory is named after the service (dhcpd${postfix}), created under
-        /var/lib/private/ and symlinked to /var/lib/.
-      '');
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "dhcpd"
+  ] [
+    "services"
+    "dhcpd4"
+  ]) ] ++ flip map [
+    "4"
+    "6"
+  ] (postfix:
+    mkRemovedOptionModule [
+      "services"
+      "dhcpd${postfix}"
+      "stateDir"
+    ] ''
+      The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
+      This means the directory is named after the service (dhcpd${postfix}), created under
+      /var/lib/private/ and symlinked to /var/lib/.
+    '');
 
   ###### interface
 
@@ -223,11 +234,11 @@ in {
 
     systemd.services = dhcpdService "4" cfg4 // dhcpdService "6" cfg6;
 
-    warnings = [''
+    warnings = [ ''
       The dhcpd4 and dhcpd6 modules will be removed from NixOS 23.11, because ISC DHCP reached its end of life.
       See https://www.isc.org/blogs/isc-dhcp-eol/ for details.
       Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
-    ''];
+    '' ];
   };
 
 }

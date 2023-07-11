@@ -19,8 +19,11 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-XnQcVlN4xtZQDjijNV09m2m0ODYfFbrQaNd8ZQVToIw=";
   };
 
-  propagatedBuildInputs =
-    [ gnome.adwaita-icon-theme gnome-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    gnome.adwaita-icon-theme
+    gnome-icon-theme
+    hicolor-icon-theme
+  ];
 
   nativeBuildInputs = [ gtk3 ];
 

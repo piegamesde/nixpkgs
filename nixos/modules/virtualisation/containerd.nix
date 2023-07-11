@@ -73,8 +73,11 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = with pkgs;
-        [ containerd runc iptables ]
-        ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
+        [
+          containerd
+          runc
+          iptables
+        ] ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         ExecStart = "${pkgs.containerd}/bin/containerd ${
             lib.concatStringsSep " " (lib.cli.toGNUCommandLine { } cfg.args)

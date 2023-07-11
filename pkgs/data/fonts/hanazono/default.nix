@@ -39,7 +39,10 @@ stdenvNoCC.mkDerivation rec {
     # Unlimited permission is granted to use, copy, and distribute it, with
     # or without modification, either commercially and noncommercially.
     # THIS FONT IS PROVIDED "AS IS" WITHOUT WARRANTY.
-    license = [ licenses.ofl licenses.free ];
+    license = [
+      licenses.ofl
+      licenses.free
+    ];
     maintainers = with maintainers; [ mathnerd314 ];
     platforms = platforms.all;
   };

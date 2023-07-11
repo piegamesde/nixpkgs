@@ -30,11 +30,21 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "awkward" ];
 
-  nativeBuildInputs = [ hatch-vcs hatchling pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ awkward dask ];
+  propagatedBuildInputs = [
+    awkward
+    dask
+  ];
 
-  checkInputs = [ pytestCheckHook pyarrow ];
+  checkInputs = [
+    pytestCheckHook
+    pyarrow
+  ];
 
   pythonImportsCheck = [ "dask_awkward" ];
 

@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
     substituteInPlace library/rt/backendmanager.cpp --subst-var out
   '';
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -48,7 +52,14 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ alsa-lib fluidsynth libpulseaudio qtbase qtsvg sonivox ];
+  buildInputs = [
+    alsa-lib
+    fluidsynth
+    libpulseaudio
+    qtbase
+    qtsvg
+    sonivox
+  ];
 
   cmakeFlags = [ "-DUSE_DBUS=ON" ];
 

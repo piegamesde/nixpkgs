@@ -14,7 +14,11 @@ mkDerivation {
   inherit (wpa_supplicant) version src;
 
   buildInputs = [ qtbase ];
-  nativeBuildInputs = [ qmake inkscape imagemagick ];
+  nativeBuildInputs = [
+    qmake
+    inkscape
+    imagemagick
+  ];
 
   postPatch = ''
     cd wpa_supplicant/wpa_gui-qt4

@@ -31,10 +31,21 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatchling hatch-vcs ];
+  nativeBuildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
-  propagatedBuildInputs =
-    [ astor numpy pandas scipy wrapt typing-extensions interface-meta sympy ];
+  propagatedBuildInputs = [
+    astor
+    numpy
+    pandas
+    scipy
+    wrapt
+    typing-extensions
+    interface-meta
+    sympy
+  ];
 
   pythonImportsCheck = [ "formulaic" ];
 

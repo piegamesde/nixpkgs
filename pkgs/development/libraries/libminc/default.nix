@@ -28,8 +28,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib nifticlib ];
-  propagatedBuildInputs = [ netcdf hdf5 ];
+  buildInputs = [
+    zlib
+    nifticlib
+  ];
+  propagatedBuildInputs = [
+    netcdf
+    hdf5
+  ];
 
   cmakeFlags = [
     "-DLIBMINC_MINC1_SUPPORT=ON"

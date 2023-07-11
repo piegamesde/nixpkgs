@@ -22,9 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-COOGqfYiR4tueQHXuCvVxShrYS0XNltcW4mclbFWcfA=";
   };
 
-  propagatedBuildInputs = [ aiohttp pyjwt yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    pyjwt
+    yarl
+  ];
 
-  nativeCheckInputs = [ aioresponses pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "homepluscontrol" ];
 

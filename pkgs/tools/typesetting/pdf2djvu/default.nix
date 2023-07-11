@@ -55,10 +55,20 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs =
-    [ djvulibre exiv2 fontconfig graphicsmagick libjpeg libuuid poppler ];
+  buildInputs = [
+    djvulibre
+    exiv2
+    fontconfig
+    graphicsmagick
+    libjpeg
+    libuuid
+    poppler
+  ];
 
   postPatch = ''
     substituteInPlace private/autogen \

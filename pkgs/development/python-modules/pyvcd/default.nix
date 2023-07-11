@@ -30,6 +30,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/SanDisk-Open-Source/pyvcd/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ sb0 emily ];
+    maintainers = with maintainers; [
+      sb0
+      emily
+    ];
   };
 }

@@ -27,7 +27,13 @@ in stdenv.mkDerivation {
       "udev_rules_dir = '$out/lib/udev'"
   '';
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config scdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+    scdoc
+  ];
 
   buildInputs = [ libusb1 ];
 

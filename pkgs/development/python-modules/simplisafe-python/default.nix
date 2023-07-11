@@ -34,11 +34,23 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp backoff beautifulsoup4 docutils pytz voluptuous websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    backoff
+    beautifulsoup4
+    docutils
+    pytz
+    voluptuous
+    websockets
+  ];
 
-  nativeCheckInputs =
-    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook types-pytz ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-aiohttp
+    pytest-asyncio
+    pytestCheckHook
+    types-pytz
+  ];
 
   disabledTests = [
     # simplipy/api.py:253: InvalidCredentialsError

@@ -47,7 +47,10 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/svinota/pyroute2/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab mic92 ];
+    maintainers = with maintainers; [
+      fab
+      mic92
+    ];
     platforms = platforms.unix;
   };
 }

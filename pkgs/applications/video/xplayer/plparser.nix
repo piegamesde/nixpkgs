@@ -22,14 +22,26 @@ stdenv.mkDerivation rec {
     sha256 = "6GMKsIpyQdiyHPxrjWHAHvuCouJxrAcYPIo9u6TLOA4=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+  ];
 
-  buildInputs = [ gmime3 libxml2 libsoup ];
+  buildInputs = [
+    gmime3
+    libxml2
+    libsoup
+  ];
 
   meta = with lib; {
     description = "Playlist parsing library for xplayer";
     homepage = "https://github.com/linuxmint/xplayer-plparser";
-    maintainers = with maintainers; [ tu-maurice bobby285271 ];
+    maintainers = with maintainers; [
+      tu-maurice
+      bobby285271
+    ];
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
   };

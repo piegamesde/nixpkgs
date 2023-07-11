@@ -20,16 +20,27 @@ stdenv.mkDerivation {
     sha256 = "1dmfqb15ffldl5zirbmwiqzpxbcc2ny9rpfvxcfvpmh5b69knvdg";
   };
 
-  nativeBuildInputs = [ perl makeWrapper ];
+  nativeBuildInputs = [
+    perl
+    makeWrapper
+  ];
   buildInputs = [ sysfsutils ];
 
-  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   installFlags = [ "sysconfdir=\${out}/etc" ];
 
   postInstall = ''
     wrapProgram "$out/sbin/edac-ctl" \
-      --set PATH ${lib.makeBinPath [ dmidecode kmod ]}
+      --set PATH ${
+        lib.makeBinPath [
+          dmidecode
+          kmod
+        ]
+      }
   '';
 
   meta = with lib; {

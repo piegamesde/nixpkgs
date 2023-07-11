@@ -26,7 +26,14 @@ buildPythonPackage rec {
     sha256 = "16g49nl2bgnh6nh7bd21s393zbksdvgp9l13ww2diwhplj6hlly3";
   };
 
-  propagatedBuildInputs = [ numpy scipy cython networkx joblib pyyaml ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    cython
+    networkx
+    joblib
+    pyyaml
+  ];
 
   nativeCheckInputs = [
     pandas

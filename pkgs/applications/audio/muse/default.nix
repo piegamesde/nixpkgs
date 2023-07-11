@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-parallel-building.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     alsa-lib

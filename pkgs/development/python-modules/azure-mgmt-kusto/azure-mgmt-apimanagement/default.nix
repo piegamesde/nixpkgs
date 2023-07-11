@@ -19,12 +19,19 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common msrest msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    msrest
+    msrestazure
+  ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.common" "azure.mgmt.apimanagement" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.mgmt.apimanagement"
+  ];
 
   meta = with lib; {
     description = "Microsoft Azure API Management Client Library for Python";

@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "1caidy18rq5zk82d51x8vwidmkhwmanf3qm25x1yrdlbhxv6m7lk";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ pam libp11.passthru.openssl libp11 ]
-    ++ lib.optionals stdenv.isDarwin [ libintl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    pam
+    libp11.passthru.openssl
+    libp11
+  ] ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   meta = with lib; {
     homepage = "https://github.com/OpenSC/pam_p11";

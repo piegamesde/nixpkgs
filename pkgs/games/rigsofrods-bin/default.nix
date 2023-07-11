@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    unzip
+  ];
 
-  buildInputs = [ libGL libICE libSM libX11 libXrandr stdenv.cc.cc zlib ];
+  buildInputs = [
+    libGL
+    libICE
+    libSM
+    libX11
+    libXrandr
+    stdenv.cc.cc
+    zlib
+  ];
 
   runtimeDependencies = [ alsa-lib ];
 
@@ -51,7 +63,10 @@ stdenv.mkDerivation rec {
       "A free/libre soft-body physics simulator mainly targeted at simulating vehicle physics";
     homepage = "https://www.rigsofrods.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin wegank ];
+    maintainers = with maintainers; [
+      raskin
+      wegank
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

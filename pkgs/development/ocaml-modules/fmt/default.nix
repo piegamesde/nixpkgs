@@ -22,8 +22,16 @@ else
       sha256 = "sha256-8fsggFoi3XWhN9cnBKNw53ic9r32OUjmgX0cImwUEmE=";
     };
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
-    buildInputs = [ cmdliner topkg ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
+    buildInputs = [
+      cmdliner
+      topkg
+    ];
 
     strictDeps = true;
 

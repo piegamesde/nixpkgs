@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "1fyrc4g9qdq04nxs4g8x0krxfani5xady6v9m0qfqpbh4xk2ry2d";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config installShellFiles ];
-  buildInputs = [ glib expat ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    installShellFiles
+  ];
+  buildInputs = [
+    glib
+    expat
+  ];
 
   postInstall = ''
     installShellCompletion --bash src/prevo-completion

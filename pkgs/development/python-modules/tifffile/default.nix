@@ -25,7 +25,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ dask fsspec lxml pytestCheckHook zarr ];
+  nativeCheckInputs = [
+    dask
+    fsspec
+    lxml
+    pytestCheckHook
+    zarr
+  ];
 
   disabledTests = [
     # Test require network access

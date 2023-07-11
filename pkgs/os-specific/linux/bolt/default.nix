@@ -60,7 +60,10 @@ stdenv.mkDerivation rec {
     glib
   ] ++ lib.optional (!doCheck) python3;
 
-  buildInputs = [ polkit systemd ];
+  buildInputs = [
+    polkit
+    systemd
+  ];
 
   # https://gitlab.freedesktop.org/bolt/bolt/-/issues/181
   doCheck = false;
@@ -73,8 +76,11 @@ stdenv.mkDerivation rec {
     dbus
     gobject-introspection
     umockdev
-    (python3.pythonForBuild.withPackages
-      (p: [ p.pygobject3 p.dbus-python p.python-dbusmock ]))
+    (python3.pythonForBuild.withPackages (p: [
+      p.pygobject3
+      p.dbus-python
+      p.python-dbusmock
+    ]))
   ];
 
   postPatch = ''

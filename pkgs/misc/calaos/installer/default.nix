@@ -19,7 +19,10 @@ mkDerivation rec {
     sha256 = "hx7XVF2iueKFR67U0EvSK1vYZnJBnuOpUOkSjx7h1XY=";
   };
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
   buildInputs = [ qtbase ];
 
   qmakeFlags = [ "REVISION=${version}" ];

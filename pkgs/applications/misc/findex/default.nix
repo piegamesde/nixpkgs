@@ -22,7 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk3 keybinder3 ];
+  buildInputs = [
+    gtk3
+    keybinder3
+  ];
 
   meta = with lib; {
     description =

@@ -42,8 +42,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [ glib glib-networking gtk3 libdazzle libgee pantheon.granite webkitgtk ];
+  buildInputs = [
+    glib
+    glib-networking
+    gtk3
+    libdazzle
+    libgee
+    pantheon.granite
+    webkitgtk
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

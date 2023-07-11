@@ -36,7 +36,10 @@ mkDerivation rec {
     cd platform/qt/
   '';
 
-  buildInputs = [ qtmultimedia qtbase ];
+  buildInputs = [
+    qtmultimedia
+    qtbase
+  ];
 
   dontWrapQtApps = true;
 

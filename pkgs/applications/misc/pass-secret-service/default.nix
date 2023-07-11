@@ -52,7 +52,13 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs = let ps = python3.pkgs;
-  in [ dbus gnupg ps.pytest ps.pytest-asyncio ps.pypass ];
+  in [
+    dbus
+    gnupg
+    ps.pytest
+    ps.pytest-asyncio
+    ps.pypass
+  ];
 
   checkTarget = "test";
 
@@ -64,6 +70,9 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
     mainProgram = "pass_secret_service";
-    maintainers = with lib.maintainers; [ jluttine aidalgol ];
+    maintainers = with lib.maintainers; [
+      jluttine
+      aidalgol
+    ];
   };
 }

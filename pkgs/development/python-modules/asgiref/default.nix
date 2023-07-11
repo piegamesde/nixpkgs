@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
 

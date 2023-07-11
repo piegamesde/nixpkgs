@@ -36,7 +36,12 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget
@@ -50,7 +55,10 @@ stdenv.mkDerivation rec {
     libarchive
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" "-DUSE_TEST=OFF" ];
+  cmakeFlags = [
+    "-DVERSION=${version}"
+    "-DUSE_TEST=OFF"
+  ];
 
   strictDeps = true;
 

@@ -31,9 +31,19 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [ aiohttp appdirs ecdsa ms-cv pydantic ];
+  propagatedBuildInputs = [
+    aiohttp
+    appdirs
+    ecdsa
+    ms-cv
+    pydantic
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

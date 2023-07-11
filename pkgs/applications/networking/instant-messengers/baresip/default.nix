@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
   prePatch = lib.optionalString (!dbusSupport) ''
     substituteInPlace cmake/modules.cmake --replace 'list(APPEND MODULES ctrl_dbus)' ""
   '';
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     zlib
     openssl
@@ -69,7 +72,10 @@ stdenv.mkDerivation rec {
     gst-plugins-good
   ]);
 
-  cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" "-Dre_DIR=${libre}/include/re" ];
+  cmakeFlags = [
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    "-Dre_DIR=${libre}/include/re"
+  ];
 
   makeFlags = [
     "LIBRE_MK=${libre}/share/re/re.mk"
@@ -129,7 +135,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A modular SIP User-Agent with audio and video support";
     homepage = "https://github.com/baresip/baresip";
-    maintainers = with lib.maintainers; [ elohmeier raskin ];
+    maintainers = with lib.maintainers; [
+      elohmeier
+      raskin
+    ];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
   };

@@ -90,8 +90,13 @@ in {
     };
 
     dbtype = mkOption {
-      type =
-        types.enum [ "mysql" "percona" "mariadb" "postgresql" "sqlserver" ];
+      type = types.enum [
+        "mysql"
+        "percona"
+        "mariadb"
+        "postgresql"
+        "sqlserver"
+      ];
       default = "postgresql";
       description = lib.mdDoc ''
         Specify the database provider: `mysql`, `percona`, `mariadb`, `postgresql`, `sqlserver`
@@ -132,7 +137,11 @@ in {
       serviceConfig = {
         ExecStart = concatStringsSep " " [
           "${cfg.package}/bin/documize"
-          (mkParams false [ "db" "dbtype" "port" ])
+          (mkParams false [
+            "db"
+            "dbtype"
+            "port"
+          ])
           (mkParams true [
             "offline"
             "location"

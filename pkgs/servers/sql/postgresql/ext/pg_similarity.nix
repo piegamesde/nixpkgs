@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "1z4v4r2yccdr8kz3935fnk1bc5vj0qj0apscldyap4wxlyi89xim";
   };
 
-  buildInputs = [ postgresql gcc ];
+  buildInputs = [
+    postgresql
+    gcc
+  ];
   buildPhase = "USE_PGXS=1 make";
   installPhase = ''
     install -D pg_similarity.so -t $out/lib/

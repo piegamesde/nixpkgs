@@ -20,8 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-eINfyEHwPlUIWPGKmXPquGGPR/ItL1nt8TBXj6VFqGc=";
   };
 
-  propagatedBuildInputs = [ jsonpickle wrapt requests future botocore ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    jsonpickle
+    wrapt
+    requests
+    future
+    botocore
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   meta = {
     description = "AWS X-Ray SDK for the Python programming language";

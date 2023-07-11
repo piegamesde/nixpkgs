@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config glib ];
+  nativeBuildInputs = [
+    pkg-config
+    glib
+  ];
 
-  buildInputs = [ lua gtk3 ];
+  buildInputs = [
+    lua
+    gtk3
+  ];
 
   makeFlags = [ "INSTALLDIR=${placeholder "out"}/bin" ];
 

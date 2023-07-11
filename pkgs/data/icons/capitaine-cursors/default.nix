@@ -37,7 +37,11 @@ stdenvNoCC.mkDerivation rec {
   # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
-  buildInputs = [ inkscape xcursorgen bc ];
+  buildInputs = [
+    inkscape
+    xcursorgen
+    bc
+  ];
 
   buildPhase = ''
     for variant in dark light ; do

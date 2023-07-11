@@ -170,26 +170,30 @@ let
 in stdenv.mkDerivation rec {
   inherit version src;
   pname = "sparrow-unwrapped";
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Sparrow";
-      exec = pname;
-      icon = pname;
-      desktopName = "Sparrow Bitcoin Wallet";
-      genericName = "Bitcoin Wallet";
-      categories = [ "Finance" "Network" ];
-      mimeTypes = [
-        "application/psbt"
-        "application/bitcoin-transaction"
-        "x-scheme-handler/bitcoin"
-        "x-scheme-handler/auth47"
-        "x-scheme-handler/lightning"
-      ];
-      startupWMClass = "Sparrow";
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "Sparrow";
+    exec = pname;
+    icon = pname;
+    desktopName = "Sparrow Bitcoin Wallet";
+    genericName = "Bitcoin Wallet";
+    categories = [
+      "Finance"
+      "Network"
+    ];
+    mimeTypes = [
+      "application/psbt"
+      "application/bitcoin-transaction"
+      "x-scheme-handler/bitcoin"
+      "x-scheme-handler/auth47"
+      "x-scheme-handler/lightning"
+    ];
+    startupWMClass = "Sparrow";
+  }) ];
 
   sparrow-icons = stdenv.mkDerivation {
     inherit version src;
@@ -229,9 +233,15 @@ in stdenv.mkDerivation rec {
     description =
       "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
     homepage = "https://sparrowwallet.com";
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ emmanuelrosa _1000101 ];
+    maintainers = with maintainers; [
+      emmanuelrosa
+      _1000101
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

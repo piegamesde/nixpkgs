@@ -19,18 +19,31 @@ mkCoqDerivation rec {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [ coq.coq-version mathcomp.version ] [
+    lib.switch [
+      coq.coq-version
+      mathcomp.version
+    ] [
       {
-        cases = [ (range "8.14" "8.16") (isGe "1.12.0") ];
+        cases = [
+          (range "8.14" "8.16")
+          (isGe "1.12.0")
+        ];
         out = "0.6";
       }
       {
-        cases = [ (range "8.13" "8.14") (isGe "1.12.0") ];
+        cases = [
+          (range "8.13" "8.14")
+          (isGe "1.12.0")
+        ];
         out = "0.5";
       }
     ] null;
 
-  propagatedBuildInputs = [ hydra-battles gaia mathcomp-zify ];
+  propagatedBuildInputs = [
+    hydra-battles
+    gaia
+    mathcomp-zify
+  ];
 
   useDune = true;
 

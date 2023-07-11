@@ -17,7 +17,11 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+  ];
 
   # zero tests run
   doCheck = false;

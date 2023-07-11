@@ -24,15 +24,24 @@ buildPythonPackage rec {
     hash = "sha256-xFPZ03II1814+bZ5gx7GD/AxYMiLuH6awfSeXEraOHQ=";
   };
 
-  propagatedBuildInputs = [ django django_compat ];
+  propagatedBuildInputs = [
+    django
+    django_compat
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-django ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-django
+  ];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE='hijack.tests.test_app.settings'
   '';
 
-  pytestFlagsArray = [ "--pyargs" "hijack" ];
+  pytestFlagsArray = [
+    "--pyargs"
+    "hijack"
+  ];
 
   meta = with lib; {
     description =

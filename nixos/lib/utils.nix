@@ -95,7 +95,13 @@ rec {
         toString arg
       else
         throw "escapeSystemdExecArg only allows strings, paths and numbers";
-    in replaceStrings [ "%" "$" ] [ "%%" "$$" ] (builtins.toJSON s);
+    in replaceStrings [
+      "%"
+      "$"
+    ] [
+      "%%"
+      "$$"
+    ] (builtins.toJSON s);
 
   # Quotes a list of arguments into a single string for use in a Exec*
   # line.
@@ -140,8 +146,16 @@ rec {
         else if isAttrs item then
           map (name:
             let
-              escapedName =
-                ''"${replaceStrings [ ''"'' "\\" ] [ ''\"'' "\\\\" ] name}"'';
+              escapedName = ''
+                "${
+                  replaceStrings [
+                    ''"''
+                    "\\"
+                  ] [
+                    ''\"''
+                    "\\\\"
+                  ] name
+                }"'';
             in recurse (prefix + "." + escapedName) item.${name})
           (attrNames item)
         else if isList item then

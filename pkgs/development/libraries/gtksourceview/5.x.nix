@@ -27,7 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "5.8.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = let inherit (finalAttrs) pname version;
   in fetchurl {
@@ -56,7 +60,13 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4 # for gtk4-update-icon-cache checked during configure
   ];
 
-  buildInputs = [ glib pcre2 pango fribidi libxml2 ];
+  buildInputs = [
+    glib
+    pcre2
+    pango
+    fribidi
+    libxml2
+  ];
 
   propagatedBuildInputs = [
     # Required by gtksourceview-5.0.pc
@@ -65,7 +75,10 @@ stdenv.mkDerivation (finalAttrs: {
     shared-mime-info
   ];
 
-  nativeCheckInputs = [ xvfb-run dbus ];
+  nativeCheckInputs = [
+    xvfb-run
+    dbus
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

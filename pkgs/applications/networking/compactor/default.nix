@@ -37,7 +37,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-SgmtlbYOrSMzVfzsrbg4qs+yGkXQialiJTI99EBsUjQ=";
   };
 
-  nativeBuildInputs = [ asciidoctor autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    asciidoctor
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [
     boost
     libctemplate
@@ -60,13 +64,23 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/file" "${file}/bin/file"
   '';
 
-  configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" "--with-boost=${boost.dev}" ];
+  configureFlags = [
+    "--with-boost-libdir=${boost.out}/lib"
+    "--with-boost=${boost.dev}"
+  ];
   enableParallelBuilding = true;
 
   doCheck = !stdenv.isDarwin; # check-dnstap.sh failing on Darwin
-  nativeCheckInputs =
-    [ cbor-diag cddl diffutils file mktemp netcat tcpdump wireshark-cli ];
+  nativeCheckInputs = [
+    cbor-diag
+    cddl
+    diffutils
+    file
+    mktemp
+    netcat
+    tcpdump
+    wireshark-cli
+  ];
 
   meta = with lib; {
     description = "Tools to capture DNS traffic and record it in C-DNS files";

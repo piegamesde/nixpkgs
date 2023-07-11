@@ -18,13 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-UTaHTJE0xFihN9r+DY/WhekZ7S/CXtMFbqAayzexRxk=";
   };
 
-  patches = [ ./fix-xlib-version.patch ./pillow-version.patch ];
+  patches = [
+    ./fix-xlib-version.patch
+    ./pillow-version.patch
+  ];
 
   doCheck = false;
   # Mouseinfo requires a X server running to import successfully
   # pythonImportsCheck = [ "mouseinfo" ];
 
-  propagatedBuildInputs = [ pyperclip xlib pillow ];
+  propagatedBuildInputs = [
+    pyperclip
+    xlib
+    pillow
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -15,13 +15,20 @@ let
   isFindutils = hasPrefix "findutils" cfg.locate.name;
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "locate" "period" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "locate"
+      "period"
+    ] [
       "services"
       "locate"
       "interval"
     ])
-    (mkRemovedOptionModule [ "services" "locate" "includeStore" ]
-      "Use services.locate.prunePaths")
+    (mkRemovedOptionModule [
+      "services"
+      "locate"
+      "includeStore"
+    ] "Use services.locate.prunePaths")
   ];
 
   options.services.locate = with types; {
@@ -191,8 +198,13 @@ in {
 
     pruneNames = mkOption {
       type = listOf str;
-      default =
-        lib.optionals (!isFindutils) [ ".bzr" ".cache" ".git" ".hg" ".svn" ];
+      default = lib.optionals (!isFindutils) [
+        ".bzr"
+        ".cache"
+        ".git"
+        ".hg"
+        ".svn"
+      ];
       defaultText = literalMD ''
         `[ ".bzr" ".cache" ".git" ".hg" ".svn" ]`, if
         supported by the locate implementation (i.e. mlocate or plocate).
@@ -234,8 +246,15 @@ in {
         source = "${cfg.locate}/bin/plocate";
       });
     in mkIf isMorPLocate {
-      locate = mkMerge [ common mlocate plocate ];
-      plocate = (mkIf isPLocate (mkMerge [ common plocate ]));
+      locate = mkMerge [
+        common
+        mlocate
+        plocate
+      ];
+      plocate = (mkIf isPLocate (mkMerge [
+        common
+        plocate
+      ]));
     };
 
     nixpkgs.config = { locate.dbfile = cfg.output; };
@@ -274,8 +293,11 @@ in {
           toFlags = x:
             optional (cfg.${x} != [ ])
             "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
-          args =
-            concatLists (map toFlags [ "pruneFS" "pruneNames" "prunePaths" ]);
+          args = concatLists (map toFlags [
+            "pruneFS"
+            "pruneNames"
+            "prunePaths"
+          ]);
         in ''
           exec ${cfg.locate}/bin/updatedb \
             --output ${toString cfg.output} ${concatStringsSep " " args} \

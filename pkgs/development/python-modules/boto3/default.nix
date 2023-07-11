@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-9Xsng4xZ+IGNZ3ViYVrOyKZdRH6QPSjZALj9Q3HECBU=";
   };
 
-  propagatedBuildInputs = [ botocore jmespath s3transfer setuptools ];
+  propagatedBuildInputs = [
+    botocore
+    jmespath
+    s3transfer
+    setuptools
+  ];
 
   doCheck = true;
 

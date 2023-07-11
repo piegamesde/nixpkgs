@@ -46,7 +46,10 @@ in buildPythonPackage {
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

@@ -33,9 +33,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ boost gtest wayland ];
+  buildInputs = [
+    boost
+    gtest
+    wayland
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

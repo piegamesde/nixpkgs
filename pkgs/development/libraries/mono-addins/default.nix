@@ -20,10 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "018g3bd8afjc39h22h2j5r6ldsdn08ynx7wg889gdvnxg3hrxgl2";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   # Use msbuild when https://github.com/NixOS/nixpkgs/pull/43680 is merged
-  buildInputs = [ mono4 gtk-sharp-2_0 ];
+  buildInputs = [
+    mono4
+    gtk-sharp-2_0
+  ];
 
   dontStrip = true;
 

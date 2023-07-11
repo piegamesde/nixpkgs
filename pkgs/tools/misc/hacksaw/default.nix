@@ -12,9 +12,15 @@ rustPlatform.buildRustPackage rec {
   pname = "hacksaw";
   version = "1.0.4";
 
-  nativeBuildInputs = [ pkg-config python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ libXrandr libX11 ];
+  buildInputs = [
+    libXrandr
+    libX11
+  ];
 
   src = fetchCrate {
     inherit pname version;

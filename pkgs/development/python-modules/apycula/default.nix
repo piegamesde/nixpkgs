@@ -26,7 +26,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ numpy pandas pillow crcmod openpyxl ];
+  propagatedBuildInputs = [
+    numpy
+    pandas
+    pillow
+    crcmod
+    openpyxl
+  ];
 
   # tests require a physical FPGA
   doCheck = false;

@@ -18,7 +18,10 @@ stdenv.mkDerivation {
   src =
     fetch "libcxxabi" "1vznz8n1z1h8af0ga451m98lc2hjnv4fyzl71napsvjhvk4g6nxp";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = ''
     unpackFile ${libcxx.src}
@@ -32,7 +35,10 @@ stdenv.mkDerivation {
     patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
   '';
 
-  patches = [ ./no-threads.patch ./gnu-install-dirs.patch ];
+  patches = [
+    ./no-threads.patch
+    ./gnu-install-dirs.patch
+  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs =
@@ -85,7 +91,10 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

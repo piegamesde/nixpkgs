@@ -18,12 +18,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ zlib libpng libGL ];
+  buildInputs = [
+    zlib
+    libpng
+    libGL
+  ];
 
   meta = with lib; {
     description = "A library for scientific data visualization";
     homepage = "https://mathgl.sourceforge.net/";
-    license = with licenses; [ gpl3 lgpl3 ];
+    license = with licenses; [
+      gpl3
+      lgpl3
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.GabrielDougherty ];
   };

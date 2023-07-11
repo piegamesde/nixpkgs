@@ -12,7 +12,12 @@ args@{
     This system provides some generic condition classes in
                     conjunction with support functions and macros.'';
 
-  deps = [ args."alexandria" args."closer-mop" args."fiveam" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+    args."fiveam"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url =

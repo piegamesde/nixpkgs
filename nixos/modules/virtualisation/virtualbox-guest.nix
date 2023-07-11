@@ -37,11 +37,11 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      assertions = [{
+      assertions = [ {
         assertion = pkgs.stdenv.hostPlatform.isx86;
         message =
           "Virtualbox not currently supported on ${pkgs.stdenv.hostPlatform.system}";
-      }];
+      } ];
 
       environment.systemPackages = [ kernel.virtualboxGuestAdditions ];
 
@@ -75,7 +75,11 @@ in {
       '';
     }
     (mkIf cfg.x11 {
-      services.xserver.videoDrivers = [ "vmware" "virtualbox" "modesetting" ];
+      services.xserver.videoDrivers = [
+        "vmware"
+        "virtualbox"
+        "modesetting"
+      ];
 
       services.xserver.config = ''
         Section "InputDevice"
@@ -90,7 +94,11 @@ in {
 
       services.xserver.displayManager.sessionCommands = ''
         PATH=${
-          makeBinPath [ pkgs.gnugrep pkgs.which pkgs.xorg.xorgserver.out ]
+          makeBinPath [
+            pkgs.gnugrep
+            pkgs.which
+            pkgs.xorg.xorgserver.out
+          ]
         }:$PATH \
           ${kernel.virtualboxGuestAdditions}/bin/VBoxClient-all
       '';

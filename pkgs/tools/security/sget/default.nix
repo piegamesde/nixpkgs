@@ -21,7 +21,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-KPQHS7Hfco1ljOJgStIXMaol7j4dglcr0w+6Boj7GK8=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd sget \

@@ -24,9 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+waoJHU/QrVH7o9qfwdvFTFJzTGLcV9CeYPn3XHEAkM=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config cmake makeWrapper ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    cmake
+    makeWrapper
+  ];
 
-  buildInputs = [ gtkmm3 nlohmann_json gtk-layer-shell ];
+  buildInputs = [
+    gtkmm3
+    nlohmann_json
+    gtk-layer-shell
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/nwgbar \

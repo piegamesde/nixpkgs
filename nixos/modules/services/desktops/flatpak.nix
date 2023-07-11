@@ -23,11 +23,11 @@ in {
   ###### implementation
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = (config.xdg.portal.enable == true);
       message =
         "To use Flatpak you must enable XDG Desktop Portals with xdg.portal.enable.";
-    }];
+    } ];
 
     environment.systemPackages = [ pkgs.flatpak ];
 
@@ -37,8 +37,10 @@ in {
 
     systemd.packages = [ pkgs.flatpak ];
 
-    environment.profiles =
-      [ "$HOME/.local/share/flatpak/exports" "/var/lib/flatpak/exports" ];
+    environment.profiles = [
+      "$HOME/.local/share/flatpak/exports"
+      "/var/lib/flatpak/exports"
+    ];
 
     # It has been possible since https://github.com/flatpak/flatpak/releases/tag/1.3.2
     # to build a SELinux policy module.

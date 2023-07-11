@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "0ckglwy95qgqvl2l6yd8ilwpd6qs7yzmj8g7lnxb50d12115s5n0";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ qt4 taglib chromaprint ffmpeg_4 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    qt4
+    taglib
+    chromaprint
+    ffmpeg_4
+  ];
 
   cmakeFlags = [ "-DTAGLIB_MIN_VERSION=${lib.getVersion taglib}" ];
 

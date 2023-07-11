@@ -21,12 +21,19 @@ stdenv.mkDerivation rec {
     postgresql # for pg_config
   ];
 
-  buildInputs = [ postgresql sqlite ];
+  buildInputs = [
+    postgresql
+    sqlite
+  ];
 
   meta = with lib; {
     description = "Loadable dynamic extension to both SQLite and SpatiaLite";
     homepage = "https://www.gaia-gis.it/fossil/virtualpg";
-    license = with licenses; [ mpl11 gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      mpl11
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
   };

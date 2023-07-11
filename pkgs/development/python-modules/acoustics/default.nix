@@ -26,7 +26,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ matplotlib numpy pandas scipy tabulate ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    pandas
+    scipy
+    tabulate
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

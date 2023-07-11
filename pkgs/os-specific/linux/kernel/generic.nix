@@ -84,9 +84,11 @@ let
   # and pings all maintainers.
   #
   # For further context, see https://github.com/NixOS/nixpkgs/pull/143113#issuecomment-953319957
-  basicArgs = builtins.removeAttrs args
-    (lib.filter (x: !(builtins.elem x [ "version" "src" ]))
-      (lib.attrNames args));
+  basicArgs = builtins.removeAttrs args (lib.filter (x:
+    !(builtins.elem x [
+      "version"
+      "src"
+    ])) (lib.attrNames args));
 
   # Combine the `features' attribute sets of all the kernel patches.
   kernelFeatures = lib.foldr (x: y: (x.features or { }) // y) ({
@@ -137,9 +139,15 @@ let
     passAsFile = [ "kernelConfig" ];
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [ perl gmp libmpc mpfr ]
-      ++ lib.optionals (lib.versionAtLeast version "4.16") [ bison flex ]
-      ++ lib.optional (lib.versionAtLeast version "5.2") pahole;
+    nativeBuildInputs = [
+      perl
+      gmp
+      libmpc
+      mpfr
+    ] ++ lib.optionals (lib.versionAtLeast version "4.16") [
+      bison
+      flex
+    ] ++ lib.optional (lib.versionAtLeast version "5.2") pahole;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
@@ -237,8 +245,10 @@ let
     # Adds dependencies needed to edit the config:
     # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
     configEnv = kernel.overrideAttrs (old: {
-      nativeBuildInputs = old.nativeBuildInputs or [ ]
-        ++ (with buildPackages; [ pkg-config ncurses ]);
+      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ (with buildPackages; [
+        pkg-config
+        ncurses
+      ]);
     });
 
     passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);

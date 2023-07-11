@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc.lib ncurses5 numactl zlib ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc.lib
+    ncurses5
+    numactl
+    zlib
+  ];
 
   postUnpack = ''
     # Extract the RPMs contained within the source ZIP.

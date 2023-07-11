@@ -26,9 +26,15 @@ stdenv.mkDerivation rec {
   # format is for pythonModule conversion
   format = "other";
 
-  nativeBuildInputs = [ cmake bison flex git ]
-    ++ lib.optionals useCore [ perl gsl ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+    git
+  ] ++ lib.optionals useCore [
+    perl
+    gsl
+  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = lib.optionals useIv [
     xorg.libX11.dev
@@ -44,8 +50,10 @@ stdenv.mkDerivation rec {
     python3.pkgs.scikit-build
     python3.pkgs.matplotlib
   ] ++ lib.optionals useMpi [ mpi ]
-    ++ lib.optionals useMpi [ python3.pkgs.mpi4py ]
-    ++ lib.optionals useRx3d [ python3.pkgs.cython python3.pkgs.numpy ];
+    ++ lib.optionals useMpi [ python3.pkgs.mpi4py ] ++ lib.optionals useRx3d [
+      python3.pkgs.cython
+      python3.pkgs.numpy
+    ];
 
   patches = [ ./neuron_darwin_rpath.patch ];
 
@@ -91,7 +99,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ fromSource ];
     license = licenses.bsd3;
     homepage = "http://www.neuron.yale.edu/neuron";
-    maintainers = with maintainers; [ adev davidcromp ];
+    maintainers = with maintainers; [
+      adev
+      davidcromp
+    ];
     platforms = platforms.all;
   };
 }

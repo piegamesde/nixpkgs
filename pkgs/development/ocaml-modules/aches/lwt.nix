@@ -10,7 +10,10 @@ buildDunePackage {
   pname = "aches-lwt";
   inherit (ringo) src version;
 
-  propagatedBuildInputs = [ aches lwt ];
+  propagatedBuildInputs = [
+    aches
+    lwt
+  ];
 
   meta = {
     description = "Caches (bounded-size stores) for Lwt promises";

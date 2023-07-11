@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ alsa-lib audiofile gtk2 libxml2 ];
+  buildInputs = [
+    alsa-lib
+    audiofile
+    gtk2
+    libxml2
+  ];
 
   patches = [ ./matFix.patch ];
 

@@ -32,13 +32,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.desktopManager.session = [{
+    services.xserver.desktopManager.session = [ {
       name = "kodi";
       start = ''
         LIRC_SOCKET_PATH=/run/lirc/lircd ${cfg.package}/bin/kodi --standalone &
         waitPID=$!
       '';
-    }];
+    } ];
 
     environment.systemPackages = [ cfg.package ];
   };

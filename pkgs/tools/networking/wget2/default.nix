@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
   pname = "wget2";
   version = "2.0.1";
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   src = fetchFromGitLab {
     owner = "gnuwget";
@@ -48,11 +52,27 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook flex lzip pkg-config texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    flex
+    lzip
+    pkg-config
+    texinfo
+  ];
 
-  buildInputs =
-    [ brotli bzip2 gpgme libhsts libidn2 libpsl nghttp2 pcre2 xz zlib zstd ]
-    ++ lib.optional sslSupport openssl;
+  buildInputs = [
+    brotli
+    bzip2
+    gpgme
+    libhsts
+    libidn2
+    libpsl
+    nghttp2
+    pcre2
+    xz
+    zlib
+    zstd
+  ] ++ lib.optional sslSupport openssl;
 
   # TODO: include translation files
   autoreconfPhase = ''
@@ -83,7 +103,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.com/gnuwget/wget2";
     # wget2 GPLv3+; libwget LGPLv3+
-    license = with licenses; [ gpl3Plus lgpl3Plus ];
+    license = with licenses; [
+      gpl3Plus
+      lgpl3Plus
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

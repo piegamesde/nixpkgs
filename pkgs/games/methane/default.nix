@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-STS2+wfZ8E1jpr0PYQOBQsztxhJU0Dt3IhWBE3sjdWE=";
   };
 
-  nativeBuildInputs = [ gettext pkg-config ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+  ];
   buildInputs = [
     SDL2
     SDL2_image

@@ -141,8 +141,9 @@ let
     # * https://github.com/python/cpython/commit/e6b247c8e524
     ../3.7/no-win64-workaround.patch
 
-  ] ++ lib.optionals (x11Support && stdenv.isDarwin)
-    [ ./use-correct-tcl-tk-on-darwin.patch ] ++ lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals
+    (x11Support && stdenv.isDarwin) [ ./use-correct-tcl-tk-on-darwin.patch ]
+    ++ lib.optionals stdenv.isLinux [
 
       # Disable the use of ldconfig in ctypes.util.find_library (since
       # ldconfig doesn't work on NixOS), and don't use
@@ -173,8 +174,8 @@ let
       # only works for GCC and Apple Clang. This makes distutils to call C++
       # compiler when needed.
       ./python-2.7-distutils-C++.patch
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ ./cross-compile.patch ];
+    ] ++ lib.optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform) [ ./cross-compile.patch ];
 
   preConfigure = ''
     # Purity.
@@ -198,8 +199,8 @@ let
       "--with-system-ffi"
       "--with-system-expat"
       "--enable-unicode=ucs${toString ucsEncoding}"
-    ] ++ lib.optionals stdenv.hostPlatform.isCygwin
-    [ "ac_cv_func_bind_textdomain_codeset=yes" ]
+    ] ++ lib.optionals
+    stdenv.hostPlatform.isCygwin [ "ac_cv_func_bind_textdomain_codeset=yes" ]
     ++ lib.optionals stdenv.isDarwin [ "--disable-toolbox-glue" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "PYTHON_FOR_BUILD=${lib.getBin buildPackages.python}/bin/python"
@@ -231,10 +232,22 @@ let
 
   strictDeps = true;
   buildInputs =
-    lib.optional (stdenv ? cc && stdenv.cc.libc != null) stdenv.cc.libc
-    ++ [ bzip2 openssl zlib libffi expat db gdbm ncurses sqlite readline ]
-    ++ lib.optionals x11Support [ tcl tk libX11 ]
-    ++ lib.optional (stdenv.isDarwin && configd != null) configd;
+    lib.optional (stdenv ? cc && stdenv.cc.libc != null) stdenv.cc.libc ++ [
+      bzip2
+      openssl
+      zlib
+      libffi
+      expat
+      db
+      gdbm
+      ncurses
+      sqlite
+      readline
+    ] ++ lib.optionals x11Support [
+      tcl
+      tk
+      libX11
+    ] ++ lib.optional (stdenv.isDarwin && configd != null) configd;
   nativeBuildInputs = [ autoreconfHook ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
@@ -349,15 +362,18 @@ stdenv.mkDerivation ({
     '';
     license = lib.licenses.psfl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ fridh thiagokokada ];
-    knownVulnerabilities = [
-      "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
+    maintainers = with lib.maintainers; [
+      fridh
+      thiagokokada
+    ];
+    knownVulnerabilities =
+      [ "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
       # Quote: That means that we will not improve it anymore after that day,
       # even if someone finds a security problem in it. You should upgrade to
       # Python 3 as soon as you can. [..] So, in 2008, we announced that we
       # would sunset Python 2 in 2015, and asked people to upgrade before
       # then. Some did, but many did not. So, in 2014, we extended that
       # sunset till 2020.
-    ];
+      ];
   };
 } // crossCompileEnv)

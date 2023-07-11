@@ -21,7 +21,10 @@ let
 
   appimageContents = appimageTools.extract { inherit name src; };
 
-  nativeBuildInputs = [ autoPatchelfHook desktop-file-utils ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    desktop-file-utils
+  ];
 
 in appimageTools.wrapType2 rec {
   inherit name src;
@@ -50,7 +53,11 @@ in appimageTools.wrapType2 rec {
     '';
     homepage = "https://standardnotes.org";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mgregoire chuangzhu squalus ];
+    maintainers = with maintainers; [
+      mgregoire
+      chuangzhu
+      squalus
+    ];
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
     platforms = builtins.attrNames srcjson.appimage;
   };

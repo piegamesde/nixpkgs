@@ -29,10 +29,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-06DWkLkVpdSYnKOR8zqA0tvWXYrglBM9R/XEIfIkwQU=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gcr granite gtk3 libgee libhandy webkitgtk_4_1 ];
+  buildInputs = [
+    gcr
+    granite
+    gtk3
+    libgee
+    libhandy
+    webkitgtk_4_1
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

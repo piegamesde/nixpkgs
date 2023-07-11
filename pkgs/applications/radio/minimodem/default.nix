@@ -24,8 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "1b5xy36fjcp7vkp115dpx4mlmqg2fc7xvxdy648fb8im953bw7ql";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake libtool ];
-  buildInputs = [ fftw fftwSinglePrec alsa-lib libsndfile libpulseaudio ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    fftw
+    fftwSinglePrec
+    alsa-lib
+    libsndfile
+    libpulseaudio
+  ];
 
   preConfigure = ''
     aclocal \

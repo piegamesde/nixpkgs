@@ -11,7 +11,10 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ caqti findlib ];
+  propagatedBuildInputs = [
+    caqti
+    findlib
+  ];
 
   meta = caqti.meta // {
     description = "Dynamic linking of Caqti drivers using findlib.dynload";

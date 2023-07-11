@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ozk4WV1yCvF5c96vcnz8DdQcixbCCtwQOpcPSkOuOlY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook texinfo ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+  ];
   buildInputs = [ mpfr ];
 
   meta = {

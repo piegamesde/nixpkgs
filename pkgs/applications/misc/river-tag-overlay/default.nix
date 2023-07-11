@@ -29,10 +29,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ pixman wayland ];
-  nativeBuildInputs = [ pkg-config wayland-scanner ];
+  buildInputs = [
+    pixman
+    wayland
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    wayland-scanner
+  ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     description = "A pop-up showing tag status";

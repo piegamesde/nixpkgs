@@ -28,13 +28,23 @@ stdenv.mkDerivation rec {
 
   passthru = { updateScript = nix-update-script { }; };
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc ]
-    ++ lib.optionals stdenv.isLinux [
-      # GNOME Builder Plugin
-      gnome-builder
-    ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+  ] ++ lib.optionals stdenv.isLinux [
+    # GNOME Builder Plugin
+    gnome-builder
+  ];
 
-  buildInputs = [ glib libgee json-glib jsonrpc-glib vala ];
+  buildInputs = [
+    glib
+    libgee
+    json-glib
+    jsonrpc-glib
+    vala
+  ];
 
   meta = with lib; {
     description = "Code Intelligence for Vala & Genie";

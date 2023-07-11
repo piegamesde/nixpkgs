@@ -12,7 +12,11 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  buildInputs = [ xenstore_transport xenstore lwt ];
+  buildInputs = [
+    xenstore_transport
+    xenstore
+    lwt
+  ];
 
   meta = xenstore_transport.meta // {
     description = "Command line tool for interfacing with xenstore";

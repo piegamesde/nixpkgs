@@ -24,6 +24,9 @@ stdenv.mkDerivation rec {
     homepage = "https://git.codemadness.org/stagit/file/README.html";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jb55 sikmir ];
+    maintainers = with maintainers; [
+      jb55
+      sikmir
+    ];
   };
 }

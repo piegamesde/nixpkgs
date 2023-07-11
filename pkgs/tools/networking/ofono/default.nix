@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "ofono";
   version = "2.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/network/ofono/ofono.git";
@@ -26,9 +29,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-Search-connectors-in-OFONO_PLUGIN_PATH.patch ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ glib dbus ell systemd bluez mobile-broadband-provider-info ];
+  buildInputs = [
+    glib
+    dbus
+    ell
+    systemd
+    bluez
+    mobile-broadband-provider-info
+  ];
 
   configureFlags = [
     "--with-dbusconfdir=${placeholder "out"}/share"

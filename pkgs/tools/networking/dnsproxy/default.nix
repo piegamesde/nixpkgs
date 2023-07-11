@@ -17,7 +17,12 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [ "-s" "-w" "-X" "main.VersionString=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X"
+    "main.VersionString=${version}"
+  ];
 
   doCheck = false;
 

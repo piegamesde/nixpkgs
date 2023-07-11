@@ -44,9 +44,15 @@ in python.pkgs.buildPythonApplication rec {
   nativeCheckInputs = with python.pkgs; [ mock ];
 
   propagatedBuildInputs = with python.pkgs;
-    ([ requests ruamel-yaml appdirs ntfy-webpush ]
-      ++ (lib.optionals withXmpp [ sleekxmpp dnspython ])
-      ++ (lib.optionals withMatrix [ matrix-client ])
+    ([
+      requests
+      ruamel-yaml
+      appdirs
+      ntfy-webpush
+    ] ++ (lib.optionals withXmpp [
+      sleekxmpp
+      dnspython
+    ]) ++ (lib.optionals withMatrix [ matrix-client ])
       ++ (lib.optionals withSlack [ slack-sdk ])
       ++ (lib.optionals withEmoji [ emoji ])
       ++ (lib.optionals withPid [ psutil ])
@@ -86,6 +92,9 @@ in python.pkgs.buildPythonApplication rec {
       "A utility for sending notifications, on demand and when commands finish";
     homepage = "http://ntfy.rtfd.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jfrankenau kamilchm ];
+    maintainers = with maintainers; [
+      jfrankenau
+      kamilchm
+    ];
   };
 }

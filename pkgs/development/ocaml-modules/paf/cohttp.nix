@@ -24,7 +24,13 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ paf cohttp-lwt domain-name httpaf ipaddr ];
+  propagatedBuildInputs = [
+    paf
+    cohttp-lwt
+    domain-name
+    httpaf
+    ipaddr
+  ];
 
   doCheck = true;
   checkInputs = [

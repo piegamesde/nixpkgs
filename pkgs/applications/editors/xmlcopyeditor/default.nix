@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
 
   patches = [ ./xmlcopyeditor.patch ];
 
-  nativeBuildInputs = [ intltool pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ aspell boost expat libxml2 libxslt pcre2 wxGTK32 xercesc ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    aspell
+    boost
+    expat
+    libxml2
+    libxslt
+    pcre2
+    wxGTK32
+    xercesc
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   enableParallelBuilding = true;
 
@@ -38,6 +49,9 @@ stdenv.mkDerivation rec {
     homepage = "https://xml-copy-editor.sourceforge.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ candeira wegank ];
+    maintainers = with maintainers; [
+      candeira
+      wegank
+    ];
   };
 }

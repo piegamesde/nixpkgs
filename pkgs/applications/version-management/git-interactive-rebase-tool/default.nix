@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-510kNtcSsuXADMmSqu2t0HsnPUS/Jedsfvjnh2k+vDs=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   checkFlags = [
     "--skip=external_editor::tests::edit_success"
@@ -39,7 +42,11 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/MitMaro/git-interactive-rebase-tool/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ masaeedu SuperSandro2000 zowoq ];
+    maintainers = with maintainers; [
+      masaeedu
+      SuperSandro2000
+      zowoq
+    ];
     mainProgram = "interactive-rebase-tool";
   };
 }

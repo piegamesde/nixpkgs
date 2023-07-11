@@ -11,7 +11,10 @@ stdenvNoLibs.mkDerivation rec {
   pname = "libgcc";
   inherit (gcc.cc) src version;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -138,7 +141,10 @@ stdenvNoLibs.mkDerivation rec {
   ] ++ lib.optional (stdenvNoLibs.hostPlatform.libc == "glibc")
     "--with-glibc-version=${glibc.version}";
 
-  configurePlatforms = [ "build" "host" ];
+  configurePlatforms = [
+    "build"
+    "host"
+  ];
   configureFlags = [
     "--disable-dependency-tracking"
     # $CC cannot link binaries, let alone run then

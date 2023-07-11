@@ -17,7 +17,10 @@ mkDerivation {
 
   patches = [ ./add-akonadi-calendar.patch ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     akonadi

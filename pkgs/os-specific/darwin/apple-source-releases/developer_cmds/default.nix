@@ -7,7 +7,10 @@
 }:
 
 appleDerivation {
-  nativeBuildInputs = [ xcbuildHook makeWrapper ];
+  nativeBuildInputs = [
+    xcbuildHook
+    makeWrapper
+  ];
 
   patches = [
     # The following copied from

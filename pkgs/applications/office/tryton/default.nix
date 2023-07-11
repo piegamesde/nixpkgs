@@ -30,7 +30,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1rca19krvmycdhmi1vb4ixwq0cagmrkhbqry4f19b725nlp8cv0q";
   };
 
-  nativeBuildInputs = [ pkg-config gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     python-dateutil
@@ -69,6 +73,9 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "http://www.tryton.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ johbo udono ];
+    maintainers = with maintainers; [
+      johbo
+      udono
+    ];
   };
 }

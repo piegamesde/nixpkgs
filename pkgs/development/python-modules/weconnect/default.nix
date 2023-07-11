@@ -25,11 +25,22 @@ buildPythonPackage rec {
     hash = "sha256-Zjh4rWnpzzBZFQRZIoceeIn4DYn0/HqLLZFhc57yhLQ=";
   };
 
-  propagatedBuildInputs = [ oauthlib requests ];
+  propagatedBuildInputs = [
+    oauthlib
+    requests
+  ];
 
-  passthru.optional-dependencies = { Images = [ ascii-magic pillow ]; };
+  passthru.optional-dependencies = {
+    Images = [
+      ascii-magic
+      pillow
+    ];
+  };
 
-  nativeCheckInputs = [ pytest-httpserver pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-httpserver
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace weconnect/__version.py \

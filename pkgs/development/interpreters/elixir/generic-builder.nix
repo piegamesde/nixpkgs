@@ -56,7 +56,14 @@ stdenv.mkDerivation ({
      b=$(basename $f)
       if [ "$b" = mix ]; then continue; fi
       wrapProgram $f \
-        --prefix PATH ":" "${lib.makeBinPath [ erlang coreutils curl bash ]}"
+        --prefix PATH ":" "${
+          lib.makeBinPath [
+            erlang
+            coreutils
+            curl
+            bash
+          ]
+        }"
     done
 
     substituteInPlace $out/bin/mix \

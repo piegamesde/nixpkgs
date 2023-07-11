@@ -34,7 +34,10 @@ in stdenv.mkDerivation rec {
       'install(TARGETS shell RUNTIME DESTINATION "''${INSTALL_BIN_DIR}")'
   '';
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   buildInputs = [ openssl ] ++ lib.optionals withJdbc [ openjdk11 ]
     ++ lib.optionals withOdbc [ unixODBC ];
 
@@ -109,6 +112,9 @@ in stdenv.mkDerivation rec {
     description = "Embeddable SQL OLAP Database Management System";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ costrouc cpcloud ];
+    maintainers = with maintainers; [
+      costrouc
+      cpcloud
+    ];
   };
 }

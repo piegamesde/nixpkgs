@@ -20,11 +20,17 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-q0jOVZlxMHIhnc8y2N8o7Sl5Eg7DfJ96kXrPIV8RD1Y=";
   };
 
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
 
   buildFeatures = [ "dynamic-linking" ];
 
-  buildInputs = [ openssl rdkafka ];
+  buildInputs = [
+    openssl
+    rdkafka
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

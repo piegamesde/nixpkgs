@@ -35,7 +35,10 @@ stdenv.mkDerivation rec {
     substituteInPlace nsd-control-setup.sh.in --replace openssl ${openssl}/bin/openssl
   '';
 
-  buildInputs = [ libevent openssl ];
+  buildInputs = [
+    libevent
+    openssl
+  ];
 
   configureFlags =
     let edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];

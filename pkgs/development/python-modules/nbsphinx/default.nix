@@ -23,8 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-dlcEFs3svrIdv1w9aqIEztbB3X6+9Ad7XCG4xuzpUz8=";
   };
 
-  propagatedBuildInputs =
-    [ docutils jinja2 nbconvert nbformat sphinx traitlets ];
+  propagatedBuildInputs = [
+    docutils
+    jinja2
+    nbconvert
+    nbformat
+    sphinx
+    traitlets
+  ];
 
   # The package has not tests
   doCheck = false;

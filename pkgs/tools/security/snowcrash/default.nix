@@ -17,14 +17,12 @@ buildGoModule rec {
     sha256 = "sha256-jQrd7sluDd9eC4VdNtxvGct7Y4Y3zOylc4y2n6Kz4Zo=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "update-x-sys-for-go-1.18-on-aarch64-darwin.patch";
-      url =
-        "https://github.com/redcode-labs/SNOWCRASH/commit/24eefdcc944ade0cf435f7f35dee59ef3f0497fd.patch";
-      sha256 = "sha256-UXk7cMyEVAVcOkELcC9TlQNppZOXIvn6DBYu1j2iVNg=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "update-x-sys-for-go-1.18-on-aarch64-darwin.patch";
+    url =
+      "https://github.com/redcode-labs/SNOWCRASH/commit/24eefdcc944ade0cf435f7f35dee59ef3f0497fd.patch";
+    sha256 = "sha256-UXk7cMyEVAVcOkELcC9TlQNppZOXIvn6DBYu1j2iVNg=";
+  }) ];
 
   vendorSha256 = "sha256-WTDE+MYL8CjeNvGHRNiMgBFrydDJWIcG8TYvbQTH/6o=";
 

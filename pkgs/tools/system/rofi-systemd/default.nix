@@ -32,7 +32,14 @@ stdenv.mkDerivation rec {
   '';
 
   wrapperPath = with lib;
-    makeBinPath [ coreutils gawk jq rofi systemd util-linux ];
+    makeBinPath [
+      coreutils
+      gawk
+      jq
+      rofi
+      systemd
+      util-linux
+    ];
 
   fixupPhase = ''
     patchShebangs $out/bin

@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-patCdQ7qLEfy+RpH9T/Fa8ubI7QF6OmLzFUokZc5syQ=";
   };
 
-  propagatedBuildInputs = [ ifaddr requests ];
+  propagatedBuildInputs = [
+    ifaddr
+    requests
+  ];
 
   # Module has no tests
   doCheck = false;

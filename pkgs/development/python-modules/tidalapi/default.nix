@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-LdlTBkCOb7tXiupsNJ5lbk38syKXeADvi2IdGpW/dk8=";
   };
 
-  propagatedBuildInputs = [ requests python-dateutil ];
+  propagatedBuildInputs = [
+    requests
+    python-dateutil
+  ];
 
   doCheck = false; # tests require internet access
 

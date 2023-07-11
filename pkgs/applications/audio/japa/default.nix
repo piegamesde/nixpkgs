@@ -37,7 +37,10 @@ stdenv.mkDerivation rec {
     cd ./source/
   '';
 
-  makeFlags = [ "PREFIX=$(out)" "SUFFIX=''" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "SUFFIX=''"
+  ];
 
   meta = {
     description =

@@ -25,9 +25,19 @@ stdenv.mkDerivation rec {
     sha256 = "1avgzccdmr7y18rnp3xrhwk82alv2dlig3wh7ivgahcqdiiavrb1";
   };
 
-  nativeBuildInputs = [ pkg-config gettext gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    gtk3
+  ];
 
-  buildInputs = [ mate-icon-theme gtk2 gtk_engines gdk-pixbuf librsvg ];
+  buildInputs = [
+    mate-icon-theme
+    gtk2
+    gtk_engines
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
@@ -44,7 +54,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A set of themes from MATE";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [ lgpl21Plus lgpl3Only gpl3Plus ];
+    license = with licenses; [
+      lgpl21Plus
+      lgpl3Only
+      gpl3Plus
+    ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

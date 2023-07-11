@@ -35,15 +35,17 @@ let
     version = nvidia_x11.settingsVersion;
     inherit src;
 
-    buildInputs = [ libXrandr libXext ];
+    buildInputs = [
+      libXrandr
+      libXext
+    ];
 
     preBuild = ''
       cd src/libXNVCtrl
     '';
 
-    makeFlags = [
-      "OUTPUTDIR=." # src/libXNVCtrl
-    ];
+    makeFlags = [ "OUTPUTDIR=." # src/libXNVCtrl
+      ];
 
     installPhase = ''
       mkdir -p $out/lib
@@ -84,11 +86,26 @@ in stdenv.mkDerivation {
     fi
   '';
 
-  nativeBuildInputs = [ pkg-config m4 ];
+  nativeBuildInputs = [
+    pkg-config
+    m4
+  ];
 
-  buildInputs =
-    [ jansson libXv libXrandr libXext libXxf86vm libvdpau nvidia_x11 gtk2 dbus ]
-    ++ lib.optionals withGtk3 [ gtk3 librsvg wrapGAppsHook ];
+  buildInputs = [
+    jansson
+    libXv
+    libXrandr
+    libXext
+    libXxf86vm
+    libvdpau
+    nvidia_x11
+    gtk2
+    dbus
+  ] ++ lib.optionals withGtk3 [
+    gtk3
+    librsvg
+    wrapGAppsHook
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

@@ -25,7 +25,12 @@ buildPythonPackage rec {
     hash = "sha256-XHRibTSzFzWPz50elz+KdbCwTrd1DKfVMSg6UamNbzc=";
   };
 
-  propagatedBuildInputs = [ botocore boto3 parquet python-dateutil ];
+  propagatedBuildInputs = [
+    botocore
+    boto3
+    parquet
+    python-dateutil
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

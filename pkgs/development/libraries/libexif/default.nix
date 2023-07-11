@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Eqgnm31s8iPJdhTpk5HM89HSZTXTK+e7YZ/CCdbeJX4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook gettext ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+  ];
 
   meta = with lib; {
     homepage = "https://libexif.github.io/";

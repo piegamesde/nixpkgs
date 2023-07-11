@@ -31,11 +31,17 @@ buildGoModule rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ zlib geoip ];
+  buildInputs = [
+    zlib
+    geoip
+  ];
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description =

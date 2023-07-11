@@ -59,8 +59,15 @@ let
 in stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs =
-    [ libsecret polkit qt5compat qtbase qtnetworkauth qtsvg qtwebsockets ];
+  buildInputs = [
+    libsecret
+    polkit
+    qt5compat
+    qtbase
+    qtnetworkauth
+    qtsvg
+    qtwebsockets
+  ];
   nativeBuildInputs = [
     cmake
     go
@@ -133,8 +140,12 @@ in stdenv.mkDerivation {
   ];
   dontFixCmake = true;
 
-  qtWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ wireguard-tools ]) ];
+  qtWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ wireguard-tools ])
+  ];
 
   meta = {
     description = "Client for the Mozilla VPN service";

@@ -29,8 +29,12 @@ buildPythonPackage rec {
     hash = "sha256-frNzmEvxx3ACP86dsWTtDDNTzQtT8TD0aT2gynVqLm0=";
   };
 
-  propagatedBuildInputs = [ click itsdangerous jinja2 werkzeug ]
-    ++ lib.optional (pythonOlder "3.10") importlib-metadata;
+  propagatedBuildInputs = [
+    click
+    itsdangerous
+    jinja2
+    werkzeug
+  ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -19,7 +19,11 @@
 }:
 
 let
-  pythonWP = python3.withPackages (p: with p; [ openbabel-bindings numpy ]);
+  pythonWP = python3.withPackages (p:
+    with p; [
+      openbabel-bindings
+      numpy
+    ]);
 
   # Pure data repositories
   moleculesRepo = fetchFromGitHub {
@@ -51,7 +55,10 @@ in stdenv.mkDerivation rec {
     cp -r ${crystalsRepo} crystals
   '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     eigen

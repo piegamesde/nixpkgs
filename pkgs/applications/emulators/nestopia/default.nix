@@ -49,7 +49,12 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper wrapGAppsHook unzip ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    wrapGAppsHook
+    unzip
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,share/nestopia}

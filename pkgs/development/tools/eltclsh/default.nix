@@ -20,8 +20,15 @@ tcl.mkTclDerivation rec {
     hash = "sha256-C996BJxEoCSpA0x/nSnz4nnmleTIWyzm0imZp/K+Q/o=";
   };
 
-  nativeBuildInputs = [ automake autoconf libtool ];
-  buildInputs = [ libedit tk ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+  ];
+  buildInputs = [
+    libedit
+    tk
+  ];
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 

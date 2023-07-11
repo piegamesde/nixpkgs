@@ -19,7 +19,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-a8otK0BxZbl0nOp4QWQRkjb5fM85JA4nVkLuKAz71xU=";
   };
 
-  nativeBuildInputs = [ ocaml dune_3 ];
+  nativeBuildInputs = [
+    ocaml
+    dune_3
+  ];
 
   # Skip testing phases because they need to download and install node modules
   postPatch = ''
@@ -36,7 +39,10 @@ stdenv.mkDerivation {
   meta = {
     description = "Analysis binary for the ReScript VSCode plugin";
     homepage = "https://github.com/rescript-lang/rescript-vscode";
-    maintainers = [ lib.maintainers.dlip lib.maintainers.jayesh-bhoot ];
+    maintainers = [
+      lib.maintainers.dlip
+      lib.maintainers.jayesh-bhoot
+    ];
     license = lib.licenses.mit;
   };
 }

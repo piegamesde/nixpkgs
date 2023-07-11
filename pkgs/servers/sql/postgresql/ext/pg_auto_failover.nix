@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CLtLOzKRB9p6+SytMvWCYo7m7s/d+clAGOa2sWi6uZ0=";
   };
 
-  buildInputs = [ postgresql openssl zlib readline libkrb5 ];
+  buildInputs = [
+    postgresql
+    openssl
+    zlib
+    readline
+    libkrb5
+  ];
 
   installPhase = ''
     install -D -t $out/bin src/bin/pg_autoctl/pg_autoctl

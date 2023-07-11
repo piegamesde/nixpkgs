@@ -44,7 +44,13 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib gtk4 libadwaita librsvg pango ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    librsvg
+    pango
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

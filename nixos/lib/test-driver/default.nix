@@ -27,11 +27,17 @@ python3Packages.buildPythonApplication rec {
     qemu_pkg
     socat
     vde2
-  ] ++ (lib.optionals enableOCR [ imagemagick_light tesseract4 ])
-    ++ extraPythonPackages python3Packages;
+  ] ++ (lib.optionals enableOCR [
+    imagemagick_light
+    tesseract4
+  ]) ++ extraPythonPackages python3Packages;
 
   doCheck = true;
-  nativeCheckInputs = with python3Packages; [ mypy pylint black ];
+  nativeCheckInputs = with python3Packages; [
+    mypy
+    pylint
+    black
+  ];
   checkPhase = ''
     mypy --disallow-untyped-defs \
           --no-implicit-optional \

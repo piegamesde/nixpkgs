@@ -15,9 +15,20 @@
 
 mkDerivation {
   pname = "konqueror";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs =
-    [ kcmutils khtml kinit kdesu qtwebengine qtx11extras qtscript qtwayland ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  buildInputs = [
+    kcmutils
+    khtml
+    kinit
+    kdesu
+    qtwebengine
+    qtx11extras
+    qtscript
+    qtwayland
+  ];
 
   # InitialPreference values are too high and any text/html ends up
   # opening konqueror, even if firefox or chromium are also available.

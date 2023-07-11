@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   pname = "granite";
   version = "6.2.0"; # nixpkgs-update: no auto update
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "elementary";

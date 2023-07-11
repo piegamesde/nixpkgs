@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     ./revert-pr518.patch
   ];
 
-  hardeningDisable = [ "format" "pic" ];
+  hardeningDisable = [
+    "format"
+    "pic"
+  ];
 
   preBuild = ''
     substituteInPlace Makefile --replace "modules_install" "INSTALL_MOD_PATH=$out modules_install"
@@ -35,7 +38,10 @@ stdenv.mkDerivation rec {
     make install-utils PREFIX=$bin
   '';
 
-  outputs = [ "out" "bin" ];
+  outputs = [
+    "out"
+    "bin"
+  ];
 
   makeFlags = kernel.makeFlags ++ [
     "KERNELRELEASE=${kernel.modDirVersion}"

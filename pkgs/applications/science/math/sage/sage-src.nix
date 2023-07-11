@@ -58,8 +58,7 @@ let
       urls = if squashed then [
         "https://github.com/sagemath/sage/compare/${base}...${rev}.diff"
         "https://github.com/sagemath/sagetrac-mirror/compare/${base}...${rev}.diff"
-      ] else
-        [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];
+      ] else [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];
     } // builtins.removeAttrs args [
       "rev"
       "base"
@@ -184,7 +183,10 @@ in stdenv.mkDerivation rec {
   patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
 
   # do not create .orig backup files if patch applies with fuzz
-  patchFlags = [ "--no-backup-if-mismatch" "-p1" ];
+  patchFlags = [
+    "--no-backup-if-mismatch"
+    "-p1"
+  ];
 
   postPatch = ''
     # Make sure sage can at least be imported without setting any environment

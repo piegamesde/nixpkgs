@@ -33,7 +33,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace "dtype=np.float)" "dtype=float)"
   '';
 
-  nativeBuildInputs = [ python3.pkgs.pyqt5 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    python3.pkgs.pyqt5
+    wrapQtAppsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     bumps

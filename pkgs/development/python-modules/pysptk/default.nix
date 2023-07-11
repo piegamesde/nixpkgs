@@ -28,7 +28,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ decorator numpy scipy six ];
+  propagatedBuildInputs = [
+    decorator
+    numpy
+    scipy
+    six
+  ];
 
   # Tests are not part of the PyPI releases
   doCheck = false;

@@ -39,15 +39,28 @@ python3Packages.buildPythonPackage rec {
     ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs = with python3Packages;
-    ([ click cryptography pyscard pyusb six fido2 ]
-      ++ lib.optionals pyOpenSSLSupport [ pyopenssl ])
-    ++ [ libu2f-host libusb1 yubikey-personalization ];
+    ([
+      click
+      cryptography
+      pyscard
+      pyusb
+      six
+      fido2
+    ] ++ lib.optionals pyOpenSSLSupport [ pyopenssl ]) ++ [
+      libu2f-host
+      libusb1
+      yubikey-personalization
+    ];
 
   makeWrapperArgs = [
     "--prefix"
     "LD_LIBRARY_PATH"
     ":"
-    (lib.makeLibraryPath [ libu2f-host libusb1 yubikey-personalization ])
+    (lib.makeLibraryPath [
+      libu2f-host
+      libusb1
+      yubikey-personalization
+    ])
   ];
 
   postInstall = ''
@@ -61,7 +74,10 @@ python3Packages.buildPythonPackage rec {
       --replace 'compdef _ykman_completion ykman;' '_ykman_completion "$@"'
   '';
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook makefun ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    makefun
+  ];
 
   meta = with lib; {
     homepage = "https://developers.yubico.com/yubikey-manager";
@@ -69,7 +85,11 @@ python3Packages.buildPythonPackage rec {
       "Previous release of command line tool for configuring any YubiKey over all USB transports";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ benley lassulus pinpox ];
+    maintainers = with maintainers; [
+      benley
+      lassulus
+      pinpox
+    ];
     mainProgram = "ykman";
   };
 }

@@ -61,13 +61,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-7kCFzszhJYTmAPPYFKKPqCLfqs7B+UyEv9Z/ilVxpfQ=";
   };
 
-  outputs = [ "out" "lib" "man" ]; # "dev" would only split ~20 kB
+  outputs = [
+    "out"
+    "lib"
+    "man"
+  ]; # "dev" would only split ~20 kB
 
-  nativeBuildInputs = [ makeWrapper pkg-config ]
-    ++ lib.optionals withPythonModule [ swig ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ] ++ lib.optionals withPythonModule [ swig ];
 
-  buildInputs = [ openssl nettle expat libevent ]
-    ++ lib.optionals withSystemd [ systemd ]
+  buildInputs = [
+    openssl
+    nettle
+    expat
+    libevent
+  ] ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
     ++ lib.optionals withPythonModule [ python ];
 
@@ -93,14 +103,19 @@ stdenv.mkDerivation rec {
       "--with-libsodium=${
         symlinkJoin {
           name = "libsodium-full";
-          paths = [ libsodium.dev libsodium.out ];
+          paths = [
+            libsodium.dev
+            libsodium.out
+          ];
         }
       }"
     ] ++ lib.optionals withDNSTAP [
       "--enable-dnstap"
       "--with-protobuf-c=${protobufc}"
-    ] ++ lib.optionals withTFO [ "--enable-tfo-client" "--enable-tfo-server" ]
-    ++ lib.optionals withRedis [
+    ] ++ lib.optionals withTFO [
+      "--enable-tfo-client"
+      "--enable-tfo-server"
+    ] ++ lib.optionals withRedis [
       "--enable-cachedb"
       "--with-libhiredis=${hiredis}"
     ];

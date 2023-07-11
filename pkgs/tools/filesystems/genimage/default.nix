@@ -18,8 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hp+WYtO3eMabHR/nDfZY4cnpCu2iart1P2/lXosMbnM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libconfuse gettext ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libconfuse
+    gettext
+  ];
 
   postInstall = ''
     # As there is no manpage or built-in --help, add the README file for

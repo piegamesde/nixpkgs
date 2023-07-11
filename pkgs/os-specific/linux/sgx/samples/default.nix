@@ -19,7 +19,10 @@ let
       src = sgx-sdk.out;
       sourceRoot = "${sgx-sdk.name}/share/SampleCode/${name}";
 
-      nativeBuildInputs = [ makeWrapper which ];
+      nativeBuildInputs = [
+        makeWrapper
+        which
+      ];
 
       buildInputs = [ sgx-sdk ];
 

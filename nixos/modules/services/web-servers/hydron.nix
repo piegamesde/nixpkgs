@@ -98,10 +98,10 @@ in with lib; {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "hydron" ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "hydron";
         ensurePermissions = { "DATABASE hydron" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     systemd.tmpfiles.rules = [
@@ -115,7 +115,10 @@ in with lib; {
 
     systemd.services.hydron = {
       description = "hydron";
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -143,7 +146,10 @@ in with lib; {
     systemd.timers.hydron-fetch = {
       description =
         "Automatically import paths into hydron and possibly fetch tags";
-      after = [ "network.target" "hydron.service" ];
+      after = [
+        "network.target"
+        "hydron.service"
+      ];
       wantedBy = [ "timers.target" ];
 
       timerConfig = {
@@ -164,13 +170,15 @@ in with lib; {
     };
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "hydron" "baseDir" ] [
-      "services"
-      "hydron"
-      "dataDir"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "hydron"
+    "baseDir"
+  ] [
+    "services"
+    "hydron"
+    "dataDir"
+  ]) ];
 
   meta.maintainers = with maintainers; [ Madouura ];
 }

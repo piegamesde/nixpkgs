@@ -29,7 +29,14 @@ stdenv.mkDerivation rec {
     substituteInPlace src/prog/gpm-root.y --replace __sigemptyset sigemptyset
   '';
 
-  nativeBuildInputs = [ automake autoconf libtool flex bison texinfo ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+    flex
+    bison
+    texinfo
+  ];
   buildInputs = [ ncurses ];
 
   hardeningDisable = [ "format" ];

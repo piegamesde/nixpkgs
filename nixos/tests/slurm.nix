@@ -17,9 +17,8 @@ import ./make-test-python.nix ({
       };
       environment.systemPackages = [ mpitest ];
       networking.firewall.enable = false;
-      systemd.tmpfiles.rules = [
-        "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
-      ];
+      systemd.tmpfiles.rules =
+        [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
     };
 
     mpitest = let
@@ -89,9 +88,8 @@ import ./make-test-python.nix ({
         let passFile = pkgs.writeText "dbdpassword" "password123";
         in {
           networking.firewall.enable = false;
-          systemd.tmpfiles.rules = [
-            "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
-          ];
+          systemd.tmpfiles.rules =
+            [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
           services.slurm.dbdserver = {
             enable = true;
             storagePassFile = "${passFile}";
@@ -104,10 +102,10 @@ import ./make-test-python.nix ({
               GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
             '';
             ensureDatabases = [ "slurm_acct_db" ];
-            ensureUsers = [{
+            ensureUsers = [ {
               ensurePermissions = { "slurm_acct_db.*" = "ALL PRIVILEGES"; };
               name = "slurm";
-            }];
+            } ];
             settings.mysqld = {
               # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
               innodb_buffer_pool_size = "1024M";

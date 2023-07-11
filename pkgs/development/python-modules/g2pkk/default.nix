@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-YarV1Btn1x3Sm4Vw/JDSyJy3ZJMXAQHZJJJklSG0R+Q=";
   };
 
-  propagatedBuildInputs = [ jamo nltk ];
+  propagatedBuildInputs = [
+    jamo
+    nltk
+  ];
 
   pythonImportsCheck = [ "g2pkk" ];
 

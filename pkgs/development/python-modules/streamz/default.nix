@@ -31,7 +31,13 @@ buildPythonPackage rec {
     hash = "sha256-VXfWkEwuxInBQVQJV3IQXgGVRkiBmYfUZCBMbjyWNPM=";
   };
 
-  propagatedBuildInputs = [ networkx six toolz tornado zict ];
+  propagatedBuildInputs = [
+    networkx
+    six
+    toolz
+    tornado
+    zict
+  ];
 
   nativeCheckInputs = [
     confluent-kafka

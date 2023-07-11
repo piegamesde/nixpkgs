@@ -64,8 +64,10 @@ mkDerivation rec {
     "-DBUILD_PSIMEDIA=${if enablePsiMedia then "ON" else "OFF"}"
   ];
 
-  nativeBuildInputs = [ cmake qttools ]
-    ++ lib.optionals enablePsiMedia [ pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ] ++ lib.optionals enablePsiMedia [ pkg-config ];
 
   buildInputs = [
     qtbase
@@ -98,7 +100,11 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://psi-plus.com";
     description = "XMPP (Jabber) client based on Qt5";
-    maintainers = with maintainers; [ orivej misuzu unclechu ];
+    maintainers = with maintainers; [
+      orivej
+      misuzu
+      unclechu
+    ];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

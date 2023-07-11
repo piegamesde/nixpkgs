@@ -24,14 +24,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-e/nw6UGaxWpDCKwI5r8MuSZjrE6u/S5njZYilFa4zJI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     ibus
     gtk3
     m17n_lib
     m17n_db
-    (python3.withPackages (ps: [ ps.pygobject3 (ps.toPythonModule ibus) ]))
+    (python3.withPackages (ps: [
+      ps.pygobject3
+      (ps.toPythonModule ibus)
+    ]))
   ];
 
   configureFlags = [ "--with-gtk=3.0" ];

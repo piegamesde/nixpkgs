@@ -113,7 +113,14 @@
     version = "0.99.8";
   };
   pleaserun = {
-    dependencies = [ "cabin" "clamp" "dotenv" "insist" "mustache" "stud" ];
+    dependencies = [
+      "cabin"
+      "clamp"
+      "dotenv"
+      "insist"
+      "mustache"
+      "stud"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

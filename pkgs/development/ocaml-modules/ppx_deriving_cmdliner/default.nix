@@ -34,7 +34,11 @@ buildDunePackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ cmdliner ppx_deriving ppxlib ];
+  propagatedBuildInputs = [
+    cmdliner
+    ppx_deriving
+    ppxlib
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

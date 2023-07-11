@@ -120,7 +120,10 @@ in {
       extraOptions = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [ "-A /var/log/smartd/" "--interval=3600" ];
+        example = [
+          "-A /var/log/smartd/"
+          "--interval=3600"
+        ];
         description = lib.mdDoc ''
           Extra command-line options passed to the `smartd`
           daemon on startup.
@@ -255,11 +258,11 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.autodetect || cfg.devices != [ ];
       message =
         "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
-    }];
+    } ];
 
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";

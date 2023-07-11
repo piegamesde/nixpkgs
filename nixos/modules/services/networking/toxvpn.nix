@@ -28,7 +28,10 @@ with lib;
       auto_add_peers = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "toxid1" "toxid2" ];
+        example = [
+          "toxid1"
+          "toxid2"
+        ];
         description = lib.mdDoc "peers to automatically connect to on startup";
       };
     };

@@ -35,7 +35,10 @@ in pythonPackages.buildPythonApplication rec {
     urllib3
   ];
 
-  nativeCheckInputs = with pythonPackages; [ pytest mock ];
+  nativeCheckInputs = with pythonPackages; [
+    pytest
+    mock
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \

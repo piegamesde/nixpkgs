@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
       --replace "Version=%AZ_VERSION_NUMBER" "Version=${version}"
   '';
 
-  makeFlags = [ "BUILDTYPE=release" "INSTALLDIR=$(out)" ]
-    ++ (if installTool then
-      [ "INSTALLTOOL=true" ]
-    else
-      [ "INSTALLTOOL=false" ]);
+  makeFlags = [
+    "BUILDTYPE=release"
+    "INSTALLDIR=$(out)"
+  ]
+    ++ (if installTool then [ "INSTALLTOOL=true" ] else [ "INSTALLTOOL=false" ]);
 
   enableParallelBuilding = true;
 

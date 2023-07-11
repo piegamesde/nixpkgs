@@ -49,7 +49,11 @@ buildDunePackage {
 
   # Examples don't compile with core 0.15.  See https://github.com/mirage/ocaml-cohttp/pull/864.
   doCheck = false;
-  checkInputs = [ ounit mirage-crypto core ];
+  checkInputs = [
+    ounit
+    mirage-crypto
+    core
+  ];
 
   meta = cohttp.meta // {
     description = "CoHTTP implementation for the Async concurrency library";

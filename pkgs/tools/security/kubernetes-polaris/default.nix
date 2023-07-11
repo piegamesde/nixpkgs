@@ -22,8 +22,12 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags =
-    [ "-s" "-w" "-X main.Version=${version}" "-X main.Commit=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+    "-X main.Commit=${version}"
+  ];
 
   preBuild = ''
     ${packr}/bin/packr2 -v --ignore-imports

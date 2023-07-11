@@ -34,10 +34,21 @@ buildPythonPackage rec {
     hash = "sha256-Pwfc9e39sYPdcHN1cZtxxGEglEYzPp4yOYLD5/4SSiU=";
   };
 
-  propagatedBuildInputs =
-    [ cryptography httpcore httpx psrpcore pyspnego requests ];
+  propagatedBuildInputs = [
+    cryptography
+    httpcore
+    httpx
+    psrpcore
+    pyspnego
+    requests
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook pyyaml xmldiff ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+    pyyaml
+    xmldiff
+  ];
 
   passthru.optional-dependencies = {
     credssp = [ requests-credssp ];

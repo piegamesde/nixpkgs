@@ -44,7 +44,11 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { mqtt-client = [ paho-mqtt ]; };
 
-  nativeCheckInputs = [ pytest-sugar pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-sugar
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "mysensors" ];
 

@@ -27,8 +27,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs =
-    [ aioresponses pytest-asyncio pytest-aiohttp pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytest-aiohttp
+    pytest-cov
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyairnow" ];
 

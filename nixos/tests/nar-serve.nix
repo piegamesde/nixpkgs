@@ -20,7 +20,10 @@ import ./make-test-python.nix ({
             # https://cache.nixos.org
             cacheURL = "http://localhost/";
           };
-          environment.systemPackages = [ pkgs.hello pkgs.curl ];
+          environment.systemPackages = [
+            pkgs.hello
+            pkgs.curl
+          ];
 
           networking.firewall.allowedTCPPorts = [ 8383 ];
 

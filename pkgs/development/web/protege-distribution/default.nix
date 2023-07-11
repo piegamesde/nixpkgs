@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "092x22wyisdnhccx817mqq15sxqdfc7iz4whr4mbvzrd9di6ipjq";
   };
 
-  nativeBuildInputs = [ unzip copyDesktopItems iconConvTools ];
+  nativeBuildInputs = [
+    unzip
+    copyDesktopItems
+    iconConvTools
+  ];
 
   patches = [
     # Replace logic for searching the install directory with a static cd into $out
@@ -60,16 +64,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Protege";
-      desktopName = "Protege Desktop";
-      icon = "protege";
-      comment = "OWL2 ontology editor";
-      categories = [ "Development" ];
-      exec = "run-protege";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Protege";
+    desktopName = "Protege Desktop";
+    icon = "protege";
+    comment = "OWL2 ontology editor";
+    categories = [ "Development" ];
+    exec = "run-protege";
+  }) ];
 
   meta = with lib; {
     description =
@@ -77,7 +79,12 @@ stdenv.mkDerivation rec {
     homepage = "https://protege.stanford.edu/";
     downloadPage = "https://protege.stanford.edu/products.php#desktop-protege";
     maintainers = with maintainers; [ nessdoor ];
-    license = with licenses; [ asl20 bsd2 epl10 lgpl3 ];
+    license = with licenses; [
+      asl20
+      bsd2
+      epl10
+      lgpl3
+    ];
     platforms = platforms.linux;
   };
 }

@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre gcc valgrind ];
+  buildInputs = [
+    jre
+    gcc
+    valgrind
+  ];
 
   dontUnpack = true;
 

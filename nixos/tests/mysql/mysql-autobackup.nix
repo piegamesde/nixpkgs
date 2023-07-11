@@ -23,10 +23,10 @@ let
         services.mysql = {
           inherit package;
           enable = true;
-          initialDatabases = [{
+          initialDatabases = [ {
             name = "testdb";
             schema = ./testdb.sql;
-          }];
+          } ];
         };
 
         services.automysqlbackup.enable = true;

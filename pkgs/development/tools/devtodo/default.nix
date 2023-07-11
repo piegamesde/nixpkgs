@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "029y173njydzlznxmdizrrz4wcky47vqhl87fsb7xjcz9726m71p";
   };
 
-  buildInputs = [ readline ncurses ];
+  buildInputs = [
+    readline
+    ncurses
+  ];
 
   enableParallelBuilding = true;
 

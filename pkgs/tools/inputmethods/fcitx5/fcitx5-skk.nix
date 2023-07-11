@@ -26,11 +26,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-y5GciWJMEFQM8SsqYANXe/SdVq6GEqsfF1yrKKhw0KA=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules gettext pkg-config ]
-    ++ lib.optional enableQt wrapQtAppsHook;
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    gettext
+    pkg-config
+  ] ++ lib.optional enableQt wrapQtAppsHook;
 
-  buildInputs = [ fcitx5 libskk ]
-    ++ lib.optionals enableQt [ fcitx5-qt qtbase ];
+  buildInputs = [
+    fcitx5
+    libskk
+  ] ++ lib.optionals enableQt [
+    fcitx5-qt
+    qtbase
+  ];
 
   cmakeFlags = [
     "-DENABLE_QT=${toString enableQt}"

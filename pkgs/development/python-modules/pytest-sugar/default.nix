@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ termcolor packaging ];
+  propagatedBuildInputs = [
+    termcolor
+    packaging
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

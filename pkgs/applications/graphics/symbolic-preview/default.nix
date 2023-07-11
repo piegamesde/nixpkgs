@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "08g2sbdb1x5z26mi68nmciq6xwv0chvxw6anj1qdfh7npsg0dm4c";
   };
 
-  nativeBuildInputs =
-    [ cargo desktop-file-utils meson ninja pkg-config rustc wrapGAppsHook4 ];
-  buildInputs = [ glib gtk4 libadwaita libxml2 ];
+  nativeBuildInputs = [
+    cargo
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    rustc
+    wrapGAppsHook4
+  ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    libxml2
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/design/symbolic-preview";

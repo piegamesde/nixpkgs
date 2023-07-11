@@ -24,9 +24,16 @@ in stdenv.mkDerivation {
     sha256 = "1ixnhn2dk83nh9v8sdivzgc2bm9z2phvsbx8bc6ainbjq6vn7lns";
   };
 
-  nativeBuildInputs = [ rpmextract autoreconfHook file ];
+  nativeBuildInputs = [
+    rpmextract
+    autoreconfHook
+    file
+  ];
 
-  buildInputs = [ libjpeg cups ];
+  buildInputs = [
+    libjpeg
+    cups
+  ];
 
   unpackPhase = ''
     rpmextract $src
@@ -77,7 +84,10 @@ in stdenv.mkDerivation {
           drivers = [ pkgs.epson_201207w ];
         };
     '';
-    license = with licenses; [ lgpl21 epson ];
+    license = with licenses; [
+      lgpl21
+      epson
+    ];
     maintainers = [ maintainers.romildo ];
     platforms = [ "x86_64-linux" ];
   };

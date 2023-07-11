@@ -29,11 +29,18 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six webencodings ];
+  propagatedBuildInputs = [
+    six
+    webencodings
+  ];
 
   # latest release not compatible with pytest 6
   doCheck = false;
-  nativeCheckInputs = [ mock pytest-expect pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-expect
+    pytestCheckHook
+  ];
 
   meta = {
     homepage = "https://github.com/html5lib/html5lib-python";
@@ -45,6 +52,9 @@ buildPythonPackage rec {
       major web browsers.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ domenkozar prikhi ];
+    maintainers = with lib.maintainers; [
+      domenkozar
+      prikhi
+    ];
   };
 }

@@ -35,7 +35,10 @@ in {
 
     buildAndTestSubdir = "teos";
 
-    nativeBuildInputs = [ protobuf rustfmt ];
+    nativeBuildInputs = [
+      protobuf
+      rustfmt
+    ];
 
     buildInputs =
       lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
@@ -58,10 +61,14 @@ in {
 
     buildAndTestSubdir = "watchtower-plugin";
 
-    nativeBuildInputs = [ pkg-config protobuf rustfmt ];
+    nativeBuildInputs = [
+      pkg-config
+      protobuf
+      rustfmt
+    ];
 
-    buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin
-      [ darwin.apple_sdk.frameworks.SystemConfiguration ];
+    buildInputs = [ openssl ] ++ lib.optionals
+      stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
 
     passthru.updateScript = updateScript;
 

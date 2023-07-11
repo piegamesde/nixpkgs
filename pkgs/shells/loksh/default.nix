@@ -20,7 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-djjJH+mknmOfleVJhSkCLqCIaELh2gjZZE/xdNZuPtY=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [ ncurses ];
 

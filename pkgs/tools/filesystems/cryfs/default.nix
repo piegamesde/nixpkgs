@@ -48,12 +48,22 @@ stdenv.mkDerivation rec {
       --replace "(4.5L*1024*1024*1024)" "(0.5L*1024*1024*1024)"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   strictDeps = true;
 
-  buildInputs = [ boost175 curl fuse openssl range-v3 spdlog ]
-    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
+  buildInputs = [
+    boost175
+    curl
+    fuse
+    openssl
+    range-v3
+    spdlog
+  ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   #nativeCheckInputs = [ gtest ];
 
@@ -86,7 +96,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.cryfs.org/";
     changelog = "https://github.com/cryfs/cryfs/raw/${version}/ChangeLog.txt";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ peterhoeg c0bw3b ];
+    maintainers = with maintainers; [
+      peterhoeg
+      c0bw3b
+    ];
     platforms = platforms.unix;
   };
 }

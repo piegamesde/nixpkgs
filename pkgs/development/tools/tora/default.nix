@@ -28,7 +28,12 @@ mkDerivation {
     sha256 = "0fr9b542i8r6shgnz33lc3cz333fnxgmac033yxfrdjfglzk0j2k";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper qttools ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    makeWrapper
+    qttools
+  ];
 
   buildInputs = [
     boost

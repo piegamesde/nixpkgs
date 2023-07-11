@@ -24,7 +24,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mQtprgm6QonYiMUPPIcCbWxPQ/b2XuQiOkROZNPYaQk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config addOpenGLRunpath ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    addOpenGLRunpath
+  ];
 
   buildInputs = [
     libdrm
@@ -38,7 +43,10 @@ stdenv.mkDerivation rec {
   # Note: Attempt to remove on next release after 0.0.9
   # nixpkgs reference: https://github.com/NixOS/nixpkgs/pull/221978#issuecomment-1483892437
   # upstream: https://github.com/elFarto/nvidia-vaapi-driver/issues/188
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=format=" "-Wno-error=int-conversion" ];
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=format="
+    "-Wno-error=int-conversion"
+  ];
 
   postFixup = ''
     addOpenGLRunpath "$out/lib/dri/nvidia_drv_video.so"

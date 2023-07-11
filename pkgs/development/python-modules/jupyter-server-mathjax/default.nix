@@ -20,11 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-ux5rbcBobB/jhqIrWIYWPbVIiTqZwoEMNjmenEyiOUM=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging setuptools ];
+  nativeBuildInputs = [
+    jupyter-packaging
+    setuptools
+  ];
 
   propagatedBuildInputs = [ jupyter-server ];
 
-  nativeCheckInputs = [ pytest-jupyter pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-jupyter
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "jupyter_server_mathjax" ];
 

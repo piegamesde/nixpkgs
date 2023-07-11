@@ -65,7 +65,11 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     boost
@@ -90,9 +94,9 @@ in stdenv.mkDerivation rec {
   ];
 
   # Flag needed by GCC 12 but unrecognized by GCC 9 (aarch64-linux default now)
-  env.NIX_CFLAGS_COMPILE = toString
-    (lib.optionals (with stdenv; cc.isGNU && lib.versionAtLeast cc.version "12")
-      [ "-Wno-error=mismatched-new-delete" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (with stdenv;
+    cc.isGNU && lib.versionAtLeast cc.version
+    "12") [ "-Wno-error=mismatched-new-delete" ]);
 
   patchPhase = ''
     patchShebangs scripts
@@ -124,7 +128,12 @@ in stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/anbox \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libGL libglvnd ]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libGL
+          libglvnd
+        ]
+      } \
       --prefix PATH : ${git}/bin
 
     mkdir -p $out/share/dbus-1/services
@@ -160,7 +169,11 @@ in stdenv.mkDerivation rec {
     description = "Android in a box";
     license = licenses.gpl2;
     maintainers = with maintainers; [ edwtjo ];
-    platforms = [ "armv7l-linux" "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "armv7l-linux"
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 
 }

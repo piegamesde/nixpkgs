@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wkRiDWO9wUyxkAeqvm99u22Jq4xnQJx6zS7Sb+R8iMg=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   # https://github.com/FedeDP/libmodule/issues/7
   postPatch = ''

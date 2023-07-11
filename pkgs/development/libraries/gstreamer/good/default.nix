@@ -63,7 +63,10 @@ stdenv.mkDerivation rec {
   pname = "gst-plugins-good";
   version = "1.22.2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -75,12 +78,22 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [ pkg-config python3 meson ninja gettext nasm orc libshout glib ]
-    ++ lib.optionals enableDocumentation [ hotdoc ]
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    meson
+    ninja
+    gettext
+    nasm
+    orc
+    libshout
+    glib
+  ] ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals qt5Support (with qt5; [ qtbase ])
-    ++ lib.optionals qt6Support (with qt6; [ qtbase qttools ])
-    ++ lib.optionals stdenv.isLinux [ wayland-protocols ];
+    ++ lib.optionals qt6Support (with qt6; [
+      qtbase
+      qttools
+    ]) ++ lib.optionals stdenv.isLinux [ wayland-protocols ];
 
   buildInputs = [
     gst-plugins-base
@@ -112,10 +125,17 @@ stdenv.mkDerivation rec {
     ++ lib.optionals gtkSupport [
       # for gtksink
       gtk3
-    ] ++ lib.optionals qt5Support
-    (with qt5; [ qtbase qtdeclarative qtwayland qtx11extras ])
-    ++ lib.optionals qt6Support (with qt6; [ qtbase qtdeclarative qtwayland ])
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ] ++ lib.optionals stdenv.isLinux [
+    ] ++ lib.optionals qt5Support (with qt5; [
+      qtbase
+      qtdeclarative
+      qtwayland
+      qtx11extras
+    ]) ++ lib.optionals qt6Support (with qt6; [
+      qtbase
+      qtdeclarative
+      qtwayland
+    ]) ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ++ lib.optionals stdenv.isLinux [
       libv4l
       libpulseaudio
       libavc1394

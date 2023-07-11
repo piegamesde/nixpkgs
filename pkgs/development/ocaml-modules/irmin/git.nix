@@ -47,7 +47,12 @@ buildDunePackage {
     cohttp-lwt-unix
   ];
 
-  checkInputs = [ mtime alcotest irmin-test cacert ];
+  checkInputs = [
+    mtime
+    alcotest
+    irmin-test
+    cacert
+  ];
 
   doCheck = true;
 

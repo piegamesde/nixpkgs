@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "yDW2QKQM41fhuDZmqr2V7f+iTd3dSbja/2OtuFHNq3Q=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   meta = with lib; {
     homepage = "https://poppler.freedesktop.org/";

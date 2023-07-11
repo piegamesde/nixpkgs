@@ -19,8 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lXu0mLLfcX8K1EmoFH0vp2cHluyRwhTL0/bW5Ax36mI=";
   };
 
-  nativeBuildInputs = [ pkg-config libtool ];
-  buildInputs = [ gtk2 curl cdparanoia libid3tag ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+  ];
+  buildInputs = [
+    gtk2
+    curl
+    cdparanoia
+    libid3tag
+  ];
   enableParallelBuilding = true;
 
   meta = {

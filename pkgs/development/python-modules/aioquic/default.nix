@@ -40,7 +40,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ certifi pylsqpack pyopenssl ];
+  propagatedBuildInputs = [
+    certifi
+    pylsqpack
+    pyopenssl
+  ];
 
   buildInputs = [ openssl ];
 

@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ json_c libnet libpcap openssl ];
+  buildInputs = [
+    json_c
+    libnet
+    libpcap
+    openssl
+  ];
 
   prePatch = ''
     sed -i -e 's|#include.*net/bpf.h|#include <pcap/bpf.h>|' \

@@ -60,7 +60,10 @@ in {
     extraOptions = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [ "-conn_type=tcp4" "-max_clients=8192" ];
+      example = [
+        "-conn_type=tcp4"
+        "-max_clients=8192"
+      ];
       description = mdDoc ''
         Additional command line options to pass to the endlessh-go daemon.
       '';
@@ -124,17 +127,26 @@ in {
         ProtectProc = "noaccess";
         ProcSubset = "pid";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
       };
     };
 
     networking.firewall.allowedTCPPorts = with cfg;
-      optionals openFirewall [ port prometheus.port ];
+      optionals openFirewall [
+        port
+        prometheus.port
+      ];
   };
 
   meta.maintainers = with maintainers; [ azahi ];

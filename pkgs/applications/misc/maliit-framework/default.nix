@@ -61,7 +61,12 @@ mkDerivation rec {
     xorg.libXtst
   ];
 
-  nativeBuildInputs = [ cmake doxygen pkg-config wayland-protocols ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+    wayland-protocols
+  ];
 
   preConfigure = ''
     cmakeFlags+="-DQT5_PLUGINS_INSTALL_DIR=$out/$qtPluginPrefix"

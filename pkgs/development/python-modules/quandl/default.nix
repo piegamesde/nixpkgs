@@ -33,12 +33,25 @@ buildPythonPackage rec {
     sha256 = "6e0b82fbc7861610b3577c5397277c4220e065eee0fed4e46cd6b6021655b64c";
   };
 
-  propagatedBuildInputs =
-    [ pandas numpy requests inflection python-dateutil six more-itertools ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    pandas
+    numpy
+    requests
+    inflection
+    python-dateutil
+    six
+    more-itertools
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs =
-    [ factory_boy faker httpretty jsondate mock parameterized pytestCheckHook ];
+  nativeCheckInputs = [
+    factory_boy
+    faker
+    httpretty
+    jsondate
+    mock
+    parameterized
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "quandl" ];
 

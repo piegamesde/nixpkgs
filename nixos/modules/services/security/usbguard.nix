@@ -10,7 +10,13 @@ let
   cfg = config.services.usbguard;
 
   # valid policy options
-  policy = (types.enum [ "allow" "block" "reject" "keep" "apply-policy" ]);
+  policy = (types.enum [
+    "allow"
+    "block"
+    "reject"
+    "keep"
+    "apply-policy"
+  ]);
 
   defaultRuleFile = "/var/lib/usbguard/rules.conf";
 
@@ -136,7 +142,10 @@ in {
       IPCAllowedUsers = mkOption {
         type = types.listOf types.str;
         default = [ "root" ];
-        example = [ "root" "yourusername" ];
+        example = [
+          "root"
+          "yourusername"
+        ];
         description = lib.mdDoc ''
           A list of usernames that the daemon will accept IPC connections from.
         '';
@@ -183,7 +192,10 @@ in {
           "${cfg.package}/bin/usbguard-daemon -P -k -c ${daemonConfFile}";
         Restart = "on-failure";
 
-        StateDirectory = [ "usbguard" "usbguard/IPCAccessControl.d" ];
+        StateDirectory = [
+          "usbguard"
+          "usbguard/IPCAccessControl.d"
+        ];
 
         AmbientCapabilities = "";
         CapabilityBoundingSet = "CAP_CHOWN CAP_FOWNER";
@@ -201,7 +213,10 @@ in {
         ProtectSystem = true;
         ReadOnlyPaths = "-/";
         ReadWritePaths = "-/dev/shm -/tmp";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
@@ -211,11 +226,23 @@ in {
     };
   };
   imports = [
-    (mkRemovedOptionModule [ "services" "usbguard" "ruleFile" ]
+    (mkRemovedOptionModule [
+      "services"
+      "usbguard"
+      "ruleFile"
+    ]
       "The usbguard module now uses ${defaultRuleFile} as ruleFile. Alternatively, use services.usbguard.rules to configure rules.")
-    (mkRemovedOptionModule [ "services" "usbguard" "IPCAccessControlFiles" ]
+    (mkRemovedOptionModule [
+      "services"
+      "usbguard"
+      "IPCAccessControlFiles"
+    ]
       "The usbguard module now hardcodes IPCAccessControlFiles to /var/lib/usbguard/IPCAccessControl.d.")
-    (mkRemovedOptionModule [ "services" "usbguard" "auditFilePath" ]
+    (mkRemovedOptionModule [
+      "services"
+      "usbguard"
+      "auditFilePath"
+    ]
       "Removed usbguard module audit log files. Audit logs can be found in the systemd journal.")
   ];
 }

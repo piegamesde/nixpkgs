@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytest-metadata ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # pytest-flaky is not available at the moment

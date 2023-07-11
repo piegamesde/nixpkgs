@@ -18,7 +18,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1vzb9n1j4gxigzll6654ln79lzbrrm6yy0lyazd9kldyl349b8sr";
   };
 
-  buildInputs = [ readline ncurses canto-daemon ];
+  buildInputs = [
+    readline
+    ncurses
+    canto-daemon
+  ];
   propagatedBuildInputs = [ canto-daemon ];
 
   meta = {

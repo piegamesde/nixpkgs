@@ -124,7 +124,10 @@ let
       }
     ] ocamlPackages_4_14;
   ocamlNativeBuildInputs = with ocamlPackages;
-    [ ocaml findlib ] ++ optional (coqAtLeast "8.14") dune_2;
+    [
+      ocaml
+      findlib
+    ] ++ optional (coqAtLeast "8.14") dune_2;
   ocamlPropagatedBuildInputs = [ ]
     ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
     ++ optional (!coqAtLeast "8.13") ocamlPackages.num
@@ -195,8 +198,7 @@ let
       ocamlPackages.lablgtk3-sourceview3
       glib
       gnome.adwaita-icon-theme
-    ] else
-      [ ocamlPackages.lablgtk ]);
+    ] else [ ocamlPackages.lablgtk ]);
 
     propagatedBuildInputs = ocamlPropagatedBuildInputs;
 
@@ -229,7 +231,10 @@ let
 
     prefixKey = "-prefix ";
 
-    buildFlags = [ "revision" "coq" ] ++ optional buildIde "coqide"
+    buildFlags = [
+      "revision"
+      "coq"
+    ] ++ optional buildIde "coqide"
       ++ optional (!coqAtLeast "8.14") "bin/votour";
     enableParallelBuilding = true;
 
@@ -241,7 +246,13 @@ let
       icon = "coq";
       desktopName = "CoqIDE";
       comment = "Graphical interface for the Coq proof assistant";
-      categories = [ "Development" "Science" "Math" "IDE" "GTK" ];
+      categories = [
+        "Development"
+        "Science"
+        "Math"
+        "IDE"
+        "GTK"
+      ];
     });
 
     postInstall = let suffix = optionalString (coqAtLeast "8.14") "-core";
@@ -267,7 +278,12 @@ let
       homepage = "http://coq.inria.fr";
       license = licenses.lgpl21;
       branch = coq-version;
-      maintainers = with maintainers; [ roconnor thoughtpolice vbgl Zimmi48 ];
+      maintainers = with maintainers; [
+        roconnor
+        thoughtpolice
+        vbgl
+        Zimmi48
+      ];
       platforms = platforms.unix;
       mainProgram = "coqide";
     };

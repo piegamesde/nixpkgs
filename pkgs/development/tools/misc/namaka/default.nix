@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-QnEiCWC0awE7CUSpfGJGV7ItXRnP1omodPfKAtXSihY=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ oniguruma ];
 

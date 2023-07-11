@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "0pdj4yv3qrq56gb67p85ara3g8qrzw5ha787bl2ls4vcx85q7303";
   };
 
-  nativeBuildInputs = [ go pkg-config ];
+  nativeBuildInputs = [
+    go
+    pkg-config
+  ];
 
-  buildInputs =
-    [ libX11 libXcursor libXrandr libXinerama libXi libXext libXxf86vm libGL ];
+  buildInputs = [
+    libX11
+    libXcursor
+    libXrandr
+    libXinerama
+    libXi
+    libXext
+    libXxf86vm
+    libGL
+  ];
 
   postPatch = ''
     substituteInPlace scripts/build.sh \

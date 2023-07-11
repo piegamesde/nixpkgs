@@ -14,10 +14,8 @@
 
   # the default test target is sse4, but that is not supported by all Hydra agents
   ,
-  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
-    [ "neon-i32x4" ]
-  else
-    [ "sse2-i32x4" ]
+  testedTargets ? if stdenv.isAarch64
+  || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ]
 }:
 
 stdenv.mkDerivation rec {
@@ -31,9 +29,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WBAVgjQjW4x9JGx6xotPoTVOePsPjBJEyBYA7TCTBvc=";
   };
 
-  nativeBuildInputs =
-    [ cmake which m4 bison flex python3 llvmPackages.libllvm.dev ];
-  buildInputs = with llvmPackages; [ libllvm libclang openmp ncurses ];
+  nativeBuildInputs = [
+    cmake
+    which
+    m4
+    bison
+    flex
+    python3
+    llvmPackages.libllvm.dev
+  ];
+  buildInputs = with llvmPackages; [
+    libllvm
+    libclang
+    openmp
+    ncurses
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -89,6 +99,10 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "aarch64-darwin"
     ]; # TODO: buildable on more platforms?
-    maintainers = with maintainers; [ aristid thoughtpolice athas ];
+    maintainers = with maintainers; [
+      aristid
+      thoughtpolice
+      athas
+    ];
   };
 }

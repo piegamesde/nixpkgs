@@ -89,7 +89,13 @@ buildPythonPackage rec {
     updateScript = writeScript "update-spacy" ''
       #!${stdenv.shell}
       set -eou pipefail
-      PATH=${lib.makeBinPath [ nix git nix-update ]}
+      PATH=${
+        lib.makeBinPath [
+          nix
+          git
+          nix-update
+        ]
+      }
 
       nix-update python3Packages.spacy
 

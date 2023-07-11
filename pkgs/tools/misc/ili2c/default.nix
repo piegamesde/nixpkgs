@@ -15,7 +15,11 @@ in stdenv.mkDerivation rec {
   pname = "ili2c";
   version = "5.1.1";
 
-  nativeBuildInputs = [ ant jdk makeWrapper ];
+  nativeBuildInputs = [
+    ant
+    jdk
+    makeWrapper
+  ];
 
   src = fetchFromGitHub {
     owner = "claeis";

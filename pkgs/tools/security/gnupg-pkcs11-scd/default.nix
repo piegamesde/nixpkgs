@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pkcs11helper openssl ];
+  buildInputs = [
+    pkcs11helper
+    openssl
+  ];
 
   configureFlags = [
     "--with-libgpg-error-prefix=${libgpg-error.dev}"
@@ -38,7 +41,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gnupg-pkcs11.sourceforge.net/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ matthiasbeyer philandstuff ];
+    maintainers = with maintainers; [
+      matthiasbeyer
+      philandstuff
+    ];
     platforms = platforms.unix;
   };
 }

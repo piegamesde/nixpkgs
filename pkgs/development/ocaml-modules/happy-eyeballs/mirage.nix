@@ -22,10 +22,23 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  buildInputs =
-    [ duration ipaddr domain-name fmt mirage-clock mirage-random mirage-time ];
+  buildInputs = [
+    duration
+    ipaddr
+    domain-name
+    fmt
+    mirage-clock
+    mirage-random
+    mirage-time
+  ];
 
-  propagatedBuildInputs = [ dns-client-mirage happy-eyeballs logs lwt tcpip ];
+  propagatedBuildInputs = [
+    dns-client-mirage
+    happy-eyeballs
+    logs
+    lwt
+    tcpip
+  ];
 
   doCheck = true;
 

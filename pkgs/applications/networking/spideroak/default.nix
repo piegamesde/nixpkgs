@@ -67,7 +67,10 @@ in stdenv.mkDerivation {
     sed -i 's/^Exec=.*/Exec=spideroak/' $out/share/applications/SpiderOakONE.desktop
   '';
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
 
   meta = {
     homepage = "https://spideroak.com";

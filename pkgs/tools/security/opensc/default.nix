@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Yo8dwk7+d6q+hi7DmJ0GJM6/pmiDOiyEm/tEBSbCU8k=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [
     zlib
     readline
@@ -72,7 +75,10 @@ stdenv.mkDerivation rec {
   PCSC_CFLAGS = lib.optionalString withApplePCSC
     "-I${PCSC}/Library/Frameworks/PCSC.framework/Headers";
 
-  installFlags = [ "sysconfdir=$(out)/etc" "completiondir=$(out)/etc" ];
+  installFlags = [
+    "sysconfdir=$(out)/etc"
+    "completiondir=$(out)/etc"
+  ];
 
   meta = with lib; {
     description = "Set of libraries and utilities to access smart cards";

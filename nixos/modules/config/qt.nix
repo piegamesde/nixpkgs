@@ -11,10 +11,14 @@ let
 
   cfg = config.qt;
 
-  isQGnome = cfg.platformTheme == "gnome"
-    && builtins.elem cfg.style [ "adwaita" "adwaita-dark" ];
-  isQtStyle = cfg.platformTheme == "gtk2"
-    && !(builtins.elem cfg.style [ "adwaita" "adwaita-dark" ]);
+  isQGnome = cfg.platformTheme == "gnome" && builtins.elem cfg.style [
+    "adwaita"
+    "adwaita-dark"
+  ];
+  isQtStyle = cfg.platformTheme == "gtk2" && !(builtins.elem cfg.style [
+    "adwaita"
+    "adwaita-dark"
+  ]);
   isQt5ct = cfg.platformTheme == "qt5ct";
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
@@ -24,11 +28,7 @@ let
     pkgs.adwaita-qt
     pkgs.qgnomeplatform-qt6
     pkgs.adwaita-qt6
-  ] else if isQtStyle then
-    [ pkgs.libsForQt5.qtstyleplugins ]
-  else if isQt5ct then
-    [ pkgs.libsForQt5.qt5ct ]
-  else if isLxqt then [
+  ] else if isQtStyle then [ pkgs.libsForQt5.qtstyleplugins ] else if isQt5ct then [ pkgs.libsForQt5.qt5ct ] else if isLxqt then [
     pkgs.lxqt.lxqt-qtplugin
     pkgs.lxqt.lxqt-config
   ] else if isKde then [
@@ -42,9 +42,27 @@ in {
   meta.maintainers = [ maintainers.romildo ];
 
   imports = [
-    (mkRenamedOptionModule [ "qt5" "enable" ] [ "qt" "enable" ])
-    (mkRenamedOptionModule [ "qt5" "platformTheme" ] [ "qt" "platformTheme" ])
-    (mkRenamedOptionModule [ "qt5" "style" ] [ "qt" "style" ])
+    (mkRenamedOptionModule [
+      "qt5"
+      "enable"
+    ] [
+      "qt"
+      "enable"
+    ])
+    (mkRenamedOptionModule [
+      "qt5"
+      "platformTheme"
+    ] [
+      "qt"
+      "platformTheme"
+    ])
+    (mkRenamedOptionModule [
+      "qt5"
+      "style"
+    ] [
+      "qt"
+      "style"
+    ])
   ];
 
   options = {
@@ -53,15 +71,33 @@ in {
       enable = mkEnableOption (lib.mdDoc "Qt theming configuration");
 
       platformTheme = mkOption {
-        type = types.enum [ "gtk2" "gnome" "lxqt" "qt5ct" "kde" ];
+        type = types.enum [
+          "gtk2"
+          "gnome"
+          "lxqt"
+          "qt5ct"
+          "kde"
+        ];
         example = "gnome";
         relatedPackages = [
           "qgnomeplatform"
           "qgnomeplatform-qt6"
-          [ "libsForQt5" "qtstyleplugins" ]
-          [ "libsForQt5" "qt5ct" ]
-          [ "lxqt" "lxqt-qtplugin" ]
-          [ "libsForQt5" "plasma-integration" ]
+          [
+            "libsForQt5"
+            "qtstyleplugins"
+          ]
+          [
+            "libsForQt5"
+            "qt5ct"
+          ]
+          [
+            "lxqt"
+            "lxqt-qtplugin"
+          ]
+          [
+            "libsForQt5"
+            "plasma-integration"
+          ]
         ];
         description = lib.mdDoc ''
           Selects the platform theme to use for Qt applications.
@@ -87,8 +123,14 @@ in {
           "plastique"
         ];
         example = "adwaita";
-        relatedPackages =
-          [ "adwaita-qt" "adwaita-qt6" [ "libsForQt5" "qtstyleplugins" ] ];
+        relatedPackages = [
+          "adwaita-qt"
+          "adwaita-qt6"
+          [
+            "libsForQt5"
+            "qtstyleplugins"
+          ]
+        ];
         description = lib.mdDoc ''
           Selects the style to use for Qt applications.
 
@@ -109,12 +151,15 @@ in {
       QT_STYLE_OVERRIDE = mkIf (!(isQt5ct || isLxqt || isKde)) cfg.style;
     };
 
-    environment.profileRelativeSessionVariables =
-      let qtVersions = with pkgs; [ qt5 qt6 ];
-      in {
-        QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
-        QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
-      };
+    environment.profileRelativeSessionVariables = let
+      qtVersions = with pkgs; [
+        qt5
+        qt6
+      ];
+    in {
+      QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
+      QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
+    };
 
     environment.systemPackages = packages;
 

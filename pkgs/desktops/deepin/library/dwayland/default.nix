@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/aWS4uvhxi9azxJWjRE+Bw+veURFO+mC8l9yypseclU=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules qttools ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    qttools
+  ];
 
-  buildInputs =
-    [ qtbase qtwayland wayland wayland-protocols deepin-wayland-protocols ];
+  buildInputs = [
+    qtbase
+    qtwayland
+    wayland
+    wayland-protocols
+    deepin-wayland-protocols
+  ];
 
   dontWrapQtApps = true;
 

@@ -25,12 +25,21 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-DX0jpp1ujaeesW7iQWZ5/xAzGndOQqBmQZbBpMEI9u0=";
 
   doCheck = true;
-  nativeCheckInputs = [ nix graphviz ];
+  nativeCheckInputs = [
+    nix
+    graphviz
+  ];
 
-  buildInputs = [ boost nix nlohmann_json ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    boost
+    nix
+    nlohmann_json
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
   meta = with lib; {
     description =

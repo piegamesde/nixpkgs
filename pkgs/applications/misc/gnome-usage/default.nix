@@ -41,8 +41,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [ glib gnome.adwaita-icon-theme gtk3 libdazzle libgtop tracker libhandy ];
+  buildInputs = [
+    glib
+    gnome.adwaita-icon-theme
+    gtk3
+    libdazzle
+    libgtop
+    tracker
+    libhandy
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.sh

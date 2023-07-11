@@ -92,8 +92,10 @@ in {
           "${getBin cfg.package}/bin/icecc-scheduler"
           "-p"
           (toString cfg.port)
-        ] ++ optionals (cfg.netName != null) [ "-n" (toString cfg.netName) ]
-          ++ optional cfg.persistentClientConnection "-r" ++ cfg.extraArgs);
+        ] ++ optionals (cfg.netName != null) [
+          "-n"
+          (toString cfg.netName)
+        ] ++ optional cfg.persistentClientConnection "-r" ++ cfg.extraArgs);
 
         DynamicUser = true;
       };

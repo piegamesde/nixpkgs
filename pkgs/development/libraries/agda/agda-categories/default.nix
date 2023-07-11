@@ -38,6 +38,9 @@ mkDerivation rec {
     description = "A new Categories library";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ alexarice turion ];
+    maintainers = with maintainers; [
+      alexarice
+      turion
+    ];
   };
 }

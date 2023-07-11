@@ -39,7 +39,11 @@ stdenv.mkDerivation {
     cp lingeling plingeling treengeling ilingeling blimc $out/bin
   '';
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   meta = with lib; {
     description = "Fast SAT solver";

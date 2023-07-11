@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DfZiVxncpKSPn9BN25d8o0/tC27+HhSG/t53WgzAT/s=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   # See CMake/folly-deps.cmake in the Folly source tree.
   buildInputs = [
@@ -87,8 +90,15 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebook/folly";
     license = licenses.asl20;
     # 32bit is not supported: https://github.com/facebook/folly/issues/103
-    platforms =
-      [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux" ];
-    maintainers = with maintainers; [ abbradar pierreis ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      abbradar
+      pierreis
+    ];
   };
 }

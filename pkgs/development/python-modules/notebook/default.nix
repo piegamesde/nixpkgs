@@ -37,7 +37,10 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.utf8";
 
-  nativeCheckInputs = [ pytestCheckHook glibcLocales ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    glibcLocales
+  ];
 
   propagatedBuildInputs = [
     jinja2

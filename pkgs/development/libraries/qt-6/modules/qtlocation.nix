@@ -7,5 +7,9 @@
 
 qtModule {
   pname = "qtlocation";
-  qtInputs = [ qtbase qtdeclarative qtpositioning ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtpositioning
+  ];
 }

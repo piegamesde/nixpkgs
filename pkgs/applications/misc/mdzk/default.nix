@@ -31,6 +31,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mdzk-rs/mdzk/";
     changelog = "https://github.com/mdzk-rs/mdzk/blob/main/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ bryanasdev000 ratsclub ];
+    maintainers = with maintainers; [
+      bryanasdev000
+      ratsclub
+    ];
   };
 }

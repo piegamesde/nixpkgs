@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "09k0hx5hxpbykvslv12l2fq9pxdwpd311mxj038hbqzjghcyidyr";
   };
 
-  nativeBuildInputs = [ autoconf automake intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 openconnect connman ];
+  buildInputs = [
+    gtk3
+    openconnect
+    connman
+  ];
 
   preConfigure = ''
     # m4/intltool.m4 is an invalid symbolic link

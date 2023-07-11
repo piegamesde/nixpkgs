@@ -46,22 +46,29 @@ let
         "PYTHONPATH"
         ":"
         "${mpv.vapoursynth}/${mpv.vapoursynth.python3.sitePackages}"
-      ] ++ lib.optionals (binPath != "") [ "--prefix" "PATH" ":" binPath ]
-        ++ (lib.lists.flatten (map
-          # For every script in the `scripts` argument, add the necessary flags to the wrapper
-          (script:
-            [
-              "--add-flags"
-              # Here we rely on the existence of the `scriptName` passthru
-              # attribute of the script derivation from the `scripts`
-              "--script=${script}/share/mpv/scripts/${script.scriptName}"
-            ]
-            # scripts can also set the `extraWrapperArgs` passthru
-            ++ (script.extraWrapperArgs or [ ])) scripts))
+      ] ++ lib.optionals (binPath != "") [
+        "--prefix"
+        "PATH"
+        ":"
+        binPath
+      ] ++ (lib.lists.flatten (map
+        # For every script in the `scripts` argument, add the necessary flags to the wrapper
+        (script:
+          [
+            "--add-flags"
+            # Here we rely on the existence of the `scriptName` passthru
+            # attribute of the script derivation from the `scripts`
+            "--script=${script}/share/mpv/scripts/${script.scriptName}"
+          ]
+          # scripts can also set the `extraWrapperArgs` passthru
+          ++ (script.extraWrapperArgs or [ ])) scripts))
         ++ extraMakeWrapperArgs);
-      umpvWrapperArgs = lib.strings.escapeShellArgs
-        ([ "--inherit-argv0" "--set" "MPV" "${placeholder "out"}/bin/mpv" ]
-          ++ extraUmpvWrapperArgs);
+      umpvWrapperArgs = lib.strings.escapeShellArgs ([
+        "--inherit-argv0"
+        "--set"
+        "MPV"
+        "${placeholder "out"}/bin/mpv"
+      ] ++ extraUmpvWrapperArgs);
     in symlinkJoin {
       name = "mpv-with-scripts-${mpv.version}";
 

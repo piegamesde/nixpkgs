@@ -26,9 +26,20 @@ buildPythonPackage rec {
     hash = "sha256-WepDna9f3Z3dBxWdE6G7nbl3yPK5vMG+7X1rxbZwdjE=";
   };
 
-  propagatedBuildInputs = [ boto3 envs python-jose requests ];
+  propagatedBuildInputs = [
+    boto3
+    envs
+    python-jose
+    requests
+  ];
 
-  nativeCheckInputs = [ freezegun mock moto pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    freezegun
+    mock
+    moto
+    pytestCheckHook
+    requests-mock
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

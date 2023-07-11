@@ -19,10 +19,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zSihemqGaQ5z6XjA/dALoSJOuAkxF5/nnV6xE+GY7KI=";
   };
 
-  perlModules = with perlPackages; [ HTTPDate HTTPMessage LWP URI ];
+  perlModules = with perlPackages; [
+    HTTPDate
+    HTTPMessage
+    LWP
+    URI
+  ];
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper ];
-  buildInputs = [ perlPackages.perl libpcap ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+  ];
+  buildInputs = [
+    perlPackages.perl
+    libpcap
+  ];
 
   postInstall = ''
     for name in get-{oui,iab}; do
@@ -42,6 +53,10 @@ stdenv.mkDerivation rec {
       "http://www.nta-monitor.com/wiki/index.php/Arp-scan_Documentation";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor mikoim r-burns ];
+    maintainers = with maintainers; [
+      bjornfor
+      mikoim
+      r-burns
+    ];
   };
 }

@@ -119,7 +119,10 @@ let
             touch $out
           '';
           cross = runCommand "${name}-test-cross" {
-            nativeBuildInputs = [ wrapped file ];
+            nativeBuildInputs = [
+              wrapped
+              file
+            ];
           } ''
             cat <<EOF >test.c
             #include <stdio.h>

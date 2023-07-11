@@ -31,9 +31,21 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ urllib3 ];
 
   passthru.optional-dependencies = {
-    "zope.testbrowser" = [ zope-testbrowser lxml cssselect ];
-    django = [ django lxml cssselect ];
-    flask = [ flask lxml cssselect ];
+    "zope.testbrowser" = [
+      zope-testbrowser
+      lxml
+      cssselect
+    ];
+    django = [
+      django
+      lxml
+      cssselect
+    ];
+    flask = [
+      flask
+      lxml
+      cssselect
+    ];
     selenium = [ selenium ];
   };
 

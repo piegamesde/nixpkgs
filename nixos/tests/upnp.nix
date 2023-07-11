@@ -25,20 +25,23 @@ import ./make-test-python.nix ({
           nodes,
           ...
         }: {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking.nat.enable = true;
           networking.nat.internalInterfaces = [ "eth2" ];
           networking.nat.externalInterface = "eth1";
           networking.firewall.enable = true;
           networking.firewall.trustedInterfaces = [ "eth2" ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = externalRouterAddress;
             prefixLength = 24;
-          }];
-          networking.interfaces.eth2.ipv4.addresses = [{
+          } ];
+          networking.interfaces.eth2.ipv4.addresses = [ {
             address = internalRouterAddress;
             prefixLength = 24;
-          }];
+          } ];
           services.miniupnpd = {
             enable = true;
             externalInterface = "eth1";
@@ -54,21 +57,24 @@ import ./make-test-python.nix ({
           nodes,
           ...
         }: {
-          environment.systemPackages = [ pkgs.miniupnpc pkgs.netcat ];
+          environment.systemPackages = [
+            pkgs.miniupnpc
+            pkgs.netcat
+          ];
           virtualisation.vlans = [ 2 ];
           networking.defaultGateway = internalRouterAddress;
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = internalClient1Address;
             prefixLength = 24;
-          }];
+          } ];
           networking.firewall.enable = false;
 
           services.httpd.enable = true;
           services.httpd.virtualHosts.localhost = {
-            listen = [{
+            listen = [ {
               ip = "*";
               port = 9000;
-            }];
+            } ];
             adminAddr = "foo@example.org";
             documentRoot = "/tmp";
           };
@@ -80,10 +86,10 @@ import ./make-test-python.nix ({
         }: {
           environment.systemPackages = [ pkgs.miniupnpc ];
           virtualisation.vlans = [ 1 ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = externalClient2Address;
             prefixLength = 24;
-          }];
+          } ];
           networking.firewall.enable = false;
         };
     };

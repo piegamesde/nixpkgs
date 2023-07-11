@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ astroid pytestCheckHook ];
+  nativeCheckInputs = [
+    astroid
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Test is currently failing on Hydra, works locally

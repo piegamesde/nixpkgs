@@ -38,7 +38,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ olefile ]
     ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ];
 
-  nativeCheckInputs = [ pytestCheckHook pyroma numpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyroma
+    numpy
+  ];
 
   buildInputs = [
     freetype
@@ -52,7 +56,10 @@ buildPythonPackage rec {
     tcl
     lcms2
   ] ++ lib.optionals (lib.versionAtLeast version "7.1.0") [ libxcb ]
-    ++ lib.optionals (isPyPy) [ tk libX11 ];
+    ++ lib.optionals (isPyPy) [
+      tk
+      libX11
+    ];
 
   # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
   # NOTE: The Pillow install script will, by default, add paths like /usr/lib

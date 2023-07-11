@@ -25,9 +25,15 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = lib.optional withTTS "tts";
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
-  buildInputs = [ alsa-lib openssl ] ++ lib.optionals withTTS [ speechd ];
+  buildInputs = [
+    alsa-lib
+    openssl
+  ] ++ lib.optionals withTTS [ speechd ];
 
   checkFlags = let
     # Most of Blightmud's unit tests pass without trouble in the isolated

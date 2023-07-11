@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
     ./sizewidth.patch
   ];
 
-  buildInputs = [ db gtk2 bzip2 ];
+  buildInputs = [
+    db
+    gtk2
+    bzip2
+  ];
 
   configureFlags = [ "--without-libdb" ];
 

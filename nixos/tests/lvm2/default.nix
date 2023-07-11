@@ -3,7 +3,13 @@
   config ? { },
   pkgs ? import ../../.. { inherit system config; },
   lib ? pkgs.lib,
-  kernelVersionsToTest ? [ "4.19" "5.4" "5.10" "5.15" "latest" ]
+  kernelVersionsToTest ? [
+    "4.19"
+    "5.4"
+    "5.10"
+    "5.15"
+    "latest"
+  ]
 }:
 
 # For quickly running a test, the nixosTests.lvm2.lvm-thinpool-linux-latest attribute is recommended
@@ -44,4 +50,7 @@ in lib.listToAttrs (lib.filter (x: x.value != { })
       lib.nameValuePair "lvm-${name}-linux-${v'}" (lib.optionalAttrs
         (builtins.elem version (t.kernelFilter kernelVersionsToTest)) (t.test ({
           kernelPackages = pkgs."linuxPackages_${v'}";
-        } // builtins.removeAttrs t [ "test" "kernelFilter" ])))))))
+        } // builtins.removeAttrs t [
+          "test"
+          "kernelFilter"
+        ])))))))

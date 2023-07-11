@@ -40,7 +40,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libpng SDL2 SDL2_mixer ];
+  buildInputs = [
+    libpng
+    SDL2
+    SDL2_mixer
+  ];
 
   # Allow finding game assets.
   postPatch = ''

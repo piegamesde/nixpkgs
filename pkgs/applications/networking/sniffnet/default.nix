@@ -29,7 +29,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libpcap openssl ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    libpcap
+    openssl
+  ] ++ lib.optionals stdenv.isLinux [
     alsa-lib
     expat
     fontconfig
@@ -44,13 +47,17 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # requires internet access
-  checkFlags = [
-    "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github"
-  ];
+  checkFlags =
+    [ "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github" ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/sniffnet \
-      --add-rpath ${lib.makeLibraryPath [ vulkan-loader xorg.libX11 ]}
+      --add-rpath ${
+        lib.makeLibraryPath [
+          vulkan-loader
+          xorg.libX11
+        ]
+      }
   '';
 
   meta = with lib; {

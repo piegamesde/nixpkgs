@@ -23,7 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EU5toaKzVeZpdm/YhaQ0bXq0eoYwYQ5qGLUJzxgZVjE=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake rocm-cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [
     libdrm
@@ -49,7 +53,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Radeon open compute thunk interface";
     homepage = "https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface";
-    license = with licenses; [ bsd2 mit ];
+    license = with licenses; [
+      bsd2
+      mit
+    ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
     broken = versions.minor finalAttrs.version

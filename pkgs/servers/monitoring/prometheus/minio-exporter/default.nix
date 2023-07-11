@@ -21,13 +21,11 @@ buildGoPackage rec {
 
   # Required to make 0.2.0 build against latest dependencies
   # TODO: Remove on update to 0.3.0
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/joe-pll/minio-exporter/commit/50ab89d42322dc3e2696326a9ae4d3f951f646de.patch";
-      sha256 = "0aiixhvb4x8c8abrlf1i4hmca9i6xd6b638a5vfkvawx0q7gxl97";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/joe-pll/minio-exporter/commit/50ab89d42322dc3e2696326a9ae4d3f951f646de.patch";
+    sha256 = "0aiixhvb4x8c8abrlf1i4hmca9i6xd6b638a5vfkvawx0q7gxl97";
+  }) ];
 
   goDeps = ./deps.nix;
 

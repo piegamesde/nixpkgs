@@ -30,7 +30,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ which pkg-config ];
+  nativeBuildInputs = [
+    which
+    pkg-config
+  ];
 
   buildInputs = [
     boost

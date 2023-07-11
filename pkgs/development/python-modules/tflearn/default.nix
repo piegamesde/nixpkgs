@@ -20,7 +20,12 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ scipy h5py pillow tensorflow ];
+  propagatedBuildInputs = [
+    scipy
+    h5py
+    pillow
+    tensorflow
+  ];
 
   doCheck = false;
 

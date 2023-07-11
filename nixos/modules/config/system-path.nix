@@ -46,7 +46,12 @@ let
     pkgs.zstd
   ];
 
-  defaultPackageNames = [ "nano" "perl" "rsync" "strace" ];
+  defaultPackageNames = [
+    "nano"
+    "perl"
+    "rsync"
+    "strace"
+  ];
   defaultPackages =
     map (n: let pkg = pkgs.${n}; in setPrio ((pkg.meta.priority or 5) + 3) pkg)
     defaultPackageNames;
@@ -115,7 +120,11 @@ in {
       extraOutputsToInstall = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "doc" "info" "devdoc" ];
+        example = [
+          "doc"
+          "info"
+          "devdoc"
+        ];
         description = lib.mdDoc
           "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
       };

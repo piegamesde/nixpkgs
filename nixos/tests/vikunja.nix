@@ -37,12 +37,12 @@ import ./make-test-python.nix ({
           services.postgresql = {
             enable = true;
             ensureDatabases = [ "vikunja-api" ];
-            ensureUsers = [{
+            ensureUsers = [ {
               name = "vikunja-api";
               ensurePermissions = {
                 "DATABASE \"vikunja-api\"" = "ALL PRIVILEGES";
               };
-            }];
+            } ];
           };
           services.nginx.enable = true;
         };

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ imlib2 libX11 ];
+  buildInputs = [
+    imlib2
+    libX11
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

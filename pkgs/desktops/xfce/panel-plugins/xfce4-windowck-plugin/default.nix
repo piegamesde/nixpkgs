@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p4FEi3gemE072lmw2qsNGE1M7CJSMW9zcKxKmO/kgfQ=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
 
-  buildInputs = [ libwnck libxfce4ui xfce4-panel xfconf ];
+  buildInputs = [
+    libwnck
+    libxfce4ui
+    xfce4-panel
+    xfconf
+  ];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin";

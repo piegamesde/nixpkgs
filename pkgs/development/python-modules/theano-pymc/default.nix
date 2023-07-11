@@ -28,7 +28,12 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace ", 'pytest-cov'" ""
   '';
 
-  propagatedBuildInputs = [ pandas numpy scipy filelock ];
+  propagatedBuildInputs = [
+    pandas
+    numpy
+    scipy
+    filelock
+  ];
 
   # The test suite is computationally intensive and test failures are not
   # indicative for package usability hence tests are disabled by default.

@@ -56,7 +56,10 @@ let
       sha256 = "sha256-ch59Wx4g72u7x99807ppURI4I+5aJ/W8Zr35q8X68v4=";
     };
 
-    nativeBuildInputs = [ addOpenGLRunpath makeWrapper ];
+    nativeBuildInputs = [
+      addOpenGLRunpath
+      makeWrapper
+    ];
 
     buildInputs = libs;
 
@@ -85,7 +88,16 @@ let
 in buildFHSEnv rec {
   name = pname;
   targetPkgs = pkgs:
-    [ binutils dejavu_fonts flutter gcc go hover pkg-config roboto ] ++ libs;
+    [
+      binutils
+      dejavu_fonts
+      flutter
+      gcc
+      go
+      hover
+      pkg-config
+      roboto
+    ] ++ libs;
 
   runScript = "hover";
 }

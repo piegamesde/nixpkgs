@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tzsw10cpu5hldkm0psWcFnWToWQejout/oGHJais6yw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook installShellFiles ];
+  nativeBuildInputs = [
+    autoreconfHook
+    installShellFiles
+  ];
 
   postPatch = ''
     substituteInPlace 'swapspace.service' \
@@ -44,6 +47,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Tookmund/Swapspace";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ misuzu Luflosi ];
+    maintainers = with maintainers; [
+      misuzu
+      Luflosi
+    ];
   };
 }

@@ -67,9 +67,20 @@ in stdenv.mkDerivation {
     ' ${./fixes.patch} | patch -p1
   '';
 
-  nativeBuildInputs = [ autoconf autoconf-archive automake cmake ninja ];
+  nativeBuildInputs = [
+    autoconf
+    autoconf-archive
+    automake
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ boost libunwind libtool openssl ];
+  buildInputs = [
+    boost
+    libunwind
+    libtool
+    openssl
+  ];
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

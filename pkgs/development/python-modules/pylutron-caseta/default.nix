@@ -29,8 +29,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-sugar pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-sugar
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

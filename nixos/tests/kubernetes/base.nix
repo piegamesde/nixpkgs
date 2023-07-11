@@ -54,9 +54,8 @@ let
               primaryIPAddress = mkForce machine.ip;
 
               firewall = {
-                allowedTCPPorts = [
-                  10250 # kubelet
-                ];
+                allowedTCPPorts = [ 10250 # kubelet
+                  ];
                 trustedInterfaces = [ "mynet" ];
 
                 extraCommands = concatMapStrings (node: ''
@@ -80,9 +79,8 @@ let
             };
           }
           (optionalAttrs (any (role: role == "master") machine.roles) {
-            networking.firewall.allowedTCPPorts = [
-              443 # kubernetes apiserver
-            ];
+            networking.firewall.allowedTCPPorts = [ 443 # kubernetes apiserver
+              ];
           })
           (optionalAttrs (machine ? extraConfiguration)
             (machine.extraConfiguration { inherit config pkgs lib nodes; }))
@@ -115,7 +113,10 @@ let
     mkKubernetesBaseTest ({
       machines = {
         machine1 = {
-          roles = [ "master" "node" ];
+          roles = [
+            "master"
+            "node"
+          ];
           ip = "192.168.1.1";
         };
       };

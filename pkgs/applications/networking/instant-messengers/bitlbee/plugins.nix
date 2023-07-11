@@ -7,7 +7,10 @@
 plugins:
 runCommandLocal "bitlbee-plugins" {
   inherit plugins;
-  buildInputs = [ bitlbee plugins ];
+  buildInputs = [
+    bitlbee
+    plugins
+  ];
 } ''
   mkdir -p $out/lib/bitlbee
   for plugin in $plugins; do

@@ -38,7 +38,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
       --replace "disable_version_check = False" "disable_version_check = True"
   '';
 
-  nativeBuildInputs = [ file intltool ];
+  nativeBuildInputs = [
+    file
+    intltool
+  ];
 
   # Package has no generally usable unit tests.
   # The included doctests expect specific, hardcoded hardware to be present.
@@ -100,7 +103,12 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=(
       --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"
       --set PYTHONPATH "$PYTHONPATH"
-      --prefix PATH : "${lib.makeBinPath [ exiftool vmtouch ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          exiftool
+          vmtouch
+        ]
+      }"
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libmediainfo ]}"
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
       "''${qtWrapperArgs[@]}"

@@ -19,10 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i73w/Vkr5TPLB1ulPbPU4OVGwdNlky1brfarueD7akE=";
   };
 
-  nativeBuildInputs = [ cmake python3 ispc ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    ispc
+  ];
   buildInputs = [ tbb ];
 
-  cmakeFlags = [ "-DTBB_ROOT=${tbb}" "-DTBB_INCLUDE_DIR=${tbb.dev}/include" ];
+  cmakeFlags = [
+    "-DTBB_ROOT=${tbb}"
+    "-DTBB_INCLUDE_DIR=${tbb.dev}/include"
+  ];
 
   meta = with lib; {
     homepage = "https://openimagedenoise.github.io";

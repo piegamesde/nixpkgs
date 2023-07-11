@@ -40,6 +40,10 @@ buildGoModule rec {
     homepage = "https://github.com/bazelbuild/buildtools";
     license = licenses.asl20;
     maintainers = with maintainers;
-      [ elasticdog uri-canva marsam ] ++ lib.teams.bazel.members;
+      [
+        elasticdog
+        uri-canva
+        marsam
+      ] ++ lib.teams.bazel.members;
   };
 }

@@ -20,7 +20,10 @@ buildGoModule rec {
   proxyVendor = true;
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

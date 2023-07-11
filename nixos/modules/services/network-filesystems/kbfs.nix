@@ -43,7 +43,10 @@ in {
       extraFlags = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-label kbfs" "-mount-type normal" ];
+        example = [
+          "-label kbfs"
+          "-mount-type normal"
+        ];
         description = lib.mdDoc ''
           Additional flags to pass to the Keybase filesystem on launch.
         '';
@@ -71,8 +74,10 @@ in {
         serviceConfig = {
           Type = "notify";
           # Keybase notifies from a forked process
-          EnvironmentFile =
-            [ "-%E/keybase/keybase.autogen.env" "-%E/keybase/keybase.env" ];
+          EnvironmentFile = [
+            "-%E/keybase/keybase.autogen.env"
+            "-%E/keybase/keybase.env"
+          ];
           ExecStartPre = [
             ''${pkgs.coreutils}/bin/mkdir -p "${cfg.mountPoint}"''
             ''-${wrapperDir}/fusermount -uz "${cfg.mountPoint}"''
@@ -106,8 +111,10 @@ in {
         unitConfig.ConditionUser = "!@system";
 
         serviceConfig = {
-          EnvironmentFile =
-            [ "-%E/keybase/keybase.autogen.env" "-%E/keybase/keybase.env" ];
+          EnvironmentFile = [
+            "-%E/keybase/keybase.autogen.env"
+            "-%E/keybase/keybase.env"
+          ];
           # Note: The /keybase mount point is not currently configurable upstream.
           ExecStart = "${wrapperDir}/keybase-redirector /keybase";
           Restart = "on-failure";

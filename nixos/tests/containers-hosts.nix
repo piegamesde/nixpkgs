@@ -13,10 +13,10 @@ import ./make-test-python.nix ({
         virtualisation.vlans = [ ];
 
         networking.bridges.br0.interfaces = [ ];
-        networking.interfaces.br0.ipv4.addresses = [{
+        networking.interfaces.br0.ipv4.addresses = [ {
           address = "10.11.0.254";
           prefixLength = 24;
-        }];
+        } ];
 
         # Force /etc/hosts to be the only source for host name resolution
         environment.etc."nsswitch.conf".text = lib.mkForce ''

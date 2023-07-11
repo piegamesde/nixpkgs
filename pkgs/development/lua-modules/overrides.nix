@@ -112,10 +112,10 @@ with prev; {
   });
 
   cyrussasl = prev.cyrussasl.overrideAttrs (drv: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "LIBSASL";
       dep = cyrus_sasl;
-    }];
+    } ];
   });
 
   fennel = prev.fennel.overrideAttrs (oa: {
@@ -126,13 +126,11 @@ with prev; {
   });
 
   http = prev.http.overrideAttrs (oa: {
-    patches = [
-      (fetchpatch {
-        name = "invalid-state-progression.patch";
-        url = "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
-        sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
-      })
-    ];
+    patches = [ (fetchpatch {
+      name = "invalid-state-progression.patch";
+      url = "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
+      sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
+    }) ];
     /* TODO: separate docs derivation? (pandoc is heavy)
        nativeBuildInputs = [ pandoc ];
        makeFlags = [ "-C doc" "lua-http.html" "lua-http.3" ];
@@ -173,15 +171,16 @@ with prev; {
 
   lgi = prev.lgi.overrideAttrs (oa: {
     nativeBuildInputs = oa.nativeBuildInputs ++ [ pkg-config ];
-    buildInputs = [ glib gobject-introspection ];
-    patches = [
-      (fetchpatch {
-        name = "lgi-find-cairo-through-typelib.patch";
-        url =
-          "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
-        sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
-      })
+    buildInputs = [
+      glib
+      gobject-introspection
     ];
+    patches = [ (fetchpatch {
+      name = "lgi-find-cairo-through-typelib.patch";
+      url =
+        "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
+      sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
+    }) ];
 
     # https://github.com/lgi-devs/lgi/pull/300
     postPatch = ''
@@ -245,10 +244,10 @@ with prev; {
     (oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; });
 
   lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "PCRE";
       dep = pcre;
-    }];
+    } ];
   });
 
   lrexlib-posix = prev.lrexlib-posix.overrideAttrs
@@ -279,33 +278,36 @@ with prev; {
       MYSQL_INCDIR = "${libmysqlclient.dev}/include/mysql";
       MYSQL_LIBDIR = "${libmysqlclient}/lib/mysql";
     };
-    buildInputs = oa.buildInputs ++ [ mariadb.client libmysqlclient ];
+    buildInputs = oa.buildInputs ++ [
+      mariadb.client
+      libmysqlclient
+    ];
   });
 
   luadbi-postgresql = prev.luadbi-postgresql.overrideAttrs
     (oa: { buildInputs = oa.buildInputs ++ [ postgresql ]; });
 
   luadbi-sqlite3 = prev.luadbi-sqlite3.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "SQLITE";
       dep = sqlite;
-    }];
+    } ];
   });
 
   luaevent = prev.luaevent.overrideAttrs (oa: {
     propagatedBuildInputs = oa.propagatedBuildInputs ++ [ luasocket ];
-    externalDeps = [{
+    externalDeps = [ {
       name = "EVENT";
       dep = libevent;
-    }];
+    } ];
     disabled = luaOlder "5.1" || luaAtLeast "5.4";
   });
 
   luaexpat = prev.luaexpat.overrideAttrs (_: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "EXPAT";
       dep = expat;
-    }];
+    } ];
   });
 
   # TODO Somehow automatically amend buildInputs for things that need luaffi
@@ -323,10 +325,10 @@ with prev; {
   });
 
   lualdap = prev.lualdap.overrideAttrs (_: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "LDAP";
       dep = openldap;
-    }];
+    } ];
   });
 
   luaossl = prev.luaossl.overrideAttrs (_: {
@@ -343,24 +345,24 @@ with prev; {
   });
 
   luaposix = prev.luaposix.overrideAttrs (_: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "CRYPT";
       dep = libxcrypt;
-    }];
+    } ];
   });
 
   luasec = prev.luasec.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "OPENSSL";
       dep = openssl;
-    }];
+    } ];
   });
 
   luasql-sqlite3 = prev.luasql-sqlite3.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "SQLITE";
       dep = sqlite;
-    }];
+    } ];
   });
 
   luasystem = prev.luasystem.overrideAttrs
@@ -373,10 +375,10 @@ with prev; {
     (oa: { buildInputs = oa.buildInputs ++ [ yajl ]; });
 
   luaunbound = prev.luaunbound.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "libunbound";
       dep = unbound;
-    }];
+    } ];
   });
 
   lua-subprocess = prev.lua-subprocess.overrideAttrs
@@ -385,10 +387,10 @@ with prev; {
   lush-nvim = prev.lush-nvim.overrideAttrs (drv: { doCheck = false; });
 
   luuid = prev.luuid.overrideAttrs (oa: {
-    externalDeps = [{
+    externalDeps = [ {
       name = "LIBUUID";
       dep = libuuid;
-    }];
+    } ];
     # Trivial patch to make it work in both 5.1 and 5.2.  Basically just the
     # tiny diff between the two upstream versions placed behind an #if.
     # Upstreams:
@@ -425,10 +427,15 @@ with prev; {
       rm -rf deps/lua deps/libuv
     '';
 
-    buildInputs = [ libuv final.lua ];
+    buildInputs = [
+      libuv
+      final.lua
+    ];
 
-    nativeBuildInputs = [ pkg-config cmake ]
-      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    nativeBuildInputs = [
+      pkg-config
+      cmake
+    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
   };
 
   luv = prev.luv.overrideAttrs (oa: {
@@ -484,7 +491,10 @@ with prev; {
   sqlite = prev.sqlite.overrideAttrs (drv: {
 
     doCheck = true;
-    nativeCheckInputs = [ final.plenary-nvim neovim-unwrapped ];
+    nativeCheckInputs = [
+      final.plenary-nvim
+      neovim-unwrapped
+    ];
 
     # we override 'luarocks test' because otherwise neovim doesn't find/load the plenary plugin
     checkPhase = ''

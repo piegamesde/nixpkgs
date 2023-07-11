@@ -23,9 +23,18 @@ stdenv.mkDerivation rec {
     substituteInPlace src/igprof --replace libigprof.so $out/lib/libigprof.so
   '';
 
-  buildInputs = [ libunwind gdb pcre ];
+  buildInputs = [
+    libunwind
+    gdb
+    pcre
+  ];
   nativeBuildInputs = [ cmake ];
-  CXXFLAGS = [ "-fPIC" "-O2" "-w" "-fpermissive" ];
+  CXXFLAGS = [
+    "-fPIC"
+    "-O2"
+    "-w"
+    "-fpermissive"
+  ];
 
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);

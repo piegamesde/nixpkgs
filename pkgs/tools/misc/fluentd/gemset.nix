@@ -31,7 +31,10 @@
     version = "1.677.0";
   };
   aws-sdk-cloudwatchlogs = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -42,8 +45,12 @@
     version = "1.58.0";
   };
   aws-sdk-core = {
-    dependencies =
-      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
+    dependencies = [
+      "aws-eventstream"
+      "aws-partitions"
+      "aws-sigv4"
+      "jmespath"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -54,7 +61,10 @@
     version = "3.168.4";
   };
   aws-sdk-firehose = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -65,7 +75,10 @@
     version = "1.50.0";
   };
   aws-sdk-kinesis = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -76,7 +89,10 @@
     version = "1.42.0";
   };
   aws-sdk-kms = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -87,7 +103,11 @@
     version = "1.61.0";
   };
   aws-sdk-s3 = {
-    dependencies = [ "aws-sdk-core" "aws-sdk-kms" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sdk-kms"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -98,7 +118,10 @@
     version = "1.117.2";
   };
   aws-sdk-sqs = {
-    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
+    dependencies = [
+      "aws-sdk-core"
+      "aws-sigv4"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -161,7 +184,10 @@
     version = "0.6.4";
   };
   elastic-transport = {
-    dependencies = [ "faraday" "multi_json" ];
+    dependencies = [
+      "faraday"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -172,7 +198,10 @@
     version = "8.1.0";
   };
   elasticsearch = {
-    dependencies = [ "elastic-transport" "elasticsearch-api" ];
+    dependencies = [
+      "elastic-transport"
+      "elasticsearch-api"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -339,7 +368,10 @@
     version = "1.0.0";
   };
   fluent-plugin-cloudwatch-logs = {
-    dependencies = [ "aws-sdk-cloudwatchlogs" "fluentd" ];
+    dependencies = [
+      "aws-sdk-cloudwatchlogs"
+      "fluentd"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -361,7 +393,12 @@
     version = "2.5.0";
   };
   fluent-plugin-elasticsearch = {
-    dependencies = [ "elasticsearch" "excon" "faraday" "fluentd" ];
+    dependencies = [
+      "elasticsearch"
+      "excon"
+      "faraday"
+      "fluentd"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -372,7 +409,11 @@
     version = "5.2.4";
   };
   fluent-plugin-kafka = {
-    dependencies = [ "fluentd" "ltsv" "ruby-kafka" ];
+    dependencies = [
+      "fluentd"
+      "ltsv"
+      "ruby-kafka"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -383,8 +424,12 @@
     version = "0.18.1";
   };
   fluent-plugin-kinesis = {
-    dependencies =
-      [ "aws-sdk-firehose" "aws-sdk-kinesis" "fluentd" "google-protobuf" ];
+    dependencies = [
+      "aws-sdk-firehose"
+      "aws-sdk-kinesis"
+      "fluentd"
+      "google-protobuf"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -395,7 +440,10 @@
     version = "3.4.2";
   };
   fluent-plugin-mongo = {
-    dependencies = [ "fluentd" "mongo" ];
+    dependencies = [
+      "fluentd"
+      "mongo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -417,7 +465,10 @@
     version = "0.9.1";
   };
   fluent-plugin-rewrite-tag-filter = {
-    dependencies = [ "fluent-config-regexp-type" "fluentd" ];
+    dependencies = [
+      "fluent-config-regexp-type"
+      "fluentd"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -428,7 +479,11 @@
     version = "2.4.0";
   };
   fluent-plugin-s3 = {
-    dependencies = [ "aws-sdk-s3" "aws-sdk-sqs" "fluentd" ];
+    dependencies = [
+      "aws-sdk-s3"
+      "aws-sdk-sqs"
+      "fluentd"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -439,7 +494,10 @@
     version = "1.7.2";
   };
   fluent-plugin-webhdfs = {
-    dependencies = [ "fluentd" "webhdfs" ];
+    dependencies = [
+      "fluentd"
+      "webhdfs"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

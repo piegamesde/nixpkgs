@@ -17,9 +17,15 @@ buildPythonPackage rec {
     sha256 = "25f424258317e4cb41093e2953374b3af1f23097297664731cdb3ae46f6bd6c3";
   };
 
-  propagatedBuildInputs = [ six unidecode ];
+  propagatedBuildInputs = [
+    six
+    unidecode
+  ];
 
-  nativeCheckInputs = [ nose unittestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    unittestCheckHook
+  ];
 
   meta = with lib; {
     description = "Generates unicode slugs";

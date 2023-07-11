@@ -26,7 +26,10 @@ buildPythonPackage rec {
     rm -r commentjson/tests/test_json
   '';
 
-  propagatedBuildInputs = [ lark six ];
+  propagatedBuildInputs = [
+    lark
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

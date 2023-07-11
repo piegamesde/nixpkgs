@@ -38,10 +38,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs =
-    [ doxygen fontconfig graphviz-nox libxml2 pkg-config which ];
+  nativeBuildInputs = [
+    doxygen
+    fontconfig
+    graphviz-nox
+    libxml2
+    pkg-config
+    which
+  ];
 
   buildInputs = [ systemd ];
 

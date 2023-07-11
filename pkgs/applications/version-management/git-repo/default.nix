@@ -46,7 +46,14 @@ stdenv.mkDerivation rec {
   # Important runtime dependencies
   postFixup = ''
     wrapProgram $out/bin/repo --prefix PATH ":" \
-      "${lib.makeBinPath [ git gnupg less openssh ]}"
+      "${
+        lib.makeBinPath [
+          git
+          gnupg
+          less
+          openssh
+        ]
+      }"
   '';
 
   passthru = { updateScript = nix-update-script { }; };

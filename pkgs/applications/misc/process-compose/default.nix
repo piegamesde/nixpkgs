@@ -33,7 +33,11 @@ in buildGoModule rec {
     ldflags+=" -X ${config-module}.Date=$(cat SOURCE_DATE_EPOCH)"
   '';
 
-  ldflags = [ "-X ${config-module}.Version=v${version}" "-s" "-w" ];
+  ldflags = [
+    "-X ${config-module}.Version=v${version}"
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

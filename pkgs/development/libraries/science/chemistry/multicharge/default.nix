@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-oUI5x5/Gd0EZBb1w+0jlJUF9X51FnkHFu8H7KctqXl0=";
   };
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
 
-  buildInputs = [ blas lapack mctc-lib mstore ];
+  buildInputs = [
+    blas
+    lapack
+    mctc-lib
+    mstore
+  ];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \

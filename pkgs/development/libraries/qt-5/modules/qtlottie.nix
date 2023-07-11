@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtlottie";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

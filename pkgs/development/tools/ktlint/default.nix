@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/ktlint --prefix PATH : "${
-      lib.makeBinPath [ jre_headless gnused ]
+      lib.makeBinPath [
+        jre_headless
+        gnused
+      ]
     }"
   '';
 
@@ -37,6 +40,9 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = jre_headless.meta.platforms;
     changelog = "https://github.com/pinterest/ktlint/blob/master/CHANGELOG.md";
-    maintainers = with maintainers; [ tadfisher SubhrajyotiSen ];
+    maintainers = with maintainers; [
+      tadfisher
+      SubhrajyotiSen
+    ];
   };
 }

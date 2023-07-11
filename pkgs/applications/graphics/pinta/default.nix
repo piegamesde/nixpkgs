@@ -13,7 +13,10 @@ buildDotnetModule rec {
   pname = "Pinta";
   version = "2.1.1";
 
-  nativeBuildInputs = [ intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    wrapGAppsHook
+  ];
 
   dotnet-sdk = dotnetCorePackages.sdk_7_0;
   dotnet-runtime = dotnetCorePackages.runtime_7_0;

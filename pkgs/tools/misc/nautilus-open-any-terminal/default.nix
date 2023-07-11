@@ -27,7 +27,12 @@ python3.pkgs.buildPythonPackage rec {
 
   patches = [ ./hardcode-gsettings.patch ];
 
-  nativeBuildInputs = [ glib gobject-introspection pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     dbus

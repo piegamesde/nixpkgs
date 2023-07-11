@@ -21,9 +21,16 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ git ghq ];
+  nativeBuildInputs = [
+    git
+    ghq
+  ];
 
-  ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X=main.Version=${version}"
+  ];
 
   doInstallCheck = true;
   installCheckPhase = ''

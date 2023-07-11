@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
         --replace "dub remove" "\"${dubvar}\" remove"
   '';
 
-  nativeBuildInputs = [ dcompiler libevent rsync ];
+  nativeBuildInputs = [
+    dcompiler
+    libevent
+    rsync
+  ];
   buildInputs = [ curl ];
 
   buildPhase = ''

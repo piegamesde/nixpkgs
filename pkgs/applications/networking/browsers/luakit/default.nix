@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-DtoixcLq+ddbacTAo+Qq6q4k1i6thirACw1zqUeOxXo=";
   };
 
-  nativeBuildInputs = [ pkg-config help2man wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    help2man
+    wrapGAppsHook
+  ];
   buildInputs = [
     gtk3
     glib-networking # TLS support

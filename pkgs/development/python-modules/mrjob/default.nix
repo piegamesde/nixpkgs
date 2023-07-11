@@ -40,9 +40,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pyyaml ];
 
   passthru.optional-dependencies = {
-    aws = [ boto3 botocore ];
-    google =
-      [ google-cloud-dataproc google-cloud-logging google-cloud-storage ];
+    aws = [
+      boto3
+      botocore
+    ];
+    google = [
+      google-cloud-dataproc
+      google-cloud-logging
+      google-cloud-storage
+    ];
     rapidjson = [ python-rapidjson ];
     simplejson = [ simplejson ];
     ujson = [ ujson ];
@@ -50,8 +56,11 @@ buildPythonPackage rec {
 
   doCheck = false; # failing tests
 
-  nativeCheckInputs = [ pyspark unittestCheckHook warcio ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pyspark
+    unittestCheckHook
+    warcio
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   unittestFlagsArray = [ "-v" ];
 

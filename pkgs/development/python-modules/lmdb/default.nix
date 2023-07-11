@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   buildInputs = [ lmdb ];
 
-  nativeCheckInputs = [ cffi pytestCheckHook ];
+  nativeCheckInputs = [
+    cffi
+    pytestCheckHook
+  ];
 
   LMDB_FORCE_SYSTEM = 1;
 
@@ -32,6 +35,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/jnwatson/py-lmdb/blob/py-lmdb_${version}/ChangeLog";
     license = licenses.openldap;
-    maintainers = with maintainers; [ copumpkin ivan ];
+    maintainers = with maintainers; [
+      copumpkin
+      ivan
+    ];
   };
 }

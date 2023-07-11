@@ -23,8 +23,14 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    [ bundix common-updater-scripts jq nix-prefetch-github yarn yarn2nix ];
+  buildInputs = [
+    bundix
+    common-updater-scripts
+    jq
+    nix-prefetch-github
+    yarn
+    yarn2nix
+  ];
 
   meta = {
     maintainers = with lib.maintainers; [ n0emis ];

@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
                 "${docbook_xml_dtd_45}/xml/dtd/docbook/docbookx.dtd"
   '';
 
-  nativeBuildInputs = [ libxslt.bin docbook_xsl python3 python3.pkgs.pygments ];
+  nativeBuildInputs = [
+    libxslt.bin
+    docbook_xsl
+    python3
+    python3.pkgs.pygments
+  ];
 
   buildPhase = ''
     make XSL_BASE_PATH=${docbook_xsl}/share/xml/docbook-xsl html-dist

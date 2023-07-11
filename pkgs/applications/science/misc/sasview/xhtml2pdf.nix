@@ -26,7 +26,14 @@ in buildPythonPackage rec {
   version = "0.2.1";
 
   buildInputs = [ html5 ];
-  propagatedBuildInputs = [ httplib2 nose pillow pypdf2 reportlab html5 ];
+  propagatedBuildInputs = [
+    httplib2
+    nose
+    pillow
+    pypdf2
+    reportlab
+    html5
+  ];
 
   src = fetchPypi {
     inherit pname version;

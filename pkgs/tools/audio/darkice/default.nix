@@ -38,8 +38,10 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
-  configureFlags =
-    [ "--with-faac-prefix=${faac}" "--with-lame-prefix=${lame.lib}" ];
+  configureFlags = [
+    "--with-faac-prefix=${faac}"
+    "--with-lame-prefix=${lame.lib}"
+  ];
 
   patches = [ ./fix-undeclared-memmove.patch ];
 

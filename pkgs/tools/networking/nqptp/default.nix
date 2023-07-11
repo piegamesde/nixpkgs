@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-UPUYEX5YUl//OcsBKuGgKLaAMzn2F+ksNRQJ3/pkbKc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mikebrady/nqptp";

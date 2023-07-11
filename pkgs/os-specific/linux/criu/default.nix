@@ -58,7 +58,10 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  depsBuildBuild = [ protobufc buildPackages.stdenv.cc ];
+  depsBuildBuild = [
+    protobufc
+    buildPackages.stdenv.cc
+  ];
   nativeBuildInputs = [
     pkg-config
     asciidoc
@@ -72,9 +75,18 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
     perl
   ];
-  buildInputs = [ protobuf libnl libcap libnet nftables libbsd ];
-  propagatedBuildInputs = [ protobufc ]
-    ++ (with python3.pkgs; [ python python3.pkgs.protobuf ]);
+  buildInputs = [
+    protobuf
+    libnl
+    libcap
+    libnet
+    nftables
+    libbsd
+  ];
+  propagatedBuildInputs = [ protobufc ] ++ (with python3.pkgs; [
+    python
+    python3.pkgs.protobuf
+  ]);
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \
@@ -106,14 +118,21 @@ stdenv.mkDerivation rec {
     "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
   ]);
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   preBuild = ''
     # No idea why but configure scripts break otherwise.
     export SHELL=""
   '';
 
-  hardeningDisable = [ "stackprotector" "fortify" ];
+  hardeningDisable = [
+    "stackprotector"
+    "fortify"
+  ];
   # dropping fortify here as well as package uses it by default:
   # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
 
@@ -128,7 +147,11 @@ stdenv.mkDerivation rec {
     description = "Userspace checkpoint/restore for Linux";
     homepage = "https://criu.org";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "armv7l-linux"
+    ];
     maintainers = [ maintainers.thoughtpolice ];
   };
 }

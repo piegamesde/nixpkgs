@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-gbgX7y/Q3pswM2tH/R1GSMmbMGhQJKB7w08sFGQE4Vk=";
   };
 
-  propagatedBuildInputs = [ lxml setuptools ];
+  propagatedBuildInputs = [
+    lxml
+    setuptools
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

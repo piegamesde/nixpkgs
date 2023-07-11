@@ -39,11 +39,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ attrs beautifulsoup4 click intbitset requests saneyaml text-unidecode ]
-    ++ lib.optionals (pythonOlder "3.7") [ typing ];
+  propagatedBuildInputs = [
+    attrs
+    beautifulsoup4
+    click
+    intbitset
+    requests
+    saneyaml
+    text-unidecode
+  ] ++ lib.optionals (pythonOlder "3.7") [ typing ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   disabledTests = [
     # chinese character translates different into latin

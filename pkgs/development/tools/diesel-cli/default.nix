@@ -35,12 +35,18 @@ in rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-KoTeDzUk/KbUx+4NLVifX3yehm4V13LJ/YUmzoUSuDM=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ openssl ] ++ optional stdenv.isDarwin Security
     ++ optional (stdenv.isDarwin && mysqlSupport) libiconv
     ++ optional sqliteSupport sqlite ++ optional postgresqlSupport postgresql
-    ++ optionals mysqlSupport [ mariadb zlib ];
+    ++ optionals mysqlSupport [
+      mariadb
+      zlib
+    ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = optional sqliteSupport "sqlite"
@@ -73,7 +79,10 @@ in rustPlatform.buildRustPackage rec {
     description =
       "Database tool for working with Rust projects that use Diesel";
     homepage = "https://github.com/diesel-rs/diesel/tree/master/diesel_cli";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ ];
     mainProgram = "diesel";
   };

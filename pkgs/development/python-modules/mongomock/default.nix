@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ packaging sentinels ];
+  propagatedBuildInputs = [
+    packaging
+    sentinels
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

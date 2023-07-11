@@ -53,18 +53,33 @@ in stdenv.mkDerivation rec {
     sha256 = "0528835iir2ws14fwb7w4dqs3wlzzcv5arjxs8v13drb194rlwcs";
   };
 
-  configureFlags = [ "--with-system-luarocks" "--with-manual" ];
+  configureFlags = [
+    "--with-system-luarocks"
+    "--with-manual"
+  ];
 
-  nativeBuildInputs = [ gitMinimal pkg-config makeWrapper ];
-  buildInputs = [ luaEnv harfbuzz icu fontconfig libiconv ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
+  nativeBuildInputs = [
+    gitMinimal
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs = [
+    luaEnv
+    harfbuzz
+    icu
+    fontconfig
+    libiconv
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
     inherit luaEnv;
     # Copied from Makefile.am
     tests.test = lib.optionalAttrs (!(stdenv.isDarwin && stdenv.isAarch64))
       (runCommand "${pname}-test" {
-        nativeBuildInputs = [ poppler_utils sile ];
+        nativeBuildInputs = [
+          poppler_utils
+          sile
+        ];
         inherit FONTCONFIG_FILE;
       } ''
         output=$(mktemp -t selfcheck-XXXXXX.pdf)
@@ -93,7 +108,12 @@ in stdenv.mkDerivation rec {
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
 
-  outputs = [ "out" "doc" "man" "dev" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "A typesetting system";
@@ -111,7 +131,10 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://github.com/sile-typesetter/sile/raw/v${version}/CHANGELOG.md";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ doronbehar alerque ];
+    maintainers = with maintainers; [
+      doronbehar
+      alerque
+    ];
     license = licenses.mit;
   };
 }

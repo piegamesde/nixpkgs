@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-mTQ2yRG+E2nZ2g9eSg+XTzK8A1EgKsRfbvNO3CdYeLg=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook nbval ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbval
+  ];
 
   preCheck = "rm test/manyfonts.ipynb"; # Tries to download fonts
 

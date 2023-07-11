@@ -31,10 +31,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ async-modbus async-timeout construct exceptiongroup tenacity ];
+  propagatedBuildInputs = [
+    async-modbus
+    async-timeout
+    construct
+    exceptiongroup
+    tenacity
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nibe" ];
 

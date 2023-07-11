@@ -28,11 +28,22 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  nativeBuildInputs = [ gobject-introspection txt2tags wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    txt2tags
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ atk gdk-pixbuf pango ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    pango
+  ];
 
-  pythonPath = with python3Packages; [ pygobject3 pyxdg ];
+  pythonPath = with python3Packages; [
+    pygobject3
+    pyxdg
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

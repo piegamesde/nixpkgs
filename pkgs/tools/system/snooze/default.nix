@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-K77axli/mapUr3yxpmUfFq4iWwgRmEVUlP6+/0Iezwo=";
   };
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=/" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX=/"
+  ];
 
   meta = with lib; {
     description =

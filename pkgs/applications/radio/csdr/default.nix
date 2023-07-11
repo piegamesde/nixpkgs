@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Cmms+kQzTP+CMDRXCbtWuizosFe9FywLobjBOUA79O0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ fftwFloat libsamplerate ];
+  propagatedBuildInputs = [
+    fftwFloat
+    libsamplerate
+  ];
 
   hardeningDisable = lib.optional stdenv.isAarch64 "format";
 

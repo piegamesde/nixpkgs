@@ -23,7 +23,12 @@ let
 
   tt-rss-config = let
     password = if (cfg.database.password != null) then
-      "'${(escape [ "'" "\\" ] cfg.database.password)}'"
+      "'${
+        (escape [
+          "'"
+          "\\"
+        ] cfg.database.password)
+      }'"
     else if (cfg.database.passwordFile != null) then
       "file_get_contents('${cfg.database.passwordFile}')"
     else
@@ -54,7 +59,12 @@ let
       putenv('TTRSS_AUTH_AUTO_CREATE=${boolToString cfg.auth.autoCreate}');
       putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
 
-      putenv('TTRSS_FEED_CRYPT_KEY=${escape [ "'" "\\" ] cfg.feedCryptKey}');
+      putenv('TTRSS_FEED_CRYPT_KEY=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.feedCryptKey
+      }');
 
 
       putenv('TTRSS_SINGLE_USER_MODE=${boolToString cfg.singleUserMode}');
@@ -103,15 +113,31 @@ let
 
       putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
       putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
-      putenv('TTRSS_SMTP_PASSWORD=${escape [ "'" "\\" ] cfg.email.password}');
+      putenv('TTRSS_SMTP_PASSWORD=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.password
+      }');
       putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
 
-      putenv('TTRSS_SMTP_FROM_NAME=${escape [ "'" "\\" ] cfg.email.fromName}');
+      putenv('TTRSS_SMTP_FROM_NAME=${
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.fromName
+      }');
       putenv('TTRSS_SMTP_FROM_ADDRESS=${
-        escape [ "'" "\\" ] cfg.email.fromAddress
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.fromAddress
       }');
       putenv('TTRSS_DIGEST_SUBJECT=${
-        escape [ "'" "\\" ] cfg.email.digestSubject
+        escape [
+          "'"
+          "\\"
+        ] cfg.email.digestSubject
       }');
 
       ${cfg.extraConfig}
@@ -179,7 +205,10 @@ in {
 
       database = {
         type = mkOption {
-          type = types.enum [ "pgsql" "mysql" ];
+          type = types.enum [
+            "pgsql"
+            "mysql"
+          ];
           default = "pgsql";
           description = lib.mdDoc ''
             Database to store feeds. Supported are pgsql and mysql.
@@ -297,7 +326,10 @@ in {
 
         index = mkOption {
           type = types.listOf types.str;
-          default = [ "ttrss" "delta" ];
+          default = [
+            "ttrss"
+            "delta"
+          ];
           description = lib.mdDoc ''
             Index names in Sphinx configuration. Example configuration
             files are available on tt-rss wiki.
@@ -363,7 +395,11 @@ in {
         };
 
         security = mkOption {
-          type = types.enum [ "" "ssl" "tls" ];
+          type = types.enum [
+            ""
+            "ssl"
+            "tls"
+          ];
           default = "";
           description = lib.mdDoc ''
             Used to select a secure SMTP connection. Allowed values: ssl, tls,
@@ -479,7 +515,10 @@ in {
 
       plugins = mkOption {
         type = types.listOf types.str;
-        default = [ "auth_internal" "note" ];
+        default = [
+          "auth_internal"
+          "note"
+        ];
         description = lib.mdDoc ''
           List of plugins to load automatically for all users.
           System plugins have to be specified here. Please enable at least one
@@ -512,7 +551,11 @@ in {
       };
 
       logDestination = mkOption {
-        type = types.enum [ "" "sql" "syslog" ];
+        type = types.enum [
+          ""
+          "sql"
+          "syslog"
+        ];
         default = "sql";
         description = lib.mdDoc ''
           Log destination to use. Possible values: sql (uses internal logging
@@ -532,24 +575,26 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "tt-rss" "checkForUpdates" ] ''
-      This option was removed because setting this to true will cause TT-RSS
-      to be unable to start if an automatic update of the code in
-      services.tt-rss.root leads to a database schema upgrade that is not
-      supported by the code active in the Nix store.
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "tt-rss"
+    "checkForUpdates"
+  ] ''
+    This option was removed because setting this to true will cause TT-RSS
+    to be unable to start if an automatic update of the code in
+    services.tt-rss.root leads to a database schema upgrade that is not
+    supported by the code active in the Nix store.
+  '') ];
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.database.password != null -> cfg.database.passwordFile
         == null;
       message = "Cannot set both password and passwordFile";
-    }];
+    } ];
 
     services.phpfpm.pools = mkIf (cfg.pool == "${poolName}") {
       ${poolName} = {
@@ -703,21 +748,21 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.user;
         ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     services.postgresql = mkIf pgsqlLocal {
       enable = mkDefault true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.user;
         ensurePermissions = {
           "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     users.users.tt_rss = optionalAttrs (cfg.user == "tt_rss") {

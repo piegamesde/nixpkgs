@@ -23,7 +23,10 @@ buildPythonPackage rec {
   # Tests only execute pygments with these styles
   doCheck = false;
 
-  pythonImportsCheck = [ "a11y_pygments" "a11y_pygments.utils" ];
+  pythonImportsCheck = [
+    "a11y_pygments"
+    "a11y_pygments.utils"
+  ];
 
   meta = with lib; {
     description = "A collection of accessible pygments styles";

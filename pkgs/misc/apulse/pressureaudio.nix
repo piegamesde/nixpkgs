@@ -12,7 +12,10 @@ stdenv.mkDerivation {
 
   src = libpulseaudio.src;
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
   dontConfigure = true;
   dontBuild = true;

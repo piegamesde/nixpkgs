@@ -42,12 +42,10 @@ buildNpmPackage rec {
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  patches = [
-    (substituteAll {
-      src = ./replace-git.patch;
-      inherit version;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./replace-git.patch;
+    inherit version;
+  }) ];
 
   installPhase = ''
     cp -r dist/extension-unpacked $out
@@ -57,6 +55,9 @@ buildNpmPackage rec {
     description = "Vencord web extension";
     homepage = "https://github.com/Vendicated/Vencord";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ FlafyDev NotAShelf ];
+    maintainers = with maintainers; [
+      FlafyDev
+      NotAShelf
+    ];
   };
 }

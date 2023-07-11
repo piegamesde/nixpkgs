@@ -34,8 +34,10 @@ in stdenv.mkDerivation rec {
     makeFlagsArray+=(${systemFlags})
   '';
 
-  makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=${placeholder "out"}" ];
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "PREFIX=${placeholder "out"}"
+  ];
 
   meta = with lib; {
     homepage = "http://mama.indstate.edu/users/ice/tree/";

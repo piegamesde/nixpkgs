@@ -24,7 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ ./0000-dont-require-hsa_amd_aqlprofile.patch ];
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ rocm-thunk rocm-runtime numactl ];
+  buildInputs = [
+    rocm-thunk
+    rocm-runtime
+    numactl
+  ];
 
   cmakeFlags = [
     "-DPROF_API_HEADER_PATH=${roctracer.src}/inc/ext"

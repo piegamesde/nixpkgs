@@ -22,7 +22,10 @@ buildDunePackage rec {
     hash = "sha256-BpD7Hg6QoY7tXDVms8wYJdmLDox9UbtrhGyVxFphWRM=";
   };
 
-  propagatedBuildInputs = [ seq stdlib-shims ];
+  propagatedBuildInputs = [
+    seq
+    stdlib-shims
+  ];
 
   doCheck = true;
   checkInputs = lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;

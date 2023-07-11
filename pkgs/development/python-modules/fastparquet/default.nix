@@ -31,14 +31,15 @@ buildPythonPackage rec {
     hash = "sha256-1hWiwXjTgflQlmy0Dk2phUa1cgYBvvH99tb0TdUmDRI=";
   };
 
-  nativeBuildInputs = [ cython setuptools ];
-
-  patches = [
-    (substituteAll {
-      src = ./version.patch;
-      inherit version;
-    })
+  nativeBuildInputs = [
+    cython
+    setuptools
   ];
+
+  patches = [ (substituteAll {
+    src = ./version.patch;
+    inherit version;
+  }) ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -48,7 +49,14 @@ buildPythonPackage rec {
     sed -i '/"git", "status"/d' setup.py
   '';
 
-  propagatedBuildInputs = [ cramjam fsspec numpy pandas thrift packaging ];
+  propagatedBuildInputs = [
+    cramjam
+    fsspec
+    numpy
+    pandas
+    thrift
+    packaging
+  ];
 
   passthru.optional-dependencies = { lzo = [ python-lzo ]; };
 

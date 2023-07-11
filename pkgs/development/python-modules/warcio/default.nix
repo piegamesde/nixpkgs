@@ -24,16 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-wn2rd73wRfOqHu9H0GIn76tmEsERBBCQatnk4b/JToU=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "add-offline-option.patch";
-      url =
-        "https://github.com/webrecorder/warcio/pull/135/commits/2546fe457c57ab0b391764a4ce419656458d9d07.patch";
-      hash = "sha256-3izm9LvAeOFixiIUUqmd5flZIxH92+NxL7jeu35aObQ=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "add-offline-option.patch";
+    url =
+      "https://github.com/webrecorder/warcio/pull/135/commits/2546fe457c57ab0b391764a4ce419656458d9d07.patch";
+    hash = "sha256-3izm9LvAeOFixiIUUqmd5flZIxH92+NxL7jeu35aObQ=";
+  }) ];
 
-  propagatedBuildInputs = [ six setuptools ];
+  propagatedBuildInputs = [
+    six
+    setuptools
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook

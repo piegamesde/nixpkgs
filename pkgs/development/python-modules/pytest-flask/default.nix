@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ flask werkzeug ];
+  propagatedBuildInputs = [
+    flask
+    werkzeug
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

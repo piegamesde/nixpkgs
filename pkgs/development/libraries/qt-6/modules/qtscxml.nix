@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtscxml";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

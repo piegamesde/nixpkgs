@@ -8,10 +8,10 @@ let
       hostBridge = "br0";
       config = {
         networking.firewall.enable = false;
-        networking.interfaces.eth0.ipv4.addresses = [{
+        networking.interfaces.eth0.ipv4.addresses = [ {
           address = "192.168.1.122";
           prefixLength = 24;
-        }];
+        } ];
       };
     };
   };
@@ -37,10 +37,10 @@ in import ./make-test-python.nix ({
           };
           networking.interfaces = {
             eth1.ipv4.addresses = lib.mkOverride 0 [ ];
-            br0.ipv4.addresses = [{
+            br0.ipv4.addresses = [ {
               address = "192.168.1.1";
               prefixLength = 24;
-            }];
+            } ];
           };
 
         };
@@ -55,10 +55,10 @@ in import ./make-test-python.nix ({
           };
           networking.interfaces = {
             eth1.ipv4.addresses = lib.mkOverride 0 [ ];
-            br0.ipv4.addresses = [{
+            br0.ipv4.addresses = [ {
               address = "192.168.1.2";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
       client_eth1_rstp = {
@@ -72,10 +72,10 @@ in import ./make-test-python.nix ({
           };
           networking.interfaces = {
             eth1.ipv4.addresses = lib.mkOverride 0 [ ];
-            br0.ipv4.addresses = [{
+            br0.ipv4.addresses = [ {
               address = "192.168.1.2";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
     };

@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ jsonschema pytestCheckHook ];
+  nativeCheckInputs = [
+    jsonschema
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rachiopy" ];
 

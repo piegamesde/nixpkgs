@@ -59,7 +59,11 @@ stdenvNoCC.mkDerivation {
     "vfs"
     "voucher"
     "xlocale"
-  ] ++ [ "arm" "xpc" "arm64" ];
+  ] ++ [
+    "arm"
+    "xpc"
+    "arm64"
+  ];
 
   csu = [
     "bundle1.o"

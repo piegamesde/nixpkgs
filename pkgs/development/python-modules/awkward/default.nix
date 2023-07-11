@@ -25,14 +25,23 @@ buildPythonPackage rec {
     hash = "sha256-MqV8KeE6KuO8HmrFNjeCW70ixChmlhY71Bod7ChKjuU=";
   };
 
-  nativeBuildInputs = [ hatch-fancy-pypi-readme hatchling ];
+  nativeBuildInputs = [
+    hatch-fancy-pypi-readme
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ awkward-cpp numpy packaging ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = [
+    awkward-cpp
+    numpy
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook numba ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    numba
+  ];
 
   disabledTestPaths = [ "tests-cuda" ];
 

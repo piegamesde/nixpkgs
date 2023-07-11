@@ -133,15 +133,25 @@ in stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-O2";
   FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";
 
-  nativeBuildInputs = [ myGn ninja pkg-config python39 ]
-    ++ lib.optionals stdenv.isDarwin [
-      xcbuild
-      darwin.DarwinTools
-      python39.pkgs.setuptools
-    ];
-  buildInputs = [ glib icu ];
+  nativeBuildInputs = [
+    myGn
+    ninja
+    pkg-config
+    python39
+  ] ++ lib.optionals stdenv.isDarwin [
+    xcbuild
+    darwin.DarwinTools
+    python39.pkgs.setuptools
+  ];
+  buildInputs = [
+    glib
+    icu
+  ];
 
-  ninjaFlags = [ ":d8" "v8_monolith" ];
+  ninjaFlags = [
+    ":d8"
+    "v8_monolith"
+  ];
 
   enableParallelBuilding = true;
 
@@ -165,7 +175,11 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://v8.dev/";
     description = "Google's open source JavaScript engine";
-    maintainers = with maintainers; [ cstrahan proglodyte matthewbauer ];
+    maintainers = with maintainers; [
+      cstrahan
+      proglodyte
+      matthewbauer
+    ];
     platforms = platforms.unix;
     license = licenses.bsd3;
     broken = stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12";

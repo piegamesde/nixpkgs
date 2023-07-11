@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-OcXAlMc1/HdGJGjB0miTh7k9rH7cC0CZtwKSqePgPUY=";
   };
 
-  propagatedBuildInputs = [ cryptography getmac requests zeroconf ];
+  propagatedBuildInputs = [
+    cryptography
+    getmac
+    requests
+    zeroconf
+  ];
 
   # Project has no tests
   doCheck = false;

@@ -40,8 +40,15 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ python3 perl ]
-    ++ lib.optionals stdenv.isLinux [ zlib bzip2 glib libxml2 ];
+  buildInputs = [
+    python3
+    perl
+  ] ++ lib.optionals stdenv.isLinux [
+    zlib
+    bzip2
+    glib
+    libxml2
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -58,8 +65,12 @@ in stdenv.mkDerivation {
 
   meta = with lib; {
     inherit (blast.meta) description homepage license;
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     maintainers = with maintainers; [ natsukium ];
   };
 }

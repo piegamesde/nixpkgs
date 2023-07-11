@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XW7ms0BVCf1/fuL3PJ970t6sHkmMY1iLYXfS9R60JX0=";
   };
 
-  buildInputs = [ libX11 xorgproto ];
+  buildInputs = [
+    libX11
+    xorgproto
+  ];
 
   installPhase = ''
     mkdir -pv $out/bin

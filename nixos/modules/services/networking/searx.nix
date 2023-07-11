@@ -31,20 +31,28 @@ let
   '';
 
   settingType = with types;
-    (oneOf [ bool int float str (listOf settingType) (attrsOf settingType) ])
-    // {
+    (oneOf [
+      bool
+      int
+      float
+      str
+      (listOf settingType)
+      (attrsOf settingType)
+    ]) // {
       description = "JSON value";
     };
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "searx" "configFile" ] [
-      "services"
-      "searx"
-      "settingsFile"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "searx"
+    "configFile"
+  ] [
+    "services"
+    "searx"
+    "settingsFile"
+  ]) ];
 
   ###### interface
 
@@ -189,7 +197,10 @@ in {
 
     systemd.services.searx = mkIf (!cfg.runInUwsgi) {
       description = "Searx server, the meta search engine.";
-      wantedBy = [ "network.target" "multi-user.target" ];
+      wantedBy = [
+        "network.target"
+        "multi-user.target"
+      ];
       requires = [ "searx-init.service" ];
       after = [ "searx-init.service" ];
       serviceConfig = {

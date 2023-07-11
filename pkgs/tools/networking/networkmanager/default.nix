@@ -68,7 +68,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-jDiKw3daxrzrYF+uIb4sPiYcr+YGeZSonw36RhDtAnk=";
   };
 
-  outputs = [ "out" "dev" "devdoc" "man" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+    "doc"
+  ];
 
   # Right now we hardcode quite a few paths at build time. Probably we should
   # patch networkmanager to allow passing these path in config file. This will
@@ -160,7 +166,10 @@ in stdenv.mkDerivation rec {
     dbus # used to get directory paths with pkg-config during configuration
   ];
 
-  propagatedBuildInputs = [ gnutls libgcrypt ];
+  propagatedBuildInputs = [
+    gnutls
+    libgcrypt
+  ];
 
   nativeBuildInputs = [
     meson
@@ -179,8 +188,8 @@ in stdenv.mkDerivation rec {
     docbook_xml_dtd_42
     docbook_xml_dtd_43
     pythonForDocs
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   doCheck = false; # requires /sys, the net
 
@@ -224,8 +233,11 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     changelog =
       "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
-    maintainers = teams.freedesktop.members
-      ++ (with maintainers; [ domenkozar obadz maxeaubrey ]);
+    maintainers = teams.freedesktop.members ++ (with maintainers; [
+      domenkozar
+      obadz
+      maxeaubrey
+    ]);
     platforms = platforms.linux;
   };
 }

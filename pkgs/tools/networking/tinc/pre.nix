@@ -23,10 +23,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-1anjTUlVLx57FlUqGwBd590lfkZ2MmrM1qRcMl4P7Sg=";
   };
 
-  outputs = [ "out" "man" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "info"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook texinfo ];
-  buildInputs = [ ncurses readline zlib lzo openssl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texinfo
+  ];
+  buildInputs = [
+    ncurses
+    readline
+    zlib
+    lzo
+    openssl
+  ];
 
   # needed so the build doesn't need to run git to find out the version.
   prePatch = ''
@@ -36,7 +49,10 @@ stdenv.mkDerivation rec {
     sed -i '/AC_INIT/s/m4_esyscmd_s.*/${version})/' configure.ac
   '';
 
-  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   meta = with lib; {
     description = "VPN daemon with full mesh routing";
@@ -49,6 +65,9 @@ stdenv.mkDerivation rec {
     homepage = "http://www.tinc-vpn.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lassulus mic92 ];
+    maintainers = with maintainers; [
+      lassulus
+      mic92
+    ];
   };
 }

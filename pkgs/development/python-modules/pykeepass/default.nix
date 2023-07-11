@@ -28,8 +28,14 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "==" ">="
   '';
 
-  propagatedBuildInputs =
-    [ lxml pycryptodomex construct argon2-cffi python-dateutil future ];
+  propagatedBuildInputs = [
+    lxml
+    pycryptodomex
+    construct
+    argon2-cffi
+    python-dateutil
+    future
+  ];
 
   propagatedNativeBuildInputs = [ argon2-cffi ];
 

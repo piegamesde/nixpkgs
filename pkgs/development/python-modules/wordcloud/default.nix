@@ -28,9 +28,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ matplotlib numpy pillow ];
+  propagatedBuildInputs = [
+    matplotlib
+    numpy
+    pillow
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

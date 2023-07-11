@@ -46,7 +46,10 @@ let
         description = "An open source Pan-CJK ${description} typeface";
         homepage = "https://github.com/adobe-fonts/source-han-${family}";
         license = lib.licenses.ofl;
-        maintainers = with lib.maintainers; [ taku0 emily ];
+        maintainers = with lib.maintainers; [
+          taku0
+          emily
+        ];
       };
     };
 in {

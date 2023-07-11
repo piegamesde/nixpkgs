@@ -51,7 +51,10 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ which xdg-utils ];
+  buildInputs = [
+    which
+    xdg-utils
+  ];
 
   unpackPhase = ''
     mkdir -p phony-home $out/share/applications

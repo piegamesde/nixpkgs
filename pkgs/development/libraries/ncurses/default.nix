@@ -23,7 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-aTEoPZrIfFBz8wtikMTHXyFjK7T8NgOsgQCBK+0kgVk=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   setOutputFlags = false; # some aren't supported
 
   configureFlags = [
@@ -62,9 +66,8 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ buildPackages.ncurses ];
+  nativeBuildInputs = [ pkg-config ] ++ lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ buildPackages.ncurses ];
 
   buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 
@@ -177,8 +180,12 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.mit;
     pkgConfigModules = let
-      base = [ "form" "menu" "ncurses" "panel" ]
-        ++ lib.optional withCxx "ncurses++";
+      base = [
+        "form"
+        "menu"
+        "ncurses"
+        "panel"
+      ] ++ lib.optional withCxx "ncurses++";
     in base ++ lib.optionals unicodeSupport (map (p: p + "w") base);
     platforms = platforms.all;
   };

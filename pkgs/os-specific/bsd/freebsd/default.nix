@@ -144,9 +144,8 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         # Since STRIP below is the flag
         STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
-        makeFlags = [
-          "STRIP=-s" # flag to install, not command
-        ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
+        makeFlags = [ "STRIP=-s" # flag to install, not command
+          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
 
         # amd64 not x86_64 for this on unlike NetBSD
         MACHINE_ARCH = mkBsdArch stdenv';
@@ -318,8 +317,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         "lib/libcasper"
       ];
 
-      patches =
-        [ ./compat-install-dirs.patch ./compat-fix-typedefs-locations.patch ];
+      patches = [
+        ./compat-install-dirs.patch
+        ./compat-fix-typedefs-locations.patch
+      ];
 
       preBuild = ''
         NIX_CFLAGS_COMPILE+=' -I../../include -I../../sys'
@@ -332,8 +333,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         cp ../../sys/x86/include/elf.h ../../sys/x86
       '';
 
-      setupHooks =
-        [ ../../../build-support/setup-hooks/role.bash ./compat-setup-hook.sh ];
+      setupHooks = [
+        ../../../build-support/setup-hooks/role.bash
+        ./compat-setup-hook.sh
+      ];
 
       # This one has an ifdefed `#include_next` that makes it annoying.
       postInstall = ''
@@ -348,7 +351,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
         which
       ];
-      buildInputs = [ expat zlib ];
+      buildInputs = [
+        expat
+        zlib
+      ];
 
       makeFlags = [
         "STRIP=-s" # flag to install, not command
@@ -380,10 +386,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         else
           install)
       ];
-      patches = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [
-        ./libnetbsd-do-install.patch
+      patches = lib.optionals
+        (!stdenv.hostPlatform.isFreeBSD) [ ./libnetbsd-do-install.patch
         #./libnetbsd-define-__va_list.patch
-      ];
+        ];
       makeFlags = [
         "STRIP=-s" # flag to install, not command
         "MK_WERROR=no"
@@ -414,7 +420,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
           install)
       ];
       skipIncludesPhase = true;
-      buildInputs = with self; compatIfNeeded ++ [ libmd libnetbsd ];
+      buildInputs = with self;
+        compatIfNeeded ++ [
+          libmd
+          libnetbsd
+        ];
       makeFlags = [
         "STRIP=-s" # flag to install, not command
         "MK_WERROR=no"
@@ -427,7 +437,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         mv $out/bin/install $out/bin/xinstall
         ln -s ./binstall $out/bin/install
       '';
-      outputs = [ "out" "man" "test" ];
+      outputs = [
+        "out"
+        "man"
+        "test"
+      ];
     };
 
     sed = mkDerivation {
@@ -481,9 +495,15 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         chmod +x "$out/bin/lorder"
         mv "lorder.1" "$man/share/man"
       '';
-      nativeBuildInputs = [ bsdSetupHook freebsdSetupHook ];
+      nativeBuildInputs = [
+        bsdSetupHook
+        freebsdSetupHook
+      ];
       buildInputs = [ ];
-      outputs = [ "out" "man" ];
+      outputs = [
+        "out"
+        "man"
+      ];
     };
 
     ##
@@ -548,7 +568,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
 
     libnv = mkDerivation {
       path = "lib/libnv";
-      extraPaths = [ "sys/contrib/libnv" "sys/sys" ];
+      extraPaths = [
+        "sys/contrib/libnv"
+        "sys/sys"
+      ];
       MK_TESTS = "no";
     };
 
@@ -623,7 +646,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         byacc
         file2c
       ];
-      buildInputs = with self; compatIfNeeded ++ [ libnv libsbuf ];
+      buildInputs = with self;
+        compatIfNeeded ++ [
+          libnv
+          libsbuf
+        ];
     };
     ##
     ## END COMMAND LINE TOOLS
@@ -635,7 +662,11 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
     include = mkDerivation {
       path = "include";
 
-      extraPaths = [ "contrib/libc-vis" "etc/mtree/BSD.include.dist" "sys" ];
+      extraPaths = [
+        "contrib/libc-vis"
+        "etc/mtree/BSD.include.dist"
+        "sys"
+      ];
 
       nativeBuildInputs = with buildPackages.freebsd; [
         bsdSetupHook
@@ -766,7 +797,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         gencat
         rpcgen
       ];
-      buildInputs = with self; [ include csu ];
+      buildInputs = with self; [
+        include
+        csu
+      ];
       env.NIX_CFLAGS_COMPILE = "-B${self.csu}/lib";
 
       makeFlags = [
@@ -878,7 +912,12 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         # flex byacc file2c
       ];
       buildInputs = with self;
-        compatIfNeeded ++ [ libelf libdwarf zlib libspl ];
+        compatIfNeeded ++ [
+          libelf
+          libdwarf
+          zlib
+          libspl
+        ];
       meta.license = lib.licenses.cddl;
     };
 
@@ -911,7 +950,10 @@ in makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { })
         #ctfconvert
       ];
 
-      patches = [ ./sys-gnu-date.patch ./sys-no-explicit-intrinsics-dep.patch ];
+      patches = [
+        ./sys-gnu-date.patch
+        ./sys-no-explicit-intrinsics-dep.patch
+      ];
 
       # --dynamic-linker /red/herring is used when building the kernel.
       NIX_ENFORCE_PURITY = 0;

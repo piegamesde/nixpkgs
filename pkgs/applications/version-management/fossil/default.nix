@@ -30,10 +30,19 @@ stdenv.mkDerivation rec {
   # required for build time tool `./tools/translate.c`
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ installShellFiles tcl tcllib ];
+  nativeBuildInputs = [
+    installShellFiles
+    tcl
+    tcllib
+  ];
 
-  buildInputs = [ zlib openssl readline which ed ]
-    ++ lib.optional stdenv.isDarwin libiconv
+  buildInputs = [
+    zlib
+    openssl
+    readline
+    which
+    ed
+  ] ++ lib.optional stdenv.isDarwin libiconv
     ++ lib.optional (!withInternalSqlite) sqlite;
 
   enableParallelBuilding = true;
@@ -68,7 +77,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.fossil-scm.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ maggesi viric ];
+    maintainers = with maintainers; [
+      maggesi
+      viric
+    ];
     platforms = platforms.all;
   };
 }

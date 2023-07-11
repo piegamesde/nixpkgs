@@ -17,7 +17,10 @@ in rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-BKeEAgvhHP01K/q8itwFfFIH8BAS9e1dat449i3M4ig=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ IOKit CoreFoundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    IOKit
+    CoreFoundation
+  ];
 
   cargoBuildFlags = [ "--package nu_plugin_query" ];
 

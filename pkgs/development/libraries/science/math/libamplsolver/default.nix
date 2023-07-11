@@ -15,16 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LVmScuIvxmZzywPSBl9T9YcUBJP7UFAa3eWs9r4q3JM=";
   };
 
-  patches = [
-    (substitute {
-      src = ./libamplsolver-sharedlib.patch;
-      replacements = [
-        "--replace"
-        "@sharedlibext@"
-        "${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ];
-    })
-  ];
+  patches = [ (substitute {
+    src = ./libamplsolver-sharedlib.patch;
+    replacements = [
+      "--replace"
+      "@sharedlibext@"
+      "${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ];
+  }) ];
 
   installPhase = ''
     runHook preInstall

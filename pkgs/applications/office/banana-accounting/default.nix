@@ -29,10 +29,22 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs =
-    [ cairo 0.0 fsprogs gmp gtk3 stdenv.cc.cc.lib libGL libX11 libgcrypt ];
+  buildInputs = [
+    cairo
+    0.0
+    fsprogs
+    gmp
+    gtk3
+    stdenv.cc.cc.lib
+    libGL
+    libX11
+    libgcrypt
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   installPhase = ''
     runHook preInstall

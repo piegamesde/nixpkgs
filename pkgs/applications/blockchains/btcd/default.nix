@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-3w8rb0sfAIFCXqPXOKb4QwoLd7WsbFv3phu/rJCEjeY=";
 
-  subPackages = [ "." "cmd/*" ];
+  subPackages = [
+    "."
+    "cmd/*"
+  ];
 
   preCheck = ''
     DIR="github.com/btcsuite/btcd/"

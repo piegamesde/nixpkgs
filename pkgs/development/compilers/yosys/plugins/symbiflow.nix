@@ -55,9 +55,19 @@ in lib.genAttrs plugins (plugin:
     inherit src version plugin;
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [ python3 pkg-config ];
-    buildInputs =
-      [ yosys readline zlib uhdm surelog capnproto antlr4.runtime.cpp ];
+    nativeBuildInputs = [
+      python3
+      pkg-config
+    ];
+    buildInputs = [
+      yosys
+      readline
+      zlib
+      uhdm
+      surelog
+      capnproto
+      antlr4.runtime.cpp
+    ];
 
     # xdc has an incorrect path to a test which has yet to be patched
     doCheck = plugin != "xdc";
@@ -84,12 +94,11 @@ in lib.genAttrs plugins (plugin:
     ];
 
     checkTarget = "test";
-    checkFlags = [
-      ("NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
+    checkFlags =
+      [ ("NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
         # sdc and xdc plugins use design introspection for their tests
         + (lib.optionalString (plugin == "sdc" || plugin == "xdc")
-          ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/"))
-    ];
+          ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")) ];
 
     installFlags = buildFlags;
 
@@ -97,6 +106,9 @@ in lib.genAttrs plugins (plugin:
       description = "Symbiflow ${plugin} plugin for Yosys";
       license = licenses.isc;
       platforms = platforms.all;
-      maintainers = with maintainers; [ ollieB thoughtpolice ];
+      maintainers = with maintainers; [
+        ollieB
+        thoughtpolice
+      ];
     };
   }))

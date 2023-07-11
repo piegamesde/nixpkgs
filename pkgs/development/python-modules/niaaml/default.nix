@@ -26,9 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-GAUXEkUOD04DQtRG/RAeeeLmenBd25h18Lmrxbm4X3A=";
   };
 
-  nativeBuildInputs = [ poetry-core toml-adapt ];
+  nativeBuildInputs = [
+    poetry-core
+    toml-adapt
+  ];
 
-  propagatedBuildInputs = [ niapy numpy pandas scikit-learn ];
+  propagatedBuildInputs = [
+    niapy
+    numpy
+    pandas
+    scikit-learn
+  ];
 
   # create scikit-learn and niapy deps version consistent
   preBuild = ''

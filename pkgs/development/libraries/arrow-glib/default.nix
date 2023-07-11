@@ -15,9 +15,17 @@ stdenv.mkDerivation rec {
   inherit (arrow-cpp) src version;
   sourceRoot = "apache-arrow-${version}/c_glib";
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ arrow-cpp glib gobject-introspection ];
+  buildInputs = [
+    arrow-cpp
+    glib
+    gobject-introspection
+  ];
 
   meta = with lib; {
     inherit (arrow-cpp.meta) license platforms;

@@ -20,8 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-iV9TEIGogIfbj+fmOGftoQqEdtZiewbHEw3hYlMEP4c=";
   };
 
-  buildInputs = [ setuptools-scm toml ];
-  propagatedBuildInputs = [ h5py nibabel numpy ];
+  buildInputs = [
+    setuptools-scm
+    toml
+  ];
+  propagatedBuildInputs = [
+    h5py
+    nibabel
+    numpy
+  ];
 
   doCheck = false;
   # relies on data repo (https://github.com/nipreps-data/nitransforms-tests);

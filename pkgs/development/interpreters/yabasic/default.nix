@@ -18,7 +18,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ItmlkraNUE0qlq1RghUJcDq4MHb6HRKNoIRylugjboA=";
   };
 
-  buildInputs = [ libSM libX11 libXt libffi ncurses ];
+  buildInputs = [
+    libSM
+    libX11
+    libXt
+    libffi
+    ncurses
+  ];
 
   meta = {
     homepage = "http://2484.de/yabasic/";

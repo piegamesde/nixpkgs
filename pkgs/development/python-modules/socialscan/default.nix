@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-jiyTcpJ00DvfweChawj1ugdCVHHAdwDbHEp9jivH7gs=";
   };
 
-  propagatedBuildInputs = [ aiohttp colorama tqdm ];
+  propagatedBuildInputs = [
+    aiohttp
+    colorama
+    tqdm
+  ];
 
   # Tests require network access
   doCheck = false;

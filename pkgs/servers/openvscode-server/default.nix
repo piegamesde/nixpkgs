@@ -27,7 +27,11 @@ let
 
   nodejs = nodejs_16;
   yarn' = yarn.override { inherit nodejs; };
-  defaultYarnOpts = [ "frozen-lockfile" "non-interactive" "no-progress" ];
+  defaultYarnOpts = [
+    "frozen-lockfile"
+    "non-interactive"
+    "no-progress"
+  ];
 
   vsBuildTarget = {
     x86_64-linux = "linux-x64";
@@ -72,7 +76,11 @@ in stdenv.mkDerivation rec {
   yarnCache = stdenv.mkDerivation {
     name = "${pname}-${version}-${system}-yarn-cache";
     inherit src;
-    nativeBuildInputs = [ cacert yarn' git ];
+    nativeBuildInputs = [
+      cacert
+      yarn'
+      git
+    ];
     buildPhase = ''
       export HOME=$PWD
 
@@ -92,11 +100,25 @@ in stdenv.mkDerivation rec {
     outputHash = "sha256-Ca2qd9Q88BNUIT9avq1KiMwKcKkMX/NkU2q8DjGYQjg=";
   };
 
-  nativeBuildInputs =
-    [ nodejs yarn' python3 pkg-config makeWrapper git jq moreutils ];
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ (with xorg; [ libX11 libxkbfile ])
-    ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Security cctools ];
+  nativeBuildInputs = [
+    nodejs
+    yarn'
+    python3
+    pkg-config
+    makeWrapper
+    git
+    jq
+    moreutils
+  ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+    libX11
+    libxkbfile
+  ]) ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    Security
+    cctools
+  ];
 
   patches = [
     # Patch out remote download of nodejs from build script
@@ -189,8 +211,16 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/gitpod-io/openvscode-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ dguenther ghuntley emilytrau ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      dguenther
+      ghuntley
+      emilytrau
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

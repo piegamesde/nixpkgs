@@ -86,7 +86,10 @@ in {
 
           passAsFile = [ "value" ];
           value = builtins.toJSON value;
-          nativeBuildInputs = [ pkgs.jq pkgs.libiconvReal ];
+          nativeBuildInputs = [
+            pkgs.jq
+            pkgs.libiconvReal
+          ];
 
           jqCode = let
             main = ''

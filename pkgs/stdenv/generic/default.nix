@@ -107,7 +107,10 @@ let
 
       builder = shell;
 
-      args = [ "-e" ./builder.sh ];
+      args = [
+        "-e"
+        ./builder.sh
+      ];
 
       setup = setupScript;
 

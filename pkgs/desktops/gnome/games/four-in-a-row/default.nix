@@ -39,7 +39,12 @@ stdenv.mkDerivation rec {
     python3
     desktop-file-utils
   ];
-  buildInputs = [ gtk3 gsound librsvg gnome.adwaita-icon-theme ];
+  buildInputs = [
+    gtk3
+    gsound
+    librsvg
+    gnome.adwaita-icon-theme
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

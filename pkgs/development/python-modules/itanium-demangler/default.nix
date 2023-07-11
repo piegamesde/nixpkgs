@@ -31,6 +31,9 @@ buildPythonPackage rec {
       "Python parser for the Itanium C++ ABI symbol mangling language";
     homepage = "https://github.com/whitequark/python-itanium_demangler";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ fab pamplemousse ];
+    maintainers = with maintainers; [
+      fab
+      pamplemousse
+    ];
   };
 }

@@ -66,7 +66,10 @@ in {
       hostsAllowReg = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "192.168.1.0/24" "192.168.2.0/24" ];
+        example = [
+          "192.168.1.0/24"
+          "192.168.2.0/24"
+        ];
         description = lib.mdDoc ''
           Acess control list for incoming SIP registrations.
         '';
@@ -75,7 +78,10 @@ in {
       hostsAllowSip = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "123.45.0.0/16" "123.46.0.0/16" ];
+        example = [
+          "123.45.0.0/16"
+          "123.46.0.0/16"
+        ];
         description = lib.mdDoc ''
           Acess control list for incoming SIP traffic.
         '';
@@ -84,7 +90,10 @@ in {
       hostsDenySip = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "10.0.0.0/8" "11.0.0.0/8" ];
+        example = [
+          "10.0.0.0/8"
+          "11.0.0.0/8"
+        ];
         description = lib.mdDoc ''
           Acess control list for denying incoming
           SIP registrations and traffic.

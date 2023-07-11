@@ -7,7 +7,11 @@
   pkgsHostTarget,
 }:
 
-let runtimeDeps = [ z3 pkgsHostTarget.targetPackages.stdenv.cc ];
+let
+  runtimeDeps = [
+    z3
+    pkgsHostTarget.targetPackages.stdenv.cc
+  ];
 
 in rustPlatform.buildRustPackage rec {
   pname = "zz";

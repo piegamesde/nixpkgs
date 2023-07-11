@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ nix boost ];
+  buildInputs = [
+    nix
+    boost
+  ];
 
   postInstall = ''
     # This is typically set by pipInstallHook/eggInstallHook,

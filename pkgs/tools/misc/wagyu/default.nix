@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Rust library for generating cryptocurrency wallets";
     homepage = "https://github.com/ArgusHQ/wagyu";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = [ maintainers.offline ];
   };
 }

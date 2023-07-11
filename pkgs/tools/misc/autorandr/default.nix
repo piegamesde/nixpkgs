@@ -14,7 +14,10 @@ python3.pkgs.buildPythonApplication rec {
   version = "1.13.3";
   format = "other";
 
-  nativeBuildInputs = [ installShellFiles desktop-file-utils ];
+  nativeBuildInputs = [
+    installShellFiles
+    desktop-file-utils
+  ];
   propagatedBuildInputs = [ python3Packages.packaging ];
 
   buildPhase = ''
@@ -25,7 +28,10 @@ python3.pkgs.buildPythonApplication rec {
 
   patches = [ ./0001-don-t-use-sys.executable.patch ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -70,7 +76,10 @@ python3.pkgs.buildPythonApplication rec {
     description =
       "Automatically select a display configuration based on connected devices";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ coroa globin ];
+    maintainers = with maintainers; [
+      coroa
+      globin
+    ];
     platforms = platforms.unix;
   };
 }

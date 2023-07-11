@@ -22,9 +22,15 @@ let
 
     nativeBuildInputs = [ setuptools-scm ];
 
-    propagatedBuildInputs = [ six attrs ];
+    propagatedBuildInputs = [
+      six
+      attrs
+    ];
 
-    nativeCheckInputs = [ pytest-benchmark pytestCheckHook ];
+    nativeCheckInputs = [
+      pytest-benchmark
+      pytestCheckHook
+    ];
 
     # escape infinite recursion with twisted
     doCheck = false;

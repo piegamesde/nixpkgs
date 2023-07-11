@@ -19,7 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-NTOUL1oE2IhgLyYYHwRCMW5yCxIRxUwqkfuhSSBXf6A=";
 
-  nativeBuildInputs = [ go-mockery installShellFiles ];
+  nativeBuildInputs = [
+    go-mockery
+    installShellFiles
+  ];
 
   preBuild = ''
     mockery --dir=src/ --all --keeptree

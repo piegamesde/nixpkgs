@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "07krzl4czczdsgzrrw9fiqx35xcf32naf751khg821g5pqv12qgh";
   };
 
-  nativeBuildInputs = [ m4 perl ];
+  nativeBuildInputs = [
+    m4
+    perl
+  ];
   strictDeps = true;
 
   doCheck = true;

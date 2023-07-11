@@ -19,7 +19,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [ stdune dyn ];
+  buildInputs = [
+    stdune
+    dyn
+  ];
 
   meta = with lib; {
     description = "Structured concurrency library";

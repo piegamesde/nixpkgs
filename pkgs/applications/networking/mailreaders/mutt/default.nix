@@ -31,7 +31,11 @@ assert gpgmeSupport -> sslSupport;
 stdenv.mkDerivation rec {
   pname = "mutt";
   version = "2.2.10";
-  outputs = [ "out" "doc" "info" ];
+  outputs = [
+    "out"
+    "doc"
+    "info"
+  ];
 
   src = fetchurl {
     url = "http://ftp.mutt.org/pub/mutt/${pname}-${version}.tar.gz";
@@ -44,9 +48,13 @@ stdenv.mkDerivation rec {
     sha256 = "0b4i00chvx6zj9pcb06x2jysmrcb2znn831lcy32cgfds6gr3nsi";
   });
 
-  buildInputs = [ ncurses which perl ] ++ lib.optional headerCache gdbm
-    ++ lib.optional sslSupport openssl ++ lib.optional gssSupport libkrb5
-    ++ lib.optional saslSupport cyrus_sasl ++ lib.optional gpgmeSupport gpgme;
+  buildInputs = [
+    ncurses
+    which
+    perl
+  ] ++ lib.optional headerCache gdbm ++ lib.optional sslSupport openssl
+    ++ lib.optional gssSupport libkrb5 ++ lib.optional saslSupport cyrus_sasl
+    ++ lib.optional gpgmeSupport gpgme;
 
   configureFlags = [
     (lib.enableFeature headerCache "hcache")

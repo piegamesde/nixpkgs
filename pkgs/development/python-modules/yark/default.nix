@@ -25,9 +25,19 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "requests" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ click colorama flask progress requests yt-dlp ];
+  propagatedBuildInputs = [
+    click
+    colorama
+    flask
+    progress
+    requests
+    yt-dlp
+  ];
 
   # There aren't any unit tests. If test discovery runs, it will crash, halting the build.
   # When upstream adds unit tests, please configure them here. Thanks! ~ C.

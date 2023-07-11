@@ -41,9 +41,8 @@ let
   daemonService = appName: args: {
     description = "Samba Service Daemon ${appName}";
 
-    after = [
-      (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")
-    ];
+    after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd")
+      "samba-nmbd.service") ];
     requiredBy = [ "samba.target" ];
     partOf = [ "samba.target" ];
 
@@ -68,8 +67,16 @@ let
 
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "samba" "defaultShare" ] "")
-    (mkRemovedOptionModule [ "services" "samba" "syncPasswordsByPam" ]
+    (mkRemovedOptionModule [
+      "services"
+      "samba"
+      "defaultShare"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "samba"
+      "syncPasswordsByPam"
+    ]
       "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
   ];
 
@@ -206,11 +213,11 @@ in {
 
   config = mkMerge [
     {
-      assertions = [{
+      assertions = [ {
         assertion = cfg.nsswins -> cfg.enableWinbindd;
         message =
           "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
-      }];
+      } ];
       # Always provide a smb.conf to shut up programs like smbclient and smbspool.
       environment.etc."samba/smb.conf".source = mkOptionDefault
         (if cfg.enable then
@@ -250,8 +257,14 @@ in {
       security.pam.services.samba = { };
       environment.systemPackages = [ cfg.package ];
 
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 139 445 ];
-      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 137 138 ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+        139
+        445
+      ];
+      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
+        137
+        138
+      ];
     })
   ];
 

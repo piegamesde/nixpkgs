@@ -44,21 +44,21 @@ import ../../make-test-python.nix ({
         services.grafana.provision = {
           datasources.settings = {
             apiVersion = 1;
-            datasources = [{
+            datasources = [ {
               name = "Test Datasource";
               type = "testdata";
               access = "proxy";
               uid = "test_datasource";
-            }];
+            } ];
           };
           dashboards.settings = {
             apiVersion = 1;
-            providers = [{
+            providers = [ {
               name = "default";
               options.path = "/var/lib/grafana/dashboards";
-            }];
+            } ];
           };
-          notifiers = [{
+          notifiers = [ {
             uid = "test_notifiers";
             name = "Test Notifiers";
             type = "email";
@@ -66,44 +66,44 @@ import ../../make-test-python.nix ({
               singleEmail = true;
               addresses = "test@test.com";
             };
-          }];
+          } ];
         };
       };
       provisionNix = {
         services.grafana.provision = {
           datasources.settings = {
             apiVersion = 1;
-            datasources = [{
+            datasources = [ {
               name = "Test Datasource";
               type = "testdata";
               access = "proxy";
               uid = "test_datasource";
-            }];
+            } ];
           };
 
           dashboards.settings = {
             apiVersion = 1;
-            providers = [{
+            providers = [ {
               name = "default";
               options.path = "/var/lib/grafana/dashboards";
-            }];
+            } ];
           };
 
           alerting = {
             rules.settings = {
-              groups = [{
+              groups = [ {
                 name = "test_rule_group";
                 folder = "test_folder";
                 interval = "60s";
-                rules = [{
+                rules = [ {
                   uid = "test_rule";
                   title = "Test Rule";
                   condition = "A";
-                  data = [{
+                  data = [ {
                     refId = "A";
                     datasourceUid = "-100";
                     model = {
-                      conditions = [{
+                      conditions = [ {
                         evaluator = {
                           params = [ 3 ];
                           type = "git";
@@ -112,7 +112,7 @@ import ../../make-test-python.nix ({
                         query.params = [ "A" ];
                         reducer.type = "last";
                         type = "query";
-                      }];
+                      } ];
                       datasource = {
                         type = "__expr__";
                         uid = "-100";
@@ -123,36 +123,36 @@ import ../../make-test-python.nix ({
                       refId = "A";
                       type = "math";
                     };
-                  }];
+                  } ];
                   for = "60s";
-                }];
-              }];
+                } ];
+              } ];
             };
 
             contactPoints.settings = {
-              contactPoints = [{
+              contactPoints = [ {
                 name = "Test Contact Point";
-                receivers = [{
+                receivers = [ {
                   uid = "test_contact_point";
                   type = "prometheus-alertmanager";
                   settings.url = "http://localhost:9000";
-                }];
-              }];
+                } ];
+              } ];
             };
 
             policies.settings = {
-              policies = [{ receiver = "Test Contact Point"; }];
+              policies = [ { receiver = "Test Contact Point"; } ];
             };
 
             templates.settings = {
-              templates = [{
+              templates = [ {
                 name = "Test Template";
                 template = "Test message";
-              }];
+              } ];
             };
 
             muteTimings.settings = {
-              muteTimes = [{ name = "Test Mute Timing"; }];
+              muteTimes = [ { name = "Test Mute Timing"; } ];
             };
           };
         };
@@ -189,12 +189,20 @@ import ../../make-test-python.nix ({
         };
     };
 
-    nodes = builtins.mapAttrs (_: val: mkMerge [ val baseGrafanaConf ])
-      extraNodeConfs;
+    nodes = builtins.mapAttrs (_: val:
+      mkMerge [
+        val
+        baseGrafanaConf
+      ]) extraNodeConfs;
   in {
     name = "grafana-provision";
 
-    meta = with maintainers; { maintainers = [ kfears willibutz ]; };
+    meta = with maintainers; {
+      maintainers = [
+        kfears
+        willibutz
+      ];
+    };
 
     inherit nodes;
 

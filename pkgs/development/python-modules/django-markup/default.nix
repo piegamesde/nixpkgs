@@ -39,14 +39,23 @@ buildPythonPackage rec {
   buildInputs = [ django ];
 
   passthru.optional-dependencies = {
-    all_filter_dependencies =
-      [ bleach docutils markdown pygments python-creole smartypants textile ];
+    all_filter_dependencies = [
+      bleach
+      docutils
+      markdown
+      pygments
+      python-creole
+      smartypants
+      textile
+    ];
   };
 
   pythonImportsCheck = [ "django_markup" ];
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook ]
-    ++ passthru.optional-dependencies.all_filter_dependencies;
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all_filter_dependencies;
 
   env.DJANGO_SETTINGS_MODULE = "django_markup.tests";
 

@@ -24,11 +24,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L8CQ1RAzyTII5sENQGOXpTyYOuU0O5WOsl9ypXpM52o=";
   };
 
-  buildInputs = [ gmp mpir mpfr ntl ] ++ lib.optionals withBlas [ openblas ];
+  buildInputs = [
+    gmp
+    mpir
+    mpfr
+    ntl
+  ] ++ lib.optionals withBlas [ openblas ];
 
-  propagatedBuildInputs = [
-    mpfr # flint.h includes mpfr.h
-  ];
+  propagatedBuildInputs = [ mpfr # flint.h includes mpfr.h
+    ];
 
   configureFlags = [
     "--with-gmp=${gmp}"

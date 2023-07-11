@@ -30,8 +30,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-OdvebRvOTyadgNjzrv6CGDPkljfpo4RVvVAc+X9hjSo=";
   };
 
-  nativeBuildInputs =
-    [ autoPatchelfHook (wrapGAppsHook.override { inherit makeWrapper; }) ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    (wrapGAppsHook.override { inherit makeWrapper; })
+  ];
 
   buildInputs = [
     gnome.gnome-keyring

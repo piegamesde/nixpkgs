@@ -14,7 +14,11 @@ stdenv.mkDerivation rec {
   pname = "telepathy-mission-control";
   version = "5.16.6";
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -24,7 +28,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python3 ]; # ToDo: optional stuff missing
 
-  nativeBuildInputs = [ pkg-config libxslt makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    libxslt
+    makeWrapper
+  ];
 
   propagatedBuildInputs = [ telepathy-glib ];
 

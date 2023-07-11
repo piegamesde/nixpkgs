@@ -9,10 +9,11 @@ with lib;
 
 let cfg = config.services.cfdyndns;
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "cfdyndns" "apikey" ]
-      "Use services.cfdyndns.apikeyFile instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "cfdyndns"
+    "apikey"
+  ] "Use services.cfdyndns.apikeyFile instead.") ];
 
   options = {
     services.cfdyndns = {

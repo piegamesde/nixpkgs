@@ -22,8 +22,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ fuse openssl asciidoc docbook_xml_dtd_45 docbook_xsl libxml2 libxslt ];
+  buildInputs = [
+    fuse
+    openssl
+    asciidoc
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxml2
+    libxslt
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"

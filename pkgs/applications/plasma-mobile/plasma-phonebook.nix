@@ -19,7 +19,10 @@
 mkDerivation rec {
   pname = "plasma-phonebook";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     kcontacts

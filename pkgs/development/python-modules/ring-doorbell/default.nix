@@ -24,9 +24,17 @@ buildPythonPackage rec {
     hash = "sha256-Cn6Cq/JwhoQ+s5wCefXfzOpnUf+EhWDmcVTKb7+k7ys=";
   };
 
-  propagatedBuildInputs = [ oauthlib pytz requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    oauthlib
+    pytz
+    requests
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "ring_doorbell" ];
 

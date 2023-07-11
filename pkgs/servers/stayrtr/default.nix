@@ -20,7 +20,11 @@ buildGoModule rec {
 
   patches = [ ./go.mod.patch ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   passthru.tests.version = testers.testVersion { package = stayrtr; };
 

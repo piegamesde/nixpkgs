@@ -23,12 +23,19 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://edu.kde.org/rocs/";
     description = "A graph theory IDE.";
-    license = with licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+      fdl12Plus
+    ];
     platforms = lib.platforms.linux;
     maintainers = with maintainers; [ knairda ];
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     boost
     qtbase

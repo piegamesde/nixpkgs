@@ -38,7 +38,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ glib gtk4 libadwaita libepoxy mpv ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    libepoxy
+    mpv
+  ];
 
   postPatch = ''
     patchShebangs meson-post-install.py src/generate-authors.py

@@ -23,13 +23,20 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+    msrestazure
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.common" "azure.mgmt.security" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.mgmt.security"
+  ];
 
   meta = with lib; {
     description =

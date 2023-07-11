@@ -21,8 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p/er/Ehyu7PqmikMIKPQBQ0/F81d8iiKdmLXLz+8pus=";
   };
 
-  buildInputs =
-    [ libmaxminddb geolite-legacy getopt ip2location-c openssl perl ];
+  buildInputs = [
+    libmaxminddb
+    geolite-legacy
+    getopt
+    ip2location-c
+    openssl
+    perl
+  ];
 
   postPatch = ''
     patchShebangs *.sh */*.sh
@@ -38,9 +44,8 @@ stdenv.mkDerivation rec {
     "--disable-bundled-md5"
     "--disable-dynamic-load"
     "--enable-shared"
-  ] ++ lib.optionals (libmaxminddb != null) [ "--enable-mmdb" ]
-    ++ lib.optionals (geolite-legacy != null)
-    [ "--with-geoip-db=${geolite-legacy}/share/GeoIP" ]
+  ] ++ lib.optionals (libmaxminddb != null) [ "--enable-mmdb" ] ++ lib.optionals
+    (geolite-legacy != null) [ "--with-geoip-db=${geolite-legacy}/share/GeoIP" ]
     ++ lib.optionals (ip2location-c != null) [ "--enable-ip2location" ];
 
   enableParallelBuilding = true;

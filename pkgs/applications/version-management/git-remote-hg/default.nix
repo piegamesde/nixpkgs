@@ -21,8 +21,14 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0b5lfbrcrvzpz380817md00lbgy5yl4y76vs3vm0bpm5wmr7c027";
   };
 
-  nativeBuildInputs =
-    [ asciidoc xmlto docbook_xsl docbook_xml_dtd_45 libxslt libxml2 ];
+  nativeBuildInputs = [
+    asciidoc
+    xmlto
+    docbook_xsl
+    docbook_xml_dtd_45
+    libxslt
+    libxml2
+  ];
   propagatedBuildInputs = with python3Packages; [ mercurial ];
 
   postInstall = ''

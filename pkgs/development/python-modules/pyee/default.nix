@@ -28,8 +28,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs =
-    [ mock pytest-asyncio pytest-trio pytestCheckHook twisted ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytest-trio
+    pytestCheckHook
+    twisted
+  ];
 
   pythonImportsCheck = [ "pyee" ];
 

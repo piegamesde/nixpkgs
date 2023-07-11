@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gcc ];
 
-  buildInputs = [ gmp openssl zlib ];
+  buildInputs = [
+    gmp
+    openssl
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

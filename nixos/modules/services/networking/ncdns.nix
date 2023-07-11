@@ -15,7 +15,12 @@ let
   username = "ncdns";
 
   valueType = with types;
-    oneOf [ int str bool path ] // {
+    oneOf [
+      int
+      str
+      bool
+      path
+    ] // {
       description = "setting type (integer, string, bool or path)";
     };
 

@@ -85,7 +85,11 @@ in rec {
         inherit longDescription;
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ mathnerd314 emily jopejoe1 ];
+        maintainers = with maintainers; [
+          mathnerd314
+          emily
+          jopejoe1
+        ];
       };
     };
 
@@ -129,7 +133,10 @@ in rec {
         '';
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ mathnerd314 emily ];
+        maintainers = with maintainers; [
+          mathnerd314
+          emily
+        ];
       };
     };
 
@@ -170,8 +177,11 @@ in rec {
 
   noto-fonts-emoji = let
     version = "2.038";
-    emojiPythonEnv =
-      buildPackages.python3.withPackages (p: with p; [ fonttools nototools ]);
+    emojiPythonEnv = buildPackages.python3.withPackages (p:
+      with p; [
+        fonttools
+        nototools
+      ]);
   in stdenvNoCC.mkDerivation {
     pname = "noto-fonts-emoji";
     inherit version;
@@ -183,9 +193,19 @@ in rec {
       sha256 = "1rgmcc6nqq805iqr8kvxxlk5cf50q714xaxk3ld6rjrd69kb8ix9";
     };
 
-    depsBuildBuild = [ buildPackages.stdenv.cc pkg-config cairo ];
+    depsBuildBuild = [
+      buildPackages.stdenv.cc
+      pkg-config
+      cairo
+    ];
 
-    nativeBuildInputs = [ imagemagick zopfli pngquant which emojiPythonEnv ];
+    nativeBuildInputs = [
+      imagemagick
+      zopfli
+      pngquant
+      which
+      emojiPythonEnv
+    ];
 
     postPatch = ''
       patchShebangs *.py
@@ -211,9 +231,15 @@ in rec {
     meta = with lib; {
       description = "Color and Black-and-White emoji fonts";
       homepage = "https://github.com/googlefonts/noto-emoji";
-      license = with licenses; [ ofl asl20 ];
+      license = with licenses; [
+        ofl
+        asl20
+      ];
       platforms = platforms.all;
-      maintainers = with maintainers; [ mathnerd314 sternenseemann ];
+      maintainers = with maintainers; [
+        mathnerd314
+        sternenseemann
+      ];
     };
   };
 
@@ -242,9 +268,15 @@ in rec {
     meta = with lib; {
       description = "Noto Emoji with extended Blob support";
       homepage = "https://github.com/C1710/blobmoji";
-      license = with licenses; [ ofl asl20 ];
+      license = with licenses; [
+        ofl
+        asl20
+      ];
       platforms = platforms.all;
-      maintainers = with maintainers; [ rileyinman jk ];
+      maintainers = with maintainers; [
+        rileyinman
+        jk
+      ];
     };
   };
 }

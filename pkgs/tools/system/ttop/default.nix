@@ -16,7 +16,12 @@ nimPackages.buildNimPackage rec {
     hash = "sha256-x4Uczksh6p3XX/IMrOFtBxIleVHdAPX9e8n32VAUTC4=";
   };
 
-  buildInputs = with nimPackages; [ asciigraph illwill parsetoml zippy ];
+  buildInputs = with nimPackages; [
+    asciigraph
+    illwill
+    parsetoml
+    zippy
+  ];
 
   meta = with lib;
     src.meta // {

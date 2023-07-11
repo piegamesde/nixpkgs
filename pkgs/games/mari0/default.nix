@@ -20,18 +20,20 @@ stdenv.mkDerivation rec {
     sha256 = "1zqaq4w599scsjvy1rsb21fd2r8j3srx9vym4ir9bh666dp36gxa";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems zip ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "mari0";
-      exec = pname;
-      comment = "Crossover between Super Mario Bros. and Portal";
-      desktopName = "mari0";
-      genericName = "mari0";
-      categories = [ "Game" ];
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+    zip
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "mari0";
+    exec = pname;
+    comment = "Crossover between Super Mario Bros. and Portal";
+    desktopName = "mari0";
+    genericName = "mari0";
+    categories = [ "Game" ];
+  }) ];
 
   installPhase = ''
     runHook preInstall

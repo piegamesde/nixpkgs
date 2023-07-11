@@ -22,8 +22,14 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
-  buildInputs = [ qtbase fftw ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    qtbase
+    fftw
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -52,9 +52,8 @@ in {
       staticNodes = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0"
-        ];
+        example =
+          [ "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0" ];
         description = lib.mdDoc "List of validator nodes.";
       };
 
@@ -65,7 +64,11 @@ in {
       };
 
       syncmode = mkOption {
-        type = types.enum [ "fast" "full" "light" ];
+        type = types.enum [
+          "fast"
+          "full"
+          "light"
+        ];
         default = "full";
         description = lib.mdDoc "Blockchain sync mode.";
       };

@@ -24,14 +24,30 @@
 let
   libsFor = {
     gnatcoll_db2ada = [ gnatcoll-sql ];
-    gnatinspect = [ gnatcoll-sqlite gnatcoll-readline gnatcoll-xref ];
-    postgres = [ gnatcoll-sql postgresql ];
-    sqlite = [ gnatcoll-sql sqlite ];
-    xref = [ gnatcoll-iconv gnatcoll-sqlite ];
+    gnatinspect = [
+      gnatcoll-sqlite
+      gnatcoll-readline
+      gnatcoll-xref
+    ];
+    postgres = [
+      gnatcoll-sql
+      postgresql
+    ];
+    sqlite = [
+      gnatcoll-sql
+      sqlite
+    ];
+    xref = [
+      gnatcoll-iconv
+      gnatcoll-sqlite
+    ];
   };
 
   # These components are just tools and don't install a library
-  onlyExecutable = builtins.elem component [ "gnatcoll_db2ada" "gnatinspect" ];
+  onlyExecutable = builtins.elem component [
+    "gnatcoll_db2ada"
+    "gnatinspect"
+  ];
 
 in stdenv.mkDerivation rec {
   # executables don't adhere to the string gnatcoll-* scheme
@@ -56,7 +72,11 @@ in stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ gnat gprbuild which ];
+  nativeBuildInputs = [
+    gnat
+    gprbuild
+    which
+  ];
 
   # Propagate since GPRbuild needs to find referenced .gpr files
   # and other libraries to link against when static linking is used.

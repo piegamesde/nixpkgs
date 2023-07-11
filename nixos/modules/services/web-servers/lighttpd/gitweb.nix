@@ -29,8 +29,12 @@ in {
   config = mkIf config.services.lighttpd.gitweb.enable {
 
     # declare module dependencies
-    services.lighttpd.enableModules =
-      [ "mod_cgi" "mod_redirect" "mod_alias" "mod_setenv" ];
+    services.lighttpd.enableModules = [
+      "mod_cgi"
+      "mod_redirect"
+      "mod_alias"
+      "mod_setenv"
+    ];
 
     services.lighttpd.extraConfig = ''
       $HTTP["url"] =~ "^/gitweb" {

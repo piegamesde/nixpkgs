@@ -50,7 +50,10 @@ let
     cl-glu = pkg: { nativeLibs = [ libGLU ]; };
     cl-glut = pkg: { nativeLibs = [ freeglut ]; };
     cl-gobject-introspection = pkg: {
-      nativeLibs = [ glib gobject-introspection ];
+      nativeLibs = [
+        glib
+        gobject-introspection
+      ];
     };
     cl-gtk2-gdk = pkg: { nativeLibs = [ gtk2-x11 ]; };
     cl-gtk2-glib = pkg: { nativeLibs = [ glib ]; };
@@ -70,7 +73,10 @@ let
     cl-ode = pkg: {
       nativeLibs = let
         ode' = ode.overrideAttrs (o: {
-          configureFlags = [ "--enable-shared" "--enable-double-precision" ];
+          configureFlags = [
+            "--enable-shared"
+            "--enable-double-precision"
+          ];
         });
       in [ ode' ];
     };
@@ -107,7 +113,11 @@ let
     iolib = pkg: {
       nativeBuildInputs = [ libfixposix ];
       nativeLibs = [ libfixposix ];
-      systems = [ "iolib" "iolib/os" "iolib/pathnames" ];
+      systems = [
+        "iolib"
+        "iolib/os"
+        "iolib/pathnames"
+      ];
     };
     lev = pkg: { nativeLibs = [ libev ]; };
     lispbuilder-sdl-cffi = pkg: { nativeLibs = [ SDL ]; };

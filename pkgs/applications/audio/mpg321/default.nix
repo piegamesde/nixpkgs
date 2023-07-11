@@ -52,10 +52,17 @@ stdenv.mkDerivation rec {
     ++ (lib.optional (defaultAudio != null)
       "--with-default-audio=${defaultAudio}");
 
-  buildInputs = [ libao libid3tag libmad zlib ]
-    ++ lib.optional stdenv.isLinux alsa-lib;
+  buildInputs = [
+    libao
+    libid3tag
+    libmad
+    zlib
+  ] ++ lib.optional stdenv.isLinux alsa-lib;
 
-  installTargets = [ "install" "install-man" ];
+  installTargets = [
+    "install"
+    "install-man"
+  ];
 
   meta = with lib; {
     description = "Command-line MP3 player";

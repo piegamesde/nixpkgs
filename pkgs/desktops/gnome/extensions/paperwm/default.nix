@@ -29,7 +29,10 @@ stdenv.mkDerivation {
     homepage = "https://github.com/paperwm/PaperWM";
     description = "Tiled scrollable window management for Gnome Shell";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hedning AndersonTorres ];
+    maintainers = with maintainers; [
+      hedning
+      AndersonTorres
+    ];
     platforms = platforms.all;
   };
 

@@ -18,7 +18,10 @@ buildPythonApplication rec {
     sha256 = "sha256-aosaA8F8TVBnY0Mz+TbRYQjVW5FUDiSiohl/7vqXwis=";
   };
 
-  propagatedBuildInputs = [ requests yt-dlp ];
+  propagatedBuildInputs = [
+    requests
+    yt-dlp
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,6 +43,9 @@ buildPythonApplication rec {
     changelog =
       "https://github.com/mikf/gallery-dl/raw/v${version}/CHANGELOG.md";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dawidsowa marsam ];
+    maintainers = with maintainers; [
+      dawidsowa
+      marsam
+    ];
   };
 }

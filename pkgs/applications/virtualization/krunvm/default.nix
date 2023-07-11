@@ -29,8 +29,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = with rustPlatform;
-    [ cargoSetupHook rust.cargo rust.rustc asciidoctor makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+      asciidoctor
+      makeWrapper
+    ] ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs = [ libkrun ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 

@@ -26,10 +26,20 @@ buildDunePackage rec {
     hash = "sha256-wReySOMulGkrPD60XxpgMrUoHzY9hQ7TZzYQyJ3eiik=";
   };
 
-  propagatedBuildInputs = [ ipaddr cstruct logs lru tcpip ethernet ];
+  propagatedBuildInputs = [
+    ipaddr
+    cstruct
+    logs
+    lru
+    tcpip
+    ethernet
+  ];
 
   doCheck = true;
-  checkInputs = [ alcotest mirage-clock-unix ];
+  checkInputs = [
+    alcotest
+    mirage-clock-unix
+  ];
 
   meta = with lib; {
     description =

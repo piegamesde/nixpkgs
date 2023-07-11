@@ -18,9 +18,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ docutils libev openssl ];
+  buildInputs = [
+    docutils
+    libev
+    openssl
+  ];
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   passthru.tests.hitch = nixosTests.hitch;
 

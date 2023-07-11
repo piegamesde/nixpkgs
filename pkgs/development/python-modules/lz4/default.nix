@@ -31,11 +31,22 @@ buildPythonPackage rec {
     sed -i '/pytest-cov/d' setup.py
   '';
 
-  nativeBuildInputs = [ pkgconfig setuptools-scm ];
+  nativeBuildInputs = [
+    pkgconfig
+    setuptools-scm
+  ];
 
-  pythonImportsCheck = [ "lz4" "lz4.block" "lz4.frame" "lz4.stream" ];
+  pythonImportsCheck = [
+    "lz4"
+    "lz4.block"
+    "lz4.frame"
+    "lz4.stream"
+  ];
 
-  nativeCheckInputs = [ psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+  ];
 
   # for lz4.steam
   PYLZ4_EXPERIMENTAL = true;

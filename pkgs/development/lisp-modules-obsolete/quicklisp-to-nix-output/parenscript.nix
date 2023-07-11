@@ -8,7 +8,11 @@ args@{
 
   description = "Lisp to JavaScript transpiler";
 
-  deps = [ args."anaphora" args."cl-ppcre" args."named-readtables" ];
+  deps = [
+    args."anaphora"
+    args."cl-ppcre"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url =

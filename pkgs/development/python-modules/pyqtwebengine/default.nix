@@ -33,7 +33,10 @@ in buildPythonPackage rec {
     sip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -44,10 +47,15 @@ in buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
-  buildInputs = [ sip qtbase qtsvg qtwebengine ];
+  buildInputs = [
+    sip
+    qtbase
+    qtsvg
+    qtwebengine
+  ];
 
   propagatedBuildInputs = [ pyqt5 ];
 
@@ -59,7 +67,10 @@ in buildPythonPackage rec {
   # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt5.QtWebEngine" "PyQt5.QtWebEngineWidgets" ];
+  pythonImportsCheck = [
+    "PyQt5.QtWebEngine"
+    "PyQt5.QtWebEngineWidgets"
+  ];
 
   enableParallelBuilding = true;
 

@@ -20,7 +20,10 @@ stdenv.mkDerivation {
   hardeningDisable = [ "all" ];
   cmakeFlags = [ "-DBUILD_LUA=OFF" ];
   buildInputs = [ libubox ];
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "OpenWrt Unified Configuration Interface";

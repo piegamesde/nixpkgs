@@ -27,10 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-47TXKZLS2j+YdCYt2cJbdzsVOHeRzGYqUNyOOKIgXkc=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp async-lru oauthlib requests requests-oauthlib six ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-lru
+    oauthlib
+    requests
+    requests-oauthlib
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    vcrpy
+  ];
 
   pythonImportsCheck = [ "tweepy" ];
 

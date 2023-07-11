@@ -73,16 +73,29 @@ stdenv.mkDerivation {
     touch gnu-efi/inc/ia32/gnu/stubs-32.h
   '';
 
-  nativeBuildInputs = [ nasm perl python3 makeWrapper ];
+  nativeBuildInputs = [
+    nasm
+    perl
+    python3
+    makeWrapper
+  ];
 
   buildInputs = [ libuuid ];
 
   # Fails very rarely with 'No rule to make target: ...'
   enableParallelBuilding = false;
 
-  hardeningDisable = [ "pic" "stackprotector" "fortify" ];
+  hardeningDisable = [
+    "pic"
+    "stackprotector"
+    "fortify"
+  ];
 
-  stripDebugList = [ "bin" "sbin" "share/syslinux/com32" ];
+  stripDebugList = [
+    "bin"
+    "sbin"
+    "share/syslinux/com32"
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -97,7 +110,10 @@ stdenv.mkDerivation {
     "MANDIR=$(out)/share/man"
     "PERL=perl"
     "HEXDATE=0x00000000"
-  ] ++ lib.optionals stdenv.hostPlatform.isi686 [ "bios" "efi32" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isi686 [
+    "bios"
+    "efi32"
+  ];
 
   # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;
@@ -115,6 +131,9 @@ stdenv.mkDerivation {
     description = "A lightweight bootloader";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.samueldr ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

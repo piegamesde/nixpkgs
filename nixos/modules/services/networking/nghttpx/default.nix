@@ -42,7 +42,10 @@ let
 
       # NB: params are delimited by a ";" which is the same delimiter
       # to separate the host;[pattern];[params] sections of a backend
-      sections = builtins.filter (e: "" != e) ([ host patterns ] ++ params);
+      sections = builtins.filter (e: "" != e) ([
+        host
+        patterns
+      ] ++ params);
       formattedSections = lib.concatStringsSep ";" sections;
     in "backend=${formattedSections}";
 

@@ -27,7 +27,11 @@
 
 mkDerivation {
   pname = "kgpg";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools makeWrapper ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    makeWrapper
+  ];
   buildInputs = [
     akonadi-contacts
     gnupg

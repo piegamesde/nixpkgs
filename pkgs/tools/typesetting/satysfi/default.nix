@@ -60,9 +60,16 @@ in ocamlPackages.buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs = with ocamlPackages; [ menhir cppo ];
+  nativeBuildInputs = with ocamlPackages; [
+    menhir
+    cppo
+  ];
 
-  buildInputs = [ camlpdf otfm yojson-with-position ] ++ (with ocamlPackages; [
+  buildInputs = [
+    camlpdf
+    otfm
+    yojson-with-position
+  ] ++ (with ocamlPackages; [
     menhirLib
     batteries
     camlimages
@@ -90,7 +97,10 @@ in ocamlPackages.buildDunePackage rec {
     changelog =
       "https://github.com/gfngfn/SATySFi/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.mt-caret maintainers.marsam ];
+    maintainers = [
+      maintainers.mt-caret
+      maintainers.marsam
+    ];
     platforms = platforms.all;
   };
 }

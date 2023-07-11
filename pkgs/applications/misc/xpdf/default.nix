@@ -39,12 +39,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optional enableGUI wrapQtAppsHook;
 
-  cmakeFlags =
-    [ "-DSYSTEM_XPDFRC=/etc/xpdfrc" "-DA4_PAPER=ON" "-DOPI_SUPPORT=ON" ]
-    ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF";
+  cmakeFlags = [
+    "-DSYSTEM_XPDFRC=/etc/xpdfrc"
+    "-DA4_PAPER=ON"
+    "-DOPI_SUPPORT=ON"
+  ] ++ lib.optional (!enablePrinting) "-DXPDFWIDGET_PRINTING=OFF";
 
-  buildInputs = [ zlib libpng ] ++ lib.optional enableGUI qtbase
-    ++ lib.optional enablePrinting cups ++ lib.optional enablePDFtoPPM freetype;
+  buildInputs = [
+    zlib
+    libpng
+  ] ++ lib.optional enableGUI qtbase ++ lib.optional enablePrinting cups
+    ++ lib.optional enablePDFtoPPM freetype;
 
   desktopItem = makeDesktopItem {
     name = "xpdf";
@@ -76,7 +81,10 @@ stdenv.mkDerivation rec {
         pdffonts:  lists fonts used in PDF files
         pdfdetach: extracts attached files from PDF files
     '';
-    license = with licenses; [ gpl2Only gpl3Only ];
+    license = with licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
     knownVulnerabilities = [

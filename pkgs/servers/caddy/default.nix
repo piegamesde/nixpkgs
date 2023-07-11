@@ -30,8 +30,11 @@ in buildGoModule {
 
   subPackages = [ "cmd/caddy" ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -63,6 +66,10 @@ in buildGoModule {
     description =
       "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Br1ght0ne indeednotjames techknowlogick ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      indeednotjames
+      techknowlogick
+    ];
   };
 }

@@ -53,10 +53,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config qttools qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qttools
+    qmake
+    wrapQtAppsHook
+  ];
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
 
-  buildInputs = [ qtbase poppler ];
+  buildInputs = [
+    qtbase
+    poppler
+  ];
 
   qmakeFlags = [
     "DESKTOP_INSTALL_DIR=${placeholder "out"}/share/applications"

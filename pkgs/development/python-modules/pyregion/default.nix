@@ -26,7 +26,11 @@ buildPythonPackage rec {
     hash = "sha256-xo+XbBJ2HKql9rd7Ma84JofRg8M4u6vmz44Qo8JhEBc=";
   };
 
-  propagatedBuildInputs = [ pyparsing numpy astropy ];
+  propagatedBuildInputs = [
+    pyparsing
+    numpy
+    astropy
+  ];
 
   # Upstream patches needed for the tests to pass
   # See https://github.com/astropy/pyregion/pull/157/
@@ -43,9 +47,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ astropy-helpers cython ];
+  nativeBuildInputs = [
+    astropy-helpers
+    cython
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-astropy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-astropy
+  ];
 
   disabledTests = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     # Skipping 2 tests because it's failing. Domain knowledge was unavailable on decision.

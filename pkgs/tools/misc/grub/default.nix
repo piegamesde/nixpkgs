@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ texinfo ];
 
-  hardeningDisable = [ "format" "stackprotector" ];
+  hardeningDisable = [
+    "format"
+    "stackprotector"
+  ];
 
   passthru.grubTarget = "";
 

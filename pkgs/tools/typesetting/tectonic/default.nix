@@ -27,14 +27,21 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-pMqwWWmPxJZbJavxSVfjjRd7u9fI2AUZRjHF5SxxqoU=";
 
-  nativeBuildInputs = [ pkg-config makeBinaryWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeBinaryWrapper
+  ];
 
-  buildInputs = [ icu fontconfig harfbuzz openssl ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      ApplicationServices
-      Cocoa
-      Foundation
-    ]);
+  buildInputs = [
+    icu
+    fontconfig
+    harfbuzz
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ApplicationServices
+    Cocoa
+    Foundation
+  ]);
 
   # Tectonic runs biber when it detects it needs to run it, see:
   # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
@@ -59,6 +66,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/tectonic-typesetting/tectonic/blob/tectonic@${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ lluchs doronbehar ];
+    maintainers = with maintainers; [
+      lluchs
+      doronbehar
+    ];
   };
 }

@@ -22,7 +22,12 @@
         "/dev" = {
           type = "tmpfs";
           source = "tmpfs";
-          options = [ "nosuid" "strictatime" "mode=755" "size=65536k" ];
+          options = [
+            "nosuid"
+            "strictatime"
+            "mode=755"
+            "size=65536k"
+          ];
         };
         "/dev/pts" = {
           type = "devpts";
@@ -39,22 +44,43 @@
         "/dev/shm" = {
           type = "tmpfs";
           source = "shm";
-          options = [ "nosuid" "noexec" "nodev" "mode=1777" "size=65536k" ];
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+            "mode=1777"
+            "size=65536k"
+          ];
         };
         "/dev/mqueue" = {
           type = "mqueue";
           source = "mqueue";
-          options = [ "nosuid" "noexec" "nodev" ];
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+          ];
         };
         "/sys" = {
           type = "sysfs";
           source = "sysfs";
-          options = [ "nosuid" "noexec" "nodev" "ro" ];
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+            "ro"
+          ];
         };
         "/sys/fs/cgroup" = {
           type = "cgroup";
           source = "cgroup";
-          options = [ "nosuid" "noexec" "nodev" "realatime" "ro" ];
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+            "realatime"
+            "ro"
+          ];
         };
       };
       config = writeText "config.json" (builtins.toJSON {

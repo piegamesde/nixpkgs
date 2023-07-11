@@ -64,16 +64,25 @@ stdenv.mkDerivation rec {
     rubberband
   ] ++ lib.optional enablePython ncurses;
 
-  nativeBuildInputs = [ pkg-config makeWrapper which ]
-    ++ lib.optionals enablePython [ python3 swig ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    which
+  ] ++ lib.optionals enablePython [
+    python3
+    swig
+  ];
 
   strictDeps = true;
 
   # Mostly taken from:
   # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
-  configureFlags =
-    [ "--avformat-swscale" "--enable-gpl" "--enable-gpl3" "--enable-opengl" ]
-    ++ lib.optional enablePython "--swig-languages=python";
+  configureFlags = [
+    "--avformat-swscale"
+    "--enable-gpl"
+    "--enable-gpl3"
+    "--enable-opengl"
+  ] ++ lib.optional enablePython "--swig-languages=python";
 
   enableParallelBuilding = true;
   outPythonPath = lib.optionalString enablePython "$(toPythonPath $out)";
@@ -98,7 +107,11 @@ stdenv.mkDerivation rec {
     description =
       "Open source multimedia framework, designed for television broadcasting";
     homepage = "https://www.mltframework.org";
-    license = with licenses; [ gpl3Only gpl2Only lgpl21Only ];
+    license = with licenses; [
+      gpl3Only
+      gpl2Only
+      lgpl21Only
+    ];
     maintainers = with maintainers; [ peti ];
     platforms = platforms.linux;
   };

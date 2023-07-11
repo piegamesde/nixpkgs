@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   version = "0.5.1";
   pname = "wiiload";
 
-  nativeBuildInputs = [ autoconf automake ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+  ];
   buildInputs = [ zlib ];
 
   src = fetchFromGitHub {

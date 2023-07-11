@@ -134,7 +134,13 @@ in stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config autoreconfHook perl which yasm ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    perl
+    which
+    yasm
+  ];
   buildInputs = [
     openssl
     ncurses

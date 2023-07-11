@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W1mXTfxD7/gHJhao6qqbNcyM3t2cfrUYiBYPJi/O1RI=";
   };
 
-  buildInputs = [ zlib libdeflate isa-l ];
+  buildInputs = [
+    zlib
+    libdeflate
+    isa-l
+  ];
 
   installPhase = ''
     install -D fastp $out/bin/fastp

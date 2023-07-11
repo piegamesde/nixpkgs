@@ -61,7 +61,10 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "PREFIX="
+  ];
 
   enableParallelBuilding = true;
 

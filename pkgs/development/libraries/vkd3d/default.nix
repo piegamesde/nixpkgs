@@ -16,8 +16,18 @@ stdenv.mkDerivation rec {
   pname = "vkd3d";
   version = "1.7";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wine flex bison ];
-  buildInputs = [ vulkan-loader vulkan-headers spirv-headers ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wine
+    flex
+    bison
+  ];
+  buildInputs = [
+    vulkan-loader
+    vulkan-headers
+    spirv-headers
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.winehq.org";

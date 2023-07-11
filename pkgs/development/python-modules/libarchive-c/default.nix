@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "libarchive" ];
 
-  nativeCheckInputs = [ glibcLocales mock pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    mock
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Changaco/python-libarchive-c";

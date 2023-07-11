@@ -9,7 +9,11 @@
 let
   checkMaintainer = handle: uncheckedAttrs:
     let
-      prefix = [ "lib" "maintainers" handle ];
+      prefix = [
+        "lib"
+        "maintainers"
+        handle
+      ];
       checkedAttrs = (lib.modules.evalModules {
         inherit prefix;
         modules = [
@@ -51,7 +55,10 @@ let
   success = pkgs.runCommand "checked-maintainers-success" { } ">$out";
 
   failure = pkgs.runCommand "checked-maintainers-failure" {
-    nativeBuildInputs = [ pkgs.curl pkgs.jq ];
+    nativeBuildInputs = [
+      pkgs.curl
+      pkgs.jq
+    ];
     outputHash = "sha256:${lib.fakeSha256}";
     outputHAlgo = "sha256";
     outputHashMode = "flat";

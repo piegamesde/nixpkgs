@@ -24,8 +24,14 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  propagatedBuildInputs =
-    [ cerberus events flask pymongo simplejson setuptools ];
+  propagatedBuildInputs = [
+    cerberus
+    events
+    flask
+    pymongo
+    simplejson
+    setuptools
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

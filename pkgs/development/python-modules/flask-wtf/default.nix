@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-QcQkTprmJtY77UKuR4W5Bme4hbFTXVpAleH2MGDRKqk=";
   };
 
-  propagatedBuildInputs = [ flask itsdangerous wtforms ];
+  propagatedBuildInputs = [
+    flask
+    itsdangerous
+    wtforms
+  ];
 
   passthru.optional-dependencies = { email = [ email-validator ]; };
 
@@ -29,7 +33,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple integration of Flask and WTForms.";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mic92 anthonyroussel ];
+    maintainers = with maintainers; [
+      mic92
+      anthonyroussel
+    ];
     homepage = "https://github.com/lepture/flask-wtf/";
   };
 }

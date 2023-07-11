@@ -24,8 +24,14 @@ buildDunePackage rec {
   };
 
   propagatedBuildInputs = [ integers_stubs_js ];
-  nativeCheckInputs = [ nodejs js_of_ocaml-compiler ];
-  checkInputs = [ ctypes ppx_expect ];
+  nativeCheckInputs = [
+    nodejs
+    js_of_ocaml-compiler
+  ];
+  checkInputs = [
+    ctypes
+    ppx_expect
+  ];
   doCheck = true;
 
   meta = {

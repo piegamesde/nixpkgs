@@ -27,9 +27,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ bintools-unwrapped unzip ];
+  nativeBuildInputs = [
+    bintools-unwrapped
+    unzip
+  ];
 
-  outputs = [ "out" "dist" ];
+  outputs = [
+    "out"
+    "dist"
+  ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [

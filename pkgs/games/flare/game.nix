@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fantasy action RPG using the FLARE engine";
     homepage = "https://github.com/flareteam/flare-game";
-    maintainers = with maintainers; [ aanderse McSinyx ];
+    maintainers = with maintainers; [
+      aanderse
+      McSinyx
+    ];
     license = [ licenses.cc-by-sa-30 ];
     platforms = platforms.unix;
   };

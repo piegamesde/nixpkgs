@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
   # glib-2.62 deprecations
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
   buildInputs = [
     xorg.libX11
     glib
@@ -45,6 +48,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GUI for XNEUR keyboard layout switcher";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2 gpl3 ];
+    license = with licenses; [
+      gpl2
+      gpl3
+    ];
   };
 }

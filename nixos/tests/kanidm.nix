@@ -7,7 +7,10 @@ import ./make-test-python.nix ({
     serverDomain = certs.domain;
   in {
     name = "kanidm";
-    meta.maintainers = with pkgs.lib.maintainers; [ erictapen Flakebi ];
+    meta.maintainers = with pkgs.lib.maintainers; [
+      erictapen
+      Flakebi
+    ];
 
     nodes.server = {
         config,
@@ -34,7 +37,11 @@ import ./make-test-python.nix ({
 
         users.users.kanidm.shell = pkgs.bashInteractive;
 
-        environment.systemPackages = with pkgs; [ kanidm openldap ripgrep ];
+        environment.systemPackages = with pkgs; [
+          kanidm
+          openldap
+          ripgrep
+        ];
       };
 
     nodes.client = {

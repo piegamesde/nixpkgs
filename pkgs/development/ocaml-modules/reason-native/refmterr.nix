@@ -9,9 +9,16 @@
 {
   pname = "refmterr";
 
-  nativeBuildInputs = [ atdgen reason ];
+  nativeBuildInputs = [
+    atdgen
+    reason
+  ];
 
-  propagatedBuildInputs = [ atdgen re pastel ];
+  propagatedBuildInputs = [
+    atdgen
+    re
+    pastel
+  ];
 
   meta = {
     description =

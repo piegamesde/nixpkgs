@@ -16,11 +16,19 @@ stdenv.mkDerivation rec {
 
   src = fetchurl { inherit url sha512; };
 
-  configureFlags = [ "--enable-shared" "--disable-nonshared" ];
+  configureFlags = [
+    "--enable-shared"
+    "--disable-nonshared"
+  ];
 
   inherit buildInputs;
 
-  outputs = [ "bin" "lib" "dev" "out" ];
+  outputs = [
+    "bin"
+    "lib"
+    "dev"
+    "out"
+  ];
 
   meta = {
     homepage = "https://github.com/davea42/libdwarf-code";

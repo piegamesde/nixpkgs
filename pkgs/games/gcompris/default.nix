@@ -32,7 +32,13 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ];
 
-  nativeBuildInputs = [ cmake gettext ninja qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    ninja
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qmlbox2d

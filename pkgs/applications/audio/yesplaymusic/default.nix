@@ -94,7 +94,11 @@ else
   stdenv.mkDerivation {
     inherit pname version src meta;
 
-    nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook makeWrapper ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      wrapGAppsHook
+      makeWrapper
+    ];
 
     buildInputs = libraries;
 

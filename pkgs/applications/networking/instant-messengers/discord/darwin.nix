@@ -17,7 +17,10 @@
 stdenv.mkDerivation {
   inherit pname version src meta;
 
-  nativeBuildInputs = [ undmg makeWrapper ];
+  nativeBuildInputs = [
+    undmg
+    makeWrapper
+  ];
 
   sourceRoot = ".";
 

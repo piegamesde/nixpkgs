@@ -10,7 +10,10 @@ args@{
     Functions to convert between the spacing and
       capitalization conventions of various environments'';
 
-  deps = [ args."alexandria" args."iterate" ];
+  deps = [
+    args."alexandria"
+    args."iterate"
+  ];
 
   src = fetchurl {
     url =

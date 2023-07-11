@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     sha256 = "0d6vmfcf4kd0p2bcljmdnyc2fmbwvar81cc472zx86r7yc3ih102";
   };
 
-  buildInputs = [ sudo zsh pinentry ];
+  buildInputs = [
+    sudo
+    zsh
+    pinentry
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 

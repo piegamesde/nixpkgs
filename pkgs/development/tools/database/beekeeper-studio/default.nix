@@ -42,7 +42,10 @@ in appimageTools.wrapType2 {
     changelog =
       "https://github.com/beekeeper-studio/beekeeper-studio/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ milogert alexnortung ];
+    maintainers = with maintainers; [
+      milogert
+      alexnortung
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

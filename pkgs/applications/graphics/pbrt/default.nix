@@ -25,7 +25,11 @@ stdenv.mkDerivation {
     ./openexr-cmake-3.12.patch
   ];
 
-  nativeBuildInputs = [ flex bison cmake ];
+  nativeBuildInputs = [
+    flex
+    bison
+    cmake
+  ];
   buildInputs = [ zlib ];
 
   meta = with lib; {

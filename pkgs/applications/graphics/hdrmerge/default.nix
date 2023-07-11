@@ -26,9 +26,20 @@ mkDerivation rec {
     sha256 = "1bzf9wawbdvdbv57hnrmh0gpjfi5hamgf2nwh2yzd4sh1ssfa8jz";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook copyDesktopItems ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+    copyDesktopItems
+  ];
 
-  buildInputs = [ qtbase libraw exiv2 zlib alglib ];
+  buildInputs = [
+    qtbase
+    libraw
+    exiv2
+    zlib
+    alglib
+  ];
 
   cmakeFlags = [ "-DALGLIB_DIR:PATH=${alglib}" ];
 
@@ -49,19 +60,20 @@ mkDerivation rec {
     })
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "HDRMerge";
-      genericName = "HDR raw image merge";
-      desktopName = "HDRMerge";
-      comment = meta.description;
-      icon = "hdrmerge";
-      exec = "hdrmerge %F";
-      categories = [ "Graphics" ];
-      mimeTypes = [ "image/x-dcraw" "image/x-adobe-dng" ];
-      terminal = false;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "HDRMerge";
+    genericName = "HDR raw image merge";
+    desktopName = "HDRMerge";
+    comment = meta.description;
+    icon = "hdrmerge";
+    exec = "hdrmerge %F";
+    categories = [ "Graphics" ];
+    mimeTypes = [
+      "image/x-dcraw"
+      "image/x-adobe-dng"
+    ];
+    terminal = false;
+  }) ];
 
   postInstall = ''
     install -Dm444 ../data/images/icon.png $out/share/icons/hicolor/128x128/apps/hdrmerge.png

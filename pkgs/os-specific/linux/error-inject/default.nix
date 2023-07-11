@@ -20,7 +20,10 @@
       sha256 = "0gjapg2hrlxp8ssrnhvc19i3r1xpcnql7xv0zjgbv09zyha08g6z";
     };
 
-    nativeBuildInputs = [ bison flex ];
+    nativeBuildInputs = [
+      bison
+      flex
+    ];
 
     makeFlags = [ "destdir=${placeholder "out"}" ];
 
@@ -51,7 +54,10 @@
       sha256 = "0bh6mzpk2mr4xidkammmkfk21b4dbq793qjg25ryyxd1qv0c6cg4";
     };
 
-    nativeBuildInputs = [ bison flex ];
+    nativeBuildInputs = [
+      bison
+      flex
+    ];
 
     # how is this necessary?
     makeFlags = [ "DESTDIR=${placeholder "out"}" ];

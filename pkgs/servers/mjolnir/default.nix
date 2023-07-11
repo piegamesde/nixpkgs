@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "YmP+r9W5e63Aw66lSQeTTbYwSF/vjPyHkoehJxtcRNw=";
   };
 
-  nativeBuildInputs = [ nodejs makeWrapper ];
+  nativeBuildInputs = [
+    nodejs
+    makeWrapper
+  ];
 
   buildPhase = let
     nodeDependencies = ((import ./node-composition.nix {

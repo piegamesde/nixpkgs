@@ -47,6 +47,9 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     maintainers = with maintainers; [ rbreslow ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
   };
 }

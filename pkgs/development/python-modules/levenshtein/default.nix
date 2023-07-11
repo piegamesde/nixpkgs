@@ -26,15 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-j28OQkJymkh6tIGYLoZLad7OUUImjZqXdqM2zU3haac=";
   };
 
-  nativeBuildInputs = [ cmake cython scikit-build ];
+  nativeBuildInputs = [
+    cmake
+    cython
+    scikit-build
+  ];
 
   dontUseCmakeConfigure = true;
 
   buildInputs = [ rapidfuzz-cpp ];
 
-  env.NIX_CFLAGS_COMPILE = toString
-    (lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [
-      "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
+    && stdenv.isDarwin) [ "-fno-lto" # work around https://github.com/NixOS/nixpkgs/issues/19098
     ]);
 
   propagatedBuildInputs = [ rapidfuzz ];

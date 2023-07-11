@@ -36,15 +36,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-St0+avF9/UzQj8T1eZq5HSmxnaK9+BXSuufyX0NJYbU=";
   };
 
-  nativeBuildInputs =
-    [ python3Packages.wrapPython pkg-config which wrapQtAppsHook ];
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+    pkg-config
+    which
+    wrapQtAppsHook
+  ];
 
   pythonPath = with python3Packages;
-    [ rdflib pyliblo ] ++ lib.optional withFrontend pyqt5;
+    [
+      rdflib
+      pyliblo
+    ] ++ lib.optional withFrontend pyqt5;
 
-  buildInputs =
-    [ file liblo alsa-lib fluidsynth jack2 libpulseaudio libsndfile ]
-    ++ lib.optional withQt qtbase ++ lib.optional withGtk2 gtk2
+  buildInputs = [
+    file
+    liblo
+    alsa-lib
+    fluidsynth
+    jack2
+    libpulseaudio
+    libsndfile
+  ] ++ lib.optional withQt qtbase ++ lib.optional withGtk2 gtk2
     ++ lib.optional withGtk3 gtk3;
 
   propagatedBuildInputs = pythonPath;

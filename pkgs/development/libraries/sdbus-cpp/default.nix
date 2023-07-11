@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EX/XLgqUwIRosLu3Jgtpp42Yt6Tf22Htj9JULoUL7ao=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ systemd expat ];
+  buildInputs = [
+    systemd
+    expat
+  ];
 
   cmakeFlags = [ "-DBUILD_CODE_GEN=ON" ];
 

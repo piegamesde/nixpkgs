@@ -24,10 +24,26 @@ stdenv.mkDerivation rec {
     sha256 = "0zq34szprgkrrayg5sl3whrsx2l6lr8nw4hdrnwv2qhn70jbi2w2";
   };
 
-  outputs = [ "bin" "out" "dev" "doc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ cmake unzip ];
-  buildInputs = [ boost ilmbase libjpeg libpng libtiff opencolorio_1 openexr ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
+  buildInputs = [
+    boost
+    ilmbase
+    libjpeg
+    libpng
+    libtiff
+    opencolorio_1
+    openexr
+  ];
 
   cmakeFlags = [ "-DUSE_PYTHON=OFF" ];
 

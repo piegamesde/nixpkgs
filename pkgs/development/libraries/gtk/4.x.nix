@@ -66,10 +66,16 @@ in stdenv.mkDerivation rec {
   pname = "gtk4";
   version = "4.10.3";
 
-  outputs = [ "out" "dev" ] ++ lib.optionals x11Support [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals x11Support [ "devdoc" ];
   outputBin = "dev";
 
-  setupHooks = [ ./hooks/drop-icon-theme-cache.sh gtkCleanImmodulesCache ];
+  setupHooks = [
+    ./hooks/drop-icon-theme-cache.sh
+    gtkCleanImmodulesCache
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gtk/${
@@ -105,20 +111,26 @@ in stdenv.mkDerivation rec {
     libjpeg
     (libepoxy.override { inherit x11Support; })
     isocodes
-  ] ++ lib.optionals vulkanSupport [ vulkan-headers ]
-    ++ [ gst_all_1.gst-plugins-base gst_all_1.gst-plugins-bad fribidi harfbuzz ]
-    ++ (with xorg; [
-      libICE
-      libSM
-      libXcursor
-      libXdamage
-      libXi
-      libXrandr
-      libXrender
-    ]) ++ lib.optionals stdenv.isDarwin [ AppKit ]
+  ] ++ lib.optionals vulkanSupport [ vulkan-headers ] ++ [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-bad
+    fribidi
+    harfbuzz
+  ] ++ (with xorg; [
+    libICE
+    libSM
+    libXcursor
+    libXdamage
+    libXi
+    libXrandr
+    libXrender
+  ]) ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ]
-    ++ lib.optionals waylandSupport [ libGL wayland wayland-protocols ]
-    ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
+    ++ lib.optionals waylandSupport [
+      libGL
+      wayland
+      wayland-protocols
+    ] ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
     ++ lib.optionals cupsSupport [ cups ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ];
@@ -145,9 +157,9 @@ in stdenv.mkDerivation rec {
     "-Dtracker=${if trackerSupport then "enabled" else "disabled"}"
     "-Dbroadway-backend=${lib.boolToString broadwaySupport}"
   ] ++ lib.optionals vulkanSupport [ "-Dvulkan=enabled" ]
-    ++ lib.optionals (!cupsSupport) [ "-Dprint-cups=disabled" ]
-    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-      "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
+    ++ lib.optionals (!cupsSupport) [ "-Dprint-cups=disabled" ] ++ lib.optionals
+    (stdenv.isDarwin
+      && !stdenv.isAarch64) [ "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
     ] ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ];
 
   doCheck = false; # needs X11

@@ -31,11 +31,19 @@ in stdenv.mkDerivation rec {
       --replace ./mpw ./build/mpw
   '';
 
-  cmakeFlags = [ "-Dmpw_version=${version}" "-DBUILD_MPW_TESTS=ON" ];
+  cmakeFlags = [
+    "-Dmpw_version=${version}"
+    "-DBUILD_MPW_TESTS=ON"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ json_c libxml2 libsodium ncurses ];
+  buildInputs = [
+    json_c
+    libxml2
+    libsodium
+    ncurses
+  ];
 
   installPhase = ''
     runHook preInstall

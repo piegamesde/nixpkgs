@@ -9,7 +9,11 @@
 runCommand "${xrootd.pname}-run-tests-${xrootd.version}" {
   testRunnerPath = "${xrootd}/bin/test-runner";
   testLibraries = [ "XrdClTests" ];
-  XrdClTestsSuites = [ "UtilsTest" "SocketTest" "PollerTest" ];
+  XrdClTestsSuites = [
+    "UtilsTest"
+    "SocketTest"
+    "PollerTest"
+  ];
   pname = "${xrootd.pname}-run-tests";
   inherit (xrootd) version;
   meta.mainProgram = "test-runner";

@@ -7,7 +7,10 @@ with import ../lib;
     shortRev = "gfedcba";
   },
   stableBranch ? false,
-  supportedSystems ? [ "x86_64-linux" "aarch64-linux" ],
+  supportedSystems ? [
+    "x86_64-linux"
+    "aarch64-linux"
+  ],
   configuration ? { }
 }:
 
@@ -48,7 +51,12 @@ let
     system.nixos.revision = nixpkgs.rev or nixpkgs.shortRev;
   };
 
-  makeModules = module: rest: [ configuration versionModule module rest ];
+  makeModules = module: rest: [
+    configuration
+    versionModule
+    module
+    rest
+  ];
 
   makeIso = {
       module,
@@ -132,7 +140,11 @@ let
       kernelTarget = configEvaled.pkgs.stdenv.hostPlatform.linux-kernel.target;
     in pkgs.symlinkJoin {
       name = "netboot";
-      paths = [ build.netbootRamdisk build.kernel build.netbootIpxeScript ];
+      paths = [
+        build.netbootRamdisk
+        build.kernel
+        build.netbootIpxeScript
+      ];
       postBuild = ''
         mkdir -p $out/nix-support
         echo "file ${kernelTarget} ${build.kernel}/${kernelTarget}" >> $out/nix-support/hydra-build-products
@@ -208,40 +220,46 @@ in rec {
 
   # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
   # This variant keeps zfs support enabled, hoping it will build and work.
-  iso_minimal_new_kernel = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ]
-    (system:
-      makeIso {
-        module =
-          ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix;
-        type = "minimal-new-kernel";
-        inherit system;
-      });
+  iso_minimal_new_kernel = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
+    makeIso {
+      module =
+        ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix;
+      type = "minimal-new-kernel";
+      inherit system;
+    });
 
   # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
   # ZFS support disabled since it is unlikely to support the latest kernel.
-  iso_minimal_new_kernel_no_zfs =
-    forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system:
-      makeIso {
-        module =
-          ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix;
-        type = "minimal-new-kernel-no-zfs";
-        inherit system;
-      });
+  iso_minimal_new_kernel_no_zfs = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
+    makeIso {
+      module =
+        ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix;
+      type = "minimal-new-kernel-no-zfs";
+      inherit system;
+    });
 
-  sd_image =
-    forMatchingSystems [ "armv6l-linux" "armv7l-linux" "aarch64-linux" ]
-    (system:
-      makeSdImage {
-        module = {
-          armv6l-linux =
-            ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
-          armv7l-linux =
-            ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
-          aarch64-linux =
-            ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
-        }.${system};
-        inherit system;
-      });
+  sd_image = forMatchingSystems [
+    "armv6l-linux"
+    "armv7l-linux"
+    "aarch64-linux"
+  ] (system:
+    makeSdImage {
+      module = {
+        armv6l-linux =
+          ./modules/installer/sd-card/sd-image-raspberrypi-installer.nix;
+        armv7l-linux =
+          ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
+        aarch64-linux =
+          ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
+      }.${system};
+      inherit system;
+    });
 
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (system:
     makeSdImage {
@@ -270,7 +288,10 @@ in rec {
 
     hydraJob ((import lib/eval-config.nix {
       inherit system;
-      modules = [ versionModule ./modules/installer/virtualbox-demo.nix ];
+      modules = [
+        versionModule
+        ./modules/installer/virtualbox-demo.nix
+      ];
     }).config.system.build.virtualBoxOVA)
 
   );
@@ -294,7 +315,10 @@ in rec {
     }).config.system.build.tarball));
 
   # A disk image that can be imported to Amazon EC2 and registered as an AMI
-  amazonImage = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system:
+  amazonImage = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
 
     with import ./.. { inherit system; };
 
@@ -308,67 +332,83 @@ in rec {
     }).config.system.build.amazonImage)
 
   );
-  amazonImageZfs = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ]
-    (system:
-
-      with import ./.. { inherit system; };
-
-      hydraJob ((import lib/eval-config.nix {
-        inherit system;
-        modules = [
-          configuration
-          versionModule
-          ./maintainers/scripts/ec2/amazon-image-zfs.nix
-        ];
-      }).config.system.build.amazonImage)
-
-    );
-
-  # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
-  # automatic sizing without blocking the channel.
-  amazonImageAutomaticSize =
-    forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system:
-
-      with import ./.. { inherit system; };
-
-      hydraJob ((import lib/eval-config.nix {
-        inherit system;
-        modules = [
-          configuration
-          versionModule
-          ./maintainers/scripts/ec2/amazon-image.nix
-          ({
-              ...
-            }: {
-              amazonImage.sizeMB = "auto";
-            })
-        ];
-      }).config.system.build.amazonImage)
-
-    );
-
-  # An image that can be imported into lxd and used for container creation
-  lxdImage = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system:
+  amazonImageZfs = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
 
     with import ./.. { inherit system; };
 
     hydraJob ((import lib/eval-config.nix {
       inherit system;
-      modules =
-        [ configuration versionModule ./maintainers/scripts/lxd/lxd-image.nix ];
+      modules = [
+        configuration
+        versionModule
+        ./maintainers/scripts/ec2/amazon-image-zfs.nix
+      ];
+    }).config.system.build.amazonImage)
+
+  );
+
+  # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
+  # automatic sizing without blocking the channel.
+  amazonImageAutomaticSize = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
+
+    with import ./.. { inherit system; };
+
+    hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules = [
+        configuration
+        versionModule
+        ./maintainers/scripts/ec2/amazon-image.nix
+        ({
+            ...
+          }: {
+            amazonImage.sizeMB = "auto";
+          })
+      ];
+    }).config.system.build.amazonImage)
+
+  );
+
+  # An image that can be imported into lxd and used for container creation
+  lxdImage = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
+
+    with import ./.. { inherit system; };
+
+    hydraJob ((import lib/eval-config.nix {
+      inherit system;
+      modules = [
+        configuration
+        versionModule
+        ./maintainers/scripts/lxd/lxd-image.nix
+      ];
     }).config.system.build.tarball)
 
   );
 
   # Metadata for the lxd image
-  lxdMeta = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ] (system:
+  lxdMeta = forMatchingSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+  ] (system:
 
     with import ./.. { inherit system; };
 
     hydraJob ((import lib/eval-config.nix {
       inherit system;
-      modules =
-        [ configuration versionModule ./maintainers/scripts/lxd/lxd-image.nix ];
+      modules = [
+        configuration
+        versionModule
+        ./maintainers/scripts/lxd/lxd-image.nix
+      ];
     }).config.system.build.metadata)
 
   );

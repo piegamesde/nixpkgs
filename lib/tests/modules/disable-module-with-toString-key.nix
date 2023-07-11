@@ -12,13 +12,20 @@ let
 in {
   options = {
     positive = mkOption {
-      type =
-        types.submodule { imports = [ ./declare-enable.nix moduleWithKey ]; };
+      type = types.submodule {
+        imports = [
+          ./declare-enable.nix
+          moduleWithKey
+        ];
+      };
       default = { };
     };
     negative = mkOption {
       type = types.submodule {
-        imports = [ ./declare-enable.nix moduleWithKey ];
+        imports = [
+          ./declare-enable.nix
+          moduleWithKey
+        ];
         disabledModules = [ 123 ];
       };
       default = { };

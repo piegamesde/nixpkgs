@@ -62,7 +62,10 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     libGL
@@ -83,9 +86,17 @@ in stdenv.mkDerivation rec {
     libXpresent
     libXext
     libXrandr
-  ] ++ lib.optionals waylandSupport [ libxkbcommon wayland wayland-protocols ]
-    ++ lib.optionals pipewireSupport [ pipewire libsamplerate ]
-    ++ lib.optionals pulseSupport [ pulseaudio libsamplerate ];
+  ] ++ lib.optionals waylandSupport [
+    libxkbcommon
+    wayland
+    wayland-protocols
+  ] ++ lib.optionals pipewireSupport [
+    pipewire
+    libsamplerate
+  ] ++ lib.optionals pulseSupport [
+    pulseaudio
+    libsamplerate
+  ];
 
   cmakeFlags = [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
     ++ lib.optional (!xorgSupport) "-DENABLE_X11=no"
@@ -115,7 +126,11 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://looking-glass.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ alexbakker babbaj j-brn ];
+    maintainers = with maintainers; [
+      alexbakker
+      babbaj
+      j-brn
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

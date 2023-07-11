@@ -19,7 +19,11 @@ buildGoModule rec {
     varFlags = lib.concatStringsSep " " (lib.mapAttrsToList
       (name: value: "-X github.com/prometheus/common/version.${name}=${value}")
       setVars);
-  in [ "${varFlags}" "-s" "-w" ];
+  in [
+    "${varFlags}"
+    "-s"
+    "-w"
+  ];
 
   src = fetchFromGitHub {
     owner = "SuperQ";

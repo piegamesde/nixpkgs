@@ -34,8 +34,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs =
-    [ ansible-core psutil pexpect python-daemon pyyaml six ];
+  propagatedBuildInputs = [
+    ansible-core
+    psutil
+    pexpect
+    python-daemon
+    pyyaml
+    six
+  ];
 
   nativeCheckInputs = [
     ansible-core # required to place ansible CLI onto the PATH in tests

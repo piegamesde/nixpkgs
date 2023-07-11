@@ -30,7 +30,10 @@ import ./make-test-python.nix ({
 
     knotZonesEnv = pkgs.buildEnv {
       name = "knot-zones";
-      paths = [ exampleZone delegatedZone ];
+      paths = [
+        exampleZone
+        delegatedZone
+      ];
     };
     # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
     tsigFile = pkgs.writeText "tsig.conf" ''
@@ -54,14 +57,14 @@ import ./make-test-python.nix ({
           virtualisation.cores = 2;
 
           networking.interfaces.eth1 = {
-            ipv4.addresses = lib.mkForce [{
+            ipv4.addresses = lib.mkForce [ {
               address = "192.168.0.1";
               prefixLength = 24;
-            }];
-            ipv6.addresses = lib.mkForce [{
+            } ];
+            ipv6.addresses = lib.mkForce [ {
               address = "fd00::1";
               prefixLength = 64;
-            }];
+            } ];
           };
           services.knot.enable = true;
           services.knot.extraArgs = [ "-v" ];
@@ -112,14 +115,14 @@ import ./make-test-python.nix ({
         }: {
           imports = [ common ];
           networking.interfaces.eth1 = {
-            ipv4.addresses = lib.mkForce [{
+            ipv4.addresses = lib.mkForce [ {
               address = "192.168.0.2";
               prefixLength = 24;
-            }];
-            ipv6.addresses = lib.mkForce [{
+            } ];
+            ipv6.addresses = lib.mkForce [ {
               address = "fd00::2";
               prefixLength = 64;
-            }];
+            } ];
           };
           services.knot.enable = true;
           services.knot.keyFiles = [ tsigFile ];
@@ -167,14 +170,14 @@ import ./make-test-python.nix ({
         }: {
           imports = [ common ];
           networking.interfaces.eth1 = {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.0.3";
               prefixLength = 24;
-            }];
-            ipv6.addresses = [{
+            } ];
+            ipv6.addresses = [ {
               address = "fd00::3";
               prefixLength = 64;
-            }];
+            } ];
           };
           environment.systemPackages = [ pkgs.knot-dns ];
         };

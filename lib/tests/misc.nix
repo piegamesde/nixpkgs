@@ -57,7 +57,14 @@ in runTests {
   };
 
   testPipeStrings = {
-    expr = pipe [ 3 4 ] [ (map toString) (map (s: s + "\n")) concatStrings ];
+    expr = pipe [
+      3
+      4
+    ] [
+      (map toString)
+      (map (s: s + "\n"))
+      concatStrings
+    ];
     expected = ''
       3
       4
@@ -113,7 +120,11 @@ in runTests {
     obj = makeExtensible (self: { foo = self.qux; });
   in {
     expr = let
-      composition = composeManyExtensions [ f g h ];
+      composition = composeManyExtensions [
+        f
+        g
+        h
+      ];
       composed = obj.extend composition;
     in composed.foo;
     expected = (obj.extend (composeExtensions f (composeExtensions g h))).foo;
@@ -141,7 +152,11 @@ in runTests {
 
   testToBaseDigits = {
     expr = toBaseDigits 2 6;
-    expected = [ 1 1 0 ];
+    expected = [
+      1
+      1
+      0
+    ];
   };
 
   testFunctionArgsFunctor = {
@@ -167,17 +182,29 @@ in runTests {
   # STRINGS
 
   testConcatMapStrings = {
-    expr = concatMapStrings (x: x + ";") [ "a" "b" "c" ];
+    expr = concatMapStrings (x: x + ";") [
+      "a"
+      "b"
+      "c"
+    ];
     expected = "a;b;c;";
   };
 
   testConcatStringsSep = {
-    expr = concatStringsSep "," [ "a" "b" "c" ];
+    expr = concatStringsSep "," [
+      "a"
+      "b"
+      "c"
+    ];
     expected = "a,b,c";
   };
 
   testConcatLines = {
-    expr = concatLines [ "a" "b" "c" ];
+    expr = concatLines [
+      "a"
+      "b"
+      "c"
+    ];
     expected = ''
       a
       b
@@ -187,12 +214,21 @@ in runTests {
 
   testSplitStringsSimple = {
     expr = strings.splitString "." "a.b.c.d";
-    expected = [ "a" "b" "c" "d" ];
+    expected = [
+      "a"
+      "b"
+      "c"
+      "d"
+    ];
   };
 
   testSplitStringsEmpty = {
     expr = strings.splitString "." "a..b";
-    expected = [ "a" "" "b" ];
+    expected = [
+      "a"
+      ""
+      "b"
+    ];
   };
 
   testSplitStringsOne = {
@@ -207,17 +243,34 @@ in runTests {
 
   testSplitStringsFirstEmpty = {
     expr = strings.splitString "/" "/a/b/c";
-    expected = [ "" "a" "b" "c" ];
+    expected = [
+      ""
+      "a"
+      "b"
+      "c"
+    ];
   };
 
   testSplitStringsLastEmpty = {
     expr = strings.splitString ":" "2001:db8:0:0042::8a2e:370:";
-    expected = [ "2001" "db8" "0" "0042" "" "8a2e" "370" "" ];
+    expected = [
+      "2001"
+      "db8"
+      "0"
+      "0042"
+      ""
+      "8a2e"
+      "370"
+      ""
+    ];
   };
 
   testSplitStringsRegex = {
     expr = strings.splitString "\\[{}]()^$?*+|." "A\\[{}]()^$?*+|.B";
-    expected = [ "A" "B" ];
+    expected = [
+      "A"
+      "B"
+    ];
   };
 
   testSplitStringsDerivation = {
@@ -226,7 +279,11 @@ in runTests {
       builder = "builder";
       system = "system";
     }));
-    expected = [ "" "nix" "store" ];
+    expected = [
+      ""
+      "nix"
+      "store"
+    ];
   };
 
   testSplitVersionSingle = {
@@ -236,12 +293,19 @@ in runTests {
 
   testSplitVersionDouble = {
     expr = versions.splitVersion "1.2";
-    expected = [ "1" "2" ];
+    expected = [
+      "1"
+      "2"
+    ];
   };
 
   testSplitVersionTriple = {
     expr = versions.splitVersion "1.2.3";
-    expected = [ "1" "2" "3" ];
+    expected = [
+      "1"
+      "2"
+      "3"
+    ];
   };
 
   testPadVersionLess = {
@@ -302,7 +366,10 @@ in runTests {
     expr = ''
       ${toShellVars {
         STRing01 = "just a 'string'";
-        _array_ = [ "with" "more strings" ];
+        _array_ = [
+          "with"
+          "more strings"
+        ];
         assoc."with some" = ''
           strings
           possibly newlines
@@ -532,8 +599,16 @@ in runTests {
   # LISTS
 
   testFilter = {
-    expr = filter (x: x != "a") [ "a" "b" "c" "a" ];
-    expected = [ "b" "c" ];
+    expr = filter (x: x != "a") [
+      "a"
+      "b"
+      "c"
+      "a"
+    ];
+    expected = [
+      "b"
+      "c"
+    ];
   };
 
   testFold = let
@@ -565,11 +640,42 @@ in runTests {
   };
 
   testTake = testAllTrue [
-    ([ ] == (take 0 [ 1 2 3 ]))
-    ([ 1 ] == (take 1 [ 1 2 3 ]))
-    ([ 1 2 ] == (take 2 [ 1 2 3 ]))
-    ([ 1 2 3 ] == (take 3 [ 1 2 3 ]))
-    ([ 1 2 3 ] == (take 4 [ 1 2 3 ]))
+    ([ ] == (take 0 [
+      1
+      2
+      3
+    ]))
+    ([ 1 ] == (take 1 [
+      1
+      2
+      3
+    ]))
+    ([
+      1
+      2
+    ] == (take 2 [
+      1
+      2
+      3
+    ]))
+    ([
+      1
+      2
+      3
+    ] == (take 3 [
+      1
+      2
+      3
+    ]))
+    ([
+      1
+      2
+      3
+    ] == (take 4 [
+      1
+      2
+      3
+    ]))
   ];
 
   testFoldAttrs = {
@@ -584,20 +690,37 @@ in runTests {
       }
     ];
     expected = {
-      a = [ 2 3 ];
+      a = [
+        2
+        3
+      ];
       b = [ 7 ];
       c = [ 8 ];
     };
   };
 
   testSort = {
-    expr = sort builtins.lessThan [ 40 2 30 42 ];
-    expected = [ 2 30 40 42 ];
+    expr = sort builtins.lessThan [
+      40
+      2
+      30
+      42
+    ];
+    expected = [
+      2
+      30
+      40
+      42
+    ];
   };
 
   testReplicate = {
     expr = replicate 3 "a";
-    expected = [ "a" "a" "a" ];
+    expected = [
+      "a"
+      "a"
+      "a"
+    ];
   };
 
   testToIntShouldConvertStringToInt = {
@@ -614,12 +737,18 @@ in runTests {
   };
 
   testHasAttrByPathTrue = {
-    expr = hasAttrByPath [ "a" "b" ] { a = { b = "yey"; }; };
+    expr = hasAttrByPath [
+      "a"
+      "b"
+    ] { a = { b = "yey"; }; };
     expected = true;
   };
 
   testHasAttrByPathFalse = {
-    expr = hasAttrByPath [ "a" "b" ] { a = { c = "yey"; }; };
+    expr = hasAttrByPath [
+      "a"
+      "b"
+    ] { a = { c = "yey"; }; };
     expected = false;
   };
 
@@ -670,7 +799,10 @@ in runTests {
     expected = {
       example = {
         sum = 11;
-        names = [ "bar" "foo" ];
+        names = [
+          "bar"
+          "foo"
+        ];
       };
       emptySet = 123;
       accNotNeeded = 3;
@@ -781,7 +913,10 @@ in runTests {
   testToINIDuplicateKeys = {
     expr = generators.toINI { listsAsDuplicateKeys = true; } {
       foo.bar = true;
-      baz.qux = [ 1 false ];
+      baz.qux = [
+        1
+        false
+      ];
     };
     expected = ''
       [baz]
@@ -876,7 +1011,15 @@ in runTests {
   };
 
   # right now only invocation check
-  testToJSONSimple = let val = { foobar = [ "baz" 1 2 3 ]; };
+  testToJSONSimple = let
+    val = {
+      foobar = [
+        "baz"
+        1
+        2
+        3
+      ];
+    };
   in {
     expr = generators.toJSON { } val;
     # trivial implementation
@@ -886,7 +1029,10 @@ in runTests {
   # right now only invocation check
   testToYAMLSimple = let
     val = {
-      list = [ { one = 1; } { two = 2; } ];
+      list = [
+        { one = 1; }
+        { two = 2; }
+      ];
       all = 42;
     };
   in {
@@ -917,7 +1063,12 @@ in runTests {
           foo,
         }:
         arg;
-      list = [ 3 4 function [ false ] ];
+      list = [
+        3
+        4
+        function
+        [ false ]
+      ];
       emptylist = [ ];
       attrs = {
         foo = null;
@@ -1006,7 +1157,11 @@ in runTests {
 
   testToPrettyMultiline = {
     expr = mapAttrs (const (generators.toPretty { })) rec {
-      list = [ 3 4 [ false ] ];
+      list = [
+        3
+        4
+        [ false ]
+      ];
       attrs = {
         foo = null;
         bar.foo = "baz";
@@ -1076,7 +1231,12 @@ in runTests {
   };
 
   testToLuaListOfVariousTypes = {
-    expr = generators.toLua { } [ null 43 3.14159 true ];
+    expr = generators.toLua { } [
+      null
+      43
+      3.14159
+      true
+    ];
     expected = ''
       {
         nil,
@@ -1109,7 +1269,10 @@ in runTests {
   };
 
   testToLuaWithoutMultiline = {
-    expr = generators.toLua { multiline = false; } [ 41 43 ];
+    expr = generators.toLua { multiline = false; } [
+      41
+      43
+    ];
     expected = "{ 41, 43 }";
   };
 
@@ -1154,7 +1317,10 @@ in runTests {
 
   testToLuaBasicExample = {
     expr = generators.toLua { } {
-      cmd = [ "typescript-language-server" "--stdio" ];
+      cmd = [
+        "typescript-language-server"
+        "--stdio"
+      ];
       settings.workspace.library =
         generators.mkLuaInline ''vim.api.nvim_get_runtime_file("", true)'';
     };
@@ -1180,7 +1346,10 @@ in runTests {
       X = "PUT";
       retry = 3;
       retry-delay = null;
-      url = [ "https://example.com/foo" "https://example.com/bar" ];
+      url = [
+        "https://example.com/foo"
+        "https://example.com/bar"
+      ];
       silent = false;
       verbose = true;
     };
@@ -1206,7 +1375,10 @@ in runTests {
       X = "PUT";
       retry = 3;
       retry-delay = null;
-      url = [ "https://example.com/foo" "https://example.com/bar" ];
+      url = [
+        "https://example.com/foo"
+        "https://example.com/bar"
+      ];
       silent = false;
       verbose = true;
     };
@@ -1274,10 +1446,20 @@ in runTests {
       locs = filter (o: !o.internal) (optionAttrSetToDocList options);
     in map (o: o.loc) locs;
     expected = [
-      [ "_module" "args" ]
+      [
+        "_module"
+        "args"
+      ]
       [ "foo" ]
-      [ "foo" "<name>" "bar" ]
-      [ "foo" "bar" ]
+      [
+        "foo"
+        "<name>"
+        "bar"
+      ]
+      [
+        "foo"
+        "bar"
+      ]
     ];
   };
 
@@ -1287,14 +1469,27 @@ in runTests {
   };
 
   testCartesianProductOfOneSet = {
-    expr = cartesianProductOfSets { a = [ 1 2 3 ]; };
-    expected = [ { a = 1; } { a = 2; } { a = 3; } ];
+    expr = cartesianProductOfSets {
+      a = [
+        1
+        2
+        3
+      ];
+    };
+    expected = [
+      { a = 1; }
+      { a = 2; }
+      { a = 3; }
+    ];
   };
 
   testCartesianProductOfTwoSets = {
     expr = cartesianProductOfSets {
       a = [ 1 ];
-      b = [ 10 20 ];
+      b = [
+        10
+        20
+      ];
     };
     expected = [
       {
@@ -1311,16 +1506,31 @@ in runTests {
   testCartesianProductOfTwoSetsWithOneEmpty = {
     expr = cartesianProductOfSets {
       a = [ ];
-      b = [ 10 20 ];
+      b = [
+        10
+        20
+      ];
     };
     expected = [ ];
   };
 
   testCartesianProductOfThreeSets = {
     expr = cartesianProductOfSets {
-      a = [ 1 2 3 ];
-      b = [ 10 20 30 ];
-      c = [ 100 200 300 ];
+      a = [
+        1
+        2
+        3
+      ];
+      b = [
+        10
+        20
+        30
+      ];
+      c = [
+        100
+        200
+        300
+      ];
     };
     expected = [
       {
@@ -1471,7 +1681,11 @@ in runTests {
 
   # The example from the showAttrPath documentation
   testShowAttrPathExample = {
-    expr = showAttrPath [ "foo" "10" "bar" ];
+    expr = showAttrPath [
+      "foo"
+      "10"
+      "bar"
+    ];
     expected = ''foo."10".bar'';
   };
 
@@ -1481,23 +1695,57 @@ in runTests {
   };
 
   testShowAttrPathVarious = {
-    expr = showAttrPath [ "." "foo" "2" "a2-b" "_bc'de" ];
+    expr = showAttrPath [
+      "."
+      "foo"
+      "2"
+      "a2-b"
+      "_bc'de"
+    ];
     expected = ''".".foo."2".a2-b._bc'de'';
   };
 
   testGroupBy = {
     expr = groupBy (n: toString (mod n 5)) (range 0 16);
     expected = {
-      "0" = [ 0 5 10 15 ];
-      "1" = [ 1 6 11 16 ];
-      "2" = [ 2 7 12 ];
-      "3" = [ 3 8 13 ];
-      "4" = [ 4 9 14 ];
+      "0" = [
+        0
+        5
+        10
+        15
+      ];
+      "1" = [
+        1
+        6
+        11
+        16
+      ];
+      "2" = [
+        2
+        7
+        12
+      ];
+      "3" = [
+        3
+        8
+        13
+      ];
+      "4" = [
+        4
+        9
+        14
+      ];
     };
   };
 
   testGroupBy' = {
-    expr = groupBy' builtins.add 0 (x: boolToString (x > 2)) [ 5 1 2 3 4 ];
+    expr = groupBy' builtins.add 0 (x: boolToString (x > 2)) [
+      5
+      1
+      2
+      3
+      4
+    ];
     expected = {
       false = 3;
       true = 12;
@@ -1508,15 +1756,25 @@ in runTests {
   testUpdateManyAttrsByPathExample = {
     expr = updateManyAttrsByPath [
       {
-        path = [ "a" "b" ];
+        path = [
+          "a"
+          "b"
+        ];
         update = old: { d = old.c; };
       }
       {
-        path = [ "a" "b" "c" ];
+        path = [
+          "a"
+          "b"
+          "c"
+        ];
         update = old: old + 1;
       }
       {
-        path = [ "x" "y" ];
+        path = [
+          "x"
+          "y"
+        ];
         update = old: "xy";
       }
     ] { a.b.c = 0; };
@@ -1534,10 +1792,10 @@ in runTests {
 
   # A single update to the root path is just like applying the function directly
   testUpdateManyAttrsByPathSingleIncrement = {
-    expr = updateManyAttrsByPath [{
+    expr = updateManyAttrsByPath [ {
       path = [ ];
       update = old: old + 1;
-    }] 0;
+    } ] 0;
     expected = 1;
   };
 
@@ -1577,10 +1835,14 @@ in runTests {
 
   # Deeply nested attributes can be updated without affecting others
   testUpdateManyAttrsByPathDeep = {
-    expr = updateManyAttrsByPath [{
-      path = [ "a" "b" "c" ];
+    expr = updateManyAttrsByPath [ {
+      path = [
+        "a"
+        "b"
+        "c"
+      ];
       update = old: old + 1;
-    }] {
+    } ] {
       a.b.c = 0;
 
       a.b.z = 0;
@@ -1604,7 +1866,10 @@ in runTests {
         update = old: old // { x = old.b; };
       }
       {
-        path = [ "a" "b" ];
+        path = [
+          "a"
+          "b"
+        ];
         update = old: old + 1;
       }
     ] { a.b = 0; };
@@ -1853,11 +2118,20 @@ in runTests {
     expected = "string or list of boolean";
   };
   testTypeDescriptionOneOfListOfStrOrBool = {
-    expr = (with types; oneOf [ (listOf bool) str ]).description;
+    expr = (with types;
+      oneOf [
+        (listOf bool)
+        str
+      ]).description;
     expected = "(list of boolean) or string";
   };
   testTypeDescriptionOneOfListOfStrOrBoolOrNumber = {
-    expr = (with types; oneOf [ (listOf bool) str number ]).description;
+    expr = (with types;
+      oneOf [
+        (listOf bool)
+        str
+        number
+      ]).description;
     expected =
       "(list of boolean) or string or signed integer or floating point number";
   };

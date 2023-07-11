@@ -47,7 +47,10 @@ buildPythonPackage rec {
     shapely
   ];
 
-  nativeCheckInputs = [ pytest-astropy pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-astropy
+    pytestCheckHook
+  ];
 
   preCheck = ''
     OPENMP_EXPECTED=0

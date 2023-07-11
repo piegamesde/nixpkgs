@@ -77,8 +77,14 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-oKhLv81EFudrJaaJ2ga3pVh4W5Hd2YchpjsoYoqRm78=";
   };
 
-  nativeBuildInputs =
-    [ intltool luajit52 pkg-config which cmake wrapGAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    luajit52
+    pkg-config
+    which
+    cmake
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     boost
@@ -115,7 +121,10 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "bindnow" "relro" ];
+  hardeningDisable = [
+    "bindnow"
+    "relro"
+  ];
 
   patches = lib.optionals (!useBundledLuaJIT) [ ./remove-bundled-luajit.patch ];
 
@@ -148,7 +157,10 @@ in stdenv.mkDerivation rec {
     # The Aegisub sources are itself BSD/ISC, but they are linked against GPL'd
     # softwares - so the resulting program will be GPL
     license = licenses.bsd3;
-    maintainers = with maintainers; [ AndersonTorres wegank ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      wegank
+    ];
     platforms = platforms.unix;
   };
 }

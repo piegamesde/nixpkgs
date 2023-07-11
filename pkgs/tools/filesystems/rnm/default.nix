@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-cMWIxRuL7UCDjGr26+mfEYBPRA/dxEt0Us5qU92TelY=";
   };
 
-  buildInputs = [ gmp jpcre2 pcre2 ];
+  buildInputs = [
+    gmp
+    jpcre2
+    pcre2
+  ];
 
   meta = with lib; {
     homepage = "https://neurobin.org/projects/softwares/unix/rnm/";

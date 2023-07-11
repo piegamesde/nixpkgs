@@ -22,7 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ asciidoc ];
 
-  buildInputs = [ libxcb xcbutil xcbutilkeysyms xcbutilwm ];
+  buildInputs = [
+    libxcb
+    xcbutil
+    xcbutilkeysyms
+    xcbutilwm
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -30,7 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple X hotkey daemon";
     homepage = "https://github.com/baskerville/sxhkd";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ vyp AndersonTorres ];
+    maintainers = with maintainers; [
+      vyp
+      AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 })

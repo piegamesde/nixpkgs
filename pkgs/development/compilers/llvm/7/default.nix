@@ -134,7 +134,10 @@ let
       libcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
-        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
@@ -162,9 +165,11 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm)
-          [ targetLlvmLibraries.libunwind ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals
+          (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands = ''
           echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
           echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags

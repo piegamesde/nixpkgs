@@ -126,7 +126,10 @@ in stdenv.mkDerivation rec {
       experimental and need more testing.
     '';
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ rasendubi AndersonTorres ];
+    maintainers = with maintainers; [
+      rasendubi
+      AndersonTorres
+    ];
     platforms = platforms.linux;
     badPlatforms = platforms.aarch64;
   };

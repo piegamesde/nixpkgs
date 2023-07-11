@@ -26,9 +26,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    requests
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ httpretty pytestCheckHook ];
+  nativeCheckInputs = [
+    httpretty
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pymfy" ];
 

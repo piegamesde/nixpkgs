@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "1kxzxz2hrd1871281s4rsi569qk314aqfmng9pkqn8gv9nqhmph0";
   };
 
-  nativeBuildInputs = [ jdk makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    makeWrapper
+  ];
 
   dontConfigure = true;
 
@@ -62,7 +65,10 @@ stdenv.mkDerivation rec {
     description = "A BQN implementation in Java"
       + lib.optionalString buildNativeImage ", compiled as a native image";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres sternenseemann ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      sternenseemann
+    ];
     inherit (jdk.meta) platforms;
     broken =
       stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dbqn-native.x86_64-darwin

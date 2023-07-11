@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib ncurses ];
+  buildInputs = [
+    glib
+    ncurses
+  ];
 
   meta = with lib; {
     homepage = "http://libpseudo.sourceforge.net/";

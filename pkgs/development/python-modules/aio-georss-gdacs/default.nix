@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-1mpOWd4Z2gTQtRewWfZsfEtmS6i5uMPAMTlC8UpawxM=";
   };
 
-  propagatedBuildInputs = [ aio-georss-client dateparser ];
+  propagatedBuildInputs = [
+    aio-georss-client
+    dateparser
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aio_georss_gdacs" ];
 

@@ -8,7 +8,11 @@
   nixosTests,
 }:
 
-let commonMakeFlags = [ "prefix=$(out)" "SHLIBDIR=$(out)/lib" ];
+let
+  commonMakeFlags = [
+    "prefix=$(out)"
+    "SHLIBDIR=$(out)/lib"
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "klibc";
@@ -25,7 +29,10 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ perl ];
   strictDeps = true;
 
-  hardeningDisable = [ "format" "stackprotector" ];
+  hardeningDisable = [
+    "format"
+    "stackprotector"
+  ];
 
   makeFlags = commonMakeFlags ++ [
     "KLIBCARCH=${

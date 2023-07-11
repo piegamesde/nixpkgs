@@ -109,7 +109,10 @@ let
   initrdBinEnv = pkgs.buildEnv {
     name = "initrd-bin-env";
     paths = map getBin cfg.initrdBin;
-    pathsToLink = [ "/bin" "/sbin" ];
+    pathsToLink = [
+      "/bin"
+      "/sbin"
+    ];
     postBuild = concatStringsSep "\n"
       (mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin);
   };
@@ -158,7 +161,12 @@ in {
     };
 
     managerEnvironment = mkOption {
-      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+      type = with types;
+        attrsOf (nullOr (oneOf [
+          str
+          path
+          package
+        ]));
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
@@ -183,7 +191,11 @@ in {
       description = lib.mdDoc ''
         Store paths to copy into the initrd as well.
       '';
-      type = with types; listOf (oneOf [ singleLineStr package ]);
+      type = with types;
+        listOf (oneOf [
+          singleLineStr
+          package
+        ]);
       default = [ ];
     };
 
@@ -223,7 +235,11 @@ in {
     };
 
     emergencyAccess = mkOption {
-      type = with types; oneOf [ bool (nullOr (passwdEntry str)) ];
+      type = with types;
+        oneOf [
+          bool
+          (nullOr (passwdEntry str))
+        ];
       description = lib.mdDoc ''
         Set to true for unauthenticated emergency access, and false for
         no emergency access.
@@ -245,7 +261,10 @@ in {
     additionalUpstreamUnits = mkOption {
       default = [ ];
       type = types.listOf types.str;
-      example = [ "debug-shell.service" "systemd-quotacheck.service" ];
+      example = [
+        "debug-shell.service"
+        "systemd-quotacheck.service"
+      ];
       description = lib.mdDoc ''
         Additional units shipped with systemd that shall be enabled.
       '';
@@ -355,8 +374,12 @@ in {
       "tpm-crb";
 
     boot.initrd.systemd = {
-      initrdBin = [ pkgs.bash pkgs.coreutils cfg.package.kmod cfg.package ]
-        ++ config.system.fsPackages;
+      initrdBin = [
+        pkgs.bash
+        pkgs.coreutils
+        cfg.package.kmod
+        cfg.package
+      ] ++ config.system.fsPackages;
       extraBin = {
         less = "${pkgs.less}/bin/less";
         mount = "${cfg.package.util-linux}/bin/mount";
@@ -535,15 +558,20 @@ in {
       # and using its compiled-in value
       services.initrd-switch-root.serviceConfig = {
         EnvironmentFile = "-/etc/switch-root.conf";
-        ExecStart =
-          [ "" ''systemctl --no-block switch-root /sysroot "''${NEW_INIT}"'' ];
+        ExecStart = [
+          ""
+          ''systemctl --no-block switch-root /sysroot "''${NEW_INIT}"''
+        ];
       };
 
       services.panic-on-fail = {
         wantedBy = [ "emergency.target" ];
         unitConfig = {
           DefaultDependencies = false;
-          ConditionKernelCommandLine = [ "|boot.panic_on_fail" "|stage1panic" ];
+          ConditionKernelCommandLine = [
+            "|boot.panic_on_fail"
+            "|stage1panic"
+          ];
         };
         script = ''
           echo c > /proc/sysrq-trigger
@@ -552,7 +580,7 @@ in {
       };
     };
 
-    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "")
-      [ "resume=${config.boot.resumeDevice}" ];
+    boot.kernelParams = lib.mkIf
+      (config.boot.resumeDevice != "") [ "resume=${config.boot.resumeDevice}" ];
   };
 }

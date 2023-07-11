@@ -16,6 +16,12 @@ mkDerivation {
     maintainers = with maintainers; [ polendri ];
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [ kio libksane ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  buildInputs = [
+    kio
+    libksane
+  ];
 }

@@ -21,8 +21,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   # ToDo: a52, etc.?
-  buildInputs = [ alsa-lib libogg ]
-    ++ lib.optional (libpulseaudio != null) libpulseaudio
+  buildInputs = [
+    alsa-lib
+    libogg
+  ] ++ lib.optional (libpulseaudio != null) libpulseaudio
     ++ lib.optional (libjack2 != null) libjack2;
 
   meta = with lib; {

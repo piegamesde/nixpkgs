@@ -25,7 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-oq28wJ/Tq4yuQ/98tdzYKDyatpliS0Xcbc6T46ZTP7I=";
   };
 
-  outputs = [ "out" "testout" ];
+  outputs = [
+    "out"
+    "testout"
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

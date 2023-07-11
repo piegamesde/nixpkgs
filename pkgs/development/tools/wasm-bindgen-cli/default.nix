@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    curl
+    Security
+  ];
 
   nativeCheckInputs = [ nodejs ];
 
@@ -39,7 +42,10 @@ rustPlatform.buildRustPackage rec {
     ];
     description =
       "Facilitating high-level interactions between wasm modules and JavaScript";
-    maintainers = with maintainers; [ nitsky rizary ];
+    maintainers = with maintainers; [
+      nitsky
+      rizary
+    ];
     mainProgram = "wasm-bindgen";
   };
 }

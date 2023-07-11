@@ -26,7 +26,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [ torch spacy spacy-alignments srsly transformers ];
+  propagatedBuildInputs = [
+    torch
+    spacy
+    spacy-alignments
+    srsly
+    transformers
+  ];
 
   pythonRelaxDeps = [ "transformers" ];
 

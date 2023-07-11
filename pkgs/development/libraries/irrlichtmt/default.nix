@@ -35,11 +35,24 @@ stdenv.mkDerivation rec {
     sed -i '/''${X11_Xi_LIB}/d' source/Irrlicht/CMakeLists.txt
   '';
 
-  buildInputs = [ zlib libpng libjpeg libGL libX11 ]
-    ++ lib.optionals withTouchSupport [ libXi libXext ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa Kernel ];
+  buildInputs = [
+    zlib
+    libpng
+    libjpeg
+    libGL
+    libX11
+  ] ++ lib.optionals withTouchSupport [
+    libXi
+    libXext
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    Kernel
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = {
     homepage = "https://github.com/minetest/irrlicht";

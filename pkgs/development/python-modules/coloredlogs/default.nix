@@ -24,7 +24,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ humanfriendly ];
 
-  nativeCheckInputs = [ pytestCheckHook mock util-linux verboselogs capturer ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    util-linux
+    verboselogs
+    capturer
+  ];
 
   # capturer is broken on darwin / py38, so we skip the test until a fix for
   # https://github.com/xolox/python-capturer/issues/10 is released.
@@ -35,7 +41,10 @@ buildPythonPackage rec {
     PATH=$PATH:$out/bin
   '';
 
-  disabledTests = [ "test_plain_text_output_format" "test_auto_install" ];
+  disabledTests = [
+    "test_plain_text_output_format"
+    "test_auto_install"
+  ];
 
   pythonImportsCheck = [ "coloredlogs" ];
 

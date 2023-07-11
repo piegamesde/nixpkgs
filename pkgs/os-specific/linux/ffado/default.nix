@@ -21,7 +21,11 @@
 
 let
   inherit (python3.pkgs) pyqt5 dbus-python;
-  python = python3.withPackages (pkgs: with pkgs; [ pyqt5 dbus-python ]);
+  python = python3.withPackages (pkgs:
+    with pkgs; [
+      pyqt5
+      dbus-python
+    ]);
 in mkDerivation rec {
   pname = "ffado";
   version = "2.4.7";
@@ -41,10 +45,21 @@ in mkDerivation rec {
     ./fix-build.patch
   ];
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
-  nativeBuildInputs =
-    [ desktop-file-utils scons pkg-config which python pyqt5 wrapQtAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    scons
+    pkg-config
+    which
+    python
+    pyqt5
+    wrapQtAppsHook
+  ];
 
   prefixKey = "PREFIX=";
   sconsFlags = [
@@ -97,7 +112,10 @@ in mkDerivation rec {
     homepage = "http://www.ffado.org";
     description = "FireWire audio drivers";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ goibhniu michojel ];
+    maintainers = with maintainers; [
+      goibhniu
+      michojel
+    ];
     platforms = platforms.linux;
   };
 }

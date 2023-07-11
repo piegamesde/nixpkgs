@@ -9121,7 +9121,10 @@ in {
       sources."@babel/runtime-7.15.4"
       sources."@babel/template-7.15.4"
       (sources."@babel/traverse-7.15.4" // {
-        dependencies = [ sources."debug-4.3.2" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.2"
+          sources."ms-2.1.2"
+        ];
       })
       sources."@babel/types-7.15.6"
       sources."@commitlint/execute-rule-13.2.0"
@@ -9188,12 +9191,18 @@ in {
       sources."@octokit/rest-16.43.2"
       sources."@octokit/types-6.34.0"
       (sources."@semantic-release/commit-analyzer-6.3.3" // {
-        dependencies = [ sources."debug-4.3.2" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.2"
+          sources."ms-2.1.2"
+        ];
       })
       sources."@semantic-release/error-2.2.0"
       (sources."@semantic-release/github-5.5.8" // {
-        dependencies =
-          [ sources."debug-4.3.2" sources."mime-2.5.2" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.2"
+          sources."mime-2.5.2"
+          sources."ms-2.1.2"
+        ];
       })
       (sources."@semantic-release/npm-5.3.5" // {
         dependencies = [
@@ -9322,8 +9331,10 @@ in {
       sources."cache-base-1.0.1"
       sources."cachedir-2.2.0"
       (sources."caching-transform-4.0.0" // {
-        dependencies =
-          [ sources."make-dir-3.1.0" sources."write-file-atomic-3.0.3" ];
+        dependencies = [
+          sources."make-dir-3.1.0"
+          sources."write-file-atomic-3.0.3"
+        ];
       })
       sources."call-bind-1.0.2"
       sources."callsites-3.1.0"
@@ -9498,8 +9509,10 @@ in {
       })
       sources."external-editor-3.1.0"
       (sources."extglob-2.0.4" // {
-        dependencies =
-          [ sources."define-property-1.0.0" sources."extend-shallow-2.0.1" ];
+        dependencies = [
+          sources."define-property-1.0.0"
+          sources."extend-shallow-2.0.1"
+        ];
       })
       (sources."fast-glob-3.2.7" // {
         dependencies = [ sources."glob-parent-5.1.2" ];
@@ -9554,7 +9567,10 @@ in {
       sources."get-value-2.0.6"
       sources."ghooks-2.0.4"
       (sources."git-log-parser-1.2.0" // {
-        dependencies = [ sources."split2-1.0.0" sources."through2-2.0.5" ];
+        dependencies = [
+          sources."split2-1.0.0"
+          sources."through2-2.0.5"
+        ];
       })
       sources."glob-7.1.4"
       (sources."glob-parent-3.1.0" // {
@@ -9598,11 +9614,17 @@ in {
       sources."hosted-git-info-2.8.9"
       sources."html-escaper-2.0.2"
       (sources."http-proxy-agent-3.0.0" // {
-        dependencies = [ sources."debug-4.3.2" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.2"
+          sources."ms-2.1.2"
+        ];
       })
       sources."http-signature-0.10.1"
       (sources."https-proxy-agent-4.0.0" // {
-        dependencies = [ sources."debug-4.3.2" sources."ms-2.1.2" ];
+        dependencies = [
+          sources."debug-4.3.2"
+          sources."ms-2.1.2"
+        ];
       })
       sources."human-signals-1.1.1"
       sources."iconv-lite-0.4.24"
@@ -9817,7 +9839,10 @@ in {
         dependencies = [ sources."strip-ansi-4.0.0" ];
       })
       (sources."mocha-multi-reporters-1.1.7" // {
-        dependencies = [ sources."debug-3.2.7" sources."ms-2.1.3" ];
+        dependencies = [
+          sources."debug-3.2.7"
+          sources."ms-2.1.3"
+        ];
       })
       sources."modify-values-1.0.1"
       sources."module-not-found-error-1.0.1"
@@ -9839,8 +9864,11 @@ in {
       sources."node-releases-2.0.0"
       sources."node-uuid-1.4.8"
       (sources."nodemon-1.19.1" // {
-        dependencies =
-          [ sources."debug-3.2.7" sources."ms-2.1.3" sources."semver-5.7.1" ];
+        dependencies = [
+          sources."debug-3.2.7"
+          sources."ms-2.1.3"
+          sources."semver-5.7.1"
+        ];
       })
       sources."nopt-1.0.10"
       (sources."normalize-package-data-2.5.0" // {
@@ -9975,7 +10003,10 @@ in {
         dependencies = [ sources."strip-json-comments-2.0.1" ];
       })
       (sources."read-pkg-3.0.0" // {
-        dependencies = [ sources."path-type-3.0.0" sources."pify-3.0.0" ];
+        dependencies = [
+          sources."path-type-3.0.0"
+          sources."pify-3.0.0"
+        ];
       })
       sources."read-pkg-up-4.0.0"
       sources."readable-stream-2.3.7"
@@ -10116,7 +10147,10 @@ in {
       sources."spawn-command-0.0.2"
       sources."spawn-error-forwarder-1.0.0"
       (sources."spawn-wrap-2.0.0" // {
-        dependencies = [ sources."make-dir-3.1.0" sources."which-2.0.2" ];
+        dependencies = [
+          sources."make-dir-3.1.0"
+          sources."which-2.0.2"
+        ];
       })
       sources."spdx-correct-3.1.1"
       sources."spdx-exceptions-2.3.0"

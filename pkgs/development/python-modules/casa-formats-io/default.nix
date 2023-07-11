@@ -20,7 +20,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ astropy dask numpy ];
+  propagatedBuildInputs = [
+    astropy
+    dask
+    numpy
+  ];
 
   # Tests require a large (800 Mb) dataset
   doCheck = false;

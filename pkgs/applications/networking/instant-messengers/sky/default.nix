@@ -24,7 +24,10 @@ mkDerivation rec {
     sha256 = "sha256-3xiq2b3CwNjRd09q0z8olrmLGhgkJGAVkZoJSIHom+k=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook zstd ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    zstd
+  ];
 
   buildInputs = [
     curl

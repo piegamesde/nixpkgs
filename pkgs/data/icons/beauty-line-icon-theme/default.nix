@@ -25,7 +25,10 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = "${src.name}/BeautyLine-V3";
 
-  nativeBuildInputs = [ jdupes gtk3 ];
+  nativeBuildInputs = [
+    jdupes
+    gtk3
+  ];
 
   # ubuntu-mono is also required but missing in ubuntu-themes (please add it if it is packaged at some point)
   propagatedBuildInputs = [

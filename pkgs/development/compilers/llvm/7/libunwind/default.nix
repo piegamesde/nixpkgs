@@ -34,17 +34,23 @@ stdenv.mkDerivation rec {
         url =
           "https://github.com/llvm-mirror/libunwind/commit/e050272d2eb57eb4e56a37b429a61df2ebb8aa3e.patch";
         sha256 = "170mwmj0wf40iyk1kzdpaiy36rz9n8dpl881h4h7s5da0rh51xya";
-        includes = [ "src/libunwind.cpp" "src/UnwindCursor.hpp" ];
+        includes = [
+          "src/libunwind.cpp"
+          "src/UnwindCursor.hpp"
+        ];
       })
     ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = lib.optionals (!enableShared) [ "-DLIBUNWIND_ENABLE_SHARED=OFF" ]
-    ++ lib.optionals (stdenv.hostPlatform.useLLVM or false)
-    [ "-DLLVM_ENABLE_LIBCXX=ON" ];
+    ++ lib.optionals
+    (stdenv.hostPlatform.useLLVM or false) [ "-DLLVM_ENABLE_LIBCXX=ON" ];
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

@@ -22,9 +22,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-MGWL4oNc0MZTGWqBEt2wRTkqoagiUTDrS0kz4ewbZZA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook perl pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    pkg-config
+  ];
 
-  buildInputs = [ keyutils libkrb5 openafs ];
+  buildInputs = [
+    keyutils
+    libkrb5
+    openafs
+  ];
 
   configureFlags = [ "--enable-silent-rules" ]
     ++ (lib.optional enableSetPAG "--enable-setpag");
@@ -40,10 +48,16 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs tests
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = with lib; {
-    outputsToInstall = [ "out" "man" ];
+    outputsToInstall = [
+      "out"
+      "man"
+    ];
     description =
       "Modified version of kerberos tools that support automatic ticket refresh";
     license = licenses.mit;

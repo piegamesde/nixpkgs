@@ -26,10 +26,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 extruct language-tags regex requests ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    extruct
+    language-tags
+    regex
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+  ];
 
   disabledTestPaths = [
     # This is not actual code, just some pre-written boiler-plate template

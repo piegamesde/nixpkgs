@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     gem_platform = "ruby";
     groups = [ "default" ];
     platforms = [ ];
@@ -249,7 +254,12 @@
     version = "0.1.0";
   };
   sinatra = {
-    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "mustermann"
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     gem_platform = "ruby";
     groups = [ "default" ];
     platforms = [ ];

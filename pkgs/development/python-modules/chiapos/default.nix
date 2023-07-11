@@ -35,11 +35,17 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake setuptools-scm ];
+  nativeBuildInputs = [
+    cmake
+    setuptools-scm
+  ];
 
   buildInputs = [ pybind11 ];
 
-  nativeCheckInputs = [ psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+  ];
 
   # CMake needs to be run by setuptools rather than by its hook
   dontConfigure = true;

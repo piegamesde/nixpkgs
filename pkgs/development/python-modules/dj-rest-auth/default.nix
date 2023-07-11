@@ -34,9 +34,11 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.with_social = [ django-allauth ];
 
-  nativeCheckInputs =
-    [ djangorestframework-simplejwt responses unittest-xml-reporting ]
-    ++ passthru.optional-dependencies.with_social;
+  nativeCheckInputs = [
+    djangorestframework-simplejwt
+    responses
+    unittest-xml-reporting
+  ] ++ passthru.optional-dependencies.with_social;
 
   preCheck = ''
     # connects to graph.facebook.com

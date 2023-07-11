@@ -85,7 +85,11 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2wAm2y8YQwhgsPNqxGGJ65emL/kMYoVvF2phZMXTpZc=";
   };
 
-  outputs = [ "out" "dev" "doc" ]; # bin/ isn't really big
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ]; # bin/ isn't really big
   outputMan = "out"; # it's tiny
 
   enableParallelBuilding = true;
@@ -106,7 +110,10 @@ in stdenv.mkDerivation (finalAttrs: {
     "--disable-shared"
   ];
 
-  nativeBuildInputs = [ pkg-config libtool ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+  ];
 
   buildInputs = [ potrace ] ++ lib.optional zlibSupport zlib
     ++ lib.optional fontconfigSupport fontconfig
@@ -117,9 +124,14 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional libheifSupport libheif
     ++ lib.optional djvulibreSupport djvulibre
     ++ lib.optional libjxlSupport libjxl ++ lib.optional openexrSupport openexr
-    ++ lib.optionals librsvgSupport [ librsvg pango ]
-    ++ lib.optional openjpegSupport openjpeg
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices Foundation ];
+    ++ lib.optionals librsvgSupport [
+      librsvg
+      pango
+    ] ++ lib.optional openjpegSupport openjpeg
+    ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Foundation
+    ];
 
   propagatedBuildInputs = [ curl ] ++ lib.optional bzip2Support bzip2
     ++ lib.optional freetypeSupport freetype
@@ -151,9 +163,16 @@ in stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.imagemagick.org/";
     description =
       "A software suite to create, edit, compose, or convert bitmap images";
-    pkgConfigModules = [ "ImageMagick" "MagickWand" ];
+    pkgConfigModules = [
+      "ImageMagick"
+      "MagickWand"
+    ];
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ erictapen dotlambda rhendric ];
+    maintainers = with maintainers; [
+      erictapen
+      dotlambda
+      rhendric
+    ];
     license = licenses.asl20;
     mainProgram = "magick";
   };

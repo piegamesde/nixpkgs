@@ -13,7 +13,10 @@ vscode-utils.buildVscodeMarketplaceExtension {
     sha256 = "sha256-gMK/t/rLXYN3rlHxxVeW0W/FWEP0ZCiEwzM8DY14vYg=";
   };
 
-  nativeBuildInputs = [ jq moreutils ];
+  nativeBuildInputs = [
+    jq
+    moreutils
+  ];
 
   postPatch = ''
     # Patch 'packages.json' so that the expected '__metadata' field exists.

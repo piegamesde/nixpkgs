@@ -14,9 +14,17 @@
 stdenv.mkDerivation rec {
   pname = "rtags";
   version = "2.38";
-  nativeBuildInputs = [ cmake pkg-config llvmPackages.llvm.dev ];
-  buildInputs = [ llvmPackages.llvm llvmPackages.libclang openssl emacs ]
-    ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    llvmPackages.llvm.dev
+  ];
+  buildInputs = [
+    llvmPackages.llvm
+    llvmPackages.libclang
+    openssl
+    emacs
+  ] ++ lib.optionals stdenv.cc.isGNU [ llvmPackages.clang-unwrapped ]
     ++ lib.optionals stdenv.isDarwin [
       apple_sdk.libs.xpc
       apple_sdk.frameworks.CoreServices
@@ -37,14 +45,12 @@ stdenv.mkDerivation rec {
 
   # This should be fixed with the next verison bump
   # https://github.com/Andersbakken/rtags/issues/1411
-  patches = [
-    (fetchpatch {
-      name = "define-obsolete-function-alias.patch";
-      url =
-        "https://github.com/Andersbakken/rtags/commit/63f18acb21e664fd92fbc19465f0b5df085b5e93.patch";
-      sha256 = "sha256-dmEPtnk8Pylmf5479ovHKItRZ+tJuOWuYOQbWB/si/Y=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "define-obsolete-function-alias.patch";
+    url =
+      "https://github.com/Andersbakken/rtags/commit/63f18acb21e664fd92fbc19465f0b5df085b5e93.patch";
+    sha256 = "sha256-dmEPtnk8Pylmf5479ovHKItRZ+tJuOWuYOQbWB/si/Y=";
+  }) ];
 
   preConfigure = ''
     export LIBCLANG_CXXFLAGS="-isystem ${llvmPackages.clang.cc}/include $(llvm-config --cxxflags) -fexceptions" \

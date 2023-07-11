@@ -26,10 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-BwW8gUFeinZ9Z/v1orJKRTqt2WxVMD+hQj+A3gU1LDI=";
   };
 
-  propagatedBuildInputs = [ aiohttp geopy ];
+  propagatedBuildInputs = [
+    aiohttp
+    geopy
+  ];
 
-  nativeCheckInputs =
-    [ aioresponses freezegun mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    freezegun
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyipma" ];
 

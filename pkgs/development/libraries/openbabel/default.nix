@@ -29,14 +29,29 @@ stdenv.mkDerivation rec {
     sed '1i#include <ctime>' -i include/openbabel/obutil.h # gcc12
   '';
 
-  buildInputs = [ zlib libxml2 eigen python cairo pcre swig rapidjson ];
+  buildInputs = [
+    zlib
+    libxml2
+    eigen
+    python
+    cairo
+    pcre
+    swig
+    rapidjson
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   pythonMajorMinor =
     "${python.sourceVersion.major}.${python.sourceVersion.minor}";
 
-  cmakeFlags = [ "-DRUN_SWIG=ON" "-DPYTHON_BINDINGS=ON" ];
+  cmakeFlags = [
+    "-DRUN_SWIG=ON"
+    "-DPYTHON_BINDINGS=ON"
+  ];
 
   postFixup = ''
     cat <<EOF > $out/lib/python$pythonMajorMinor/site-packages/setup.py

@@ -22,7 +22,10 @@ buildPythonApplication rec {
     sha256 = "sha256-BEeMfdmAWqFbQUu8YKKrookQVgmhfZBqXnzeb2gfhms=";
   };
 
-  outputs = [ "out" "udev" ];
+  outputs = [
+    "out"
+    "udev"
+  ];
 
   patches = [
     ./fix-searchpath.patch
@@ -69,7 +72,10 @@ buildPythonApplication rec {
     export PATH=$PATH:$out/bin
   '';
 
-  nativeCheckInputs = [ jsondiff pytestCheckHook ];
+  nativeCheckInputs = [
+    jsondiff
+    pytestCheckHook
+  ];
 
   # Install udev rules into a separate output so all of platformio-core is not a dependency if
   # you want to use the udev rules on NixOS but not install platformio in your system packages.
@@ -167,6 +173,9 @@ buildPythonApplication rec {
     description = "An open source ecosystem for IoT development";
     homepage = "https://platformio.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mog makefu ];
+    maintainers = with maintainers; [
+      mog
+      makefu
+    ];
   };
 }

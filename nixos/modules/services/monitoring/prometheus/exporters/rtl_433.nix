@@ -41,11 +41,11 @@ in {
     channels = lib.mkOption {
       type = mkMatcherOptionType "channel" "Channel to match.";
       default = [ ];
-      example = [{
+      example = [ {
         name = "Acurite";
         channel = 6543;
         location = "Kitchen";
-      }];
+      } ];
       description = lib.mdDoc ''
         List of channel matchers to export.
       '';
@@ -53,11 +53,11 @@ in {
     ids = lib.mkOption {
       type = mkMatcherOptionType "id" "ID to match.";
       default = [ ];
-      example = [{
+      example = [ {
         name = "Nexus";
         id = 1;
         location = "Bedroom";
-      }];
+      } ];
       description = lib.mdDoc ''
         List of ID matchers to export.
       '';

@@ -29,9 +29,23 @@
 }:
 
 let
-  default_packages = [ bash file findutils gettext ];
-  parsed_packages =
-    [ coreutils sqlite util-linux gnused gawk findutils rlwrap gnutar bc ];
+  default_packages = [
+    bash
+    file
+    findutils
+    gettext
+  ];
+  parsed_packages = [
+    coreutils
+    sqlite
+    util-linux
+    gnused
+    gawk
+    findutils
+    rlwrap
+    gnutar
+    bc
+  ];
 in rec {
   module1 = resholve.mkDerivation {
     pname = "testmod1";
@@ -49,9 +63,16 @@ in rec {
     solutions = {
       libressl = {
         # submodule to demonstrate
-        scripts = [ "bin/libressl.sh" "submodule/helper.sh" ];
+        scripts = [
+          "bin/libressl.sh"
+          "submodule/helper.sh"
+        ];
         interpreter = "none";
-        inputs = [ jq module2 libressl.bin ];
+        inputs = [
+          jq
+          module2
+          libressl.bin
+        ];
       };
     };
 
@@ -74,9 +95,17 @@ in rec {
     solutions = {
       openssl = {
         fix = { aliases = true; };
-        scripts = [ "bin/openssl.sh" "libexec/invokeme" ];
+        scripts = [
+          "bin/openssl.sh"
+          "libexec/invokeme"
+        ];
         interpreter = "none";
-        inputs = [ shunit2 openssl.bin "libexec" "libexec/invokeme" ];
+        inputs = [
+          shunit2
+          openssl.bin
+          "libexec"
+          "libexec/invokeme"
+        ];
         execer = [
           /* This is the same verdict binlore will
              come up with. It's a no-op just to demo
@@ -109,7 +138,12 @@ in rec {
         scripts = [ "bin/conjure.sh" ];
         interpreter = "${bash}/bin/bash";
         inputs = [ module1 ];
-        fake = { external = [ "jq" "openssl" ]; };
+        fake = {
+          external = [
+            "jq"
+            "openssl"
+          ];
+        };
       }}
     '';
   };
@@ -123,7 +157,11 @@ in rec {
     '';
     doCheck = true;
     buildInputs = [ resholve ];
-    nativeCheckInputs = [ coreutils bats python27 ];
+    nativeCheckInputs = [
+      coreutils
+      bats
+      python27
+    ];
     # LOGLEVEL="DEBUG";
 
     # default path

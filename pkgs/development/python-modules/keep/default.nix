@@ -17,7 +17,12 @@ buildPythonPackage rec {
     sha256 = "3abbe445347711cecd9cbb80dab4a0777418972fc14a14e9387d0d2ae4b6adb7";
   };
 
-  propagatedBuildInputs = [ click requests terminaltables pygithub ];
+  propagatedBuildInputs = [
+    click
+    requests
+    terminaltables
+    pygithub
+  ];
 
   # no tests
   doCheck = false;

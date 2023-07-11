@@ -28,7 +28,11 @@ in buildGoModule {
     go test $(go list ./... | grep -v client)
   ''; # skip client tests as they require network access
 
-  ldflags = [ "-s" "-w" "-X miniflux.app/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X miniflux.app/version.Version=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/miniflux.app $out/bin/miniflux
@@ -41,6 +45,9 @@ in buildGoModule {
     description = "Minimalist and opinionated feed reader";
     homepage = "https://miniflux.app/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rvolosatovs benpye ];
+    maintainers = with maintainers; [
+      rvolosatovs
+      benpye
+    ];
   };
 }

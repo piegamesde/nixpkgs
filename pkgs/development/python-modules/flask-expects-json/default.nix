@@ -19,8 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-CUxuwqjjAb9Fy6xWtX1WtSANYaYr5//vY8k89KghYoQ=";
   };
 
-  propagatedBuildInputs = [ flask jsonschema ]
-    ++ flask.optional-dependencies.async;
+  propagatedBuildInputs = [
+    flask
+    jsonschema
+  ] ++ flask.optional-dependencies.async;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

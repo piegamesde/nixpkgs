@@ -29,14 +29,26 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
-  subPackages = [ "runsc" "shim" ];
+  subPackages = [
+    "runsc"
+    "shim"
+  ];
 
   postInstall = ''
     # Needed for the 'runsc do' subcomand
     wrapProgram $out/bin/runsc \
-      --prefix PATH : ${lib.makeBinPath [ iproute2 iptables procps ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          iproute2
+          iptables
+          procps
+        ]
+      }
     mv $out/bin/shim $out/bin/containerd-shim-runsc-v1
   '';
 
@@ -44,7 +56,10 @@ buildGoModule rec {
     description = "Application Kernel for Containers";
     homepage = "https://github.com/google/gvisor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ andrew-d gpl ];
+    maintainers = with maintainers; [
+      andrew-d
+      gpl
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

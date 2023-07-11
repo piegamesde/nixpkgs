@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-M43sNpbXWXFRTd549cZhvhO35nBB6OH+ki36BzSk87Q=";
   };
 
-  propagatedBuildInputs = [ aiohttp jinja2 markupsafe pyyaml ];
+  propagatedBuildInputs = [
+    aiohttp
+    jinja2
+    markupsafe
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-aiohttp ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-aiohttp
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \

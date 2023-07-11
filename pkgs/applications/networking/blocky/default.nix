@@ -22,8 +22,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-EsANifwaEi5PdY0Y2QZjD55sZqsqYWrC5Vh4uxpTs5A=";
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/0xERR0R/blocky/util.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/0xERR0R/blocky/util.Version=${version}"
+  ];
 
   passthru.tests = { inherit (nixosTests) blocky; };
 

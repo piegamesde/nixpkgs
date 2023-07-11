@@ -38,9 +38,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config intltool itstool wrapGAppsHook ];
-  buildInputs =
-    [ gtk3 vte libxml2 gtk-vnc libsecret gnome.adwaita-icon-theme librsvg ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    itstool
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gtk3
+    vte
+    libxml2
+    gtk-vnc
+    libsecret
+    gnome.adwaita-icon-theme
+    librsvg
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-nonliteral";
 

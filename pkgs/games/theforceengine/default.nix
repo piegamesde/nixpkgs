@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nw9yp/StaSi5thafVT1V5YA2ZCYGWNoHUvQTpK90Foc=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 libdevil rtaudio rtmidi glew alsa-lib ];
+  buildInputs = [
+    SDL2
+    libdevil
+    rtaudio
+    rtmidi
+    glew
+    alsa-lib
+  ];
 
   prePatch = ''
     # use nix store path instead of hardcoded /usr/share for support data

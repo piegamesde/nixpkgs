@@ -33,7 +33,12 @@ buildPythonPackage rec {
     hash = "sha256-OIdLP3hHnPZ9MqrHt6G5t2SSO342+jTACgzxM6RjVYM=";
   };
 
-  propagatedBuildInputs = [ decorator httptools python-magic urllib3 ];
+  propagatedBuildInputs = [
+    decorator
+    httptools
+    python-magic
+    urllib3
+  ];
 
   passthru.optional-dependencies = { pook = [ pook ]; };
 

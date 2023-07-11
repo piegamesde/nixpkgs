@@ -34,16 +34,36 @@ in stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DUNICODE_BLOCKS=${ucd-blocks.outPath}" ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs =
-    [ cairo fontconfig freetype glib libXdmcp pango perlPackages.perl pcre ];
+  buildInputs = [
+    cairo
+    fontconfig
+    freetype
+    glib
+    libXdmcp
+    pango
+    perlPackages.perl
+    pcre
+  ];
 
   postFixup = let
     perlPath = with perlPackages;
-      makePerlPath [ ExporterTiny ListMoreUtils PDFAPI2 libintl-perl ];
+      makePerlPath [
+        ExporterTiny
+        ListMoreUtils
+        PDFAPI2
+        libintl-perl
+      ];
   in ''
     for cmd in pdfoutline pdf-extract-outline; do
       wrapProgram "$out/bin/$cmd" --prefix PERL5LIB : "${perlPath}"

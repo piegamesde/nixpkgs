@@ -146,7 +146,12 @@ in {
     };
 
     settings = mkOption {
-      type = with types; (attrsOf (oneOf [ bool int str ]));
+      type = with types;
+        (attrsOf (oneOf [
+          bool
+          int
+          str
+        ]));
       default = { };
       description = lib.mdDoc
         "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details.";
@@ -183,7 +188,12 @@ in {
     };
 
     poolConfig = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type = with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -203,11 +213,11 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
 
-      assertions = [{
+      assertions = [ {
         assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
         message =
           "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
-      }];
+      } ];
 
       services.dolibarr.settings = {
         dolibarr_main_url_root = "https://${cfg.domain}";
@@ -255,10 +265,10 @@ in {
         enable = mkDefault true;
         package = mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
 
       services.nginx.enable = mkIf (cfg.nginx != null) true;

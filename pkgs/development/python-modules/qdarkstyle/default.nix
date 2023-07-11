@@ -19,7 +19,10 @@ buildPythonPackage rec {
   # No tests available
   doCheck = false;
 
-  propagatedBuildInputs = [ helpdev qtpy ];
+  propagatedBuildInputs = [
+    helpdev
+    qtpy
+  ];
 
   meta = with lib; {
     description = "A dark stylesheet for Python and Qt applications";

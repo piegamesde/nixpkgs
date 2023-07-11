@@ -25,10 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-px4Z4UhYk3VK6MBQZoIy/MaU8XuDYC51++v3v5+XXh4=";
   };
 
-  nativeBuildInputs = [ gfortran cython ];
+  nativeBuildInputs = [
+    gfortran
+    cython
+  ];
 
-  propagatedBuildInputs = [ numpy sundials scipy ]
-    ++ lib.optionals (!isPy3k) [ enum34 ];
+  propagatedBuildInputs = [
+    numpy
+    sundials
+    scipy
+  ] ++ lib.optionals (!isPy3k) [ enum34 ];
 
   doCheck = true;
   nativeCheckInputs = [ pytest ];
@@ -44,6 +50,10 @@ buildPythonPackage rec {
     homepage = "https://github.com/bmcage/odes";
     license = licenses.bsd3;
     maintainers = with maintainers; [ idontgetoutmuch ];
-    platforms = [ "aarch64-linux" "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

@@ -56,8 +56,10 @@
 
 let
   pythonEnv = python.withPackages (ps:
-    lib.optional withManual ps.sphinx
-    ++ lib.optionals pythonSupport (with ps; [ pybindgen pygccxml ]));
+    lib.optional withManual ps.sphinx ++ lib.optionals pythonSupport (with ps; [
+      pybindgen
+      pygccxml
+    ]));
 in stdenv.mkDerivation rec {
   pname = "ns-3";
   version = "35";
@@ -69,19 +71,27 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-3w+lCWWra9sndL8+vkGfH5plrDYYCMFi1PzwIVRku6I=";
   };
 
-  nativeBuildInputs = [ wafHook python ];
+  nativeBuildInputs = [
+    wafHook
+    python
+  ];
 
   outputs = [ "out" ] ++ lib.optional pythonSupport "py";
 
   # ncurses is a hidden dependency of waf when checking python
-  buildInputs = lib.optionals pythonSupport [ castxml ncurses ]
-    ++ lib.optionals enableDoxygen [ doxygen graphviz imagemagick ]
-    ++ lib.optionals withManual [
-      dia
-      tetex
-      ghostscript
-      texlive.combined.scheme-medium
-    ];
+  buildInputs = lib.optionals pythonSupport [
+    castxml
+    ncurses
+  ] ++ lib.optionals enableDoxygen [
+    doxygen
+    graphviz
+    imagemagick
+  ] ++ lib.optionals withManual [
+    dia
+    tetex
+    ghostscript
+    texlive.combined.scheme-medium
+  ];
 
   propagatedBuildInputs = [ pythonEnv ];
 
@@ -122,14 +132,20 @@ in stdenv.mkDerivation rec {
   '';
 
   # strictoverflow prevents clang from discovering pyembed when bindings
-  hardeningDisable = [ "fortify" "strictoverflow" ];
+  hardeningDisable = [
+    "fortify"
+    "strictoverflow"
+  ];
 
   meta = with lib; {
     homepage = "http://www.nsnam.org";
     license = licenses.gpl3;
     description = "A discrete time event network simulator";
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ teto rgrunbla ];
+    maintainers = with maintainers; [
+      teto
+      rgrunbla
+    ];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = (stdenv.isDarwin && stdenv.isAarch64)
       || (stdenv.isLinux && stdenv.isAarch64);

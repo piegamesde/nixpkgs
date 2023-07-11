@@ -22,12 +22,26 @@ stdenv.mkDerivation rec {
     hash = "sha256-N0Lfi0d4kjxirEbIjdeearYWvStkKMyV6lgeyNKXcVw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ ncurses zlib (imlib2.override { inherit x11Support; }) ]
-    ++ lib.optionals x11Support [ xorg.libX11 xorg.libXext ];
+  buildInputs = [
+    ncurses
+    zlib
+    (imlib2.override { inherit x11Support; })
+  ] ++ lib.optionals x11Support [
+    xorg.libX11
+    xorg.libXext
+  ];
 
-  outputs = [ "bin" "dev" "out" "man" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+  ];
 
   configureFlags = [ (if x11Support then "--enable-x11" else "--disable-x11") ];
 

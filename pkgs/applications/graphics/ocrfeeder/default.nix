@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sD0qWUndguJzTw0uy0FIqupFf4OX6dTFvcd+Mz+8Su0=";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook intltool itstool libxml2 ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    intltool
+    itstool
+    libxml2
+  ];
 
   buildInputs = [
     gtk3
@@ -37,8 +43,15 @@ stdenv.mkDerivation rec {
     goocanvas2
     gtkspell3
     isocodes
-    (python3.withPackages
-      (ps: with ps; [ pyenchant sane pillow reportlab odfpy pygobject3 ]))
+    (python3.withPackages (ps:
+      with ps; [
+        pyenchant
+        sane
+        pillow
+        reportlab
+        odfpy
+        pygobject3
+      ]))
   ];
   patches = [
     # Compiles, but doesn't launch without this, see:

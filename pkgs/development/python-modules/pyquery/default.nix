@@ -29,7 +29,10 @@ buildPythonPackage rec {
       --replace test_selector_html skip_test_selector_html
   '';
 
-  propagatedBuildInputs = [ cssselect lxml ];
+  propagatedBuildInputs = [
+    cssselect
+    lxml
+  ];
 
   pythonImportsCheck = [ "pyquery" ];
 

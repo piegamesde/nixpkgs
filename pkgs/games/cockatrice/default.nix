@@ -22,9 +22,18 @@ mkDerivation rec {
     sha256 = "0g1d7zq4lh4jf08mvvgp6m2r2gdvy4y1mhf46c0s8607h2l8vavh";
   };
 
-  buildInputs = [ qtbase qtmultimedia protobuf qttools qtwebsockets ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    protobuf
+    qttools
+    qtwebsockets
+  ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   meta = {
     homepage = "https://github.com/Cockatrice/Cockatrice";

@@ -24,7 +24,10 @@
 
 mkDerivation {
   pname = "kdeplasma-addons";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kconfig
     kconfigwidgets

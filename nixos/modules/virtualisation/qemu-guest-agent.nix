@@ -24,7 +24,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [{
+  config = mkIf cfg.enable (mkMerge [ {
 
     services.udev.extraRules = ''
       SUBSYSTEM=="virtio-ports", ATTR{name}=="org.qemu.guest_agent.0", TAG+="systemd" ENV{SYSTEMD_WANTS}="qemu-guest-agent.service"
@@ -41,5 +41,5 @@ in {
         RuntimeDirectoryMode = "0755";
       };
     };
-  }]);
+  } ]);
 }

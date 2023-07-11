@@ -74,16 +74,26 @@ in stdenv.mkDerivation rec {
       "sha512-2US+norvaNEXbWTEDbb6htVdDJ4wBH8hR8AoBqthz+msLLANTlshj/PFHMbtR87/4brE3Z1MwXYLeXTzDGwnNQ==";
   };
 
-  patches = [ ./urw-font-files.patch ./doc-no-ref.diff ];
+  patches = [
+    ./urw-font-files.patch
+    ./doc-no-ref.diff
+  ];
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
   enableParallelBuilding = true;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ pkg-config autoconf zlib ]
-    ++ lib.optional cupsSupport cups;
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    zlib
+  ] ++ lib.optional cupsSupport cups;
 
   buildInputs = [
     zlib
@@ -122,11 +132,13 @@ in stdenv.mkDerivation rec {
     autoconf
   '';
 
-  configureFlags = [ "--with-system-libtiff" "--without-tesseract" ]
-    ++ lib.optionals dynamicDrivers [
-      "--enable-dynamic"
-      "--disable-hidden-visibility"
-    ] ++ lib.optional x11Support [ "--with-x" ]
+  configureFlags = [
+    "--with-system-libtiff"
+    "--without-tesseract"
+  ] ++ lib.optionals dynamicDrivers [
+    "--enable-dynamic"
+    "--disable-hidden-visibility"
+  ] ++ lib.optional x11Support [ "--with-x" ]
     ++ lib.optionals cupsSupport [ "--enable-cups" ];
 
   # make check does nothing useful

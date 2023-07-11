@@ -33,7 +33,10 @@ buildPythonPackage rec {
     hash = "sha256-R/PB4PFQpVp6jnCasyPszgC294SKjLzq2oMkR2qV86s=";
   };
 
-  buildInputs = [ pyflakes pep8 ];
+  buildInputs = [
+    pyflakes
+    pep8
+  ];
 
   propagatedBuildInputs = [
     beautifulsoup4

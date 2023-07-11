@@ -22,10 +22,17 @@
 mkDerivation {
   pname = "akonadi-import-wizard";
   meta = {
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus fdl12Plus ];
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+      fdl12Plus
+    ];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     akonadi
     karchive
@@ -41,5 +48,8 @@ mkDerivation {
     qtkeychain
     libsecret
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

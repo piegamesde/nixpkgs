@@ -81,10 +81,10 @@ in {
   ###### implementation
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.automatic -> config.nix.enable;
       message = "nix.gc.automatic requires nix.enable";
-    }];
+    } ];
 
     systemd.services.nix-gc = lib.mkIf config.nix.enable {
       description = "Nix Garbage Collector";

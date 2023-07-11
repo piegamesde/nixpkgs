@@ -8,7 +8,10 @@ args@{
 
   description = "Encode and decode quoted-printable encoded strings.";
 
-  deps = [ args."flexi-streams" args."trivial-gray-streams" ];
+  deps = [
+    args."flexi-streams"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
     url =

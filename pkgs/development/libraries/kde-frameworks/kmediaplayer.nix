@@ -8,5 +8,8 @@
 mkDerivation {
   pname = "kmediaplayer";
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ kparts kxmlgui ];
+  buildInputs = [
+    kparts
+    kxmlgui
+  ];
 }

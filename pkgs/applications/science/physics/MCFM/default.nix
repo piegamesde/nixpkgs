@@ -22,10 +22,16 @@ stdenv.mkDerivation rec {
                 'target_link_libraries(mcfm ''${lhapdf_lib})'
   '';
 
-  nativeBuildInputs = [ cmake gfortran ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+  ];
   buildInputs = [ lhapdf ];
 
-  cmakeFlags = [ "-Duse_external_lhapdf=ON" "-Duse_internal_lhapdf=OFF" ];
+  cmakeFlags = [
+    "-Duse_external_lhapdf=ON"
+    "-Duse_internal_lhapdf=OFF"
+  ];
 
   meta = with lib; {
     description = "Monte Carlo for FeMtobarn processes";

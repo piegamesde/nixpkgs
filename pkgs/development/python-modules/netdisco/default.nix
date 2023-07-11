@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-TbtZBILzd8zEYeAXQnB8y+jx0tGyhXivkdybf+vNy9I=";
   };
 
-  propagatedBuildInputs = [ requests zeroconf ];
+  propagatedBuildInputs = [
+    requests
+    zeroconf
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -28,7 +31,10 @@ buildPythonPackage rec {
     "tests/test_xboxone.py"
   ];
 
-  pythonImportsCheck = [ "netdisco" "netdisco.discovery" ];
+  pythonImportsCheck = [
+    "netdisco"
+    "netdisco.discovery"
+  ];
 
   meta = with lib; {
     description =

@@ -28,5 +28,10 @@ gcc11Stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DARCH=intel64" ] ++ extraCmakeFlags;
 
-  nativeBuildInputs = [ cmake nasm openssl_1_1 python3 ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+    openssl_1_1
+    python3
+  ];
 }

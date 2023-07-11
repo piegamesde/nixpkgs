@@ -38,7 +38,11 @@ mkDerivation rec {
     ./no-submodules.patch
   ];
 
-  nativeBuildInputs = [ pkg-config qmake cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    cmake
+  ];
   buildInputs = [
     speex
     miniupnpc

@@ -200,7 +200,12 @@ let
       };
     };
 
-    groups = [ "default" "assets" "development" "test" ];
+    groups = [
+      "default"
+      "assets"
+      "development"
+      "test"
+    ];
   };
 
   assets = stdenv.mkDerivation {
@@ -222,7 +227,10 @@ let
       nodejs_16
     ];
 
-    outputs = [ "out" "javascripts" ];
+    outputs = [
+      "out"
+      "javascripts"
+    ];
 
     patches = [
       # Use the Ruby API version in the plugin gem path, to match the
@@ -319,7 +327,11 @@ let
     pname = "discourse";
     inherit version src;
 
-    buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
+    buildInputs = [
+      rubyEnv
+      rubyEnv.wrappedRuby
+      rubyEnv.bundler
+    ];
 
     patches = [
       # Load a separate NixOS site settings file

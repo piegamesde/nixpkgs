@@ -38,7 +38,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     zlib
     curl
@@ -53,7 +56,10 @@ stdenv.mkDerivation rec {
     zeromq
   ];
 
-  cmakeFlags = [ "-DENABLE_TESTS=OFF" "-DENABLE_BENCHMARKS=OFF" ];
+  cmakeFlags = [
+    "-DENABLE_TESTS=OFF"
+    "-DENABLE_BENCHMARKS=OFF"
+  ];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/libvalhalla.pc \

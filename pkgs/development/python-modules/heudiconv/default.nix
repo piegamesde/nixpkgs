@@ -31,10 +31,21 @@ buildPythonPackage rec {
     substituteInPlace heudiconv/info.py --replace "'pathlib'," ""
   '';
 
-  propagatedBuildInputs =
-    [ dcm2niix nibabel pydicom nipype dcmstack etelemetry filelock ];
+  propagatedBuildInputs = [
+    dcm2niix
+    nibabel
+    pydicom
+    nipype
+    dcmstack
+    etelemetry
+    filelock
+  ];
 
-  nativeCheckInputs = [ dcm2niix pytest mock ];
+  nativeCheckInputs = [
+    dcm2niix
+    pytest
+    mock
+  ];
 
   # test_monitor and test_dlad require 'inotify' and 'datalad' respectively,
   # and these aren't in Nixpkgs

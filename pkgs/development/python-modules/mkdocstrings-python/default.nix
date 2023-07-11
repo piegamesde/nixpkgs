@@ -26,9 +26,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [ griffe mkdocstrings ];
+  propagatedBuildInputs = [
+    griffe
+    mkdocstrings
+  ];
 
-  nativeCheckInputs = [ mkdocs-material pytestCheckHook ];
+  nativeCheckInputs = [
+    mkdocs-material
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

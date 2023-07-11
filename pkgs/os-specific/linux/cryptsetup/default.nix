@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   pname = "cryptsetup";
   version = "2.6.1";
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
   separateDebugInfo = true;
 
   src = fetchurl {
@@ -66,7 +71,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ]
     ++ lib.optionals rebuildMan [ asciidoctor ];
-  buildInputs = [ lvm2 json_c openssl libuuid popt ];
+  buildInputs = [
+    lvm2
+    json_c
+    openssl
+    libuuid
+    popt
+  ];
 
   # The test [7] header backup in compat-test fails with a mysterious
   # "out of memory" error, even though tons of memory is available.

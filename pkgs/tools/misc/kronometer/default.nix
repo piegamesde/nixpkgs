@@ -26,6 +26,13 @@ mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [ kconfig kcrash kinit ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  propagatedBuildInputs = [
+    kconfig
+    kcrash
+    kinit
+  ];
 }

@@ -60,8 +60,10 @@ rec {
       meta = {
         sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       } // meta;
-    } // (removeAttrs args ([ "pname" "version" ]
-      ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
+    } // (removeAttrs args ([
+      "pname"
+      "version"
+    ] ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
 
   wrapType2 = args@{
       name ? "${args.pname}-${args.version}",
@@ -75,9 +77,11 @@ rec {
 
       # passthru src to make nix-update work
       # hack to keep the origin position (unsafeGetAttrPos)
-      passthru =
-        lib.pipe args [ lib.attrNames (lib.remove "src") (removeAttrs args) ]
-        // args.passthru or { };
+      passthru = lib.pipe args [
+        lib.attrNames
+        (lib.remove "src")
+        (removeAttrs args)
+      ] // args.passthru or { };
     });
 
   defaultFhsEnvArgs = {

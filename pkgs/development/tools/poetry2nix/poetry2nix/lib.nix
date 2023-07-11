@@ -142,7 +142,10 @@ let
     let predictedURL = predictURLFromPypi { inherit pname file hash kind; };
     in (pkgs.stdenvNoCC.mkDerivation {
       name = file;
-      nativeBuildInputs = [ pkgs.buildPackages.curl pkgs.buildPackages.jq ];
+      nativeBuildInputs = [
+        pkgs.buildPackages.curl
+        pkgs.buildPackages.jq
+      ];
       isWheel = lib.strings.hasSuffix "whl" file;
       system = "builtin";
 
@@ -197,8 +200,10 @@ let
       missingBuildBackendError =
         "No build-system.build-backend section in pyproject.toml. "
         + "Add such a section as described in https://python-poetry.org/docs/pyproject/#poetry-and-pep-517";
-      requires = lib.attrByPath [ "build-system" "requires" ]
-        (throw missingBuildBackendError) pyProject;
+      requires = lib.attrByPath [
+        "build-system"
+        "requires"
+      ] (throw missingBuildBackendError) pyProject;
       requiredPkgs =
         builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
         requires;

@@ -25,7 +25,11 @@ buildDunePackage rec {
     tezos-plompiler
   ];
 
-  checkInputs = [ alcotest qcheck-alcotest bisect_ppx ];
+  checkInputs = [
+    alcotest
+    qcheck-alcotest
+    bisect_ppx
+  ];
 
   doCheck = false; # broken
 

@@ -53,9 +53,16 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/open-vm-tools";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
 
   buildInputs = [
     fuse3
@@ -128,7 +135,14 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/etc/vmware-tools/scripts/vmware/network" \
-      --prefix PATH ':' "${lib.makeBinPath [ iproute2 dbus systemd which ]}"
+      --prefix PATH ':' "${
+        lib.makeBinPath [
+          iproute2
+          dbus
+          systemd
+          which
+        ]
+      }"
     substituteInPlace "$out/lib/udev/rules.d/99-vmware-scsi-udev.rules" --replace "/bin/sh" "${bash}/bin/sh"
   '';
 
@@ -143,7 +157,11 @@ stdenv.mkDerivation rec {
       better management of, and seamless user interactions with, guests.
     '';
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ joamaki ];
   };
 }

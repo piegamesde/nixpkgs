@@ -42,7 +42,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-IqYfHMjKe7gVsM6HgihQMNkcXSYBOft1lamXOLa1Y8k=";
   };
 
-  patches = [ ./csd-backlight-helper-fix.patch ./use-sane-install-dir.patch ];
+  patches = [
+    ./csd-backlight-helper-fix.patch
+    ./use-sane-install-dir.patch
+  ];
 
   buildInputs = [
     cinnamon-desktop
@@ -71,9 +74,17 @@ stdenv.mkDerivation rec {
     libgudev
   ];
 
-  nativeBuildInputs = [ meson ninja wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wrapGAppsHook
+    pkg-config
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postPatch = ''
     sed "s|/usr/share/zoneinfo|${tzdata}/share/zoneinfo|g" -i plugins/datetime/system-timezone.h

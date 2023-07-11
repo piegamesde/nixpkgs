@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-x1p9dWrbDtDreXdBuzOA4Za+ZC40y4xdEU7MGb9uUec=";
   };
 
-  propagatedBuildInputs = [ pyparsing typing-extensions ];
+  propagatedBuildInputs = [
+    pyparsing
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -38,7 +41,10 @@ buildPythonPackage rec {
     "test_dimension_transform_interface"
   ];
 
-  pythonImportsCheck = [ "ezdxf" "ezdxf.addons" ];
+  pythonImportsCheck = [
+    "ezdxf"
+    "ezdxf.addons"
+  ];
 
   meta = with lib; {
     description =

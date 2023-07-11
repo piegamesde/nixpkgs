@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
   pname = "libwnck";
   version = "43.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -55,12 +59,21 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook_xsl
     docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ libX11 libstartup_notification pango cairo libXres ];
+  buildInputs = [
+    libX11
+    libstartup_notification
+    pango
+    cairo
+    libXres
+  ];
 
-  propagatedBuildInputs = [ glib gtk3 ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

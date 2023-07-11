@@ -60,7 +60,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hQwAHtPUcGSDKD7SmWa8H1f/T4Imu9061tIvenw0KWQ=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     flac
@@ -122,20 +125,26 @@ stdenv.mkDerivation rec {
     ln -sf $out/opt/yandex/browser-beta/yandex_browser $out/bin/yandex-browser-beta
   '';
 
-  runtimeDependencies = map lib.getLib [ libpulseaudio curl systemd ]
-    ++ buildInputs;
+  runtimeDependencies = map lib.getLib [
+    libpulseaudio
+    curl
+    systemd
+  ] ++ buildInputs;
 
   meta = with lib; {
     description = "Yandex Web Browser";
     homepage = "https://browser.yandex.ru/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ dan4ik605743 ionutnechita ];
+    maintainers = with maintainers; [
+      dan4ik605743
+      ionutnechita
+    ];
     platforms = [ "x86_64-linux" ];
 
-    knownVulnerabilities = [''
+    knownVulnerabilities = [ ''
       Trusts a Russian government issued CA certificate for some websites.
       See https://habr.com/en/company/yandex/blog/655185/ (Russian) for details.
-    ''];
+    '' ];
   };
 }

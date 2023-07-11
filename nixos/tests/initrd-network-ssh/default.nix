@@ -5,16 +5,20 @@ import ../make-test-python.nix ({
 
   {
     name = "initrd-network-ssh";
-    meta = with lib.maintainers; { maintainers = [ willibutz emily ]; };
+    meta = with lib.maintainers; {
+      maintainers = [
+        willibutz
+        emily
+      ];
+    };
 
     nodes = with lib; {
       server = {
           config,
           ...
         }: {
-          boot.kernelParams = [
-            "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
-          ];
+          boot.kernelParams =
+            [ "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none" ];
           boot.initrd.network = {
             enable = true;
             ssh = {

@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp pyroute2 ];
+  propagatedBuildInputs = [
+    aiohttp
+    pyroute2
+  ];
 
-  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

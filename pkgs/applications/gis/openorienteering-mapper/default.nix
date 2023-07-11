@@ -45,10 +45,23 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake doxygen ninja qttools ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    ninja
+    qttools
+  ];
 
-  buildInputs =
-    [ clipper cups gdal proj qtimageformats qtlocation qtsensors zlib ];
+  buildInputs = [
+    clipper
+    cups
+    gdal
+    proj
+    qtimageformats
+    qtlocation
+    qtsensors
+    zlib
+  ];
 
   cmakeFlags = [
     # Building the manual and bundling licenses fails
@@ -82,7 +95,10 @@ mkDerivation rec {
     changelog =
       "https://github.com/OpenOrienteering/mapper/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mpickering sikmir ];
+    maintainers = with maintainers; [
+      mpickering
+      sikmir
+    ];
     platforms = with platforms; unix;
     broken = stdenv.isDarwin;
   };

@@ -26,12 +26,12 @@ let
           snd,
         }:
         nameValuePair "eth${toString snd}" {
-          ipv4.addresses = [{
+          ipv4.addresses = [ {
             address = "192.168.${toString fst}.${
                 toString config.virtualisation.test.nodeNumber
               }";
             prefixLength = 24;
-          }];
+          } ];
         });
 
       networkConfig = {
@@ -106,11 +106,11 @@ let
           type = types.attrsOf (types.submodule {
             options.configuration = mkOption {
               type = types.submoduleWith {
-                modules = [{
+                modules = [ {
                   config.virtualisation.test.nodeName =
                     # assert regular.config.virtualisation.test.nodeName != "configuration";
                     regular.config.virtualisation.test.nodeName;
-                }];
+                } ];
               };
             };
           });
@@ -120,6 +120,11 @@ let
 
 in {
   config = {
-    extraBaseModules = { imports = [ networkModule nodeNumberModule ]; };
+    extraBaseModules = {
+      imports = [
+        networkModule
+        nodeNumberModule
+      ];
+    };
   };
 }

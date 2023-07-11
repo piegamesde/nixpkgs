@@ -28,7 +28,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ dulwich gitpython requests voluptuous ];
+  propagatedBuildInputs = [
+    dulwich
+    gitpython
+    requests
+    voluptuous
+  ];
 
   pythonImportsCheck = [ "dvc_studio_client" ];
 

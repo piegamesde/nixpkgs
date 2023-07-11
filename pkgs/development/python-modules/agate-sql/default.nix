@@ -21,9 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-MLZCoypbZxFhq++ejsNjUvLniiTOhJBU7axpRti53cY=";
   };
 
-  propagatedBuildInputs = [ agate sqlalchemy ];
+  propagatedBuildInputs = [
+    agate
+    sqlalchemy
+  ];
 
-  nativeCheckInputs = [ crate geojson pytestCheckHook ];
+  nativeCheckInputs = [
+    crate
+    geojson
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "agatesql" ];
 

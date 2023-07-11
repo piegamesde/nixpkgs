@@ -19,8 +19,16 @@ buildPythonApplication rec {
 
   sourceRoot = "source/programmer";
 
-  propagatedBuildInputs =
-    [ pyserial jsonmerge intelhex tqdm six packaging setuptools pyusb ];
+  propagatedBuildInputs = [
+    pyserial
+    jsonmerge
+    intelhex
+    tqdm
+    six
+    packaging
+    setuptools
+    pyusb
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

@@ -9,7 +9,11 @@
 
 let
 
-  qt5Deps = pkgs: with pkgs.qt5; [ qtbase qtmultimedia ];
+  qt5Deps = pkgs:
+    with pkgs.qt5; [
+      qtbase
+      qtmultimedia
+    ];
   gnomeDeps = pkgs:
     with pkgs; [
       gnome.zenity

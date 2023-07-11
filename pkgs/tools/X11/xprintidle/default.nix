@@ -19,9 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bafDUZoSFsJ3g6mtLCRechGizfrWg2qW2vnlfIzj7mQ=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ xorg.libXScrnSaver xorg.libX11 xorg.libXext ];
+  buildInputs = [
+    xorg.libXScrnSaver
+    xorg.libX11
+    xorg.libXext
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/g0hl1n/xprintidle";

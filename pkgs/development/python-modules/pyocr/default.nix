@@ -25,12 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-gIn50H9liQcTb7SzoWnBwm5LTvkr+R+5OPvITls1B/w=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      inherit cuneiform tesseract;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    inherit cuneiform tesseract;
+  }) ];
 
   # see the logic in setup.py
   ENABLE_SETUPTOOLS_SCM = "0";

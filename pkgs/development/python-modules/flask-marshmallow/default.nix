@@ -22,7 +22,10 @@ buildPythonPackage rec {
     sha256 = "bd01a6372cbe50e36f205cfff0fc5dab0b7b662c4c8b2c4fc06a3151b2950950";
   };
 
-  propagatedBuildInputs = [ flask marshmallow ];
+  propagatedBuildInputs = [
+    flask
+    marshmallow
+  ];
   buildInputs = [ six ];
 
   doCheck = false;

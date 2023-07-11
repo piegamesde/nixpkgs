@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-/PPqJ/ha8GRQpY/uQOLIF0v90p9tZKrHTCMkusiIuEQ=";
   };
 
-  propagatedBuildInputs = [ formencode paste pastedeploy pydispatcher ];
+  propagatedBuildInputs = [
+    formencode
+    paste
+    pastedeploy
+    pydispatcher
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

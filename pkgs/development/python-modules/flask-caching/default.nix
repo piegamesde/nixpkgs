@@ -28,10 +28,17 @@ buildPythonPackage rec {
       --replace "cachelib >= 0.9.0, < 0.10.0" "cachelib"
   '';
 
-  propagatedBuildInputs = [ cachelib flask ];
+  propagatedBuildInputs = [
+    cachelib
+    flask
+  ];
 
-  nativeCheckInputs =
-    [ asgiref pytest-asyncio pytest-xprocess pytestCheckHook ];
+  nativeCheckInputs = [
+    asgiref
+    pytest-asyncio
+    pytest-xprocess
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # backend_cache relies on pytest-cache, which is a stale package from 2013

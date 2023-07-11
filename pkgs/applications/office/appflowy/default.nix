@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    copyDesktopItems
+  ];
 
-  buildInputs = [ gtk3 openssl_1_1 keybinder3 ];
+  buildInputs = [
+    gtk3
+    openssl_1_1
+    keybinder3
+  ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -51,15 +59,13 @@ stdenv.mkDerivation rec {
       --prefix PATH : "${lib.makeBinPath [ xdg-user-dirs ]}"
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "AppFlowy";
-      comment = meta.description;
-      exec = "appflowy";
-      categories = [ "Office" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "AppFlowy";
+    comment = meta.description;
+    exec = "appflowy";
+    categories = [ "Office" ];
+  }) ];
 
   meta = with lib; {
     description = "An open-source alternative to Notion";

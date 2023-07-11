@@ -1,6 +1,9 @@
 {
   hue-cli = {
-    dependencies = [ "hue-lib" "json" ];
+    dependencies = [
+      "hue-lib"
+      "json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

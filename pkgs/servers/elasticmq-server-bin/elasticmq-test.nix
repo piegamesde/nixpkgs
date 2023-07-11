@@ -19,7 +19,10 @@ runCommand "${elasticmq-server.name}-tests" (let
     queue = client.get_queue_by_name(QueueName="foobar")
   '';
 in {
-  buildInputs = with python3Packages; [ python boto3 ];
+  buildInputs = with python3Packages; [
+    python
+    boto3
+  ];
   emqConfig = writeText "emq-test.conf" ''
     generate-node-address = true
 

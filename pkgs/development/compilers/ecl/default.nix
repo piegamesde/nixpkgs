@@ -28,7 +28,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sVp13PhLj2LmhyDMqxOT+WEcB4/NOv3WOaEIbK0BCQA=";
   };
 
-  nativeBuildInputs = [ libtool autoconf automake texinfo makeWrapper ];
+  nativeBuildInputs = [
+    libtool
+    autoconf
+    automake
+    texinfo
+    makeWrapper
+  ];
   propagatedBuildInputs = [
     libffi
     gmp

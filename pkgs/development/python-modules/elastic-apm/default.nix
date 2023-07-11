@@ -43,8 +43,16 @@ buildPythonPackage rec {
     hash = "sha256-s07LZeT2vTtBU/48heGFrW74D1iqkxRaLh+LTD35mu8=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp blinker certifi sanic starlette tornado urllib3 wrapt ];
+  propagatedBuildInputs = [
+    aiohttp
+    blinker
+    certifi
+    sanic
+    starlette
+    tornado
+    urllib3
+    wrapt
+  ];
 
   nativeCheckInputs = [
     ecs-logging

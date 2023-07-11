@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "0msb09d2cnm8rlpg8bsc1lhjddvp3kf3i9dsj1qs4qgsdlzhxkyx";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ zlib perl ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    zlib
+    perl
+  ];
 
   meta = with lib; {
     description =

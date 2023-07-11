@@ -25,8 +25,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ cairo libX11 libjack2 liblo libsigcxx zita-resampler fftwFloat ];
+  buildInputs = [
+    cairo
+    libX11
+    libjack2
+    liblo
+    libsigcxx
+    zita-resampler
+    fftwFloat
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

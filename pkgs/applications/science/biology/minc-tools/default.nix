@@ -25,9 +25,22 @@ stdenv.mkDerivation rec {
     sha256 = "0zcv2sdj3k6k0xjqdq8j5bxq8smm48dzai90vwsmz8znmbbm6kvw";
   };
 
-  nativeBuildInputs = [ cmake flex bison makeWrapper ];
-  buildInputs = [ libminc libjpeg nifticlib zlib ];
-  propagatedBuildInputs = [ perl TextFormat ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+    makeWrapper
+  ];
+  buildInputs = [
+    libminc
+    libjpeg
+    nifticlib
+    zlib
+  ];
+  propagatedBuildInputs = [
+    perl
+    TextFormat
+  ];
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"

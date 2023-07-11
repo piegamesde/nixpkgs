@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake doxygen graphviz ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    graphviz
+  ];
 
   cmakeFlags = [ "-DFTXUI_BUILD_EXAMPLES=OFF" ];
 

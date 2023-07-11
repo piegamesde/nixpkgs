@@ -26,9 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-Eid9aWlLNnqr3WAnsLe+Pz9gsugCsdDKi0+nFNF02CI=";
   };
 
-  buildInputs = [ hiredis redis ];
+  buildInputs = [
+    hiredis
+    redis
+  ];
 
-  propagatedBuildInputs = [ aioredis asgiref channels msgpack ];
+  propagatedBuildInputs = [
+    aioredis
+    asgiref
+    channels
+    msgpack
+  ];
 
   passthru.optional-dependencies = { cryptography = [ cryptography ]; };
 

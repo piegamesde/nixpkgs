@@ -62,7 +62,13 @@ in {
         '';
       };
       params = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
         example = {
           audio = "alsa";
           rtcuseutc = "on";
@@ -75,8 +81,19 @@ in {
         '';
       };
       exportParams = mkOption {
-        type = with types; listOf (oneOf [ str int bool (listOf str) ]);
-        example = [ "--vsys" "0" "--vendor" "ACME Inc." ];
+        type = with types;
+          listOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
+        example = [
+          "--vsys"
+          "0"
+          "--vendor"
+          "ACME Inc."
+        ];
         default = [ ];
         description = lib.mdDoc ''
           Parameters passed to the Virtualbox export command.
@@ -131,7 +148,13 @@ in {
         '';
       };
       storageController = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
         example = {
           name = "SCSI";
           add = "scsi";
@@ -259,10 +282,10 @@ in {
     boot.growPartition = true;
     boot.loader.grub.device = "/dev/sda";
 
-    swapDevices = [{
+    swapDevices = [ {
       device = "/var/swap";
       size = 2048;
-    }];
+    } ];
 
     virtualisation.virtualbox.guest.enable = true;
 

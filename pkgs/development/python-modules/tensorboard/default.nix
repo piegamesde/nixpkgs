@@ -38,7 +38,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [ "google-auth-oauthlib" "protobuf" ];
+  pythonRelaxDeps = [
+    "google-auth-oauthlib"
+    "protobuf"
+  ];
 
   propagatedBuildInputs = [
     absl-py

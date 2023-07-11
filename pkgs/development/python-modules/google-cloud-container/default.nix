@@ -24,10 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-iFwf+qj/xqebEA+CWC9SDi3iEsfPiLcFLwUmnoxaxjg=";
   };
 
-  propagatedBuildInputs = [ google-api-core libcst proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    libcst
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Test requires credentials

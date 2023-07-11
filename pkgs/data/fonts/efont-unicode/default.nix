@@ -53,7 +53,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  outputs = [ "out" "bdf" ];
+  outputs = [
+    "out"
+    "bdf"
+  ];
 
   meta = with lib; {
     description = "The /efont/ Unicode bitmap font";

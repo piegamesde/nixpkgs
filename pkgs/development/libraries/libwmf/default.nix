@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   pname = "libwmf";
   version = "0.2.13";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "caolanm";
@@ -26,7 +29,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ zlib imagemagick libpng glib freetype libjpeg libxml2 ];
+  buildInputs = [
+    zlib
+    imagemagick
+    libpng
+    glib
+    freetype
+    libjpeg
+    libxml2
+  ];
   enableParallelBuilding = true;
 
   meta = with lib; {

@@ -32,11 +32,22 @@ stdenv.mkDerivation rec {
       --replace /usr/lib/qtspim/qtspim.png qtspim
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook qttools qmake bison flex ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    qttools
+    qmake
+    bison
+    flex
+  ];
   buildInputs = [ qtbase ];
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
 
-  qmakeFlags = [ "QtSpim.pro" "-spec" "linux-g++" "CONFIG+=release" ];
+  qmakeFlags = [
+    "QtSpim.pro"
+    "-spec"
+    "linux-g++"
+    "CONFIG+=release"
+  ];
 
   installPhase = ''
     runHook preInstall

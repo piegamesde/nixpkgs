@@ -144,10 +144,14 @@ let
       mkSetuidProgram opts) (lib.attrValues wrappers);
 in {
   imports = [
-    (lib.mkRemovedOptionModule [ "security" "setuidOwners" ]
-      "Use security.wrappers instead")
-    (lib.mkRemovedOptionModule [ "security" "setuidPrograms" ]
-      "Use security.wrappers instead")
+    (lib.mkRemovedOptionModule [
+      "security"
+      "setuidOwners"
+    ] "Use security.wrappers instead")
+    (lib.mkRemovedOptionModule [
+      "security"
+      "setuidPrograms"
+    ] "Use security.wrappers instead")
   ];
 
   ###### interface
@@ -240,7 +244,11 @@ in {
 
     boot.specialFileSystems.${parentWrapperDir} = {
       fsType = "tmpfs";
-      options = [ "nodev" "mode=755" "size=${config.security.wrapperDirSize}" ];
+      options = [
+        "nodev"
+        "mode=755"
+        "size=${config.security.wrapperDirSize}"
+      ];
     };
 
     # Make sure our wrapperDir exports to the PATH env variable when
@@ -252,37 +260,40 @@ in {
 
     security.apparmor.includes."nixos/security.wrappers" = ''
       include "${
-        pkgs.apparmorRulesFromClosure { name = "security.wrappers"; }
-        [ securityWrapper ]
+        pkgs.apparmorRulesFromClosure {
+          name = "security.wrappers";
+        } [ securityWrapper ]
       }"
     '';
 
     ###### wrappers activation script
-    system.activationScripts.wrappers =
-      lib.stringAfter [ "specialfs" "users" ] ''
-        chmod 755 "${parentWrapperDir}"
+    system.activationScripts.wrappers = lib.stringAfter [
+      "specialfs"
+      "users"
+    ] ''
+      chmod 755 "${parentWrapperDir}"
 
-        # We want to place the tmpdirs for the wrappers to the parent dir.
-        wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
-        chmod a+rx "$wrapperDir"
+      # We want to place the tmpdirs for the wrappers to the parent dir.
+      wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
+      chmod a+rx "$wrapperDir"
 
-        ${lib.concatStringsSep "\n" mkWrappedPrograms}
+      ${lib.concatStringsSep "\n" mkWrappedPrograms}
 
-        if [ -L ${wrapperDir} ]; then
-          # Atomically replace the symlink
-          # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
-          old=$(readlink -f ${wrapperDir})
-          if [ -e "${wrapperDir}-tmp" ]; then
-            rm --force --recursive "${wrapperDir}-tmp"
-          fi
-          ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
-          mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
-          rm --force --recursive "$old"
-        else
-          # For initial setup
-          ln --symbolic "$wrapperDir" "${wrapperDir}"
+      if [ -L ${wrapperDir} ]; then
+        # Atomically replace the symlink
+        # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
+        old=$(readlink -f ${wrapperDir})
+        if [ -e "${wrapperDir}-tmp" ]; then
+          rm --force --recursive "${wrapperDir}-tmp"
         fi
-      '';
+        ln --symbolic --force --no-dereference "$wrapperDir" "${wrapperDir}-tmp"
+        mv --no-target-directory "${wrapperDir}-tmp" "${wrapperDir}"
+        rm --force --recursive "$old"
+      else
+        # For initial setup
+        ln --symbolic "$wrapperDir" "${wrapperDir}"
+      fi
+    '';
 
     ###### wrappers consistency checks
     system.extraDependencies = lib.singleton

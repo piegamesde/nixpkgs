@@ -47,7 +47,7 @@ let
       };
       stats = {
         enabled = true;
-        transports = [{ type = "muc"; }];
+        transports = [ { type = "muc"; } ];
       };
       apis.xmpp-client.configs = flip mapAttrs cfg.xmppConfigs
         (name: xmppConfig: {
@@ -276,7 +276,11 @@ in {
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         RestrictRealtime = true;
@@ -301,11 +305,11 @@ in {
     networking.firewall.allowedUDPPorts =
       mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.udp.port ];
 
-    assertions = [{
+    assertions = [ {
       message = "publicAddress must be set if and only if localAddress is set";
       assertion = (cfg.nat.publicAddress == null)
         == (cfg.nat.localAddress == null);
-    }];
+    } ];
   };
 
   meta.maintainers = lib.teams.jitsi.members;

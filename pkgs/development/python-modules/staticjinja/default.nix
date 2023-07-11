@@ -33,9 +33,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ jinja2 docopt-ng easywatch ];
+  propagatedBuildInputs = [
+    jinja2
+    docopt-ng
+    easywatch
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-check markdown tomlkit ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-check
+    markdown
+    tomlkit
+  ];
 
   # The tests need to find and call the installed staticjinja executable
   preCheck = ''

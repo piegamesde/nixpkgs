@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UTDYLe3QezPCyG9CIp+O+KX716JDTL9mn+OEjjyTwlg=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-  buildInputs = [ libdrm json_c pciutils ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    libdrm
+    json_c
+    pciutils
+  ];
 
   meta = with lib; {
     description = "Small utility to dump info about DRM devices";

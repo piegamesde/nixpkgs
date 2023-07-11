@@ -27,12 +27,24 @@ buildDunePackage rec {
     sha256 = "sha256-mINgeBO7DSsWd84gYjQNUQFqbh8KBZ+S2bYI/iVWMAc=";
   };
 
-  buildInputs = [ jsonm ppx_sexp_conv ];
+  buildInputs = [
+    jsonm
+    ppx_sexp_conv
+  ];
 
-  propagatedBuildInputs = [ base64 re stringext uri-sexp ];
+  propagatedBuildInputs = [
+    base64
+    re
+    stringext
+    uri-sexp
+  ];
 
   doCheck = true;
-  checkInputs = [ fmt alcotest crowbar ];
+  checkInputs = [
+    fmt
+    alcotest
+    crowbar
+  ];
 
   meta = {
     description = "HTTP(S) library for Lwt, Async and Mirage";

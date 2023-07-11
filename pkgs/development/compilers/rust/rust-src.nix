@@ -20,6 +20,9 @@ runCommand "rust-src" { } ''
       "rustllvm"
       "test"
       "vendor"
-    ] ++ lib.optionals minimalContent [ "tools" "stdarch" ])
+    ] ++ lib.optionals minimalContent [
+      "tools"
+      "stdarch"
+    ])
   }}
 ''

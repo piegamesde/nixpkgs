@@ -13,7 +13,10 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-lzZupjlS0kbNvsn18serOoMfu0sRb0nRwpowvOPvt/g=";
   };
 
-  propagatedBuildInputs = [ mopidy pythonPackages.pydbus ];
+  propagatedBuildInputs = [
+    mopidy
+    pythonPackages.pydbus
+  ];
 
   nativeBuildInputs = [ pythonPackages.pytestCheckHook ];
 

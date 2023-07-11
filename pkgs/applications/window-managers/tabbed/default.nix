@@ -25,7 +25,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp ${builtins.toFile "config.h" customConfig} ./config.h
   '';
 
-  buildInputs = [ xorgproto libX11 libXft ];
+  buildInputs = [
+    xorgproto
+    libX11
+    libXft
+  ];
 
   makeFlags = [ "CC:=$(CC)" ];
 

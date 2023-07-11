@@ -21,7 +21,12 @@ mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qtbase qttools file solid ];
+  buildInputs = [
+    qtbase
+    qttools
+    file
+    solid
+  ];
 
   cmakeFlags = [ "-DQT5BUILD=true" ];
 

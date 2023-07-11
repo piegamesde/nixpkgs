@@ -24,7 +24,12 @@ stdenv.mkDerivation rec {
   makeFlags = [ "metapixel" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpng libjpeg giflib perl ];
+  buildInputs = [
+    libpng
+    libjpeg
+    giflib
+    perl
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

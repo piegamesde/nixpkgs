@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-vtLt7JUdLF0gBWgMzP65UAR6A9BnTech5n0alFErcSQ=";
   };
 
-  propagatedBuildInputs = [ authres dnspython dkimpy publicsuffix2 ];
+  propagatedBuildInputs = [
+    authres
+    dnspython
+    dkimpy
+    publicsuffix2
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

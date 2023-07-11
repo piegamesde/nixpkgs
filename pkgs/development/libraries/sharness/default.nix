@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
   };
 
   # Used for testing
-  nativeBuildInputs = [ perl perlPackages.IOTty ];
+  nativeBuildInputs = [
+    perl
+    perlPackages.IOTty
+  ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 

@@ -36,7 +36,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-q5ZfX0bybyvJ0NjrJQ2/+o0n7dBLGxdIDevls3xOQMg=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ which ];
 
@@ -54,8 +57,11 @@ in stdenv.mkDerivation rec {
     xz
     zlib
     zstd
-  ] ++ lib.optionals stdenv.isLinux [ attr 0.0 fsprogs ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
+  ] ++ lib.optionals stdenv.isLinux [
+    attr
+    0.0
+    fsprogs
+  ] ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
 
   configureFlags = [
     "--disable-birthtime"

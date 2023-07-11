@@ -48,11 +48,28 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl libassuan libgcrypt ] ++ lib.optional doCheck
-    ([ gnupg opensshUnsafe which socat cpio hexdump procps lockfileProgs ]
-      ++ (with perlPackages; [ CryptOpenSSLRSA CryptOpenSSLBignum ]));
+  buildInputs = [
+    perl
+    libassuan
+    libgcrypt
+  ] ++ lib.optional doCheck ([
+    gnupg
+    opensshUnsafe
+    which
+    socat
+    cpio
+    hexdump
+    procps
+    lockfileProgs
+  ] ++ (with perlPackages; [
+    CryptOpenSSLRSA
+    CryptOpenSSLBignum
+  ]));
 
-  makeFlags = [ "PREFIX=/" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "PREFIX=/"
+    "DESTDIR=$(out)"
+  ];
 
   # The tests should be run (and succeed) when making changes to this package
   # but they aren't enabled by default because they "drain" entropy (GnuPG
@@ -86,7 +103,10 @@ in stdenv.mkDerivation rec {
   in wrapPrograms [ gnupg ] [
     "monkeysphere-authentication"
     "monkeysphere-host"
-  ] + wrapPrograms [ gnupg lockfileProgs ] [ "monkeysphere" ] + ''
+  ] + wrapPrograms [
+    gnupg
+    lockfileProgs
+  ] [ "monkeysphere" ] + ''
     # These 4 programs depend on the program name ($0):
     for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
       rm $out/bin/$program

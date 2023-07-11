@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   pname = "libgovirt";
   version = "0.3.9";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchzip {
     url = "mirror://gnome/sources/libgovirt/${
@@ -35,9 +38,17 @@ stdenv.mkDerivation rec {
       "-Wno-cast-align"
     ]);
 
-  nativeBuildInputs = [ meson pkg-config gobject-introspection ninja ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    gobject-introspection
+    ninja
+  ];
 
-  propagatedBuildInputs = [ glib librest_1_0 ];
+  propagatedBuildInputs = [
+    glib
+    librest_1_0
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -49,7 +60,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/libgovirt";
     description = "GObject wrapper for the oVirt REST API";
-    maintainers = with maintainers; [ amarshall atemu ];
+    maintainers = with maintainers; [
+      amarshall
+      atemu
+    ];
     platforms = with platforms; linux ++ darwin;
     license = licenses.lgpl21Plus;
   };

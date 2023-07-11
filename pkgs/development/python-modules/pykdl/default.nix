@@ -21,7 +21,10 @@ toPythonModule (stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ orocos-kdl eigen ];
+  buildInputs = [
+    orocos-kdl
+    eigen
+  ];
   propagatedBuildInputs = [ python ];
 
   meta = with lib; {

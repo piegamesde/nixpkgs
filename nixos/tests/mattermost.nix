@@ -14,7 +14,11 @@ import ./make-test-python.nix ({
         config,
         ...
       }: {
-        environment.systemPackages = [ pkgs.mattermost pkgs.curl pkgs.jq ];
+        environment.systemPackages = [
+          pkgs.mattermost
+          pkgs.curl
+          pkgs.jq
+        ];
         networking.hosts = { "127.0.0.1" = [ host ]; };
         services.mattermost = lib.recursiveUpdate {
           enable = true;

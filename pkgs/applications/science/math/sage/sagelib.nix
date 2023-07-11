@@ -99,7 +99,12 @@ buildPythonPackage rec {
     m4
   ];
 
-  buildInputs = [ gd readline iml libpng ];
+  buildInputs = [
+    gd
+    readline
+    iml
+    libpng
+  ];
 
   propagatedBuildInputs = [
     cypari2

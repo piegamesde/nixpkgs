@@ -25,19 +25,29 @@ stdenv.mkDerivation rec {
     sha256 = "169p0yqh2gxvhdilvjc2ld8aap7lv2nhkhkg4i1hlmgc6pxpkjgh";
   };
 
-  nativeBuildInputs = [ pkg-config copyDesktopItems ];
-  buildInputs = [ SDL lua5_1 SDL_mixer SDL_image SDL_ttf ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "fish-fillets-ng";
-      exec = "fillets";
-      icon = "fish-fillets-ng";
-      desktopName = "Fish Fillets";
-      comment = "Puzzle game about witty fish saving the world sokoban-style";
-      categories = [ "Game" "LogicGame" ];
-    })
+  nativeBuildInputs = [
+    pkg-config
+    copyDesktopItems
   ];
+  buildInputs = [
+    SDL
+    lua5_1
+    SDL_mixer
+    SDL_image
+    SDL_ttf
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "fish-fillets-ng";
+    exec = "fillets";
+    icon = "fish-fillets-ng";
+    desktopName = "Fish Fillets";
+    comment = "Puzzle game about witty fish saving the world sokoban-style";
+    categories = [
+      "Game"
+      "LogicGame"
+    ];
+  }) ];
 
   postInstall = ''
     mkdir -p $out/share/games/fillets-ng

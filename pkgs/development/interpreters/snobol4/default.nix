@@ -28,10 +28,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-kSRNZ9TinSqtzlZVvUOC/6tExiSn6krWQRQn86vxdTU=";
   };
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
   # gzip used by Makefile to compress man pages
-  nativeBuildInputs = [ gnum4 gzip ];
+  nativeBuildInputs = [
+    gnum4
+    gzip
+  ];
   # enable all features (undocumented, based on manual review of configure script)
   buildInputs = [
     bzip2

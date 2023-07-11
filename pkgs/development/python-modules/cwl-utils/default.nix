@@ -29,10 +29,21 @@ buildPythonPackage rec {
     hash = "sha256-g8HnY5/UDmujijXStNRwKBGMZ3soUHKPIlpJdIQaAlE=";
   };
 
-  propagatedBuildInputs =
-    [ cachecontrol cwl-upgrader packaging rdflib requests schema-salad ];
+  propagatedBuildInputs = [
+    cachecontrol
+    cwl-upgrader
+    packaging
+    rdflib
+    requests
+    schema-salad
+  ];
 
-  nativeCheckInputs = [ cwlformat pytest-mock pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    cwlformat
+    pytest-mock
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "cwl_utils" ];
 

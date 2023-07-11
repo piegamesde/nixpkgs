@@ -86,8 +86,12 @@ in buildPythonApplication rec {
 
   INCLUDE_DIRS = "${pam}/include";
 
-  nativeBuildInputs = [ gobject-introspection pkg-config wrapGAppsHook pandoc ]
-    ++ lib.optional withNvenc cudatoolkit;
+  nativeBuildInputs = [
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook
+    pandoc
+  ] ++ lib.optional withNvenc cudatoolkit;
 
   buildInputs = with xorg;
     [
@@ -149,7 +153,10 @@ in buildPythonApplication rec {
       pyxdg
       rencode
       invoke
-    ] ++ lib.optionals withNvenc [ pycuda pynvml ]);
+    ] ++ lib.optionals withNvenc [
+      pycuda
+      pynvml
+    ]);
 
   # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
@@ -175,7 +182,14 @@ in buildPythonApplication rec {
       --set XORG_CONFIG_PREFIX ""
       --prefix LD_LIBRARY_PATH : ${libfakeXinerama}/lib
       --prefix PATH : ${
-        lib.makeBinPath [ getopt xorgserver xauth which util-linux pulseaudio ]
+        lib.makeBinPath [
+          getopt
+          xorgserver
+          xauth
+          which
+          util-linux
+          pulseaudio
+        ]
       }
   '' + lib.optionalString withNvenc ''
     --prefix LD_LIBRARY_PATH : ${nvidia_x11}/lib
@@ -209,6 +223,10 @@ in buildPythonApplication rec {
     description = "Persistent remote applications for X";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ offline numinit mvnetbiz ];
+    maintainers = with maintainers; [
+      offline
+      numinit
+      mvnetbiz
+    ];
   };
 }

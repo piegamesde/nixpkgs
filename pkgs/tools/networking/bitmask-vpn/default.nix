@@ -105,8 +105,14 @@ in buildGoModule rec {
     wrapQtAppsHook
   ] ++ lib.optional (!stdenv.isLinux) qtinstaller;
 
-  buildInputs = [ qtbase qmltermwidget qtdeclarative ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
+  buildInputs = [
+    qtbase
+    qmltermwidget
+    qtdeclarative
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    Security
+  ];
   # FIXME: building on Darwin currently fails
   # due to missing debug symbols for Qt,
   # this should be fixable once darwin.apple_sdk >= 10.13

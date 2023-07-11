@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Bm+SSu9sHF6pRvWI428wMCH138CTlEc48CXY7bxv/2A=";
   };
 
-  buildInputs = [ ncurses openssl flex bison ];
+  buildInputs = [
+    ncurses
+    openssl
+    flex
+    bison
+  ];
 
   patches = [
     # Remove UTMPX support on Makefrag file

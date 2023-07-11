@@ -134,7 +134,14 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-IN+EyFGq8vUABRCSf20xsy8mmRbTUUZcNm3Ar8ncFQw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison dos2unix file flex pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    dos2unix
+    file
+    flex
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib
@@ -152,8 +159,11 @@ in stdenv.mkDerivation rec {
     xa
   ];
   dontDisableStatic = true;
-  configureFlags =
-    [ "--enable-fullscreen" "--enable-gnomeui" "--disable-pdf-docs" ];
+  configureFlags = [
+    "--enable-fullscreen"
+    "--enable-gnomeui"
+    "--disable-pdf-docs"
+  ];
 
   preBuild = ''
     for i in src/resid src/resid-dtv

@@ -35,8 +35,15 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs =
-    [ curl icu70 openssl_1_1 libkrb5 lttng-ust stdenv.cc.cc.lib zlib ];
+  buildInputs = [
+    curl
+    icu70
+    openssl_1_1
+    libkrb5
+    lttng-ust
+    stdenv.cc.cc.lib
+    zlib
+  ];
 
   dontUnpack = true;
   dontBuild = true;

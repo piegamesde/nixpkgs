@@ -23,15 +23,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cyV3tgmZz5AExxxdGJ12r+PPXn7v2AEhxb9icBxolS8=";
   };
 
-  CXXDEFS = [ "-DHAVE_RAND" "-DHAVE_CSTRING" "-DHAVE_CSTDIO" ];
+  CXXDEFS = [
+    "-DHAVE_RAND"
+    "-DHAVE_CSTRING"
+    "-DHAVE_CSTDIO"
+  ];
 
   configureFlags = [
     "--with-asl-cflags=-I${libamplsolver}/include"
     "--with-asl-lflags=-lamplsolver"
   ];
 
-  nativeBuildInputs = [ pkg-config gfortran ];
-  buildInputs = [ blas lapack ] ++ lib.optionals enableAMPL [ libamplsolver ];
+  nativeBuildInputs = [
+    pkg-config
+    gfortran
+  ];
+  buildInputs = [
+    blas
+    lapack
+  ] ++ lib.optionals enableAMPL [ libamplsolver ];
 
   enableParallelBuilding = true;
 

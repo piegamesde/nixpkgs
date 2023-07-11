@@ -8,6 +8,9 @@ faust.wrapWithBuildEnv {
 
   baseName = "faust2alqt";
 
-  propagatedBuildInputs = [ alsa-lib qt4 ];
+  propagatedBuildInputs = [
+    alsa-lib
+    qt4
+  ];
 
 }

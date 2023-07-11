@@ -8,7 +8,10 @@
 
 appleDerivation {
   # these are included in the pure libc
-  buildInputs = lib.optionals stdenv.cc.nativeLibc [ libdispatch Libsystem ];
+  buildInputs = lib.optionals stdenv.cc.nativeLibc [
+    libdispatch
+    Libsystem
+  ];
 
   buildPhase = ''
     cp ${./auto_dtrace.h} ./auto_dtrace.h

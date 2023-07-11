@@ -14,7 +14,12 @@ let
 
   settingsFormat = let
     listSep = " ";
-    allowedTypes = with types; [ bool int float str ];
+    allowedTypes = with types; [
+      bool
+      int
+      float
+      str
+    ];
     valueToString = val:
       if isList val then
         concatStringsSep listSep (map (x: valueToString x) val)
@@ -61,7 +66,10 @@ let
   systemdService = name: extraConfig: configFile: {
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
-    after = [ "network.target" "network-online.target" ];
+    after = [
+      "network.target"
+      "network-online.target"
+    ];
 
     serviceConfig = {
       Type = "forking";
@@ -108,7 +116,10 @@ in {
           type = with types; listOf str;
           default = null;
           description = lib.mdDoc "Paths to export (see mfsexports.cfg).";
-          example = [ "* / rw,alldirs,admin,maproot=0:0" "* . rw" ];
+          example = [
+            "* / rw,alldirs,admin,maproot=0:0"
+            "* . rw"
+          ];
         };
 
         openFirewall = mkOption {
@@ -193,10 +204,8 @@ in {
   config = mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable
     || cfg.chunkserver.enable) {
 
-      warnings = [
-        (mkIf (!cfg.runAsUser)
-          "Running moosefs services as root is not recommended.")
-      ];
+      warnings = [ (mkIf (!cfg.runAsUser)
+        "Running moosefs services as root is not recommended.") ];
 
       # Service settings
       services.moosefs = {
@@ -234,8 +243,11 @@ in {
         ++ (lib.optional cfg.master.enable initTool);
 
       networking.firewall.allowedTCPPorts =
-        (lib.optionals cfg.master.openFirewall [ 9419 9420 9421 ])
-        ++ (lib.optional cfg.chunkserver.openFirewall 9422);
+        (lib.optionals cfg.master.openFirewall [
+          9419
+          9420
+          9421
+        ]) ++ (lib.optional cfg.chunkserver.openFirewall 9422);
 
       # Ensure storage directories exist
       systemd.tmpfiles.rules = optional cfg.master.enable

@@ -24,7 +24,12 @@ buildPerlPackage rec {
 
   nativeBuildInputs = [ shortenPerlShebang ];
 
-  buildInputs = [ DBDmysql DBI IOSocketSSL TermReadKey ];
+  buildInputs = [
+    DBDmysql
+    DBI
+    IOSocketSSL
+    TermReadKey
+  ];
 
   postInstall = ''
     shortenPerlShebang $(grep -l "/bin/env perl" $out/bin/*)

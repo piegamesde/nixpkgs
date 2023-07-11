@@ -23,11 +23,18 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-kzb00W9IlshhiV+vUIOlO6BnprHr2XPf8P207WYFP5I=";
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libiconv openssl ]
-    ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ CoreFoundation Security ]);
+  buildInputs = lib.optionals (!stdenv.isDarwin) [
+    libiconv
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    CoreFoundation
+    Security
+  ]);
 
   OPENSSL_NO_VENDOR = 1;
 

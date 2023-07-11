@@ -124,7 +124,10 @@
         wl-pprint-text
         yaml
       ];
-      libraryToolDepends = [ alex happy ];
+      libraryToolDepends = [
+        alex
+        happy
+      ];
       executableHaskellDepends = [
         aeson
         array
@@ -206,8 +209,15 @@
       pname = "ghcjs-th";
       version = "0.1.0.0";
       src = configuredSrc + /lib/ghcjs-th;
-      libraryHaskellDepends =
-        [ base binary bytestring containers ghc-prim ghci template-haskell ];
+      libraryHaskellDepends = [
+        base
+        binary
+        bytestring
+        containers
+        ghc-prim
+        ghci
+        template-haskell
+      ];
       homepage = "https://github.com/ghcjs";
       license = lib.licenses.mit;
     }) { };
@@ -222,7 +232,10 @@
       pname = "ghcjs-prim";
       version = "0.1.1.0";
       src = ./.;
-      libraryHaskellDepends = [ base ghc-prim ];
+      libraryHaskellDepends = [
+        base
+        ghc-prim
+      ];
       homepage = "https://github.com/ghcjs";
       license = lib.licenses.mit;
     }) { };

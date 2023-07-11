@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "sha256-khubsWOzEN80HDOCORMgT3sMqfajGfW0UUCDAL03je4=";
   };
 
-  propagatedBuildInputs = [ numpy six ];
+  propagatedBuildInputs = [
+    numpy
+    six
+  ];
 
   nativeCheckInputs = [ nose ];
 

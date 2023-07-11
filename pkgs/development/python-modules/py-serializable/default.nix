@@ -28,7 +28,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ defusedxml ];
 
-  nativeCheckInputs = [ lxml pytestCheckHook xmldiff ];
+  nativeCheckInputs = [
+    lxml
+    pytestCheckHook
+    xmldiff
+  ];
 
   pythonImportsCheck = [ "serializable" ];
 

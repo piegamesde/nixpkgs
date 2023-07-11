@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-WOg62p4Z/+ksH9x4rlRY75GuuJKluPDnN55vph4OZko=";
   };
 
-  propagatedBuildInputs = [ jedi pygments urwid urwid-readline ];
+  propagatedBuildInputs = [
+    jedi
+    pygments
+    urwid
+    urwid-readline
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

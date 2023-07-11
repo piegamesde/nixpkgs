@@ -16,7 +16,12 @@ stdenvNoCC.mkDerivation {
   name = "${name}-gxdeps";
   inherit src;
 
-  nativeBuildInputs = [ cacert go gx gx-go ];
+  nativeBuildInputs = [
+    cacert
+    go
+    gx
+    gx-go
+  ];
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

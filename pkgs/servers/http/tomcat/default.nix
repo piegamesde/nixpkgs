@@ -21,7 +21,10 @@ let
         inherit sha256;
       };
 
-      outputs = [ "out" "webapps" ];
+      outputs = [
+        "out"
+        "webapps"
+      ];
       installPhase = ''
         mkdir $out
         mv * $out

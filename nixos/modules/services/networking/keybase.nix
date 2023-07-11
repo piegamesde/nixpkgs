@@ -35,8 +35,10 @@ in {
       environment.KEYBASE_SERVICE_TYPE = "systemd";
       serviceConfig = {
         Type = "notify";
-        EnvironmentFile =
-          [ "-%E/keybase/keybase.autogen.env" "-%E/keybase/keybase.env" ];
+        EnvironmentFile = [
+          "-%E/keybase/keybase.autogen.env"
+          "-%E/keybase/keybase.env"
+        ];
         ExecStart = "${pkgs.keybase}/bin/keybase service";
         Restart = "on-failure";
         PrivateTmp = true;

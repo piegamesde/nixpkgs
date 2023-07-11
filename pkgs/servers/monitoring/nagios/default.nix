@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./nagios.patch ];
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ php perl gd libpng zlib ];
+  buildInputs = [
+    php
+    perl
+    gd
+    libpng
+    zlib
+  ];
 
   configureFlags = [ "--localstatedir=/var/lib/nagios" ];
   buildFlags = [ "all" ];
@@ -47,6 +53,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nagios.org/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ immae thoughtpolice relrod ];
+    maintainers = with lib.maintainers; [
+      immae
+      thoughtpolice
+      relrod
+    ];
   };
 }

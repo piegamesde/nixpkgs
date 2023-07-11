@@ -63,7 +63,13 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ bison flex pkg-config gettext qmake ];
+  nativeBuildInputs = [
+    bison
+    flex
+    pkg-config
+    gettext
+    qmake
+  ];
 
   buildInputs = [
     eigen
@@ -132,6 +138,10 @@ mkDerivation rec {
     homepage = "http://openscad.org/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bjornfor raskin gebner ];
+    maintainers = with lib.maintainers; [
+      bjornfor
+      raskin
+      gebner
+    ];
   };
 }

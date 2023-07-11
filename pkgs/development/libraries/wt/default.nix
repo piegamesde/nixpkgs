@@ -37,7 +37,10 @@ let
         inherit sha256;
       };
 
-      nativeBuildInputs = [ cmake pkg-config ];
+      nativeBuildInputs = [
+        cmake
+        pkg-config
+      ];
       buildInputs = [
         boost
         doxygen
@@ -56,11 +59,13 @@ let
         icu
       ];
 
-      cmakeFlags = [ "-DWT_CPP_11_MODE=-std=c++11" "--no-warn-unused-cli" ]
-        ++ lib.optionals (graphicsmagick != null) [
-          "-DWT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick"
-          "-DGM_PREFIX=${graphicsmagick}"
-        ] ++ lib.optional (libmysqlclient != null)
+      cmakeFlags = [
+        "-DWT_CPP_11_MODE=-std=c++11"
+        "--no-warn-unused-cli"
+      ] ++ lib.optionals (graphicsmagick != null) [
+        "-DWT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick"
+        "-DGM_PREFIX=${graphicsmagick}"
+      ] ++ lib.optional (libmysqlclient != null)
         "-DMYSQL_PREFIX=${libmysqlclient}";
 
       meta = with lib; {
@@ -68,7 +73,10 @@ let
         description = "C++ library for developing web applications";
         platforms = platforms.linux;
         license = licenses.gpl2;
-        maintainers = with maintainers; [ juliendehos willibutz ];
+        maintainers = with maintainers; [
+          juliendehos
+          willibutz
+        ];
       };
     };
 in {

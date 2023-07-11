@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-e4HNg5yr9V5LyT0hYP6gzw0tZm4dLidJg5MQtH3L3JI=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook unzip copyDesktopItems ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    unzip
+    copyDesktopItems
+  ];
 
-  buildInputs = [ gsettings-desktop-schemas gtk3 ];
+  buildInputs = [
+    gsettings-desktop-schemas
+    gtk3
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/${pname}
@@ -34,16 +41,14 @@ stdenv.mkDerivation rec {
     makeWrapper ${nwjs}/bin/nw $out/bin/${pname} --add-flags $out/share/${pname}
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      comment = "Emuflight configuration tool";
-      desktopName = "Emuflight Configurator";
-      genericName = "Flight controller configuration tool";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    comment = "Emuflight configuration tool";
+    desktopName = "Emuflight Configurator";
+    genericName = "Flight controller configuration tool";
+  }) ];
 
   meta = with lib; {
     description = "The Emuflight flight control system configuration tool";

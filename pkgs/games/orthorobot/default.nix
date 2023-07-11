@@ -27,19 +27,21 @@ stdenv.mkDerivation rec {
     sha256 = "13fa4divdqz4vpdij1lcs5kf6w2c4jm3cc9q6bz5h7lkng31jzi6";
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "orthorobot";
-      exec = pname;
-      icon = icon;
-      comment = "Robot game";
-      desktopName = "Orthorobot";
-      genericName = "orthorobot";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "orthorobot";
+    exec = pname;
+    icon = icon;
+    comment = "Robot game";
+    desktopName = "Orthorobot";
+    genericName = "orthorobot";
+    categories = [ "Game" ];
+  }) ];
 
-  nativeBuildInputs = [ makeWrapper zip copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    zip
+    copyDesktopItems
+  ];
 
   patches = [
     # support for love11

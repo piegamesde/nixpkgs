@@ -58,8 +58,15 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ cython ];
-  propagatedBuildInputs =
-    [ autograd cma deprecated dill matplotlib numpy scipy ];
+  propagatedBuildInputs = [
+    autograd
+    cma
+    deprecated
+    dill
+    matplotlib
+    numpy
+    scipy
+  ];
 
   doCheck = true;
   preCheck = ''
@@ -67,7 +74,12 @@ buildPythonPackage rec {
       --replace "https://raw.githubusercontent.com/anyoptimization/pymoo-data/main/" \
                 "file://$pymoo_data/"
   '';
-  nativeCheckInputs = [ pytestCheckHook nbformat notebook numba ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbformat
+    notebook
+    numba
+  ];
   # Select some lightweight tests
   pytestFlagsArray = [ "-m 'not long'" ];
   disabledTests = [

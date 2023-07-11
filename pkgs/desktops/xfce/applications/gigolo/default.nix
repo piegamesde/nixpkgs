@@ -13,7 +13,10 @@ mkXfceDerivation {
 
   sha256 = "sha256-8UDb4H3zxRKx2y+MRsozQoR3es0fs5ooR/5wBIE11bY=";
 
-  buildInputs = [ gtk3 glib ];
+  buildInputs = [
+    gtk3
+    glib
+  ];
 
   meta = with lib; {
     description =

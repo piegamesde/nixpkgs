@@ -70,9 +70,10 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "ac_cv_func_malloc_0_nonnull=yes"
       "ac_cv_func_realloc_0_nonnull=yes"
-    ]
-    ++ lib.optionals udevSupport [ "--enable-udev_rules" "--enable-udev_sync" ]
-    ++ lib.optionals enableVDO [ "--enable-vdo" ]
+    ] ++ lib.optionals udevSupport [
+      "--enable-udev_rules"
+      "--enable-udev_sync"
+    ] ++ lib.optionals enableVDO [ "--enable-vdo" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ];
 
   preConfigure = ''
@@ -108,12 +109,17 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # requires root
 
-  makeFlags = lib.optionals udevSupport [
-    "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
-  ] ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
+  makeFlags = lib.optionals udevSupport [ "SYSTEMD_GENERATOR_DIR=${
+      placeholder "out"
+    }/lib/systemd/system-generators" ]
+    ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
   # To prevent make install from failing.
-  installFlags = [ "OWNER=" "GROUP=" "confdir=$(out)/etc" ];
+  installFlags = [
+    "OWNER="
+    "GROUP="
+    "confdir=$(out)/etc"
+  ];
 
   # Install systemd stuff.
   installTargets = [ "install" ] ++ lib.optionals udevSupport [
@@ -131,8 +137,13 @@ stdenv.mkDerivation rec {
   '';
 
   # only split bin and lib out from out if cmdlib isn't enabled
-  outputs = [ "out" ] ++ lib.optionals (!onlyLib) [ "dev" "man" ]
-    ++ lib.optionals (!onlyLib && !enableCmdlib) [ "bin" "lib" ];
+  outputs = [ "out" ] ++ lib.optionals (!onlyLib) [
+    "dev"
+    "man"
+  ] ++ lib.optionals (!onlyLib && !enableCmdlib) [
+    "bin"
+    "lib"
+  ];
 
   postInstall = lib.optionalString (enableCmdlib != true) ''
     moveToOutput lib/libdevmapper.so $lib
@@ -147,7 +158,14 @@ stdenv.mkDerivation rec {
     homepage = "http://sourceware.org/lvm2/";
     description = "Tools to support Logical Volume Management (LVM) on Linux";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2 bsd2 lgpl21 ];
-    maintainers = with maintainers; [ raskin ajs124 ];
+    license = with licenses; [
+      gpl2
+      bsd2
+      lgpl21
+    ];
+    maintainers = with maintainers; [
+      raskin
+      ajs124
+    ];
   };
 }

@@ -27,10 +27,21 @@ in stdenv.mkDerivation rec {
     sha256 = "00fgqwayd20akww3n2imyqscmyrjyc9jj0ar13k9dhpaxqk2jxbf";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
 
-  buildInputs = rpathLibs
-    ++ [ alsa-lib freetype libGL libX11 libXcursor libXext libXrender ];
+  buildInputs = rpathLibs ++ [
+    alsa-lib
+    freetype
+    libGL
+    libX11
+    libXcursor
+    libXext
+    libXrender
+  ];
 
   postFixup = ''
     for file in \

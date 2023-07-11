@@ -76,7 +76,10 @@
     version = "0.16.4";
   };
   td-client = {
-    dependencies = [ "httpclient" "msgpack" ];
+    dependencies = [
+      "httpclient"
+      "msgpack"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0j5jcsgg020cm8xarbbw67mca4k8cx5pfyd2mm3wcqrnc1cl2bgp";
@@ -85,7 +88,11 @@
     version = "1.0.6";
   };
   td-logger = {
-    dependencies = [ "fluent-logger" "msgpack" "td-client" ];
+    dependencies = [
+      "fluent-logger"
+      "msgpack"
+      "td-client"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "1y56gilaqk9a4lfhzb777ysmsq77pi1aqkr4q485a7f5dwnpwl1p";

@@ -29,9 +29,17 @@
 let
   pname = "sublimetext3";
   packageAttribute = "sublime3${lib.optionalString dev "-dev"}";
-  binaries = [ "sublime_text" "plugin_host" "crash_reporter" ];
+  binaries = [
+    "sublime_text"
+    "plugin_host"
+    "crash_reporter"
+  ];
   primaryBinary = "sublime_text";
-  primaryBinaryAliases = [ "subl" "sublime" "sublime3" ];
+  primaryBinaryAliases = [
+    "subl"
+    "sublime"
+    "sublime3"
+  ];
   downloadUrl =
     "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
   versionUrl = "https://download.sublimetext.com/latest/${
@@ -42,7 +50,13 @@ let
     if stdenv.hostPlatform.system == "i686-linux" then x32sha256 else x64sha256;
   arch = if stdenv.hostPlatform.system == "i686-linux" then "x32" else "x64";
 
-  libPath = lib.makeLibraryPath [ xorg.libX11 glib gtk3 cairo pango ];
+  libPath = lib.makeLibraryPath [
+    xorg.libX11
+    glib
+    gtk3
+    cairo
+    pango
+  ];
   redirects = [ "/usr/bin/pkexec=${pkexecPath}" ];
 in let
   binaryPackage = stdenv.mkDerivation {
@@ -56,8 +70,16 @@ in let
 
     dontStrip = true;
     dontPatchELF = true;
-    buildInputs = [ glib gtk3 ]; # for GSETTINGS_SCHEMAS_PATH
-    nativeBuildInputs = [ zip unzip makeWrapper wrapGAppsHook ];
+    buildInputs = [
+      glib
+      gtk3
+    ]; # for GSETTINGS_SCHEMAS_PATH
+    nativeBuildInputs = [
+      zip
+      unzip
+      makeWrapper
+      wrapGAppsHook
+    ];
 
     # make exec.py in Default.sublime-package use own bash with an LD_PRELOAD instead of "/bin/bash"
     patchPhase = ''
@@ -158,9 +180,17 @@ in stdenv.mkDerivation (rec {
   meta = with lib; {
     description = "Sophisticated text editor for code, markup and prose";
     homepage = "https://www.sublimetext.com/";
-    maintainers = with maintainers; [ jtojnar wmertens demin-dmitriy zimbatm ];
+    maintainers = with maintainers; [
+      jtojnar
+      wmertens
+      demin-dmitriy
+      zimbatm
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 })

@@ -20,7 +20,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-t9Mkszzuw7YtBnADsZDjwN2AA6MuQH4+zzDiHe302A4=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   passthru = {
     updateScript = nix-update-script { };

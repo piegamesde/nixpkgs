@@ -12,23 +12,41 @@ let
   cfg = config.services.ttyd;
 
   # Command line arguments for the ttyd daemon
-  args = [ "--port" (toString cfg.port) ]
-    ++ optionals (cfg.socket != null) [ "--interface" cfg.socket ]
-    ++ optionals (cfg.interface != null) [ "--interface" cfg.interface ]
-    ++ [ "--signal" (toString cfg.signal) ] ++ (concatLists
-      (mapAttrsToList (_k: _v: [ "--client-option" "${_k}=${_v}" ])
-        cfg.clientOptions)) ++ [ "--terminal-type" cfg.terminalType ]
-    ++ optionals cfg.checkOrigin [ "--check-origin" ]
-    ++ [ "--max-clients" (toString cfg.maxClients) ]
-    ++ optionals (cfg.indexFile != null) [ "--index" cfg.indexFile ]
-    ++ optionals cfg.enableIPv6 [ "--ipv6" ] ++ optionals cfg.enableSSL [
-      "--ssl-cert"
-      cfg.certFile
-      "--ssl-key"
-      cfg.keyFile
-      "--ssl-ca"
-      cfg.caFile
-    ] ++ [ "--debug" (toString cfg.logLevel) ];
+  args = [
+    "--port"
+    (toString cfg.port)
+  ] ++ optionals (cfg.socket != null) [
+    "--interface"
+    cfg.socket
+  ] ++ optionals (cfg.interface != null) [
+    "--interface"
+    cfg.interface
+  ] ++ [
+    "--signal"
+    (toString cfg.signal)
+  ] ++ (concatLists (mapAttrsToList (_k: _v: [
+    "--client-option"
+    "${_k}=${_v}"
+  ]) cfg.clientOptions)) ++ [
+    "--terminal-type"
+    cfg.terminalType
+  ] ++ optionals cfg.checkOrigin [ "--check-origin" ] ++ [
+    "--max-clients"
+    (toString cfg.maxClients)
+  ] ++ optionals (cfg.indexFile != null) [
+    "--index"
+    cfg.indexFile
+  ] ++ optionals cfg.enableIPv6 [ "--ipv6" ] ++ optionals cfg.enableSSL [
+    "--ssl-cert"
+    cfg.certFile
+    "--ssl-key"
+    cfg.keyFile
+    "--ssl-ca"
+    cfg.caFile
+  ] ++ [
+    "--debug"
+    (toString cfg.logLevel)
+  ];
 
 in {
 

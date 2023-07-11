@@ -54,10 +54,18 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.am --replace '#!/bin/bash' '#!${stdenv.shell}'
   '';
 
-  nativeBuildInputs = [ autoreconfHook perl openssh ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    openssh
+  ];
 
-  buildInputs = [ mpi blas lapack scalapack ]
-    ++ lib.optional enableCuda cudatoolkit;
+  buildInputs = [
+    mpi
+    blas
+    lapack
+    scalapack
+  ] ++ lib.optional enableCuda cudatoolkit;
 
   preConfigure = ''
     export FC="mpifort"

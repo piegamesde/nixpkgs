@@ -18,7 +18,10 @@ buildGoModule rec {
   vendorHash = "sha256-B7DE2OEP0VikLfS6btILpdJ6rqwuoD2w7SqNnWD4Bdk=";
 
   modRoot = ".";
-  subPackages = [ "cmd/interactsh-client" "cmd/interactsh-server" ];
+  subPackages = [
+    "cmd/interactsh-client"
+    "cmd/interactsh-server"
+  ];
 
   # Test files are not part of the release tarball
   doCheck = false;

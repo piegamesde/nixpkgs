@@ -28,12 +28,30 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GOVSNEnEl/oef54q88s+YuLyqPMLyx1eoX7DlWrmo2c=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ intltool pkg-config autoreconfHook doxygen ];
-  buildInputs = [ curl gettext libiconv readline ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    autoreconfHook
+    doxygen
+  ];
+  buildInputs = [
+    curl
+    gettext
+    libiconv
+    readline
+  ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  propagatedBuildInputs = [ libxml2 mpfr icu ];
+  propagatedBuildInputs = [
+    libxml2
+    mpfr
+    icu
+  ];
   enableParallelBuilding = true;
 
   preConfigure = ''
@@ -59,7 +77,11 @@ stdenv.mkDerivation rec {
     description = "An advanced calculator library";
     homepage = "http://qalculate.github.io";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ gebner doronbehar alyaeanyx ];
+    maintainers = with maintainers; [
+      gebner
+      doronbehar
+      alyaeanyx
+    ];
     mainProgram = "qalc";
     platforms = platforms.all;
   };

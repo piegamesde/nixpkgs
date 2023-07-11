@@ -32,11 +32,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ jupyter-server-fileid jupyter-ydoc ypy-websocket ];
+  propagatedBuildInputs = [
+    jupyter-server-fileid
+    jupyter-ydoc
+    ypy-websocket
+  ];
 
   pythonImportsCheck = [ "jupyter_server_ydoc" ];
 
-  nativeCheckInputs = [ pytest-jupyter pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-jupyter
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TEMP

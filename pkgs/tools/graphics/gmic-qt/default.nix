@@ -28,7 +28,10 @@
 let
   variants = {
     gimp = {
-      extraDeps = [ gimp gimp.gtk ];
+      extraDeps = [
+        gimp
+        gimp.gtk
+      ];
       description = "GIMP plugin for the G'MIC image processing framework";
     };
 
@@ -57,7 +60,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FJ2zlsah/3Jf5ie4UhQsPvMoxDMc6iHl3AkhKsZSuqE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ninja wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     gmic

@@ -161,7 +161,10 @@ in {
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
     };
 
     systemd.services = let

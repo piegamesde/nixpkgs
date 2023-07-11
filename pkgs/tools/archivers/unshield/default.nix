@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib openssl ];
+  buildInputs = [
+    zlib
+    openssl
+  ];
 
   meta = with lib; {
     description =

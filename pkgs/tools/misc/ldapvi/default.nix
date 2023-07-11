@@ -26,9 +26,21 @@ stdenv.mkDerivation {
     sha256 = "3ef3103030ecb04d7fe80180e3fd490377cf81fb2af96782323fddabc3225030";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
-  buildInputs =
-    [ openldap openssl popt glib libxcrypt ncurses readline cyrus_sasl ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    openldap
+    openssl
+    popt
+    glib
+    libxcrypt
+    ncurses
+    readline
+    cyrus_sasl
+  ];
 
   preConfigure = ''
     cd ldapvi

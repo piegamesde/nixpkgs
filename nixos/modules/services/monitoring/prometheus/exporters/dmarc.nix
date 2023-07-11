@@ -106,7 +106,10 @@ in {
     };
   };
   serviceOpts = {
-    path = with pkgs; [ envsubst coreutils ];
+    path = with pkgs; [
+      envsubst
+      coreutils
+    ];
     serviceConfig = {
       StateDirectory = "prometheus-dmarc-exporter";
       WorkingDirectory = "/var/lib/prometheus-dmarc-exporter";

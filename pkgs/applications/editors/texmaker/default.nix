@@ -21,8 +21,19 @@ mkDerivation rec {
     sha256 = "0qczc2r01vhap11xmqizwbq21ggn4yjrxim8iqjxaq9w1rg2x9dz";
   };
 
-  buildInputs = [ qtbase qtscript poppler zlib qtwebengine ];
-  nativeBuildInputs = [ pkg-config poppler qmake wrapGAppsHook ];
+  buildInputs = [
+    qtbase
+    qtscript
+    poppler
+    zlib
+    qtwebengine
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    poppler
+    qmake
+    wrapGAppsHook
+  ];
   env.NIX_CFLAGS_COMPILE = "-I${poppler.dev}/include/poppler";
 
   qmakeFlags = [
@@ -47,6 +58,9 @@ mkDerivation rec {
     homepage = "http://www.xm1math.net/texmaker/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cfouche markuskowa ];
+    maintainers = with maintainers; [
+      cfouche
+      markuskowa
+    ];
   };
 }

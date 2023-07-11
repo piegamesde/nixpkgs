@@ -24,8 +24,10 @@ let
 
   rightsFile = format.generate "radicale.rights" cfg.rights;
 
-  bindLocalhost = cfg.settings != { }
-    && !hasAttrByPath [ "server" "hosts" ] cfg.settings;
+  bindLocalhost = cfg.settings != { } && !hasAttrByPath [
+    "server"
+    "hosts"
+  ] cfg.settings;
 
 in {
   options.services.radicale = {
@@ -111,13 +113,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.settings == { } || cfg.config == "";
       message = ''
         The options services.radicale.config and services.radicale.settings
         are mutually exclusive.
       '';
-    }];
+    } ];
 
     warnings = optional (cfg.package == null
       && versionOlder config.system.stateVersion "17.09") ''
@@ -157,16 +159,21 @@ in {
       requires = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = concatStringsSep " "
-          ([ "${pkg}/bin/radicale" "-C" confFile ]
-            ++ (map escapeShellArg cfg.extraArgs));
+        ExecStart = concatStringsSep " " ([
+          "${pkg}/bin/radicale"
+          "-C"
+          confFile
+        ] ++ (map escapeShellArg cfg.extraArgs));
         User = "radicale";
         Group = "radicale";
         StateDirectory = "radicale/collections";
         StateDirectoryMode = "0750";
         # Hardening
         CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "/dev/stdin" "/dev/urandom" ];
+        DeviceAllow = [
+          "/dev/stdin"
+          "/dev/urandom"
+        ];
         DevicePolicy = "strict";
         IPAddressAllow = mkIf bindLocalhost "localhost";
         IPAddressDeny = mkIf bindLocalhost "any";
@@ -186,21 +193,32 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths = lib.optional
-          (hasAttrByPath [ "storage" "filesystem_folder" ] cfg.settings)
-          cfg.settings.storage.filesystem_folder;
+        ReadWritePaths = lib.optional (hasAttrByPath [
+          "storage"
+          "filesystem_folder"
+        ] cfg.settings) cfg.settings.storage.filesystem_folder;
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
         UMask = "0027";
         WorkingDirectory = "/var/lib/radicale";
       };
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ infinisil dotlambda ];
+  meta.maintainers = with lib.maintainers; [
+    infinisil
+    dotlambda
+  ];
 }

@@ -51,17 +51,33 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" "man" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ];
 
-  hardeningDisable = [ "pie" "stackprotector" ];
+  hardeningDisable = [
+    "pie"
+    "stackprotector"
+  ];
 
   # GDB is needed to provide a sane default for `--db-command'.
   # Perl is needed for `callgrind_{annotate,control}'.
-  buildInputs = [ gdb perl ]
-    ++ lib.optionals (stdenv.isDarwin) [ bootstrap_cmds xnu ];
+  buildInputs = [
+    gdb
+    perl
+  ] ++ lib.optionals (stdenv.isDarwin) [
+    bootstrap_cmds
+    xnu
+  ];
 
   # Perl is also a native build input.
-  nativeBuildInputs = [ autoreconfHook perl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+  ];
 
   enableParallelBuilding = true;
   separateDebugInfo = stdenv.isLinux;

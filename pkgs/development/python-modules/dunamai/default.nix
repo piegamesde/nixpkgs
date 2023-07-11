@@ -39,7 +39,11 @@ buildPythonPackage rec {
     git config --global user.name "Nobody"
   '';
 
-  nativeCheckInputs = [ git pytestCheckHook setuptools ];
+  nativeCheckInputs = [
+    git
+    pytestCheckHook
+    setuptools
+  ];
 
   pythonImportsCheck = [ "dunamai" ];
 

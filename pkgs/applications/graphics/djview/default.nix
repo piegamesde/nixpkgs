@@ -21,10 +21,17 @@ mkDerivation rec {
     sha256 = "08bwv8ppdzhryfcnifgzgdilb12jcnivl4ig6hd44f12d76z6il4";
   };
 
-  nativeBuildInputs = [ pkg-config qttools ];
+  nativeBuildInputs = [
+    pkg-config
+    qttools
+  ];
 
-  buildInputs = [ djvulibre qtbase xorg.libXt libtiff ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL;
+  buildInputs = [
+    djvulibre
+    qtbase
+    xorg.libXt
+    libtiff
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL;
 
   configureFlags = [
     "--disable-silent-rules"

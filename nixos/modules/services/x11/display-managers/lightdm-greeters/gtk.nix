@@ -176,7 +176,11 @@ in {
       name = "lightdm-gtk-greeter";
     };
 
-    environment.systemPackages = [ cursors icons theme ];
+    environment.systemPackages = [
+      cursors
+      icons
+      theme
+    ];
 
     environment.etc."lightdm/lightdm-gtk-greeter.conf".source = gtkGreeterConf;
 

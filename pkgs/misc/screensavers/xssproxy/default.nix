@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib xorg.libX11 xorg.libXScrnSaver dbus ];
+  buildInputs = [
+    glib
+    xorg.libX11
+    xorg.libXScrnSaver
+    dbus
+  ];
 
-  makeFlags = [ "bindir=$(out)/bin" "man1dir=$(out)/share/man/man1" ];
+  makeFlags = [
+    "bindir=$(out)/bin"
+    "man1dir=$(out)/share/man/man1"
+  ];
 
   meta = {
     description =

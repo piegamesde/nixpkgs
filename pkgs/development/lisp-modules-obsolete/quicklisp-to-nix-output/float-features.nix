@@ -9,7 +9,10 @@ args@{
   description =
     "A portability library for IEEE float features not covered by the CL standard.";
 
-  deps = [ args."documentation-utils" args."trivial-indent" ];
+  deps = [
+    args."documentation-utils"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
     url =

@@ -23,8 +23,16 @@ buildPythonApplication rec {
     sha256 = "1l0acd4a36wzz1gyc6mcw3zpagyi2mc425c6d4c6anq3jxwm3847";
   };
 
-  propagatedBuildInputs =
-    [ colorama iproute2 iptables netaddr netifaces scapy terminaltables tqdm ];
+  propagatedBuildInputs = [
+    colorama
+    iproute2
+    iptables
+    netaddr
+    netifaces
+    scapy
+    terminaltables
+    tqdm
+  ];
 
   # no tests present
   doCheck = false;

@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-ra88WXG6+xHSjOcy6tdYjvpKpNlvu6lq+sZckLadAlU=";
   };
 
-  propagatedBuildInputs = [ pytablewriter tcolorpy typepy ];
+  propagatedBuildInputs = [
+    pytablewriter
+    tcolorpy
+    typepy
+  ];
 
   buildInputs = [ pytest ];
 

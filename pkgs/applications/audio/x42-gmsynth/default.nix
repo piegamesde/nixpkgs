@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib lv2 ];
+  buildInputs = [
+    glib
+    lv2
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

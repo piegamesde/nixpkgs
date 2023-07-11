@@ -41,7 +41,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ libxml2 meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    libxml2
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [
     gnome-settings-daemon # media-keys

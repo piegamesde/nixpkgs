@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jhdgfCWbkF+jD/iXsJ+fYKOtPymxcC46Q4w0aqpvcek=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ libevdev udev yaml-cpp boost ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    libevdev
+    udev
+    yaml-cpp
+    boost
+  ];
 
   meta = {
     description =

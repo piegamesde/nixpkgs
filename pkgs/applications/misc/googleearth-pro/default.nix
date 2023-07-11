@@ -48,7 +48,11 @@ in mkDerivation rec {
     sha256 = "1pbapi267snlrjari5k93y6kbrjsqhqxgkxxqaqv4r25az00dx6d";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+    autoPatchelfHook
+  ];
   propagatedBuildInputs = [ xkeyboardconfig ];
   buildInputs = [
     dbus
@@ -124,7 +128,10 @@ in mkDerivation rec {
     homepage = "https://www.google.com/earth/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ friedelino shamilton ];
+    maintainers = with maintainers; [
+      friedelino
+      shamilton
+    ];
     platforms = platforms.linux;
     knownVulnerabilities = [ "Includes vulnerable bundled libraries." ];
   };

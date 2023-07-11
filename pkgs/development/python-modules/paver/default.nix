@@ -26,7 +26,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  checkInputs = [ cogapp mock nose pytestCheckHook virtualenv ];
+  checkInputs = [
+    cogapp
+    mock
+    nose
+    pytestCheckHook
+    virtualenv
+  ];
 
   pythonImportsCheck = [ "paver" ];
 

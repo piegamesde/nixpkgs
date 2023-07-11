@@ -20,9 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PgG9ElIbJCr607ZrQcmuUcOwr8FSQW+cDytvaNLALnQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ gnutls libite libconfuse ];
+  buildInputs = [
+    gnutls
+    libite
+    libconfuse
+  ];
 
   enableParallelBuilding = true;
 

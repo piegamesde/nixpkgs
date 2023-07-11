@@ -17,7 +17,10 @@ bundlerApp {
     homepage =
       "https://github.com/github-changelog-generator/github-changelog-generator";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scriptkiddi nicknovitski ];
+    maintainers = with maintainers; [
+      Scriptkiddi
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

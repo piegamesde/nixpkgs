@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ wrapPython ];
-  pythonPath = [ pyaes pycrypto uvloop ];
+  pythonPath = [
+    pyaes
+    pycrypto
+    uvloop
+  ];
 
   installPhase = ''
     install -Dm755 mtprotoproxy.py $out/bin/mtprotoproxy

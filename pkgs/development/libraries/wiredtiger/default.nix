@@ -42,9 +42,20 @@ in stdenv.mkDerivation rec {
     sha256 = "04j2zw8b9jym43r682rh4kpdippxx7iw3ry16nxlbybzar9kgk83";
   };
 
-  nativeBuildInputs = [ automake autoconf libtool ];
-  buildInputs =
-    [ optLz4 optSnappy optZlib optBzip2 optDb optGperftools optLeveldb ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+  ];
+  buildInputs = [
+    optLz4
+    optSnappy
+    optZlib
+    optBzip2
+    optDb
+    optGperftools
+    optLeveldb
+  ];
 
   configureFlags = [
     (lib.withFeature false "attach")

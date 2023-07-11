@@ -33,9 +33,20 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "process.lua" "$out/share/tilemaker/process-openmaptiles.lua"
   '';
 
-  nativeBuildInputs = [ cmake installShellFiles ];
+  nativeBuildInputs = [
+    cmake
+    installShellFiles
+  ];
 
-  buildInputs = [ boost lua protobuf rapidjson shapelib sqlite zlib ];
+  buildInputs = [
+    boost
+    lua
+    protobuf
+    rapidjson
+    shapelib
+    sqlite
+    zlib
+  ];
 
   cmakeFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "-DPROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc";

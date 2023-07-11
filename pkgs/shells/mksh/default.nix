@@ -46,8 +46,15 @@ stdenv.mkDerivation rec {
       also to be readily available under other UNIX(R)-like operating
       systems.
     '';
-    license = with licenses; [ miros isc unicode-dfs-2016 ];
-    maintainers = with maintainers; [ AndersonTorres joachifm ];
+    license = with licenses; [
+      miros
+      isc
+      unicode-dfs-2016
+    ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      joachifm
+    ];
     platforms = platforms.unix;
   };
 

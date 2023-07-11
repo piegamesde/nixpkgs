@@ -26,11 +26,13 @@ stdenv.mkDerivation {
     export LIBCXXABI_INCLUDE_DIR="$PWD/$(ls -d libcxxabi-${version}*)/include"
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  patches = [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl
-    [ ../../libcxx-0001-musl-hacks.patch ];
+  patches = [ ./gnu-install-dirs.patch ] ++ lib.optionals
+    stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -50,9 +52,10 @@ stdenv.mkDerivation {
 
   buildInputs = [ cxxabi ];
 
-  cmakeFlags =
-    [ "-DLIBCXX_LIBCPPABI_VERSION=2" "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
-    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+  cmakeFlags = [
+    "-DLIBCXX_LIBCPPABI_VERSION=2"
+    "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
+  ] ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
     "-DLIBCXX_HAS_MUSL_LIBC=1" ++ lib.optional (cxxabi.pname == "libcxxabi")
     "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
@@ -90,6 +93,9 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++ is dual licensed under the MIT license and the
     # UIUC License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

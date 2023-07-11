@@ -22,9 +22,15 @@ python3Packages.buildPythonApplication rec {
     sha256 = "13j4spbi9pxg69zifzai8ifk4207sn0vwh6vjqryi0snd5sylh7h";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ python3 gnome.adwaita-icon-theme ];
+  buildInputs = [
+    python3
+    gnome.adwaita-icon-theme
+  ];
 
   doCheck = false; # it doesn't have any tests
 

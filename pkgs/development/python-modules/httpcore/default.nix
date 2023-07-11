@@ -30,16 +30,25 @@ buildPythonPackage rec {
     hash = "sha256-3bC97CTZi6An+owjoJF7Irtr7ONbP8RtNdTIGJRy0Ng=";
   };
 
-  propagatedBuildInputs = [ anyio certifi h11 sniffio ];
+  propagatedBuildInputs = [
+    anyio
+    certifi
+    h11
+    sniffio
+  ];
 
   passthru.optional-dependencies = {
     http2 = [ h2 ];
     socks = [ socksio ];
   };
 
-  nativeCheckInputs =
-    [ pproxy pytest-asyncio pytest-httpbin pytest-trio pytestCheckHook ]
-    ++ passthru.optional-dependencies.http2
+  nativeCheckInputs = [
+    pproxy
+    pytest-asyncio
+    pytest-httpbin
+    pytest-trio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.http2
     ++ passthru.optional-dependencies.socks;
 
   pythonImportsCheck = [ "httpcore" ];

@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     substituteInPlace src/emClock/emTimeZonesModel.cpp --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
   '';
 
-  nativeBuildInputs = [ pkg-config makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    copyDesktopItems
+  ];
   buildInputs = [
     perl
     libX11
@@ -68,7 +72,10 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
   # eaglemode expects doc to be in the root directory
-  forceShare = [ "man" "info" ];
+  forceShare = [
+    "man"
+    "info"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -81,23 +88,29 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = pname;
-      icon = pname;
-      desktopName = "Eagle Mode";
-      genericName = meta.description;
-      categories = [ "Game" "Graphics" "System" "Utility" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = pname;
+    icon = pname;
+    desktopName = "Eagle Mode";
+    genericName = meta.description;
+    categories = [
+      "Game"
+      "Graphics"
+      "System"
+      "Utility"
+    ];
+  }) ];
 
   meta = with lib; {
     homepage = "https://eaglemode.sourceforge.net";
     description = "Zoomable User Interface";
     changelog = "https://eaglemode.sourceforge.net/ChangeLog.html";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ chuangzhu ehmry ];
+    maintainers = with maintainers; [
+      chuangzhu
+      ehmry
+    ];
     platforms = platforms.linux;
   };
 }

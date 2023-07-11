@@ -63,8 +63,10 @@ in stdenv.mkDerivation rec {
   patches =
     [ ./use-default-values-for-libretro_info_path-assets_directory.patch ];
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook ]
-    ++ lib.optional withWayland wayland
+  nativeBuildInputs = [
+    pkg-config
+    wrapQtAppsHook
+  ] ++ lib.optional withWayland wayland
     ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
 
   buildInputs = [
@@ -140,7 +142,10 @@ in stdenv.mkDerivation rec {
     changelog =
       "https://github.com/libretro/RetroArch/blob/v${version}/CHANGES.md";
     maintainers = with maintainers;
-      teams.libretro.members ++ [ matthewbauer kolbycrouch ];
+      teams.libretro.members ++ [
+        matthewbauer
+        kolbycrouch
+      ];
     mainProgram = "retroarch";
     # If you want to (re)-add support for macOS, see:
     # https://docs.libretro.com/development/retroarch/compilation/osx/

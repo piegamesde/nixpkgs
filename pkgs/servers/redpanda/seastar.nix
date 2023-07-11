@@ -36,8 +36,18 @@ in llvmPackages_14.stdenv.mkDerivation {
     rev = "30d3a28bde08d2228b4e560c173b89fdd94c3f05";
     sha256 = "sha256-Xzu7AJMkvE++BGEqluod3fwMEIpDnbCczmlEad0/4v4=";
   };
-  nativeBuildInputs = [ cmake ninja openssl pkg-config python3 ragel ];
-  buildInputs = [ libsystemtap libxfs ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    openssl
+    pkg-config
+    python3
+    ragel
+  ];
+  buildInputs = [
+    libsystemtap
+    libxfs
+  ];
   propagatedBuildInputs = [
     boost175
     c-ares

@@ -40,12 +40,10 @@ buildPythonPackage rec {
     hash = "sha256-qQCELjRFeRCT1k1CBc3netRtFvt+an/EbkrgnmiX/mc=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./ffmpeg-path.patch;
-      inherit ffmpeg;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./ffmpeg-path.patch;
+    inherit ffmpeg;
+  }) ];
 
   propagatedBuildInputs = [
     numpy
@@ -56,8 +54,10 @@ buildPythonPackage rec {
     numba
     scipy
     tiktoken
-  ] ++ lib.optionals (!cudaSupport) [ torch ]
-    ++ lib.optionals (cudaSupport) [ openai-triton torchWithCuda ];
+  ] ++ lib.optionals (!cudaSupport) [ torch ] ++ lib.optionals (cudaSupport) [
+    openai-triton
+    torchWithCuda
+  ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -91,6 +91,9 @@ buildPythonPackage rec {
     description = "General-purpose speech recognition model";
     homepage = "https://github.com/openai/whisper";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa MayNiklas ];
+    maintainers = with maintainers; [
+      hexa
+      MayNiklas
+    ];
   };
 }

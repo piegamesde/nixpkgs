@@ -20,8 +20,15 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-2raSkIycXCdT/TSlaQviI6Eql7DONgRVsPP2B2YuW8U=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ expat fontconfig freetype ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    expat
+    fontconfig
+    freetype
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

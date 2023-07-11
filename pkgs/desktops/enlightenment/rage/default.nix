@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "03yal7ajh57x2jhmygc6msf3gzvqkpmzkqzj6dnam5sim8cq9rbw";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     efl
@@ -40,6 +45,9 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = with maintainers;
-      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+      [
+        matejc
+        ftrvxmtrx
+      ] ++ teams.enlightenment.members;
   };
 }

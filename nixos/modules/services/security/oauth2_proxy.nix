@@ -136,7 +136,10 @@ in {
     };
 
     approvalPrompt = mkOption {
-      type = types.enum [ "force" "auto" ];
+      type = types.enum [
+        "force"
+        "auto"
+      ];
       default = "force";
       description = lib.mdDoc ''
         OAuth approval_prompt.

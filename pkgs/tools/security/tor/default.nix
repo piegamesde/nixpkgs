@@ -30,7 +30,13 @@
 }:
 let
   tor-client-auth-gen = writeShellScript "tor-client-auth-gen" ''
-    PATH="${lib.makeBinPath [ coreutils gnugrep openssl ]}"
+    PATH="${
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        openssl
+      ]
+    }"
     pem="$(openssl genpkey -algorithm x25519)"
 
     printf private_key=descriptor:x25519:
@@ -51,18 +57,31 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-IHkXLM4DRVbxEASOJgg86b6nUfMVSwrSgJdRgVsR6p0=";
   };
 
-  outputs = [ "out" "geoip" ];
+  outputs = [
+    "out"
+    "geoip"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libevent openssl zlib xz zstd scrypt ]
-    ++ lib.optionals stdenv.isLinux [ libseccomp systemd libcap ];
+  buildInputs = [
+    libevent
+    openssl
+    zlib
+    xz
+    zstd
+    scrypt
+  ] ++ lib.optionals stdenv.isLinux [
+    libseccomp
+    systemd
+    libcap
+  ];
 
   patches = [ ./disable-monotonic-timer-tests.patch ];
 
   configureFlags =
     # cross compiles correctly but needs the following
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ "--disable-tool-name-check" ] ++
+    lib.optionals (stdenv.hostPlatform
+      != stdenv.buildPlatform) [ "--disable-tool-name-check" ] ++
     # sandbox is broken on aarch64-linux https://gitlab.torproject.org/tpo/core/tor/-/issues/40599
     lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "--disable-seccomp" ];
 
@@ -119,7 +138,11 @@ in stdenv.mkDerivation rec {
 
     license = licenses.bsd3;
 
-    maintainers = with maintainers; [ thoughtpolice joachifm prusnak ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      joachifm
+      prusnak
+    ];
     platforms = platforms.unix;
   };
 }

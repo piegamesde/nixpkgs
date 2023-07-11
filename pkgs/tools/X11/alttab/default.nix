@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AxHagyGbU3bWJ+sP2S7YjHBHsIbd/doONPgd2tsBtKY=";
   };
 
-  nativeBuildInputs = [ autoconf automake pkg-config ronn ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+    ronn
+  ];
 
   preConfigure = "./bootstrap.sh";
 

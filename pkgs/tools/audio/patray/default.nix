@@ -19,7 +19,12 @@ python3.pkgs.buildPythonApplication rec {
     sed -i '/pyside2/d' requirements/production.in
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ pulsectl loguru cock pyside2 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pulsectl
+    loguru
+    cock
+    pyside2
+  ];
 
   doCheck = false;
 

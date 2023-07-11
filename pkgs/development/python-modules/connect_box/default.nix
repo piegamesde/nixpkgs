@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-d1KqVKaHlZDm2o1GJ7r8KoONwfd1lxXexJxavCvjfW8=";
   };
 
-  propagatedBuildInputs = [ aiohttp attrs defusedxml ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+    defusedxml
+  ];
 
   # no tests are present
   doCheck = false;

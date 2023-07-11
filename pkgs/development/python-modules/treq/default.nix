@@ -17,10 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-33V+PxQfx4Lt4HamBFIRlP/LQPomRc9I5aNwYDB/Uuw=";
   };
 
-  propagatedBuildInputs = [ requests incremental twisted ]
-    ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [
+    requests
+    incremental
+    twisted
+  ] ++ twisted.optional-dependencies.tls;
 
-  nativeCheckInputs = [ httpbin twisted ];
+  nativeCheckInputs = [
+    httpbin
+    twisted
+  ];
 
   checkPhase = ''
     trial treq

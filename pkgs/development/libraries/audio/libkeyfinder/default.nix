@@ -20,14 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   # in main post 2.2.6, see https://github.com/mixxxdj/libkeyfinder/issues/21
-  patches = [
-    (fetchpatch {
-      name = "fix-pkg-config";
-      url =
-        "https://github.com/mixxxdj/libkeyfinder/commit/4e1a5022d4c91e3ecfe9be5c3ac7cc488093bd2e.patch";
-      sha256 = "08llmgp6r11bq5s820j3fs9bgriaibkhq8r3v2av064w66mwp48x";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-pkg-config";
+    url =
+      "https://github.com/mixxxdj/libkeyfinder/commit/4e1a5022d4c91e3ecfe9be5c3ac7cc488093bd2e.patch";
+    sha256 = "08llmgp6r11bq5s820j3fs9bgriaibkhq8r3v2av064w66mwp48x";
+  }) ];
 
   nativeBuildInputs = [ cmake ];
 

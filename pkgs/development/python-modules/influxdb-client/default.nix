@@ -29,13 +29,24 @@ buildPythonPackage rec {
     hash = "sha256-O10q/ResES3mE26LZQLgGPSLjhUCEOwZpm6vZj6H5mQ=";
   };
 
-  propagatedBuildInputs =
-    [ certifi python-dateutil reactivex setuptools urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    python-dateutil
+    reactivex
+    setuptools
+    urllib3
+  ];
 
   passthru.optional-dependencies = {
-    async = [ aiocsv aiohttp ];
+    async = [
+      aiocsv
+      aiohttp
+    ];
     ciso = [ ciso8601 ];
-    extra = [ numpy pandas ];
+    extra = [
+      numpy
+      pandas
+    ];
   };
 
   # Requires influxdb server

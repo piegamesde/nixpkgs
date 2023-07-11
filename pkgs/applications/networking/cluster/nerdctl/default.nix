@@ -22,10 +22,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-ix18Mi4a1kW7C6rcwwFc6TDwzs3vYxNz3M3d5pD8l6c=";
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   ldflags = let t = "github.com/containerd/nerdctl/pkg/version";
-  in [ "-s" "-w" "-X ${t}.Version=v${version}" "-X ${t}.Revision=<unknown>" ];
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=v${version}"
+    "-X ${t}.Revision=<unknown>"
+  ];
 
   # Many checks require a containerd socket and running nerdctl after it's built
   doCheck = false;
@@ -55,7 +63,10 @@ buildGoModule rec {
       "https://github.com/containerd/nerdctl/releases/tag/v${version}";
     description = "A Docker-compatible CLI for containerd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk developer-guy ];
+    maintainers = with maintainers; [
+      jk
+      developer-guy
+    ];
     platforms = platforms.linux;
   };
 }

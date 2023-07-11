@@ -42,7 +42,12 @@ in stdenv.mkDerivation rec {
       --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -62,7 +67,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://zealdocs.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ skeidel peterhoeg ];
+    maintainers = with maintainers; [
+      skeidel
+      peterhoeg
+    ];
     platforms = platforms.linux;
   };
 }

@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "sha256-CKiv5gVHaEyO9P5x2FKgpSIm2pUiFptaEQVPZHALASk=";
   };
 
-  propagatedBuildInputs = [ aiohttp attrs ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+  ];
 
   # Project has no tests
   doCheck = false;

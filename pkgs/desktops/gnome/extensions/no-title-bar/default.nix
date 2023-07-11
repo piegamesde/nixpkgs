@@ -19,15 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "07ddw47binlsbyvgy4xkdjvd40zyp7nwd17r6k7w54d50vmnwhvb";
   };
 
-  nativeBuildInputs = [ glib gettext ];
-
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      xprop = "${xorg.xprop}/bin/xprop";
-      xwininfo = "${xorg.xwininfo}/bin/xwininfo";
-    })
+  nativeBuildInputs = [
+    glib
+    gettext
   ];
+
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    xprop = "${xorg.xprop}/bin/xprop";
+    xwininfo = "${xorg.xwininfo}/bin/xwininfo";
+  }) ];
 
   makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
 
@@ -37,7 +38,11 @@ stdenv.mkDerivation rec {
     description = "Integrates maximized windows with the top panel";
     homepage = "https://github.com/poehlerj/no-title-bar";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jonafato svsdep maxeaubrey ];
+    maintainers = with maintainers; [
+      jonafato
+      svsdep
+      maxeaubrey
+    ];
     platforms = platforms.linux;
   };
 }

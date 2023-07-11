@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-KtAPc2nsqSoHNsLTLom/yaUECn+IWBdBFpiMclrUHxM=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2
@@ -52,7 +55,10 @@ stdenv.mkDerivation rec {
     pcre
     openssl
     icu
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    Foundation
+  ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 

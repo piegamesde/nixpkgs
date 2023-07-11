@@ -26,9 +26,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-HOyExVKOqZ4OeNM1/AiXQeiUV+EbSJLEjWEibm07ff8=";
   };
 
-  patches = [
-    ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
-  ];
+  patches =
+    [ ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
+    ];
 
   postPatch = ''
     substituteInPlace libqtile/pangocffi.py \
@@ -61,7 +61,12 @@ python3Packages.buildPythonPackage rec {
     pulseaudio
   ];
 
-  buildInputs = [ libinput wayland wlroots libxkbcommon ];
+  buildInputs = [
+    libinput
+    wayland
+    wlroots
+    libxkbcommon
+  ];
 
   # for `qtile check`, needs `stubtest` and `mypy` commands
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
@@ -75,6 +80,9 @@ python3Packages.buildPythonPackage rec {
     description =
       "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kamilchm arjan-s ];
+    maintainers = with maintainers; [
+      kamilchm
+      arjan-s
+    ];
   };
 }

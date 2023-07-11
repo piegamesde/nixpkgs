@@ -144,12 +144,15 @@ in {
       warn = k:
         optional (cfg.${k} != "")
         "config.services.longview.${k} is insecure. Use ${k}File instead.";
-    in concatMap warn [ "apiKey" "mysqlPassword" ];
+    in concatMap warn [
+      "apiKey"
+      "mysqlPassword"
+    ];
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.apiKeyFile != null;
       message = "Longview needs an API key configured";
-    }];
+    } ];
 
     # Create API key file if not configured.
     services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (mkDefault (toString

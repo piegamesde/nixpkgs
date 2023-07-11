@@ -42,8 +42,18 @@ buildPythonApplication rec {
     docutils # for rst2man
     dbus # for detection of dbus-send during build
   ];
-  buildInputs = [ libwnck keybinder3 bash ];
-  propagatedBuildInputs = [ pygobject3 gtk3 pyxdg dbus-python pycairo ];
+  buildInputs = [
+    libwnck
+    keybinder3
+    bash
+  ];
+  propagatedBuildInputs = [
+    pygobject3
+    gtk3
+    pyxdg
+    dbus-python
+    pycairo
+  ];
 
   postInstall = ''
     gappsWrapperArgs+=(

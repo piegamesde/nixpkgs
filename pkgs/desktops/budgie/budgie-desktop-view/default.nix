@@ -24,10 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-USsySJuDov2oe9UXyzACBAyYIRLKSXOMXdia8Ix/8TE=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils intltool meson ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    intltool
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   preInstall = ''
     substituteInPlace ../scripts/mesonPostInstall.sh --replace "update-desktop-database -q" "update-desktop-database $out/share/applications"

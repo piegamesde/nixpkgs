@@ -19,7 +19,12 @@ buildKodiAddon rec {
     sha256 = "sha256-QxxVT6XaEYQtAFkZde8EaTXzGO7cjG2pApQZcA32xA0=";
   };
 
-  propagatedBuildInputs = [ certifi chardet idna urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    chardet
+    idna
+    urllib3
+  ];
 
   passthru = {
     pythonPath = "lib";

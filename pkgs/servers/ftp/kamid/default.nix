@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libevent libressl readline libbsd ];
+  buildInputs = [
+    libevent
+    libressl
+    readline
+    libbsd
+  ];
 
   makeFlags = [ "AR:=$(AR)" ];
 

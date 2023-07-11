@@ -22,11 +22,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bfNoYsQkZu+I82BERROHDvRpNPkBbIQ4PMQAin0MRro=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config python3 wafHook docbook-xsl-nons docbook_xml_dtd_42 ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+    wafHook
+    docbook-xsl-nons
+    docbook_xml_dtd_42
+  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs = [ python3 readline libxslt libxcrypt ];
+  buildInputs = [
+    python3
+    readline
+    libxslt
+    libxcrypt
+  ];
 
   # otherwise the configure script fails with
   # PYTHONHASHSEED=1 missing! Don't use waf directly, use ./configure and make!

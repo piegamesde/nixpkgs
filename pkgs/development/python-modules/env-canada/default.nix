@@ -28,8 +28,16 @@ buildPythonPackage rec {
     hash = "sha256-gnNncWhrqGTWq8cNVmNMzkgqW0hoglzVGrLjqyUvOIc=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp geopy imageio lxml pandas pillow python-dateutil voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    geopy
+    imageio
+    lxml
+    pandas
+    pillow
+    python-dateutil
+    voluptuous
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

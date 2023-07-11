@@ -56,11 +56,26 @@ in stdenv.mkDerivation rec {
       "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";
   };
 
-  nativeBuildInputs = [ autogen flex bison python2 autoconf automake ];
-  buildInputs = [ ncurses libusb-compat-0_1 freetype gettext lvm2 ]
-    ++ lib.optional doCheck qemu;
+  nativeBuildInputs = [
+    autogen
+    flex
+    bison
+    python2
+    autoconf
+    automake
+  ];
+  buildInputs = [
+    ncurses
+    libusb-compat-0_1
+    freetype
+    gettext
+    lvm2
+  ] ++ lib.optional doCheck qemu;
 
-  hardeningDisable = [ "stackprotector" "pic" ];
+  hardeningDisable = [
+    "stackprotector"
+    "pic"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error"; # generated code redefines yyfree
 

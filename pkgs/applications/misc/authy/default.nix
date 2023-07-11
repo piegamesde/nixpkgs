@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vSbqT2s5lLEU1SSDaC+sS6qt446iSKYUgKudO5WMOu4=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper squashfsTools ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    squashfsTools
+  ];
 
   unpackPhase = ''
     runHook preUnpack

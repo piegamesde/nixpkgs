@@ -27,8 +27,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs =
-    [ aiosmtpd hypothesis pytest-asyncio pytestCheckHook trustme ];
+  nativeCheckInputs = [
+    aiosmtpd
+    hypothesis
+    pytest-asyncio
+    pytestCheckHook
+    trustme
+  ];
 
   pythonImportsCheck = [ "aiosmtplib" ];
 

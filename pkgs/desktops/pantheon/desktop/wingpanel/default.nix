@@ -34,8 +34,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./indicators.patch ];
 
-  nativeBuildInputs =
-    [ gettext meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     elementary-icon-theme

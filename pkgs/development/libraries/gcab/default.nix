@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
   pname = "gcab";
   version = "1.5";
 
-  outputs = [ "bin" "out" "dev" "devdoc" "installedTests" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -47,7 +53,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ];
 
-  buildInputs = [ glib zlib ];
+  buildInputs = [
+    glib
+    zlib
+  ];
 
   # required by libgcab-1.0.pc
   propagatedBuildInputs = [ glib ];

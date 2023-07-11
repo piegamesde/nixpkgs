@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
   pname = "gupnp-igd";
   version = "1.2.0";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -42,7 +44,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_412
   ];
 
-  propagatedBuildInputs = [ glib gupnp ];
+  propagatedBuildInputs = [
+    glib
+    gupnp
+  ];
 
   mesonFlags = [
     "-Dgtk_doc=${

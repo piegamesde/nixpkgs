@@ -9,7 +9,10 @@
   nix-update-script,
   v2ray-geoip,
   v2ray-domain-list-community,
-  assets ? [ v2ray-geoip v2ray-domain-list-community ]
+  assets ? [
+    v2ray-geoip
+    v2ray-domain-list-community
+  ]
 }:
 
 let
@@ -35,7 +38,11 @@ in buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-s" "-w" "-buildid=" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-buildid="
+  ];
   subPackages = [ "main" ];
 
   installPhase = ''

@@ -28,13 +28,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ werkzeug ];
 
-  nativeCheckInputs = [ pytestCheckHook requests toml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+    toml
+  ];
 
   __darwinAllowLocalNetworking = true;
 
-  disabledTests = [
-    "test_wait_raise_assertion_false" # racy
-  ];
+  disabledTests = [ "test_wait_raise_assertion_false" # racy
+    ];
 
   pythonImportsCheck = [ "pytest_httpserver" ];
 

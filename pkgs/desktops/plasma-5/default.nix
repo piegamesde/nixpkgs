@@ -31,7 +31,10 @@
 }:
 
 let
-  maintainers = with lib.maintainers; [ ttuegel nyanloutre ];
+  maintainers = with lib.maintainers; [
+    ttuegel
+    nyanloutre
+  ];
   license = with lib.licenses; [
     lgpl21Plus
     lgpl3Plus

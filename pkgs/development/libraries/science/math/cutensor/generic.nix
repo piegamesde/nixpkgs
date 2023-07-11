@@ -30,9 +30,15 @@ in stdenv.mkDerivation {
     inherit hash;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    addOpenGLRunpath
+  ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 

@@ -37,8 +37,12 @@ in stdenv.mkDerivation rec {
     homepage = "https://lamdera.com";
     license = licenses.unfree;
     description = "A delightful platform for full-stack web apps";
-    platforms =
-      [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ Zimmi48 ];
   };
 }

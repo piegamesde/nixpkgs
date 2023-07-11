@@ -32,7 +32,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "django_prometheus" ];
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

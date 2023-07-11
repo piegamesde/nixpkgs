@@ -13,7 +13,12 @@ args@{
     adminuser = "root";
   in {
     name = "nextcloud-basic";
-    meta = with pkgs.lib.maintainers; { maintainers = [ globin eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        globin
+        eqyiel
+      ];
+    };
 
     nodes = rec {
       # The only thing the client needs to do is download a file.
@@ -32,7 +37,11 @@ args@{
               options = let
                 davfs2Conf =
                   (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets");
-              in [ "conf=${davfs2Conf}" "x-systemd.automount" "noauto" ];
+              in [
+                "conf=${davfs2Conf}"
+                "x-systemd.automount"
+                "noauto"
+              ];
             };
           };
         };
@@ -111,7 +120,10 @@ args@{
 
         findInClosure = what: drv:
           pkgs.runCommand "find-in-closure" {
-            exportReferencesGraph = [ "graph" drv ];
+            exportReferencesGraph = [
+              "graph"
+              drv
+            ];
             inherit what;
           } ''
             test -e graph

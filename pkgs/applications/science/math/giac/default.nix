@@ -97,8 +97,12 @@ stdenv.mkDerivation rec {
     substituteInPlace src/global.cc --replace 'browser="mozilla"' 'browser="xdg-open"'
   '';
 
-  nativeBuildInputs =
-    [ autoreconfHook texlive.combined.scheme-small bison flex ];
+  nativeBuildInputs = [
+    autoreconfHook
+    texlive.combined.scheme-small
+    bison
+    flex
+  ];
 
   # perl is only needed for patchShebangs fixup.
   buildInputs = [
@@ -122,8 +126,12 @@ stdenv.mkDerivation rec {
     (lib.getLib gfortran.cc)
     lapack
     blas
-  ] ++ lib.optionals enableGUI [ libGL libGLU fltk xorg.libX11 ]
-    ++ lib.optional enableMicroPy python3;
+  ] ++ lib.optionals enableGUI [
+    libGL
+    libGLU
+    fltk
+    xorg.libX11
+  ] ++ lib.optional enableMicroPy python3;
 
   # xcas Phys and Turtle menus are broken with split outputs
   # and interactive use is likely to need docs
@@ -151,8 +159,10 @@ stdenv.mkDerivation rec {
     "--enable-ao"
     "--enable-ecm"
     "--enable-glpk"
-  ] ++ lib.optionals enableGUI [ "--enable-gui" "--with-x" ]
-    ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
+  ] ++ lib.optionals enableGUI [
+    "--enable-gui"
+    "--with-x"
+  ] ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
     ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ];
 
   postInstall = ''

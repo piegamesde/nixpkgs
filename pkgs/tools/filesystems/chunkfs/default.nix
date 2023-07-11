@@ -15,9 +15,15 @@ stdenv.mkDerivation rec {
     sha256 = "4c168fc2b265a6ba34afc565707ea738f34375325763c0596f2cfa1c9b8d40f1";
   };
 
-  buildInputs = [ perl fuse ];
+  buildInputs = [
+    perl
+    fuse
+  ];
 
-  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   preInstall = ''
     mkdir -p $out/bin

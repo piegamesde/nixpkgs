@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-EafLWySeHB81HRcXiDs56lbUZzGvnT87WVqln0PoLCk=";
   };
 
-  propagatedBuildInputs = [ flake8 pydocstyle ];
+  propagatedBuildInputs = [
+    flake8
+    pydocstyle
+  ];
 
   # Module has no tests
   doCheck = false;

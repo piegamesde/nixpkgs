@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [ glib ];
 

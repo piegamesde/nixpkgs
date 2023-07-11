@@ -23,23 +23,29 @@ in stdenv.mkDerivation rec {
     hash = "sha256-jY0P2GErmo//YBaz6u4/jj/voOE3C2JaIDRmo0orXN8=";
   };
 
-  nativeBuildInputs = [ copyPkgconfigItems perl texinfo which ];
-
-  pkgconfigItems = [
-    (makePkgconfigItem rec {
-      name = "libtcc";
-      inherit version;
-      cflags = [ "-I${variables.includedir}" ];
-      libs =
-        [ "-L${variables.libdir}" "-Wl,--rpath ${variables.libdir}" "-ltcc" ];
-      variables = rec {
-        prefix = "${placeholder "out"}";
-        includedir = "${prefix}/include";
-        libdir = "${prefix}/lib";
-      };
-      description = "Tiny C compiler backend";
-    })
+  nativeBuildInputs = [
+    copyPkgconfigItems
+    perl
+    texinfo
+    which
   ];
+
+  pkgconfigItems = [ (makePkgconfigItem rec {
+    name = "libtcc";
+    inherit version;
+    cflags = [ "-I${variables.includedir}" ];
+    libs = [
+      "-L${variables.libdir}"
+      "-Wl,--rpath ${variables.libdir}"
+      "-ltcc"
+    ];
+    variables = rec {
+      prefix = "${placeholder "out"}";
+      includedir = "${prefix}/include";
+      libdir = "${prefix}/lib";
+    };
+    description = "Tiny C compiler backend";
+  }) ];
 
   postPatch = ''
     patchShebangs texi2pod.pl
@@ -63,7 +69,11 @@ in stdenv.mkDerivation rec {
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
   '';
 
-  outputs = [ "out" "info" "man" ];
+  outputs = [
+    "out"
+    "info"
+    "man"
+  ];
 
   doCheck = true;
   checkTarget = "test";
@@ -97,7 +107,10 @@ in stdenv.mkDerivation rec {
       With libtcc, you can use TCC as a backend for dynamic code generation.
     '';
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ joachifm AndersonTorres ];
+    maintainers = with maintainers; [
+      joachifm
+      AndersonTorres
+    ];
     platforms = platforms.unix;
     # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10199.html
     broken = stdenv.isDarwin && stdenv.isAarch64;

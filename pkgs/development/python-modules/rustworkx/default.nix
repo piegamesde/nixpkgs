@@ -27,12 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-imhiPj763iumRQb+oeBOpICD1nCvzZx+3yQWu1QRRQQ=";
   };
 
-  nativeBuildInputs = [ setuptools-rust ]
-    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [ numpy ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  checkInputs = [ fixtures networkx ];
+  checkInputs = [
+    fixtures
+    networkx
+  ];
 
   pythonImportsCheck = [ "rustworkx" ];
 

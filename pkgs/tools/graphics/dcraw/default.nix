@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = lib.optional stdenv.isDarwin libiconv;
-  buildInputs = [ libjpeg lcms2 gettext ];
+  buildInputs = [
+    libjpeg
+    lcms2
+    gettext
+  ];
 
   # Jasper is disabled because the library is abandoned and has many
   # CVEs.

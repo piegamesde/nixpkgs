@@ -31,8 +31,15 @@
     version = "2.7.1";
   };
   mailcatcher = {
-    dependencies =
-      [ "eventmachine" "mail" "rack" "sinatra" "skinny" "sqlite3" "thin" ];
+    dependencies = [
+      "eventmachine"
+      "mail"
+      "rack"
+      "sinatra"
+      "skinny"
+      "sqlite3"
+      "thin"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -74,7 +81,11 @@
     version = "1.5.5";
   };
   sinatra = {
-    dependencies = [ "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -85,7 +96,10 @@
     version = "1.4.8";
   };
   skinny = {
-    dependencies = [ "eventmachine" "thin" ];
+    dependencies = [
+      "eventmachine"
+      "thin"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -106,7 +120,11 @@
     version = "1.4.0";
   };
   thin = {
-    dependencies = [ "daemons" "eventmachine" "rack" ];
+    dependencies = [
+      "daemons"
+      "eventmachine"
+      "rack"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

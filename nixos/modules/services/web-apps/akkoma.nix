@@ -13,9 +13,12 @@ let
   web = ex.":pleroma"."Pleroma.Web.Endpoint";
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
-  hasSmtp =
-    (attrByPath [ ":pleroma" "Pleroma.Emails.Mailer" "adapter" "value" ] null
-      ex) == "Swoosh.Adapters.SMTP";
+  hasSmtp = (attrByPath [
+    ":pleroma"
+    "Pleroma.Emails.Mailer"
+    "adapter"
+    "value"
+  ] null ex) == "Swoosh.Adapters.SMTP";
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
@@ -116,14 +119,22 @@ let
 
   format = pkgs.formats.elixirConf { };
   configFile = format.generate "config.exs" (replaceSec
-    (attrsets.updateManyAttrsByPath [{
-      path = [ ":pleroma" "Pleroma.Web.Endpoint" "http" "ip" ];
+    (attrsets.updateManyAttrsByPath [ {
+      path = [
+        ":pleroma"
+        "Pleroma.Web.Endpoint"
+        "http"
+        "ip"
+      ];
       update = addr:
         if isAbsolutePath addr then
-          format.lib.mkTuple [ (format.lib.mkAtom ":local") addr ]
+          format.lib.mkTuple [
+            (format.lib.mkAtom ":local")
+            addr
+          ]
         else
           format.lib.mkRaw (erlAddr addr);
-    }] cfg.config));
+    } ] cfg.config));
 
   writeShell = {
       name,
@@ -135,7 +146,10 @@ let
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
-    runtimeInputs = with pkgs; [ coreutils util-linux ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      util-linux
+    ];
     text = ''
       install -m 0400 \
         -o ${escapeShellArg cfg.user} \
@@ -168,7 +182,10 @@ let
 
   initSecretsScript = writeShell {
     name = "akkoma-init-secrets";
-    runtimeInputs = with pkgs; [ coreutils elixir ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      elixir
+    ];
     text = let
       key-base = web.secret_key_base;
       jwt-signer = ex.":joken".":default_signer";
@@ -207,7 +224,10 @@ let
 
   configScript = writeShell {
     name = "akkoma-config";
-    runtimeInputs = with pkgs; [ coreutils replace-secret ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      replace-secret
+    ];
     text = ''
       cd "$RUNTIME_DIRECTORY"
       tmp="$(mktemp config.exs.XXXXXXXXXX)"
@@ -215,7 +235,12 @@ let
 
       cat ${escapeShellArg configFile} >"$tmp"
       ${concatMapStrings (file: ''
-        replace-secret ${escapeShellArgs [ (sha256 file) file ]} "$tmp"
+        replace-secret ${
+          escapeShellArgs [
+            (sha256 file)
+            file
+          ]
+        } "$tmp"
       '') secretPaths}
 
       chown ${escapeShellArg cfg.user}:${escapeShellArg cfg.group} "$tmp"
@@ -224,7 +249,11 @@ let
     '';
   };
 
-  pgpass = let esc = escape [ ":" "\\" ];
+  pgpass = let
+    esc = escape [
+      ":"
+      "\\"
+    ];
   in if (cfg.initDb.password != null) then
     pkgs.writeText "pgpass.conf" ''
       *:*:*${esc cfg.initDb.username}:${
@@ -296,7 +325,10 @@ let
       cat ${escapeShellArg setupSql} >"$setupSql"
       ${optionalString (db ? password) ''
         replace-secret ${
-          escapeShellArgs [ (sha256 db.password._secret) db.password._secret ]
+          escapeShellArgs [
+            (sha256 db.password._secret)
+            db.password._secret
+          ]
         } "$setupSql"
       ''}
 
@@ -367,7 +399,10 @@ let
   socketScript = if isAbsolutePath web.http.ip then
     writeShell {
       name = "akkoma-socket";
-      runtimeInputs = with pkgs; [ coreutils inotify-tools ];
+      runtimeInputs = with pkgs; [
+        coreutils
+        inotify-tools
+      ];
       text = ''
         coproc {
           inotifywait -q -m -e create ${escapeShellArg (dirOf web.http.ip)}
@@ -922,10 +957,10 @@ in {
               ":backends" = mkOption {
                 type = types.listOf elixirValue;
                 visible = false;
-                default = with format.lib;
-                  [
-                    (mkTuple [ (mkRaw "ExSyslogger") (mkAtom ":ex_syslogger") ])
-                  ];
+                default = with format.lib; [ (mkTuple [
+                  (mkRaw "ExSyslogger")
+                  (mkAtom ":ex_syslogger")
+                ]) ];
               };
 
               ":ex_syslogger" = {
@@ -980,10 +1015,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    warnings = optionals (!config.security.sudo.enable) [''
+    warnings = optionals (!config.security.sudo.enable) [ ''
       The pleroma_ctl wrapper enabled by the installWrapper option relies on
       sudo, which appears to have been disabled through security.sudo.enable.
-    ''];
+    '' ];
 
     users = {
       users."${cfg.user}" = {
@@ -1027,7 +1062,10 @@ in {
       description = "Akkoma social network database setup";
       requires = [ "akkoma-config.service" ];
       requiredBy = [ "akkoma.service" ];
-      after = [ "akkoma-config.service" "postgresql.service" ];
+      after = [
+        "akkoma-config.service"
+        "postgresql.service"
+      ];
       before = [ "akkoma.service" ];
 
       serviceConfig = {
@@ -1041,7 +1079,12 @@ in {
     };
 
     systemd.services.akkoma = let
-      runtimeInputs = with pkgs; [ coreutils gawk gnused ] ++ cfg.extraPackages;
+      runtimeInputs = with pkgs;
+        [
+          coreutils
+          gawk
+          gnused
+        ] ++ cfg.extraPackages;
     in {
       description = "Akkoma social network";
       documentation = [ "https://docs.akkoma.dev/stable/" ];
@@ -1075,16 +1118,19 @@ in {
 
         BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
         BindReadOnlyPaths = mkMerge [
-          (mkIf (!isStorePath staticDir)
-            [ "${staticDir}:${staticDir}:norbind" ])
+          (mkIf
+            (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
           (mkIf isConfined (mkMerge [
-            [ "/etc/hosts" "/etc/resolv.conf" ]
+            [
+              "/etc/hosts"
+              "/etc/resolv.conf"
+            ]
             (mkIf (isStorePath staticDir) (map (dir: "${dir}:${dir}:norbind")
               (splitString "\n" (readFile
                 ((pkgs.closureInfo { rootPaths = staticDir; })
                   + "/store-paths")))))
-            (mkIf (db ? socket_dir)
-              [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
+            (mkIf
+              (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
             (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
           ]))
         ];
@@ -1110,7 +1156,11 @@ in {
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
 
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         RestrictRealtime = true;
@@ -1124,7 +1174,11 @@ in {
         ]) [ "CAP_NET_BIND_SERVICE" ];
 
         NoNewPrivileges = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" "@chown" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@chown"
+        ];
         SystemCallArchitectures = "native";
 
         DeviceAllow = null;

@@ -29,9 +29,21 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-zT31tzsm5OM99vz8DzGCdPmnemiwiJpKccYwECnUgOQ=";
   };
 
-  nativeBuildInputs = [ cmake libxslt wrapQtAppsHook installShellFiles ];
+  nativeBuildInputs = [
+    cmake
+    libxslt
+    wrapQtAppsHook
+    installShellFiles
+  ];
 
-  buildInputs = [ libusb1 qtlocation qtserialport qttools qtbase yaml-cpp ];
+  buildInputs = [
+    libusb1
+    qtlocation
+    qtserialport
+    qttools
+    qtbase
+    yaml-cpp
+  ];
 
   postPatch = lib.optionalString isLinux ''
     substituteInPlace doc/docbook_man.debian.xsl \
@@ -51,7 +63,10 @@ in stdenv.mkDerivation rec {
       "GUI application and command line tool for programming DMR radios";
     homepage = "https://dm3mat.darc.de/qdmr/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ janik _0x4A6F ];
+    maintainers = with lib.maintainers; [
+      janik
+      _0x4A6F
+    ];
     platforms = lib.platforms.linux;
   };
 }

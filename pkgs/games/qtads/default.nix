@@ -24,9 +24,19 @@ mkDerivation rec {
     sha256 = "sha256-CndN8l7GGIekfbz7OrTYIElL7SxRxEkiNiZP2NHuxOg=";
   };
 
-  nativeBuildInputs = [ pkg-config qmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
 
-  buildInputs = [ SDL2 fluidsynth libsndfile libvorbis mpg123 qtbase ];
+  buildInputs = [
+    SDL2
+    fluidsynth
+    libsndfile
+    libvorbis
+    mpg123
+    qtbase
+  ];
 
   meta = with lib; {
     homepage = "https://realnc.github.io/qtads/";

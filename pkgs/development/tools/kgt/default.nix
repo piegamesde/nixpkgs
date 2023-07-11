@@ -19,12 +19,19 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  outputs = [ "bin" "doc" "out" ];
+  outputs = [
+    "bin"
+    "doc"
+    "out"
+  ];
 
   nativeBuildInputs = [ bmake ];
   enableParallelBuilding = true;
 
-  makeFlags = [ "-r" "PREFIX=$(bin)" ];
+  makeFlags = [
+    "-r"
+    "PREFIX=$(bin)"
+  ];
 
   installPhase = ''
     runHook preInstall

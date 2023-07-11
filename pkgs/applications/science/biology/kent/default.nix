@@ -24,7 +24,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-d8gcoyMwINdHoD6xaNKt4rCKrKir99+i4KIzJ2YnxRw=";
   };
 
-  buildInputs = [ libpng libuuid zlib bzip2 xz openssl curl libmysqlclient ];
+  buildInputs = [
+    libpng
+    libuuid
+    zlib
+    bzip2
+    xz
+    openssl
+    curl
+    libmysqlclient
+  ];
 
   patchPhase = ''
     runHook prePatch

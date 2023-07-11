@@ -37,9 +37,21 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ sfml libGLU libGL bullet glm libmad openal SDL2 boost ffmpeg_4 ]
-    ++ lib.optionals stdenv.isDarwin [ OpenAL Cocoa ];
+  buildInputs = [
+    sfml
+    libGLU
+    libGL
+    bullet
+    glm
+    libmad
+    openal
+    SDL2
+    boost
+    ffmpeg_4
+  ] ++ lib.optionals stdenv.isDarwin [
+    OpenAL
+    Cocoa
+  ];
 
   meta = with lib; {
     description =

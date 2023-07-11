@@ -86,7 +86,10 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./dependencies.patch ];
 
-  nativeBuildInputs = [ cmake git ];
+  nativeBuildInputs = [
+    cmake
+    git
+  ];
 
   buildInputs = [
     libGL

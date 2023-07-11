@@ -38,8 +38,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django django-phonenumber-field requests ]
-    ++ django-phonenumber-field.optional-dependencies.phonenumbers;
+  propagatedBuildInputs = [
+    django
+    django-phonenumber-field
+    requests
+  ] ++ django-phonenumber-field.optional-dependencies.phonenumbers;
 
   # require internet connection
   doCheck = false;

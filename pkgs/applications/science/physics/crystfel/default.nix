@@ -44,8 +44,14 @@ let
       url = "https://ftp.ccp4.ac.uk/opensource/${pname}-${version}.tar.gz";
       hash = "sha256-y4E66GYSoIZjKd6rfO6W6sVz2BvlskA0HUD5rVMi/y0=";
     };
-    nativeBuildInputs = [ meson ninja ];
-    buildInputs = [ hdf5 gsl ];
+    nativeBuildInputs = [
+      meson
+      ninja
+    ];
+    buildInputs = [
+      hdf5
+      gsl
+    ];
 
     configureFlags = [ "FFLAGS=-fallow-argument-mismatch" ];
 
@@ -94,7 +100,10 @@ let
 
     dontBuild = true;
 
-    nativeBuildInputs = [ unzip makeWrapper ];
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
+    ];
 
     sourceRoot = ".";
 
@@ -116,7 +125,11 @@ let
       sha256 = "11i1w57a3rpnb4x5y4n8d3iffn5m9w1zydl69syzljdk3aqg2pv8";
     };
 
-    nativeBuildInputs = [ meson pkg-config ninja ];
+    nativeBuildInputs = [
+      meson
+      pkg-config
+      ninja
+    ];
     buildInputs = [ eigen ];
   };
 
@@ -129,7 +142,11 @@ let
       sha256 = "1mkgf1xd91ay0z0632kzxm0z3wcxf0cayjvs6a3znds72dkhfsyh";
     };
 
-    nativeBuildInputs = [ meson pkg-config ninja ];
+    nativeBuildInputs = [
+      meson
+      pkg-config
+      ninja
+    ];
     buildInputs = [ eigen ];
   };
 
@@ -142,7 +159,11 @@ let
       sha256 = "184l76r4fgznq54rnhgjk7dg41kqdl0d1da02vr5y4cs2fyqppky";
     };
 
-    nativeBuildInputs = [ meson ninja pkg-config ];
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+    ];
     buildInputs = [ eigen ];
   };
 
@@ -156,16 +177,18 @@ let
       hash = "sha256-bEzfWdZuHmb0PDzCqy8Dey4tLtq+4coO0sT0GzqrTYI=";
     };
 
-    patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch";
-        hash = "sha256-wnBEdL/MjEyRHPwaVtuhzY+DW1AFeaUQUmIXh+JaRHo=";
-      })
-    ];
+    patches = [ (fetchpatch {
+      url =
+        "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch";
+      hash = "sha256-wnBEdL/MjEyRHPwaVtuhzY+DW1AFeaUQUmIXh+JaRHo=";
+    }) ];
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [ hdf5 lz4 bzip2 ];
+    buildInputs = [
+      hdf5
+      lz4
+      bzip2
+    ];
 
     cmakeFlags = [
       "-DENABLE_BITSHUFFLE_PLUGIN=yes"
@@ -180,9 +203,16 @@ in stdenv.mkDerivation rec {
     url = "https://www.desy.de/~twhite/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-nCO9ndDKS54bVN9IhFBiCVNzqk7BsCljXFrOmlx+sP4=";
   };
-  nativeBuildInputs =
-    [ meson pkg-config ninja flex bison doxygen opencl-headers makeWrapper ]
-    ++ lib.optionals withGui [ wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    flex
+    bison
+    doxygen
+    opencl-headers
+    makeWrapper
+  ] ++ lib.optionals withGui [ wrapGAppsHook ];
   buildInputs = [
     hdf5
     gsl
@@ -196,10 +226,11 @@ in stdenv.mkDerivation rec {
     mosflm
     pinkIndexer
     xgandalf
-  ] ++ lib.optionals withGui [ gtk3 gdk-pixbuf ]
-    ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
-    ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64)
-    [ memorymappingHook ]
+  ] ++ lib.optionals withGui [
+    gtk3
+    gdk-pixbuf
+  ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ] ++ lib.optionals
+    (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
     ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
 
   patches = [

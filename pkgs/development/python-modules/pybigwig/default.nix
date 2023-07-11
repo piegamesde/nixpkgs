@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   buildInputs = [ zlib ];
 
-  nativeCheckInputs = [ numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyBigWig" ];
 

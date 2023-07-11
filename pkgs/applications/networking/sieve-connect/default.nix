@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ perlPackages.perl ];
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   preBuild = ''
     # Fixes failing build when not building in git repo

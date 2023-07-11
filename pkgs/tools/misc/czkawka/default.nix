@@ -29,9 +29,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-jBl7+ElK+SEe92qygTocd6R1sgdHf+RpTVJZymhf3mQ=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook4 gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook4
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib cairo pango gdk-pixbuf atk gtk4 ];
+  buildInputs = [
+    glib
+    cairo
+    pango
+    gdk-pixbuf
+    atk
+    gtk4
+  ];
 
   nativeCheckInputs = [ xvfb-run ];
 
@@ -52,6 +63,9 @@ rustPlatform.buildRustPackage rec {
       "A simple, fast and easy to use app to remove unnecessary files from your computer";
     homepage = "https://github.com/qarmin/czkawka";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ yanganto _0x4A6F ];
+    maintainers = with maintainers; [
+      yanganto
+      _0x4A6F
+    ];
   };
 }

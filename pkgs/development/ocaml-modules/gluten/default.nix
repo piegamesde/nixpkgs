@@ -20,7 +20,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ bigstringaf faraday ke ];
+  propagatedBuildInputs = [
+    bigstringaf
+    faraday
+    ke
+  ];
 
   doCheck = false; # No tests
 

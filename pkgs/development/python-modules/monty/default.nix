@@ -32,9 +32,19 @@ buildPythonPackage rec {
       --replace 'self.assertEqual("/usr/bin/find", which("/usr/bin/find"))' '#'
   '';
 
-  propagatedBuildInputs = [ msgpack ruamel-yaml tqdm ];
+  propagatedBuildInputs = [
+    msgpack
+    ruamel-yaml
+    tqdm
+  ];
 
-  nativeCheckInputs = [ numpy pandas pydantic pymongo pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pandas
+    pydantic
+    pymongo
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "monty" ];
 

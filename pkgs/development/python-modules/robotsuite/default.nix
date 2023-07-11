@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-iugVKUPl6HTTO8K1EbSqAk1fl/fsEPoOcsOnnAgcEas=";
   };
 
-  propagatedBuildInputs = [ robotframework lxml six ];
+  propagatedBuildInputs = [
+    robotframework
+    lxml
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

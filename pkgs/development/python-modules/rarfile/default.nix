@@ -28,7 +28,11 @@ buildPythonPackage rec {
     sha256 = "0gpriqkvcb6bsccvq8b099xjv5fkjs0d7g4636d5jphy417jxk5m";
   };
 
-  nativeCheckInputs = [ pytestCheckHook nose glibcLocales ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+    glibcLocales
+  ];
 
   prePatch = ''
     substituteInPlace rarfile.py \

@@ -29,18 +29,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ijzEMGXoH0gACem/3JaC/aOIaOQgP7Y7n48NgoDMKBk=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib granite gtk3 libcanberra libgee libhandy ]
-    ++ (with gst_all_1; [
-      gst-plugins-bad
-      gst-plugins-base
-      # gtkSupport needed for gtksink
-      # https://github.com/elementary/camera/issues/181
-      (gst-plugins-good.override { gtkSupport = true; })
-      gst-plugins-ugly
-      gstreamer
-    ]);
+  buildInputs = [
+    glib
+    granite
+    gtk3
+    libcanberra
+    libgee
+    libhandy
+  ] ++ (with gst_all_1; [
+    gst-plugins-bad
+    gst-plugins-base
+    # gtkSupport needed for gtksink
+    # https://github.com/elementary/camera/issues/181
+    (gst-plugins-good.override { gtkSupport = true; })
+    gst-plugins-ugly
+    gstreamer
+  ]);
 
   postPatch = ''
     chmod +x meson/post_install.py

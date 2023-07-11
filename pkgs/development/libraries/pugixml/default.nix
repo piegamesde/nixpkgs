@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optionals shared [ "dev" ];
 
-  nativeBuildInputs = [ cmake validatePkgConfig ];
+  nativeBuildInputs = [
+    cmake
+    validatePkgConfig
+  ];
 
   cmakeFlags = [
     "-DBUILD_TESTS=ON"

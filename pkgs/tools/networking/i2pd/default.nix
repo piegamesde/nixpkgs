@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sgaNrRRAINMI0utLQ6o6zcI5ImaDrYho9WeFiJg7WuE=";
   };
 
-  buildInputs = [ boost zlib openssl ] ++ lib.optional upnpSupport miniupnpc;
+  buildInputs = [
+    boost
+    zlib
+    openssl
+  ] ++ lib.optional upnpSupport miniupnpc;
 
   nativeBuildInputs = [ installShellFiles ];
 

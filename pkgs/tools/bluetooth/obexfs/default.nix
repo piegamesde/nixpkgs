@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse obexftp bluez ];
+  buildInputs = [
+    fuse
+    obexftp
+    bluez
+  ];
 
   meta = with lib; {
     homepage = "http://dev.zuckschwerdt.org/openobex/wiki/ObexFs";

@@ -24,7 +24,7 @@ else
       "LUA_VERSION=${lua.luaversion}"
     ] ++ makeFlags;
 
-    propagatedBuildInputs = propagatedBuildInputs ++ [
-      lua # propagate it for its setup-hook
-    ];
+    propagatedBuildInputs = propagatedBuildInputs
+      ++ [ lua # propagate it for its setup-hook
+      ];
   }))

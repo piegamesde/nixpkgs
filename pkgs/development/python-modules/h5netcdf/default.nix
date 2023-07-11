@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ h5py ];
 
-  nativeCheckInputs = [ pytestCheckHook netcdf4 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    netcdf4
+  ];
 
   dontUseSetuptoolsCheck = true;
 

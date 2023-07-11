@@ -36,12 +36,26 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = with lib;
-    [ libev librsvg libpng libjpeg libtiff openssl xz bzip2 zlib ]
-    ++ optionals stdenv.isLinux [ gpm ]
-    ++ optionals enableX11 [ libX11 libXau libXt ]
-    ++ optionals enableDirectFB [ directfb ];
+    [
+      libev
+      librsvg
+      libpng
+      libjpeg
+      libtiff
+      openssl
+      xz
+      bzip2
+      zlib
+    ] ++ optionals stdenv.isLinux [ gpm ] ++ optionals enableX11 [
+      libX11
+      libXau
+      libXt
+    ] ++ optionals enableDirectFB [ directfb ];
 
-  nativeBuildInputs = [ pkg-config bzip2 ];
+  nativeBuildInputs = [
+    pkg-config
+    bzip2
+  ];
 
   configureFlags = [ "--with-ssl" ]
     ++ lib.optional (enableX11 || enableFB || enableDirectFB)

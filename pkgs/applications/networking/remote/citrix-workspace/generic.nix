@@ -103,8 +103,14 @@ in stdenv.mkDerivation rec {
   preferLocalBuild = true;
   passthru.icaroot = "${placeholder "out"}/opt/citrix-icaclient";
 
-  nativeBuildInputs =
-    [ autoPatchelfHook file makeWrapper more which wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    file
+    makeWrapper
+    more
+    which
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -273,7 +279,10 @@ in stdenv.mkDerivation rec {
     description = "Citrix Workspace";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pmenke michaeladler ];
+    maintainers = with maintainers; [
+      pmenke
+      michaeladler
+    ];
     inherit homepage;
   };
 }

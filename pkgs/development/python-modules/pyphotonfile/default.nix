@@ -9,7 +9,10 @@ let version = "0.2.1";
 in buildPythonPackage {
   pname = "pyphotonfile";
   inherit version;
-  propagatedBuildInputs = [ pillow numpy ];
+  propagatedBuildInputs = [
+    pillow
+    numpy
+  ];
 
   src = fetchFromGitHub {
     owner = "fookatchu";

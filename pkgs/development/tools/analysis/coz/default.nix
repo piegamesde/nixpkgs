@@ -28,9 +28,16 @@ stdenv.mkDerivation rec {
     sed -e "s|/usr/lib/|$out/lib/|" -i ./coz
   '';
 
-  nativeBuildInputs = [ ncurses makeWrapper python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    ncurses
+    makeWrapper
+    python3Packages.wrapPython
+  ];
 
-  buildInputs = [ libelfin (python3.withPackages (p: [ p.docutils ])) ];
+  buildInputs = [
+    libelfin
+    (python3.withPackages (p: [ p.docutils ]))
+  ];
 
   installPhase = ''
     mkdir -p $out/share/man/man1

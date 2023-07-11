@@ -35,7 +35,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     maintainers = [ maintainers.khumba ];
     license = [ licenses.gpl2Only ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     broken = kernel.kernelOlder "5.2";
     description = "System76 ACPI Driver (DKMS)";
     homepage = "https://github.com/pop-os/system76-acpi-dkms";

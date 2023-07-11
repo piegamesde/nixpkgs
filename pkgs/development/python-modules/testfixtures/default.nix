@@ -29,7 +29,13 @@ buildPythonPackage rec {
     hash = "sha256-RWzk85MWDyfNaEClNw7PSnDxchc39eZ6KveebIF4BKQ=";
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook sybil twisted zope_component ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    sybil
+    twisted
+    zope_component
+  ];
 
   disabledTestPaths = [
     # Django is too much hasle to setup at the moment

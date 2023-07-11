@@ -40,8 +40,16 @@ stdenv.mkDerivation rec {
     python3Packages.sphinx
   ];
 
-  buildInputs =
-    [ gtk3 glib glib-networking dbus-glib libconfig libsoup libsecret openssl ];
+  buildInputs = [
+    gtk3
+    glib
+    glib-networking
+    dbus-glib
+    libconfig
+    libsoup
+    libsecret
+    openssl
+  ];
 
   meta = with lib; {
     description = "Modern IRC client written in GTK";

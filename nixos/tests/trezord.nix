@@ -4,7 +4,10 @@ import ./make-test-python.nix ({
   }: {
     name = "trezord";
     meta = with pkgs.lib; {
-      maintainers = with maintainers; [ mmahut _1000101 ];
+      maintainers = with maintainers; [
+        mmahut
+        _1000101
+      ];
     };
     nodes = {
       machine = {

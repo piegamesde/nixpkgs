@@ -26,12 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-yH9SCrTASP+O9VLVs6tliteCOWi+Pc7nDOgiboHQE4s=";
   };
 
-  pythonRelaxDeps = [ "cryptography" "pyOpenSSL" ];
+  pythonRelaxDeps = [
+    "cryptography"
+    "pyOpenSSL"
+  ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    [ certifi circuitbreaker cryptography pyopenssl python-dateutil pytz ];
+  propagatedBuildInputs = [
+    certifi
+    circuitbreaker
+    cryptography
+    pyopenssl
+    python-dateutil
+    pytz
+  ];
 
   # Tests fail: https://github.com/oracle/oci-python-sdk/issues/164
   doCheck = false;

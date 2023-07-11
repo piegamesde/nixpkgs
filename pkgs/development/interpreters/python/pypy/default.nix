@@ -97,8 +97,10 @@ stdenv.mkDerivation rec {
     db
   ] ++ lib.optionals isPy3k [ xz ]
     ++ lib.optionals (stdenv ? cc && stdenv.cc.libc != null) [ stdenv.cc.libc ]
-    ++ lib.optionals zlibSupport [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [ libunwind Security ];
+    ++ lib.optionals zlibSupport [ zlib ] ++ lib.optionals stdenv.isDarwin [
+      libunwind
+      Security
+    ];
 
   # Remove bootstrap python from closure
   dontPatchShebangs = true;
@@ -224,8 +226,13 @@ stdenv.mkDerivation rec {
   # verify cffi modules
   doInstallCheck = true;
   installCheckPhase = let
-    modules = [ "curses" "sqlite3" ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
-      ++ lib.optionals isPy3k [ "tkinter" "lzma" ];
+    modules = [
+      "curses"
+      "sqlite3"
+    ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [
+      "tkinter"
+      "lzma"
+    ];
     imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
   in ''
     echo "Testing whether we can import modules"
@@ -240,8 +247,12 @@ stdenv.mkDerivation rec {
     description =
       "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     license = licenses.mit;
-    platforms =
-      [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
     maintainers = with maintainers; [ andersk ];
   };
 }

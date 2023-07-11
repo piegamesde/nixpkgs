@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ patchelf ];
-  buildInputs = [ tcsh yap perl ];
+  buildInputs = [
+    tcsh
+    yap
+    perl
+  ];
 
   installPhase = ''
     sharedir=$out/share/tptp
@@ -46,7 +50,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Thousands of problems for theorem provers and tools";
-    maintainers = with maintainers; [ raskin gebner ];
+    maintainers = with maintainers; [
+      raskin
+      gebner
+    ];
     # 6.3 GiB of data. Installation is unpacking and editing a few files.
     # No sense in letting Hydra build it.
     # Also, it is unclear what is covered by "verbatim" - we will edit configs

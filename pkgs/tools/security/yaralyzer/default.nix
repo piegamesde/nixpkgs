@@ -16,9 +16,15 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-QsMO/fnHy4puuToUHSS05fWnXHdAVnWFFBVq3cb0Zj4=";
   };
 
-  pythonRelaxDeps = [ "python-dotenv" "rich" ];
+  pythonRelaxDeps = [
+    "python-dotenv"
+    "rich"
+  ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     chardet

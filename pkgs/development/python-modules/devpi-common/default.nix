@@ -22,14 +22,24 @@ buildPythonPackage rec {
       --replace "--flake8" ""
   '';
 
-  propagatedBuildInputs = [ requests py lazy ];
+  propagatedBuildInputs = [
+    requests
+    py
+    lazy
+  ];
 
-  nativeCheckInputs = [ py pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/devpi/devpi";
     description = "Utilities jointly used by devpi-server and devpi-client";
     license = licenses.mit;
-    maintainers = with maintainers; [ lewo makefu ];
+    maintainers = with maintainers; [
+      lewo
+      makefu
+    ];
   };
 }

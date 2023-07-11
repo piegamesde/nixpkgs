@@ -7,13 +7,13 @@ import ./make-test-python.nix ({
         ...
       }: {
         services.consul-template.instances.example.settings = {
-          template = [{
+          template = [ {
             contents = ''
               {{ key "example" }}
             '';
             perms = "0600";
             destination = "/example";
-          }];
+          } ];
         };
 
         services.consul = {

@@ -17,12 +17,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-chown-while-installing.patch ];
 
-  buildInputs = [ libopensmtpd openssl ];
+  buildInputs = [
+    libopensmtpd
+    openssl
+  ];
 
   nativeBuildInputs = [ mandoc ];
 
-  makeFlags =
-    [ "-f Makefile.gnu" "HAVE_ED25519=1" "DESTDIR=$(out)" "LOCALBASE=" ];
+  makeFlags = [
+    "-f Makefile.gnu"
+    "HAVE_ED25519=1"
+    "DESTDIR=$(out)"
+    "LOCALBASE="
+  ];
 
   meta = with lib; {
     description = "OpenSMTPD filter for DKIM signing";

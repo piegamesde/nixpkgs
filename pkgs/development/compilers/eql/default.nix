@@ -18,7 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "17h23qr7fyr9hvjgiq0yhacmjs43x06vh8978aq42ymcgipxdcww";
   };
 
-  buildInputs = [ ecl qt4 xorgserver xkbcomp xkeyboard_config ];
+  buildInputs = [
+    ecl
+    qt4
+    xorgserver
+    xkbcomp
+    xkeyboard_config
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 

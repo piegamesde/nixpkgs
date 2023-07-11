@@ -37,7 +37,10 @@ buildGoModule rec {
     # "cmd/dendrite-demo-yggdrasil"
   ];
 
-  nativeCheckInputs = [ postgresqlTestHook postgresql ];
+  nativeCheckInputs = [
+    postgresqlTestHook
+    postgresql
+  ];
 
   postgresqlTestUserOptions = "LOGIN SUPERUSER";
   preCheck = ''

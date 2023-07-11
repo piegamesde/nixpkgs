@@ -46,11 +46,19 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [ libmnl libnftnl libpcap gmp jansson libedit ]
-    ++ lib.optional withXtables iptables ++ lib.optional withPython python3;
+  buildInputs = [
+    libmnl
+    libnftnl
+    libpcap
+    gmp
+    jansson
+    libedit
+  ] ++ lib.optional withXtables iptables ++ lib.optional withPython python3;
 
-  configureFlags = [ "--with-json" "--with-cli=editline" ]
-    ++ lib.optional (!withDebugSymbols) "--disable-debug"
+  configureFlags = [
+    "--with-json"
+    "--with-cli=editline"
+  ] ++ lib.optional (!withDebugSymbols) "--disable-debug"
     ++ lib.optional (!withPython) "--disable-python"
     ++ lib.optional withPython "--enable-python"
     ++ lib.optional withXtables "--with-xtables";
@@ -61,7 +69,10 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/nftables/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ izorkin ajs124 ];
+    maintainers = with maintainers; [
+      izorkin
+      ajs124
+    ];
     mainProgram = "nft";
   };
 }

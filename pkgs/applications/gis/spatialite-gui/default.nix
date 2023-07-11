@@ -61,7 +61,11 @@ stdenv.mkDerivation rec {
     wxGTK
     xz
     zstd
-  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa IOKit ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+    IOKit
+  ];
 
   enableParallelBuilding = true;
 

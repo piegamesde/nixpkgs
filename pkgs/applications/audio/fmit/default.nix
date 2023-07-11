@@ -31,9 +31,16 @@ mkDerivation rec {
     sha256 = "1q062pfwz2vr9hbfn29fv54ip3jqfd9r99nhpr8w7mn1csy38azx";
   };
 
-  nativeBuildInputs = [ qmake itstool wrapQtAppsHook ];
-  buildInputs = [ fftw qtbase qtmultimedia ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
+  nativeBuildInputs = [
+    qmake
+    itstool
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    fftw
+    qtbase
+    qtmultimedia
+  ] ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals portaudioSupport [ portaudio ];
 

@@ -42,5 +42,8 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libsndfile libpulseaudio ];
+  buildInputs = [
+    libsndfile
+    libpulseaudio
+  ];
 }

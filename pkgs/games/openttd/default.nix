@@ -57,9 +57,21 @@ in stdenv.mkDerivation rec {
     hash = "sha256-Xt8i03A1I4KF72cql9WeZCgL66sj5YR4CDTM1r4KWLs=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ SDL2 libpng xz zlib freetype fontconfig ]
-    ++ lib.optionals withFluidSynth [ fluidsynth soundfont-fluid ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    SDL2
+    libpng
+    xz
+    zlib
+    freetype
+    fontconfig
+  ] ++ lib.optionals withFluidSynth [
+    fluidsynth
+    soundfont-fluid
+  ];
 
   prefixKey = "--prefix-dir=";
 
@@ -107,6 +119,9 @@ in stdenv.mkDerivation rec {
       "https://cdn.openttd.org/openttd-releases/${version}/changelog.txt";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jcumming fpletz ];
+    maintainers = with maintainers; [
+      jcumming
+      fpletz
+    ];
   };
 }

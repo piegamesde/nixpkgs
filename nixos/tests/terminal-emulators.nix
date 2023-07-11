@@ -133,7 +133,10 @@ in mapAttrs (name:
       }:
 
       {
-        imports = [ ./common/x11.nix ./common/user-account.nix ];
+        imports = [
+          ./common/x11.nix
+          ./common/user-account.nix
+        ];
 
         # Hyper (and any other electron-based terminals) won't run as root
         test-support.displayManager.auto.user = "alice";
@@ -167,11 +170,9 @@ in mapAttrs (name:
         ];
 
         # Helpful reminder to add this test to passthru.tests
-        warnings =
-          if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
-            [ "The package for ${name} doesn't have a passthru.tests" ]
-          else
-            [ ];
+        warnings = if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru
+          ? "tests") then [ "The package for ${name} doesn't have a passthru.tests" ] else
+          [ ];
       };
 
     # We need imagemagick, though not tesseract

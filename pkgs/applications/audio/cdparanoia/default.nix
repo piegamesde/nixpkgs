@@ -41,9 +41,15 @@ stdenv.mkDerivation rec {
     ./configure.patch
   ] ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch;
 
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook autoreconfHook ];
+  nativeBuildInputs = [
+    updateAutotoolsGnuConfigScriptsHook
+    autoreconfHook
+  ];
 
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Carbon IOKit ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [
+    Carbon
+    IOKit
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -59,7 +65,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://xiph.org/paranoia";
     description = "A tool and library for reading digital audio from CDs";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     platforms = platforms.unix;
   };
 }

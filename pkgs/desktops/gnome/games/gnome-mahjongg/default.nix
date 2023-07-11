@@ -54,7 +54,11 @@ stdenv.mkDerivation rec {
     glib # for glib-compile-schemas
   ];
 
-  buildInputs = [ glib gtk3 librsvg ];
+  buildInputs = [
+    glib
+    gtk3
+    librsvg
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

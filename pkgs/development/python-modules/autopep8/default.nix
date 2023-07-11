@@ -37,7 +37,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pycodestyle ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytestCheckHook
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

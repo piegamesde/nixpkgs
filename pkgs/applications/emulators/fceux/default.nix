@@ -22,15 +22,27 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Q6r/iBlmi0z40+U6OLZCahS0io4IBBGZMP1mJH7szRM=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ SDL2 lua minizip x264 ];
+  buildInputs = [
+    SDL2
+    lua
+    minizip
+    x264
+  ];
 
   meta = with lib; {
     homepage = "http://www.fceux.com/";
     description = "A Nintendo Entertainment System (NES) Emulator";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sbruder scubed2 ];
+    maintainers = with maintainers; [
+      sbruder
+      scubed2
+    ];
     platforms = platforms.linux;
   };
 })

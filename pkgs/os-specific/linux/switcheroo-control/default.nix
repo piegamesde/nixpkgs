@@ -34,7 +34,10 @@ python3.pkgs.buildPythonApplication rec {
     glib
   ];
 
-  buildInputs = [ systemd libgudev ];
+  buildInputs = [
+    systemd
+    libgudev
+  ];
 
   propagatedBuildInputs = [ python3.pkgs.pygobject3 ];
 

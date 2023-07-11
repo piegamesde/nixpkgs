@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-gkLgUg9/fP04bKCJMj/rN0r6PV/cbLShDvKQyFvVap0=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   meta = {
     homepage = "https://github.com/hyprwm/hyprland-protocols";

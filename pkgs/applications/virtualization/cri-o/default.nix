@@ -28,11 +28,26 @@ buildGoModule rec {
 
   doCheck = false;
 
-  outputs = [ "out" "man" ];
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  outputs = [
+    "out"
+    "man"
+  ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ btrfs-progs gpgme libapparmor libseccomp libselinux lvm2 ]
-    ++ lib.optionals (glibc != null) [ glibc glibc.static ];
+  buildInputs = [
+    btrfs-progs
+    gpgme
+    libapparmor
+    libseccomp
+    libselinux
+    lvm2
+  ] ++ lib.optionals (glibc != null) [
+    glibc
+    glibc.static
+  ];
 
   BUILDTAGS =
     "apparmor seccomp selinux containers_image_openpgp containers_image_ostree_stub";

@@ -32,7 +32,11 @@ let
       --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
   '';
 
-  backends = [ "svg" "cairo" "ps" ];
+  backends = [
+    "svg"
+    "cairo"
+    "ps"
+  ];
 
 in stdenv.mkDerivation {
   name = "diagrams-builder";

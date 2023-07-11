@@ -18,7 +18,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ ldc dub ];
+  buildInputs = [
+    ldc
+    dub
+  ];
 
   installPhase = "install -D bin/lit $out/bin/lit";
 

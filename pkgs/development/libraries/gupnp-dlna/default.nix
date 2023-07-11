@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   pname = "gupnp-dlna";
   version = "0.12.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -39,7 +43,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_412
   ];
 
-  buildInputs = [ libxml2 gst_all_1.gst-plugins-base ];
+  buildInputs = [
+    libxml2
+    gst_all_1.gst-plugins-base
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

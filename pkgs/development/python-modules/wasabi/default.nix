@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-9e58YJAngRvRbmIPL9enMZRmAFhI5BsFGmIFOrj9cNY=";
   };
 
-  nativeCheckInputs = [ ipykernel nbconvert typing-extensions pytestCheckHook ];
+  nativeCheckInputs = [
+    ipykernel
+    nbconvert
+    typing-extensions
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "wasabi" ];
 

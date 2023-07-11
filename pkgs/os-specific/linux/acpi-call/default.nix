@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ raskin mic92 ];
+    maintainers = with maintainers; [
+      raskin
+      mic92
+    ];
     homepage = "https://github.com/nix-community/acpi_call";
     platforms = platforms.linux;
     description =

@@ -96,11 +96,13 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      warnings =
-        mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [
-          "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
-        ];
-      boot.kernelModules = [ "vboxdrv" "vboxnetadp" "vboxnetflt" ];
+      warnings = mkIf
+        (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [ "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'" ];
+      boot.kernelModules = [
+        "vboxdrv"
+        "vboxnetadp"
+        "vboxnetflt"
+      ];
       boot.extraModulePackages = [ kernelModules ];
       environment.systemPackages = [ virtualbox ];
 
@@ -117,7 +119,10 @@ in {
           "VBoxNetDHCP"
           "VBoxNetNAT"
           "VBoxVolInfo"
-        ] ++ (lib.optionals (!cfg.headless) [ "VBoxSDL" "VirtualBoxVM" ]);
+        ] ++ (lib.optionals (!cfg.headless) [
+          "VBoxSDL"
+          "VirtualBoxVM"
+        ]);
       in mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
         name = x;
         value = mkSuid x;
@@ -142,8 +147,10 @@ in {
         description = "VirtualBox vboxnet0 Interface";
         requires = [ "dev-vboxnetctl.device" ];
         after = [ "dev-vboxnetctl.device" ];
-        wantedBy =
-          [ "network.target" "sys-subsystem-net-devices-vboxnet0.device" ];
+        wantedBy = [
+          "network.target"
+          "sys-subsystem-net-devices-vboxnet0.device"
+        ];
         path = [ virtualbox ];
         serviceConfig.RemainAfterExit = true;
         serviceConfig.Type = "oneshot";
@@ -160,10 +167,10 @@ in {
         '';
       };
 
-      networking.interfaces.vboxnet0.ipv4.addresses = [{
+      networking.interfaces.vboxnet0.ipv4.addresses = [ {
         address = "192.168.56.1";
         prefixLength = 24;
-      }];
+      } ];
       # Make sure NetworkManager won't assume this interface being up
       # means we have internet access.
       networking.networkmanager.unmanaged = [ "vboxnet0" ];

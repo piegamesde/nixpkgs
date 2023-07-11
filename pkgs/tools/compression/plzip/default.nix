@@ -10,14 +10,21 @@
 stdenv.mkDerivation rec {
   pname = "plzip";
   version = "1.10";
-  outputs = [ "out" "man" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "info"
+  ];
 
   src = fetchurl {
     url = "mirror://savannah/lzip/plzip/plzip-${version}.tar.lz";
     sha256 = "62f16a67be0dabf0da7fd1cb7889fe5bfae3140cea6cafa1c39e7e35a5b3c661";
   };
 
-  nativeBuildInputs = [ lzip texinfo ];
+  nativeBuildInputs = [
+    lzip
+    texinfo
+  ];
   buildInputs = [ lzlib ];
 
   enableParallelBuilding = true;

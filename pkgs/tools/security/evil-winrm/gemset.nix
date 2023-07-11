@@ -92,7 +92,10 @@
     version = "1.4.3";
   };
   logging = {
-    dependencies = [ "little-plugger" "multi_json" ];
+    dependencies = [
+      "little-plugger"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -184,7 +187,12 @@
     version = "2.3.2";
   };
   winrm-fs = {
-    dependencies = [ "erubis" "logging" "rubyzip" "winrm" ];
+    dependencies = [
+      "erubis"
+      "logging"
+      "rubyzip"
+      "winrm"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

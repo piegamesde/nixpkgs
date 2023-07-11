@@ -121,7 +121,10 @@ in {
     systemd.services.systemd-vconsole-setup.enable = false;
 
     services.kmscon.extraConfig = let
-      render = optionals cfg.hwRender [ "drm" "hwaccel" ];
+      render = optionals cfg.hwRender [
+        "drm"
+        "hwaccel"
+      ];
       fonts = optional (cfg.fonts != null)
         "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
     in lib.concatStringsSep "\n" (render ++ fonts);

@@ -19,15 +19,13 @@ stdenv.mkDerivation rec {
     sha256 = "1x1hqy4h47i7hk85f779lkwkm7gkq8h8mxwd0znkh5adpf0m4czr";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "CVE-2023-24626.patch";
-      url =
-        "https://git.savannah.gnu.org/cgit/screen.git/patch/?id=e9ad41bfedb4537a6f0de20f00b27c7739f168f7";
-      stripLen = 1;
-      sha256 = "sha256-NV6Uh4h9AK7kQMHqbxeuhjFEvwQH7OWdu7h8pZCGFog=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "CVE-2023-24626.patch";
+    url =
+      "https://git.savannah.gnu.org/cgit/screen.git/patch/?id=e9ad41bfedb4537a6f0de20f00b27c7739f168f7";
+    stripLen = 1;
+    sha256 = "sha256-NV6Uh4h9AK7kQMHqbxeuhjFEvwQH7OWdu7h8pZCGFog=";
+  }) ];
 
   configureFlags = [
     "--enable-telnet"
@@ -38,8 +36,10 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ncurses libxcrypt ] ++ lib.optional stdenv.isLinux pam
-    ++ lib.optional stdenv.isDarwin utmp;
+  buildInputs = [
+    ncurses
+    libxcrypt
+  ] ++ lib.optional stdenv.isLinux pam ++ lib.optional stdenv.isDarwin utmp;
 
   doCheck = true;
 

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-n/LHFv14aDLbobeamOgDYBml1DgSGJmfmg/qff78i4c=";
   };
 
-  nativeBuildInputs = [ pciutils cmake ];
+  nativeBuildInputs = [
+    pciutils
+    cmake
+  ];
 
   installPhase = ''
     install -D libryzenadj.so $out/lib/libryzenadj.so

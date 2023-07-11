@@ -33,8 +33,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ markdown-it-py pygments ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  propagatedBuildInputs = [
+    markdown-it-py
+    pygments
+  ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -49,6 +51,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/Textualize/rich/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris joelkoen ];
+    maintainers = with maintainers; [
+      ris
+      joelkoen
+    ];
   };
 }

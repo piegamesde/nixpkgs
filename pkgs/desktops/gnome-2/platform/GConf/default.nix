@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
     sha256 = "0k3q9nh53yhc9qxf1zaicz4sk8p3kzq4ndjdsgpaa2db0ccbj4hr";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   buildInputs = [
     ORBit2
@@ -34,9 +38,15 @@ stdenv.mkDerivation rec {
   # darwin
     ++ lib.optional (!stdenv.isDarwin) polkit;
 
-  propagatedBuildInputs = [ glib dbus-glib ];
+  propagatedBuildInputs = [
+    glib
+    dbus-glib
+  ];
 
-  nativeBuildInputs = [ pkg-config intltool ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
 
   configureFlags =
     # fixes the "libgconfbackend-oldxml.so is not portable" error on darwin

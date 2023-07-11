@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-5vmDv3EjAJHVu3sRv2S9VEFeyoORCNX4PZFV0LqTvyg=";
   };
 
-  propagatedBuildInputs = [ wandb wasabi ];
+  propagatedBuildInputs = [
+    wandb
+    wasabi
+  ];
 
   pythonImportsCheck = [ "spacy_loggers" ];
 

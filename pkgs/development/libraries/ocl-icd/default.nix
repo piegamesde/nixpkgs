@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "1km2rqc9pw6xxkqp77a22pxfsb5kgw95w9zd15l5jgvyjb6rqqad";
   };
 
-  nativeBuildInputs = [ autoreconfHook ruby ];
+  nativeBuildInputs = [
+    autoreconfHook
+    ruby
+  ];
 
   buildInputs = [ opencl-headers ];
 

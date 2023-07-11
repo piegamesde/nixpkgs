@@ -29,8 +29,13 @@ buildPythonPackage rec {
 
   buildInputs = [ pbr ];
 
-  propagatedBuildInputs =
-    [ docutils chardet stevedore restructuredtext_lint pygments ];
+  propagatedBuildInputs = [
+    docutils
+    chardet
+    stevedore
+    restructuredtext_lint
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

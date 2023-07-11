@@ -28,10 +28,20 @@ in stdenv.mkDerivation {
   version = source.versions.libtiff + "-opentoonz";
 
   inherit (source) src;
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ zlib libjpeg xz ];
+  propagatedBuildInputs = [
+    zlib
+    libjpeg
+    xz
+  ];
 
   postUnpack = ''
     sourceRoot="$sourceRoot/thirdparty/tiff-${source.versions.libtiff}"
@@ -43,7 +53,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = libtiff.meta // {
-    knownVulnerabilities = [''
+    knownVulnerabilities = [ ''
       Do not open untrusted files with Opentoonz:
       Opentoonz uses an old custom fork of tibtiff from 2012 that is known to
       be affected by at least these 50 vulnerabilities:
@@ -59,7 +69,7 @@ in stdenv.mkDerivation {
         CVE-2019-14973 CVE-2019-17546 CVE-2020-35521 CVE-2020-35522
         CVE-2020-35523 CVE-2020-35524
       More info at https://github.com/opentoonz/opentoonz/issues/4193
-    ''];
+    '' ];
     maintainers = with lib.maintainers; [ chkno ];
   };
 }

@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "1r6gz9jkh1wxi11mcq5p9mqg0szclsaq8ic79vnfnbjdrmmdfi4y";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gettext
+  ];
 
-  buildInputs = [ libxml2 ncurses vim glib popt screen ];
+  buildInputs = [
+    libxml2
+    ncurses
+    vim
+    glib
+    popt
+    screen
+  ];
 
   configureFlags = [ "--disable-history" ];
 

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ udev ncurses bluez ];
+  buildInputs = [
+    udev
+    ncurses
+    bluez
+  ];
 
   configureFlags = [ "--with-doxygen=no" ];
 

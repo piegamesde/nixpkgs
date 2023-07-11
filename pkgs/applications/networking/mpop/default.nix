@@ -20,8 +20,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gnutls gsasl libidn ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [
+    gnutls
+    gsasl
+    libidn
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   configureFlags = lib.optionals stdenv.isDarwin [ "--with-macosx-keyring" ];
 

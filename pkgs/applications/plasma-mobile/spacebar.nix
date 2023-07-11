@@ -27,7 +27,11 @@
 mkDerivation {
   pname = "spacebar";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     c-ares

@@ -42,13 +42,20 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "logstash" "address" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "logstash"
+      "address"
+    ] [
       "services"
       "logstash"
       "listenAddress"
     ])
-    (mkRemovedOptionModule [ "services" "logstash" "enableWeb" ]
-      "The web interface was removed from logstash")
+    (mkRemovedOptionModule [
+      "services"
+      "logstash"
+      "enableWeb"
+    ] "The web interface was removed from logstash")
   ];
 
   ###### interface
@@ -87,7 +94,13 @@ in {
       };
 
       logLevel = mkOption {
-        type = types.enum [ "debug" "info" "warn" "error" "fatal" ];
+        type = types.enum [
+          "debug"
+          "info"
+          "warn"
+          "error"
+          "fatal"
+        ];
         default = "warn";
         description = lib.mdDoc "Logging verbosity level.";
       };

@@ -27,7 +27,11 @@ in stdenv.mkDerivation rec {
   };
   postPatch = whenPatched "gunzip < ${patch_src} | patch -Np1";
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
   outputBin = "dev";
 
   propagatedBuildInputs = [ zlib ];

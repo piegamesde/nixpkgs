@@ -19,7 +19,15 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv)
 in {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ bootstrap_cmds bison flex gnum4 unifdef perl python3 ];
+  nativeBuildInputs = [
+    bootstrap_cmds
+    bison
+    flex
+    gnum4
+    unifdef
+    perl
+    python3
+  ];
 
   patches = lib.optionals stdenv.isx86_64 [ ./python3.patch ];
 

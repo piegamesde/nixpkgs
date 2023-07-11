@@ -15,5 +15,9 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [ qtquickcontrols2 networkmanager-qt ki18n ];
+  buildInputs = [
+    qtquickcontrols2
+    networkmanager-qt
+    ki18n
+  ];
 }

@@ -23,9 +23,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-jbdQ1dwTRJuA4F89YfxsO2PaHVef8bvxAj13veDteNM=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook4 glib ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook4
+    glib
+  ];
 
-  buildInputs = [ gtk4 libadwaita ];
+  buildInputs = [
+    gtk4
+    libadwaita
+  ];
 
   postPatch = ''
     substituteInPlace src/domain/time.rs --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"

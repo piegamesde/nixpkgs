@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ gd libusb1 ];
+  buildInputs = [
+    gd
+    libusb1
+  ];
 
   meta = with lib; {
     description =

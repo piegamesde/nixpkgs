@@ -36,28 +36,43 @@ let
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "networking" "dnsSingleRequest" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "dnsSingleRequest"
+    ] [
       "networking"
       "resolvconf"
       "dnsSingleRequest"
     ])
-    (mkRenamedOptionModule [ "networking" "dnsExtensionMechanism" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "dnsExtensionMechanism"
+    ] [
       "networking"
       "resolvconf"
       "dnsExtensionMechanism"
     ])
-    (mkRenamedOptionModule [ "networking" "extraResolvconfConf" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "extraResolvconfConf"
+    ] [
       "networking"
       "resolvconf"
       "extraConfig"
     ])
-    (mkRenamedOptionModule [ "networking" "resolvconfOptions" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "resolvconfOptions"
+    ] [
       "networking"
       "resolvconf"
       "extraOptions"
     ])
-    (mkRemovedOptionModule [ "networking" "resolvconf" "useHostResolvConf" ]
-      "This option was never used for anything anyways")
+    (mkRemovedOptionModule [
+      "networking"
+      "resolvconf"
+      "useHostResolvConf"
+    ] "This option was never used for anything anyways")
   ];
 
   options = {
@@ -123,7 +138,10 @@ in {
       extraOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "ndots:1" "rotate" ];
+        example = [
+          "ndots:1"
+          "rotate"
+        ];
         description = lib.mdDoc ''
           Set the options in {file}`/etc/resolv.conf`.
         '';

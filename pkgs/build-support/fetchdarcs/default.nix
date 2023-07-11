@@ -18,7 +18,10 @@ if md5 != "" then
 else
   stdenvNoCC.mkDerivation {
     builder = ./builder.sh;
-    nativeBuildInputs = [ cacert darcs ];
+    nativeBuildInputs = [
+      cacert
+      darcs
+    ];
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";

@@ -32,7 +32,11 @@ buildPythonPackage rec {
 
   buildInputs = [ zlib ];
 
-  propagatedBuildInputs = [ async-timeout kafka-python packaging ];
+  propagatedBuildInputs = [
+    async-timeout
+    kafka-python
+    packaging
+  ];
 
   passthru.optional-dependencies = {
     snappy = [ python-snappy ];

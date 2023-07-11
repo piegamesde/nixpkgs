@@ -64,9 +64,25 @@ stdenv.mkDerivation rec {
 
   CXXFLAGS = " --std=c++11 ";
 
-  nativeBuildInputs = [ pkg-config autoreconfHook texinfo ];
-  buildInputs =
-    [ boost zlib botan2 libidn lua pcre sqlite expect openssl gmp bzip2 perl ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    texinfo
+  ];
+  buildInputs = [
+    boost
+    zlib
+    botan2
+    libidn
+    lua
+    pcre
+    sqlite
+    expect
+    openssl
+    gmp
+    bzip2
+    perl
+  ];
 
   postInstall = ''
     mkdir -p $out/share/${pname}-${version}

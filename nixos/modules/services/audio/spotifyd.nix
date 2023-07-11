@@ -46,15 +46,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.config == "" || cfg.settings == { };
       message =
         "At most one of the .config attribute and the .settings attribute may be set";
-    }];
+    } ];
 
     systemd.services.spotifyd = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" "sound.target" ];
+      after = [
+        "network-online.target"
+        "sound.target"
+      ];
       description = "spotifyd, a Spotify playing daemon";
       environment.SHELL = "/bin/sh";
       serviceConfig = {

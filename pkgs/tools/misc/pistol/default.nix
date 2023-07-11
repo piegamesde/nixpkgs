@@ -25,13 +25,20 @@ buildGoModule rec {
   subPackages = [ "cmd/pistol" ];
 
   buildInputs = [ file ];
-  nativeBuildInputs = [ installShellFiles asciidoctor ];
+  nativeBuildInputs = [
+    installShellFiles
+    asciidoctor
+  ];
   postInstall = ''
     asciidoctor -b manpage -d manpage README.adoc
     installManPage pistol.1
   '';
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   meta = with lib; {
     description =

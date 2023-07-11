@@ -32,8 +32,14 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs =
-    [ pytestCheckHook mock nose util-linux xorg.xauth xorg.xorgserver ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    nose
+    util-linux
+    xorg.xauth
+    xorg.xorgserver
+  ];
 
   disabledTestPaths = [
     # requires x session

@@ -40,14 +40,22 @@ stdenv.mkDerivation rec {
       ]))
   ];
 
-  nativeBuildInputs = [ pkg-config scdoc makeWrapper file ];
+  nativeBuildInputs = [
+    pkg-config
+    scdoc
+    makeWrapper
+    file
+  ];
 
   patchPhase = ''
     substituteInPlace ./Makefile \
       --replace 'chmod 4555' '#chmod 4555'
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" "CFLAGS=-Wno-error" ];
+  makeFlags = [
+    "prefix=${placeholder "out"}"
+    "CFLAGS=-Wno-error"
+  ];
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 

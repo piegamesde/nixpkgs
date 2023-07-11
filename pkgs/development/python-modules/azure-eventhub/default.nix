@@ -21,12 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-Z1tekAHjO2kVe5g/MpB1U9m38pBQ8J03+pDZdJgzcgE=";
   };
 
-  propagatedBuildInputs = [ azure-core uamqp typing-extensions ];
+  propagatedBuildInputs = [
+    azure-core
+    uamqp
+    typing-extensions
+  ];
 
   # too complicated to set up
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.eventhub" "azure.eventhub.aio" ];
+  pythonImportsCheck = [
+    "azure.eventhub"
+    "azure.eventhub.aio"
+  ];
 
   meta = with lib; {
     description = "Microsoft Azure Event Hubs Client Library for Python";

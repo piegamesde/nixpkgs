@@ -23,13 +23,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-77vUZU9JG9Dz/5n4DpcAUS77UqfIILXhZHgBogIb400=";
   };
 
-  nativeBuildInputs = [ pkg-config glib pandoc ];
+  nativeBuildInputs = [
+    pkg-config
+    glib
+    pandoc
+  ];
 
   buildInputs = [
     systemd
     glib
     libyaml
-    (python3.withPackages (p: with p; [ pyyaml netifaces ]))
+    (python3.withPackages (p:
+      with p; [
+        pyyaml
+        netifaces
+      ]))
     libuuid
     bash-completion
   ];

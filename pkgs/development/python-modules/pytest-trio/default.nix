@@ -24,9 +24,16 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ trio async_generator outcome ];
+  propagatedBuildInputs = [
+    trio
+    async_generator
+    outcome
+  ];
 
-  nativeCheckInputs = [ pytest hypothesis ];
+  nativeCheckInputs = [
+    pytest
+    hypothesis
+  ];
 
   # broken with pytest 5 and 6
   doCheck = false;

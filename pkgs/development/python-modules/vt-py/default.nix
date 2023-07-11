@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpserver pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpserver
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

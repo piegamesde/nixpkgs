@@ -22,7 +22,11 @@ buildPythonPackage rec {
     mkdir tests/db
   '';
 
-  nativeCheckInputs = [ py pytest-benchmark pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytest-benchmark
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "--benchmark-disable" ];
 

@@ -119,7 +119,12 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : "${
-      lib.makeBinPath [ mtools cdrkit libcdio qemu-utils ]
+      lib.makeBinPath [
+        mtools
+        cdrkit
+        libcdio
+        qemu-utils
+      ]
     }")
   '';
 

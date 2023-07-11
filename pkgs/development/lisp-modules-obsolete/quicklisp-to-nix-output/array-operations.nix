@@ -10,7 +10,12 @@ args@{
 
   description = "Simple array operations library for Common Lisp.";
 
-  deps = [ args."alexandria" args."anaphora" args."clunit2" args."let-plus" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."clunit2"
+    args."let-plus"
+  ];
 
   src = fetchurl {
     url =

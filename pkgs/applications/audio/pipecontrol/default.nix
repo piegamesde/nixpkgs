@@ -26,10 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MSm9rW41x8qvPuDermOPIYpxgblk5hlKIQsUEAvCzMo=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook qttools ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapQtAppsHook
+    qttools
+  ];
 
-  buildInputs =
-    [ pipewire qtbase kirigami2 kcoreaddons ki18n qtquickcontrols2 ];
+  buildInputs = [
+    pipewire
+    qtbase
+    kirigami2
+    kcoreaddons
+    ki18n
+    qtquickcontrols2
+  ];
 
   meta = with lib; {
     description = "Pipewire control GUI program in Qt (Kirigami2)";

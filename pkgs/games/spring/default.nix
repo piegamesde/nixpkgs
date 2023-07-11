@@ -56,7 +56,13 @@ stdenv.mkDerivation rec {
     "-DPREFER_STATIC_LIBS:BOOL=OFF"
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper docbook_xsl docbook_xsl_ns asciidoc ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    docbook_xsl
+    docbook_xsl_ns
+    asciidoc
+  ];
   buildInputs = [
     boost
     curl
@@ -75,7 +81,10 @@ stdenv.mkDerivation rec {
     xorg.libXcursor
     xz
     zlib
-  ] ++ lib.optionals withAI [ python3 jdk ];
+  ] ++ lib.optionals withAI [
+    python3
+    jdk
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \
@@ -86,7 +95,11 @@ stdenv.mkDerivation rec {
     homepage = "https://springrts.com/";
     description = "A powerful real-time strategy (RTS) game engine";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qknight domenkozar sorki ];
+    maintainers = with maintainers; [
+      qknight
+      domenkozar
+      sorki
+    ];
     platforms = [ "x86_64-linux" ];
     broken = true;
   };

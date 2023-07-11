@@ -21,11 +21,20 @@ stdenv.mkDerivation rec {
     sha256 = "0680a53b7bf90b4e4bf444d1d89e6df41c777e0bacc96e9c09fc4dd2f5fe6b72";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [ glibmm gtk2 atkmm cairomm pangomm ];
+  propagatedBuildInputs = [
+    glibmm
+    gtk2
+    atkmm
+    cairomm
+    pangomm
+  ];
 
   doCheck = true;
 

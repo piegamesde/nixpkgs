@@ -21,9 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-hdtnET7YfSb85+TGwpwzoxOfxPT7VSj9eKSiV6AXUS8=";
   };
 
-  propagatedBuildInputs = [ arrow tatsu ];
+  propagatedBuildInputs = [
+    arrow
+    tatsu
+  ];
 
-  nativeCheckInputs = [ pytest-flakes pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-flakes
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # 0.8 will move to python-dateutil

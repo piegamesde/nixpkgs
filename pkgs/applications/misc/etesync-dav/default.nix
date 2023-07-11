@@ -24,7 +24,10 @@ let
           hash = "sha256-/xdxhfiRMC3CU0N/5jCB56RqTpmsph3+CG+yPlT/8tw=";
         };
         disabledTests = [ "test_outside_request" ];
-        disabledTestPaths = [ "tests/test_form.py" "tests/test_html5.py" ];
+        disabledTestPaths = [
+          "tests/test_form.py"
+          "tests/test_html5.py"
+        ];
         patches = [ ];
       });
       werkzeug = super.werkzeug.overridePythonAttrs (old: rec {
@@ -45,14 +48,12 @@ in python.pkgs.buildPythonApplication rec {
     hash = "sha256-pOLug5MnVdKaw5wedABewomID9LU0hZPCf4kZKKU1yA=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "add-missing-comma-in-setup.py.patch";
-      url =
-        "https://github.com/etesync/etesync-dav/commit/040cb7b57205e70515019fb356e508a6414da11e.patch";
-      hash = "sha256-87IpIQ87rgpinvbRwUlWd0xeegn0zfVSiDFYNUqPerg=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "add-missing-comma-in-setup.py.patch";
+    url =
+      "https://github.com/etesync/etesync-dav/commit/040cb7b57205e70515019fb356e508a6414da11e.patch";
+    hash = "sha256-87IpIQ87rgpinvbRwUlWd0xeegn0zfVSiDFYNUqPerg=";
+  }) ];
 
   propagatedBuildInputs = with python.pkgs;
     [
@@ -77,7 +78,10 @@ in python.pkgs.buildPythonApplication rec {
     description =
       "Secure, end-to-end encrypted, and privacy respecting sync for contacts, calendars and tasks";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ thyol valodim ];
+    maintainers = with maintainers; [
+      thyol
+      valodim
+    ];
     broken = stdenv.isDarwin; # pyobjc-framework-Cocoa is missing
   };
 }

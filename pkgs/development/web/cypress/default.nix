@@ -42,10 +42,19 @@ in stdenv.mkDerivation rec {
   # don't remove runtime deps
   dontPatchELF = true;
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+    unzip
+  ];
 
   buildInputs = with xorg;
-    [ libXScrnSaver libXdamage libXtst libxshmfence ] ++ [
+    [
+      libXScrnSaver
+      libXdamage
+      libXtst
+      libxshmfence
+    ] ++ [
       nss
       gtk2
       alsa-lib
@@ -92,6 +101,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = lib.attrNames availableBinaries;
-    maintainers = with maintainers; [ tweber mmahut Crafter ];
+    maintainers = with maintainers; [
+      tweber
+      mmahut
+      Crafter
+    ];
   };
 }

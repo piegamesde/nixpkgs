@@ -24,7 +24,10 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     hash = "sha256-h4R2txi038m6tzdKYiXIB8CiqWt2MFFRNerp1CFP5as=";
   };
 
-  nativeBuildInputs = [ doxygen wrapGAppsHook ];
+  nativeBuildInputs = [
+    doxygen
+    wrapGAppsHook
+  ];
 
   buildInputs = [ gtk3 ];
 

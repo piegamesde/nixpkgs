@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ xosd pidgin ];
+  buildInputs = [
+    xosd
+    pidgin
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/mbroemme/pidgin-osd";

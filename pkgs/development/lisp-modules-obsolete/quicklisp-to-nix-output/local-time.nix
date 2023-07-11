@@ -11,7 +11,10 @@ args@{
   description =
     "A library for manipulating dates and times, based on a paper by Erik Naggum";
 
-  deps = [ args."hu_dot_dwim_dot_stefil" args."uiop" ];
+  deps = [
+    args."hu_dot_dwim_dot_stefil"
+    args."uiop"
+  ];
 
   src = fetchurl {
     url =

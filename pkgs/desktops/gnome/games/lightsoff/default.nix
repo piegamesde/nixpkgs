@@ -43,8 +43,14 @@ stdenv.mkDerivation rec {
     ninja
     python3
   ];
-  buildInputs =
-    [ gtk3 gnome.adwaita-icon-theme gdk-pixbuf librsvg clutter clutter-gtk ];
+  buildInputs = [
+    gtk3
+    gnome.adwaita-icon-theme
+    gdk-pixbuf
+    librsvg
+    clutter
+    clutter-gtk
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

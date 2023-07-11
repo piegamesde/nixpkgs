@@ -38,14 +38,28 @@ buildPythonPackage rec {
     ./cmake-pybind11.patch
   ];
 
-  nativeBuildInputs = [ cmake setuptools wheel pybind11 ];
+  nativeBuildInputs = [
+    cmake
+    setuptools
+    wheel
+    pybind11
+  ];
 
-  buildInputs = [ zlib SDL2 ];
+  buildInputs = [
+    zlib
+    SDL2
+  ];
 
-  propagatedBuildInputs = [ typing-extensions importlib-resources numpy ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    typing-extensions
+    importlib-resources
+    numpy
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [ pytestCheckHook gym ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    gym
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

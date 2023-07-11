@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HB1E7rP/U58dyL3j6YnhF5AOGAcHqmA/ZZ5JNBDibco=";
   };
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   postPatch = ''
     # Emulate version smudge filter (see .gitattributes, .gitconfig).

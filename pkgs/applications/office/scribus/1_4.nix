@@ -32,7 +32,10 @@ let
     sha256 = "0hq3i7c2l50445an9glhhg47kj26y16svfajc6naqn307ph9vzc3";
   };
 
-  pythonEnv = python2.withPackages (ps: [ ps.tkinter ps.pillow ]);
+  pythonEnv = python2.withPackages (ps: [
+    ps.tkinter
+    ps.pillow
+  ]);
 in stdenv.mkDerivation rec {
   pname = "scribus";
   version = "1.4.8";
@@ -42,7 +45,10 @@ in stdenv.mkDerivation rec {
     sha256 = "0bq433myw6h1siqlsakxv6ghb002rp3mfz5k12bg68s0k6skn992";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = with xorg; [
     freetype
     lcms

@@ -28,8 +28,10 @@ buildPythonPackage rec {
       --replace docs/README.md README.md
   '';
 
-  nativeCheckInputs = [ pytest ]
-    ++ lib.optionals stdenv.isLinux [ xclip xvfb-run ];
+  nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [
+    xclip
+    xvfb-run
+  ];
 
   checkPhase = ''
     runHook preCheck

@@ -86,15 +86,21 @@ stdenv.mkDerivation rec {
     ++ lib.optional aacSupport faad2 ++ lib.optional flacSupport flac
     ++ lib.optional midiSupport timidity
     ++ lib.optional modplugSupport libmodplug ++ lib.optional mp3Support libmad
-    ++ lib.optionals musepackSupport [ libmpc libmpcdec taglib ]
-    ++ lib.optional vorbisSupport libvorbis ++ lib.optional speexSupport speex
+    ++ lib.optionals musepackSupport [
+      libmpc
+      libmpcdec
+      taglib
+    ] ++ lib.optional vorbisSupport libvorbis ++ lib.optional speexSupport speex
     ++ lib.optional ffmpegSupport ffmpeg_4
     ++ lib.optional sndfileSupport libsndfile ++ lib.optional wavpackSupport
     wavpack
     # Misc
     ++ lib.optional curlSupport curl
     ++ lib.optional samplerateSupport libsamplerate
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreServices ];
+    ++ lib.optionals stdenv.isDarwin [
+      libiconv
+      CoreServices
+    ];
 
   configureFlags = [
     # Sound sub-systems
@@ -127,7 +133,11 @@ stdenv.mkDerivation rec {
       "An ncurses console audio player designed to be powerful and easy to use";
     homepage = "http://moc.daper.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ aethelz pSub jagajaga ];
+    maintainers = with maintainers; [
+      aethelz
+      pSub
+      jagajaga
+    ];
     platforms = platforms.unix;
   };
 }

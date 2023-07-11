@@ -36,7 +36,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXft libXi libXinerama libXtst ];
+  buildInputs = [
+    libX11
+    libXft
+    libXi
+    libXinerama
+    libXtst
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ]
     ++ lib.optional (layout != null) "LAYOUT=${layout}";

@@ -32,7 +32,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp pyjwt pytz titlecase ];
+  propagatedBuildInputs = [
+    aiohttp
+    pyjwt
+    pytz
+    titlecase
+  ];
 
   nativeCheckInputs = [
     aresponses

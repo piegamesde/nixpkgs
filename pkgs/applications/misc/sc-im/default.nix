@@ -27,9 +27,21 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [ makeWrapper pkg-config which bison ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    which
+    bison
+  ];
 
-  buildInputs = [ gnuplot libxls libxlsxwriter libxml2 libzip ncurses ];
+  buildInputs = [
+    gnuplot
+    libxls
+    libxlsxwriter
+    libxml2
+    libzip
+    ncurses
+  ];
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 

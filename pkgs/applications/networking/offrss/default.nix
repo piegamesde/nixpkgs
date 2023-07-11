@@ -17,8 +17,10 @@ stdenv.mkDerivation rec {
     cp offrss $out/bin
   '';
 
-  buildInputs = [ curl libmrss ]
-    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
+  buildInputs = [
+    curl
+    libmrss
+  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
     ++ lib.optional (!stdenv.isLinux) libiconv;
 
   # Workaround build failure on -fno-common toolchains:

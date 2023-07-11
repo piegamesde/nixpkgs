@@ -27,7 +27,10 @@ buildGoModule rec {
     lib.optional (stdenv.isLinux && pivKeySupport) (lib.getDev pcsclite)
     ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ];
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
   vendorHash = "sha256-X5CY8U3IgxWD3zpb1f9R9Xk/25x1zxfYXkvXbelFBQc=";
 
@@ -73,6 +76,10 @@ buildGoModule rec {
     description =
       "Container Signing CLI with support for ephemeral keys and Sigstore signing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lesuisse jk developer-guy ];
+    maintainers = with maintainers; [
+      lesuisse
+      jk
+      developer-guy
+    ];
   };
 }

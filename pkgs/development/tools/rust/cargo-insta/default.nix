@@ -25,6 +25,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/mitsuhiko/insta/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda oxalica ];
+    maintainers = with lib.maintainers; [
+      figsoda
+      oxalica
+    ];
   };
 }

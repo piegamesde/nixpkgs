@@ -100,9 +100,16 @@ in stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper unzip ocaml curl ];
-  buildInputs = [ ncurses getconf ]
-    ++ lib.optionals stdenv.isLinux [ bubblewrap ]
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+    ocaml
+    curl
+  ];
+  buildInputs = [
+    ncurses
+    getconf
+  ] ++ lib.optionals stdenv.isLinux [ bubblewrap ]
     ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   src = srcs.opam;
@@ -142,7 +149,10 @@ in stdenv.mkDerivation {
   # Dirty, but apparently ocp-build requires a TERM
   makeFlags = [ "TERM=screen" ];
 
-  outputs = [ "out" "installer" ];
+  outputs = [
+    "out"
+    "installer"
+  ];
   setOutputFlags = false;
 
   # change argv0 to "opam" as a workaround for
@@ -164,7 +174,10 @@ in stdenv.mkDerivation {
     description = "A package manager for OCaml";
     homepage = "https://opam.ocaml.org/";
     changelog = "https://github.com/ocaml/opam/raw/${version}/CHANGES";
-    maintainers = [ maintainers.henrytill maintainers.marsam ];
+    maintainers = [
+      maintainers.henrytill
+      maintainers.marsam
+    ];
     license = licenses.lgpl21Only;
     platforms = platforms.all;
   };

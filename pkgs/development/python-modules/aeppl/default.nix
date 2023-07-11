@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-IVABUFGOLHexiiQrtXWertddYqGfFEqqWG9+ca10p+U=";
   };
 
-  propagatedBuildInputs = [ aesara numpy scipy ];
+  propagatedBuildInputs = [
+    aesara
+    numpy
+    scipy
+  ];
 
-  nativeCheckInputs = [ numdifftools pytestCheckHook ];
+  nativeCheckInputs = [
+    numdifftools
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

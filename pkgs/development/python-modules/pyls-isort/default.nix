@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyls_isort" ];
 
-  propagatedBuildInputs = [ isort python-lsp-server ];
+  propagatedBuildInputs = [
+    isort
+    python-lsp-server
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/paradoxxxzero/pyls-isort";

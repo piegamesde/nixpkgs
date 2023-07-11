@@ -40,7 +40,13 @@ in buildPythonPackage {
     sed -i '/-cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [ django hiredis lz4 msgpack redis ];
+  propagatedBuildInputs = [
+    django
+    hiredis
+    lz4
+    msgpack
+    redis
+  ];
 
   pythonImportsCheck = [ "django_redis" ];
 
@@ -55,7 +61,11 @@ in buildPythonPackage {
     kill $REDIS_PID
   '';
 
-  nativeCheckInputs = [ pytest-django pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = lib.optionals (pythonAtLeast "3.11") [
     # DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13

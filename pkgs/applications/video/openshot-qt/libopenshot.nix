@@ -34,8 +34,12 @@ stdenv.mkDerivation rec {
     sed -i 's/{UNITTEST++_INCLUDE_DIR}/ENV{UNITTEST++_INCLUDE_DIR}/g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ [ cmake doxygen pkg-config swig ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
+    cmake
+    doxygen
+    pkg-config
+    swig
+  ];
 
   buildInputs = [
     cppzmq
@@ -53,8 +57,10 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  cmakeFlags =
-    [ "-DENABLE_RUBY=OFF" "-DPYTHON_MODULE_PATH=${python3.sitePackages}" ];
+  cmakeFlags = [
+    "-DENABLE_RUBY=OFF"
+    "-DPYTHON_MODULE_PATH=${python3.sitePackages}"
+  ];
 
   meta = with lib; {
     homepage = "http://openshot.org/";

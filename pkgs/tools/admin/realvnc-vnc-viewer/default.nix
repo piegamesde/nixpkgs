@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
   }.${stdenv.system} or (throw
     "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [ autoPatchelfHook rpmextract ];
-  buildInputs = [ libX11 libXext stdenv.cc.cc.libgcc or null ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    rpmextract
+  ];
+  buildInputs = [
+    libX11
+    libXext
+    stdenv.cc.cc.libgcc or null
+  ];
 
   unpackPhase = ''
     rpmextract $src
@@ -53,7 +60,10 @@ stdenv.mkDerivation rec {
       url = "https://static.realvnc.com/media/documents/LICENSE-4.0a_en.pdf";
       free = false;
     };
-    maintainers = with maintainers; [ emilytrau onedragon ];
+    maintainers = with maintainers; [
+      emilytrau
+      onedragon
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

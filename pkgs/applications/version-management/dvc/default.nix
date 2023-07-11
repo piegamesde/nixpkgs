@@ -21,14 +21,20 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-IpdlNwOuUNWgfphRH2UTQ/IvBHo39PafCqyioju8miI=";
   };
 
-  pythonRelaxDeps = [ "dvc-data" "platformdirs" ];
+  pythonRelaxDeps = [
+    "dvc-data"
+    "platformdirs"
+  ];
 
   postPatch = ''
     substituteInPlace dvc/daemon.py \
       --subst-var-by dvc "$out/bin/dcv"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook setuptools-scm ];
+  nativeBuildInputs = with python3.pkgs; [
+    pythonRelaxDepsHook
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = with python3.pkgs;
     [
@@ -83,6 +89,9 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://dvc.org";
     changelog = "https://github.com/iterative/dvc/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai fab ];
+    maintainers = with maintainers; [
+      cmcdragonkai
+      fab
+    ];
   };
 }

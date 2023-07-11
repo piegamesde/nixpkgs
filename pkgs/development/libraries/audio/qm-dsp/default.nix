@@ -38,8 +38,10 @@ stdenv.mkDerivation rec {
 
   makefile = "build/linux/Makefile.linux32";
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "LIBDIR=${placeholder "out"}/lib" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "LIBDIR=${placeholder "out"}/lib"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${kissfft}/include/kissfft";
 

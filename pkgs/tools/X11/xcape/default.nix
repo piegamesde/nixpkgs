@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXtst xorgproto libXi ];
+  buildInputs = [
+    libX11
+    libXtst
+    xorgproto
+    libXi
+  ];
 
-  makeFlags = [ "PREFIX=$(out)" "MANDIR=/share/man/man1" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "MANDIR=/share/man/man1"
+  ];
 
   postInstall = "install -Dm444 --target-directory $out/share/doc README.md";
 

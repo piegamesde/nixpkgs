@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "thefuzz" ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Skip linting

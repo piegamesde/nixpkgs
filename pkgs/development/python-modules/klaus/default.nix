@@ -30,10 +30,19 @@ buildPythonPackage rec {
       --replace "mkdir -p \$builddir" "mkdir -p \$builddir && pwd"
   '';
 
-  propagatedBuildInputs = [ flask pygments dulwich httpauth humanize ];
+  propagatedBuildInputs = [
+    flask
+    pygments
+    dulwich
+    httpauth
+    humanize
+  ];
 
-  nativeCheckInputs = [ pytest requests python-ctags3 ]
-    ++ lib.optional (!isPy3k) mock;
+  nativeCheckInputs = [
+    pytest
+    requests
+    python-ctags3
+  ] ++ lib.optional (!isPy3k) mock;
 
   checkPhase = ''
     ./runtests.sh

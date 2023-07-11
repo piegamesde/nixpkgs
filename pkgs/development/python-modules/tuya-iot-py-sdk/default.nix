@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-KmSVa71CM/kNhzE4GznaxISGmIaV+UcTSn3v+fmxmrQ=";
   };
 
-  propagatedBuildInputs = [ paho-mqtt pycryptodome requests websocket-client ];
+  propagatedBuildInputs = [
+    paho-mqtt
+    pycryptodome
+    requests
+    websocket-client
+  ];
 
   # Project has no tests
   doCheck = false;

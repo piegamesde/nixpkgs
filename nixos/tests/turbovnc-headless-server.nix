@@ -23,9 +23,9 @@ import ./make-test-python.nix ({
         networking.firewall = {
           # Reject instead of drop, for failures instead of hangs.
           rejectPackets = true;
-          allowedTCPPorts = [
-            5900 # VNC :0, for seeing what's going on in the server
-          ];
+          allowedTCPPorts =
+            [ 5900 # VNC :0, for seeing what's going on in the server
+            ];
         };
 
         # So that we can ssh into the VM, see e.g.

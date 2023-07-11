@@ -37,7 +37,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-n3Q/NUiaC6/EZyBUn6jUomnQCqr8tvYKPI5JrRRFScI=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+    qt5.wrapQtAppsHook
+  ];
 
   buildInputs = [
     freetype
@@ -62,8 +67,10 @@ stdenv.mkDerivation rec {
   # Some libraries are loaded dynamically, but QLibrary doesn't seem to search
   # the runpath, so use a wrapper instead.
   postFixup = let
-    libPath = lib.makeLibraryPath ([ libpcap fluidsynth ]
-      ++ lib.optional unfreeEnableDiscord discord-gamesdk);
+    libPath = lib.makeLibraryPath ([
+      libpcap
+      fluidsynth
+    ] ++ lib.optional unfreeEnableDiscord discord-gamesdk);
     libPathVar =
       if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
   in ''

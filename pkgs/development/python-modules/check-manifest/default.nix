@@ -23,10 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-ZKZARFVCzyJpGWV8e3jQLZwcpbHCXX5m4OH/MlBg9BY=";
   };
 
-  propagatedBuildInputs = [ build pep517 ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    build
+    pep517
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [ git pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    pytestCheckHook
+  ];
 
   checkInputs = [ breezy ];
 

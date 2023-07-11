@@ -60,7 +60,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "backports.zoneinfo" ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # AssertionError: 'AEDT' != 'AEST'

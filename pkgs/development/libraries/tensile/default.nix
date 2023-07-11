@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-W6yr6mptfsiJSSzPCImgqI1EmsUv+l99SjqkoZsOjag=";
   };
 
-  buildInputs = [ pyyaml msgpack pandas ];
+  buildInputs = [
+    pyyaml
+    msgpack
+    pandas
+  ];
 
   passthru.updateScript = rocmUpdateScript {
     name = pname;

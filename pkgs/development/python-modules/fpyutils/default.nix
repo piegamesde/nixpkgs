@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-cmCD8uKPX/7Ak6jAqzCvDqR1FgH09GaLfLTZdBQB+bs=";
   };
 
-  propagatedBuildInputs = [ atomicwrites requests ];
+  propagatedBuildInputs = [
+    atomicwrites
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

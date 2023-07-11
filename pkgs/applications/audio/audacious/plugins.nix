@@ -57,7 +57,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-Set-plugindir-to-PREFIX-lib-audacious.patch ];
 
-  nativeBuildInputs = [ gettext meson ninja pkg-config ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [
     audacious

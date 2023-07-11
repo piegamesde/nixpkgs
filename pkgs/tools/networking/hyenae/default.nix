@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libdnet libpcap ];
+  buildInputs = [
+    libdnet
+    libpcap
+  ];
 
   meta = {
     description = "";

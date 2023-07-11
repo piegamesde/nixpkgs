@@ -39,12 +39,22 @@ buildPythonPackage rec {
       --replace "/usr/bin/true" "${coreutils}/bin/true"
   '';
 
-  propagatedBuildInputs = [ fasteners oslo-config oslo-utils pbr ];
+  propagatedBuildInputs = [
+    fasteners
+    oslo-config
+    oslo-utils
+    pbr
+  ];
 
   # tests hang for unknown reason and time the build out
   doCheck = false;
 
-  nativeCheckInputs = [ eventlet fixtures oslotest stestr ];
+  nativeCheckInputs = [
+    eventlet
+    fixtures
+    oslotest
+    stestr
+  ];
 
   checkPhase = ''
     echo "nameserver 127.0.0.1" > resolv.conf

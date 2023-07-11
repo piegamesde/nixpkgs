@@ -16,7 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-rg2T9Y9FU2a+aWg0XM8jyQB9t8zDVlpad3TjUcx4//8=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems wrapQtAppsHook ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ qtsvg ];
 
@@ -34,17 +37,19 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "pyspread" ];
 
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = pname;
-      exec = name;
-      icon = name;
-      desktopName = "Pyspread";
-      genericName = "Spreadsheet";
-      comment = meta.description;
-      categories = [ "Office" "Development" "Spreadsheet" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem rec {
+    name = pname;
+    exec = name;
+    icon = name;
+    desktopName = "Pyspread";
+    genericName = "Spreadsheet";
+    comment = meta.description;
+    categories = [
+      "Office"
+      "Development"
+      "Spreadsheet"
+    ];
+  }) ];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

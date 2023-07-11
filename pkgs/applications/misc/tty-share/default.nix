@@ -18,7 +18,11 @@ buildGoModule rec {
   # Upstream has a `./vendor` directory with all deps which we rely upon.
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     homepage = "https://tty-share.com";

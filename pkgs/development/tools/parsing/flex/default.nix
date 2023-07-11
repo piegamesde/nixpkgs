@@ -25,14 +25,12 @@ stdenv.mkDerivation rec {
 
   # Also upstream, will be part of 2.6.5
   # https://github.com/westes/flex/commit/24fd0551333e
-  patches = [
-    (fetchurl {
-      name = "glibc-2.26.patch";
-      url =
-        "https://raw.githubusercontent.com/lede-project/source/0fb14a2b1ab2f82ce63f4437b062229d73d90516/tools/flex/patches/200-build-AC_USE_SYSTEM_EXTENSIONS-in-configure.ac.patch";
-      sha256 = "0mpp41zdg17gx30kcpj83jl8hssks3adbks0qzbhcz882b9c083r";
-    })
-  ];
+  patches = [ (fetchurl {
+    name = "glibc-2.26.patch";
+    url =
+      "https://raw.githubusercontent.com/lede-project/source/0fb14a2b1ab2f82ce63f4437b062229d73d90516/tools/flex/patches/200-build-AC_USE_SYSTEM_EXTENSIONS-in-configure.ac.patch";
+    sha256 = "0mpp41zdg17gx30kcpj83jl8hssks3adbks0qzbhcz882b9c083r";
+  }) ];
 
   postPatch = ''
     patchShebangs tests
@@ -43,7 +41,10 @@ stdenv.mkDerivation rec {
   '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ autoreconfHook help2man ];
+  nativeBuildInputs = [
+    autoreconfHook
+    help2man
+  ];
   buildInputs = [ bison ];
   propagatedBuildInputs = [ m4 ];
 

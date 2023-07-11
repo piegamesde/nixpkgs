@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-+g/VBxv0XfqqwTEKtgBAy7Pfakll00JXMFBS2q3pHn8=";
   };
 
-  propagatedBuildInputs = [ aiohttp cbor2 pycryptodomex requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    cbor2
+    pycryptodomex
+    requests
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-vcr pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-vcr
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Tests require network access

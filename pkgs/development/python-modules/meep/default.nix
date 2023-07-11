@@ -46,13 +46,37 @@ buildPythonPackage rec {
 
   # MPI is needed in nativeBuildInputs too, otherwise MPI libs will be missing
   # at runtime
-  nativeBuildInputs = [ autoreconfHook gfortran pkg-config swig mpi ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gfortran
+    pkg-config
+    swig
+    mpi
+  ];
 
-  buildInputs =
-    [ gsl blas lapack fftw hdf5-mpi harminv libctl libGDSII guile gsl ];
+  buildInputs = [
+    gsl
+    blas
+    lapack
+    fftw
+    hdf5-mpi
+    harminv
+    libctl
+    libGDSII
+    guile
+    gsl
+  ];
 
-  propagatedBuildInputs =
-    [ mpi numpy scipy matplotlib h5py-mpi cython autograd mpi4py ];
+  propagatedBuildInputs = [
+    mpi
+    numpy
+    scipy
+    matplotlib
+    h5py-mpi
+    cython
+    autograd
+    mpi4py
+  ];
 
   propagatedUserEnvPkgs = [ mpi ];
 
@@ -123,6 +147,9 @@ buildPythonPackage rec {
     homepage = "https://meep.readthedocs.io/en/latest/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sheepforce markuskowa ];
+    maintainers = with maintainers; [
+      sheepforce
+      markuskowa
+    ];
   };
 }

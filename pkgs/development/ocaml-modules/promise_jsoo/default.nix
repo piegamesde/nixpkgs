@@ -21,9 +21,16 @@ buildDunePackage rec {
     sha256 = "00pjnsbv0yv3hhxbbl8dsljgr95kjgi9w8j1x46gjyxg9zayrxzl";
   };
 
-  buildInputs = [ ppxlib js_of_ocaml-ppx gen_js_api ];
+  buildInputs = [
+    ppxlib
+    js_of_ocaml-ppx
+    gen_js_api
+  ];
 
-  propagatedBuildInputs = [ js_of_ocaml ojs ];
+  propagatedBuildInputs = [
+    js_of_ocaml
+    ojs
+  ];
 
   meta = {
     homepage = "https://github.com/mnxn/promise_jsoo";

@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KKhB2wvVgn1kXKup2AFeOnGYPcbjmAcLUofuE3rkQ24=";
   };
 
-  nativeBuildInputs = [ perl gettext ];
+  nativeBuildInputs = [
+    perl
+    gettext
+  ];
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
   meta = with lib; {

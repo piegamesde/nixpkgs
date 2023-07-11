@@ -22,8 +22,16 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  buildInputs =
-    [ vdr xcbutilwm ffmpeg alsa-lib libva libvdpau xorg.libxcb xorg.libX11 ];
+  buildInputs = [
+    vdr
+    xcbutilwm
+    ffmpeg
+    alsa-lib
+    libva
+    libvdpau
+    xorg.libxcb
+    xorg.libX11
+  ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

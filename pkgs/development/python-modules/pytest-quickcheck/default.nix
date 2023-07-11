@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ pytest-flakes tox ];
+  propagatedBuildInputs = [
+    pytest-flakes
+    tox
+  ];
 
   meta = with lib; {
     license = licenses.asl20;

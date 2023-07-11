@@ -17,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-Sn4sfzu1Y1gC+4K9WdiZW92cYuVbUsBXcNbNQOv0BRw=";
   };
 
-  propagatedBuildInputs = [ attrs six asn1crypto python-dateutil ];
+  propagatedBuildInputs = [
+    attrs
+    six
+    asn1crypto
+    python-dateutil
+  ];
 
   pythonImportsCheck = [ "cryptoparser" ];
 

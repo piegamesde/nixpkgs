@@ -57,7 +57,11 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  nativeCheckInputs = [ pytest-jupyter pytest-tornasync pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-jupyter
+    pytest-tornasync
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nbclassic" ];
 

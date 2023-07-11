@@ -29,10 +29,23 @@ buildPythonPackage rec {
     sha256 = "0j0qcc428lk9b3l0cr2j418gd6wd5k4160ham2zn2mmdmxn5bldg";
   };
 
-  buildInputs = [ freetype glibcLocales libjpeg zlib ];
+  buildInputs = [
+    freetype
+    glibcLocales
+    libjpeg
+    zlib
+  ];
 
-  propagatedBuildInputs =
-    [ arrow pillow pocket pyfiglet pysocks python-dateutil requests twitter ];
+  propagatedBuildInputs = [
+    arrow
+    pillow
+    pocket
+    pyfiglet
+    pysocks
+    python-dateutil
+    requests
+    twitter
+  ];
 
   patches = [ ./image.patch ];
 

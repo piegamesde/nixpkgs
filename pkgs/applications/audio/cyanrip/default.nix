@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "17bi2xhjv3f3i870whkyqckvjlg32wqkspash87zi0jw7m7jm229";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-  buildInputs =
-    [ ffmpeg-headless libcdio libcdio-paranoia libmusicbrainz5 curl ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    ffmpeg-headless
+    libcdio
+    libcdio-paranoia
+    libmusicbrainz5
+    curl
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/cyanreg/cyanrip";

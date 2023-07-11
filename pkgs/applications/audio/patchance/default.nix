@@ -32,8 +32,12 @@ buildPythonApplication rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  makeWrapperArgs =
-    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ libjack2 ])
+  ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/share/patchance/src" "$out $pythonPath"

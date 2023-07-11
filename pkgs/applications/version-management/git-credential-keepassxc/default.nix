@@ -24,7 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-QMAAKkjWgM/UiOfkNMLQxyGEYYmiSvE0Pd8fZXYyN48=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ DiskArbitration Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    DiskArbitration
+    Foundation
+  ];
 
   buildFeatures = [ ] ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"

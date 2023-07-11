@@ -23,7 +23,10 @@ in assert ldgallery-compiler.version
 justStaticExecutables (overrideCabal (oldAttrs: {
   pname = "ldgallery"; # bundled viewer + compiler
 
-  buildTools = (oldAttrs.buildTools or [ ]) ++ [ makeWrapper pandoc ];
+  buildTools = (oldAttrs.buildTools or [ ]) ++ [
+    makeWrapper
+    pandoc
+  ];
 
   prePatch = ''
     # add viewer dist to data

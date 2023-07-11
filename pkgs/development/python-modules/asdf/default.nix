@@ -66,7 +66,12 @@ buildPythonPackage rec {
     semantic-version
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [ astropy lz4 pytest-astropy pytestCheckHook ];
+  nativeCheckInputs = [
+    astropy
+    lz4
+    pytest-astropy
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export PY_IGNORE_IMPORTMISMATCH=1

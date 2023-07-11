@@ -24,7 +24,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ flex bison gperf libxml2 perl gd perlPackages.XMLLibXML ];
+  buildInputs = [
+    flex
+    bison
+    gperf
+    libxml2
+    perl
+    gd
+    perlPackages.XMLLibXML
+  ];
   configureFlags = [ "--enable-maintainer-mode" ];
 
   meta = {

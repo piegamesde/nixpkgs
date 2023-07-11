@@ -42,8 +42,11 @@ stdenv.mkDerivation rec {
   else
     throw "Not supported on ${stdenv.hostPlatform.system}.";
 
-  nativeBuildInputs =
-    lib.optionals stdenv.hostPlatform.isDarwin [ undmg xar cpio ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    undmg
+    xar
+    cpio
+  ];
 
   builder = if stdenv.hostPlatform.isLinux then
     ./binary-builder.sh

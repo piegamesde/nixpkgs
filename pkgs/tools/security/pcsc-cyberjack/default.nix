@@ -23,11 +23,20 @@ in stdenv.mkDerivation rec {
     sha256 = "1lx4bfz4riz7j77sl65akyxzww0ygm63w0c1b75knr1pijlv8d3b";
   };
 
-  outputs = [ "out" "tools" ];
+  outputs = [
+    "out"
+    "tools"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libusb1 pcsclite ];
+  buildInputs = [
+    libusb1
+    pcsclite
+  ];
 
   enableParallelBuilding = true;
 

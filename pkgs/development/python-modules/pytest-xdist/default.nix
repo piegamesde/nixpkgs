@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ execnet ];
 
-  nativeCheckInputs = [ filelock pytestCheckHook ];
+  nativeCheckInputs = [
+    filelock
+    pytestCheckHook
+  ];
 
   passthru.optional-dependencies = {
     psutil = [ psutil ];

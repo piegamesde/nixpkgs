@@ -69,8 +69,14 @@ mkDerivation rec {
       }/include/KF5/KDELibs4Support"
   '';
 
-  nativeBuildInputs =
-    [ (lib.getDev qtsvg) (lib.getLib qtsvg) python3 pkg-config wafHook cmake ];
+  nativeBuildInputs = [
+    (lib.getDev qtsvg)
+    (lib.getLib qtsvg)
+    python3
+    pkg-config
+    wafHook
+    cmake
+  ];
 
   buildInputs = [
     qtbase

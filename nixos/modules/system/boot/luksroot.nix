@@ -593,7 +593,12 @@ let
       }") luks.devices));
 
 in {
-  imports = [ (mkRemovedOptionModule [ "boot" "initrd" "luks" "enable" ] "") ];
+  imports = [ (mkRemovedOptionModule [
+    "boot"
+    "initrd"
+    "luks"
+    "enable"
+  ] "") ];
 
   options = {
 
@@ -845,9 +850,8 @@ in {
 
                 credentials = mkOption {
                   default = [ ];
-                  example = [
-                    "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
-                  ];
+                  example =
+                    [ "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2" ];
                   type = types.listOf types.str;
                   description = lib.mdDoc ''
                     List of FIDO2 credential IDs.
@@ -1112,8 +1116,12 @@ in {
     ];
 
     # Some modules that may be needed for mounting anything ciphered
-    boot.initrd.availableKernelModules =
-      [ "dm_mod" "dm_crypt" "cryptd" "input_leds" ] ++ luks.cryptoModules
+    boot.initrd.availableKernelModules = [
+      "dm_mod"
+      "dm_crypt"
+      "cryptd"
+      "input_leds"
+    ] ++ luks.cryptoModules
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (if builtins.elem "xts" luks.cryptoModules then [ "ecb" ] else [ ]);

@@ -70,12 +70,22 @@ in stdenv.mkDerivation {
     export PATH=$(pwd)/bin:$PATH
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  buildInputs = [ openblas openfst icu ]
-    ++ lib.optionals stdenv.isDarwin [ Accelerate ];
+  buildInputs = [
+    openblas
+    openfst
+    icu
+  ] ++ lib.optionals stdenv.isDarwin [ Accelerate ];
 
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   postInstall = ''
     mkdir -p $out/share/kaldi

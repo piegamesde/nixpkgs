@@ -236,7 +236,10 @@ in rec {
         if def.value != first.value then
           throw ''
             The option `${showOption loc}' has conflicting definition values:${
-              showDefs [ first def ]
+              showDefs [
+                first
+                def
+              ]
             }
             ${prioritySuggestion}''
         else

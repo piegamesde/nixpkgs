@@ -27,7 +27,12 @@ buildPythonPackage rec {
       --replace "--cov=fnv_hash_fast --cov-report=term-missing:skip-covered" ""
   '';
 
-  nativeBuildInputs = [ cython poetry-core setuptools wheel ];
+  nativeBuildInputs = [
+    cython
+    poetry-core
+    setuptools
+    wheel
+  ];
 
   propagatedBuildInputs = [ fnvhash ];
 

@@ -56,7 +56,12 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  nativeCheckInputs = [ h5py numpy pytestCheckHook torch ];
+  nativeCheckInputs = [
+    h5py
+    numpy
+    pytestCheckHook
+    torch
+  ];
   pytestFlagsArray = [ "tests" ];
   # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths = [

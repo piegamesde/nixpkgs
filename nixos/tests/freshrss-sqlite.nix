@@ -4,7 +4,10 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "freshrss";
-    meta.maintainers = with lib.maintainers; [ etu stunkymonkey ];
+    meta.maintainers = with lib.maintainers; [
+      etu
+      stunkymonkey
+    ];
 
     nodes.machine = {
         pkgs,

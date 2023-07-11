@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-XLxjw1KTwjSzn5S6n/yonW0HiSXX+QIfgIZz3t8tkl4=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -70,7 +73,11 @@ stdenv.mkDerivation rec {
   # module, which works correctly in all cases.
   PYTHON_CONFIG = "/invalid";
 
-  stripDebugList = [ "bin" "lib" "modules" ];
+  stripDebugList = [
+    "bin"
+    "lib"
+    "modules"
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

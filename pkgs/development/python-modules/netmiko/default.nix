@@ -23,8 +23,15 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools ];
-  propagatedBuildInputs =
-    [ paramiko scp tenacity pyyaml textfsm ntc-templates pyserial ];
+  propagatedBuildInputs = [
+    paramiko
+    scp
+    tenacity
+    pyyaml
+    textfsm
+    ntc-templates
+    pyserial
+  ];
 
   # tests require closed-source pyats and genie packages
   doCheck = false;

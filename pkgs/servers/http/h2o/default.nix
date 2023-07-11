@@ -21,10 +21,23 @@ stdenv.mkDerivation rec {
     sha256 = "0lwg5sfsr7fw7cfy0hrhadgixm35b5cgcvlhwhbk89j72y1bqi6n";
   };
 
-  outputs = [ "out" "man" "dev" "lib" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+    "lib"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake ninja ];
-  buildInputs = [ openssl libuv zlib ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+  ];
+  buildInputs = [
+    openssl
+    libuv
+    zlib
+  ];
 
   meta = with lib; {
     description = "Optimized HTTP/1 and HTTP/2 server";

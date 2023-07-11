@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ openal libvorbis opusfile libsndfile ];
+  buildInputs = [
+    openal
+    libvorbis
+    opusfile
+    libsndfile
+  ];
 
   meta = with lib; {
     description =

@@ -43,7 +43,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://zydis.re/";
     description = "Fast and lightweight x86/x86-64 disassembler library";
     license = licenses.mit;
-    maintainers = with maintainers; [ jbcrail AndersonTorres athre0z ];
+    maintainers = with maintainers; [
+      jbcrail
+      AndersonTorres
+      athre0z
+    ];
     platforms = platforms.all;
   };
 }

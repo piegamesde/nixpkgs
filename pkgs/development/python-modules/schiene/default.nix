@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-sCaVrHqQZwAZDXIjh4Rg9ZT/EQSbrOPdSyT8oofCsmA=";
   };
 
-  propagatedBuildInputs = [ requests beautifulsoup4 ];
+  propagatedBuildInputs = [
+    requests
+    beautifulsoup4
+  ];
 
   # Module has no tests
   doCheck = false;

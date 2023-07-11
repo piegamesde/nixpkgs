@@ -75,11 +75,24 @@ stdenv.mkDerivation rec {
     sha256 = "00i14h82qg3xzcyd8p02wrarnmby3aiwmz0z43l50byc9f8i05n1";
   };
 
-  nativeBuildInputs = [ pkg-config cmake doxygen ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    doxygen
+  ];
 
-  buildInputs =
-    [ libX11 libXinerama libXrandr libGLU libGL glib ilmbase libxml2 pcre zlib ]
-    ++ lib.optional jpegSupport libjpeg ++ lib.optional exrSupport openexr
+  buildInputs = [
+    libX11
+    libXinerama
+    libXrandr
+    libGLU
+    libGL
+    glib
+    ilmbase
+    libxml2
+    pcre
+    zlib
+  ] ++ lib.optional jpegSupport libjpeg ++ lib.optional exrSupport openexr
     ++ lib.optional gifSupport giflib ++ lib.optional pngSupport libpng
     ++ lib.optional tiffSupport libtiff ++ lib.optional gdalSupport gdal
     ++ lib.optional curlSupport curl ++ lib.optional colladaSupport collada-dom
@@ -90,9 +103,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional pdfSupport poppler ++ lib.optional vncSupport libvncserver
     ++ lib.optional lasSupport libLAS ++ lib.optional luaSupport lua
     ++ lib.optional sdlSupport SDL2 ++ lib.optional restSupport asio
-    ++ lib.optionals withExamples [ fltk ]
-    ++ lib.optionals stdenv.isDarwin [ AGL Accelerate Carbon Cocoa Foundation ]
-    ++ lib.optional (restSupport || colladaSupport) boost;
+    ++ lib.optionals withExamples [ fltk ] ++ lib.optionals stdenv.isDarwin [
+      AGL
+      Accelerate
+      Carbon
+      Cocoa
+      Foundation
+    ] ++ lib.optional (restSupport || colladaSupport) boost;
 
   cmakeFlags = lib.optional (!withApps) "-DBUILD_OSG_APPLICATIONS=OFF"
     ++ lib.optional withExamples "-DBUILD_OSG_EXAMPLES=ON";
@@ -100,7 +117,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A 3D graphics toolkit";
     homepage = "http://www.openscenegraph.org/";
-    maintainers = with maintainers; [ aanderse raskin ];
+    maintainers = with maintainers; [
+      aanderse
+      raskin
+    ];
     platforms = with platforms; linux ++ darwin;
     license = "OpenSceneGraph Public License - free LGPL-based license";
   };

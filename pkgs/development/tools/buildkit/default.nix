@@ -35,7 +35,11 @@ buildGoModule rec {
       "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit";
     homepage = "https://github.com/moby/buildkit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vdemeester marsam developer-guy ];
+    maintainers = with maintainers; [
+      vdemeester
+      marsam
+      developer-guy
+    ];
     mainProgram = "buildctl";
   };
 }

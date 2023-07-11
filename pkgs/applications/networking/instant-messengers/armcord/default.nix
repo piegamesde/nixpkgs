@@ -55,7 +55,12 @@ stdenv.mkDerivation rec {
   }.${stdenv.hostPlatform.system} or (throw
     "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   dontWrapGApps = true;
 
@@ -134,6 +139,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.osl3;
     maintainers = with maintainers; [ wrmilling ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 }

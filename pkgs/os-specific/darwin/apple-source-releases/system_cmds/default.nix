@@ -121,6 +121,9 @@ appleDerivation {
 
   meta = {
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ shlevy matthewbauer ];
+    maintainers = with lib.maintainers; [
+      shlevy
+      matthewbauer
+    ];
   };
 }

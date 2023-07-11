@@ -17,12 +17,18 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Zd8zLkFlvXTbeInEkNFyHgcAiOsX4WwF6hf5juSQvbY=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
   pythonPath = with python3.pkgs;
-    lib.optionals stdenv.isLinux [ systemd pyinotify ];
+    lib.optionals stdenv.isLinux [
+      systemd
+      pyinotify
+    ];
 
   preConfigure = ''
     patchShebangs fail2ban-2to3
@@ -68,6 +74,9 @@ python3.pkgs.buildPythonApplication rec {
     description =
       "A program that scans log files for repeated failing login attempts and bans IP addresses";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ eelco lovek323 ];
+    maintainers = with maintainers; [
+      eelco
+      lovek323
+    ];
   };
 }

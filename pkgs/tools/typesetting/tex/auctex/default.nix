@@ -15,7 +15,10 @@ let
     version = "12.3";
     tlType = "run";
 
-    outputs = [ "out" "tex" ];
+    outputs = [
+      "out"
+      "tex"
+    ];
 
     src = fetchurl {
       url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";

@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
   pname = "gcr";
   version = "3.41.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -53,10 +57,19 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs = [ libgcrypt libtasn1 pango libsecret openssh ]
-    ++ lib.optionals stdenv.isLinux [ systemd ];
+  buildInputs = [
+    libgcrypt
+    libtasn1
+    pango
+    libsecret
+    openssh
+  ] ++ lib.optionals stdenv.isLinux [ systemd ];
 
-  propagatedBuildInputs = [ glib gtk3 p11-kit ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+    p11-kit
+  ];
 
   nativeCheckInputs = [ python3 ];
 

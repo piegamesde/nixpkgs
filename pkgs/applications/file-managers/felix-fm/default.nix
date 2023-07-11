@@ -28,7 +28,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ bzip2 zstd ];
+  buildInputs = [
+    bzip2
+    zstd
+  ];
 
   nativeCheckInputs = [ zoxide ];
 

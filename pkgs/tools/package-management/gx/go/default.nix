@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-A3jZYu7+LGCukzlrxgIPmnkcxSoWm5YJZmFG3hliMm4=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A tool for importing go packages into gx";

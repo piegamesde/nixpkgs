@@ -44,7 +44,12 @@ stdenv.mkDerivation rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [ desktop-file-utils glib gtk4 pipewire ];
+  buildInputs = [
+    desktop-file-utils
+    glib
+    gtk4
+    pipewire
+  ];
 
   meta = with lib; {
     description = "A GTK patchbay for pipewire";

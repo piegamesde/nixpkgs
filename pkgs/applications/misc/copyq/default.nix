@@ -27,10 +27,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-XLuawTKzDi+ixEUcsllyW5tCVTPlzIozu1UzYOjTqDU=";
   };
 
-  nativeBuildInputs = [ cmake ninja extra-cmake-modules wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    extra-cmake-modules
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ qtbase qtsvg qttools qtdeclarative libXfixes libXtst qtwayland wayland ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    qttools
+    qtdeclarative
+    libXfixes
+    libXtst
+    qtwayland
+    wayland
+  ];
 
   postPatch = ''
     substituteInPlace shared/com.github.hluk.copyq.desktop.in \

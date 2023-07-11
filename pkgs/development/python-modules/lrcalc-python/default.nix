@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "e3a0509aeda487b412b391a52e817ca36b5c063a8305e09fd54d53259dd6aaa9";
   };
 
-  nativeBuildInputs = [ cython pkg-config ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+  ];
 
   buildInputs = [ lrcalc ];
 

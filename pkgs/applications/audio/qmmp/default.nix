@@ -67,7 +67,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-+bHnvwXUmdBbQcO3Unybqou/MZgcf6CXhlAcBjNFCNQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ # basic requirements
     qtbase

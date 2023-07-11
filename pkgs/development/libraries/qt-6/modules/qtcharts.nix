@@ -6,5 +6,8 @@
 
 qtModule {
   pname = "qtcharts";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
 }

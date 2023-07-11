@@ -26,9 +26,16 @@ buildPythonPackage rec {
       --replace "collect_ignore = ['setup.py']" ""
   '';
 
-  propagatedBuildInputs = [ wasmer wasmer-compiler-cranelift ];
+  propagatedBuildInputs = [
+    wasmer
+    wasmer-compiler-cranelift
+  ];
 
-  nativeCheckInputs = [ py pytestCheckHook pytest-benchmark ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+    pytest-benchmark
+  ];
 
   pytestFlagsArray = [ "--benchmark-skip" ];
 

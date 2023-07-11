@@ -25,19 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-anBi9hPwX1AAIc8dXsKyX4u7UbkKqC1P+7f7wdKWAig=";
   };
 
-  nativeBuildInputs = [ dos2unix makeWrapper copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = pname;
-      genericName = "Sandbox Block Game";
-      exec = "ClassiCube";
-      icon = "CCicon";
-      comment = "Minecraft Classic inspired sandbox game";
-      categories = [ "Game" ];
-    })
+  nativeBuildInputs = [
+    dos2unix
+    makeWrapper
+    copyDesktopItems
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = pname;
+    genericName = "Sandbox Block Game";
+    exec = "ClassiCube";
+    icon = "CCicon";
+    comment = "Minecraft Classic inspired sandbox game";
+    categories = [ "Game" ];
+  }) ];
 
   prePatch = ''
     # The ClassiCube sources have DOS-style newlines
@@ -69,7 +71,14 @@ stdenv.mkDerivation rec {
       --replace 'JOBS=1' "JOBS=$NIX_BUILD_CORES"
   '';
 
-  buildInputs = [ libX11 libXi libGL curl openal liberation_ttf ];
+  buildInputs = [
+    libX11
+    libXi
+    libGL
+    curl
+    openal
+    liberation_ttf
+  ];
 
   preBuild = "cd src";
 

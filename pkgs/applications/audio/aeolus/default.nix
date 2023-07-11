@@ -41,7 +41,10 @@ stdenv.mkDerivation rec {
 
   preBuild = "cd source";
 
-  makeFlags = [ "DESTDIR=" "PREFIX=$(out)" ];
+  makeFlags = [
+    "DESTDIR="
+    "PREFIX=$(out)"
+  ];
 
   postInstall = let
     cfg = ''
@@ -59,6 +62,9 @@ stdenv.mkDerivation rec {
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/aeolus/index.html";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nico202 orivej ];
+    maintainers = with maintainers; [
+      nico202
+      orivej
+    ];
   };
 }

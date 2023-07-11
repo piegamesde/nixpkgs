@@ -28,9 +28,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs packaging pyparsing semantic-version semver ];
+  propagatedBuildInputs = [
+    attrs
+    packaging
+    pyparsing
+    semantic-version
+    semver
+  ];
 
-  nativeCheckInputs = [ commoncode pytestCheckHook saneyaml ];
+  nativeCheckInputs = [
+    commoncode
+    pytestCheckHook
+    saneyaml
+  ];
 
   dontConfigure =
     true; # ./configure tries to setup virtualenv and downloads dependencies
@@ -50,7 +60,14 @@ buildPythonPackage rec {
     homepage = "https://github.com/nexB/univers";
     changelog =
       "https://github.com/nexB/univers/blob/v${version}/CHANGELOG.rst";
-    license = with licenses; [ asl20 bsd3 mit ];
-    maintainers = with maintainers; [ armijnhemel sbruder ];
+    license = with licenses; [
+      asl20
+      bsd3
+      mit
+    ];
+    maintainers = with maintainers; [
+      armijnhemel
+      sbruder
+    ];
   };
 }

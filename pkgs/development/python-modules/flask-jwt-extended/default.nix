@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-YrUh11SUwpCmRq6KzHcSNyHkNkeQ8eZK8AONgjlh+/A=";
   };
 
-  propagatedBuildInputs = [ flask pyjwt python-dateutil werkzeug ];
+  propagatedBuildInputs = [
+    flask
+    pyjwt
+    python-dateutil
+    werkzeug
+  ];
 
   passthru.optional-dependencies.asymmetric_crypto = [ cryptography ];
 

@@ -40,7 +40,10 @@ qt5.mkDerivation rec {
     phonon
   ];
 
-  nativeBuildInputs = [ pkg-config qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qt5.wrapQtAppsHook
+  ];
 
   postPatch = ''
     substituteInPlace src/onmainwindow.cpp --replace "/usr/sbin/sshd" "${openssh}/bin/sshd"
@@ -51,10 +54,17 @@ qt5.mkDerivation rec {
       --replace "-o root -g root" ""
   '';
 
-  makeFlags =
-    [ "PREFIX=$(out)" "ETCDIR=$(out)/etc" "build_client" "build_man" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "ETCDIR=$(out)/etc"
+    "build_client"
+    "build_man"
+  ];
 
-  installTargets = [ "install_client" "install_man" ];
+  installTargets = [
+    "install_client"
+    "install_man"
+  ];
 
   qtWrapperArgs = [
     "--suffix PATH : ${nx-libs}/bin:${openssh}/libexec"

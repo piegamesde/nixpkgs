@@ -110,7 +110,10 @@ in {
             };
             tagmsg-storage = {
               default = false;
-              whitelist = [ "+draft/react" "+react" ];
+              whitelist = [
+                "+draft/react"
+                "+react"
+              ];
             };
           };
         };
@@ -144,5 +147,8 @@ in {
     };
 
   };
-  meta.maintainers = with lib.maintainers; [ lassulus tv ];
+  meta.maintainers = with lib.maintainers; [
+    lassulus
+    tv
+  ];
 }

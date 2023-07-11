@@ -16,7 +16,12 @@ stdenv.mkDerivation rec {
   pname = "glib-testing";
   version = "0.1.1";
 
-  outputs = [ "out" "dev" "devdoc" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -31,8 +36,14 @@ stdenv.mkDerivation rec {
     ./installed-tests-path.patch
   ];
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gtk-doc docbook-xsl-nons docbook_xml_dtd_43 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gtk-doc
+    docbook-xsl-nons
+    docbook_xml_dtd_43
+  ];
 
   propagatedBuildInputs = [ glib ];
 

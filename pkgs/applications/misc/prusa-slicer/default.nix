@@ -50,7 +50,11 @@ in stdenv.mkDerivation rec {
   pname = "prusa-slicer";
   version = "2.5.2";
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     binutils
@@ -152,7 +156,11 @@ in stdenv.mkDerivation rec {
     rev = "version_${version}";
   };
 
-  cmakeFlags = [ "-DSLIC3R_STATIC=0" "-DSLIC3R_FHS=1" "-DSLIC3R_GTK=3" ];
+  cmakeFlags = [
+    "-DSLIC3R_STATIC=0"
+    "-DSLIC3R_FHS=1"
+    "-DSLIC3R_GTK=3"
+  ];
 
   postInstall = ''
     ln -s "$out/bin/prusa-slicer" "$out/bin/prusa-gcodeviewer"
@@ -176,6 +184,9 @@ in stdenv.mkDerivation rec {
       description = "G-code generator for 3D printer";
       homepage = "https://github.com/prusa3d/PrusaSlicer";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ moredread tweber ];
+      maintainers = with maintainers; [
+        moredread
+        tweber
+      ];
     } // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; };
 }

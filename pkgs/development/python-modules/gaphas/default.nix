@@ -25,9 +25,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [ gobject-introspection gtk3 ];
+  buildInputs = [
+    gobject-introspection
+    gtk3
+  ];
 
-  propagatedBuildInputs = [ pycairo pygobject3 typing-extensions ];
+  propagatedBuildInputs = [
+    pycairo
+    pygobject3
+    typing-extensions
+  ];
 
   pythonImportsCheck = [ "gaphas" ];
 

@@ -33,8 +33,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3pEPE96gFjDGesFs/EZswuv6D3JQEpnAnlCw0IWYkR0=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     evolution-data-server-gtk4
@@ -59,7 +65,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/andyholmes/valent/";
     changelog =
       "https://github.com/andyholmes/valent/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ gpl3Plus cc0 ];
+    license = with licenses; [
+      gpl3Plus
+      cc0
+    ];
     maintainers = with maintainers; [ federicoschonborn ];
     platforms = platforms.linux;
   };

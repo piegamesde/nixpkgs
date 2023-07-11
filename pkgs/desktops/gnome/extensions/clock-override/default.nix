@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "clock-override";
   };
 
-  nativeBuildInputs = [ gettext glib ];
+  nativeBuildInputs = [
+    gettext
+    glib
+  ];
 
   buildPhase = ''
     runHook preBuild

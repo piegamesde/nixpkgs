@@ -26,8 +26,19 @@ in stdenv.mkDerivation rec {
     sha256 = "1pqywkidfpdbj18i03h97f4cimld4fb3mqfy8jjsxs12kihm18fs";
   };
 
-  nativeBuildInputs = [ which bison flex imake gccmakedep ];
-  buildInputs = [ tcl tk libX11 xorgproto ];
+  nativeBuildInputs = [
+    which
+    bison
+    flex
+    imake
+    gccmakedep
+  ];
+  buildInputs = [
+    tcl
+    tk
+    libX11
+    xorgproto
+  ];
   dontUseImakeConfigure = true;
 
   patchPhase = ''

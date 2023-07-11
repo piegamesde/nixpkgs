@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fNVhsZPjqdMOmESy/MinjdaNE5jWMWSeVidAs9JGV38=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [ pcre2 ];
 

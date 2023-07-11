@@ -70,16 +70,19 @@ import ./make-test-python.nix ({
 
     networkMonA = {
       dhcpcd.enable = false;
-      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
         address = cfg.monA.ip;
         prefixLength = 24;
-      }];
+      } ];
       firewall = {
-        allowedTCPPorts = [ 6789 3300 ];
-        allowedTCPPortRanges = [{
+        allowedTCPPorts = [
+          6789
+          3300
+        ];
+        allowedTCPPortRanges = [ {
           from = 6800;
           to = 7300;
-        }];
+        } ];
       };
     };
     cephConfigMonA = generateCephConfig {
@@ -97,15 +100,15 @@ import ./make-test-python.nix ({
 
     networkOsd = osd: {
       dhcpcd.enable = false;
-      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
         address = osd.ip;
         prefixLength = 24;
-      }];
+      } ];
       firewall = {
-        allowedTCPPortRanges = [{
+        allowedTCPPortRanges = [ {
           from = 6800;
           to = 7300;
-        }];
+        } ];
       };
     };
 

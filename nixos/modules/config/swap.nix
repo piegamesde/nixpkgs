@@ -139,7 +139,11 @@ let
         discardPolicy = mkOption {
           default = null;
           example = "once";
-          type = types.nullOr (types.enum [ "once" "pages" "both" ]);
+          type = types.nullOr (types.enum [
+            "once"
+            "pages"
+            "both"
+          ]);
           description = lib.mdDoc ''
             Specify the discard policy for the swap device. If "once", then the
             whole swap space is discarded at swapon invocation. If "pages",
@@ -223,13 +227,12 @@ in {
     }) config.swapDevices;
 
     warnings = concatMap (sw:
-      if sw.size != null && hasPrefix "/dev/" sw.device then
-        [ "Setting the swap size of block device ${sw.device} has no effect" ]
-      else
+      if sw.size != null && hasPrefix "/dev/"
+      sw.device then [ "Setting the swap size of block device ${sw.device} has no effect" ] else
         [ ]) config.swapDevices;
 
-    system.requiredKernelConfig = with config.lib.kernelConfig;
-      [ (isYes "SWAP") ];
+    system.requiredKernelConfig =
+      with config.lib.kernelConfig; [ (isYes "SWAP") ];
 
     # Create missing swapfiles.
     systemd.services = let
@@ -239,8 +242,10 @@ in {
           description = "Initialisation of swap device ${sw.device}";
           wantedBy = [ "${realDevice'}.swap" ];
           before = [ "${realDevice'}.swap" ];
-          path = [ pkgs.util-linux pkgs.e2fsprogs ]
-            ++ optional sw.randomEncryption.enable pkgs.cryptsetup;
+          path = [
+            pkgs.util-linux
+            pkgs.e2fsprogs
+          ] ++ optional sw.randomEncryption.enable pkgs.cryptsetup;
 
           environment.DEVICE = sw.device;
 

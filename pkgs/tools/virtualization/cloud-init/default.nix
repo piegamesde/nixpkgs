@@ -27,7 +27,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-tn4flcrf04hVWhqkmK4qDenXcnV93pP+C+8J63b6FXQ=";
   };
 
-  patches = [ ./0001-add-nixos-support.patch ./0002-Add-Udhcpc-support.patch ];
+  patches = [
+    ./0001-add-nixos-support.patch
+    ./0002-Add-Udhcpc-support.patch
+  ];
 
   prePatch = ''
     substituteInPlace setup.py \
@@ -74,11 +77,13 @@ python3.pkgs.buildPythonApplication rec {
     coreutils
   ];
 
-  makeWrapperArgs = [
-    "--prefix PATH : ${
-      lib.makeBinPath [ dmidecode cloud-utils.guest busybox ]
-    }/bin"
-  ];
+  makeWrapperArgs = [ "--prefix PATH : ${
+      lib.makeBinPath [
+        dmidecode
+        cloud-utils.guest
+        busybox
+      ]
+    }/bin" ];
 
   disabledTests = [
     # tries to create /var
@@ -124,8 +129,14 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/canonical/cloud-init";
     description = "Provides configuration and customization of cloud instance";
-    license = with licenses; [ asl20 gpl3Plus ];
-    maintainers = with maintainers; [ illustris jfroche ];
+    license = with licenses; [
+      asl20
+      gpl3Plus
+    ];
+    maintainers = with maintainers; [
+      illustris
+      jfroche
+    ];
     platforms = platforms.all;
   };
 }

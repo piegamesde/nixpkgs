@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  propagatedBuildInputs = [ six pycrypto ];
+  propagatedBuildInputs = [
+    six
+    pycrypto
+  ];
 
   doCheck = false;
 

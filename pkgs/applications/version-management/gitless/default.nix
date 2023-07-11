@@ -18,7 +18,11 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = with python3.pkgs; [ sh pygit2 clint ];
+  propagatedBuildInputs = with python3.pkgs; [
+    sh
+    pygit2
+    clint
+  ];
 
   pythonRelaxDeps = [ "pygit2" ];
 

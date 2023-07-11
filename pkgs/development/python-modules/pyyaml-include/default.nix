@@ -18,7 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-9/vrjnG1C+Dm4HRy98edv7GhW63pyToHg2n/SeV+Z3E=";
   };
 
-  nativeBuildInputs = [ pyyaml setuptools-scm setuptools-scm-git-archive toml ];
+  nativeBuildInputs = [
+    pyyaml
+    setuptools-scm
+    setuptools-scm-git-archive
+    toml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

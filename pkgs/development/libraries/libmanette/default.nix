@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   pname = "libmanette";
   version = "0.2.6";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -32,19 +35,24 @@ stdenv.mkDerivation rec {
     sha256 = "1b3bcdkk5xd5asq797cch9id8692grsjxrc1ss87vv11m1ck4rb3";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config glib ]
-    ++ lib.optionals withIntrospection [
-      vala
-      gobject-introspection
-      gtk-doc
-      docbook-xsl-nons
-      docbook_xml_dtd_43
-    ] ++ lib.optionals
-    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    glib
+  ] ++ lib.optionals withIntrospection [
+    vala
+    gobject-introspection
+    gtk-doc
+    docbook-xsl-nons
+    docbook_xml_dtd_43
+  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib libevdev ]
-    ++ lib.optionals withIntrospection [ libgudev ];
+  buildInputs = [
+    glib
+    libevdev
+  ] ++ lib.optionals withIntrospection [ libgudev ];
 
   mesonFlags = [
     (lib.mesonBool "doc" withIntrospection)

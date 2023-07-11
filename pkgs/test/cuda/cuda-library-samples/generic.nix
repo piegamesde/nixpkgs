@@ -19,7 +19,10 @@ let
   commonAttrs = {
     version = lib.strings.substring 0 7 rev + "-"
       + lib.versions.majorMinor cudatoolkit.version;
-    nativeBuildInputs = [ cmake addOpenGLRunpath ];
+    nativeBuildInputs = [
+      cmake
+      addOpenGLRunpath
+    ];
     buildInputs = [ cudatoolkit ];
     postFixup = ''
       for exe in $out/bin/*; do
@@ -60,9 +63,9 @@ in {
 
     buildInputs = [ cutensor ];
 
-    cmakeFlags = [
-      "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${builtins.placeholder "out"}/bin"
-    ];
+    cmakeFlags = [ "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${
+        builtins.placeholder "out"
+      }/bin" ];
 
     # CUTENSOR_ROOT is double escaped
     postPatch = ''

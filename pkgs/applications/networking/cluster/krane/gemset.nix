@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -63,7 +68,10 @@
     version = "1.3.1";
   };
   faraday = {
-    dependencies = [ "faraday-net_http" "ruby2_keywords" ];
+    dependencies = [
+      "faraday-net_http"
+      "ruby2_keywords"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -94,7 +102,10 @@
     version = "1.15.5";
   };
   ffi-compiler = {
-    dependencies = [ "ffi" "rake" ];
+    dependencies = [
+      "ffi"
+      "rake"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -105,7 +116,14 @@
     version = "1.0.1";
   };
   googleauth = {
-    dependencies = [ "faraday" "jwt" "memoist" "multi_json" "os" "signet" ];
+    dependencies = [
+      "faraday"
+      "jwt"
+      "memoist"
+      "multi_json"
+      "os"
+      "signet"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -116,8 +134,12 @@
     version = "1.5.2";
   };
   http = {
-    dependencies =
-      [ "addressable" "http-cookie" "http-form_data" "llhttp-ffi" ];
+    dependencies = [
+      "addressable"
+      "http-cookie"
+      "http-form_data"
+      "llhttp-ffi"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -213,7 +235,12 @@
     version = "3.1.0";
   };
   kubeclient = {
-    dependencies = [ "http" "jsonpath" "recursive-open-struct" "rest-client" ];
+    dependencies = [
+      "http"
+      "jsonpath"
+      "recursive-open-struct"
+      "rest-client"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -224,7 +251,10 @@
     version = "4.11.0";
   };
   llhttp-ffi = {
-    dependencies = [ "ffi-compiler" "rake" ];
+    dependencies = [
+      "ffi-compiler"
+      "rake"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -346,7 +376,12 @@
     version = "1.1.3";
   };
   rest-client = {
-    dependencies = [ "http-accept" "http-cookie" "mime-types" "netrc" ];
+    dependencies = [
+      "http-accept"
+      "http-cookie"
+      "mime-types"
+      "netrc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -367,7 +402,12 @@
     version = "0.0.5";
   };
   signet = {
-    dependencies = [ "addressable" "faraday" "jwt" "multi_json" ];
+    dependencies = [
+      "addressable"
+      "faraday"
+      "jwt"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

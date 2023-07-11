@@ -22,7 +22,11 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-Zft/ip+/uJbUIqCDDEa4hchmZZiYWGdaVnzWC74FgU8=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses6 openssl sqlite ];
+  buildInputs = [
+    ncurses6
+    openssl
+    sqlite
+  ];
 
   meta = with lib; {
     description = "A gopher and gemini client for the modern internet";

@@ -17,7 +17,10 @@
 }:
 let
   metaCommon = with lib; {
-    maintainers = with maintainers; [ leenaars ehmry ];
+    maintainers = with maintainers; [
+      leenaars
+      ehmry
+    ];
     license = licenses.bsd3;
     platforms = platforms.all;
   };
@@ -26,7 +29,12 @@ in rec {
   getdns = stdenv.mkDerivation rec {
     pname = "getdns";
     version = "1.7.3";
-    outputs = [ "out" "dev" "lib" "man" ];
+    outputs = [
+      "out"
+      "dev"
+      "lib"
+      "man"
+    ];
 
     src = fetchurl {
       url = "https://getdnsapi.net/releases/${pname}-${
@@ -38,9 +46,16 @@ in rec {
         "f1404ca250f02e37a118aa00cf0ec2cbe11896e060c6d369c6761baea7d55a2c";
     };
 
-    nativeBuildInputs = [ cmake doxygen ];
+    nativeBuildInputs = [
+      cmake
+      doxygen
+    ];
 
-    buildInputs = [ libidn2 openssl unbound ];
+    buildInputs = [
+      libidn2
+      openssl
+      unbound
+    ];
 
     # https://github.com/getdnsapi/getdns/issues/517
     postPatch = ''
@@ -74,15 +89,27 @@ in rec {
   stubby = stdenv.mkDerivation rec {
     pname = "stubby";
     version = "0.4.3";
-    outputs = [ "out" "man" "stubbyExampleJson" ];
+    outputs = [
+      "out"
+      "man"
+      "stubbyExampleJson"
+    ];
 
     inherit (getdns) src;
     sourceRoot = "${getdns.name}/stubby";
 
-    nativeBuildInputs = [ cmake doxygen yq ];
+    nativeBuildInputs = [
+      cmake
+      doxygen
+      yq
+    ];
 
-    buildInputs = [ getdns libyaml openssl systemd ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.Security ];
+    buildInputs = [
+      getdns
+      libyaml
+      openssl
+      systemd
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.Security ];
 
     postInstall = ''
       rm -r $out/share/doc

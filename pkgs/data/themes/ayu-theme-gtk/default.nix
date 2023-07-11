@@ -28,9 +28,19 @@ stdenv.mkDerivation rec {
     ln -sn 3.18 common/gnome-shell/3.24
   '';
 
-  nativeBuildInputs = [ autoreconfHook gtk3 inkscape optipng pkg-config sassc ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gtk3
+    inkscape
+    optipng
+    pkg-config
+    sassc
+  ];
 
-  propagatedUserEnvPkgs = [ gnome.gnome-themes-extra gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [
+    gnome.gnome-themes-extra
+    gtk-engine-murrine
+  ];
 
   enableParallelBuilding = true;
 
@@ -39,8 +49,10 @@ stdenv.mkDerivation rec {
     export HOME="$NIX_BUILD_ROOT"
   '';
 
-  configureFlags =
-    [ "--with-gnome-shell=${gnome.gnome-shell.version}" "--disable-unity" ];
+  configureFlags = [
+    "--with-gnome-shell=${gnome.gnome-shell.version}"
+    "--disable-unity"
+  ];
 
   postInstall = ''
     install -Dm644 -t $out/share/doc/${pname} AUTHORS *.md

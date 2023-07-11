@@ -21,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ blas lapack-reference ];
+  buildInputs = [
+    blas
+    lapack-reference
+  ];
 
   meta = with lib; {
     description = "high performance C++ math library";

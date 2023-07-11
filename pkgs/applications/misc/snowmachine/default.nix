@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-git ];
-  propagatedBuildInputs = [ click colorama ];
+  propagatedBuildInputs = [
+    click
+    colorama
+  ];
 
   doCheck = false;
   pythonImportsCheck = [ "snowmachine" ];

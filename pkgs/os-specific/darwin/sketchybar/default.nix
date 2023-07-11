@@ -27,7 +27,13 @@ in stdenv.mkDerivation rec {
     hash = "sha256-0jCVDaFc7ZvA8apeHRoQvPhAlaGlBHzqUkS9or88PcM=";
   };
 
-  buildInputs = [ Carbon Cocoa CoreWLAN DisplayServices SkyLight ];
+  buildInputs = [
+    Carbon
+    Cocoa
+    CoreWLAN
+    DisplayServices
+    SkyLight
+  ];
 
   makeFlags = [ target ];
 

@@ -16,7 +16,10 @@ stdenv.mkDerivation {
     sha256 = "1q42wvdwy2pac7bhfraqqj2czw7w2m33ms3ifjl8phm7d87i8825";
   };
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen ffmpeg_4 ];
+  buildInputs = [
+    eigen
+    ffmpeg_4
+  ];
   fixupPhase = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libmusly.dylib $out/lib/libmusly.dylib $out/bin/musly
     install_name_tool -change libmusly_resample.dylib $out/lib/libmusly_resample.dylib $out/bin/musly

@@ -28,11 +28,23 @@ buildPythonPackage rec {
     hash = "sha256-brC33ar2Jq3R2xdrklvVsQKf6pcnKwD25PO4TIvXgTg=";
   };
 
-  nativeBuildInputs = [ cmake swig git setuptools scikit-build ];
+  nativeBuildInputs = [
+    cmake
+    swig
+    git
+    setuptools
+    scikit-build
+  ];
 
-  buildInputs = [ boost pc-ble-driver ];
+  buildInputs = [
+    boost
+    pc-ble-driver
+  ];
 
-  propagatedBuildInputs = [ cryptography wrapt ];
+  propagatedBuildInputs = [
+    cryptography
+    wrapt
+  ];
 
   dontUseCmakeConfigure = true;
 

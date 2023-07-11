@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ at-spi2-core pygobject3 ];
+  buildInputs = [
+    at-spi2-core
+    pygobject3
+  ];
 
   configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
 

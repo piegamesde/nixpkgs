@@ -30,7 +30,10 @@ in stdenv.mkDerivation {
       "Small command line application for keeping your project hostnames in sync with /etc/hosts";
     homepage = "https://github.com/mpscholten/maphosts";
     license = licenses.mit;
-    maintainers = with maintainers; [ mpscholten nicknovitski ];
+    maintainers = with maintainers; [
+      mpscholten
+      nicknovitski
+    ];
     platforms = platforms.all;
   };
 }

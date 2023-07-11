@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ file fuse libmtp ];
+  buildInputs = [
+    file
+    fuse
+    libmtp
+  ];
 
   meta = with lib; {
     description = "A FUSE filesystem for MTP devices like Android phones";

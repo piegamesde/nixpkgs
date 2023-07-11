@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-benchmark ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-benchmark
+  ];
 
   meta = with lib; {
     description = "Python bindings for the C++14 Boost::Histogram library";

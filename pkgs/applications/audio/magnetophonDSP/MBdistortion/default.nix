@@ -17,15 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "0mdzaqmxzgspfgx9w1hdip18y17hwpdcgjyq1rrfm843vkascwip";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/magnetophon/MBdistortion/commit/10e35084b88c559f1b63760cf40fd5ef5a6745a5.patch";
-      sha256 = "0hwjl3rzvn3id0sr0qs8f37jdmr915mdan8miaf78ra0ir3wnk76";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/magnetophon/MBdistortion/commit/10e35084b88c559f1b63760cf40fd5ef5a6745a5.patch";
+    sha256 = "0hwjl3rzvn3id0sr0qs8f37jdmr915mdan8miaf78ra0ir3wnk76";
+  }) ];
 
-  buildInputs = [ faust2jaqt faust2lv2 ];
+  buildInputs = [
+    faust2jaqt
+    faust2lv2
+  ];
 
   buildPhase = ''
     faust2jaqt -time -vec -t 99999 MBdistortion.dsp

@@ -148,7 +148,10 @@ in stdenv.mkDerivation {
   inherit gtk3;
 
   nativeBuildInputs = [ wrapGAppsHook ];
-  buildInputs = [ gtk3 adwaita-icon-theme ];
+  buildInputs = [
+    gtk3
+    adwaita-icon-theme
+  ];
 
   # "strip" after "patchelf" may break binaries.
   # See: https://github.com/NixOS/patchelf/issues/10
@@ -215,6 +218,9 @@ in stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = builtins.attrNames mozillaPlatforms;
     hydraPlatforms = [ ];
-    maintainers = with maintainers; [ taku0 lovesegfault ];
+    maintainers = with maintainers; [
+      taku0
+      lovesegfault
+    ];
   };
 }

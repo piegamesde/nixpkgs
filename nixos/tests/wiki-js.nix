@@ -20,10 +20,10 @@ import ./make-test-python.nix ({
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "wiki" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "wiki-js";
             ensurePermissions."DATABASE wiki" = "ALL PRIVILEGES";
-          }];
+          } ];
         };
         systemd.services.wiki-js = {
           requires = [ "postgresql.service" ];
@@ -40,7 +40,7 @@ import ./make-test-python.nix ({
         siteUrl = "http://localhost:3000";
         telemetry = false;
       });
-      payloads.login = pkgs.writeText "login.json" (builtins.toJSON [{
+      payloads.login = pkgs.writeText "login.json" (builtins.toJSON [ {
         operationName = null;
         extensions = { };
         query = ''
@@ -72,8 +72,8 @@ import ./make-test-python.nix ({
           strategy = "local";
           username = "webmaster@example.com";
         };
-      }]);
-      payloads.content = pkgs.writeText "content.json" (builtins.toJSON [{
+      } ]);
+      payloads.content = pkgs.writeText "content.json" (builtins.toJSON [ {
         extensions = { };
         operationName = null;
         query = ''
@@ -116,7 +116,7 @@ import ./make-test-python.nix ({
           tags = [ ];
           title = "Hello world";
         };
-      }]);
+      } ]);
     in ''
       machine.start()
       machine.wait_for_unit("multi-user.target")

@@ -190,11 +190,11 @@ with lib;
   config = let cfg = config.services.nullmailer;
   in mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.config.remotes == null || cfg.remotesFile == null;
       message =
         "Only one of `remotesFile` or `config.remotes` may be used at a time.";
-    }];
+    } ];
 
     environment = {
       systemPackages = [ pkgs.nullmailer ];

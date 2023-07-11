@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0li1s11xf32dafxq1jbnc8c63313hy9ry09dja2rymk9mza4x2n9";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
   meta = with lib; {
     description = "Transparent application input fuzzer";

@@ -21,7 +21,14 @@ stdenv.mkDerivation rec {
   pname = "libmodulemd";
   version = "2.14.0";
 
-  outputs = [ "bin" "out" "dev" "devdoc" "man" "py" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+    "py"
+  ];
 
   src = fetchFromGitHub {
     owner = "fedora-modularity";
@@ -55,11 +62,9 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = [
-    "-Dgobject_overrides_dir_py3=${
+  mesonFlags = [ "-Dgobject_overrides_dir_py3=${
       placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
-  ];
+    }/${python3.sitePackages}/gi/overrides" ];
 
   postFixup = ''
     # Python overrides depend our own typelibs and other packages

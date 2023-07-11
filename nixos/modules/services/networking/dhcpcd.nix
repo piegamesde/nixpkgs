@@ -208,8 +208,14 @@ in {
     };
 
     networking.dhcpcd.wait = mkOption {
-      type =
-        types.enum [ "background" "any" "ipv4" "ipv6" "both" "if-carrier-up" ];
+      type = types.enum [
+        "background"
+        "any"
+        "ipv4"
+        "ipv6"
+        "both"
+        "if-carrier-up"
+      ];
       default = "any";
       description = lib.mdDoc ''
         This option specifies when the dhcpcd service will fork to background.
@@ -229,18 +235,21 @@ in {
 
   config = mkIf enableDHCP {
 
-    assertions = [{
+    assertions = [ {
       # dhcpcd doesn't start properly with malloc ∉ [ libc scudo ]
       # see https://github.com/NixOS/nixpkgs/issues/151696
       assertion = dhcpcd.enablePrivSep
-        -> elem config.environment.memoryAllocator.provider [ "libc" "scudo" ];
+        -> elem config.environment.memoryAllocator.provider [
+          "libc"
+          "scudo"
+        ];
       message = ''
         dhcpcd with privilege separation is incompatible with chosen system malloc.
           Currently only the `libc` and `scudo` allocators are known to work.
           To disable dhcpcd's privilege separation, overlay Nixpkgs and override dhcpcd
           to set `enablePrivSep = false`.
       '';
-    }];
+    } ];
 
     systemd.services.dhcpcd = let
       cfgN = config.networking;
@@ -263,7 +272,11 @@ in {
       # dhcpcd.  So do a "systemctl restart" instead.
       stopIfChanged = false;
 
-      path = [ dhcpcd pkgs.nettools config.networking.resolvconf.package ];
+      path = [
+        dhcpcd
+        pkgs.nettools
+        config.networking.resolvconf.package
+      ];
 
       unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 

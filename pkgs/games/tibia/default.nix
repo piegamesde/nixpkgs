@@ -36,7 +36,12 @@ stdenv.mkDerivation rec {
 
     patchelf --set-interpreter ${glibc.out}/lib/ld-linux.so.2 \
              --set-rpath ${
-               lib.makeLibraryPath [ stdenv.cc.cc libX11 libGLU libGL ]
+               lib.makeLibraryPath [
+                 stdenv.cc.cc
+                 libX11
+                 libGLU
+                 libGL
+               ]
              } \
              "$out/res/Tibia"
 

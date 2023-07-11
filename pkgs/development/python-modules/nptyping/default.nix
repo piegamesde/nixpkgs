@@ -29,8 +29,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs =
-    [ beartype feedparser invoke mypy pandas pytestCheckHook typeguard ];
+  nativeCheckInputs = [
+    beartype
+    feedparser
+    invoke
+    mypy
+    pandas
+    pytestCheckHook
+    typeguard
+  ];
 
   disabledTests = [
     # tries to download data

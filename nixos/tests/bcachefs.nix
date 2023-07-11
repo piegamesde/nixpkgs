@@ -12,7 +12,10 @@ import ./make-test-python.nix ({
         virtualisation.emptyDiskImages = [ 4096 ];
         networking.hostId = "deadbeef";
         boot.supportedFilesystems = [ "bcachefs" ];
-        environment.systemPackages = with pkgs; [ parted keyutils ];
+        environment.systemPackages = with pkgs; [
+          parted
+          keyutils
+        ];
       };
 
     testScript = ''

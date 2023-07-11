@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-/un/m4Br0Ylk00fS/U+QKeXwM1Ix5TFedaPhCyScWvs=";
   };
 
-  propagatedBuildInputs = [ python-http-client starkbank-ecdsa six ];
+  propagatedBuildInputs = [
+    python-http-client
+    starkbank-ecdsa
+    six
+  ];
 
-  nativeCheckInputs = [ flask pytestCheckHook pyyaml werkzeug ];
+  nativeCheckInputs = [
+    flask
+    pytestCheckHook
+    pyyaml
+    werkzeug
+  ];
 
   disabledTestPaths = [
     # Exclude tests that require network access

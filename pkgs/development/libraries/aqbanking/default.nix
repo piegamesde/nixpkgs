@@ -34,9 +34,20 @@ in stdenv.mkDerivation rec {
     }' configure
   '';
 
-  buildInputs = [ gmp gwenhywfar libtool libxml2 libxslt xmlsec zlib ];
+  buildInputs = [
+    gmp
+    gwenhywfar
+    libtool
+    libxml2
+    libxslt
+    xmlsec
+    zlib
+  ];
 
-  nativeBuildInputs = [ pkg-config gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+  ];
 
   meta = with lib; {
     description =

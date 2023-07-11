@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-AVoz5MY5gNxQrHtDMPbQ85IjmHii1v6C2OXpEQj9zC8=";
   };
 
-  nativeBuildInputs = [ nodejs makeWrapper ];
+  nativeBuildInputs = [
+    nodejs
+    makeWrapper
+  ];
 
   installPhase = let
     nodeDependencies = ((import ./node-composition.nix {

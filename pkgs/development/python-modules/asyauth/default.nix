@@ -21,7 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-tVvqzKsCvvSgKB3xRBMnIQLEDzCaPO/h8cM8WMpzi6M=";
   };
 
-  propagatedBuildInputs = [ asn1crypto asysocks minikerberos unicrypto ];
+  propagatedBuildInputs = [
+    asn1crypto
+    asysocks
+    minikerberos
+    unicrypto
+  ];
 
   # Project doesn't have tests
   doCheck = false;

@@ -73,7 +73,11 @@ in stdenv.mkDerivation {
       --replace '/usr/include/poppler' '${lib.getDev poppler}/include/poppler'
   '';
 
-  nativeBuildInputs = [ qmake copyDesktopItems wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    copyDesktopItems
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtbase
@@ -106,18 +110,16 @@ in stdenv.mkDerivation {
 
   makeFlags = [ "release-install" ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "OpenBoard";
-      exec = "OpenBoard %f";
-      icon = "OpenBoard";
-      comment = "OpenBoard, an interactive white board application";
-      desktopName = "OpenBoard";
-      mimeTypes = [ "application/ubz" ];
-      categories = [ "Education" ];
-      startupNotify = true;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "OpenBoard";
+    exec = "OpenBoard %f";
+    icon = "OpenBoard";
+    comment = "OpenBoard, an interactive white board application";
+    desktopName = "OpenBoard";
+    mimeTypes = [ "application/ubz" ];
+    categories = [ "Education" ];
+    startupNotify = true;
+  }) ];
 
   installPhase = ''
     runHook preInstall

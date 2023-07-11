@@ -21,7 +21,10 @@ let
 in buildPythonApplication {
   inherit pname version src;
 
-  propagatedBuildInputs = [ pandocfilters panflute ];
+  propagatedBuildInputs = [
+    pandocfilters
+    panflute
+  ];
 
   # Something in the tests does not typecheck, but the tool works well.
   doCheck = false;

@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   pname = "girara";
   version = "0.3.9";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -49,9 +52,16 @@ stdenv.mkDerivation rec {
     glib # for glib-compile-resources
   ];
 
-  buildInputs = [ libintl libiconv json-glib ];
+  buildInputs = [
+    libintl
+    libiconv
+    json-glib
+  ];
 
-  propagatedBuildInputs = [ glib gtk ];
+  propagatedBuildInputs = [
+    glib
+    gtk
+  ];
 
   nativeCheckInputs = [ xvfb-run ];
 

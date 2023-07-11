@@ -28,9 +28,18 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [ "--skip-npm" ];
 
-  propagatedBuildInputs = [ ipywidgets numpy six traittypes ];
+  propagatedBuildInputs = [
+    ipywidgets
+    numpy
+    six
+    traittypes
+  ];
 
-  nativeCheckInputs = [ pytest pytest-cov nbval ];
+  nativeCheckInputs = [
+    pytest
+    pytest-cov
+    nbval
+  ];
 
   checkPhase = "pytest ipydatawidgets/tests";
 

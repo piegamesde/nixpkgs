@@ -46,7 +46,10 @@ let
     # YARA rule file
     rules = (src + "/execers.yar");
     # output filenames; "types" of lore
-    types = [ "execers" "wrappers" ];
+    types = [
+      "execers"
+      "wrappers"
+    ];
     # shell rule callbacks; see github.com/abathur/yallback
     yallback = (src + "/execers.yall");
     # TODO:

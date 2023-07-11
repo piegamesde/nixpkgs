@@ -25,7 +25,13 @@ stdenv.mkDerivation rec {
     sha256 = "KENGBKewOHMawCMXMTiP8QT1ZbsjMMwk54zaBM/T730=";
   };
 
-  nativeBuildInputs = [ gettext meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
   buildInputs = [ libintl ];
 

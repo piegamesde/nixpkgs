@@ -39,7 +39,14 @@ buildDunePackage rec {
     webmachine
   ];
 
-  checkInputs = [ digestif git-unix irmin-git irmin-test irmin-fs cacert ];
+  checkInputs = [
+    digestif
+    git-unix
+    irmin-git
+    irmin-test
+    irmin-fs
+    cacert
+  ];
 
   doCheck = true;
 

@@ -26,9 +26,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ hatchling hatch-vcs ];
+  nativeBuildInputs = [
+    hatchling
+    hatch-vcs
+  ];
 
-  nativeCheckInputs = [ appdirs pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    appdirs
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "platformdirs" ];
 

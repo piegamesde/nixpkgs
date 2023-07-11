@@ -32,7 +32,10 @@ buildPythonPackage rec {
   # have been comitted with msgs "wip" though.
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook pytest-tornasync ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-tornasync
+  ];
 
   pythonImportsCheck = [ "notebook_shim" ];
 

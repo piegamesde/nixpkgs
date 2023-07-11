@@ -14,7 +14,13 @@ stdenv.mkDerivation rec {
   pname = "ply";
   version = "2.1.1-${lib.substring 0 7 src.rev}";
 
-  nativeBuildInputs = [ autoreconfHook flex bison p7zip rsync ];
+  nativeBuildInputs = [
+    autoreconfHook
+    flex
+    bison
+    p7zip
+    rsync
+  ];
 
   src = fetchFromGitHub {
     owner = "iovisor";
@@ -44,6 +50,9 @@ stdenv.mkDerivation rec {
     description = "Dynamic tracing in Linux";
     homepage = "https://wkz.github.io/ply/";
     license = [ licenses.gpl2Only ];
-    maintainers = with maintainers; [ mic92 mbbx6spp ];
+    maintainers = with maintainers; [
+      mic92
+      mbbx6spp
+    ];
   };
 }

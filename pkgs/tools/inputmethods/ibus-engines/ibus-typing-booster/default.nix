@@ -14,7 +14,11 @@
 
 let
 
-  python = python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
+  python = python3.withPackages (ps:
+    with ps; [
+      pygobject3
+      dbus-python
+    ]);
 
 in stdenv.mkDerivation rec {
   pname = "ibus-typing-booster";
@@ -27,9 +31,18 @@ in stdenv.mkDerivation rec {
     hash = "sha256-AOCFdjQ5xz/B5Nx0+QVv5GdJyQEo0eH3in5Yaak9Sww=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config wrapGAppsHook gobject-introspection ];
-  buildInputs = [ python ibus gtk3 m17n_lib ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+    gobject-introspection
+  ];
+  buildInputs = [
+    python
+    ibus
+    gtk3
+    m17n_lib
+  ];
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${m17n_lib}/lib")

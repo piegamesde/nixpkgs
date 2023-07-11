@@ -112,6 +112,9 @@ buildPythonApplication rec {
     changelog =
       "https://github.com/commitizen-tools/commitizen/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault anthonyroussel ];
+    maintainers = with maintainers; [
+      lovesegfault
+      anthonyroussel
+    ];
   };
 }

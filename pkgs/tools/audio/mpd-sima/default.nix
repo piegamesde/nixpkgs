@@ -19,7 +19,10 @@ buildPythonApplication rec {
 
   format = "setuptools";
 
-  propagatedBuildInputs = [ requests python-musicpd ];
+  propagatedBuildInputs = [
+    requests
+    python-musicpd
+  ];
 
   doCheck = true;
 

@@ -9,7 +9,10 @@ buildGoModule rec {
   version = "2.25.2";
 
   subPackages = [ "cmd/vale" ];
-  outputs = [ "out" "data" ];
+  outputs = [
+    "out"
+    "data"
+  ];
 
   src = fetchFromGitHub {
     owner = "errata-ai";
@@ -25,7 +28,11 @@ buildGoModule rec {
     cp -r testdata/styles $data/share/vale
   '';
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   # Tests require network access
   doCheck = false;

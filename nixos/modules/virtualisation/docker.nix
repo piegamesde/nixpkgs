@@ -170,8 +170,13 @@ in {
 
   ###### implementation
 
-  config = mkIf cfg.enable (mkMerge [{
-    boot.kernelModules = [ "bridge" "veth" "br_netfilter" "xt_nat" ];
+  config = mkIf cfg.enable (mkMerge [ {
+    boot.kernelModules = [
+      "bridge"
+      "veth"
+      "br_netfilter"
+      "xt_nat"
+    ];
     boot.kernel.sysctl = {
       "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
       "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
@@ -183,7 +188,10 @@ in {
 
     systemd.services.docker = {
       wantedBy = optional cfg.enableOnBoot "multi-user.target";
-      after = [ "network.target" "docker.socket" ];
+      after = [
+        "network.target"
+        "docker.socket"
+      ];
       requires = [ "docker.socket" ];
       environment = proxy_env;
       serviceConfig = {
@@ -196,7 +204,10 @@ in {
               ${cfg.extraOptions}
           ''
         ];
-        ExecReload = [ "" "${pkgs.procps}/bin/kill -s HUP $MAINPID" ];
+        ExecReload = [
+          ""
+          "${pkgs.procps}/bin/kill -s HUP $MAINPID"
+        ];
       };
 
       path = [ pkgs.kmod ] ++ optional (cfg.storageDriver == "zfs") pkgs.zfs
@@ -233,11 +244,11 @@ in {
       requires = [ "docker.service" ];
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.enableNvidia
         -> config.hardware.opengl.driSupport32Bit or false;
       message = "Option enableNvidia requires 32bit support libraries";
-    }];
+    } ];
 
     virtualisation.docker.daemon.settings = {
       group = "docker";
@@ -252,11 +263,12 @@ in {
         };
       };
     };
-  }]);
+  } ]);
 
-  imports = [
-    (mkRemovedOptionModule [ "virtualisation" "docker" "socketActivation" ]
-      "This option was removed and socket activation is now always active")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "virtualisation"
+    "docker"
+    "socketActivation"
+  ] "This option was removed and socket activation is now always active") ];
 
 }

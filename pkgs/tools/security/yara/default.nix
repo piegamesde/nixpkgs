@@ -29,9 +29,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q+Q52W/MhurG3x0CIr0nv31qc4bdaLDk9AGGpMxKOcI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ pcre protobufc ] ++ lib.optionals withCrypto [ openssl ]
+  buildInputs = [
+    pcre
+    protobufc
+  ] ++ lib.optionals withCrypto [ openssl ]
     ++ lib.optionals enableMagic [ file ]
     ++ lib.optionals enableCuckoo [ jansson ];
 

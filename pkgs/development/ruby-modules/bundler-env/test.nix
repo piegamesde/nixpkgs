@@ -26,7 +26,11 @@ in builtins.concatLists [
     name = should.equal "test-0.1.2";
   })
   (test.run "bundlerEnv { pname }" pnamed [
-    (should.haveKeys [ "name" "env" "postBuild" ])
+    (should.haveKeys [
+      "name"
+      "env"
+      "postBuild"
+    ])
     {
       name = should.equal "test-0.1.2";
       env = should.beASet;

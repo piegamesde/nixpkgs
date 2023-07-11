@@ -27,7 +27,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/controller-gen" "cmd/type-scaffold" "cmd/helpgen" ];
+  subPackages = [
+    "cmd/controller-gen"
+    "cmd/type-scaffold"
+    "cmd/helpgen"
+  ];
 
   meta = with lib; {
     description =

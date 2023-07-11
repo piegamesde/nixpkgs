@@ -18,7 +18,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-wZgv4AFc7DrMCyxMLKQxO1mUTDAU4klK8aZAySqGJoY=";
   };
 
-  outputs = [ "out" "py" ];
+  outputs = [
+    "out"
+    "py"
+  ];
 
   nativeBuildInputs = [ cmake ];
 

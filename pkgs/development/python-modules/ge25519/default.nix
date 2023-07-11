@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ fe25519 parts bitlist fountains ];
+  propagatedBuildInputs = [
+    fe25519
+    parts
+    bitlist
+    fountains
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

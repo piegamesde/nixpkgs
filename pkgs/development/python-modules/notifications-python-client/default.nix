@@ -27,10 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-feATZS7PG9IKY6ooPztA49WykQ/Bt67frSe3PpbiCLc=";
   };
 
-  propagatedBuildInputs = [ docopt pyjwt requests ];
+  propagatedBuildInputs = [
+    docopt
+    pyjwt
+    requests
+  ];
 
-  nativeCheckInputs =
-    [ freezegun mock pytest-mock pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    freezegun
+    mock
+    pytest-mock
+    pytestCheckHook
+    requests-mock
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

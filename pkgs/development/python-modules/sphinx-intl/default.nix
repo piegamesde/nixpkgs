@@ -23,9 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-U/YCviGrsZNruVzfP0P2dGcB0K0Afh+XUZtp71OeP6c=";
   };
 
-  propagatedBuildInputs = [ babel click setuptools sphinx ];
+  propagatedBuildInputs = [
+    babel
+    click
+    setuptools
+    sphinx
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook mock transifex-cli ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    transifex-cli
+  ];
 
   pythonImportsCheck = [ "sphinx_intl" ];
 

@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
       "-Wno-error=use-after-free"
     ]);
 
-  propagatedBuildInputs = [ libantlr3c mbedtls_2 bctoolbox belr ];
+  propagatedBuildInputs = [
+    libantlr3c
+    mbedtls_2
+    bctoolbox
+    belr
+  ];
 
   meta = with lib; {
     homepage = "https://linphone.org/technical-corner/belle-sip";

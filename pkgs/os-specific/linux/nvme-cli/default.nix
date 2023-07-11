@@ -24,8 +24,17 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dversion-tag=${version}" ];
 
-  nativeBuildInputs = [ meson ninja pkg-config python3Packages.nose2 ];
-  buildInputs = [ libnvme json_c zlib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3Packages.nose2
+  ];
+  buildInputs = [
+    libnvme
+    json_c
+    zlib
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage; # https://nvmexpress.org/

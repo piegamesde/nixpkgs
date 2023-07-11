@@ -24,11 +24,18 @@ buildPythonPackage rec {
     hash = "sha256-vhPpynKq0dboSt+fQ4lvVv9ytDXnZKRrc7lF03Mm39g=";
   };
 
-  outputs = [ "out" "testsout" ];
+  outputs = [
+    "out"
+    "testsout"
+  ];
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [ absl-py chex numpy ];
+  propagatedBuildInputs = [
+    absl-py
+    chex
+    numpy
+  ];
 
   postInstall = ''
     mkdir $testsout

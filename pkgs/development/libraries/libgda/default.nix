@@ -61,8 +61,11 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs = [ gtk3 openssl libgee ]
-    ++ lib.optionals mysqlSupport [ libmysqlclient ]
+  buildInputs = [
+    gtk3
+    openssl
+    libgee
+  ] ++ lib.optionals mysqlSupport [ libmysqlclient ]
     ++ lib.optionals postgresSupport [ postgresql ];
 
   propagatedBuildInputs = [ libxml2 ];

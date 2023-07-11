@@ -20,8 +20,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ libinput zlib ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    libinput
+    zlib
+  ];
 
   meta = with lib; {
     description =
@@ -29,6 +35,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Coffee2CodeNL/gebaar-libinput";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colemickens lovesegfault ];
+    maintainers = with maintainers; [
+      colemickens
+      lovesegfault
+    ];
   };
 }

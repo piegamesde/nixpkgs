@@ -20,5 +20,11 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ phonon knewstuff kdoctools ki18n kio ];
+  buildInputs = [
+    phonon
+    knewstuff
+    kdoctools
+    ki18n
+    kio
+  ];
 }

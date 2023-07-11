@@ -16,7 +16,10 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     description = "Wireless regulatory database for CRDA";

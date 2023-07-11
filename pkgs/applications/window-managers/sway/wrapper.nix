@@ -53,7 +53,11 @@ in symlinkJoin {
   nativeBuildInputs = [ makeWrapper ]
     ++ (optional withGtkWrapper wrapGAppsHook);
 
-  buildInputs = optionals withGtkWrapper [ gdk-pixbuf glib gtk3 ];
+  buildInputs = optionals withGtkWrapper [
+    gdk-pixbuf
+    glib
+    gtk3
+  ];
 
   # We want to run wrapProgram manually
   dontWrapGApps = true;

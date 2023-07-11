@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ requests click ];
+  propagatedBuildInputs = [
+    requests
+    click
+  ];
 
   pythonImportsCheck = [ "duckduckgo_search" ];
 

@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-fk6RJgn8m2Czof72VX7BXd+cT5RiZ6kuaSDf1N12XjU=";
   };
 
-  propagatedBuildInputs = [ django pillow svglib reportlab ];
+  propagatedBuildInputs = [
+    django
+    pillow
+    svglib
+    reportlab
+  ];
 
   # Tests require a Django instance which is setup
   doCheck = false;

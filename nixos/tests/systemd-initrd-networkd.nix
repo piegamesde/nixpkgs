@@ -18,10 +18,17 @@ import ./make-test-python.nix ({
           };
           systemd.services.check-flush = {
             requiredBy = [ "multi-user.target" ];
-            before = [ "network-pre.target" "multi-user.target" ];
+            before = [
+              "network-pre.target"
+              "multi-user.target"
+            ];
             unitConfig.DefaultDependencies = false;
             serviceConfig.Type = "oneshot";
-            path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+            path = [
+              pkgs.iproute2
+              pkgs.iputils
+              pkgs.gnugrep
+            ];
             inherit script;
           };
         };
@@ -40,13 +47,21 @@ import ./make-test-python.nix ({
             services.systemd-networkd-wait-online.requiredBy =
               [ "network-online.target" ];
 
-            initrdBin = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+            initrdBin = [
+              pkgs.iproute2
+              pkgs.iputils
+              pkgs.gnugrep
+            ];
             services.check = {
               requiredBy = [ "initrd.target" ];
               before = [ "initrd.target" ];
               after = [ "network-online.target" ];
               serviceConfig.Type = "oneshot";
-              path = [ pkgs.iproute2 pkgs.iputils pkgs.gnugrep ];
+              path = [
+                pkgs.iproute2
+                pkgs.iputils
+                pkgs.gnugrep
+              ];
               script = ''
                 ip addr | grep 10.0.2.15 || exit 1
                 ping -c1 10.0.2.2 || exit 1

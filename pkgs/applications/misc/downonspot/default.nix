@@ -25,9 +25,16 @@ rustPlatform.buildRustPackage rec {
   # fixes: error: the option `Z` is only accepted on the nightly compiler
   RUSTC_BOOTSTRAP = 1;
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ openssl alsa-lib lame ];
+  buildInputs = [
+    openssl
+    alsa-lib
+    lame
+  ];
 
   meta = with lib; {
     description = "A Spotify downloader written in rust";

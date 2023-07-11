@@ -24,7 +24,13 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1hmx14z3098c98achgii0jkcm4474iw762rmib77amcsxj73zzdh";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl zlib curl libgit2 libssh2 ];
+  buildInputs = [
+    openssl
+    zlib
+    curl
+    libgit2
+    libssh2
+  ];
 
   LIBGIT2_SYS_USE_PKG_CONFIG = true;
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
@@ -44,6 +50,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/git-series/git-series";
 
     license = licenses.mit;
-    maintainers = with maintainers; [ edef vmandela ];
+    maintainers = with maintainers; [
+      edef
+      vmandela
+    ];
   };
 }

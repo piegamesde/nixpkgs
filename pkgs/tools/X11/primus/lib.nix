@@ -38,7 +38,10 @@ in stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ libX11 libGL ];
+  buildInputs = [
+    libX11
+    libGL
+  ];
 
   makeFlags = [
     "LIBDIR=$(out)/lib"
@@ -57,7 +60,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "Low-overhead client-side GPU offloading";
     homepage = "https://github.com/amonakov/primus";
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     license = licenses.bsd2;
     maintainers = with maintainers; [ abbradar ];
   };

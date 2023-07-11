@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     owner = "fbb-git";
   };
 
-  buildInputs = [ libmilter libX11 openssl readline util-linux ];
-  nativeBuildInputs = [ icmake yodl ];
+  buildInputs = [
+    libmilter
+    libX11
+    openssl
+    readline
+    util-linux
+  ];
+  nativeBuildInputs = [
+    icmake
+    yodl
+  ];
 
   setSourceRoot = ''
     sourceRoot=$(echo */bobcat)

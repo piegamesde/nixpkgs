@@ -21,9 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "0ipqna7a9mxqm0fl9ggwhbc7i9yxz3jfyi0w3dymjp40v7jw1n20";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ SDL2 jack2 ];
+  buildInputs = [
+    SDL2
+    jack2
+  ];
 
   meta = with lib; {
     description =

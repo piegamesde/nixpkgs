@@ -34,7 +34,11 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ aiohttp asynctest certifi ];
+  propagatedBuildInputs = [
+    aiohttp
+    asynctest
+    certifi
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -44,10 +44,26 @@ stdenv.mkDerivation rec {
       "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk=")
   ];
 
-  nativeBuildInputs = [ libtool bison groff ghostscript gettext ];
-  buildInputs = [ acl libcap lsof ];
+  nativeBuildInputs = [
+    libtool
+    bison
+    groff
+    ghostscript
+    gettext
+  ];
+  buildInputs = [
+    acl
+    libcap
+    lsof
+  ];
 
-  outputs = [ "bin" "dev" "out" "man" "doc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "doc"
+  ];
 
   meta = with lib; {
     description = "Library and utility to explain system call errors";

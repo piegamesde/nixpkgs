@@ -27,12 +27,22 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  cmakeFlags = [ "-DPYTHON_EXTENSIONS=OFF" ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
-  ];
+  cmakeFlags = [ "-DPYTHON_EXTENSIONS=OFF" ] ++ lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
+    ];
 
-  buildInputs =
-    [ glog folly fmt_8 boost fbthrift zlib fizz libsodium wangle python3 ];
+  buildInputs = [
+    glog
+    folly
+    fmt_8
+    boost
+    fbthrift
+    zlib
+    fizz
+    libsodium
+    wangle
+    python3
+  ];
 
   meta = with lib; {
     description =

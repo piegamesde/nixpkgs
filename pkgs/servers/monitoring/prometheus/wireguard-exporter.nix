@@ -21,7 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-NsxGpjuZPpz4gCJRp5IOcfRFh8DTud47nV2bE0/kc2Q=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) wireguard; };
 
@@ -29,6 +32,9 @@ rustPlatform.buildRustPackage rec {
     description = "A Prometheus exporter for WireGuard, written in Rust";
     homepage = "https://github.com/MindFlavor/prometheus_wireguard_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 globin ];
+    maintainers = with maintainers; [
+      ma27
+      globin
+    ];
   };
 }

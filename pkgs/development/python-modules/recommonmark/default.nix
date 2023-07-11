@@ -21,7 +21,11 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
-  propagatedBuildInputs = [ commonmark docutils sphinx ];
+  propagatedBuildInputs = [
+    commonmark
+    docutils
+    sphinx
+  ];
 
   dontUseSetuptoolsCheck = true;
 

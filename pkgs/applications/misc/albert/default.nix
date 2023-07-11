@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     muparser
@@ -66,7 +69,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ericsagnes synthetica ];
+    maintainers = with maintainers; [
+      ericsagnes
+      synthetica
+    ];
     platforms = platforms.linux;
   };
 }

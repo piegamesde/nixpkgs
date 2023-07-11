@@ -30,8 +30,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ libiconv Security SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+    SystemConfiguration
+  ];
 
   postInstall = ''
     installShellCompletion --cmd atuin \
@@ -55,6 +58,10 @@ rustPlatform.buildRustPackage rec {
       "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
     homepage = "https://github.com/ellie/atuin";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 sciencentistguy _0x4A6F ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      sciencentistguy
+      _0x4A6F
+    ];
   };
 }

@@ -23,8 +23,18 @@ mkDerivation rec {
     hash = "sha256-QBPWelCqh8Ggp0IjH37QGYGu5Ya2fpsiSEkKh3Ee7PM=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
-  buildInputs = [ qtbase qtscript qtsvg poppler zlib ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+    pkg-config
+  ];
+  buildInputs = [
+    qtbase
+    qtscript
+    qtsvg
+    poppler
+    zlib
+  ];
 
   qmakeFlags = [ "NO_APPDATA=True" ];
 
@@ -40,6 +50,9 @@ mkDerivation rec {
       "https://github.com/texstudio-org/texstudio/blob/${version}/utilities/manual/CHANGELOG.txt";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ajs124 cfouche ];
+    maintainers = with maintainers; [
+      ajs124
+      cfouche
+    ];
   };
 }

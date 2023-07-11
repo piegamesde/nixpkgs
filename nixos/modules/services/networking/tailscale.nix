@@ -11,7 +11,11 @@ let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
 in {
-  meta.maintainers = with maintainers; [ danderson mbaillie twitchyliquid64 ];
+  meta.maintainers = with maintainers; [
+    danderson
+    mbaillie
+    twitchyliquid64
+  ];
 
   options.services.tailscale = {
     enable = mkEnableOption (lib.mdDoc "Tailscale client daemon");
@@ -45,7 +49,12 @@ in {
     };
 
     useRoutingFeatures = mkOption {
-      type = types.enum [ "none" "client" "server" "both" ];
+      type = types.enum [
+        "none"
+        "client"
+        "server"
+        "both"
+      ];
       default = "none";
       example = "server";
       description = lib.mdDoc ''
@@ -72,8 +81,8 @@ in {
       serviceConfig.Environment = [
         "PORT=${toString cfg.port}"
         ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-      ] ++ (lib.optionals (cfg.permitCertUid != null)
-        [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
+      ] ++ (lib.optionals (cfg.permitCertUid
+        != null) [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of

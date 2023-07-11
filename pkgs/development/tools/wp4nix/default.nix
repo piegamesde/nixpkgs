@@ -25,7 +25,12 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/wp4nix \
-      --prefix PATH : ${lib.makeBinPath [ nix subversion ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          subversion
+        ]
+      }
   '';
 
   meta = with lib; {

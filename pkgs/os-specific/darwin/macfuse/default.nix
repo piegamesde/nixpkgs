@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "2a2d0f37ec5fcff547c5efa7d08539103a0b46bc16080c2b41a7e749f6e65c61";
   };
 
-  nativeBuildInputs = [ cpio xar undmg libtapi ];
+  nativeBuildInputs = [
+    cpio
+    xar
+    undmg
+    libtapi
+  ];
   propagatedBuildInputs = [ DiskArbitration ];
 
   postUnpack = ''
@@ -62,9 +67,7 @@ stdenv.mkDerivation rec {
     # macFUSE as a whole includes code with restrictions on commercial
     # redistribution. However, the build artifacts that we actually touch for
     # this derivation are distributed under a free license.
-    license = with licenses;
-      [
-        lgpl2Plus # libfuse
+    license = with licenses; [ lgpl2Plus # libfuse
       ];
   };
 

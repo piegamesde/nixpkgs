@@ -27,7 +27,12 @@ stdenv.mkDerivation rec {
     spirv-headers = spirv-headers;
   };
 
-  nativeBuildInputs = [ cmake python3 bison jq ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    bison
+    jq
+  ];
 
   patches = [
     # Related PR: https://github.com/KhronosGroup/glslang/pull/3067

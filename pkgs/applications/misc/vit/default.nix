@@ -17,11 +17,19 @@ buildPythonApplication rec {
     sha256 = "sha256-6GbIc5giuecxUqswyaAJw675R1M8BvelyyRNFcTqKW8=";
   };
 
-  propagatedBuildInputs = [ tasklib urwid ];
+  propagatedBuildInputs = [
+    tasklib
+    urwid
+  ];
 
   nativeCheckInputs = [ glibcLocales ];
 
-  makeWrapperArgs = [ "--suffix" "PATH" ":" "${taskwarrior}/bin" ];
+  makeWrapperArgs = [
+    "--suffix"
+    "PATH"
+    ":"
+    "${taskwarrior}/bin"
+  ];
 
   preCheck = ''
     export TERM=''${TERM-linux}
@@ -30,7 +38,10 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/scottkosty/vit";
     description = "Visual Interactive Taskwarrior";
-    maintainers = with maintainers; [ dtzWill arcnmx ];
+    maintainers = with maintainers; [
+      dtzWill
+      arcnmx
+    ];
     platforms = platforms.all;
     license = licenses.mit;
   };

@@ -34,7 +34,10 @@ let
     ];
 
     # Pretty sure, there are missing dependencies ...
-    buildInputs = [ libGLU xorg.libXxf86vm ];
+    buildInputs = [
+      libGLU
+      xorg.libXxf86vm
+    ];
 
     src = runCommandLocal "${pname}-src.zip" rec {
       outputHashMode = "recursive";

@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-UG460uEv1U/KTuVEcXMZlVbK/7REFpotkUk4U7z7KpA=";
   };
 
-  propagatedBuildInputs = [ aiohttp requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

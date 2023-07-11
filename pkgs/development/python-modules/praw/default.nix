@@ -28,7 +28,12 @@ buildPythonPackage rec {
     hash = "sha256-reJW1M1yDSQ1SvZJeOc0jwHj6ydl1AmMl5VZqRHxXZA=";
   };
 
-  propagatedBuildInputs = [ mock prawcore update_checker websocket-client ];
+  propagatedBuildInputs = [
+    mock
+    prawcore
+    update_checker
+    websocket-client
+  ];
 
   nativeCheckInputs = [
     betamax

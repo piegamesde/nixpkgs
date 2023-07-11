@@ -95,13 +95,21 @@ lib.makeScope pkgs.newScope (self:
         pname = "php-${name}";
         extensionName = extName;
 
-        outputs = [ "out" "dev" ];
+        outputs = [
+          "out"
+          "dev"
+        ];
 
         inherit (php.unwrapped) version src;
 
         enableParallelBuilding = true;
 
-        nativeBuildInputs = [ php.unwrapped autoconf pkg-config re2c ];
+        nativeBuildInputs = [
+          php.unwrapped
+          autoconf
+          pkg-config
+          re2c
+        ];
 
         inherit configureFlags internalDeps buildInputs zendExtension doCheck;
 
@@ -253,9 +261,8 @@ lib.makeScope pkgs.newScope (self:
         sourceRoot = "php-${version}/ext/pdo_oci";
 
         buildInputs = [ pkgs.oracle-instantclient ];
-        configureFlags = [
-          "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"
-        ];
+        configureFlags =
+          [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
 
         internalDeps = [ php.extensions.pdo ];
 
@@ -343,7 +350,10 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "gd";
-          buildInputs = [ zlib gd ];
+          buildInputs = [
+            zlib
+            gd
+          ];
           configureFlags = [
             "--enable-gd"
             "--with-external-gd=${gd.dev}"
@@ -365,16 +375,25 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "iconv";
-          configureFlags = [
-            "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"
-          ];
+          configureFlags = [ "--with-iconv${
+              lib.optionalString stdenv.isDarwin "=${libiconv}"
+            }" ];
           doCheck = false;
         }
         {
           name = "imap";
-          buildInputs = [ uwimap openssl pam pcre2 libkrb5 ];
-          configureFlags =
-            [ "--with-imap=${uwimap}" "--with-imap-ssl" "--with-kerberos" ];
+          buildInputs = [
+            uwimap
+            openssl
+            pam
+            pcre2
+            libkrb5
+          ];
+          configureFlags = [
+            "--with-imap=${uwimap}"
+            "--with-imap-ssl"
+            "--with-kerberos"
+          ];
         }
         {
           name = "intl";
@@ -382,19 +401,25 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "ldap";
-          buildInputs = [ openldap cyrus_sasl ];
+          buildInputs = [
+            openldap
+            cyrus_sasl
+          ];
           configureFlags = [
             "--with-ldap"
             "LDAP_DIR=${openldap.dev}"
             "LDAP_INCDIR=${openldap.dev}/include"
             "LDAP_LIBDIR=${openldap.out}/lib"
-          ] ++ lib.optionals stdenv.isLinux
-            [ "--with-ldap-sasl=${cyrus_sasl.dev}" ];
+          ] ++ lib.optionals
+            stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ];
           doCheck = false;
         }
         {
           name = "mbstring";
-          buildInputs = [ oniguruma pcre2 ];
+          buildInputs = [
+            oniguruma
+            pcre2
+          ];
           doCheck = false;
         }
         {
@@ -408,7 +433,10 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "mysqlnd";
-          buildInputs = [ zlib openssl ];
+          buildInputs = [
+            zlib
+            openssl
+          ];
           # The configure script doesn't correctly add library link
           # flags, so we add them to the variable used by the Makefile
           # when linking.
@@ -416,19 +444,17 @@ lib.makeScope pkgs.newScope (self:
           # The configure script builds a config.h which is never
           # included. Let's include it in the main header file
           # included by all .c-files.
-          patches = [
-            (pkgs.writeText "mysqlnd_config.patch" ''
-              --- a/ext/mysqlnd/mysqlnd.h
-              +++ b/ext/mysqlnd/mysqlnd.h
-              @@ -1,3 +1,6 @@
-              +#ifdef HAVE_CONFIG_H
-              +#include "config.h"
-              +#endif
-               /*
-                 +----------------------------------------------------------------------+
-                 | Copyright (c) The PHP Group                                          |
-            '')
-          ];
+          patches = [ (pkgs.writeText "mysqlnd_config.patch" ''
+            --- a/ext/mysqlnd/mysqlnd.h
+            +++ b/ext/mysqlnd/mysqlnd.h
+            @@ -1,3 +1,6 @@
+            +#ifdef HAVE_CONFIG_H
+            +#include "config.h"
+            +#endif
+             /*
+               +----------------------------------------------------------------------+
+               | Copyright (c) The PHP Group                                          |
+          '') ];
         }
         {
           name = "opcache";
@@ -449,10 +475,8 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "openssl";
-          buildInputs = if (lib.versionAtLeast php.version "8.1") then
-            [ openssl ]
-          else
-            [ openssl_1_1 ];
+          buildInputs = if (lib.versionAtLeast php.version
+            "8.1") then [ openssl ] else [ openssl_1_1 ];
           configureFlags = [ "--with-openssl" ];
           doCheck = false;
         }
@@ -481,7 +505,10 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "pdo_mysql";
-          internalDeps = with php.extensions; [ pdo mysqlnd ];
+          internalDeps = with php.extensions; [
+            pdo
+            mysqlnd
+          ];
           configureFlags = [
             "--with-pdo-mysql=mysqlnd"
             "PHP_MYSQL_SOCK=/run/mysqld/mysqld.sock"
@@ -546,12 +573,18 @@ lib.makeScope pkgs.newScope (self:
         { name = "shmop"; }
         {
           name = "simplexml";
-          buildInputs = [ libxml2 pcre2 ];
+          buildInputs = [
+            libxml2
+            pcre2
+          ];
           configureFlags = [ "--enable-simplexml" ];
         }
         {
           name = "snmp";
-          buildInputs = [ net-snmp openssl ];
+          buildInputs = [
+            net-snmp
+            openssl
+          ];
           configureFlags = [ "--with-snmp" ];
           # net-snmp doesn't build on darwin.
           enable = (!stdenv.isDarwin);
@@ -598,7 +631,10 @@ lib.makeScope pkgs.newScope (self:
           name = "xmlreader";
           buildInputs = [ libxml2 ];
           internalDeps = [ php.extensions.dom ];
-          env.NIX_CFLAGS_COMPILE = toString [ "-I../.." "-DHAVE_DOM" ];
+          env.NIX_CFLAGS_COMPILE = toString [
+            "-I../.."
+            "-DHAVE_DOM"
+          ];
           doCheck = false;
           configureFlags = [ "--enable-xmlreader" ];
         }
@@ -609,14 +645,20 @@ lib.makeScope pkgs.newScope (self:
         }
         {
           name = "xsl";
-          buildInputs = [ libxslt libxml2 ];
+          buildInputs = [
+            libxslt
+            libxml2
+          ];
           doCheck = false;
           configureFlags = [ "--with-xsl=${libxslt.dev}" ];
         }
         { name = "zend_test"; }
         {
           name = "zip";
-          buildInputs = [ libzip pcre2 ];
+          buildInputs = [
+            libzip
+            pcre2
+          ];
           configureFlags = [ "--with-zip" ];
           doCheck = false;
         }

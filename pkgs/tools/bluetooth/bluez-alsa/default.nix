@@ -35,10 +35,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Dp3O41nzo7j5rqxDEkR4bFPv0CNGOO4kWXAf8iy+jDg=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-  buildInputs = [ alsa-lib bluez glib sbc dbus readline libbsd ncurses ]
-    ++ lib.optional aacSupport fdk_aac;
+  buildInputs = [
+    alsa-lib
+    bluez
+    glib
+    sbc
+    dbus
+    readline
+    libbsd
+    ncurses
+  ] ++ lib.optional aacSupport fdk_aac;
 
   configureFlags = [
     "--with-alsaplugindir=${placeholder "out"}/lib/alsa-lib"

@@ -27,11 +27,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4FxLxJxVhqbeNqX4vorHkROUuRURvE6AXlteIZCEBtc=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ icu zlib mustache-hpp ];
+  buildInputs = [
+    icu
+    zlib
+    mustache-hpp
+  ];
 
-  propagatedBuildInputs = [ curl libmicrohttpd libzim pugixml ];
+  propagatedBuildInputs = [
+    curl
+    libmicrohttpd
+    libzim
+    pugixml
+  ];
 
   nativeCheckInputs = [ gtest ];
 

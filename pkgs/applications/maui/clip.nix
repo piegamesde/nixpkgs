@@ -20,7 +20,10 @@
 mkDerivation {
   pname = "clip";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     applet-window-buttons

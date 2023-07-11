@@ -91,11 +91,11 @@ let
       includes,
       ...
     }:
-    [''
+    [ ''
       dn: ${dn}
       ${lib.concatStringsSep "\n"
       (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
-    ''] ++ (map (path: ''
+    '' ] ++ (map (path: ''
       include: file://${path}
     '') includes) ++ (lib.flatten
       (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
@@ -284,13 +284,13 @@ in {
       ${openldap}/bin/slapadd -F ${configDir} -b $1 -l $3
     '';
   in mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
       message = ''
         Declarative DB contents (${attrNames cfg.declarativeContents}) are not
         supported with user-managed configuration.
       '';
-    }] ++ (map (dn: {
+    } ] ++ (map (dn: {
       assertion = (getAttr dn dbSettings) ? "olcDbDirectory";
       # olcDbDirectory is necessary to prepopulate database using `slapadd`.
       message = ''
@@ -328,7 +328,11 @@ in {
 
     systemd.services.openldap = {
       description = "OpenLDAP Server Daemon";
-      documentation = [ "man:slapd" "man:slapd-config" "man:slapd-mdb" ];
+      documentation = [
+        "man:slapd"
+        "man:slapd-config"
+        "man:slapd-mdb"
+      ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       serviceConfig = {

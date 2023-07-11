@@ -34,8 +34,11 @@ stdenv.mkDerivation rec {
     sed '1i#include <cstring>' -i src/tools/text.cpp # gcc12
   '';
 
-  nativeBuildInputs =
-    [ pkg-config ensureNewerSourcesForZipFilesHook python3Packages.six ];
+  nativeBuildInputs = [
+    pkg-config
+    ensureNewerSourcesForZipFilesHook
+    python3Packages.six
+  ];
   buildInputs = [
     glfw
     libGLU
@@ -49,9 +52,15 @@ stdenv.mkDerivation rec {
     libXxf86vm
     libXi
     libX11
-  ] ++ (with python3Packages; [ python setuptools wrapPython ])
-    ++ lib.optional stdenv.isDarwin Cocoa;
-  pythonPath = with python3Packages; [ pyyaml requests ];
+  ] ++ (with python3Packages; [
+    python
+    setuptools
+    wrapPython
+  ]) ++ lib.optional stdenv.isDarwin Cocoa;
+  pythonPath = with python3Packages; [
+    pyyaml
+    requests
+  ];
 
   # Makefile has /usr/local/bin hard-coded for 'make install'
   preConfigure = ''

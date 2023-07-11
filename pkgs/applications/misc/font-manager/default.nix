@@ -62,9 +62,8 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  mesonFlags = [
-    "-Dreproducible=true" # Do not hardcode build directory…
-  ];
+  mesonFlags = [ "-Dreproducible=true" # Do not hardcode build directory…
+    ];
 
   postPatch = ''
     chmod +x meson_post_install.py

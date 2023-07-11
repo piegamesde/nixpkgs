@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-F/T4VU9FhztGEl7bpbAr8CIA4LInen5q/Y3ycBIHJV0=";
 
-  ldflags = [ "-s" "-w" "-X github.com/dlvhdr/gh-dash/cmd.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/dlvhdr/gh-dash/cmd.Version=${version}"
+  ];
 
   passthru.tests = { version = testers.testVersion { package = gh-dash; }; };
 

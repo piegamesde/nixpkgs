@@ -160,11 +160,16 @@ in stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ openssl ncurses libffi libxml2 zlib ];
-
-  cmakeFlags = [
-    "-DRETDEC_TESTS=ON" # build tests
+  buildInputs = [
+    openssl
+    ncurses
+    libffi
+    libxml2
+    zlib
   ];
+
+  cmakeFlags = [ "-DRETDEC_TESTS=ON" # build tests
+    ];
 
   # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
   # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
@@ -230,7 +235,13 @@ in stdenv.mkDerivation rec {
     description = "A retargetable machine-code decompiler based on LLVM";
     homepage = "https://retdec.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill timokau ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    maintainers = with maintainers; [
+      dtzWill
+      timokau
+    ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

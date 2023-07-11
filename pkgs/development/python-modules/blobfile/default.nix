@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-vVoiNIN/LNdbedaOQ+gtj4jhzmrGri49fftHKG+K/fg=";
   };
 
-  propagatedBuildInputs = [ pycryptodomex filelock urllib3 lxml ];
+  propagatedBuildInputs = [
+    pycryptodomex
+    filelock
+    urllib3
+    lxml
+  ];
 
   # Tests require a running Docker instance
   doCheck = false;

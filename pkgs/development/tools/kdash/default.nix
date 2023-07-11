@@ -22,9 +22,16 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-dXkYHRB0VZ3FGe1Zu78ZzocaVV4zSGzxRMC0WOHiZrE=";
   };
 
-  nativeBuildInputs = [ perl python3 pkg-config ];
+  nativeBuildInputs = [
+    perl
+    python3
+    pkg-config
+  ];
 
-  buildInputs = [ openssl xorg.xcbutil ] ++ lib.optional stdenv.isDarwin AppKit;
+  buildInputs = [
+    openssl
+    xorg.xcbutil
+  ] ++ lib.optional stdenv.isDarwin AppKit;
 
   cargoSha256 = "sha256-LWGoWFPZsTYa1hQnv1eNNmCKZsiLredvD6+kWanVEK0=";
 

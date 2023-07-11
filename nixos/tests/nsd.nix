@@ -22,14 +22,12 @@ in import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.nameservers = lib.mkForce [
-            (lib.head
-              nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
-          ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.nameservers = lib.mkForce [ (lib.head
+            nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address ];
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.2";
             prefixLength = 24;
-          }];
+          } ];
         };
 
       clientv6 = {
@@ -38,14 +36,12 @@ in import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.nameservers = lib.mkForce [
-            (lib.head
-              nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
-          ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.nameservers = lib.mkForce [ (lib.head
+            nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address ];
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "dead:beef::2";
             prefixLength = 24;
-          }];
+          } ];
         };
 
       server = {
@@ -53,14 +49,14 @@ in import ./make-test-python.nix ({
           ...
         }: {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = [{
+          networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.1";
             prefixLength = 24;
-          }];
-          networking.interfaces.eth1.ipv6.addresses = [{
+          } ];
+          networking.interfaces.eth1.ipv6.addresses = [ {
             address = "dead:beef::1";
             prefixLength = 64;
-          }];
+          } ];
           services.nsd.enable = true;
           services.nsd.rootServer = true;
           services.nsd.interfaces = lib.mkForce [ ];

@@ -79,6 +79,10 @@ in buildGoModule rec {
       authentication.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk raitobezarius dit7ya ];
+    maintainers = with maintainers; [
+      jk
+      raitobezarius
+      dit7ya
+    ];
   };
 }

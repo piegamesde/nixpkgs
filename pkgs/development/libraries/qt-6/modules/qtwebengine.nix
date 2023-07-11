@@ -101,7 +101,12 @@
 
 qtModule {
   pname = "qtwebengine";
-  qtInputs = [ qtdeclarative qtwebchannel qtwebsockets qtpositioning ];
+  qtInputs = [
+    qtdeclarative
+    qtwebchannel
+    qtwebsockets
+    qtpositioning
+  ];
   nativeBuildInputs = [
     bison
     coreutils
@@ -121,7 +126,10 @@ qtModule {
     xcbuild
   ];
   doCheck = true;
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   dontUseGnConfigure = true;
 
@@ -195,13 +203,12 @@ qtModule {
     # "-DQT_FEATURE_webengine_native_spellchecker=ON"
     "-DQT_FEATURE_webengine_sanitizer=ON"
     "-DQT_FEATURE_webengine_kerberos=ON"
-  ] ++ lib.optionals stdenv.isLinux
-    [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
-    ++ lib.optionals enableProprietaryCodecs
-    [ "-DQT_FEATURE_webengine_proprietary_codecs=ON" ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
-    ];
+  ] ++ lib.optionals
+    stdenv.isLinux [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
+    ++ lib.optionals
+    enableProprietaryCodecs [ "-DQT_FEATURE_webengine_proprietary_codecs=ON" ]
+    ++ lib.optionals
+    stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}" ];
 
   propagatedBuildInputs = [
     # Image formats
@@ -295,7 +302,10 @@ qtModule {
     libunwind
   ];
 
-  buildInputs = [ cups ] ++ lib.optionals stdenv.isDarwin [ libpm sandbox ];
+  buildInputs = [ cups ] ++ lib.optionals stdenv.isDarwin [
+    libpm
+    sandbox
+  ];
 
   requiredSystemFeatures = [ "big-parallel" ];
 

@@ -27,9 +27,19 @@ in stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.sourcekit-lsp;
 
-  nativeBuildInputs = [ swift swiftpm ];
-  buildInputs = [ Foundation XCTest sqlite ncursesInput ]
-    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
+  buildInputs = [
+    Foundation
+    XCTest
+    sqlite
+    ncursesInput
+  ] ++ lib.optionals stdenv.isDarwin [
+    CryptoKit
+    LocalAuthentication
+  ];
 
   configurePhase = generated.configure + ''
     swiftpmMakeMutable indexstore-db

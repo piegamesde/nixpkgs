@@ -7,8 +7,11 @@ in (lib.filterAttrs (attr: _: (prev ? "${attr}")) {
   # That means only overrides can go here, and not new expressions!
 
   libcufile = prev.libcufile.overrideAttrs (oldAttrs: {
-    buildInputs = oldAttrs.buildInputs
-      ++ [ prev.libcublas pkgs.numactl pkgs.rdma-core ];
+    buildInputs = oldAttrs.buildInputs ++ [
+      prev.libcublas
+      pkgs.numactl
+      pkgs.rdma-core
+    ];
     # libcuda needs to be resolved during runtime
     autoPatchelfIgnoreMissingDeps = true;
   });
@@ -67,20 +70,18 @@ in (lib.filterAttrs (attr: _: (prev ? "${attr}")) {
 
   nsight_compute = prev.nsight_compute.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs
-      ++ (if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-        [ pkgs.qt5.wrapQtAppsHook ]
-      else
-        [ pkgs.qt6.wrapQtAppsHook ]);
+      ++ (if (lib.versionOlder prev.nsight_compute.version
+        "2022.2.0") then [ pkgs.qt5.wrapQtAppsHook ] else [ pkgs.qt6.wrapQtAppsHook ]);
     buildInputs = oldAttrs.buildInputs
-      ++ (if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-        [ pkgs.qt5.qtwebview ]
-      else
-        [ pkgs.qt6.qtwebview ]);
+      ++ (if (lib.versionOlder prev.nsight_compute.version
+        "2022.2.0") then [ pkgs.qt5.qtwebview ] else [ pkgs.qt6.qtwebview ]);
   });
 
   nsight_systems = prev.nsight_systems.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs
-      ++ [ pkgs.addOpenGLRunpath pkgs.qt5.wrapQtAppsHook ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+      pkgs.addOpenGLRunpath
+      pkgs.qt5.wrapQtAppsHook
+    ];
     buildInputs = oldAttrs.buildInputs ++ [
       pkgs.alsa-lib
       pkgs.e2fsprogs

@@ -32,11 +32,22 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  nativeBuildInputs = [ gettext wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    gettext
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib-networking gtk3 ];
+  buildInputs = [
+    glib-networking
+    gtk3
+  ];
 
-  nativeCheckInputs = with python3Packages; [ glibcLocales pytest tox ];
+  nativeCheckInputs = with python3Packages; [
+    glibcLocales
+    pytest
+    tox
+  ];
 
   pythonPath = [
     docutils

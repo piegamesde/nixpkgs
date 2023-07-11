@@ -17,7 +17,14 @@ mkXfceDerivation {
   odd-unstable = false;
   sha256 = "sha256-X5EGDZaPZdTxiLXyeLwnMx97P6wPy+H09hi9+OFYyY0=";
 
-  buildInputs = [ glib gtk3 libxfce4ui libxfce4util xfce4-panel xfconf ];
+  buildInputs = [
+    glib
+    gtk3
+    libxfce4ui
+    libxfce4util
+    xfce4-panel
+    xfconf
+  ];
 
   meta = with lib; {
     description = "Battery plugin for Xfce panel";

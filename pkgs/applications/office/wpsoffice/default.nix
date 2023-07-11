@@ -52,11 +52,24 @@ stdenv.mkDerivation rec {
     rm -r opt/kingsoft/wps-office/office6/addons/wppencoder/libwppencoder.so
   '';
 
-  nativeBuildInputs =
-    [ dpkg wrapGAppsHook wrapQtAppsHook makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    wrapGAppsHook
+    wrapQtAppsHook
+    makeWrapper
+    autoPatchelfHook
+  ];
 
-  buildInputs =
-    [ alsa-lib xorg.libXdamage xorg.libXtst libtool nspr mesa libtiff udev ];
+  buildInputs = [
+    alsa-lib
+    xorg.libXdamage
+    xorg.libXtst
+    libtool
+    nspr
+    mesa
+    libtiff
+    udev
+  ];
 
   runtimeDependencies = [ cups.lib ];
 
@@ -103,6 +116,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     hydraPlatforms = [ ];
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ mlatus th0rgal rewine ];
+    maintainers = with maintainers; [
+      mlatus
+      th0rgal
+      rewine
+    ];
   };
 }

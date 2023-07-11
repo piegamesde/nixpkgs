@@ -42,13 +42,15 @@ let
     );
   '';
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "sslh" "listenAddress" ] [
-      "services"
-      "sslh"
-      "listenAddresses"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "sslh"
+    "listenAddress"
+  ] [
+    "services"
+    "sslh"
+    "listenAddresses"
+  ]) ];
 
   options = {
     services.sslh = {
@@ -75,7 +77,10 @@ in {
 
       listenAddresses = mkOption {
         type = types.coercedTo types.str singleton (types.listOf types.str);
-        default = [ "0.0.0.0" "[::]" ];
+        default = [
+          "0.0.0.0"
+          "[::]"
+        ];
         description = lib.mdDoc "Listening addresses or hostnames.";
       };
 
@@ -172,7 +177,11 @@ in {
           }
         ];
       in {
-        path = [ pkgs.iptables pkgs.iproute2 pkgs.procps ];
+        path = [
+          pkgs.iptables
+          pkgs.iproute2
+          pkgs.procps
+        ];
 
         preStart = ''
           # Cleanup old iptables entries which might be still there

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-brE+7s+JGVsrX0e+Bnnj8niI79e9ITLux+vLznXLE3c=";
   };
 
-  propagatedBuildInputs = [ azure-mgmt-common azure-mgmt-core ];
+  propagatedBuildInputs = [
+    azure-mgmt-common
+    azure-mgmt-core
+  ];
 
   pythonNamespaces = [ "azure.mgmt" ];
 
@@ -34,6 +37,10 @@ buildPythonPackage rec {
       "This is the Microsoft Azure Storage Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer olcai maxwilson ];
+    maintainers = with maintainers; [
+      jonringer
+      olcai
+      maxwilson
+    ];
   };
 }

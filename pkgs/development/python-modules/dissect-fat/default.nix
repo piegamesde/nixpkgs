@@ -25,9 +25,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
+  propagatedBuildInputs = [
+    dissect-cstruct
+    dissect-util
+  ];
 
   # dissect.fat.exceptions.InvalidBPB: Invalid BS_jmpBoot
   doCheck = false;

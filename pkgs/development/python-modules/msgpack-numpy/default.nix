@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   buildInputs = [ cython ];
 
-  propagatedBuildInputs = [ msgpack numpy ];
+  propagatedBuildInputs = [
+    msgpack
+    numpy
+  ];
 
   checkPhase = ''
     ${python.interpreter} msgpack_numpy.py

@@ -43,7 +43,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake gettext intltool pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    intltool
+    pkg-config
+  ];
 
   buildInputs = [
     evolution-data-server

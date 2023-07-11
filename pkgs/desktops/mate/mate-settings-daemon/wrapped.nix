@@ -11,7 +11,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [ glib mate.mate-control-center ];
+  buildInputs = [
+    glib
+    mate.mate-control-center
+  ];
 
   dontWrapGApps = true;
 

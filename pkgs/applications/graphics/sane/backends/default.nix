@@ -75,11 +75,19 @@ stdenv.mkDerivation {
       --replace 'cc -I' '$(CC_FOR_BUILD) -I'
   '';
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs = [ gettext pkg-config python3 ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+    python3
+  ];
 
   buildInputs = [
     avahi
@@ -92,7 +100,12 @@ stdenv.mkDerivation {
     libxml2
     poppler
     gawk
-  ] ++ lib.optionals stdenv.isLinux [ libieee1284 libv4l net-snmp systemd ];
+  ] ++ lib.optionals stdenv.isLinux [
+    libieee1284
+    libv4l
+    net-snmp
+    systemd
+  ];
 
   enableParallelBuilding = true;
 
@@ -101,9 +114,10 @@ stdenv.mkDerivation {
 
   # autoconf check for HAVE_MMAP is never set on cross compilation.
   # The pieusb backend fails compilation if HAVE_MMAP is not set.
-  buildFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "CFLAGS=-DHAVE_MMAP=${if stdenv.hostPlatform.isLinux then "1" else "0"}"
-  ];
+  buildFlags = lib.optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform) [ "CFLAGS=-DHAVE_MMAP=${
+      if stdenv.hostPlatform.isLinux then "1" else "0"
+    }" ];
 
   postInstall = let
 

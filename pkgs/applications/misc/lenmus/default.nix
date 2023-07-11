@@ -40,8 +40,10 @@ in stdenv.mkDerivation rec {
     sed -i 's/fixup_bundle.*")/")/g' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
 
   buildInputs = [
     boost

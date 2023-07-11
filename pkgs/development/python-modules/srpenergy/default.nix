@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-aZnqGtfklWgigac2gdkQv29Qy5HC34zGGY2iWr2cOMo=";
   };
 
-  propagatedBuildInputs = [ python-dateutil requests ];
+  propagatedBuildInputs = [
+    python-dateutil
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

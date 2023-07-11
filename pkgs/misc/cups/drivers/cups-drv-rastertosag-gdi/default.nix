@@ -24,7 +24,10 @@ python3Packages.buildPythonApplication rec {
     })
   ];
   format = "other";
-  nativeBuildInputs = [ (lib.getBin cups) patchPpdFilesHook ];
+  nativeBuildInputs = [
+    (lib.getBin cups)
+    patchPpdFilesHook
+  ];
   # The source image also brings pre-built ppd files,
   # but we prefer to generate from source where possible, so
   # the following line generates ppd files from the drv file.

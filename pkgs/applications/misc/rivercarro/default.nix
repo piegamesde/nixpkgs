@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eATbbwIt5ytEVLPodyq9vFF9Rs5S1xShpvNYQnfwdV4=";
   };
 
-  nativeBuildInputs = [ pkg-config river wayland zig ];
+  nativeBuildInputs = [
+    pkg-config
+    river
+    wayland
+    zig
+  ];
 
   dontConfigure = true;
 

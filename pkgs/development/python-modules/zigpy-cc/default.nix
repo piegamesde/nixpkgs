@@ -28,9 +28,16 @@ buildPythonPackage rec {
     sha256 = "U3S8tQ3zPlexZDt5GvCd+rOv7CBVeXJJM1NGe7nRl2o=";
   };
 
-  propagatedBuildInputs = [ pyserial-asyncio zigpy ];
+  propagatedBuildInputs = [
+    pyserial-asyncio
+    zigpy
+  ];
 
-  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    asynctest
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTests = [
     "test_incoming_msg"

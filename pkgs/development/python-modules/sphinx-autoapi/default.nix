@@ -26,10 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-zfR5aMIIUvT+sMzv0J5BS7ggr4r4+C+rFaJLCaPRuro=";
   };
 
-  propagatedBuildInputs = [ astroid jinja2 pyyaml sphinx unidecode ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = [
+    astroid
+    jinja2
+    pyyaml
+    sphinx
+    unidecode
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # failing typing assertions

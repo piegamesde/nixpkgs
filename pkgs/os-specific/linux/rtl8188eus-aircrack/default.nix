@@ -25,13 +25,11 @@ stdenv.mkDerivation {
       --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
   '';
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/aircrack-ng/rtl8188eus/commit/daa3a2e12290050be3af956915939a55aed50d5f.patch";
-      hash = "sha256-VsvaAhO74LzqUxbmdDT9qwVl6Y9lXfGfrHHK3SbnOVA=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/aircrack-ng/rtl8188eus/commit/daa3a2e12290050be3af956915939a55aed50d5f.patch";
+    hash = "sha256-VsvaAhO74LzqUxbmdDT9qwVl6Y9lXfGfrHHK3SbnOVA=";
+  }) ];
 
   hardeningDisable = [ "pic" ];
 

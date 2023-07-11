@@ -20,7 +20,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  subPackages = [ "cmd/crowdsec" "cmd/crowdsec-cli" ];
+  subPackages = [
+    "cmd/crowdsec"
+    "cmd/crowdsec-cli"
+  ];
 
   ldflags = [
     "-s"
@@ -58,6 +61,9 @@ buildGoModule rec {
       being shared among all users to further improve everyone's security.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ jk urandom ];
+    maintainers = with maintainers; [
+      jk
+      urandom
+    ];
   };
 }

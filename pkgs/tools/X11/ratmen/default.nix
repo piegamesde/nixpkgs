@@ -15,7 +15,11 @@ stdenv.mkDerivation rec {
       "http://www.update.uu.se/~zrajm/programs/ratmen/ratmen-${version}.tar.gz";
     sha256 = "0gnfqhnch9x8jhr87gvdjcp1wsqhchfjilpnqcwx5j0nlqyz6wi6";
   };
-  buildInputs = [ perl xorgproto libX11 ];
+  buildInputs = [
+    perl
+    xorgproto
+    libX11
+  ];
   makeFlags = [ "PREFIX=$(out)" ];
   meta = with lib; {
     description = "A minimalistic X11 menu creator";

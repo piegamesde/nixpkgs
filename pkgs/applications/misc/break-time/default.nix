@@ -29,7 +29,11 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 openssl ];
+  buildInputs = [
+    glib
+    gtk3
+    openssl
+  ];
 
   meta = with lib; {
     description = "Break timer that forces you to take a break";

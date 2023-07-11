@@ -21,14 +21,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-6IOlXQhAy6YrSqybfGFUyn3Q2COvzwpj67y/k/YLNhU=";
   };
 
-  buildInputs = [ glib gobject-introspection ];
+  buildInputs = [
+    glib
+    gobject-introspection
+  ];
 
-  nativeBuildInputs = [ meson ninja wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wrapGAppsHook
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon-menus";
     description = "A menu system for the Cinnamon project";
-    license = [ licenses.gpl2 licenses.lgpl2 ];
+    license = [
+      licenses.gpl2
+      licenses.lgpl2
+    ];
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;
   };

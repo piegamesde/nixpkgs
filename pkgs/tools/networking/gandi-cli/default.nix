@@ -19,7 +19,12 @@ buildPythonApplication rec {
     sha256 = "sha256-KLeEbbzgqpmBjeTc5RYsFScym8xtMqVjU+H0lyDM0+o=";
   };
 
-  propagatedBuildInputs = [ click ipy pyyaml requests ];
+  propagatedBuildInputs = [
+    click
+    ipy
+    pyyaml
+    requests
+  ];
 
   # Tests try to contact the actual remote API
   doCheck = false;

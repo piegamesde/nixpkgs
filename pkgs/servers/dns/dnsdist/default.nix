@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     ./disable-network-tests.patch
   ];
 
-  nativeBuildInputs = [ pkg-config protobuf ];
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+  ];
   buildInputs = [
     systemd
     boost

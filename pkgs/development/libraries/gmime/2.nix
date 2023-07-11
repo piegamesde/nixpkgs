@@ -19,13 +19,23 @@ stdenv.mkDerivation rec {
     sha256 = "0slzlzcr3h8jikpz5a5amqd0csqh2m40gdk910ws2hnaf5m6hjbi";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config gobject-introspection ];
-  propagatedBuildInputs = [ glib zlib libgpg-error ];
-  configureFlags = [ "--enable-introspection=yes" ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "ac_cv_have_iconv_detect_h=yes" ];
+  nativeBuildInputs = [
+    pkg-config
+    gobject-introspection
+  ];
+  propagatedBuildInputs = [
+    glib
+    zlib
+    libgpg-error
+  ];
+  configureFlags = [ "--enable-introspection=yes" ] ++ lib.optionals
+    (stdenv.buildPlatform
+      != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \

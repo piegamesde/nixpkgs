@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
   inherit patches;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXau libXdmcp ];
+  buildInputs = [
+    libX11
+    libXau
+    libXdmcp
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

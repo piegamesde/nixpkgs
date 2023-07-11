@@ -13,7 +13,12 @@ stdenv.mkDerivation rec {
   pname = "efivar";
   version = "38";
 
-  outputs = [ "bin" "out" "dev" "man" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "rhinstaller";
@@ -43,7 +48,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config mandoc ];
+  nativeBuildInputs = [
+    pkg-config
+    mandoc
+  ];
   buildInputs = [ popt ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

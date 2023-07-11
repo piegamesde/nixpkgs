@@ -19,18 +19,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1nqj9N5RQE0PogJSULu75CTVLHeQsHIimtFXSCP6SPA=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper unzip ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "indigenous-desktop";
-      icon = "indigenous-desktop";
-      comment = meta.description;
-      desktopName = "Indigenous";
-      genericName = "Feed Reader";
-    })
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+    unzip
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "indigenous-desktop";
+    icon = "indigenous-desktop";
+    comment = meta.description;
+    desktopName = "Indigenous";
+    genericName = "Feed Reader";
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;

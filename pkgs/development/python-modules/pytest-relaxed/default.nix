@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ decorator ];
 
-  nativeCheckInputs = [ invocations invoke pytestCheckHook ];
+  nativeCheckInputs = [
+    invocations
+    invoke
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

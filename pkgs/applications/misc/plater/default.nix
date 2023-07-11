@@ -20,8 +20,14 @@ mkDerivation rec {
     sha256 = "0r20mbzd16zv1aiadjqdy7z6sp09rr6lgfxhvir4ll3cpakkynr4";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
-  buildInputs = [ libGLU qtbase ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    libGLU
+    qtbase
+  ];
 
   desktopItem = makeDesktopItem {
     name = pname;
@@ -29,7 +35,10 @@ mkDerivation rec {
     icon = pname;
     desktopName = "Ideamaker";
     genericName = meta.description;
-    categories = [ "Utility" "Engineering" ];
+    categories = [
+      "Utility"
+      "Engineering"
+    ];
   };
 
   postInstall = ''

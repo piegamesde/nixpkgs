@@ -33,7 +33,12 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ chameleon pyramid setuptools zope_interface ];
+  propagatedBuildInputs = [
+    chameleon
+    pyramid
+    setuptools
+    zope_interface
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

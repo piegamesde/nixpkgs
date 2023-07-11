@@ -68,8 +68,12 @@ mkCoqDerivation rec {
 
   nativeBuildInputs = [ autoconf ];
   propagatedBuildInputs =
-    lib.optional (lib.versions.isGe "8.6" coq.coq-version) bignums
-    ++ [ coquelicot flocq mathcomp-ssreflect mathcomp-fingroup ]
+    lib.optional (lib.versions.isGe "8.6" coq.coq-version) bignums ++ [
+      coquelicot
+      flocq
+      mathcomp-ssreflect
+      mathcomp-fingroup
+    ]
     ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [ gnuplot_qt ];
   useMelquiondRemake.logpath = "Interval";
   mlPlugin = true;

@@ -18,10 +18,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ paramiko ];
 
-  nativeCheckInputs = [ pytestCheckHook mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+  ];
 
   # disable impure tests
-  disabledTests = [ "test_get_keys" "connect_via_proxy" "read_ssh_config" ];
+  disabledTests = [
+    "test_get_keys"
+    "connect_via_proxy"
+    "read_ssh_config"
+  ];
 
   meta = with lib; {
     description = "Pure python SSH tunnels";

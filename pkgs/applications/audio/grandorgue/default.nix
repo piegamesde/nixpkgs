@@ -38,11 +38,23 @@ stdenv.mkDerivation rec {
         "png2icns \''${GENERATED_ICONS_DIR}/../GrandOrgue.icns \''${GENERATED_ICONS_DIR}/*{16,32,128,256,512,1024}.png" \
   '';
 
-  nativeBuildInputs = [ cmake pkg-config imagemagick libicns makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    imagemagick
+    libicns
+    makeWrapper
+  ];
 
-  buildInputs = [ fftwFloat zlib wavpack wxGTK32 ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib udev ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+  buildInputs = [
+    fftwFloat
+    zlib
+    wavpack
+    wxGTK32
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    udev
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optional jackaudioSupport libjack2;
 
   cmakeFlags = lib.optionals (!jackaudioSupport) [

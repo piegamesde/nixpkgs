@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
            -e 's/-Werror *//' -e 's|/usr/|'"$out"'/|' Makefile
   '';
 
-  buildInputs = [ python pkgs.lvm2 pkgs.dmraid ];
+  buildInputs = [
+    python
+    pkgs.lvm2
+    pkgs.dmraid
+  ];
 
-  makeFlags = [ "USESELINUX=0" "SITELIB=$(out)/${python.sitePackages}" ];
+  makeFlags = [
+    "USESELINUX=0"
+    "SITELIB=$(out)/${python.sitePackages}"
+  ];
 
   meta = with lib; {
     homepage =

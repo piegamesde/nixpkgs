@@ -98,8 +98,12 @@ let
         "--set"
         "GEM_HOME"
         "${rubyEnv}/${rubyEnv.ruby.gemPath}"
-      ] ++ lib.optionals (binPath != "") [ "--suffix" "PATH" ":" binPath ]
-      ++ lib.optionals (luaEnv != null) [
+      ] ++ lib.optionals (binPath != "") [
+        "--suffix"
+        "PATH"
+        ":"
+        binPath
+      ] ++ lib.optionals (luaEnv != null) [
         "--prefix"
         "LUA_PATH"
         ";"

@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "1c29w2ldrnq0vxr9cfa2pjhwdvrpw393c84khgg2y56jrkbidq53";
   };
 
-  propagatedBuildInputs = [ aiohttp demjson3 ];
+  propagatedBuildInputs = [
+    aiohttp
+    demjson3
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

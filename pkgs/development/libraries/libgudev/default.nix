@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   pname = "libgudev";
   version = "237";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -61,7 +64,10 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ udev glib ];
+  buildInputs = [
+    udev
+    glib
+  ];
 
   mesonFlags = [
     # There's a dependency cycle with umockdev and the tests fail to LD_PRELOAD anyway

@@ -32,15 +32,22 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jzHD55c4rlPab5IAj2UzHTJI9MKhTfevsLthSZKOEzQ=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+    gfortran
+  ];
 
-  buildInputs = [ rocprim git ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [
-      gtest
-      boost
-      python3Packages.python
-      python3Packages.pyyaml
-    ];
+  buildInputs = [
+    rocprim
+    git
+  ] ++ lib.optionals (buildTests || buildBenchmarks) [
+    gtest
+    boost
+    python3Packages.python
+    python3Packages.pyyaml
+  ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"

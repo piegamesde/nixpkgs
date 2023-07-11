@@ -18,8 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which ];
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   # tests are run as part of the compilation process
   doCheck = false;

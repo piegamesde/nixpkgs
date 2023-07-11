@@ -1889,7 +1889,10 @@ in {
         sources."bytes-1.0.0"
         sources."callsite-1.0.0"
         (sources."cfb-1.2.1" // {
-          dependencies = [ sources."adler-32-1.3.1" sources."printj-1.3.1" ];
+          dependencies = [
+            sources."adler-32-1.3.1"
+            sources."printj-1.3.1"
+          ];
         })
         (sources."codepage-1.14.0" // {
           dependencies = [ sources."commander-2.14.1" ];
@@ -1940,7 +1943,10 @@ in {
         sources."escape-html-1.0.1"
         sources."exit-on-epipe-1.0.1"
         (sources."express-3.16.9" // {
-          dependencies = [ sources."commander-1.3.2" sources."vary-0.1.0" ];
+          dependencies = [
+            sources."commander-1.3.2"
+            sources."vary-0.1.0"
+          ];
         })
         (sources."express-session-1.7.6" // {
           dependencies = [ sources."uid-safe-1.0.1" ];
@@ -1952,7 +1958,10 @@ in {
         sources."global-https://github.com/component/global/archive/v2.0.1.tar.gz"
         sources."graceful-readlink-1.0.1"
         (sources."harb-0.1.1" // {
-          dependencies = [ sources."frac-0.3.1" sources."ssf-0.8.2" ];
+          dependencies = [
+            sources."frac-0.3.1"
+            sources."ssf-0.8.2"
+          ];
         })
         sources."has-binary-data-0.1.1"
         sources."has-cors-1.0.3"
@@ -2075,8 +2084,10 @@ in {
         sources."type-is-1.3.2"
         sources."typedarray-0.0.6"
         (sources."uglify-js-2.4.15" // {
-          dependencies =
-            [ sources."optimist-0.3.7" sources."source-map-0.1.34" ];
+          dependencies = [
+            sources."optimist-0.3.7"
+            sources."source-map-0.1.34"
+          ];
         })
         sources."uglify-to-browserify-1.0.2"
         sources."uid-safe-1.1.0"
@@ -2094,8 +2105,11 @@ in {
           dependencies = [ sources."commander-0.6.1" ];
         })
         (sources."xlsjs-0.7.6" // {
-          dependencies =
-            [ sources."cfb-0.11.1" sources."frac-0.3.1" sources."ssf-0.8.2" ];
+          dependencies = [
+            sources."cfb-0.11.1"
+            sources."frac-0.3.1"
+            sources."ssf-0.8.2"
+          ];
         })
         sources."xlsx-0.14.5"
         sources."xmlhttprequest-https://github.com/LearnBoost/node-XMLHttpRequest/archive/0f36d0b5ebc03d85f860d42a64ae9791e1daa433.tar.gz"

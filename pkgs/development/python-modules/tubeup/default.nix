@@ -28,7 +28,12 @@ buildPythonPackage rec {
       --replace "docopt==0.6.2" "docopt"
   '';
 
-  propagatedBuildInputs = [ internetarchive docopt urllib3 yt-dlp ];
+  propagatedBuildInputs = [
+    internetarchive
+    docopt
+    urllib3
+    yt-dlp
+  ];
 
   pythonImportsCheck = [ "tubeup" ];
 

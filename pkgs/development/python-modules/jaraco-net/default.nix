@@ -44,7 +44,10 @@ buildPythonPackage rec {
     hash = "sha256-aq5v4QlapmMTrqwNA0GtRi/xZCcyoR1giZECBsYwymw=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -68,8 +71,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jaraco.net" ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook cherrypy importlib-resources pyparsing requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    cherrypy
+    importlib-resources
+    pyparsing
+    requests-mock
+  ];
 
   disabledTestPaths = [
     # doesn't actually contain tests

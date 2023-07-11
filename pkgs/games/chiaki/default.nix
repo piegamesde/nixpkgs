@@ -37,9 +37,18 @@ mkDerivation rec {
     python3Packages.python
   ];
 
-  buildInputs = [ ffmpeg libopus qtbase qtmultimedia qtsvg protobuf SDL2 ]
-    ++ lib.optionals stdenv.isLinux [ libevdev udev ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  buildInputs = [
+    ffmpeg
+    libopus
+    qtbase
+    qtmultimedia
+    qtsvg
+    protobuf
+    SDL2
+  ] ++ lib.optionals stdenv.isLinux [
+    libevdev
+    udev
+  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   doCheck = true;
 

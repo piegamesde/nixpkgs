@@ -16,7 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sparrow3d";
   version = "unstable-2020-10-06";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "theZiz";
@@ -25,31 +28,38 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-28j5nbTYBrMN8BQ6XrTlO1D8Viw+RiT3MAl99BAbhR4=";
   };
 
-  pkgconfigItems = [
-    (makePkgconfigItem rec {
-      name = "sparrow3d";
-      inherit (finalAttrs) version;
-      inherit (finalAttrs.meta) description;
+  pkgconfigItems = [ (makePkgconfigItem rec {
+    name = "sparrow3d";
+    inherit (finalAttrs) version;
+    inherit (finalAttrs.meta) description;
 
-      cflags = [ "-isystem${variables.includedir}" ];
-      libs = [
-        "-L${variables.libdir}"
-        "-lsparrow3d"
-        "-lsparrowNet"
-        "-lsparrowSound"
-      ];
-      variables = rec {
-        prefix = "@dev@";
-        exec_prefix = "@out@";
-        includedir = "${prefix}/include";
-        libdir = "${exec_prefix}/lib";
-      };
-    })
+    cflags = [ "-isystem${variables.includedir}" ];
+    libs = [
+      "-L${variables.libdir}"
+      "-lsparrow3d"
+      "-lsparrowNet"
+      "-lsparrowSound"
+    ];
+    variables = rec {
+      prefix = "@dev@";
+      exec_prefix = "@out@";
+      includedir = "${prefix}/include";
+      libdir = "${exec_prefix}/lib";
+    };
+  }) ];
+
+  nativeBuildInputs = [
+    copyPkgconfigItems
+    pkg-config
   ];
 
-  nativeBuildInputs = [ copyPkgconfigItems pkg-config ];
-
-  propagatedBuildInputs = [ SDL.dev SDL_image SDL_ttf SDL_mixer SDL_net ];
+  propagatedBuildInputs = [
+    SDL.dev
+    SDL_image
+    SDL_ttf
+    SDL_mixer
+    SDL_net
+  ];
 
   postConfigure = ''
     NIX_CFLAGS_COMPILE=$(pkg-config --cflags SDL_image SDL_ttf SDL_mixer SDL_net)

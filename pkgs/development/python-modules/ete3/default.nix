@@ -24,8 +24,10 @@ buildPythonPackage rec {
   doCheck = false; # Tests are (i) not 3.x compatible, (ii) broken under 2.7
   pythonImportsCheck = [ "ete3" ];
 
-  propagatedBuildInputs = [ six numpy ]
-    ++ lib.optional withTreeVisualization (if isPy3k then pyqt5 else pyqt4)
+  propagatedBuildInputs = [
+    six
+    numpy
+  ] ++ lib.optional withTreeVisualization (if isPy3k then pyqt5 else pyqt4)
     ++ lib.optional withXmlSupport lxml;
 
   meta = with lib; {

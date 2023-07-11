@@ -57,7 +57,11 @@ stdenv.mkDerivation rec {
     "-DBUILD_PYTHON_BINDINGS:BOOL=${if enablePython then "ON" else "OFF"}"
   ];
 
-  nativeBuildInputs = [ cmake pkg-config unzip ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    unzip
+  ];
 
   # lz4 unbundling broken for llvm, use internal version
   propagatedBuildInputs = lib.optional (!stdenv.cc.isClang) lz4;

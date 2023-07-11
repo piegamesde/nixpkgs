@@ -45,7 +45,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ dbus glib gtk4 libadwaita sqlite ];
+  buildInputs = [
+    dbus
+    glib
+    gtk4
+    libadwaita
+    sqlite
+  ];
 
   meta = with lib; {
     description = "Track your time without being tracked";

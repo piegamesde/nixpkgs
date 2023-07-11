@@ -40,8 +40,15 @@ stdenv.mkDerivation rec {
     ./no-dummy-dirs-in-sysconfdir.patch
   ];
 
-  nativeBuildInputs =
-    [ meson ninja vala gobject-introspection gettext pkg-config libxslt ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    vala
+    gobject-introspection
+    gettext
+    pkg-config
+    libxslt
+  ];
 
   buildInputs = [
     glib
@@ -56,8 +63,11 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  nativeInstallCheckInputs =
-    [ python3 python3.pkgs.dbus-python python3.pkgs.pygobject3 ];
+  nativeInstallCheckInputs = [
+    python3
+    python3.pkgs.dbus-python
+    python3.pkgs.pygobject3
+  ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

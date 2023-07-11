@@ -27,8 +27,16 @@ in stdenv.mkDerivation {
   inherit (sources) version;
   src = sources.swift-driver;
 
-  nativeBuildInputs = [ swift swiftpm ];
-  buildInputs = [ Foundation XCTest sqlite ncursesInput ];
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
+  buildInputs = [
+    Foundation
+    XCTest
+    sqlite
+    ncursesInput
+  ];
 
   patches = [
     ./patches/nix-resource-root.patch

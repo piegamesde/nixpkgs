@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ angr progressbar tqdm ];
+  propagatedBuildInputs = [
+    angr
+    progressbar
+    tqdm
+  ];
 
   # Tests have additional requirements, e.g., angr binaries
   # cle is executing the tests with the angr binaries already and is a requirement of angr

@@ -90,7 +90,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://input.djr.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jtojnar romildo ];
+    maintainers = with maintainers; [
+      jtojnar
+      romildo
+    ];
     platforms = platforms.all;
   };
 }

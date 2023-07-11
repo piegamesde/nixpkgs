@@ -27,9 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-uw64JnXx790S4snLjANU0aLI3r7AMPec+IQentTZOdU=";
   };
 
-  propagatedBuildInputs =
-    [ filelock packaging pyyaml requests ruamel-yaml tqdm typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    filelock
+    packaging
+    pyyaml
+    requests
+    ruamel-yaml
+    tqdm
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Tests require network access.
   doCheck = false;

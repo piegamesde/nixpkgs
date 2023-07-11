@@ -28,9 +28,17 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace 'aiobotocore[boto3]' 'aiobotocore'
   '';
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ aiobotocore boto3 flatten-dict s3fs ];
+  propagatedBuildInputs = [
+    aiobotocore
+    boto3
+    flatten-dict
+    s3fs
+  ];
 
   # Network access is needed for tests
   doCheck = false;

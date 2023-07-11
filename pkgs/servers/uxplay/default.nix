@@ -29,7 +29,13 @@ stdenv.mkDerivation rec {
     sed -i '/PKG_CONFIG_EXECUTABLE/d' renderers/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake openssl libplist pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    openssl
+    libplist
+    pkg-config
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     avahi

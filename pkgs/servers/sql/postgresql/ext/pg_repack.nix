@@ -12,7 +12,12 @@ stdenv.mkDerivation rec {
   pname = "pg_repack";
   version = "1.4.8";
 
-  buildInputs = [ postgresql openssl zlib readline ];
+  buildInputs = [
+    postgresql
+    openssl
+    zlib
+    readline
+  ];
 
   src = fetchFromGitHub {
     owner = "reorg";

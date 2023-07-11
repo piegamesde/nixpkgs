@@ -20,7 +20,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-Ws0Qaw2hk8alOF/K5Wd0ZcMGr6Q3JiQIo/kHOXiGvmg=";
 
-  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=v${version}"
+  ];
 
   # Depends on docker
   doCheck = false;

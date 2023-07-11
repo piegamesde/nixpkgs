@@ -58,7 +58,10 @@ in stdenv.mkDerivation {
   runtimeDependencies = [ segger-jlink ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ udev libusb1 ];
+  buildInputs = [
+    udev
+    libusb1
+  ];
 
   dontConfigure = true;
   dontBuild = true;

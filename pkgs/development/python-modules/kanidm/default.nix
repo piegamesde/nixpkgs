@@ -38,9 +38,17 @@ in buildPythonPackage {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp pydantic toml ];
+  propagatedBuildInputs = [
+    aiohttp
+    pydantic
+    toml
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "-m 'not network'" ];
 
@@ -50,6 +58,9 @@ in buildPythonPackage {
     description = "Kanidm client library";
     homepage = "https://github.com/kanidm/kanidm/tree/master/pykanidm";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ arianvp hexa ];
+    maintainers = with maintainers; [
+      arianvp
+      hexa
+    ];
   };
 }

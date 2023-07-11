@@ -12,10 +12,15 @@ let
   argsFormat = {
     type = with lib.types;
       let
-        valueType = nullOr (oneOf [ bool int float str (listOf valueType) ])
-          // {
-            description = "freeciv-server params";
-          };
+        valueType = nullOr (oneOf [
+          bool
+          int
+          float
+          str
+          (listOf valueType)
+        ]) // {
+          description = "freeciv-server params";
+        };
       in valueType;
     generate = name: value:
       let
@@ -44,7 +49,11 @@ in {
         type = types.submodule {
           freeformType = argsFormat.type;
           options.Announce = mkOption {
-            type = types.enum [ "IPv4" "IPv6" "none" ];
+            type = types.enum [
+              "IPv4"
+              "IPv6"
+              "none"
+            ];
             default = "none";
             description =
               lib.mdDoc "Announce game in LAN using given protocol.";
@@ -155,7 +164,11 @@ in {
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
-        BindReadOnlyPaths = [ builtins.storeDir "/etc" "/run" ];
+        BindReadOnlyPaths = [
+          builtins.storeDir
+          "/etc"
+          "/run"
+        ];
         # The following options are only for optimizing:
         # systemd-analyze security freeciv
         AmbientCapabilities = "";
@@ -179,7 +192,10 @@ in {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

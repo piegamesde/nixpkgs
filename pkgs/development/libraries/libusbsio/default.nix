@@ -40,6 +40,9 @@ in stdenv.mkDerivation rec {
       "Library for communicating with devices connected via the USB bridge on LPC-Link2 and MCU-Link debug probes on supported NXP microcontroller evaluation boards";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ frogamic sbruder ];
+    maintainers = with maintainers; [
+      frogamic
+      sbruder
+    ];
   };
 }

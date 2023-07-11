@@ -31,7 +31,10 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six mock ];
+  propagatedBuildInputs = [
+    six
+    mock
+  ];
 
   nativeCheckInputs = [ rednose ];
 

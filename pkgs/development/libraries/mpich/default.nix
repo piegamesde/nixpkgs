@@ -28,18 +28,26 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7jBHGzXvh/TIj4caXirTgRzZxN8y/U8ThEMHL/QoTKI=";
   };
 
-  configureFlags =
-    [ "--enable-shared" "--enable-sharedlib" "--with-pm=${withPm}" ]
-    ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
-      "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
-      "FCFLAGS=-fallow-argument-mismatch"
-    ];
+  configureFlags = [
+    "--enable-shared"
+    "--enable-sharedlib"
+    "--with-pm=${withPm}"
+  ] ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
+    "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
+    "FCFLAGS=-fallow-argument-mismatch"
+  ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ gfortran python3 ];
-  buildInputs = [ perl openssh hwloc ]
-    ++ lib.optional (!stdenv.isDarwin) ch4backend;
+  nativeBuildInputs = [
+    gfortran
+    python3
+  ];
+  buildInputs = [
+    perl
+    openssh
+    hwloc
+  ] ++ lib.optional (!stdenv.isDarwin) ch4backend;
 
   doCheck = true;
 

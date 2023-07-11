@@ -48,7 +48,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ keyring ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "plyer/tests" ];
   disabledTests = [

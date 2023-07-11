@@ -97,7 +97,10 @@ in {
       systemd.services.nfs-blkmap = { restartTriggers = [ nfsConfFile ]; };
 
       systemd.targets.nfs-client = {
-        wantedBy = [ "multi-user.target" "remote-fs.target" ];
+        wantedBy = [
+          "multi-user.target"
+          "remote-fs.target"
+        ];
       };
 
       systemd.services.nfs-idmapd = { restartTriggers = [ idmapdConfFile ]; };
@@ -113,12 +116,18 @@ in {
       };
 
       systemd.services.auth-rpcgss-module = {
-        unitConfig.ConditionPathExists = [ "" "/etc/krb5.keytab" ];
+        unitConfig.ConditionPathExists = [
+          ""
+          "/etc/krb5.keytab"
+        ];
       };
 
       systemd.services.rpc-gssd = {
         restartTriggers = [ nfsConfFile ];
-        unitConfig.ConditionPathExists = [ "" "/etc/krb5.keytab" ];
+        unitConfig.ConditionPathExists = [
+          ""
+          "/etc/krb5.keytab"
+        ];
       };
 
       systemd.services.rpc-statd = {

@@ -68,8 +68,12 @@ python3.pkgs.buildPythonApplication rec {
     ] ++ lib.optional lastFMSupport libsecret;
 
   propagatedBuildInputs = with python3.pkgs;
-    [ beautifulsoup4 pillow pycairo pygobject3 ]
-    ++ lib.optional lastFMSupport pylast
+    [
+      beautifulsoup4
+      pillow
+      pycairo
+      pygobject3
+    ] ++ lib.optional lastFMSupport pylast
     ++ lib.optional youtubeSupport youtube-dl;
 
   postPatch = ''

@@ -30,21 +30,28 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-6SxZObOMkQDxuKJuJY+mQ/VuJJxSeGbf97J8ZZddCV0=";
     });
 
-  outputs = [ "out" "man" "doc" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+    "info"
+  ];
 
   hardeningDisable = [ "format" ];
 
   LDFLAGS = lib.optionalString stdenv.isSunOS
     "-lm -lmd -lmp -luutil -lnvpair -lnsl -lidmap -lavl -lsec";
 
-  configureFlags = [ "--disable-csharp" "--with-xz" ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      # On cross building, gettext supposes that the wchar.h from libc
-      # does not fulfill gettext needs, so it tries to work with its
-      # own wchar.h file, which does not cope well with the system's
-      # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
-      "gl_cv_func_wcwidth_works=yes"
-    ];
+  configureFlags = [
+    "--disable-csharp"
+    "--with-xz"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    # On cross building, gettext supposes that the wchar.h from libc
+    # does not fulfill gettext needs, so it tries to work with its
+    # own wchar.h file, which does not cope well with the system's
+    # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
+    "gl_cv_func_wcwidth_works=yes"
+  ];
 
   postPatch = ''
     substituteAllInPlace gettext-runtime/src/gettext.sh.in
@@ -65,16 +72,19 @@ stdenv.mkDerivation rec {
     '';
 
   strictDeps = true;
-  nativeBuildInputs = [ xz xz.bin ];
-  buildInputs = [
-    bash
-  ]
-  # HACK, see #10874 (and 14664)
-    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin)
-    [ libiconv ];
+  nativeBuildInputs = [
+    xz
+    xz.bin
+  ];
+  buildInputs = [ bash ]
+    # HACK, see #10874 (and 14664)
+    ++ lib.optionals
+    (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [ libiconv ];
 
-  setupHooks =
-    [ ../../../build-support/setup-hooks/role.bash ./gettext-setup-hook.sh ];
+  setupHooks = [
+    ../../../build-support/setup-hooks/role.bash
+    ./gettext-setup-hook.sh
+  ];
   env = {
     gettextNeedsLdflags = stdenv.hostPlatform.libc != "glibc"
       && !stdenv.hostPlatform.isMusl;
@@ -107,7 +117,10 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/gettext/";
 
-    maintainers = with maintainers; [ zimbatm vrthra ];
+    maintainers = with maintainers; [
+      zimbatm
+      vrthra
+    ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

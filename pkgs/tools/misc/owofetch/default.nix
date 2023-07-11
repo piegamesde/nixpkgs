@@ -21,8 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-rfN4QERs1H1G7ZZim//78vlxbYfU4Cx7SYYUz/QLKeU=";
 
-  buildInputs =
-    lib.optionals stdenvNoCC.isDarwin [ Foundation DiskArbitration ];
+  buildInputs = lib.optionals stdenvNoCC.isDarwin [
+    Foundation
+    DiskArbitration
+  ];
 
   meta = with lib; {
     description = "Alternative to *fetch, uwuifies all stats";

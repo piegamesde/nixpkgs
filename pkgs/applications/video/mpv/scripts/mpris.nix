@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ glib mpv-unwrapped ];
+  buildInputs = [
+    glib
+    mpv-unwrapped
+  ];
 
   installFlags = [ "SCRIPTS_DIR=$(out)/share/mpv/scripts" ];
 

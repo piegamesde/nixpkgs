@@ -51,8 +51,17 @@ in stdenv.mkDerivation rec {
     gtk3 # For gtk-update-icon-cache
     desktop-file-utils # For update-desktop-database
   ];
-  buildInputs =
-    [ gtk4 vte-gtk4 json-glib marble libadwaita pcre2 libxml2 librsvg libgee ];
+  buildInputs = [
+    gtk4
+    vte-gtk4
+    json-glib
+    marble
+    libadwaita
+    pcre2
+    libxml2
+    librsvg
+    libgee
+  ];
 
   meta = with lib; {
     description = "Beautiful GTK 4 terminal";

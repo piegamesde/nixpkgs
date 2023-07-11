@@ -37,8 +37,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fAf4kOe/6bQW0i46+EZbD/6iWI2Bjkn2no6XeR/+mg4=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals withPython [ swig python3.pkgs.setuptools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals withPython [
+    swig
+    python3.pkgs.setuptools
+  ];
 
   buildInputs = [
     cairo

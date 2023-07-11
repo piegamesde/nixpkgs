@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-grsyHqt7ahiNsYKcZN/c5cJaag/nTWTBcaHaXnW1SpU=";
   };
 
-  propagatedBuildInputs = [ lxml requests ];
+  propagatedBuildInputs = [
+    lxml
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

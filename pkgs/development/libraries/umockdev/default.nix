@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   pname = "umockdev";
   version = "0.17.17";
 
-  outputs = [ "bin" "out" "dev" "devdoc" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url =
@@ -45,12 +50,21 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ glib systemd libgudev libpcap ];
+  buildInputs = [
+    glib
+    systemd
+    libgudev
+    libpcap
+  ];
 
-  nativeCheckInputs = [ python3 which usbutils ];
+  nativeCheckInputs = [
+    python3
+    which
+    usbutils
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

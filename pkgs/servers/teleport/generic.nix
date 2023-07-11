@@ -46,8 +46,10 @@ let
 
     buildAndTestSubdir = "lib/srv/desktop/rdp/rdpclient";
 
-    buildInputs = [ openssl ]
-      ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
+    buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+      CoreFoundation
+      Security
+    ];
     nativeBuildInputs = [ pkg-config ];
 
     # https://github.com/NixOS/nixpkgs/issues/161570 ,
@@ -71,7 +73,11 @@ let
     pname = "teleport-webassets";
     inherit src version;
 
-    nativeBuildInputs = [ nodejs yarn yarn2nix-moretea.fixup_yarn_lock ];
+    nativeBuildInputs = [
+      nodejs
+      yarn
+      yarn2nix-moretea.fixup_yarn_lock
+    ];
 
     configurePhase = ''
       export HOME=$(mktemp -d)
@@ -101,17 +107,29 @@ in buildGoModule rec {
   inherit vendorHash;
   proxyVendor = true;
 
-  subPackages = [ "tool/tbot" "tool/tctl" "tool/teleport" "tool/tsh" ];
-  tags = [ "libfido2" "webassets_embed" ]
-    ++ lib.optional withRdpClient "desktop_access_rdp";
+  subPackages = [
+    "tool/tbot"
+    "tool/tctl"
+    "tool/teleport"
+    "tool/tsh"
+  ];
+  tags = [
+    "libfido2"
+    "webassets_embed"
+  ] ++ lib.optional withRdpClient "desktop_access_rdp";
 
-  buildInputs = [ openssl libfido2 ]
-    ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
-      CoreFoundation
-      Security
-      AppKit
-    ];
-  nativeBuildInputs = [ makeWrapper pkg-config ];
+  buildInputs = [
+    openssl
+    libfido2
+  ] ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
+    CoreFoundation
+    Security
+    AppKit
+  ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
 
   patches = [
     # https://github.com/NixOS/nixpkgs/issues/120738
@@ -123,7 +141,10 @@ in buildGoModule rec {
   ];
 
   # Reduce closure size for client machines
-  outputs = [ "out" "client" ];
+  outputs = [
+    "out"
+    "client"
+  ];
 
   preBuild = ''
     cp -r ${webassets} webassets

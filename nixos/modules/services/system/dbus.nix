@@ -43,7 +43,10 @@ in {
       };
 
       implementation = mkOption {
-        type = types.enum [ "dbus" "broker" ];
+        type = types.enum [
+          "dbus"
+          "broker"
+        ];
         default = "dbus";
         description = lib.mdDoc ''
           The implementation to use for the message bus defined by the D-Bus specification.
@@ -72,7 +75,11 @@ in {
       };
 
       apparmor = mkOption {
-        type = types.enum [ "enabled" "disabled" "required" ];
+        type = types.enum [
+          "enabled"
+          "disabled"
+          "required"
+        ];
         description = lib.mdDoc ''
           AppArmor mode for dbus.
 
@@ -91,7 +98,10 @@ in {
     {
       environment.etc."dbus-1".source = configDir;
 
-      environment.pathsToLink = [ "/etc/dbus-1" "/share/dbus-1" ];
+      environment.pathsToLink = [
+        "/etc/dbus-1"
+        "/share/dbus-1"
+      ];
 
       users.users.messagebus = {
         uid = config.ids.uids.messagebus;
@@ -105,7 +115,10 @@ in {
       # You still need the dbus reference implementation installed to use dbus-broker
       systemd.packages = [ pkgs.dbus ];
 
-      services.dbus.packages = [ pkgs.dbus config.system.path ];
+      services.dbus.packages = [
+        pkgs.dbus
+        config.system.path
+      ];
 
       systemd.user.sockets.dbus.wantedBy = [ "sockets.target" ];
     }

@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-GtLuro4oBT1ym6M3PTTZ1uIQ9uTYvwqcZPkr0FPx7fU=";
   };
 
-  nativeCheckInputs = [ case psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    case
+    psutil
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # psutil.NoSuchProcess: process no longer exists (pid=168)

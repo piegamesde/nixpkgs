@@ -36,6 +36,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/silentbicycle/theft/";
     platforms = platforms.unix;
     license = licenses.isc;
-    maintainers = with maintainers; [ kquick thoughtpolice ];
+    maintainers = with maintainers; [
+      kquick
+      thoughtpolice
+    ];
   };
 }

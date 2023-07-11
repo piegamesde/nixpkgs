@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/6yMHjB9HNEEQuAc8zEvmjjl6wur0jByS1hLz39+rHI=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake gettext help2man ];
-  buildInputs = [ libdnf glib libpeas libsmartcols ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    gettext
+    help2man
+  ];
+  buildInputs = [
+    libdnf
+    glib
+    libpeas
+    libsmartcols
+  ];
 
   meta = with lib; {
     description = "Lightweight implementation of dnf in C";

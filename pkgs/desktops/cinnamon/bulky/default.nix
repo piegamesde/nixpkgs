@@ -23,10 +23,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ps7ql6EAdoljQ6S8D2JxNSh0+jtEVZpnQv3fpvWkQSk=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook gsettings-desktop-schemas gettext ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gsettings-desktop-schemas
+    gettext
+  ];
 
   buildInputs = [
-    (python3.withPackages (p: with p; [ pygobject3 magic setproctitle ]))
+    (python3.withPackages (p:
+      with p; [
+        pygobject3
+        magic
+        setproctitle
+      ]))
     gobject-introspection
     gsettings-desktop-schemas
     gtk3

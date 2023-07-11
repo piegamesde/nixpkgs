@@ -21,8 +21,17 @@ mkDerivation rec {
     hash = "sha256:1w26ddxb1xirb7qjf7kv9llxzjhbhcb7warnxbx41qhbni46g26y";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ libX11 libXtst qtbase qttools qtx11extras ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    libX11
+    libXtst
+    qtbase
+    qttools
+    qtx11extras
+  ];
 
   meta = with lib; {
     description = "A program that lets you use gaming devices anywhere";

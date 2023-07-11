@@ -30,17 +30,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uIK/G3Yk2xdPDnLtnx8sGShNY2gY0TmaEx5zyraawz0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  configureFlags = [ "--enable-cloud-input-mode" "--enable-opencc" ];
+  configureFlags = [
+    "--enable-cloud-input-mode"
+    "--enable-opencc"
+  ];
 
   buildInputs = [
     ibus
     glib
     sqlite
     libpinyin
-    (python3.withPackages
-      (pypkgs: with pypkgs; [ pygobject3 (toPythonModule ibus) ]))
+    (python3.withPackages (pypkgs:
+      with pypkgs; [
+        pygobject3
+        (toPythonModule ibus)
+      ]))
     gtk3
     db
     lua

@@ -35,17 +35,20 @@ let
       };
       request = {
         CN = host;
-        hosts = [ host "www.${host}" ];
+        hosts = [
+          host
+          "www.${host}"
+        ];
         key = {
           algo = "rsa";
           size = 2048;
         };
-        names = [{
+        names = [ {
           C = "US";
           L = "San Francisco";
           O = "Example, LLC";
           ST = "CA";
-        }];
+        } ];
       };
       inherit service;
     };
@@ -72,8 +75,10 @@ let
               "127.0.0.1 imp.example.org decl.example.org";
 
             services.cfssl.enable = true;
-            systemd.services.cfssl.after =
-              [ "cfssl-init.service" "networking.target" ];
+            systemd.services.cfssl.after = [
+              "cfssl-init.service"
+              "networking.target"
+            ];
 
             systemd.tmpfiles.rules = [ "d /var/ssl 777 root root" ];
 
@@ -93,13 +98,13 @@ let
                       algo = "rsa";
                       size = 4096;
                     };
-                    names = [{
+                    names = [ {
                       C = "US";
                       L = "San Francisco";
                       O = "Internet Widgets, LLC";
                       OU = "Certificate Authority";
                       ST = "California";
-                    }];
+                    } ];
                   })
                 } | ${pkgs.cfssl}/bin/cfssljson -bare ca
               '';
@@ -118,7 +123,10 @@ let
                   serverName = host;
                   root = pkgs.writeTextDir "index.html" "It works!";
                 };
-              }) [ "imp.example.org" "decl.example.org" ]);
+              }) [
+                "imp.example.org"
+                "decl.example.org"
+              ]);
             };
 
             systemd.services.nginx.wantedBy = lib.mkForce [ ];

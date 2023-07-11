@@ -26,9 +26,22 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ pkg-config meson ninja wayland ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    wayland
+  ];
 
-  buildInputs = [ wayland libepoxy glib libwpe libxkbcommon libGL libX11 ];
+  buildInputs = [
+    wayland
+    libepoxy
+    glib
+    libwpe
+    libxkbcommon
+    libGL
+    libX11
+  ];
 
   meta = with lib; {
     description = "Freedesktop.org backend for WPE WebKit";

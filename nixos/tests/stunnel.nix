@@ -62,7 +62,11 @@ in {
     nodes = {
       client = { };
       server = {
-        imports = [ makeCert serverCommon stunnelCommon ];
+        imports = [
+          makeCert
+          serverCommon
+          stunnelCommon
+        ];
         environment.etc."webroot/index.html".text = "well met";
       };
     };
@@ -107,7 +111,11 @@ in {
         };
       };
       server = {
-        imports = [ makeCert serverCommon stunnelCommon ];
+        imports = [
+          makeCert
+          serverCommon
+          stunnelCommon
+        ];
         environment.etc."webroot/index.html".text = "hello there";
       };
     };
@@ -139,7 +147,10 @@ in {
 
     nodes = rec {
       client = {
-        imports = [ makeCert stunnelCommon ];
+        imports = [
+          makeCert
+          stunnelCommon
+        ];
         services.stunnel.clients.authenticated-https = {
           accept = "80";
           connect = "server:443";
@@ -151,7 +162,11 @@ in {
       };
       wrongclient = client;
       server = {
-        imports = [ makeCert serverCommon stunnelCommon ];
+        imports = [
+          makeCert
+          serverCommon
+          stunnelCommon
+        ];
         services.stunnel.servers.https = {
           CAFile = "/authorized-client-certs.crt";
           verifyPeer = true;

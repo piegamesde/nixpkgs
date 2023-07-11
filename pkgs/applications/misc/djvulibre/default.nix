@@ -18,12 +18,21 @@ stdenv.mkDerivation rec {
     sha256 = "1p1fiygq9ny8aimwc4vxwjc6k9ykgdsq1sq06slfbzalfvm0kl7w";
   };
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   strictDeps = true;
   nativeBuildInputs = [ librsvg ];
 
-  buildInputs = [ libjpeg libtiff libiconv bash ];
+  buildInputs = [
+    libjpeg
+    libtiff
+    libiconv
+    bash
+  ];
 
   enableParallelBuilding = true;
 

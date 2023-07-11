@@ -36,7 +36,12 @@ let
     icon = "azuredatastudio";
     startupNotify = true;
     startupWMClass = "azuredatastudio";
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
     mimeTypes = [
       "text/plain"
       "inode/directory"
@@ -59,7 +64,12 @@ let
     icon = "azuredatastudio";
     startupNotify = true;
     startupWMClass = "azuredatastudio";
-    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
     mimeTypes = [ "x-scheme-handler/azuredatastudio" ];
     keywords = [ "azuredatastudio" ];
     noDisplay = true;
@@ -69,7 +79,10 @@ in stdenv.mkDerivation rec {
   pname = "azuredatastudio";
   version = "1.35.1";
 
-  desktopItems = [ desktopItem urlHandlerDesktopItem ];
+  desktopItems = [
+    desktopItem
+    urlHandlerDesktopItem
+  ];
 
   src = fetchurl {
     name = "${pname}-${version}.tar.gz";
@@ -78,9 +91,16 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-b/ha+81TlffnvSENzaePvfFugcKJffvjRU7y+x60OuQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
-  buildInputs = [ libuuid at-spi2-core at-spi2-atk ];
+  buildInputs = [
+    libuuid
+    at-spi2-core
+    at-spi2-atk
+  ];
 
   installPhase = ''
     runHook preInstall

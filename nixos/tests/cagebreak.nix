@@ -37,7 +37,10 @@ import ./make-test-python.nix ({
         hardware.opengl.enable = true;
         programs.xwayland.enable = true;
         security.polkit.enable = true;
-        environment.systemPackages = [ pkgs.cagebreak pkgs.wayland-utils ];
+        environment.systemPackages = [
+          pkgs.cagebreak
+          pkgs.wayland-utils
+        ];
 
         # Need to switch to a different GPU driver than the default one (-vga std) so that Cagebreak can launch:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];

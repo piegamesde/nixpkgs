@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [ ipython mock pytestCheckHook sh ];
+  nativeCheckInputs = [
+    ipython
+    mock
+    pytestCheckHook
+    sh
+  ];
 
   disabledTests = [ "cli" ];
 

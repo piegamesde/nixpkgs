@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-9cvA186FS6bHmpOrv4OfPZ5kRfgfafBfaWxgWJIlwwA=";
   };
 
-  propagatedBuildInputs = [ mkdocs drawio-headless ];
+  propagatedBuildInputs = [
+    mkdocs
+    drawio-headless
+  ];
 
   pythonImportsCheck = [ "mkdocsdrawioexporter" ];
 

@@ -31,7 +31,10 @@ in python.pkgs.buildPythonApplication rec {
     hash = "sha256-iE5d9enSbONqVxKW7H7N+1TmBp6nVGtiQvxJxV7R/1o=";
   };
 
-  nativeBuildInputs = with python.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   pythonRelaxDeps = true;
 
@@ -95,7 +98,12 @@ in python.pkgs.buildPythonApplication rec {
     "test_song_from_url"
   ];
 
-  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ ffmpeg ])
+  ];
 
   meta = with lib; {
     description =

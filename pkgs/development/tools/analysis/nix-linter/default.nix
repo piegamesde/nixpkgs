@@ -48,7 +48,11 @@ mkDerivation rec {
     bytestring
     path-io
   ];
-  testHaskellDepends = [ tasty tasty-hunit tasty-th ];
+  testHaskellDepends = [
+    tasty
+    tasty-hunit
+    tasty-th
+  ];
 
   description = "Linter for Nix(pkgs), based on hnix";
   homepage = "https://github.com/Synthetica9/nix-linter";

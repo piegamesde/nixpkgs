@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "18ilzr9sbal1j8p1d94ilm1j5blac5cngvcvjpdmgmpw6diy2ldf";
   };
 
-  buildInputs = [ ncurses groff ];
+  buildInputs = [
+    ncurses
+    groff
+  ];
 
   configurePhase = ''
     makeFlagsArray=( CFLAGS="-I. -O3"

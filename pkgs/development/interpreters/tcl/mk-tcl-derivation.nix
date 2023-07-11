@@ -52,7 +52,10 @@ let
   ]) // {
 
     buildInputs = buildInputs ++ [ tcl.tclPackageHook ];
-    nativeBuildInputs = nativeBuildInputs ++ [ makeWrapper tcl ];
+    nativeBuildInputs = nativeBuildInputs ++ [
+      makeWrapper
+      tcl
+    ];
     propagatedBuildInputs = propagatedBuildInputs ++ [ tcl ];
 
     TCLSH = "${getBin tcl}/bin/tclsh";

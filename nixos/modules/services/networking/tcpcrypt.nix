@@ -44,7 +44,11 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      path = [ pkgs.iptables pkgs.tcpcrypt pkgs.procps ];
+      path = [
+        pkgs.iptables
+        pkgs.tcpcrypt
+        pkgs.procps
+      ];
 
       preStart = ''
         mkdir -p /run/tcpcryptd

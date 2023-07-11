@@ -30,17 +30,28 @@ stdenv.mkDerivation rec {
     sha256 = "1l4xqlPI/cP95++EpNqpeaYFwj/THO/2R79+qqma+8w=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit vpnc kmod;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit vpnc kmod;
+  }) ];
+
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+    file
   ];
 
-  nativeBuildInputs = [ intltool pkg-config file ];
-
-  buildInputs = [ vpnc networkmanager glib ]
-    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
+  buildInputs = [
+    vpnc
+    networkmanager
+    glib
+  ] ++ lib.optionals withGnome [
+    gtk3
+    gtk4
+    libsecret
+    libnma
+    libnma-gtk4
+  ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

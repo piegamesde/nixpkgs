@@ -24,7 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-RbaRFMyvK3y7xN+xwNi/lHJjx+xIlpfizJj9BIn6cT4=";
   };
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
   passthru.optional-dependencies = { httpx = [ httpx ]; };
 

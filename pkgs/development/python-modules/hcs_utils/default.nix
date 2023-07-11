@@ -24,7 +24,10 @@ buildPythonPackage rec {
     py.test -k 'not test_expand' hcs_utils/test
   '';
 
-  buildInputs = [ six glibcLocales ];
+  buildInputs = [
+    six
+    glibcLocales
+  ];
   nativeCheckInputs = [ pytest ];
 
   disabled = pythonOlder "3.4";

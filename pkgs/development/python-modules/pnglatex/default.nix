@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-CZUGDUkmttO0BzFYbGFSNMPkWzFC/BW4NmAeOwz4Y9M=";
   };
 
-  propagatedBuildInputs = [ poppler_utils netpbm ];
+  propagatedBuildInputs = [
+    poppler_utils
+    netpbm
+  ];
 
   # There are no tests
   doCheck = false;

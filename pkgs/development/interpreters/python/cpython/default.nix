@@ -156,8 +156,12 @@ let
     readline
     ncurses
     openssl'
-  ] ++ optionals x11Support [ tcl tk libX11 xorgproto ]
-    ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
+  ] ++ optionals x11Support [
+    tcl
+    tk
+    libX11
+    xorgproto
+  ] ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
     ++ optionals stdenv.isDarwin [ configd ])
 
     ++ optionals enableFramework [ Cocoa ]
@@ -358,17 +362,20 @@ stdenv.mkDerivation {
     PYTHONHASHSEED = 0;
   };
 
-  configureFlags =
-    [ "--without-ensurepip" "--with-system-expat" "--with-system-ffi" ]
-    ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
-    ++ optionals enableFramework
-    [ "--enable-framework=${placeholder "out"}/Library/Frameworks" ]
+  configureFlags = [
+    "--without-ensurepip"
+    "--with-system-expat"
+    "--with-system-ffi"
+  ] ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
+    ++ optionals enableFramework [ "--enable-framework=${
+      placeholder "out"
+    }/Library/Frameworks" ]
     ++ optionals enableOptimizations [ "--enable-optimizations" ]
     ++ optionals enableLTO [ "--with-lto" ] ++ optionals (pythonOlder "3.7") [
       # This is unconditionally true starting in CPython 3.7.
       "--with-threads"
-    ] ++ optionals (sqlite != null && isPy3k)
-    [ "--enable-loadable-sqlite-extensions" ]
+    ] ++ optionals
+    (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
     ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"
@@ -394,9 +401,8 @@ stdenv.mkDerivation {
       "ac_cv_computed_gotos=yes"
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
-    ] ++ optionals
-    (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
-    [ "--with-build-python=${pythonForBuildInterpreter}" ]
+    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast
+      "3.11") [ "--with-build-python=${pythonForBuildInterpreter}" ]
     ++ optionals stdenv.hostPlatform.isLinux [
       # Never even try to use lchmod on linux,
       # don't rely on detecting glibc-isms.
@@ -436,8 +442,10 @@ stdenv.mkDerivation {
 
   postInstall = let
     # References *not* to nuke from (sys)config files
-    keep-references = concatMapStringsSep " " (val: "-e ${val}")
-      ([ (placeholder "out") libxcrypt ] ++ optionals tzdataSupport [ tzdata ]);
+    keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
+      (placeholder "out")
+      libxcrypt
+    ] ++ optionals tzdataSupport [ tzdata ]);
   in lib.optionalString enableFramework ''
     for dir in include lib share; do
       ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
@@ -538,9 +546,8 @@ stdenv.mkDerivation {
 
   # Enforce that we don't have references to the OpenSSL -dev package, which we
   # explicitly specify in our configure flags above.
-  disallowedReferences =
-    lib.optionals (openssl' != null && !static && !enableFramework)
-    [ openssl'.dev ]
+  disallowedReferences = lib.optionals
+    (openssl' != null && !static && !enableFramework) [ openssl'.dev ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.
@@ -558,7 +565,13 @@ stdenv.mkDerivation {
     homepage = "https://www.python.org";
     changelog = let
       majorMinor = lib.versions.majorMinor version;
-      dashedVersion = lib.replaceStrings [ "." "a" ] [ "-" "-alpha-" ] version;
+      dashedVersion = lib.replaceStrings [
+        "."
+        "a"
+      ] [
+        "-"
+        "-alpha-"
+      ] version;
     in if sourceVersion.suffix == "" then
       "https://docs.python.org/release/${version}/whatsnew/changelog.html"
     else

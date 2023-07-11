@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
     }
   ];
 
-  nativeBuildInputs = with ocamlPackages; [ dune_3 findlib menhir ocaml ];
+  nativeBuildInputs = with ocamlPackages; [
+    dune_3
+    findlib
+    menhir
+    ocaml
+  ];
   buildInputs = with ocamlPackages; [
     batteries
     dune-build-info

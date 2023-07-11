@@ -23,9 +23,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qwm66VA/ueRMFtSUcrmuObNkz+KYgWRnmR7TnQwpxiE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 imlib2 libSM libstartup_notification libxml2 openbox ];
+  buildInputs = [
+    gtk3
+    imlib2
+    libSM
+    libstartup_notification
+    libxml2
+    openbox
+  ];
 
   postPatch = ''
     substituteInPlace configure.ac --replace 2.0.4 ${version}

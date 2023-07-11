@@ -21,7 +21,11 @@ in gnustep'.gsmakeDerivation rec {
 
   sourceRoot = "PikoPixel.Sources.${version}/PikoPixel";
 
-  buildInputs = [ gnustep'.base gnustep'.gui gnustep'.back ];
+  buildInputs = [
+    gnustep'.base
+    gnustep'.gui
+    gnustep'.back
+  ];
 
   # Fix the Exec and Icon paths in the .desktop file, and save the file in the
   # correct place.

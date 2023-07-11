@@ -10,7 +10,10 @@ stdenv.mkDerivation (swift._wrapperParams // {
   pname = "swift-wrapper";
   inherit (swift) version meta;
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   # Wrapper and setup hook variables.
   inherit swift;

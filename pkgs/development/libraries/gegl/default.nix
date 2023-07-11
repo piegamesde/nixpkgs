@@ -40,7 +40,11 @@ stdenv.mkDerivation rec {
   pname = "gegl";
   version = "0.4.44";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -85,7 +89,11 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   # for gegl-4.0.pc
-  propagatedBuildInputs = [ glib json-glib babl ];
+  propagatedBuildInputs = [
+    glib
+    json-glib
+    babl
+  ];
 
   mesonFlags = [
     "-Dgtk-doc=true"

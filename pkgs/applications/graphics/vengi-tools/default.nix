@@ -43,7 +43,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZkO2CLSuuJcFJFBO4XS8Qec0CxxAJdzOGfFa2zy+4uI=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ninja python3 makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ninja
+    python3
+    makeWrapper
+  ];
 
   buildInputs = [
     glm
@@ -58,8 +64,11 @@ stdenv.mkDerivation rec {
     #libpqxx
     #mosquitto
   ] ++ lib.optional stdenv.isLinux wayland-protocols
-    ++ lib.optionals stdenv.isDarwin [ Carbon CoreServices OpenCL ]
-    ++ lib.optional (!stdenv.isDarwin) opencl-headers;
+    ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      CoreServices
+      OpenCL
+    ] ++ lib.optional (!stdenv.isDarwin) opencl-headers;
 
   cmakeFlags = [
     # Disable tests due to a problem in linking gtest:
@@ -103,7 +112,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mgerhardy.github.io/vengi/";
     downloadPage = "https://github.com/mgerhardy/vengi/releases";
-    license = [ licenses.mit licenses.cc-by-sa-30 ];
+    license = [
+      licenses.mit
+      licenses.cc-by-sa-30
+    ];
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
   };

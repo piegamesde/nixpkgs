@@ -23,7 +23,10 @@ buildPythonPackage rec {
       "magick_home = '${imagemagickBig}'"
   '';
 
-  nativeCheckInputs = [ py pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # https://github.com/emcconville/wand/issues/558
@@ -40,6 +43,9 @@ buildPythonPackage rec {
     description = "Ctypes-based simple MagickWand API binding for Python";
     homepage = "http://wand-py.org/";
     license = [ licenses.mit ];
-    maintainers = with maintainers; [ infinisil dotlambda ];
+    maintainers = with maintainers; [
+      infinisil
+      dotlambda
+    ];
   };
 }

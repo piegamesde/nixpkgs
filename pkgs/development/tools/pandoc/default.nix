@@ -40,5 +40,8 @@ in (haskell.lib.compose.overrideCabal (drv: {
   # lead to a transitive runtime dependency on the whole GHC distribution.
   # This should ideally be fixed in haskellPackages (or even Cabal),
   # but a minimal pandoc is important enough to patch it manually.
-  disallowedReferences = [ haskellPackages.pandoc-types haskellPackages.warp ];
+  disallowedReferences = [
+    haskellPackages.pandoc-types
+    haskellPackages.warp
+  ];
 })

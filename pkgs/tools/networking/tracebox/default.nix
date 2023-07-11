@@ -22,14 +22,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libpcap lua5_1 json_c ];
+  buildInputs = [
+    libpcap
+    lua5_1
+    json_c
+  ];
 
   postPatch = ''
     sed -i configure.ac \
       -e 's,$(git describe .*),${version},'
   '';
 
-  configureFlags = [ "--with-lua=yes" "--with-libpcap=yes" ];
+  configureFlags = [
+    "--with-lua=yes"
+    "--with-libpcap=yes"
+  ];
 
   PCAPLIB = "-lpcap";
   LUA_LIB = "-llua";

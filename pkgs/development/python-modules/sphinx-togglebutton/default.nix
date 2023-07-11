@@ -16,7 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-qwyLNmQnsB5MiYAtXQeEcsQn+m6dEtUhw0+gRCVZ3Ho=";
   };
 
-  propagatedBuildInputs = [ wheel sphinx docutils ];
+  propagatedBuildInputs = [
+    wheel
+    sphinx
+    docutils
+  ];
 
   pythonImportsCheck = [ "sphinx_togglebutton" ];
 

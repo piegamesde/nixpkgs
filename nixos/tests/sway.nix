@@ -4,7 +4,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "sway";
-    meta = { maintainers = with lib.maintainers; [ primeos synthetica ]; };
+    meta = {
+      maintainers = with lib.maintainers; [
+        primeos
+        synthetica
+      ];
+    };
 
     # testScriptWithTypes:49: error: Cannot call function of unknown type
     #           (machine.succeed if succeed else machine.execute)(
@@ -22,7 +27,11 @@ import ./make-test-python.nix ({
 
         environment = {
           # For glinfo and wayland-info:
-          systemPackages = with pkgs; [ mesa-demos wayland-utils alacritty ];
+          systemPackages = with pkgs; [
+            mesa-demos
+            wayland-utils
+            alacritty
+          ];
           # Use a fixed SWAYSOCK path (for swaymsg):
           variables = {
             "SWAYSOCK" = "/tmp/sway-ipc.sock";

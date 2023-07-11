@@ -21,16 +21,17 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ copyDesktopItems ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Thonny";
-      exec = "thonny";
-      icon = "thonny";
-      desktopName = "Thonny";
-      comment = "Python IDE for beginners";
-      categories = [ "Development" "IDE" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Thonny";
+    exec = "thonny";
+    icon = "thonny";
+    desktopName = "Thonny";
+    comment = "Python IDE for beginners";
+    categories = [
+      "Development"
+      "IDE"
+    ];
+  }) ];
 
   propagatedBuildInputs = with python3.pkgs; [
     jedi

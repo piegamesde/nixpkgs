@@ -51,7 +51,12 @@
   ruby,
 }:
 
-assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
+assert builtins.any (g: guiModule == g) [
+  "fltk"
+  "ntk"
+  "zest"
+  "off"
+];
 
 let
   guiName = {
@@ -73,49 +78,72 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-0siAx141DZx39facXWmKbsi0rHBNpobApTdey07EcXg=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postPatch = ''
     patchShebangs rtosc/test/test-port-checker.rb src/Tests/check-ports.rb
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ fftw liblo minixml zlib ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
-    ++ lib.optionals dssiSupport [ dssi ladspaH ]
-    ++ lib.optionals jackSupport [ libjack2 ]
+  buildInputs = [
+    fftw
+    liblo
+    minixml
+    zlib
+  ] ++ lib.optionals alsaSupport [ alsa-lib ] ++ lib.optionals dssiSupport [
+    dssi
+    ladspaH
+  ] ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals lashSupport [ lash ]
     ++ lib.optionals portaudioSupport [ portaudio ]
     ++ lib.optionals sndioSupport [ sndio ]
-    ++ lib.optionals (guiModule == "fltk") [ fltk libjpeg libXpm ]
-    ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
-    ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
+    ++ lib.optionals (guiModule == "fltk") [
+      fltk
+      libjpeg
+      libXpm
+    ] ++ lib.optionals (guiModule == "ntk") [
+      ntk
+      cairo
+      libXpm
+    ] ++ lib.optionals (guiModule == "zest") [
+      libGL
+      libX11
+    ];
 
-  cmakeFlags = [
-    "-DGuiModule=${guiModule}"
-  ]
-  # OSS library is included in glibc.
-  # Must explicitly disable if support is not wanted.
+  cmakeFlags = [ "-DGuiModule=${guiModule}" ]
+    # OSS library is included in glibc.
+    # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
     # Find FLTK without requiring an OpenGL library in buildInputs
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
   doCheck = true;
-  nativeCheckInputs = [ cxxtest ruby ];
+  nativeCheckInputs = [
+    cxxtest
+    ruby
+  ];
 
   # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
   checkPhase = let
     disabledTests =
       # PortChecker test fails when lashSupport is enabled because
       # zynaddsubfx takes to long to start trying to connect to lash
-      lib.optionals lashSupport [
-        "PortChecker"
-      ]
+      lib.optionals lashSupport [ "PortChecker" ]
 
       # Tests fail on aarch64
-      ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
+      ++ lib.optionals stdenv.isAarch64 [
+        "MessageTest"
+        "UnisonTest"
+      ];
   in ''
     runHook preCheck
     ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
@@ -152,7 +180,10 @@ in stdenv.mkDerivation rec {
       "https://zynaddsubfx.sourceforge.io";
 
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ goibhniu kira-bruneau ];
+    maintainers = with maintainers; [
+      goibhniu
+      kira-bruneau
+    ];
     platforms = platforms.all;
 
     # On macOS:

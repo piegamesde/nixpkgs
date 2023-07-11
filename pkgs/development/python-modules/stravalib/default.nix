@@ -25,8 +25,16 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
 
-  propagatedBuildInputs =
-    [ arrow requests units pint pydantic pytz setuptools six ];
+  propagatedBuildInputs = [
+    arrow
+    requests
+    units
+    pint
+    pydantic
+    pytz
+    setuptools
+    six
+  ];
 
   # tests require network access
   # testing strava api

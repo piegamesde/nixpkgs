@@ -32,7 +32,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ zlib ];
-  buildInputs = [ bash coreutils gdb ];
+  buildInputs = [
+    bash
+    coreutils
+    gdb
+  ];
 
   postPatch = ''
     substituteInPlace src/CoreDumpWriter.c \

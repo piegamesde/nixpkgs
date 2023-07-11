@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
   pname = "libshumate";
   version = "1.0.3";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "devdoc"; # demo app
 
   src = fetchFromGitLab {
@@ -32,10 +36,22 @@ stdenv.mkDerivation rec {
     sha256 = "gT6jpFN0mkSdDs+8GQa0qKuL5KLzxanBMGwA4EATW7Y=";
   };
 
-  nativeBuildInputs =
-    [ gi-docgen meson ninja pkg-config vala gobject-introspection ];
+  nativeBuildInputs = [
+    gi-docgen
+    meson
+    ninja
+    pkg-config
+    vala
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib cairo sqlite libsoup_3 gtk4 ];
+  buildInputs = [
+    glib
+    cairo
+    sqlite
+    libsoup_3
+    gtk4
+  ];
 
   nativeCheckInputs = [ xvfb-run ];
 

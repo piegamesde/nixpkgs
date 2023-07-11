@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "01lccz4fga40isv09j8rjgr0qy10rff9vj042n6gi6gdv4z69q0y";
   };
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config which wrapGAppsHook ];
-  buildInputs = [ gettext glib gtk2 libX11 libSM libICE ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+    which
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gettext
+    glib
+    gtk2
+    libX11
+    libSM
+    libICE
+  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   hardeningDisable = [ "format" ];
 
@@ -49,17 +60,18 @@ stdenv.mkDerivation rec {
     install -Dm444 -T src/icon.xpm $out/share/pixmaps/gkrellm.xpm
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gkrellm";
-      exec = "gkrellm";
-      icon = "gkrellm";
-      desktopName = "GKrellM";
-      genericName = "System monitor";
-      comment = "The GNU Krell Monitors";
-      categories = [ "System" "Monitor" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "gkrellm";
+    exec = "gkrellm";
+    icon = "gkrellm";
+    desktopName = "GKrellM";
+    genericName = "System monitor";
+    comment = "The GNU Krell Monitors";
+    categories = [
+      "System"
+      "Monitor"
+    ];
+  }) ];
 
   meta = with lib; {
     description = "Themeable process stack of system monitors";

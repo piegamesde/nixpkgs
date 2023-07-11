@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     substituteInPlace src/system.c --replace '_(' 'N_('
   '';
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
   nativeBuildInputs = lib.optional stdenv.isDarwin autoreconfHook;
   buildInputs = lib.optional stdenv.isLinux acl;

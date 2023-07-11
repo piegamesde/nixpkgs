@@ -26,7 +26,10 @@ buildPythonPackage rec {
     cd tests
   '';
 
-  pytestFlagsArray = [ "-v" "*.py" ];
+  pytestFlagsArray = [
+    "-v"
+    "*.py"
+  ];
 
   pythonImportsCheck = [ "ellipticcurve" ];
 

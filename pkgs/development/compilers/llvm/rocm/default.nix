@@ -112,7 +112,10 @@ let
     libcxx = runtimes;
     cc = clang-unwrapped;
 
-    extraPackages = [ llvm lld ];
+    extraPackages = [
+      llvm
+      lld
+    ];
 
     nixSupport.cc-cflags = [
       "-resource-dir=$out/resource-root"
@@ -190,7 +193,11 @@ in rec {
     targetName = "libcxxabi";
     targetDir = "runtimes";
 
-    targetRuntimes = [ "libunwind" targetName "libcxx" ];
+    targetRuntimes = [
+      "libunwind"
+      targetName
+      "libcxx"
+    ];
 
     extraCMakeFlags = [
       "-DLIBCXXABI_INCLUDE_TESTS=ON"
@@ -218,7 +225,11 @@ in rec {
     targetName = "libcxx";
     targetDir = "runtimes";
 
-    targetRuntimes = [ "libunwind" "libcxxabi" targetName ];
+    targetRuntimes = [
+      "libunwind"
+      "libcxxabi"
+      targetName
+    ];
 
     extraCMakeFlags = [
       "-DLIBCXX_INCLUDE_DOCS=ON"
@@ -260,7 +271,12 @@ in rec {
     targetName = "compiler-rt";
     targetDir = "runtimes";
 
-    targetRuntimes = [ "libunwind" "libcxxabi" "libcxx" targetName ];
+    targetRuntimes = [
+      "libunwind"
+      "libcxxabi"
+      "libcxx"
+      targetName
+    ];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0114=NEW"
@@ -337,7 +353,13 @@ in rec {
       passthru.isClang = true;
     });
 
-    extraPackages = [ llvm lld libunwind libcxxabi compiler-rt ];
+    extraPackages = [
+      llvm
+      lld
+      libunwind
+      libcxxabi
+      compiler-rt
+    ];
 
     nixSupport.cc-cflags = [
       "-resource-dir=$out/resource-root"
@@ -371,7 +393,10 @@ in rec {
       false; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
     targetName = "clang-tools-extra";
 
-    targetProjects = [ "clang" "clang-tools-extra" ];
+    targetProjects = [
+      "clang"
+      "clang-tools-extra"
+    ];
 
     extraBuildInputs = [ gtest ];
 
@@ -432,7 +457,12 @@ in rec {
     targetDir = targetName;
     extraNativeBuildInputs = [ python3Packages.sphinx-automodapi ];
 
-    extraBuildInputs = [ xz swig lua5_3 gtest ];
+    extraBuildInputs = [
+      xz
+      swig
+      lua5_3
+      gtest
+    ];
 
     extraCMakeFlags = [
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
@@ -449,8 +479,13 @@ in rec {
     targetDir = targetName;
     extraNativeBuildInputs = [ hip ];
 
-    extraBuildInputs =
-      [ rocm-comgr vulkan-headers vulkan-loader glslang shaderc ];
+    extraBuildInputs = [
+      rocm-comgr
+      vulkan-headers
+      vulkan-loader
+      glslang
+      shaderc
+    ];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0116=NEW"
@@ -532,7 +567,11 @@ in rec {
     extraPatches = [ ./0000-fix-openmp.patch ];
     extraNativeBuildInputs = [ perl ];
 
-    extraBuildInputs = [ rocm-device-libs rocm-runtime elfutils ];
+    extraBuildInputs = [
+      rocm-device-libs
+      rocm-runtime
+      elfutils
+    ];
 
     extraCMakeFlags = [
       "-DCMAKE_MODULE_PATH=/build/source/llvm/cmake/modules" # For docs

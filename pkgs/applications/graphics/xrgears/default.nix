@@ -29,13 +29,31 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-buw2beTPIWScq+3VQjUyF+uOwS6VF+mnAPHZ2eFGZjc=";
   };
 
-  nativeBuildInputs = [ glslang meson ninja pkg-config xxd makeWrapper ];
+  nativeBuildInputs = [
+    glslang
+    meson
+    ninja
+    pkg-config
+    xxd
+    makeWrapper
+  ];
 
-  buildInputs = [ glm openxr-loader vulkan-headers vulkan-loader glib ];
+  buildInputs = [
+    glm
+    openxr-loader
+    vulkan-headers
+    vulkan-loader
+    glib
+  ];
 
   fixupPhase = ''
     wrapProgram $out/bin/xrgears \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ SDL2 libGL ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          SDL2
+          libGL
+        ]
+      }
   '';
 
   meta = with lib; {

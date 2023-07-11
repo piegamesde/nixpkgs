@@ -47,8 +47,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ cheroot portend more-itertools zc_lockfile jaraco_collections ];
+  propagatedBuildInputs = [
+    cheroot
+    portend
+    more-itertools
+    zc_lockfile
+    jaraco_collections
+  ];
 
   nativeCheckInputs = [
     objgraph
@@ -59,7 +64,10 @@ buildPythonPackage rec {
     requests-toolbelt
   ];
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   disabledTests = [
     # Keyboard interrupt ends test suite run

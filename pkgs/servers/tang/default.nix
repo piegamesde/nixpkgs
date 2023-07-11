@@ -23,11 +23,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-wfZFOJrVzjtysh0VKdw5O+DJybYkV9bYJNnaku6YctE=";
   };
 
-  nativeBuildInputs = [ asciidoc meson ninja pkg-config ];
+  nativeBuildInputs = [
+    asciidoc
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ jansson jose http-parser systemd ];
+  buildInputs = [
+    jansson
+    jose
+    http-parser
+    systemd
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   meta = {
     description = "Server for binding data to network presence";

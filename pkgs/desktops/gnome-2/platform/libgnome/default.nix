@@ -30,9 +30,26 @@ stdenv.mkDerivation rec {
   # There's a comment containing an invalid utf-8 sequence, breaking glib-mkenums.
   postPatch = "sed '/returns the true filename/d' -i libgnome/gnome-config.h";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config intltool ];
-  buildInputs = [ popt zlib GConf gnome_vfs libcanberra-gtk2 libtool ];
-  propagatedBuildInputs = [ glib libbonobo libogg ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+  ];
+  buildInputs = [
+    popt
+    zlib
+    GConf
+    gnome_vfs
+    libcanberra-gtk2
+    libtool
+  ];
+  propagatedBuildInputs = [
+    glib
+    libbonobo
+    libogg
+  ];
 }

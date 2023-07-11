@@ -17,7 +17,10 @@ mkXfceDerivation {
 
   sha256 = "sha256-oWlKeUD1v2qqb8vY+2Cu9VJ1iThFPVboP12m/ob5KSQ=";
 
-  nativeBuildInputs = [ libxslt docbook_xsl ];
+  nativeBuildInputs = [
+    libxslt
+    docbook_xsl
+  ];
 
   buildInputs = [
     gtk3

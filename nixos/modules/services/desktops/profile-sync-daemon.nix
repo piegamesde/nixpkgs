@@ -84,7 +84,10 @@ in {
 
         timers.psd-resync = {
           description = "Timer for profile sync daemon - ${cfg.resyncTimer}";
-          partOf = [ "psd-resync.service" "psd.service" ];
+          partOf = [
+            "psd-resync.service"
+            "psd.service"
+          ];
 
           timerConfig = { OnUnitActiveSec = "${cfg.resyncTimer}"; };
         };

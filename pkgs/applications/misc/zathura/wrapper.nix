@@ -9,7 +9,12 @@
 symlinkJoin {
   name = "zathura-with-plugins-${zathura_core.version}";
 
-  paths = with zathura_core; [ man dev out ] ++ plugins;
+  paths = with zathura_core;
+    [
+      man
+      dev
+      out
+    ] ++ plugins;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -39,7 +44,11 @@ symlinkJoin {
     '';
     license = licenses.zlib;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ smironov globin TethysSvensson ];
+    maintainers = with maintainers; [
+      smironov
+      globin
+      TethysSvensson
+    ];
     mainProgram = "zathura";
   };
 }

@@ -25,7 +25,11 @@ stdenv.mkDerivation rec {
   pname = "libgdata";
   version = "0.18.1";
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -36,13 +40,29 @@ stdenv.mkDerivation rec {
 
   patches = [ ./installed-tests-path.patch ];
 
-  nativeBuildInputs =
-    [ gettext gobject-introspection meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ gcr openssl p11-kit uhttpmock ];
+  buildInputs = [
+    gcr
+    openssl
+    p11-kit
+    uhttpmock
+  ];
 
-  propagatedBuildInputs =
-    [ glib libsoup libxml2 gnome-online-accounts json-glib ];
+  propagatedBuildInputs = [
+    glib
+    libsoup
+    libxml2
+    gnome-online-accounts
+    json-glib
+  ];
 
   mesonFlags = [
     "-Dgtk_doc=false"

@@ -23,8 +23,15 @@ let
       hash = "sha256-zeYsKxWRnzr0W6CD+yjoAXwCN/AbN5P4HhH1oftnrjY=";
     };
 
-    nativeBuildInputs =
-      [ makeWrapper openjdk17 wget which gnused gawk coreutils ];
+    nativeBuildInputs = [
+      makeWrapper
+      openjdk17
+      wget
+      which
+      gnused
+      gawk
+      coreutils
+    ];
 
     dontUnpack = true;
 

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     sha256 = "daff63ca2719fbd698aa10f64493c4b31fb67877a8e8dbb8090e9c03a1b1a9e4";
   };
 
-  propagatedBuildInputs = [ cryptography onetimepad ];
+  propagatedBuildInputs = [
+    cryptography
+    onetimepad
+  ];
 
   # upstream has no tests
   doCheck = false;

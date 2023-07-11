@@ -99,8 +99,10 @@ let
       --set testScript "$out/test-script" \
       --set vlans '${toString vlans}' \
       ${
-        lib.escapeShellArgs
-        (lib.concatMap (arg: [ "--add-flags" arg ]) config.extraDriverArgs)
+        lib.escapeShellArgs (lib.concatMap (arg: [
+          "--add-flags"
+          arg
+        ]) config.extraDriverArgs)
       }
   '';
 

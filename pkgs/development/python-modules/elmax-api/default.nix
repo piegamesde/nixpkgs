@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-+dR1ccRa4G91yFeSwjgdZ1lEXV/PIgnKN8e9tfy5fTU=";
   };
 
-  propagatedBuildInputs = [ httpx pyjwt yarl ];
+  propagatedBuildInputs = [
+    httpx
+    pyjwt
+    yarl
+  ];
 
   # Test require network access
   doCheck = false;

@@ -59,7 +59,11 @@ let
         effect = mkOption {
           description = lib.mdDoc "Effect of taint.";
           example = "NoSchedule";
-          type = enum [ "NoSchedule" "PreferNoSchedule" "NoExecute" ];
+          type = enum [
+            "NoSchedule"
+            "PreferNoSchedule"
+            "NoExecute"
+          ];
         };
       };
     };
@@ -74,16 +78,24 @@ in {
       "kubelet"
       "applyManifests"
     ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "cadvisorPort" ]
-      "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "cadvisorPort"
+    ] "")
     (mkRemovedOptionModule [
       "services"
       "kubernetes"
       "kubelet"
       "allowPrivileged"
     ] "")
-    (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "networkPlugin" ]
-      "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "networkPlugin"
+    ] "")
     (mkRemovedOptionModule [
       "services"
       "kubernetes"
@@ -297,8 +309,11 @@ in {
       systemd.services.kubelet = {
         description = "Kubernetes Kubelet Service";
         wantedBy = [ "kubernetes.target" ];
-        after =
-          [ "containerd.service" "network.target" "kube-apiserver.service" ];
+        after = [
+          "containerd.service"
+          "network.target"
+          "kube-apiserver.service"
+        ];
         path = with pkgs;
           [
             gitMinimal
@@ -402,10 +417,15 @@ in {
       };
 
       # Allways include cni plugins
-      services.kubernetes.kubelet.cni.packages =
-        [ pkgs.cni-plugins pkgs.cni-plugin-flannel ];
+      services.kubernetes.kubelet.cni.packages = [
+        pkgs.cni-plugins
+        pkgs.cni-plugin-flannel
+      ];
 
-      boot.kernelModules = [ "br_netfilter" "overlay" ];
+      boot.kernelModules = [
+        "br_netfilter"
+        "overlay"
+      ];
 
       services.kubernetes.kubelet.hostname =
         mkDefault config.networking.fqdnOrHostName;

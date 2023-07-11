@@ -52,21 +52,26 @@ let
     };
 
     nativeBuildInputs = [ pythonEnv ];
-    depsBuildBuild =
-      [ buildPackages.stdenv.cc buildPackages.util-linux buildPackages.bash ];
+    depsBuildBuild = [
+      buildPackages.stdenv.cc
+      buildPackages.util-linux
+      buildPackages.bash
+    ];
     strictDeps = true;
 
     # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-    makeFlags = [ "-C BaseTools" ] ++ lib.optionals (stdenv.cc.isClang) [
-      "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
-    ];
+    makeFlags = [ "-C BaseTools" ] ++ lib.optionals
+      (stdenv.cc.isClang) [ "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld" ];
 
     env.NIX_CFLAGS_COMPILE = "-Wno-return-type"
       + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
 
-    hardeningDisable = [ "format" "fortify" ];
+    hardeningDisable = [
+      "format"
+      "fortify"
+    ];
 
     installPhase = ''
       mkdir -vp $out
@@ -97,8 +102,10 @@ let
 
             depsBuildBuild = [ buildPackages.stdenv.cc ]
               ++ attrs.depsBuildBuild or [ ];
-            nativeBuildInputs = [ bc pythonEnv ]
-              ++ attrs.nativeBuildInputs or [ ];
+            nativeBuildInputs = [
+              bc
+              pythonEnv
+            ] ++ attrs.nativeBuildInputs or [ ];
             strictDeps = true;
 
             ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
@@ -126,7 +133,10 @@ let
               mv -v Build/*/* $out
               runHook postInstall
             '';
-          } // removeAttrs attrs [ "nativeBuildInputs" "depsBuildBuild" ]);
+          } // removeAttrs attrs [
+            "nativeBuildInputs"
+            "depsBuildBuild"
+          ]);
     };
   };
 

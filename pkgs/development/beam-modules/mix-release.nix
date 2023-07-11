@@ -39,14 +39,23 @@
 }@attrs:
 let
   # remove non standard attributes that cannot be coerced to strings
-  overridable = builtins.removeAttrs attrs [ "compileFlags" "mixNixDeps" ];
+  overridable = builtins.removeAttrs attrs [
+    "compileFlags"
+    "mixNixDeps"
+  ];
 in assert mixNixDeps != { } -> mixFodDeps == null;
 assert stripDebug -> !enableDebugInfo;
 
 stdenv.mkDerivation (overridable // {
   # rg is used as a better grep to search for erlang references in the final release
-  nativeBuildInputs = nativeBuildInputs
-    ++ [ erlang hex elixir makeWrapper git ripgrep ];
+  nativeBuildInputs = nativeBuildInputs ++ [
+    erlang
+    hex
+    elixir
+    makeWrapper
+    git
+    ripgrep
+  ];
   buildInputs = buildInputs ++ builtins.attrValues mixNixDeps;
 
   MIX_ENV = mixEnv;

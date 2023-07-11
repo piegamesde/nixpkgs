@@ -20,9 +20,17 @@ mkDerivation rec {
     sha256 = "0pjxqnqchpbla4xiq4rklc06484n46cpahnjy03n9rghwwcad25b";
   };
 
-  buildInputs = [ httrack qtbase qtmultimedia ];
+  buildInputs = [
+    httrack
+    qtbase
+    qtmultimedia
+  ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
   prePatch = ''
     substituteInPlace cmake/HTTRAQTFindHttrack.cmake \

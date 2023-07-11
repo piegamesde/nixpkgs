@@ -20,8 +20,14 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ premake5 doxygen ];
-  propagatedBuildInputs = [ libsodium mbedtls_2 ];
+  nativeBuildInputs = [
+    premake5
+    doxygen
+  ];
+  propagatedBuildInputs = [
+    libsodium
+    mbedtls_2
+  ];
 
   postBuild = ''
     premake5 docs

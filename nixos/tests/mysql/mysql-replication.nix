@@ -20,7 +20,12 @@ let
     }:
     makeTest {
       name = "${name}-replication";
-      meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 das_j ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [
+          ajs124
+          das_j
+        ];
+      };
 
       nodes = {
         primary = {
@@ -31,10 +36,10 @@ let
             replication.slaveHost = "%";
             replication.masterUser = replicateUser;
             replication.masterPassword = replicatePassword;
-            initialDatabases = [{
+            initialDatabases = [ {
               name = "testdb";
               schema = ./testdb.sql;
-            }];
+            } ];
           };
           networking.firewall.allowedTCPPorts = [ 3306 ];
         };

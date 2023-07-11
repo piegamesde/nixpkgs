@@ -18,8 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "17i18z3s58c8yy8jxp01q3hzz5nirs4cjxms18zzkli6ip4jszql";
   };
 
-  nativeBuildInputs = [ flex bison ];
-  buildInputs = [ tcp_wrappers perl libnsl ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
+  buildInputs = [
+    tcp_wrappers
+    perl
+    libnsl
+  ];
 
   meta = with lib; {
     description =

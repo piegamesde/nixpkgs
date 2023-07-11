@@ -17,7 +17,10 @@
 python3.pkgs.buildPythonApplication {
   inherit (python3.pkgs.timetagger) pname version src meta;
 
-  propagatedBuildInputs = with python3.pkgs; [ setuptools timetagger ];
+  propagatedBuildInputs = with python3.pkgs; [
+    setuptools
+    timetagger
+  ];
 
   format = "custom";
   installPhase = ''

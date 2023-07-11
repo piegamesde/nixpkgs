@@ -21,9 +21,18 @@ stdenv.mkDerivation rec {
 
   patches = [ ./upstream-v4l2loopback-compatibility.patch ];
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config which ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+    which
+  ];
 
-  buildInputs = [ glib gst_all_1.gstreamer gst_all_1.gst-plugins-base ];
+  buildInputs = [
+    glib
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+  ];
 
   preConfigure = "./autogen.sh --prefix=$out";
 

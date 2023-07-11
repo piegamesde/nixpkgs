@@ -24,12 +24,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib libxml2 libxslt getopt libintl libiconv dysnomia ];
+  buildInputs = [
+    glib
+    libxml2
+    libxslt
+    getopt
+    libintl
+    libiconv
+    dysnomia
+  ];
 
   meta = {
     description = "A Nix-based distributed service deployment tool";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ sander tomberek ];
+    maintainers = with lib.maintainers; [
+      sander
+      tomberek
+    ];
     platforms = lib.platforms.unix;
   };
 }

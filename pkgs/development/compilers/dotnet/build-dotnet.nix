@@ -5,7 +5,11 @@
   packages ? null
 }:
 
-assert builtins.elem type [ "aspnetcore" "runtime" "sdk" ];
+assert builtins.elem type [
+  "aspnetcore"
+  "runtime"
+  "sdk"
+];
 assert if type == "sdk" then packages != null else true;
 
 {
@@ -57,8 +61,13 @@ in stdenv.mkDerivation (finalAttrs: rec {
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-  buildInputs = [ stdenv.cc.cc zlib icu libkrb5 curl ]
-    ++ lib.optional stdenv.isLinux lttng-ust_2_12;
+  buildInputs = [
+    stdenv.cc.cc
+    zlib
+    icu
+    libkrb5
+    curl
+  ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
 
   src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw
     "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"));
@@ -152,7 +161,10 @@ in stdenv.mkDerivation (finalAttrs: rec {
     description = builtins.getAttr type descriptions;
     homepage = "https://dotnet.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kuznero mdarocha ];
+    maintainers = with maintainers; [
+      kuznero
+      mdarocha
+    ];
     mainProgram = "dotnet";
     platforms = attrNames srcs;
   };

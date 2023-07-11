@@ -5,7 +5,10 @@
   ...
 }:
 let
-  path = [ "deployment" "autoLuks" ];
+  path = [
+    "deployment"
+    "autoLuks"
+  ];
   hasAutoLuksConfig = lib.hasAttrByPath path config
     && (lib.attrByPath path { } config) != { };
 
@@ -15,7 +18,7 @@ in {
     (lib.mdDoc "Enable the deprecated NixOps AutoLuks module");
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = if hasAutoLuksConfig then
         hasAutoLuksConfig && enableDeprecatedAutoLuks
       else
@@ -45,7 +48,7 @@ in {
             - https://github.com/NixOS/nixpkgs/issues/62211
             - https://github.com/NixOS/nixpkgs/pull/61321
       '';
-    }];
+    } ];
   };
 
 }

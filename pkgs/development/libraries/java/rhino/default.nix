@@ -24,7 +24,10 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./gcj-type-mismatch.patch ];
 
-  hardeningDisable = [ "fortify" "format" ];
+  hardeningDisable = [
+    "fortify"
+    "format"
+  ];
 
   preConfigure = ''
     find -name \*.jar -or -name \*.class -exec rm -v {} \;
@@ -35,7 +38,11 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ ant javac jvm ];
+  buildInputs = [
+    ant
+    javac
+    jvm
+  ];
 
   buildPhase = "ant jar";
   doCheck = false;

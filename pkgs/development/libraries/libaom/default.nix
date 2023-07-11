@@ -26,7 +26,13 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./outputs.patch ];
 
-  nativeBuildInputs = [ yasm perl cmake pkg-config python3 ];
+  nativeBuildInputs = [
+    yasm
+    perl
+    cmake
+    pkg-config
+    python3
+  ];
 
   propagatedBuildInputs = lib.optional enableButteraugli libjxl
     ++ lib.optional enableVmaf libvmaf;
@@ -44,14 +50,16 @@ in stdenv.mkDerivation rec {
   # Configuration options:
   # https://aomedia.googlesource.com/aom/+/refs/heads/master/build/cmake/aom_config_defaults.cmake
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DENABLE_TESTS=OFF" ]
-    ++ lib.optionals enableButteraugli [ "-DCONFIG_TUNE_BUTTERAUGLI=1" ]
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DENABLE_TESTS=OFF"
+  ] ++ lib.optionals enableButteraugli [ "-DCONFIG_TUNE_BUTTERAUGLI=1" ]
     ++ lib.optionals enableVmaf [ "-DCONFIG_TUNE_VMAF=1" ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       # CPU detection isn't supported on Darwin and breaks the aarch64-darwin build:
       "-DCONFIG_RUNTIME_CPU_DETECT=0"
-    ] ++ lib.optionals (isCross && !stdenv.hostPlatform.isx86)
-    [ "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as" ]
+    ] ++ lib.optionals (isCross
+      && !stdenv.hostPlatform.isx86) [ "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as" ]
     ++ lib.optionals stdenv.isAarch32 [
       # armv7l-hf-multiplatform does not support NEON
       # see lib/systems/platform.nix
@@ -64,7 +72,12 @@ in stdenv.mkDerivation rec {
     ln -s $static $out
   '';
 
-  outputs = [ "out" "bin" "dev" "static" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+    "static"
+  ];
 
   meta = with lib; {
     description = "Alliance for Open Media AV1 codec library";
@@ -76,7 +89,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://aomedia.org/av1-features/get-started/";
     changelog =
       "https://aomedia.googlesource.com/aom/+/refs/tags/v${version}/CHANGELOG";
-    maintainers = with maintainers; [ primeos kiloreux dandellion ];
+    maintainers = with maintainers; [
+      primeos
+      kiloreux
+      dandellion
+    ];
     platforms = platforms.all;
     outputsToInstall = [ "bin" ];
     license = licenses.bsd2;

@@ -64,7 +64,13 @@ stdenv.mkDerivation rec {
     patchShebangs files/deepin-greeter
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   dontWrapGApps = true;
 
   buildInputs = [
@@ -91,11 +97,11 @@ stdenv.mkDerivation rec {
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.xgreeters = linkFarm "deepin-greeter-xgreeters" [{
+  passthru.xgreeters = linkFarm "deepin-greeter-xgreeters" [ {
     path =
       "${dde-session-shell}/share/xgreeters/lightdm-deepin-greeter.desktop";
     name = "lightdm-deepin-greeter.desktop";
-  }];
+  } ];
 
   meta = with lib; {
     description = "Deepin desktop-environment - session-shell module";

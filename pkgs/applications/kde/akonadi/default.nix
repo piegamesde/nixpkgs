@@ -41,7 +41,10 @@ mkDerivation {
     ./0002-akonadi-timestamps.patch
     ./0003-akonadi-revert-make-relocatable.patch
   ];
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+  ];
   buildInputs = [
     kaccounts-integration
     kcompletion
@@ -58,8 +61,14 @@ mkDerivation {
     qttools
     signond
   ];
-  propagatedBuildInputs = [ boost kitemmodels ];
-  outputs = [ "out" "dev" ];
+  propagatedBuildInputs = [
+    boost
+    kitemmodels
+  ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   CXXFLAGS = [
     ''
       -DNIXPKGS_MYSQL_MYSQLD=\"${

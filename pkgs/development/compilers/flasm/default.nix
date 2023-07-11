@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
-  nativeBuildInputs = [ unzip bison flex gperf ];
+  nativeBuildInputs = [
+    unzip
+    bison
+    flex
+    gperf
+  ];
 
   buildInputs = [ zlib ];
 

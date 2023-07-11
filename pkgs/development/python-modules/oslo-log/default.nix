@@ -38,7 +38,11 @@ buildPythonPackage rec {
     python-dateutil
   ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
 
-  nativeCheckInputs = [ eventlet oslotest pytestCheckHook ];
+  nativeCheckInputs = [
+    eventlet
+    oslotest
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # not compatible with sandbox

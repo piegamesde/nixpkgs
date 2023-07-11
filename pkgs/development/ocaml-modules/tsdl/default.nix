@@ -37,9 +37,18 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [ pkg-config ocaml findlib ocamlbuild topkg ];
+    nativeBuildInputs = [
+      pkg-config
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
     buildInputs = [ topkg ];
-    propagatedBuildInputs = [ SDL2 ctypes ] ++ lib.optionals stdenv.isDarwin [
+    propagatedBuildInputs = [
+      SDL2
+      ctypes
+    ] ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       Cocoa
       CoreAudio

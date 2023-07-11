@@ -15,7 +15,10 @@ in rec {
   old-engine = common rec {
     version = "0.28.0";
     sha256 = "1n2hd2dysi5bv2iyq40phh1jxc48gdwzs414vfbxvcharcwapnja";
-    installFiles =
-      [ "UEFITool" "UEFIReplace/UEFIReplace" "UEFIPatch/UEFIPatch" ];
+    installFiles = [
+      "UEFITool"
+      "UEFIReplace/UEFIReplace"
+      "UEFIPatch/UEFIPatch"
+    ];
   };
 }

@@ -27,12 +27,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ requests zeroconf websocket-client ];
+  propagatedBuildInputs = [
+    requests
+    zeroconf
+    websocket-client
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   # Disable test that requires network access
-  disabledTests = [ "test__on_pong" "TestMprm" ];
+  disabledTests = [
+    "test__on_pong"
+    "TestMprm"
+  ];
 
   pythonImportsCheck = [ "devolo_home_control_api" ];
 

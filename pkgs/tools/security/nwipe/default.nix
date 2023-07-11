@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7WI8AwWkg9rOjAbOyDgCVOpeMxvJ5Bd1yvzfSv6TPLs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ ncurses parted ];
+  buildInputs = [
+    ncurses
+    parted
+  ];
 
   preConfigure = ''
     sh init.sh || :

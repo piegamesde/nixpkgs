@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-K85fYV1uP/qSw8GPoG1u6UQo94vQOUo4cd9Ro+UApQ0=";
 
-  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.Version=${version}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/coloradocolby/gh-eco";

@@ -45,7 +45,10 @@ python3.pkgs.buildPythonApplication rec {
   #  $out/bin/hass-cli completion zsh > "$out/share/zsh/site-functions/_hass-cli"
   #'';
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "homeassistant_cli" ];
 

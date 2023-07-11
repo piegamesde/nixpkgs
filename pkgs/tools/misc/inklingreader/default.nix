@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-852m8g61r+NQhCYz9ghSbCG0sjao2E8B9GS06NG4GyY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ gtk3 librsvg libusb1 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    gtk3
+    librsvg
+    libusb1
+  ];
 
   meta = {
     homepage = "https://github.com/roelj/inklingreader";

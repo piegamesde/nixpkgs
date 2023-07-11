@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

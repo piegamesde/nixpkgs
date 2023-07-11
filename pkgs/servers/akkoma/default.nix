@@ -104,7 +104,10 @@ beamPackages.mixRelease rec {
           hash = "sha256-n3WmERxKK8VM8jFIBAPS6GkbT7/zjqi3AjjWbjOdMzs=";
         };
 
-        beamDeps = with final; [ phoenix_view temple ];
+        beamDeps = with final; [
+          phoenix_view
+          temple
+        ];
       };
       search_parser = beamPackages.buildMix rec {
         name = "search_parser";

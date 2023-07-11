@@ -39,6 +39,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/out-of-cheese-error/the-way/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ figsoda numkem ];
+    maintainers = with maintainers; [
+      figsoda
+      numkem
+    ];
   };
 }

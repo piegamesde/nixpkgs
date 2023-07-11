@@ -47,8 +47,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libpcap libnet ncurses ] ++ lib.optional withGtk gtk2;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libpcap
+    libnet
+    ncurses
+  ] ++ lib.optional withGtk gtk2;
 
   autoreconfPhase = "./autogen.sh";
 

@@ -30,9 +30,17 @@ buildPythonApplication rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ makeWrapper cmake ];
+  nativeBuildInputs = [
+    makeWrapper
+    cmake
+  ];
 
-  propagatedBuildInputs = [ pyparsing asn1ate six colored ];
+  propagatedBuildInputs = [
+    pyparsing
+    asn1ate
+    six
+    colored
+  ];
 
   doCheck = false; # Flaky tests
 

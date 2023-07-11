@@ -70,10 +70,10 @@ import ./make-test-python.nix ({
                   mkdir -p $out
                   cp key.pem cert.pem $out
                 '';
-              in [{
+              in [ {
                 certFile = "${certDir}/cert.pem";
                 keyFile = "${certDir}/key.pem";
-              }];
+              } ];
               http.middlewares.authelia.forwardAuth = {
                 address =
                   "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
@@ -111,7 +111,7 @@ import ./make-test-python.nix ({
               };
 
               http.services.simplehttp = {
-                loadBalancer.servers = [{ url = "http://localhost:8000"; }];
+                loadBalancer.servers = [ { url = "http://localhost:8000"; } ];
               };
 
               http.routers.authelia = {
@@ -122,7 +122,7 @@ import ./make-test-python.nix ({
               };
 
               http.services.authelia = {
-                loadBalancer.servers = [{ url = "http://localhost:9091"; }];
+                loadBalancer.servers = [ { url = "http://localhost:9091"; } ];
               };
             };
 

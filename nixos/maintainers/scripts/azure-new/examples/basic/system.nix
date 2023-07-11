@@ -31,5 +31,11 @@ in {
   services.openssh.passwordAuthentication = false;
   security.sudo.wheelNeedsPassword = false;
 
-  environment.systemPackages = with pkgs; [ git file htop wget curl ];
+  environment.systemPackages = with pkgs; [
+    git
+    file
+    htop
+    wget
+    curl
+  ];
 }

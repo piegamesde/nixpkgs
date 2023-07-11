@@ -6,7 +6,10 @@ args@{
   baseName = "cffi";
   version = "cffi_0.24.1";
 
-  parasites = [ "cffi/c2ffi" "cffi/c2ffi-generator" ];
+  parasites = [
+    "cffi/c2ffi"
+    "cffi/c2ffi-generator"
+  ];
 
   description = "The Common Foreign Function Interface";
 

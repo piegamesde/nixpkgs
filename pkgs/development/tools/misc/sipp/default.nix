@@ -35,9 +35,15 @@ stdenv.mkDerivation rec {
   ];
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake git ];
-  buildInputs = [ ncurses libpcap openssl ]
-    ++ lib.optional (stdenv.isLinux) lksctp-tools;
+  nativeBuildInputs = [
+    cmake
+    git
+  ];
+  buildInputs = [
+    ncurses
+    libpcap
+    openssl
+  ] ++ lib.optional (stdenv.isLinux) lksctp-tools;
 
   meta = with lib; {
     homepage = "http://sipp.sf.net";

@@ -19,9 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-QZzWgXjS7m7kyuXVyxgwclY0sKKECRcVbonrJZIjfvM=";
   };
 
-  nativeBuildInputs = [ babel setuptools ];
+  nativeBuildInputs = [
+    babel
+    setuptools
+  ];
 
-  propagatedBuildInputs = [ translationstring iso8601 ];
+  propagatedBuildInputs = [
+    translationstring
+    iso8601
+  ];
 
   pythonImportsCheck = [ "colander" ];
 

@@ -13,7 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "0k590z96509k96zxmhv72gkwhrlf55jkmyqlzi72m61r7axhhh97";
   };
 
-  patches = [ ./build-fix.patch ./sendmail-via-execvp.diff ];
+  patches = [
+    ./build-fix.patch
+    ./sendmail-via-execvp.diff
+  ];
 
   postPatch = ''
     for f in *.{c,man,pl,unix} ; do

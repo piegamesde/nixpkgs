@@ -20,14 +20,20 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "source/fuzzylite";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "-Werror" "-Wno-error"
   '';
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   cmakeFlags = [
     "-DFL_BUILD_TESTS:BOOL=OFF"

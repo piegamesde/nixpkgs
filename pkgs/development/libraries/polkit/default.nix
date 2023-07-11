@@ -42,7 +42,11 @@ in stdenv.mkDerivation rec {
   pname = "polkit";
   version = "122";
 
-  outputs = [ "bin" "dev" "out" ]; # small man pages in $bin
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ]; # small man pages in $bin
 
   # Tarballs do not contain subprojects.
   src = fetchFromGitLab {
@@ -78,19 +82,24 @@ in stdenv.mkDerivation rec {
     libxslt
     docbook-xsl-nons
     docbook_xml_dtd_412
-  ] ++ lib.optionals withIntrospection [ gobject-introspection gtk-doc ]
-    ++ lib.optionals
-    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals withIntrospection [
+    gobject-introspection
+    gtk-doc
+  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ expat pam dbus duktape ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    expat
+    pam
+    dbus
+    duktape
+  ] ++ lib.optionals stdenv.isLinux [
     # On Linux, fall back to elogind when systemd support is off.
     (if useSystemd then systemdMinimal else elogind)
   ];
 
-  propagatedBuildInputs = [
-    glib # in .pc Requires
-  ];
+  propagatedBuildInputs = [ glib # in .pc Requires
+    ];
 
   nativeCheckInputs = [
     dbus
@@ -114,11 +123,9 @@ in stdenv.mkDerivation rec {
     "-Dtests=${lib.boolToString doCheck}"
     "-Dgtk_doc=${lib.boolToString withIntrospection}"
     "-Dman=true"
-  ] ++ lib.optionals stdenv.isLinux [
-    "-Dsession_tracking=${
+  ] ++ lib.optionals stdenv.isLinux [ "-Dsession_tracking=${
       if useSystemd then "libsystemd-login" else "libelogind"
-    }"
-  ];
+    }" ];
 
   # HACK: We want to install policy files files to $out/share but polkit
   # should read them from /run/current-system/sw/share on a NixOS system.

@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ bats uncrustify ];
+  nativeCheckInputs = [
+    bats
+    uncrustify
+  ];
 
   preCheck = ''
     patchShebangs ../../tests

@@ -36,7 +36,10 @@ stdenv.mkDerivation {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [
     boost
     boost.dev

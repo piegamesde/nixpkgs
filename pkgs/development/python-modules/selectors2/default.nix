@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   patches = [ ./mapping-import.patch ];
 
-  nativeCheckInputs = [ nose psutil mock ];
+  nativeCheckInputs = [
+    nose
+    psutil
+    mock
+  ];
 
   checkPhase = ''
     # https://github.com/NixOS/nixpkgs/pull/46186#issuecomment-419450064

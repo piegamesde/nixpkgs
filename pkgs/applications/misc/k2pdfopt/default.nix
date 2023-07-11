@@ -89,7 +89,11 @@ in stdenv.mkDerivation rec {
       --replace "<djvu.h>" "<libdjvu/ddjvuapi.h>"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = let
     # We use specific versions of these sources below to match the versions
@@ -165,11 +169,15 @@ in stdenv.mkDerivation rec {
           '';
         });
     };
-  in [ zlib libpng ] ++ lib.optional enableGSL gsl
-  ++ lib.optional enableGhostScript ghostscript
+  in [
+    zlib
+    libpng
+  ] ++ lib.optional enableGSL gsl ++ lib.optional enableGhostScript ghostscript
   ++ lib.optional enableMuPDF mupdf_modded ++ lib.optional enableDJVU djvulibre
-  ++ lib.optional enableGOCR gocr
-  ++ lib.optionals enableTesseract [ leptonica_modded tesseract_modded ];
+  ++ lib.optional enableGOCR gocr ++ lib.optionals enableTesseract [
+    leptonica_modded
+    tesseract_modded
+  ];
 
   dontUseCmakeBuildDir = true;
 
@@ -191,7 +199,10 @@ in stdenv.mkDerivation rec {
     homepage = "http://www.willus.com/k2pdfopt";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bosu danielfullmer ];
+    maintainers = with maintainers; [
+      bosu
+      danielfullmer
+    ];
   };
 }
 

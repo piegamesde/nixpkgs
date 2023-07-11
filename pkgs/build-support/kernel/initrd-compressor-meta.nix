@@ -17,12 +17,18 @@ rec {
   };
   xz = {
     executable = pkgs: "${pkgs.xz}/bin/xz";
-    defaultArgs = [ "--check=crc32" "--lzma2=dict=512KiB" ];
+    defaultArgs = [
+      "--check=crc32"
+      "--lzma2=dict=512KiB"
+    ];
     extension = ".xz";
   };
   lzma = {
     executable = pkgs: "${pkgs.xz}/bin/lzma";
-    defaultArgs = [ "--check=crc32" "--lzma1=dict=512KiB" ];
+    defaultArgs = [
+      "--check=crc32"
+      "--lzma1=dict=512KiB"
+    ];
     ubootName = "lzma";
     extension = ".lzma";
   };

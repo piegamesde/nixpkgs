@@ -27,11 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-MR/SX5jmZvEMULgvQbh0JBZjIosNCPWl1wvEoJbdw4Y=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [ jaraco_text jaraco_collections keyring ];
+  propagatedBuildInputs = [
+    jaraco_text
+    jaraco_collections
+    keyring
+  ];
 
   pythonImportsCheck = [ "jaraco.email" ];
 

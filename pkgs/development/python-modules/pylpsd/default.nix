@@ -18,7 +18,10 @@ buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "pylpsd" ];
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   meta = with lib; {
     description =

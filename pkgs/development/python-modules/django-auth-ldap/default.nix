@@ -33,7 +33,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django python-ldap ];
+  propagatedBuildInputs = [
+    django
+    python-ldap
+  ];
 
   # ValueError: SCHEMADIR is None, ldap schemas are missing.
   doCheck = false;

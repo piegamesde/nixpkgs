@@ -26,8 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-mkn0y3NV/acnkqVzi8xd+Sex4QLvxxmt++FtsZmgrGs=";
   };
 
-  propagatedBuildInputs =
-    [ atomicwrites click gitpython networkx pydot pygithub pyyaml toml tqdm ];
+  propagatedBuildInputs = [
+    atomicwrites
+    click
+    gitpython
+    networkx
+    pydot
+    pygithub
+    pyyaml
+    toml
+    tqdm
+  ];
 
   # Requires internet access
   doCheck = false;

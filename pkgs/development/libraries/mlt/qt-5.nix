@@ -58,9 +58,16 @@ mkDerivation rec {
     rubberband
   ];
 
-  nativeBuildInputs = [ cmake which pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    which
+    pkg-config
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   cmakeFlags = [
     # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/

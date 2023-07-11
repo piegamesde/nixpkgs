@@ -19,7 +19,10 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus libusb1 ];
+  buildInputs = [
+    dbus
+    libusb1
+  ];
 
   cargoSha256 = "sha256-Vps02ZRVmeOQ8jDFZJYAUb502MhqY+2YV2W1/9XGY+0=";
 
@@ -33,7 +36,10 @@ rustPlatform.buildRustPackage rec {
     description = "System76 Power Management";
     homepage = "https://github.com/pop-os/system76-power";
     license = licenses.gpl3Plus;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = [ maintainers.jwoudenberg ];
   };
 }

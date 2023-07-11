@@ -26,7 +26,10 @@ buildPythonPackage rec {
       --replace 'setuptools>=49.2.0' 'setuptools'
   '';
 
-  buildInputs = [ zlib bwa ];
+  buildInputs = [
+    zlib
+    bwa
+  ];
 
   propagatedBuildInputs = [ cffi ];
 

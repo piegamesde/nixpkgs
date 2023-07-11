@@ -14,7 +14,11 @@ let
   inherit (haskell.lib.compose)
     overrideCabal addBuildTools justStaticExecutables;
   inherit (lib) makeBinPath;
-  bundledBins = [ gnutar gzip git ] ++ lib.optional stdenv.isLinux runc;
+  bundledBins = [
+    gnutar
+    gzip
+    git
+  ] ++ lib.optional stdenv.isLinux runc;
 
   pkg =
     # justStaticExecutables is needed due to https://github.com/NixOS/nix/issues/2990

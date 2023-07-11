@@ -57,6 +57,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/vmware-tanzu/velero/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.mbode maintainers.bryanasdev000 ];
+    maintainers = [
+      maintainers.mbode
+      maintainers.bryanasdev000
+    ];
   };
 }

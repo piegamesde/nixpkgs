@@ -38,7 +38,11 @@ let
     name = "${pname}-deps";
     inherit src patches;
 
-    nativeBuildInputs = [ jdk perl gradle_6 ];
+    nativeBuildInputs = [
+      jdk
+      perl
+      gradle_6
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -85,9 +89,15 @@ let
     comment = "Java Decompiler JD-GUI";
     desktopName = "JD-GUI";
     genericName = "Java Decompiler";
-    mimeTypes =
-      [ "application/java" "application/java-vm" "application/java-archive" ];
-    categories = [ "Development" "Debugger" ];
+    mimeTypes = [
+      "application/java"
+      "application/java-vm"
+      "application/java-archive"
+    ];
+    categories = [
+      "Development"
+      "Debugger"
+    ];
     startupWMClass = "org-jd-gui-App";
   };
 
@@ -95,7 +105,11 @@ in stdenv.mkDerivation rec {
   inherit pname version src patches;
   name = "${pname}-${version}";
 
-  nativeBuildInputs = [ jdk gradle_6 copyDesktopItems ];
+  nativeBuildInputs = [
+    jdk
+    gradle_6
+    copyDesktopItems
+  ];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)

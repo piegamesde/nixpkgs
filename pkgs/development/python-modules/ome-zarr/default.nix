@@ -38,8 +38,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [ numpy dask zarr fsspec aiohttp requests s3fs scikitimage toolz ];
+  propagatedBuildInputs = [
+    numpy
+    dask
+    zarr
+    fsspec
+    aiohttp
+    requests
+    s3fs
+    scikitimage
+    toolz
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

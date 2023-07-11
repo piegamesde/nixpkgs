@@ -23,25 +23,37 @@ stdenv.mkDerivation rec {
     hash = "sha256-wNE91+0u02O2jeYVR1eB6JHNWC6BYrXDZpE3UCIiJgo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook copyDesktopItems graphicsmagick ];
+  nativeBuildInputs = [
+    autoreconfHook
+    copyDesktopItems
+    graphicsmagick
+  ];
 
-  buildInputs = [ SDL SDL_net SDL_sound libGL libGLU libpng ];
+  buildInputs = [
+    SDL
+    SDL_net
+    SDL_sound
+    libGL
+    libGLU
+    libpng
+  ];
 
   hardeningDisable = [ "format" ];
 
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "dosbox";
-      exec = "dosbox";
-      icon = "dosbox";
-      comment = "x86 dos emulator";
-      desktopName = "DOSBox";
-      genericName = "DOS emulator";
-      categories = [ "Emulator" "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "dosbox";
+    exec = "dosbox";
+    icon = "dosbox";
+    comment = "x86 dos emulator";
+    desktopName = "DOSBox";
+    genericName = "DOS emulator";
+    categories = [
+      "Emulator"
+      "Game"
+    ];
+  }) ];
 
   postInstall = ''
     mkdir -p $out/share/icons/hicolor/256x256/apps

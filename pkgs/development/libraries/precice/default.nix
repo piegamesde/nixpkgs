@@ -33,8 +33,18 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     toString (lib.optionals stdenv.isDarwin [ "-D_GNU_SOURCE" ]);
 
-  nativeBuildInputs = [ cmake gcc ];
-  buildInputs = [ boost eigen libxml2 mpi python3 python3.pkgs.numpy ];
+  nativeBuildInputs = [
+    cmake
+    gcc
+  ];
+  buildInputs = [
+    boost
+    eigen
+    libxml2
+    mpi
+    python3
+    python3.pkgs.numpy
+  ];
 
   meta = {
     description =

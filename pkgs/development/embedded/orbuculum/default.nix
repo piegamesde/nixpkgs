@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aMMXfrBQQ9oOx17MUKmqe5vdTpxhBGM5mVfAel0y0a0=";
   };
 
-  buildInputs = [ czmq libusb1 ncurses ];
+  buildInputs = [
+    czmq
+    libusb1
+    ncurses
+  ];
 
   installFlags = [ "INSTALL_ROOT=$(out)/" ];
 

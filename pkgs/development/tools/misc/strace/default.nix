@@ -40,6 +40,10 @@ stdenv.mkDerivation rec {
       gpl2Plus
     ]; # gpl2Plus is for the test suite
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ma27 qyliss ];
+    maintainers = with maintainers; [
+      globin
+      ma27
+      qyliss
+    ];
   };
 }

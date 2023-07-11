@@ -36,9 +36,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ orjson paho-mqtt ];
+  propagatedBuildInputs = [
+    orjson
+    paho-mqtt
+  ];
 
-  nativeCheckInputs = [ amqtt pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    amqtt
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Requires network access

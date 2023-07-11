@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   # GNU Gettext is needed on non-GNU platforms.
-  buildInputs = [ coreutils gettext ];
+  buildInputs = [
+    coreutils
+    gettext
+  ];
 
   # These tests try to hit /etc/passwd to find out your username if pass in a submitter
   # name on the command line. Since we block access to /etc/passwd on the Darwin sandbox

@@ -22,7 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "1qwl95av5an2zl01m7saj6fyy49xpixga7gbn4lwbpgpqs1rbwxj";
   };
 
-  buildInputs = [ libX11 SDL SDL_ttf SDL_image libGLU libGL expat zlib ];
+  buildInputs = [
+    libX11
+    SDL
+    SDL_ttf
+    SDL_image
+    libGLU
+    libGL
+    expat
+    zlib
+  ];
 
   NIX_LDFLAGS = "-lX11";
 

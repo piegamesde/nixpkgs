@@ -18,7 +18,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ coverage zope_testrunner ];
+  nativeCheckInputs = [
+    coverage
+    zope_testrunner
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.i18nmessageid";

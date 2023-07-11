@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
     chmod 755 $out/bin/msgviewer
   '';
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   meta = with lib; {
     description = "Viewer for .msg files (MS Outlook)";

@@ -40,7 +40,11 @@ stdenv.mkDerivation rec {
     substituteInPlace ./m4macros/ax_crypto.m4 --replace 'apple-darwin' 'nope'
   '';
 
-  outputs = [ "out" "doc" "man" ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
   configureFlags = [
     "--enable-perfdhcp"
@@ -51,13 +55,27 @@ stdenv.mkDerivation rec {
     "--with-pgsql=${postgresql}/bin/pg_config"
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ]
-    ++ (with python3.pkgs; [ sphinxHook sphinx-rtd-theme ]);
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ (with python3.pkgs; [
+    sphinxHook
+    sphinx-rtd-theme
+  ]);
 
-  sphinxBuilders = [ "html" "man" ];
+  sphinxBuilders = [
+    "html"
+    "man"
+  ];
   sphinxRoot = "doc/sphinx";
 
-  buildInputs = [ boost libmysqlclient log4cplus openssl python3 ];
+  buildInputs = [
+    boost
+    libmysqlclient
+    log4cplus
+    openssl
+    python3
+  ];
 
   enableParallelBuilding = true;
 
@@ -79,6 +97,9 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz hexa ];
+    maintainers = with maintainers; [
+      fpletz
+      hexa
+    ];
   };
 }

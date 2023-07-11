@@ -25,7 +25,11 @@ let
     let vlanIfs = range 1 (length config.virtualisation.vlans);
     in {
       environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
-      virtualisation.vlans = [ 1 2 3 ];
+      virtualisation.vlans = [
+        1
+        2
+        3
+      ];
       boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
       networking = {
         useDHCP = false;
@@ -34,14 +38,14 @@ let
         firewall.allowedUDPPorts = [ 547 ];
         interfaces = mkOverride 0 (listToAttrs (forEach vlanIfs (n:
           nameValuePair "eth${toString n}" {
-            ipv4.addresses = [{
+            ipv4.addresses = [ {
               address = "192.168.${toString n}.1";
               prefixLength = 24;
-            }];
-            ipv6.addresses = [{
+            } ];
+            ipv6.addresses = [ {
               address = "fd00:1234:5678:${toString n}::1";
               prefixLength = 64;
-            }];
+            } ];
           })));
       };
       services.dhcpd4 = {
@@ -115,7 +119,10 @@ let
           ...
         }:
         with pkgs.lib; {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
@@ -135,10 +142,10 @@ let
                 prefixLength = 32;
               }
             ];
-            interfaces.eth2.ipv4.addresses = mkOverride 0 [{
+            interfaces.eth2.ipv4.addresses = mkOverride 0 [ {
               address = "192.168.2.2";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
       testScript = {
@@ -187,11 +194,11 @@ let
           networking = {
             useDHCP = false;
             useNetworkd = networkd;
-            interfaces.eth1.ipv4.routes = [{
+            interfaces.eth1.ipv4.routes = [ {
               address = "192.168.1.127";
               prefixLength = 32;
               type = "local";
-            }];
+            } ];
           };
         };
       testScript = ''
@@ -231,7 +238,10 @@ let
           ...
         }:
         with pkgs.lib; {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
@@ -292,7 +302,10 @@ let
           ...
         }:
         with pkgs.lib; {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
@@ -341,20 +354,26 @@ let
           ...
         }:
         with pkgs.lib; {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
             bonds.bond0 = {
-              interfaces = [ "eth1" "eth2" ];
+              interfaces = [
+                "eth1"
+                "eth2"
+              ];
               driverOptions.mode = "802.3ad";
             };
             interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
             interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
-            interfaces.bond0.ipv4.addresses = mkOverride 0 [{
+            interfaces.bond0.ipv4.addresses = mkOverride 0 [ {
               inherit address;
               prefixLength = 30;
-            }];
+            } ];
           };
         };
     in {
@@ -396,10 +415,10 @@ let
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
-            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ {
               inherit address;
               prefixLength = 24;
-            }];
+            } ];
           };
         };
     in {
@@ -417,17 +436,23 @@ let
           ...
         }:
         with pkgs.lib; {
-          virtualisation.vlans = [ 1 2 ];
+          virtualisation.vlans = [
+            1
+            2
+          ];
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
-            bridges.bridge.interfaces = [ "eth1" "eth2" ];
+            bridges.bridge.interfaces = [
+              "eth1"
+              "eth2"
+            ];
             interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
             interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
-            interfaces.bridge.ipv4.addresses = mkOverride 0 [{
+            interfaces.bridge.ipv4.addresses = mkOverride 0 [ {
               address = "192.168.1.1";
               prefixLength = 24;
-            }];
+            } ];
           };
         };
       testScript = {
@@ -522,10 +547,10 @@ let
           networking = {
             useNetworkd = networkd;
             useDHCP = false;
-            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ {
               address = "192.168.1.1";
               prefixLength = 24;
-            }];
+            } ];
             fooOverUDP = {
               fou1 = { port = 9001; };
               fou2 = {
@@ -596,14 +621,14 @@ let
               local = address4;
               dev = "eth1";
             };
-            interfaces.eth1.ipv4.addresses = mkOverride 0 [{
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ {
               address = address4;
               prefixLength = 24;
-            }];
-            interfaces.sit.ipv6.addresses = mkOverride 0 [{
+            } ];
+            interfaces.sit.ipv6.addresses = mkOverride 0 [ {
               address = address6;
               prefixLength = 64;
-            }];
+            } ];
           };
         };
     in {
@@ -695,7 +720,11 @@ let
         mkMerge [
           (node args)
           {
-            virtualisation.vlans = [ 1 2 4 ];
+            virtualisation.vlans = [
+              1
+              2
+              4
+            ];
             networking = {
               greTunnels = {
                 greTunnel = {
@@ -713,20 +742,23 @@ let
                   type = "tun6";
                 };
               };
-              bridges.bridge.interfaces = [ "greTunnel" "eth1" ];
+              bridges.bridge.interfaces = [
+                "greTunnel"
+                "eth1"
+              ];
               interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
-              interfaces.bridge.ipv4.addresses = mkOverride 0 [{
+              interfaces.bridge.ipv4.addresses = mkOverride 0 [ {
                 address = "192.168.1.1";
                 prefixLength = 24;
-              }];
-              interfaces.eth3.ipv6.addresses = [{
+              } ];
+              interfaces.eth3.ipv6.addresses = [ {
                 address = "fd00:1234:5678:4::1";
                 prefixLength = 64;
-              }];
-              interfaces.gre6Tunnel.ipv6.addresses = mkOverride 0 [{
+              } ];
+              interfaces.gre6Tunnel.ipv6.addresses = mkOverride 0 [ {
                 address = "fc00::1";
                 prefixLength = 64;
-              }];
+              } ];
             };
           }
         ];
@@ -737,7 +769,11 @@ let
         mkMerge [
           (node args)
           {
-            virtualisation.vlans = [ 2 3 4 ];
+            virtualisation.vlans = [
+              2
+              3
+              4
+            ];
             networking = {
               greTunnels = {
                 greTunnel = {
@@ -755,20 +791,23 @@ let
                   type = "tun6";
                 };
               };
-              bridges.bridge.interfaces = [ "greTunnel" "eth2" ];
+              bridges.bridge.interfaces = [
+                "greTunnel"
+                "eth2"
+              ];
               interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
-              interfaces.bridge.ipv4.addresses = mkOverride 0 [{
+              interfaces.bridge.ipv4.addresses = mkOverride 0 [ {
                 address = "192.168.1.2";
                 prefixLength = 24;
-              }];
-              interfaces.eth3.ipv6.addresses = [{
+              } ];
+              interfaces.eth3.ipv6.addresses = [ {
                 address = "fd00:1234:5678:4::2";
                 prefixLength = 64;
-              }];
-              interfaces.gre6Tunnel.ipv6.addresses = mkOverride 0 [{
+              } ];
+              interfaces.gre6Tunnel.ipv6.addresses = mkOverride 0 [ {
                 address = "fc00::2";
                 prefixLength = 64;
-              }];
+              } ];
             };
           }
         ];
@@ -820,10 +859,10 @@ let
             };
             interfaces.eth0.ipv4.addresses = mkOverride 0 [ ];
             interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
-            interfaces.vlan.ipv4.addresses = mkOverride 0 [{
+            interfaces.vlan.ipv4.addresses = mkOverride 0 [ {
               inherit address;
               prefixLength = 24;
-            }];
+            } ];
           };
         };
     in {
@@ -863,14 +902,14 @@ let
               id = 42;
               interface = baseInterface;
             };
-            interfaces.${baseInterface}.ipv4.addresses = mkOverride 0 [{
+            interfaces.${baseInterface}.ipv4.addresses = mkOverride 0 [ {
               address = baseIP number;
               prefixLength = 24;
-            }];
-            interfaces.${vlanInterface}.ipv4.addresses = mkOverride 0 [{
+            } ];
+            interfaces.${vlanInterface}.ipv4.addresses = mkOverride 0 [ {
               address = vlanIP number;
               prefixLength = 24;
-            }];
+            } ];
           };
         };
 
@@ -913,27 +952,27 @@ let
         networking.useNetworkd = networkd;
         networking.useDHCP = false;
         networking.interfaces.tap0 = {
-          ipv4.addresses = [{
+          ipv4.addresses = [ {
             address = "192.168.1.1";
             prefixLength = 24;
-          }];
-          ipv6.addresses = [{
+          } ];
+          ipv6.addresses = [ {
             address = "2001:1470:fffd:2096::";
             prefixLength = 64;
-          }];
+          } ];
           virtual = true;
           mtu = 1342;
           macAddress = "02:de:ad:be:ef:01";
         };
         networking.interfaces.tun0 = {
-          ipv4.addresses = [{
+          ipv4.addresses = [ {
             address = "192.168.1.2";
             prefixLength = 24;
-          }];
-          ipv6.addresses = [{
+          } ];
+          ipv6.addresses = [ {
             address = "2001:1470:fffd:2097::";
             prefixLength = 64;
-          }];
+          } ];
           virtual = true;
           mtu = 1343;
         };
@@ -1080,14 +1119,14 @@ let
         networking.useNetworkd = networkd;
         networking.useDHCP = false;
         networking.interfaces.eth0 = {
-          ipv4.addresses = [{
+          ipv4.addresses = [ {
             address = "192.168.1.2";
             prefixLength = 24;
-          }];
-          ipv6.addresses = [{
+          } ];
+          ipv6.addresses = [ {
             address = "2001:1470:fffd:2097::";
             prefixLength = 64;
-          }];
+          } ];
           ipv6.routes = [
             {
               address = "fdfd:b3f0::";

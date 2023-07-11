@@ -20,7 +20,11 @@ in substituteAll {
   nix_x86_64_linux = fallback.x86_64-linux;
   nix_i686_linux = fallback.i686-linux;
   nix_aarch64_linux = fallback.aarch64-linux;
-  path = lib.makeBinPath [ coreutils gnused gnugrep ];
+  path = lib.makeBinPath [
+    coreutils
+    gnused
+    gnugrep
+  ];
 
   # run some a simple installer tests to make sure nixos-rebuild still works for them
   passthru.tests = {

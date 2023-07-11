@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "0ln8ykaws8c5fvzlzccn60mpbdbvxlhkp3nsvs2xqdbsqp270yv2";
   };
 
-  propagatedBuildInputs = [ aiohttp requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+  ];
 
   doCheck = false; # No tests are available upstream
   pythonImportsCheck = [ "amiibo" ];

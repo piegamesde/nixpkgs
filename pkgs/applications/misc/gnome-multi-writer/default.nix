@@ -40,7 +40,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gtk3 gusb libcanberra-gtk3 libgudev polkit udisks ];
+  buildInputs = [
+    glib
+    gtk3
+    gusb
+    libcanberra-gtk3
+    libgudev
+    polkit
+    udisks
+  ];
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 

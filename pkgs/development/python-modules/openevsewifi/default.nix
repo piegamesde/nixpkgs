@@ -27,9 +27,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ deprecated requests ];
+  propagatedBuildInputs = [
+    deprecated
+    requests
+  ];
 
-  nativeCheckInputs = [ requests-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    requests-mock
+    pytestCheckHook
+  ];
 
   patches = [
     # Switch to poetry-core, https://github.com/miniconfig/python-openevse-wifi/pull/31

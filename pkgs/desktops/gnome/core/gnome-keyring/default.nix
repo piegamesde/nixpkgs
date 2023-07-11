@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
   pname = "gnome-keyring";
   version = "42.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-keyring/${
@@ -47,9 +50,21 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib libgcrypt pam openssh libcap_ng libselinux gcr p11-kit ];
+  buildInputs = [
+    glib
+    libgcrypt
+    pam
+    openssh
+    libcap_ng
+    libselinux
+    gcr
+    p11-kit
+  ];
 
-  nativeCheckInputs = [ dbus python3 ];
+  nativeCheckInputs = [
+    dbus
+    python3
+  ];
 
   configureFlags = [
     "--with-pkcs11-config=${

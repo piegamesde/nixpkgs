@@ -129,7 +129,10 @@ let
         # global-deps.patch makes it possible to use REBAR_GLOBAL_PLUGINS to
         # instruct rebar3 to always load a certain plugin. It is necessary since
         # REBAR_GLOBAL_CONFIG_DIR doesn't seem to work for this.
-        patches = [ ./skip-plugins.patch ./global-plugins.patch ];
+        patches = [
+          ./skip-plugins.patch
+          ./global-plugins.patch
+        ];
 
         # our patches cause the tests to fail
         doCheck = false;
@@ -137,7 +140,10 @@ let
     in stdenv.mkDerivation {
       pname = "rebar3-with-plugins";
       inherit (rebar3) version;
-      nativeBuildInputs = [ erlang makeWrapper ];
+      nativeBuildInputs = [
+        erlang
+        makeWrapper
+      ];
       unpackPhase = "true";
 
       # Here we extract the rebar3 escript (like `rebar3_prv_local_install.erl`) and

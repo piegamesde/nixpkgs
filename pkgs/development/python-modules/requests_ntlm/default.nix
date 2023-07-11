@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ cryptography pyspnego requests ];
+  propagatedBuildInputs = [
+    cryptography
+    pyspnego
+    requests
+  ];
 
   pythonImportsCheck = [ "requests_ntlm" ];
 

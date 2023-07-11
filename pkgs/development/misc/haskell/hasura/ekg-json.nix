@@ -21,9 +21,22 @@ mkDerivation {
     rev = "d1c5031b49a5559cf4b4f6beb0238b872890a48c";
     fetchSubmodules = true;
   };
-  libraryHaskellDepends =
-    [ aeson base ekg-core text unordered-containers vector ];
-  testHaskellDepends = [ aeson base ekg-core hspec text unordered-containers ];
+  libraryHaskellDepends = [
+    aeson
+    base
+    ekg-core
+    text
+    unordered-containers
+    vector
+  ];
+  testHaskellDepends = [
+    aeson
+    base
+    ekg-core
+    hspec
+    text
+    unordered-containers
+  ];
   homepage = "https://github.com/tibbe/ekg-json";
   description = "JSON encoding of ekg metrics";
   license = lib.licenses.bsd3;

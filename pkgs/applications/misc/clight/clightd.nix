@@ -60,7 +60,11 @@ stdenv.mkDerivation rec {
     ++ optional enableScreen "-DENABLE_SCREEN=1"
     ++ optional enableYoctolight "-DENABLE_YOCTOLIGHT=1";
 
-  nativeBuildInputs = [ dbus cmake pkg-config ];
+  nativeBuildInputs = [
+    dbus
+    cmake
+    pkg-config
+  ];
 
   buildInputs = with lib;
     [
@@ -77,7 +81,10 @@ stdenv.mkDerivation rec {
       libpthreadstubs
     ] ++ optionals enableDdc [ ddcutil ] ++ optionals enableDpms [ libXext ]
     ++ optionals enableGamma [ libXrandr ]
-    ++ optionals (enableDpms || enableGamma || enableScreen) [ libdrm wayland ];
+    ++ optionals (enableDpms || enableGamma || enableScreen) [
+      libdrm
+      wayland
+    ];
 
   postInstall = ''
     mkdir -p $out/bin

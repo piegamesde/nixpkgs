@@ -47,7 +47,10 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [ pefile lxml ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pefile
+    lxml
+  ];
 
   meta = with lib; {
     description = "A generator for YARA rules";

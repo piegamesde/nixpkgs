@@ -14,7 +14,13 @@ buildPythonApplication rec {
     sha256 = "sha256-+vrVQ4sItCXrSCzNXyKk6/6oDBOyfyD7iNWzmcbE/BQ=";
   };
 
-  propagatedBuildInputs = [ feedgen sphinx invoke watchdog python-dateutil ];
+  propagatedBuildInputs = [
+    feedgen
+    sphinx
+    invoke
+    watchdog
+    python-dateutil
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -38,10 +38,20 @@ in stdenv.mkDerivation rec {
     sha256 = "1jijxnvjcsgz5yw4i9fj7ycdnnz90r3l0zicpwinswrw47ac3yy5";
   };
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
-  nativeBuildInputs =
-    [ autoreconfHook autoconf-archive pkg-config doxygen perl shadow ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+    doxygen
+    perl
+    shadow
+  ];
 
   # cmocka is checked / used(?) in the configure script
   # when unit and/or integration testing is enabled
@@ -56,7 +66,14 @@ in stdenv.mkDerivation rec {
   # when tests are not run
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ cmocka ];
 
-  nativeCheckInputs = [ cmocka which openssl procps_pkg iproute2 ibm-sw-tpm2 ];
+  nativeCheckInputs = [
+    cmocka
+    which
+    openssl
+    procps_pkg
+    iproute2
+    ibm-sw-tpm2
+  ];
 
   strictDeps = true;
   preAutoreconf = "./bootstrap";

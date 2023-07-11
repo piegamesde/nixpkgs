@@ -95,7 +95,10 @@ in {
           position = mkOption {
             default = "top";
             example = "bottom";
-            type = types.enum [ "top" "bottom" ];
+            type = types.enum [
+              "top"
+              "bottom"
+            ];
 
             description = lib.mdDoc ''
               The position where the bar will be rendered.
@@ -125,7 +128,11 @@ in {
               options.align = mkOption {
                 default = "left";
                 example = "right";
-                type = types.enum [ "left" "center" "right" ];
+                type = types.enum [
+                  "left"
+                  "center"
+                  "right"
+                ];
 
                 description = lib.mdDoc ''
                   Whether to align the indicator at the left or right of the bar.

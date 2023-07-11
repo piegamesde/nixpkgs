@@ -65,7 +65,10 @@ let
   linux = stdenv.mkDerivation {
     inherit pname version src desktopItems;
 
-    nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+    nativeBuildInputs = [
+      makeWrapper
+      copyDesktopItems
+    ];
 
     installPhase = ''
       runHook preInstall
@@ -91,7 +94,10 @@ let
   darwin = stdenv.mkDerivation {
     inherit pname version src;
 
-    nativeBuildInputs = [ makeWrapper _7zz ];
+    nativeBuildInputs = [
+      makeWrapper
+      _7zz
+    ];
 
     unpackPhase = ''
       runHook preUnpack

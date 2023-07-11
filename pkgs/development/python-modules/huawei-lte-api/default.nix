@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-pOBYMSORgT8WOnhCdazuKucjPoOywnrWa+qCYR5qSls=";
   };
 
-  propagatedBuildInputs = [ pycryptodomex requests xmltodict ];
+  propagatedBuildInputs = [
+    pycryptodomex
+    requests
+    xmltodict
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

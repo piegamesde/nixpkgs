@@ -27,7 +27,10 @@ stdenv.mkDerivation {
   pname = "lapack";
   inherit version;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = (lapackProvider'.meta or { }) // {
     description =

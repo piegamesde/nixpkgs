@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "LM6UnggoxKC3e6xOlHYk9VFF99Abbdmp37nuUML8RgI=";
   };
 
-  buildInputs = [ xorg.libX11 xorg.libXt ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXt
+  ];
 
   # TODO: macos
   makeFlags = [ "CONF=unix" ];

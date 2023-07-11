@@ -20,7 +20,10 @@ else
       sha256 = "sha256:1ml8bxym8sdfz25bx947al7cvsi2zg5lcv7x9w6xb01cmdryqr9y";
     };
 
-    nativeBuildInputs = [ ocaml findlib ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
     strictDeps = true;
 
     buildFlags = [ "release" ];
@@ -29,14 +32,19 @@ else
     dontAddStaticConfigureFlags = true;
     configurePlatforms = [ ];
 
-    installFlags =
-      [ "PREFIX=${placeholder "out"}" "LIBDIR=$(OCAMLFIND_DESTDIR)" ];
+    installFlags = [
+      "PREFIX=${placeholder "out"}"
+      "LIBDIR=$(OCAMLFIND_DESTDIR)"
+    ];
 
     meta = {
       homepage = "https://dune.build/";
       description = "A composable build system";
       changelog = "https://github.com/ocaml/dune/raw/${version}/CHANGES.md";
-      maintainers = [ lib.maintainers.vbgl lib.maintainers.marsam ];
+      maintainers = [
+        lib.maintainers.vbgl
+        lib.maintainers.marsam
+      ];
       license = lib.licenses.mit;
       inherit (ocaml.meta) platforms;
     };

@@ -138,19 +138,19 @@ let
     };
 
   # List of packages matched based on the CLI arguments.
-  packages = if package != null then
-    [ (packageByName package pkgs) ]
-  else if predicate != null then
-    packagesWithUpdateScriptMatchingPredicate predicate pkgs
-  else if maintainer != null then
-    packagesWithUpdateScriptAndMaintainer maintainer pkgs
-  else if path != null then
-    packagesWithUpdateScript path pkgs
-  else
-    builtins.throw ''
-      No arguments provided.
+  packages =
+    if package != null then [ (packageByName package pkgs) ] else if predicate
+    != null then
+      packagesWithUpdateScriptMatchingPredicate predicate pkgs
+    else if maintainer != null then
+      packagesWithUpdateScriptAndMaintainer maintainer pkgs
+    else if path != null then
+      packagesWithUpdateScript path pkgs
+    else
+      builtins.throw ''
+        No arguments provided.
 
-      ${helpText}'';
+        ${helpText}'';
 
   helpText = ''
     Please run:

@@ -20,16 +20,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-x9l8xqwMDHlXRZpWt3XiqN5xyCTV5rk8jp/ClRPPECI=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "version-bump.patch";
-      url =
-        "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch";
-      hash = "sha256-+7ckhUUB+7BG6qRKv0wgyIxkyvll2xjf3Wk1hpRsDo0=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "version-bump.patch";
+    url =
+      "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch";
+    hash = "sha256-+7ckhUUB+7BG6qRKv0wgyIxkyvll2xjf3Wk1hpRsDo0=";
+  }) ];
 
-  nativeBuildInputs = [ autoconf automake perl rdma-core ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    perl
+    rdma-core
+  ];
   buildInputs = [ rdma-core ];
 
   postUnpack = ''

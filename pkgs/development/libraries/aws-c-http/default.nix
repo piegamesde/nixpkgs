@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ aws-c-cal aws-c-common aws-c-compression aws-c-io s2n-tls ];
+  buildInputs = [
+    aws-c-cal
+    aws-c-common
+    aws-c-compression
+    aws-c-io
+    s2n-tls
+  ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 

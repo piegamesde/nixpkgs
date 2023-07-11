@@ -24,8 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-7qMNz8F0B3bph/nHkS1VrkcF1bETWAklXFOlMWu3K9s=";
   };
 
-  propagatedBuildInputs =
-    [ certvalidator attrs six urllib3 cryptoparser requests ];
+  propagatedBuildInputs = [
+    certvalidator
+    attrs
+    six
+    urllib3
+    cryptoparser
+    requests
+  ];
 
   # Tests require networking
   doCheck = false;

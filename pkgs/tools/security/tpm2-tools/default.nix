@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H9tJxzBTe/2u0IiISIGmHjv9Eh6VfsC9zu7AJhI2wSM=";
   };
 
-  nativeBuildInputs = [ pandoc pkg-config makeWrapper ];
-  buildInputs = [ curl openssl tpm2-tss libuuid ];
+  nativeBuildInputs = [
+    pandoc
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs = [
+    curl
+    openssl
+    tpm2-tss
+    libuuid
+  ];
 
   preFixup = let
     ldLibraryPath = lib.makeLibraryPath

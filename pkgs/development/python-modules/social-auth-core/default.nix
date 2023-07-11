@@ -43,12 +43,17 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     openidconnect = [ python-jose ];
-    saml = [ lxml python3-saml ];
+    saml = [
+      lxml
+      python3-saml
+    ];
     azuread = [ cryptography ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook httpretty ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytestCheckHook
+    httpretty
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   # Disable checking the code coverage
   prePatch = ''

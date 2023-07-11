@@ -13,7 +13,10 @@
 }:
 
 let
-  filename = builtins.replaceStrings [ "color" "black" ] [
+  filename = builtins.replaceStrings [
+    "color"
+    "black"
+  ] [
     "OpenMoji-Color.ttf"
     "OpenMoji-Black.ttf"
   ] variant;

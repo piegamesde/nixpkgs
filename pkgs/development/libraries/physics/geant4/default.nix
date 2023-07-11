@@ -92,8 +92,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     "-DXQuartzGL_INCLUDE_DIR=${libGL.dev}/include"
     "-DXQuartzGL_gl_LIBRARY=${libGL}/lib/libGL.dylib"
-  ] ++ lib.optionals (enableMultiThreading && enablePython)
-    [ "-DGEANT4_BUILD_TLS_MODEL=global-dynamic" ]
+  ] ++ lib.optionals (enableMultiThreading
+    && enablePython) [ "-DGEANT4_BUILD_TLS_MODEL=global-dynamic" ]
     ++ lib.optionals enableInventor [
       "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
       "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
@@ -104,12 +104,27 @@ stdenv.mkDerivation rec {
   propagatedNativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
   dontWrapQtApps = true; # no binaries
 
-  buildInputs = [ libGLU libXext libXmu ]
-    ++ lib.optionals enableInventor [ libXpm coin3d soxt motif ]
-    ++ lib.optionals enablePython [ boost_python python3 ];
+  buildInputs = [
+    libGLU
+    libXext
+    libXmu
+  ] ++ lib.optionals enableInventor [
+    libXpm
+    coin3d
+    soxt
+    motif
+  ] ++ lib.optionals enablePython [
+    boost_python
+    python3
+  ];
 
-  propagatedBuildInputs = [ clhep expat xercesc zlib libGL ]
-    ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
+  propagatedBuildInputs = [
+    clhep
+    expat
+    xercesc
+    zlib
+    libGL
+  ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
 
   postFixup = ''
     # Don't try to export invalid environment variables.
@@ -144,7 +159,10 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.geant4.org";
     license = licenses.g4sl;
-    maintainers = with maintainers; [ omnipotententity veprbl ];
+    maintainers = with maintainers; [
+      omnipotententity
+      veprbl
+    ];
     platforms = platforms.unix;
   };
 }

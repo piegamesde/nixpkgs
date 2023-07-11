@@ -78,7 +78,11 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : ${
-      lib.makeBinPath [ which ffmpeg-full gifski ]
+      lib.makeBinPath [
+        which
+        ffmpeg-full
+        gifski
+      ]
     })
   '';
 

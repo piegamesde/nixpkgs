@@ -22,7 +22,11 @@ let
       "Distributed reliable key-value store for the most critical data of a distributed system";
     license = licenses.asl20;
     homepage = "https://etcd.io/";
-    maintainers = with maintainers; [ offline zowoq endocrimes ];
+    maintainers = with maintainers; [
+      offline
+      zowoq
+      endocrimes
+    ];
     platforms = platforms.darwin ++ platforms.linux;
   };
 
@@ -72,5 +76,9 @@ in symlinkJoin {
 
   passthru = { inherit etcdserver etcdutl etcdctl; };
 
-  paths = [ etcdserver etcdutl etcdctl ];
+  paths = [
+    etcdserver
+    etcdutl
+    etcdctl
+  ];
 }

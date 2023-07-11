@@ -64,10 +64,16 @@ in stdenv.mkDerivation {
   pname = "dxvk";
   inherit (srcs.${dxvkVersion}) version src patches;
 
-  nativeBuildInputs = [ glslang meson ninja ];
+  nativeBuildInputs = [
+    glslang
+    meson
+    ninja
+  ];
   buildInputs = lib.optionals isWindows [ windows.pthreads ]
-    ++ lib.optionals isDxvk2 ([ spirv-headers vulkan-headers ]
-      ++ lib.optional (!isWindows && sdl2Support) SDL2
+    ++ lib.optionals isDxvk2 ([
+      spirv-headers
+      vulkan-headers
+    ] ++ lib.optional (!isWindows && sdl2Support) SDL2
       ++ lib.optional (!isWindows && glfwSupport) glfw);
 
   postPatch = lib.optionalString isDxvk2 ''
@@ -84,9 +90,15 @@ in stdenv.mkDerivation {
   '';
 
   mesonFlags = let arch = if stdenv.is32bit then "32" else "64";
-  in [ "--buildtype" "release" "--prefix" "${placeholder "out"}" ]
-  ++ lib.optionals isCross [ "--cross-file" "build-win${arch}.txt" ]
-  ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw";
+  in [
+    "--buildtype"
+    "release"
+    "--prefix"
+    "${placeholder "out"}"
+  ] ++ lib.optionals isCross [
+    "--cross-file"
+    "build-win${arch}.txt"
+  ] ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw";
 
   doCheck = isDxvk2 && !isCross;
 

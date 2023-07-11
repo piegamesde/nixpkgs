@@ -24,9 +24,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ aiohttp setuptools ];
+  propagatedBuildInputs = [
+    aiohttp
+    setuptools
+  ];
 
-  nativeCheckInputs = [ ddt pytestCheckHook ];
+  nativeCheckInputs = [
+    ddt
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Skip a test which makes requests to httpbin.org

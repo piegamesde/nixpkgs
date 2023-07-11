@@ -27,9 +27,18 @@ stdenv.mkDerivation rec {
     patchShebangs ./meson_post_install.py
   '';
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ vips gtk4 python3 ];
+  buildInputs = [
+    vips
+    gtk4
+    python3
+  ];
 
   # No tests implemented.
   doCheck = false;

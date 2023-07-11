@@ -23,9 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-eVE8FrD0YHoRreY9CrNb8v4v4KrG83ZU0oFz+V+p+Q0=";
   };
 
-  propagatedBuildInputs = [ h5py numba numpy scipy sparse ];
+  propagatedBuildInputs = [
+    h5py
+    numba
+    numpy
+    scipy
+    sparse
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook ipython ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    ipython
+  ];
 
   # avoid collecting local files
   preCheck = ''

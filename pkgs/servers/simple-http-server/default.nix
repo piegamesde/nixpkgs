@@ -35,6 +35,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/TheWaWaR/simple-http-server/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda mephistophiles ];
+    maintainers = with maintainers; [
+      figsoda
+      mephistophiles
+    ];
   };
 }

@@ -38,10 +38,23 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  buildInputs = [ glib gtk3 gtk-doc libgudev systemd ];
+  buildInputs = [
+    glib
+    gtk3
+    gtk-doc
+    libgudev
+    systemd
+  ];
 
-  nativeBuildInputs =
-    [ autoconf autoconf-archive automake gettext intltool libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    autoconf-archive
+    automake
+    gettext
+    intltool
+    libtool
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Proxy for sending IIO sensor data to D-Bus";

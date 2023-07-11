@@ -24,9 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oVmEPkEK1xDcIRUQjCp6CKf+aKnnVe3L7aRTdSsCmmY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+  ];
 
-  buildInputs = [ imlib2 libX11 libXext libXfixes libXcomposite libbsd ];
+  buildInputs = [
+    imlib2
+    libX11
+    libXext
+    libXfixes
+    libXcomposite
+    libbsd
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/resurrecting-open-source-projects/scrot";

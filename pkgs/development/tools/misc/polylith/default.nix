@@ -54,7 +54,10 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/polyfy/polylith";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.epl10;
-    maintainers = with maintainers; [ ericdallo jlesquembre ];
+    maintainers = with maintainers; [
+      ericdallo
+      jlesquembre
+    ];
     platforms = jdk.meta.platforms;
   };
 }

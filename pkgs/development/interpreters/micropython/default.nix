@@ -20,9 +20,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ libffi readline ];
+  buildInputs = [
+    libffi
+    readline
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -60,6 +66,9 @@ stdenv.mkDerivation rec {
     homepage = "https://micropython.org";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak sgo ];
+    maintainers = with maintainers; [
+      prusnak
+      sgo
+    ];
   };
 }

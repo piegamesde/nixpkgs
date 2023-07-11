@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-QhHNp9g88RhGHqRRjg4nk7aXjAgGCOauOagWJoJ3fqc=";
   };
 
-  propagatedBuildInputs = [ setuptools ply ];
+  propagatedBuildInputs = [
+    setuptools
+    ply
+  ];
 
   checkPhase = ''
     runHook preCheck

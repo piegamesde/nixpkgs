@@ -21,7 +21,12 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus libnotify udisks2 gdk-pixbuf ];
+  buildInputs = [
+    dbus
+    libnotify
+    udisks2
+    gdk-pixbuf
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-DENABLE_NOTIFICATIONS";
 

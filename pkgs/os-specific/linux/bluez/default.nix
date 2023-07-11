@@ -18,7 +18,11 @@
   withExperimental ? false
 }:
 let
-  pythonPath = with python3.pkgs; [ dbus-python pygobject3 recursivePthLoader ];
+  pythonPath = with python3.pkgs; [
+    dbus-python
+    pygobject3
+    recursivePthLoader
+  ];
 in stdenv.mkDerivation rec {
   pname = "bluez";
   version = "5.66";
@@ -37,11 +41,29 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ alsa-lib dbus ell glib json_c libical python3 readline udev ];
+  buildInputs = [
+    alsa-lib
+    dbus
+    ell
+    glib
+    json_c
+    libical
+    python3
+    readline
+    udev
+  ];
 
-  nativeBuildInputs = [ docutils pkg-config python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    docutils
+    pkg-config
+    python3.pkgs.wrapPython
+  ];
 
-  outputs = [ "out" "dev" "test" ];
+  outputs = [
+    "out"
+    "dev"
+    "test"
+  ];
 
   postPatch = ''
     substituteInPlace tools/hid2hci.rules \
@@ -131,7 +153,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Bluetooth support for Linux";
     homepage = "http://www.bluez.org/";
-    license = with licenses; [ gpl2 lgpl21 ];
+    license = with licenses; [
+      gpl2
+      lgpl21
+    ];
     platforms = platforms.linux;
   };
 }

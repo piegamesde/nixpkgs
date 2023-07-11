@@ -53,7 +53,10 @@ buildPythonPackage rec {
     hash = "sha256-RKYnDeuLWGavYdxsHs+GBGQCUcrVSR+Bi3RO3MbRxfU=";
   };
 
-  propagatedBuildInputs = [ certifi urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    urllib3
+  ];
 
   passthru.optional-dependencies = {
     aiohttp = [ aiohttp ];
@@ -63,10 +66,17 @@ buildPythonPackage rec {
     chalice = [ chalice ];
     django = [ django ];
     falcon = [ falcon ];
-    flask = [ flask blinker ];
+    flask = [
+      flask
+      blinker
+    ];
     httpx = [ httpx ];
     pyspark = [ pyspark ];
-    pure_eval = [ asttokens executing pure-eval ];
+    pure_eval = [
+      asttokens
+      executing
+      pure-eval
+    ];
     quart = [
       # quart missing
       blinker
@@ -115,6 +125,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/getsentry/sentry-python/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab gebner ];
+    maintainers = with maintainers; [
+      fab
+      gebner
+    ];
   };
 }

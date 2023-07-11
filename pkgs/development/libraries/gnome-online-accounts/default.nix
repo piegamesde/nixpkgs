@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
   pname = "gnome-online-accounts";
   version = "3.48.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optionals enableBackend [ "man" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals enableBackend [
+    "man"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";

@@ -35,7 +35,10 @@
     in {
       virtualisation.memorySize = 2048;
       time.timeZone = "UTC";
-      environment.systemPackages = [ createTrivialProject pkgs.jq ];
+      environment.systemPackages = [
+        createTrivialProject
+        pkgs.jq
+      ];
       services.hydra = {
         enable = true;
         # Hydra needs those settings to start up, so we add something not harmfull.
@@ -48,10 +51,10 @@
       services.postfix.enable = true;
       nix = {
         distributedBuilds = true;
-        buildMachines = [{
+        buildMachines = [ {
           hostName = "localhost";
           systems = [ system ];
-        }];
+        } ];
         settings.substituters = [ ];
       };
     };

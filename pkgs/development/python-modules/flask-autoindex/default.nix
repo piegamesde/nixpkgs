@@ -22,7 +22,11 @@ buildPythonPackage rec {
     sha256 = "ea319f7ccadf68ddf98d940002066278c779323644f9944b300066d50e2effc7";
   };
 
-  propagatedBuildInputs = [ flask flask-silk future ];
+  propagatedBuildInputs = [
+    flask
+    flask-silk
+    future
+  ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

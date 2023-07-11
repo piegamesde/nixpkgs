@@ -27,11 +27,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ jupyter-events jupyter-server ];
+  propagatedBuildInputs = [
+    jupyter-events
+    jupyter-server
+  ];
 
   pythonImportsCheck = [ "jupyter_server_fileid" ];
 
-  checkInputs = [ pytest-jupyter pytestCheckHook ];
+  checkInputs = [
+    pytest-jupyter
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TEMPDIR

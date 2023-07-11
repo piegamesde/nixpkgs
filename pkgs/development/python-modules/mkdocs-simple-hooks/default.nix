@@ -27,7 +27,10 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "tests.py" ];
 
   # disable failing tests
-  disabledTests = [ "test_no_hooks_defined" "test_no_attribute" ];
+  disabledTests = [
+    "test_no_hooks_defined"
+    "test_no_attribute"
+  ];
 
   meta = with lib; {
     description =

@@ -50,8 +50,14 @@ buildPythonPackage rec {
     "bx_py_utils.text_tools"
   ];
 
-  nativeCheckInputs =
-    [ beautifulsoup4 boto3 lxml pdoc pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    beautifulsoup4
+    boto3
+    lxml
+    pdoc
+    pytestCheckHook
+    requests-mock
+  ];
 
   disabledTestPaths = [ "bx_py_utils_tests/tests/test_project_setup.py" ];
 

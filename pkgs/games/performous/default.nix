@@ -39,14 +39,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-ztfeblR4YnB5+lb+rwOQJjogl+C9vtPH9IVnYO7oxec=";
   };
 
-  patches = [ ./performous-cmake.patch ./performous-fftw.patch ];
+  patches = [
+    ./performous-cmake.patch
+    ./performous-fftw.patch
+  ];
 
   postPatch = ''
     mkdir ced-src
     cp -R ${cedSrc}/* ced-src
   '';
 
-  nativeBuildInputs = [ cmake gettext pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2

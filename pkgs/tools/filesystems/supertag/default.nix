@@ -29,8 +29,15 @@ rustPlatform.buildRustPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-  nativeBuildInputs = [ clang pkg-config ];
-  buildInputs = [ dbus fuse sqlite ];
+  nativeBuildInputs = [
+    clang
+    pkg-config
+  ];
+  buildInputs = [
+    dbus
+    fuse
+    sqlite
+  ];
 
   # The test are requiring extended permissions.
   doCheck = false;
@@ -46,7 +53,10 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/amoffat/supertag";
     license = licenses.agpl3Plus;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ oxzi ];
   };
 }

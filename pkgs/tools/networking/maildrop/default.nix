@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcre perl ];
+  buildInputs = [
+    pcre
+    perl
+  ];
 
   patches = [ ./maildrop.configure.hack.patch ]; # for building in chroot
 

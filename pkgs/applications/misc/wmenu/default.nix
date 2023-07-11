@@ -28,16 +28,25 @@ stdenv.mkDerivation rec {
   };
 
   # Patch needed to remove build warning, gets merged in next release
-  patches = [
-    (fetchpatch {
-      url =
-        "https://git.sr.ht/~adnano/wmenu/commit/ba10072cdec9b0d4b51bcf305ff27dcf3003ae42.patch";
-      hash = "sha256-XF7xmEnsKlExMJQ5iS7wQG9Ja6ocrR0YvQuWFfByKVA=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://git.sr.ht/~adnano/wmenu/commit/ba10072cdec9b0d4b51bcf305ff27dcf3003ae42.patch";
+    hash = "sha256-XF7xmEnsKlExMJQ5iS7wQG9Ja6ocrR0YvQuWFfByKVA=";
+  }) ];
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [ cairo pango wayland libxkbcommon wayland-protocols scdoc ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = [
+    cairo
+    pango
+    wayland
+    libxkbcommon
+    wayland-protocols
+    scdoc
+  ];
 
   meta = with lib; {
     description =

@@ -23,8 +23,11 @@ buildGoModule rec {
 
   excludedPackages = [ "./e2etests" ];
 
-  ldflags =
-    [ "-s" "-w" "-X oss.terrastruct.com/d2/lib/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X oss.terrastruct.com/d2/lib/version.Version=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

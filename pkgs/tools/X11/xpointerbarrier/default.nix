@@ -20,7 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libX11 libXfixes libXrandr ];
+  buildInputs = [
+    libX11
+    libXfixes
+    libXrandr
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 
@@ -29,7 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
       "https://www.uninformativ.de/git/xpointerbarrier/file/README.html";
     description = "Create X11 pointer barriers around your working area";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres xzfc ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      xzfc
+    ];
     platforms = platforms.linux;
   };
 })

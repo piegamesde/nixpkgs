@@ -19,7 +19,12 @@ mkDerivation rec {
     sha256 = "QIWb1zIGfkS+Bef7LK+JA6XpwGUW+79XZY47j75nlCE=";
   };
 
-  buildInputs = [ kcoreaddons kwindowsystem plasma-framework systemsettings ];
+  buildInputs = [
+    kcoreaddons
+    kwindowsystem
+    plasma-framework
+    systemsettings
+  ];
 
   dontBuild = true;
 

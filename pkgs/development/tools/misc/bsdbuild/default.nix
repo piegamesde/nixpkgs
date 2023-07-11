@@ -19,8 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "1zrdjh7a6z4khhfw9zrp490afq306cpl5v8wqz2z55ys7k1n5ifl";
   };
 
-  buildInputs = [ perl mandoc ed ];
-  nativeBuildInputs = [ pkg-config libtool gettext ];
+  buildInputs = [
+    perl
+    mandoc
+    ed
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    gettext
+  ];
 
   prePatch = ''
         #ignore unfamiliar flags

@@ -34,17 +34,32 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ qtscript qtwebengine gdal proj routino quazip ];
+  buildInputs = [
+    qtscript
+    qtwebengine
+    gdal
+    proj
+    routino
+    quazip
+  ];
 
   cmakeFlags = [ "-DROUTINO_XML_PATH=${routino}/share/routino" ];
 
-  qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ gdal routino ]}" ];
+  qtWrapperArgs = [ "--suffix PATH : ${
+      lib.makeBinPath [
+        gdal
+        routino
+      ]
+    }" ];
 
   meta = with lib; {
     homepage = "https://github.com/Maproom/qmapshack";
     description = "Consumer grade GIS software";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda sikmir ];
+    maintainers = with maintainers; [
+      dotlambda
+      sikmir
+    ];
     platforms = with platforms; linux;
   };
 }

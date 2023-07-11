@@ -50,8 +50,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ysAZdmkFEuqJDTPe246F2I4Qp+fjtomia42PS8BuMM8=";
   };
 
-  nativeBuildInputs =
-    [ libadwaita meson ninja pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    libadwaita
+    meson
+    ninja
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     evince
@@ -78,7 +84,10 @@ stdenv.mkDerivation rec {
     feedbackd
   ];
 
-  nativeCheckInputs = [ dbus xvfb-run ];
+  nativeCheckInputs = [
+    dbus
+    xvfb-run
+  ];
 
   # Temporarily disabled - Test is broken (SIGABRT)
   doCheck = false;
@@ -126,7 +135,11 @@ stdenv.mkDerivation rec {
     changelog =
       "https://gitlab.gnome.org/World/Phosh/phosh/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ masipcat tomfitzhenry zhaofengli ];
+    maintainers = with maintainers; [
+      masipcat
+      tomfitzhenry
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

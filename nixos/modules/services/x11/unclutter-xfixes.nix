@@ -45,7 +45,11 @@ in {
         lib.mdDoc "More arguments to pass to the unclutter-xfixes command.";
       type = types.listOf types.str;
       default = [ ];
-      example = [ "exclude-root" "ignore-scrolling" "fork" ];
+      example = [
+        "exclude-root"
+        "ignore-scrolling"
+        "fork"
+      ];
     };
   };
 

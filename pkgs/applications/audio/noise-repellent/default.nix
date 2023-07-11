@@ -21,11 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d8csYC3z3vXdmN/G6mAK+H8ia0vOCsoUpoA3W8/OADc=";
   };
 
-  mesonFlags =
-    [ "--prefix=${placeholder "out"}/lib/lv2" "--buildtype=release" ];
+  mesonFlags = [
+    "--prefix=${placeholder "out"}/lib/lv2"
+    "--buildtype=release"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config cmake ];
-  buildInputs = [ libspecbleach lv2 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    cmake
+  ];
+  buildInputs = [
+    libspecbleach
+    lv2
+  ];
 
   meta = with lib; {
     description = "An lv2 plugin for broadband noise reduction";

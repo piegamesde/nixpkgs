@@ -48,7 +48,11 @@ mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ninja ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+  ];
   buildInputs = [
     alsa-lib
     ffmpeg_4

@@ -31,11 +31,24 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./headers-lookup.patch ];
 
-  nativeBuildInputs = [ pkg-config copyDesktopItems wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    copyDesktopItems
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ cairo freetype ghostscript gsl libjpeg libpng libspiro lua5 qtbase zlib ]
-    ++ (lib.optionals withTeXLive [ texlive ]);
+  buildInputs = [
+    cairo
+    freetype
+    ghostscript
+    gsl
+    libjpeg
+    libpng
+    libspiro
+    lua5
+    qtbase
+    zlib
+  ] ++ (lib.optionals withTeXLive [ texlive ]);
 
   makeFlags = [
     "-C src"
@@ -44,25 +57,30 @@ stdenv.mkDerivation rec {
     "IPE_NO_SPELLCHECK=1" # qtSpell is not yet packaged
   ];
 
-  qtWrapperArgs = lib.optional withTeXLive
-    [ "--prefix PATH : ${lib.makeBinPath [ texlive ]}" ];
+  qtWrapperArgs = lib.optional withTeXLive [ "--prefix PATH : ${
+      lib.makeBinPath [ texlive ]
+    }" ];
 
   enableParallelBuilding = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Ipe";
-      genericName = "Drawing editor";
-      comment = "A drawing editor for creating figures in PDF format";
-      exec = "ipe";
-      icon = "ipe";
-      mimeTypes = [ "text/xml" "application/pdf" ];
-      categories = [ "Graphics" "Qt" ];
-      startupNotify = true;
-      startupWMClass = "ipe";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "Ipe";
+    genericName = "Drawing editor";
+    comment = "A drawing editor for creating figures in PDF format";
+    exec = "ipe";
+    icon = "ipe";
+    mimeTypes = [
+      "text/xml"
+      "application/pdf"
+    ];
+    categories = [
+      "Graphics"
+      "Qt"
+    ];
+    startupNotify = true;
+    startupWMClass = "ipe";
+  }) ];
 
   postInstall = ''
     mkdir -p $out/share/icons/hicolor/128x128/apps

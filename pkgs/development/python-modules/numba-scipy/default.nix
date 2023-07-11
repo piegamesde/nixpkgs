@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-cApTGH5GJZH/RbkRjKhL3injvixD5kvfaS49FjrPA2U=";
   };
 
-  propagatedBuildInputs = [ scipy numba ];
+  propagatedBuildInputs = [
+    scipy
+    numba
+  ];
 
   postPatch = ''
     # https://github.com/numba/numba-scipy/pull/76

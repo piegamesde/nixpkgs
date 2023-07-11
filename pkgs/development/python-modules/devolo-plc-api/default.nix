@@ -32,10 +32,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ httpx protobuf zeroconf ];
+  propagatedBuildInputs = [
+    httpx
+    protobuf
+    zeroconf
+  ];
 
-  nativeCheckInputs =
-    [ pytest-asyncio pytest-httpx pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpx
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "devolo_plc_api" ];
 

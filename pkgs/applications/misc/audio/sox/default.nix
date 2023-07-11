@@ -47,25 +47,34 @@ stdenv.mkDerivation rec {
     hash = "sha256-9cpOwio69GvzVeDq79BSmJgds9WU5kA/KUlAkHcpN5c=";
   };
 
-  outputs = [ "out" "dev" "lib" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+  ];
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive ]
-    ++ lib.optionals enableOpusfile [
-      # configure.ac uses pkg-config only to locate libopusfile
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+  ] ++ lib.optionals enableOpusfile [
+    # configure.ac uses pkg-config only to locate libopusfile
+    pkg-config
+  ];
 
   patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
 
   buildInputs = lib.optional (enableAlsa && stdenv.isLinux) alsa-lib
     ++ lib.optional enableLibao libao ++ lib.optional enableLame lame
-    ++ lib.optional enableLibmad libmad
-    ++ lib.optionals enableLibogg [ libogg libvorbis ]
-    ++ lib.optional enableOpusfile opusfile ++ lib.optional enableFLAC flac
+    ++ lib.optional enableLibmad libmad ++ lib.optionals enableLibogg [
+      libogg
+      libvorbis
+    ] ++ lib.optional enableOpusfile opusfile ++ lib.optional enableFLAC flac
     ++ lib.optional enablePNG libpng ++ lib.optional enableLibsndfile libsndfile
-    ++ lib.optional enableWavpack wavpack
-    ++ lib.optionals enableAMR [ amrnb amrwb ]
-    ++ lib.optional enableLibpulseaudio libpulseaudio
+    ++ lib.optional enableWavpack wavpack ++ lib.optionals enableAMR [
+      amrnb
+      amrwb
+    ] ++ lib.optional enableLibpulseaudio libpulseaudio
     ++ lib.optional stdenv.isDarwin CoreAudio;
 
   meta = with lib; {

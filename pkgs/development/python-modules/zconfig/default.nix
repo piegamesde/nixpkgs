@@ -21,7 +21,10 @@ buildPythonPackage rec {
   patches =
     lib.optional stdenv.hostPlatform.isMusl ./remove-setlocale-test.patch;
 
-  buildInputs = [ manuel docutils ];
+  buildInputs = [
+    manuel
+    docutils
+  ];
   propagatedBuildInputs = [ zope_testrunner ];
   nativeCheckInputs = [ pygments ];
 

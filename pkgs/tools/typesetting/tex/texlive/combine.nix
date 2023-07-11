@@ -9,7 +9,11 @@ args@{
   ...
 }:
 let
-  pkgSet = removeAttrs args [ "pkgFilter" "extraName" "extraVersion" ] // {
+  pkgSet = removeAttrs args [
+    "pkgFilter"
+    "extraName"
+    "extraVersion"
+  ] // {
     # include a fake "core" package
     core.pkgs = [
       (bin.core.out // {
@@ -33,8 +37,12 @@ let
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
     # (omitted tk needed in pname == "epspdf", bin/epspdftk)
     pkgNeedsPython = pkg:
-      pkg.tlType == "run"
-      && lib.elem pkg.pname [ "de-macro" "pythontex" "dviasm" "texliveonfly" ];
+      pkg.tlType == "run" && lib.elem pkg.pname [
+        "de-macro"
+        "pythontex"
+        "dviasm"
+        "texliveonfly"
+      ];
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs = lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
       ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
@@ -51,7 +59,10 @@ let
     # remove fake derivations (without 'outPath') to avoid undesired build dependencies
     paths = lib.catAttrs "outPath" pkgList.nonbin;
 
-    nativeBuildInputs = [ perl bin.core.out ];
+    nativeBuildInputs = [
+      perl
+      bin.core.out
+    ];
 
     postBuild = # generate ls-R database
       ''
@@ -67,7 +78,10 @@ let
     paths = [ (texmfroot.outPath + "/texmf-dist/doc") ];
     extraPrefix = "/share";
 
-    pathsToLink = [ "/info" "/man" ];
+    pathsToLink = [
+      "/info"
+      "/man"
+    ];
   };
 
 in (buildEnv {
@@ -83,7 +97,12 @@ in (buildEnv {
     "/bin" # ensure these are writeable directories
   ];
 
-  nativeBuildInputs = [ makeWrapper libfaketime perl bin.texlinks ];
+  nativeBuildInputs = [
+    makeWrapper
+    libfaketime
+    perl
+    bin.texlinks
+  ];
   buildInputs = pkgList.extraInputs;
 
   passthru = {

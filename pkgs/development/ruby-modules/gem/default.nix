@@ -92,8 +92,10 @@ lib.makeOverridable (
     inherit dontStrip;
     gemType = type;
 
-    nativeBuildInputs = [ ruby makeWrapper ]
-      ++ lib.optionals (type == "git") [ gitMinimal ]
+    nativeBuildInputs = [
+      ruby
+      makeWrapper
+    ] ++ lib.optionals (type == "git") [ gitMinimal ]
       ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
 
     buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
@@ -135,9 +137,8 @@ lib.makeOverridable (
 
     # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
     # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
-    env.NIX_CFLAGS_COMPILE = toString (lib.optionals
-      (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3")
-      [ "-fdeclspec" ]);
+    env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
+      && lib.versionAtLeast ruby.version.major "3") [ "-fdeclspec" ]);
 
     buildPhase = attrs.buildPhase or ''
       runHook preBuild

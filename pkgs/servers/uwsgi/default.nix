@@ -36,7 +36,10 @@ let
     lib.nameValuePair "python${if pkg.isPy2 then "2" else "3"}" {
       interpreter = pkg.pythonForBuild.interpreter;
       path = "plugins/python";
-      inputs = [ pkg ncurses ];
+      inputs = [
+        pkg
+        ncurses
+      ];
       install = ''
         install -Dm644 uwsgidecorators.py $out/${pkg.sitePackages}/uwsgidecorators.py
         ${pkg.pythonForBuild.executable} -m compileall $out/${pkg.sitePackages}/
@@ -93,11 +96,20 @@ in stdenv.mkDerivation rec {
     ./additional-php-ldflags.patch
   ];
 
-  nativeBuildInputs = [ python3 pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    python3
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ jansson pcre libxcrypt ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ expat zlib ]
-    ++ lib.optional withPAM pam ++ lib.optional withSystemd systemd
+  buildInputs = [
+    jansson
+    pcre
+    libxcrypt
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    expat
+    zlib
+  ] ++ lib.optional withPAM pam ++ lib.optional withSystemd systemd
     ++ lib.optional withCap libcap ++ lib.concatMap (x: x.inputs) needed;
 
   basePlugins = lib.concatStringsSep ","
@@ -155,7 +167,11 @@ in stdenv.mkDerivation rec {
     description =
       "A fast, self-healing and developer/sysadmin-friendly application container server coded in pure C";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ abbradar schneefux globin ];
+    maintainers = with maintainers; [
+      abbradar
+      schneefux
+      globin
+    ];
     platforms = platforms.unix;
   };
 

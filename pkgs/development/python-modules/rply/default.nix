@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ appdirs ];
 
-  nativeCheckInputs = [ py pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -21,7 +21,11 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ numpy scipy matplotlib ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+  ];
 
   # single test fails (even on master branch of repository)
   # project does not use CI

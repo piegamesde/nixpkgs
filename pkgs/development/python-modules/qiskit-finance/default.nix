@@ -53,7 +53,12 @@ buildPythonPackage rec {
     yfinance
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-timeout ddt qiskit-aer ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-timeout
+    ddt
+    qiskit-aer
+  ];
 
   pythonImportsCheck = [ "qiskit_finance" ];
   disabledTests = [

@@ -25,7 +25,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ alsa-lib openssl ];
+  buildInputs = [
+    alsa-lib
+    openssl
+  ];
 
   cargoSha256 = "sha256-i+W/KwnqdaHcrdaWYUuCUeFlRKekVuEvFh/pxDolPNU=";
 

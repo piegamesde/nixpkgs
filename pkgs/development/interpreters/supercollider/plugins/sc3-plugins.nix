@@ -22,12 +22,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ supercollider fftw ];
+  buildInputs = [
+    supercollider
+    fftw
+  ];
 
-  cmakeFlags =
-    [ "-DSC_PATH=${supercollider}/include/SuperCollider" "-DSUPERNOVA=ON" ];
+  cmakeFlags = [
+    "-DSC_PATH=${supercollider}/include/SuperCollider"
+    "-DSUPERNOVA=ON"
+  ];
 
-  stripDebugList = [ "lib" "share" ];
+  stripDebugList = [
+    "lib"
+    "share"
+  ];
 
   passthru.updateScript = gitUpdater {
     url = "https://github.com/supercollider/sc3-plugins.git";

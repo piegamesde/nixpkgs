@@ -22,9 +22,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-s/IeQNw5NtFeP/yRD7DAfBS4jowodxW0VqlIwXY49jM=";
   };
 
-  nativeBuildInputs = [ meson ninja gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ pulseaudioFull glibmm gtkmm3 ];
+  buildInputs = [
+    pulseaudioFull
+    glibmm
+    gtkmm3
+  ];
 
   meta = with lib; {
     description = "PulseAudio Preferences";

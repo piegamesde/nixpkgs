@@ -26,11 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-av3QNfyPo/4GzFzQ60OrtPK6CV5AkN4FbbqgeBz4rY0=";
   };
 
-  nativeBuildInputs = [ setuptools pdm-pep517 ];
+  nativeBuildInputs = [
+    setuptools
+    pdm-pep517
+  ];
 
-  propagatedBuildInputs = [ click maison ruyaml ];
+  propagatedBuildInputs = [
+    click
+    maison
+    ruyaml
+  ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "yamlfix" ];
 

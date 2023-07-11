@@ -34,8 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "1a7dlwuUOHeCsB+ofAOPlbyuh/QAB8kf50MsocMNz70=";
   };
 
-  nativeBuildInputs =
-    [ wrapGAppsHook python3Packages.wrapPython intltool pkg-config ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    python3Packages.wrapPython
+    intltool
+    pkg-config
+  ];
 
   buildInputs = [
     glib
@@ -59,7 +63,10 @@ stdenv.mkDerivation rec {
     gst-plugins-bad
   ]);
 
-  pythonPath = with python3Packages; [ pygobject3 pycairo ];
+  pythonPath = with python3Packages; [
+    pygobject3
+    pycairo
+  ];
 
   preFixup = ''
     buildPythonPath "$out $pythonPath"

@@ -36,7 +36,12 @@ python3Packages.buildPythonApplication rec {
     gtk3
   ];
 
-  buildInputs = [ glib gtk3 python3 gsettings-desktop-schemas ];
+  buildInputs = [
+    glib
+    gtk3
+    python3
+    gsettings-desktop-schemas
+  ];
 
   propagatedBuildInputs = with python3Packages; [ pygobject3 ];
 

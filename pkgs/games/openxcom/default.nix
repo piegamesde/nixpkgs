@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-APv49ZT94oeM4KVKGtUdoQ1t8Ly8lsocr+FqXiRXbk0=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     SDL

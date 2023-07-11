@@ -15,7 +15,12 @@ mkDerivation rec {
   version = "20200824";
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtcharts libXrandr libdrm ];
+  buildInputs = [
+    qtbase
+    qtcharts
+    libXrandr
+    libdrm
+  ];
 
   src = (fetchFromGitHub {
     owner = "marazmista";

@@ -40,12 +40,20 @@ buildPythonPackage rec {
 
   buildInputs = [ tpm2-tss ];
 
-  propagatedBuildInputs = [ cffi asn1crypto cryptography pyyaml ];
+  propagatedBuildInputs = [
+    cffi
+    asn1crypto
+    cryptography
+    pyyaml
+  ];
 
   # https://github.com/tpm2-software/tpm2-pytss/issues/341
   doCheck = false;
 
-  nativeCheckInputs = [ ibm-sw-tpm2 pytestCheckHook ];
+  nativeCheckInputs = [
+    ibm-sw-tpm2
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "tpm2_pytss" ];
 

@@ -25,13 +25,11 @@ stdenv.mkDerivation (finalAttrs:
 
     patchFlags = [ "-p0" ];
 
-    patches = [
-      (fetchurl {
-        url =
-          "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch";
-        sha256 = "sha256-QMufl6ffJVVVVZespvkCbFpB6++R1lnq1687jEsUjr0=";
-      })
-    ];
+    patches = [ (fetchurl {
+      url =
+        "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch";
+      sha256 = "sha256-QMufl6ffJVVVVZespvkCbFpB6++R1lnq1687jEsUjr0=";
+    }) ];
     # Fix up hardcoded version from the above patch, e.g. seen in bzip2.pc or libbz2.so.1.0.N
     postPatch = ''
       patch <<-EOF
@@ -49,10 +47,17 @@ stdenv.mkDerivation (finalAttrs:
     strictDeps = true;
     nativeBuildInputs = [ autoreconfHook ];
 
-    outputs = [ "bin" "dev" "out" "man" ];
+    outputs = [
+      "bin"
+      "dev"
+      "out"
+      "man"
+    ];
 
-    configureFlags =
-      lib.optionals linkStatic [ "--enable-static" "--disable-shared" ];
+    configureFlags = lib.optionals linkStatic [
+      "--enable-static"
+      "--disable-shared"
+    ];
 
     enableParallelBuilding = true;
 

@@ -10,5 +10,10 @@
 mkDerivation {
   pname = "libkomparediff2";
   nativeBuildInputs = [ extra-cmake-modules ];
-  propagatedBuildInputs = [ kcodecs ki18n kxmlgui kio ];
+  propagatedBuildInputs = [
+    kcodecs
+    ki18n
+    kxmlgui
+    kio
+  ];
 }

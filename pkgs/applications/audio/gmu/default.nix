@@ -45,8 +45,17 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs =
-    [ SDL SDL_gfx SDL_image tremor flac mpg123 libmikmod speex ncurses ];
+  buildInputs = [
+    SDL
+    SDL_gfx
+    SDL_image
+    tremor
+    flac
+    mpg123
+    libmikmod
+    speex
+    ncurses
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

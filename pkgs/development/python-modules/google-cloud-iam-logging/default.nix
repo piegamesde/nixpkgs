@@ -24,14 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-Xj7XJ/Wz9dmbqygKqjcvWn+zeGejYyqBzLkpNufX8lQ=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-core grpc-google-iam-v1 proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    grpc-google-iam-v1
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ mock pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
-  pythonImportsCheck =
-    [ "google.cloud.iam_logging" "google.cloud.iam_logging_v1" ];
+  pythonImportsCheck = [
+    "google.cloud.iam_logging"
+    "google.cloud.iam_logging_v1"
+  ];
 
   meta = with lib; {
     description = "IAM Service Logging client library";

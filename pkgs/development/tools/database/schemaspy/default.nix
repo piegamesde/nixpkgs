@@ -28,7 +28,11 @@ let
     name = "${pname}-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk maven git ];
+    nativeBuildInputs = [
+      jdk
+      maven
+      git
+    ];
     buildInputs = [ jre ];
 
     buildPhase = ''

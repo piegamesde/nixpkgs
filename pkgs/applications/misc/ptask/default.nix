@@ -18,11 +18,20 @@ stdenv.mkDerivation rec {
     sha256 = "13nirr7b29bv3w2zc8zxphhmc9ayhs61i11jl4819nabk7vy1kdq";
   };
 
-  buildInputs = [ gtk3 json_c ];
+  buildInputs = [
+    gtk3
+    json_c
+  ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  patches = [ ./tw-version.patch ./json_c_is_error.patch ];
+  patches = [
+    ./tw-version.patch
+    ./json_c_is_error.patch
+  ];
 
   preFixup = ''
     wrapProgram "$out/bin/ptask" \

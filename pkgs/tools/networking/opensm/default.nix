@@ -21,7 +21,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/bqo5r9pVt7vg29xaRRO/9k21AMlmoe2327Ot5gVIwc=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool bison flex ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    bison
+    flex
+  ];
 
   buildInputs = [ rdma-core ];
 

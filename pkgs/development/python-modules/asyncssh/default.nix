@@ -31,7 +31,12 @@ buildPythonPackage rec {
     hash = "sha256-67uDwFwLRc8jDeHvLwYFnjYPmvpcPd9g/JL697lP+Ic=";
   };
 
-  propagatedBuildInputs = [ cryptography libsodium nettle typing-extensions ];
+  propagatedBuildInputs = [
+    cryptography
+    libsodium
+    nettle
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = {
     bcrypt = [ bcrypt ];
@@ -42,8 +47,11 @@ buildPythonPackage rec {
     pyOpenSSL = [ pyopenssl ];
   };
 
-  nativeCheckInputs = [ openssh openssl pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    openssh
+    openssl
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   patches = [
     # Reverts https://github.com/ronf/asyncssh/commit/4b3dec994b3aa821dba4db507030b569c3a32730

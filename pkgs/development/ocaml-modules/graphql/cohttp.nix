@@ -20,9 +20,19 @@ buildDunePackage rec {
   duneVersion = "3";
 
   nativeBuildInputs = [ ocaml-crunch ];
-  propagatedBuildInputs = [ astring cohttp digestif graphql ocplib-endian ];
+  propagatedBuildInputs = [
+    astring
+    cohttp
+    digestif
+    graphql
+    ocplib-endian
+  ];
 
-  checkInputs = lib.optionals doCheck [ alcotest cohttp-lwt-unix graphql-lwt ];
+  checkInputs = lib.optionals doCheck [
+    alcotest
+    cohttp-lwt-unix
+    graphql-lwt
+  ];
 
   doCheck = true;
 

@@ -35,25 +35,26 @@ in stdenv.mkDerivation rec {
     hash = "sha256-uACmXas5L1NcxLwllkcbgCCt9bRicpQkiJkhkkVWDDY=";
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      comment = meta.description;
-      name = "JabRef %U";
-      desktopName = "JabRef";
-      genericName = "Bibliography manager";
-      categories = [ "Office" ];
-      icon = "jabref";
-      exec = "JabRef";
-      startupWMClass = "org.jabref.gui.JabRefMain";
-      mimeTypes = [ "text/x-bibtex" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    comment = meta.description;
+    name = "JabRef %U";
+    desktopName = "JabRef";
+    genericName = "Bibliography manager";
+    categories = [ "Office" ];
+    icon = "jabref";
+    exec = "JabRef";
+    startupWMClass = "org.jabref.gui.JabRefMain";
+    mimeTypes = [ "text/x-bibtex" ];
+  }) ];
 
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version postPatch;
 
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon downloadDependencies -Dos.arch=amd64
@@ -93,7 +94,13 @@ in stdenv.mkDerivation rec {
       settings.gradle
   '';
 
-  nativeBuildInputs = [ jdk gradle wrapGAppsHook copyDesktopItems unzip ];
+  nativeBuildInputs = [
+    jdk
+    gradle
+    wrapGAppsHook
+    copyDesktopItems
+    unzip
+  ];
 
   buildInputs = [ gtk3 ];
 
@@ -163,7 +170,13 @@ in stdenv.mkDerivation rec {
       binaryNativeCode # source bundles dependencies as jars
     ];
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ gebner linsui ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      gebner
+      linsui
+    ];
   };
 }

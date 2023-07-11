@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
       lib.getBin stdenv.cc.bintools.bintools
     }/bin/${stdenv.cc.targetPrefix}strip"
   '';
-  nativeBuildInputs = [ perl zlib ];
+  nativeBuildInputs = [
+    perl
+    zlib
+  ];
   #  buildInputs = [ zlib ];
 
   meta = with lib; {

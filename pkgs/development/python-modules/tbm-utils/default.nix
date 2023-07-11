@@ -17,7 +17,12 @@ buildPythonPackage rec {
     sha256 = "1v7pb3yirkhzbv1z5i1qp74vl880f56zvzfj68p08b5jxv64hmr3";
   };
 
-  propagatedBuildInputs = [ attrs pendulum pprintpp wrapt ];
+  propagatedBuildInputs = [
+    attrs
+    pendulum
+    pprintpp
+    wrapt
+  ];
 
   # this versioning was done to prevent normal pip users from encountering
   # issues with package failing to build from source, but nixpkgs is better

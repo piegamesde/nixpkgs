@@ -17,14 +17,18 @@ stdenv.mkDerivation rec {
   inherit src;
   sourceRoot = "source/${pname}";
 
-  nativeBuildInputs = [ cmake perl ];
-  buildInputs = [
-    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
+  nativeBuildInputs = [
+    cmake
+    perl
   ];
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
+    llvm
+  else
+    targetLlvm) ];
 
-  cmakeFlags = [
-    "-DLIBOMPTARGET_BUILD_AMDGCN_BCLIB=OFF" # Building the AMDGCN device RTL currently fails
-  ];
+  cmakeFlags =
+    [ "-DLIBOMPTARGET_BUILD_AMDGCN_BCLIB=OFF" # Building the AMDGCN device RTL currently fails
+    ];
 
   meta = llvm_meta // {
     homepage = "https://openmp.llvm.org/";
@@ -38,6 +42,9 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code is dual licensed under the MIT license and the UIUC
     # License (a BSD-like license)":
-    license = with lib.licenses; [ mit ncsa ];
+    license = with lib.licenses; [
+      mit
+      ncsa
+    ];
   };
 }

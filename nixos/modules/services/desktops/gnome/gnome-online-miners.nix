@@ -14,14 +14,17 @@ with lib;
   meta = { maintainers = teams.gnome.members; };
 
   # Added 2021-05-07
-  imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "gnome3"
-      "gnome-online-miners"
-      "enable"
-    ] [ "services" "gnome" "gnome-online-miners" "enable" ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "gnome3"
+    "gnome-online-miners"
+    "enable"
+  ] [
+    "services"
+    "gnome"
+    "gnome-online-miners"
+    "enable"
+  ]) ];
 
   ###### interface
 

@@ -102,6 +102,9 @@ in buildBazelPackage rec {
       "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hzeller newam ];
+    maintainers = with maintainers; [
+      hzeller
+      newam
+    ];
   };
 }

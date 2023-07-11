@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-lfhTR3+D1FvblhQGF83AB8+I8WDPBTmo+q22ksgDgt4=";
   };
 
-  propagatedBuildInputs = [ click pyyaml six ];
+  propagatedBuildInputs = [
+    click
+    pyyaml
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,6 +48,9 @@ buildPythonPackage rec {
       "Tool for converting AWS CloudFormation templates between JSON and YAML formats";
     homepage = "https://github.com/awslabs/aws-cfn-template-flip";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kamadorueda psyanticy ];
+    maintainers = with maintainers; [
+      kamadorueda
+      psyanticy
+    ];
   };
 }

@@ -27,9 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-14agJq7+fuQXqFDS8qfCj45XW/v3CekKmC5TA/5+eTk=";
   };
 
-  propagatedBuildInputs = [ pyjwt pytz requests ];
+  propagatedBuildInputs = [
+    pyjwt
+    pytz
+    requests
+  ];
 
-  nativeCheckInputs = [ cryptography django mock multidict pytestCheckHook ];
+  nativeCheckInputs = [
+    cryptography
+    django
+    mock
+    multidict
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests require network access

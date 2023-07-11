@@ -8,7 +8,10 @@ args@{
 
   description = "cl-paths-ttf: vectorial paths manipulation";
 
-  deps = [ args."cl-paths" args."zpb-ttf" ];
+  deps = [
+    args."cl-paths"
+    args."zpb-ttf"
+  ];
 
   src = fetchurl {
     url =

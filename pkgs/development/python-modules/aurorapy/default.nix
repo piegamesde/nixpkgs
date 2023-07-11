@@ -26,9 +26,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ future pyserial ];
+  propagatedBuildInputs = [
+    future
+    pyserial
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook six ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    six
+  ];
 
   pythonImportsCheck = [ "aurorapy" ];
 

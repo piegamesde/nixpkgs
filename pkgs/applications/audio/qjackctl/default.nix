@@ -28,9 +28,19 @@ mkDerivation rec {
     sha256 = "sha256-XF5v+VgSCqqV2ft9qw1NTNzeYOv1OuhljJGdgikPLEo=";
   };
 
-  buildInputs = [ qtbase qtx11extras qttools alsa-lib libjack2 dbus ];
+  buildInputs = [
+    qtbase
+    qtx11extras
+    qttools
+    alsa-lib
+    libjack2
+    dbus
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DCONFIG_JACK_VERSION=1"

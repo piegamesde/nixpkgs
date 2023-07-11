@@ -29,9 +29,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit ];
 
-  propagatedBuildInputs = [ async-timeout httpx lxml ];
+  propagatedBuildInputs = [
+    async-timeout
+    httpx
+    lxml
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio pytest-httpx ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    pytest-httpx
+  ];
 
   patches = [
     # Can be removed with next release, https://github.com/cgtobi/PyRMVtransport/pull/55

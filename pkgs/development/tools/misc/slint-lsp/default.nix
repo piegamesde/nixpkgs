@@ -30,7 +30,10 @@ let
     xorg.libXcursor
     xorg.libXrandr
     xorg.libXi
-  ] ++ lib.optionals stdenv.isLinux [ libxkbcommon wayland ];
+  ] ++ lib.optionals stdenv.isLinux [
+    libxkbcommon
+    wayland
+  ];
 in rustPlatform.buildRustPackage rec {
   pname = "slint-lsp";
   version = "1.0.0";
@@ -42,7 +45,11 @@ in rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-IzjOAy9zTtsD4jHjI1oVXBg7Si1AeDNH8ATK4yO8WVw=";
 
-  nativeBuildInputs = [ cmake pkg-config fontconfig ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    fontconfig
+  ];
   buildInputs = rpathLibs ++ [ xorg.libxcb.dev ]
     ++ lib.optionals stdenv.isDarwin [
       AppKit

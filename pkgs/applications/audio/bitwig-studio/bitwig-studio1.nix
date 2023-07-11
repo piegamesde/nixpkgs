@@ -37,7 +37,12 @@ stdenv.mkDerivation rec {
     sha256 = "0n0fxh9gnmilwskjcayvjsjfcs3fz9hn00wh7b3gg0cv3qqhich8";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   unpackCmd = "mkdir root ; dpkg-deb -x $curSrc root";
 
@@ -117,7 +122,12 @@ stdenv.mkDerivation rec {
       -not -path '*/resources/*' | \
     while IFS= read -r f ; do
       wrapProgram $f \
-        --suffix PATH : "${lib.makeBinPath [ ffmpeg zenity ]}" \
+        --suffix PATH : "${
+          lib.makeBinPath [
+            ffmpeg
+            zenity
+          ]
+        }" \
         --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
         "''${gappsWrapperArgs[@]}" \
         --set LD_PRELOAD "${libxkbcommon.out}/lib/libxkbcommon.so" || true
@@ -134,6 +144,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.bitwig.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ michalrus mrVanDalo ];
+    maintainers = with maintainers; [
+      michalrus
+      mrVanDalo
+    ];
   };
 }

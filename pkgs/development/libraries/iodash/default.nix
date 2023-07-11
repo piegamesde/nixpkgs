@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
   # https://github.com/YukiWorkshop/IODash/pull/2
   patches = [ ./0001-Add-cmake-install-directives.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/YukiWorkshop/IODash";

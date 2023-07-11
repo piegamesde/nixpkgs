@@ -21,9 +21,15 @@ buildGoModule rec {
   vendorSha256 = "sha256-0O80uhxSVsV9N7Z/FgaLwcjZqeb4MqSCE1YW5Zd32ns=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glib libxml2 ];
+  buildInputs = [
+    glib
+    libxml2
+  ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/sloonz/ua";

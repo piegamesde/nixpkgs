@@ -20,7 +20,13 @@ buildPythonPackage rec {
     sha256 = "1mn97h370ggbc9vi6x8r6akd5q8i512y6kid2nvm67g93r9a6rvv";
   };
 
-  propagatedBuildInputs = [ colorama log-symbols termcolor six spinners ];
+  propagatedBuildInputs = [
+    colorama
+    log-symbols
+    termcolor
+    six
+    spinners
+  ];
 
   # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;

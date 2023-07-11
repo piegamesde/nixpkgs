@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib ];
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +42,10 @@ stdenv.mkDerivation rec {
   '';
 
   # Don't move doc to share/, VASSAL expects it to be in the root
-  forceShare = [ "man" "info" ];
+  forceShare = [
+    "man"
+    "info"
+  ];
 
   meta = with lib; {
     description = "A free, open-source boardgame engine";

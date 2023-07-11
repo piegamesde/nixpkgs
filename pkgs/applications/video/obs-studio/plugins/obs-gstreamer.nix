@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-C4yee7hzkSOjIeaacLaTGPzZ1qYdYtHK5a3m9gz2pPI=";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = with gst_all_1; [ gstreamer gst-plugins-base obs-studio ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+  ];
+  buildInputs = with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    obs-studio
+  ];
 
   # - We need "getLib" instead of default derivation, otherwise it brings gstreamer-bin;
   # - without gst-plugins-base it won't even show proper errors in logs;
@@ -51,8 +59,14 @@ stdenv.mkDerivation rec {
     description =
       "An OBS Studio source, encoder and video filter plugin to use GStreamer elements/pipelines in OBS Studio";
     homepage = "https://github.com/fzwoch/obs-gstreamer";
-    maintainers = with maintainers; [ ahuzik pedrohlc ];
+    maintainers = with maintainers; [
+      ahuzik
+      pedrohlc
+    ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

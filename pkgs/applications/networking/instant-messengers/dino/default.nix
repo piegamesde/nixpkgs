@@ -133,6 +133,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dino/dino";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ qyliss tomfitzhenry ];
+    maintainers = with maintainers; [
+      qyliss
+      tomfitzhenry
+    ];
   };
 }

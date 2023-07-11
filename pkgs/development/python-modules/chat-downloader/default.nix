@@ -20,8 +20,13 @@ buildPythonPackage rec {
     sha256 = "beeaedbe7d28e22f8a2c635fc6432f9e9af84e3c2a6ecff101f4453de1abb385";
   };
 
-  propagatedBuildInputs =
-    [ requests isodate docstring-parser colorlog websocket-client ];
+  propagatedBuildInputs = [
+    requests
+    isodate
+    docstring-parser
+    colorlog
+    websocket-client
+  ];
 
   # Tests try to access the network.
   doCheck = false;

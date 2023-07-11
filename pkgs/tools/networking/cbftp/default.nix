@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-DE6fnLzWsx6Skz2LRJAaijjIqrYFB8/HPp45P5CcEc8=";
   };
 
-  buildInputs = [ ncurses openssl ];
+  buildInputs = [
+    ncurses
+    openssl
+  ];
 
   dontConfigure = true;
 

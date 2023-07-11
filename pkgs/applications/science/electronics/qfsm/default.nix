@@ -17,10 +17,19 @@ stdenv.mkDerivation rec {
     sha256 = "0rl7bc5cr29ng67yij4akciyid9z7npal812ys4c3m229vjvflrb";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ qt4 graphviz ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    qt4
+    graphviz
+  ];
 
-  patches = [ ./drop-hardcoded-prefix.patch ./gcc6-fixes.patch ];
+  patches = [
+    ./drop-hardcoded-prefix.patch
+    ./gcc6-fixes.patch
+  ];
 
   hardeningDisable = [ "format" ];
 

@@ -46,7 +46,12 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock pytest-vcr requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    pytest-vcr
+    requests-mock
+  ];
 
   pythonImportsCheck = [ "mastodon" ];
 

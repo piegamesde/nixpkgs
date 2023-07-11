@@ -80,11 +80,21 @@ let
 
       hardeningEnable = lib.optionals (!stdenv'.cc.isClang) [ "pie" ];
 
-      outputs = [ "out" "lib" "doc" "man" ];
+      outputs = [
+        "out"
+        "lib"
+        "doc"
+        "man"
+      ];
       setOutputFlags = false; # $out retains configureFlags :-/
 
-      buildInputs = [ zlib readline openssl libxml2 icu ]
-        ++ lib.optionals (olderThan "13") [ libxcrypt ]
+      buildInputs = [
+        zlib
+        readline
+        openssl
+        libxml2
+        icu
+      ] ++ lib.optionals (olderThan "13") [ libxcrypt ]
         ++ lib.optionals jitSupport [ llvmPackages.llvm ]
         ++ lib.optionals lz4Enabled [ lz4 ]
         ++ lib.optionals zstdEnabled [ zstd ]
@@ -92,12 +102,14 @@ let
         ++ lib.optionals gssSupport [ libkrb5 ]
         ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ];
 
-      nativeBuildInputs = [ makeWrapper pkg-config ]
-        ++ lib.optionals jitSupport [
-          llvmPackages.llvm.dev
-          nukeReferences
-          patchelf
-        ];
+      nativeBuildInputs = [
+        makeWrapper
+        pkg-config
+      ] ++ lib.optionals jitSupport [
+        llvmPackages.llvm.dev
+        nukeReferences
+        patchelf
+      ];
 
       enableParallelBuilding = !stdenv'.isDarwin;
 
@@ -132,12 +144,10 @@ let
         ./patches/hardcode-pgxs-path.patch
         ./patches/specify_pkglibdir_at_runtime.patch
         ./patches/findstring.patch
-      ] ++ lib.optionals stdenv'.isLinux [
-        (if atLeast "13" then
-          ./patches/socketdir-in-run-13.patch
-        else
-          ./patches/socketdir-in-run.patch)
-      ];
+      ] ++ lib.optionals stdenv'.isLinux [ (if atLeast "13" then
+        ./patches/socketdir-in-run-13.patch
+      else
+        ./patches/socketdir-in-run.patch) ];
 
       installTargets = [ "install-world" ];
 
@@ -313,7 +323,10 @@ let
       # We include /bin to ensure the $out/bin directory is created, which is
       # needed because we'll be removing the files from that directory in postBuild
       # below. See #22653
-      pathsToLink = [ "/" "/bin" ];
+      pathsToLink = [
+        "/"
+        "/bin"
+      ];
 
       # Note: the duplication of executables is about 4MB size.
       # So a nicer solution was patching postgresql to allow setting the

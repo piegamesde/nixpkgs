@@ -49,9 +49,18 @@ in ocamlPackages.buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs =
-    [ fake-opam kpsexpand makeWrapper texlive.combined.scheme-medium which ];
-  buildInputs = with ocamlPackages; [ camlimages ghostscriptX graphics ];
+  nativeBuildInputs = [
+    fake-opam
+    kpsexpand
+    makeWrapper
+    texlive.combined.scheme-medium
+    which
+  ];
+  buildInputs = with ocamlPackages; [
+    camlimages
+    ghostscriptX
+    graphics
+  ];
 
   # TODO: ghostscript linked from texlive.combine will override ghostscriptX and break advi
   preInstall = ''

@@ -60,8 +60,13 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
   '';
 
-  nativeCheckInputs =
-    [ mock psutil pytestCheckHook pytest-mock pytest-dependency ];
+  nativeCheckInputs = [
+    mock
+    psutil
+    pytestCheckHook
+    pytest-mock
+    pytest-dependency
+  ];
 
   meta = with lib; {
     description = "Embedded control & testing library";

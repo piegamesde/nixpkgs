@@ -22,8 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "1d5x7rq0mgfrqws3q1y4z8wh2qa3gvsmd0ssf2yqgkyq3fhdrb5c";
   };
 
-  nativeBuildInputs = [ pkg-config wrapQtAppsHook qmake qttools ];
-  buildInputs = [ hamlib qtbase qtserialport qtcharts ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapQtAppsHook
+    qmake
+    qttools
+  ];
+  buildInputs = [
+    hamlib
+    qtbase
+    qtserialport
+    qtcharts
+  ];
 
   qmakeFlags = [ "KLog.pro" ];
 

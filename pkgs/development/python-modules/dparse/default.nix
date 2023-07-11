@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-1FJVvaIfmYvH3fKv1eYlBbphNHVrotQqhMVrCCZhTf4=";
   };
 
-  propagatedBuildInputs = [ toml pyyaml packaging ];
+  propagatedBuildInputs = [
+    toml
+    pyyaml
+    packaging
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -27,9 +27,16 @@ buildPythonApplication rec {
     })
   ];
 
-  propagatedBuildInputs = [ pynvim psutil setuptools ];
+  propagatedBuildInputs = [
+    pynvim
+    psutil
+    setuptools
+  ];
 
-  nativeCheckInputs = [ neovim pytestCheckHook ];
+  nativeCheckInputs = [
+    neovim
+    pytestCheckHook
+  ];
 
   doCheck = !stdenv.isDarwin;
 

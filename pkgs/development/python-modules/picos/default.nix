@@ -22,7 +22,10 @@ buildPythonPackage rec {
   # Needed only for the tests
   nativeCheckInputs = [ networkx ];
 
-  propagatedBuildInputs = [ numpy cvxopt ];
+  propagatedBuildInputs = [
+    numpy
+    cvxopt
+  ];
 
   checkPhase = ''
     ${python.interpreter} test.py

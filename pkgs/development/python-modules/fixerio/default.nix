@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ httpretty pytestCheckHook responses ];
+  nativeCheckInputs = [
+    httpretty
+    pytestCheckHook
+    responses
+  ];
 
   disabledTests = [
     # tests require network access

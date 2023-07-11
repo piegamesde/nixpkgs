@@ -16,7 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-4GuI7+IjiF0nJd9Rz3ybe0Y9HG8E6knUaQh0MY0Ot6M=";
   };
 
-  nativeBuildInputs = [ setuptools-git sphinx ];
+  nativeBuildInputs = [
+    setuptools-git
+    sphinx
+  ];
 
   propagatedBuildInputs = [ lxml ];
 

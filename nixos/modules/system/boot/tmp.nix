@@ -9,13 +9,26 @@ with lib;
 let cfg = config.boot.tmp;
 in {
   imports = [
-    (mkRenamedOptionModule [ "boot" "cleanTmpDir" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "cleanTmpDir"
+    ] [
       "boot"
       "tmp"
       "cleanOnBoot"
     ])
-    (mkRenamedOptionModule [ "boot" "tmpOnTmpfs" ] [ "boot" "tmp" "useTmpfs" ])
-    (mkRenamedOptionModule [ "boot" "tmpOnTmpfsSize" ] [
+    (mkRenamedOptionModule [
+      "boot"
+      "tmpOnTmpfs"
+    ] [
+      "boot"
+      "tmp"
+      "useTmpfs"
+    ])
+    (mkRenamedOptionModule [
+      "boot"
+      "tmpOnTmpfsSize"
+    ] [
       "boot"
       "tmp"
       "tmpfsSize"
@@ -33,7 +46,10 @@ in {
       };
 
       tmpfsSize = mkOption {
-        type = types.oneOf [ types.str types.types.ints.positive ];
+        type = types.oneOf [
+          types.str
+          types.types.ints.positive
+        ];
         default = "50%";
         description = lib.mdDoc ''
           Size of tmpfs in percentage.
@@ -58,7 +74,7 @@ in {
 
   config = {
     # When changing remember to update /tmp mount in virtualisation/qemu-vm.nix
-    systemd.mounts = mkIf cfg.useTmpfs [{
+    systemd.mounts = mkIf cfg.useTmpfs [ {
       what = "tmpfs";
       where = "/tmp";
       type = "tmpfs";
@@ -70,7 +86,7 @@ in {
         "nodev"
         "size=${toString cfg.tmpfsSize}"
       ];
-    }];
+    } ];
 
     systemd.tmpfiles.rules = optional cfg.cleanOnBoot "D! /tmp 1777 root root";
   };

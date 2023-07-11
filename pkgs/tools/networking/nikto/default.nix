@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
       --replace "LW_SSL_ENGINE=auto" "LW_SSL_ENGINE=SSLeay"
   '';
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   propagatedBuildInputs = [ perlPackages.NetSSLeay ];
 

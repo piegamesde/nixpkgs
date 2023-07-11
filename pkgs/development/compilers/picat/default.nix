@@ -36,6 +36,9 @@ in stdenv.mkDerivation {
     homepage = "http://picat-lang.org/";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ earldouglas thoughtpolice ];
+    maintainers = with maintainers; [
+      earldouglas
+      thoughtpolice
+    ];
   };
 }

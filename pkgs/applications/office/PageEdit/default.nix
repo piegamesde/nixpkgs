@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-naoflFANeMwabbdrNL3+ndvEXYT4Yqf+Mo77HcCexHE=";
   };
 
-  nativeBuildInputs = [ cmake qttranslations wrapQtAppsHook ];
-  propagatedBuildInputs = [ qtsvg qtwebengine ];
+  nativeBuildInputs = [
+    cmake
+    qttranslations
+    wrapQtAppsHook
+  ];
+  propagatedBuildInputs = [
+    qtsvg
+    qtwebengine
+  ];
   cmakeFlags = [ "-DINSTALL_BUNDLED_DICTS=0" ];
 
   installPhase = if stdenv.isDarwin then ''

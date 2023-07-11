@@ -27,7 +27,12 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake python3 qttools python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    qttools
+    python3.pkgs.wrapPython
+  ];
 
   buildInputs = [
     kirigami2

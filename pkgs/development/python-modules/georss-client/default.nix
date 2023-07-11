@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-D1ggfEDU+vlFmi1USwdHj1due0PrCQCpKF4zaarHCFs=";
   };
 
-  propagatedBuildInputs = [ haversine xmltodict requests dateparser ];
+  propagatedBuildInputs = [
+    haversine
+    xmltodict
+    requests
+    dateparser
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

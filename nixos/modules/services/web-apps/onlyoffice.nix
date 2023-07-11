@@ -210,10 +210,10 @@ in {
       postgresql = {
         enable = lib.mkDefault true;
         ensureDatabases = [ "onlyoffice" ];
-        ensureUsers = [{
+        ensureUsers = [ {
           name = "onlyoffice";
           ensurePermissions = { "DATABASE \"onlyoffice\"" = "ALL PRIVILEGES"; };
-        }];
+        } ];
       };
     };
 
@@ -246,8 +246,11 @@ in {
       onlyoffice-docservice = let
         onlyoffice-prestart = pkgs.writeShellScript "onlyoffice-prestart" ''
           PATH=$PATH:${
-            lib.makeBinPath
-            (with pkgs; [ jq moreutils config.services.postgresql.package ])
+            lib.makeBinPath (with pkgs; [
+              jq
+              moreutils
+              config.services.postgresql.package
+            ])
           }
           umask 077
           mkdir -p /run/onlyoffice/config/ /var/lib/onlyoffice/documentserver/sdkjs/{slide/themes,common}/ /var/lib/onlyoffice/documentserver/{fonts,server/FileConverter/bin}/
@@ -289,7 +292,10 @@ in {
         '';
       in {
         description = "onlyoffice documentserver";
-        after = [ "network.target" "postgresql.service" ];
+        after = [
+          "network.target"
+          "postgresql.service"
+        ];
         requires = [ "postgresql.service" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {

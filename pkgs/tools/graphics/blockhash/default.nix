@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "0x3lvhnkb4c3pyq6p81qnnqimz35wpippiac506dgjx3b1848v35";
   };
 
-  nativeBuildInputs = [ python3 pkg-config wafHook ];
+  nativeBuildInputs = [
+    python3
+    pkg-config
+    wafHook
+  ];
   buildInputs = [ imagemagick ];
 
   strictDeps = true;

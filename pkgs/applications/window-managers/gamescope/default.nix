@@ -83,7 +83,12 @@ in stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ meson pkg-config ninja makeBinaryWrapper ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    makeBinaryWrapper
+  ];
 
   buildInputs = [
     xorg.libXdamage
@@ -127,14 +132,25 @@ in stdenv.mkDerivation {
   # --debug-layers flag expects these in the path
   postInstall = ''
     wrapProgram "$out/bin/gamescope" \
-     --prefix PATH : ${with xorg; lib.makeBinPath [ xprop xwininfo ]}
+     --prefix PATH : ${
+       with xorg;
+       lib.makeBinPath [
+         xprop
+         xwininfo
+       ]
+     }
   '';
 
   meta = with lib; {
     description = "SteamOS session compositing window manager";
     homepage = "https://github.com/ValveSoftware/gamescope";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nrdxp pedrohlc Scrumplex zhaofengli ];
+    maintainers = with maintainers; [
+      nrdxp
+      pedrohlc
+      Scrumplex
+      zhaofengli
+    ];
     platforms = platforms.linux;
   };
 }

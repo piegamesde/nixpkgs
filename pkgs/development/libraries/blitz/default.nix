@@ -47,9 +47,18 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake pkg-config python3 texinfo ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+    texinfo
+  ];
 
-  buildInputs = [ gfortran texinfo boost ];
+  buildInputs = [
+    gfortran
+    texinfo
+    boost
+  ];
 
   cmakeFlags = optional enablePadding "-DARRAY_LENGTH_PADDING=ON"
     ++ optional enableSerialization "-DENABLE_SERIALISATION=ON"

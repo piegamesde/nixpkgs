@@ -55,7 +55,10 @@ in mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     SDL
@@ -71,7 +74,10 @@ in mkDerivation rec {
     tinyxml2
   ];
 
-  qmakeFlags = [ "CONFIG+=${target}" "pokerth.pro" ];
+  qmakeFlags = [
+    "CONFIG+=${target}"
+    "pokerth.pro"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL}/include/SDL";
 
@@ -79,7 +85,10 @@ in mkDerivation rec {
     homepage = "https://www.pokerth.net";
     description = "Poker game ${target}";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ obadz yana ];
+    maintainers = with maintainers; [
+      obadz
+      yana
+    ];
     platforms = platforms.all;
   };
 }

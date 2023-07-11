@@ -33,9 +33,19 @@ buildPythonPackage rec {
     sed -i "s/'botocore>=.*'/'botocore'/" setup.py
   '';
 
-  propagatedBuildInputs = [ aiohttp aioitertools botocore wrapt ];
+  propagatedBuildInputs = [
+    aiohttp
+    aioitertools
+    botocore
+    wrapt
+  ];
 
-  nativeCheckInputs = [ dill moto pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    dill
+    moto
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aiobotocore" ];
 

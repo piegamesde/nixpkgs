@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0aIYnUuG5XATruxwY6+LZbEdKkHP3X1N1ueVE7R37Qk=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/BYVoid/OpenCC";

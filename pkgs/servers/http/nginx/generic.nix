@@ -74,7 +74,10 @@ in assert lib.assertMsg (lib.unique moduleNames == moduleNames)
 stdenv.mkDerivation {
   inherit pname version nginxVersion;
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = if src != null then
     src
@@ -86,8 +89,16 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
-  buildInputs = [ openssl zlib pcre libxml2 libxslt gd geoip perl ]
-    ++ buildInputs ++ mapModules "inputs";
+  buildInputs = [
+    openssl
+    zlib
+    pcre
+    libxml2
+    libxslt
+    gd
+    geoip
+    perl
+  ] ++ buildInputs ++ mapModules "inputs";
 
   configureFlags = [
     "--with-http_ssl_module"
@@ -123,8 +134,10 @@ stdenv.mkDerivation {
       "--with-stream_realip_module"
       "--with-stream_ssl_module"
       "--with-stream_ssl_preread_module"
-    ] ++ lib.optionals withMail [ "--with-mail" "--with-mail_ssl_module" ]
-    ++ lib.optionals withPerl [
+    ] ++ lib.optionals withMail [
+      "--with-mail"
+      "--with-mail_ssl_module"
+    ] ++ lib.optionals withPerl [
       "--with-http_perl_module"
       "--with-perl=${perl}/bin/perl"
       "--with-perl_modules_path=lib/perl5"
@@ -136,13 +149,14 @@ stdenv.mkDerivation {
     "--with-file-aio" ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules;
 
-  env.NIX_CFLAGS_COMPILE = toString
-    ([ "-I${libxml2.dev}/include/libxml2" "-Wno-error=implicit-fallthrough" ]
-      ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-        # fix build vts module on gcc11
-        "-Wno-error=stringop-overread"
-      ] ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-I${libxml2.dev}/include/libxml2"
+    "-Wno-error=implicit-fallthrough"
+  ] ++ lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
+      # fix build vts module on gcc11
+      "-Wno-error=stringop-overread"
+    ] ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
 
   configurePlatforms = [ ];
 

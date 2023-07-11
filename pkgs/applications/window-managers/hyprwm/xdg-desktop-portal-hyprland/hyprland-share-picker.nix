@@ -18,7 +18,11 @@ in stdenv.mkDerivation {
 
   src = "${source.src}/hyprland-share-picker";
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook makeShellWrapper ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+    makeShellWrapper
+  ];
   buildInputs = [ qtbase ];
 
   dontWrapQtApps = true;
@@ -26,7 +30,13 @@ in stdenv.mkDerivation {
   postInstall = ''
     wrapProgramShell $out/bin/hyprland-share-picker \
       "''${qtWrapperArgs[@]}" \
-      --prefix PATH ":" ${lib.makeBinPath [ grim slurp hyprland ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          grim
+          slurp
+          hyprland
+        ]
+      }
   '';
 
   meta = source.meta // {

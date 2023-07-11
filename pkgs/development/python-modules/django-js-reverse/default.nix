@@ -22,18 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-oA4R5MciDMcSsb+GAgWB5jhj+nl7E8t69u0qlx2G93E=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "fix-requires_system_checks-list-or-tuple";
-      url =
-        "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
-      hash = "sha256-xUtCziewVhnCOaNWddJBH4/Vvhwjjq/wcQDvh2YzWMQ=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "fix-requires_system_checks-list-or-tuple";
+    url =
+      "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
+    hash = "sha256-xUtCziewVhnCOaNWddJBH4/Vvhwjjq/wcQDvh2YzWMQ=";
+  }) ];
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [ nodejs js2py six ];
+  nativeCheckInputs = [
+    nodejs
+    js2py
+    six
+  ];
 
   checkPhase = ''
     ${python.interpreter} django_js_reverse/tests/unit_tests.py

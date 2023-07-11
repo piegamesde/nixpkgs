@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
     sha256 = "1yqc1ac2pbkc88z7p1qags1jygdlr5y1rhc5mx6gapcf54bk0lmi";
   };
 
-  nativeBuildInputs = [ cmake pkg-config gettext ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    gettext
+  ];
 
   buildInputs = [
     libXpm

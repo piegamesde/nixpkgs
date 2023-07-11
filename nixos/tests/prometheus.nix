@@ -46,25 +46,25 @@ in import ./make-test-python.nix {
           scrapeConfigs = [
             {
               job_name = "prometheus";
-              static_configs = [{
+              static_configs = [ {
                 targets = [ "127.0.0.1:${toString queryPort}" ];
                 labels = { instance = "localhost"; };
-              }];
+              } ];
             }
             {
               job_name = "pushgateway";
               scrape_interval = "1s";
               static_configs =
-                [{ targets = [ "127.0.0.1:${toString pushgwPort}" ]; }];
+                [ { targets = [ "127.0.0.1:${toString pushgwPort}" ]; } ];
             }
           ];
-          rules = [''
+          rules = [ ''
             groups:
               - name: test
                 rules:
                   - record: testrule
                     expr: count(up{job="prometheus"})
-          ''];
+          '' ];
           globalConfig = {
             external_labels = { some_label = "required by thanos"; };
           };
@@ -123,10 +123,10 @@ in import ./make-test-python.nix {
               # This configuration just adds a new prometheus job
               # to scrape the node_exporter metrics of the s3 machine.
               services.prometheus = {
-                scrapeConfigs = [{
+                scrapeConfigs = [ {
                   job_name = "s3-node_exporter";
-                  static_configs = [{ targets = [ "s3:9100" ]; }];
-                }];
+                  static_configs = [ { targets = [ "s3:9100" ]; } ];
+                } ];
               };
             };
           };
@@ -151,7 +151,10 @@ in import ./make-test-python.nix {
       }: {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
-        environment.systemPackages = with pkgs; [ jq thanos ];
+        environment.systemPackages = with pkgs; [
+          jq
+          thanos
+        ];
         services.thanos.store = {
           enable = true;
           http-address = "0.0.0.0:10902";

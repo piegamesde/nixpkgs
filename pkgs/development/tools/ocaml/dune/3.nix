@@ -22,10 +22,13 @@ else
       sha256 = "sha256-rfw48UwBiKKtgNYUUdAR0nq4g5txdJLXrUL3y5EcVMM=";
     };
 
-    nativeBuildInputs = [ ocaml findlib ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
 
-    buildInputs = lib.optionals stdenv.isDarwin
-      [ darwin.apple_sdk.frameworks.CoreServices ];
+    buildInputs = lib.optionals
+      stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
     strictDeps = true;
 
@@ -35,8 +38,10 @@ else
     dontAddStaticConfigureFlags = true;
     configurePlatforms = [ ];
 
-    installFlags =
-      [ "PREFIX=${placeholder "out"}" "LIBDIR=$(OCAMLFIND_DESTDIR)" ];
+    installFlags = [
+      "PREFIX=${placeholder "out"}"
+      "LIBDIR=$(OCAMLFIND_DESTDIR)"
+    ];
 
     passthru.tests = { inherit ocaml-lsp; };
 
@@ -44,7 +49,10 @@ else
       homepage = "https://dune.build/";
       description = "A composable build system";
       changelog = "https://github.com/ocaml/dune/raw/${version}/CHANGES.md";
-      maintainers = [ lib.maintainers.vbgl lib.maintainers.marsam ];
+      maintainers = [
+        lib.maintainers.vbgl
+        lib.maintainers.marsam
+      ];
       license = lib.licenses.mit;
       inherit (ocaml.meta) platforms;
     };

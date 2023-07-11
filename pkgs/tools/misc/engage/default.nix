@@ -24,7 +24,10 @@ in rustPlatform.buildRustPackage {
     homepage = "https://or.computer.surgery/charles/engage";
     changelog =
       "https://or.computer.surgery/charles/engage/-/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 mit ];
+    license = with lib.licenses; [
+      asl20
+      mit
+    ];
     maintainers = with lib.maintainers; [ CobaltCause ];
   };
 }

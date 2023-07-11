@@ -57,7 +57,12 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ orjson pytestCheckHook python-decouple six ];
+  nativeCheckInputs = [
+    orjson
+    pytestCheckHook
+    python-decouple
+    six
+  ];
 
   disabledTests = [
     # Tests require network access

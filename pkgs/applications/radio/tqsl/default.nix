@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UGPMp1mAarHWuLbZu2wWpjgCdf8ZKj0Mwkqp32U5/8w=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs =
-    [ expat openssl zlib db (curl.override { inherit openssl; }) wxGTK32 ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    expat
+    openssl
+    zlib
+    db
+    (curl.override { inherit openssl; })
+    wxGTK32
+  ];
 
   meta = with lib; {
     description = "Software for using the ARRL Logbook of the World";

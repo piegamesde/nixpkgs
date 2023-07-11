@@ -63,9 +63,17 @@ stdenv.mkDerivation (finalAttrs: {
     fi
   '';
 
-  nativeBuildInputs = [ makeWrapper installShellFiles lua unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+    lua
+    unzip
+  ];
 
-  buildInputs = [ curl which ];
+  buildInputs = [
+    curl
+    which
+  ];
 
   postInstall = ''
     sed -e "1s@.*@#! ${lua}/bin/lua$LUA_SUFFIX@" -i "$out"/bin/*
@@ -96,7 +104,11 @@ stdenv.mkDerivation (finalAttrs: {
         --zsh <($out/bin/luarocks completion zsh)
     '';
 
-  propagatedBuildInputs = [ zip unzip cmake ];
+  propagatedBuildInputs = [
+    zip
+    unzip
+    cmake
+  ];
 
   # unpack hook for src.rock and rockspec files
   setupHook = ./setup-hook.sh;
@@ -109,16 +121,18 @@ stdenv.mkDerivation (finalAttrs: {
     export LUA_PATH="src/?.lua;''${LUA_PATH:-}"
   '';
 
-  disallowedReferences =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ lua.luaOnBuild ];
+  disallowedReferences = lib.optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform) [ lua.luaOnBuild ];
 
   passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "A package manager for Lua";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin teto ];
+    maintainers = with maintainers; [
+      raskin
+      teto
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     downloadPage = "http://luarocks.org/releases/";
   };

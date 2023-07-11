@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
   pname = "libjxl";
   version = "0.8.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "libjxl";
@@ -47,8 +50,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake gtest pkg-config ]
-    ++ lib.optionals buildDocs [ asciidoc doxygen python3 ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+    pkg-config
+  ] ++ lib.optionals buildDocs [
+    asciidoc
+    doxygen
+    python3
+  ];
 
   depsBuildBuild = lib.optionals buildDocs [ graphviz ];
 
@@ -78,7 +88,10 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  propagatedBuildInputs = [ brotli libhwy ];
+  propagatedBuildInputs = [
+    brotli
+    libhwy
+  ];
 
   cmakeFlags = [
     # For C dependencies like brotli, which are dynamically linked,

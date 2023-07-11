@@ -54,8 +54,13 @@ buildPythonPackage rec {
     mkdocs-exclude
   ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
-  nativeCheckInputs =
-    [ jinja2 pytest-aiohttp pytestCheckHook syrupy time-machine ];
+  nativeCheckInputs = [
+    jinja2
+    pytest-aiohttp
+    pytestCheckHook
+    syrupy
+    time-machine
+  ];
 
   disabledTestPaths = [
     # snapshot tests require syrupy<4

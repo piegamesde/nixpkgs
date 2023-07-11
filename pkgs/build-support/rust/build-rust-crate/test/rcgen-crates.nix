@@ -22,9 +22,7 @@
   defaultCrateOverrides ? pkgs.defaultCrateOverrides
     # The features to enable for the root_crate or the workspace_members.
   ,
-  rootFeatures ? [
-    "default"
-  ]
+  rootFeatures ? [ "default" ]
   # If true, throw errors instead of issueing deprecation warnings.
   ,
   strictDeprecation ? false
@@ -136,7 +134,11 @@ rec {
             name = "time";
             packageId = "time";
             optional = true;
-            features = [ "macros" "parsing" "formatting" ];
+            features = [
+              "macros"
+              "parsing"
+              "formatting"
+            ];
           }
         ];
         features = {
@@ -150,7 +152,12 @@ rec {
           "serialize" = [ "cookie-factory" ];
           "time" = [ "dep:time" ];
         };
-        resolvedDefaultFeatures = [ "datetime" "default" "std" "time" ];
+        resolvedDefaultFeatures = [
+          "datetime"
+          "default"
+          "std"
+          "time"
+        ];
       };
       "asn1-rs-derive" = rec {
         crateName = "asn1-rs-derive";
@@ -228,7 +235,10 @@ rec {
           "Marshall Pierce <marshall@mpierce.org>"
         ];
         features = { "default" = [ "std" ]; };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+        ];
       };
       "base64ct" = rec {
         crateName = "base64ct";
@@ -247,7 +257,10 @@ rec {
         features = {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" ];
+          "rustc-dep-of-std" = [
+            "core"
+            "compiler_builtins"
+          ];
         };
         resolvedDefaultFeatures = [ "default" ];
       };
@@ -272,7 +285,10 @@ rec {
           "no-std" = [ "cstr_core/alloc" ];
           "vendored" = [ "botan-sys/vendored" ];
         };
-        resolvedDefaultFeatures = [ "default" "vendored" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "vendored"
+        ];
       };
       "botan-src" = rec {
         crateName = "botan-src";
@@ -291,20 +307,24 @@ rec {
         edition = "2015";
         sha256 = "1m11zblxfanrhl97j7z3ap7n17rr8j0rg91sr7f9j6y2bsniaz1x";
         authors = [ "Jack Lloyd <jack@randombit.net>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "cty";
           packageId = "cty";
-        }];
-        buildDependencies = [{
+        } ];
+        buildDependencies = [ {
           name = "botan-src";
           packageId = "botan-src";
           optional = true;
-        }];
+        } ];
         features = {
           "botan-src" = [ "dep:botan-src" ];
           "vendored" = [ "botan-src" ];
         };
-        resolvedDefaultFeatures = [ "botan-src" "default" "vendored" ];
+        resolvedDefaultFeatures = [
+          "botan-src"
+          "default"
+          "vendored"
+        ];
       };
       "bumpalo" = rec {
         crateName = "bumpalo";
@@ -344,7 +364,10 @@ rec {
         features = {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" ];
+          "rustc-dep-of-std" = [
+            "core"
+            "compiler_builtins"
+          ];
         };
       };
       "const-oid" = rec {
@@ -386,8 +409,12 @@ rec {
           "rlp" = [ "dep:rlp" ];
           "zeroize" = [ "dep:zeroize" ];
         };
-        resolvedDefaultFeatures =
-          [ "default" "generic-array" "rand" "rand_core" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "generic-array"
+          "rand"
+          "rand_core"
+        ];
       };
       "cty" = rec {
         crateName = "cty";
@@ -407,7 +434,11 @@ rec {
           "default" = [ "std" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "std"
+        ];
       };
       "der" = rec {
         crateName = "der";
@@ -437,8 +468,14 @@ rec {
           "oid" = [ "const-oid" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures =
-          [ "alloc" "bigint" "const-oid" "crypto-bigint" "oid" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "bigint"
+          "const-oid"
+          "crypto-bigint"
+          "oid"
+          "std"
+        ];
       };
       "der-parser" = rec {
         crateName = "der-parser";
@@ -479,9 +516,17 @@ rec {
           "cookie-factory" = [ "dep:cookie-factory" ];
           "default" = [ "std" ];
           "num-bigint" = [ "dep:num-bigint" ];
-          "serialize" = [ "std" "cookie-factory" ];
+          "serialize" = [
+            "std"
+            "cookie-factory"
+          ];
         };
-        resolvedDefaultFeatures = [ "bigint" "default" "num-bigint" "std" ];
+        resolvedDefaultFeatures = [
+          "bigint"
+          "default"
+          "num-bigint"
+          "std"
+        ];
       };
       "digest" = rec {
         crateName = "digest";
@@ -489,16 +534,19 @@ rec {
         edition = "2018";
         sha256 = "0rmhvk33rgvd6ll71z8sng91a52rw14p0drjn1da0mqa138n1pfk";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "generic-array";
           packageId = "generic-array";
-        }];
+        } ];
         features = {
           "blobby" = [ "dep:blobby" ];
           "dev" = [ "blobby" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "std"
+        ];
       };
       "displaydoc" = rec {
         crateName = "displaydoc";
@@ -522,7 +570,10 @@ rec {
           }
         ];
         features = { "default" = [ "std" ]; };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+        ];
       };
       "foreign-types" = rec {
         crateName = "foreign-types";
@@ -530,10 +581,10 @@ rec {
         edition = "2015";
         sha256 = "1cgk0vyd7r45cj769jym4a6s7vwshvd0z4bqrb92q1fwibmkkwzn";
         authors = [ "Steven Fackler <sfackler@gmail.com>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "foreign-types-shared";
           packageId = "foreign-types-shared";
-        }];
+        } ];
 
       };
       "foreign-types-shared" = rec {
@@ -554,14 +605,14 @@ rec {
           "Bartłomiej Kamiński <fizyk20@gmail.com>"
           "Aaron Trent <novacrazy@gmail.com>"
         ];
-        dependencies = [{
+        dependencies = [ {
           name = "typenum";
           packageId = "typenum";
-        }];
-        buildDependencies = [{
+        } ];
+        buildDependencies = [ {
           name = "version_check";
           packageId = "version_check";
-        }];
+        } ];
         features = { "serde" = [ "dep:serde" ]; };
       };
       "getrandom" = rec {
@@ -598,7 +649,10 @@ rec {
         features = {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
-          "js" = [ "wasm-bindgen" "js-sys" ];
+          "js" = [
+            "wasm-bindgen"
+            "js-sys"
+          ];
           "js-sys" = [ "dep:js-sys" ];
           "rustc-dep-of-std" = [
             "compiler_builtins"
@@ -624,10 +678,10 @@ rec {
         edition = "2018";
         sha256 = "010g8jkj5avy3xd77i3cprjzzpfa6z9z2ay0fkllqmpx617c53x3";
         authors = [ "The wasm-bindgen Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "wasm-bindgen";
           packageId = "wasm-bindgen";
-        }];
+        } ];
 
       };
       "lazy_static" = rec {
@@ -636,16 +690,19 @@ rec {
         edition = "2015";
         sha256 = "0in6ikhw8mgl33wjv6q6xfrb5b9jr16q8ygjy803fay4zcisvaz2";
         authors = [ "Marvin Löbel <loebel.marvin@gmail.com>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "spin";
           packageId = "spin";
           optional = true;
-        }];
+        } ];
         features = {
           "spin" = [ "dep:spin" ];
           "spin_no_std" = [ "spin" ];
         };
-        resolvedDefaultFeatures = [ "spin" "spin_no_std" ];
+        resolvedDefaultFeatures = [
+          "spin"
+          "spin_no_std"
+        ];
       };
       "libc" = rec {
         crateName = "libc";
@@ -655,11 +712,17 @@ rec {
         authors = [ "The Rust Project Developers" ];
         features = {
           "default" = [ "std" ];
-          "rustc-dep-of-std" = [ "align" "rustc-std-workspace-core" ];
+          "rustc-dep-of-std" = [
+            "align"
+            "rustc-std-workspace-core"
+          ];
           "rustc-std-workspace-core" = [ "dep:rustc-std-workspace-core" ];
           "use_std" = [ "std" ];
         };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+        ];
       };
       "libm" = rec {
         crateName = "libm";
@@ -679,15 +742,27 @@ rec {
         edition = "2015";
         sha256 = "04175hv0v62shd82qydq58a48k3bjijmk54v38zgqlbxqkkbpfai";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "cfg-if";
           packageId = "cfg-if";
-        }];
+        } ];
         features = {
           "kv_unstable" = [ "value-bag" ];
-          "kv_unstable_serde" = [ "kv_unstable_std" "value-bag/serde" "serde" ];
-          "kv_unstable_std" = [ "std" "kv_unstable" "value-bag/error" ];
-          "kv_unstable_sval" = [ "kv_unstable" "value-bag/sval" "sval" ];
+          "kv_unstable_serde" = [
+            "kv_unstable_std"
+            "value-bag/serde"
+            "serde"
+          ];
+          "kv_unstable_std" = [
+            "std"
+            "kv_unstable"
+            "value-bag/error"
+          ];
+          "kv_unstable_sval" = [
+            "kv_unstable"
+            "value-bag/sval"
+            "sval"
+          ];
           "serde" = [ "dep:serde" ];
           "sval" = [ "dep:sval" ];
           "value-bag" = [ "dep:value-bag" ];
@@ -698,13 +773,19 @@ rec {
         version = "2.4.1";
         edition = "2018";
         sha256 = "0smq8xzd40njqpfzv5mghigj91fzlfrfg842iz8x0wqvw2dw731h";
-        authors = [ "Andrew Gallant <jamslam@gmail.com>" "bluss" ];
+        authors = [
+          "Andrew Gallant <jamslam@gmail.com>"
+          "bluss"
+        ];
         features = {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
           "default" = [ "std" ];
           "libc" = [ "dep:libc" ];
-          "rustc-dep-of-std" = [ "core" "compiler_builtins" ];
+          "rustc-dep-of-std" = [
+            "core"
+            "compiler_builtins"
+          ];
           "use_std" = [ "std" ];
         };
         resolvedDefaultFeatures = [ "std" ];
@@ -736,15 +817,23 @@ rec {
             usesDefaultFeatures = false;
           }
         ];
-        buildDependencies = [{
+        buildDependencies = [ {
           name = "version_check";
           packageId = "version_check";
-        }];
+        } ];
         features = {
           "default" = [ "std" ];
-          "std" = [ "alloc" "memchr/std" "minimal-lexical/std" ];
+          "std" = [
+            "alloc"
+            "memchr/std"
+            "minimal-lexical/std"
+          ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "std"
+        ];
       };
       "num-bigint" = rec {
         crateName = "num-bigint";
@@ -766,19 +855,25 @@ rec {
             features = [ "i128" ];
           }
         ];
-        buildDependencies = [{
+        buildDependencies = [ {
           name = "autocfg";
           packageId = "autocfg 1.0.1";
-        }];
+        } ];
         features = {
           "arbitrary" = [ "dep:arbitrary" ];
           "default" = [ "std" ];
           "quickcheck" = [ "dep:quickcheck" ];
           "rand" = [ "dep:rand" ];
           "serde" = [ "dep:serde" ];
-          "std" = [ "num-integer/std" "num-traits/std" ];
+          "std" = [
+            "num-integer/std"
+            "num-traits/std"
+          ];
         };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+        ];
       };
       "num-bigint-dig" = rec {
         crateName = "num-bigint-dig";
@@ -839,18 +934,25 @@ rec {
             features = [ "zeroize_derive" ];
           }
         ];
-        buildDependencies = [{
+        buildDependencies = [ {
           name = "autocfg";
           packageId = "autocfg 0.1.7";
-        }];
-        devDependencies = [{
+        } ];
+        devDependencies = [ {
           name = "rand";
           packageId = "rand";
           features = [ "small_rng" ];
-        }];
+        } ];
         features = {
-          "default" = [ "std" "i128" "u64_digit" ];
-          "i128" = [ "num-integer/i128" "num-traits/i128" ];
+          "default" = [
+            "std"
+            "i128"
+            "u64_digit"
+          ];
+          "i128" = [
+            "num-integer/i128"
+            "num-traits/i128"
+          ];
           "prime" = [ "rand/std_rng" ];
           "rand" = [ "dep:rand" ];
           "serde" = [ "dep:serde" ];
@@ -863,8 +965,13 @@ rec {
           ];
           "zeroize" = [ "dep:zeroize" ];
         };
-        resolvedDefaultFeatures =
-          [ "i128" "prime" "rand" "u64_digit" "zeroize" ];
+        resolvedDefaultFeatures = [
+          "i128"
+          "prime"
+          "rand"
+          "u64_digit"
+          "zeroize"
+        ];
       };
       "num-integer" = rec {
         crateName = "num-integer";
@@ -872,21 +979,24 @@ rec {
         edition = "2015";
         sha256 = "1nq152y3304as1iai95hqz8prqnc94lks1s7q05sfjdmcf56kk6j";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "num-traits";
           packageId = "num-traits";
           usesDefaultFeatures = false;
-        }];
-        buildDependencies = [{
+        } ];
+        buildDependencies = [ {
           name = "autocfg";
           packageId = "autocfg 1.0.1";
-        }];
+        } ];
         features = {
           "default" = [ "std" ];
           "i128" = [ "num-traits/i128" ];
           "std" = [ "num-traits/std" ];
         };
-        resolvedDefaultFeatures = [ "i128" "std" ];
+        resolvedDefaultFeatures = [
+          "i128"
+          "std"
+        ];
       };
       "num-iter" = rec {
         crateName = "num-iter";
@@ -906,14 +1016,20 @@ rec {
             usesDefaultFeatures = false;
           }
         ];
-        buildDependencies = [{
+        buildDependencies = [ {
           name = "autocfg";
           packageId = "autocfg 1.0.1";
-        }];
+        } ];
         features = {
           "default" = [ "std" ];
-          "i128" = [ "num-integer/i128" "num-traits/i128" ];
-          "std" = [ "num-integer/std" "num-traits/std" ];
+          "i128" = [
+            "num-integer/i128"
+            "num-traits/i128"
+          ];
+          "std" = [
+            "num-integer/std"
+            "num-traits/std"
+          ];
         };
       };
       "num-traits" = rec {
@@ -922,20 +1038,25 @@ rec {
         edition = "2015";
         sha256 = "144j176s2p76azy2ngk2vkdzgwdc0bc8c93jhki8c9fsbknb2r4s";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "libm";
           packageId = "libm";
           optional = true;
-        }];
-        buildDependencies = [{
+        } ];
+        buildDependencies = [ {
           name = "autocfg";
           packageId = "autocfg 1.0.1";
-        }];
+        } ];
         features = {
           "default" = [ "std" ];
           "libm" = [ "dep:libm" ];
         };
-        resolvedDefaultFeatures = [ "default" "i128" "libm" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "i128"
+          "libm"
+          "std"
+        ];
       };
       "num_threads" = rec {
         crateName = "num_threads";
@@ -943,7 +1064,7 @@ rec {
         edition = "2015";
         sha256 = "05gvsnv4k6d69iksz47i7fq1r61dj1k1nh4i8xrw7qlkcfx9kflp";
         authors = [ "Jacob Pratt <open-source@jhpratt.dev>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "libc";
           packageId = "libc";
           target = {
@@ -951,7 +1072,7 @@ rec {
               features,
             }:
             ((target."os" == "macos") || (target."os" == "freebsd"));
-        }];
+        } ];
 
       };
       "oid-registry" = rec {
@@ -960,13 +1081,20 @@ rec {
         edition = "2018";
         sha256 = "0akbah3j8231ayrp2l1y5d9zmvbvqcsj0sa6s6dz6h85z8bhgqiq";
         authors = [ "Pierre Chifflier <chifflier@wzdftpd.net>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "asn1-rs";
           packageId = "asn1-rs";
-        }];
+        } ];
         features = {
-          "crypto" =
-            [ "kdf" "pkcs1" "pkcs7" "pkcs9" "pkcs12" "nist_algs" "x962" ];
+          "crypto" = [
+            "kdf"
+            "pkcs1"
+            "pkcs7"
+            "pkcs9"
+            "pkcs12"
+            "nist_algs"
+            "x962"
+          ];
           "default" = [ "registry" ];
         };
         resolvedDefaultFeatures = [
@@ -996,7 +1124,12 @@ rec {
           "parking_lot" = [ "dep:parking_lot" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "race" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "race"
+          "std"
+        ];
       };
       "openssl" = rec {
         crateName = "openssl";
@@ -1043,10 +1176,10 @@ rec {
           "Alex Crichton <alex@alexcrichton.com>"
           "Steven Fackler <sfackler@gmail.com>"
         ];
-        dependencies = [{
+        dependencies = [ {
           name = "libc";
           packageId = "libc";
-        }];
+        } ];
         buildDependencies = [
           {
             name = "autocfg";
@@ -1081,10 +1214,10 @@ rec {
         edition = "2018";
         sha256 = "0iqrvfnm71x9pvff39d5ajwn3gc9glxlv4d4h22max7342db18z9";
         authors = [ "Jonathan Creekmore <jonathan@thecreekmores.org>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "base64";
           packageId = "base64";
-        }];
+        } ];
 
       };
       "pem-rfc7468" = rec {
@@ -1093,10 +1226,10 @@ rec {
         edition = "2018";
         sha256 = "1m1c9jypydzabg4yscplmvff7pdcc8gg4cqg081hnlf03hxkmsc4";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "base64ct";
           packageId = "base64ct";
-        }];
+        } ];
         features = { "std" = [ "alloc" ]; };
         resolvedDefaultFeatures = [ "alloc" ];
       };
@@ -1110,7 +1243,10 @@ rec {
           {
             name = "der";
             packageId = "der";
-            features = [ "bigint" "oid" ];
+            features = [
+              "bigint"
+              "oid"
+            ];
           }
           {
             name = "pem-rfc7468";
@@ -1126,13 +1262,24 @@ rec {
           }
         ];
         features = {
-          "alloc" = [ "der/alloc" "zeroize" ];
-          "pem" = [ "alloc" "pem-rfc7468/alloc" ];
+          "alloc" = [
+            "der/alloc"
+            "zeroize"
+          ];
+          "pem" = [
+            "alloc"
+            "pem-rfc7468/alloc"
+          ];
           "pem-rfc7468" = [ "dep:pem-rfc7468" ];
           "zeroize" = [ "dep:zeroize" ];
         };
-        resolvedDefaultFeatures =
-          [ "alloc" "pem" "pem-rfc7468" "std" "zeroize" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "pem"
+          "pem-rfc7468"
+          "std"
+          "zeroize"
+        ];
       };
       "pkcs8" = rec {
         crateName = "pkcs8";
@@ -1170,21 +1317,50 @@ rec {
           }
         ];
         features = {
-          "3des" = [ "encryption" "pkcs5/3des" ];
-          "alloc" = [ "der/alloc" "zeroize" ];
-          "des-insecure" = [ "encryption" "pkcs5/des-insecure" ];
-          "encryption" = [ "alloc" "pkcs5/alloc" "pkcs5/pbes2" "rand_core" ];
-          "pem" = [ "alloc" "pem-rfc7468/alloc" ];
+          "3des" = [
+            "encryption"
+            "pkcs5/3des"
+          ];
+          "alloc" = [
+            "der/alloc"
+            "zeroize"
+          ];
+          "des-insecure" = [
+            "encryption"
+            "pkcs5/des-insecure"
+          ];
+          "encryption" = [
+            "alloc"
+            "pkcs5/alloc"
+            "pkcs5/pbes2"
+            "rand_core"
+          ];
+          "pem" = [
+            "alloc"
+            "pem-rfc7468/alloc"
+          ];
           "pem-rfc7468" = [ "dep:pem-rfc7468" ];
           "pkcs1" = [ "dep:pkcs1" ];
           "pkcs5" = [ "dep:pkcs5" ];
           "rand_core" = [ "dep:rand_core" ];
-          "sha1" = [ "encryption" "pkcs5/sha1" ];
-          "std" = [ "alloc" "der/std" ];
+          "sha1" = [
+            "encryption"
+            "pkcs5/sha1"
+          ];
+          "std" = [
+            "alloc"
+            "der/std"
+          ];
           "zeroize" = [ "dep:zeroize" ];
         };
-        resolvedDefaultFeatures =
-          [ "alloc" "pem" "pem-rfc7468" "pkcs1" "std" "zeroize" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "pem"
+          "pem-rfc7468"
+          "pkcs1"
+          "std"
+          "zeroize"
+        ];
       };
       "pkg-config" = rec {
         crateName = "pkg-config";
@@ -1201,7 +1377,10 @@ rec {
         sha256 = "0wkqwnvnfcgqlrahphl45vdlgi2f1bs7nqcsalsllp1y4dp9x7zb";
         authors = [ "The CryptoCorrosion Contributors" ];
         features = { "default" = [ "std" ]; };
-        resolvedDefaultFeatures = [ "simd" "std" ];
+        resolvedDefaultFeatures = [
+          "simd"
+          "std"
+        ];
       };
       "proc-macro2" = rec {
         crateName = "proc-macro2";
@@ -1212,12 +1391,15 @@ rec {
           "David Tolnay <dtolnay@gmail.com>"
           "Alex Crichton <alex@alexcrichton.com>"
         ];
-        dependencies = [{
+        dependencies = [ {
           name = "unicode-xid";
           packageId = "unicode-xid";
-        }];
+        } ];
         features = { "default" = [ "proc-macro" ]; };
-        resolvedDefaultFeatures = [ "default" "proc-macro" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "proc-macro"
+        ];
       };
       "quote" = rec {
         crateName = "quote";
@@ -1225,24 +1407,29 @@ rec {
         edition = "2018";
         sha256 = "0id1q0875pvhkg0mlb5z8gzdm2g2rbbz76bfzhv331lrm2b3wkc6";
         authors = [ "David Tolnay <dtolnay@gmail.com>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "proc-macro2";
           packageId = "proc-macro2";
           usesDefaultFeatures = false;
-        }];
+        } ];
         features = {
           "default" = [ "proc-macro" ];
           "proc-macro" = [ "proc-macro2/proc-macro" ];
         };
-        resolvedDefaultFeatures = [ "default" "proc-macro" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "proc-macro"
+        ];
       };
       "rand" = rec {
         crateName = "rand";
         version = "0.8.4";
         edition = "2018";
         sha256 = "1n5wska2fbfj4dsfz8mc0pd0dgjlrb6c9anpk5mwym345rip6x9f";
-        authors =
-          [ "The Rand Project Developers" "The Rust Project Developers" ];
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
         dependencies = [
           {
             name = "libc";
@@ -1281,13 +1468,16 @@ rec {
               (target."os" == "emscripten");
           }
         ];
-        devDependencies = [{
+        devDependencies = [ {
           name = "rand_hc";
           packageId = "rand_hc";
-        }];
+        } ];
         features = {
           "alloc" = [ "rand_core/alloc" ];
-          "default" = [ "std" "std_rng" ];
+          "default" = [
+            "std"
+            "std_rng"
+          ];
           "getrandom" = [ "rand_core/getrandom" ];
           "libc" = [ "dep:libc" ];
           "log" = [ "dep:log" ];
@@ -1295,11 +1485,22 @@ rec {
           "rand_chacha" = [ "dep:rand_chacha" ];
           "rand_hc" = [ "dep:rand_hc" ];
           "serde" = [ "dep:serde" ];
-          "serde1" = [ "serde" "rand_core/serde1" ];
+          "serde1" = [
+            "serde"
+            "rand_core/serde1"
+          ];
           "simd_support" = [ "packed_simd" ];
-          "std" =
-            [ "rand_core/std" "rand_chacha/std" "alloc" "getrandom" "libc" ];
-          "std_rng" = [ "rand_chacha" "rand_hc" ];
+          "std" = [
+            "rand_core/std"
+            "rand_chacha/std"
+            "alloc"
+            "getrandom"
+            "libc"
+          ];
+          "std_rng" = [
+            "rand_chacha"
+            "rand_hc"
+          ];
         };
         resolvedDefaultFeatures = [
           "alloc"
@@ -1347,20 +1548,30 @@ rec {
         version = "0.6.3";
         edition = "2018";
         sha256 = "1rxlxc3bpzgwphcg9c9yasvv9idipcg2z2y4j0vlb52jyl418kyk";
-        authors =
-          [ "The Rand Project Developers" "The Rust Project Developers" ];
-        dependencies = [{
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [ {
           name = "getrandom";
           packageId = "getrandom";
           optional = true;
-        }];
+        } ];
         features = {
           "getrandom" = [ "dep:getrandom" ];
           "serde" = [ "dep:serde" ];
           "serde1" = [ "serde" ];
-          "std" = [ "alloc" "getrandom" "getrandom/std" ];
+          "std" = [
+            "alloc"
+            "getrandom"
+            "getrandom/std"
+          ];
         };
-        resolvedDefaultFeatures = [ "alloc" "getrandom" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "getrandom"
+          "std"
+        ];
       };
       "rand_hc" = rec {
         crateName = "rand_hc";
@@ -1368,20 +1579,20 @@ rec {
         edition = "2018";
         sha256 = "1rwpykyvhkxs4jvqdja3mzp9dqaqamzn113cxaigs9z2dmcry7nm";
         authors = [ "The Rand Project Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "rand_core";
           packageId = "rand_core";
-        }];
+        } ];
 
       };
       "rcgen" = rec {
         crateName = "rcgen";
         version = "0.9.2";
         edition = "2018";
-        crateBin = [{
+        crateBin = [ {
           name = "rcgen";
           path = "src/main.rs";
-        }];
+        } ];
         sha256 = "0ppwfl9g504x2qwk7m7mag8c3l70w9mcfha93013nlzqdlw2vynp";
         authors = [ "est31 <MTest31@outlook.com>" ];
         dependencies = [
@@ -1408,7 +1619,10 @@ rec {
           {
             name = "yasna";
             packageId = "yasna";
-            features = [ "time" "std" ];
+            features = [
+              "time"
+              "std"
+            ];
           }
           {
             name = "zeroize";
@@ -1451,7 +1665,12 @@ rec {
           "x509-parser" = [ "dep:x509-parser" ];
           "zeroize" = [ "dep:zeroize" ];
         };
-        resolvedDefaultFeatures = [ "default" "pem" "x509-parser" "zeroize" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "pem"
+          "x509-parser"
+          "zeroize"
+        ];
       };
       "ring" = rec {
         crateName = "ring";
@@ -1522,7 +1741,10 @@ rec {
               }:
               ((target."arch" == "wasm32") && (target."vendor" == "unknown")
                 && (target."os" == "unknown") && (target."env" == ""));
-            features = [ "Crypto" "Window" ];
+            features = [
+              "Crypto"
+              "Window"
+            ];
           }
           {
             name = "winapi";
@@ -1533,15 +1755,18 @@ rec {
                 features,
               }:
               (target."os" == "windows");
-            features = [ "ntsecapi" "wtypesbase" ];
+            features = [
+              "ntsecapi"
+              "wtypesbase"
+            ];
           }
         ];
-        buildDependencies = [{
+        buildDependencies = [ {
           name = "cc";
           packageId = "cc";
           usesDefaultFeatures = false;
-        }];
-        devDependencies = [{
+        } ];
+        devDependencies = [ {
           name = "libc";
           packageId = "libc";
           usesDefaultFeatures = false;
@@ -1550,15 +1775,22 @@ rec {
               features,
             }:
             ((target."unix" or false) || (target."windows" or false));
-        }];
+        } ];
         features = {
-          "default" = [ "alloc" "dev_urandom_fallback" ];
+          "default" = [
+            "alloc"
+            "dev_urandom_fallback"
+          ];
           "dev_urandom_fallback" = [ "once_cell" ];
           "once_cell" = [ "dep:once_cell" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures =
-          [ "alloc" "default" "dev_urandom_fallback" "once_cell" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "dev_urandom_fallback"
+          "once_cell"
+        ];
       };
       "rsa" = rec {
         crateName = "rsa";
@@ -1590,7 +1822,12 @@ rec {
             packageId = "num-bigint-dig";
             rename = "num-bigint";
             usesDefaultFeatures = false;
-            features = [ "i128" "u64_digit" "prime" "zeroize" ];
+            features = [
+              "i128"
+              "u64_digit"
+              "prime"
+              "zeroize"
+            ];
           }
           {
             name = "num-integer";
@@ -1632,21 +1869,52 @@ rec {
           {
             name = "zeroize";
             packageId = "zeroize";
-            features = [ "alloc" "zeroize_derive" ];
+            features = [
+              "alloc"
+              "zeroize_derive"
+            ];
           }
         ];
         features = {
-          "alloc" =
-            [ "digest/alloc" "pkcs1/alloc" "pkcs8/alloc" "pkcs8/pkcs1" ];
-          "default" = [ "std" "pem" ];
-          "nightly" = [ "subtle/nightly" "num-bigint/nightly" ];
-          "pem" = [ "alloc" "pkcs1/pem" "pkcs8/pem" ];
+          "alloc" = [
+            "digest/alloc"
+            "pkcs1/alloc"
+            "pkcs8/alloc"
+            "pkcs8/pkcs1"
+          ];
+          "default" = [
+            "std"
+            "pem"
+          ];
+          "nightly" = [
+            "subtle/nightly"
+            "num-bigint/nightly"
+          ];
+          "pem" = [
+            "alloc"
+            "pkcs1/pem"
+            "pkcs8/pem"
+          ];
           "pkcs5" = [ "pkcs8/encryption" ];
-          "serde" = [ "num-bigint/serde" "serde_crate" ];
+          "serde" = [
+            "num-bigint/serde"
+            "serde_crate"
+          ];
           "serde_crate" = [ "dep:serde_crate" ];
-          "std" = [ "alloc" "digest/std" "pkcs1/std" "pkcs8/std" "rand/std" ];
+          "std" = [
+            "alloc"
+            "digest/std"
+            "pkcs1/std"
+            "pkcs8/std"
+            "rand/std"
+          ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "pem" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "pem"
+          "std"
+        ];
       };
       "rusticata-macros" = rec {
         crateName = "rusticata-macros";
@@ -1654,12 +1922,12 @@ rec {
         edition = "2018";
         sha256 = "03dmfxhgwzpm1360iwcpcg3y18ddgya0i0hc599am212pdvj7ib5";
         authors = [ "Pierre Chifflier <chifflier@wzdftpd.net>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "nom";
           packageId = "nom";
           usesDefaultFeatures = false;
           features = [ "std" ];
-        }];
+        } ];
 
       };
       "smallvec" = rec {
@@ -1691,11 +1959,11 @@ rec {
         edition = "2018";
         sha256 = "0ckgkcg6db5y94dqhmyikgn8yrsah6pyf4j197hv1c51bp0s00aw";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "der";
           packageId = "der";
           features = [ "oid" ];
-        }];
+        } ];
         features = { "std" = [ "der/std" ]; };
       };
       "subtle" = rec {
@@ -1707,7 +1975,12 @@ rec {
           "Isis Lovecruft <isis@patternsinthevoid.net>"
           "Henry de Valence <hdevalence@hdevalence.ca>"
         ];
-        features = { "default" = [ "std" "i128" ]; };
+        features = {
+          "default" = [
+            "std"
+            "i128"
+          ];
+        };
       };
       "syn" = rec {
         crateName = "syn";
@@ -1733,10 +2006,18 @@ rec {
           }
         ];
         features = {
-          "default" =
-            [ "derive" "parsing" "printing" "clone-impls" "proc-macro" ];
+          "default" = [
+            "derive"
+            "parsing"
+            "printing"
+            "clone-impls"
+            "proc-macro"
+          ];
           "printing" = [ "quote" ];
-          "proc-macro" = [ "proc-macro2/proc-macro" "quote/proc-macro" ];
+          "proc-macro" = [
+            "proc-macro2/proc-macro"
+            "quote/proc-macro"
+          ];
           "quote" = [ "dep:quote" ];
           "test" = [ "syn-test-suite/all-features" ];
         };
@@ -1790,10 +2071,16 @@ rec {
         ];
         features = {
           "default" = [ "proc-macro" ];
-          "proc-macro" =
-            [ "proc-macro2/proc-macro" "syn/proc-macro" "quote/proc-macro" ];
+          "proc-macro" = [
+            "proc-macro2/proc-macro"
+            "syn/proc-macro"
+            "quote/proc-macro"
+          ];
         };
-        resolvedDefaultFeatures = [ "default" "proc-macro" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "proc-macro"
+        ];
       };
       "thiserror" = rec {
         crateName = "thiserror";
@@ -1801,10 +2088,10 @@ rec {
         edition = "2018";
         sha256 = "05y4wm29ck8flwq5k1q6nhwh00a3b30cz3xr0qvnbwad5vjsnjw5";
         authors = [ "David Tolnay <dtolnay@gmail.com>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "thiserror-impl";
           packageId = "thiserror-impl";
-        }];
+        } ];
 
       };
       "thiserror-impl" = rec {
@@ -1835,8 +2122,10 @@ rec {
         version = "0.3.7";
         edition = "2018";
         sha256 = "0gbmwlkj15dfhbqvxlzji1ffc1lidblpgg1q3b3378hgyfcbqk00";
-        authors =
-          [ "Jacob Pratt <open-source@jhpratt.dev>" "Time contributors" ];
+        authors = [
+          "Jacob Pratt <open-source@jhpratt.dev>"
+          "Time contributors"
+        ];
         dependencies = [
           {
             name = "itoa";
@@ -1869,17 +2158,31 @@ rec {
         ];
         features = {
           "default" = [ "std" ];
-          "formatting" = [ "itoa" "std" ];
+          "formatting" = [
+            "itoa"
+            "std"
+          ];
           "itoa" = [ "dep:itoa" ];
           "large-dates" = [ "time-macros/large-dates" ];
           "local-offset" = [ "std" ];
           "macros" = [ "time-macros" ];
-          "quickcheck" = [ "quickcheck-dep" "alloc" ];
+          "quickcheck" = [
+            "quickcheck-dep"
+            "alloc"
+          ];
           "quickcheck-dep" = [ "dep:quickcheck-dep" ];
           "rand" = [ "dep:rand" ];
           "serde" = [ "dep:serde" ];
-          "serde-human-readable" = [ "serde" "formatting" "parsing" ];
-          "serde-well-known" = [ "serde/alloc" "formatting" "parsing" ];
+          "serde-human-readable" = [
+            "serde"
+            "formatting"
+            "parsing"
+          ];
+          "serde-well-known" = [
+            "serde/alloc"
+            "formatting"
+            "parsing"
+          ];
           "std" = [ "alloc" ];
           "time-macros" = [ "dep:time-macros" ];
         };
@@ -1900,8 +2203,10 @@ rec {
         edition = "2018";
         sha256 = "1mj7pv8y9j2csrh1l8aabras36pgysbnfy18330srh4g8sihrsr5";
         procMacro = true;
-        authors =
-          [ "Jacob Pratt <open-source@jhpratt.dev>" "Time contributors" ];
+        authors = [
+          "Jacob Pratt <open-source@jhpratt.dev>"
+          "Time contributors"
+        ];
         features = { };
       };
       "typenum" = rec {
@@ -1967,11 +2272,17 @@ rec {
           "compiler_builtins" = [ "dep:compiler_builtins" ];
           "core" = [ "dep:core" ];
           "default" = [ "std" ];
-          "rustc-dep-of-std" =
-            [ "compiler_builtins" "core" "rustc-std-workspace-alloc" ];
+          "rustc-dep-of-std" = [
+            "compiler_builtins"
+            "core"
+            "rustc-std-workspace-alloc"
+          ];
           "rustc-std-workspace-alloc" = [ "dep:rustc-std-workspace-alloc" ];
         };
-        resolvedDefaultFeatures = [ "default" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+        ];
       };
       "wasm-bindgen" = rec {
         crateName = "wasm-bindgen";
@@ -1990,17 +2301,28 @@ rec {
           }
         ];
         features = {
-          "default" = [ "spans" "std" ];
+          "default" = [
+            "spans"
+            "std"
+          ];
           "enable-interning" = [ "std" ];
           "serde" = [ "dep:serde" ];
-          "serde-serialize" = [ "serde" "serde_json" "std" ];
+          "serde-serialize" = [
+            "serde"
+            "serde_json"
+            "std"
+          ];
           "serde_json" = [ "dep:serde_json" ];
           "spans" = [ "wasm-bindgen-macro/spans" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
           "xxx_debug_only_print_generated_code" =
             [ "wasm-bindgen-macro/xxx_debug_only_print_generated_code" ];
         };
-        resolvedDefaultFeatures = [ "default" "spans" "std" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "spans"
+          "std"
+        ];
       };
       "wasm-bindgen-backend" = rec {
         crateName = "wasm-bindgen-backend";
@@ -2083,7 +2405,10 @@ rec {
           {
             name = "syn";
             packageId = "syn";
-            features = [ "visit" "full" ];
+            features = [
+              "visit"
+              "full"
+            ];
           }
           {
             name = "wasm-bindgen-backend";
@@ -2126,53 +2451,122 @@ rec {
         ];
         features = {
           "AbortSignal" = [ "EventTarget" ];
-          "AnalyserNode" = [ "AudioNode" "EventTarget" ];
+          "AnalyserNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "Animation" = [ "EventTarget" ];
           "AnimationEvent" = [ "Event" ];
           "AnimationPlaybackEvent" = [ "Event" ];
-          "Attr" = [ "EventTarget" "Node" ];
-          "AudioBufferSourceNode" =
-            [ "AudioNode" "AudioScheduledSourceNode" "EventTarget" ];
-          "AudioContext" = [ "BaseAudioContext" "EventTarget" ];
-          "AudioDestinationNode" = [ "AudioNode" "EventTarget" ];
+          "Attr" = [
+            "EventTarget"
+            "Node"
+          ];
+          "AudioBufferSourceNode" = [
+            "AudioNode"
+            "AudioScheduledSourceNode"
+            "EventTarget"
+          ];
+          "AudioContext" = [
+            "BaseAudioContext"
+            "EventTarget"
+          ];
+          "AudioDestinationNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "AudioNode" = [ "EventTarget" ];
           "AudioProcessingEvent" = [ "Event" ];
-          "AudioScheduledSourceNode" = [ "AudioNode" "EventTarget" ];
-          "AudioStreamTrack" = [ "EventTarget" "MediaStreamTrack" ];
+          "AudioScheduledSourceNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "AudioStreamTrack" = [
+            "EventTarget"
+            "MediaStreamTrack"
+          ];
           "AudioTrackList" = [ "EventTarget" ];
           "AudioWorklet" = [ "Worklet" ];
           "AudioWorkletGlobalScope" = [ "WorkletGlobalScope" ];
-          "AudioWorkletNode" = [ "AudioNode" "EventTarget" ];
+          "AudioWorkletNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "AuthenticatorAssertionResponse" = [ "AuthenticatorResponse" ];
           "AuthenticatorAttestationResponse" = [ "AuthenticatorResponse" ];
           "BaseAudioContext" = [ "EventTarget" ];
           "BatteryManager" = [ "EventTarget" ];
           "BeforeUnloadEvent" = [ "Event" ];
-          "BiquadFilterNode" = [ "AudioNode" "EventTarget" ];
+          "BiquadFilterNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "BlobEvent" = [ "Event" ];
           "Bluetooth" = [ "EventTarget" ];
           "BluetoothAdvertisingEvent" = [ "Event" ];
           "BluetoothDevice" = [ "EventTarget" ];
-          "BluetoothPermissionResult" = [ "EventTarget" "PermissionStatus" ];
+          "BluetoothPermissionResult" = [
+            "EventTarget"
+            "PermissionStatus"
+          ];
           "BluetoothRemoteGattCharacteristic" = [ "EventTarget" ];
           "BluetoothRemoteGattService" = [ "EventTarget" ];
           "BroadcastChannel" = [ "EventTarget" ];
-          "CanvasCaptureMediaStream" = [ "EventTarget" "MediaStream" ];
-          "CdataSection" = [ "CharacterData" "EventTarget" "Node" "Text" ];
-          "ChannelMergerNode" = [ "AudioNode" "EventTarget" ];
-          "ChannelSplitterNode" = [ "AudioNode" "EventTarget" ];
-          "CharacterData" = [ "EventTarget" "Node" ];
-          "ChromeWorker" = [ "EventTarget" "Worker" ];
+          "CanvasCaptureMediaStream" = [
+            "EventTarget"
+            "MediaStream"
+          ];
+          "CdataSection" = [
+            "CharacterData"
+            "EventTarget"
+            "Node"
+            "Text"
+          ];
+          "ChannelMergerNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "ChannelSplitterNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "CharacterData" = [
+            "EventTarget"
+            "Node"
+          ];
+          "ChromeWorker" = [
+            "EventTarget"
+            "Worker"
+          ];
           "Clipboard" = [ "EventTarget" ];
           "ClipboardEvent" = [ "Event" ];
           "CloseEvent" = [ "Event" ];
-          "Comment" = [ "CharacterData" "EventTarget" "Node" ];
-          "CompositionEvent" = [ "Event" "UiEvent" ];
-          "ConstantSourceNode" =
-            [ "AudioNode" "AudioScheduledSourceNode" "EventTarget" ];
-          "ConvolverNode" = [ "AudioNode" "EventTarget" ];
-          "CssAnimation" = [ "Animation" "EventTarget" ];
-          "CssConditionRule" = [ "CssGroupingRule" "CssRule" ];
+          "Comment" = [
+            "CharacterData"
+            "EventTarget"
+            "Node"
+          ];
+          "CompositionEvent" = [
+            "Event"
+            "UiEvent"
+          ];
+          "ConstantSourceNode" = [
+            "AudioNode"
+            "AudioScheduledSourceNode"
+            "EventTarget"
+          ];
+          "ConvolverNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "CssAnimation" = [
+            "Animation"
+            "EventTarget"
+          ];
+          "CssConditionRule" = [
+            "CssGroupingRule"
+            "CssRule"
+          ];
           "CssCounterStyleRule" = [ "CssRule" ];
           "CssFontFaceRule" = [ "CssRule" ];
           "CssFontFeatureValuesRule" = [ "CssRule" ];
@@ -2180,48 +2574,101 @@ rec {
           "CssImportRule" = [ "CssRule" ];
           "CssKeyframeRule" = [ "CssRule" ];
           "CssKeyframesRule" = [ "CssRule" ];
-          "CssMediaRule" = [ "CssConditionRule" "CssGroupingRule" "CssRule" ];
+          "CssMediaRule" = [
+            "CssConditionRule"
+            "CssGroupingRule"
+            "CssRule"
+          ];
           "CssNamespaceRule" = [ "CssRule" ];
           "CssPageRule" = [ "CssRule" ];
           "CssStyleRule" = [ "CssRule" ];
           "CssStyleSheet" = [ "StyleSheet" ];
-          "CssSupportsRule" =
-            [ "CssConditionRule" "CssGroupingRule" "CssRule" ];
-          "CssTransition" = [ "Animation" "EventTarget" ];
+          "CssSupportsRule" = [
+            "CssConditionRule"
+            "CssGroupingRule"
+            "CssRule"
+          ];
+          "CssTransition" = [
+            "Animation"
+            "EventTarget"
+          ];
           "CustomEvent" = [ "Event" ];
-          "DedicatedWorkerGlobalScope" = [ "EventTarget" "WorkerGlobalScope" ];
-          "DelayNode" = [ "AudioNode" "EventTarget" ];
+          "DedicatedWorkerGlobalScope" = [
+            "EventTarget"
+            "WorkerGlobalScope"
+          ];
+          "DelayNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "DeviceLightEvent" = [ "Event" ];
           "DeviceMotionEvent" = [ "Event" ];
           "DeviceOrientationEvent" = [ "Event" ];
           "DeviceProximityEvent" = [ "Event" ];
-          "Document" = [ "EventTarget" "Node" ];
-          "DocumentFragment" = [ "EventTarget" "Node" ];
+          "Document" = [
+            "EventTarget"
+            "Node"
+          ];
+          "DocumentFragment" = [
+            "EventTarget"
+            "Node"
+          ];
           "DocumentTimeline" = [ "AnimationTimeline" ];
-          "DocumentType" = [ "EventTarget" "Node" ];
+          "DocumentType" = [
+            "EventTarget"
+            "Node"
+          ];
           "DomMatrix" = [ "DomMatrixReadOnly" ];
           "DomPoint" = [ "DomPointReadOnly" ];
           "DomRect" = [ "DomRectReadOnly" ];
           "DomRequest" = [ "EventTarget" ];
-          "DragEvent" = [ "Event" "MouseEvent" "UiEvent" ];
-          "DynamicsCompressorNode" = [ "AudioNode" "EventTarget" ];
-          "Element" = [ "EventTarget" "Node" ];
+          "DragEvent" = [
+            "Event"
+            "MouseEvent"
+            "UiEvent"
+          ];
+          "DynamicsCompressorNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "Element" = [
+            "EventTarget"
+            "Node"
+          ];
           "ErrorEvent" = [ "Event" ];
           "EventSource" = [ "EventTarget" ];
           "ExtendableEvent" = [ "Event" ];
-          "ExtendableMessageEvent" = [ "Event" "ExtendableEvent" ];
-          "FetchEvent" = [ "Event" "ExtendableEvent" ];
+          "ExtendableMessageEvent" = [
+            "Event"
+            "ExtendableEvent"
+          ];
+          "FetchEvent" = [
+            "Event"
+            "ExtendableEvent"
+          ];
           "FetchObserver" = [ "EventTarget" ];
           "File" = [ "Blob" ];
           "FileReader" = [ "EventTarget" ];
           "FileSystemDirectoryEntry" = [ "FileSystemEntry" ];
           "FileSystemFileEntry" = [ "FileSystemEntry" ];
-          "FocusEvent" = [ "Event" "UiEvent" ];
+          "FocusEvent" = [
+            "Event"
+            "UiEvent"
+          ];
           "FontFaceSet" = [ "EventTarget" ];
           "FontFaceSetLoadEvent" = [ "Event" ];
-          "GainNode" = [ "AudioNode" "EventTarget" ];
-          "GamepadAxisMoveEvent" = [ "Event" "GamepadEvent" ];
-          "GamepadButtonEvent" = [ "Event" "GamepadEvent" ];
+          "GainNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "GamepadAxisMoveEvent" = [
+            "Event"
+            "GamepadEvent"
+          ];
+          "GamepadButtonEvent" = [
+            "Event"
+            "GamepadEvent"
+          ];
           "GamepadEvent" = [ "Event" ];
           "GpuDevice" = [ "EventTarget" ];
           "GpuUncapturedErrorEvent" = [ "Event" ];
@@ -2230,131 +2677,479 @@ rec {
           "HidConnectionEvent" = [ "Event" ];
           "HidDevice" = [ "EventTarget" ];
           "HidInputReportEvent" = [ "Event" ];
-          "HtmlAnchorElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlAreaElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlAudioElement" =
-            [ "Element" "EventTarget" "HtmlElement" "HtmlMediaElement" "Node" ];
-          "HtmlBaseElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlBodyElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlBrElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlButtonElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlCanvasElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDListElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDataElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDataListElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDetailsElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDialogElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDirectoryElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDivElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlDocument" = [ "Document" "EventTarget" "Node" ];
-          "HtmlElement" = [ "Element" "EventTarget" "Node" ];
-          "HtmlEmbedElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlFieldSetElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlFontElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
+          "HtmlAnchorElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlAreaElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlAudioElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "HtmlMediaElement"
+            "Node"
+          ];
+          "HtmlBaseElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlBodyElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlBrElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlButtonElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlCanvasElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDListElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDataElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDataListElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDetailsElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDialogElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDirectoryElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDivElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlDocument" = [
+            "Document"
+            "EventTarget"
+            "Node"
+          ];
+          "HtmlElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+          ];
+          "HtmlEmbedElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlFieldSetElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlFontElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
           "HtmlFormControlsCollection" = [ "HtmlCollection" ];
-          "HtmlFormElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlFrameElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlFrameSetElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlHeadElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlHeadingElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlHrElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlHtmlElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlIFrameElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlImageElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlInputElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlLabelElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlLegendElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlLiElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlLinkElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMapElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMediaElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMenuElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMenuItemElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMetaElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlMeterElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlModElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlOListElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlObjectElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlOptGroupElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlOptionElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
+          "HtmlFormElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlFrameElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlFrameSetElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlHeadElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlHeadingElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlHrElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlHtmlElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlIFrameElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlImageElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlInputElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlLabelElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlLegendElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlLiElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlLinkElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMapElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMediaElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMenuElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMenuItemElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMetaElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlMeterElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlModElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlOListElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlObjectElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlOptGroupElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlOptionElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
           "HtmlOptionsCollection" = [ "HtmlCollection" ];
-          "HtmlOutputElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlParagraphElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlParamElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlPictureElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlPreElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlProgressElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlQuoteElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlScriptElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlSelectElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlSlotElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlSourceElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlSpanElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlStyleElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableCaptionElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableCellElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableColElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableRowElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTableSectionElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTemplateElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTextAreaElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTimeElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTitleElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlTrackElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlUListElement" = [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlUnknownElement" =
-            [ "Element" "EventTarget" "HtmlElement" "Node" ];
-          "HtmlVideoElement" =
-            [ "Element" "EventTarget" "HtmlElement" "HtmlMediaElement" "Node" ];
+          "HtmlOutputElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlParagraphElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlParamElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlPictureElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlPreElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlProgressElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlQuoteElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlScriptElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlSelectElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlSlotElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlSourceElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlSpanElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlStyleElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableCaptionElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableCellElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableColElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableRowElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTableSectionElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTemplateElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTextAreaElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTimeElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTitleElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlTrackElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlUListElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlUnknownElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "Node"
+          ];
+          "HtmlVideoElement" = [
+            "Element"
+            "EventTarget"
+            "HtmlElement"
+            "HtmlMediaElement"
+            "Node"
+          ];
           "IdbCursorWithValue" = [ "IdbCursor" ];
           "IdbDatabase" = [ "EventTarget" ];
           "IdbFileHandle" = [ "EventTarget" ];
-          "IdbFileRequest" = [ "DomRequest" "EventTarget" ];
+          "IdbFileRequest" = [
+            "DomRequest"
+            "EventTarget"
+          ];
           "IdbLocaleAwareKeyRange" = [ "IdbKeyRange" ];
           "IdbMutableFile" = [ "EventTarget" ];
-          "IdbOpenDbRequest" = [ "EventTarget" "IdbRequest" ];
+          "IdbOpenDbRequest" = [
+            "EventTarget"
+            "IdbRequest"
+          ];
           "IdbRequest" = [ "EventTarget" ];
           "IdbTransaction" = [ "EventTarget" ];
           "IdbVersionChangeEvent" = [ "Event" ];
-          "IirFilterNode" = [ "AudioNode" "EventTarget" ];
+          "IirFilterNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "ImageCaptureErrorEvent" = [ "Event" ];
-          "InputEvent" = [ "Event" "UiEvent" ];
-          "KeyboardEvent" = [ "Event" "UiEvent" ];
+          "InputEvent" = [
+            "Event"
+            "UiEvent"
+          ];
+          "KeyboardEvent" = [
+            "Event"
+            "UiEvent"
+          ];
           "KeyframeEffect" = [ "AnimationEffect" ];
-          "LocalMediaStream" = [ "EventTarget" "MediaStream" ];
+          "LocalMediaStream" = [
+            "EventTarget"
+            "MediaStream"
+          ];
           "MediaDevices" = [ "EventTarget" ];
-          "MediaElementAudioSourceNode" = [ "AudioNode" "EventTarget" ];
+          "MediaElementAudioSourceNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "MediaEncryptedEvent" = [ "Event" ];
           "MediaKeyError" = [ "Event" ];
           "MediaKeyMessageEvent" = [ "Event" ];
@@ -2365,8 +3160,14 @@ rec {
           "MediaRecorderErrorEvent" = [ "Event" ];
           "MediaSource" = [ "EventTarget" ];
           "MediaStream" = [ "EventTarget" ];
-          "MediaStreamAudioDestinationNode" = [ "AudioNode" "EventTarget" ];
-          "MediaStreamAudioSourceNode" = [ "AudioNode" "EventTarget" ];
+          "MediaStreamAudioDestinationNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "MediaStreamAudioSourceNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "MediaStreamEvent" = [ "Event" ];
           "MediaStreamTrack" = [ "EventTarget" ];
           "MediaStreamTrackEvent" = [ "Event" ];
@@ -2374,36 +3175,70 @@ rec {
           "MessagePort" = [ "EventTarget" ];
           "MidiAccess" = [ "EventTarget" ];
           "MidiConnectionEvent" = [ "Event" ];
-          "MidiInput" = [ "EventTarget" "MidiPort" ];
+          "MidiInput" = [
+            "EventTarget"
+            "MidiPort"
+          ];
           "MidiMessageEvent" = [ "Event" ];
-          "MidiOutput" = [ "EventTarget" "MidiPort" ];
+          "MidiOutput" = [
+            "EventTarget"
+            "MidiPort"
+          ];
           "MidiPort" = [ "EventTarget" ];
-          "MouseEvent" = [ "Event" "UiEvent" ];
-          "MouseScrollEvent" = [ "Event" "MouseEvent" "UiEvent" ];
+          "MouseEvent" = [
+            "Event"
+            "UiEvent"
+          ];
+          "MouseScrollEvent" = [
+            "Event"
+            "MouseEvent"
+            "UiEvent"
+          ];
           "MutationEvent" = [ "Event" ];
           "NetworkInformation" = [ "EventTarget" ];
           "Node" = [ "EventTarget" ];
           "Notification" = [ "EventTarget" ];
-          "NotificationEvent" = [ "Event" "ExtendableEvent" ];
+          "NotificationEvent" = [
+            "Event"
+            "ExtendableEvent"
+          ];
           "OfflineAudioCompletionEvent" = [ "Event" ];
-          "OfflineAudioContext" = [ "BaseAudioContext" "EventTarget" ];
+          "OfflineAudioContext" = [
+            "BaseAudioContext"
+            "EventTarget"
+          ];
           "OfflineResourceList" = [ "EventTarget" ];
           "OffscreenCanvas" = [ "EventTarget" ];
-          "OscillatorNode" =
-            [ "AudioNode" "AudioScheduledSourceNode" "EventTarget" ];
+          "OscillatorNode" = [
+            "AudioNode"
+            "AudioScheduledSourceNode"
+            "EventTarget"
+          ];
           "PageTransitionEvent" = [ "Event" ];
           "PaintWorkletGlobalScope" = [ "WorkletGlobalScope" ];
-          "PannerNode" = [ "AudioNode" "EventTarget" ];
-          "PaymentMethodChangeEvent" = [ "Event" "PaymentRequestUpdateEvent" ];
+          "PannerNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "PaymentMethodChangeEvent" = [
+            "Event"
+            "PaymentRequestUpdateEvent"
+          ];
           "PaymentRequestUpdateEvent" = [ "Event" ];
           "Performance" = [ "EventTarget" ];
           "PerformanceMark" = [ "PerformanceEntry" ];
           "PerformanceMeasure" = [ "PerformanceEntry" ];
-          "PerformanceNavigationTiming" =
-            [ "PerformanceEntry" "PerformanceResourceTiming" ];
+          "PerformanceNavigationTiming" = [
+            "PerformanceEntry"
+            "PerformanceResourceTiming"
+          ];
           "PerformanceResourceTiming" = [ "PerformanceEntry" ];
           "PermissionStatus" = [ "EventTarget" ];
-          "PointerEvent" = [ "Event" "MouseEvent" "UiEvent" ];
+          "PointerEvent" = [
+            "Event"
+            "MouseEvent"
+            "UiEvent"
+          ];
           "PopStateEvent" = [ "Event" ];
           "PopupBlockedEvent" = [ "Event" ];
           "PresentationAvailability" = [ "EventTarget" ];
@@ -2412,11 +3247,18 @@ rec {
           "PresentationConnectionCloseEvent" = [ "Event" ];
           "PresentationConnectionList" = [ "EventTarget" ];
           "PresentationRequest" = [ "EventTarget" ];
-          "ProcessingInstruction" = [ "CharacterData" "EventTarget" "Node" ];
+          "ProcessingInstruction" = [
+            "CharacterData"
+            "EventTarget"
+            "Node"
+          ];
           "ProgressEvent" = [ "Event" ];
           "PromiseRejectionEvent" = [ "Event" ];
           "PublicKeyCredential" = [ "Credential" ];
-          "PushEvent" = [ "Event" "ExtendableEvent" ];
+          "PushEvent" = [
+            "Event"
+            "ExtendableEvent"
+          ];
           "RadioNodeList" = [ "NodeList" ];
           "RtcDataChannel" = [ "EventTarget" ];
           "RtcDataChannelEvent" = [ "Event" ];
@@ -2427,26 +3269,48 @@ rec {
           "RtcdtmfToneChangeEvent" = [ "Event" ];
           "Screen" = [ "EventTarget" ];
           "ScreenOrientation" = [ "EventTarget" ];
-          "ScriptProcessorNode" = [ "AudioNode" "EventTarget" ];
-          "ScrollAreaEvent" = [ "Event" "UiEvent" ];
+          "ScriptProcessorNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
+          "ScrollAreaEvent" = [
+            "Event"
+            "UiEvent"
+          ];
           "SecurityPolicyViolationEvent" = [ "Event" ];
           "ServiceWorker" = [ "EventTarget" ];
           "ServiceWorkerContainer" = [ "EventTarget" ];
-          "ServiceWorkerGlobalScope" = [ "EventTarget" "WorkerGlobalScope" ];
+          "ServiceWorkerGlobalScope" = [
+            "EventTarget"
+            "WorkerGlobalScope"
+          ];
           "ServiceWorkerRegistration" = [ "EventTarget" ];
-          "ShadowRoot" = [ "DocumentFragment" "EventTarget" "Node" ];
+          "ShadowRoot" = [
+            "DocumentFragment"
+            "EventTarget"
+            "Node"
+          ];
           "SharedWorker" = [ "EventTarget" ];
-          "SharedWorkerGlobalScope" = [ "EventTarget" "WorkerGlobalScope" ];
+          "SharedWorkerGlobalScope" = [
+            "EventTarget"
+            "WorkerGlobalScope"
+          ];
           "SourceBuffer" = [ "EventTarget" ];
           "SourceBufferList" = [ "EventTarget" ];
           "SpeechRecognition" = [ "EventTarget" ];
           "SpeechRecognitionError" = [ "Event" ];
           "SpeechRecognitionEvent" = [ "Event" ];
           "SpeechSynthesis" = [ "EventTarget" ];
-          "SpeechSynthesisErrorEvent" = [ "Event" "SpeechSynthesisEvent" ];
+          "SpeechSynthesisErrorEvent" = [
+            "Event"
+            "SpeechSynthesisEvent"
+          ];
           "SpeechSynthesisEvent" = [ "Event" ];
           "SpeechSynthesisUtterance" = [ "EventTarget" ];
-          "StereoPannerNode" = [ "AudioNode" "EventTarget" ];
+          "StereoPannerNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "StorageEvent" = [ "Event" ];
           "SvgAnimateElement" = [
             "Element"
@@ -2469,8 +3333,12 @@ rec {
             "SvgAnimationElement"
             "SvgElement"
           ];
-          "SvgAnimationElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgAnimationElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgCircleElement" = [
             "Element"
             "EventTarget"
@@ -2479,10 +3347,18 @@ rec {
             "SvgGeometryElement"
             "SvgGraphicsElement"
           ];
-          "SvgClipPathElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgComponentTransferFunctionElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgClipPathElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgComponentTransferFunctionElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgDefsElement" = [
             "Element"
             "EventTarget"
@@ -2490,8 +3366,17 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgDescElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgElement" = [ "Element" "EventTarget" "Node" ];
+          "SvgDescElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+          ];
           "SvgEllipseElement" = [
             "Element"
             "EventTarget"
@@ -2500,7 +3385,12 @@ rec {
             "SvgGeometryElement"
             "SvgGraphicsElement"
           ];
-          "SvgFilterElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgFilterElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgForeignObjectElement" = [
             "Element"
             "EventTarget"
@@ -2515,10 +3405,18 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgGradientElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgGraphicsElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgGradientElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgGraphicsElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgImageElement" = [
             "Element"
             "EventTarget"
@@ -2541,10 +3439,24 @@ rec {
             "SvgElement"
             "SvgGradientElement"
           ];
-          "SvgMarkerElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgMaskElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgMetadataElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgMarkerElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgMaskElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgMetadataElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgPathElement" = [
             "Element"
             "EventTarget"
@@ -2572,7 +3484,12 @@ rec {
           "SvgPathSegLinetoVerticalRel" = [ "SvgPathSeg" ];
           "SvgPathSegMovetoAbs" = [ "SvgPathSeg" ];
           "SvgPathSegMovetoRel" = [ "SvgPathSeg" ];
-          "SvgPatternElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgPatternElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgPolygonElement" = [
             "Element"
             "EventTarget"
@@ -2604,7 +3521,12 @@ rec {
             "SvgGeometryElement"
             "SvgGraphicsElement"
           ];
-          "SvgScriptElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgScriptElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgSetElement" = [
             "Element"
             "EventTarget"
@@ -2612,8 +3534,18 @@ rec {
             "SvgAnimationElement"
             "SvgElement"
           ];
-          "SvgStopElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgStyleElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgStopElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgStyleElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgSwitchElement" = [
             "Element"
             "EventTarget"
@@ -2621,7 +3553,12 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgSymbolElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgSymbolElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgTextContentElement" = [
             "Element"
             "EventTarget"
@@ -2654,7 +3591,12 @@ rec {
             "SvgGraphicsElement"
             "SvgTextContentElement"
           ];
-          "SvgTitleElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgTitleElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgUseElement" = [
             "Element"
             "EventTarget"
@@ -2662,7 +3604,12 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgViewElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgViewElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgaElement" = [
             "Element"
             "EventTarget"
@@ -2670,24 +3617,66 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgfeBlendElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeColorMatrixElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeComponentTransferElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeCompositeElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeConvolveMatrixElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeDiffuseLightingElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeDisplacementMapElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeDistantLightElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeDropShadowElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeFloodElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgfeBlendElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeColorMatrixElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeComponentTransferElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeCompositeElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeConvolveMatrixElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeDiffuseLightingElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeDisplacementMapElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeDistantLightElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeDropShadowElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeFloodElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgfeFuncAElement" = [
             "Element"
             "EventTarget"
@@ -2716,25 +3705,72 @@ rec {
             "SvgComponentTransferFunctionElement"
             "SvgElement"
           ];
-          "SvgfeGaussianBlurElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeImageElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeMergeElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeMergeNodeElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeMorphologyElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeOffsetElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfePointLightElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeSpecularLightingElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeSpotLightElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeTileElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
-          "SvgfeTurbulenceElement" =
-            [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgfeGaussianBlurElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeImageElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeMergeElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeMergeNodeElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeMorphologyElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeOffsetElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfePointLightElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeSpecularLightingElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeSpotLightElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeTileElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
+          "SvgfeTurbulenceElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvggElement" = [
             "Element"
             "EventTarget"
@@ -2742,7 +3778,12 @@ rec {
             "SvgElement"
             "SvgGraphicsElement"
           ];
-          "SvgmPathElement" = [ "Element" "EventTarget" "Node" "SvgElement" ];
+          "SvgmPathElement" = [
+            "Element"
+            "EventTarget"
+            "Node"
+            "SvgElement"
+          ];
           "SvgsvgElement" = [
             "Element"
             "EventTarget"
@@ -2764,53 +3805,98 @@ rec {
           "TcpSocket" = [ "EventTarget" ];
           "TcpSocketErrorEvent" = [ "Event" ];
           "TcpSocketEvent" = [ "Event" ];
-          "Text" = [ "CharacterData" "EventTarget" "Node" ];
+          "Text" = [
+            "CharacterData"
+            "EventTarget"
+            "Node"
+          ];
           "TextTrack" = [ "EventTarget" ];
           "TextTrackCue" = [ "EventTarget" ];
           "TextTrackList" = [ "EventTarget" ];
           "TimeEvent" = [ "Event" ];
-          "TouchEvent" = [ "Event" "UiEvent" ];
+          "TouchEvent" = [
+            "Event"
+            "UiEvent"
+          ];
           "TrackEvent" = [ "Event" ];
           "TransitionEvent" = [ "Event" ];
           "UiEvent" = [ "Event" ];
           "Usb" = [ "EventTarget" ];
           "UsbConnectionEvent" = [ "Event" ];
-          "UsbPermissionResult" = [ "EventTarget" "PermissionStatus" ];
+          "UsbPermissionResult" = [
+            "EventTarget"
+            "PermissionStatus"
+          ];
           "UserProximityEvent" = [ "Event" ];
           "ValueEvent" = [ "Event" ];
-          "VideoStreamTrack" = [ "EventTarget" "MediaStreamTrack" ];
+          "VideoStreamTrack" = [
+            "EventTarget"
+            "MediaStreamTrack"
+          ];
           "VideoTrackList" = [ "EventTarget" ];
           "VrDisplay" = [ "EventTarget" ];
-          "VttCue" = [ "EventTarget" "TextTrackCue" ];
+          "VttCue" = [
+            "EventTarget"
+            "TextTrackCue"
+          ];
           "WakeLockSentinel" = [ "EventTarget" ];
-          "WaveShaperNode" = [ "AudioNode" "EventTarget" ];
+          "WaveShaperNode" = [
+            "AudioNode"
+            "EventTarget"
+          ];
           "WebGlContextEvent" = [ "Event" ];
-          "WebKitCssMatrix" = [ "DomMatrix" "DomMatrixReadOnly" ];
+          "WebKitCssMatrix" = [
+            "DomMatrix"
+            "DomMatrixReadOnly"
+          ];
           "WebSocket" = [ "EventTarget" ];
-          "WheelEvent" = [ "Event" "MouseEvent" "UiEvent" ];
+          "WheelEvent" = [
+            "Event"
+            "MouseEvent"
+            "UiEvent"
+          ];
           "Window" = [ "EventTarget" ];
           "WindowClient" = [ "Client" ];
           "Worker" = [ "EventTarget" ];
           "WorkerDebuggerGlobalScope" = [ "EventTarget" ];
           "WorkerGlobalScope" = [ "EventTarget" ];
-          "XmlDocument" = [ "Document" "EventTarget" "Node" ];
-          "XmlHttpRequest" = [ "EventTarget" "XmlHttpRequestEventTarget" ];
+          "XmlDocument" = [
+            "Document"
+            "EventTarget"
+            "Node"
+          ];
+          "XmlHttpRequest" = [
+            "EventTarget"
+            "XmlHttpRequestEventTarget"
+          ];
           "XmlHttpRequestEventTarget" = [ "EventTarget" ];
-          "XmlHttpRequestUpload" =
-            [ "EventTarget" "XmlHttpRequestEventTarget" ];
+          "XmlHttpRequestUpload" = [
+            "EventTarget"
+            "XmlHttpRequestEventTarget"
+          ];
           "Xr" = [ "EventTarget" ];
-          "XrBoundedReferenceSpace" =
-            [ "EventTarget" "XrReferenceSpace" "XrSpace" ];
+          "XrBoundedReferenceSpace" = [
+            "EventTarget"
+            "XrReferenceSpace"
+            "XrSpace"
+          ];
           "XrInputSourceEvent" = [ "Event" ];
           "XrInputSourcesChangeEvent" = [ "Event" ];
-          "XrReferenceSpace" = [ "EventTarget" "XrSpace" ];
+          "XrReferenceSpace" = [
+            "EventTarget"
+            "XrSpace"
+          ];
           "XrReferenceSpaceEvent" = [ "Event" ];
           "XrSession" = [ "EventTarget" ];
           "XrSessionEvent" = [ "Event" ];
           "XrSpace" = [ "EventTarget" ];
           "XrViewerPose" = [ "XrPose" ];
         };
-        resolvedDefaultFeatures = [ "Crypto" "EventTarget" "Window" ];
+        resolvedDefaultFeatures = [
+          "Crypto"
+          "EventTarget"
+          "Window"
+        ];
       };
       "webpki" = rec {
         crateName = "webpki";
@@ -2833,7 +3919,10 @@ rec {
           "alloc" = [ "ring/alloc" ];
           "std" = [ "alloc" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "std" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "std"
+        ];
       };
       "winapi" = rec {
         crateName = "winapi";
@@ -2862,7 +3951,10 @@ rec {
           }
         ];
         features = { "debug" = [ "impl-debug" ]; };
-        resolvedDefaultFeatures = [ "ntsecapi" "wtypesbase" ];
+        resolvedDefaultFeatures = [
+          "ntsecapi"
+          "wtypesbase"
+        ];
       };
       "winapi-i686-pc-windows-gnu" = rec {
         crateName = "winapi-i686-pc-windows-gnu";
@@ -2916,7 +4008,10 @@ rec {
           {
             name = "oid-registry";
             packageId = "oid-registry";
-            features = [ "crypto" "x509" ];
+            features = [
+              "crypto"
+              "x509"
+            ];
           }
           {
             name = "ring";
@@ -2941,7 +4036,11 @@ rec {
           "ring" = [ "dep:ring" ];
           "verify" = [ "ring" ];
         };
-        resolvedDefaultFeatures = [ "default" "ring" "verify" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "ring"
+          "verify"
+        ];
       };
       "yasna" = rec {
         crateName = "yasna";
@@ -2949,19 +4048,23 @@ rec {
         edition = "2018";
         sha256 = "0k1gk11hq4rwlppv9f50bz8bnmgr73r66idpp7rybly96si38v9l";
         authors = [ "Masaki Hara <ackie.h.gmai@gmail.com>" ];
-        dependencies = [{
+        dependencies = [ {
           name = "time";
           packageId = "time";
           optional = true;
           usesDefaultFeatures = false;
           features = [ "std" ];
-        }];
+        } ];
         features = {
           "bit-vec" = [ "dep:bit-vec" ];
           "num-bigint" = [ "dep:num-bigint" ];
           "time" = [ "dep:time" ];
         };
-        resolvedDefaultFeatures = [ "default" "std" "time" ];
+        resolvedDefaultFeatures = [
+          "default"
+          "std"
+          "time"
+        ];
       };
       "zeroize" = rec {
         crateName = "zeroize";
@@ -2969,16 +4072,20 @@ rec {
         edition = "2018";
         sha256 = "068nvl3n5hk6lfn5y24grf2c7anzzqfzjjccscq3md7rqp79v3fn";
         authors = [ "The RustCrypto Project Developers" ];
-        dependencies = [{
+        dependencies = [ {
           name = "zeroize_derive";
           packageId = "zeroize_derive";
           optional = true;
-        }];
+        } ];
         features = {
           "default" = [ "alloc" ];
           "zeroize_derive" = [ "dep:zeroize_derive" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "default" "zeroize_derive" ];
+        resolvedDefaultFeatures = [
+          "alloc"
+          "default"
+          "zeroize_derive"
+        ];
       };
       "zeroize_derive" = rec {
         crateName = "zeroize_derive";
@@ -3395,7 +4502,10 @@ rec {
           features = [ "default" ];
         });
         configs = prefixValues "cargo" crateConfigs;
-        combined = lib.foldAttrs (a: b: a // b) { } [ mergedFeatures configs ];
+        combined = lib.foldAttrs (a: b: a // b) { } [
+          mergedFeatures
+          configs
+        ];
         onlyInCargo = builtins.attrNames
           (lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo"))
             combined);
@@ -3543,9 +4653,8 @@ rec {
           let
             enabled =
               builtins.any (doesFeatureEnableDependency dependency) features;
-          in if (dependency.optional or false) && enabled then
-            [ (dependency.rename or dependency.name) ]
-          else
+          in if (dependency.optional or false)
+          && enabled then [ (dependency.rename or dependency.name) ] else
             [ ]) dependencies;
       in sortedUnique (features ++ additionalFeatures);
 

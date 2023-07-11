@@ -19,7 +19,10 @@ buildDunePackage rec {
   };
 
   minimalOCamlVersion = "4.08";
-  propagatedBuildInputs = [ cstruct mirage-crypto ];
+  propagatedBuildInputs = [
+    cstruct
+    mirage-crypto
+  ];
   checkInputs = [ alcotest ];
   doCheck = true;
 

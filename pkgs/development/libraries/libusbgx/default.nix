@@ -17,7 +17,10 @@ stdenv.mkDerivation {
     rev = "060784424609d5a4e3bce8355f788c93f09802a5";
     sha256 = "172qh8gva17jr18ldhf9zi960w2bqzmp030w6apxq57c9nv6d8k7";
   };
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libconfig ];
   meta = {
     description =

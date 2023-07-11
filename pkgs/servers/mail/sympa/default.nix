@@ -117,7 +117,10 @@ in stdenv.mkDerivation rec {
     description = "Open source mailing list manager";
     homepage = "https://www.sympa.org";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sorki mmilata ];
+    maintainers = with maintainers; [
+      sorki
+      mmilata
+    ];
     platforms = platforms.all;
   };
 }

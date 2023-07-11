@@ -173,13 +173,29 @@ in stdenv.mkDerivation rec {
     darcs
     gnused
     breezy
-  ] ++ lib.optionals stdenv.isLinux [ rpm dpkg cdrkit ]);
+  ] ++ lib.optionals stdenv.isLinux [
+    rpm
+    dpkg
+    cdrkit
+  ]);
 
-  nativeBuildInputs =
-    [ autoreconfHook makeWrapper pkg-config mdbook unzip nukeReferences ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+    mdbook
+    unzip
+    nukeReferences
+  ];
 
-  nativeCheckInputs =
-    [ cacert foreman glibcLocales python3 libressl.nc openldap ];
+  nativeCheckInputs = [
+    cacert
+    foreman
+    glibcLocales
+    python3
+    libressl.nc
+    openldap
+  ];
 
   configureFlags = [ "--with-docbook-xsl=${docbook_xsl}/xml/xsl/docbook" ];
 
@@ -236,6 +252,10 @@ in stdenv.mkDerivation rec {
     description = "Nix-based continuous build system";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lheckemann mindavi das_j ];
+    maintainers = with maintainers; [
+      lheckemann
+      mindavi
+      das_j
+    ];
   };
 }

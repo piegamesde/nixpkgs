@@ -41,7 +41,10 @@ in stdenv.mkDerivation rec {
     ln -sv ${soundtrack_src} $out/share/games/openclonk/Music.ocg
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2
@@ -71,7 +74,10 @@ in stdenv.mkDerivation rec {
     license =
       if enableSoundtrack then licenses.unfreeRedistributable else licenses.isc;
     maintainers = with maintainers; [ lheckemann ];
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     broken = true;
   };
 }

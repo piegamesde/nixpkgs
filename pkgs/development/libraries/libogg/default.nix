@@ -13,7 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "01b7050bghdvbxvw0gzv588fn4a27zh42ljpwzm4vrf8dziipnf4";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   meta = with lib; {
     description = "Media container library to manipulate Ogg files";

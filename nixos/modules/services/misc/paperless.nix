@@ -48,7 +48,11 @@ let
       "-/etc/localtime"
       "-/run/postgresql"
     ] ++ (optional enableRedis redisServer.unixSocket);
-    BindPaths = [ cfg.consumptionDir cfg.dataDir cfg.mediaDir ];
+    BindPaths = [
+      cfg.consumptionDir
+      cfg.dataDir
+      cfg.mediaDir
+    ];
     CacheDirectory = "paperless";
     CapabilityBoundingSet = "";
     # ProtectClock adds DeviceAllow=char-rtc r
@@ -77,25 +81,36 @@ let
     # to query CPU and memory information.
     # Note that /proc only contains processes of user `paperless`, so this is safe.
     # ProcSubset = "pid";
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+    ];
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SupplementaryGroups = optional enableRedis redisServer.user;
     SystemCallArchitectures = "native";
-    SystemCallFilter = [ "@system-service" "~@privileged @setuid @keyring" ];
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged @setuid @keyring"
+    ];
     # Does not work well with the temporary root
     #UMask = "0066";
   };
 in {
-  meta.maintainers = with maintainers; [ erikarvstedt Flakebi ];
-
-  imports = [
-    (mkRenamedOptionModule [ "services" "paperless-ng" ] [
-      "services"
-      "paperless"
-    ])
+  meta.maintainers = with maintainers; [
+    erikarvstedt
+    Flakebi
   ];
+
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "paperless-ng"
+  ] [
+    "services"
+    "paperless"
+  ]) ];
 
   options.services.paperless = {
     enable = mkOption {

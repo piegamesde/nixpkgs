@@ -30,16 +30,14 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-H2oaTphx5wvwXWDDaf9lLSVfHWmb2rMlxQmyRB4k5eg=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [
-    (fetchpatch {
-      name =
-        "revert-cmake-shared-to-module.patch"; # See https://github.com/eclipse/mosquitto/issues/2277
-      url =
-        "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch";
-      sha256 = "14syi2c1rks8sl2aw09my276w45yq1iasvzkqcrqwy4drdqrf069";
-      revert = true;
-    })
-  ];
+  patches = lib.optionals stdenv.isDarwin [ (fetchpatch {
+    name =
+      "revert-cmake-shared-to-module.patch"; # See https://github.com/eclipse/mosquitto/issues/2277
+    url =
+      "https://github.com/eclipse/mosquitto/commit/e21eaeca37196439b3e89bb8fd2eb1903ef94845.patch";
+    sha256 = "14syi2c1rks8sl2aw09my276w45yq1iasvzkqcrqwy4drdqrf069";
+    revert = true;
+  }) ];
 
   postPatch = ''
     for f in html manpage ; do
@@ -53,13 +51,25 @@ in stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeBuildInputs = [ cmake docbook_xsl libxslt ];
+  nativeBuildInputs = [
+    cmake
+    docbook_xsl
+    libxslt
+  ];
 
-  buildInputs = [ c-ares cjson libuuid libuv libwebsockets' openssl ]
-    ++ lib.optional withSystemd systemd;
+  buildInputs = [
+    c-ares
+    cjson
+    libuuid
+    libuv
+    libwebsockets'
+    openssl
+  ] ++ lib.optional withSystemd systemd;
 
-  cmakeFlags = [ "-DWITH_THREADING=ON" "-DWITH_WEBSOCKETS=ON" ]
-    ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON";
+  cmakeFlags = [
+    "-DWITH_THREADING=ON"
+    "-DWITH_WEBSOCKETS=ON"
+  ] ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON";
 
   meta = with lib; {
     description = "An open source MQTT v3.1/3.1.1/5.0 broker";

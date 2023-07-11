@@ -8,7 +8,10 @@ args@{
 
   description = "Parallelism for Common Lisp";
 
-  deps = [ args."alexandria" args."bordeaux-threads" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+  ];
 
   src = fetchurl {
     url =

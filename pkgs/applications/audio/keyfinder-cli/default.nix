@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1mlcygbj3gqii3cz8jd6ks1lz612i4jp0343qjg293xm39fg47ns";
   };
 
-  buildInputs = [ ffmpeg libkeyfinder ];
+  buildInputs = [
+    ffmpeg
+    libkeyfinder
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

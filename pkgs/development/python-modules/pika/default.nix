@@ -21,9 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-j+5AF/+MlyMl3JXh+bo7pHxohbso17CJokcDR7uroz8=";
   };
 
-  propagatedBuildInputs = [ gevent tornado twisted ];
+  propagatedBuildInputs = [
+    gevent
+    tornado
+    twisted
+  ];
 
-  nativeCheckInputs = [ nose2 mock ];
+  nativeCheckInputs = [
+    nose2
+    mock
+  ];
 
   postPatch = ''
     # don't stop at first test failure

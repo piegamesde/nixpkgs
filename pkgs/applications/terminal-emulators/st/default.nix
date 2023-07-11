@@ -39,8 +39,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config" ];
 
-  nativeBuildInputs = [ pkg-config ncurses fontconfig freetype ];
-  buildInputs = [ libX11 libXft ] ++ extraLibs;
+  nativeBuildInputs = [
+    pkg-config
+    ncurses
+    fontconfig
+    freetype
+  ];
+  buildInputs = [
+    libX11
+    libXft
+  ] ++ extraLibs;
 
   preInstall = ''
     export TERMINFO=$out/share/terminfo

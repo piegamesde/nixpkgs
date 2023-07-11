@@ -24,8 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-lpx/vptFhz4WOkybJpqq1teMGgX6RQo/f2OTNEm5XJU=";
   };
 
-  propagatedBuildInputs = [ ddt gitdb pkgs.gitMinimal ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    ddt
+    gitdb
+    pkgs.gitMinimal
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   postPatch = ''
     substituteInPlace git/cmd.py \

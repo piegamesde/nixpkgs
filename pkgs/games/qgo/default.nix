@@ -43,5 +43,9 @@ mkDerivation {
     sed -i 's|@out@|'"''${out}"'|g' src/src.pro src/defines.h
   '';
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtmultimedia qttranslations ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qttranslations
+  ];
 }

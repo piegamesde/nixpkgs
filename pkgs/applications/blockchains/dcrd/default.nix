@@ -19,7 +19,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." "cmd/dcrctl" "cmd/promptsecret" ];
+  subPackages = [
+    "."
+    "cmd/dcrctl"
+    "cmd/promptsecret"
+  ];
 
   meta = {
     homepage = "https://decred.org";

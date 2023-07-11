@@ -32,8 +32,18 @@ in stdenv.mkDerivation rec {
   version = "1.0.2";
   pname = "monotone-viz";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ocaml camlp4 ];
-  buildInputs = [ lablgtk libgnomecanvas glib graphviz_2_0 ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    ocaml
+    camlp4
+  ];
+  buildInputs = [
+    lablgtk
+    libgnomecanvas
+    glib
+    graphviz_2_0
+  ];
   src = fetchurl {
     url =
       "http://oandrieu.nerim.net/monotone-viz/${pname}-${version}-nolablgtk.tar.gz";

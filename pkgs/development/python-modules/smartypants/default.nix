@@ -20,7 +20,11 @@ buildPythonPackage rec {
     sha256 = "00p1gnb9pzb3svdq3c5b9b332gsp50wrqqa39gj00m133zadanjp";
   };
 
-  nativeCheckInputs = [ docutils pygments pytestCheckHook ];
+  nativeCheckInputs = [
+    docutils
+    pygments
+    pytestCheckHook
+  ];
 
   preCheck = ''
     patchShebangs smartypants

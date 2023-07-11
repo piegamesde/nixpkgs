@@ -16,9 +16,21 @@ let cntk = pkgs.cntk;
 in buildPythonPackage {
   inherit (cntk) name version src;
 
-  nativeBuildInputs = [ swig mpi ];
-  buildInputs = [ cntk mpi ];
-  propagatedBuildInputs = [ numpy scipy enum34 protobuf pip ];
+  nativeBuildInputs = [
+    swig
+    mpi
+  ];
+  buildInputs = [
+    cntk
+    mpi
+  ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    enum34
+    protobuf
+    pip
+  ];
 
   CNTK_LIB_PATH = "${cntk}/lib";
   CNTK_COMPONENT_VERSION = cntk.version;

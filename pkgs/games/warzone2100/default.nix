@@ -74,10 +74,20 @@ in stdenv.mkDerivation rec {
     freetype
     harfbuzz
     sqlite
-  ] ++ lib.optionals (!stdenv.isDarwin) [ vulkan-headers vulkan-loader ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    vulkan-headers
+    vulkan-loader
+  ];
 
-  nativeBuildInputs =
-    [ pkg-config cmake ninja p7zip asciidoctor gettext shaderc ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    p7zip
+    asciidoctor
+    gettext
+    shaderc
+  ];
 
   postPatch = ''
     substituteInPlace lib/exceptionhandler/dumpinfo.cpp \
@@ -131,7 +141,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://wz2100.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ astsmtl fgaz ];
+    maintainers = with maintainers; [
+      astsmtl
+      fgaz
+    ];
     platforms = platforms.all;
     # configure_mac.cmake tries to download stuff
     # https://github.com/Warzone2100/warzone2100/blob/master/macosx/README.md

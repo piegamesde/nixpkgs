@@ -31,9 +31,20 @@ stdenv.mkDerivation rec {
       --replace "add_subdirectory (tests)" ""
   '';
 
-  nativeBuildInputs = [ cmake gettext intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtkmm3 libuuid poppler qpdf ];
+  buildInputs = [
+    gtkmm3
+    libuuid
+    poppler
+    qpdf
+  ];
 
   meta = with lib; {
     description =

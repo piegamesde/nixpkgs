@@ -50,10 +50,19 @@ let
           dbus-python
           pycairo
           librsvg
-        ] ++ optionals withGUI [ gtk3 gobject-introspection pygobject3 ];
+        ] ++ optionals withGUI [
+          gtk3
+          gobject-introspection
+          pygobject3
+        ];
 
-      nativeBuildInputs = [ intltool glib ]
-        ++ optionals withGUI [ gobject-introspection wrapGAppsHook ];
+      nativeBuildInputs = [
+        intltool
+        glib
+      ] ++ optionals withGUI [
+        gobject-introspection
+        wrapGAppsHook
+      ];
 
       nativeCheckInputs = with pypkgs; [
         pytestCheckHook
@@ -88,7 +97,10 @@ let
         description = "Torrent client";
         homepage = "https://deluge-torrent.org";
         license = licenses.gpl3Plus;
-        maintainers = with maintainers; [ domenkozar ebzzry ];
+        maintainers = with maintainers; [
+          domenkozar
+          ebzzry
+        ];
         platforms = platforms.all;
       };
     };

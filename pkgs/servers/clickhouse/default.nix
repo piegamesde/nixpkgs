@@ -51,7 +51,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LArHbsu2iaEP+GrCxdTrfpGDDfwcg1mlvbAceXNZyz8=";
   };
 
-  nativeBuildInputs = [ cmake libtool llvm-bintools ninja ];
+  nativeBuildInputs = [
+    cmake
+    libtool
+    llvm-bintools
+    ninja
+  ];
   buildInputs = [
     boost
     brotli

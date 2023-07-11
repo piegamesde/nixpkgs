@@ -40,15 +40,33 @@ stdenv.mkDerivation rec {
     sed -i '/-ffloat-store/d' cmake/pcl_find_sse.cmake
   '';
 
-  nativeBuildInputs = [ pkg-config cmake wrapQtAppsHook ];
-  buildInputs = [ eigen libusb1 libpcap qtbase libXt ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa AGL ]
-    ++ lib.optionals withCuda [ cudatoolkit ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    wrapQtAppsHook
+  ];
+  buildInputs = [
+    eigen
+    libusb1
+    libpcap
+    qtbase
+    libXt
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    AGL
+  ] ++ lib.optionals withCuda [ cudatoolkit ];
 
-  propagatedBuildInputs = [ boost flann libpng libtiff qhull vtk ];
+  propagatedBuildInputs = [
+    boost
+    flann
+    libpng
+    libtiff
+    qhull
+    vtk
+  ];
 
-  cmakeFlags = lib.optionals stdenv.isDarwin
-    [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
+  cmakeFlags = lib.optionals
+    stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
     ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ];
 
   meta = {

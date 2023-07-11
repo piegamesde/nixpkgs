@@ -19,7 +19,10 @@ in with src; {
     geckos = [ gecko32 ];
     mingwGccs = with pkgsCross; [ mingw32.buildPackages.gcc ];
     monos = [ mono ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
   wine64 = callPackage ./base.nix {
     pname = "wine64";
@@ -29,15 +32,24 @@ in with src; {
     geckos = [ gecko64 ];
     monos = [ mono ];
     configureFlags = [ "--enable-win64" ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+    ];
     mainProgram = "wine64";
   };
   wineWow = callPackage ./base.nix {
     pname = "wine-wow";
     inherit src version supportFlags patches moltenvk;
     stdenv = stdenv_32bit;
-    pkgArches = [ pkgs pkgsi686Linux ];
-    geckos = [ gecko32 gecko64 ];
+    pkgArches = [
+      pkgs
+      pkgsi686Linux
+    ];
+    geckos = [
+      gecko32
+      gecko64
+    ];
     mingwGccs = with pkgsCross; [
       mingw32.buildPackages.gcc
       mingwW64.buildPackages.gcc

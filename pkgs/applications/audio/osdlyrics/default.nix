@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-E4pVXopqQYJW+a5nUf9dMabxJ9nYPu3C2ti8LlY470c=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config intltool ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    intltool
+  ];
 
   buildInputs = [
     glib
@@ -38,8 +42,14 @@ stdenv.mkDerivation rec {
     libappindicator-gtk2
     libnotify
     python3.pkgs.wrapPython
-    (python3.withPackages
-      (pp: with pp; [ chardet dbus-python future pycurl pygobject3 ]))
+    (python3.withPackages (pp:
+      with pp; [
+        chardet
+        dbus-python
+        future
+        pycurl
+        pygobject3
+      ]))
   ];
 
   postFixup = ''

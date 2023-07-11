@@ -33,9 +33,19 @@ buildPythonPackage rec {
       --replace "pre-commit" ""
   '';
 
-  nativeBuildInputs = [ setuptools unasync ];
+  nativeBuildInputs = [
+    setuptools
+    unasync
+  ];
 
-  propagatedBuildInputs = [ boto3 botocore requests aiohttp pyquery loguru ];
+  propagatedBuildInputs = [
+    boto3
+    botocore
+    requests
+    aiohttp
+    pyquery
+    loguru
+  ];
 
   # tests are not functional yet
   doCheck = false;

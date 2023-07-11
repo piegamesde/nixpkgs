@@ -26,7 +26,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-iMJNMDytNXpEkUhL0RILSd25ixkm8HL/edtOZta0Pf4=";
   };
 
-  nativeBuildInputs = [ pkg-config wafHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wafHook
+  ];
   buildInputs = [
     python3
     cairo

@@ -41,7 +41,12 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk4 glib gdk-pixbuf libadwaita ];
+  buildInputs = [
+    gtk4
+    glib
+    gdk-pixbuf
+    libadwaita
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

@@ -35,10 +35,22 @@ stdenv.mkDerivation rec {
     meta.license = lib.licenses.unfree;
   };
 
-  nativeBuildInputs = [ cmake makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    copyDesktopItems
+  ];
 
-  buildInputs = [ physfs SDL2 SDL2_mixer tinyxml-2 utf8cpp ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation IOKit ];
+  buildInputs = [
+    physfs
+    SDL2
+    SDL2_mixer
+    tinyxml-2
+    utf8cpp
+  ] ++ lib.optionals stdenv.isDarwin [
+    Foundation
+    IOKit
+  ];
 
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
@@ -46,18 +58,16 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUNDLE_DEPENDENCIES=OFF" ]
     ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
 
-  desktopItems = [
-    (makeDesktopItem {
-      type = "Application";
-      name = "VVVVVV";
-      desktopName = "VVVVVV";
-      comment = meta.description;
-      exec = pname;
-      icon = "VVVVVV";
-      terminal = false;
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    type = "Application";
+    name = "VVVVVV";
+    desktopName = "VVVVVV";
+    comment = meta.description;
+    exec = pname;
+    icon = "VVVVVV";
+    terminal = false;
+    categories = [ "Game" ];
+  }) ];
 
   installPhase = ''
     runHook preInstall

@@ -28,10 +28,25 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ ppx_irmin ];
 
-  propagatedBuildInputs =
-    [ index irmin optint fmt logs lwt mtime cmdliner checkseum rusage ];
+  propagatedBuildInputs = [
+    index
+    irmin
+    optint
+    fmt
+    logs
+    lwt
+    mtime
+    cmdliner
+    checkseum
+    rusage
+  ];
 
-  checkInputs = [ astring alcotest alcotest-lwt irmin-test ];
+  checkInputs = [
+    astring
+    alcotest
+    alcotest-lwt
+    irmin-test
+  ];
 
   doCheck = true;
 

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    vcrpy
+  ];
 
   pythonImportsCheck = [ "libpyvivotek" ];
 

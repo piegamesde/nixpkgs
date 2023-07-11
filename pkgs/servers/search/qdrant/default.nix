@@ -40,7 +40,11 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  nativeBuildInputs = [ protobuf rustPlatform.bindgenHook pkg-config ];
+  nativeBuildInputs = [
+    protobuf
+    rustPlatform.bindgenHook
+    pkg-config
+  ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-faligned-allocation";

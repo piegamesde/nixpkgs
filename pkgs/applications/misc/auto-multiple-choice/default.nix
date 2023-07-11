@@ -100,7 +100,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     --set TEXINPUTS ":.:$out/tex/latex"
   '';
 
-  nativeBuildInputs = [ pkg-config makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     cairo

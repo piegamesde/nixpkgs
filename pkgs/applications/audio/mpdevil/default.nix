@@ -36,7 +36,11 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gdk-pixbuf glib libnotify ];
+  buildInputs = [
+    gdk-pixbuf
+    glib
+    libnotify
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     beautifulsoup4

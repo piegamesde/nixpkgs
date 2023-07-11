@@ -20,7 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-BX4mT0waYtKvNyOW3xw5FmXI8TLmv857YBFTnV7XXD8=";
 
-  subPackages = [ "cmd/alertmanager" "cmd/amtool" ];
+  subPackages = [
+    "cmd/alertmanager"
+    "cmd/amtool"
+  ];
 
   ldflags = let t = "github.com/prometheus/common/version";
   in [
@@ -47,7 +50,12 @@ buildGoModule rec {
     changelog =
       "https://github.com/prometheus/alertmanager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley fpletz globin Frostman ];
+    maintainers = with maintainers; [
+      benley
+      fpletz
+      globin
+      Frostman
+    ];
     platforms = platforms.unix;
   };
 }

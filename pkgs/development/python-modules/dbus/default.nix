@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   disabled = isPyPy;
   format = "other";
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchPypi {
     inherit pname version;
@@ -46,7 +49,10 @@ buildPythonPackage rec {
     ++ lib.optional (!python ? modules) ncurses;
 
   doCheck = isPy3k;
-  nativeCheckInputs = [ dbus.out pygobject3 ];
+  nativeCheckInputs = [
+    dbus.out
+    pygobject3
+  ];
 
   postInstall = ''
     cp -r dbus_python.egg-info $out/${python.sitePackages}/

@@ -17,7 +17,11 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+  ];
 
   pythonImportsCheck = [ "azure.mgmt.servicelinker" ];
 

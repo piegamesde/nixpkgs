@@ -37,10 +37,15 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION=${version}
   '';
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ idna sniffio ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    idna
+    sniffio
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
@@ -56,7 +61,10 @@ buildPythonPackage rec {
     uvloop
   ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
 
-  pytestFlagsArray = [ "-W" "ignore::trio.TrioDeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
+  ];
 
   disabledTests = [
     # block devices access

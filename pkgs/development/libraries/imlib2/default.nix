@@ -50,9 +50,18 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cnwak3yIXAgMNyF+R23Ii1o+YNc38b8ECzQ1ILeBy7o=";
   };
 
-  buildInputs = [ libjpeg libtiff giflib libpng bzip2 freetype libid3tag ]
-    ++ optionals x11Support [ xorg.libXft xorg.libXext ]
-    ++ optional heifSupport libheif ++ optional svgSupport librsvg
+  buildInputs = [
+    libjpeg
+    libtiff
+    giflib
+    libpng
+    bzip2
+    freetype
+    libid3tag
+  ] ++ optionals x11Support [
+    xorg.libXft
+    xorg.libXext
+  ] ++ optional heifSupport libheif ++ optional svgSupport librsvg
     ++ optional webpSupport libwebp ++ optional jxlSupport libjxl
     ++ optional psSupport libspectre;
 
@@ -67,7 +76,11 @@ in stdenv.mkDerivation (finalAttrs: {
     ++ optional (!heifSupport) "--without-heif"
     ++ optional (!x11Support) "--without-x";
 
-  outputs = [ "bin" "out" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
   passthru.tests = {
     inherit libcaca diffoscopeMinimal feh icewm openbox fluxbox enlightenment;

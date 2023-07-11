@@ -39,11 +39,22 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dYacqkRp+zVejo/4dME1K6EN8t/1EBtIynEQ+AQ4JZo=";
   };
 
-  nativeBuildInputs = [ cmake protobuf ]
-    ++ lib.optionals buildDocs [ doxygen graphviz latex ];
+  nativeBuildInputs = [
+    cmake
+    protobuf
+  ] ++ lib.optionals buildDocs [
+    doxygen
+    graphviz
+    latex
+  ];
 
-  buildInputs = [ rocm-smi rocm-runtime libcap grpc openssl ]
-    ++ lib.optionals buildTests [ gtest ];
+  buildInputs = [
+    rocm-smi
+    rocm-runtime
+    libcap
+    grpc
+    openssl
+  ] ++ lib.optionals buildTests [ gtest ];
 
   cmakeFlags = [
     "-DCMAKE_VERBOSE_MAKEFILE=OFF"

@@ -30,13 +30,20 @@ let
 
 in makeTest {
   name = "cloud-init-hostname";
-  meta = with pkgs.lib.maintainers; { maintainers = [ lewo illustris ]; };
+  meta = with pkgs.lib.maintainers; {
+    maintainers = [
+      lewo
+      illustris
+    ];
+  };
 
   nodes.machine2 = {
       ...
     }: {
-      virtualisation.qemu.options =
-        [ "-cdrom" "${metadataDrive}/metadata.iso" ];
+      virtualisation.qemu.options = [
+        "-cdrom"
+        "${metadataDrive}/metadata.iso"
+      ];
       services.cloud-init.enable = true;
       networking.hostName = "";
     };

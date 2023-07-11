@@ -23,9 +23,17 @@ in mkDerivation rec {
     sha256 = "N0C+f788fq5yotSC54H2K4WDc6PnGi8Nh/vXL4v0fxo=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs =
-    [ knotifyconfig kidletime kwindowsystem ktextwidgets kcrash ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
+  propagatedBuildInputs = [
+    knotifyconfig
+    kidletime
+    kwindowsystem
+    ktextwidgets
+    kcrash
+  ];
 
   meta = with lib; {
     description =

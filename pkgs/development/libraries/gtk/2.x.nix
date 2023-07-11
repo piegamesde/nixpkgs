@@ -43,26 +43,43 @@ in stdenv.mkDerivation (finalAttrs: {
     sha256 = "rCrHV/WULTGKMRpUsMgLXvKV8pnCpzxjL2v7H/Scxto=";
   };
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
   outputBin = "dev";
 
   enableParallelBuilding = true;
 
-  setupHooks = [ ./hooks/drop-icon-theme-cache.sh gtkCleanImmodulesCache ];
+  setupHooks = [
+    ./hooks/drop-icon-theme-cache.sh
+    gtkCleanImmodulesCache
+  ];
 
-  nativeBuildInputs = finalAttrs.setupHooks
-    ++ [ perl pkg-config gettext gobject-introspection ];
+  nativeBuildInputs = finalAttrs.setupHooks ++ [
+    perl
+    pkg-config
+    gettext
+    gobject-introspection
+  ];
 
-  patches =
-    [ ./patches/2.0-immodules.cache.patch ./patches/gtk2-theme-paths.patch ]
-    ++ lib.optionals stdenv.isDarwin [
-      ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
-      ./patches/2.0-darwin-x11.patch
-    ];
+  patches = [
+    ./patches/2.0-immodules.cache.patch
+    ./patches/gtk2-theme-paths.patch
+  ] ++ lib.optionals stdenv.isDarwin [
+    ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
+    ./patches/2.0-darwin-x11.patch
+  ];
 
   propagatedBuildInputs = with xorg;
-    [ glib cairo pango gdk-pixbuf atk ]
-    ++ lib.optionals (stdenv.isLinux || stdenv.isDarwin) [
+    [
+      glib
+      cairo
+      pango
+      gdk-pixbuf
+      atk
+    ] ++ lib.optionals (stdenv.isLinux || stdenv.isDarwin) [
       libXrandr
       libXrender
       libXcomposite
@@ -70,8 +87,10 @@ in stdenv.mkDerivation (finalAttrs: {
       libXcursor
     ] ++ lib.optionals stdenv.isDarwin [ libXdamage ]
     ++ lib.optional xineramaSupport libXinerama
-    ++ lib.optionals cupsSupport [ cups ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa ];
+    ++ lib.optionals cupsSupport [ cups ] ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+    ];
 
   preConfigure =
     if (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
@@ -80,16 +99,18 @@ in stdenv.mkDerivation (finalAttrs: {
       '' else
       null;
 
-  configureFlags =
-    [ "--sysconfdir=/etc" "--with-gdktarget=${gdktarget}" "--with-xinput=yes" ]
-    ++ lib.optionals stdenv.isDarwin [
-      "--disable-glibtest"
-      "--disable-introspection"
-      "--disable-visibility"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
-      "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
-    ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--with-gdktarget=${gdktarget}"
+    "--with-xinput=yes"
+  ] ++ lib.optionals stdenv.isDarwin [
+    "--disable-glibtest"
+    "--disable-introspection"
+    "--disable-visibility"
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+    "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
+    "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
+  ];
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
@@ -115,9 +136,17 @@ in stdenv.mkDerivation (finalAttrs: {
       "A multi-platform toolkit for creating graphical user interfaces";
     homepage = "https://www.gtk.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ lovek323 raskin ];
-    pkgConfigModules = [ "gdk-2.0" "gtk+-2.0" ]
-      ++ lib.optionals (gdktarget == "x11") [ "gdk-x11-2.0" "gtk+-x11-2.0" ];
+    maintainers = with maintainers; [
+      lovek323
+      raskin
+    ];
+    pkgConfigModules = [
+      "gdk-2.0"
+      "gtk+-2.0"
+    ] ++ lib.optionals (gdktarget == "x11") [
+      "gdk-x11-2.0"
+      "gtk+-x11-2.0"
+    ];
     platforms = platforms.all;
 
     longDescription = ''

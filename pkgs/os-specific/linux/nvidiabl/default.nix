@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
       "Linux driver for setting the backlight brightness on laptops using NVIDIA GPU";
     homepage = "https://github.com/yorickvP/nvidiabl";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ yorickvp ];
     broken = kernel.kernelAtLeast "5.18";
   };

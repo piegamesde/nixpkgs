@@ -18,10 +18,20 @@ buildDunePackage {
 
   nativeBuildInputs = [ ppx_irmin ];
 
-  propagatedBuildInputs = [ irmin irmin-fs ppx_irmin lwt mtime ];
+  propagatedBuildInputs = [
+    irmin
+    irmin-fs
+    ppx_irmin
+    lwt
+    mtime
+  ];
 
   doCheck = true;
-  checkInputs = [ alcotest alcotest-lwt cacert ];
+  checkInputs = [
+    alcotest
+    alcotest-lwt
+    cacert
+  ];
 
   meta = ppx_irmin.meta // { description = "Mergeable Irmin data structures"; };
 }

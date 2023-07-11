@@ -26,7 +26,12 @@ in {
     dontUnpack = true;
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ coreutils nix-prefetch-git nodejs-slim nix ];
+    buildInputs = [
+      coreutils
+      nix-prefetch-git
+      nodejs-slim
+      nix
+    ];
 
     buildPhase = ''
       runHook preBuild
@@ -46,7 +51,13 @@ in {
       mkdir -p $out/bin
       cp -r libexec $out
       makeWrapper $out/libexec/index.js $out/bin/prefetch-yarn-deps \
-        --prefix PATH : ${lib.makeBinPath [ coreutils nix-prefetch-git nix ]}
+        --prefix PATH : ${
+          lib.makeBinPath [
+            coreutils
+            nix-prefetch-git
+            nix
+          ]
+        }
 
       runHook postInstall
     '';
@@ -91,7 +102,12 @@ in {
         '';
 
         outputHashMode = "recursive";
-      } // hash_ // (removeAttrs args [ "src" "name" "hash" "sha256" ]));
+      } // hash_ // (removeAttrs args [
+        "src"
+        "name"
+        "hash"
+        "sha256"
+      ]));
 
   in lib.setFunctionArgs f (lib.functionArgs f) // {
     tests = callPackage ./tests { };

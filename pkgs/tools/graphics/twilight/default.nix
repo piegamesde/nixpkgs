@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "0mmmi4jj8yd8wnah6kx5na782sjycszgzim33dfalr0ph361m4pz";
   };
 
-  buildInputs = [ libGL libGLU freeglut libX11 ];
+  buildInputs = [
+    libGL
+    libGLU
+    freeglut
+    libX11
+  ];
 
   installPhase = ''
     install -Dm755 twilight $out/bin/twilight

@@ -27,7 +27,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse perl ];
+  buildInputs = [
+    fuse
+    perl
+  ];
 
   meta = with lib; {
     description = "FUSE Compressed ROM filesystem with lzma";

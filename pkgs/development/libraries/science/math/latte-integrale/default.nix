@@ -29,7 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  buildInputs = [ gmp ntl cddlib ];
+  buildInputs = [
+    gmp
+    ntl
+    cddlib
+  ];
 
   meta = {
     description =

@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
   # Move to stable version when it's released.
   version = "unstable-2021-12-14";
 
-  buildInputs = [ postgresql freetds ];
+  buildInputs = [
+    postgresql
+    freetds
+  ];
 
   src = fetchFromGitHub {
     owner = "tds-fdw";

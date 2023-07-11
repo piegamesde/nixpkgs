@@ -21,12 +21,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NAjsDQ4/hklYRfa85uleOr50tmc6UJVo2xiDnEbmIxk=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ boost SDL2 SDL2_ttf SDL2_image ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    boost
+    SDL2
+    SDL2_ttf
+    SDL2_image
+  ];
   # From some reason, this is needed as otherwise SDL.h is not found
   NIX_CFLAGS_COMPILE = "-I${SDL2.dev}/include/SDL2";
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   meta = with lib; {
     description = "Simplistic SDL2 GUI framework in early developement";

@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libGLU libGL xorg.libX11 ];
+  buildInputs = [
+    libGLU
+    libGL
+    xorg.libX11
+  ];
 
   configureScript = ''
     cmake

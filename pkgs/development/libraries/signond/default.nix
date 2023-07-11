@@ -17,7 +17,10 @@ mkDerivation rec {
     sha256 = "sha256-d7JZmGpjIvSN9l1nvKbBZjF0OR5L5frPTGHF/pNEqHE=";
   };
 
-  nativeBuildInputs = [ qmake doxygen ];
+  nativeBuildInputs = [
+    qmake
+    doxygen
+  ];
 
   preConfigure = ''
     substituteInPlace src/signond/signond.pro \

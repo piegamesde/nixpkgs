@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [ rtmpdump pycrypto requests ];
+  propagatedBuildInputs = [
+    rtmpdump
+    pycrypto
+    requests
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/livestreamer --prefix PATH : ${

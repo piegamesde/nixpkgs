@@ -50,7 +50,11 @@ rustPackages.rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/Spotifyd/spotifyd/raw/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ anderslundstedt Br1ght0ne marsam ];
+    maintainers = with maintainers; [
+      anderslundstedt
+      Br1ght0ne
+      marsam
+    ];
     platforms = platforms.unix;
   };
 }

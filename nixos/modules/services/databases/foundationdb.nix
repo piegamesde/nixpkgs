@@ -142,7 +142,11 @@ in {
     };
 
     class = mkOption {
-      type = types.nullOr (types.enum [ "storage" "transaction" "stateless" ]);
+      type = types.nullOr (types.enum [
+        "storage"
+        "transaction"
+        "stateless"
+      ]);
       default = null;
       description = lib.mdDoc "Process class";
     };
@@ -339,14 +343,17 @@ in {
     };
 
     traceFormat = mkOption {
-      type = types.enum [ "xml" "json" ];
+      type = types.enum [
+        "xml"
+        "json"
+      ];
       default = "xml";
       description = lib.mdDoc "Trace logging format.";
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat
         == "xml";
       message = ''
@@ -354,7 +361,7 @@ in {
         This option has no effect for version '' + cfg.package.version + ''
           , and enabling it is an error.
         '';
-    }];
+    } ];
 
     environment.systemPackages = [ pkg ];
 
@@ -370,10 +377,10 @@ in {
       foundationdb.gid = config.ids.gids.foundationdb;
     };
 
-    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [{
+    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [ {
       from = cfg.listenPortStart;
       to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
-    }];
+    } ];
 
     systemd.tmpfiles.rules = [
       "d /etc/foundationdb 0755 ${cfg.user} ${cfg.group} - -"
@@ -390,8 +397,12 @@ in {
       unitConfig = { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}"; };
 
       serviceConfig = let
-        rwpaths = [ cfg.dataDir cfg.logDir cfg.pidfile "/etc/foundationdb" ]
-          ++ cfg.extraReadWritePaths;
+        rwpaths = [
+          cfg.dataDir
+          cfg.logDir
+          cfg.pidfile
+          "/etc/foundationdb"
+        ] ++ cfg.extraReadWritePaths;
       in {
         Type = "simple";
         Restart = "always";
@@ -414,7 +425,10 @@ in {
         ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
       };
 
-      path = [ pkg pkgs.coreutils ];
+      path = [
+        pkg
+        pkgs.coreutils
+      ];
 
       preStart = ''
         if [ ! -f /etc/foundationdb/fdb.cluster ]; then

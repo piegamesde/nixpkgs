@@ -63,7 +63,15 @@ in stdenv.mkDerivation rec {
     description = "IOzone Filesystem Benchmark";
     homepage = "http://www.iozone.org/";
     license = lib.licenses.unfreeRedistributable;
-    platforms = [ "i686-linux" "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
-    maintainers = with lib.maintainers; [ Baughn makefu ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ];
+    maintainers = with lib.maintainers; [
+      Baughn
+      makefu
+    ];
   };
 }

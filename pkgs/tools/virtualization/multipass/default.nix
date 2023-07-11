@@ -82,10 +82,23 @@ in stdenv.mkDerivation {
     EOF
   '';
 
-  buildInputs =
-    [ gtest libapparmor libvirt libxml2 openssl qtbase qtx11extras ];
+  buildInputs = [
+    gtest
+    libapparmor
+    libvirt
+    libxml2
+    openssl
+    qtbase
+    qtx11extras
+  ];
 
-  nativeBuildInputs = [ cmake git pkg-config slang wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    git
+    pkg-config
+    slang
+    wrapQtAppsHook
+  ];
 
   nativeCheckInputs = [ gtest ];
 

@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ docutils rich ];
+  propagatedBuildInputs = [
+    docutils
+    rich
+  ];
 
   # Module has no tests
   doCheck = false;

@@ -24,9 +24,18 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libvorbis libyaml jansson taglib zlib ];
+  buildInputs = [
+    libvorbis
+    libyaml
+    jansson
+    taglib
+    zlib
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

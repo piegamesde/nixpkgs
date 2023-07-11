@@ -46,10 +46,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ configobj traits traitsui ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [
+    configobj
+    traits
+    traitsui
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [ tables pandas pytestCheckHook ];
+  nativeCheckInputs = [
+    tables
+    pandas
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMP

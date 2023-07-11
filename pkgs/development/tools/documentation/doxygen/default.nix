@@ -22,11 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SqboPBqK7gDVTTjGgCUB9oIGBZR55EA7x65a0wumiKw=";
   };
 
-  nativeBuildInputs = [ cmake python3 flex bison ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    flex
+    bison
+  ];
 
-  buildInputs = [ libiconv ]
-    ++ lib.optionals (qt5 != null) (with qt5; [ qtbase wrapQtAppsHook ])
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [ libiconv ] ++ lib.optionals (qt5 != null) (with qt5; [
+    qtbase
+    wrapQtAppsHook
+  ]) ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cmakeFlags = [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
     ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES";

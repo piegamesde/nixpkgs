@@ -64,8 +64,14 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  nativeCheckInputs =
-    [ botocore glibcLocales jmespath pytestCheckHook sybil testfixtures ];
+  nativeCheckInputs = [
+    botocore
+    glibcLocales
+    jmespath
+    pytestCheckHook
+    sybil
+    testfixtures
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

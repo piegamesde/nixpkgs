@@ -7,5 +7,9 @@
 
 qtModule {
   pname = "qtsensors";
-  qtInputs = [ qtbase qtdeclarative qtsvg ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtsvg
+  ];
 }

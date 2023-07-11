@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ bleak bleak-retry-connector cryptography ];
+  propagatedBuildInputs = [
+    bleak
+    bleak-retry-connector
+    cryptography
+  ];
 
   # Module has no tests
   doCheck = false;

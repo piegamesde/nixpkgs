@@ -50,7 +50,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hNz5QMnxGGZLcLPNE6jH3LTSNb1ZywTcPirY9sxCM7w=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   patches = [
     # increase string length to allow for full
@@ -73,7 +76,12 @@ stdenv.mkDerivation rec {
   # this doesn't fix tests completely at least makes slurmd to launch
   hardeningDisable = [ "bindnow" ];
 
-  nativeBuildInputs = [ pkg-config libtool python3 perl ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    python3
+    perl
+  ];
   buildInputs = [
     curl
     python3
@@ -134,6 +142,9 @@ stdenv.mkDerivation rec {
     description = "Simple Linux Utility for Resource Management";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jagajaga markuskowa ];
+    maintainers = with maintainers; [
+      jagajaga
+      markuskowa
+    ];
   };
 }

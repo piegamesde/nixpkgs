@@ -13,7 +13,10 @@
 
 mkDerivation {
   pname = "kwayland-integration";
-  nativeBuildInputs = [ extra-cmake-modules wayland-scanner ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    wayland-scanner
+  ];
   buildInputs = [
     kguiaddons
     kidletime

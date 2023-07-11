@@ -30,7 +30,11 @@ mkDerivation rec {
     hash = "sha256-IETqKVIWeICFgqmBSVz8ea8100hHGXIo5S3O0OaIC04=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+  ];
 
   buildInputs = [
     baloo

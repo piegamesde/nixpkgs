@@ -10,7 +10,10 @@
 
 qtModule {
   pname = "qttools";
-  qtInputs = [ qtbase qtdeclarative ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [ cups ];
   patches = [ ../patches/qttools-paths.patch ];
   env.NIX_CFLAGS_COMPILE =

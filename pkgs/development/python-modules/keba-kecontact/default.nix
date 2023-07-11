@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-gR1ut2IjrU/JMy8/ZFv0jQTB6c3A/tZqtXMpQsapuj0=";
   };
 
-  propagatedBuildInputs = [ asyncio-dgram netifaces ];
+  propagatedBuildInputs = [
+    asyncio-dgram
+    netifaces
+  ];
 
   # Module has no tests
   doCheck = false;

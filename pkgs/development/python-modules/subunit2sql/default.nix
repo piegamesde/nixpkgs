@@ -19,9 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-c+Dg6moKiv30M0mmwGQSOEbc94gfH//ZnF7lnBgv8EU=";
   };
 
-  propagatedBuildInputs = [ oslo-db pbr python-dateutil ];
+  propagatedBuildInputs = [
+    oslo-db
+    pbr
+    python-dateutil
+  ];
 
-  nativeCheckInputs = [ mock oslo-concurrency stestr ];
+  nativeCheckInputs = [
+    mock
+    oslo-concurrency
+    stestr
+  ];
 
   checkPhase = ''
     export PATH=$out/bin:$PATH

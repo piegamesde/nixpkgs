@@ -71,8 +71,10 @@ let
 
   # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
   # below, or everything fails.
-  nativeBuildInputs' = [ octave writeRequiredOctavePackagesHook ]
-    ++ nativeBuildInputs;
+  nativeBuildInputs' = [
+    octave
+    writeRequiredOctavePackagesHook
+  ] ++ nativeBuildInputs;
 
   passthru' = {
     updateScript = [
@@ -87,7 +89,10 @@ let
   # This used to mean that if a package defined extra nativeBuildInputs, it
   # would override the ones for building an Octave package (the hook and Octave
   # itself, causing everything to fail.
-  attrs' = builtins.removeAttrs attrs [ "nativeBuildInputs" "passthru" ];
+  attrs' = builtins.removeAttrs attrs [
+    "nativeBuildInputs"
+    "passthru"
+  ];
 
 in stdenv.mkDerivation ({
   packageName = "${fullLibName}";

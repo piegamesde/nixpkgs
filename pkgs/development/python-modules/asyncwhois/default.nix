@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-ILKnJlPT8BuZK06xk7fWYXcdn9SRL5zA3+B6CfJwvKM=";
   };
 
-  propagatedBuildInputs = [ python-socks tldextract whodap ];
+  propagatedBuildInputs = [
+    python-socks
+    tldextract
+    whodap
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

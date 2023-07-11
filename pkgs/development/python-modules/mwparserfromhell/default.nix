@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-kr7JUorjTScok8yvK1J9+FwxT/KM+7MFY0BGewldg0w=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook pytest-runner ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-runner
+  ];
 
   meta = with lib; {
     description = "MWParserFromHell is a parser for MediaWiki wikicode";

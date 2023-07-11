@@ -57,8 +57,7 @@
       "iris" # new Intel, could work on non-x86 with PCIe cards, but doesn't build as of 22.3.4
       "crocus" # Intel legacy, x86 only
     ]
-  else
-    [ "auto" ],
+  else [ "auto" ],
   vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
@@ -78,8 +77,7 @@
         "intel" # Intel (aka ANV), could work on non-x86 with PCIe cards, but doesn't build
         "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
       ]
-  else
-    [ "auto" ],
+  else [ "auto" ],
   eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
   vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
@@ -182,7 +180,11 @@ let
         sed '/--size_t-is-usize/d' -i src/gallium/frontends/rusticl/meson.build
       '';
 
-    outputs = [ "out" "dev" "drivers" ] ++ lib.optional enableOSMesa "osmesa"
+    outputs = [
+      "out"
+      "dev"
+      "drivers"
+    ] ++ lib.optional enableOSMesa "osmesa"
       ++ lib.optional stdenv.isLinux "driversdev" ++ lib.optional enableOpenCL
       "opencl"
       # the Dozen drivers depend on libspirv2dxil, but link it statically, and
@@ -267,9 +269,14 @@ let
         libpthreadstubs
         openssl # or another sha1 provider
         zstd
-      ] ++ lib.optionals haveWayland [ wayland wayland-protocols ]
-      ++ lib.optionals stdenv.isLinux [ libomxil-bellagio libva-minimal udev ]
-      ++ lib.optionals stdenv.isDarwin [ libunwind ]
+      ] ++ lib.optionals haveWayland [
+        wayland
+        wayland-protocols
+      ] ++ lib.optionals stdenv.isLinux [
+        libomxil-bellagio
+        libva-minimal
+        udev
+      ] ++ lib.optionals stdenv.isDarwin [ libunwind ]
       ++ lib.optionals enableOpenCL [
         libclc
         llvmPackages.clang
@@ -299,8 +306,13 @@ let
     ] ++ lib.optional haveWayland wayland-scanner;
 
     propagatedBuildInputs = with xorg;
-      [ libXdamage libXxf86vm ] ++ lib.optional withLibdrm libdrm
-      ++ lib.optionals stdenv.isDarwin [ OpenGL Xplugin ];
+      [
+        libXdamage
+        libXxf86vm
+      ] ++ lib.optional withLibdrm libdrm ++ lib.optionals stdenv.isDarwin [
+        OpenGL
+        Xplugin
+      ];
 
     doCheck = false;
 
@@ -412,7 +424,10 @@ let
           buildCommand = ''
             echo ${self.dev} >>$out
           '';
-          disallowedRequisites = [ llvmPackages.llvm self.drivers ];
+          disallowedRequisites = [
+            llvmPackages.llvm
+            self.drivers
+          ];
         };
       };
     };
@@ -432,7 +447,10 @@ let
       changelog = "https://www.mesa3d.org/relnotes/${version}.html";
       license = licenses.mit; # X11 variant, in most files
       platforms = platforms.mesaPlatforms;
-      maintainers = with maintainers; [ primeos vcunat ]; # Help is welcome :)
+      maintainers = with maintainers; [
+        primeos
+        vcunat
+      ]; # Help is welcome :)
     };
   };
 

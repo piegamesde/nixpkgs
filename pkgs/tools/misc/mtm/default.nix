@@ -9,7 +9,10 @@ stdenv.mkDerivation rec {
   pname = "mtm";
   version = "1.2.1";
 
-  outputs = [ "out" "terminfo" ];
+  outputs = [
+    "out"
+    "terminfo"
+  ];
 
   src = fetchFromGitHub {
     owner = "deadpixi";

@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-uMq/3yWP9OwaVxixGAFCLMsDPoJhmIuG0I7hO7AnIOk=";
   };
 
-  nativeCheckInputs = [ aiomisc pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    aiomisc
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "caio" ];
 

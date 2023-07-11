@@ -235,7 +235,11 @@ in rec {
         wrapProgram $target/scripts/$f \
           --prefix PATH : ${
             with pkgs;
-            lib.makeBinPath ([ pkgs.fzf pkgs.python3 pkgs.xclip ])
+            lib.makeBinPath ([
+              pkgs.fzf
+              pkgs.python3
+              pkgs.xclip
+            ])
           }
       done
 
@@ -304,7 +308,12 @@ in rec {
         wrapProgram $target/scripts/$f \
           --prefix PATH : ${
             with pkgs;
-            lib.makeBinPath [ coreutils fzf gawk gnused ]
+            lib.makeBinPath [
+              coreutils
+              fzf
+              gawk
+              gnused
+            ]
           }
       done
     '';

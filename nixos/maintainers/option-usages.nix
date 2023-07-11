@@ -78,8 +78,11 @@ let
 
   # for some reasons which we yet have to investigate, some options are
   # time-consuming to compute, thus we filter them out at the moment.
-  excludedOptions =
-    [ "boot.systemd.services" "systemd.services" "kde.extraPackages" ];
+  excludedOptions = [
+    "boot.systemd.services"
+    "systemd.services"
+    "kde.extraPackages"
+  ];
   excludeOptions = list:
     filter (opt: !(elem (showOption opt.loc) excludedOptions)) list;
 

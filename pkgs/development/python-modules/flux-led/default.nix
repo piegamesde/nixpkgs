@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-3SlgYENtyv0JdUwGFpT3lWUDOciAKThYGz/RV8z+tac=";
   };
 
-  propagatedBuildInputs = [ async-timeout webcolors ];
+  propagatedBuildInputs = [
+    async-timeout
+    webcolors
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -26,17 +26,27 @@ stdenv.mkDerivation rec {
     "MANPREFIX=${placeholder "out"}/share/man"
   ];
 
-  buildInputs = [ lz4 snappy libsodium ];
+  buildInputs = [
+    lz4
+    snappy
+    libsodium
+  ];
 
   doCheck = true;
 
-  nativeCheckInputs = [ coreutils gawk ];
+  nativeCheckInputs = [
+    coreutils
+    gawk
+  ];
   checkTarget = "test";
 
   meta = with lib; {
     description = "Data deduplication program";
     homepage = "https://git.2f30.org/dedup/file/README.html";
-    license = with licenses; [ bsd0 isc ];
+    license = with licenses; [
+      bsd0
+      isc
+    ];
     maintainers = with maintainers; [ dtzWill ];
   };
 }

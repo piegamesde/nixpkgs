@@ -25,10 +25,19 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-7oYYZWpvWzeHlp6l9bLeHcLITLZPVY5eZdfHSE+ZHW8=";
 
-  nativeBuildInputs =
-    [ pkg-config wrapGAppsHook glib gobject-introspection gdk-pixbuf gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    glib
+    gobject-introspection
+    gdk-pixbuf
+    gettext
+  ];
 
-  buildInputs = [ gtk3 librsvg ];
+  buildInputs = [
+    gtk3
+    librsvg
+  ];
 
   postInstall = ''
     install -Dm644 ./resources/com.yktoo.ymuse.desktop -t $out/share/applications

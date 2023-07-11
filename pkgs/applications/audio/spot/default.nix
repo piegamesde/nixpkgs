@@ -52,8 +52,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [ glib gtk4 libadwaita libhandy openssl alsa-lib libpulseaudio ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+    libhandy
+    openssl
+    alsa-lib
+    libpulseaudio
+  ];
 
   # https://github.com/xou816/spot/issues/313
   mesonBuildType = "release";

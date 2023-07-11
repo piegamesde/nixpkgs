@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ blas lapack gfortran.cc.lib ];
+  buildInputs = [
+    blas
+    lapack
+    gfortran.cc.lib
+  ];
 
   doCheck = true;
 

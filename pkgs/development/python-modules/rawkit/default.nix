@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libraw ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
 
   checkPhase = ''
     py.test tests

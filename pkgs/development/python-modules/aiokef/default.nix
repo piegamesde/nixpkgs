@@ -22,9 +22,16 @@ buildPythonPackage rec {
     sha256 = "0ms0dwrpj80w55svcppbnp7vyl5ipnjfp1c436k5c7pph4q5pxk9";
   };
 
-  propagatedBuildInputs = [ async-timeout tenacity ];
+  propagatedBuildInputs = [
+    async-timeout
+    tenacity
+  ];
 
-  nativeCheckInputs = [ pytest-cov pytest-mypy pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-cov
+    pytest-mypy
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests" ];
   pythonImportsCheck = [ "aiokef" ];

@@ -38,12 +38,24 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "attrs" "more-itertools" ];
+  pythonRelaxDeps = [
+    "attrs"
+    "more-itertools"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs =
-    [ attrs bidict bitstruct more-itertools pprintpp tbm-utils ];
+  propagatedBuildInputs = [
+    attrs
+    bidict
+    bitstruct
+    more-itertools
+    pprintpp
+    tbm-utils
+  ];
 
   # Tests require ward which is not ready to be used
   doCheck = false;

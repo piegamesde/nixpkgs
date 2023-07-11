@@ -25,9 +25,15 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-YguZtGn8CT4EqOQWS0GeNGBdZSC3Lj1gFR0ZiegWTJU=";
 
-  nativeBuildInputs = [ copyDesktopItems python3 ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    python3
+  ];
 
-  libPath = lib.makeLibraryPath [ pipewire libpulseaudio ];
+  libPath = lib.makeLibraryPath [
+    pipewire
+    libpulseaudio
+  ];
 
   # npm install will error when electron tries to download its binary
   # we don't need it anyways since we wrap the program with our nixpkgs electron
@@ -60,16 +66,17 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "webcord";
-      exec = "webcord";
-      icon = "webcord";
-      desktopName = "WebCord";
-      comment = meta.description;
-      categories = [ "Network" "InstantMessaging" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "webcord";
+    exec = "webcord";
+    icon = "webcord";
+    desktopName = "WebCord";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "InstantMessaging"
+    ];
+  }) ];
 
   meta = with lib; {
     description =

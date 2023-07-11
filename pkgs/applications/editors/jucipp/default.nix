@@ -52,7 +52,11 @@ stdenv.mkDerivation rec {
     sha256 = "0xp6ijnrggskjrvscp204bmdpz48l5a8nxr9abp17wni6akb5wiq";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    cmake
+  ];
   buildInputs = [
     dbus
     openssl
@@ -86,11 +90,9 @@ stdenv.mkDerivation rec {
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt
     sed -i 's|> arguments;|> arguments; ${lintIncludes}|g' src/source_clang.cc
   '';
-  cmakeFlags = [
-    "-DLIBLLDB_LIBRARIES=${
+  cmakeFlags = [ "-DLIBLLDB_LIBRARIES=${
       lib.makeLibraryPath [ llvmPackages.lldb ]
-    }/liblldb.so"
-  ];
+    }/liblldb.so" ];
   postInstall = ''
     mv $out/bin/juci $out/bin/.juci
     makeWrapper "$out/bin/.juci" "$out/bin/juci" \

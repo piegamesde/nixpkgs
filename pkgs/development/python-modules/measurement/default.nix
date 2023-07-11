@@ -24,7 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-ULId0W10FaAtSgVY5ctQL3FPETVr+oq6TKWd/W53viM=";
   };
 
-  nativeBuildInputs = [ flit-core flit-scm sphinx ];
+  nativeBuildInputs = [
+    flit-core
+    flit-scm
+    sphinx
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

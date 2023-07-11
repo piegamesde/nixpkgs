@@ -18,7 +18,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "yx8aUmMfSzyWaM6M7+WcL6ouuWwOpqLzODWSdNgwCwo=";
   };
 
-  patches = [ ./state.patch ./run.patch ];
+  patches = [
+    ./state.patch
+    ./run.patch
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
@@ -30,8 +33,13 @@ python3.pkgs.buildPythonApplication rec {
     python-pidfile
   ];
 
-  makeWrapperArgs =
-    [ ''--prefix PATH ':' "${lib.makeBinPath [ openssl rsync ]}"'' ];
+  makeWrapperArgs = [ ''
+    --prefix PATH ':' "${
+      lib.makeBinPath [
+        openssl
+        rsync
+      ]
+    }"'' ];
 
   doCheck = false;
 

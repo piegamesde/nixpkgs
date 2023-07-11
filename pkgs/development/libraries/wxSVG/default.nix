@@ -24,8 +24,13 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ cairo ffmpeg libexif pango wxGTK ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs = [
+    cairo
+    ffmpeg
+    libexif
+    pango
+    wxGTK
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   meta = with lib; {
     homepage = "https://wxsvg.sourceforge.net/";

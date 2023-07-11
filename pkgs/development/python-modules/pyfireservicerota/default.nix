@@ -17,7 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-3+QK1BVuWYii0oYT4xXMOYJZmVKrB4EmqE0EkdFlZvE=";
   };
 
-  propagatedBuildInputs = [ pytz oauthlib requests websocket-client ];
+  propagatedBuildInputs = [
+    pytz
+    oauthlib
+    requests
+    websocket-client
+  ];
 
   # no tests implemented
   doCheck = false;

@@ -17,13 +17,11 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   # gives warning every time unless patched, see https://github.com/savagezen/dnd-tools/pull/20
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/savagezen/dnd-tools/commit/0443f3a232056ad67cfb09eb3eadcb6344659198.patch";
-      sha256 = "00k8rsz2aj4sfag6l313kxbphcb5bjxb6z3aw66h26cpgm4kysp0";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/savagezen/dnd-tools/commit/0443f3a232056ad67cfb09eb3eadcb6344659198.patch";
+    sha256 = "00k8rsz2aj4sfag6l313kxbphcb5bjxb6z3aw66h26cpgm4kysp0";
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/savagezen/dnd-tools";

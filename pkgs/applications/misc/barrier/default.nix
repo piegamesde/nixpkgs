@@ -44,7 +44,10 @@ mkDerivation rec {
     avahiWithLibdnssdCompat
     qtbase
   ];
-  nativeBuildInputs = [ cmake wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapGAppsHook
+  ];
 
   postFixup = ''
     substituteInPlace "$out/share/applications/barrier.desktop" --replace "Exec=barrier" "Exec=$out/bin/barrier"

@@ -33,10 +33,20 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  propagatedBuildInputs =
-    [ beautifulsoup4 boto3 lxml packaging pytz requests scramp ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    boto3
+    lxml
+    packaging
+    pytz
+    requests
+    scramp
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   # integration tests require a Redshift cluster
   pytestFlagsArray = [ "test/unit" ];

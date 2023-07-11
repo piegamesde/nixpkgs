@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-xsl8AentI4Tqo2mHWFRi6myyb0/MemATJz9erKN9eKQ=";
   };
 
-  propagatedBuildInputs = [ psutil docopt ];
+  propagatedBuildInputs = [
+    psutil
+    docopt
+  ];
 
   postPatch = ''
     substituteInPlace adbe/adb_enhanced.py \
@@ -37,7 +40,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tool for Android testing and development";
     homepage = "https://github.com/ashishb/adb-enhanced";
-    sourceProvenance = with sourceTypes; [ fromSource binaryBytecode ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode
+    ];
     license = licenses.asl20;
     maintainers = with maintainers; [ vtuan10 ];
     mainProgram = "adbe";

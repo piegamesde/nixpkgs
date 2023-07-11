@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
     substituteInPlace Misc/Bank.cpp --replace /usr $out
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     alsa-lib

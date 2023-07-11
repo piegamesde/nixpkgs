@@ -26,11 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-n6TcTezu5seKy34KDlzGikAVaqAud00gxywwJA3MaWM=";
   };
 
-  nativeBuildInputs = [ cffi poetry-core setuptools ];
+  nativeBuildInputs = [
+    cffi
+    poetry-core
+    setuptools
+  ];
 
-  propagatedBuildInputs = [ cffi h3 numpy ];
+  propagatedBuildInputs = [
+    cffi
+    h3
+    numpy
+  ];
 
-  nativeCheckInputs = [ numba pytestCheckHook ];
+  nativeCheckInputs = [
+    numba
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

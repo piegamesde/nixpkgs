@@ -109,13 +109,22 @@ in {
   };
 
   imports = map (opt:
-    mkRemovedOptionModule ([ "boot" "initrd" "network" "ssh" ] ++ [ opt ]) ''
+    mkRemovedOptionModule ([
+      "boot"
+      "initrd"
+      "network"
+      "ssh"
+    ] ++ [ opt ]) ''
       The initrd SSH functionality now uses OpenSSH rather than Dropbear.
 
       If you want to keep your existing initrd SSH host keys, convert them with
         $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
       and then set options.boot.initrd.network.ssh.hostKeys.
-    '') [ "hostRSAKey" "hostDSSKey" "hostECDSAKey" ];
+    '') [
+      "hostRSAKey"
+      "hostDSSKey"
+      "hostECDSAKey"
+    ];
 
   config = let
     # Nix complains if you include a store hash in initrd path names, so
@@ -258,7 +267,10 @@ in {
       services.sshd = {
         description = "SSH Daemon";
         wantedBy = [ "initrd.target" ];
-        after = [ "network.target" "initrd-nixos-copy-secrets.service" ];
+        after = [
+          "network.target"
+          "initrd-nixos-copy-secrets.service"
+        ];
 
         # Keys from Nix store are world-readable, which sshd doesn't
         # like. If this were a real nix store and not the initrd, we

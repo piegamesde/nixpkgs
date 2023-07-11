@@ -17,7 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-1RJAmz3Tw6c2Y7lXlXvq/aEkVLO+smkwuNJbi7aBUNo=";
 
-  ldflags = [ "-s" "-w" "-X ktbs.dev/mubeng/common.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X ktbs.dev/mubeng/common.Version=${version}"
+  ];
 
   meta = with lib; {
     description = "Proxy checker and IP rotator";

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ intltool ];
-  buildInputs = [ openssl expat libgcrypt ];
+  buildInputs = [
+    openssl
+    expat
+    libgcrypt
+  ];
 
   patchPhase = ''
     substituteInPlace configure \

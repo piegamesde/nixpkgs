@@ -17,7 +17,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "17k4vw5d3kr961axl49ywid4cf3n7zxvm885c4lv15w7s2al1425";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ pymongo setuptools urwid ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pymongo
+    setuptools
+    urwid
+  ];
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 

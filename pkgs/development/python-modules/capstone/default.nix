@@ -38,6 +38,9 @@ buildPythonPackage rec {
     homepage = "http://www.capstone-engine.org/";
     license = licenses.bsdOriginal;
     description = "Python bindings for Capstone disassembly engine";
-    maintainers = with maintainers; [ bennofs ris ];
+    maintainers = with maintainers; [
+      bennofs
+      ris
+    ];
   };
 }

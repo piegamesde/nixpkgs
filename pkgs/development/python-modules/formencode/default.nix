@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ dnspython pycountry pytestCheckHook ];
+  nativeCheckInputs = [
+    dnspython
+    pycountry
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # requires network for DNS resolution

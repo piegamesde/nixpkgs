@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [ aiounittest pytestCheckHook ];
+  nativeCheckInputs = [
+    aiounittest
+    pytestCheckHook
+  ];
 
   # Tests are not pick-up automatically by the hook
   pytestFlagsArray = [ "aiosqlite/tests/*.py" ];

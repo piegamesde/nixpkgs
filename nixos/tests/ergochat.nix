@@ -1,5 +1,8 @@
 let
-  clients = [ "ircclient1" "ircclient2" ];
+  clients = [
+    "ircclient1"
+    "ircclient2"
+  ];
   server = "ergochat";
   ircPort = 6667;
   channel = "nixos-cat";

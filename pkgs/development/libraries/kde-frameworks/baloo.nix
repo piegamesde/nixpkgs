@@ -32,8 +32,15 @@ mkDerivation {
     qtdeclarative
     solid
   ];
-  outputs = [ "out" "dev" ];
-  propagatedBuildInputs = [ kcoreaddons kfilemetadata qtbase ];
+  outputs = [
+    "out"
+    "dev"
+  ];
+  propagatedBuildInputs = [
+    kcoreaddons
+    kfilemetadata
+    qtbase
+  ];
 
   # kde-baloo.service uses `ExecCondition=@KDE_INSTALL_FULL_BINDIR@/kde-systemd-start-condition ...`
   # which comes from the "plasma-workspace" derivation, but KDE_INSTALL_* all point at the "baloo" one

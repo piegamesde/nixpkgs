@@ -28,7 +28,10 @@ buildDunePackage rec {
     sha256 = "1c6rcdp8bicdiwqc2mb59cl9l2vxlp3y8hmnr9x924fq7acly248";
   };
 
-  buildInputs = [ ppx_optcomp ppx_sexp_value ];
+  buildInputs = [
+    ppx_optcomp
+    ppx_sexp_value
+  ];
 
   propagatedBuildInputs = [
     ppx_assert

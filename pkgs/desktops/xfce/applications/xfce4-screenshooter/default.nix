@@ -18,8 +18,15 @@ mkXfceDerivation {
 
   sha256 = "sha256-L+qlxzNgjsoMi+VsbOFG7L/IITbF1iqMWqujhk0rAcA=";
 
-  buildInputs =
-    [ exo libxml2 libsoup_3 libxfce4ui libxfce4util xfce4-panel xfconf ];
+  buildInputs = [
+    exo
+    libxml2
+    libsoup_3
+    libxfce4ui
+    libxfce4util
+    xfce4-panel
+    xfconf
+  ];
 
   meta = with lib; {
     description = "Screenshot utility for the Xfce desktop";

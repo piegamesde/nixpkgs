@@ -16,7 +16,10 @@ let
   pkgConfig = {
     node-sass = {
       nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ libsass python3 ];
+      buildInputs = [
+        libsass
+        python3
+      ];
       postInstall = ''
         LIBSASS_EXT=auto yarn --offline run build
         rm build/config.gypi
@@ -74,7 +77,10 @@ in mkYarnPackage {
     description = "Building a federated alternative to reddit in rust";
     homepage = "https://join-lemmy.org/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ happysalada billewanick ];
+    maintainers = with maintainers; [
+      happysalada
+      billewanick
+    ];
     platforms = platforms.linux;
   };
 }

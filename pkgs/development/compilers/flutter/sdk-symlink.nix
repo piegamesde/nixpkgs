@@ -6,7 +6,10 @@ flutter:
 let
   self = symlinkJoin {
     name = "${flutter.name}-sdk-links";
-    paths = [ flutter flutter.sdk ];
+    paths = [
+      flutter
+      flutter.sdk
+    ];
 
     passthru = flutter.passthru // {
       # Update the SDK attribute.

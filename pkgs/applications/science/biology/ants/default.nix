@@ -20,10 +20,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-GQndI8ayBvqujb2/qXT6RBAfr8hNPCI5IbwYkPlyNg0=";
   };
 
-  nativeBuildInputs = [ cmake makeWrapper ];
-  buildInputs = [ itk vtk ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+  ];
+  buildInputs = [
+    itk
+    vtk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  cmakeFlags = [ "-DANTS_SUPERBUILD=FALSE" "-DUSE_VTK=TRUE" ];
+  cmakeFlags = [
+    "-DANTS_SUPERBUILD=FALSE"
+    "-DUSE_VTK=TRUE"
+  ];
 
   postInstall = ''
     for file in $out/bin/*; do

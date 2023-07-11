@@ -55,17 +55,18 @@ in stdenv.mkDerivation rec {
     sha256 = "1lngv98y6883vk8z2628cl4d5y8jxy39w8245gjdvshl8g18k5s2";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./libpath.patch;
-      env = "${
-          buildEnv {
-            name = "weechat-otr-env";
-            paths = [ potr pycrypto ];
-          }
-        }/${python3Packages.python.sitePackages}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./libpath.patch;
+    env = "${
+        buildEnv {
+          name = "weechat-otr-env";
+          paths = [
+            potr
+            pycrypto
+          ];
+        }
+      }/${python3Packages.python.sitePackages}";
+  }) ];
 
   passthru.scripts = [ "weechat_otr.py" ];
 

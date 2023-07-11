@@ -28,17 +28,21 @@ buildPythonPackage rec {
     sed -i '/pytest-runner/d' setup.py
   '';
 
-  patches = [
-    (substituteAll {
-      src = ./backend-paths.patch;
-      libespeak = "${
-          lib.getLib espeak-ng
-        }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
-      # FIXME package festival
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./backend-paths.patch;
+    libespeak = "${
+        lib.getLib espeak-ng
+      }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
+    # FIXME package festival
+  }) ];
 
-  propagatedBuildInputs = [ joblib segments attrs dlinfo typing-extensions ];
+  propagatedBuildInputs = [
+    joblib
+    segments
+    attrs
+    dlinfo
+    typing-extensions
+  ];
 
   # We tried to package festival, but were unable to get the backend running,
   # so let's disable related tests.

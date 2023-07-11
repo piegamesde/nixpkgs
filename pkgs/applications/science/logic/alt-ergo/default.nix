@@ -43,9 +43,14 @@ in let
     pname = "alt-ergo-parsers";
     inherit version src configureScript;
     configureFlags = [ pname ];
-    nativeBuildInputs = [ which ocamlPackages.menhir ];
-    propagatedBuildInputs = [ alt-ergo-lib ]
-      ++ (with ocamlPackages; [ camlzip psmt2-frontend ]);
+    nativeBuildInputs = [
+      which
+      ocamlPackages.menhir
+    ];
+    propagatedBuildInputs = [ alt-ergo-lib ] ++ (with ocamlPackages; [
+      camlzip
+      psmt2-frontend
+    ]);
   };
 
 in ocamlPackages.buildDunePackage {
@@ -54,8 +59,14 @@ in ocamlPackages.buildDunePackage {
 
   configureFlags = [ pname ];
 
-  nativeBuildInputs = [ which ocamlPackages.menhir ];
-  buildInputs = [ alt-ergo-parsers ocamlPackages.cmdliner ];
+  nativeBuildInputs = [
+    which
+    ocamlPackages.menhir
+  ];
+  buildInputs = [
+    alt-ergo-parsers
+    ocamlPackages.cmdliner
+  ];
 
   meta = {
     description = "High-performance theorem prover and SMT solver";

@@ -33,7 +33,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mutagen" "cmd/mutagen-agent" ];
+  subPackages = [
+    "cmd/mutagen"
+    "cmd/mutagen-agent"
+  ];
 
   postInstall = ''
     install -d $out/libexec

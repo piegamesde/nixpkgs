@@ -164,7 +164,10 @@
   qt = [ "https://download.qt.io/" ];
 
   # Roy marples mirrors
-  roy = [ "https://roy.marples.name/downloads/" "https://cflags.cc/roy/" ];
+  roy = [
+    "https://roy.marples.name/downloads/"
+    "https://cflags.cc/roy/"
+  ];
 
   # Sage mirrors (https://www.sagemath.org/mirrors.html)
   sageupstream = [
@@ -210,7 +213,10 @@
   ];
 
   # SAMBA
-  samba = [ "https://www.samba.org/ftp/" "http://www.samba.org/ftp/" ];
+  samba = [
+    "https://www.samba.org/ftp/"
+    "http://www.samba.org/ftp/"
+  ];
 
   # GNU Savannah
   savannah = [
@@ -285,8 +291,10 @@
   ];
 
   # X.org
-  xorg =
-    [ "https://xorg.freedesktop.org/releases/" "https://ftp.x.org/archive/" ];
+  xorg = [
+    "https://xorg.freedesktop.org/releases/"
+    "https://ftp.x.org/archive/"
+  ];
 
   ### Programming languages' package repos
 

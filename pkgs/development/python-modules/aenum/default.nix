@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-PlMckYYKgfiF9+bpfSGa6XcsuJlYAIR4iTXa19l0LvA=";
   };
 
-  nativeCheckInputs = [ pyparsing pytestCheckHook ];
+  nativeCheckInputs = [
+    pyparsing
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aenum" ];
 

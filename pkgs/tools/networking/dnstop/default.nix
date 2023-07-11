@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0yn5s2825l826506gclbcfk3lzllx9brk9rzja6yj5jv0013vc5l";
   };
 
-  buildInputs = [ libpcap ncurses ];
+  buildInputs = [
+    libpcap
+    ncurses
+  ];
 
   preInstall = ''
     mkdir -p $out/share/man/man8 $out/bin

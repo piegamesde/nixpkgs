@@ -28,7 +28,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-ocFBo00ZpZYHroEWahmGTrjITPhrFVRi/tMabVbhYko=";
   };
 
-  nativeBuildInputs = [ gettext pkg-config ];
+  nativeBuildInputs = [
+    gettext
+    pkg-config
+  ];
   buildInputs = [
     SDL2
     SDL2_image
@@ -45,7 +48,10 @@ stdenv.mkDerivation rec {
   ];
 
   # Autodetection is somewhat buggy; this is to avoid SLD1 to be loaded
-  configureFlags = [ "--disable-sdlimage" "--disable-sdlmixer" ];
+  configureFlags = [
+    "--disable-sdlimage"
+    "--disable-sdlmixer"
+  ];
 
   postInstall = ''
     install -D misc/chromium-bsu.png $out/share/pixmaps/chromium-bsu.png

@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ six ];
-  nativeCheckInputs = [ nose coverage ];
+  nativeCheckInputs = [
+    nose
+    coverage
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/metagriffin/aadict";

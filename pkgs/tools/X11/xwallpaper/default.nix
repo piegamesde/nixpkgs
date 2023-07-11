@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-onxneLmXs1rYwpTzcnn+rbDboWVoEQgtGMHx/bMPRa8=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook installShellFiles ];
-  buildInputs =
-    [ pixman xcbutilimage xcbutil libseccomp libjpeg libpng libXpm ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    installShellFiles
+  ];
+  buildInputs = [
+    pixman
+    xcbutilimage
+    xcbutil
+    libseccomp
+    libjpeg
+    libpng
+    libXpm
+  ];
 
   postInstall = ''
     installShellCompletion --zsh _xwallpaper

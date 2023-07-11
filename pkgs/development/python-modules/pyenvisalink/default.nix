@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-CQvomHYNMrf0oQjNCcLyisxIV2+3TOgEPzA9seZYsOs=";
   };
 
-  propagatedBuildInputs = [ async-timeout colorlog pyserial ];
+  propagatedBuildInputs = [
+    async-timeout
+    colorlog
+    pyserial
+  ];
 
   # Tests require an Envisalink device
   doCheck = false;

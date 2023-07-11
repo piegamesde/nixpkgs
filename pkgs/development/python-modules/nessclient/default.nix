@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-zjUYdSHIMCB4cCAsOOQZ9YgmFTskzlTUs5z/xPFt01Q=";
   };
 
-  propagatedBuildInputs = [ justbackoff click ];
+  propagatedBuildInputs = [
+    justbackoff
+    click
+  ];
 
-  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    asynctest
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nessclient" ];
 

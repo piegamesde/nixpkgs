@@ -62,7 +62,10 @@ in {
       type = types.listOf types.str;
       description = lib.mdDoc
         "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain.";
-      example = [ "8.8.8.8:53" "8.8.4.4:53" ];
+      example = [
+        "8.8.8.8:53"
+        "8.8.4.4:53"
+      ];
     };
 
     package = mkOption {
@@ -83,7 +86,10 @@ in {
   config = mkIf (cfg.enable) {
     systemd.services.skydns = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "etcd.service" ];
+      after = [
+        "network.target"
+        "etcd.service"
+      ];
       description = "Skydns Service";
       environment = {
         ETCD_MACHINES = concatStringsSep "," cfg.etcd.machines;

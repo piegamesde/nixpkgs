@@ -35,7 +35,10 @@ in stdenv.mkDerivation rec {
   sourceRoot = "trellis";
 
   buildInputs = [ boost ];
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
   cmakeFlags = [
     "-DCURRENT_GIT_VERSION=${realVersion}"
     # TODO: should this be in stdenv instead?
@@ -70,7 +73,12 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/YosysHQ/prjtrellis";
     license = licenses.isc;
-    maintainers = with maintainers; [ q3k thoughtpolice emily rowanG077 ];
+    maintainers = with maintainers; [
+      q3k
+      thoughtpolice
+      emily
+      rowanG077
+    ];
     platforms = platforms.all;
   };
 }

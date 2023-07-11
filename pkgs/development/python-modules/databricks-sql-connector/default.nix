@@ -31,12 +31,27 @@ buildPythonPackage rec {
     hash = "sha256-V8Nl6xr96Xnd1gkw9R0aqXkitLESsAyW7ufTYn6ttLg=";
   };
 
-  pythonRelaxDeps = [ "numpy" "thrift" ];
+  pythonRelaxDeps = [
+    "numpy"
+    "thrift"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs =
-    [ alembic lz4 numpy oauthlib openpyxl pandas pyarrow sqlalchemy thrift ];
+  propagatedBuildInputs = [
+    alembic
+    lz4
+    numpy
+    oauthlib
+    openpyxl
+    pandas
+    pyarrow
+    sqlalchemy
+    thrift
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

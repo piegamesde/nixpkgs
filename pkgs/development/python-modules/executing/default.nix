@@ -29,8 +29,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ asttokens littleutils pytestCheckHook ]
-    ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
+  nativeCheckInputs = [
+    asttokens
+    littleutils
+    pytestCheckHook
+  ] ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
 
   pythonImportsCheck = [ "executing" ];
 

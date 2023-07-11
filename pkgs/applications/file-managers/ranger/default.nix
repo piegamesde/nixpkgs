@@ -26,8 +26,10 @@ python3Packages.buildPythonApplication rec {
   LC_ALL = "en_US.UTF-8";
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
-  propagatedBuildInputs = [ less file ]
-    ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
+  propagatedBuildInputs = [
+    less
+    file
+  ] ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
     ++ lib.optionals neoVimSupport [ python3Packages.pynvim ]
     ++ lib.optionals improvedEncodingDetection [ python3Packages.chardet ]
     ++ lib.optionals rightToLeftTextSupport [ python3Packages.python-bidi ];
@@ -61,6 +63,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://ranger.github.io/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ toonn magnetophon ];
+    maintainers = with maintainers; [
+      toonn
+      magnetophon
+    ];
   };
 }

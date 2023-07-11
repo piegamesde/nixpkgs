@@ -46,7 +46,10 @@ python3Packages.buildPythonApplication rec {
       pyyaml
     ]);
 
-  nativeCheckInputs = with python3Packages; [ unittestCheckHook pytz ];
+  nativeCheckInputs = with python3Packages; [
+    unittestCheckHook
+    pytz
+  ];
 
   pythonImportsCheck = [ "prometheus_xmpp" ];
 

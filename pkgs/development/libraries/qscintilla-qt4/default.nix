@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qt4 ];
 
-  nativeBuildInputs = [ unzip qmake4Hook ];
+  nativeBuildInputs = [
+    unzip
+    qmake4Hook
+  ];
 
   patches = [ ./fix-qt4-build.patch ];
 

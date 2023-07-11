@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-2JaEuN6eNKKkOzRg+8oH0J1uJc6FjfTVpEJAQDthePU=";
   };
 
-  nativeCheckInputs = [ psutil pytestCheckHook ];
+  nativeCheckInputs = [
+    psutil
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "cloudpickle" ];
 

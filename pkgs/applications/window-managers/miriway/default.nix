@@ -23,9 +23,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ mir libxkbcommon ];
+  buildInputs = [
+    mir
+    libxkbcommon
+  ];
 
   passthru = {
     updateScript = unstableGitUpdater { };

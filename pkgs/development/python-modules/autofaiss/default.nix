@@ -46,7 +46,14 @@ buildPythonPackage rec {
     "pyarrow"
   ];
 
-  propagatedBuildInputs = [ embedding-reader fsspec numpy faiss fire pyarrow ];
+  propagatedBuildInputs = [
+    embedding-reader
+    fsspec
+    numpy
+    faiss
+    fire
+    pyarrow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

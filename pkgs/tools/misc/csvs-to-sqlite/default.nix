@@ -36,7 +36,13 @@ buildPythonApplication rec {
     hash = "sha256-ZG7Yto8q9QNNJPB/LMwzucLfCGiqwBd3l0ePZs5jKV0";
   };
 
-  propagatedBuildInputs = [ click dateparser pandas py-lru-cache six ];
+  propagatedBuildInputs = [
+    click
+    dateparser
+    pandas
+    py-lru-cache
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

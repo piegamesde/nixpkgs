@@ -67,7 +67,10 @@ let
   };
 
   checkedSystemdBootBuilder = pkgs.runCommand "systemd-boot" {
-    nativeBuildInputs = [ pkgs.mypy python3 ];
+    nativeBuildInputs = [
+      pkgs.mypy
+      python3
+    ];
   } ''
     install -m755 ${systemdBootBuilder} $out
     mypy \
@@ -84,14 +87,17 @@ let
   '';
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "boot" "loader" "gummiboot" "enable" ] [
-      "boot"
-      "loader"
-      "systemd-boot"
-      "enable"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "boot"
+    "loader"
+    "gummiboot"
+    "enable"
+  ] [
+    "boot"
+    "loader"
+    "systemd-boot"
+    "enable"
+  ]) ];
 
   options.boot.loader.systemd-boot = {
     enable = mkOption {
@@ -149,7 +155,14 @@ in {
     consoleMode = mkOption {
       default = "keep";
 
-      type = types.enum [ "0" "1" "2" "auto" "max" "keep" ];
+      type = types.enum [
+        "0"
+        "1"
+        "2"
+        "auto"
+        "max"
+        "keep"
+      ];
 
       description = lib.mdDoc ''
         The resolution of the console. The following values are valid:
@@ -262,12 +275,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion =
         (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
         ? efiBootStub;
       message = "This kernel does not support the EFI boot stub";
-    }] ++ concatMap (filename: [
+    } ] ++ concatMap (filename: [
       {
         assertion = !(hasInfix "/" filename);
         message = "boot.loader.systemd-boot.extraEntries.${
@@ -337,8 +350,8 @@ in {
 
       boot.loader.id = "systemd-boot";
 
-      requiredKernelConfig = with config.lib.kernelConfig;
-        [ (isYes "EFI_STUB") ];
+      requiredKernelConfig =
+        with config.lib.kernelConfig; [ (isYes "EFI_STUB") ];
     };
   };
 }

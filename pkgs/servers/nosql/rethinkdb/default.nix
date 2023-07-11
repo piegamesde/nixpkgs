@@ -45,11 +45,22 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "rethinkdb" ];
 
-  buildInputs = [ protobuf boost170 zlib curl openssl icu ]
-    ++ lib.optional (!stdenv.isDarwin) jemalloc
+  buildInputs = [
+    protobuf
+    boost170
+    zlib
+    curl
+    openssl
+    icu
+  ] ++ lib.optional (!stdenv.isDarwin) jemalloc
     ++ lib.optional stdenv.isDarwin libtool;
 
-  nativeBuildInputs = [ which m4 python2Packages.python makeWrapper ];
+  nativeBuildInputs = [
+    which
+    m4
+    python2Packages.python
+    makeWrapper
+  ];
 
   enableParallelBuilding = true;
 
@@ -69,6 +80,9 @@ stdenv.mkDerivation rec {
     homepage = "https://rethinkdb.com";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thoughtpolice bluescreen303 ];
+    maintainers = with lib.maintainers; [
+      thoughtpolice
+      bluescreen303
+    ];
   };
 }

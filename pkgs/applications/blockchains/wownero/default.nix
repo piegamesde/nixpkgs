@@ -36,16 +36,25 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ boost miniupnpc openssl unbound rapidjson readline libsodium ];
+  buildInputs = [
+    boost
+    miniupnpc
+    openssl
+    unbound
+    rapidjson
+    readline
+    libsodium
+  ];
 
   postUnpack = ''
     rm -r $sourceRoot/external/RandomWOW
     ln -s ${randomwow} $sourceRoot/external/RandomWOW
   '';
 
-  cmakeFlags =
-    [ "-DReadline_ROOT_DIR=${readline.dev}" "-DMANUAL_SUBMODULES=ON" ];
+  cmakeFlags = [
+    "-DReadline_ROOT_DIR=${readline.dev}"
+    "-DMANUAL_SUBMODULES=ON"
+  ];
 
   meta = with lib; {
     description = ''

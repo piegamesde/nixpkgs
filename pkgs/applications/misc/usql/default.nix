@@ -20,7 +20,10 @@ buildGoModule rec {
     hash = "sha256-WjQdRSucp9iwjUisaz4V/d4JVuFOmYwQA6f3DK5GskU=";
   };
 
-  buildInputs = [ unixODBC icu ];
+  buildInputs = [
+    unixODBC
+    icu
+  ];
 
   vendorHash = "sha256-kGq+IrdhyFEoaqUeXTKRXziQnFfzG49GIMAsljnWQPA=";
   proxyVendor = true;
@@ -30,7 +33,10 @@ buildGoModule rec {
   #
   # See https://github.com/xo/usql/pull/347
   #
-  excludedPackages = [ "impala" "hive" ];
+  excludedPackages = [
+    "impala"
+    "hive"
+  ];
 
   # These tags and flags are copied from build-release.sh
   tags = [
@@ -47,8 +53,11 @@ buildGoModule rec {
     "no_adodb"
   ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/xo/usql/text.CommandVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/xo/usql/text.CommandVersion=${version}"
+  ];
 
   # All the checks currently require docker instances to run the databases.
   doCheck = false;
@@ -67,7 +76,10 @@ buildGoModule rec {
     homepage = "https://github.com/xo/usql";
     changelog = "https://github.com/xo/usql/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ georgyo anthonyroussel ];
+    maintainers = with maintainers; [
+      georgyo
+      anthonyroussel
+    ];
     platforms = with platforms; linux ++ darwin;
   };
 }

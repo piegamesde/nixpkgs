@@ -84,8 +84,12 @@ mkDerivation rec {
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ] ++ lib.optionals withCD [ libcddb libcdio libcdio-paranoia ]
-    ++ lib.optional withGudev libgudev ++ lib.optional withKeybinder keybinder3
+    ] ++ lib.optionals withCD [
+      libcddb
+      libcdio
+      libcdio-paranoia
+    ] ++ lib.optional withGudev libgudev
+    ++ lib.optional withKeybinder keybinder3
     ++ lib.optional withLibnotify libnotify
     ++ lib.optional withLastfm liblastfmSF ++ lib.optional withGlyr glyr
     ++ lib.optional withLibsoup libsoup ++ lib.optional withMtp libmtp

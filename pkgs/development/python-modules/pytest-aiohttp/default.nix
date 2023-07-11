@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ aiohttp pytest-asyncio ];
+  propagatedBuildInputs = [
+    aiohttp
+    pytest-asyncio
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

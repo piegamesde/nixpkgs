@@ -22,8 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin
-    [ darwin.apple_sdk.frameworks.Foundation ];
+  buildInputs = lib.optionals
+    stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   doCheck = false;
 
@@ -43,7 +43,10 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/ClementTsang/bottom/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ berbiche figsoda ];
+    maintainers = with maintainers; [
+      berbiche
+      figsoda
+    ];
     mainProgram = "btm";
   };
 }

@@ -44,7 +44,13 @@ stdenv.mkDerivation rec {
         --replace 'DBUS_DAEMONDIR"/dbus-daemon"' '"/run/current-system/sw/bin/dbus-daemon"'
     '';
 
-  outputs = [ "out" "dev" "lib" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "doc"
+    "man"
+  ];
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -58,9 +64,15 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ expat ];
 
-  buildInputs = lib.optionals x11Support (with xorg; [ libX11 libICE libSM ])
-    ++ lib.optional enableSystemd systemdMinimal
-    ++ lib.optionals stdenv.isLinux [ audit libapparmor ];
+  buildInputs = lib.optionals x11Support (with xorg; [
+    libX11
+    libICE
+    libSM
+  ]) ++ lib.optional enableSystemd systemdMinimal
+    ++ lib.optionals stdenv.isLinux [
+      audit
+      libapparmor
+    ];
   # ToDo: optional selinux?
 
   configureFlags = [
@@ -77,9 +89,11 @@ stdenv.mkDerivation rec {
     "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
   ] ++ lib.optional (!x11Support) "--without-x"
-    ++ lib.optionals stdenv.isLinux [ "--enable-apparmor" "--enable-libaudit" ]
-    ++ lib.optionals enableSystemd
-    [ "SYSTEMCTL=${systemdMinimal}/bin/systemctl" ];
+    ++ lib.optionals stdenv.isLinux [
+      "--enable-apparmor"
+      "--enable-libaudit"
+    ] ++ lib.optionals
+    enableSystemd [ "SYSTEMCTL=${systemdMinimal}/bin/systemctl" ];
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 

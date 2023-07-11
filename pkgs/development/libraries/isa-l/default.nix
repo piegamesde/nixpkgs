@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AAuSdDQfDW4QFRu0jHwCZ+ZCSjoVqlQiSW1OOFye1Rs=";
   };
 
-  nativeBuildInputs = [ nasm autoreconfHook ];
+  nativeBuildInputs = [
+    nasm
+    autoreconfHook
+  ];
 
   preConfigure = ''
     export AS=nasm

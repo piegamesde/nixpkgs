@@ -180,7 +180,10 @@ in {
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "sa-update.service" ];
-      after = [ "network.target" "sa-update.service" ];
+      after = [
+        "network.target"
+        "sa-update.service"
+      ];
 
       serviceConfig = {
         User = "spamd";

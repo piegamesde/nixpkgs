@@ -63,11 +63,34 @@ stdenv.mkDerivation rec {
     ! grep -C src -RC0 "/usr"
   '';
 
-  nativeBuildInputs = [ lazarus fpc autoPatchelfHook wrapGAppsHook ];
-  buildInputs = [ atk cairo gdk-pixbuf glib gtk2-x11 libX11 pango ];
-  propagatedBuildInputs = [ hamlib mariadb tqsl xdg-utils xplanet ];
+  nativeBuildInputs = [
+    lazarus
+    fpc
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    atk
+    cairo
+    gdk-pixbuf
+    glib
+    gtk2-x11
+    libX11
+    pango
+  ];
+  propagatedBuildInputs = [
+    hamlib
+    mariadb
+    tqsl
+    xdg-utils
+    xplanet
+  ];
 
-  makeFlags = [ "FPC=fpc" "PP=fpc" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "FPC=fpc"
+    "PP=fpc"
+    "DESTDIR=$(out)"
+  ];
 
   postFixup = ''
     libmysqlclient=$(find "${mariadb.client}/lib" -name "libmysqlclient.so" | tail -n1)

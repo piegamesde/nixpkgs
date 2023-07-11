@@ -13,7 +13,12 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-+OqcLbXilbY4h/zRAkvRd8taVIOPyiScOAcDyPZ4RUw=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ boto3 botocore click termcolor ];
+  propagatedBuildInputs = with python3.pkgs; [
+    boto3
+    botocore
+    click
+    termcolor
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

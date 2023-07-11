@@ -72,7 +72,12 @@ stdenv.mkDerivation rec {
     ./0001-libpcsxcore-fix-build-with-ffmpeg-4.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook intltool pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    intltool
+    pkg-config
+    wrapGAppsHook
+  ];
   buildInputs = [
     gtk3
     SDL2

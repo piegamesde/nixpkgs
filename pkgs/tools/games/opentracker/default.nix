@@ -40,15 +40,34 @@ buildDotnetModule rec {
     "OpenTracker.UnitTests.Models.Sections.Factories.ItemSectionFactoryTests.GetItemSection_ShouldReturnExpected"
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ stdenv.cc.cc.lib fontconfig gtk3 libunwind ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    fontconfig
+    gtk3
+    libunwind
+  ];
 
-  runtimeDeps = [ gtk3 openssl xinput ]
-    ++ (with xorg; [ libICE libSM libX11 libXi ]);
+  runtimeDeps = [
+    gtk3
+    openssl
+    xinput
+  ] ++ (with xorg; [
+    libICE
+    libSM
+    libX11
+    libXi
+  ]);
 
   # Attempts to patchelf unneeded SOs
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" "libintl.so.8" ];
+  autoPatchelfIgnoreMissingDeps = [
+    "libc.musl-x86_64.so.1"
+    "libintl.so.8"
+  ];
 
   meta = with lib; {
     description = "A tracking application for A Link to the Past Randomizer";

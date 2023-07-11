@@ -54,9 +54,23 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ bison cmake installShellFiles ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    installShellFiles
+  ];
 
-  buildInputs = [ boost flex gmp libxml2 mpfi mpfr scalp sollya wcpg ];
+  buildInputs = [
+    boost
+    flex
+    gmp
+    libxml2
+    mpfi
+    mpfr
+    scalp
+    sollya
+    wcpg
+  ];
 
   postBuild = ''
     ./flopoco BuildAutocomplete

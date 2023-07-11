@@ -16,10 +16,10 @@ import ./make-test-python.nix ({
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "hass" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "hass";
             ensurePermissions = { "DATABASE hass" = "ALL PRIVILEGES"; };
-          }];
+          } ];
         };
 
         services.home-assistant = {
@@ -69,11 +69,11 @@ import ./make-test-python.nix ({
             # set up a wake-on-lan switch to test capset capability required
             # for the ping suid wrapper
             # https://www.home-assistant.io/integrations/wake_on_lan/
-            switch = [{
+            switch = [ {
               platform = "wake_on_lan";
               mac = "00:11:22:33:44:55";
               host = "127.0.0.1";
-            }];
+            } ];
 
             # test component-based capability assignment (CAP_NET_BIND_SERVICE)
             # https://www.home-assistant.io/integrations/emulated_hue/
@@ -89,14 +89,14 @@ import ./make-test-python.nix ({
           # configure the sample lovelace dashboard
           lovelaceConfig = {
             title = "My Awesome Home";
-            views = [{
+            views = [ {
               title = "Example";
-              cards = [{
+              cards = [ {
                 type = "markdown";
                 title = "Lovelace";
                 content = "Welcome to your **Lovelace UI**.";
-              }];
-            }];
+              } ];
+            } ];
           };
           lovelaceConfigWritable = true;
         };

@@ -76,7 +76,10 @@ python3.pkgs.buildPythonApplication rec {
     ${python3.interpreter} setup.py configure --prefix=$out
   '';
 
-  setupPyGlobalFlags = [ "--no-update-icon-cache" "--no-compile-schemas" ];
+  setupPyGlobalFlags = [
+    "--no-update-icon-cache"
+    "--no-compile-schemas"
+  ];
 
   dontWrapGApps = true;
 
@@ -86,7 +89,14 @@ python3.pkgs.buildPythonApplication rec {
     gappsWrapperArgs+=(--set PYTHONPATH "$PYTHONPATH")
     # these are called from virt-install in initrdinject.py
     gappsWrapperArgs+=(--prefix PATH : "${
-      lib.makeBinPath [ cpio 0.0 fsprogs file findutils gzip ]
+      lib.makeBinPath [
+        cpio
+        0.0
+        fsprogs
+        file
+        findutils
+        gzip
+      ]
     }")
 
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
@@ -128,6 +138,11 @@ python3.pkgs.buildPythonApplication rec {
     '';
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ qknight offline fpletz globin ];
+    maintainers = with maintainers; [
+      qknight
+      offline
+      fpletz
+      globin
+    ];
   };
 }

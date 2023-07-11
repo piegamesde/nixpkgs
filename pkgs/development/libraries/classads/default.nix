@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pcre ];
 
-  configureFlags = [ "--enable-namespace" "--enable-flexible-member" ];
+  configureFlags = [
+    "--enable-namespace"
+    "--enable-flexible-member"
+  ];
 
   # error: use of undeclared identifier 'finite'; did you mean 'isfinite'?
   env.NIX_CFLAGS_COMPILE =

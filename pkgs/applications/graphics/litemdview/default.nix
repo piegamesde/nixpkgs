@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gtkmm3 ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://notabug.org/g0tsu/litemdview";

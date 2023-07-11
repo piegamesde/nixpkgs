@@ -19,7 +19,12 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pyyaml ];
-  nativeCheckInputs = [ nose jinja2 mock pytest ];
+  nativeCheckInputs = [
+    nose
+    jinja2
+    mock
+    pytest
+  ];
 
   # Needs Babel CLI tool
   doCheck = false;

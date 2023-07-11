@@ -25,9 +25,19 @@ in stdenv.mkDerivation rec {
 
   passthru.updateScript = ./update.sh;
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ mpg123 ffmpeg libvorbis libao jansson speex ];
+  buildInputs = [
+    mpg123
+    ffmpeg
+    libvorbis
+    libao
+    jansson
+    speex
+  ];
 
   cmakeFlags = [
     # There's no nice way to build the audacious plugin without a circular dependency

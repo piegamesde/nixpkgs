@@ -45,9 +45,13 @@ buildPythonApplication rec {
     pyyaml
   ];
 
-  propagatedBuildInputs =
-    [ cryptography beautifulsoup4 certifi urllib3 html5lib ]
-    ++ lib.optionals withServer serverRequire;
+  propagatedBuildInputs = [
+    cryptography
+    beautifulsoup4
+    certifi
+    urllib3
+    html5lib
+  ] ++ lib.optionals withServer serverRequire;
 
   preCheck = ''
     # Disables a test which requires internet
@@ -77,6 +81,10 @@ buildPythonApplication rec {
     homepage = "https://github.com/jarun/Buku";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthiasbeyer infinisil ma27 ];
+    maintainers = with maintainers; [
+      matthiasbeyer
+      infinisil
+      ma27
+    ];
   };
 }

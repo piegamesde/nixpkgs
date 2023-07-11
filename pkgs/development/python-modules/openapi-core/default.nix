@@ -64,11 +64,18 @@ buildPythonPackage rec {
     falcon = [ falcon ];
     flask = [ flask ];
     requests = [ requests ];
-    starlette = [ httpx starlette ];
+    starlette = [
+      httpx
+      starlette
+    ];
   };
 
-  nativeCheckInputs = [ mock pytestCheckHook responses webob ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    responses
+    webob
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   disabledTestPaths = [
     # Requires secrets and additional configuration

@@ -14,7 +14,12 @@ import ../make-test-python.nix ({
     '';
   in {
     name = "google-oslogin";
-    meta = with pkgs.lib.maintainers; { maintainers = [ adisbladis flokli ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        adisbladis
+        flokli
+      ];
+    };
 
     nodes = {
       # the server provides both the the mocked google metadata server and the ssh server

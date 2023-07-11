@@ -45,7 +45,11 @@ in stdenv.mkDerivation {
 
   unpackCmd = "dpkg-deb -x $curSrc source";
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+    dpkg
+  ];
 
   buildInputs = [
     alsa-lib
@@ -62,7 +66,10 @@ in stdenv.mkDerivation {
     xorg.libXdamage
   ];
 
-  runtimeDependencies = map lib.getLib [ libappindicator systemd ];
+  runtimeDependencies = map lib.getLib [
+    libappindicator
+    systemd
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -88,7 +95,10 @@ in stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://im.qq.com/linuxqq/";
     description = "Messaging app";
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ fee1-dead ];

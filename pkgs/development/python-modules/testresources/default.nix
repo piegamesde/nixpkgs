@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pbr ];
 
-  nativeCheckInputs = [ fixtures testtools ];
+  nativeCheckInputs = [
+    fixtures
+    testtools
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m testtools.run discover

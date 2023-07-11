@@ -35,13 +35,20 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "lib" ];
-
-  buildInputs = [ libbpf elfutils libpcap zlib ];
-
-  depsBuildBuild = [
-    emacs-nox # to generate man pages from .org
+  outputs = [
+    "out"
+    "lib"
   ];
+
+  buildInputs = [
+    libbpf
+    elfutils
+    libpcap
+    zlib
+  ];
+
+  depsBuildBuild = [ emacs-nox # to generate man pages from .org
+    ];
   nativeBuildInputs = [
     bpftools
     llvmPackages.clang
@@ -50,9 +57,8 @@ stdenv.mkDerivation rec {
     m4
     nukeReferences
   ];
-  nativeCheckInputs = [
-    wireshark-cli # for tshark
-  ];
+  nativeCheckInputs = [ wireshark-cli # for tshark
+    ];
 
   # When building BPF, the default CC wrapper is interfering a bit too much.
   BPF_CFLAGS = "-fno-stack-protector -Wno-error=unused-command-line-argument";
@@ -62,7 +68,10 @@ stdenv.mkDerivation rec {
   FORCE_SYSTEM_LIBBPF = 1;
   FORCE_EMACS = 1;
 
-  makeFlags = [ "PREFIX=$(out)" "LIBDIR=$(lib)/lib" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "LIBDIR=$(lib)/lib"
+  ];
 
   postInstall = ''
     # Note that even the static libxdp would refer to BPF_OBJECT_DIR ?=$(LIBDIR)/bpf
@@ -74,8 +83,16 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/xdp-project/xdp-tools";
     description = "Library and utilities for use with XDP";
-    license = with licenses; [ gpl2 lgpl21 bsd2 ];
-    maintainers = with maintainers; [ tirex vcunat vifino ];
+    license = with licenses; [
+      gpl2
+      lgpl21
+      bsd2
+    ];
+    maintainers = with maintainers; [
+      tirex
+      vcunat
+      vifino
+    ];
     platforms = platforms.linux;
   };
 }

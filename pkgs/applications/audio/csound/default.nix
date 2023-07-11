@@ -47,15 +47,23 @@ stdenv.mkDerivation rec {
     ++ lib.optional (libjack2 != null)
     "-DJACK_HEADER=${libjack2}/include/jack/jack.h";
 
-  nativeBuildInputs = [ cmake flex bison gettext ];
-  buildInputs = [ libsndfile libsamplerate boost ]
-    ++ lib.optionals stdenv.isDarwin [
-      Accelerate
-      AudioUnit
-      CoreAudio
-      CoreMIDI
-      portaudio
-    ] ++ lib.optionals stdenv.isLinux
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+    gettext
+  ];
+  buildInputs = [
+    libsndfile
+    libsamplerate
+    boost
+  ] ++ lib.optionals stdenv.isDarwin [
+    Accelerate
+    AudioUnit
+    CoreAudio
+    CoreMIDI
+    portaudio
+  ] ++ lib.optionals stdenv.isLinux
     (builtins.filter (optional: optional != null) [
       alsa-lib
       libpulseaudio

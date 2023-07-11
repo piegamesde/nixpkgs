@@ -33,7 +33,10 @@ python3.pkgs.buildPythonApplication rec {
     websockets
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -44,7 +47,10 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests = [ "test_execute_agent" "SSL" ];
+  disabledTests = [
+    "test_execute_agent"
+    "SSL"
+  ];
 
   disabledTestPaths = [
     # Tests require a running Docker instance

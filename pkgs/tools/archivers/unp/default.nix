@@ -12,7 +12,12 @@
   extraBackends ? [ ]
 }:
 
-let runtime_bins = [ file unzip gzip ] ++ extraBackends;
+let
+  runtime_bins = [
+    file
+    unzip
+    gzip
+  ] ++ extraBackends;
 
 in stdenv.mkDerivation {
   pname = "unp";

@@ -27,9 +27,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ lark regex typing-extensions ];
+  propagatedBuildInputs = [
+    lark
+    regex
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ assertpy pytestCheckHook ];
+  nativeCheckInputs = [
+    assertpy
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

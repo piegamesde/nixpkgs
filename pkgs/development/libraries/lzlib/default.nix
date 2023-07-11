@@ -9,9 +9,15 @@
 stdenv.mkDerivation rec {
   pname = "lzlib";
   version = "1.13";
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
-  nativeBuildInputs = [ texinfo lzip ];
+  nativeBuildInputs = [
+    texinfo
+    lzip
+  ];
 
   src = fetchurl {
     url = "mirror://savannah/lzip/${pname}/${pname}-${version}.tar.lz";

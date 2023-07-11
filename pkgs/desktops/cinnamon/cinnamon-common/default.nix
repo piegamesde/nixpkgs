@@ -82,7 +82,10 @@ in stdenv.mkDerivation rec {
     hash = "sha256-qL8GaEH/0d4yEwwdaR55fTp0RitbyptoxKOBO3nmbic=";
   };
 
-  patches = [ ./use-sane-install-dir.patch ./libdir.patch ];
+  patches = [
+    ./use-sane-install-dir.patch
+    ./libdir.patch
+  ];
 
   buildInputs = [
     atk
@@ -182,7 +185,12 @@ in stdenv.mkDerivation rec {
     patchPythonScript $out/share/cinnamon/cinnamon-desktop-editor/cinnamon-desktop-editor.py
   '';
 
-  passthru = { providedSessions = [ "cinnamon" "cinnamon2d" ]; };
+  passthru = {
+    providedSessions = [
+      "cinnamon"
+      "cinnamon2d"
+    ];
+  };
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon";

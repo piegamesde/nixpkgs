@@ -27,9 +27,19 @@ in buildPythonApplication rec {
   # no tests
   doCheck = false;
 
-  buildInputs = [ docutils gsettings-desktop-schemas gtk3 ];
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
-  propagatedBuildInputs = [ xrandr pygobject3 ];
+  buildInputs = [
+    docutils
+    gsettings-desktop-schemas
+    gtk3
+  ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
+  propagatedBuildInputs = [
+    xrandr
+    pygobject3
+  ];
 
   meta = {
     homepage = "https://christian.amsuess.com/tools/arandr/";

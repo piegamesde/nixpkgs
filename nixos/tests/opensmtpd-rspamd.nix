@@ -8,12 +8,15 @@ import ./make-test-python.nix {
       }: {
         imports = [ common/user-account.nix ];
         networking = {
-          firewall.allowedTCPPorts = [ 25 143 ];
+          firewall.allowedTCPPorts = [
+            25
+            143
+          ];
           useDHCP = false;
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.1.1";
             prefixLength = 24;
-          }];
+          } ];
         };
         environment.systemPackages = [ pkgs.opensmtpd ];
         services.opensmtpd = {
@@ -47,12 +50,15 @@ import ./make-test-python.nix {
       }: {
         imports = [ common/user-account.nix ];
         networking = {
-          firewall.allowedTCPPorts = [ 25 143 ];
+          firewall.allowedTCPPorts = [
+            25
+            143
+          ];
           useDHCP = false;
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.1.2";
             prefixLength = 24;
-          }];
+          } ];
         };
         environment.systemPackages = [ pkgs.opensmtpd ];
         services.rspamd = {
@@ -86,10 +92,10 @@ import ./make-test-python.nix {
       }: {
         networking = {
           useDHCP = false;
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.1.3";
             prefixLength = 24;
-          }];
+          } ];
         };
         environment.systemPackages = let
           sendTestMail = pkgs.writeScriptBin "send-a-test-mail" ''
@@ -124,7 +130,10 @@ import ./make-test-python.nix {
               print("===> content:", content)
               assert b"An error has occurred while attempting to deliver a message" in content
           '';
-        in [ sendTestMail checkMailBounced ];
+        in [
+          sendTestMail
+          checkMailBounced
+        ];
       };
   };
 

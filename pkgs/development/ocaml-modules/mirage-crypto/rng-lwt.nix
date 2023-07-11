@@ -19,8 +19,14 @@ buildDunePackage rec {
   doCheck = true;
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs =
-    [ mirage-crypto mirage-crypto-rng duration logs mtime lwt ];
+  propagatedBuildInputs = [
+    mirage-crypto
+    mirage-crypto-rng
+    duration
+    logs
+    mtime
+    lwt
+  ];
 
   meta = mirage-crypto-rng.meta;
 }

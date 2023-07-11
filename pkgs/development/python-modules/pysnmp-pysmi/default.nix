@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ ply requests ];
+  propagatedBuildInputs = [
+    ply
+    requests
+  ];
 
   # Circular dependency with pysnmplib
   doCheck = false;

@@ -18,9 +18,15 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ python3 ];
-  nativeBuildInputs = [ python3.pkgs.wrapPython installShellFiles ];
+  nativeBuildInputs = [
+    python3.pkgs.wrapPython
+    installShellFiles
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   installPhase = ''
     runHook preInstall

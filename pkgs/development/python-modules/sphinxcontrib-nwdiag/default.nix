@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-bula1DutRv6NwfZRhciZfLHRZmXu42p+qvbeExN/+Fk=";
   };
 
-  propagatedBuildInputs = [ blockdiag nwdiag sphinx ];
+  propagatedBuildInputs = [
+    blockdiag
+    nwdiag
+    sphinx
+  ];
 
   pythonImportsCheck = [ "sphinxcontrib.nwdiag" ];
 

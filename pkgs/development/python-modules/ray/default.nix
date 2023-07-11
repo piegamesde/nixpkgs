@@ -78,21 +78,48 @@ in buildPythonPackage rec {
   } // binary-hash);
 
   passthru.optional-dependencies = rec {
-    data-deps = [ pandas pyarrow fsspec ];
+    data-deps = [
+      pandas
+      pyarrow
+      fsspec
+    ];
 
-    serve-deps = [ aiorwlock fastapi pandas starlette uvicorn ];
+    serve-deps = [
+      aiorwlock
+      fastapi
+      pandas
+      starlette
+      uvicorn
+    ];
 
-    tune-deps = [ tabulate tensorboardx ];
+    tune-deps = [
+      tabulate
+      tensorboardx
+    ];
 
-    rllib-deps = tune-deps
-      ++ [ dm-tree gym lz4 matplotlib scikitimage pyyaml scipy ];
+    rllib-deps = tune-deps ++ [
+      dm-tree
+      gym
+      lz4
+      matplotlib
+      scikitimage
+      pyyaml
+      scipy
+    ];
 
     air-deps = data-deps ++ serve-deps ++ tune-deps ++ rllib-deps;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    pythonRelaxDepsHook
+  ];
 
-  pythonRelaxDeps = [ "click" "grpcio" "protobuf" ];
+  pythonRelaxDeps = [
+    "click"
+    "grpcio"
+    "protobuf"
+  ];
 
   propagatedBuildInputs = [
     attrs

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     hash = "sha256:1q79byn3k3ribvwqafbpixwabjhymk46ns8ym0hxcn8vhf5nljzd";
   };
 
-  propagatedBuildInputs = [ sphinx openpyxl ];
+  propagatedBuildInputs = [
+    sphinx
+    openpyxl
+  ];
 
   pythonImportsCheck = [ "sphinxcontrib.excel_table" ];
 

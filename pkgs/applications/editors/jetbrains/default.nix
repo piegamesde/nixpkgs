@@ -22,7 +22,10 @@
 }:
 
 let
-  platforms = lib.platforms.linux ++ [ "x86_64-darwin" "aarch64-darwin" ];
+  platforms = lib.platforms.linux ++ [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
   ideaPlatforms = [
     "x86_64-darwin"
     "i686-darwin"
@@ -61,11 +64,17 @@ let
           Enhancing productivity for every C and C++
           developer on Linux, macOS and Windows.
         '';
-        maintainers = with maintainers; [ edwtjo mic92 ];
+        maintainers = with maintainers; [
+          edwtjo
+          mic92
+        ];
       };
     }).overrideAttrs (attrs: {
       nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
-        ++ lib.optionals (stdenv.isLinux) [ autoPatchelfHook patchelf ];
+        ++ lib.optionals (stdenv.isLinux) [
+          autoPatchelfHook
+          patchelf
+        ];
       buildInputs = (attrs.buildInputs or [ ])
         ++ lib.optionals (stdenv.isLinux) [
           python3
@@ -308,7 +317,10 @@ let
       };
     }).overrideAttrs (finalAttrs: previousAttrs:
       lib.optionalAttrs cythonSpeedup {
-        buildInputs = with python3.pkgs; [ python3 setuptools ];
+        buildInputs = with python3.pkgs; [
+          python3
+          setuptools
+        ];
         preInstall = ''
           echo "compiling cython debug speedups"
           if [[ -d plugins/python-ce ]]; then

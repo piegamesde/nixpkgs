@@ -31,10 +31,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiohttp async-timeout click construct dacite paho-mqtt pycryptodome ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+    click
+    construct
+    dacite
+    paho-mqtt
+    pycryptodome
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "roborock" ];
 

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0zy7r9cnr2gvwr2fb1q4fc5xnvx405ymcbrdv7qsqwl3a4zfjnqy";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
   buildInputs = [ openssl ];
 
   patches = [ ./allow-non-tss-config-file-owner.patch ];

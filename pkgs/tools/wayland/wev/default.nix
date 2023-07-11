@@ -24,8 +24,16 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   # for scdoc
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ pkg-config scdoc wayland-scanner ];
-  buildInputs = [ wayland wayland-protocols libxkbcommon ];
+  nativeBuildInputs = [
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
+  buildInputs = [
+    wayland
+    wayland-protocols
+    libxkbcommon
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

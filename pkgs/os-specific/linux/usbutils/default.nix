@@ -19,17 +19,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w7RRux9P+fY1bKxaaVaprI6F2BZRr1ainmiflPpv2m4=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      inherit hwdata;
-    })
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    inherit hwdata;
+  }) ];
+
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libusb1
+    python3
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libusb1 python3 ];
-
-  outputs = [ "out" "man" "python" ];
+  outputs = [
+    "out"
+    "man"
+    "python"
+  ];
   postInstall = ''
     moveToOutput "bin/lsusb.py" "$python"
   '';

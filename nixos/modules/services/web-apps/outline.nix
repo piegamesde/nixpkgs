@@ -316,7 +316,11 @@ in {
           scopes = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             description = lib.mdDoc "OpenID authentication scopes.";
-            default = [ "openid" "profile" "email" ];
+            default = [
+              "openid"
+              "profile"
+              "email"
+            ];
           };
         };
       });
@@ -580,10 +584,10 @@ in {
 
     services.postgresql = lib.mkIf (cfg.databaseUrl == "local") {
       enable = true;
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "outline";
         ensurePermissions."DATABASE outline" = "ALL PRIVILEGES";
-      }];
+      } ];
       ensureDatabases = [ "outline" ];
     };
 

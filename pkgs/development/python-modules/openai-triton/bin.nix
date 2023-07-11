@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   disabled = !(isPy38 || isPy39 || isPy310 || isPy311);
 
-  pythonRemoveDeps = [ "cmake" "torch" ];
+  pythonRemoveDeps = [
+    "cmake"
+    "torch"
+  ];
 
   buildInputs = [ zlib ];
 
@@ -40,7 +43,11 @@ buildPythonPackage rec {
     autoPatchelfHook
   ];
 
-  propagatedBuildInputs = [ filelock lit zlib ];
+  propagatedBuildInputs = [
+    filelock
+    lit
+    zlib
+  ];
 
   dontStrip = true;
 
@@ -74,7 +81,10 @@ buildPythonPackage rec {
     # https://docs.nvidia.com/cuda/eula/index.html
     # triton's license is MIT.
     # openai-triton-bin includes ptxas binary, therefore unfreeRedistributable is set.
-    license = with licenses; [ unfreeRedistributable mit ];
+    license = with licenses; [
+      unfreeRedistributable
+      mit
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ junjihashimoto ];

@@ -19,7 +19,10 @@ import ../make-test-python.nix ({
           realms = {
             "ATHENA.MIT.EDU" = {
               admin_server = "athena.mit.edu";
-              kdc = [ "athena01.mit.edu" "athena02.mit.edu" ];
+              kdc = [
+                "athena01.mit.edu"
+                "athena02.mit.edu"
+              ];
             };
           };
           domain_realm = {

@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [ gtk3 pango cairo ];
+  propagatedBuildInputs = [
+    gtk3
+    pango
+    cairo
+  ];
 
   meta = {
     description = "GTK widget for displaying large amounts of numerical data";

@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-cndmxdo00TLq1Cy66IFwcT5CKBavaFAfknkpLZCYvUQ=";
   };
 
-  propagatedBuildInputs = [ pyqt5 qtpy ];
+  propagatedBuildInputs = [
+    pyqt5
+    qtpy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

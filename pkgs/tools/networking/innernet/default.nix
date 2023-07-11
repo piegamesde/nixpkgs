@@ -24,9 +24,15 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "sha256-qQ6yRI0rNxV/TRZHCR69h6kx6L2Wp75ziw+B2P8LZmE=";
 
-  nativeBuildInputs = with llvmPackages; [ llvm clang installShellFiles ];
-  buildInputs = [ sqlite ]
-    ++ lib.optionals stdenv.isDarwin [ Security libiconv ];
+  nativeBuildInputs = with llvmPackages; [
+    llvm
+    clang
+    installShellFiles
+  ];
+  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [
+    Security
+    libiconv
+  ];
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
@@ -55,6 +61,9 @@ rustPlatform.buildRustPackage rec {
     description = "A private network system that uses WireGuard under the hood";
     homepage = "https://github.com/tonarino/innernet";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek _0x4A6F ];
+    maintainers = with maintainers; [
+      tomberek
+      _0x4A6F
+    ];
   };
 }

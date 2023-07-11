@@ -49,7 +49,11 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ mock zope_testing zope_testrunner ];
+  nativeCheckInputs = [
+    mock
+    zope_testing
+    zope_testrunner
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src

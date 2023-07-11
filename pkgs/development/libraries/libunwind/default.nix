@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  outputs = [ "out" "dev" "devman" ];
+  outputs = [
+    "out"
+    "dev"
+    "devman"
+  ];
 
   # Without latex2man, no man pages are installed despite being
   # prebuilt in the source tarball.

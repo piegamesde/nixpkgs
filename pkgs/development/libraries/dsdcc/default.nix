@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8lO2c4fkQCaVO8IM05+Rdpo6oMxoEIObBm0y08i+/0k=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ mbelib serialdv ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    mbelib
+    serialdv
+  ];
 
   cmakeFlags = [ "-DUSE_MBELIB=ON" ];
 

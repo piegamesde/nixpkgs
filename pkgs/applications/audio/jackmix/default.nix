@@ -33,8 +33,16 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ scons pkg-config ];
-  buildInputs = [ qtbase lash jack alsa-lib ];
+  nativeBuildInputs = [
+    scons
+    pkg-config
+  ];
+  buildInputs = [
+    qtbase
+    lash
+    jack
+    alsa-lib
+  ];
 
   installPhase = ''
     install -D jackmix/jackmix $out/bin/jackmix

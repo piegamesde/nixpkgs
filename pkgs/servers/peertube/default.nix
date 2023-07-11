@@ -52,7 +52,14 @@ in stdenv.mkDerivation rec {
     hash = "sha256-ehA1W1bDXzApTpkWH7MEAQ9Ek73q3En76/LdvJhxh2Q=";
   };
 
-  nativeBuildInputs = [ brotli fixup_yarn_lock jq nodejs which yarn ];
+  nativeBuildInputs = [
+    brotli
+    fixup_yarn_lock
+    jq
+    nodejs
+    which
+    yarn
+  ];
 
   buildPhase = ''
     # Build node modules

@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libpng xorg.libX11 xorg.libXcursor xorg.xorgproto ];
+  buildInputs = [
+    libpng
+    xorg.libX11
+    xorg.libXcursor
+    xorg.xorgproto
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/eworm-de/xcur2png/releases";

@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-4h3q9J1+KufMaSuzbX9qaBwXPR8zhVpxQAXDBY3uPjM=";
   };
 
-  nativeBuildInputs = [ makeWrapper jre ];
+  nativeBuildInputs = [
+    makeWrapper
+    jre
+  ];
 
   patches = [
     # Make home.dir and config.dir configurable through the
@@ -84,7 +87,10 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     platforms = jre.meta.platforms;
-    maintainers = with maintainers; [ ngerstle talyz ];
+    maintainers = with maintainers; [
+      ngerstle
+      talyz
+    ];
   };
 
 }

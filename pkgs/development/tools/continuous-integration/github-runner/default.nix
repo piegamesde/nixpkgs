@@ -68,21 +68,20 @@ buildDotnetModule rec {
       src/dir.proj
   '';
 
-  nativeBuildInputs = [ git which ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [
+    git
+    which
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
-  dotnetFlags = [
-    "-p:PackageRuntime=${
+  dotnetFlags = [ "-p:PackageRuntime=${
       dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
-    }"
-  ];
+    }" ];
 
   # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
   projectFile = [
@@ -137,9 +136,8 @@ buildDotnetModule rec {
     ++ map (x: "GitHub.Runner.Common.Tests.DotnetsdkDownloadScriptL0.${x}") [
       "EnsureDotnetsdkBashDownloadScriptUpToDate"
       "EnsureDotnetsdkPowershellDownloadScriptUpToDate"
-    ] ++ [
-      "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"
     ]
+    ++ [ "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage" ]
     # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"
@@ -271,8 +269,12 @@ buildDotnetModule rec {
       aanderse
       zimbatm
     ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

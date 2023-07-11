@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flake8 ];
 
-  nativeCheckInputs = [ ddt stestr testscenarios ];
+  nativeCheckInputs = [
+    ddt
+    stestr
+    testscenarios
+  ];
 
   checkPhase = ''
     # tries to trigger flake8 and fails

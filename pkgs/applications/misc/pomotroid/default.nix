@@ -26,18 +26,19 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-AwpVnvwWQd/cgmZvtr5NprnLyeXz6ym4Fywc808tcSc=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = "pomotroid";
-      icon = "pomotroid";
-      comment = meta.description;
-      desktopName = "Pomotroid";
-      genericName = "Pomodoro Application";
-    })
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = "pomotroid";
+    icon = "pomotroid";
+    comment = meta.description;
+    desktopName = "Pomotroid";
+    genericName = "Pomodoro Application";
+  }) ];
 
   dontConfigure = true;
   dontBuild = true;

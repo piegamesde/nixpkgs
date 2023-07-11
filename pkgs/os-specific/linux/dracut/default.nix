@@ -40,10 +40,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ bash kmod ];
+  buildInputs = [
+    bash
+    kmod
+  ];
 
-  nativeBuildInputs =
-    [ makeBinaryWrapper pkg-config asciidoc libxslt docbook_xsl ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    pkg-config
+    asciidoc
+    libxslt
+    docbook_xsl
+  ];
 
   postPatch = ''
     substituteInPlace dracut.sh \
@@ -60,7 +68,10 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/dracut --prefix PATH : ${
-      lib.makeBinPath [ coreutils util-linux ]
+      lib.makeBinPath [
+        coreutils
+        util-linux
+      ]
     } --suffix DRACUT_PATH : ${
       lib.makeBinPath [
         bash
@@ -75,7 +86,12 @@ stdenv.mkDerivation rec {
       ]
     }
     wrapProgram $out/bin/dracut-catimages --set PATH ${
-      lib.makeBinPath [ coreutils cpio findutils gzip ]
+      lib.makeBinPath [
+        coreutils
+        cpio
+        findutils
+        gzip
+      ]
     }
     wrapProgram $out/bin/lsinitrd --set PATH ${
       lib.makeBinPath [

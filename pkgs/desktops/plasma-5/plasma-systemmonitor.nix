@@ -19,7 +19,10 @@
 
 mkDerivation {
   pname = "plasma-systemmonitor";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     qtquickcontrols2
     kconfig

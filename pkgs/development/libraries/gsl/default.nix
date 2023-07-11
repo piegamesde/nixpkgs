@@ -8,7 +8,10 @@ stdenv.mkDerivation rec {
   pname = "gsl";
   version = "2.7.1";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnu/gsl/${pname}-${version}.tar.gz";

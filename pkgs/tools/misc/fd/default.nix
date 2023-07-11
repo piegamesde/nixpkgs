@@ -50,6 +50,12 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ dywedir figsoda globin ma27 zowoq ];
+    maintainers = with maintainers; [
+      dywedir
+      figsoda
+      globin
+      ma27
+      zowoq
+    ];
   };
 }

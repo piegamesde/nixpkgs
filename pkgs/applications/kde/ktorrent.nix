@@ -26,7 +26,10 @@ mkDerivation {
     maintainers = with maintainers; [ eelco ];
   };
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     karchive
     kcmutils

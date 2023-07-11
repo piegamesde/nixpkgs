@@ -13,9 +13,16 @@ buildDunePackage {
   inherit (rpclib) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ lwt rpclib ];
+  propagatedBuildInputs = [
+    lwt
+    rpclib
+  ];
 
-  checkInputs = [ alcotest-lwt ppx_deriving_rpc yojson ];
+  checkInputs = [
+    alcotest-lwt
+    ppx_deriving_rpc
+    yojson
+  ];
   doCheck = true;
 
   meta = rpclib.meta // {

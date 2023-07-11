@@ -21,7 +21,10 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ flit-core ];
-  propagatedBuildInputs = [ mistune docutils ];
+  propagatedBuildInputs = [
+    mistune
+    docutils
+  ];
 
   nativeCheckInputs = [ pygments ];
 

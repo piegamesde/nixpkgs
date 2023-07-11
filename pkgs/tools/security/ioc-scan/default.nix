@@ -23,7 +23,10 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ docopt ];
 
-  nativeCheckInputs = with python3.pkgs; [ pyfakefs pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    pyfakefs
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "ioc_scan" ];
 

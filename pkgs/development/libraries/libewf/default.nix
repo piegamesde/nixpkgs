@@ -30,8 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ zlib openssl libuuid ]
-    ++ lib.optionals stdenv.isDarwin [ bzip2 ];
+  buildInputs = [
+    zlib
+    openssl
+    libuuid
+  ] ++ lib.optionals stdenv.isDarwin [ bzip2 ];
 
   meta = {
     description =

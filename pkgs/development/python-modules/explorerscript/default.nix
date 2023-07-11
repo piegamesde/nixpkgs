@@ -27,7 +27,10 @@ buildPythonPackage rec {
     antlr -Dlanguage=Python3 -visitor explorerscript/antlr/{ExplorerScript,SsbScript}.g4
   '';
 
-  propagatedBuildInputs = [ antlr4-python3-runtime igraph ];
+  propagatedBuildInputs = [
+    antlr4-python3-runtime
+    igraph
+  ];
 
   passthru.optional-dependencies.pygments = [ pygments ];
 

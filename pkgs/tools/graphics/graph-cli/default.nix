@@ -13,7 +13,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-0mxOc8RJ3GNgSbppLylIViqfYf6zwJ49pltnsyQUpSA=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ numpy pandas matplotlib ];
+  propagatedBuildInputs = with python3Packages; [
+    numpy
+    pandas
+    matplotlib
+  ];
 
   # does not contain tests despite reference in Makefile
   doCheck = false;

@@ -10,7 +10,10 @@ buildPythonPackage rec {
   pname = "sphinxemoji";
   version = "0.2.0";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "sphinx-contrib";

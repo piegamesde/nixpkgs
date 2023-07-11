@@ -7,7 +7,11 @@
   ...
 }:
 
-let xmonadctlEnv = ghcWithPackages (self: [ self.xmonad-contrib self.X11 ]);
+let
+  xmonadctlEnv = ghcWithPackages (self: [
+    self.xmonad-contrib
+    self.X11
+  ]);
 in stdenv.mkDerivation rec {
   pname = "xmonadctl";
 

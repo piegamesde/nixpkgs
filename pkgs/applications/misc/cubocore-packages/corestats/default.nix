@@ -21,9 +21,17 @@ mkDerivation rec {
     sha256 = "sha256-AhM7Rvxh8WZPrpDzhY6DYALVe4VlF9b77oX61AVntI0=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase lm_sensors libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    lm_sensors
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A system resource viewer from the C Suite";

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile texinfo ];
+  buildInputs = [
+    guile
+    texinfo
+  ];
 
   doCheck = true;
 

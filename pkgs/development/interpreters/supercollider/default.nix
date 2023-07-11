@@ -43,7 +43,11 @@ mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ];
 
   buildInputs = [
     gcc
@@ -60,7 +64,10 @@ mkDerivation rec {
 
   hardeningDisable = [ "stackprotector" ];
 
-  cmakeFlags = [ "-DSC_WII=OFF" "-DSC_EL=${if useSCEL then "ON" else "OFF"}" ];
+  cmakeFlags = [
+    "-DSC_WII=OFF"
+    "-DSC_EL=${if useSCEL then "ON" else "OFF"}"
+  ];
 
   passthru = {
     updateScript = gitUpdater {

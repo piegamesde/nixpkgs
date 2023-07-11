@@ -24,14 +24,31 @@ stdenv.mkDerivation rec {
     sha256 = "1cr1hvpp96s5arnzh1r5sazapcghhvbazbf7zym37yp3fy3lpya1";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook vala pkg-config python3 python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    vala
+    pkg-config
+    python3
+    python3.pkgs.wrapPython
+  ];
 
-  buildInputs = [ libuuid sqlite libsearpc libevent curl ];
+  buildInputs = [
+    libuuid
+    sqlite
+    libsearpc
+    libevent
+    curl
+  ];
 
-  configureFlags = [ "--disable-server" "--with-python3" ];
+  configureFlags = [
+    "--disable-server"
+    "--with-python3"
+  ];
 
-  pythonPath = with python3.pkgs; [ future pysearpc ];
+  pythonPath = with python3.pkgs; [
+    future
+    pysearpc
+  ];
 
   postFixup = ''
     wrapPythonPrograms
@@ -43,6 +60,9 @@ stdenv.mkDerivation rec {
       "Shared components of Seafile: seafile-daemon, libseafile, libseafile python bindings, manuals, and icons";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ greizgh schmittlauch ];
+    maintainers = with maintainers; [
+      greizgh
+      schmittlauch
+    ];
   };
 }

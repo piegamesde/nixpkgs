@@ -31,9 +31,16 @@ buildPythonPackage rec {
     sed -i "/ruamel.yaml/d" setup.py
   '';
 
-  propagatedBuildInputs = [ mypy-extensions ruamel-yaml schema-salad ];
+  propagatedBuildInputs = [
+    mypy-extensions
+    ruamel-yaml
+    schema-salad
+  ];
 
-  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "cwlupgrader" ];
 

@@ -76,8 +76,10 @@ let
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SystemCallArchitectures = "native";
-    SystemCallFilter =
-      [ "@system-service" "~@privileged @resources @setuid @keyring" ];
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged @resources @setuid @keyring"
+    ];
     # Does not work well with the temporary root
     #UMask = "0066";
   };
@@ -145,8 +147,12 @@ in {
           log_level = lib.mkOption {
             description = lib.mdDoc "Log level of the server.";
             default = "default";
-            type =
-              lib.types.enum [ "default" "verbose" "perfbasic" "perffull" ];
+            type = lib.types.enum [
+              "default"
+              "verbose"
+              "perfbasic"
+              "perffull"
+            ];
           };
           role = lib.mkOption {
             description = lib.mdDoc
@@ -283,7 +289,10 @@ in {
           PrivateUsers = lib.mkForce false;
           # Port needs to be exposed to the host network
           PrivateNetwork = lib.mkForce false;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
           TemporaryFileSystem = "/:ro";
         }
       ];
@@ -294,7 +303,10 @@ in {
       description = "Kanidm PAM daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      restartTriggers = [ unixConfigFile clientConfigFile ];
+      restartTriggers = [
+        unixConfigFile
+        clientConfigFile
+      ];
       serviceConfig = lib.mkMerge [
         defaultServiceConfig
         {
@@ -317,7 +329,11 @@ in {
           ];
           # Needs to connect to kanidmd
           PrivateNetwork = lib.mkForce false;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
+          ];
           TemporaryFileSystem = "/:ro";
         }
       ];
@@ -327,9 +343,15 @@ in {
     systemd.services.kanidm-unixd-tasks = lib.mkIf cfg.enablePam {
       description = "Kanidm PAM home management daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "kanidm-unixd.service" ];
+      after = [
+        "network.target"
+        "kanidm-unixd.service"
+      ];
       partOf = [ "kanidm-unixd.service" ];
-      restartTriggers = [ unixConfigFile clientConfigFile ];
+      restartTriggers = [
+        unixConfigFile
+        clientConfigFile
+      ];
       serviceConfig = {
         ExecStart = "${pkgs.kanidm}/bin/kanidm_unixd_tasks";
 
@@ -349,8 +371,12 @@ in {
           "/run/kanidm-unixd:/var/run/kanidm-unixd"
         ];
         # CAP_DAC_OVERRIDE is needed to ignore ownership of unixd socket
-        CapabilityBoundingSet =
-          [ "CAP_CHOWN" "CAP_FOWNER" "CAP_DAC_OVERRIDE" "CAP_DAC_READ_SEARCH" ];
+        CapabilityBoundingSet = [
+          "CAP_CHOWN"
+          "CAP_FOWNER"
+          "CAP_DAC_OVERRIDE"
+          "CAP_DAC_READ_SEARCH"
+        ];
         IPAddressDeny = "any";
         # Need access to users
         PrivateUsers = false;
@@ -398,6 +424,9 @@ in {
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen Flakebi ];
+  meta.maintainers = with lib.maintainers; [
+    erictapen
+    Flakebi
+  ];
   meta.buildDocsInSandbox = false;
 }

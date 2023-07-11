@@ -44,15 +44,25 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  passthru.optional-dependencies = { tui = [ asciimatics pyperclip ]; };
+  passthru.optional-dependencies = {
+    tui = [
+      asciimatics
+      pyperclip
+    ];
+  };
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs =
-    [ aria2 fastapi pytest-xdist pytestCheckHook responses uvicorn ]
-    ++ passthru.optional-dependencies.tui;
+  nativeCheckInputs = [
+    aria2
+    fastapi
+    pytest-xdist
+    pytestCheckHook
+    responses
+    uvicorn
+  ] ++ passthru.optional-dependencies.tui;
 
   disabledTests = [
     # require a running display server

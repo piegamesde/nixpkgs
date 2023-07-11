@@ -33,7 +33,11 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ autoreconfHook jam pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    jam
+    pkg-config
+  ];
 
   buildInputs = [
     SDL2

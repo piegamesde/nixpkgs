@@ -21,7 +21,10 @@ with lib;
     boot.blacklistedKernelModules = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "cirrusfb" "i2c_piix4" ];
+      example = [
+        "cirrusfb"
+        "i2c_piix4"
+      ];
       description = lib.mdDoc ''
         List of names of kernel modules that should not be loaded
         automatically by the hardware probing code.

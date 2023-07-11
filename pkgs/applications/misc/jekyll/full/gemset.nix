@@ -1,6 +1,11 @@
 {
   activesupport = {
-    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
+    dependencies = [
+      "concurrent-ruby"
+      "i18n"
+      "minitest"
+      "tzinfo"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -22,7 +27,10 @@
     version = "2.8.1";
   };
   classifier-reborn = {
-    dependencies = [ "fast-stemmer" "matrix" ];
+    dependencies = [
+      "fast-stemmer"
+      "matrix"
+    ];
     groups = [ "default" ];
     platforms = [
       { engine = "maglev"; }
@@ -50,7 +58,10 @@
     version = "1.1.3";
   };
   coffee-script = {
-    dependencies = [ "coffee-script-source" "execjs" ];
+    dependencies = [
+      "coffee-script-source"
+      "execjs"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -91,7 +102,10 @@
     version = "1.1.10";
   };
   em-websocket = {
-    dependencies = [ "eventmachine" "http_parser.rb" ];
+    dependencies = [
+      "eventmachine"
+      "http_parser.rb"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -122,7 +136,10 @@
     version = "2.8.1";
   };
   faraday = {
-    dependencies = [ "faraday-net_http" "ruby2_keywords" ];
+    dependencies = [
+      "faraday-net_http"
+      "ruby2_keywords"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -190,7 +207,10 @@
     version = "4.0.1";
   };
   html-pipeline = {
-    dependencies = [ "activesupport" "nokogiri" ];
+    dependencies = [
+      "activesupport"
+      "nokogiri"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -260,7 +280,10 @@
     version = "0.8.0";
   };
   jekyll-coffeescript = {
-    dependencies = [ "coffee-script" "coffee-script-source" ];
+    dependencies = [
+      "coffee-script"
+      "coffee-script-source"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -271,7 +294,11 @@
     version = "2.0.0";
   };
   jekyll-favicon = {
-    dependencies = [ "jekyll" "mini_magick" "rexml" ];
+    dependencies = [
+      "jekyll"
+      "mini_magick"
+      "rexml"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -304,7 +331,10 @@
     version = "1.5.0";
   };
   jekyll-mentions = {
-    dependencies = [ "html-pipeline" "jekyll" ];
+    dependencies = [
+      "html-pipeline"
+      "jekyll"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -391,7 +421,11 @@
     version = "2.2.1";
   };
   jemoji = {
-    dependencies = [ "gemoji" "html-pipeline" "jekyll" ];
+    dependencies = [
+      "gemoji"
+      "html-pipeline"
+      "jekyll"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -424,7 +458,10 @@
     version = "1.1.0";
   };
   kramdown-syntax-coderay = {
-    dependencies = [ "coderay" "kramdown" ];
+    dependencies = [
+      "coderay"
+      "kramdown"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -470,7 +507,10 @@
     version = "4.0.0";
   };
   listen = {
-    dependencies = [ "rb-fsevent" "rb-inotify" ];
+    dependencies = [
+      "rb-fsevent"
+      "rb-inotify"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -559,7 +599,10 @@
     version = "5.16.3";
   };
   nokogiri = {
-    dependencies = [ "mini_portile2" "racc" ];
+    dependencies = [
+      "mini_portile2"
+      "racc"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -570,7 +613,10 @@
     version = "1.13.9";
   };
   octokit = {
-    dependencies = [ "faraday" "sawyer" ];
+    dependencies = [
+      "faraday"
+      "sawyer"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -706,7 +752,10 @@
     version = "2.4.0";
   };
   sawyer = {
-    dependencies = [ "addressable" "faraday" ];
+    dependencies = [
+      "addressable"
+      "faraday"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

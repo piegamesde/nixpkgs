@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     cp ${catch2}/include/catch2/catch.hpp libclingcon/tests/catch.hpp
   '';
 
-  nativeBuildInputs = [ cmake clingo ];
+  nativeBuildInputs = [
+    cmake
+    clingo
+  ];
 
   cmakeFlags = [
     "-DCLINGCON_MANAGE_RPATH=ON"

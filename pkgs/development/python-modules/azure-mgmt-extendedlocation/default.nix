@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-jRo6EFP8Dg3i9U8HLfjED9QFfWbdg+X3o9PSf4eus9o=";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+  ];
 
   pythonImportsCheck = [ "azure.mgmt.extendedlocation" ];
 

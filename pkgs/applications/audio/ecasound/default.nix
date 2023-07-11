@@ -61,7 +61,10 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   CXXFLAGS = "-std=c++11";
-  configureFlags = [ "--enable-liblilv" "--with-extra-cppflags=-Dnullptr=0" ];
+  configureFlags = [
+    "--enable-liblilv"
+    "--with-extra-cppflags=-Dnullptr=0"
+  ];
 
   postPatch = ''
     sed -i -e '
@@ -72,7 +75,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Software package designed for multitrack audio processing";
-    license = with lib.licenses; [ gpl2 lgpl21 ];
+    license = with lib.licenses; [
+      gpl2
+      lgpl21
+    ];
     homepage = "http://nosignal.fi/ecasound/";
   };
 }

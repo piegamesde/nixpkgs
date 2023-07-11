@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ commonsDaemon ];
-  nativeBuildInputs = [ jdk makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    makeWrapper
+  ];
 
   preConfigure = ''
     cd ./src/native/unix/

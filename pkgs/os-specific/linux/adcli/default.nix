@@ -26,10 +26,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dipNKlIdc1DpXLg/YJjUxZlNoMFy+rt8Y/+AfWFA4dE=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config docbook_xsl util-linux xmlto ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    docbook_xsl
+    util-linux
+    xmlto
+  ];
 
-  buildInputs = [ openldap libkrb5 libxslt cyrus_sasl ];
+  buildInputs = [
+    openldap
+    libkrb5
+    libxslt
+    cyrus_sasl
+  ];
 
   configureFlags = [ "--disable-debug" ];
 
@@ -56,7 +66,10 @@ stdenv.mkDerivation rec {
     description =
       "A helper library and tools for Active Directory client operations.";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ SohamG anthonyroussel ];
+    maintainers = with maintainers; [
+      SohamG
+      anthonyroussel
+    ];
     platforms = platforms.linux;
   };
 }

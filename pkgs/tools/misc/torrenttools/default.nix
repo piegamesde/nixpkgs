@@ -62,7 +62,10 @@ stdenv.mkDerivation rec {
     chmod -R u+w -- "$sourceRoot"
   '';
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   buildInputs = [
     bencode

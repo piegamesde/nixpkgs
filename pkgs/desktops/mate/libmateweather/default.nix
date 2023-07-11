@@ -21,9 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "05bvc220p135l6qnhh3qskljxffds0f7fjbjnrpq524w149rgzd7";
   };
 
-  nativeBuildInputs = [ pkg-config gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+  ];
 
-  buildInputs = [ gtk3 libsoup tzdata ];
+  buildInputs = [
+    gtk3
+    libsoup
+    tzdata
+  ];
 
   configureFlags = [
     "--with-zoneinfo-dir=${tzdata}/share/zoneinfo"

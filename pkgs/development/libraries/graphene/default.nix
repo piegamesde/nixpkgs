@@ -23,9 +23,12 @@ stdenv.mkDerivation rec {
   pname = "graphene";
   version = "1.10.8";
 
-  outputs = [ "out" "dev" "devdoc" ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform)
-    [ "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ] ++ lib.optionals
+    (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -61,8 +64,8 @@ stdenv.mkDerivation rec {
     gobject-introspection
     python3
     makeWrapper
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [ glib ];
 
@@ -80,7 +83,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs tests/gen-installed-test.py
     PATH=${
-      python3.withPackages (pp: [ pp.pygobject3 pp.tappy ])
+      python3.withPackages (pp: [
+        pp.pygobject3
+        pp.tappy
+      ])
     }/bin:$PATH patchShebangs tests/introspection.py
   '';
 

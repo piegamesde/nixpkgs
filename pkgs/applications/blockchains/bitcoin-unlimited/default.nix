@@ -34,12 +34,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d+giTXq/6HpysRAPT7yOl/B1x4zie9irs4O7cJsBqHg=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook python3 ]
-    ++ lib.optionals withGui [ wrapQtAppsHook qttools ];
-  buildInputs =
-    [ openssl db48 boost zlib miniupnpc util-linux protobuf libevent ]
-    ++ lib.optionals withGui [ qtbase qttools qrencode ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    python3
+  ] ++ lib.optionals withGui [
+    wrapQtAppsHook
+    qttools
+  ];
+  buildInputs = [
+    openssl
+    db48
+    boost
+    zlib
+    miniupnpc
+    util-linux
+    protobuf
+    libevent
+  ] ++ lib.optionals withGui [
+    qtbase
+    qttools
+    qrencode
+  ] ++ lib.optionals stdenv.isDarwin [
+    Foundation
+    ApplicationServices
+    AppKit
+  ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
     ++ lib.optionals withGui [

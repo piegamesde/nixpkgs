@@ -17,7 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-G8ua+4eghr4bLeGPCE0f2rgZTaG/cfJkdDyia6o5w1E=";
   };
 
-  buildInputs = [ libGLU libGL xorg.libX11 ];
+  buildInputs = [
+    libGLU
+    libGL
+    xorg.libX11
+  ];
 
   propagatedBuildInputs = [ numpy ];
 

@@ -20,7 +20,10 @@
 
 mkDerivation {
   pname = "kscreenlocker";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kcmutils
     kcrash
@@ -37,5 +40,8 @@ mkDerivation {
     wayland
     layer-shell-qt
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

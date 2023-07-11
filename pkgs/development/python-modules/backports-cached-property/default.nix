@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ wheel ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock pytest-sugar ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+    pytest-sugar
+  ];
 
   pythonImportsCheck = [ "backports.cached_property" ];
 

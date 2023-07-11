@@ -42,11 +42,19 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = lib.optionals pythonSupport [ swig python3 ];
+  nativeBuildInputs = lib.optionals pythonSupport [
+    swig
+    python3
+  ];
 
-  buildInputs = [ openssl libsamplerate ]
-    ++ lib.optional stdenv.isLinux alsa-lib
-    ++ lib.optionals stdenv.isDarwin [ AppKit CoreFoundation Security ];
+  buildInputs = [
+    openssl
+    libsamplerate
+  ] ++ lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    CoreFoundation
+    Security
+  ];
 
   preConfigure = ''
     export LD=$CC

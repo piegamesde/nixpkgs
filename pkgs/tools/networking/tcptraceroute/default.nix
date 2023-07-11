@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
     makeFlagsArray=(CFLAGS=" -g -O2 -Wall")
   '';
 
-  buildInputs = [ libpcap libnet ];
+  buildInputs = [
+    libpcap
+    libnet
+  ];
 
   meta = {
     description = "A traceroute implementation using TCP packets";

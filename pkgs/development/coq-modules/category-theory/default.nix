@@ -49,7 +49,10 @@ mkCoqDerivation {
     ] null;
 
   mlPlugin = true;
-  propagatedBuildInputs = [ ssreflect equations ];
+  propagatedBuildInputs = [
+    ssreflect
+    equations
+  ];
 
   meta = {
     description =

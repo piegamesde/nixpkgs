@@ -21,7 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # Uses extenal testing framework that requires network
 
-  nativeBuildInputs = [ installShellFiles scdoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    scdoc
+  ];
 
   postInstall = ''
     scdoc < doc/stargazer.scd  > stargazer.1

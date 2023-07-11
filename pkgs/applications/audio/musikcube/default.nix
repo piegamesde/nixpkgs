@@ -48,9 +48,15 @@ stdenv.mkDerivation rec {
       "sha512-W+Zug1SiOGJ+o6FBf2jeDGHFj87vudR4drtjyXiOzdoM8fUCnCj4pp7+70eZGilg6CvBi7CYkbVn53LXJf5qWA==";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     asio
@@ -67,9 +73,13 @@ stdenv.mkDerivation rec {
     portaudio
     taglib
   ] ++ lib.optionals systemdSupport [ systemd ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib pulseaudio ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa SystemConfiguration ]
-    ++ lib.optionals coreaudioSupport [ CoreAudio ]
+    ++ lib.optionals stdenv.isLinux [
+      alsa-lib
+      pulseaudio
+    ] ++ lib.optionals stdenv.isDarwin [
+      Cocoa
+      SystemConfiguration
+    ] ++ lib.optionals coreaudioSupport [ CoreAudio ]
     ++ lib.optionals sndioSupport [ sndio ]
     ++ lib.optionals pipewireSupport [ pipewire ];
 
@@ -84,7 +94,11 @@ stdenv.mkDerivation rec {
     description =
       "Terminal-based music player, library, and streaming audio server";
     homepage = "https://musikcube.com/";
-    maintainers = with maintainers; [ aanderse srapenne afh ];
+    maintainers = with maintainers; [
+      aanderse
+      srapenne
+      afh
+    ];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

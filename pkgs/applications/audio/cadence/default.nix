@@ -54,11 +54,17 @@ mkDerivation rec {
     qtbase
     jack_capture
     pulseaudioFull
-    ((python3.withPackages (ps: with ps; [ pyqt5 dbus-python ])))
+    ((python3.withPackages (ps:
+      with ps; [
+        pyqt5
+        dbus-python
+      ])))
   ];
 
-  makeFlags =
-    [ "PREFIX=${placeholder "out"}" "SYSCONFDIR=${placeholder "out"}/etc" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SYSCONFDIR=${placeholder "out"}/etc"
+  ];
 
   dontWrapQtApps = true;
 

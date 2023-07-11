@@ -34,5 +34,8 @@ mkDerivation {
     zxing-cpp
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 }

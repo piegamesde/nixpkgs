@@ -32,8 +32,19 @@ in stdenv.mkDerivation rec {
     hash = "sha256-DZKTdJp5QHat6Wfs3EfRQdheRQNwWUdlORvfGpvUUHU=";
   };
 
-  nativeBuildInputs = [ perl pkg-config makeWrapper ];
-  buildInputs = [ ncurses libX11 util-linux file which groff ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+    makeWrapper
+  ];
+  buildInputs = [
+    ncurses
+    libX11
+    util-linux
+    file
+    which
+    groff
+  ];
 
   postPatch = ''
     # Avoid '#!/usr/bin/env perl' references to build help.
@@ -41,8 +52,10 @@ in stdenv.mkDerivation rec {
   '';
 
   postFixup = let
-    path =
-      lib.makeBinPath [ udisks2 (python3.withPackages (p: [ p.dbus-python ])) ];
+    path = lib.makeBinPath [
+      udisks2
+      (python3.withPackages (p: [ p.dbus-python ]))
+    ];
 
     wrapVifmMedia =
       "wrapProgram $out/share/vifm/vifm-media --prefix PATH : ${path}";

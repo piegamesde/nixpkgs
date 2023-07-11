@@ -15,6 +15,11 @@ in {
             mkOption { default = lib.concatStringsSep " " config.meta.foo; };
         };
       })
-    { meta.foo = [ "one" "two" ]; }
+    {
+      meta.foo = [
+        "one"
+        "two"
+      ];
+    }
   ];
 }

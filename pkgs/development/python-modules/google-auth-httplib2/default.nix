@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-oHw5/WMr7KzT8HcY39YCG/OWl48DrTzkMh0GABXMMKw=";
   };
 
-  propagatedBuildInputs = [ google-auth httplib2 ];
+  propagatedBuildInputs = [
+    google-auth
+    httplib2
+  ];
 
-  nativeCheckInputs = [ flask mock pytestCheckHook pytest-localserver ];
+  nativeCheckInputs = [
+    flask
+    mock
+    pytestCheckHook
+    pytest-localserver
+  ];
 
   meta = with lib; {
     description = "Google Authentication Library: httplib2 transport";

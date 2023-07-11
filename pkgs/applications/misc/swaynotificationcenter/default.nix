@@ -85,6 +85,9 @@ stdenv.mkDerivation (finalAttrs: rec {
       "https://github.com/ErikReider/SwayNotificationCenter/releases/tag/v${version}";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ berbiche pedrohlc ];
+    maintainers = with maintainers; [
+      berbiche
+      pedrohlc
+    ];
   };
 })

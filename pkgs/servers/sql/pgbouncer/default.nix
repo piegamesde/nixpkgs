@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libevent openssl c-ares ];
+  buildInputs = [
+    libevent
+    openssl
+    c-ares
+  ];
   enableParallelBuilding = true;
 
   meta = with lib; {

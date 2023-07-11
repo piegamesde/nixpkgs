@@ -46,7 +46,13 @@ stdenv.mkDerivation rec {
     desktop-file-utils
     gnome.adwaita-icon-theme
   ];
-  buildInputs = [ glib gtk3 librsvg libgee libgnome-games-support ];
+  buildInputs = [
+    glib
+    gtk3
+    librsvg
+    libgee
+    libgnome-games-support
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

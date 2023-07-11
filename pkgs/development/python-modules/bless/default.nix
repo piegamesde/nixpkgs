@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-+rnMLqNfhIJASCKkIfOKpVil3S/d8BcMxnLHmdOcRIY=";
   };
 
-  propagatedBuildInputs = [ bleak dbus-next ];
+  propagatedBuildInputs = [
+    bleak
+    dbus-next
+  ];
 
-  nativeCheckInputs = [ aioconsole numpy pytestCheckHook ];
+  nativeCheckInputs = [
+    aioconsole
+    numpy
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "bless" ];
 

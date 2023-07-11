@@ -33,7 +33,11 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [ hyperkitty postorius whoosh ];
+  propagatedBuildInputs = [
+    hyperkitty
+    postorius
+    whoosh
+  ];
 
   # Tries to check runtime configuration.
   doCheck = false;
@@ -43,6 +47,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Django project for Mailman 3 web interface";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ qyliss m1cr0man ];
+    maintainers = with maintainers; [
+      qyliss
+      m1cr0man
+    ];
   };
 }

@@ -26,6 +26,9 @@ stdenv.mkDerivation rec {
       "Multiple sequence alignment with top benchmark scores scalable to thousands of sequences";
     license = licenses.gpl3Plus;
     homepage = "https://www.drive5.com/muscle/";
-    maintainers = with maintainers; [ unode thyol ];
+    maintainers = with maintainers; [
+      unode
+      thyol
+    ];
   };
 }

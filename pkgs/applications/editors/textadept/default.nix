@@ -15,8 +15,16 @@ stdenv.mkDerivation rec {
   version = "11.4";
   pname = "textadept";
 
-  nativeBuildInputs = [ pkg-config unzip zip ];
-  buildInputs = [ gtk2 ncurses glib ];
+  nativeBuildInputs = [
+    pkg-config
+    unzip
+    zip
+  ];
+  buildInputs = [
+    gtk2
+    ncurses
+    glib
+  ];
 
   enableParallelBuilding = true;
 
@@ -49,15 +57,23 @@ stdenv.mkDerivation rec {
     make curses install PREFIX=$out MAKECMDGOALS=curses
   '';
 
-  makeFlags =
-    [ "PREFIX=$(out)" "WGET=true" "PIXMAPS_DIR=$(out)/share/pixmaps" "GTK2=1" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "WGET=true"
+    "PIXMAPS_DIR=$(out)/share/pixmaps"
+    "GTK2=1"
+  ];
 
   meta = with lib; {
     description =
       "An extensible text editor based on Scintilla with Lua scripting.";
     homepage = "http://foicica.com/textadept";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin mirrexagon patricksjackson ];
+    maintainers = with maintainers; [
+      raskin
+      mirrexagon
+      patricksjackson
+    ];
     platforms = platforms.linux;
   };
 }

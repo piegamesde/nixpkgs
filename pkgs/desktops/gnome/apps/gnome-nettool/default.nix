@@ -41,10 +41,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ desktop-file-utils itstool meson ninja pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    itstool
+    meson
+    ninja
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib gtk3 libgtop ];
+  buildInputs = [
+    glib
+    gtk3
+    libgtop
+  ];
 
   postPatch = ''
     chmod +x postinstall.py

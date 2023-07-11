@@ -48,8 +48,13 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace UI/NativeApp.cpp --replace /usr/share $out/share
   '';
 
-  nativeBuildInputs = [ cmake copyDesktopItems makeWrapper pkg-config python3 ]
-    ++ lib.optional enableQt wrapQtAppsHook;
+  nativeBuildInputs = [
+    cmake
+    copyDesktopItems
+    makeWrapper
+    pkg-config
+    python3
+  ] ++ lib.optional enableQt wrapQtAppsHook;
 
   buildInputs = [
     SDL2
@@ -58,9 +63,13 @@ stdenv.mkDerivation (finalAttrs: {
     libzip
     snappy
     zlib
-  ] ++ lib.optionals enableQt [ qtbase qtmultimedia ]
-    ++ lib.optional enableVulkan vulkan-loader
-    ++ lib.optionals vulkanWayland [ wayland libffi ];
+  ] ++ lib.optionals enableQt [
+    qtbase
+    qtmultimedia
+  ] ++ lib.optional enableVulkan vulkan-loader ++ lib.optionals vulkanWayland [
+    wayland
+    libffi
+  ];
 
   cmakeFlags = [
     "-DHEADLESS=${if enableQt then "OFF" else "ON"}"
@@ -72,16 +81,17 @@ stdenv.mkDerivation (finalAttrs: {
     "-DUSING_QT_UI=${if enableQt then "ON" else "OFF"}"
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "PPSSPP";
-      name = "ppsspp";
-      exec = "ppsspp";
-      icon = "ppsspp";
-      comment = "Play PSP games on your computer";
-      categories = [ "Game" "Emulator" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    desktopName = "PPSSPP";
+    name = "ppsspp";
+    exec = "ppsspp";
+    icon = "ppsspp";
+    comment = "Play PSP games on your computer";
+    categories = [
+      "Game"
+      "Emulator"
+    ];
+  }) ];
 
   installPhase = let vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
   in ''

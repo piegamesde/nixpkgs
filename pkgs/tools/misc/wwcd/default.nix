@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-laf1DEtdEs7q+rtp5Y5rb+7AGsKUv5T413CFWJiURWw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config check ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    check
+  ];
 
   autoreconfFlags = [ "-if" ];
 

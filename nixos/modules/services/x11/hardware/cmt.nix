@@ -101,7 +101,7 @@ in {
       };
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = !config.services.xserver.libinput.enable;
       message = ''
         cmt and libinput are incompatible, meaning you cannot enable them both.
@@ -109,6 +109,6 @@ in {
         If you haven't enabled it in configuration.nix, it's enabled by default on a
         different xserver module.
       '';
-    }];
+    } ];
   };
 }

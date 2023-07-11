@@ -38,7 +38,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HPcNXf+frYbT8lr5vU5xpUnyjGpQ5rc2G14EjDwpk3c=";
   };
 
-  nativeBuildInputs = [ autoconf automake gettext pkg-config which ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    gettext
+    pkg-config
+    which
+  ];
 
   buildInputs = [
     expat

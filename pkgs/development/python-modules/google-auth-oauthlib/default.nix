@@ -23,9 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-43UGSWSCC0ciGn4bfuH9dwUbYyPD+ePhl4X3irZ+z8U=";
   };
 
-  propagatedBuildInputs = [ google-auth requests-oauthlib ];
+  propagatedBuildInputs = [
+    google-auth
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ click mock pytestCheckHook ];
+  nativeCheckInputs = [
+    click
+    mock
+    pytestCheckHook
+  ];
 
   # some tests require loopback networking
   __darwinAllowLocalNetworking = true;
@@ -37,6 +44,9 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 terlar ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      terlar
+    ];
   };
 }

@@ -28,7 +28,10 @@ let
     src = ./nixos-install.sh;
     inherit (pkgs) runtimeShell;
     nix = config.nix.package.out;
-    path = makeBinPath [ pkgs.jq nixos-enter ];
+    path = makeBinPath [
+      pkgs.jq
+      nixos-enter
+    ];
   };
 
   nixos-rebuild = pkgs.nixos-rebuild.override { nix = config.nix.package.out; };

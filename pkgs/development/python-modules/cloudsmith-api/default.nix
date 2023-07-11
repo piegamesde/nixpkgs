@@ -22,7 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-wFSHlUdZTARsAV3igVXThrXoGsPUaZyzXBJCSJFZYYQ=";
   };
 
-  propagatedBuildInputs = [ certifi python-dateutil six urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    python-dateutil
+    six
+    urllib3
+  ];
 
   # Wheels have no tests
   doCheck = false;

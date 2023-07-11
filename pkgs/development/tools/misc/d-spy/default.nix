@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   pname = "d-spy";
   version = "1.6.0";
 
-  outputs = [ "out" "lib" "dev" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/d-spy/${
@@ -27,10 +31,21 @@ stdenv.mkDerivation rec {
     sha256 = "otCiEFE7tGRw0A40VEeRIIMwFT9Ms0+FhxcpEaxPiv0=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config desktop-file-utils wrapGAppsHook4 gettext glib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    desktop-file-utils
+    wrapGAppsHook4
+    gettext
+    glib
+  ];
 
-  buildInputs = [ glib gtk4 libadwaita ];
+  buildInputs = [
+    glib
+    gtk4
+    libadwaita
+  ];
 
   passthru = { updateScript = gnome.updateScript { packageName = "d-spy"; }; };
 

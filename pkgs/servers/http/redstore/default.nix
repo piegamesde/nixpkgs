@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gmp redland zlib librdf_raptor2 librdf_rasqal ];
+  buildInputs = [
+    gmp
+    redland
+    zlib
+    librdf_raptor2
+    librdf_rasqal
+  ];
 
   preConfigure = ''
     # Define _XOPEN_SOURCE to enable, e.g., getaddrinfo.

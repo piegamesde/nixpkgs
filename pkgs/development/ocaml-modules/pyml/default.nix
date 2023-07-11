@@ -37,9 +37,15 @@ buildDunePackage rec {
 
   buildInputs = [ utop ];
 
-  propagatedBuildInputs = [ python3 stdcompat ];
+  propagatedBuildInputs = [
+    python3
+    stdcompat
+  ];
 
-  nativeCheckInputs = [ python3.pkgs.numpy python3.pkgs.ipython ];
+  nativeCheckInputs = [
+    python3.pkgs.numpy
+    python3.pkgs.ipython
+  ];
 
   strictDeps = true;
 

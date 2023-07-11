@@ -79,7 +79,10 @@ in stdenv.mkDerivation rec {
     homepage = "https://icesl.loria.fr/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.inria-icesl;
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     maintainers = with maintainers; [ mgttlinger ];
   };
 }

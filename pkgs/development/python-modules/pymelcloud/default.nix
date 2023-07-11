@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    asynctest
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pymelcloud" ];
 

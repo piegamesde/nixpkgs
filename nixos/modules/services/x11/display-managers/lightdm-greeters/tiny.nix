@@ -78,12 +78,12 @@ in {
       name = "lightdm-tiny-greeter";
     };
 
-    assertions = [{
+    assertions = [ {
       assertion = dmcfg.defaultSession != null;
       message = ''
         Please set: services.xserver.displayManager.defaultSession
       '';
-    }];
+    } ];
 
   };
 }

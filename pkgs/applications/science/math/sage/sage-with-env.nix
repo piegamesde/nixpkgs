@@ -82,7 +82,10 @@ let
     lib.unique (builtins.concatLists (map transitiveClosure allInputs));
   # fix differences between spkg and sage names
   # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
-  patch_names = builtins.replaceStrings [ "zope.interface" "node_three" ] [
+  patch_names = builtins.replaceStrings [
+    "zope.interface"
+    "node_three"
+  ] [
     "zope_interface"
     "threejs"
   ];

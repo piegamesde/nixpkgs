@@ -25,6 +25,9 @@ stdenv.mkDerivation rec {
     homepage = "https://pagure.io/SSSD/ding-libs";
     platforms = with lib.platforms; linux;
     maintainers = with lib.maintainers; [ ];
-    license = [ lib.licenses.gpl3 lib.licenses.lgpl3 ];
+    license = [
+      lib.licenses.gpl3
+      lib.licenses.lgpl3
+    ];
   };
 }

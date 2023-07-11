@@ -15,7 +15,10 @@ import ./make-test-python.nix ({
       }:
 
       {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         services.xserver.enable = true;
 
@@ -27,7 +30,10 @@ import ./make-test-python.nix ({
         };
 
         test-support.displayManager.auto.user = "alice";
-        environment.systemPackages = with pkgs; [ keepassxc xdotool ];
+        environment.systemPackages = with pkgs; [
+          keepassxc
+          xdotool
+        ];
       };
 
     enableOCR = true;

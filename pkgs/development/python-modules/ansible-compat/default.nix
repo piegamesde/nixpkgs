@@ -23,14 +23,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyyaml subprocess-tee ];
+  propagatedBuildInputs = [
+    pyyaml
+    subprocess-tee
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
     export PATH=$PATH:$out/bin
   '';
 
-  nativeCheckInputs = [ ansible-core flaky pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    ansible-core
+    flaky
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # require network

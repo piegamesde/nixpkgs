@@ -42,7 +42,10 @@ in rec {
       sha256 = "sha256-BQxbwEf0wIkBOBVsPgMkMvUj4kFReXMUFTiSG0jXOJ0=";
     };
 
-    nativeBuildInputs = [ autoreconfHook pkg-config ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
     buildInputs = [
       libgcrypt
       libmicrohttpd_0_9_72
@@ -65,7 +68,10 @@ in rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [ wget curl ];
+    nativeCheckInputs = [
+      wget
+      curl
+    ];
     doInstallCheck = true;
     checkTarget = "check";
 
@@ -100,7 +106,10 @@ in rec {
       ln -s ${taler-merchant-backoffice}/spa.html $sourceRoot/contrib/
     '';
 
-    nativeBuildInputs = [ pkg-config autoreconfHook ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+    ];
     buildInputs = taler-exchange.buildInputs ++ [
       qrencode
       taler-exchange
@@ -109,8 +118,10 @@ in rec {
     ];
     propagatedBuildInputs = [ gnunet ];
 
-    configureFlags =
-      [ "--with-gnunet=${gnunet}" "--with-exchange=${taler-exchange}" ];
+    configureFlags = [
+      "--with-gnunet=${gnunet}"
+      "--with-exchange=${taler-exchange}"
+    ];
 
     enableParallelBuilding = true;
 

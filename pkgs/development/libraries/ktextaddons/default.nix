@@ -20,9 +20,18 @@ mkDerivation rec {
     hash = "sha256-iBJs7MWSvkxezAxmQUdKTKhG3RhmBWziS62p610IAYM=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
-  buildInputs =
-    [ karchive kconfigwidgets kcoreaddons ki18n kxmlgui qtkeychain ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
+  buildInputs = [
+    karchive
+    kconfigwidgets
+    kcoreaddons
+    ki18n
+    kxmlgui
+    qtkeychain
+  ];
 
   meta = with lib; {
     description = "Various text handling addons for KDE applications";

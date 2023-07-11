@@ -15,6 +15,9 @@ fetchzip ({
   url = "${url}/+archive/${rev}.tar.gz";
   stripRoot = false;
   meta.homepage = url;
-} // removeAttrs args [ "url" "rev" ]) // {
+} // removeAttrs args [
+  "url"
+  "rev"
+]) // {
   inherit rev;
 }

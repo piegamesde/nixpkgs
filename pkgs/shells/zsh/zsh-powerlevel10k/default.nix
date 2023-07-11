@@ -37,12 +37,10 @@ in stdenv.mkDerivation rec {
   strictDeps = true;
   buildInputs = [ bash ];
 
-  patches = [
-    (substituteAll {
-      src = ./gitstatusd.patch;
-      gitstatusdPath = "${gitstatus}/bin/gitstatusd";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./gitstatusd.patch;
+    gitstatusdPath = "${gitstatus}/bin/gitstatusd";
+  }) ];
 
   installPhase = ''
     install -D powerlevel10k.zsh-theme --target-directory=$out/share/zsh-powerlevel10k

@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-J5h/RpF+twb5fBjSDQMVB5SoTWWs8VD/EUuikuj73YA=";
   };
 
-  nativeBuildInputs = [ cmake unzip ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
 
   doCheck = false;
   # Test step from https://github.com/decompals/wibo/blob/main/.github/workflows/ci.yml

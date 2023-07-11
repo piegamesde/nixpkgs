@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl tdb zlib flex bison ];
+  buildInputs = [
+    openssl
+    tdb
+    zlib
+    flex
+    bison
+  ];
 
   meta = with lib; {
     description =

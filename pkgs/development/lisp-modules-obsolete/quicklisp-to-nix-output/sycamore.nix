@@ -8,7 +8,12 @@ args@{
 
   description = "A fast, purely functional data structure library";
 
-  deps = [ args."alexandria" args."cl-fuzz" args."cl-ppcre" args."lisp-unit" ];
+  deps = [
+    args."alexandria"
+    args."cl-fuzz"
+    args."cl-ppcre"
+    args."lisp-unit"
+  ];
 
   src = fetchurl {
     url =

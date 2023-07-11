@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ httpbin six ];
+  propagatedBuildInputs = [
+    httpbin
+    six
+  ];
 
   preCheck = ''
     # Remove assertion that doesn't hold for Flask 2.1.0
@@ -34,7 +37,10 @@ buildPythonPackage rec {
       --replace "assert response.headers['Location'].startswith('https://')" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook requests ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests
+  ];
 
   __darwinAllowLocalNetworking = true;
 

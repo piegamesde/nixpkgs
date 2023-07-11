@@ -49,7 +49,11 @@ appleDerivation {
   '';
 
   nativeBuildInputs = [ xcbuild ];
-  buildInputs = [ ncurses libutil Libc ];
+  buildInputs = [
+    ncurses
+    libutil
+    Libc
+  ];
 
   meta = {
     platforms = lib.platforms.darwin;

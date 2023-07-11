@@ -46,8 +46,13 @@ mkDerivation rec {
     kio
   ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
-  nativeBuildInputs =
-    [ cmake extra-cmake-modules pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   meta = with lib; {
     description = "QtWebEngine based cross-platform web browser";

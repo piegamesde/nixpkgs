@@ -25,12 +25,19 @@ buildPythonPackage rec {
     hash = "sha256-keQK0Lc34yphEQZFEU6T/7rfXS/9clwSreE0frWO+s8=";
   };
 
-  propagatedBuildInputs =
-    [ google-api-core google-cloud-core proto-plus protobuf ]
-    ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs = [
+    google-api-core
+    google-cloud-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs =
-    [ google-cloud-testutils mock pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    google-cloud-testutils
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   preCheck = ''
     # prevent shadowing imports

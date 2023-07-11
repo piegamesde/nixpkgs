@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     substituteInPlace install/install.mak --replace /usr/local/bin $out/bin
     substituteInPlace install/install.mak --replace MKDIR=mkdir "MKDIR=mkdir -p"
   '';
-  buildFlags = [ "CCC=c++" "LD=c++" ];
+  buildFlags = [
+    "CCC=c++"
+    "LD=c++"
+  ];
 
   meta = {
     description = "C and C++ Code Counter";

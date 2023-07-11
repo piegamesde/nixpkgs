@@ -41,9 +41,19 @@ in stdenv.mkDerivation rec {
     cp ${zig_0_10_0}/lib/libc/darwin/libSystem.13.tbd lib/libc/darwin/
   '';
 
-  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
+  nativeBuildInputs = [
+    cmake
+    llvmPackages.llvm.dev
+  ];
 
-  buildInputs = [ libxml2 zlib ] ++ (with llvmPackages; [ libclang lld llvm ]);
+  buildInputs = [
+    libxml2
+    zlib
+  ] ++ (with llvmPackages; [
+    libclang
+    lld
+    llvm
+  ]);
 
   preBuild = ''
     export HOME=$TMPDIR;
@@ -69,7 +79,11 @@ in stdenv.mkDerivation rec {
     description =
       "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software";
     license = licenses.mit;
-    maintainers = with maintainers; [ aiotter andrewrk AndersonTorres ];
+    maintainers = with maintainers; [
+      aiotter
+      andrewrk
+      AndersonTorres
+    ];
     platforms = platforms.unix;
   };
 }

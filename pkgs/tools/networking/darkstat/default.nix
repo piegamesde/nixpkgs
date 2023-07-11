@@ -31,7 +31,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libpcap zlib ];
+  buildInputs = [
+    libpcap
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

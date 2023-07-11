@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "1rp4xxy7qp0s0wnq3ig4ji8xsl31g901qkdp339ndxn466cqal2s";
   };
 
-  propagatedBuildInputs = [ kazoo six ];
+  propagatedBuildInputs = [
+    kazoo
+    six
+  ];
   buildInputs = [ testtools ];
   nativeCheckInputs = [ unittestCheckHook ];
   preCheck = ''

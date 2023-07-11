@@ -75,9 +75,14 @@ buildPythonPackage rec {
   # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
   pythonImportsCheck = [ "librosa" ];
 
-  nativeCheckInputs =
-    [ ffmpeg-headless packaging pytest-mpl pytestCheckHook resampy samplerate ]
-    ++ passthru.optional-dependencies.matplotlib;
+  nativeCheckInputs = [
+    ffmpeg-headless
+    packaging
+    pytest-mpl
+    pytestCheckHook
+    resampy
+    samplerate
+  ] ++ passthru.optional-dependencies.matplotlib;
 
   preCheck = ''
     export HOME=$TMPDIR

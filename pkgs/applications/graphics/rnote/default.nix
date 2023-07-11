@@ -63,8 +63,14 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ (lib.mesonBool "cli" true) ];
 
-  buildInputs = [ glib gstreamer gtk4 libadwaita libxml2 poppler ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+  buildInputs = [
+    glib
+    gstreamer
+    gtk4
+    libadwaita
+    libxml2
+    poppler
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
 
   postPatch = ''
@@ -79,7 +85,10 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/flxzt/rnote/releases/tag/${src.rev}";
     description = "Simple drawing application to create handwritten notes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda yrd ];
+    maintainers = with maintainers; [
+      dotlambda
+      yrd
+    ];
     platforms = platforms.unix;
   };
 }

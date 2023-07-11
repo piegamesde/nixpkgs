@@ -17,10 +17,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-0ZtnyFPF26JAavqrbNeI53817r5jTKxGeVKEd8e+AbY=";
   };
 
-  makeFlags = [ "RM=rm" "LN=ln" "MV=mv" ];
+  makeFlags = [
+    "RM=rm"
+    "LN=ln"
+    "MV=mv"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libvorbis libmad libao ];
+  buildInputs = [
+    libvorbis
+    libmad
+    libao
+  ];
 
   hardeningDisable = [ "format" ];
 

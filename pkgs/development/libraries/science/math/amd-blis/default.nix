@@ -36,7 +36,10 @@ in stdenv.mkDerivation rec {
 
   inherit blas64;
 
-  nativeBuildInputs = [ perl python3 ];
+  nativeBuildInputs = [
+    perl
+    python3
+  ];
 
   # Tests currently fail with non-Zen CPUs due to a floating point
   # exception in one of the generic kernels. Try to re-enable the
@@ -45,8 +48,10 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--enable-cblas" "--blas-int-size=${blasIntSize}" ]
-    ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+  configureFlags = [
+    "--enable-cblas"
+    "--blas-int-size=${blasIntSize}"
+  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
     ++ [ withArchitecture ];
 
   postPatch = ''

@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q3XfwJ4TGK4E58haN0Q0xRH4GDpKD8VZzyxHe/VwBqY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase qtscript qtwebengine ];
+  buildInputs = [
+    qtbase
+    qtscript
+    qtwebengine
+  ];
 
   postPatch = ''
     substituteInPlace src/platform/digmanager.cpp \

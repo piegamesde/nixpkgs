@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-Q6o1O21Jj9WsMPAHOpjjMtBh00/mGdPVDRdh+P1KoBY=";
   };
 
-  buildInputs = [ docutils pybtex ];
+  buildInputs = [
+    docutils
+    pybtex
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -51,7 +51,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
-  buildInputs = [ libbsd readline ];
+  buildInputs = [
+    libbsd
+    readline
+  ];
 
   meta = with lib; {
     homepage = "https://rosie-lang.org";

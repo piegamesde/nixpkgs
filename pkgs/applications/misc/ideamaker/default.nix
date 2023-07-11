@@ -29,9 +29,21 @@ stdenv.mkDerivation rec {
     sha256 = "0a1jcakdglcr4kz0kyq692dbjk6aq2yqcp3i6gzni91k791h49hp";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg qt5.wrapQtAppsHook ];
-  buildInputs =
-    [ curl gcc.cc.lib libGLU libcork qt5.qtbase qt5.qtserialport quazip zlib ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    qt5.wrapQtAppsHook
+  ];
+  buildInputs = [
+    curl
+    gcc.cc.lib
+    libGLU
+    libcork
+    qt5.qtbase
+    qt5.qtserialport
+    quazip
+    zlib
+  ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -57,7 +69,11 @@ stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "Ideamaker";
     genericName = meta.description;
-    categories = [ "Utility" "Viewer" "Engineering" ];
+    categories = [
+      "Utility"
+      "Viewer"
+      "Engineering"
+    ];
     mimeTypes = [ "application/sla" ];
   };
 

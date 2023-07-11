@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libelf libpcap ];
+  buildInputs = [
+    libelf
+    libpcap
+  ];
 
   cmakeFlags = [ "-DDYNAMIPS_CODE=stable" ];
 

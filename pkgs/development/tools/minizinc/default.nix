@@ -10,7 +10,11 @@ stdenv.mkDerivation rec {
   pname = "minizinc";
   version = "2.7.3";
 
-  nativeBuildInputs = [ cmake flex bison ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    bison
+  ];
 
   src = fetchFromGitHub {
     owner = "MiniZinc";

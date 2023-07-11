@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ SDL libjack2 libGLU libGL ];
+  buildInputs = [
+    SDL
+    libjack2
+    libGLU
+    libGL
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

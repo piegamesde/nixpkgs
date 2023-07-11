@@ -19,7 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HBCuSZkApd/6UkAxz/KDFb/gyX2SI1S2GwgXAXSTU/c=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -41,6 +45,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/oneapi-src/oneDNN/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ alexarice bhipple ];
+    maintainers = with maintainers; [
+      alexarice
+      bhipple
+    ];
   };
 }

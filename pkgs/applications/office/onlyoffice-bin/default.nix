@@ -81,7 +81,12 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-O9gC/b5/eZ1YImuXpEZOJhI1rzCNuFrm5IqablnYo9Y=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -179,6 +184,9 @@ in stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ nh2 gtrunsec ];
+    maintainers = with maintainers; [
+      nh2
+      gtrunsec
+    ];
   };
 }

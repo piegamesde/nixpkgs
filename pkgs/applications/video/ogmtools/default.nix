@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "1spx81p5wf59ksl3r3gvf78d77sh7gj8a6lw773iv67bphfivmn8";
   };
 
-  buildInputs = [ libogg libvorbis libdvdread ];
+  buildInputs = [
+    libogg
+    libvorbis
+    libdvdread
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
 

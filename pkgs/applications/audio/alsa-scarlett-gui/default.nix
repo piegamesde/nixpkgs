@@ -21,10 +21,19 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 
-  makeFlags = [ "DESTDIR=\${out}" "PREFIX=''" ];
+  makeFlags = [
+    "DESTDIR=\${out}"
+    "PREFIX=''"
+  ];
   sourceRoot = "source/src";
-  nativeBuildInputs = [ pkg-config wrapGAppsHook4 ];
-  buildInputs = [ gtk4 alsa-lib ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook4
+  ];
+  buildInputs = [
+    gtk4
+    alsa-lib
+  ];
 
   meta = with lib; {
     description =

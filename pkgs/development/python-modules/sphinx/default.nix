@@ -86,8 +86,11 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [ cython html5lib pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.8") [ typed-ast ];
+  nativeCheckInputs = [
+    cython
+    html5lib
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.8") [ typed-ast ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

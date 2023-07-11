@@ -20,7 +20,12 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ hidapi readline qtsvg qtxmlpatterns ];
+  buildInputs = [
+    hidapi
+    readline
+    qtsvg
+    qtxmlpatterns
+  ];
 
   dontConfigure = true;
   dontBuild = true;

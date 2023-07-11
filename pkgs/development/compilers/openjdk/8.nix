@@ -67,9 +67,16 @@ let
       rev = "jdk${version}";
       sha256 = "sha256-C5dQwfIIpIrLeO3JWERyFCQHUSgG8gARuc3qXAeLkJ4=";
     };
-    outputs = [ "out" "jre" ];
+    outputs = [
+      "out"
+      "jre"
+    ];
 
-    nativeBuildInputs = [ pkg-config lndir unzip ];
+    nativeBuildInputs = [
+      pkg-config
+      lndir
+      unzip
+    ];
     buildInputs = [
       cpio
       file
@@ -107,8 +114,8 @@ let
       ./read-truststore-from-env-jdk8.patch
       ./currency-date-range-jdk8.patch
       ./fix-library-path-jdk8.patch
-    ] ++ lib.optionals (!headless && enableGnome2)
-      [ ./swing-use-gtk-jdk8.patch ];
+    ] ++ lib.optionals
+      (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ];
 
     # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
@@ -276,7 +283,11 @@ let
       license = licenses.gpl2;
       description = "The open-source Java Development Kit";
       maintainers = with maintainers; [ edwtjo ];
-      platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       mainProgram = "java";
     };
 

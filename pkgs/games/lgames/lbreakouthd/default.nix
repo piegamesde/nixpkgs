@@ -19,7 +19,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fK7w5uS7zPJnbEmY3YpxoA9cGuooQbVlDB9Mu6yB8hw=";
   };
 
-  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+  ];
 
   hardeningDisable = [ "format" ];
 

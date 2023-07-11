@@ -23,16 +23,29 @@ buildPythonPackage rec {
     hash = "sha256-gF+XOgAILSlM+hU1s3Xz+zD7nPtwW9a0mOHp8rxthnY=";
   };
 
-  propagatedBuildInputs =
-    [ numpy scipy protobuf onnx scikit-learn onnxconverter-common ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    protobuf
+    onnx
+    scikit-learn
+    onnxconverter-common
+  ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "scikit-learn" ];
 
-  nativeCheckInputs = [ onnxruntime pandas unittestCheckHook ];
+  nativeCheckInputs = [
+    onnxruntime
+    pandas
+    unittestCheckHook
+  ];
 
-  unittestFlagsArray = [ "-s" "tests" ];
+  unittestFlagsArray = [
+    "-s"
+    "tests"
+  ];
 
   # Core dump
   doCheck = false;

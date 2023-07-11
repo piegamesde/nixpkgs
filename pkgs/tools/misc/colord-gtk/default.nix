@@ -24,7 +24,11 @@ stdenv.mkDerivation rec {
   pname = "colord-gtk";
   version = "0.3.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url =
@@ -45,7 +49,10 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [ glib lcms2 ];
+  buildInputs = [
+    glib
+    lcms2
+  ];
 
   propagatedBuildInputs = [ colord ]
     ++ (if withGtk4 then [ gtk4 ] else [ gtk3 ]);

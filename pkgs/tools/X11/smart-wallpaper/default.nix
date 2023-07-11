@@ -27,7 +27,13 @@ stdenvNoCC.mkDerivation {
     install -Dm755 -t $out/bin smart-wallpaper
     wrapProgram $out/bin/smart-wallpaper \
       --prefix PATH : ${
-        lib.makeBinPath [ xdpyinfo killall xwinwrap swaybg redshift ]
+        lib.makeBinPath [
+          xdpyinfo
+          killall
+          xwinwrap
+          swaybg
+          redshift
+        ]
       }
   '';
 

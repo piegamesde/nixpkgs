@@ -25,9 +25,18 @@ buildPythonPackage rec {
     sed -i 's@python@${python.interpreter}@' .testr.conf
   '';
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ mock purl testrepository testtools pytest ];
+  nativeCheckInputs = [
+    mock
+    purl
+    testrepository
+    testtools
+    pytest
+  ];
 
   meta = with lib; {
     description = "Mock out responses from the requests package";

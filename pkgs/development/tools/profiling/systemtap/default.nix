@@ -26,8 +26,16 @@ let
     pname = "systemtap";
     inherit version;
     src = fetchgit { inherit url rev sha256; };
-    nativeBuildInputs = [ pkg-config cpio python3 python3.pkgs.setuptools ];
-    buildInputs = [ elfutils gettext ];
+    nativeBuildInputs = [
+      pkg-config
+      cpio
+      python3
+      python3.pkgs.setuptools
+    ];
+    buildInputs = [
+      elfutils
+      gettext
+    ];
     enableParallelBuilding = true;
     env.NIX_CFLAGS_COMPILE =
       toString [ "-Wno-error=deprecated-declarations" ]; # Needed with GCC 12
@@ -54,7 +62,12 @@ in runCommand "systemtap-${kernel.version}-${version}" {
   makeWrapper $stapBuild/bin/stap $out/bin/stap \
     --add-flags "-r ${kernel.dev}" \
     --prefix PATH : ${
-      lib.makeBinPath [ stdenv.cc.cc stdenv.cc.bintools elfutils gnumake ]
+      lib.makeBinPath [
+        stdenv.cc.cc
+        stdenv.cc.bintools
+        elfutils
+        gnumake
+      ]
     }
   makeWrapper $stapBuild/bin/dtrace $out/bin/dtrace \
     --prefix PYTHONPATH : ${pypkgs}

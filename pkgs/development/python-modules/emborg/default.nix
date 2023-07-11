@@ -32,7 +32,14 @@ buildPythonPackage rec {
     hash = "sha256-T6RfZNJ4k7ONYByy4J6Iuc7sVLKHlXti7p7x1QKgkNo=";
   };
 
-  propagatedBuildInputs = [ appdirs arrow docopt inform quantiphy requests ];
+  propagatedBuildInputs = [
+    appdirs
+    arrow
+    docopt
+    inform
+    quantiphy
+    requests
+  ];
 
   nativeCheckInputs = [
     nestedtext
@@ -51,13 +58,11 @@ buildPythonPackage rec {
   '';
 
   # this patch fixes a whitespace issue in the message that a test is expecting, https://github.com/KenKundert/emborg/pull/67
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/KenKundert/emborg/commit/afac6d1ddcecdb4bddbec87b6c8eed4cfbf4ebf9.diff";
-      sha256 = "3xg2z03FLKH4ckmiBZqE1FDjpgjgdO8OZL1ewrJlQ4o=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/KenKundert/emborg/commit/afac6d1ddcecdb4bddbec87b6c8eed4cfbf4ebf9.diff";
+    sha256 = "3xg2z03FLKH4ckmiBZqE1FDjpgjgdO8OZL1ewrJlQ4o=";
+  }) ];
 
   pythonImportsCheck = [ "emborg" ];
 

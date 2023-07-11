@@ -16,7 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-V2n840QyLofTfQE4vtFYGfQwl65sklp+KfNS9RCLvI8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aioconsole

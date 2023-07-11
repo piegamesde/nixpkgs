@@ -19,9 +19,15 @@ buildPythonApplication rec {
     sha256 = "0yhc0630rmcx4ia9y6klpx002mavfmqf1s3jb2gz54jlccwqbfgl";
   };
 
-  propagatedBuildInputs = [ click tqdm ];
+  propagatedBuildInputs = [
+    click
+    tqdm
+  ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "past_time" ];
 

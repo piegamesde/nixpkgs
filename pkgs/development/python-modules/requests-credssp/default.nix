@@ -25,7 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-HHLEmQ+mNjMjpR6J+emrKFM+2PiYq32o7Gnoo0gUrNA=";
   };
 
-  propagatedBuildInputs = [ cryptography pyspnego requests ];
+  propagatedBuildInputs = [
+    cryptography
+    pyspnego
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

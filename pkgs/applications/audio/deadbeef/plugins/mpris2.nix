@@ -21,9 +21,15 @@ in stdenv.mkDerivation {
     hash = "sha256-f6iHgwLdzQJJEquyuUQGWFfOfpjH/Hxh9IqQ5HkYrog=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ deadbeef glib ];
+  buildInputs = [
+    deadbeef
+    glib
+  ];
 
   meta = with lib; {
     description = "MPRISv2 plugin for the DeaDBeeF music player";

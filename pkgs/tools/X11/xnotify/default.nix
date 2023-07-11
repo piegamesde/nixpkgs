@@ -22,7 +22,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-RfnmiAEFTPqQZursyVPDIZ6J3KBouvaaxyhTc1liqBc=";
   };
 
-  buildInputs = [ fontconfig imlib2 libX11 libXft libXinerama ];
+  buildInputs = [
+    fontconfig
+    imlib2
+    libX11
+    libXft
+    libXinerama
+  ];
 
   postPatch = with lib;
     let

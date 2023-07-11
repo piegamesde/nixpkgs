@@ -27,6 +27,11 @@ stdenv.mkDerivation rec {
     description = "ZSH completions for Nix, NixOS, and NixOps";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ spwhitt olejorgenb hedning ma27 ];
+    maintainers = with maintainers; [
+      spwhitt
+      olejorgenb
+      hedning
+      ma27
+    ];
   };
 }

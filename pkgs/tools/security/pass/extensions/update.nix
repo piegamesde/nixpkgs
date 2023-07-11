@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
       "Pass extension that provides an easy flow for updating passwords";
     homepage = "https://github.com/roddhjav/pass-update";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lovek323 fpletz tadfisher ];
+    maintainers = with maintainers; [
+      lovek323
+      fpletz
+      tadfisher
+    ];
     platforms = platforms.unix;
   };
 }

@@ -25,9 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-qaDgae/5TRpjmjOf7aom7TC5HLHp0PHM/ds47AKtq8U=";
   };
 
-  propagatedBuildInputs = [ nbclient nbformat ];
+  propagatedBuildInputs = [
+    nbclient
+    nbformat
+  ];
 
-  nativeCheckInputs = [ ipykernel pandas pytestCheckHook traitlets ];
+  nativeCheckInputs = [
+    ipykernel
+    pandas
+    pytestCheckHook
+    traitlets
+  ];
 
   pythonImportsCheck = [ "testbook" ];
 

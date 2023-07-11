@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-vUsL1CvhYRtv75gkmiPe/UkAtBDZPy1iK2BPUupMXz8=";
   };
 
-  propagatedBuildInputs = [ future ifaddr ];
+  propagatedBuildInputs = [
+    future
+    ifaddr
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

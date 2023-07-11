@@ -30,7 +30,14 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram "$out/bin/uniffi-bindgen" \
-      --suffix PATH : ${lib.strings.makeBinPath [ ktlint yapf rubocop rustfmt ]}
+      --suffix PATH : ${
+        lib.strings.makeBinPath [
+          ktlint
+          yapf
+          rubocop
+          rustfmt
+        ]
+      }
   '';
 
   passthru.updateScript = nix-update-script { };
@@ -40,6 +47,9 @@ rustPlatform.buildRustPackage rec {
       "Toolkit for building cross-platform software components in Rust";
     homepage = "https://mozilla.github.io/uniffi-rs/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda vtuan10 ];
+    maintainers = with maintainers; [
+      figsoda
+      vtuan10
+    ];
   };
 }

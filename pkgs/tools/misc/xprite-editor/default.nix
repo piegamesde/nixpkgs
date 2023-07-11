@@ -29,11 +29,17 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isLinux [ gtk3 ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config python3 ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [
+    pkg-config
+    python3
+  ];
 
   cargoSha256 = "0z1ip667d1qwvm9md3zg8ib9jixpg7qj5ypwib7r2928h14yg7ck";
 
-  cargoBuildFlags = [ "--bin" "xprite-native" ];
+  cargoBuildFlags = [
+    "--bin"
+    "xprite-native"
+  ];
 
   meta = with lib; {
     # error[E0034]: multiple applicable items in scope

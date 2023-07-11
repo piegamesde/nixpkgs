@@ -26,16 +26,25 @@ buildPythonPackage rec {
     hash = "sha256-vORo5Kqy+Rg8WCyFU5lyQHS4EALYkycY4XxYhABV/4A=";
   };
 
-  nativeBuildInputs = [ setuptools poetry-core ];
+  nativeBuildInputs = [
+    setuptools
+    poetry-core
+  ];
 
-  propagatedBuildInputs = [ pamqp yarl ];
+  propagatedBuildInputs = [
+    pamqp
+    yarl
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   checkInputs = [ aiomisc-pytest ];
 
   # Tests attempt to connect to a RabbitMQ server
-  disabledTestPaths = [ "tests/test_channel.py" "tests/test_connection.py" ];
+  disabledTestPaths = [
+    "tests/test_channel.py"
+    "tests/test_connection.py"
+  ];
 
   pythonImportsCheck = [ "aiormq" ];
 

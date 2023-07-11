@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     rm src/*.o
   '';
 
-  buildInputs = [ SDL SDL_image SDL_mixer SDL_net ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_mixer
+    SDL_net
+  ];
 
   hardeningDisable = [ "format" ];
 

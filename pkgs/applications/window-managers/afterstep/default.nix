@@ -49,7 +49,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libtiff fltk gtk libICE libSM dbus ];
+  buildInputs = [
+    libtiff
+    fltk
+    gtk
+    libICE
+    libSM
+    dbus
+  ];
 
   # A strange type of bug: dbus is not immediately found by pkg-config
   preConfigure = ''

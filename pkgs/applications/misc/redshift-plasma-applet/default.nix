@@ -47,9 +47,15 @@ in stdenv.mkDerivation {
                 "'${redshift}/bin/redshift -V'"
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
-  buildInputs = [ plasma-framework kwindowsystem ];
+  buildInputs = [
+    plasma-framework
+    kwindowsystem
+  ];
 
   dontWrapQtApps = true;
 
@@ -58,6 +64,9 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/kotelnik/plasma-applet-redshift-control";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ benley zraexy ];
+    maintainers = with maintainers; [
+      benley
+      zraexy
+    ];
   };
 }

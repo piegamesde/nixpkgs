@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TbhgcX5WzuigP5/Mj5JuK7O/UKcu70D7dcOcvo4fxeQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libbfd libnl libpcap ncurses readline zlib ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libbfd
+    libnl
+    libpcap
+    ncurses
+    readline
+    zlib
+  ];
 
   enableParallelBuilding = true;
 

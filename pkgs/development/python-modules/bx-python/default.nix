@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
   buildInputs = [ zlib ];
-  propagatedBuildInputs = [ numpy six python-lzo ];
+  propagatedBuildInputs = [
+    numpy
+    six
+    python-lzo
+  ];
   nativeCheckInputs = [ nose ];
 
   postInstall = ''

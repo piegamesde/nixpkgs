@@ -22,7 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-pWc2rU3ULqEukMhd1ySY58lTm3s8f/ayQ7CY4nG24AQ=";
   };
 
-  propagatedBuildInputs = [ attrs cryptography idna pyasn1 pyasn1-modules six ];
+  propagatedBuildInputs = [
+    attrs
+    cryptography
+    idna
+    pyasn1
+    pyasn1-modules
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

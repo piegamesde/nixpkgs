@@ -27,7 +27,11 @@ buildPythonPackage rec {
     hash = "sha256-tkyVTJUdL2pBpBUpWsiDPKnd5OV88w3TdEOMxMc+hPM=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
   buildInputs = [ cairo ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
@@ -43,7 +47,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python 3 bindings for cairo";
     homepage = "https://pycairo.readthedocs.io/";
-    license = with licenses; [ lgpl21Only mpl11 ];
+    license = with licenses; [
+      lgpl21Only
+      mpl11
+    ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

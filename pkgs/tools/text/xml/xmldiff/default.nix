@@ -18,7 +18,11 @@ buildPythonApplication rec {
     hash = "sha256-xqudHYfwOce2C0pcFzId0JDIIC6R5bllmVKsH+CvTdE=";
   };
 
-  propagatedBuildInputs = [ lxml setuptools six ];
+  propagatedBuildInputs = [
+    lxml
+    setuptools
+    six
+  ];
 
   meta = with lib; {
     homepage = "https://xmldiff.readthedocs.io/en/stable/";
@@ -35,6 +39,9 @@ buildPythonApplication rec {
       readable diffs in those situations.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres anpryl ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      anpryl
+    ];
   };
 }

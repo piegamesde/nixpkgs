@@ -29,9 +29,20 @@ stdenv.mkDerivation rec {
     sed -i 's/if (UNIX)/if (0)/g' src/utilities/*_utilities/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ boost openssl libsodium libunwind lmdb unbound zeromq ];
+  buildInputs = [
+    boost
+    openssl
+    libsodium
+    libunwind
+    lmdb
+    unbound
+    zeromq
+  ];
 
   # cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
   hardeningDisable = [ "format" ];

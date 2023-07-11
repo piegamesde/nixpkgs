@@ -17,8 +17,11 @@ buildPythonPackage rec {
     sha256 = "0d64c4689a67d6138eb9ffbaff2eda2bace7d30b846401673183dcb42714de8f";
   };
 
-  propagatedBuildInputs =
-    [ msrestazure azure-common azure-mgmt-datalake-nspkg ];
+  propagatedBuildInputs = [
+    msrestazure
+    azure-common
+    azure-mgmt-datalake-nspkg
+  ];
 
   pythonNamespaces = [ "azure.mgmt.datalake" ];
 

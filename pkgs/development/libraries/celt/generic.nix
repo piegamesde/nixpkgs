@@ -18,7 +18,10 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   inherit prePatch;
 
@@ -31,7 +34,10 @@ stdenv.mkDerivation {
     homepage =
       "https://gitlab.xiph.org/xiph/celt"; # http://www.celt-codec.org/ is gone
     license = licenses.bsd2;
-    maintainers = with maintainers; [ codyopel raskin ];
+    maintainers = with maintainers; [
+      codyopel
+      raskin
+    ];
     platforms = platforms.unix;
   };
 }

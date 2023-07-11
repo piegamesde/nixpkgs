@@ -21,7 +21,10 @@ let
     comment = "Fast and multi-platform Spotify client with native GUI";
     desktopName = "Psst";
     type = "Application";
-    categories = [ "Audio" "AudioVideo" ];
+    categories = [
+      "Audio"
+      "AudioVideo"
+    ];
     icon = "psst";
     terminal = false;
     startupWMClass = "psst-gui";
@@ -53,7 +56,16 @@ in rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ alsa-lib atk cairo dbus gdk-pixbuf glib gtk3 pango ];
+  buildInputs = [
+    alsa-lib
+    atk
+    cairo
+    dbus
+    gdk-pixbuf
+    glib
+    gtk3
+    pango
+  ];
 
   postInstall = ''
     install -Dm444 psst-gui/assets/logo_512.png $out/share/icons/hicolor/512x512/apps/${pname}.png
@@ -64,6 +76,9 @@ in rustPlatform.buildRustPackage rec {
     description = "Fast and multi-platform Spotify client with native GUI";
     homepage = "https://github.com/jpochyla/psst";
     license = licenses.mit;
-    maintainers = with maintainers; [ vbrandl peterhoeg ];
+    maintainers = with maintainers; [
+      vbrandl
+      peterhoeg
+    ];
   };
 }

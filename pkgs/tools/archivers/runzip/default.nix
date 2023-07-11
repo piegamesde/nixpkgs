@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
   pname = "runzip";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libiconv libzip ];
+  buildInputs = [
+    libiconv
+    libzip
+  ];
 
   src = fetchFromGitHub {
     owner = "vlm";

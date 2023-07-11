@@ -15,7 +15,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ vte gtk pcre2 ];
+  buildInputs = [
+    vte
+    gtk
+    pcre2
+  ];
 
   src = fetchFromGitHub {
     owner = "esmil";

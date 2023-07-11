@@ -39,7 +39,12 @@ import ./make-test-python.nix ({
   in {
     name = "restic";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras i077 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        bbigras
+        i077
+      ];
+    };
 
     nodes = {
       server = {

@@ -13,7 +13,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ angstrom lwt ];
+  propagatedBuildInputs = [
+    angstrom
+    lwt
+  ];
 
   doCheck = true;
 

@@ -30,11 +30,21 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     matplotlib = [ matplotlib ];
-    svgmath = [ latex2mathml ziafont ziamath ];
+    svgmath = [
+      latex2mathml
+      ziafont
+      ziamath
+    ];
   };
 
-  nativeCheckInputs =
-    [ pytestCheckHook nbval matplotlib latex2mathml ziafont ziamath ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbval
+    matplotlib
+    latex2mathml
+    ziafont
+    ziamath
+  ];
 
   # Strip out references to unfree fonts from the test suite
   postPatch = ''

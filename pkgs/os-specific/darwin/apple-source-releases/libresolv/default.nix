@@ -10,8 +10,11 @@
 }:
 
 appleDerivation' (if headersOnly then stdenvNoCC else stdenv) {
-  buildInputs =
-    lib.optionals (!headersOnly) [ Libinfo configdHeaders mDNSResponder ];
+  buildInputs = lib.optionals (!headersOnly) [
+    Libinfo
+    configdHeaders
+    mDNSResponder
+  ];
 
   buildPhase = lib.optionalString (!headersOnly) ''
     $CC -I. -c dns_util.c

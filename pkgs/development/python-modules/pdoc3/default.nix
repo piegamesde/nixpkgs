@@ -39,9 +39,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-git setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools-git
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ mako markdown ];
+  propagatedBuildInputs = [
+    mako
+    markdown
+  ];
 
   meta = with lib; {
     description = "Auto-generate API documentation for Python projects.";

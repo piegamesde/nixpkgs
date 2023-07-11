@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "1mnqpvx6g1r2n4kjrrx01vbdx7kvndfsbmm7zbzizjnjlyixz75f";
   };
 
-  buildInputs = [ postgresql openssl zeromq libsodium libkrb5 ];
+  buildInputs = [
+    postgresql
+    openssl
+    zeromq
+    libsodium
+    libkrb5
+  ];
 
   makeFlags = [ "USE_PGXS=1" ];
 

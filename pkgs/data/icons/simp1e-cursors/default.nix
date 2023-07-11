@@ -19,8 +19,11 @@ stdenvNoCC.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [ (python3.withPackages (ps: with ps; [ pillow ])) librsvg xcursorgen ];
+  nativeBuildInputs = [
+    (python3.withPackages (ps: with ps; [ pillow ]))
+    librsvg
+    xcursorgen
+  ];
 
   buildPhase = ''
     runHook preBuild

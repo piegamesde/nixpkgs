@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ h2 pyopenssl pyjwt ];
+  propagatedBuildInputs = [
+    h2
+    pyopenssl
+    pyjwt
+  ];
 
   # Project has no tests
   doCheck = false;

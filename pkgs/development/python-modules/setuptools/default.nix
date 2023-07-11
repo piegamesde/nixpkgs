@@ -25,7 +25,10 @@ let
       name = "${pname}-${version}-source";
     };
 
-    patches = [ ./tag-date.patch ./setuptools-distutils-C++.patch ];
+    patches = [
+      ./tag-date.patch
+      ./setuptools-distutils-C++.patch
+    ];
 
     buildPhase = ''
       ${python.pythonForBuild.interpreter} setup.py egg_info

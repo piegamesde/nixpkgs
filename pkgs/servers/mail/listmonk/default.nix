@@ -22,7 +22,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ stuffbin ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/listmonk

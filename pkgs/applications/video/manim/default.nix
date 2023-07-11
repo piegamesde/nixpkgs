@@ -105,7 +105,10 @@ in python3.pkgs.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg (texlive.combine manim-tinytex) ])
+    (lib.makeBinPath [
+      ffmpeg
+      (texlive.combine manim-tinytex)
+    ])
   ];
 
   nativeCheckInputs = [

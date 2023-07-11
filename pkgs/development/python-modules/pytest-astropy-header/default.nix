@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [ pytestCheckHook numpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    numpy
+  ];
 
   meta = with lib; {
     description =

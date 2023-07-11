@@ -24,10 +24,16 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    Foundation
+  ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString (lib.optionals stdenv.isDarwin [ "-framework" "AppKit" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
+    "-framework"
+    "AppKit"
+  ]);
 
   postInstall = ''
     installShellCompletion --cmd topgrade \
@@ -45,6 +51,9 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/topgrade-rs/topgrade/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 xyenon ];
+    maintainers = with maintainers; [
+      SuperSandro2000
+      xyenon
+    ];
   };
 }

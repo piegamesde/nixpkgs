@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3ktLVC73m2xddq5BhxVKw/FJd6pZ5RVb7fv29dxUoRE=";
   };
 
-  buildInputs = [ asciidoc libxml2 docbook_xml_dtd_45 libxslt docbook_xsl ];
+  buildInputs = [
+    asciidoc
+    libxml2
+    docbook_xml_dtd_45
+    libxslt
+    docbook_xsl
+  ];
 
   installFlags = [ "prefix=$(out)" ];
 

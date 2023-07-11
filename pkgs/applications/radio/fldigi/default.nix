@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     portaudio
     libsndfile
     libsamplerate
-  ] ++ lib.optionals (stdenv.isLinux) [ libpulseaudio alsa-lib udev ];
+  ] ++ lib.optionals (stdenv.isLinux) [
+    libpulseaudio
+    alsa-lib
+    udev
+  ];
 
   enableParallelBuilding = true;
 
@@ -46,7 +50,10 @@ stdenv.mkDerivation rec {
     description = "Digital modem program";
     homepage = "https://sourceforge.net/projects/fldigi/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ relrod ftrvxmtrx ];
+    maintainers = with maintainers; [
+      relrod
+      ftrvxmtrx
+    ];
     platforms = platforms.unix;
     # unable to execute command: posix_spawn failed: Argument list too long
     # Builds fine on aarch64-darwin

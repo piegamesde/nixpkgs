@@ -63,8 +63,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-BJAiDv+Zg+wU6ovAkuMVTGN9WElOlC96m/GEYrg6exE=";
   };
 
-  nativeBuildInputs =
-    [ autoPatchelfHook dpkg makeWrapper gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+    makeWrapper
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -125,7 +130,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ markus1189 babariviere ];
+    maintainers = with maintainers; [
+      markus1189
+      babariviere
+    ];
   };
 
 }

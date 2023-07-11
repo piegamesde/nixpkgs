@@ -21,9 +21,17 @@ buildPythonPackage rec {
     sha256 = "0cyw6zw7c7r076rmhnmg905ihwb9r7g511n6gdlph06v74pdls8d";
   };
 
-  propagatedBuildInputs = [ aiohttp requests ];
+  propagatedBuildInputs = [
+    aiohttp
+    requests
+  ];
 
-  nativeCheckInputs = [ aioresponses requests-mock pandas pytestCheckHook ];
+  nativeCheckInputs = [
+    aioresponses
+    requests-mock
+    pandas
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Tests require network access

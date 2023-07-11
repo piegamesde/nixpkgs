@@ -24,8 +24,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/zrepl/zrepl/version.zreplVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/zrepl/zrepl/version.zreplVersion=${version}"
+  ];
 
   postInstall = ''
     mkdir -p $out/lib/systemd/system
@@ -43,6 +46,10 @@ buildGoModule rec {
     description = "A one-stop, integrated solution for ZFS replication";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ cole-h danderson mdlayher ];
+    maintainers = with maintainers; [
+      cole-h
+      danderson
+      mdlayher
+    ];
   };
 }

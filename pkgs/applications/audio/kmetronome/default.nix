@@ -21,9 +21,18 @@ stdenv.mkDerivation rec {
     sha256 = "1ln0nm24w6bj7wc8cay08j5azzznigd39cbbw3h4skg6fxd8p0s7";
   };
 
-  nativeBuildInputs = [ cmake pkg-config qttools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ];
 
-  buildInputs = [ alsa-lib drumstick qtbase qtsvg ];
+  buildInputs = [
+    alsa-lib
+    drumstick
+    qtbase
+    qtsvg
+  ];
 
   dontWrapQtApps = true;
 

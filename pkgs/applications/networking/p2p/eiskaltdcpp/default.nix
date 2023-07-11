@@ -32,7 +32,10 @@ mkDerivation rec {
     sha256 = "sha256-JmAopXFS6MkxW0wDQ1bC/ibRmWgOpzU0971hcqAehLU=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   buildInputs = [
     qtbase
     qttools
@@ -46,7 +49,11 @@ mkDerivation rec {
     miniupnpc
     aspell
     gettext
-    (perl.withPackages (p: with p; [ GetoptLong TermShellUI ]))
+    (perl.withPackages (p:
+      with p; [
+        GetoptLong
+        TermShellUI
+      ]))
   ] ++ lib.optional stdenv.isDarwin libiconv;
 
   cmakeFlags = [

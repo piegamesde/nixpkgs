@@ -18,7 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "Cz3jtNiF7bn4h6B9y8i1luf+8gOMYeaCz6VaE/pM6eg=";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ notmuch openssl sqlite xapian zlib ];
+  buildInputs = [
+    notmuch
+    openssl
+    sqlite
+    xapian
+    zlib
+  ];
   meta = {
     description = "Synchronize maildirs and notmuch databases";
     homepage = "http://www.muchsync.org/";

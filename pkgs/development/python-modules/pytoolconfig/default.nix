@@ -46,7 +46,10 @@ buildPythonPackage rec {
     hash = "sha256-b7er/IgXr2j9dSnI87669BXWA5CXNTzwa1DTpl8PBZ4=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   PDM_PEP517_SCM_VERSION = version;
 
@@ -71,7 +74,10 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     validation = [ pydantic ];
     global = [ platformdirs ];
-    doc = [ sphinx tabulate ];
+    doc = [
+      sphinx
+      tabulate
+    ];
   };
 
   pythonImportsCheck = [ "pytoolconfig" ];
@@ -85,6 +91,9 @@ buildPythonPackage rec {
     description = "Python tool configuration";
     homepage = "https://github.com/bagel897/pytoolconfig";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ fab hexa ];
+    maintainers = with maintainers; [
+      fab
+      hexa
+    ];
   };
 }

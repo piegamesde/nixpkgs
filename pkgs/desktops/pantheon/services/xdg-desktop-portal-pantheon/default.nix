@@ -26,9 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Rfo9Z5rCJgk36Db3ce8dYBJswy8owjvRMrJVB/RfwyI=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ glib granite7 gtk4 systemd xorg.libX11 ];
+  buildInputs = [
+    glib
+    granite7
+    gtk4
+    systemd
+    xorg.libX11
+  ];
 
   mesonFlags = [ "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user" ];
 

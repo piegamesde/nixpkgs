@@ -21,9 +21,20 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "zjkh02NcgWjPt8oMWoK51c71srJx+Et3bWO4u77sNY4=";
   };
 
-  nativeBuildInputs = [ cpio 0.0 fsprogs perl pkg-config ]
-    ++ (with ocamlPackages; [ findlib ocaml ]);
-  buildInputs = lib.optionals stdenv.hostPlatform.isGnu [ glibc glibc.static ];
+  nativeBuildInputs = [
+    cpio
+    0.0
+    fsprogs
+    perl
+    pkg-config
+  ] ++ (with ocamlPackages; [
+    findlib
+    ocaml
+  ]);
+  buildInputs = lib.optionals stdenv.hostPlatform.isGnu [
+    glibc
+    glibc.static
+  ];
 
   postPatch = ''
     patchShebangs src/bin2c.pl

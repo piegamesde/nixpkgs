@@ -21,8 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C1a6lMK4O49043coh8EQkTWALrPolitig3eYf+l+HmM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config texinfo ];
-  buildInputs = [ guile sqlite ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+  ];
+  buildInputs = [
+    guile
+    sqlite
+  ];
 
   doCheck = true;
   makeFlags = [ "GUILE_AUTO_COMPILE=0" ];

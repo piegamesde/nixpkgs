@@ -38,11 +38,22 @@ buildPythonPackage rec {
     hash = "sha256-rYVWQ3VRvIObSQPwDRsxhTOGOKNkYkLtiHzVwoB3iJ0=";
   };
 
-  propagatedBuildInputs =
-    [ numpy scipy scikit-learn pandas tqdm slicer numba cloudpickle ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    scikit-learn
+    pandas
+    tqdm
+    slicer
+    numba
+    cloudpickle
+  ];
 
   passthru.optional-dependencies = {
-    plots = [ matplotlib ipython ];
+    plots = [
+      matplotlib
+      ipython
+    ];
     others = [ lime ];
   };
 

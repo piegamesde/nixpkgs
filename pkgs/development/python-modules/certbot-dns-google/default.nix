@@ -14,8 +14,12 @@ buildPythonPackage rec {
   inherit (certbot) src version;
   disabled = pythonOlder "3.6";
 
-  propagatedBuildInputs =
-    [ acme certbot google-api-python-client oauth2client ];
+  propagatedBuildInputs = [
+    acme
+    certbot
+    google-api-python-client
+    oauth2client
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

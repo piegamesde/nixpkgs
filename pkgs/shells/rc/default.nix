@@ -23,16 +23,18 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook byacc ];
+  nativeBuildInputs = [
+    autoreconfHook
+    byacc
+  ];
 
   # acinclude.m4 wants headers for tgetent().
   buildInputs = [ ncurses ] ++ lib.optionals readlineSupport [ readline ];
 
   CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
 
-  configureFlags = [
-    "--enable-def-interp=${stdenv.shell}" # 183
-  ] ++ lib.optionals historySupport [ "--with-history" ]
+  configureFlags = [ "--enable-def-interp=${stdenv.shell}" # 183
+    ] ++ lib.optionals historySupport [ "--with-history" ]
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
 
   #reproducible-build

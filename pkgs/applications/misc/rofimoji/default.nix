@@ -30,13 +30,24 @@ buildPythonApplication rec {
     sha256 = "sha256-eyzdTMLW9nk0x74T/AhvoVSrxXugc1HgNJy8EB5BApE=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.poetry-core installShellFiles ];
+  nativeBuildInputs = [
+    python3.pkgs.poetry-core
+    installShellFiles
+  ];
 
   # `rofi` and the `waylandSupport` and `x11Support` dependencies
   # contain binaries needed at runtime.
   propagatedBuildInputs = with lib;
-    [ configargparse rofi ] ++ optionals waylandSupport [ wl-clipboard wtype ]
-    ++ optionals x11Support [ xdotool xsel ];
+    [
+      configargparse
+      rofi
+    ] ++ optionals waylandSupport [
+      wl-clipboard
+      wtype
+    ] ++ optionals x11Support [
+      xdotool
+      xsel
+    ];
 
   # The 'extractors' sub-module is used for development
   # and has additional dependencies.

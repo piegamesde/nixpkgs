@@ -131,9 +131,20 @@ in stdenv.mkDerivation rec {
   # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
   # wrapGAppHooks (among other things) adds it to XDG_DATA_DIRS
   # so 'save as...' works:
-  nativeBuildInputs = [ glib wrapGAppsHook unzip ];
-  buildInputs = [ jdk ant libusb-compat-0_1 libusb1 zlib ncurses5 readline ]
-    ++ lib.optionals withTeensyduino [ upx ];
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+    unzip
+  ];
+  buildInputs = [
+    jdk
+    ant
+    libusb-compat-0_1
+    libusb1
+    zlib
+    ncurses5
+    readline
+  ] ++ lib.optionals withTeensyduino [ upx ];
   downloadSrcList = builtins.attrValues externalDownloads;
   downloadDstList = builtins.attrNames externalDownloads;
 
@@ -265,8 +276,17 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.arduino.cc/";
     license =
       if withTeensyduino then licenses.unfreeRedistributable else licenses.gpl2;
-    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ antono auntie robberer bjornfor bergey ];
+    maintainers = with maintainers; [
+      antono
+      auntie
+      robberer
+      bjornfor
+      bergey
+    ];
   };
 }

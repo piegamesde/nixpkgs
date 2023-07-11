@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7k3i3pElihastUDrdf9DyRZMe2UNFckfLUFGb4rbWLo=";
   };
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   meta = with lib; {
     description = "Simple .INI file parser in C, good for embedded systems";

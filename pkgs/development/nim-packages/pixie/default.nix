@@ -21,7 +21,14 @@ buildNimPackage rec {
     hash = "sha256-rF72ybfsipBHgQmH0e6DBn1e7WWY6dGn9yp1qvLIS3A=";
   };
 
-  propagatedBuildInputs = [ bumpy chroma flatty nimsimd vmath zippy ];
+  propagatedBuildInputs = [
+    bumpy
+    chroma
+    flatty
+    nimsimd
+    vmath
+    zippy
+  ];
 
   doCheck = true;
 

@@ -28,6 +28,9 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     description = "A Go based command line tool for exercism.io";
     license = licenses.mit;
-    maintainers = [ maintainers.rbasso maintainers.nobbz ];
+    maintainers = [
+      maintainers.rbasso
+      maintainers.nobbz
+    ];
   };
 }

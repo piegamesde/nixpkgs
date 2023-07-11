@@ -8,7 +8,10 @@ import ./make-test-python.nix ({
     nodes.machine = {
         ...
       }: {
-        imports = [ ./common/x11.nix ./common/user-account.nix ];
+        imports = [
+          ./common/x11.nix
+          ./common/user-account.nix
+        ];
 
         test-support.displayManager.auto.user = "alice";
 

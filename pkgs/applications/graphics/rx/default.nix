@@ -25,7 +25,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-4hi1U4jl6QA7H8AKHlU+Hqz5iKGYHRXHDsrcqY7imkU=";
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = optionals stdenv.isLinux (with xorg; [
     # glfw-sys dependencies:
@@ -50,7 +54,10 @@ rustPlatform.buildRustPackage rec {
     description = "Modern and extensible pixel editor implemented in Rust";
     homepage = "https://rx.cloudhead.io/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ minijackson Br1ght0ne ];
+    maintainers = with maintainers; [
+      minijackson
+      Br1ght0ne
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

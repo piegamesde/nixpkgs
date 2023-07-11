@@ -11,7 +11,10 @@ import ./make-test-python.nix ({
         pkgs,
         ...
       }: {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
         test-support.displayManager.auto.user = testUser;
         hardware.opentabletdriver.enable = true;
       };

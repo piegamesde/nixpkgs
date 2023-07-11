@@ -21,7 +21,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ cppo ];
 
-  propagatedBuildInputs = [ lwt uutf ];
+  propagatedBuildInputs = [
+    lwt
+    uutf
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/pqwy/notty";

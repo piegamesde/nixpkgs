@@ -19,9 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QYNY+/v6mBEJFiv3i2QS+zqkgWJqeqXSqNoh+ChAiQA=";
   };
 
-  buildInputs = [ boost tbb ];
+  buildInputs = [
+    boost
+    tbb
+  ];
 
-  nativeBuildInputs = [ makeWrapper cmake ];
+  nativeBuildInputs = [
+    makeWrapper
+    cmake
+  ];
 
   patchPhase = ''
     runHook prePatch

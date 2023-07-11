@@ -39,7 +39,11 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  makeFlags = [ "V=1" "KCONFIG_CONFIG=${firmwareConfig}" "WXVERSION=3.2" ];
+  makeFlags = [
+    "V=1"
+    "KCONFIG_CONFIG=${firmwareConfig}"
+    "WXVERSION=3.2"
+  ];
 
   installPhase = ''
     mkdir -p $out

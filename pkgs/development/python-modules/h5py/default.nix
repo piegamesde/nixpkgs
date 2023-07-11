@@ -50,17 +50,25 @@ in buildPythonPackage rec {
 
   preBuild = lib.optionalString mpiSupport "export CC=${mpi}/bin/mpicc";
 
-  nativeBuildInputs = [ cython pkgconfig setuptools ];
+  nativeBuildInputs = [
+    cython
+    pkgconfig
+    setuptools
+  ];
 
   buildInputs = [ hdf5 ] ++ lib.optional mpiSupport mpi;
 
-  propagatedBuildInputs = [ numpy ]
-    ++ lib.optionals mpiSupport [ mpi4py openssh ]
-    ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  propagatedBuildInputs = [ numpy ] ++ lib.optionals mpiSupport [
+    mpi4py
+    openssh
+  ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
   # tests now require pytest-mpi, which isn't available and difficult to package
   doCheck = false;
-  nativeCheckInputs = [ pytestCheckHook openssh ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    openssh
+  ];
 
   pythonImportsCheck = [ "h5py" ];
 

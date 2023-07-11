@@ -30,10 +30,22 @@ buildPythonPackage rec {
     hash = "sha256-K20fhfdJuABqpbm8O8PSA9pIW8Uu1MdlP3r5E49pt6Q=";
   };
 
-  propagatedBuildInputs =
-    [ click configparser oauthlib pyjwt requests requests-mock six tabulate ];
+  propagatedBuildInputs = [
+    click
+    configparser
+    oauthlib
+    pyjwt
+    requests
+    requests-mock
+    six
+    tabulate
+  ];
 
-  nativeCheckInputs = [ decorator mock pytestCheckHook ];
+  nativeCheckInputs = [
+    decorator
+    mock
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # Disabled due to option parsing which we don't have

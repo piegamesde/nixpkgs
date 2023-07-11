@@ -20,7 +20,12 @@ in pypkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = with pypkgs; [ click colorama kaptan libtmux ];
+  propagatedBuildInputs = with pypkgs; [
+    click
+    colorama
+    kaptan
+    libtmux
+  ];
 
   postInstall = ''
     installShellCompletion --cmd tmuxp \

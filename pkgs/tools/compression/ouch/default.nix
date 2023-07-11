@@ -23,9 +23,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-UhKcWpNuRNyA+uUw5kx84Y2F1Swr05m7JUM1+9lXYPM=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ bzip2 xz zlib zstd ];
+  buildInputs = [
+    bzip2
+    xz
+    zlib
+    zstd
+  ];
 
   buildFeatures = [ "zstd/pkg-config" ];
 
@@ -42,6 +50,9 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ouch-org/ouch";
     changelog = "https://github.com/ouch-org/ouch/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda psibi ];
+    maintainers = with maintainers; [
+      figsoda
+      psibi
+    ];
   };
 }

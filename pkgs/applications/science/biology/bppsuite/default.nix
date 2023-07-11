@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ bpp-core bpp-seq bpp-phyl bpp-popgen ];
+  buildInputs = [
+    bpp-core
+    bpp-seq
+    bpp-phyl
+    bpp-popgen
+  ];
 
   meta = bpp-core.meta // {
     changelog = "https://github.com/BioPP/bppsuite/blob/master/ChangeLog";

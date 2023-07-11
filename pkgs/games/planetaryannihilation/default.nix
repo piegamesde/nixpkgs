@@ -34,7 +34,10 @@ stdenv.mkDerivation rec {
     sha256 = "0imi3k5144dsn3ka9khx3dj76klkw46ga7m6rddqjk4yslwabh3k";
   };
 
-  nativeBuildInputs = [ patchelf makeWrapper ];
+  nativeBuildInputs = [
+    patchelf
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib}

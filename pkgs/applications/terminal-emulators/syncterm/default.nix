@@ -27,16 +27,30 @@ stdenv.mkDerivation rec {
 
     "-Wno-unused-result"
     "-Wformat-overflow=0"
-  ] ++ (lib.optionals stdenv.isLinux [
-    "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
-  ]);
-  makeFlags = [ "PREFIX=$(out)" "RELEASE=1" "USE_SDL_AUDIO=1" ];
+  ] ++ (lib.optionals
+    stdenv.isLinux [ "-DUSE_ALSA_SOUND" # Don't use OSS for beeps.
+    ]);
+  makeFlags = [
+    "PREFIX=$(out)"
+    "RELEASE=1"
+    "USE_SDL_AUDIO=1"
+  ];
 
-  nativeBuildInputs =
-    [ autoPatchelfHook pkg-config SDL2 perl unzip ]; # SDL2 for `sdl2-config`.
-  buildInputs = [ ncurses SDL2 ] ++ (lib.optional stdenv.isLinux alsa-lib);
-  runtimeDependencies =
-    [ ncurses SDL2 ]; # Both of these are dlopen()'ed at runtime.
+  nativeBuildInputs = [
+    autoPatchelfHook
+    pkg-config
+    SDL2
+    perl
+    unzip
+  ]; # SDL2 for `sdl2-config`.
+  buildInputs = [
+    ncurses
+    SDL2
+  ] ++ (lib.optional stdenv.isLinux alsa-lib);
+  runtimeDependencies = [
+    ncurses
+    SDL2
+  ]; # Both of these are dlopen()'ed at runtime.
 
   meta = with lib; {
     # error: unsupported option '-fsanitize=safe-stack' for target 'x86_64-apple-darwin'

@@ -27,8 +27,11 @@ buildPythonPackage rec {
     ${python.interpreter} manage.py test captcha
   '';
 
-  propagatedBuildInputs = [ django django-ranged-response pillow ]
-    ++ lib.optional withTTS flite;
+  propagatedBuildInputs = [
+    django
+    django-ranged-response
+    pillow
+  ] ++ lib.optional withTTS flite;
 
   meta = with lib; {
     description =
@@ -37,6 +40,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/mbi/django-simple-captcha/blob/v${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ mrmebelman schmittlauch ];
+    maintainers = with maintainers; [
+      mrmebelman
+      schmittlauch
+    ];
   };
 }

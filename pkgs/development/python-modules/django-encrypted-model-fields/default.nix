@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ cryptography django ];
+  propagatedBuildInputs = [
+    cryptography
+    django
+  ];
 
   pythonImportsCheck = [ "encrypted_model_fields" ];
 

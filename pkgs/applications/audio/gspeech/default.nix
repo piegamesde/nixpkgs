@@ -45,16 +45,29 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapper
   ];
 
-  buildInputs = [ glibcLocales gtk3 python3 ];
+  buildInputs = [
+    glibcLocales
+    gtk3
+    python3
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 librsvg ];
+  propagatedBuildInputs = with python3.pkgs; [
+    pygobject3
+    librsvg
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/gspeech --prefix PATH : ${
-      lib.makeBinPath [ picotts sox ]
+      lib.makeBinPath [
+        picotts
+        sox
+      ]
     }
     wrapProgram $out/bin/gspeech-cli --prefix PATH : ${
-      lib.makeBinPath [ picotts sox ]
+      lib.makeBinPath [
+        picotts
+        sox
+      ]
     }
   '';
 

@@ -20,12 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-QQFzcWELsqA2hVl8UoUgXmWXx/F3OD2VyLhxJEsSwU4=";
   };
 
-  propagatedBuildInputs = [ decorator numpy platformdirs ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = [
+    decorator
+    numpy
+    platformdirs
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "pytools" "pytools.batchjob" "pytools.lex" ];
+  pythonImportsCheck = [
+    "pytools"
+    "pytools.batchjob"
+    "pytools.lex"
+  ];
 
   meta = {
     homepage = "https://github.com/inducer/pytools/";

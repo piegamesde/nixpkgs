@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ pytest-runner ]; # pytest-runner included in setup-requires
-  nativeCheckInputs = [ pytest pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "ci" ];
 

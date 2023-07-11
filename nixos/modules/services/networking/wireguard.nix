@@ -225,7 +225,10 @@ let
       };
 
       allowedIPs = mkOption {
-        example = [ "10.192.122.3/32" "10.192.124.1/24" ];
+        example = [
+          "10.192.122.3/32"
+          "10.192.124.1/24"
+        ];
         type = with types; listOf str;
         description = lib.mdDoc ''
           List of IP (v4 or v6) addresses with CIDR masks from
@@ -333,7 +336,13 @@ let
 
   peerUnitServiceName = interfaceName: publicKey: dynamicRefreshEnabled:
     let
-      keyToUnitName = replaceStrings [ "/" "-" " " "+" "=" ] [
+      keyToUnitName = replaceStrings [
+        "/"
+        "-"
+        " "
+        "+"
+        "="
+      ] [
         "-"
         "\\x2d"
         "\\x20"
@@ -368,11 +377,17 @@ let
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
       requires = [ "wireguard-${interfaceName}.service" ];
       wants = [ "network-online.target" ];
-      after = [ "wireguard-${interfaceName}.service" "network-online.target" ];
+      after = [
+        "wireguard-${interfaceName}.service"
+        "network-online.target"
+      ];
       wantedBy = [ "wireguard-${interfaceName}.service" ];
       environment.DEVICE = interfaceName;
       environment.WG_ENDPOINT_RESOLUTION_RETRIES = "infinity";
-      path = with pkgs; [ iproute2 wireguard-tools ];
+      path = with pkgs; [
+        iproute2
+        wireguard-tools
+      ];
 
       serviceConfig = if !dynamicRefreshEnabled then {
         Type = "oneshot";
@@ -469,7 +484,11 @@ let
       wants = [ "network.target" ];
       before = [ "network.target" ];
       environment.DEVICE = name;
-      path = with pkgs; [ kmod iproute2 wireguard-tools ];
+      path = with pkgs; [
+        kmod
+        iproute2
+        wireguard-tools
+      ];
 
       serviceConfig = {
         Type = "oneshot";
@@ -511,7 +530,10 @@ let
 
   nsWrap = cmd: src: dst:
     let
-      nsList = filter (ns: ns != null) [ src dst ];
+      nsList = filter (ns: ns != null) [
+        src
+        dst
+      ];
       ns = last nsList;
     in if (length nsList > 0 && ns != "init") then
       ''ip netns exec "${ns}" "${cmd}"''
@@ -554,11 +576,11 @@ in {
           wg0 = {
             ips = [ "192.168.20.4/24" ];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
-            peers = [{
+            peers = [ {
               allowedIPs = [ "192.168.20.1/32" ];
               publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
               endpoint = "demo.wireguard.io:12913";
-            }];
+            } ];
           };
         };
         type = with types; attrsOf (submodule interfaceOpts);

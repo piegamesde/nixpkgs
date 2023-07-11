@@ -19,7 +19,11 @@ let
   pname-suffix =
     if amd && nvidia then "" else if amd then "-amd" else "-nvidia";
   nvidia-postFixup = "addOpenGLRunpath $out/bin/nvtop";
-  libPath = lib.makeLibraryPath [ libdrm ncurses udev ];
+  libPath = lib.makeLibraryPath [
+    libdrm
+    ncurses
+    udev
+  ];
   amd-postFixup = ''
     patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
@@ -48,9 +52,15 @@ in stdenv.mkDerivation rec {
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
     ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
-  nativeBuildInputs = [ cmake gtest ] ++ lib.optional nvidia addOpenGLRunpath;
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ] ++ lib.optional nvidia addOpenGLRunpath;
   buildInputs = with lib;
-    [ ncurses udev ] ++ optional nvidia cudatoolkit ++ optional amd libdrm;
+    [
+      ncurses
+      udev
+    ] ++ optional nvidia cudatoolkit ++ optional amd libdrm;
 
   # ordering of fixups is important
   postFixup = (lib.optionalString amd amd-postFixup)
@@ -75,7 +85,11 @@ in stdenv.mkDerivation rec {
     changelog = "https://github.com/Syllo/nvtop/releases/tag/${version}";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ willibutz gbtb anthonyroussel ];
+    maintainers = with maintainers; [
+      willibutz
+      gbtb
+      anthonyroussel
+    ];
     mainProgram = "nvtop";
   };
 }

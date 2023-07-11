@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ django djangorestframework pytz ];
+  propagatedBuildInputs = [
+    django
+    djangorestframework
+    pytz
+  ];
 
   pythonImportsCheck = [ "timezone_field" ];
 
@@ -37,7 +41,10 @@ buildPythonPackage rec {
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [ pytest pytest-lazy-fixture ];
+  nativeCheckInputs = [
+    pytest
+    pytest-lazy-fixture
+  ];
 
   checkPhase = ''
     ${python.interpreter} -m django test

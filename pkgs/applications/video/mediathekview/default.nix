@@ -18,31 +18,37 @@ stdenv.mkDerivation rec {
     sha256 = "4BYKkYhl1YjiAZyfNRdV5KQL+dVkL058uhTG892mXUM=";
   };
 
-  nativeBuildInputs = [ makeWrapper zip ];
+  nativeBuildInputs = [
+    makeWrapper
+    zip
+  ];
 
-  installPhase =
-    let libraryPath = lib.strings.makeLibraryPath [ libglvnd libnotify ];
-    in ''
-      runHook preInstall
+  installPhase = let
+    libraryPath = lib.strings.makeLibraryPath [
+      libglvnd
+      libnotify
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/{bin,lib}
+    mkdir -p $out/{bin,lib}
 
-      install -m644 MediathekView.jar $out/lib
+    install -m644 MediathekView.jar $out/lib
 
-      makeWrapper ${jre}/bin/java $out/bin/mediathek \
-        --add-flags "-jar $out/lib/MediathekView.jar" \
-        --suffix LD_LIBRARY_PATH : "${libraryPath}"
+    makeWrapper ${jre}/bin/java $out/bin/mediathek \
+      --add-flags "-jar $out/lib/MediathekView.jar" \
+      --suffix LD_LIBRARY_PATH : "${libraryPath}"
 
-      makeWrapper ${jre}/bin/java $out/bin/MediathekView \
-        --add-flags "-jar $out/lib/MediathekView.jar" \
-        --suffix LD_LIBRARY_PATH : "${libraryPath}"
+    makeWrapper ${jre}/bin/java $out/bin/MediathekView \
+      --add-flags "-jar $out/lib/MediathekView.jar" \
+      --suffix LD_LIBRARY_PATH : "${libraryPath}"
 
-      makeWrapper ${jre}/bin/java $out/bin/MediathekView_ipv4 \
-        --add-flags "-Djava.net.preferIPv4Stack=true -jar $out/lib/MediathekView.jar" \
-        --suffix LD_LIBRARY_PATH : "${libraryPath}"
+    makeWrapper ${jre}/bin/java $out/bin/MediathekView_ipv4 \
+      --add-flags "-Djava.net.preferIPv4Stack=true -jar $out/lib/MediathekView.jar" \
+      --suffix LD_LIBRARY_PATH : "${libraryPath}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description =

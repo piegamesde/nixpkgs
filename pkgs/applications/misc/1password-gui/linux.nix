@@ -52,7 +52,10 @@ let
 in stdenv.mkDerivation {
   inherit pname version src meta;
 
-  nativeBuildInputs = [ makeShellWrapper wrapGAppsHook ];
+  nativeBuildInputs = [
+    makeShellWrapper
+    wrapGAppsHook
+  ];
   buildInputs = [ glib ];
 
   dontConfigure = true;

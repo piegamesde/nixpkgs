@@ -30,7 +30,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1Q1nd3GJ6iDGQv4SM2S1ehVW6kPdbqTn8KTtTb0obiQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config intltool file wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    intltool
+    file
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     desktop-file-utils

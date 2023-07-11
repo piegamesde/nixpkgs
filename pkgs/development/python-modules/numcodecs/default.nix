@@ -25,9 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-bAWLMh3oShcpKZsOrk1lKy5I6hyn+d8NplyxNHDmNes=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm cython py-cpuinfo ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+    cython
+    py-cpuinfo
+  ];
 
-  propagatedBuildInputs = [ entrypoints numpy msgpack ];
+  propagatedBuildInputs = [
+    entrypoints
+    numpy
+    msgpack
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

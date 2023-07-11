@@ -19,7 +19,14 @@ stdenv.mkDerivation rec {
     sha256 = "0zgpydad0mj7fbkippw3n9hlda6nac084dq5xfbsks9jn1xd30ny";
   };
 
-  buildInputs = [ SDL SDL_image SDL_mixer SDL_ttf guile gettext ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_mixer
+    SDL_ttf
+    guile
+    gettext
+  ];
 
   patches = [ ./getenv-decl.patch ];
 

@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gperf guile guile-lib libffi ];
+  buildInputs = [
+    gperf
+    guile
+    guile-lib
+    libffi
+  ];
 
   GUILE_SITE = "${guile-lib}/share/guile/site";
 

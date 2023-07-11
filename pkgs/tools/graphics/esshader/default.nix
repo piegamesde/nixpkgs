@@ -25,7 +25,11 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libGL glfw soil ];
+  buildInputs = [
+    libGL
+    glfw
+    soil
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

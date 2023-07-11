@@ -21,7 +21,12 @@ let
     homepage = "https://obsidian.md";
     downloadPage = "https://github.com/obsidianmd/obsidian-releases/releases";
     license = licenses.obsidian;
-    maintainers = with maintainers; [ atila conradmearns zaninime qbit ];
+    maintainers = with maintainers; [
+      atila
+      conradmearns
+      zaninime
+      qbit
+    ];
   };
 
   filename = if stdenv.isDarwin then
@@ -55,8 +60,16 @@ let
 
   linux = stdenv.mkDerivation {
     inherit pname version src desktopItem icon;
-    meta = meta // { platforms = [ "x86_64-linux" "aarch64-linux" ]; };
-    nativeBuildInputs = [ makeWrapper graphicsmagick ];
+    meta = meta // {
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+    };
+    nativeBuildInputs = [
+      makeWrapper
+      graphicsmagick
+    ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/bin
@@ -85,9 +98,18 @@ let
 
   darwin = stdenv.mkDerivation {
     inherit pname version src appname;
-    meta = meta // { platforms = [ "x86_64-darwin" "aarch64-darwin" ]; };
+    meta = meta // {
+      platforms = [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
     sourceRoot = "${appname}.app";
-    nativeBuildInputs = [ makeWrapper undmg unzip ];
+    nativeBuildInputs = [
+      makeWrapper
+      undmg
+      unzip
+    ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/{Applications/${appname}.app,bin}

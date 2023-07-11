@@ -26,7 +26,11 @@ buildDunePackage rec {
     sha256 = "gOKvjmlcHDOgsTllj2sPL/qNtW/rlNlEVIrosahNsAQ=";
   };
 
-  propagatedBuildInputs = [ fix menhirLib menhirSdk ];
+  propagatedBuildInputs = [
+    fix
+    menhirLib
+    menhirSdk
+  ];
 
   passthru.updateScript = gitUpdater { };
 
@@ -34,7 +38,11 @@ buildDunePackage rec {
     description =
       "A simple fork of OCaml parser with support for error recovery";
     homepage = "https://github.com/serokell/ocaml-recovery-parser";
-    license = with licenses; [ lgpl2Only mit mpl20 ];
+    license = with licenses; [
+      lgpl2Only
+      mit
+      mpl20
+    ];
     maintainers = with maintainers; [ romildo ];
     mainProgram = "menhir-recover";
   };

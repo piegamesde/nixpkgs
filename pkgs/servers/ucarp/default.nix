@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
       Warning: This package has not received any upstream updates for a long
       time and can be considered as unmaintained.
     '';
-    license = with licenses; [ isc bsdOriginal bsd2 gpl2Plus ];
+    license = with licenses; [
+      isc
+      bsdOriginal
+      bsd2
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ oxzi ];
   };
 }

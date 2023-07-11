@@ -27,13 +27,11 @@ stdenv.mkDerivation rec {
     sha256 = "06j9cfxsyrrnyvl7hsf55ac5mgff939mmijliampphlizyg0r2q4";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/slembcke/Chipmunk2D/commit/9a051e6fb970c7afe09ce2d564c163b81df050a8.patch";
-      sha256 = "0ps8bjba1k544vcdx5w0qk7gcjq94yfigxf67j50s63yf70k2n70";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/slembcke/Chipmunk2D/commit/9a051e6fb970c7afe09ce2d564c163b81df050a8.patch";
+    sha256 = "0ps8bjba1k544vcdx5w0qk7gcjq94yfigxf67j50s63yf70k2n70";
+  }) ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [

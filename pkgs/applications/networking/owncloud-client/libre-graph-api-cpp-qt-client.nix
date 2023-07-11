@@ -28,7 +28,10 @@ mkDerivation rec {
     description =
       "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";
     homepage = "https://owncloud.org";
-    maintainers = with maintainers; [ qknight hellwolf ];
+    maintainers = with maintainers; [
+      qknight
+      hellwolf
+    ];
     platforms = platforms.unix;
     license = licenses.asl20;
     changelog =

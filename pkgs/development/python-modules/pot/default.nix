@@ -31,13 +31,28 @@ buildPythonPackage rec {
     hash = "sha256-PKmuPI83DPy7RkOgHHPdPJJz5NT/fpr123AVTzTLwgQ=";
   };
 
-  nativeBuildInputs = [ numpy cython ];
+  nativeBuildInputs = [
+    numpy
+    cython
+  ];
 
-  propagatedBuildInputs = [ numpy scipy ] ++ lib.optionals enableGPU [ cupy ]
-    ++ lib.optionals enableDimensionalityReduction [ autograd pymanopt ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ] ++ lib.optionals enableGPU [ cupy ]
+    ++ lib.optionals enableDimensionalityReduction [
+      autograd
+      pymanopt
+    ];
 
-  nativeCheckInputs =
-    [ cvxopt matplotlib numpy tensorflow scikit-learn pytestCheckHook ];
+  nativeCheckInputs = [
+    cvxopt
+    matplotlib
+    numpy
+    tensorflow
+    scikit-learn
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -95,7 +110,10 @@ buildPythonPackage rec {
     "test/test_unbalanced.py"
   ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ];
 
-  pythonImportsCheck = [ "ot" "ot.lp" ];
+  pythonImportsCheck = [
+    "ot"
+    "ot.lp"
+  ];
 
   meta = with lib; {
     description = "Python Optimal Transport Library";

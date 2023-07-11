@@ -26,9 +26,22 @@ stdenv.mkDerivation rec {
     sha256 = "0pwsj9rf6a6q7cnfbpcrfq2gjcy7sylqzqqr49g2zi39lrrh8533";
   };
 
-  nativeBuildInputs = [ cmake doxygen pkg-config ];
-  buildInputs =
-    [ bzip2 fuse libevent xz openssl systemd tcp_wrappers zlib c-ares ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+  ];
+  buildInputs = [
+    bzip2
+    fuse
+    libevent
+    xz
+    openssl
+    systemd
+    tcp_wrappers
+    zlib
+    c-ares
+  ];
 
   meta = with lib; {
     description = "A caching proxy specialized for Linux distribution files";

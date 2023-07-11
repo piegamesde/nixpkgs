@@ -31,9 +31,22 @@ stdenv.mkDerivation rec {
       --replace @@NIX_UTILLINUX@@ ${util-linux}/bin
   '';
 
-  nativeBuildInputs = [ autoreconfHook libtool perl pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    perl
+    pkg-config
+  ];
 
-  buildInputs = [ cryptsetup libHX libxml2 openssl pam pcre2 util-linux ];
+  buildInputs = [
+    cryptsetup
+    libHX
+    libxml2
+    openssl
+    pam
+    pcre2
+    util-linux
+  ];
 
   enableParallelBuilding = true;
 
@@ -52,7 +65,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "PAM module to mount volumes for a user session";
     homepage = "https://pam-mount.sourceforge.net/";
-    license = with licenses; [ gpl2 gpl3 lgpl21 lgpl3 ];
+    license = with licenses; [
+      gpl2
+      gpl3
+      lgpl21
+      lgpl3
+    ];
     maintainers = with maintainers; [ netali ];
     platforms = platforms.linux;
   };

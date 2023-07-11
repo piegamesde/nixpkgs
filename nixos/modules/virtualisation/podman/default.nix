@@ -21,7 +21,10 @@ let
   # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand
     "${podmanPackage.pname}-docker-compat-${podmanPackage.version}" {
-      outputs = [ "out" "man" ];
+      outputs = [
+        "out"
+        "man"
+      ];
       inherit (podmanPackage) meta;
     } ''
       mkdir -p $out/bin
@@ -177,10 +180,10 @@ in {
           ipv6_enabled = false;
           name = "podman";
           network_interface = "podman0";
-          subnets = [{
+          subnets = [ {
             gateway = "10.88.0.1";
             subnet = "10.88.0.0/16";
-          }];
+          } ];
         } // cfg.defaultNetwork.settings);
       };
 
@@ -235,8 +238,8 @@ in {
       '')
     ];
 
-    systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable
-      [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ];
+    systemd.tmpfiles.rules = lib.optionals
+      cfg.dockerSocket.enable [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ];
 
     users.groups.podman = { };
 

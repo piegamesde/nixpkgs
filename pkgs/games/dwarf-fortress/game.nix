@@ -19,8 +19,12 @@
 with lib;
 
 let
-  libpath =
-    makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc dwarf-fortress-unfuck SDL ];
+  libpath = makeLibraryPath [
+    stdenv.cc.cc
+    stdenv.cc.libc
+    dwarf-fortress-unfuck
+    SDL
+  ];
 
   # Map Dwarf Fortress platform names to Nixpkgs platform names.
   # Other srcs are avilable like 32-bit mac & win, but I have only

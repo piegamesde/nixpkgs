@@ -33,12 +33,24 @@ buildPythonPackage rec {
     hash = "sha256-Np2TfgKP3yfJqA4WZyyedGp9XtKJjDikUov5pvB/opk=";
   };
 
-  nativeBuildInputs =
-    [ cargo rustc rustPlatform.cargoSetupHook setuptools-rust ];
+  nativeBuildInputs = [
+    cargo
+    rustc
+    rustPlatform.cargoSetupHook
+    setuptools-rust
+  ];
 
-  propagatedBuildInputs = [ cffi glean-parser iso8601 semver ];
+  propagatedBuildInputs = [
+    cffi
+    glean-parser
+    iso8601
+    semver
+  ];
 
-  nativeCheckInputs = [ pytest-localserver pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-localserver
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # RuntimeError: No ping received.

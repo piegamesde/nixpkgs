@@ -39,7 +39,11 @@ let
       sha256 = "1v96vjiblphhbqhpp3m7wbvdvcnp76ncdlf4pdcr2z1dz8nh6shg";
     };
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg wrapGAppsHook ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      wrapGAppsHook
+    ];
 
     buildInputs = [
       cairo

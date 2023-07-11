@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
   pname = "colord";
   version = "1.4.6";
 
-  outputs = [ "out" "dev" "devdoc" "man" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url =
@@ -78,8 +84,8 @@ stdenv.mkDerivation rec {
     shared-mime-info
     vala
     wrapGAppsNoGuiHook
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     argyllcms

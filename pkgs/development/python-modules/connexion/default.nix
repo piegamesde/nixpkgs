@@ -51,8 +51,13 @@ buildPythonPackage rec {
     swagger-ui-bundle
   ];
 
-  nativeCheckInputs =
-    [ aiohttp-remotes decorator pytest-aiohttp pytestCheckHook testfixtures ];
+  nativeCheckInputs = [
+    aiohttp-remotes
+    decorator
+    pytest-aiohttp
+    pytestCheckHook
+    testfixtures
+  ];
 
   pythonImportsCheck = [ "connexion" ];
 

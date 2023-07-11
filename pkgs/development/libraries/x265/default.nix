@@ -56,15 +56,18 @@ let
     "-DENABLE_CLI=OFF"
     "-DENABLE_SHARED=OFF"
     "-DEXPORT_C_API=OFF"
-  ] ++ lib.optionals stdenv.hostPlatform.isPower [
-    "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
-  ];
+  ] ++ lib.optionals
+    stdenv.hostPlatform.isPower [ "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
+    ];
 
 in stdenv.mkDerivation rec {
   pname = "x265";
   version = "3.5";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # Check that x265Version.txt contains the expected version number
   # whether we fetch a source tarball or a tag from the git repo
@@ -111,7 +114,10 @@ in stdenv.mkDerivation rec {
       --replace "0.0" "${version}"
   '';
 
-  nativeBuildInputs = [ cmake nasm ] ++ lib.optionals (numaSupport) [ numactl ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ] ++ lib.optionals (numaSupport) [ numactl ];
 
   # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
   # (we are in x265_<version>/source/build)

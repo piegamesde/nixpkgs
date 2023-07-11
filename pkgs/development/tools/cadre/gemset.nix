@@ -1,6 +1,10 @@
 {
   cadre = {
-    dependencies = [ "thor" "tilt" "valise" ];
+    dependencies = [
+      "thor"
+      "tilt"
+      "valise"
+    ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "07q60s1bm2xar46g00ls5fjkn6dm2kfxhsz9ayblc31x5kr8d83a";

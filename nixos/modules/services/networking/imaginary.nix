@@ -39,7 +39,12 @@ in {
       '';
       type = types.submodule {
         freeformType = with types;
-          attrsOf (oneOf [ bool int (nonEmptyListOf str) str ]);
+          attrsOf (oneOf [
+            bool
+            int
+            (nonEmptyListOf str)
+            str
+          ]);
 
         options = {
           return-size = mkOption {
@@ -99,13 +104,19 @@ in {
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         RestrictRealtime = true;
         PrivateMounts = true;
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
         DevicePolicy = "closed";
       };
     };

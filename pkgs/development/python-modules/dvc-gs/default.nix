@@ -21,9 +21,15 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ gcsfs dvc-objects ];
+  propagatedBuildInputs = [
+    gcsfs
+    dvc-objects
+  ];
 
   # Network access is needed for tests
   doCheck = false;

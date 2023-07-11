@@ -36,7 +36,10 @@ stdenv.mkDerivation rec {
     description = "Command-line password safe";
     homepage = "https://github.com/janlelis/pws";
     license = licenses.mit;
-    maintainers = with maintainers; [ swistak35 nicknovitski ];
+    maintainers = with maintainers; [
+      swistak35
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

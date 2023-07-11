@@ -152,12 +152,12 @@ in {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "peering-manager" ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = "peering-manager";
         ensurePermissions = {
           "DATABASE \"peering-manager\"" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     environment.systemPackages = [ peeringManagerManageScript ];
@@ -165,7 +165,10 @@ in {
     systemd.targets.peering-manager = {
       description = "Target for all Peering Manager services";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" "redis-peering-manager.service" ];
+      after = [
+        "network-online.target"
+        "redis-peering-manager.service"
+      ];
     };
 
     systemd.services = let

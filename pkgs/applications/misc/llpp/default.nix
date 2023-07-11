@@ -37,14 +37,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Doj0zLYI1pi7eK01+29xFLYPtc8+fWzj10292+PmToE=";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "system-makedeps.patch";
-      url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/system-makedeps.patch?h=llpp&id=0d2913056aaf3dbf7431e57b7b08b55568ba076c";
-      hash = "sha256-t9PLXsM8+exCeYqJBe0LSDK0D2rpktmozS8qNcEAcHo=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "system-makedeps.patch";
+    url =
+      "https://aur.archlinux.org/cgit/aur.git/plain/system-makedeps.patch?h=llpp&id=0d2913056aaf3dbf7431e57b7b08b55568ba076c";
+    hash = "sha256-t9PLXsM8+exCeYqJBe0LSDK0D2rpktmozS8qNcEAcHo=";
+  }) ];
 
   postPatch = ''
     sed -i "2d;s/ver=.*/ver=${version}/" build.bash
@@ -52,7 +50,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper ocaml pkg-config ];
+  nativeBuildInputs = [
+    makeWrapper
+    ocaml
+    pkg-config
+  ];
   buildInputs = [
     mupdf
     libX11

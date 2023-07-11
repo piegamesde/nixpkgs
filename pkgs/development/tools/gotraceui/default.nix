@@ -29,8 +29,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ vulkan-headers libxkbcommon wayland libX11 libXcursor libXfixes libGL ];
+  buildInputs = [
+    vulkan-headers
+    libxkbcommon
+    wayland
+    libX11
+    libXcursor
+    libXfixes
+    libGL
+  ];
 
   ldflags = [ "-X gioui.org/app.ID=co.honnef.Gotraceui" ];
 

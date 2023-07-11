@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
   pname = "elementary-dock";
   version = "unstable-2021-05-07";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "elementary";

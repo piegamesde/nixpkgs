@@ -52,7 +52,13 @@ in stdenv.mkDerivation rec {
     polkit # for its gettext
   ];
 
-  buildInputs = [ glib gtk3 gdk-pixbuf pythonEnv xapp ];
+  buildInputs = [
+    glib
+    gtk3
+    gdk-pixbuf
+    pythonEnv
+    xapp
+  ];
 
   mesonFlags = [ "-Dbundle-zeroconf=false" ];
 

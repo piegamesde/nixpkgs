@@ -75,17 +75,26 @@ let
         "--enable-apparmor"
       ];
 
-      buildInputs = [ gobject-introspection gtk3 python ]
-        ++ lib.optional withRandr libxcb ++ lib.optional withGeoclue geoclue
+      buildInputs = [
+        gobject-introspection
+        gtk3
+        python
+      ] ++ lib.optional withRandr libxcb ++ lib.optional withGeoclue geoclue
         ++ lib.optional withDrm libdrm
         ++ lib.optional withQuartz ApplicationServices
-        ++ lib.optionals withCoreLocation [ CoreLocation Foundation Cocoa ]
-        ++ lib.optional withAppIndicator (if (pname != "gammastep") then
+        ++ lib.optionals withCoreLocation [
+          CoreLocation
+          Foundation
+          Cocoa
+        ] ++ lib.optional withAppIndicator (if (pname != "gammastep") then
           libappindicator
         else
           libayatana-appindicator);
 
-      pythonPath = [ pygobject3 pyxdg ];
+      pythonPath = [
+        pygobject3
+        pyxdg
+      ];
 
       preConfigure = "./bootstrap";
 
@@ -141,7 +150,10 @@ in rec {
       license = licenses.gpl3Plus;
       homepage = "http://jonls.dk/redshift";
       platforms = platforms.unix;
-      maintainers = with maintainers; [ globin yana ];
+      maintainers = with maintainers; [
+        globin
+        yana
+      ];
     };
   };
 

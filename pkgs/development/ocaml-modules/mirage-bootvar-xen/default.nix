@@ -21,7 +21,11 @@ buildDunePackage rec {
     hash = "sha256:0nk80giq9ng3svbnm68fjby2f1dnarddm3lk7mw7w59av71q0rcv";
   };
 
-  propagatedBuildInputs = [ mirage-xen lwt parse-argv ];
+  propagatedBuildInputs = [
+    mirage-xen
+    lwt
+    parse-argv
+  ];
 
   meta = with lib; {
     description = "Handle boot-time arguments for Xen platform";

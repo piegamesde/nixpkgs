@@ -41,12 +41,20 @@ buildPythonPackage rec {
     sed -i -e "s/'protobuf[^']*'/'protobuf'/" setup.py
   '';
 
-  nativeBuildInputs = [ which protobuf ];
+  nativeBuildInputs = [
+    which
+    protobuf
+  ];
 
   # required to make tests deterministic
   PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
 
-  propagatedBuildInputs = [ crc32c numpy six soundfile ];
+  propagatedBuildInputs = [
+    crc32c
+    numpy
+    six
+    soundfile
+  ];
 
   nativeCheckInputs = [
     boto3
@@ -75,7 +83,10 @@ buildPythonPackage rec {
     description = "Library for writing tensorboard-compatible logs";
     homepage = "https://github.com/lanpa/tensorboardX";
     license = licenses.mit;
-    maintainers = with maintainers; [ lebastr akamaus ];
+    maintainers = with maintainers; [
+      lebastr
+      akamaus
+    ];
     platforms = platforms.all;
   };
 }

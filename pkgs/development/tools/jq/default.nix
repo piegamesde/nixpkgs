@@ -20,7 +20,14 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-tests-when-building-without-regex-supports.patch ];
 
-  outputs = [ "bin" "doc" "man" "dev" "lib" "out" ];
+  outputs = [
+    "bin"
+    "doc"
+    "man"
+    "dev"
+    "lib"
+    "out"
+  ];
 
   # Upstream script that writes the version that's eventually compiled
   # and printed in `jq --help` relies on a .git directory which our src
@@ -63,7 +70,11 @@ stdenv.mkDerivation rec {
     description = "A lightweight and flexible command-line JSON processor";
     homepage = "https://stedolan.github.io/jq/";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin globin artturin ];
+    maintainers = with maintainers; [
+      raskin
+      globin
+      artturin
+    ];
     platforms = platforms.unix;
     downloadPage = "https://stedolan.github.io/jq/download/";
   };

@@ -26,8 +26,17 @@ buildDunePackage rec {
     hash = "sha256-ZN8La2+N19wVo/vBUfIj17JU6FSp0jX7h2nDoIpR1XY=";
   };
 
-  propagatedBuildInputs =
-    [ cmdliner rresult astring fmt logs bos fpath emile uri ];
+  propagatedBuildInputs = [
+    cmdliner
+    rresult
+    astring
+    fmt
+    logs
+    bos
+    fpath
+    emile
+    uri
+  ];
 
   doCheck = false;
 

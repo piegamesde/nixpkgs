@@ -16,7 +16,11 @@ bundlerApp {
     description = "Simple SQL linter";
     homepage = "https://github.com/purcell/sqlint";
     license = licenses.mit;
-    maintainers = with maintainers; [ ariutta nicknovitski purcell ];
+    maintainers = with maintainers; [
+      ariutta
+      nicknovitski
+      purcell
+    ];
     platforms = platforms.unix;
   };
 }

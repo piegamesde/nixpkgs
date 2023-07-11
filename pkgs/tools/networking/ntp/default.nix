@@ -33,8 +33,13 @@ stdenv.mkDerivation rec {
     "--with-yielding-select=yes"
   ] ++ lib.optional stdenv.isLinux "--enable-linuxcaps";
 
-  buildInputs = [ openssl perl ]
-    ++ lib.optionals stdenv.isLinux [ pps-tools libcap ];
+  buildInputs = [
+    openssl
+    perl
+  ] ++ lib.optionals stdenv.isLinux [
+    pps-tools
+    libcap
+  ];
 
   hardeningEnable = [ "pie" ];
 
@@ -49,7 +54,10 @@ stdenv.mkDerivation rec {
       # very close to isc and bsd2
       url = "https://www.eecis.udel.edu/~mills/ntp/html/copyright.html";
     };
-    maintainers = with maintainers; [ eelco thoughtpolice ];
+    maintainers = with maintainers; [
+      eelco
+      thoughtpolice
+    ];
     platforms = platforms.unix;
   };
 }

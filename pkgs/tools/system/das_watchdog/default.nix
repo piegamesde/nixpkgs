@@ -20,7 +20,11 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libgtop xmessage which ];
+  buildInputs = [
+    libgtop
+    xmessage
+    which
+  ];
 
   installPhase = ''
     mkdir -p $out/bin/

@@ -26,7 +26,12 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [ h5py numpy six wasserstein ];
+  propagatedBuildInputs = [
+    h5py
+    numpy
+    six
+    wasserstein
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   pytestFlagsArray = [ "energyflow/tests" ];

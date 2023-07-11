@@ -23,7 +23,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/fetchit" ];
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
   buildInputs = [ lvm2 ];
 
   # Flags are derived from

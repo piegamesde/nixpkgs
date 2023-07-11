@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
   pname = "sratom";
   version = "0.6.14";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://download.drobilla.net/${pname}-${version}.tar.xz";
@@ -24,9 +27,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ lv2 serd sord ];
+  buildInputs = [
+    lv2
+    serd
+    sord
+  ];
 
   postPatch = ''
     patchShebangs --build scripts/dox_to_sphinx.py

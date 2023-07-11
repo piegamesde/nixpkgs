@@ -13,14 +13,17 @@ let
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "xserver" "windowManager" "fvwm" ] [
-      "services"
-      "xserver"
-      "windowManager"
-      "fvwm2"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "xserver"
+    "windowManager"
+    "fvwm"
+  ] [
+    "services"
+    "xserver"
+    "windowManager"
+    "fvwm2"
+  ]) ];
 
   ###### interface
 

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-M/lfdZe8DYiwl9NeexMg0VQZ/8V3mFHZ0qbMzsV4EbM=";
   };
 
-  nativeBuildInputs = [ unzip cmake ];
+  nativeBuildInputs = [
+    unzip
+    cmake
+  ];
 
   preConfigure = ''
     export ROOT=$PWD

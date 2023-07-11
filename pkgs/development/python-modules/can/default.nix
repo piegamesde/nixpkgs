@@ -37,8 +37,13 @@ buildPythonPackage rec {
       --replace " --cov=can --cov-config=tox.ini --cov-report=lcov --cov-report=term" ""
   '';
 
-  propagatedBuildInputs =
-    [ msgpack packaging setuptools typing-extensions wrapt ];
+  propagatedBuildInputs = [
+    msgpack
+    packaging
+    setuptools
+    typing-extensions
+    wrapt
+  ];
 
   passthru.optional-dependencies = {
     serial = [ pyserial ];
@@ -46,9 +51,13 @@ buildPythonPackage rec {
     pcan = [ uptime ];
   };
 
-  nativeCheckInputs =
-    [ future hypothesis parameterized pytest-timeout pytestCheckHook ]
-    ++ passthru.optional-dependencies.serial;
+  nativeCheckInputs = [
+    future
+    hypothesis
+    parameterized
+    pytest-timeout
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.serial;
 
   disabledTestPaths = [
     # We don't support all interfaces
@@ -82,6 +91,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/hardbyte/python-can/releases/tag/v${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ fab sorki ];
+    maintainers = with maintainers; [
+      fab
+      sorki
+    ];
   };
 }

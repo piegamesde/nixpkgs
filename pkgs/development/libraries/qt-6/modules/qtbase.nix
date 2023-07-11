@@ -188,9 +188,18 @@ in stdenv.mkDerivation rec {
     ++ lib.optional (libmysqlclient != null) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql;
 
-  nativeBuildInputs =
-    [ bison flex gperf lndir perl pkg-config which cmake xmlstarlet ninja ]
-    ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
+  nativeBuildInputs = [
+    bison
+    flex
+    gperf
+    lndir
+    perl
+    pkg-config
+    which
+    cmake
+    xmlstarlet
+    ninja
+  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
 
   propagatedNativeBuildInputs = [ lndir ];
 
@@ -238,7 +247,10 @@ in stdenv.mkDerivation rec {
     "-framework GSS"
   ]);
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   moveToDev = false;
 
@@ -255,8 +267,17 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.qt.io/";
     description = "A cross-platform application framework for C++";
-    license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
-    maintainers = with maintainers; [ milahu nickcao LunNova ];
+    license = with licenses; [
+      fdl13Plus
+      gpl2Plus
+      lgpl21Plus
+      lgpl3Plus
+    ];
+    maintainers = with maintainers; [
+      milahu
+      nickcao
+      LunNova
+    ];
     platforms = platforms.unix;
   };
 }

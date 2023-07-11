@@ -115,7 +115,10 @@ in {
 
       max-free = cfg.max-free;
 
-      trusted-users = [ "root" user ];
+      trusted-users = [
+        "root"
+        user
+      ];
     };
 
     services = {
@@ -203,11 +206,11 @@ in {
 
       memorySize = cfg.memorySize;
 
-      forwardPorts = [{
+      forwardPorts = [ {
         from = "host";
         guest.port = 22;
         host.port = cfg.hostPort;
-      }];
+      } ];
 
       # Disable graphics for the builder since users will likely want to run it
       # non-interactively in the background.

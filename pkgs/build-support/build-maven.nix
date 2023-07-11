@@ -49,10 +49,10 @@ let
     in lib.optional (url != "") {
       layout = "${layout}/${fetch.name}";
       drv = fetch;
-    } ++ lib.optionals (dep ? metadata) ([{
+    } ++ lib.optionals (dep ? metadata) ([ {
       layout = "${layout}/maven-metadata-${repository-id}.xml";
       drv = fetchMetadata;
-    }] ++ lib.optional (fetch != "") {
+    } ] ++ lib.optional (fetch != "") {
       layout = "${layout}/${
           builtins.replaceStrings [ version ] [ dep.unresolved-version ]
           fetch.name

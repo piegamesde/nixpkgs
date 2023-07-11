@@ -25,9 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-ckz2EQj8gtD+YxNCxisswfSu9FcD//ZeSZRrLBhrld0=";
   };
 
-  propagatedBuildInputs = [ marshmallow typing-inspect ];
+  propagatedBuildInputs = [
+    marshmallow
+    typing-inspect
+  ];
 
-  nativeCheckInputs = [ marshmallow-enum pytestCheckHook typeguard ];
+  nativeCheckInputs = [
+    marshmallow-enum
+    pytestCheckHook
+    typeguard
+  ];
 
   pytestFlagsArray = [
     # DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12.

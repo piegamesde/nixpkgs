@@ -28,12 +28,18 @@ in buildPythonPackage rec {
     sed '32ipackages = kaitai/compress' -i setup.cfg
   '';
 
-  propagatedBuildInputs = [ brotli lz4 ];
+  propagatedBuildInputs = [
+    brotli
+    lz4
+  ];
 
   # no tests
   dontCheck = true;
 
-  pythonImportsCheck = [ "kaitaistruct" "kaitai.compress" ];
+  pythonImportsCheck = [
+    "kaitaistruct"
+    "kaitai.compress"
+  ];
 
   meta = with lib; {
     description = "Kaitai Struct: runtime library for Python";

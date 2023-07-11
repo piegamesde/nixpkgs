@@ -52,7 +52,13 @@ mkDerivation {
   ];
   isLibrary = true;
   isExecutable = true;
-  setupHaskellDepends = [ base Cabal directory filepath process ];
+  setupHaskellDepends = [
+    base
+    Cabal
+    directory
+    filepath
+    process
+  ];
   libraryHaskellDepends = [
     ansi-terminal
     ansi-wl-pprint

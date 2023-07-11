@@ -26,11 +26,25 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake pkg-config pandoc docutils python3 ];
-  buildInputs = [ libnl ethtool iproute2 udev perl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    pandoc
+    docutils
+    python3
+  ];
+  buildInputs = [
+    libnl
+    ethtool
+    iproute2
+    udev
+    perl
+  ];
 
-  cmakeFlags =
-    [ "-DCMAKE_INSTALL_RUNDIR=/run" "-DCMAKE_INSTALL_SHAREDSTATEDIR=/var/lib" ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_RUNDIR=/run"
+    "-DCMAKE_INSTALL_SHAREDSTATEDIR=/var/lib"
+  ];
 
   postPatch = ''
     substituteInPlace srp_daemon/srp_daemon.sh.in \

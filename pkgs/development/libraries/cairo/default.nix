@@ -105,24 +105,40 @@ in stdenv.mkDerivation (finalAttrs:
       })
     ];
 
-    outputs = [ "out" "dev" "devdoc" ];
+    outputs = [
+      "out"
+      "dev"
+      "devdoc"
+    ];
     outputBin = "dev"; # very small
     separateDebugInfo = true;
 
     nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [ libiconv libintl ] ++ optionals stdenv.isDarwin
-      (with darwin.apple_sdk.frameworks; [
-        CoreGraphics
-        CoreText
-        ApplicationServices
-        Carbon
-      ]);
+    buildInputs = [
+      libiconv
+      libintl
+    ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      CoreGraphics
+      CoreText
+      ApplicationServices
+      Carbon
+    ]);
 
-    propagatedBuildInputs = [ fontconfig expat freetype pixman zlib libpng ]
-      ++ optionals x11Support [ libXext libXrender ]
-      ++ optionals xcbSupport [ libxcb xcbutil ] ++ optional gobjectSupport glib
-      ++ optional glSupport
+    propagatedBuildInputs = [
+      fontconfig
+      expat
+      freetype
+      pixman
+      zlib
+      libpng
+    ] ++ optionals x11Support [
+      libXext
+      libXrender
+    ] ++ optionals xcbSupport [
+      libxcb
+      xcbutil
+    ] ++ optional gobjectSupport glib ++ optional glSupport
       libGL; # TODO: maybe liblzo but what would it be for here?
 
     configureFlags = [ "--enable-tee" ] ++ (if stdenv.isDarwin then [
@@ -176,9 +192,14 @@ in stdenv.mkDerivation (finalAttrs:
         when available (e.g., through the X Render Extension).
       '';
       homepage = "http://cairographics.org/";
-      license = with licenses; [ lgpl2Plus mpl10 ];
-      pkgConfigModules = [ "cairo-ps" "cairo-svg" ]
-        ++ lib.optional gobjectSupport "cairo-gobject"
+      license = with licenses; [
+        lgpl2Plus
+        mpl10
+      ];
+      pkgConfigModules = [
+        "cairo-ps"
+        "cairo-svg"
+      ] ++ lib.optional gobjectSupport "cairo-gobject"
         ++ lib.optional pdfSupport "cairo-pdf";
       platforms = platforms.all;
     };

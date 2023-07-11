@@ -29,7 +29,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ aiohttp beautifulsoup4 cryptography lxml pyjwt ];
+  propagatedBuildInputs = [
+    aiohttp
+    beautifulsoup4
+    cryptography
+    lxml
+    pyjwt
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

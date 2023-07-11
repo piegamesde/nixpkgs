@@ -23,9 +23,17 @@ mkDerivation rec {
     sha256 = "0gcvyn7aabdz5yj0jzv14hlgjgbm8d9ib5r73i842f0hv4cv9m0q";
   };
 
-  nativeBuildInputs = [ cmake pkg-config lxqt.lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    lxqt.lxqt-build-tools
+  ];
 
-  buildInputs = [ qtbase qttools libconfig ];
+  buildInputs = [
+    qtbase
+    qttools
+    libconfig
+  ];
 
   preConfigure = ''
     substituteInPlace autostart/CMakeLists.txt \

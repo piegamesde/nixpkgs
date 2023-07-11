@@ -46,7 +46,10 @@ in {
           When providing the empty list, `[]`, lshd listens on all
           network interfaces.
         '';
-        example = [ "localhost" "1.2.3.4:443" ];
+        example = [
+          "localhost"
+          "1.2.3.4:443"
+        ];
       };
 
       hostKey = mkOption {
@@ -130,7 +133,10 @@ in {
 
   config = mkIf cfg.enable {
 
-    services.lshd.subsystems = [[ "sftp" "${pkgs.lsh}/sbin/sftp-server" ]];
+    services.lshd.subsystems = [ [
+      "sftp"
+      "${pkgs.lsh}/sbin/sftp-server"
+    ] ];
 
     systemd.services.lshd = {
       description = "GNU lshd SSH2 daemon";

@@ -37,7 +37,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ attrs click dockerfile-parse commoncode ];
+  propagatedBuildInputs = [
+    attrs
+    click
+    dockerfile-parse
+    commoncode
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -28,7 +28,11 @@ stdenv.mkDerivation rec {
     cp -v  lib/libbtor2parser.* $lib/lib
   '';
 
-  outputs = [ "out" "dev" "lib" ];
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
 
   cmakeFlags = [
     # RPATH of binary /nix/store/.../bin/btorsim contains a forbidden reference to /build/

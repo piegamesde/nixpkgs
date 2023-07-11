@@ -18,11 +18,17 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/mimir" "cmd/mimirtool" ];
+  subPackages = [
+    "cmd/mimir"
+    "cmd/mimirtool"
+  ];
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--version-regex" "mimir-([0-9.]+)" ];
+      extraArgs = [
+        "--version-regex"
+        "mimir-([0-9.]+)"
+      ];
     };
     tests = { inherit (nixosTests) mimir; };
   };
@@ -42,7 +48,10 @@ buildGoModule rec {
       "Grafana Mimir provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus. ";
     homepage = "https://github.com/grafana/mimir";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ happysalada bryanhonof ];
+    maintainers = with maintainers; [
+      happysalada
+      bryanhonof
+    ];
     platforms = platforms.unix;
   };
 }

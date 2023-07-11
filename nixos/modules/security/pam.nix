@@ -759,7 +759,11 @@ let
 
           type = mkOption {
             description = lib.mdDoc "Type of this limit";
-            type = enum [ "-" "hard" "soft" ];
+            type = enum [
+              "-"
+              "hard"
+              "soft"
+            ];
             default = "-";
           };
 
@@ -789,7 +793,10 @@ let
 
           value = mkOption {
             description = lib.mdDoc "Value of this limit";
-            type = oneOf [ str int ];
+            type = oneOf [
+              str
+              int
+            ];
           };
         };
       }));
@@ -806,14 +813,16 @@ let
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "security" "pam" "enableU2F" ] [
-      "security"
-      "pam"
-      "u2f"
-      "enable"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "security"
+    "pam"
+    "enableU2F"
+  ] [
+    "security"
+    "pam"
+    "u2f"
+    "enable"
+  ]) ];
 
   ###### interface
 
@@ -922,7 +931,12 @@ in {
 
       control = mkOption {
         default = "sufficient";
-        type = types.enum [ "required" "requisite" "sufficient" "optional" ];
+        type = types.enum [
+          "required"
+          "requisite"
+          "sufficient"
+          "optional"
+        ];
         description = lib.mdDoc ''
           This option sets pam "control".
           If you want to have multi factor authentication, use "required".
@@ -1010,7 +1024,12 @@ in {
 
       control = mkOption {
         default = "sufficient";
-        type = types.enum [ "required" "requisite" "sufficient" "optional" ];
+        type = types.enum [
+          "required"
+          "requisite"
+          "sufficient"
+          "optional"
+        ];
         description = lib.mdDoc ''
           This option sets pam "control".
           If you want to have multi factor authentication, use "required".
@@ -1125,7 +1144,12 @@ in {
 
       control = mkOption {
         default = "sufficient";
-        type = types.enum [ "required" "requisite" "sufficient" "optional" ];
+        type = types.enum [
+          "required"
+          "requisite"
+          "sufficient"
+          "optional"
+        ];
         description = lib.mdDoc ''
           This option sets pam "control".
           If you want to have multi factor authentication, use "required".
@@ -1157,7 +1181,12 @@ in {
       };
       control = mkOption {
         default = "sufficient";
-        type = types.enum [ "required" "requisite" "sufficient" "optional" ];
+        type = types.enum [
+          "required"
+          "requisite"
+          "sufficient"
+          "optional"
+        ];
         description = lib.mdDoc ''
           This option sets pam "control".
           If you want to have multi factor authentication, use "required".
@@ -1183,7 +1212,10 @@ in {
       };
       mode = mkOption {
         default = "client";
-        type = types.enum [ "client" "challenge-response" ];
+        type = types.enum [
+          "client"
+          "challenge-response"
+        ];
         description = lib.mdDoc ''
           Mode of operation.
 
@@ -1240,23 +1272,24 @@ in {
   ###### implementation
 
   config = {
-    assertions = [{
+    assertions = [ {
       assertion = config.users.motd == null || config.users.motdFile == null;
       message = ''
         Only one of users.motd and users.motdFile can be set.
       '';
-    }];
+    } ];
 
     environment.systemPackages =
       # Include the PAM modules in the system path mostly for the manpages.
       [ pkgs.pam ] ++ optional config.users.ldap.enable pam_ldap
       ++ optional config.services.sssd.enable pkgs.sssd
-      ++ optionals config.security.pam.krb5.enable [ pam_krb5 pam_ccreds ]
-      ++ optionals config.security.pam.enableOTPW [ pkgs.otpw ]
+      ++ optionals config.security.pam.krb5.enable [
+        pam_krb5
+        pam_ccreds
+      ] ++ optionals config.security.pam.enableOTPW [ pkgs.otpw ]
       ++ optionals config.security.pam.oath.enable [ pkgs.oath-toolkit ]
-      ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ]
-      ++ optionals config.security.pam.enableFscrypt
-      [ pkgs.fscrypt-experimental ]
+      ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ] ++ optionals
+      config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
       ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
 
     boot.supportedFilesystems =

@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost catch2 ];
+  buildInputs = [
+    boost
+    catch2
+  ];
 
   cmakeFlags = [
     "-DENABLE_BOOST=true"
@@ -39,6 +42,9 @@ stdenv.mkDerivation rec {
     homepage = "https://fcppt.org";
     license = licenses.boost;
     maintainers = with maintainers; [ pmiddend ];
-    platforms = [ "x86_64-linux" "x86_64-windows" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-windows"
+    ];
   };
 }

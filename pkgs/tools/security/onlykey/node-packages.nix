@@ -6745,11 +6745,9 @@ in {
         sources."chardet-0.7.0"
         sources."check-error-1.0.2"
         (sources."chokidar-2.1.8" // {
-          dependencies = [
-            (sources."glob-parent-3.1.0" // {
-              dependencies = [ sources."is-glob-3.1.0" ];
-            })
-          ];
+          dependencies = [ (sources."glob-parent-3.1.0" // {
+            dependencies = [ sources."is-glob-3.1.0" ];
+          }) ];
         })
         (sources."class-utils-0.3.6" // {
           dependencies = [
@@ -6906,8 +6904,10 @@ in {
         })
         sources."external-editor-3.1.0"
         (sources."extglob-2.0.4" // {
-          dependencies =
-            [ sources."define-property-1.0.0" sources."extend-shallow-2.0.1" ];
+          dependencies = [
+            sources."define-property-1.0.0"
+            sources."extend-shallow-2.0.1"
+          ];
         })
         sources."extsprintf-1.3.0"
         sources."fancy-log-1.3.3"
@@ -6966,8 +6966,10 @@ in {
         })
         sources."glob-parent-5.1.2"
         (sources."glob-stream-6.1.0" // {
-          dependencies =
-            [ sources."glob-parent-3.1.0" sources."is-glob-3.1.0" ];
+          dependencies = [
+            sources."glob-parent-3.1.0"
+            sources."is-glob-3.1.0"
+          ];
         })
         sources."glob-watcher-5.0.5"
         sources."global-modules-1.0.0"
@@ -6981,10 +6983,16 @@ in {
         sources."growl-1.10.5"
         sources."gulp-4.0.2"
         (sources."gulp-cli-2.3.0" // {
-          dependencies = [ sources."camelcase-3.0.0" sources."yargs-7.1.2" ];
+          dependencies = [
+            sources."camelcase-3.0.0"
+            sources."yargs-7.1.2"
+          ];
         })
         (sources."gulp-sourcemaps-2.6.5" // {
-          dependencies = [ sources."acorn-5.7.4" sources."source-map-0.6.1" ];
+          dependencies = [
+            sources."acorn-5.7.4"
+            sources."source-map-0.6.1"
+          ];
         })
         sources."gulplog-1.0.0"
         sources."har-schema-2.0.0"
@@ -7112,8 +7120,10 @@ in {
         sources."map-cache-0.2.2"
         sources."map-visit-1.0.0"
         (sources."matchdep-2.0.0" // {
-          dependencies =
-            [ sources."findup-sync-2.0.0" sources."is-glob-3.1.0" ];
+          dependencies = [
+            sources."findup-sync-2.0.0"
+            sources."is-glob-3.1.0"
+          ];
         })
         sources."math-random-1.0.4"
         sources."memoizee-0.4.15"
@@ -7230,7 +7240,10 @@ in {
         sources."parent-module-1.0.1"
         sources."parse-filepath-1.0.2"
         (sources."parse-glob-3.0.4" // {
-          dependencies = [ sources."is-extglob-1.0.0" sources."is-glob-2.0.1" ];
+          dependencies = [
+            sources."is-extglob-1.0.0"
+            sources."is-glob-2.0.1"
+          ];
         })
         sources."parse-json-2.2.0"
         sources."parse-node-version-1.0.1"
@@ -7498,8 +7511,10 @@ in {
           dependencies = [ sources."camelcase-3.0.0" ];
         })
         (sources."yargs-unparser-2.0.0" // {
-          dependencies =
-            [ sources."camelcase-6.3.0" sources."decamelize-4.0.0" ];
+          dependencies = [
+            sources."camelcase-6.3.0"
+            sources."decamelize-4.0.0"
+          ];
         })
         sources."yauzl-2.10.0"
         sources."yocto-queue-0.1.0"

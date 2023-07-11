@@ -23,7 +23,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fontconfig harfbuzz libX11 libXext libXft ncurses ];
+  buildInputs = [
+    fontconfig
+    harfbuzz
+    libX11
+    libXext
+    libXft
+    ncurses
+  ];
 
   patches = [
     # eliminate useless calls to git inside Makefile

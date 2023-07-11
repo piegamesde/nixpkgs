@@ -31,7 +31,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k8IQumV8rjV3U4ACm5FxCqzSdwqKBaGAqsv45hsP/7c=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    python3
+    vala
+  ];
 
   buildInputs = [
     elementary-settings-daemon # settings schema

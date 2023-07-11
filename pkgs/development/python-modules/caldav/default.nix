@@ -27,10 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-nA7if28M4rDZwlF+ga/1FqD838zeu0OblrPUer3w3qM=";
   };
 
-  propagatedBuildInputs =
-    [ vobject lxml requests icalendar recurring-ical-events ];
+  propagatedBuildInputs = [
+    vobject
+    lxml
+    requests
+    icalendar
+    recurring-ical-events
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook tzlocal pytz ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    tzlocal
+    pytz
+  ];
 
   # xandikos and radicale are only optional test dependencies, not available for python3
   postPatch = ''
@@ -47,6 +56,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/python-caldav/caldav/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marenz dotlambda ];
+    maintainers = with maintainers; [
+      marenz
+      dotlambda
+    ];
   };
 }

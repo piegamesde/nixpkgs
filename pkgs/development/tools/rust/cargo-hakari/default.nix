@@ -17,8 +17,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-hrWsQXjWzhSVVj+bUviGEn+E7Lytzgf1r8VmQxJQubE=";
 
-  cargoBuildFlags = [ "-p" "cargo-hakari" ];
-  cargoTestFlags = [ "-p" "cargo-hakari" ];
+  cargoBuildFlags = [
+    "-p"
+    "cargo-hakari"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "cargo-hakari"
+  ];
 
   meta = with lib; {
     description =
@@ -31,7 +37,13 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://crates.io/crates/cargo-hakari";
     changelog =
       "https://github.com/guppy-rs/guppy/blob/cargo-hakari-${version}/tools/cargo-hakari/CHANGELOG.md";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ figsoda macalinao ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      macalinao
+    ];
   };
 }

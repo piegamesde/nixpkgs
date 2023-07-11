@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-XGJVmlxqbJ/1frbzn2TI7BJm449xeLk43xMMqFsLYko=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib systemd ];
+  buildInputs = [
+    glib
+    systemd
+  ];
 
   meta = with lib; {
     description = "gnome-session-ctl extracted from gnome-session for nixpkgs";

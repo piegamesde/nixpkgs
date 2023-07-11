@@ -160,20 +160,41 @@ in stdenv.mkDerivation rec {
     systemd
     taglib
     zlib
-  ] ++ (with xorg; [ libSM libXpm libXv libXvMC xcbutilkeysyms ])
-    ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
-    ++ optional jackSupport libjack2
-    ++ optionals chromecastSupport [ libmicrodns protobuf ]
-    ++ optionals skins2Support
-    (with xorg; [ freetype libXext libXinerama libXpm ])
-    ++ optionals waylandSupport [ wayland wayland-protocols ]
-    ++ optionals withQt5 [ qtbase qtsvg qtx11extras ]
-    ++ optional (waylandSupport && withQt5) qtwayland;
+  ] ++ (with xorg; [
+    libSM
+    libXpm
+    libXv
+    libXvMC
+    xcbutilkeysyms
+  ]) ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
+    ++ optional jackSupport libjack2 ++ optionals chromecastSupport [
+      libmicrodns
+      protobuf
+    ] ++ optionals skins2Support (with xorg; [
+      freetype
+      libXext
+      libXinerama
+      libXpm
+    ]) ++ optionals waylandSupport [
+      wayland
+      wayland-protocols
+    ] ++ optionals withQt5 [
+      qtbase
+      qtsvg
+      qtx11extras
+    ] ++ optional (waylandSupport && withQt5) qtwayland;
 
-  nativeBuildInputs =
-    [ autoreconfHook perl pkg-config removeReferencesTo unzip wrapGAppsHook ]
-    ++ optionals withQt5 [ wrapQtAppsHook ]
-    ++ optionals waylandSupport [ wayland wayland-protocols ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    pkg-config
+    removeReferencesTo
+    unzip
+    wrapGAppsHook
+  ] ++ optionals withQt5 [ wrapQtAppsHook ] ++ optionals waylandSupport [
+    wayland
+    wayland-protocols
+  ];
 
   enableParallelBuilding = true;
 

@@ -44,7 +44,13 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ glib gtk3 libgnome-games-support clutter clutter-gtk ];
+  buildInputs = [
+    glib
+    gtk3
+    libgnome-games-support
+    clutter
+    clutter-gtk
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file

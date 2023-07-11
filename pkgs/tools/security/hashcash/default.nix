@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "15kqaimwb2y8wvzpn73021bvay9mz1gqqfc40gk4hj6f84nz34h1";
   };
 
-  makeFlags = [ "generic-openssl" "LIBCRYPTO=-lcrypto" ];
+  makeFlags = [
+    "generic-openssl"
+    "LIBCRYPTO=-lcrypto"
+  ];
 
   installFlags = [
     "INSTALL_PATH=${placeholder "out"}/bin"

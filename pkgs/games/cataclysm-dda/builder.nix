@@ -4,7 +4,11 @@
   type,
 }:
 
-assert lib.elem type [ "mod" "soundpack" "tileset" ];
+assert lib.elem type [
+  "mod"
+  "soundpack"
+  "tileset"
+];
 
 {
   modName,

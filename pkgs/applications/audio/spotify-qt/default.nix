@@ -19,11 +19,18 @@ mkDerivation rec {
     sha256 = "sha256-8rLpasgXiaL2KpGnYMQdNN2ayjcSkmz5hDkNBnKNWHk=";
   };
 
-  buildInputs = [ libxcb qtbase qtsvg ];
+  buildInputs = [
+    libxcb
+    qtbase
+    qtsvg
+  ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_INSTALL_PREFIX=" ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_INSTALL_PREFIX="
+  ];
 
   installFlags = [ "DESTDIR=$(out)" ];
 

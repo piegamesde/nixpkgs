@@ -29,8 +29,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ imageio ipykernel ipython napari-plugin-engine qtconsole ];
+  propagatedBuildInputs = [
+    imageio
+    ipykernel
+    ipython
+    napari-plugin-engine
+    qtconsole
+  ];
 
   # Circular dependency: napari
   doCheck = false;

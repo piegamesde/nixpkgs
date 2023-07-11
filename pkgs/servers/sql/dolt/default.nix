@@ -16,7 +16,11 @@ buildGoModule rec {
   };
 
   modRoot = "./go";
-  subPackages = [ "cmd/dolt" "cmd/git-dolt" "cmd/git-dolt-smudge" ];
+  subPackages = [
+    "cmd/dolt"
+    "cmd/git-dolt"
+    "cmd/git-dolt-smudge"
+  ];
   vendorSha256 = "sha256-hr3PotsHk/BpOm4QLM84Jd5ZBGaj/xp/qWPfbBpKF00=";
 
   doCheck = false;

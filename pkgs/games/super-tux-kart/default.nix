@@ -89,7 +89,11 @@ in stdenv.mkDerivation rec {
       --replace 'NOT (APPLE OR HAIKU)) AND USE_SYSTEM_WIIUSE' 'NOT (HAIKU)) AND USE_SYSTEM_WIIUSE'
   '';
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     shaderc
@@ -152,7 +156,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://supertuxkart.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pyrolagus peterhoeg ];
+    maintainers = with maintainers; [
+      pyrolagus
+      peterhoeg
+    ];
     platforms = with platforms; unix;
     changelog =
       "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";

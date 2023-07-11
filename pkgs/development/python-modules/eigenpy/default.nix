@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ boost ];
 
-  propagatedBuildInputs = [ eigen numpy ];
+  propagatedBuildInputs = [
+    eigen
+    numpy
+  ];
 
   meta = with lib; {
     description = "Bindings between Numpy and Eigen using Boost.Python";

@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "01znnalirbqxpz62fbw2c14c8xn117jc92xv6dhb3hln92k9x37f";
   };
 
-  nativeBuildInputs = [ pkg-config wafHook python3 gtk2 ];
-  buildInputs = [ graphviz gtkmm2 ];
+  nativeBuildInputs = [
+    pkg-config
+    wafHook
+    python3
+    gtk2
+  ];
+  buildInputs = [
+    graphviz
+    gtkmm2
+  ];
 
   strictDeps = true;
 

@@ -29,11 +29,17 @@ let
   pname = "whitesur-gtk-theme";
   single = x: lib.optional (x != null) x;
 
-in lib.checkListOfEnum "${pname}: alt variants" [ "normal" "alt" "all" ]
-altVariants lib.checkListOfEnum "${pname}: color variants" [ "light" "dark" ]
-colorVariants lib.checkListOfEnum
-"${pname}: opacity variants" [ "normal" "solid" ] opacityVariants
-lib.checkListOfEnum "${pname}: theme variants" [
+in lib.checkListOfEnum "${pname}: alt variants" [
+  "normal"
+  "alt"
+  "all"
+] altVariants lib.checkListOfEnum "${pname}: color variants" [
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: opacity variants" [
+  "normal"
+  "solid"
+] opacityVariants lib.checkListOfEnum "${pname}: theme variants" [
   "default"
   "blue"
   "purple"
@@ -51,10 +57,17 @@ lib.checkListOfEnum "${pname}: theme variants" [
   "240"
   "260"
   "280"
-] (single nautilusSize) lib.checkListOfEnum
-"${pname}: panel opacity" [ "default" "30" "45" "60" "75" ]
-(single panelOpacity) lib.checkListOfEnum
-"${pname}: panel size" [ "default" "smaller" "bigger" ] (single panelSize)
+] (single nautilusSize) lib.checkListOfEnum "${pname}: panel opacity" [
+  "default"
+  "30"
+  "45"
+  "60"
+  "75"
+] (single panelOpacity) lib.checkListOfEnum "${pname}: panel size" [
+  "default"
+  "smaller"
+  "bigger"
+] (single panelSize)
 
 stdenv.mkDerivation rec {
   pname = "whitesur-gtk-theme";
@@ -67,11 +80,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RGYD2+ZTUTPyFbaHvXU9VD3W6WTNeg3ifY+DAR3MmtI=";
   };
 
-  nativeBuildInputs = [ glib gnome-shell jdupes libxml2 sassc util-linux ];
-
-  buildInputs = [
-    gnome-themes-extra # adwaita engine for Gtk2
+  nativeBuildInputs = [
+    glib
+    gnome-shell
+    jdupes
+    libxml2
+    sassc
+    util-linux
   ];
+
+  buildInputs = [ gnome-themes-extra # adwaita engine for Gtk2
+    ];
 
   postPatch = ''
     find -name "*.sh" -print0 | while IFS= read -r -d ''' file; do

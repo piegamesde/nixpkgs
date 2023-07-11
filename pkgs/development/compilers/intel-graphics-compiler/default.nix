@@ -43,9 +43,20 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-KpaDaDYVp40H7OscDGUpzEMgIOIk397ANi+8sDk4Wow=";
   };
 
-  nativeBuildInputs = [ cmake bison flex python3 ];
+  nativeBuildInputs = [
+    cmake
+    bison
+    flex
+    python3
+  ];
 
-  buildInputs = [ spirv-headers spirv-tools spirv-llvm-translator llvm lld ];
+  buildInputs = [
+    spirv-headers
+    spirv-tools
+    spirv-llvm-translator
+    llvm
+    lld
+  ];
 
   strictDeps = true;
 

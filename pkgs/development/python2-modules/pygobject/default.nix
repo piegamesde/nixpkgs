@@ -24,7 +24,10 @@ buildPythonPackage rec {
     sha256 = "0nkam61rsn7y3wik3vw46wk5q2cjfh2iph57hl9m39rc8jijb7dv";
   };
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   patches = lib.optionals stdenv.isDarwin [
     ./pygobject-2.0-fix-darwin.patch

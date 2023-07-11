@@ -28,7 +28,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install -Dm755 bin/theme.sh $out/bin
     wrapProgram $out/bin/theme.sh \
-      --prefix PATH : ${lib.makeBinPath [ coreutils gawk ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          gawk
+        ]
+      }
 
     runHook postInstall
   '';

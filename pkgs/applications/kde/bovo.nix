@@ -22,5 +22,9 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ kdeclarative knewstuff libkdegames ];
+  buildInputs = [
+    kdeclarative
+    knewstuff
+    libkdegames
+  ];
 }

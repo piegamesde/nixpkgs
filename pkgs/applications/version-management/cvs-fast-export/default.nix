@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper asciidoc ];
+  nativeBuildInputs = [
+    makeWrapper
+    asciidoc
+  ];
   buildInputs = [ python3 ];
 
   postPatch = ''
@@ -44,7 +47,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/cvssync --prefix PATH : ${lib.makeBinPath [ rsync ]}
     wrapProgram $out/bin/cvsconvert --prefix PATH : $out/bin:${
-      lib.makeBinPath [ coreutils cvs diffutils findutils git ]
+      lib.makeBinPath [
+        coreutils
+        cvs
+        diffutils
+        findutils
+        git
+      ]
     }
   '';
 

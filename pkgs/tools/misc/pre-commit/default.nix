@@ -35,7 +35,14 @@ buildPythonApplication rec {
     ./hook-tmpl.patch
   ];
 
-  propagatedBuildInputs = [ cfgv identify nodeenv pyyaml toml virtualenv ];
+  propagatedBuildInputs = [
+    cfgv
+    identify
+    nodeenv
+    pyyaml
+    toml
+    virtualenv
+  ];
 
   nativeCheckInputs = [
     cargo

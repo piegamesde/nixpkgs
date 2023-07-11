@@ -34,7 +34,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "allure_pytest" ];
 
-  propagatedBuildInputs = [ allure-python-commons six ];
+  propagatedBuildInputs = [
+    allure-python-commons
+    six
+  ];
 
   nativeCheckInputs = [
     pyhamcrest

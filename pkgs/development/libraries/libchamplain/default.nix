@@ -26,8 +26,10 @@ stdenv.mkDerivation rec {
   pname = "libchamplain";
   version = "0.12.21";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -36,16 +38,29 @@ stdenv.mkDerivation rec {
     sha256 = "qRXNFyoMUpRMVXn8tGg/ioeMVxv16SglS12v78cn5ac=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection vala ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
-      gtk-doc
-      docbook_xsl
-      docbook_xml_dtd_412
-    ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    vala
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_412
+  ];
 
-  buildInputs = [ sqlite (if withLibsoup3 then libsoup_3 else libsoup) ];
+  buildInputs = [
+    sqlite
+    (if withLibsoup3 then libsoup_3 else libsoup)
+  ];
 
-  propagatedBuildInputs = [ glib gtk3 cairo clutter-gtk ];
+  propagatedBuildInputs = [
+    glib
+    gtk3
+    cairo
+    clutter-gtk
+  ];
 
   mesonFlags = [
     (lib.mesonBool "gtk_doc" (stdenv.buildPlatform == stdenv.hostPlatform))

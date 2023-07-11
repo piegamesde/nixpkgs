@@ -73,7 +73,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-93LEybYePIEbmE8mjRL95haMuBuY0xH6/8fhwF7/ctM=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeShellWrapper dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeShellWrapper
+    dpkg
+  ];
 
   buildInputs = [
     gtk3

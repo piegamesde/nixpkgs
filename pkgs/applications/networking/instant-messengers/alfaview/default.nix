@@ -34,7 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/1qYC2JCbgiR8fGL9R0mnRm8fY1DbAKhkjkDwEENWsA=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     alsa-lib
@@ -93,7 +98,10 @@ stdenv.mkDerivation rec {
     homepage = "https://alfaview.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ wolfangaukang hexchen ];
+    maintainers = with maintainers; [
+      wolfangaukang
+      hexchen
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -50,7 +50,10 @@ stdenv.mkDerivation rec {
     tinyxml
   ];
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" "--with-tinyxml" ];
+  configureFlags = [
+    "--with-boost-libdir=${boost.out}/lib"
+    "--with-tinyxml"
+  ];
 
   enableParallelBuilding = true;
 

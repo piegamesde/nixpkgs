@@ -30,10 +30,20 @@ in stdenv.mkDerivation {
     git
     (python3Packages.python.withPackages (p:
       with p;
-      [ setuptools tornado ]
-      ++ lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
+      [
+        setuptools
+        tornado
+      ] ++ lib.optionals (!stdenv.isDarwin) [
+        pyxattr
+        pylibacl
+        fuse
+      ]))
   ];
-  nativeBuildInputs = [ pandoc perl makeWrapper ];
+  nativeBuildInputs = [
+    pandoc
+    perl
+    makeWrapper
+  ];
 
   postPatch = ''
     patchShebangs .

@@ -51,7 +51,10 @@ import ./make-test-python.nix ({
               # Sync snapshot taken by sanoid
               "pool/sanoid" = {
                 target = "root@target:pool/sanoid";
-                extraArgs = [ "--no-sync-snap" "--create-bookmark" ];
+                extraArgs = [
+                  "--no-sync-snap"
+                  "--create-bookmark"
+                ];
               };
               # Take snapshot and sync
               "pool/syncoid".target = "root@target:pool/syncoid";

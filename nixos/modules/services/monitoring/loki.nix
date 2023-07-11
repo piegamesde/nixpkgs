@@ -73,7 +73,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = ((cfg.configuration == { } -> cfg.configFile != null)
         && (cfg.configFile != null -> cfg.configuration == { }));
       message = ''
@@ -81,7 +81,7 @@ in {
         'services.loki.configuration' or
         'services.loki.configFile'.
       '';
-    }];
+    } ];
 
     environment.systemPackages = [ cfg.package ]; # logcli
 

@@ -66,10 +66,13 @@ in {
     })
     (mkIf cfg.boot.thin.enable {
       boot.initrd = {
-        kernelModules = [ "dm-snapshot" "dm-thin-pool" ];
+        kernelModules = [
+          "dm-snapshot"
+          "dm-thin-pool"
+        ];
 
-        systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable
-          [ pkgs.thin-provisioning-tools ];
+        systemd.initrdBin = lib.mkIf
+          config.boot.initrd.services.lvm.enable [ pkgs.thin-provisioning-tools ];
 
         extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
           for BIN in ${pkgs.thin-provisioning-tools}/bin/*; do

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TsYwd2uUGJsweiKigTWBPXA7PtItZeIOxKk3lV3sy24=";
   };
 
-  buildInputs = [ fltk13 libjpeg ];
+  buildInputs = [
+    fltk13
+    libjpeg
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

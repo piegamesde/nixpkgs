@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "05fzdjmhiafgi2jf0k41i3nm0837a78sb6yv59cwc23nla8g0bhr";
   };
 
-  buildInputs = [ libX11 libXxf86vm libXext libXrandr ];
+  buildInputs = [
+    libX11
+    libXxf86vm
+    libXext
+    libXrandr
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

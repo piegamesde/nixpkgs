@@ -9,7 +9,10 @@ with lib;
 let
   cfg = config.services.k3s;
   removeOption = config: instruction:
-    lib.mkRemovedOptionModule ([ "services" "k3s" ] ++ config) instruction;
+    lib.mkRemovedOptionModule ([
+      "services"
+      "k3s"
+    ] ++ config) instruction;
 in {
   imports =
     [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
@@ -41,7 +44,10 @@ in {
         - `serverAddr` is required.
       '';
       default = "server";
-      type = types.enum [ "server" "agent" ];
+      type = types.enum [
+        "server"
+        "agent"
+      ];
     };
 
     serverAddr = mkOption {
@@ -157,8 +163,14 @@ in {
 
     systemd.services.k3s = {
       description = "k3s service";
-      after = [ "firewall.service" "network-online.target" ];
-      wants = [ "firewall.service" "network-online.target" ];
+      after = [
+        "firewall.service"
+        "network-online.target"
+      ];
+      wants = [
+        "firewall.service"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       path = optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {

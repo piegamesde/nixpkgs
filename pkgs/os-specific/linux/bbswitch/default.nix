@@ -23,13 +23,11 @@ in stdenv.mkDerivation {
     hash = "sha256-50v1Jxem5kaI1dHOKmgBbPLxI82QeYxiaRHhrHpWRzU=";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://raw.githubusercontent.com/archlinux/svntogit-community/0bd986055ba52887b81048de5c61e618eec06eb0/trunk/0003-kernel-5.18.patch";
-      sha256 = "sha256-va62/bR1qyBBMPg0lUwCH7slGG0XijxVCsFa4FCoHEQ=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://raw.githubusercontent.com/archlinux/svntogit-community/0bd986055ba52887b81048de5c61e618eec06eb0/trunk/0003-kernel-5.18.patch";
+    sha256 = "sha256-va62/bR1qyBBMPg0lUwCH7slGG0XijxVCsFa4FCoHEQ=";
+  }) ];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -62,7 +60,10 @@ in stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A module for powering off hybrid GPUs";
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     homepage = "https://github.com/Bumblebee-Project/bbswitch";
     maintainers = with maintainers; [ abbradar ];
     license = licenses.gpl2Plus;

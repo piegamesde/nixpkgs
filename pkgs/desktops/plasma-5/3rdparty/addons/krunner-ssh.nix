@@ -4,7 +4,12 @@
   fetchFromGitLab,
   python3,
 }:
-let pythonEnv = python3.withPackages (p: with p; [ dbus-python pygobject3 ]);
+let
+  pythonEnv = python3.withPackages (p:
+    with p; [
+      dbus-python
+      pygobject3
+    ]);
 in stdenv.mkDerivation rec {
   pname = "krunner-ssh";
   version = "1.0";

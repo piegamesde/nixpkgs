@@ -17,9 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "1yskybjba9ljy1wazddgrm7a4cc72i1xbk7sxnjpcq4hdy3b50l0";
   };
 
-  nativeBuildInputs = [ patchelf rpmextract ];
+  nativeBuildInputs = [
+    patchelf
+    rpmextract
+  ];
 
-  libPath = lib.makeLibraryPath [ stdenv.cc stdenv.cc.cc.lib ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc
+    stdenv.cc.cc.lib
+  ];
 
   buildCommand = ''
     mkdir -p $out/bin/

@@ -32,13 +32,26 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ defusedxml dissect-cstruct dissect-target ];
+  propagatedBuildInputs = [
+    defusedxml
+    dissect-cstruct
+    dissect-target
+  ];
 
   passthru.optional-dependencies = {
-    full = [ dissect-target minio pycryptodome requests requests-toolbelt rich ]
-      ++ dissect-target.optional-dependencies.full;
+    full = [
+      dissect-target
+      minio
+      pycryptodome
+      requests
+      requests-toolbelt
+      rich
+    ] ++ dissect-target.optional-dependencies.full;
   };
 
   nativeCheckInputs = [ pytestCheckHook ]

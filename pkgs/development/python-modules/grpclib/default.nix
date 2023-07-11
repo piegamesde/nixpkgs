@@ -26,7 +26,10 @@ in buildPythonPackage {
     hash = "sha256-zjctvsuX5yJl1EXIAaiukWGYJbdgU7OZllgOYAmp1b4=";
   };
 
-  propagatedBuildInputs = [ h2 multidict ];
+  propagatedBuildInputs = [
+    h2
+    multidict
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook

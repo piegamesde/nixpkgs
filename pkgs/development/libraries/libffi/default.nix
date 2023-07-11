@@ -30,11 +30,19 @@ stdenv.mkDerivation rec {
   patches = [ ];
 
   strictDeps = true;
-  outputs = [ "out" "dev" "man" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "info"
+  ];
 
   enableParallelBuilding = true;
 
-  configurePlatforms = [ "build" "host" ];
+  configurePlatforms = [
+    "build"
+    "host"
+  ];
 
   configureFlags = [
     "--with-gcc-arch=generic" # no detection of -march= or -mtune=

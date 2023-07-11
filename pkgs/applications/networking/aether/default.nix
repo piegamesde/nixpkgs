@@ -90,20 +90,22 @@ in stdenv.mkDerivation rec {
     nss
   ];
 
-  nativeBuildInputs =
-    [ imagemagick autoPatchelfHook wrapGAppsHook copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = binaryName;
-      icon = pname;
-      desktopName = "Aether";
-      genericName = meta.description;
-      categories = [ "Network" ];
-      mimeTypes = [ "x-scheme-handler/aether" ];
-    })
+  nativeBuildInputs = [
+    imagemagick
+    autoPatchelfHook
+    wrapGAppsHook
+    copyDesktopItems
   ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    exec = binaryName;
+    icon = pname;
+    desktopName = "Aether";
+    genericName = meta.description;
+    categories = [ "Network" ];
+    mimeTypes = [ "x-scheme-handler/aether" ];
+  }) ];
 
   installPhase = let
     libPath = lib.makeLibraryPath [

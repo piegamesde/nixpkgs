@@ -29,10 +29,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs =
-    [ cliff openstacksdk oslo-i18n oslo-utils simplejson ];
+  propagatedBuildInputs = [
+    cliff
+    openstacksdk
+    oslo-i18n
+    oslo-utils
+    simplejson
+  ];
 
-  nativeCheckInputs = [ requests-mock stestr ];
+  nativeCheckInputs = [
+    requests-mock
+    stestr
+  ];
 
   checkPhase = ''
     # tests parse cli output which slightly changed

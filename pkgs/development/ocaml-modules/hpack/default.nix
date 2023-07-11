@@ -19,7 +19,10 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ angstrom faraday ];
+  propagatedBuildInputs = [
+    angstrom
+    faraday
+  ];
 
   # circular dependency
   doCheck = false;
@@ -29,6 +32,9 @@ buildDunePackage rec {
     description =
       "An HPACK (Header Compression for HTTP/2) implementation in OCaml";
     homepage = "https://github.com/anmonteiro/ocaml-h2";
-    maintainers = with lib.maintainers; [ sternenseemann anmonteiro ];
+    maintainers = with lib.maintainers; [
+      sternenseemann
+      anmonteiro
+    ];
   };
 }

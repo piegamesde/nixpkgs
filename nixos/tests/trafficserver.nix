@@ -87,8 +87,12 @@ import ./make-test-python.nix ({
           ...
         }:
         let
-          python = pkgs.python3.withPackages
-            (ps: with ps; [ httpbin gunicorn gevent ]);
+          python = pkgs.python3.withPackages (ps:
+            with ps; [
+              httpbin
+              gunicorn
+              gevent
+            ]);
         in {
           systemd.services.httpbin = {
             enable = true;

@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ neon zlib ];
+  buildInputs = [
+    neon
+    zlib
+  ];
 
   patches = [
     ./fix-sysconfdir.patch

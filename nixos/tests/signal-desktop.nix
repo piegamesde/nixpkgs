@@ -15,14 +15,22 @@ import ./make-test-python.nix ({
     '';
   in {
     name = "signal-desktop";
-    meta = with pkgs.lib.maintainers; { maintainers = [ flokli primeos ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        flokli
+        primeos
+      ];
+    };
 
     nodes.machine = {
         ...
       }:
 
       {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
 
         services.xserver.enable = true;
         test-support.displayManager.auto.user = "alice";

@@ -16,7 +16,10 @@ buildGoModule rec {
   pname = "gopass";
   version = "1.15.5";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   src = fetchFromGitHub {
     owner = "gopasspw";
@@ -29,11 +32,18 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version}" "-X main.commit=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+    "-X main.commit=${src.rev}"
+  ];
 
-  wrapperPath = lib.makeBinPath
-    ([ git gnupg xclip ] ++ lib.optional stdenv.isLinux wl-clipboard);
+  wrapperPath = lib.makeBinPath ([
+    git
+    gnupg
+    xclip
+  ] ++ lib.optional stdenv.isLinux wl-clipboard);
 
   postInstall = ''
     installManPage gopass.1
@@ -57,7 +67,10 @@ buildGoModule rec {
       "The slightly more awesome Standard Unix Password Manager for Teams. Written in Go";
     homepage = "https://www.gopass.pw/";
     license = licenses.mit;
-    maintainers = with maintainers; [ rvolosatovs sikmir ];
+    maintainers = with maintainers; [
+      rvolosatovs
+      sikmir
+    ];
     changelog =
       "https://github.com/gopasspw/gopass/raw/v${version}/CHANGELOG.md";
 

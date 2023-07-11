@@ -26,7 +26,10 @@ buildGraalvmNativeImage rec {
     sha256 = "df6b582a39183c271a8d00ddf4e3cf020b9e872e6fad2c13bf7de46e940ff4d6";
   };
 
-  extraNativeImageBuildArgs = [ "--no-fallback" "--native-image-info" ];
+  extraNativeImageBuildArgs = [
+    "--no-fallback"
+    "--native-image-info"
+  ];
 
   doCheck = true;
   checkPhase = ''
@@ -67,6 +70,9 @@ buildGraalvmNativeImage rec {
     homepage = "https://github.com/clojure-lsp/clojure-lsp";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
-    maintainers = with maintainers; [ ericdallo babariviere ];
+    maintainers = with maintainers; [
+      ericdallo
+      babariviere
+    ];
   };
 }

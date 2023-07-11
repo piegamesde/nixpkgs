@@ -139,17 +139,22 @@ let
 
           strictDeps = true;
 
-          nativeBuildInputs = [ autoreconfHook bison ] ++ (op docSupport groff)
-            ++ (ops (dtraceSupport && stdenv.isLinux) [
-              systemtap
-              libsystemtap
-            ]) ++ ops yjitSupport [
-              rustPlatform.cargoSetupHook
-              rustPlatform.rust.cargo
-              rustPlatform.rust.rustc
-            ] ++ op useBaseRuby baseRuby;
+          nativeBuildInputs = [
+            autoreconfHook
+            bison
+          ] ++ (op docSupport groff) ++ (ops (dtraceSupport && stdenv.isLinux) [
+            systemtap
+            libsystemtap
+          ]) ++ ops yjitSupport [
+            rustPlatform.cargoSetupHook
+            rustPlatform.rust.cargo
+            rustPlatform.rust.rustc
+          ] ++ op useBaseRuby baseRuby;
           buildInputs = [ autoconf ] ++ (op fiddleSupport libffi)
-            ++ (ops cursesSupport [ ncurses readline ]) ++ (op zlibSupport zlib)
+            ++ (ops cursesSupport [
+              ncurses
+              readline
+            ]) ++ (op zlibSupport zlib)
             ++ (op (lib.versionOlder ver.majMin "3.0" && opensslSupport)
               openssl_1_1) ++ (op (atLeast30 && opensslSupport) openssl_1_1)
             ++ (op gdbmSupport gdbm) ++ (op yamlSupport libyaml)
@@ -158,7 +163,12 @@ let
             # support is disabled (if it's enabled, we already have it) and we're
             # running on darwin
             ++ op (!cursesSupport && stdenv.isDarwin) readline
-            ++ ops stdenv.isDarwin [ libiconv libobjc libunwind Foundation ];
+            ++ ops stdenv.isDarwin [
+              libiconv
+              libobjc
+              libunwind
+              Foundation
+            ];
           propagatedBuildInputs = op jemallocSupport jemalloc;
 
           enableParallelBuilding = true;
@@ -353,7 +363,11 @@ let
               "An object-oriented language for quick and easy programming";
             homepage = "https://www.ruby-lang.org/";
             license = licenses.ruby;
-            maintainers = with maintainers; [ vrthra manveru marsam ];
+            maintainers = with maintainers; [
+              vrthra
+              manveru
+              marsam
+            ];
             platforms = platforms.all;
           };
 

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs = [ pretend pytestCheckHook ];
+  nativeCheckInputs = [
+    pretend
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "packvers" ];
 

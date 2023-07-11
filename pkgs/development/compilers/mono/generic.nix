@@ -41,7 +41,14 @@ in stdenv.mkDerivation rec {
       "https://download.mono-project.com/sources/mono/${pname}-${version}.${srcArchiveSuffix}";
   };
 
-  nativeBuildInputs = [ automake bison cmake pkg-config which gnumake42 ];
+  nativeBuildInputs = [
+    automake
+    bison
+    cmake
+    pkg-config
+    which
+    gnumake42
+  ];
   buildInputs = [
     glib
     gettext
@@ -53,13 +60,19 @@ in stdenv.mkDerivation rec {
     python3
     autoconf
     libtool
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation libobjc ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Foundation
+    libobjc
+  ];
 
   configureFlags = [
     "--x-includes=${libX11.dev}/include"
     "--x-libraries=${libX11.out}/lib"
     "--with-libgdiplus=${libgdiplus}/lib/libgdiplus.so"
-  ] ++ lib.optionals withLLVM [ "--enable-llvm" "--with-llvm=${llvm}" ];
+  ] ++ lib.optionals withLLVM [
+    "--enable-llvm"
+    "--with-llvm=${llvm}"
+  ];
 
   configurePhase = ''
     patchShebangs autogen.sh mcs/build/start-compiler-server.sh
@@ -110,7 +123,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://mono-project.com/";
     description = "Cross platform, open source .NET development framework";
     platforms = with platforms; darwin ++ linux;
-    maintainers = with maintainers; [ thoughtpolice obadz vrthra ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      obadz
+      vrthra
+    ];
     license = licenses.free; # Combination of LGPL/X11/GPL ?
   };
 }

@@ -32,8 +32,13 @@ let
 
     vendorSha256 = "sha256-lqumN+xqJXEPI+nVnWSNfAyvQQ6fS9ao8uhwA1EbWWM=";
 
-    nativeBuildInputs =
-      [ git nodejs protobuf protoc-gen-go protoc-gen-go-grpc ];
+    nativeBuildInputs = [
+      git
+      nodejs
+      protobuf
+      protoc-gen-go
+      protoc-gen-go-grpc
+    ];
 
     preBuild = ''
       make compile-protos
@@ -55,7 +60,10 @@ let
 in rustPlatform.buildRustPackage rec {
   pname = "turbo";
   inherit src version;
-  cargoBuildFlags = [ "--package" "turbo" ];
+  cargoBuildFlags = [
+    "--package"
+    "turbo"
+  ];
   RELEASE_TURBO_CLI = "true";
 
   cargoLock = {
@@ -66,8 +74,14 @@ in rustPlatform.buildRustPackage rec {
     };
   };
   RUSTC_BOOTSTRAP = 1;
-  nativeBuildInputs = [ pkg-config extra-cmake-modules ];
-  buildInputs = [ openssl fontconfig ];
+  nativeBuildInputs = [
+    pkg-config
+    extra-cmake-modules
+  ];
+  buildInputs = [
+    openssl
+    fontconfig
+  ];
 
   postInstall = ''
     ln -s ${go-turbo}/bin/turbo $out/bin/go-turbo

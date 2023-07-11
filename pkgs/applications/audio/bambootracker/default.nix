@@ -33,12 +33,23 @@ stdenv.mkDerivation rec {
       --replace 'equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12)' 'if(true)'
   '';
 
-  nativeBuildInputs = [ pkg-config qmake qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+    qttools
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ qtbase rtaudio rtmidi ]
-    ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ];
+  buildInputs = [
+    qtbase
+    rtaudio
+    rtmidi
+  ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ];
 
-  qmakeFlags = [ "CONFIG+=system_rtaudio" "CONFIG+=system_rtmidi" ];
+  qmakeFlags = [
+    "CONFIG+=system_rtaudio"
+    "CONFIG+=system_rtmidi"
+  ];
 
   postConfigure = "make qmake_all";
 

@@ -14,13 +14,19 @@ stdenv.mkDerivation rec {
     sha256 = "00f2wy6f0qng7qzga4iicyzl9j8b7mp6mrpfky5jxj93ms2w2rji";
   };
 
-  patches =
-    [ ./systemd.patch ./union-wait.patch ./fix-includes-for-musl.patch ];
+  patches = [
+    ./systemd.patch
+    ./union-wait.patch
+    ./fix-includes-for-musl.patch
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-DSYSV";
 
-  installFlags =
-    [ "BINDIR=$(out)/sbin" "MANDIR=$(out)/share/man" "INSTALL=install" ];
+  installFlags = [
+    "BINDIR=$(out)/sbin"
+    "MANDIR=$(out)/share/man"
+    "INSTALL=install"
+  ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

@@ -60,9 +60,18 @@ stdenv.mkDerivation rec {
       --replace "@GIT_DIRTY@" ""
   '';
 
-  nativeBuildInputs = [ jq meson ninja pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    jq
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   buildInputs = [
     cairo
@@ -78,8 +87,11 @@ stdenv.mkDerivation rec {
     pango
     pciutils
     (wlroots.override { inherit enableXWayland hidpiXWayland nvidiaPatches; })
-  ] ++ lib.optionals enableXWayland [ libxcb xcbutilwm xwayland ]
-    ++ lib.optionals withSystemd [ systemd ];
+  ] ++ lib.optionals enableXWayland [
+    libxcb
+    xcbutilwm
+    xwayland
+  ] ++ lib.optionals withSystemd [ systemd ];
 
   mesonBuildType = if debug then "debug" else "release";
 
@@ -96,7 +108,10 @@ stdenv.mkDerivation rec {
     description =
       "A dynamic tiling Wayland compositor that doesn't sacrifice on its looks";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wozeparrot fufexan ];
+    maintainers = with maintainers; [
+      wozeparrot
+      fufexan
+    ];
     mainProgram = "Hyprland";
     platforms = wlroots.meta.platforms;
   };

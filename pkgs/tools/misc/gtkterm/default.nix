@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4Z+8fs4VEk2+Ci1X3oUuInylTdIbQ5AiPenFqnyNXvc=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk3 vte libgudev pcre2 ];
+  buildInputs = [
+    gtk3
+    vte
+    libgudev
+    pcre2
+  ];
 
   meta = with lib; {
     description = "A simple, graphical serial port terminal emulator";

@@ -18,7 +18,11 @@ python3.pkgs.buildPythonApplication rec {
 
   sourceRoot = "${src.name}/python";
 
-  propagatedBuildInputs = with python3.pkgs; [ impacket ldap3 python-ldap ];
+  propagatedBuildInputs = with python3.pkgs; [
+    impacket
+    ldap3
+    python-ldap
+  ];
 
   installPhase = ''
     runHook preInstall

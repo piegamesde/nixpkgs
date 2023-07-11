@@ -24,10 +24,20 @@ stdenv.mkDerivation rec {
     sha256 = "bbyA9qCboM9hBKMXhJWXgEFN13Fl4pY6zWZXwowlRMI=";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ];
 
-  buildInputs =
-    [ networkmanager strongswanNM libsecret gtk3 gtk4 libnma libnma-gtk4 ];
+  buildInputs = [
+    networkmanager
+    strongswanNM
+    libsecret
+    gtk3
+    gtk4
+    libnma
+    libnma-gtk4
+  ];
 
   configureFlags = [
     "--disable-more-warnings" # disables -Werror

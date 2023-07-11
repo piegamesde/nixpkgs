@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HL64koe0GNzJzyA0QP4I0M1y2HSxigsZTqOw67RCwNc=";
   };
 
-  patches = [
-    ./drop-64-suffix.patch # necessary to prevent '64' from being appended to the names of the executables
-  ];
+  patches =
+    [ ./drop-64-suffix.patch # necessary to prevent '64' from being appended to the names of the executables
+    ];
 
   hardeningDisable = [ "format" ];
 

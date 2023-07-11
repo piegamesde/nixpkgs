@@ -27,7 +27,12 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [ aiohttp asn1 python-dateutil tenacity ];
+  propagatedBuildInputs = [
+    aiohttp
+    asn1
+    python-dateutil
+    tenacity
+  ];
 
   # no tests implemented
   doCheck = false;

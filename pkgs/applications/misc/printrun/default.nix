@@ -24,7 +24,10 @@ python3Packages.buildPythonApplication rec {
     sed -i -r "s|/usr(/local)?/share/|$out/share/|g" printrun/utils.py
   '';
 
-  nativeBuildInputs = [ glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     appdirs

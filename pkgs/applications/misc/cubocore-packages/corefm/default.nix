@@ -20,9 +20,16 @@ mkDerivation rec {
     sha256 = "sha256-ue0OOBf0PAxYHTfo37RvxnsKxzAEGIiGltXBVZpI6lk=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
-  buildInputs = [ qtbase libcprime libcsys ];
+  buildInputs = [
+    qtbase
+    libcprime
+    libcsys
+  ];
 
   meta = with lib; {
     description = "A lightwight filemanager from the C Suite";

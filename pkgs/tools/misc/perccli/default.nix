@@ -16,7 +16,10 @@ stdenvNoCC.mkDerivation rec {
 
     # Dell seems to block "uncommon" user-agents, such as Nixpkgs's custom one.
     # Sending no user-agent at all seems to be fine though.
-    curlOptsList = [ "--user-agent" "" ];
+    curlOptsList = [
+      "--user-agent"
+      ""
+    ];
   };
 
   nativeBuildInputs = [ rpmextract ];

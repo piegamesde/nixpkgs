@@ -6,11 +6,18 @@ args@{
   baseName = "log4cl";
   version = "20211209-git";
 
-  parasites = [ "log4cl/syslog" "log4cl/test" ];
+  parasites = [
+    "log4cl/syslog"
+    "log4cl/test"
+  ];
 
   description = "System lacks description";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."stefil" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."stefil"
+  ];
 
   src = fetchurl {
     url =

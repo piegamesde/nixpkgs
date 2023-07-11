@@ -33,7 +33,10 @@ buildPythonPackage rec {
       --replace "'pkg-config'" "'$(command -v $PKG_CONFIG)'"
   '';
 
-  nativeBuildInputs = [ cython pkg-config ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+  ];
 
   buildInputs = [ fuse3 ];
 
@@ -43,17 +46,28 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} setup.py build_cython
   '';
 
-  nativeCheckInputs = [ pytestCheckHook pytest-trio which fuse3 ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-trio
+    which
+    fuse3
+  ];
 
   # Checks if a /usr/bin directory exists, can't work on NixOS
   disabledTests = [ "test_listdir" ];
 
-  pythonImportsCheck = [ "pyfuse3" "pyfuse3_asyncio" ];
+  pythonImportsCheck = [
+    "pyfuse3"
+    "pyfuse3_asyncio"
+  ];
 
   meta = with lib; {
     description = "Python 3 bindings for libfuse 3 with async I/O support";
     homepage = "https://github.com/libfuse/pyfuse3";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ nyanloutre dotlambda ];
+    maintainers = with maintainers; [
+      nyanloutre
+      dotlambda
+    ];
   };
 }

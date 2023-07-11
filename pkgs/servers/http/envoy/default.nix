@@ -62,7 +62,15 @@ in buildBazelPackage rec {
     ./0002-nixpkgs-use-system-Go.patch
   ];
 
-  nativeBuildInputs = [ cmake python3 gn go jdk ninja patchelf ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    gn
+    go
+    jdk
+    ninja
+    patchelf
+  ];
 
   buildInputs = [ linuxHeaders ];
 
@@ -164,7 +172,10 @@ in buildBazelPackage rec {
     description = "Cloud-native edge and service proxy";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     knownVulnerabilities = [
       "CVE-2023-27487"
       "CVE-2023-27488"

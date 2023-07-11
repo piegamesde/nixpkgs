@@ -111,22 +111,27 @@ in stdenv.mkDerivation rec {
   src = srcs.${stdenv.hostPlatform.system} or (throw
     "unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "mullvadbrowser";
-      exec = "mullvad-browser %U";
-      icon = "mullvad-browser";
-      desktopName = "Mullvad Browser";
-      genericName = "Web Browser";
-      comment = meta.description;
-      categories = [ "Network" "WebBrowser" "Security" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "mullvadbrowser";
+    exec = "mullvad-browser %U";
+    icon = "mullvad-browser";
+    desktopName = "Mullvad Browser";
+    genericName = "Web Browser";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "WebBrowser"
+      "Security"
+    ];
+  }) ];
 
   buildPhase = ''
     runHook preBuild
@@ -238,7 +243,12 @@ in stdenv.mkDerivation rec {
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.
-    license = with licenses; [ mpl20 lgpl21Plus lgpl3Plus free ];
+    license = with licenses; [
+      mpl20
+      lgpl21Plus
+      lgpl3Plus
+      free
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

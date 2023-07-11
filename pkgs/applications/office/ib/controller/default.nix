@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ jdk ib-tws ];
+  buildInputs = [
+    jdk
+    ib-tws
+  ];
 
   installPhase = ''
     mkdir -p $out $out/bin $out/etc/ib/controller $out/share/IBController

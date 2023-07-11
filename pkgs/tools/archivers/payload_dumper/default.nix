@@ -19,7 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = with python3.pkgs; [ bsdiff4 protobuf ];
+  buildInputs = with python3.pkgs; [
+    bsdiff4
+    protobuf
+  ];
 
   installPhase = ''
     runHook preInstall

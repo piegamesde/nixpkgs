@@ -42,7 +42,10 @@ let
   '';
 
   # Tools that the Flutter tool depends on.
-  tools = [ git which ];
+  tools = [
+    git
+    which
+  ];
 
   # Libraries that Flutter apps depend on at runtime.
   appRuntimeDeps = lib.optionals supportsLinuxDesktop [
@@ -70,13 +73,19 @@ let
 
   # Some header files and libraries are not properly located by the Flutter SDK.
   # They must be manually included.
-  appStaticBuildDeps =
-    (lib.optionals supportsLinuxDesktop [ libX11 xorgproto zlib ])
-    ++ extraLibraries;
+  appStaticBuildDeps = (lib.optionals supportsLinuxDesktop [
+    libX11
+    xorgproto
+    zlib
+  ]) ++ extraLibraries;
 
   # Tools used by the Flutter SDK to compile applications.
-  buildTools =
-    lib.optionals supportsLinuxDesktop [ pkg-config cmake ninja clang ];
+  buildTools = lib.optionals supportsLinuxDesktop [
+    pkg-config
+    cmake
+    ninja
+    clang
+  ];
 
   # Nix-specific compiler configuration.
   pkgConfigPackages =
@@ -98,9 +107,10 @@ in (callPackage ./sdk-symlink.nix { }) (runCommandLocal "flutter-wrapped" {
 } ''
   for path in ${
     builtins.concatStringsSep " " (builtins.foldl' (paths: pkg:
-      paths
-      ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [ "lib" "share" ]))
-      [ ] pkgConfigPackages)
+      paths ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
+        "lib"
+        "share"
+      ])) [ ] pkgConfigPackages)
   }; do
     addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
   done

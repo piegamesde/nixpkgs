@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     sha256 = "1xqsb6c1pwawabw854f7aybjrgyhc2r1316i9lyjspci51zk5m7v";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf ];
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+  ];
 
   buildInputs = [
     glib
@@ -49,10 +52,16 @@ stdenv.mkDerivation rec {
       --replace 'applicationlibdir = $(INDICATORDIR)' "applicationlibdir = $out/lib"
   '';
 
-  configureFlags =
-    [ "CFLAGS=-Wno-error" "--sysconfdir=/etc" "--localstatedir=/var" ];
+  configureFlags = [
+    "CFLAGS=-Wno-error"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
-  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
+  installFlags = [
+    "sysconfdir=\${out}/etc"
+    "localstatedir=\${TMPDIR}"
+  ];
 
   meta = with lib; {
     description =

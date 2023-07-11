@@ -21,9 +21,19 @@ mkDerivation rec {
     sha256 = "sha256-dlgIkMde7uv4UlMKEPhtZ7MfSTBc7RvHs+Q2yk+G/JM=";
   };
 
-  nativeBuildInputs = [ autoconf pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    pkg-config
+  ];
 
-  buildInputs = [ alsa-lib fluidsynth libjack2 qtbase qttools qtx11extras ];
+  buildInputs = [
+    alsa-lib
+    fluidsynth
+    libjack2
+    qtbase
+    qttools
+    qtx11extras
+  ];
 
   enableParallelBuilding = true;
   # Missing install depends:

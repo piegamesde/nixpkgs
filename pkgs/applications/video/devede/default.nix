@@ -29,7 +29,11 @@ in buildPythonApplication rec {
     sha256 = "1xb7acjphvn4ya8fgjsvag5gzi9a6c2famfl0ffr8nhb9y8ig9mg";
   };
 
-  nativeBuildInputs = [ gettext wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    gettext
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
   buildInputs = [ ffmpeg ];
 

@@ -27,10 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0zutz1nnThyF7h44cDxjE53hhAJfJf6DTs9p4HflXr8=";
   };
 
-  nativeBuildInputs =
-    [ gettext meson ninja vala pkg-config python3 wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    meson
+    ninja
+    vala
+    pkg-config
+    python3
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ glib gtk3 pantheon.granite libgee ];
+  buildInputs = [
+    glib
+    gtk3
+    pantheon.granite
+    libgee
+  ];
 
   postPatch = ''
     # Fix build with vala 0.56

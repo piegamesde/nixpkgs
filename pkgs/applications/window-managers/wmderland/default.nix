@@ -31,7 +31,10 @@ stdenv.mkDerivation {
       --replace "notify-send" "${libnotify}/bin/notify-send"
   '';
 
-  buildInputs = [ libX11 xorgproto ];
+  buildInputs = [
+    libX11
+    xorgproto
+  ];
 
   postInstall = ''
     install -Dm0644 -t $out/share/wmderland/contrib $src/example/config

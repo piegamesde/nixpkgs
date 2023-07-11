@@ -75,12 +75,14 @@ let
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-merged";
-    paths = [ cudatoolkit.lib cudatoolkit.out ]
-      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
-        # for some reason some of the required libs are in the targets/x86_64-linux
-        # directory; not sure why but this works around it
-        "${cudatoolkit}/targets/${stdenv.system}"
-      ];
+    paths = [
+      cudatoolkit.lib
+      cudatoolkit.out
+    ] ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+      # for some reason some of the required libs are in the targets/x86_64-linux
+      # directory; not sure why but this works around it
+      "${cudatoolkit}/targets/${stdenv.system}"
+    ];
   };
 
   cudatoolkit_cc_joined = symlinkJoin {
@@ -147,8 +149,14 @@ let
       hash = "sha256-DP68UwS9bg243iWU4MLHN0pwl8LaOcW3Sle1ZjsLOHo=";
     };
 
-    nativeBuildInputs = [ cython pkgs.flatbuffers git setuptools wheel which ]
-      ++ lib.optionals stdenv.isDarwin [ cctools ];
+    nativeBuildInputs = [
+      cython
+      pkgs.flatbuffers
+      git
+      setuptools
+      wheel
+      which
+    ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
     buildInputs = [
       curl
@@ -166,8 +174,10 @@ let
       six
       snappy
       zlib
-    ] ++ lib.optionals cudaSupport [ cudatoolkit cudnn ]
-      ++ lib.optionals stdenv.isDarwin [ IOKit ]
+    ] ++ lib.optionals cudaSupport [
+      cudatoolkit
+      cudnn
+    ] ++ lib.optionals stdenv.isDarwin [ IOKit ]
       ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
     postPatch = ''
@@ -247,13 +257,11 @@ let
       outputs = [ "out" ];
 
       TF_SYSTEM_LIBS = lib.concatStringsSep "," (tf_system_libs
-        ++ lib.optionals (!stdenv.isDarwin) [
-          "nsync" # fails to build on darwin
+        ++ lib.optionals (!stdenv.isDarwin) [ "nsync" # fails to build on darwin
         ]);
 
-      bazelFlags = bazelFlags ++ lib.optionals
-        (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
-        [ "--config=avx_posix" ]
+      bazelFlags = bazelFlags ++ lib.optionals (stdenv.targetPlatform.isx86_64
+        && stdenv.targetPlatform.isUnix) [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ];
       # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.

@@ -17,23 +17,28 @@ stdenv.mkDerivation rec {
     sha256 = "1hjm8lwap7bjyyxsyi94fh5817xzqhk4kb5y0b7mb6675xw10prk";
   };
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://sources.debian.org/data/main/libi/libicns/0.8.1-3.1/debian/patches/support-libopenjp2.patch";
-      sha256 = "0ss298lyzvydxvaxsadi6kbbjpwykd86jw3za76brcsg2dpssgas";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://sources.debian.org/data/main/libi/libicns/0.8.1-3.1/debian/patches/support-libopenjp2.patch";
+    sha256 = "0ss298lyzvydxvaxsadi6kbbjpwykd86jw3za76brcsg2dpssgas";
+  }) ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libpng openjpeg ];
+  buildInputs = [
+    libpng
+    openjpeg
+  ];
   env.NIX_CFLAGS_COMPILE =
     toString [ "-I${openjpeg.dev}/include/${openjpeg.incDir}" ];
 
   meta = with lib; {
     description = "Library for manipulation of the Mac OS icns resource format";
     homepage = "https://icns.sourceforge.io";
-    license = with licenses; [ gpl2 lgpl2 lgpl21 ];
+    license = with licenses; [
+      gpl2
+      lgpl2
+      lgpl21
+    ];
     platforms = platforms.unix;
   };
 }

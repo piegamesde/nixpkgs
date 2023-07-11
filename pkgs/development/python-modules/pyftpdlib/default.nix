@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { ssl = [ pyopenssl ]; };
 
-  nativeCheckInputs = [ mock psutil ];
+  nativeCheckInputs = [
+    mock
+    psutil
+  ];
 
   # Impure filesystem-related tests cause timeouts
   # on Hydra: https://hydra.nixos.org/build/84374861

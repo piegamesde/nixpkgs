@@ -58,11 +58,19 @@ in stdenv.mkDerivation {
     rustPlatform.rust.cargo
     rustPlatform.rust.rustc
   ];
-  buildInputs = [ iproute2 lzo openssl zlib ];
+  buildInputs = [
+    iproute2
+    lzo
+    openssl
+    zlib
+  ];
 
   enableParallelBuilding = true;
 
-  buildFlags = [ "all" "selftest" ];
+  buildFlags = [
+    "all"
+    "selftest"
+  ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
   checkPhase = ''
@@ -82,7 +90,10 @@ in stdenv.mkDerivation {
     rm -rf $out/upstream
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   passthru.updateScript = ./update.sh;
 

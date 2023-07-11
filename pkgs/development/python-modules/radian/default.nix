@@ -32,14 +32,28 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"pytest-runner"' ""
   '';
 
-  nativeBuildInputs = [
-    R # needed at setup time to detect R_HOME
+  nativeBuildInputs = [ R # needed at setup time to detect R_HOME
+    ];
+
+  propagatedBuildInputs = [
+    lineedit
+    prompt-toolkit
+    pygments
+    rchitect
+    six
+  ] ++ (with rPackages; [
+    reticulate
+    askpass
+  ]);
+
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyte
+    pexpect
+    ptyprocess
+    jedi
+    git
   ];
-
-  propagatedBuildInputs = [ lineedit prompt-toolkit pygments rchitect six ]
-    ++ (with rPackages; [ reticulate askpass ]);
-
-  nativeCheckInputs = [ pytestCheckHook pyte pexpect ptyprocess jedi git ];
 
   preCheck = ''
     export HOME=$TMPDIR

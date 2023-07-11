@@ -18,7 +18,10 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-8s7SS79wCS0nRR7IpkshP5QWJqqKEeBu6EtFPDM+2cM=";
   };
 
-  buildInputs = [ wallutils sunwait ];
+  buildInputs = [
+    wallutils
+    sunwait
+  ];
 
   postPatch = ''
     substituteInPlace sunpaper.sh \

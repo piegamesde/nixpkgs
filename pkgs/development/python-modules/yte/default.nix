@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ dpath plac pyyaml ];
+  propagatedBuildInputs = [
+    dpath
+    plac
+    pyyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

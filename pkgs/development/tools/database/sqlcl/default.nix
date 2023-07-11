@@ -47,7 +47,10 @@ in stdenv.mkDerivation {
     sha256 = "0i4xsj502s465fgmlcqn80r8rqzr11mv74x9fzrlbqmkkh5c782k";
   };
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   unpackCmd = "unzip $curSrc";
 

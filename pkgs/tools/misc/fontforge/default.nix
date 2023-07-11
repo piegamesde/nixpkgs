@@ -59,7 +59,10 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     readline
     uthash
@@ -74,9 +77,14 @@ stdenv.mkDerivation rec {
     libjpeg
     libtiff
     libxml2
-  ] ++ lib.optionals withSpiro [ libspiro ]
-    ++ lib.optionals withGUI [ gtk3 cairo pango ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
+  ] ++ lib.optionals withSpiro [ libspiro ] ++ lib.optionals withGUI [
+    gtk3
+    cairo
+    pango
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+  ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ]
     ++ lib.optional (!withSpiro) "-DENABLE_LIBSPIRO=OFF"

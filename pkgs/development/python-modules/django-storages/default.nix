@@ -30,8 +30,14 @@ buildPythonPackage rec {
       --replace 'test_modified_time' 'dont_test_modified_time'
   '';
 
-  nativeCheckInputs =
-    [ azure-storage-blob boto3 dropbox google-cloud-storage libcloud paramiko ];
+  nativeCheckInputs = [
+    azure-storage-blob
+    boto3
+    dropbox
+    google-cloud-storage
+    libcloud
+    paramiko
+  ];
 
   pythonImportsCheck = [ "storages" ];
 

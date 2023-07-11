@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
   pname = "appstream";
   version = "0.15.5";
 
-  outputs = [ "out" "dev" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "ximion";
@@ -68,10 +72,19 @@ stdenv.mkDerivation rec {
     itstool
     vala
     gperf
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
-  buildInputs = [ libstemmer pcre glib xapian libxml2 libxmlb libyaml curl ];
+  buildInputs = [
+    libstemmer
+    pcre
+    glib
+    xapian
+    libxml2
+    libxmlb
+    libyaml
+    curl
+  ];
 
   mesonFlags = [
     "-Dapidocs=false"

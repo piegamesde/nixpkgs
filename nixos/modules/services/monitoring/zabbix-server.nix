@@ -37,16 +37,26 @@ let
 
 in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "zabbixServer" "dbServer" ] [
+    (lib.mkRenamedOptionModule [
+      "services"
+      "zabbixServer"
+      "dbServer"
+    ] [
       "services"
       "zabbixServer"
       "database"
       "host"
     ])
-    (lib.mkRemovedOptionModule [ "services" "zabbixServer" "dbPassword" ]
-      "Use services.zabbixServer.database.passwordFile instead.")
-    (lib.mkRemovedOptionModule [ "services" "zabbixServer" "extraConfig" ]
-      "Use services.zabbixServer.settings instead.")
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixServer"
+      "dbPassword"
+    ] "Use services.zabbixServer.database.passwordFile instead.")
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixServer"
+      "extraConfig"
+    ] "Use services.zabbixServer.settings instead.")
   ];
 
   # interface
@@ -68,7 +78,11 @@ in {
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = with pkgs; [ nettools nmap traceroute ];
+        default = with pkgs; [
+          nettools
+          nmap
+          traceroute
+        ];
         defaultText = literalExpression "[ nettools nmap traceroute ]";
         description = lib.mdDoc ''
           Packages to be added to the Zabbix {env}`PATH`.
@@ -98,7 +112,10 @@ in {
 
       database = {
         type = mkOption {
-          type = types.enum [ "mysql" "pgsql" ];
+          type = types.enum [
+            "mysql"
+            "pgsql"
+          ];
           example = "mysql";
           default = "pgsql";
           description = lib.mdDoc "Database engine to use.";
@@ -188,7 +205,12 @@ in {
       };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ int str (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            int
+            str
+            (listOf str)
+          ]);
         default = { };
         description = lib.mdDoc ''
           Zabbix Server configuration. Refer to
@@ -275,12 +297,12 @@ in {
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = {
           "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
         };
-      }];
+      } ];
     };
 
     users.users.${user} = {

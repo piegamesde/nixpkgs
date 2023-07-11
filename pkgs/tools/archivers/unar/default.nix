@@ -42,9 +42,17 @@ stdenv.mkDerivation rec {
     chmod +w ../UniversalDetector -R
   '';
 
-  buildInputs = [ bzip2 icu openssl wavpack zlib ]
-    ++ lib.optionals stdenv.isLinux [ gnustep.base ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation AppKit ];
+  buildInputs = [
+    bzip2
+    icu
+    openssl
+    wavpack
+    zlib
+  ] ++ lib.optionals stdenv.isLinux [ gnustep.base ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      AppKit
+    ];
 
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ gnustep.make ]
@@ -94,7 +102,10 @@ stdenv.mkDerivation rec {
       ADF, DMS, LZX, PowerPacker, LBR, Squeeze, Crunch, and other old formats.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ peterhoeg thiagokokada ];
+    maintainers = with maintainers; [
+      peterhoeg
+      thiagokokada
+    ];
     platforms = platforms.unix;
   };
 }

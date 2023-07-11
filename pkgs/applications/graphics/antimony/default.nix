@@ -44,27 +44,48 @@ in stdenv.mkDerivation {
     install -Dm644 ${./mimetype.xml} $out/share/mime/packages/antimony.xml
   '';
 
-  buildInputs =
-    [ libpng python3 python3.pkgs.boost libGLU libGL qtbase ncurses ];
-
-  nativeBuildInputs = [ cmake flex lemon wrapQtAppsHook copyDesktopItems ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "antimony";
-      desktopName = "Antimony";
-      comment = "Tree-based Modeler";
-      genericName = "CAD Application";
-      exec = "antimony %f";
-      icon = "antimony";
-      categories = [ "Graphics" "Science" "Engineering" ];
-      mimeTypes = [ "application/x-extension-sb" "application/x-antimony" ];
-      startupWMClass = "antimony";
-    })
+  buildInputs = [
+    libpng
+    python3
+    python3.pkgs.boost
+    libGLU
+    libGL
+    qtbase
+    ncurses
   ];
 
-  cmakeFlags =
-    [ "-DGITREV=${gitRev}" "-DGITTAG=${gitTag}" "-DGITBRANCH=${gitBranch}" ];
+  nativeBuildInputs = [
+    cmake
+    flex
+    lemon
+    wrapQtAppsHook
+    copyDesktopItems
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "antimony";
+    desktopName = "Antimony";
+    comment = "Tree-based Modeler";
+    genericName = "CAD Application";
+    exec = "antimony %f";
+    icon = "antimony";
+    categories = [
+      "Graphics"
+      "Science"
+      "Engineering"
+    ];
+    mimeTypes = [
+      "application/x-extension-sb"
+      "application/x-antimony"
+    ];
+    startupWMClass = "antimony";
+  }) ];
+
+  cmakeFlags = [
+    "-DGITREV=${gitRev}"
+    "-DGITTAG=${gitTag}"
+    "-DGITBRANCH=${gitBranch}"
+  ];
 
   meta = with lib; {
     description = "A computer-aided design (CAD) tool from a parallel universe";

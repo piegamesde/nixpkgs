@@ -24,9 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-8T091yF/Hu60aaUr6IDZt2cLxz1sXUbMewSqW1Ch0Vo=";
   };
 
-  propagatedBuildInputs = [ cryptography pyspnego ];
+  propagatedBuildInputs = [
+    cryptography
+    pyspnego
+  ];
 
-  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mock
+    pytestCheckHook
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     # https://github.com/jborean93/smbprotocol/issues/119

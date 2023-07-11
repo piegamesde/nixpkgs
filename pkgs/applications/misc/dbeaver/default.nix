@@ -37,23 +37,36 @@
   mvnSha256 = "uu7UNRIuAx2GOh4+YxxoGRcV5QO8C72q32e0ynJdgFo=";
   mvnParameters = "-P desktop,all-platforms";
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper maven ];
-
-  buildInputs =
-    [ fontconfig freetype glib gtk3 jdk17 libX11 libXrender libXtst zlib ]
-    ++ lib.optionals stdenv.isLinux [ webkitgtk_4_1 glib-networking ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "dbeaver";
-      exec = "dbeaver";
-      icon = "dbeaver";
-      desktopName = "dbeaver";
-      comment = "SQL Integrated Development Environment";
-      genericName = "SQL Integrated Development Environment";
-      categories = [ "Development" ];
-    })
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+    maven
   ];
+
+  buildInputs = [
+    fontconfig
+    freetype
+    glib
+    gtk3
+    jdk17
+    libX11
+    libXrender
+    libXtst
+    zlib
+  ] ++ lib.optionals stdenv.isLinux [
+    webkitgtk_4_1
+    glib-networking
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "dbeaver";
+    exec = "dbeaver";
+    icon = "dbeaver";
+    desktopName = "dbeaver";
+    comment = "SQL Integrated Development Environment";
+    genericName = "SQL Integrated Development Environment";
+    categories = [ "Development" ];
+  }) ];
 
   installPhase = let
     productTargetPath =
@@ -128,8 +141,15 @@
       binaryBytecode # dependencies from maven
     ];
     license = licenses.asl20;
-    platforms =
-      [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
-    maintainers = with maintainers; [ jojosch mkg20001 ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
+    maintainers = with maintainers; [
+      jojosch
+      mkg20001
+    ];
   };
 }

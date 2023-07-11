@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-OAVHx/a4uupVGXSWN2/3uem9/4i+TUkzTX4kp0uLY44=";
   };
 
-  propagatedBuildInputs = [ numpy packaging pandas pyarrow ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    pandas
+    pyarrow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

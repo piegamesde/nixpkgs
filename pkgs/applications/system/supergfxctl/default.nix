@@ -21,13 +21,11 @@ rustPlatform.buildRustPackage rec {
   # fix reported version in Cargo.lock
   # submitted upstream: https://gitlab.com/asus-linux/supergfxctl/-/merge_requests/31
   # FIXME: remove for next update
-  cargoPatches = [
-    (fetchpatch {
-      url =
-        "https://gitlab.com/asus-linux/supergfxctl/-/commit/8812dd208791d162881d72f785650a3344ec5151.diff";
-      hash = "sha256-eFFj2nIwGXHV1vMIpZvdvFPtfNLDfgqyGRt+VvB03LE=";
-    })
-  ];
+  cargoPatches = [ (fetchpatch {
+    url =
+      "https://gitlab.com/asus-linux/supergfxctl/-/commit/8812dd208791d162881d72f785650a3344ec5151.diff";
+    hash = "sha256-eFFj2nIwGXHV1vMIpZvdvFPtfNLDfgqyGRt+VvB03LE=";
+  }) ];
 
   cargoSha256 = "sha256-gbRGUWfpCQjCxuTdQ+qwOeCDU17G3nNFkIPAgzmeL+E=";
 

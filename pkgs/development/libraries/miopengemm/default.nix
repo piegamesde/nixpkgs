@@ -37,7 +37,10 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AiRzOMYRA/0nbQomyq4oOEwNZdkPYWRA2W6QFlctvFc=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [ rocm-opencl-runtime ] ++ lib.optionals buildDocs [
     latex
@@ -54,12 +57,11 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ] ++ lib.optionals buildTests [ "-DOPENBLAS=ON" ]
-    ++ lib.optionals buildBenchmarks [
-      "-DAPI_BENCH_MIOGEMM=ON"
-      # Needs https://github.com/CNugteren/CLBlast
-      # "-DAPI_BENCH_CLBLAST=ON"
-      # Needs https://github.com/openai/triton
-      # "-DAPI_BENCH_ISAAC=ON"
+    ++ lib.optionals buildBenchmarks [ "-DAPI_BENCH_MIOGEMM=ON"
+    # Needs https://github.com/CNugteren/CLBlast
+    # "-DAPI_BENCH_CLBLAST=ON"
+    # Needs https://github.com/openai/triton
+    # "-DAPI_BENCH_ISAAC=ON"
     ];
 
   # Unfortunately, it seems like we have to call make on these manually

@@ -18,7 +18,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ normality ];
 
-  nativeCheckInputs = [ mypy coverage nose ];
+  nativeCheckInputs = [
+    mypy
+    coverage
+    nose
+  ];
 
   checkPhase = ''
     nosetests

@@ -13,7 +13,10 @@ vscode-utils.buildVscodeMarketplaceExtension {
     version = "2.17.4";
     sha256 = "sha256-fnz6ubB73i7rJcv+paYyNV1r4cReuyFPjgPM0HO40ug=";
   };
-  nativeBuildInputs = [ jq moreutils ];
+  nativeBuildInputs = [
+    jq
+    moreutils
+  ];
   postInstall = ''
     cd "$out/$installPrefix"
     jq '.contributes.configuration.properties."plantuml.java".default = "${plantuml}/bin/plantuml"' package.json | sponge package.json

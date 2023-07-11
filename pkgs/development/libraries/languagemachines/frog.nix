@@ -23,7 +23,11 @@ in stdenv.mkDerivation {
     inherit (release) url sha256;
     name = "frog-v${release.version}.tar.gz";
   };
-  nativeBuildInputs = [ pkg-config automake autoconf ];
+  nativeBuildInputs = [
+    pkg-config
+    automake
+    autoconf
+  ];
   buildInputs = [
     bzip2
     libtar

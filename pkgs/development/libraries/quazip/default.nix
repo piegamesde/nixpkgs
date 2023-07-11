@@ -20,14 +20,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JPpkYvndjDcHVChAyWhpb/XiUPu/qHqDZFh5XmonXMs=";
   };
 
-  buildInputs = [ zlib qtbase ];
+  buildInputs = [
+    zlib
+    qtbase
+  ];
   propagatedBuildInputs = [ qt5compat ];
   nativeBuildInputs = [ cmake ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   dontWrapQtApps = true;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   meta = with lib; {
     description = "Provides access to ZIP archives from Qt programs";

@@ -34,11 +34,24 @@ in stdenv.mkDerivation rec {
     sha256 = "0bfy8iqmjhlg3ma3iqd3kxjc2zkzpjgashbpf5x17y0dc2i1whxl";
   };
 
-  buildInputs = [ libGLU libGL libpulseaudio qtbase qttools ];
+  buildInputs = [
+    libGLU
+    libGL
+    libpulseaudio
+    qtbase
+    qttools
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    extra-cmake-modules
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 

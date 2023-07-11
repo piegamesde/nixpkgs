@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1jxvv2h3y1am1fw6r5sn3say1n0dj8shmscbybl0qhqdia2lqkql";
   };
 
-  buildInputs = [ readline gettext ncurses ];
+  buildInputs = [
+    readline
+    gettext
+    ncurses
+  ];
 
   env.NIX_CFLAGS_COMPILE = with lib;
     toString ((optionals stdenv.cc.isGNU [

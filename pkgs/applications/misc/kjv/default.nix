@@ -31,7 +31,10 @@ in stdenv.mkDerivation {
     hash = "sha256-Z6myd9Xn23pYizG+IZVDrP988pYU06QIcpqXtWTcPiw=";
   };
 
-  patches = [ add-apocrypha add-install-target ];
+  patches = [
+    add-apocrypha
+    add-install-target
+  ];
 
   buildInputs = [ readline ];
 
@@ -41,7 +44,10 @@ in stdenv.mkDerivation {
     description = "The Bible, King James Version";
     homepage = "https://github.com/bontibon/kjv";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ jtobin cafkafk ];
+    maintainers = with maintainers; [
+      jtobin
+      cafkafk
+    ];
     mainProgram = "kjv";
   };
 }

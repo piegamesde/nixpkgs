@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ bash pharo ];
+  buildInputs = [
+    bash
+    pharo
+  ];
 
   installPhase = ''
     mkdir -p $prefix/share/pharo-launcher

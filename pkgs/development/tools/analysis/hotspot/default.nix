@@ -33,7 +33,10 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
   buildInputs = [
     (elfutils.override {
       enableDebuginfod = true;
@@ -74,7 +77,10 @@ mkDerivation rec {
     '';
     homepage = "https://github.com/KDAB/hotspot";
     changelog = "https://github.com/KDAB/hotspot/releases/tag/v${version}";
-    license = with licenses; [ gpl2Only gpl3Only ];
+    license = with licenses; [
+      gpl2Only
+      gpl3Only
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ nh2 ];
   };

@@ -24,7 +24,10 @@ python3Packages.buildPythonApplication {
 
   propagatedBuildInputs = with python3Packages; [ mediafile ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook beets ];
+  nativeCheckInputs = [
+    python3Packages.pytestCheckHook
+    beets
+  ];
 
   preCheck = ''
     HOME="$(mktemp -d)"

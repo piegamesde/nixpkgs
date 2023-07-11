@@ -26,8 +26,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libusb1 ];
 
-  makeFlags =
-    [ "GIT_TAG=v${version}" "USBLIB_TYPE=HIDAPI" "HIDAPI_TYPE=LIBUSB" ];
+  makeFlags = [
+    "GIT_TAG=v${version}"
+    "USBLIB_TYPE=HIDAPI"
+    "HIDAPI_TYPE=LIBUSB"
+  ];
 
   hardeningDisable = [ "format" ];
 

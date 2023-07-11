@@ -46,9 +46,10 @@ in {
 
     systemd.services.tp-auto-kbbl = {
       serviceConfig = {
-        ExecStart = concatStringsSep " "
-          ([ "${cfg.package}/bin/tp-auto-kbbl" "--device ${cfg.device}" ]
-            ++ cfg.arguments);
+        ExecStart = concatStringsSep " " ([
+          "${cfg.package}/bin/tp-auto-kbbl"
+          "--device ${cfg.device}"
+        ] ++ cfg.arguments);
         Restart = "always";
         Type = "simple";
       };

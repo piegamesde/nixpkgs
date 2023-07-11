@@ -46,7 +46,13 @@ in stdenv.mkDerivation rec {
     description = "UEFI shim loader";
     homepage = "https://github.com/rhboot/shim";
     license = licenses.bsd1;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ baloo raitobezarius ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      baloo
+      raitobezarius
+    ];
   };
 }

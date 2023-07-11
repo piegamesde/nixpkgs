@@ -47,8 +47,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [ gtk3 gdk-pixbuf librsvg libmanette gsound clutter libxml2 clutter-gtk ];
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+    librsvg
+    libmanette
+    gsound
+    clutter
+    libxml2
+    clutter-gtk
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

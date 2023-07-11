@@ -33,7 +33,10 @@ in {
 
     PROTOC = "${protobuf}/bin/protoc";
 
-    nativeBuildInputs = [ rustfmt rustPlatform.bindgenHook ];
+    nativeBuildInputs = [
+      rustfmt
+      rustPlatform.bindgenHook
+    ];
 
     # test rely on libindradb and it can't be found
     # failure at https://github.com/indradb/indradb/blob/master/server/tests/plugins.rs#L63
@@ -49,7 +52,10 @@ in {
 
     PROTOC = "${protobuf}/bin/protoc";
 
-    nativeBuildInputs = [ rustfmt rustPlatform.bindgenHook ];
+    nativeBuildInputs = [
+      rustfmt
+      rustPlatform.bindgenHook
+    ];
 
     buildAndTestSubdir = "client";
   };

@@ -28,16 +28,28 @@ clangStdenv.mkDerivation rec {
     sha256 = "03zhhl9vhi3rhc3qz1g3zb89jksgpdlrk15fcr8xcz8pkj6r5b1i";
   };
 
-  patches = [
-    (fetchpatch {
-      name = "use_newer_cxxopts_which_builds_with_clang11.patch";
-      url =
-        "https://github.com/d-SEAMS/seams-core/commit/f6156057e43d0aa1a0df9de67d8859da9c30302d.patch";
-      hash = "sha256-PLbT1lqdw+69lIHH96MPcGRjfIeZyb88vc875QLYyqw=";
-    })
+  patches = [ (fetchpatch {
+    name = "use_newer_cxxopts_which_builds_with_clang11.patch";
+    url =
+      "https://github.com/d-SEAMS/seams-core/commit/f6156057e43d0aa1a0df9de67d8859da9c30302d.patch";
+    hash = "sha256-PLbT1lqdw+69lIHH96MPcGRjfIeZyb88vc875QLYyqw=";
+  }) ];
+  nativeBuildInputs = [
+    cmake
+    lua
+    luaPackages.luafilesystem
   ];
-  nativeBuildInputs = [ cmake lua luaPackages.luafilesystem ];
-  buildInputs = [ fmt rang yaml-cpp eigen catch2 boost gsl liblapack blas ];
+  buildInputs = [
+    fmt
+    rang
+    yaml-cpp
+    eigen
+    catch2
+    boost
+    gsl
+    liblapack
+    blas
+  ];
 
   meta = with lib; {
     description =

@@ -48,7 +48,12 @@ in stdenv.mkDerivation rec {
     darwin.autoSignDarwinBinariesHook
   ];
 
-  buildInputs = [ gmp libsodium sqlite zlib ];
+  buildInputs = [
+    gmp
+    libsodium
+    sqlite
+    zlib
+  ];
 
   # this causes some python trouble on a darwin host so we skip this step.
   # also we have to tell libwally-core to use sed instead of gsed.
@@ -63,7 +68,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace external/libwally-core/configure.ac --replace gsed sed
   '';
 
-  configureFlags = [ "--disable-developer" "--disable-valgrind" ];
+  configureFlags = [
+    "--disable-developer"
+    "--disable-valgrind"
+  ];
 
   makeFlags = [ "VERSION=v${version}" ];
 
@@ -78,7 +86,10 @@ in stdenv.mkDerivation rec {
       parties for any amount.
     '';
     homepage = "https://github.com/ElementsProject/lightning";
-    maintainers = with maintainers; [ jb55 prusnak ];
+    maintainers = with maintainers; [
+      jb55
+      prusnak
+    ];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

@@ -19,13 +19,23 @@ stdenv.mkDerivation rec {
     sha256 = "11xwhcli1h12k6rnhhyq4jphzrhfik7i8ah3k32pqw803460n6yf";
   };
 
-  nativeBuildInputs = [ pkg-config python2 glib ];
+  nativeBuildInputs = [
+    pkg-config
+    python2
+    glib
+  ];
 
-  buildInputs = [ gtk2 readline ];
+  buildInputs = [
+    gtk2
+    readline
+  ];
 
   strictDeps = true;
 
-  configureFlags = [ "--with-gtk" "--with--board3d" ];
+  configureFlags = [
+    "--with-gtk"
+    "--with--board3d"
+  ];
 
   meta = with lib; {
     description = "World class backgammon application";

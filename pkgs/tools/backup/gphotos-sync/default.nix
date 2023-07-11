@@ -56,7 +56,11 @@ in py.pkgs.buildPythonApplication rec {
 
   buildInputs = [ ffmpeg ];
 
-  nativeCheckInputs = with py.pkgs; [ mock pytestCheckHook setuptools-scm ];
+  nativeCheckInputs = with py.pkgs; [
+    mock
+    pytestCheckHook
+    setuptools-scm
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

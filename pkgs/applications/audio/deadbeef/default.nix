@@ -89,14 +89,18 @@ in clangStdenv.mkDerivation {
     hash = "sha256-dSSIaJxHYUVOmuJN2t5UZSC3ZP5732/qVXSZAuWYr0Q=";
   };
 
-  buildInputs = [ jansson swift-corelibs-libdispatch ]
-    ++ optionals gtk2Support [ gtk2 ]
-    ++ optionals gtk3Support [ gtk3 gsettings-desktop-schemas ]
-    ++ optionals vorbisSupport [ libvorbis ]
+  buildInputs = [
+    jansson
+    swift-corelibs-libdispatch
+  ] ++ optionals gtk2Support [ gtk2 ] ++ optionals gtk3Support [
+    gtk3
+    gsettings-desktop-schemas
+  ] ++ optionals vorbisSupport [ libvorbis ]
     ++ optionals mp123Support [ libmad ] ++ optionals flacSupport [ flac ]
-    ++ optionals wavSupport [ libsndfile ]
-    ++ optionals cdaSupport [ libcdio libcddb ]
-    ++ optionals aacSupport [ faad2 ] ++ optionals opusSupport [ opusfile ]
+    ++ optionals wavSupport [ libsndfile ] ++ optionals cdaSupport [
+      libcdio
+      libcddb
+    ] ++ optionals aacSupport [ faad2 ] ++ optionals opusSupport [ opusfile ]
     ++ optionals zipSupport [ libzip ] ++ optionals ffmpegSupport [ ffmpeg ]
     ++ optionals apeSupport [ yasm ] ++ optionals artworkSupport [ imlib2 ]
     ++ optionals hotkeysSupport [ libX11 ] ++ optionals osdSupport [ dbus ]
@@ -107,8 +111,13 @@ in clangStdenv.mkDerivation {
     ++ optionals overloadSupport [ zlib ]
     ++ optionals wavpackSupport [ wavpack ] ++ optionals remoteSupport [ curl ];
 
-  nativeBuildInputs = [ autoconf automake intltool libtool pkg-config ]
-    ++ optionals gtk3Support [ wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    intltool
+    libtool
+    pkg-config
+  ] ++ optionals gtk3Support [ wrapGAppsHook ];
 
   enableParallelBuilding = true;
 
@@ -121,7 +130,10 @@ in clangStdenv.mkDerivation {
     homepage = "http://deadbeef.sourceforge.net/";
     downloadPage = "https://github.com/DeaDBeeF-Player/deadbeef";
     license = licenses.gpl2;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = [ maintainers.abbradar ];
   };
 }

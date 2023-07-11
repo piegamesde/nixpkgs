@@ -66,7 +66,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-DqDRGhZgoeY/lg8Vexl6vm0MjLMlW+JOH7OBWTC5vcU=";
   };
 
-  outputs = [ "bin" "dev" "out" "man" "devdoc" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "devdoc"
+  ];
   # Not normally useful docs.
   outputInfo = "devdoc";
   outputDoc = "devdoc";
@@ -102,18 +108,31 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs =
-    [ lzo lzip libtasn1 libidn2 zlib gmp libunistring unbound gettext libiconv ]
-    ++ lib.optional (withP11-kit) p11-kit
+  buildInputs = [
+    lzo
+    lzip
+    libtasn1
+    libidn2
+    zlib
+    gmp
+    libunistring
+    unbound
+    gettext
+    libiconv
+  ] ++ lib.optional (withP11-kit) p11-kit
     ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
 
-  nativeBuildInputs = [ perl pkg-config ]
-    ++ lib.optionals doCheck [ which nettools util-linux ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ] ++ lib.optionals doCheck [
+    which
+    nettools
+    util-linux
+  ];
 
-  propagatedBuildInputs = [
-    nettle
-  ]
-  # Builds dynamically linking against gnutls seem to need the framework now.
+  propagatedBuildInputs = [ nettle ]
+    # Builds dynamically linking against gnutls seem to need the framework now.
     ++ lib.optional isDarwin Security;
 
   inherit doCheck;

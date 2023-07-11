@@ -22,9 +22,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./irssi-include-dir.patch ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glib openssl ];
+  buildInputs = [
+    glib
+    openssl
+  ];
 
   cmakeFlags = [ "-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include" ];
 

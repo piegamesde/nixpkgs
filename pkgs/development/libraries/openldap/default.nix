@@ -31,18 +31,27 @@ stdenv.mkDerivation rec {
   };
 
   # TODO: separate "out" and "bin"
-  outputs = [ "out" "dev" "man" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "devdoc"
+  ];
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ groff ];
 
-  buildInputs =
-    [ (cyrus_sasl.override { inherit openssl; }) db libsodium libtool openssl ]
-    ++ lib.optionals (stdenv.isLinux) [
-      libxcrypt # causes linking issues on *-darwin
-      systemdMinimal
-    ];
+  buildInputs = [
+    (cyrus_sasl.override { inherit openssl; })
+    db
+    libsodium
+    libtool
+    openssl
+  ] ++ lib.optionals (stdenv.isLinux) [
+    libxcrypt # causes linking issues on *-darwin
+    systemdMinimal
+  ];
 
   preConfigure = lib.optionalString
     (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
@@ -119,7 +128,11 @@ stdenv.mkDerivation rec {
     description =
       "An open source implementation of the Lightweight Directory Access Protocol";
     license = licenses.openldap;
-    maintainers = with maintainers; [ ajs124 das_j hexa ];
+    maintainers = with maintainers; [
+      ajs124
+      das_j
+      hexa
+    ];
     platforms = platforms.unix;
   };
 }

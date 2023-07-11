@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django djangorestframework pyjwt python-jose ];
+  propagatedBuildInputs = [
+    django
+    djangorestframework
+    pyjwt
+    python-jose
+  ];
 
   # Test raises django.core.exceptions.ImproperlyConfigured
   doCheck = false;

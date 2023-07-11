@@ -42,7 +42,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ astroid deal-solver pygments typeguard ];
+  propagatedBuildInputs = [
+    astroid
+    deal-solver
+    pygments
+    typeguard
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook

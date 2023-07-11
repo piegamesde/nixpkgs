@@ -64,19 +64,26 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-G6zcdnHkevbVCrMoseWoSia5ajEor8nZhee6NeZIs8Q=";
   };
 
-  patches = [
-    (fetchpatch {
-      # Fixes cover globbing under python 3.10.5+
-      url =
-        "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
-      hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
-    })
+  patches = [ (fetchpatch {
+    # Fixes cover globbing under python 3.10.5+
+    url =
+      "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
+    hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
+  }) ];
+
+  outputs = [
+    "out"
+    "doc"
   ];
 
-  outputs = [ "out" "doc" ];
-
-  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ]
-    ++ (with python3.pkgs; [ sphinxHook sphinx-rtd-theme ]);
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    wrapGAppsHook
+  ] ++ (with python3.pkgs; [
+    sphinxHook
+    sphinx-rtd-theme
+  ]);
 
   buildInputs = [
     adwaita-icon-theme
@@ -93,7 +100,10 @@ python3.pkgs.buildPythonApplication rec {
     webkitgtk
   ] ++ lib.optionals (withXineBackend) [ xine-lib ]
     ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
-      [ gst-plugins-base gstreamer ] ++ lib.optionals (withGstPlugins) [
+      [
+        gst-plugins-base
+        gstreamer
+      ] ++ lib.optionals (withGstPlugins) [
         gst-libav
         gst-plugins-bad
         gst-plugins-good
@@ -101,8 +111,13 @@ python3.pkgs.buildPythonApplication rec {
       ]);
 
   propagatedBuildInputs = with python3.pkgs;
-    [ feedparser gst-python mutagen pycairo pygobject3 ]
-    ++ lib.optionals withDbusPython [ dbus-python ]
+    [
+      feedparser
+      gst-python
+      mutagen
+      pycairo
+      pygobject3
+    ] ++ lib.optionals withDbusPython [ dbus-python ]
     ++ lib.optionals withPypresence [ pypresence ]
     ++ lib.optionals withPyInotify [ pyinotify ]
     ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
@@ -111,9 +126,17 @@ python3.pkgs.buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  nativeCheckInputs =
-    [ dbus gdk-pixbuf glibcLocales hicolor-icon-theme xvfb-run ]
-    ++ (with python3.pkgs; [ polib pytest pytest-xdist ]);
+  nativeCheckInputs = [
+    dbus
+    gdk-pixbuf
+    glibcLocales
+    hicolor-icon-theme
+    xvfb-run
+  ] ++ (with python3.pkgs; [
+    polib
+    pytest
+    pytest-xdist
+  ]);
 
   pytestFlags = [
     # requires networking
@@ -125,8 +148,8 @@ python3.pkgs.buildPythonApplication rec {
     # build failure on Arch Linux
     # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
     "--ignore=tests/test_operon.py"
-  ] ++ lib.optionals (withXineBackend || !withGstPlugins)
-    [ "--ignore=tests/plugin/test_replaygain.py" ];
+  ] ++ lib.optionals (withXineBackend
+    || !withGstPlugins) [ "--ignore=tests/plugin/test_replaygain.py" ];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"
@@ -167,7 +190,10 @@ python3.pkgs.buildPythonApplication rec {
       & internet radio, and all major audio formats.
     '';
 
-    maintainers = with maintainers; [ coroa pbogdan ];
+    maintainers = with maintainers; [
+      coroa
+      pbogdan
+    ];
     homepage = "https://quodlibet.readthedocs.io/en/latest/";
   };
 }

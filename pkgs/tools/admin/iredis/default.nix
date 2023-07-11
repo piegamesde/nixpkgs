@@ -36,7 +36,10 @@ buildPythonApplication rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [ pytestCheckHook pexpect ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pexpect
+  ];
 
   pytestFlagsArray = [
     # Fails on sandbox

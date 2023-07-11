@@ -8,7 +8,10 @@ args@{
 
   description = "Babel, a charset conversion library.";
 
-  deps = [ args."alexandria" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

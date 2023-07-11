@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-b9tBXN9dBdAeGg3xf5ZBdd6kPpFzseJl6wRTTfNZEwo=";
   };
 
-  propagatedBuildInputs = [ attrs click colorama ];
+  propagatedBuildInputs = [
+    attrs
+    click
+    colorama
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

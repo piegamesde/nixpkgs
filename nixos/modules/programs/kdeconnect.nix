@@ -29,10 +29,10 @@ with lib; {
   in mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
     networking.firewall = rec {
-      allowedTCPPortRanges = [{
+      allowedTCPPortRanges = [ {
         from = 1714;
         to = 1764;
-      }];
+      } ];
       allowedUDPPortRanges = allowedTCPPortRanges;
     };
   };

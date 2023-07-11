@@ -22,7 +22,12 @@ in stdenv.mkDerivation rec {
       "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
   };
 
-  buildInputs = [ cups libusb-compat-0_1 libxml2 perl ];
+  buildInputs = [
+    cups
+    libusb-compat-0_1
+    libxml2
+    perl
+  ];
 
   installPhase = ''
     runHook preInstall

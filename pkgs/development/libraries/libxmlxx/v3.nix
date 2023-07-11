@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "19kik79fmg61nv0by0a5f9wchrcfjwzvih4v2waw01hqflhqvp0r";
   };
 
-  outputs = [ "out" "dev" "doc" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "devdoc"
+  ];
 
-  nativeBuildInputs = [ pkg-config perl ];
+  nativeBuildInputs = [
+    pkg-config
+    perl
+  ];
 
   buildInputs = [ glibmm ];
 

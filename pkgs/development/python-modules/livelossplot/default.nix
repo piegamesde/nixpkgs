@@ -29,9 +29,18 @@ buildPythonPackage rec {
     sha256 = "IV6YAidoqVoKvpy+LNNHTPpobiDoGX59bHqJcBtaydk=";
   };
 
-  propagatedBuildInputs = [ bokeh ipython matplotlib numpy ];
+  propagatedBuildInputs = [
+    bokeh
+    ipython
+    matplotlib
+    numpy
+  ];
 
-  nativeCheckInputs = [ nbconvert nbformat pytestCheckHook ];
+  nativeCheckInputs = [
+    nbconvert
+    nbformat
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description =

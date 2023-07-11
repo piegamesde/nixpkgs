@@ -28,13 +28,26 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ numpy numba typing-extensions ];
+  propagatedBuildInputs = [
+    numpy
+    numba
+    typing-extensions
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
-  pythonRelaxDeps = [ "numpy" "numba" ];
+  pythonRelaxDeps = [
+    "numpy"
+    "numba"
+  ];
 
   pythonImportsCheck = [ "galois" ];
 

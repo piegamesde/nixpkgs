@@ -21,9 +21,16 @@ mkDerivation rec {
     sha256 = "sha256-ZfgaLCLvBU6xP7nx7YJTsJSpvpdQgLpSMWH+BsG8E1g=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ qttools fribidi libunibreak ];
+  buildInputs = [
+    qttools
+    fribidi
+    libunibreak
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

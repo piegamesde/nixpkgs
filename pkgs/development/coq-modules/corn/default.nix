@@ -36,7 +36,10 @@ mkCoqDerivation rec {
   configureScript = "./configure.sh";
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ bignums math-classes ];
+  propagatedBuildInputs = [
+    bignums
+    math-classes
+  ];
 
   meta = with lib; {
     homepage = "http://c-corn.github.io/";

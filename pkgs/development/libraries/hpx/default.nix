@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YJ4wHaPE5E6ngUAYrQB1SkW4IoHW71tUDKKNANVA9Xw=";
   };
 
-  buildInputs = [ asio boost hwloc gperftools ];
-  nativeBuildInputs = [ cmake pkg-config python3 ];
+  buildInputs = [
+    asio
+    boost
+    hwloc
+    gperftools
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ];
 
   strictDeps = true;
 

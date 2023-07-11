@@ -24,11 +24,24 @@ mkDerivation rec {
     sha256 = "sha256-horKTegmvcMg4m5NbZ4nzy4J6Ac/6+E5OkiZl0v6TBc=";
   };
 
-  buildInputs = [ boost muparser qtbase qtsvg ];
+  buildInputs = [
+    boost
+    muparser
+    qtbase
+    qtsvg
+  ];
 
-  nativeBuildInputs = [ installShellFiles pkg-config qmake qttools ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    qmake
+    qttools
+  ];
 
-  qmakeFlags = [ "MUPARSER_DIR=${muparser}" "BOOST_DIR=${boost.dev}" ];
+  qmakeFlags = [
+    "MUPARSER_DIR=${muparser}"
+    "BOOST_DIR=${boost.dev}"
+  ];
 
   postPatch = ''
     substituteInPlace scripts/postprocess-unix.sh \
@@ -59,7 +72,10 @@ mkDerivation rec {
     description = "2D CAD package based on Qt";
     homepage = "https://librecad.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kiwi viric ];
+    maintainers = with maintainers; [
+      kiwi
+      viric
+    ];
     platforms = platforms.linux;
   };
 }

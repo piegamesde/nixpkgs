@@ -24,8 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-YJc9RIqkEL7dd1ahE4IbxyyZgsZWBDqbXZAvI/nK24M=";
   };
 
-  propagatedBuildInputs =
-    [ asn1crypto certvalidator oscrypto pyasn1 pyasn1-modules ];
+  propagatedBuildInputs = [
+    asn1crypto
+    certvalidator
+    oscrypto
+    pyasn1
+    pyasn1-modules
+  ];
 
   pythonImportsCheck = [ "signify" ];
 

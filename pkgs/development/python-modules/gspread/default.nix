@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-+XOeK4Odf6H4pfDPDU7mjHduL79L/jFnrS6RC9WI+0Q=";
   };
 
-  propagatedBuildInputs = [ requests google-auth google-auth-oauthlib ];
+  propagatedBuildInputs = [
+    requests
+    google-auth
+    google-auth-oauthlib
+  ];
 
   # No tests included
   doCheck = false;

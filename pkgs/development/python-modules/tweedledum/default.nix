@@ -23,7 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-wgrY5ajaMYxznyNvlD0ul1PFr3W8oV9I/OVsStlZEBM=";
   };
 
-  nativeBuildInputs = [ cmake ninja scikit-build ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    scikit-build
+  ];
   dontUseCmakeConfigure = true;
 
   pythonImportsCheck = [ "tweedledum" ];

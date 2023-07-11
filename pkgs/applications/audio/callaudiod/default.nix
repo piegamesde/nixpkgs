@@ -23,15 +23,27 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ meson ninja pkg-config glib ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    glib
+  ];
 
-  buildInputs = [ alsa-lib libpulseaudio glib ];
+  buildInputs = [
+    alsa-lib
+    libpulseaudio
+    glib
+  ];
 
   meta = with lib; {
     description = "Daemon for dealing with audio routing during phone calls";
     homepage = "https://gitlab.com/mobian1/callaudiod";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pacman99 tomfitzhenry ];
+    maintainers = with maintainers; [
+      pacman99
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

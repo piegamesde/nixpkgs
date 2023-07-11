@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pythonPackages.wrapPython ];
 
-  propagatedBuildInputs = with pythonPackages; [ pyenchant regex ];
+  propagatedBuildInputs = with pythonPackages; [
+    pyenchant
+    regex
+  ];
 
   postFixup = ''
     wrapPythonPrograms

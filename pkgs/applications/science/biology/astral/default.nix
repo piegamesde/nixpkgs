@@ -21,7 +21,12 @@ in stdenvNoCC.mkDerivation rec {
     sha256 = "043w2z6gbrisqirdid022f4b8jps1pp5syi344krv2bis1gjq5sn";
   };
 
-  nativeBuildInputs = [ jdk makeWrapper jre zip ];
+  nativeBuildInputs = [
+    jdk
+    makeWrapper
+    jre
+    zip
+  ];
 
   buildPhase = ''
     patchShebangs ./make.sh

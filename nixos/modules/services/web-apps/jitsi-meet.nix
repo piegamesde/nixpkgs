@@ -210,7 +210,10 @@ in {
           #-- muc_room_cache_size = 1000
         }
       ];
-      extraModules = [ "pubsub" "smacks" ];
+      extraModules = [
+        "pubsub"
+        "smacks"
+      ];
       extraPluginPaths = [ "${pkgs.jitsi-meet-prosody}/share/prosody-plugins" ];
       extraConfig = lib.mkMerge [
         (mkAfter ''
@@ -285,8 +288,10 @@ in {
 
     systemd.services.jitsi-meet-init-secrets = {
       wantedBy = [ "multi-user.target" ];
-      before = [ "jicofo.service" "jitsi-videobridge2.service" ]
-        ++ (optional cfg.prosody.enable "prosody.service");
+      before = [
+        "jicofo.service"
+        "jitsi-videobridge2.service"
+      ] ++ (optional cfg.prosody.enable "prosody.service");
       serviceConfig = { Type = "oneshot"; };
 
       script = let

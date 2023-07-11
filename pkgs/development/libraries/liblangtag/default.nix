@@ -45,8 +45,20 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional (stdenv.hostPlatform.libc == "glibc")
     "--with-locale-alias=${stdenv.cc.libc}/share/locale/locale.alias";
 
-  buildInputs = [ gettext glib libxml2 gobject-introspection gnome-common ];
-  nativeBuildInputs = [ autoreconfHook gtk-doc gettext pkg-config unzip ];
+  buildInputs = [
+    gettext
+    glib
+    libxml2
+    gobject-introspection
+    gnome-common
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gtk-doc
+    gettext
+    pkg-config
+    unzip
+  ];
 
   meta = with lib; {
     description =

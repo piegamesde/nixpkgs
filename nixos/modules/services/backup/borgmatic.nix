@@ -21,7 +21,11 @@ let
             List of source directories to backup (required). Globs and
             tildes are expanded.
           '';
-          example = [ "/home" "/etc" "/var/log/syslog*" ];
+          example = [
+            "/home"
+            "/etc"
+            "/var/log/syslog*"
+          ];
         };
         repositories = mkOption {
           type = listOf str;

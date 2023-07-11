@@ -121,7 +121,11 @@ in rec { # un-indented
 
     inherit (common) src prePatch;
 
-    outputs = [ "out" "doc" "dev" ];
+    outputs = [
+      "out"
+      "doc"
+      "dev"
+    ];
 
     nativeBuildInputs = [ pkg-config ]
       ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
@@ -157,9 +161,8 @@ in rec { # un-indented
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    configureFlags = common.configureFlags
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [ "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
+    configureFlags = common.configureFlags ++ lib.optionals (stdenv.hostPlatform
+      != stdenv.buildPlatform) [ "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
       ++ [ "--without-x" ] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"
@@ -187,7 +190,10 @@ in rec { # un-indented
     doCheck = false; # triptest fails, likely due to missing TEXMF tree
     preCheck = "patchShebangs ../texk/web2c";
 
-    installTargets = [ "install" "texlinks" ];
+    installTargets = [
+      "install"
+      "texlinks"
+    ];
 
     # TODO: perhaps improve texmf.cnf search locations
     postInstall =
@@ -245,7 +251,12 @@ in rec { # un-indented
       description = "Basic binaries for TeX Live";
       homepage = "http://www.tug.org/texlive";
       license = lib.licenses.gpl2;
-      maintainers = with maintainers; [ veprbl lovek323 raskin jwiegley ];
+      maintainers = with maintainers; [
+        veprbl
+        lovek323
+        raskin
+        jwiegley
+      ];
       platforms = platforms.all;
     };
   };
@@ -273,8 +284,14 @@ in rec { # un-indented
     hardeningDisable = [ "format" ];
 
     inherit (core) nativeBuildInputs depsBuildBuild;
-    buildInputs = core.buildInputs
-      ++ [ core cairo harfbuzz icu graphite2 libX11 ];
+    buildInputs = core.buildInputs ++ [
+      core
+      cairo
+      harfbuzz
+      icu
+      graphite2
+      libX11
+    ];
 
     configureFlags = common.configureFlags ++ withSystemLibs [
       "kpathsea"
@@ -382,9 +399,8 @@ in rec { # un-indented
     inherit (common) src;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [
-      core # kpathsea
-    ];
+    buildInputs = [ core # kpathsea
+      ];
 
     preConfigure = "cd texk/chktex";
 
@@ -404,8 +420,16 @@ in rec { # un-indented
     configureFlags = common.configureFlags ++ [ "--with-system-kpathsea" ];
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs =
-      [ core brotli ghostscript zlib freetype woff2 potrace xxHash ];
+    buildInputs = [
+      core
+      brotli
+      ghostscript
+      zlib
+      freetype
+      woff2
+      potrace
+      xxHash
+    ];
 
     enableParallelBuilding = true;
   };
@@ -416,7 +440,11 @@ in rec { # un-indented
 
     inherit (common) src;
 
-    nativeBuildInputs = [ perl pkg-config makeWrapper ];
+    nativeBuildInputs = [
+      perl
+      pkg-config
+      makeWrapper
+    ];
     buildInputs = [
       core # kpathsea
       zlib
@@ -431,8 +459,11 @@ in rec { # un-indented
       patchShebangs doc/texi2pod.pl
     '';
 
-    configureFlags = common.configureFlags
-      ++ [ "--with-system-kpathsea" "--with-gs=yes" "--disable-debug" ];
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-gs=yes"
+      "--disable-debug"
+    ];
 
     GS = "${ghostscript}/bin/gs";
 
@@ -484,7 +515,10 @@ in rec { # un-indented
     src =
       lib.head (builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs);
 
-    propagatedBuildInputs = with python3Packages; [ pygments chardet ];
+    propagatedBuildInputs = with python3Packages; [
+      pygments
+      chardet
+    ];
 
     dontBuild = true;
 
@@ -554,8 +588,10 @@ in rec { # un-indented
 
     preConfigure = "cd texk/bibtex-x";
 
-    configureFlags = common.configureFlags
-      ++ [ "--with-system-kpathsea" "--with-system-icu" ];
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-system-icu"
+    ];
 
     enableParallelBuilding = true;
   };
@@ -584,8 +620,10 @@ in rec { # un-indented
 
     preConfigure = "cd texk/xdvik";
 
-    configureFlags = common.configureFlags
-      ++ [ "--with-system-kpathsea" "--with-system-libgs" ];
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-system-libgs"
+    ];
 
     enableParallelBuilding = true;
 
@@ -624,9 +662,16 @@ in rec { # un-indented
       perl
       (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
     ];
-    buildInputs = [ clisp libiconv perl ];
+    buildInputs = [
+      clisp
+      libiconv
+      perl
+    ];
 
-    configureFlags = [ "--with-clisp-runtime=system" "--disable-xindy-docs" ];
+    configureFlags = [
+      "--with-clisp-runtime=system"
+      "--disable-xindy-docs"
+    ];
 
     preInstall = ''mkdir -p "$out/bin" '';
     # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}

@@ -24,8 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-eu6n83qmo1PQKnR/ellto04xi/3egl+LSKMOG277X1k=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp promise python-socketio requests websockets ];
+  propagatedBuildInputs = [
+    aiohttp
+    promise
+    python-socketio
+    requests
+    websockets
+  ];
 
   # Project has no tests
   doCheck = false;

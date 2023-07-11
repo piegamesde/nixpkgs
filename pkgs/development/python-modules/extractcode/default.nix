@@ -34,10 +34,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [ typecode patch extractcode-libarchive extractcode-7z ];
+  propagatedBuildInputs = [
+    typecode
+    patch
+    extractcode-libarchive
+    extractcode-7z
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   disabledTestPaths = [
     # CLI test tests the CLI which we can't do until after install

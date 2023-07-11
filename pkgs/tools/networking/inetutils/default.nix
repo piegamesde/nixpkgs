@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F4nWsbGlff4qere1M+6fXf2cv1tZuxuzwmEu0I0PaLI=";
   };
 
-  outputs = [ "out" "apparmor" ];
+  outputs = [
+    "out"
+    "apparmor"
+  ];
 
   patches = [
     # https://git.congatec.com/yocto/meta-openembedded/commit/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3

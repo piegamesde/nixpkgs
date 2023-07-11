@@ -38,9 +38,15 @@ stdenv.mkDerivation rec {
     inherit libnotify;
   });
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ ffmpeg libX11 ] ++ lib.optional drmSupport libdrm
+  buildInputs = [
+    ffmpeg
+    libX11
+  ] ++ lib.optional drmSupport libdrm
     ++ lib.optional pulseaudioSupport libpulseaudio;
 
   cmakeFlags = [

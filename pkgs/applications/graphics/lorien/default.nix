@@ -46,7 +46,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-x81Obana2BEGrYSoJHDdCkL6UaULfQGQ94tlrH5+kdY=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems godot-headless ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    godot-headless
+  ];
 
   buildInputs = [
     alsa-lib
@@ -64,18 +67,19 @@ in stdenv.mkDerivation rec {
     udev
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "lorien";
-      exec = "lorien";
-      icon = "lorien";
-      desktopName = "Lorien";
-      genericName = "Whiteboard";
-      comment = meta.description;
-      categories = [ "Graphics" "Office" ];
-      keywords = [ "whiteboard" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "lorien";
+    exec = "lorien";
+    icon = "lorien";
+    desktopName = "Lorien";
+    genericName = "Whiteboard";
+    comment = meta.description;
+    categories = [
+      "Graphics"
+      "Office"
+    ];
+    keywords = [ "whiteboard" ];
+  }) ];
 
   buildPhase = ''
     runHook preBuild

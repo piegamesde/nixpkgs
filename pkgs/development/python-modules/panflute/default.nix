@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-zv2d/EjM2XMqU9tXYQcB0igG2jl6ipflzI3AcLVYZco=";
   };
 
-  propagatedBuildInputs = [ click pyyaml ];
+  propagatedBuildInputs = [
+    click
+    pyyaml
+  ];
 
   pythonImportsCheck = [ "panflute" ];
 

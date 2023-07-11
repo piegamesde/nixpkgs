@@ -17,8 +17,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-7mzk2OP1p8FfRsbs4B6XP/szBeckm7Q7hf8AkbZUG2Q=";
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/particledecay/kconf/build.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/particledecay/kconf/build.Version=${version}"
+  ];
 
   meta = with lib; {
     description =

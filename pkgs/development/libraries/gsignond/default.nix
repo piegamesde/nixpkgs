@@ -27,7 +27,11 @@ let
     pname = "gsignond";
     version = "1.2.0";
 
-    outputs = [ "out" "dev" "devdoc" ];
+    outputs = [
+      "out"
+      "dev"
+      "devdoc"
+    ];
 
     src = fetchFromGitLab {
       owner = "accounts-sso";
@@ -49,15 +53,25 @@ let
       vala
     ];
 
-    buildInputs = [ glib glib-networking libsecret ];
+    buildInputs = [
+      glib
+      glib-networking
+      libsecret
+    ];
 
     propagatedBuildInputs = [ sqlite ];
 
-    mesonFlags = [ "-Dbus_type=session" "-Dextension=desktop" ];
+    mesonFlags = [
+      "-Dbus_type=session"
+      "-Dextension=desktop"
+    ];
 
     LC_ALL = "en_US.UTF-8";
 
-    patches = [ ./conf.patch ./plugin-load-env.patch ];
+    patches = [
+      ./conf.patch
+      ./plugin-load-env.patch
+    ];
 
     meta = with lib; {
       description =

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "0pw9lm8y83mda7x39874ax2147818h1wcibi83pd2x4rp1hjbkkn";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config scanmem ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    scanmem
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ugtrain/ugtrain";

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "17fkj0d2jh0xkjpcayhs1xvbnh1d69f026i7vs1zqnbiwbkpz237";
   };
 
-  buildInputs = [ boost sqlite ];
+  buildInputs = [
+    boost
+    sqlite
+  ];
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.in \

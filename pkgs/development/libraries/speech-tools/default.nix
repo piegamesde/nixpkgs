@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1k2xh13miyv48gh06rgsq2vj25xwj7z6vwq9ilsn8i7ig3nrgzg4";
   };
 
-  buildInputs = [ alsa-lib ncurses ];
+  buildInputs = [
+    alsa-lib
+    ncurses
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: libestools.a(editline.o):(.bss+0x28): multiple definition of

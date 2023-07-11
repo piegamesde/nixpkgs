@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ply ];
 
-  nativeCheckInputs = [ parameterized pytestCheckHook ];
+  nativeCheckInputs = [
+    parameterized
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyomo" ];
 

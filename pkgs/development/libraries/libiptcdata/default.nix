@@ -26,7 +26,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv libintl ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    libintl
+  ];
 
   meta = with lib; {
     description =

@@ -13,7 +13,11 @@ stdenv.mkDerivation rec {
   version = "1.16";
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ xorg.libX11 libGLU libGL ];
+  buildInputs = [
+    xorg.libX11
+    libGLU
+    libGL
+  ];
 
   src = fetchurl {
     url = "mirror://sourceforge/project/anttweakbar/AntTweakBar_${

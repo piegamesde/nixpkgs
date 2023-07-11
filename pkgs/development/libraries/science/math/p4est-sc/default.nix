@@ -29,7 +29,10 @@ in stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   propagatedNativeBuildInputs = lib.optional mpiSupport mpi
     ++ lib.optional isOpenmpi openssh;
   propagatedBuildInputs = [ zlib ];

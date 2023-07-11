@@ -21,9 +21,17 @@ buildPythonPackage rec {
     sha256 = "1ba247fw1fvi7zy31zj2wbjq7fajrbxhp139cl9jj67rfvxfv8xf";
   };
 
-  propagatedBuildInputs = [ click pytest-runner requests websocket-client ];
+  propagatedBuildInputs = [
+    click
+    pytest-runner
+    requests
+    websocket-client
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "waterfurnace" ];
 

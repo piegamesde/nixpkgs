@@ -53,8 +53,11 @@ in {
         "getty@tty1.service"
       ];
       before = [ "graphical.target" ];
-      wants =
-        [ "dbus.socket" "systemd-logind.service" "plymouth-quit.service" ];
+      wants = [
+        "dbus.socket"
+        "systemd-logind.service"
+        "plymouth-quit.service"
+      ];
       wantedBy = [ "graphical.target" ];
       conflicts = [ "getty@tty1.service" ];
 

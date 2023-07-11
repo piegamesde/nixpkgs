@@ -25,9 +25,17 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '/bin/bash' "${runtimeShell}"
   '';
 
-  nativeBuildInputs = [ autoconf makeWrapper python3Packages.docutils ];
+  nativeBuildInputs = [
+    autoconf
+    makeWrapper
+    python3Packages.docutils
+  ];
 
-  makeFlags = [ "-C" "resources" "PREFIX=$(out)" ];
+  makeFlags = [
+    "-C"
+    "resources"
+    "PREFIX=$(out)"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/argbash \

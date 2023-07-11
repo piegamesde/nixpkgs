@@ -35,7 +35,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytest-timeout pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytest-timeout
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "motioneye_client" ];
 

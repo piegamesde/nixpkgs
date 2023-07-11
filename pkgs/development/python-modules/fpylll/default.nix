@@ -25,9 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-T6l6hKzRDevlLyLu5H+bnEdl0OhsPer1coCDiftbPAk=";
   };
 
-  buildInputs = [ gmp pari mpfr fplll ];
+  buildInputs = [
+    gmp
+    pari
+    mpfr
+    fplll
+  ];
 
-  propagatedBuildInputs = [ cython cysignals numpy ];
+  propagatedBuildInputs = [
+    cython
+    cysignals
+    numpy
+  ];
 
   nativeBuildInputs = [ pkgconfig ];
 

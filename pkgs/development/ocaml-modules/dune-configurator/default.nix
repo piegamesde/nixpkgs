@@ -17,7 +17,10 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ csexp result ];
+  propagatedBuildInputs = [
+    csexp
+    result
+  ];
 
   meta = with lib; {
     description = "Helper library for gathering system configuration";

@@ -74,15 +74,17 @@ let
       # when postBuild is evaluated), we call makeWrapper once to generate a
       # wrapper with most arguments we need, excluding those that cause problems to
       # generate rplugin.vim, but still required for the final wrapper.
-      finalMakeWrapperArgs =
-        [ "${neovim}/bin/nvim" "${placeholder "out"}/bin/nvim" ] ++ [
-          "--set"
-          "NVIM_SYSTEM_RPLUGIN_MANIFEST"
-          "${placeholder "out"}/rplugin.vim"
-        ] ++ lib.optionals wrapRc [
-          "--add-flags"
-          "-u ${writeText "init.vim" neovimRcContent}"
-        ] ++ commonWrapperArgs;
+      finalMakeWrapperArgs = [
+        "${neovim}/bin/nvim"
+        "${placeholder "out"}/bin/nvim"
+      ] ++ [
+        "--set"
+        "NVIM_SYSTEM_RPLUGIN_MANIFEST"
+        "${placeholder "out"}/rplugin.vim"
+      ] ++ lib.optionals wrapRc [
+        "--add-flags"
+        "-u ${writeText "init.vim" neovimRcContent}"
+      ] ++ commonWrapperArgs;
     in assert withPython2 -> throw
       "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
 
@@ -105,9 +107,10 @@ let
       '' + lib.optionalString viAlias ''
         ln -s $out/bin/nvim $out/bin/vi
       '' + lib.optionalString (manifestRc != null) (let
-        manifestWrapperArgs =
-          [ "${neovim}/bin/nvim" "${placeholder "out"}/bin/nvim-wrapper" ]
-          ++ commonWrapperArgs;
+        manifestWrapperArgs = [
+          "${neovim}/bin/nvim"
+          "${placeholder "out"}/bin/nvim-wrapper"
+        ] ++ commonWrapperArgs;
       in ''
         echo "Generating remote plugin manifest"
         export NVIM_RPLUGIN_MANIFEST=$out/rplugin.vim

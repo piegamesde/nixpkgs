@@ -34,9 +34,12 @@ import ../make-test-python.nix ({
     testPassword = "alicealice";
     testEmail = "alice@example.com";
 
-    listeners = [{
+    listeners = [ {
       port = 8448;
-      bind_addresses = [ "127.0.0.1" "::1" ];
+      bind_addresses = [
+        "127.0.0.1"
+        "::1"
+      ];
       type = "http";
       tls = true;
       x_forwarded = false;
@@ -50,7 +53,7 @@ import ../make-test-python.nix ({
           compress = false;
         }
       ];
-    }];
+    } ];
 
   in {
 
@@ -108,7 +111,10 @@ import ../make-test-python.nix ({
             ${mailserverIP} ${mailerDomain}
           '';
 
-          security.pki.certificateFiles = [ mailerCerts.ca.cert ca_pem ];
+          security.pki.certificateFiles = [
+            mailerCerts.ca.cert
+            ca_pem
+          ];
 
           environment.systemPackages = let
             sendTestMailStarttls =
@@ -171,8 +177,10 @@ import ../make-test-python.nix ({
 
             config = {
               debug_peer_level = "10";
-              smtpd_relay_restrictions =
-                [ "permit_mynetworks" "reject_unauth_destination" ];
+              smtpd_relay_restrictions = [
+                "permit_mynetworks"
+                "reject_unauth_destination"
+              ];
 
               # disable obsolete protocols, something old versions of twisted are still using
               smtpd_tls_protocols =

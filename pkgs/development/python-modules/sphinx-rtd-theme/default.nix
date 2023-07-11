@@ -26,13 +26,23 @@ buildPythonPackage rec {
     export CI=1
   '';
 
-  propagatedBuildInputs = [ docutils sphinx sphinxcontrib-jquery ];
+  propagatedBuildInputs = [
+    docutils
+    sphinx
+    sphinxcontrib-jquery
+  ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  nativeCheckInputs = [ pytestCheckHook readthedocs-sphinx-ext ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    readthedocs-sphinx-ext
+  ];
 
-  pythonRelaxDeps = [ "docutils" "sphinxcontrib-jquery" ];
+  pythonRelaxDeps = [
+    "docutils"
+    "sphinxcontrib-jquery"
+  ];
 
   pythonImportsCheck = [ "sphinx_rtd_theme" ];
 

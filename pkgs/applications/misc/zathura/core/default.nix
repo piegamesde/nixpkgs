@@ -34,7 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "15314m9chmh5jkrd9vk2h2gwcwkcffv2kjcxkd4v3wmckz5sfjy6";
   };
 
-  outputs = [ "bin" "man" "dev" "out" ];
+  outputs = [
+    "bin"
+    "man"
+    "dev"
+    "out"
+  ];
 
   # Flag list:
   # https://github.com/pwmt/zathura/blob/master/meson_options.txt
@@ -60,9 +65,17 @@ stdenv.mkDerivation (finalAttrs: {
     appstream-glib
   ];
 
-  buildInputs =
-    [ gtk girara libintl sqlite glib file librsvg check texlive.bin.core ]
-    ++ lib.optional stdenv.isLinux libseccomp
+  buildInputs = [
+    gtk
+    girara
+    libintl
+    sqlite
+    glib
+    file
+    librsvg
+    check
+    texlive.bin.core
+  ] ++ lib.optional stdenv.isLinux libseccomp
     ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
   doCheck = !stdenv.isDarwin;

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   buildInputs = [ c-ares ];
 
-  propagatedBuildInputs = [ cffi idna ];
+  propagatedBuildInputs = [
+    cffi
+    idna
+  ];
 
   propagatedNativeBuildInputs = [ cffi ];
 

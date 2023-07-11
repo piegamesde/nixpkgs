@@ -28,8 +28,16 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [ ocaml findlib camlp4 ];
-    propagatedBuildInputs = [ config-file lablgtk xmlm ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      camlp4
+    ];
+    propagatedBuildInputs = [
+      config-file
+      lablgtk
+      xmlm
+    ];
 
     createFindlibDestdir = true;
 

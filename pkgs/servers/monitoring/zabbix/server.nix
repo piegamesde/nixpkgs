@@ -50,9 +50,19 @@ in import ./versions.nix ({
       inherit sha256;
     };
 
-    nativeBuildInputs = [ autoreconfHook pkg-config ];
-    buildInputs = [ curl libevent libiconv libxml2 openssl pcre zlib ]
-      ++ optional odbcSupport unixODBC ++ optional jabberSupport iksemel
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
+    buildInputs = [
+      curl
+      libevent
+      libiconv
+      libxml2
+      openssl
+      pcre
+      zlib
+    ] ++ optional odbcSupport unixODBC ++ optional jabberSupport iksemel
       ++ optional ldapSupport openldap ++ optional snmpSupport net-snmp
       ++ optional sshSupport libssh2 ++ optional mysqlSupport libmysqlclient
       ++ optional postgresqlSupport postgresql ++ optional ipmiSupport openipmi;
@@ -103,7 +113,10 @@ in import ./versions.nix ({
         "An enterprise-class open source distributed monitoring solution";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ mmahut psyanticy ];
+      maintainers = with maintainers; [
+        mmahut
+        psyanticy
+      ];
       platforms = platforms.linux;
     };
   })

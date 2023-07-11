@@ -26,9 +26,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp voluptuous ];
+  propagatedBuildInputs = [
+    aiohttp
+    voluptuous
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook vcrpy ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+    vcrpy
+  ];
 
   pythonImportsCheck = [ "python_awair" ];
 

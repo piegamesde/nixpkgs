@@ -25,11 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-ET8wcOep4tSZJXyL+XvfW2j9eKp6LrBk/g18ZlgLIzc=";
   };
 
-  propagatedBuildInputs = [ aio-geojson-client aiohttp pytz ];
+  propagatedBuildInputs = [
+    aio-geojson-client
+    aiohttp
+    pytz
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ aresponses pytest-asyncio ];
+  checkInputs = [
+    aresponses
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "aio_geojson_usgs_earthquakes" ];
 

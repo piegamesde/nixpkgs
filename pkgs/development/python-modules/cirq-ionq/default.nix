@@ -16,7 +16,10 @@ buildPythonPackage rec {
       --replace "requests~=2.18" "requests"
   '';
 
-  propagatedBuildInputs = [ cirq-core requests ];
+  propagatedBuildInputs = [
+    cirq-core
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

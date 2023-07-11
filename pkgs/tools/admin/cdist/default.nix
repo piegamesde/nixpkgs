@@ -10,7 +10,11 @@
 buildPythonApplication rec {
   pname = "cdist";
   version = "7.0.0";
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
 
   src = fetchFromGitea {
     domain = "code.ungleich.ch";
@@ -20,7 +24,11 @@ buildPythonApplication rec {
     hash = "sha256-lIx0RtGQJdY2e00azI9yS6TV+5pCegpKOOD0dQmgMqA=";
   };
 
-  nativeBuildInputs = [ pythonImportsCheckHook sphinxHook sphinx-rtd-theme ];
+  nativeBuildInputs = [
+    pythonImportsCheckHook
+    sphinxHook
+    sphinx-rtd-theme
+  ];
 
   sphinxRoot = "docs/src";
 

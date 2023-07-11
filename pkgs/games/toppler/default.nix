@@ -29,9 +29,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ecEaELu52Nmov/BD9VzcUw6wyWeHJcsKQkEzTnaW330=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext povray imagemagick gimp ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    povray
+    imagemagick
+    gimp
+  ];
 
-  buildInputs = [ SDL2 SDL2_mixer SDL2_image libpng zlib ];
+  buildInputs = [
+    SDL2
+    SDL2_mixer
+    SDL2_image
+    libpng
+    zlib
+  ];
 
   # GIMP needs a writable home
   preBuild = ''

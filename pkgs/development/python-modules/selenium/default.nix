@@ -36,8 +36,12 @@ buildPythonPackage rec {
     cd py
   '';
 
-  propagatedBuildInputs = [ certifi trio trio-websocket urllib3 ]
-    ++ urllib3.optional-dependencies.socks;
+  propagatedBuildInputs = [
+    certifi
+    trio
+    trio-websocket
+    urllib3
+  ] ++ urllib3.optional-dependencies.socks;
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -47,6 +51,9 @@ buildPythonPackage rec {
     description = "Bindings for Selenium WebDriver";
     homepage = "https://selenium.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jraygauthier SuperSandro2000 ];
+    maintainers = with maintainers; [
+      jraygauthier
+      SuperSandro2000
+    ];
   };
 }

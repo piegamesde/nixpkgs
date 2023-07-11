@@ -29,9 +29,15 @@ let
       sha256 = "0haryi3yrszdfpqnkfnppxj1yiy6ipah6m80snvayc7v0ss0wnir";
     };
 
-    nativeBuildInputs = [ autoreconfHook pkg-config ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
 
-    buildInputs = [ glib python3 ];
+    buildInputs = [
+      glib
+      python3
+    ];
 
     env.NIX_CFLAGS_COMPILE = toString (lib.optionals
       (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
@@ -45,7 +51,10 @@ let
         "Combined repository of OCF agents from the RHCS and Linux-HA projects";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ ryantm astro ];
+      maintainers = with maintainers; [
+        ryantm
+        astro
+      ];
     };
   };
 

@@ -23,7 +23,10 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [ fonttools ];
-  nativeCheckInputs = [ pytest pytest-runner ];
+  nativeCheckInputs = [
+    pytest
+    pytest-runner
+  ];
 
   meta = with lib; {
     description =

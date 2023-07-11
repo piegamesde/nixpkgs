@@ -26,7 +26,10 @@ in let
     useAppHost = false;
 
     dotnetInstallFlags = [ "--framework net6.0" ];
-    dotnetBuildFlags = [ "--framework net6.0" "--no-self-contained" ];
+    dotnetBuildFlags = [
+      "--framework net6.0"
+      "--no-self-contained"
+    ];
     dotnetFlags = [
       # These flags are set by the cake build.
       "-property:PackageVersion=${version}"
@@ -70,7 +73,11 @@ in let
     passthru.tests = let
       with-sdk = sdk:
         runCommand "with-${if sdk ? version then sdk.version else "no"}-sdk" {
-          nativeBuildInputs = [ finalPackage sdk expect ];
+          nativeBuildInputs = [
+            finalPackage
+            sdk
+            expect
+          ];
           meta.timeout = 60;
         } ''
           HOME=$TMPDIR
@@ -106,7 +113,12 @@ in let
         binaryNativeCode # dependencies
       ];
       license = licenses.mit;
-      maintainers = with maintainers; [ tesq0 ericdallo corngood mdarocha ];
+      maintainers = with maintainers; [
+        tesq0
+        ericdallo
+        corngood
+        mdarocha
+      ];
       mainProgram = "OmniSharp";
     };
   };

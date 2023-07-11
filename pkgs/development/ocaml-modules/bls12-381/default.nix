@@ -25,10 +25,19 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs =
-    [ ff-sig zarith zarith_stubs_js integers_stubs_js integers hex ];
+  propagatedBuildInputs = [
+    ff-sig
+    zarith
+    zarith_stubs_js
+    integers_stubs_js
+    integers
+    hex
+  ];
 
-  checkInputs = [ alcotest ff-pbt ];
+  checkInputs = [
+    alcotest
+    ff-pbt
+  ];
 
   doCheck = true;
 

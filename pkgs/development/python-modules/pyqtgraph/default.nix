@@ -27,15 +27,18 @@ in buildPythonPackage rec {
   };
 
   # TODO: remove when updating to 0.12.3
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/pyqtgraph/pyqtgraph/commit/2de5cd78da92b48e48255be2f41ae332cf8bb675.patch";
-      sha256 = "1hy86psqyl6ipvbg23zvackkd6f7ajs6qll0mbs0x2zmrj92hk00";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/pyqtgraph/pyqtgraph/commit/2de5cd78da92b48e48255be2f41ae332cf8bb675.patch";
+    sha256 = "1hy86psqyl6ipvbg23zvackkd6f7ajs6qll0mbs0x2zmrj92hk00";
+  }) ];
 
-  propagatedBuildInputs = [ numpy pyqt5 scipy pyopengl ];
+  propagatedBuildInputs = [
+    numpy
+    pyqt5
+    scipy
+    pyopengl
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

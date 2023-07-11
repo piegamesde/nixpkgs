@@ -64,7 +64,10 @@ in {
       auth = mkOption {
         default = "password";
         description = lib.mdDoc "The type of authentication to use.";
-        type = types.enum [ "none" "password" ];
+        type = types.enum [
+          "none"
+          "password"
+        ];
       };
 
       hashedPassword = mkOption {

@@ -412,8 +412,12 @@ in {
           dockerAllowedImages = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            example =
-              [ "ruby:*" "python:*" "php:*" "my.registry.tld:5000/*:*" ];
+            example = [
+              "ruby:*"
+              "python:*"
+              "php:*"
+              "my.registry.tld:5000/*:*"
+            ];
             description = lib.mdDoc ''
               Whitelist allowed images.
             '';
@@ -421,7 +425,11 @@ in {
           dockerAllowedServices = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            example = [ "postgres:9" "redis:*" "mysql:*" ];
+            example = [
+              "postgres:9"
+              "redis:*"
+              "mysql:*"
+            ];
             description = lib.mdDoc ''
               Whitelist allowed services.
             '';
@@ -561,8 +569,15 @@ in {
         HOME = "/var/lib/gitlab-runner";
       };
       path = with pkgs;
-        [ bash gawk jq moreutils remarshal util-linux cfg.package ]
-        ++ cfg.extraPackages;
+        [
+          bash
+          gawk
+          jq
+          moreutils
+          remarshal
+          util-linux
+          cfg.package
+        ] ++ cfg.extraPackages;
       reloadIfChanged = true;
       serviceConfig = {
         # Set `DynamicUser` under `systemd.services.gitlab-runner.serviceConfig`
@@ -591,7 +606,10 @@ in {
 
           serviceConfig.Type = "oneshot";
 
-          path = [ cfg.clear-docker-cache.package pkgs.gawk ];
+          path = [
+            cfg.clear-docker-cache.package
+            pkgs.gawk
+          ];
 
           script = ''
             ${pkgs.gitlab-runner}/bin/clear-docker-cache ${
@@ -607,29 +625,51 @@ in {
       (mkDefault true);
   };
   imports = [
-    (mkRenamedOptionModule [ "services" "gitlab-runner" "packages" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab-runner"
+      "packages"
+    ] [
       "services"
       "gitlab-runner"
       "extraPackages"
     ])
-    (mkRemovedOptionModule [ "services" "gitlab-runner" "configOptions" ]
-      "Use services.gitlab-runner.services option instead")
-    (mkRemovedOptionModule [ "services" "gitlab-runner" "workDir" ]
-      "You should move contents of workDir (if any) to /var/lib/gitlab-runner")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab-runner"
+      "configOptions"
+    ] "Use services.gitlab-runner.services option instead")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab-runner"
+      "workDir"
+    ] "You should move contents of workDir (if any) to /var/lib/gitlab-runner")
 
-    (mkRenamedOptionModule [ "services" "gitlab-runner" "checkInterval" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab-runner"
+      "checkInterval"
+    ] [
       "services"
       "gitlab-runner"
       "settings"
       "check_interval"
     ])
-    (mkRenamedOptionModule [ "services" "gitlab-runner" "concurrent" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab-runner"
+      "concurrent"
+    ] [
       "services"
       "gitlab-runner"
       "settings"
       "concurrent"
     ])
-    (mkRenamedOptionModule [ "services" "gitlab-runner" "sentryDSN" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab-runner"
+      "sentryDSN"
+    ] [
       "services"
       "gitlab-runner"
       "settings"
@@ -639,7 +679,12 @@ in {
       "services"
       "gitlab-runner"
       "prometheusListenAddress"
-    ] [ "services" "gitlab-runner" "settings" "listen_address" ])
+    ] [
+      "services"
+      "gitlab-runner"
+      "settings"
+      "listen_address"
+    ])
 
     (mkRenamedOptionModule [
       "services"

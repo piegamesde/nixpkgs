@@ -52,7 +52,10 @@ in stdenv.mkDerivation rec {
     rm gradle/verification-{keyring.keys,metadata.xml}
   '';
 
-  nativeBuildInputs = [ gradle jdk ];
+  nativeBuildInputs = [
+    gradle
+    jdk
+  ];
 
   wrapper = substituteAll {
     src = ./freenetWrapper;
@@ -65,7 +68,10 @@ in stdenv.mkDerivation rec {
     pname = "${pname}-deps";
     inherit src version patches;
 
-    nativeBuildInputs = [ gradle perl ];
+    nativeBuildInputs = [
+      gradle
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build

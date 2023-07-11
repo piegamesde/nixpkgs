@@ -31,9 +31,16 @@ stdenv.mkDerivation rec {
       --replace 'add_subdirectory("tests")'   " "
   '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ dtkwidget qt5integration qt5platform-plugins ];
+  buildInputs = [
+    dtkwidget
+    qt5integration
+    qt5platform-plugins
+  ];
 
   cmakeFlags = [
     "-DDVERSION=${version}"

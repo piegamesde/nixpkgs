@@ -23,7 +23,11 @@ buildDunePackage rec {
   };
 
   nativeCheckInputs = [ gcc ];
-  checkInputs = [ alcotest fmt uutf ];
+  checkInputs = [
+    alcotest
+    fmt
+    uutf
+  ];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = {

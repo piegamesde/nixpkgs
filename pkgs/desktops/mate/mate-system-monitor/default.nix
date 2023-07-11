@@ -27,9 +27,22 @@ stdenv.mkDerivation rec {
     sha256 = "13rkrk7c326ng8164aqfp6i7334n7zrmbg61ncpjprbrvlx2qiw3";
   };
 
-  nativeBuildInputs = [ pkg-config gettext itstool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    itstool
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtkmm3 libxml2 libgtop libwnck librsvg polkit systemd ];
+  buildInputs = [
+    gtkmm3
+    libxml2
+    libgtop
+    libwnck
+    librsvg
+    polkit
+    systemd
+  ];
 
   configureFlags = [ "--enable-systemd" ];
 

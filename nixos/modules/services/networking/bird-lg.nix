@@ -100,7 +100,10 @@ in {
 
         servers = mkOption {
           type = types.listOf types.str;
-          example = [ "gigsgigscloud" "hostdare" ];
+          example = [
+            "gigsgigscloud"
+            "hostdare"
+          ];
           description = lib.mdDoc "Server name prefixes.";
         };
 
@@ -118,7 +121,12 @@ in {
 
         bgpMapInfo = mkOption {
           type = types.listOf types.str;
-          default = [ "asn" "as-name" "ASName" "descr" ];
+          default = [
+            "asn"
+            "as-name"
+            "ASName"
+            "descr"
+          ];
           description = lib.mdDoc "Information displayed in bgpmap.";
         };
 
@@ -210,7 +218,10 @@ in {
         allowedIPs = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [ "192.168.25.52" "192.168.25.53" ];
+          example = [
+            "192.168.25.52"
+            "192.168.25.53"
+          ];
           description = lib.mdDoc "List of IPs to allow (default all allowed).";
         };
 
@@ -323,5 +334,9 @@ in {
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ 0.0 mo tchekda ];
+  meta.maintainers = with lib.maintainers; [
+    0.0
+    mo
+    tchekda
+  ];
 }

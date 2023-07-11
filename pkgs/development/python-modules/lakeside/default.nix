@@ -22,7 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-Y5g78trkwOF3jsbgTv0uVkvfB1HZN+w1T6xIorxGAhg=";
   };
 
-  propagatedBuildInputs = [ protobuf pycryptodome requests ];
+  propagatedBuildInputs = [
+    protobuf
+    pycryptodome
+    requests
+  ];
 
   # Module has no tests
   doCheck = false;

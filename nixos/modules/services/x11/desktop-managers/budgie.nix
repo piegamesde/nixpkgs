@@ -90,8 +90,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = with pkgs;
-      [ budgie.budgie-desktop ];
+    services.xserver.displayManager.sessionPackages =
+      with pkgs; [ budgie.budgie-desktop ];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
@@ -170,7 +170,10 @@ in {
       ] config.environment.budgie.excludePackages) ++ cfg.sessionPath;
 
     # Fonts.
-    fonts.fonts = mkDefault [ pkgs.noto-fonts pkgs.hack-font ];
+    fonts.fonts = mkDefault [
+      pkgs.noto-fonts
+      pkgs.hack-font
+    ];
     fonts.fontconfig.defaultFonts = {
       sansSerif = mkDefault [ "Noto Sans" ];
       monospace = mkDefault [ "Hack" ];
@@ -183,9 +186,9 @@ in {
       platformTheme = mkDefault "gtk2";
     };
 
-    environment.pathsToLink = [
-      "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
-    ];
+    environment.pathsToLink =
+      [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+      ];
 
     # GSettings overrides.
     environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
@@ -215,9 +218,8 @@ in {
       mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
-    xdg.portal.extraPortals = with pkgs;
-      [
-        xdg-desktop-portal-gtk # provides a XDG Portals implementation.
+    xdg.portal.extraPortals =
+      with pkgs; [ xdg-desktop-portal-gtk # provides a XDG Portals implementation.
       ];
 
     services.geoclue2.enable =

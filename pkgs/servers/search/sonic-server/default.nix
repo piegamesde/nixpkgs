@@ -21,7 +21,11 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
-  nativeBuildInputs = [ llvmPackages.libclang llvmPackages.libcxxClang clang ];
+  nativeBuildInputs = [
+    llvmPackages.libclang
+    llvmPackages.libcxxClang
+    clang
+  ];
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
   BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${llvmPackages.libclang.lib}/lib/clang/${
       lib.getVersion clang

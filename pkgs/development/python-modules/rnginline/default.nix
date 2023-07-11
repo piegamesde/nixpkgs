@@ -30,9 +30,16 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ docopt lxml six ];
+  propagatedBuildInputs = [
+    docopt
+    lxml
+    six
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "rnginline" ];
 

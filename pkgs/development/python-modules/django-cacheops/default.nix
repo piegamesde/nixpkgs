@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-zHP9ChwUeZJT/yCopFeRo8jSgCIXswHnDPoIroGeQ48=";
   };
 
-  propagatedBuildInputs = [ django funcy redis six ];
+  propagatedBuildInputs = [
+    django
+    funcy
+    redis
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-django ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-django
+  ];
 
   disabledTests = [
     # Tests require networking

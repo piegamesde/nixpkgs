@@ -21,9 +21,15 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-sY2bSCcC+mMuYqLmh+oH76nqg/ybh/nyz3trNH2xPQM=";
   };
 
-  nativeBuildInputs = [ pkg-config installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
 
-  buildInputs = [ libxml2 openssl ] ++ lib.optionals stdenv.isDarwin [ curl ];
+  buildInputs = [
+    libxml2
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ curl ];
 
   # Tests require network access to a test server
   doCheck = false;
@@ -40,7 +46,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://hurl.dev/";
     changelog =
       "https://github.com/Orange-OpenSource/hurl/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ eonpatapon figsoda ];
+    maintainers = with maintainers; [
+      eonpatapon
+      figsoda
+    ];
     license = licenses.asl20;
   };
 }

@@ -86,14 +86,24 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ glib dbus libmnl gnutls readline ]
-    ++ optionals (enableOpenconnect) [ openconnect ]
+  buildInputs = [
+    glib
+    dbus
+    libmnl
+    gnutls
+    readline
+  ] ++ optionals (enableOpenconnect) [ openconnect ]
     ++ optionals (firewallType == "iptables") [ iptables ]
     ++ optionals (firewallType == "nftables") [ libnftnl ]
-    ++ optionals (enablePolkit) [ polkit ]
-    ++ optionals (enablePptp) [ pptp ppp ];
+    ++ optionals (enablePolkit) [ polkit ] ++ optionals (enablePptp) [
+      pptp
+      ppp
+    ];
 
-  nativeBuildInputs = [ pkg-config file ];
+  nativeBuildInputs = [
+    pkg-config
+    file
+  ];
 
   # fix invalid path to 'file'
   postPatch = ''
@@ -120,9 +130,7 @@ in stdenv.mkDerivation rec {
     ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
     ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
     ++ optionals (!enableGadget) [ "--disable-gadget" ]
-    ++ optionals (!enableWifi) [
-      "--disable-wifi"
-    ]
+    ++ optionals (!enableWifi) [ "--disable-wifi" ]
     # enable IWD support for wifi as it doesn't require any new dependencies
     # and it's easier for the NixOS module to use only one connman package when
     # IWD is requested

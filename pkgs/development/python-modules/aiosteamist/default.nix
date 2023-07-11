@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp xmltodict ];
+  propagatedBuildInputs = [
+    aiohttp
+    xmltodict
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -16,9 +16,14 @@ let
         description = lib.mdDoc "Which principal the rule applies to";
       };
       access = mkOption {
-        type = types.either (types.listOf
-          (types.enum [ "add" "cpw" "delete" "get" "list" "modify" ]))
-          (types.enum [ "all" ]);
+        type = types.either (types.listOf (types.enum [
+          "add"
+          "cpw"
+          "delete"
+          "get"
+          "list"
+          "modify"
+        ])) (types.enum [ "all" ]);
         default = "all";
         description = lib.mdDoc "The changes the principal is allowed to make.";
       };
@@ -52,7 +57,10 @@ let
   };
 
 in {
-  imports = [ ./mit.nix ./heimdal.nix ];
+  imports = [
+    ./mit.nix
+    ./heimdal.nix
+  ];
 
   ###### interface
   options = {
@@ -73,9 +81,9 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ kerberos ];
-    assertions = [{
+    assertions = [ {
       assertion = length (attrNames cfg.realms) <= 1;
       message = "Only one realm per server is currently supported.";
-    }];
+    } ];
   };
 }

@@ -25,8 +25,14 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  cargoBuildFlags = [ "-p" "autocorrect-cli" ];
-  cargoTestFlags = [ "-p" "autocorrect-cli" ];
+  cargoBuildFlags = [
+    "-p"
+    "autocorrect-cli"
+  ];
+  cargoTestFlags = [
+    "-p"
+    "autocorrect-cli"
+  ];
 
   passthru.updateScript = ./update.sh;
 

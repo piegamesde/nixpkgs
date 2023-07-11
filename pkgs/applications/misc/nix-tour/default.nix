@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BhQz59wkwwY0ShXzqUD6MQl4NE/jUik5RbLzseEc5Bc=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
   buildInputs = [ electron ];
 
   installPhase = ''
@@ -30,22 +33,26 @@ stdenv.mkDerivation rec {
       --add-flags $out/share/nix-tour/electron-main.js
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Tour of Nix";
-      genericName = "Tour of Nix";
-      comment =
-        "Interactive programming guide dedicated to the nix programming language";
-      categories = [ "Development" "Documentation" ];
-      exec = "nix-tour";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "Tour of Nix";
+    genericName = "Tour of Nix";
+    comment =
+      "Interactive programming guide dedicated to the nix programming language";
+    categories = [
+      "Development"
+      "Documentation"
+    ];
+    exec = "nix-tour";
+  }) ];
 
   meta = with lib; {
     description = "'the tour of nix' from nixcloud.io/tour as offline version";
     homepage = "https://nixcloud.io/tour";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ qknight yuu ];
+    maintainers = with maintainers; [
+      qknight
+      yuu
+    ];
   };
 }

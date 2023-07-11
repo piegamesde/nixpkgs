@@ -13,10 +13,10 @@ with lib;
       type = types.listOf types.unspecified;
       internal = true;
       default = [ ];
-      example = [{
+      example = [ {
         assertion = false;
         message = "you can't enable this for that reason";
-      }];
+      } ];
       description = lib.mdDoc ''
         This option allows modules to express conditions that must
         hold for the evaluation of the system configuration to

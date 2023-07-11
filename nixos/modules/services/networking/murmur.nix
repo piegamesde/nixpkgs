@@ -59,13 +59,20 @@ let
   '';
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "murmur" "welcome" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "murmur"
+      "welcome"
+    ] [
       "services"
       "murmur"
       "welcometext"
     ])
-    (mkRemovedOptionModule [ "services" "murmur" "pidfile" ]
-      "Hardcoded to /run/murmur/murmurd.pid now")
+    (mkRemovedOptionModule [
+      "services"
+      "murmur"
+      "pidfile"
+    ] "Hardcoded to /run/murmur/murmurd.pid now")
   ];
 
   options = {
@@ -309,7 +316,11 @@ in {
       };
 
       dbus = mkOption {
-        type = types.enum [ null "session" "system" ];
+        type = types.enum [
+          null
+          "session"
+          "system"
+        ];
         default = null;
         description = lib.mdDoc
           "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
@@ -360,26 +371,24 @@ in {
 
     # currently not included in upstream package, addition requested at
     # https://github.com/mumble-voip/mumble/issues/6078
-    services.dbus.packages = mkIf (cfg.dbus == "system") [
-      (pkgs.writeTextFile {
-        name = "murmur-dbus-policy";
-        text = ''
-          <!DOCTYPE busconfig PUBLIC
-            "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-          <busconfig>
-            <policy user="murmur">
-              <allow own="net.sourceforge.mumble.murmur"/>
-            </policy>
+    services.dbus.packages = mkIf (cfg.dbus == "system") [ (pkgs.writeTextFile {
+      name = "murmur-dbus-policy";
+      text = ''
+        <!DOCTYPE busconfig PUBLIC
+          "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+          "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+        <busconfig>
+          <policy user="murmur">
+            <allow own="net.sourceforge.mumble.murmur"/>
+          </policy>
 
-            <policy context="default">
-              <allow send_destination="net.sourceforge.mumble.murmur"/>
-              <allow receive_sender="net.sourceforge.mumble.murmur"/>
-            </policy>
-          </busconfig>
-        '';
-        destination = "/share/dbus-1/system.d/murmur.conf";
-      })
-    ];
+          <policy context="default">
+            <allow send_destination="net.sourceforge.mumble.murmur"/>
+            <allow receive_sender="net.sourceforge.mumble.murmur"/>
+          </policy>
+        </busconfig>
+      '';
+      destination = "/share/dbus-1/system.d/murmur.conf";
+    }) ];
   };
 }

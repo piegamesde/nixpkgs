@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXi libXtst xorgproto ];
+  buildInputs = [
+    libX11
+    libXi
+    libXtst
+    xorgproto
+  ];
   NIX_LDFLAGS = "-lX11";
 
   meta = with lib; {

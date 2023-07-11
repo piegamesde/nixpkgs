@@ -11,7 +11,12 @@ let
   cfg = config.services.sanoid;
 
   datasetSettingsType = with types;
-    (attrsOf (nullOr (oneOf [ str int bool (listOf str) ]))) // {
+    (attrsOf (nullOr (oneOf [
+      str
+      int
+      bool
+      (listOf str)
+    ]))) // {
       description = "dataset/template options";
     };
 
@@ -71,7 +76,11 @@ let
         recursively in an atomic way without the possibility to
         override settings for child datasets.
       '';
-      type = with types; oneOf [ bool (enum [ "zfs" ]) ];
+      type = with types;
+        oneOf [
+          bool
+          (enum [ "zfs" ])
+        ];
       default = false;
     };
 
@@ -177,7 +186,11 @@ in {
     extraArgs = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [ "--verbose" "--readonly" "--debug" ];
+      example = [
+        "--verbose"
+        "--readonly"
+        "--debug"
+      ];
       description = lib.mdDoc ''
         Extra arguments to pass to sanoid. See
         <https://github.com/jimsalterjrs/sanoid/#sanoid-command-line-options>
@@ -197,12 +210,16 @@ in {
     systemd.services.sanoid = {
       description = "Sanoid snapshot service";
       serviceConfig = {
-        ExecStartPre =
-          (map (buildAllowCommand "allow" [ "snapshot" "mount" "destroy" ])
-            datasets);
-        ExecStopPost =
-          (map (buildAllowCommand "unallow" [ "snapshot" "mount" "destroy" ])
-            datasets);
+        ExecStartPre = (map (buildAllowCommand "allow" [
+          "snapshot"
+          "mount"
+          "destroy"
+        ]) datasets);
+        ExecStopPost = (map (buildAllowCommand "unallow" [
+          "snapshot"
+          "mount"
+          "destroy"
+        ]) datasets);
         ExecStart = lib.escapeShellArgs ([
           "${cfg.package}/bin/sanoid"
           "--cron"

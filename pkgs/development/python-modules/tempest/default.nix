@@ -64,7 +64,11 @@ buildPythonPackage rec {
     debtcollector
   ];
 
-  nativeCheckInputs = [ stestr hacking oslotest ];
+  nativeCheckInputs = [
+    stestr
+    hacking
+    oslotest
+  ];
 
   checkPhase = ''
     # Tests expect these applications available as such.

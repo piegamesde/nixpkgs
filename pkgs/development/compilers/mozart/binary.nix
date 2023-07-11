@@ -30,7 +30,13 @@ in stdenv.mkDerivation {
   src = binaries.${stdenv.hostPlatform.system} or (throw
     "unsupported system: ${stdenv.hostPlatform.system}");
 
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc boost gmp tcl-8_5 tk-8_5 ];
+  libPath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    boost
+    gmp
+    tcl-8_5
+    tk-8_5
+  ];
 
   TK_LIBRARY = "${tk-8_5}/lib/tk8.5";
 

@@ -110,7 +110,12 @@ in {
         CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
         DevicePolicy = "closed";
         DynamicUser = true;
-        IPAddressAllow = [ "fe80::/64" "ff00::/8" "::1/128" "127.0.0.0/8" ];
+        IPAddressAllow = [
+          "fe80::/64"
+          "ff00::/8"
+          "::1/128"
+          "127.0.0.0/8"
+        ];
         IPAddressDeny = "any";
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -121,7 +126,11 @@ in {
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_NETLINK" "AF_INET6" "AF_INET" ];
+        RestrictAddressFamilies = [
+          "AF_NETLINK"
+          "AF_INET6"
+          "AF_INET"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -135,7 +144,10 @@ in {
         PrivateUsers = false; # kernel_route(ADD): Operation not permitted
         ProcSubset = "pid";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @resources"
+        ];
         UMask = "0177";
         RuntimeDirectory = "babeld";
         StateDirectory = "babeld";

@@ -32,7 +32,13 @@ python3Packages.buildPythonApplication rec {
       --replace "CDLL('libpulse.so.0')" "CDLL('${libpulseaudio}/lib/libpulse.so')"
   '';
 
-  nativeBuildInputs = [ gettext intltool wrapGAppsHook glib gdk-pixbuf ];
+  nativeBuildInputs = [
+    gettext
+    intltool
+    wrapGAppsHook
+    glib
+    gdk-pixbuf
+  ];
 
   buildInputs = [ librsvg ];
 

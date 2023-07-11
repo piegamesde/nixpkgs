@@ -78,14 +78,26 @@ in stdenv.mkDerivation rec {
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
-  NIX_LDFLAGS = lib.concatStringsSep " "
-    [ (lib.optionalString (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s") ];
+  NIX_LDFLAGS = lib.concatStringsSep " " [ (lib.optionalString
+    (stdenv.cc.isGNU && !stdenv.isDarwin) "-lgcc_s") ];
 
-  nativeBuildInputs = [ cacert wrapGAppsHook ];
+  nativeBuildInputs = [
+    cacert
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv CoreFoundation ];
+  buildInputs = [
+    fontconfig
+    libffi
+    libtool
+    sqlite
+    gsettings-desktop-schemas
+    gtk3
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    CoreFoundation
+  ];
 
   patches = [
     # Hardcode variant detection because we wrap the Racket binary making it
@@ -142,8 +154,10 @@ in stdenv.mkDerivation rec {
   '';
 
   shared = if stdenv.isDarwin then "dylib" else "shared";
-  configureFlags = [ "--enable-${shared}" "--enable-lt=${libtool}/bin/libtool" ]
-    ++ lib.optionals disableDocs [ "--disable-docs" ]
+  configureFlags = [
+    "--enable-${shared}"
+    "--enable-lt=${libtool}/bin/libtool"
+  ] ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
@@ -166,8 +180,15 @@ in stdenv.mkDerivation rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ henrytill vrthra ];
-    platforms =
-      [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      henrytill
+      vrthra
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
   };
 }

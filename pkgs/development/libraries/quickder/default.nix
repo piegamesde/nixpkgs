@@ -23,14 +23,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f+ph5PL+uWRkswpOLDwZFWjh938wxoJ6xocJZ2WZLEk=";
   };
 
-  nativeBuildInputs =
-    [ cmake doxygen graphviz ensureNewerSourcesForZipFilesHook ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    graphviz
+    ensureNewerSourcesForZipFilesHook
+  ];
 
   buildInputs = [
     arpa2cm
     arpa2common
-    (python3.withPackages
-      (ps: with ps; [ asn1ate colored pyparsing setuptools six ]))
+    (python3.withPackages (ps:
+      with ps; [
+        asn1ate
+        colored
+        pyparsing
+        setuptools
+        six
+      ]))
     quickmem
   ];
 

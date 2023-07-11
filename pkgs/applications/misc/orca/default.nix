@@ -46,15 +46,13 @@ buildPythonApplication rec {
     sha256 = "e8WX7AvBtnQgC2L995XUuulkemNxfXVN9hWHzCUFAs4=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      cat = "${coreutils}/bin/cat";
-      lsof = "${lsof}/bin/lsof";
-      pgrep = "${procps}/bin/pgrep";
-      xkbcomp = "${xkbcomp}/bin/xkbcomp";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    cat = "${coreutils}/bin/cat";
+    lsof = "${lsof}/bin/lsof";
+    pgrep = "${procps}/bin/pgrep";
+    xkbcomp = "${xkbcomp}/bin/xkbcomp";
+  }) ];
 
   nativeBuildInputs = [
     autoreconfHook

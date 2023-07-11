@@ -42,7 +42,10 @@ stdenv.mkDerivation rec {
     python3Packages.m2crypto # only used for a build time script
   ];
 
-  buildInputs = [ libgcrypt libnl ];
+  buildInputs = [
+    libgcrypt
+    libnl
+  ];
 
   postPatch = ''
     patchShebangs utils/

@@ -32,7 +32,7 @@ let
       device = "/dev/vda2";
       fsType = "ext3";
     };
-    swapDevices = mkOverride 0 [{ device = "/dev/vda1"; }];
+    swapDevices = mkOverride 0 [ { device = "/dev/vda1"; } ];
     boot.resumeDevice = mkIf systemdStage1 "/dev/vda1";
     boot.initrd.systemd = mkIf systemdStage1 {
       enable = true;

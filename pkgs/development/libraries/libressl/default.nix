@@ -73,7 +73,13 @@ let
         export ${ldLibPathEnvName}=$PREVIOUS_${ldLibPathEnvName}
       '';
 
-      outputs = [ "bin" "dev" "out" "man" "nc" ];
+      outputs = [
+        "bin"
+        "dev"
+        "out"
+        "man"
+        "nc"
+      ];
 
       postFixup = ''
         moveToOutput "bin/nc" "$nc"
@@ -95,7 +101,10 @@ let
           openssl
         ];
         platforms = platforms.all;
-        maintainers = with maintainers; [ thoughtpolice fpletz ];
+        maintainers = with maintainers; [
+          thoughtpolice
+          fpletz
+        ];
         inherit knownVulnerabilities;
       };
     };
@@ -105,17 +114,15 @@ in {
     version = "3.4.3";
     hash = "sha256-/4i//jVIGLPM9UXjyv5FTFAxx6dyFwdPUzJx1jw38I0=";
     knownVulnerabilities = [ "Support ended 2022-10-14." ];
-    patches = [
-      (fetchpatch {
-        # https://marc.info/?l=libressl&m=167582148932407&w=2
-        name = "backport-type-confusion-fix.patch";
-        url =
-          "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff";
-        sha256 = "sha256-N9jsOueqposDWZwaR+n/v/cHgNiZbZ644d8/wKjN2/M=";
-        stripLen = 2;
-        extraPrefix = "crypto/";
-      })
-    ];
+    patches = [ (fetchpatch {
+      # https://marc.info/?l=libressl&m=167582148932407&w=2
+      name = "backport-type-confusion-fix.patch";
+      url =
+        "https://raw.githubusercontent.com/libressl/portable/30dc760ed1d7c70766b135500950d8ca9d17b13a/patches/x509_genn.c.diff";
+      sha256 = "sha256-N9jsOueqposDWZwaR+n/v/cHgNiZbZ644d8/wKjN2/M=";
+      stripLen = 2;
+      extraPrefix = "crypto/";
+    }) ];
   };
 
   libressl_3_5 = generic {

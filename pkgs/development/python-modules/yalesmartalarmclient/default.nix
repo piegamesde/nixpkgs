@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-Zpj1lLaxiTaYpcj1R/ktuVldl/r19r7fzNKvnSIDq80=";
   };
 
-  propagatedBuildInputs = [ backoff requests ];
+  propagatedBuildInputs = [
+    backoff
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

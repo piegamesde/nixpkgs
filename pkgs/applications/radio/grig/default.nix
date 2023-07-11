@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OgIgHW9NMW/xSSti3naIR8AQWUtNSv5bYdOcObStBlM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
-  buildInputs = [ hamlib_4 gtk2 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    hamlib_4
+    gtk2
+  ];
 
   meta = with lib; {
     description = "A simple Ham Radio control (CAT) program based on Hamlib";

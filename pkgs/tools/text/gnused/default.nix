@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-biJrcy4c1zlGStaGK9Ghq6QteYKSLaelNRljHSSXUYE=";
   };
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
 
   nativeBuildInputs = [ perl ];
   preConfigure = "patchShebangs ./build-aux/help2man";

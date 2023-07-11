@@ -29,7 +29,12 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=" "DESTDIR=${placeholder "out"}" "doc" "addons" ];
+  installFlags = [
+    "PREFIX="
+    "DESTDIR=${placeholder "out"}"
+    "doc"
+    "addons"
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/ytfzf" \

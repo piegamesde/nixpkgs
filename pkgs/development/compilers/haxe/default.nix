@@ -54,8 +54,11 @@ let
       pname = "haxe";
       inherit version;
 
-      buildInputs = [ zlib pcre neko ]
-        ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
+      buildInputs = [
+        zlib
+        pcre
+        neko
+      ] ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
         ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin)
         Security ++ ocamlDependencies version;
 
@@ -69,7 +72,10 @@ let
 
       inherit prePatch;
 
-      buildFlags = [ "all" "tools" ];
+      buildFlags = [
+        "all"
+        "tools"
+      ];
 
       installPhase = ''
         install -vd "$out/bin" "$out/lib/haxe/std"
@@ -128,9 +134,15 @@ let
         description =
           "Programming language targeting JavaScript, Flash, NekoVM, PHP, C++";
         homepage = "https://haxe.org";
-        license = with licenses; [ gpl2Plus mit ]; # based on upstream opam file
-        maintainers =
-          [ maintainers.marcweber maintainers.locallycompact maintainers.logo ];
+        license = with licenses; [
+          gpl2Plus
+          mit
+        ]; # based on upstream opam file
+        maintainers = [
+          maintainers.marcweber
+          maintainers.locallycompact
+          maintainers.logo
+        ];
         platforms = platforms.linux ++ platforms.darwin;
       };
     };

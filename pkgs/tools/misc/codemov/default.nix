@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ makeBinaryWrapper pkg-config ];
+  nativeBuildInputs = [
+    makeBinaryWrapper
+    pkg-config
+  ];
 
   buildInputs = [ oniguruma ];
 
@@ -34,7 +37,12 @@ rustPlatform.buildRustPackage {
 
   postInstall = ''
     wrapProgram $out/bin/codemov \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg git ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          ffmpeg
+          git
+        ]
+      }
   '';
 
   meta = with lib; {

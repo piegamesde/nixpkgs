@@ -94,7 +94,12 @@ let
     ProtectKernelModules = true;
     ProtectKernelTunables = true;
     ProtectControlGroups = true;
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+      "AF_NETLINK"
+    ];
     RestrictNamespaces = true;
     LockPersonality = true;
     MemoryDenyWriteExecute = false;
@@ -139,8 +144,10 @@ let
       else
         processCfg.threads);
     in {
-      after = [ "network.target" "mastodon-init-dirs.service" ]
-        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+      after = [
+        "network.target"
+        "mastodon-init-dirs.service"
+      ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
         ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
       requires = [ "mastodon-init-dirs.service" ]
         ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
@@ -167,7 +174,11 @@ let
           "pipe2"
         ];
       } // cfgService;
-      path = with pkgs; [ file imagemagick ffmpeg ];
+      path = with pkgs; [
+        file
+        imagemagick
+        ffmpeg
+      ];
     })) cfg.sidekiqProcesses;
 
 in {
@@ -312,7 +323,10 @@ in {
             threads = 10;
           };
           push-pull = {
-            jobClasses = [ "push" "pull" ];
+            jobClasses = [
+              "push"
+              "pull"
+            ];
             threads = 5;
           };
         };
@@ -731,7 +745,10 @@ in {
           rm $PGPASSFILE
           unset PGPASSFILE
         '';
-        path = [ cfg.package pkgs.postgresql ];
+        path = [
+          cfg.package
+          pkgs.postgresql
+        ];
         environment = env
           // lib.optionalAttrs (!databaseActuallyCreateLocally) {
             PGHOST = cfg.database.host;
@@ -751,15 +768,19 @@ in {
             "pipe2"
           ];
         } // cfgService;
-        after = [ "network.target" "mastodon-init-dirs.service" ]
-          ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+        after = [
+          "network.target"
+          "mastodon-init-dirs.service"
+        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
         requires = [ "mastodon-init-dirs.service" ]
           ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
       };
 
       systemd.services.mastodon-streaming = {
-        after = [ "network.target" "mastodon-init-dirs.service" ]
-          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+        after = [
+          "network.target"
+          "mastodon-init-dirs.service"
+        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
         requires = [ "mastodon-init-dirs.service" ]
           ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
@@ -783,8 +804,10 @@ in {
           RuntimeDirectoryMode = "0750";
           # System Call Filtering
           SystemCallFilter = [
-            ("~" + lib.concatStringsSep " "
-              (systemCallsList ++ [ "@memlock" "@resources" ]))
+            ("~" + lib.concatStringsSep " " (systemCallsList ++ [
+              "@memlock"
+              "@resources"
+            ]))
             "pipe"
             "pipe2"
           ];
@@ -792,8 +815,10 @@ in {
       };
 
       systemd.services.mastodon-web = {
-        after = [ "network.target" "mastodon-init-dirs.service" ]
-          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+        after = [
+          "network.target"
+          "mastodon-init-dirs.service"
+        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
         requires = [ "mastodon-init-dirs.service" ]
           ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
@@ -823,7 +848,11 @@ in {
             "pipe2"
           ];
         } // cfgService;
-        path = with pkgs; [ file imagemagick ffmpeg ];
+        path = with pkgs; [
+          file
+          imagemagick
+          ffmpeg
+        ];
       };
 
       systemd.services.mastodon-media-auto-remove =
@@ -888,10 +917,10 @@ in {
         };
       services.postgresql = lib.mkIf databaseActuallyCreateLocally {
         enable = true;
-        ensureUsers = [{
+        ensureUsers = [ {
           name = cfg.database.user;
           ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-        }];
+        } ];
         ensureDatabases = [ cfg.database.name ];
       };
 
@@ -903,7 +932,10 @@ in {
             inherit (cfg) group;
           };
         })
-        (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [
+        (lib.attrsets.setAttrByPath [
+          cfg.user
+          "packages"
+        ] [
           cfg.package
           pkgs.imagemagick
         ])
@@ -915,6 +947,9 @@ in {
     { systemd.services = sidekiqUnits; }
   ]);
 
-  meta.maintainers = with lib.maintainers; [ happy-river erictapen ];
+  meta.maintainers = with lib.maintainers; [
+    happy-river
+    erictapen
+  ];
 
 }

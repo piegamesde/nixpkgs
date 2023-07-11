@@ -22,7 +22,10 @@ buildPythonPackage rec {
       --replace "argparse" ""
   '';
 
-  propagatedBuildInputs = [ requests configparser ];
+  propagatedBuildInputs = [
+    requests
+    configparser
+  ];
 
   doCheck = false; # protonup does not have any tests
   pythonImportsCheck = [ "protonup" ];

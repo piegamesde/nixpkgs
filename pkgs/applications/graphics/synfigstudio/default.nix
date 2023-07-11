@@ -43,7 +43,10 @@ let
 
     sourceRoot = "source/ETL";
 
-    nativeBuildInputs = [ pkg-config autoreconfHook ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+    ];
     buildInputs = [ glibmm ];
   };
 
@@ -53,10 +56,17 @@ let
 
     sourceRoot = "source/synfig-core";
 
-    configureFlags =
-      [ "--with-boost=${boost.dev}" "--with-boost-libdir=${boost.out}/lib" ];
+    configureFlags = [
+      "--with-boost=${boost.dev}"
+      "--with-boost-libdir=${boost.out}/lib"
+    ];
 
-    nativeBuildInputs = [ pkg-config autoreconfHook gettext intltool ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+      gettext
+      intltool
+    ];
     buildInputs = [
       ETL
       boost
@@ -88,8 +98,13 @@ in stdenv.mkDerivation {
     ./bootstrap.sh
   '';
 
-  nativeBuildInputs =
-    [ pkg-config autoreconfHook gettext intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gettext
+    intltool
+    wrapGAppsHook
+  ];
   buildInputs = [
     ETL
     synfig

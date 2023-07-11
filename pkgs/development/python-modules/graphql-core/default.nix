@@ -23,7 +23,12 @@ buildPythonPackage rec {
     hash = "sha256-LtBbHA5r6/YNh2gKX0+NqQjrpKuMioyOYWT0R59SIL4=";
   };
 
-  nativeCheckInputs = [ py pytest-asyncio pytest-benchmark pytestCheckHook ];
+  nativeCheckInputs = [
+    py
+    pytest-asyncio
+    pytest-benchmark
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "graphql" ];
 

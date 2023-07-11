@@ -15,7 +15,10 @@ let
       config,
       ...
     }: {
-      imports = [ pkgsModule ../etc/etc.nix ];
+      imports = [
+        pkgsModule
+        ../etc/etc.nix
+      ];
       environment.etc."passwd" = { text = passwdText; };
       environment.etc."hosts" = {
         text = hostsText;

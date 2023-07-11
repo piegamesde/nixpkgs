@@ -171,11 +171,23 @@ buildPythonPackage rec {
 
   passthru = {
     optional-dependencies = rec {
-      conch = [ appdirs bcrypt cryptography pyasn1 ];
+      conch = [
+        appdirs
+        bcrypt
+        cryptography
+        pyasn1
+      ];
       conch_nacl = conch ++ [ pynacl ];
-      http2 = [ h2 priority ];
+      http2 = [
+        h2
+        priority
+      ];
       serial = [ pyserial ];
-      tls = [ idna pyopenssl service-identity ];
+      tls = [
+        idna
+        pyopenssl
+        service-identity
+      ];
     };
 
     tests = {

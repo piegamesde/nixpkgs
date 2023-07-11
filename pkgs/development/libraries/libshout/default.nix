@@ -20,11 +20,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OcvU8O/f3cl1XYghfkf48tcQj6dn+dWKK6JqFtj3yRA=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ libvorbis libtheora speex ];
+  propagatedBuildInputs = [
+    libvorbis
+    libtheora
+    speex
+  ];
 
   meta = {
     description = "icecast 'c' language bindings";

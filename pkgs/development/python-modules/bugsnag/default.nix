@@ -22,7 +22,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ webob ];
 
-  passthru.optional-dependencies = { flask = [ blinker flask ]; };
+  passthru.optional-dependencies = {
+    flask = [
+      blinker
+      flask
+    ];
+  };
 
   pythonImportsCheck = [ "bugsnag" ];
 

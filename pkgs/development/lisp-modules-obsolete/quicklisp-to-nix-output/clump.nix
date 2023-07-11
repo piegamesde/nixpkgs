@@ -8,7 +8,11 @@ args@{
 
   description = "Library for operations on different kinds of trees";
 
-  deps = [ args."acclimation" args."clump-2-3-tree" args."clump-binary-tree" ];
+  deps = [
+    args."acclimation"
+    args."clump-2-3-tree"
+    args."clump-binary-tree"
+  ];
 
   src = fetchurl {
     url =

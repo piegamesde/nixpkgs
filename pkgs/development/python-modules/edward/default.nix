@@ -25,7 +25,13 @@ buildPythonPackage rec {
   # disabled for now due to Tensorflow trying to create files in $HOME:
   doCheck = false;
 
-  propagatedBuildInputs = [ keras numpy scipy six tensorflow ];
+  propagatedBuildInputs = [
+    keras
+    numpy
+    scipy
+    six
+    tensorflow
+  ];
 
   meta = with lib; {
     description = "Probabilistic programming language using Tensorflow";

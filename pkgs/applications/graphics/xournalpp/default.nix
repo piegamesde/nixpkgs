@@ -38,7 +38,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hn7IDnbrmK3V+iz8UqdmHRV2TS4MwYSgYtnH6igbGJ8=";
   };
 
-  nativeBuildInputs = [ cmake gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+    wrapGAppsHook
+  ];
   buildInputs = [
     glib
     gsettings-desktop-schemas
@@ -64,7 +69,10 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/xournalpp/xournalpp/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ andrew-d sikmir ];
+    maintainers = with maintainers; [
+      andrew-d
+      sikmir
+    ];
     platforms = platforms.linux;
   };
 }

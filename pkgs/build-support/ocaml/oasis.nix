@@ -26,8 +26,12 @@ else
   stdenv.mkDerivation (args // {
     name = "ocaml${ocaml.version}-${pname}-${version}";
 
-    nativeBuildInputs = [ ocaml findlib ocamlbuild ocaml_oasis ]
-      ++ nativeBuildInputs;
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      ocaml_oasis
+    ] ++ nativeBuildInputs;
 
     inherit createFindlibDestdir;
     inherit dontStrip;

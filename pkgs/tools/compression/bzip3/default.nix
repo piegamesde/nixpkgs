@@ -11,7 +11,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "bzip3";
   version = "1.3.0";
 
-  outputs = [ "bin" "dev" "out" ];
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+  ];
 
   src = fetchFromGitHub {
     owner = "kspalaiologos";
@@ -28,7 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
     rm .gitignore
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   configureFlags = [ "--disable-arch-native" ]
     ++ lib.optionals stdenv.isDarwin [ "--disable-link-time-optimization" ];

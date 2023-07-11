@@ -23,7 +23,13 @@ buildPythonPackage rec {
     sha256 = "sha256:0206cm0153vzp10c8a15bi2znisq5pv59zi9vrcm74pnpk5f2r4y";
   };
 
-  propagatedBuildInputs = [ jinja2 termcolor python-dateutil pyyaml mkdocs ];
+  propagatedBuildInputs = [
+    jinja2
+    termcolor
+    python-dateutil
+    pyyaml
+    mkdocs
+  ];
 
   passthru.tests.example-doc = callPackage ./tests.nix { };
 

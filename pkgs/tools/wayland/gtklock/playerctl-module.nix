@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk3 playerctl libsoup ];
+  buildInputs = [
+    gtk3
+    playerctl
+    libsoup
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

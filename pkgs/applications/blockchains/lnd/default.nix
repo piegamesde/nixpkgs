@@ -29,7 +29,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-7Ydl56Z6aOMBQ1RamFzjD/yp3zgQLkF5WEoOQe1Urv0=";
 
-  subPackages = [ "cmd/lncli" "cmd/lnd" ];
+  subPackages = [
+    "cmd/lncli"
+    "cmd/lnd"
+  ];
 
   preBuild = let
     buildVars = {
@@ -47,6 +50,9 @@ buildGoModule rec {
     description = "Lightning Network Daemon";
     homepage = "https://github.com/lightningnetwork/lnd";
     license = licenses.mit;
-    maintainers = with maintainers; [ cypherpunk2140 prusnak ];
+    maintainers = with maintainers; [
+      cypherpunk2140
+      prusnak
+    ];
   };
 }

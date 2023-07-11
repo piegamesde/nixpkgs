@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-hL5rOf0G+UBO8kyRXA1TqMCta00jGSZtF7n8ibjGi9k=";
-  buildInputs = [ lz4 libxkbcommon ];
+  buildInputs = [
+    lz4
+    libxkbcommon
+  ];
   doCheck = false; # Integration tests do not work in sandbox environment
   nativeBuildInputs = [ pkg-config ];
 

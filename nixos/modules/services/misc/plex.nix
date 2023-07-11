@@ -9,10 +9,12 @@ with lib;
 
 let cfg = config.services.plex;
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "plex" "managePlugins" ]
-      "Please omit or define the option: `services.plex.extraPlugins' instead.")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "plex"
+    "managePlugins"
+  ]
+    "Please omit or define the option: `services.plex.extraPlugins' instead.") ];
 
   options = {
     services.plex = {
@@ -166,8 +168,20 @@ in {
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 32400 3005 8324 32469 ];
-      allowedUDPPorts = [ 1900 5353 32410 32412 32413 32414 ];
+      allowedTCPPorts = [
+        32400
+        3005
+        8324
+        32469
+      ];
+      allowedUDPPorts = [
+        1900
+        5353
+        32410
+        32412
+        32413
+        32414
+      ];
     };
 
     users.users = mkIf (cfg.user == "plex") {

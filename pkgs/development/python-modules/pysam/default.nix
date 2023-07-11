@@ -29,7 +29,14 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ samtools ];
-  buildInputs = [ bzip2 curl cython libdeflate xz zlib ];
+  buildInputs = [
+    bzip2
+    curl
+    cython
+    libdeflate
+    xz
+    zlib
+  ];
 
   # Use nixpkgs' htslib instead of the bundled one
   # See https://pysam.readthedocs.io/en/latest/installation.html#external
@@ -40,7 +47,11 @@ buildPythonPackage rec {
     export HTSLIB_INCLUDE_DIR=${htslib}/include
   '';
 
-  nativeCheckInputs = [ pytest bcftools htslib ];
+  nativeCheckInputs = [
+    pytest
+    bcftools
+    htslib
+  ];
 
   # See https://github.com/NixOS/nixpkgs/pull/100823 for why we aren't using
   # disabledTests and pytestFlagsArray through pytestCheckHook

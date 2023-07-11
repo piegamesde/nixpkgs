@@ -21,7 +21,13 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ flaky ipykernel ipyparallel nose pytestCheckHook ];
+  nativeCheckInputs = [
+    flaky
+    ipykernel
+    ipyparallel
+    nose
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

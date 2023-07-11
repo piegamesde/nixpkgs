@@ -20,7 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-Tgoem88Y6AhlCKVhMm0Khg6GPcrEktYOqV8xcMaNkl4=";
   };
 
-  nativeCheckInputs = [ pytest pytest-xdist verilog ghdl ];
+  nativeCheckInputs = [
+    pytest
+    pytest-xdist
+    verilog
+    ghdl
+  ];
   passthru = {
     # If using myhdl as a dependency, use these if needed and not ghdl and
     # verlog from all-packages.nix

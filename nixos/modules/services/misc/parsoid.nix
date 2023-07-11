@@ -16,7 +16,7 @@ let
   confTree = {
     worker_heartbeat_timeout = 300000;
     logging = { level = "info"; };
-    services = [{
+    services = [ {
       module = "lib/index.js";
       entrypoint = "apiServiceWorker";
       conf = {
@@ -24,17 +24,18 @@ let
         serverInterface = cfg.interface;
         serverPort = cfg.port;
       };
-    }];
+    } ];
   };
 
   confFile = pkgs.writeText "config.yml"
     (builtins.toJSON (recursiveUpdate confTree cfg.extraConfig));
 
 in {
-  imports = [
-    (mkRemovedOptionModule [ "services" "parsoid" "interwikis" ]
-      "Use services.parsoid.wikis instead")
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "parsoid"
+    "interwikis"
+  ] "Use services.parsoid.wikis instead") ];
 
   ##### interface
 
@@ -123,7 +124,10 @@ in {
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         LockPersonality = true;
         #MemoryDenyWriteExecute = true;

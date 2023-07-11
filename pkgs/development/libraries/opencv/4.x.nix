@@ -246,12 +246,9 @@ let
     [
       cuda_cccl # <thrust/*>
       libnpp # npp.h
-    ] ++ lib.optionals enableCublas [
-      libcublas # cublas_v2.h
-    ] ++ lib.optionals enableCudnn [
-      cudnn # cudnn.h
-    ] ++ lib.optionals enableCufft [
-      libcufft # cufft.h
+    ] ++ lib.optionals enableCublas [ libcublas # cublas_v2.h
+    ] ++ lib.optionals enableCudnn [ cudnn # cudnn.h
+    ] ++ lib.optionals enableCufft [ libcufft # cufft.h
     ];
 
   cuda-native-redist = symlinkJoin {
@@ -272,7 +269,10 @@ in stdenv.mkDerivation {
   pname = "opencv";
   inherit version src;
 
-  outputs = [ "out" "package_tests" ];
+  outputs = [
+    "out"
+    "package_tests"
+  ];
 
   postUnpack = lib.optionalString buildContrib ''
     cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/source/opencv_contrib"
@@ -304,28 +304,39 @@ in stdenv.mkDerivation {
     echo '"(build info elided)"' > modules/core/version_string.inc
   '';
 
-  buildInputs = [ zlib pcre boost gflags protobuf ]
-    ++ lib.optional enablePython pythonPackages.python
+  buildInputs = [
+    zlib
+    pcre
+    boost
+    gflags
+    protobuf
+  ] ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) hdf5
     ++ lib.optional enableGtk2 gtk2 ++ lib.optional enableGtk3 gtk3
     ++ lib.optional enableVtk vtk ++ lib.optional enableJPEG libjpeg
     ++ lib.optional enablePNG libpng ++ lib.optional enableTIFF libtiff
-    ++ lib.optional enableWebP libwebp
-    ++ lib.optionals enableEXR [ openexr ilmbase ]
-    ++ lib.optional enableJPEG2000 openjpeg ++ lib.optional enableFfmpeg ffmpeg
+    ++ lib.optional enableWebP libwebp ++ lib.optionals enableEXR [
+      openexr
+      ilmbase
+    ] ++ lib.optional enableJPEG2000 openjpeg
+    ++ lib.optional enableFfmpeg ffmpeg
     ++ lib.optionals (enableFfmpeg && stdenv.isDarwin) [
       VideoDecodeAcceleration
       bzip2
-    ] ++ lib.optionals enableGStreamer
-    (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
-    ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
+    ] ++ lib.optionals enableGStreamer (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ]) ++ lib.optional enableOvis ogre ++ lib.optional enableGPhoto2 libgphoto2
     ++ lib.optional enableDC1394 libdc1394 ++ lib.optional enableEigen eigen
     ++ lib.optional enableBlas blas.provider
     # There is seemingly no compile-time flag for Tesseract.  It's
     # simply enabled automatically if contrib is built, and it detects
     # tesseract & leptonica.
-    ++ lib.optionals enableTesseract [ tesseract leptonica ]
-    ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals enableTesseract [
+      tesseract
+      leptonica
+    ] ++ lib.optional enableTbb tbb ++ lib.optionals stdenv.isDarwin [
       bzip2
       AVFoundation
       Cocoa
@@ -333,13 +344,19 @@ in stdenv.mkDerivation {
       CoreMedia
       MediaToolbox
       Accelerate
-    ] ++ lib.optionals enableDocs [ doxygen graphviz-nox ]
-    ++ lib.optionals enableCuda [ cuda-redist ];
+    ] ++ lib.optionals enableDocs [
+      doxygen
+      graphviz-nox
+    ] ++ lib.optionals enableCuda [ cuda-redist ];
 
   propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy
     ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ];
 
-  nativeBuildInputs = [ cmake pkg-config unzip ] ++ lib.optionals enablePython [
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    unzip
+  ] ++ lib.optionals enablePython [
     pythonPackages.pip
     pythonPackages.wheel
     pythonPackages.setuptools
@@ -405,9 +422,11 @@ in stdenv.mkDerivation {
     "-DCUDA_ARCH_PTX=${lib.last cudaCapabilities}"
 
     "-DNVIDIA_OPTICAL_FLOW_2_0_HEADERS_PATH=${nvidia-optical-flow-sdk}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DWITH_OPENCL=OFF" "-DWITH_LAPACK=OFF" ]
-    ++ lib.optionals (!stdenv.isDarwin)
-    [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
+  ] ++ lib.optionals stdenv.isDarwin [
+    "-DWITH_OPENCL=OFF"
+    "-DWITH_LAPACK=OFF"
+  ] ++ lib.optionals
+    (!stdenv.isDarwin) [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''

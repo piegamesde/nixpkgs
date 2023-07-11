@@ -32,15 +32,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ grpclib python-dateutil ];
+  propagatedBuildInputs = [
+    grpclib
+    python-dateutil
+  ];
 
-  passthru.optional-dependencies.compiler = [ black jinja2 isort ];
+  passthru.optional-dependencies.compiler = [
+    black
+    jinja2
+    isort
+  ];
 
   pythonImportsCheck = [ "betterproto" ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook pytest-asyncio pytest-mock tomlkit grpcio-tools ]
-    ++ passthru.optional-dependencies.compiler;
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    pytest-mock
+    tomlkit
+    grpcio-tools
+  ] ++ passthru.optional-dependencies.compiler;
 
   # The tests require the generation of code before execution. This requires
   # the protoc-gen-python_betterproto script from the packge to be on PATH.

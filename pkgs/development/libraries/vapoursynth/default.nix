@@ -33,10 +33,23 @@ stdenv.mkDerivation rec {
   patches =
     [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook makeWrapper ];
-  buildInputs =
-    [ zimg libass (python3.withPackages (ps: with ps; [ sphinx cython ])) ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ApplicationServices ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    makeWrapper
+  ];
+  buildInputs = [
+    zimg
+    libass
+    (python3.withPackages (ps:
+      with ps; [
+        sphinx
+        cython
+      ]))
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    ApplicationServices
+  ];
 
   enableParallelBuilding = true;
 
@@ -75,7 +88,11 @@ stdenv.mkDerivation rec {
     homepage = "http://www.vapoursynth.com/";
     license = licenses.lgpl21;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ rnhmjoj sbruder tadeokondrak ];
+    maintainers = with maintainers; [
+      rnhmjoj
+      sbruder
+      tadeokondrak
+    ];
     mainProgram = "vspipe";
   };
 }

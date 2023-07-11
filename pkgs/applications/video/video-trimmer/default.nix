@@ -44,7 +44,11 @@ stdenv.mkDerivation rec {
     # `gtk4-update-icon-cache` during installPhase, thanks to:
     # https://gitlab.gnome.org/YaLTeR/video-trimmer/-/merge_requests/12
     gtk4
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [
     gtk4

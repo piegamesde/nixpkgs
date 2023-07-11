@@ -93,7 +93,14 @@ let
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh
-    PATH=${with pkgs; makeBinPath [ gnused gnugrep coreutils ]}
+    PATH=${
+      with pkgs;
+      makeBinPath [
+        gnused
+        gnugrep
+        coreutils
+      ]
+    }
     tmp=$(mktemp)
     sed '/nameserver /d' /etc/resolv.conf > $tmp
     grep 'nameserver ' /etc/resolv.conf | \
@@ -111,8 +118,12 @@ let
   };
 
   macAddressOpt = mkOption {
-    type = types.either types.str
-      (types.enum [ "permanent" "preserve" "random" "stable" ]);
+    type = types.either types.str (types.enum [
+      "permanent"
+      "preserve"
+      "random"
+      "stable"
+    ]);
     default = "preserve";
     example = "00:11:22:33:44:55";
     description = lib.mdDoc ''
@@ -126,7 +137,10 @@ let
     '';
   };
 
-  packages = [ pkgs.modemmanager pkgs.networkmanager ] ++ cfg.plugins
+  packages = [
+    pkgs.modemmanager
+    pkgs.networkmanager
+  ] ++ cfg.plugins
     ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 
 in {
@@ -152,7 +166,12 @@ in {
       };
 
       connectionConfig = mkOption {
-        type = with types; attrsOf (nullOr (oneOf [ bool int str ]));
+        type = with types;
+          attrsOf (nullOr (oneOf [
+            bool
+            int
+            str
+          ]));
         default = { };
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.
@@ -216,7 +235,10 @@ in {
       };
 
       dhcp = mkOption {
-        type = types.enum [ "dhcpcd" "internal" ];
+        type = types.enum [
+          "dhcpcd"
+          "internal"
+        ];
         default = "internal";
         description = lib.mdDoc ''
           Which program (or internal library) should be used for DHCP.
@@ -224,7 +246,11 @@ in {
       };
 
       firewallBackend = mkOption {
-        type = types.enum [ "iptables" "nftables" "none" ];
+        type = types.enum [
+          "iptables"
+          "nftables"
+          "none"
+        ];
         default = "iptables";
         description = lib.mdDoc ''
           Which firewall backend should be used for configuring masquerading with shared mode.
@@ -233,7 +259,14 @@ in {
       };
 
       logLevel = mkOption {
-        type = types.enum [ "OFF" "ERR" "WARN" "INFO" "DEBUG" "TRACE" ];
+        type = types.enum [
+          "OFF"
+          "ERR"
+          "WARN"
+          "INFO"
+          "DEBUG"
+          "TRACE"
+        ];
         default = "WARN";
         description = lib.mdDoc ''
           Set the default logging verbosity level.
@@ -264,7 +297,10 @@ in {
         macAddress = macAddressOpt;
 
         backend = mkOption {
-          type = types.enum [ "wpa_supplicant" "iwd" ];
+          type = types.enum [
+            "wpa_supplicant"
+            "iwd"
+          ];
           default = "wpa_supplicant";
           description = lib.mdDoc ''
             Specify the Wi-Fi backend used for the device.
@@ -380,17 +416,29 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "networking" "networkmanager" "packages" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "networkmanager"
+      "packages"
+    ] [
       "networking"
       "networkmanager"
       "plugins"
     ])
-    (mkRenamedOptionModule [ "networking" "networkmanager" "useDnsmasq" ] [
+    (mkRenamedOptionModule [
+      "networking"
+      "networkmanager"
+      "useDnsmasq"
+    ] [
       "networking"
       "networkmanager"
       "dns"
     ])
-    (mkRemovedOptionModule [ "networking" "networkmanager" "dynamicHosts" ] ''
+    (mkRemovedOptionModule [
+      "networking"
+      "networkmanager"
+      "dynamicHosts"
+    ] ''
       This option was removed because allowing (multiple) regular users to
       override host entries affecting the whole system opens up a huge attack
       vector. There seem to be very rare cases where this might be useful.
@@ -404,14 +452,14 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       assertion = config.networking.wireless.enable == true -> cfg.unmanaged
         != [ ];
       message = ''
         You can not use networking.networkmanager with networking.wireless.
         Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
       '';
-    }];
+    } ];
 
     hardware.wirelessRegulatoryDatabase = true;
 
@@ -487,10 +535,17 @@ in {
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];
-      restartTriggers = [ configFile overrideNameserversScript ];
+      restartTriggers = [
+        configFile
+        overrideNameserversScript
+      ];
 
       # useful binaries for user-specified hooks
-      path = [ pkgs.iproute2 pkgs.util-linux pkgs.coreutils ];
+      path = [
+        pkgs.iproute2
+        pkgs.util-linux
+        pkgs.coreutils
+      ];
       aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 

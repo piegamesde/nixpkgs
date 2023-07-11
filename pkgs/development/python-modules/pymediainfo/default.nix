@@ -34,7 +34,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ glibcLocales pytest ];
+  nativeCheckInputs = [
+    glibcLocales
+    pytest
+  ];
 
   checkPhase = ''
     export LC_ALL=en_US.UTF-8

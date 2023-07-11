@@ -22,7 +22,10 @@ mkXfceDerivation {
 
   sha256 = "sha256-nTPgxC0XMBJ48lPCeQgCvWWK1/2ZIoQOYsMeaxDpE1c=";
 
-  nativeBuildInputs = [ exo librsvg ];
+  nativeBuildInputs = [
+    exo
+    librsvg
+  ];
 
   buildInputs = [
     dbus-glib

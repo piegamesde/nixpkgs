@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-UZcSfbpp3vPsD3CDukp+r5Z60h0UEWTduqF4DhJ+H2U=";
   };
 
-  nativeBuildInputs = [ pkg-config libev curlWithGnuTls sqlite ];
+  nativeBuildInputs = [
+    pkg-config
+    libev
+    curlWithGnuTls
+    sqlite
+  ];
 
   enableParallelBuilding = true;
 

@@ -33,8 +33,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
-  nativeBuildInputs =
-    [ cmake qttools pkg-config wrapQtAppsHook lxqt.lxqt-build-tools ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+    lxqt.lxqt-build-tools
+  ];
 
   buildInputs = [
     qt5integration

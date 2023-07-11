@@ -29,12 +29,29 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2NSlzA/Yaw2Q4BfWTB9GI+jNv72lcPxCOt4RUak9GfU=";
   };
 
-  patches = [ ./000-no-suid.patch ./001-omit-localstatedir-creation.patch ];
+  patches = [
+    ./000-no-suid.patch
+    ./001-omit-localstatedir-creation.patch
+  ];
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config perl python3 python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    perl
+    python3
+    python3.pkgs.wrapPython
+  ];
 
-  buildInputs = [ acl avahi db libevent libgcrypt libiconv openssl pam ];
+  buildInputs = [
+    acl
+    avahi
+    db
+    libevent
+    libgcrypt
+    libiconv
+    openssl
+    pam
+  ];
 
   configureFlags = [
     "--with-bdb=${db.dev}"

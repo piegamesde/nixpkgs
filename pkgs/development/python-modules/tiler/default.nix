@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ numpy tqdm ];
+  propagatedBuildInputs = [
+    numpy
+    tqdm
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

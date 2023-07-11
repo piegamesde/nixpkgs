@@ -22,9 +22,18 @@ mkDerivation rec {
     sha256 = "sha256-RT5UobpMt/vBLgWur1TkodS3dMyIWQkDPiBYCYx/FI4=";
   };
 
-  buildInputs = [ qtbase qtmultimedia qtsvg qtx11extras ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qtsvg
+    qtx11extras
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    gettext
+  ];
 
   meta = with lib; {
     description = "Advanced IRC Client";

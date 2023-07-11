@@ -27,9 +27,15 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ arrow jinja2 ];
+  propagatedBuildInputs = [
+    arrow
+    jinja2
+  ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "jinja2_time" ];
 

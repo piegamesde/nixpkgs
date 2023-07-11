@@ -29,7 +29,11 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 pmutils udev ];
+  buildInputs = [
+    libusb1
+    pmutils
+    udev
+  ];
 
   # shell thing didn't work so i replaced it using nix
   prePatch = ''

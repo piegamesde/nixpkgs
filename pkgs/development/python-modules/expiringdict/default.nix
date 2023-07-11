@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-vRhJSHIqc51I+s/wndtfANM44CKW3QS1iajqyoSBf0I=";
   };
 
-  nativeCheckInputs = [ dill coverage coveralls mock nose ];
+  nativeCheckInputs = [
+    dill
+    coverage
+    coveralls
+    mock
+    nose
+  ];
 
   checkPhase = ''
     runHook preCheck

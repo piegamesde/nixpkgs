@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gettext icu ];
+  buildInputs = [
+    gettext
+    icu
+  ];
 
   meta = with lib; {
     description =

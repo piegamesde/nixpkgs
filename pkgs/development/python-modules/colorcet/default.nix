@@ -17,9 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-UUVaIDU9EvrJH5U3cthAnyR05qDbGvP6T3AF9AWiSAs=";
   };
 
-  propagatedBuildInputs = [ param pyct ];
+  propagatedBuildInputs = [
+    param
+    pyct
+  ];
 
-  nativeCheckInputs = [ pytest-mpl pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-mpl
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

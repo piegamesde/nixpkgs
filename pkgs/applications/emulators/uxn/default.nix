@@ -47,7 +47,10 @@ stdenv.mkDerivation {
     homepage = "https://wiki.xxiivv.com/site/uxn.html";
     description = "An assembler and emulator for the Uxn stack machine";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ AndersonTorres kototama ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      kototama
+    ];
     platforms = with platforms; unix;
   };
 }

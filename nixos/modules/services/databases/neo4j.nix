@@ -109,50 +109,91 @@ let
 in {
 
   imports = [
-    (mkRenamedOptionModule [ "services" "neo4j" "host" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "host"
+    ] [
       "services"
       "neo4j"
       "defaultListenAddress"
     ])
-    (mkRenamedOptionModule [ "services" "neo4j" "listenAddress" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "listenAddress"
+    ] [
       "services"
       "neo4j"
       "defaultListenAddress"
     ])
-    (mkRenamedOptionModule [ "services" "neo4j" "enableBolt" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "enableBolt"
+    ] [
       "services"
       "neo4j"
       "bolt"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "neo4j" "enableHttps" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "enableHttps"
+    ] [
       "services"
       "neo4j"
       "https"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "neo4j" "certDir" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "certDir"
+    ] [
       "services"
       "neo4j"
       "directories"
       "certificates"
     ])
-    (mkRenamedOptionModule [ "services" "neo4j" "dataDir" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "neo4j"
+      "dataDir"
+    ] [
       "services"
       "neo4j"
       "directories"
       "home"
     ])
-    (mkRemovedOptionModule [ "services" "neo4j" "port" ]
-      "Use services.neo4j.http.listenAddress instead.")
-    (mkRemovedOptionModule [ "services" "neo4j" "boltPort" ]
-      "Use services.neo4j.bolt.listenAddress instead.")
-    (mkRemovedOptionModule [ "services" "neo4j" "httpsPort" ]
-      "Use services.neo4j.https.listenAddress instead.")
-    (mkRemovedOptionModule [ "services" "neo4j" "shell" "enabled" ]
-      "shell.enabled was removed upstream")
-    (mkRemovedOptionModule [ "services" "neo4j" "udc" "enabled" ]
-      "udc.enabled was removed upstream")
+    (mkRemovedOptionModule [
+      "services"
+      "neo4j"
+      "port"
+    ] "Use services.neo4j.http.listenAddress instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "neo4j"
+      "boltPort"
+    ] "Use services.neo4j.bolt.listenAddress instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "neo4j"
+      "httpsPort"
+    ] "Use services.neo4j.https.listenAddress instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "neo4j"
+      "shell"
+      "enabled"
+    ] "shell.enabled was removed upstream")
+    (mkRemovedOptionModule [
+      "services"
+      "neo4j"
+      "udc"
+      "enabled"
+    ] "udc.enabled was removed upstream")
   ];
 
   ###### interface
@@ -280,7 +321,11 @@ in {
       };
 
       tlsLevel = mkOption {
-        type = types.enum [ "REQUIRED" "OPTIONAL" "DISABLED" ];
+        type = types.enum [
+          "REQUIRED"
+          "OPTIONAL"
+          "DISABLED"
+        ];
         default = "OPTIONAL";
         description = lib.mdDoc ''
           SSL/TSL requirement level for BOLT traffic.
@@ -497,7 +542,11 @@ in {
               };
 
               clientAuth = mkOption {
-                type = types.enum [ "NONE" "OPTIONAL" "REQUIRE" ];
+                type = types.enum [
+                  "NONE"
+                  "OPTIONAL"
+                  "REQUIRE"
+                ];
                 default = "REQUIRE";
                 description = lib.mdDoc ''
                   The client authentication stance for this policy.
@@ -699,6 +748,9 @@ in {
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ patternspandemic jonringer ];
+    maintainers = with lib.maintainers; [
+      patternspandemic
+      jonringer
+    ];
   };
 }

@@ -70,7 +70,10 @@ stdenv.mkDerivation rec {
     '';
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
-    maintainers = with maintainers; [ jk techknowlogick ];
+    maintainers = with maintainers; [
+      jk
+      techknowlogick
+    ];
     platforms = platforms.unix;
   };
 }

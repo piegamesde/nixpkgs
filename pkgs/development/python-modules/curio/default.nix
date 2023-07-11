@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-VipYbbICFrp9K+gmPeuesHnlYEj5uJBtEdX0WqgcUkc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook sphinx ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    sphinx
+  ];
 
   __darwinAllowLocalNetworking = true;
 

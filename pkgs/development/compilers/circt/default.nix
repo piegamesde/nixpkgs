@@ -23,7 +23,12 @@ in stdenv.mkDerivation rec {
 
   requiredSystemFeatures = [ "big-parallel" ];
 
-  nativeBuildInputs = [ cmake ninja git pythonEnv ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    git
+    pythonEnv
+  ];
 
   cmakeDir = "../llvm/llvm";
   cmakeFlags = [

@@ -43,7 +43,11 @@ mkDerivation {
 
   executableHaskellDepends = with haskellPackages; [ base ];
 
-  testHaskellDepends = with haskellPackages; [ tasty tasty-hunit tasty-golden ];
+  testHaskellDepends = with haskellPackages; [
+    tasty
+    tasty-hunit
+    tasty-golden
+  ];
 
   description = "Fancy Formal Firewall Universal Understander";
   homepage =

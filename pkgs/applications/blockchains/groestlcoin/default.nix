@@ -42,15 +42,28 @@ in stdenv.mkDerivation rec {
     sha256 = "0k14y3iv5l26r820wzkwqxi67kwh26i0yq20ffd72shicjs1d3qc";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ]
-    ++ lib.optionals stdenv.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.isDarwin [ hexdump ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ autoSignDarwinBinariesHook ] ++ lib.optionals withGui [ wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ lib.optionals stdenv.isLinux [ util-linux ]
+    ++ lib.optionals stdenv.isDarwin [ hexdump ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
+    ++ lib.optionals withGui [ wrapQtAppsHook ];
 
-  buildInputs = [ boost libevent miniupnpc zeromq zlib ]
-    ++ lib.optionals withWallet [ db53 sqlite ]
-    ++ lib.optionals withGui [ qrencode qtbase qttools ];
+  buildInputs = [
+    boost
+    libevent
+    miniupnpc
+    zeromq
+    zlib
+  ] ++ lib.optionals withWallet [
+    db53
+    sqlite
+  ] ++ lib.optionals withGui [
+    qrencode
+    qtbase
+    qttools
+  ];
 
   postInstall = lib.optionalString withGui ''
     install -Dm644 ${desktop} $out/share/applications/groestlcoin-qt.desktop
@@ -58,8 +71,10 @@ in stdenv.mkDerivation rec {
     install -Dm644 share/pixmaps/groestlcoin256.png $out/share/pixmaps/groestlcoin.png
   '';
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" "--disable-bench" ]
-    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
+  configureFlags = [
+    "--with-boost-libdir=${boost.out}/lib"
+    "--disable-bench"
+  ] ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
@@ -67,11 +82,9 @@ in stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ python3 ];
 
-  checkFlags = [
-    "LC_ALL=en_US.UTF-8"
-  ]
-  # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Groestlcoin's GUI.
-  # See also https://github.com/NixOS/nixpkgs/issues/24256
+  checkFlags = [ "LC_ALL=en_US.UTF-8" ]
+    # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Groestlcoin's GUI.
+    # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
 
   enableParallelBuilding = true;

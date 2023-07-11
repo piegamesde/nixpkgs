@@ -21,7 +21,12 @@ let
     requests
     setproctitle
   ];
-  otherDependencies = [ less timg xdg-utils xsel ];
+  otherDependencies = [
+    less
+    timg
+    xdg-utils
+    xsel
+  ];
 in python3Packages.buildPythonPackage rec {
   pname = "offpunk";
   version = "1.9.2";

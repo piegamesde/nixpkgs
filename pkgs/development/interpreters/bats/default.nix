@@ -42,7 +42,11 @@ resholve.mkDerivation rec {
 
   solutions = {
     bats = {
-      scripts = [ "bin/bats" "libexec/bats-core/*" "lib/bats-core/*" ];
+      scripts = [
+        "bin/bats"
+        "libexec/bats-core/*"
+        "lib/bats-core/*"
+      ];
       interpreter = "${bash}/bin/bash";
       inputs = [
         bash
@@ -162,7 +166,11 @@ resholve.mkDerivation rec {
     passAsFile = [ "testScript" ];
   } ''
     ${
-      bats.withLibraries (p: [ p.bats-support p.bats-assert p.bats-file ])
+      bats.withLibraries (p: [
+        p.bats-support
+        p.bats-assert
+        p.bats-file
+      ])
     }/bin/bats "$testScriptPath"
     touch "$out"
   '';

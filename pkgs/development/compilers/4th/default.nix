@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "-C sources" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "-C sources"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   preInstall = ''
     install -d ${placeholder "out"}/bin \

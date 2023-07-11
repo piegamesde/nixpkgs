@@ -20,14 +20,19 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ buildsystem ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
+  ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/";
     description = "NetSurf Public Suffix List - Handling library";
     license = licenses.mit;
-    maintainers = [ maintainers.samueldr maintainers.AndersonTorres ];
+    maintainers = [
+      maintainers.samueldr
+      maintainers.AndersonTorres
+    ];
     platforms = platforms.linux;
   };
 }

@@ -22,9 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-4wkwtcChcR7XH421wa3dGdIPhwgeaTFk247zIRX98xo=";
   };
 
-  propagatedBuildInputs = [ sqlite-utils pyyaml requests ];
+  propagatedBuildInputs = [
+    sqlite-utils
+    pyyaml
+    requests
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+  ];
 
   disabledTests = [ "test_scrape_dependents" ];
 

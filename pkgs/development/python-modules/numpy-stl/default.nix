@@ -19,7 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-V4t46ssFKayaui8X3MNj1Yx8PFcIcQwY+MHpll8ugaw=";
   };
 
-  propagatedBuildInputs = [ cython enum34 nine numpy python-utils ];
+  propagatedBuildInputs = [
+    cython
+    enum34
+    nine
+    numpy
+    python-utils
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

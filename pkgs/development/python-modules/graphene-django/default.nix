@@ -41,15 +41,27 @@ buildPythonPackage rec {
       --replace '"pytest-runner"' ""
   '';
 
-  propagatedBuildInputs =
-    [ djangorestframework graphene graphql-core django promise text-unidecode ];
+  propagatedBuildInputs = [
+    djangorestframework
+    graphene
+    graphql-core
+    django
+    promise
+    text-unidecode
+  ];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE=examples.django_test_settings
   '';
 
-  nativeCheckInputs =
-    [ django-filter mock py pytest-django pytest-random-order pytestCheckHook ];
+  nativeCheckInputs = [
+    django-filter
+    mock
+    py
+    pytest-django
+    pytest-random-order
+    pytestCheckHook
+  ];
 
   disabledTests = lib.optionals (pythonAtLeast "3.11") [
     # Pèython 3.11 support, https://github.com/graphql-python/graphene-django/pull/1365

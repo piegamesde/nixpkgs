@@ -8,7 +8,11 @@ buildGoModule rec {
   pname = "kail";
   version = "0.16.1";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   src = fetchFromGitHub {
     owner = "boz";
@@ -23,6 +27,9 @@ buildGoModule rec {
     description = "Kubernetes log viewer";
     homepage = "https://github.com/boz/kail";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline vdemeester ];
+    maintainers = with maintainers; [
+      offline
+      vdemeester
+    ];
   };
 }

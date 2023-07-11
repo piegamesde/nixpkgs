@@ -19,8 +19,14 @@ mkDerivation rec {
     sha256 = "sha256-fWMaat5IguEZwoEJiEjGrWIbOqdJhs25qOebxpWVQQk=";
   };
 
-  nativeBuildInputs = [ cmake qttools ];
-  buildInputs = [ qtbase kcolorpicker ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ];
+  buildInputs = [
+    qtbase
+    kcolorpicker
+  ];
 
   meta = with lib; {
     description = "Tool for annotating images";

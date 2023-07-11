@@ -21,8 +21,11 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags =
-    [ "-s" "-w" "-X github.com/cycloidio/terracognita/cmd.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/cycloidio/terracognita/cmd.Version=${version}"
+  ];
 
   meta = with lib; {
     description =

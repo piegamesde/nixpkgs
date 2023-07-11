@@ -70,7 +70,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Provides glib-compile-resources to compile gresources
     glib
-  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+  ] ++ (with rustPlatform; [
+    cargoSetupHook
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = [
     gtk4
@@ -99,7 +103,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A modern feed reader designed for the GNOME desktop";
     homepage = "https://gitlab.com/news-flash/news_flash_gtk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau stunkymonkey ];
+    maintainers = with maintainers; [
+      kira-bruneau
+      stunkymonkey
+    ];
     platforms = platforms.unix;
     mainProgram = "com.gitlab.newsflash";
   };

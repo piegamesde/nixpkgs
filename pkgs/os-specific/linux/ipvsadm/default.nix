@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl popt ];
+  buildInputs = [
+    libnl
+    popt
+  ];
 
   # Disable parallel build, errors:
   #  *** No rule to make target 'libipvs/libipvs.a', needed by 'ipvsadm'.  Stop.

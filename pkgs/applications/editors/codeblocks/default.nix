@@ -26,9 +26,20 @@ stdenv.mkDerivation rec {
     sha256 = "1idaksw1vacmm83krxh5zlb12kad3dkz9ixh70glw1gaibib7vhm";
   };
 
-  nativeBuildInputs = [ pkg-config file zip wrapGAppsHook ];
-  buildInputs = [ wxGTK32 gtk3 ]
-    ++ lib.optionals contribPlugins [ hunspell gamin boost ];
+  nativeBuildInputs = [
+    pkg-config
+    file
+    zip
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    wxGTK32
+    gtk3
+  ] ++ lib.optionals contribPlugins [
+    hunspell
+    gamin
+    boost
+  ];
   enableParallelBuilding = true;
   patches = [
     ./writable-projects.patch

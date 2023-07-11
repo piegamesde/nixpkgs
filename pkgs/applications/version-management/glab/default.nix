@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-PH0PJujdRtnVS0s6wWtS6kffQBQduqb2KJYru9ePatw=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   preCheck = ''
     # failed to read configuration:  mkdir /homeless-shelter: permission denied

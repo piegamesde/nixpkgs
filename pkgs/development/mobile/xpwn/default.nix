@@ -37,7 +37,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib libpng bzip2 libusb-compat-0_1 openssl ];
+  buildInputs = [
+    zlib
+    libpng
+    bzip2
+    libusb-compat-0_1
+    openssl
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

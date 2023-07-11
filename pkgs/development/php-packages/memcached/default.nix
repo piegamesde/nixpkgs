@@ -22,11 +22,16 @@ buildPecl rec {
 
   internalDeps = [ php.extensions.session ];
 
-  configureFlags =
-    [ "--with-zlib-dir=${zlib.dev}" "--with-libmemcached-dir=${libmemcached}" ];
+  configureFlags = [
+    "--with-zlib-dir=${zlib.dev}"
+    "--with-libmemcached-dir=${libmemcached}"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ cyrus_sasl zlib ];
+  buildInputs = [
+    cyrus_sasl
+    zlib
+  ];
 
   meta = with lib; {
     description =

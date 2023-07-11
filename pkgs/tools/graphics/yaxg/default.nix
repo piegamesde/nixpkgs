@@ -23,14 +23,28 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ maim slop ffmpeg byzanz libnotify xdpyinfo ];
+  buildInputs = [
+    maim
+    slop
+    ffmpeg
+    byzanz
+    libnotify
+    xdpyinfo
+  ];
 
   installPhase = ''
     mkdir -p $out/bin/
     mv yaxg $out/bin/
     chmod +x $out/bin/yaxg
     wrapProgram $out/bin/yaxg --prefix PATH : ${
-      lib.makeBinPath [ maim slop ffmpeg byzanz libnotify xdpyinfo ]
+      lib.makeBinPath [
+        maim
+        slop
+        ffmpeg
+        byzanz
+        libnotify
+        xdpyinfo
+      ]
     }
   '';
 

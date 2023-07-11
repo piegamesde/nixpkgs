@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-7zuJYPru6YgPgrCHLYB+P6uUrOErDSqEGKl4dciBLTw=";
   };
 
-  propagatedBuildInputs = [ requests requests-toolbelt ];
+  propagatedBuildInputs = [
+    requests
+    requests-toolbelt
+  ];
 
   passthru.optional-dependencies = {
     autocompletion = [ argcomplete ];

@@ -11,7 +11,10 @@
 stdenv.mkDerivation {
   inherit pname version src meta;
 
-  nativeBuildInputs = [ unzip undmg ];
+  nativeBuildInputs = [
+    unzip
+    undmg
+  ];
 
   sourceRoot = ".";
 

@@ -5,7 +5,11 @@ import ./make-test-python.nix ({
   }:
 
   let
-    nodesIps = [ "192.168.1.1" "192.168.1.2" "192.168.1.3" ];
+    nodesIps = [
+      "192.168.1.1"
+      "192.168.1.2"
+      "192.168.1.3"
+    ];
 
     createNode = index:
       {
@@ -16,12 +20,16 @@ import ./make-test-python.nix ({
         ip = builtins.elemAt nodesIps
           index; # since we already use IPs to identify servers
       in {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
           prefixLength = 16;
-        }];
+        } ];
 
-        networking.firewall.allowedTCPPorts = [ 5432 8008 5010 ];
+        networking.firewall.allowedTCPPorts = [
+          5432
+          8008
+          5010
+        ];
 
         environment.systemPackages = [ pkgs.jq ];
 
@@ -46,7 +54,10 @@ import ./make-test-python.nix ({
                 retry_timeout = 10;
                 maximum_lag_on_failover = 1048576;
               };
-              initdb = [ { encoding = "UTF8"; } "data-checksums" ];
+              initdb = [
+                { encoding = "UTF8"; }
+                "data-checksums"
+              ];
             };
 
             postgresql = {
@@ -99,10 +110,10 @@ import ./make-test-python.nix ({
           ...
         }: {
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.1.4";
             prefixLength = 16;
-          }];
+          } ];
 
           services.etcd = {
             enable = true;
@@ -118,10 +129,10 @@ import ./make-test-python.nix ({
         }: {
           environment.systemPackages = [ pkgs.postgresql_14 ];
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.2.1";
             prefixLength = 16;
-          }];
+          } ];
 
           services.haproxy = {
             enable = true;

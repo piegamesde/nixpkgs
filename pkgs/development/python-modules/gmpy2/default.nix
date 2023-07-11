@@ -24,7 +24,11 @@ in buildPythonPackage {
     hash = "sha256-ARCttNzRA+Ji2j2NYaSCDXgvoEg01T9BnYadyqON2o0=";
   };
 
-  buildInputs = [ gmp mpfr libmpc ];
+  buildInputs = [
+    gmp
+    mpfr
+    libmpc
+  ];
 
   pythonImportsCheck = [ "gmpy2" ];
 

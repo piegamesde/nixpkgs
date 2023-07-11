@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "13br735ig7lygvzyfd15fc2rdygrqm503j6xj5xkrl1r7w2wipq6";
   };
 
-  nativeBuildInputs = [ lua5_3 python3 ];
+  nativeBuildInputs = [
+    lua5_3
+    python3
+  ];
 
   buildPhase = "${stdenv.shell} make_unix.sh";
 

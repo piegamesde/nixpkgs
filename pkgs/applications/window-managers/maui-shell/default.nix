@@ -45,7 +45,10 @@ mkDerivation rec {
     sha256 = "sha256-lhTtIHE+FUgZFaPYoIRgLPrBUPISeXHCg3rn0FlQg7w=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     bluedevil

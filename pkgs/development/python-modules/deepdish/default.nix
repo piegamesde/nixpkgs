@@ -16,7 +16,11 @@ buildPythonPackage rec {
     sha256 = "1wqzwh3y0mjdyba5kfbvlamn561d3afz50zi712c7klkysz3mzva";
   };
 
-  propagatedBuildInputs = [ numpy scipy tables ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    tables
+  ];
 
   pythonImportsCheck = [ "deepdish" ];
 

@@ -40,7 +40,10 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [ cmdliner hxd ];
+  buildInputs = [
+    cmdliner
+    hxd
+  ];
 
   propagatedBuildInputs = [
     angstrom
@@ -64,7 +67,10 @@ buildDunePackage rec {
     mirage-crypto-rng
   ];
 
-  checkInputs = [ alcotest jsonm ];
+  checkInputs = [
+    alcotest
+    jsonm
+  ];
   doCheck = lib.versionOlder ocaml.version "5.0";
 
   meta = {

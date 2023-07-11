@@ -17,7 +17,10 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-6N2s/LWFa3mgMQ88rt3IaWk+b2PTWfT7z1mi+ioQEyU=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ python-dateutil ruamel-yaml ];
+  propagatedBuildInputs = with python3.pkgs; [
+    python-dateutil
+    ruamel-yaml
+  ];
 
   nativeCheckInputs = with python3.pkgs; [
     hiera-eyaml

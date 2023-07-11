@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-root-install.patch ];
 
-  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = {
     description =

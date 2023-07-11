@@ -35,8 +35,16 @@ buildDunePackage rec {
 
   buildInputs = [ parmap ];
 
-  propagatedBuildInputs =
-    [ base64 bz2 camlzip cudf extlib ocamlgraph re stdlib-shims ];
+  propagatedBuildInputs = [
+    base64
+    bz2
+    camlzip
+    cudf
+    extlib
+    ocamlgraph
+    re
+    stdlib-shims
+  ];
 
   nativeCheckInputs = [
     python39 # Replaces: conf-python-3

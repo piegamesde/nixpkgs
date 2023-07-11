@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ pytest-datadir pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-datadir
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

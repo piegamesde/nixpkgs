@@ -21,10 +21,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-PhlJ+fNY4/Qjoc72zV9WO+kNqF5bZQuwOh4EpAJwqX4=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config qt5.qmake qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    qt5.qmake
+    qt5.wrapQtAppsHook
+  ];
 
-  buildInputs = [ cryptopp libusb1 qt5.qtbase qt5.qttools ]
-    ++ lib.optional withEspeak espeak;
+  buildInputs = [
+    cryptopp
+    libusb1
+    qt5.qtbase
+    qt5.qttools
+  ] ++ lib.optional withEspeak espeak;
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \
@@ -68,7 +77,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.rockbox.org";
     description = "Open source firmware for digital music players";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres goibhniu ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      goibhniu
+    ];
     platforms = platforms.linux;
   };
 }

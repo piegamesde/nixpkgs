@@ -20,7 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-z8giVbW8+k/y9Kg+O2tMle5MoRAar2Gccx2YCtFQvxw=";
   };
 
-  propagatedBuildInputs = [ aspy-refactor-imports classify-imports ];
+  propagatedBuildInputs = [
+    aspy-refactor-imports
+    classify-imports
+  ];
 
   pythonImportsCheck = [ "reorder_python_imports" ];
 

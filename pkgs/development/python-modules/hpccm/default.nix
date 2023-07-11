@@ -19,8 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-dLMbwtvn7HTVVlWHAzXU19ERdJxytf9NlnqMXW6ShKI=";
   };
 
-  propagatedBuildInputs = [ six archspec ];
-  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
+  propagatedBuildInputs = [
+    six
+    archspec
+  ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-xdist
+  ];
 
   disabledTests = [
     # tests require git

@@ -26,7 +26,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/comma \
-      --prefix PATH : ${lib.makeBinPath [ fzy nix-index-unwrapped ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          fzy
+          nix-index-unwrapped
+        ]
+      }
     ln -s $out/bin/comma $out/bin/,
   '';
 
@@ -36,6 +41,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/comma";
     description = "Runs programs without installing them";
     license = licenses.mit;
-    maintainers = with maintainers; [ Enzime artturin marsam ];
+    maintainers = with maintainers; [
+      Enzime
+      artturin
+      marsam
+    ];
   };
 }

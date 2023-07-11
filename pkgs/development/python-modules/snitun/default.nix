@@ -26,9 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-sZMmou9uHThl7AIMnuBxABnWTF1CCFsDj1I7FYxgJ3Y=";
   };
 
-  propagatedBuildInputs = [ async-timeout attrs cryptography ];
+  propagatedBuildInputs = [
+    async-timeout
+    attrs
+    cryptography
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_multiplexer_data_channel_abort_full" # https://github.com/NabuCasa/snitun/issues/61

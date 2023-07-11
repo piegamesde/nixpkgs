@@ -17,6 +17,10 @@ bundlerApp {
     homepage = "https://github.com/realm/jazzy";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ peterromfeldhk lilyball nicknovitski ];
+    maintainers = with maintainers; [
+      peterromfeldhk
+      lilyball
+      nicknovitski
+    ];
   };
 }

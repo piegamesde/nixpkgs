@@ -27,8 +27,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ scons ];
 
-  buildInputs = [ libconfig boost libyaml yaml-cpp ncurses accelergy ]
-    ++ lib.optionals stdenv.isLinux [ gpm ];
+  buildInputs = [
+    libconfig
+    boost
+    libyaml
+    yaml-cpp
+    ncurses
+    accelergy
+  ] ++ lib.optionals stdenv.isLinux [ gpm ];
 
   preConfigure = ''
     cp -r ./pat-public/src/pat ./src/pat

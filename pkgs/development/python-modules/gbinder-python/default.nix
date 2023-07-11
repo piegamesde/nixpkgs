@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libgbinder ];
 
-  nativeBuildInputs = [ cython pkg-config ];
+  nativeBuildInputs = [
+    cython
+    pkg-config
+  ];
 
   postPatch = ''
     # Fix pkg-config name for cross-compilation

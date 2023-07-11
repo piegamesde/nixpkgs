@@ -19,7 +19,11 @@ buildPythonPackage rec {
     sha256 = "57c13433d94f9ffde3be6534177d10fb0c1507cc499319128958ca91a65cb23f";
   };
 
-  propagatedBuildInputs = [ pbr python-mimeparse extras ];
+  propagatedBuildInputs = [
+    pbr
+    python-mimeparse
+    extras
+  ];
   buildInputs = [ traceback2 ];
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 

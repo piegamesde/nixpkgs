@@ -8,7 +8,11 @@ args@{
 
   description = "Common Lisp Typesetting system";
 
-  deps = [ args."cl-pdf" args."iterate" args."zpb-ttf" ];
+  deps = [
+    args."cl-pdf"
+    args."iterate"
+    args."zpb-ttf"
+  ];
 
   src = fetchurl {
     url =

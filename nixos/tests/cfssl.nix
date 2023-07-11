@@ -31,13 +31,13 @@ import ./make-test-python.nix ({
                   algo = "rsa";
                   size = 4096;
                 };
-                names = [{
+                names = [ {
                   C = "US";
                   L = "San Francisco";
                   O = "Internet Widgets, LLC";
                   OU = "Certificate Authority";
                   ST = "California";
-                }];
+                } ];
               })
             } | ${cfssl}/bin/cfssljson -bare ca
           '';
@@ -52,18 +52,21 @@ import ./make-test-python.nix ({
         '';
       csr = pkgs.writeText "csr.json" (builtins.toJSON {
         CN = "www.example.com";
-        hosts = [ "example.com" "www.example.com" ];
+        hosts = [
+          "example.com"
+          "www.example.com"
+        ];
         key = {
           algo = "rsa";
           size = 2048;
         };
-        names = [{
+        names = [ {
           C = "US";
           L = "San Francisco";
           O = "Example Company, LLC";
           OU = "Operations";
           ST = "California";
-        }];
+        } ];
       });
     in ''
       machine.wait_for_unit("cfssl.service")

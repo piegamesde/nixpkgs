@@ -43,11 +43,20 @@ in stdenv.mkDerivation rec {
     sha256 = "0w54avmbp4i4zps2rb4acmpa641s6wvwbrln4vbdhcz97fx48nzz";
   };
 
-  nativeBuildInputs = [ jam pkg-config ]
-    ++ lib.optional stdenv.isDarwin cctools;
+  nativeBuildInputs = [
+    jam
+    pkg-config
+  ] ++ lib.optional stdenv.isDarwin cctools;
 
-  buildInputs = [ SDL SDL_mixer SDL_sound gtk2 ]
-    ++ lib.optionals stdenv.isDarwin [ smpeg libvorbis ];
+  buildInputs = [
+    SDL
+    SDL_mixer
+    SDL_sound
+    gtk2
+  ] ++ lib.optionals stdenv.isDarwin [
+    smpeg
+    libvorbis
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of

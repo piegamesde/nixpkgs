@@ -32,9 +32,17 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ dbus ncurses json_c connman ];
+  buildInputs = [
+    dbus
+    ncurses
+    json_c
+    connman
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

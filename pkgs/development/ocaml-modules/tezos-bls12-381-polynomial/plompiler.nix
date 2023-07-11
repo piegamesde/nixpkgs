@@ -35,7 +35,11 @@ buildDunePackage rec {
     polynomial
   ];
 
-  checkInputs = [ alcotest qcheck-alcotest bisect_ppx ];
+  checkInputs = [
+    alcotest
+    qcheck-alcotest
+    bisect_ppx
+  ];
 
   doCheck = false; # circular deps
 

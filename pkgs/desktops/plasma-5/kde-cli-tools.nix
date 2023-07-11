@@ -19,7 +19,10 @@
 
 mkDerivation {
   pname = "kde-cli-tools";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+  ];
   buildInputs = [
     kcmutils
     kconfig

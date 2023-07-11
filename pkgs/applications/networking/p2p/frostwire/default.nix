@@ -27,14 +27,21 @@ let
     exec = "frostwire";
     icon = "frostwire";
     comment = "Search and explore all kinds of files on the Bittorrent network";
-    categories = [ "Network" "FileTransfer" "P2P" ];
+    categories = [
+      "Network"
+      "FileTransfer"
+      "P2P"
+    ];
   };
 
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "frostwire-desktop-deps";
     inherit version src;
-    buildInputs = [ gradle_6 perl ];
+    buildInputs = [
+      gradle_6
+      perl
+    ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       ( cd desktop
@@ -107,7 +114,11 @@ in stdenv.mkDerivation {
     ];
     license = licenses.gpl2;
     maintainers = with maintainers; [ gavin ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "i686-linux"
+    ];
     broken = true; # at 2022-09-30, errors with changing hash.
   };
 }

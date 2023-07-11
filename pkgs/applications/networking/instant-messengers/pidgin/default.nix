@@ -52,7 +52,10 @@ let
       sha256 = "sha256-KwUka+IIYF7buTrp7cB5WD1EniqXENttNI0X9ZAgpLc=";
     };
 
-    nativeBuildInputs = [ makeWrapper intltool ];
+    nativeBuildInputs = [
+      makeWrapper
+      intltool
+    ];
 
     env.NIX_CFLAGS_COMPILE =
       "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0";
@@ -80,17 +83,28 @@ let
       cyrus_sasl
       libgnt
       ncurses # optional: build finch - the console UI
-    ] ++ lib.optional withOpenssl openssl
-    ++ lib.optionals withGnutls [ gnutls libgcrypt ]
-    ++ lib.optionals stdenv.isLinux [ gtk2 gtkspell2 farstream ]
-    ++ lib.optional stdenv.isDarwin gtk2-x11;
+    ] ++ lib.optional withOpenssl openssl ++ lib.optionals withGnutls [
+      gnutls
+      libgcrypt
+    ] ++ lib.optionals stdenv.isLinux [
+      gtk2
+      gtkspell2
+      farstream
+    ] ++ lib.optional stdenv.isDarwin gtk2-x11;
 
-    propagatedBuildInputs = [ pkg-config gettext ]
-      ++ (with perlPackages; [ perl XMLParser ])
-      ++ lib.optional stdenv.isLinux gtk2
+    propagatedBuildInputs = [
+      pkg-config
+      gettext
+    ] ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]) ++ lib.optional stdenv.isLinux gtk2
       ++ lib.optional stdenv.isDarwin gtk2-x11;
 
-    patches = [ ./pidgin-makefile.patch ./add-search-path.patch ];
+    patches = [
+      ./pidgin-makefile.patch
+      ./add-search-path.patch
+    ];
 
     configureFlags = [
       "--with-nspr-includes=${nspr.dev}/include/nspr"
@@ -104,8 +118,13 @@ let
       "--disable-tcl"
       "--disable-gevolution"
     ] ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
-      ++ lib.optionals withGnutls [ "--enable-gnutls=yes" "--enable-nss=no" ]
-      ++ lib.optionals stdenv.isDarwin [ "--disable-gtkspell" "--disable-vv" ];
+      ++ lib.optionals withGnutls [
+        "--enable-gnutls=yes"
+        "--enable-nss=no"
+      ] ++ lib.optionals stdenv.isDarwin [
+        "--disable-gtkspell"
+        "--disable-vv"
+      ];
 
     enableParallelBuilding = true;
 

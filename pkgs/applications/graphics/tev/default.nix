@@ -24,8 +24,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NtnnZV/+8aUm8BkUz8Xm3aeSbOI2gNUPNfvYlwUl01Y=";
   };
 
-  nativeBuildInputs = [ cmake wrapGAppsHook ];
-  buildInputs = [ libX11 libzip glfw libpng ] ++ (with xorg; [
+  nativeBuildInputs = [
+    cmake
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    libX11
+    libzip
+    glfw
+    libpng
+  ] ++ (with xorg; [
     libXrandr
     libXinerama
     libXcursor
@@ -36,9 +44,9 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true; # We also need zenity (see below)
 
-  cmakeFlags = [
-    "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
-  ];
+  cmakeFlags =
+    [ "-DTEV_DEPLOY=1" # Only relevant not to append "dev" to the version
+    ];
 
   postInstall = ''
     wrapProgram $out/bin/tev \

@@ -46,8 +46,16 @@ stdenv.mkDerivation rec {
     protobuf # protoc
   ];
 
-  buildInputs =
-    [ dbus-glib libcap_ng libqb libseccomp libsodium polkit protobuf audit ];
+  buildInputs = [
+    dbus-glib
+    libcap_ng
+    libqb
+    libseccomp
+    libsodium
+    polkit
+    protobuf
+    audit
+  ];
 
   configureFlags = [
     "--with-bundled-catch"

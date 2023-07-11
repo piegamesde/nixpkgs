@@ -46,7 +46,10 @@ in buildNpmPackage' rec {
 
   npmBuildScript = "dist:oss:selfhost";
 
-  npmBuildFlags = [ "--workspace" "apps/web" ];
+  npmBuildFlags = [
+    "--workspace"
+    "apps/web"
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -65,6 +68,10 @@ in buildNpmPackage' rec {
     homepage = "https://github.com/dani-garcia/bw_web_builds";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda msteen mic92 ];
+    maintainers = with maintainers; [
+      dotlambda
+      msteen
+      mic92
+    ];
   };
 }

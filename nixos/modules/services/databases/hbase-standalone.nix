@@ -35,12 +35,13 @@ let
 
 in {
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "hbase" ] [
-      "services"
-      "hbase-standalone"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "hbase"
+  ] [
+    "services"
+    "hbase-standalone"
+  ]) ];
 
   ###### interface
 
@@ -96,7 +97,12 @@ in {
       };
 
       settings = mkOption {
-        type = with lib.types; attrsOf (oneOf [ str int bool ]);
+        type = with lib.types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+          ]);
         default = {
           "hbase.rootdir" = "file://${cfg.dataDir}/hbase";
           "hbase.zookeeper.property.dataDir" = "${cfg.dataDir}/zookeeper";

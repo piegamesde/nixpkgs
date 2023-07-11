@@ -34,12 +34,20 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail" ""
   '';
 
-  propagatedBuildInputs = [ packaging setuptools ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+  propagatedBuildInputs = [
+    packaging
+    setuptools
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook build pydantic pytest-mock git mercurial ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    build
+    pydantic
+    pytest-mock
+    git
+    mercurial
+  ];
 
   disabledTests = [
     # wants to write to the Nix store

@@ -115,8 +115,15 @@ let
     };
     inherit meta passthru;
 
-    nativeBuildInputs = [ autoPatchelfHook rpmextract ];
-    buildInputs = [ libxcrypt-legacy stdenv.cc.cc zlib ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      rpmextract
+    ];
+    buildInputs = [
+      libxcrypt-legacy
+      stdenv.cc.cc
+      zlib
+    ];
     runtimeDependencies = [ (lib.attrsets.getLib lvm2) ];
     sourceRoot = ".";
 
@@ -159,8 +166,11 @@ let
     '';
   };
 
-  binPath =
-    lib.makeBinPath ([ acl gnugrep procps ] ++ lib.optional enableGui jdk8);
+  binPath = lib.makeBinPath ([
+    acl
+    gnugrep
+    procps
+  ] ++ lib.optional enableGui jdk8);
 
 in buildEnv {
   name = "tsm-client-${unwrapped.version}";

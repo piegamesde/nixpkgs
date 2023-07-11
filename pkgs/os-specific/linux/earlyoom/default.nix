@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8YcT1TTlAet7F1U9Ginda4IApNqkudegOXqm8rnRGfc=";
   };
 
-  nativeBuildInputs = lib.optionals withManpage [ pandoc installShellFiles ];
+  nativeBuildInputs = lib.optionals withManpage [
+    pandoc
+    installShellFiles
+  ];
 
   patches = [ ./fix-dbus-path.patch ];
 

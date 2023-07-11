@@ -21,7 +21,10 @@ buildPythonPackage rec {
     sha256 = "1sl2i0kymnbsk49ina81yjnkxjy09541f7pmic8r6rwsv1s87skc";
   };
 
-  propagatedBuildInputs = [ pycryptodome uvloop ];
+  propagatedBuildInputs = [
+    pycryptodome
+    uvloop
+  ];
 
   pythonImportsCheck = [ "pproxy" ];
   disabledTests = [

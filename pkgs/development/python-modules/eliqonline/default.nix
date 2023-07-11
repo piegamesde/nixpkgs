@@ -20,7 +20,11 @@ buildPythonPackage rec {
     sha256 = "hOUN4cA4pKVioIrfJM02GOnZdDRc7xbNtvHfoD3//bM=";
   };
 
-  propagatedBuildInputs = [ aiohttp docopt pyyaml ];
+  propagatedBuildInputs = [
+    aiohttp
+    docopt
+    pyyaml
+  ];
 
   # Project has no tests
   doCheck = false;

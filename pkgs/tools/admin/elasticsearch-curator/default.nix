@@ -53,11 +53,13 @@ in python.pkgs.buildPythonApplication rec {
     six
   ];
 
-  nativeCheckInputs = with python.pkgs; [ mock pytestCheckHook ];
-
-  disabledTestPaths = [
-    "test/integration" # requires running elasticsearch
+  nativeCheckInputs = with python.pkgs; [
+    mock
+    pytestCheckHook
   ];
+
+  disabledTestPaths = [ "test/integration" # requires running elasticsearch
+    ];
 
   disabledTests = [
     # access network

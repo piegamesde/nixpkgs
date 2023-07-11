@@ -17,7 +17,14 @@ let
   '';
 
   hashname = r:
-    let rpl = lib.replaceStrings [ ":" "/" ] [ "_" "_" ];
+    let
+      rpl = lib.replaceStrings [
+        ":"
+        "/"
+      ] [
+        "_"
+        "_"
+      ];
     in (rpl r.url) + "-" + (rpl r.rev);
 
 in stdenv.mkDerivation {

@@ -29,7 +29,11 @@
   network ? "ethernet"
 }:
 
-assert builtins.elem network [ "ethernet" "infiniband" "omnipath" ];
+assert builtins.elem network [
+  "ethernet"
+  "infiniband"
+  "omnipath"
+];
 
 stdenv.mkDerivation rec {
   pname = "mvapich";
@@ -41,13 +45,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w5pEkvS+UN9hAHhXSLoolOI85FCpQSgYHVFtpXV3Ua4=";
   };
 
-  nativeBuildInputs = [ pkg-config bison makeWrapper gfortran ];
-  propagatedBuildInputs = [ numactl rdma-core zlib opensm ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    makeWrapper
+    gfortran
+  ];
+  propagatedBuildInputs = [
+    numactl
+    rdma-core
+    zlib
+    opensm
+  ];
   buildInputs = with lib;
-    [ numactl libxml2 perl openssh hwloc ]
-    ++ optionals (network == "infiniband") [ rdma-core opensm ]
-    ++ optionals (network == "omnipath") [ libpsm2 libfabric ]
-    ++ optional useSlurm slurm;
+    [
+      numactl
+      libxml2
+      perl
+      openssh
+      hwloc
+    ] ++ optionals (network == "infiniband") [
+      rdma-core
+      opensm
+    ] ++ optionals (network == "omnipath") [
+      libpsm2
+      libfabric
+    ] ++ optional useSlurm slurm;
 
   configureFlags = with lib;
     [

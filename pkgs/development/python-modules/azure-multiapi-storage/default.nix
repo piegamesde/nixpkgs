@@ -20,8 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-x5v3e3/poSm+JMt0SWI1lcM6YAUcP+o2Sn8TluXOyIg=";
   };
 
-  propagatedBuildInputs =
-    [ azure-common azure-core msrest msrestazure requests ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-core
+    msrest
+    msrestazure
+    requests
+  ];
 
   # fix namespace
   pythonNamespaces = [ "azure.multiapi" ];
@@ -29,7 +34,10 @@ buildPythonPackage rec {
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.common" "azure.multiapi.storage" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.multiapi.storage"
+  ];
 
   meta = with lib; {
     description =

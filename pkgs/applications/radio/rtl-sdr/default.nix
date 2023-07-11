@@ -26,12 +26,17 @@ stdenv.mkDerivation rec {
       --replace 'MODE:="0666"' 'ENV{ID_SOFTWARE_RADIO}="1", MODE="0660", GROUP="plugdev"'
   '';
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   propagatedBuildInputs = [ libusb1 ];
 
-  cmakeFlags =
-    lib.optionals stdenv.isLinux [ "-DINSTALL_UDEV_RULES=ON" "-DWITH_RPC=ON" ];
+  cmakeFlags = lib.optionals stdenv.isLinux [
+    "-DINSTALL_UDEV_RULES=ON"
+    "-DWITH_RPC=ON"
+  ];
 
   meta = with lib; {
     description =

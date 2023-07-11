@@ -27,9 +27,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CDjjrxpoTbLESAbCiCjQ8+E/oJP87gDv9SedQOzH3QY=";
   };
 
-  nativeBuildInputs = [ pkg-config asciidoc ];
+  nativeBuildInputs = [
+    pkg-config
+    asciidoc
+  ];
 
-  buildInputs = [ sqlite readline SDL SDL_gfx openssl ];
+  buildInputs = [
+    sqlite
+    readline
+    SDL
+    SDL_gfx
+    openssl
+  ];
 
   configureFlags = [
     "--shared"
@@ -63,6 +72,10 @@ stdenv.mkDerivation rec {
     homepage = "http://jim.tcl.tk/";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ dbohdan fgaz vrthra ];
+    maintainers = with lib.maintainers; [
+      dbohdan
+      fgaz
+      vrthra
+    ];
   };
 }

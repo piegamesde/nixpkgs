@@ -24,7 +24,12 @@ buildPythonPackage rec {
     hash = "sha256-B8GdtaufMMl0gHywZ00wNyYZ+rojrExKuQsA/vmbYRI=";
   };
 
-  propagatedBuildInputs = [ asn1crypto cbor2 pydantic pyopenssl ];
+  propagatedBuildInputs = [
+    asn1crypto
+    cbor2
+    pydantic
+    pyopenssl
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

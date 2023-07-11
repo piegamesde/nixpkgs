@@ -19,7 +19,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ requests keyring ];
+  propagatedBuildInputs = [
+    requests
+    keyring
+  ];
 
   # Requires internet access and an API key
   doCheck = false;

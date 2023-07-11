@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cZ9SFdKNURhcInM6zZNwoi+WyHAsGCeAgkfpAVi7GYE=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   unpackPhase = ''
     dpkg-deb -x $src opt
@@ -35,7 +38,14 @@ stdenv.mkDerivation rec {
     wrapBin() {
       makeWrapper $1 $out/bin/$(basename $1) \
         --set INSTALL4J_JAVA_HOME "${jre}" \
-        --prefix PATH : ${makeBinPath [ coreutils gawk gnugrep gnused ]}
+        --prefix PATH : ${
+          makeBinPath [
+            coreutils
+            gawk
+            gnugrep
+            gnused
+          ]
+        }
     }
     cp -r opt $out
     mkdir -p $out/bin $out/share/pixmaps $out/share/applications
@@ -50,7 +60,11 @@ stdenv.mkDerivation rec {
       substitute ${
         ./. + "/${name}.desktop"
       } $out/share/applications/${name}.desktop --subst-var out
-    '') [ "LicenseManager" "MarvinSketch" "MarvinView" ])}
+    '') [
+      "LicenseManager"
+      "MarvinSketch"
+      "MarvinView"
+    ])}
   '';
 
   meta = {

@@ -23,9 +23,17 @@ buildPythonPackage rec {
     hash = "sha256-hBSYub7GFiOxtsR+u8AjZ8B9YODhlfGXkIF/EMyNsLc=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ openssl sphinxHook sphinx-rtd-theme ];
+  nativeBuildInputs = [
+    openssl
+    sphinxHook
+    sphinx-rtd-theme
+  ];
 
   postPatch = ''
     # remove cryptography pin
@@ -34,7 +42,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [ flaky pretend pytestCheckHook ];
+  nativeCheckInputs = [
+    flaky
+    pretend
+    pytestCheckHook
+  ];
 
   __darwinAllowLocalNetworking = true;
 

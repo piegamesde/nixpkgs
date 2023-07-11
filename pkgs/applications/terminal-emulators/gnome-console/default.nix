@@ -28,10 +28,22 @@ stdenv.mkDerivation rec {
     sha256 = "0cGv1eyNK9+Eo9sCmwSiQy7Me80kLCp0X+mYakKJiEQ=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils gettext meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    gettext
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
-  buildInputs = [ libgtop gtk4 libadwaita pcre2 vte-gtk4 ];
+  buildInputs = [
+    libgtop
+    gtk4
+    libadwaita
+    pcre2
+    vte-gtk4
+  ];
 
   passthru = {
     updateScript = gnome.updateScript { packageName = "gnome-console"; };

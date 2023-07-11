@@ -23,7 +23,10 @@ buildPythonPackage rec {
   # setup.cfg tries to pull in nonexistent LICENSE.txt file
   postPatch = "rm setup.cfg";
 
-  propagatedBuildInputs = [ django typing-extensions ];
+  propagatedBuildInputs = [
+    django
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

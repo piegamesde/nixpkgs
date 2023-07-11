@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp setuptools ];
+  propagatedBuildInputs = [
+    aiohttp
+    setuptools
+  ];
 
   # upstream has no tests
   doCheck = false;

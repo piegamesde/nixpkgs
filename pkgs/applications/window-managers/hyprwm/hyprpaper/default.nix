@@ -23,9 +23,19 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LqvhYx1Gu+rlkF4pA1NYZzwRQwz3FeWBqXqmQq86m8o=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs = [ libjpeg mesa pango wayland wayland-protocols ];
+  buildInputs = [
+    libjpeg
+    mesa
+    pango
+    wayland
+    wayland-protocols
+  ];
 
   prePatch = ''
     substituteInPlace src/main.cpp \
@@ -48,7 +58,10 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     description = "A blazing fast wayland wallpaper utility";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wozeparrot fufexan ];
+    maintainers = with maintainers; [
+      wozeparrot
+      fufexan
+    ];
     inherit (wayland.meta) platforms;
   };
 })

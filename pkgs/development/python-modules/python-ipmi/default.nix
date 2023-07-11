@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [ mock nose pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pyipmi" ];
 

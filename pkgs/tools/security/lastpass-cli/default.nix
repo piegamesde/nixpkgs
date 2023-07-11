@@ -36,11 +36,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ asciidoc cmake docbook_xsl pkg-config ];
+  nativeBuildInputs = [
+    asciidoc
+    cmake
+    docbook_xsl
+    pkg-config
+  ];
 
-  buildInputs = [ bash-completion curl openssl libxml2 libxslt ];
+  buildInputs = [
+    bash-completion
+    curl
+    openssl
+    libxml2
+    libxslt
+  ];
 
-  installTargets = [ "install" "install-doc" ];
+  installTargets = [
+    "install"
+    "install-doc"
+  ];
 
   postInstall = ''
     install -Dm644 -T ../contrib/lpass_zsh_completion $out/share/zsh/site-functions/_lpass

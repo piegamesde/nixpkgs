@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-mvppkFBmmPVqvlqIqrbwGrOBih5zS5sZrV/usEhHiws=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ codec2 boost ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    codec2
+    boost
+  ];
 
   meta = with lib; {
     description = "M17 Demodulator in C++";

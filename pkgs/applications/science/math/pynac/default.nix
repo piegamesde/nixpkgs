@@ -34,9 +34,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ flint gmp singular python3 ncurses ];
+  buildInputs = [
+    flint
+    gmp
+    singular
+    python3
+    ncurses
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   meta = with lib; {
     description = "Python is Not a CAS -- modified version of Ginac";

@@ -36,8 +36,10 @@ in stdenv.mkDerivation rec {
     sed -e 's,$(RANLIB) $(LIBGSM),,' -i Makefile
   '');
 
-  makeFlags = [ "SHELL=${stdenv.shell}" "INSTALL_ROOT=$(out)" ]
-    ++ optional stdenv.cc.isClang "CC=clang";
+  makeFlags = [
+    "SHELL=${stdenv.shell}"
+    "INSTALL_ROOT=$(out)"
+  ] ++ optional stdenv.cc.isClang "CC=clang";
 
   preInstall = "mkdir -p $out/{bin,lib,man/man1,man/man3,include/gsm}";
 
@@ -47,7 +49,10 @@ in stdenv.mkDerivation rec {
     description = "Lossy speech compression codec";
     homepage = "https://www.quut.com/gsm/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ codyopel raskin ];
+    maintainers = with maintainers; [
+      codyopel
+      raskin
+    ];
     platforms = platforms.unix;
   };
 }

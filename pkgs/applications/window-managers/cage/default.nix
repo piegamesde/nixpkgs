@@ -34,8 +34,14 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config wayland-scanner scdoc makeWrapper ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+    scdoc
+    makeWrapper
+  ];
 
   buildInputs = [
     wlroots

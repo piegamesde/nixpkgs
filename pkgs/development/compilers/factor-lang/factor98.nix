@@ -110,7 +110,13 @@ in stdenv.mkDerivation {
     ./adjust-paths-in-unit-tests.patch
   ];
 
-  nativeBuildInputs = [ git makeWrapper curl unzip wrapLocalFactor ];
+  nativeBuildInputs = [
+    git
+    makeWrapper
+    curl
+    unzip
+    wrapLocalFactor
+  ];
   buildInputs = runtimeLibs;
 
   postPatch = ''
@@ -225,7 +231,10 @@ in stdenv.mkDerivation {
       under a BSD license.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ vrthra spacefrogg ];
+    maintainers = with maintainers; [
+      vrthra
+      spacefrogg
+    ];
     platforms = lib.intersectLists platforms.x86_64 platforms.linux;
   };
 }

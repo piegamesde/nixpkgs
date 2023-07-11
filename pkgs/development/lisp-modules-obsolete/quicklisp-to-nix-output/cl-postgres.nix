@@ -6,7 +6,10 @@ args@{
   baseName = "cl-postgres";
   version = "postmodern-20211209-git";
 
-  parasites = [ "cl-postgres/simple-date-tests" "cl-postgres/tests" ];
+  parasites = [
+    "cl-postgres/simple-date-tests"
+    "cl-postgres/tests"
+  ];
 
   description = "Low-level client library for PostgreSQL";
 

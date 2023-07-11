@@ -94,7 +94,11 @@ rec {
       preferLocalBuild = true;
       _hydraAggregate = true;
 
-      phases = [ "unpackPhase" "patchPhase" "installPhase" ];
+      phases = [
+        "unpackPhase"
+        "patchPhase"
+        "installPhase"
+      ];
 
       patchPhase = lib.optionalString isNixOS ''
         touch .update-on-nixos-rebuild

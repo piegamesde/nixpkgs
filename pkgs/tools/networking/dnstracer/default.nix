@@ -15,11 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "089bmrjnmsga2n0r4xgw4bwbf41xdqsnmabjxhw8lngg2pns1kb4";
   };
 
-  outputs = [ "out" "man" ];
-
-  nativeBuildInputs = [
-    perl # for pod2man
+  outputs = [
+    "out"
+    "man"
   ];
+
+  nativeBuildInputs = [ perl # for pod2man
+    ];
 
   setOutputFlags = false;
 

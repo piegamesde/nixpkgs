@@ -29,7 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs target_firmware/firmware-crc.pl
   '';
 
-  nativeBuildInputs = [ m4 cmake perl ];
+  nativeBuildInputs = [
+    m4
+    cmake
+    perl
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-w"; # old libiberty emits fatal warnings
 
@@ -43,7 +47,13 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (builtins) map;
     urls-and-hashes =
       import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
-    make-links = pipe [ "gcc" "binutils" "gmp" "mpfr" "mpc" ] [
+    make-links = pipe [
+      "gcc"
+      "binutils"
+      "gmp"
+      "mpfr"
+      "mpc"
+    ] [
       (map (vname:
         fetchurl rec {
           url = urls-and-hashes."${(toUpper vname) + "_URL"}";
@@ -58,7 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
     ${make-links}
   '';
 
-  makeTargets = [ "toolchain" "firmware" ];
+  makeTargets = [
+    "toolchain"
+    "firmware"
+  ];
 
   installPhase = ''
     runHook preInstall

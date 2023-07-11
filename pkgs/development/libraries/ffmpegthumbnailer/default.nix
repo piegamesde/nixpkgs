@@ -20,8 +20,15 @@ stdenv.mkDerivation rec {
     sha256 = "0606pbg391l4s8mpyyalm9zrcnm75fwqdlrxy2gif9n21i2fm3rc";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ ffmpeg-headless libpng libjpeg ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    ffmpeg-headless
+    libpng
+    libjpeg
+  ];
   cmakeFlags = [ "-DENABLE_THUMBNAILER=ON" ];
 
   # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215

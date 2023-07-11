@@ -25,7 +25,10 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ git pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    git
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Tests want to interact with a git repo

@@ -141,8 +141,11 @@ let
       arpack'
       libwebp
       gl2ps
-    ] ++ lib.optionals enableQt [ qtbase qtsvg qscintilla ]
-      ++ lib.optionals (ghostscript != null) [ ghostscript ]
+    ] ++ lib.optionals enableQt [
+      qtbase
+      qtsvg
+      qscintilla
+    ] ++ lib.optionals (ghostscript != null) [ ghostscript ]
       ++ lib.optionals (hdf5 != null) [ hdf5 ]
       ++ lib.optionals (glpk != null) [ glpk ]
       ++ lib.optionals (suitesparse != null) [ suitesparse' ]
@@ -150,8 +153,11 @@ let
       ++ lib.optionals (sundials != null) [ sundials ]
       ++ lib.optionals (gnuplot != null) [ gnuplot ]
       ++ lib.optionals (python != null) [ python ]
-      ++ lib.optionals (!stdenv.isDarwin) [ libGL libGLU libX11 ]
-      ++ lib.optionals stdenv.isDarwin [
+      ++ lib.optionals (!stdenv.isDarwin) [
+        libGL
+        libGLU
+        libX11
+      ] ++ lib.optionals stdenv.isDarwin [
         libiconv
         darwin.apple_sdk.frameworks.Accelerate
         darwin.apple_sdk.frameworks.Cocoa
@@ -164,7 +170,10 @@ let
       fftwSinglePrec
       texinfo
     ] ++ lib.optionals (sundials != null) [ sundials ]
-      ++ lib.optionals enableQt [ qtscript qttools ];
+      ++ lib.optionals enableQt [
+        qtscript
+        qttools
+      ];
 
     doCheck = !stdenv.isDarwin;
 
@@ -218,7 +227,10 @@ let
     meta = {
       homepage = "https://www.gnu.org/software/octave/";
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ raskin doronbehar ];
+      maintainers = with lib.maintainers; [
+        raskin
+        doronbehar
+      ];
       description = "Scientific Programming Language";
       platforms = if overridePlatforms == null then
         (lib.platforms.linux ++ lib.platforms.darwin)

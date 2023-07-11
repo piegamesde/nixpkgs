@@ -22,7 +22,12 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [ qtbase qttools qtimageformats qtsvg ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtimageformats
+    qtsvg
+  ];
 
   meta = with lib; {
     description = "Practical and minimal image viewer";

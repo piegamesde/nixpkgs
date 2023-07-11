@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-std=c++03";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libxslt freetype libpng libxml2 ];
+  buildInputs = [
+    libxslt
+    freetype
+    libpng
+    libxml2
+  ];
 
   meta = {
     description =

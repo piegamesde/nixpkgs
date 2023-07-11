@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "gPLCNt6hp4E94s9/PRgsnBN5XXQQ+s2MGcgRFeknXg4=";
   };
 
-  buildInputs = [ python3 zfs sudo ];
+  buildInputs = [
+    python3
+    zfs
+    sudo
+  ];
 
   postPatch = ''
     patchShebangs check_zfs.py

@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     sha256 = "1s180y6vzkxxcjpfdvrm90251rkaf3swzkjwdlpm6m4vnggq0hvs";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info wrapQtAppsHook ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     kcoreaddons

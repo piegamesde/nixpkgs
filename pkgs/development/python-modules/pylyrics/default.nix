@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-xfNujvDtO0h6kkLONMGfloTkGKW7/9XTZ9wdFgS0zQs=";
   };
 
-  propagatedBuildInputs = [ beautifulsoup4 requests ];
+  propagatedBuildInputs = [
+    beautifulsoup4
+    requests
+  ];
 
   pythonImportsCheck = [ "PyLyrics" ];
 

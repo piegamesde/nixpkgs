@@ -41,11 +41,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ appdirs attrs cattrs exceptiongroup requests urllib3 url-normalize ];
+  propagatedBuildInputs = [
+    appdirs
+    attrs
+    cattrs
+    exceptiongroup
+    requests
+    urllib3
+    url-normalize
+  ];
 
   passthru.optional-dependencies = {
-    dynamodb = [ boto3 botocore ];
+    dynamodb = [
+      boto3
+      botocore
+    ];
     mongodbo = [ pymongo ];
     redis = [ redis ];
     bson = [ bson ];
@@ -54,8 +64,12 @@ buildPythonPackage rec {
     yaml = [ pyyaml ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook requests-mock rich timeout-decorator ]
-    ++ passthru.optional-dependencies.json
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+    rich
+    timeout-decorator
+  ] ++ passthru.optional-dependencies.json
     ++ passthru.optional-dependencies.security;
 
   preCheck = ''

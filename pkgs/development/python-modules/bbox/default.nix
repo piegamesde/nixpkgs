@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-ucR7mg9eubEefjC7ratEgrb9h++a26z8KV38n3N2kcw=";
   };
 
-  propagatedBuildInputs = [ pyquaternion numpy ];
+  propagatedBuildInputs = [
+    pyquaternion
+    numpy
+  ];
 
   pythonImportsCheck = [ "bbox" ];
 

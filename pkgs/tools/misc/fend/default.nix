@@ -21,7 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-og2YoPUKKMBqEjryzSGqwLIm44WfKkerNtG2N7yl1wE=";
 
-  nativeBuildInputs = [ pandoc installShellFiles ];
+  nativeBuildInputs = [
+    pandoc
+    installShellFiles
+  ];
   buildInputs =
     lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 

@@ -28,9 +28,19 @@ stdenv.mkDerivation rec {
       --replace "/var/tmp" "$TMPDIR"
   '';
 
-  nativeBuildInputs = [ docbook_xsl libxslt meson ninja pkg-config ];
+  nativeBuildInputs = [
+    docbook_xsl
+    libxslt
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ bash-completion libcap libselinux ];
+  buildInputs = [
+    bash-completion
+    libcap
+    libselinux
+  ];
 
   # incompatible with Nix sandbox
   doCheck = false;

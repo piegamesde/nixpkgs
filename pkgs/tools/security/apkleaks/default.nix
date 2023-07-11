@@ -18,7 +18,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "0ysciv643p8gkqw2wp7zy4n07hihdcyil8d20lj86cpgga71rd64";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ jadx pyaxmlparser setuptools ];
+  propagatedBuildInputs = with python3.pkgs; [
+    jadx
+    pyaxmlparser
+    setuptools
+  ];
 
   # Project has no tests
   doCheck = false;

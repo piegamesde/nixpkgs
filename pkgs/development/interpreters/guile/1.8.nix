@@ -21,23 +21,31 @@ stdenv.mkDerivation rec {
     sha256 = "0l200a0v7h8bh0cwz6v7hc13ds39cgqsmfrks55b1rbj5vniyiy3";
   };
 
-  outputs = [ "out" "dev" "info" ];
+  outputs = [
+    "out"
+    "dev"
+    "info"
+  ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
   # GCC 4.6 raises a number of set-but-unused warnings.
-  configureFlags = [
-    "--disable-error-on-warning"
-  ]
-  # Guile needs patching to preset results for the configure tests about
-  # pthreads, which work only in native builds.
+  configureFlags = [ "--disable-error-on-warning" ]
+    # Guile needs patching to preset results for the configure tests about
+    # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     "--with-threads=no";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     pkgsBuildBuild.guile_1_8;
-  nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ libtool readline ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    libtool
+    readline
+  ];
   propagatedBuildInputs = [
     gmp
 

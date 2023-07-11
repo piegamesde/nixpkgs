@@ -53,8 +53,11 @@ stdenv.mkDerivation rec {
         ''
           gst_registry_scan_path(gst_registry_get(), "${
             lib.getLib plugin
-          }/lib/gstreamer-1.0");'')
-        (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-bad ]);
+          }/lib/gstreamer-1.0");'') (with gst_all_1; [
+            gstreamer
+            gst-plugins-base
+            gst-plugins-bad
+          ]);
     })
   ];
 

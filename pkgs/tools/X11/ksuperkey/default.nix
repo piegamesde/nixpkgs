@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libX11 libXtst xorgproto libXi ];
+  buildInputs = [
+    libX11
+    libXtst
+    xorgproto
+    libXi
+  ];
 
   meta = with lib; {
     description =

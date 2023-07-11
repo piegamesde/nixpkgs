@@ -46,8 +46,10 @@ let
     # These are in inverse order for first packages to override the next ones.
     paths = extraPackages ++ lib.optional (theme != null) ptheme
       ++ lib.optional enableDFHack dfhack_
-      ++ lib.optional enableSoundSense soundSense
-      ++ lib.optionals enableTWBT [ twbt.lib twbt.art ] ++ [ dwarf-fortress ];
+      ++ lib.optional enableSoundSense soundSense ++ lib.optionals enableTWBT [
+        twbt.lib
+        twbt.art
+      ] ++ [ dwarf-fortress ];
 
     ignoreCollisions = true;
   };
@@ -125,7 +127,10 @@ let
   # from any of the paths in baseEnv.
   env = buildEnv {
     name = "dwarf-fortress-env-${dwarf-fortress.dfVersion}";
-    paths = [ config baseEnv ];
+    paths = [
+      config
+      baseEnv
+    ];
     ignoreCollisions = true;
   };
 

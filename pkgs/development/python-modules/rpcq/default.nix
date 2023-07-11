@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-J7jtGXJIF3jp0a0IQZmSR4TWf9D02Luau+Bupmi/d68=";
   };
 
-  propagatedBuildInputs = [ msgpack python-rapidjson pyzmq ruamel-yaml ];
+  propagatedBuildInputs = [
+    msgpack
+    python-rapidjson
+    pyzmq
+    ruamel-yaml
+  ];
 
-  nativeCheckInputs = [ numpy pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    numpy
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

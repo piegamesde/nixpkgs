@@ -22,9 +22,18 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ gobject-introspection ];
 
-  buildInputs = [ wrapGAppsHook gtk3 gnome.adwaita-icon-theme libxslt ];
+  buildInputs = [
+    wrapGAppsHook
+    gtk3
+    gnome.adwaita-icon-theme
+    libxslt
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ pygobject3 pillow pywal ];
+  propagatedBuildInputs = with python3Packages; [
+    pygobject3
+    pillow
+    pywal
+  ];
 
   # The $HOME variable must be set to build the package. A "permission denied" error will occur otherwise
   preBuild = ''
@@ -46,6 +55,9 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/deviantfero/wpgtk";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.melkor333 maintainers.cafkafk ];
+    maintainers = [
+      maintainers.melkor333
+      maintainers.cafkafk
+    ];
   };
 }

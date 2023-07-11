@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ pytest-cov pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-cov
+    pytestCheckHook
+    responses
+  ];
 
   disabledTests = [
     # touches network

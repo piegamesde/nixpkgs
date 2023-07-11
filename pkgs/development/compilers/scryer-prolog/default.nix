@@ -30,7 +30,12 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl gmp libmpc mpfr ];
+  buildInputs = [
+    openssl
+    gmp
+    libmpc
+    mpfr
+  ];
 
   CARGO_FEATURE_USE_SYSTEM_LIBS = true;
 

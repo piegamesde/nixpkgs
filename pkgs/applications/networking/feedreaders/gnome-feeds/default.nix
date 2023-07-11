@@ -47,7 +47,13 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib glib-networking gtk3 libhandy webkitgtk ];
+  buildInputs = [
+    glib
+    glib-networking
+    gtk3
+    libhandy
+    webkitgtk
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     beautifulsoup4

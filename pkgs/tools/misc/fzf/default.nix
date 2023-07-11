@@ -37,14 +37,20 @@ in buildGoModule rec {
 
   vendorHash = "sha256-SSz4oHUgfMRbvpdIl1xepfckef1HDA1y646FWnyBp6o=";
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = [ ncurses ];
 
-  ldflags =
-    [ "-s" "-w" "-X main.version=${version} -X main.revision=${src.rev}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version} -X main.revision=${src.rev}"
+  ];
 
   # The vim plugin expects a relative path to the binary; patch it to abspath.
   postPatch = ''
@@ -91,7 +97,11 @@ in buildGoModule rec {
     homepage = "https://github.com/junegunn/fzf";
     description = "A command-line fuzzy finder written in Go";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ma27 zowoq ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      ma27
+      zowoq
+    ];
     platforms = platforms.unix;
     changelog = "https://github.com/junegunn/fzf/blob/${version}/CHANGELOG.md";
   };

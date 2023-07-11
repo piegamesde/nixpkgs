@@ -32,13 +32,26 @@ mkDerivation rec {
     desktopName = "Ricochet";
     genericName = "Ricochet";
     comment = meta.description;
-    categories = [ "Office" "Email" ];
+    categories = [
+      "Office"
+      "Email"
+    ];
   };
 
-  buildInputs =
-    [ qtbase qttools qtmultimedia qtquick1 qtquickcontrols openssl protobuf ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtmultimedia
+    qtquick1
+    qtquickcontrols
+    openssl
+    protobuf
+  ];
 
-  nativeBuildInputs = [ pkg-config qmake ];
+  nativeBuildInputs = [
+    pkg-config
+    qmake
+  ];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags openssl)"
@@ -64,7 +77,11 @@ mkDerivation rec {
     description = "Anonymous peer-to-peer instant messaging";
     homepage = "https://ricochet.im";
     license = licenses.bsd3;
-    maintainers = [ maintainers.codsl maintainers.jgillich maintainers.np ];
+    maintainers = [
+      maintainers.codsl
+      maintainers.jgillich
+      maintainers.np
+    ];
     platforms = platforms.linux;
   };
 }

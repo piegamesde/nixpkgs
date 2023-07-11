@@ -41,7 +41,13 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ gjs glib gtk4 gdk-pixbuf libadwaita ] ++ (with gst_all_1; [
+  buildInputs = [
+    gjs
+    glib
+    gtk4
+    gdk-pixbuf
+    libadwaita
+  ] ++ (with gst_all_1; [
     gstreamer
     gst-plugins-base
     gst-plugins-good

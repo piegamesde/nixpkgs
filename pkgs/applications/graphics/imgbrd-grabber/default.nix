@@ -30,7 +30,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ openssl libpulseaudio typescript ];
+  buildInputs = [
+    openssl
+    libpulseaudio
+    typescript
+  ];
 
   nativeBuildInputs = [
     makeWrapper

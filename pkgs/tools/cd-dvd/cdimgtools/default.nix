@@ -44,7 +44,10 @@ stdenv.mkDerivation {
     libdvdread
   ];
 
-  patches = [ ./nrgtool_fix_my.patch ./removed_dvdcss_interface_2.patch ];
+  patches = [
+    ./nrgtool_fix_my.patch
+    ./removed_dvdcss_interface_2.patch
+  ];
 
   postFixup = ''
     for cmd in raw96cdconv nrgtool; do
@@ -52,9 +55,15 @@ stdenv.mkDerivation {
     done
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  installTargets = [ "install" "install-doc" ];
+  installTargets = [
+    "install"
+    "install-doc"
+  ];
 
   meta = with lib; {
     homepage =

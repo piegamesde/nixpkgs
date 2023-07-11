@@ -126,17 +126,15 @@ rustPlatform.buildRustPackage rec {
   # Checks require an active X display.
   doCheck = false;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "rustdesk";
-      exec = meta.mainProgram;
-      icon = "rustdesk";
-      desktopName = "RustDesk";
-      comment = meta.description;
-      genericName = "Remote Desktop";
-      categories = [ "Network" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "rustdesk";
+    exec = meta.mainProgram;
+    icon = "rustdesk";
+    desktopName = "RustDesk";
+    comment = meta.description;
+    genericName = "Remote Desktop";
+    categories = [ "Network" ];
+  }) ];
 
   postPatch = ''
     rm Cargo.lock
@@ -164,7 +162,10 @@ rustPlatform.buildRustPackage rec {
     description = "Yet another remote desktop software";
     homepage = "https://rustdesk.com";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ocfox leixb ];
+    maintainers = with maintainers; [
+      ocfox
+      leixb
+    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "rustdesk";
   };

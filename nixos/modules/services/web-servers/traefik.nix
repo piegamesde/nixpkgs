@@ -104,7 +104,7 @@ in {
         };
 
         http.services.service1.loadBalancer.servers =
-          [{ url = "http://localhost:8080"; }];
+          [ { url = "http://localhost:8080"; } ];
       };
     };
 

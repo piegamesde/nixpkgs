@@ -24,7 +24,10 @@ let
     categories = [ "Office" ];
   };
 
-  runtimeLibs = lib.makeLibraryPath [ gtk3 webkitgtk ];
+  runtimeLibs = lib.makeLibraryPath [
+    gtk3
+    webkitgtk
+  ];
 in stdenv.mkDerivation rec {
   pname = "PortfolioPerformance";
   version = "0.62.0";
@@ -35,9 +38,17 @@ in stdenv.mkDerivation rec {
     hash = "sha256-V3CHp0r+3Vya9lcuCfHeVQqmy9rxlN9cs5ZShoJ9XTA=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gcc-unwrapped glib-networking glibc libsecret ];
+  buildInputs = [
+    gcc-unwrapped
+    glib-networking
+    glibc
+    libsecret
+  ];
 
   installPhase = ''
     mkdir -p $out/portfolio
@@ -67,7 +78,11 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.portfolio-performance.info/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.epl10;
-    maintainers = with maintainers; [ elohmeier oyren shawn8901 ];
+    maintainers = with maintainers; [
+      elohmeier
+      oyren
+      shawn8901
+    ];
     mainProgram = "portfolio";
     platforms = [ "x86_64-linux" ];
   };

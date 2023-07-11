@@ -32,11 +32,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ pygls lsprotocol typing-extensions ];
+  propagatedBuildInputs = [
+    pygls
+    lsprotocol
+    typing-extensions
+  ];
 
   doCheck = stdenv.isDarwin;
 
-  nativeCheckInputs = [ unittestCheckHook python-lsp-jsonrpc ruff ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    python-lsp-jsonrpc
+    ruff
+  ];
 
   makeWrapperArgs = [
     # prefer ruff from user's PATH, that's usually desired behavior

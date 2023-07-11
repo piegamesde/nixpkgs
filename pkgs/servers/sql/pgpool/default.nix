@@ -20,11 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Pmx4jnDwZyx7OMiKbKdvMfN4axJWiZgMwGOrdSylgjQ=";
   };
 
-  buildInputs = [ postgresql openssl libxcrypt ] ++ lib.optional withPam pam;
+  buildInputs = [
+    postgresql
+    openssl
+    libxcrypt
+  ] ++ lib.optional withPam pam;
 
-  configureFlags =
-    [ "--sysconfdir=/etc" "--localstatedir=/var" "--with-openssl" ]
-    ++ lib.optional withPam "--with-pam";
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--with-openssl"
+  ] ++ lib.optional withPam "--with-pam";
 
   installFlags = [ "sysconfdir=\${out}/etc" ];
 

@@ -20,7 +20,10 @@ buildPythonPackage rec {
     sha256 = "129rrqckqgfrwdx0b83dqphcv55cxs5i8jl1ascia7rpzjn109ah";
   };
 
-  propagatedBuildInputs = [ gtfs-realtime-bindings requests ];
+  propagatedBuildInputs = [
+    gtfs-realtime-bindings
+    requests
+  ];
 
   # Project has no tests
   doCheck = false;

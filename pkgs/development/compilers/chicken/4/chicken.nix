@@ -37,21 +37,23 @@ in stdenv.mkDerivation {
   # -fno-strict-overflow is not a supported argument in clang on darwin
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  makeFlags = [ "PLATFORM=${platform}" "PREFIX=$(out)" "VARDIR=$(out)/var/lib" ]
-    ++ (lib.optionals stdenv.isDarwin [
-      "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
-      "C_COMPILER=$(CC)"
-      "POSTINSTALL_PROGRAM=install_name_tool"
-    ]);
+  makeFlags = [
+    "PLATFORM=${platform}"
+    "PREFIX=$(out)"
+    "VARDIR=$(out)/var/lib"
+  ] ++ (lib.optionals stdenv.isDarwin [
+    "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
+    "C_COMPILER=$(CC)"
+    "POSTINSTALL_PROGRAM=install_name_tool"
+  ]);
 
   # We need a bootstrap-chicken to regenerate the c-files after
   # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
-  patches = lib.optionals (bootstrap-chicken != null)
-    [ ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch ];
+  patches = lib.optionals (bootstrap-chicken
+    != null) [ ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch ];
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-    [ darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals
+    (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

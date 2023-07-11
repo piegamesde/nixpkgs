@@ -21,9 +21,15 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   postInstall = ''
     mkdir -p $out/etc/apx
@@ -38,7 +44,10 @@ buildGoModule rec {
     EOF
 
     wrapProgram $out/bin/apx --prefix PATH : ${
-      lib.makeBinPath [ docker distrobox ]
+      lib.makeBinPath [
+        docker
+        distrobox
+      ]
     }
 
     installManPage man/apx.1 man/es/apx.1

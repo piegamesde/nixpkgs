@@ -27,7 +27,12 @@ bundlerApp rec {
     homepage = "https://github.com/gollum/gollum";
     changelog = "https://github.com/gollum/gollum/blob/HEAD/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen jgillich nicknovitski bbenno ];
+    maintainers = with maintainers; [
+      erictapen
+      jgillich
+      nicknovitski
+      bbenno
+    ];
     platforms = platforms.unix;
   };
 }

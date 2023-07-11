@@ -37,7 +37,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ vulkan-headers vulkan-loader glslang opencv protobuf ];
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+    glslang
+    opencv
+    protobuf
+  ];
 
   meta = with lib; {
     description =

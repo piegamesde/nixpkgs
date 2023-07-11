@@ -81,19 +81,34 @@ in {
 
   imports = [
     # Added 2021-05-07
-    (mkRenamedOptionModule [ "services" "gnome3" "core-os-services" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gnome3"
+      "core-os-services"
+      "enable"
+    ] [
       "services"
       "gnome"
       "core-os-services"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "gnome3" "core-shell" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gnome3"
+      "core-shell"
+      "enable"
+    ] [
       "services"
       "gnome"
       "core-shell"
       "enable"
     ])
-    (mkRenamedOptionModule [ "services" "gnome3" "core-utilities" "enable" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gnome3"
+      "core-utilities"
+      "enable"
+    ] [
       "services"
       "gnome"
       "core-utilities"
@@ -104,8 +119,18 @@ in {
       "gnome3"
       "core-developer-tools"
       "enable"
-    ] [ "services" "gnome" "core-developer-tools" "enable" ])
-    (mkRenamedOptionModule [ "services" "gnome3" "games" "enable" ] [
+    ] [
+      "services"
+      "gnome"
+      "core-developer-tools"
+      "enable"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "gnome3"
+      "games"
+      "enable"
+    ] [
       "services"
       "gnome"
       "games"
@@ -116,28 +141,51 @@ in {
       "gnome3"
       "experimental-features"
       "realtime-scheduling"
-    ] [ "services" "gnome" "experimental-features" "realtime-scheduling" ])
+    ] [
+      "services"
+      "gnome"
+      "experimental-features"
+      "realtime-scheduling"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "gnome3"
       "enable"
-    ] [ "services" "xserver" "desktopManager" "gnome" "enable" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "gnome"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "gnome3"
       "sessionPath"
-    ] [ "services" "xserver" "desktopManager" "gnome" "sessionPath" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "gnome"
+      "sessionPath"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "gnome3"
       "favoriteAppsOverride"
-    ] [ "services" "xserver" "desktopManager" "gnome" "favoriteAppsOverride" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "gnome"
+      "favoriteAppsOverride"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
@@ -170,15 +218,31 @@ in {
       "desktopManager"
       "gnome3"
       "debug"
-    ] [ "services" "xserver" "desktopManager" "gnome" "debug" ])
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "gnome"
+      "debug"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
       "desktopManager"
       "gnome3"
       "flashback"
-    ] [ "services" "xserver" "desktopManager" "gnome" "flashback" ])
-    (mkRenamedOptionModule [ "environment" "gnome3" "excludePackages" ] [
+    ] [
+      "services"
+      "xserver"
+      "desktopManager"
+      "gnome"
+      "flashback"
+    ])
+    (mkRenamedOptionModule [
+      "environment"
+      "gnome3"
+      "excludePackages"
+    ] [
       "environment"
       "gnome"
       "excludePackages"
@@ -320,11 +384,11 @@ in {
   config = mkMerge [
     (mkIf (cfg.enable || flashbackEnabled) {
       # Seed our configuration into nixos-generate-config
-      system.nixos-generate-config.desktopConfiguration = [''
+      system.nixos-generate-config.desktopConfiguration = [ ''
         # Enable the GNOME Desktop Environment.
         services.xserver.displayManager.gdm.enable = true;
         services.xserver.desktopManager.gnome.enable = true;
-      ''];
+      '' ];
 
       services.gnome.core-os-services.enable = true;
       services.gnome.core-shell.enable = true;
@@ -436,9 +500,9 @@ in {
       environment.systemPackages = with pkgs; [ sound-theme-freedesktop ];
 
       # Needed for themes and backgrounds
-      environment.pathsToLink = [
-        "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
-      ];
+      environment.pathsToLink =
+        [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+        ];
     })
 
     (mkIf serviceCfg.core-shell.enable {
@@ -460,7 +524,10 @@ in {
       services.system-config-printer.enable =
         (mkIf config.services.printing.enable (mkDefault true));
 
-      systemd.packages = with pkgs.gnome; [ gnome-session gnome-shell ];
+      systemd.packages = with pkgs.gnome; [
+        gnome-session
+        gnome-shell
+      ];
 
       services.udev.packages = with pkgs.gnome;
         [

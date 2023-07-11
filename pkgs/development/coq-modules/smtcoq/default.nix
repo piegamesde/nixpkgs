@@ -34,13 +34,20 @@ in mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.version [{
+    lib.switch coq.version [ {
       case = isEq "8.13";
       out = "2021-09-17";
-    }] null;
+    } ] null;
 
-  propagatedBuildInputs = [ trakt cvc4 veriT' zchaff ]
-    ++ (with coq.ocamlPackages; [ num zarith ]);
+  propagatedBuildInputs = [
+    trakt
+    cvc4
+    veriT'
+    zchaff
+  ] ++ (with coq.ocamlPackages; [
+    num
+    zarith
+  ]);
   mlPlugin = true;
   nativeBuildInputs = (with pkgs; [ gnumake42 ])
     ++ (with coq.ocamlPackages; [ ocamlbuild ]);

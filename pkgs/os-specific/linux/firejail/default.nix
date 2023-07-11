@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libapparmor which ];
+  buildInputs = [
+    libapparmor
+    which
+  ];
 
   configureFlags = [ "--enable-apparmor" ];
 

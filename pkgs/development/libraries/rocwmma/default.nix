@@ -44,20 +44,25 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HUJPb6IahBgl/v+W4kXludBTNAjRm8k6v0jxKAX+qZM=";
   };
 
-  patches = lib.optionals (buildTests || buildBenchmarks)
-    [ ./0000-dont-fetch-googletest.patch ];
+  patches = lib.optionals
+    (buildTests || buildBenchmarks) [ ./0000-dont-fetch-googletest.patch ];
 
-  nativeBuildInputs = [ cmake rocm-cmake hip ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+  ];
 
-  buildInputs = [ openmp ]
-    ++ lib.optionals (buildTests || buildBenchmarks) [ gtest rocblas ]
-    ++ lib.optionals buildDocs [
-      latex
-      doxygen
-      sphinx
-      python3Packages.sphinx-rtd-theme
-      python3Packages.breathe
-    ];
+  buildInputs = [ openmp ] ++ lib.optionals (buildTests || buildBenchmarks) [
+    gtest
+    rocblas
+  ] ++ lib.optionals buildDocs [
+    latex
+    doxygen
+    sphinx
+    python3Packages.sphinx-rtd-theme
+    python3Packages.breathe
+  ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
@@ -72,8 +77,9 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ])
-    [ "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
+  ] ++ lib.optionals (gpuTargets != [ ]) [ "-DGPU_TARGETS=${
+      lib.concatStringsSep ";" gpuTargets
+    }" ]
     ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [
       "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"

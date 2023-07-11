@@ -33,13 +33,30 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OW7K7yMYSzqZWpQ9Vmpy8EgdWvyv3q1uh8A40f6AQF4=";
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    wayland-scanner
+  ];
 
-  buildInputs =
-    [ libinput libxcb libxkbcommon pixman wayland wayland-protocols wlroots ]
-    ++ lib.optionals enableXWayland [ libX11 xcbutilwm xwayland ];
+  buildInputs = [
+    libinput
+    libxcb
+    libxkbcommon
+    pixman
+    wayland
+    wayland-protocols
+    wlroots
+  ] ++ lib.optionals enableXWayland [
+    libX11
+    xcbutilwm
+    xwayland
+  ];
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   # Allow users to set an alternative config.def.h
   postPatch = let

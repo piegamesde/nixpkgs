@@ -118,7 +118,11 @@ in stdenv.mkDerivation rec {
     patches =
       [ ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch ];
 
-    nativeBuildInputs = [ autoreconfHook pkg-config perl ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+      perl
+    ];
 
     buildInputs = [
       alsa-lib
@@ -157,7 +161,13 @@ in stdenv.mkDerivation rec {
     echo 'const char VERSION_STRING[] = "${version}";' > src/app/version.h
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook pkg-config cmake python3 qttools ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    pkg-config
+    cmake
+    python3
+    qttools
+  ];
 
   buildInputs = [
     daemon

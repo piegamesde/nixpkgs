@@ -26,9 +26,19 @@ stdenv.mkDerivation rec {
     sha256 = "vvuzAMezT/IYZf28iBIB9zD8fFYOngHRfomelHcVBhM=";
   };
 
-  nativeBuildInputs = [ pkg-config intltool xfce4-dev-tools wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    xfce4-dev-tools
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ lightdm librsvg hicolor-icon-theme gtk3 ];
+  buildInputs = [
+    lightdm
+    librsvg
+    hicolor-icon-theme
+    gtk3
+  ];
 
   configureFlags = [
     "--localstatedir=/var"
@@ -43,18 +53,20 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=( --enable-at-spi-command="${at-spi2-core}/libexec/at-spi-bus-launcher --launch-immediately" )
   '';
 
-  installFlags =
-    [ "localstatedir=\${TMPDIR}" "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = [
+    "localstatedir=\${TMPDIR}"
+    "sysconfdir=${placeholder "out"}/etc"
+  ];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/lightdm-gtk-greeter.desktop" \
       --replace "Exec=lightdm-gtk-greeter" "Exec=$out/bin/lightdm-gtk-greeter"
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-gtk-greeter-xgreeters" [{
+  passthru.xgreeters = linkFarm "lightdm-gtk-greeter-xgreeters" [ {
     path = "${lightdm-gtk-greeter}/share/xgreeters/lightdm-gtk-greeter.desktop";
     name = "lightdm-gtk-greeter.desktop";
-  }];
+  } ];
 
   meta = with lib; {
     homepage = "https://github.com/Xubuntu/lightdm-gtk-greeter";

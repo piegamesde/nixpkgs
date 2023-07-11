@@ -29,8 +29,14 @@ buildPythonPackage rec {
     hash = "sha256-j+ZabVsiVitNkTPhGjDg72XogjvPaL453lTW45ITm90=";
   };
 
-  nativeBuildInputs =
-    [ cmake cython ninja rapidfuzz-capi scikit-build setuptools ];
+  nativeBuildInputs = [
+    cmake
+    cython
+    ninja
+    rapidfuzz-capi
+    scikit-build
+    setuptools
+  ];
 
   buildInputs = [ jarowinkler-cpp ];
 
@@ -40,7 +46,10 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "jarowinkler" ];
 

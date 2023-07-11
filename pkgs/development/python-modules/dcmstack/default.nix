@@ -21,7 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-GVzih9H2m2ZGSuZMRuaDG78b95PI3j0WQw5M3l4KNCs=";
   };
 
-  propagatedBuildInputs = [ nibabel pydicom pylibjpeg-libjpeg ];
+  propagatedBuildInputs = [
+    nibabel
+    pydicom
+    pylibjpeg-libjpeg
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

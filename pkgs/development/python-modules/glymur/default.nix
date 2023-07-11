@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [ lxml pytestCheckHook scikitimage ];
+  nativeCheckInputs = [
+    lxml
+    pytestCheckHook
+    scikitimage
+  ];
 
   postConfigure = ''
     substituteInPlace glymur/config.py \

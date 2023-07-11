@@ -31,7 +31,11 @@ buildPythonPackage rec {
     hash = "sha256-rL0NqpZ1zohiPaNcgNgZza+pFzHe5rJpXGTXyp2oLbQ=";
   };
 
-  propagatedBuildInputs = [ requests six typing-extensions ];
+  propagatedBuildInputs = [
+    requests
+    six
+    typing-extensions
+  ];
 
   nativeCheckInputs = [
     aiodns

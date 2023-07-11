@@ -34,7 +34,10 @@ python3Packages.buildPythonApplication rec {
 
   format = "other";
 
-  nativeCheckInputs = [ git perl ];
+  nativeCheckInputs = [
+    git
+    perl
+  ];
 
   postPatch = ''
     for f in Documentation/*.xsl; do
@@ -60,12 +63,19 @@ python3Packages.buildPythonApplication rec {
     "XMLTO_EXTRA=--skip-validation"
   ];
 
-  buildFlags = [ "all" "doc" ];
+  buildFlags = [
+    "all"
+    "doc"
+  ];
 
   checkTarget = "test";
   checkFlags = [ "PERL_PATH=${perl}/bin/perl" ];
 
-  installTargets = [ "install" "install-doc" "install-html" ];
+  installTargets = [
+    "install"
+    "install-doc"
+    "install-html"
+  ];
   postInstall = ''
     installShellCompletion --cmd stg \
       --fish completion/stg.fish \

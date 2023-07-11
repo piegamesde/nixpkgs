@@ -45,7 +45,10 @@ mkDerivation rec {
     ./0001-fix-install-phase.patch
   ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   buildInputs = [
     qtbase

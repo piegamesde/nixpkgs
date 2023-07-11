@@ -39,13 +39,24 @@ stdenv.mkDerivation rec {
     sha256 = "11byyfpkcik7wvf2qic77zjamfr2rhji97dpj1gy2fg1bvpiqf4m";
   };
 
-  nativeBuildInputs = [ intltool pkg-config ]
-    ++ lib.optionals (useGtk) [ wrapGAppsHook ]
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ] ++ lib.optionals (useGtk) [ wrapGAppsHook ]
     ++ lib.optionals (useQt) [ wrapQtAppsHook ];
 
-  buildInputs =
-    [ SDL2 alsa-lib ffmpeg_4 libusb1 libv4l portaudio udev gsl libpng sfml ]
-    ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
+  buildInputs = [
+    SDL2
+    alsa-lib
+    ffmpeg_4
+    libusb1
+    libv4l
+    portaudio
+    udev
+    gsl
+    libpng
+    sfml
+  ] ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
     ++ lib.optionals (useGtk) [ gtk3 ] ++ lib.optionals (useQt) [ qtbase ];
   configureFlags = [ "--enable-sfml" ]
     ++ lib.optionals (useGtk) [ "--enable-gtk3" ]

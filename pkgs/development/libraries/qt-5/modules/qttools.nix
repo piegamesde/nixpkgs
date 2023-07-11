@@ -8,8 +8,15 @@
 
 qtModule {
   pname = "qttools";
-  qtInputs = [ qtbase qtdeclarative ];
-  outputs = [ "out" "dev" "bin" ];
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ];
+  outputs = [
+    "out"
+    "dev"
+    "bin"
+  ];
 
   # fixQtBuiltinPaths overwrites a builtin path we should keep
   postPatch = ''

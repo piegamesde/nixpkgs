@@ -27,9 +27,18 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-Za5/9YlDRqF5oGI8ZfLhx2ZT0XvXK6Z0h6fu5CGvizc=";
   };
 
-  nativeBuildInputs = [ gdk-pixbuf.dev meson ninja pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    gdk-pixbuf.dev
+    meson
+    ninja
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ gdk-pixbuf libwebp ];
+  buildInputs = [
+    gdk-pixbuf
+    libwebp
+  ];
 
   mesonFlags = [ "-Dgdk_pixbuf_moduledir=${placeholder "out"}/${moduleDir}" ];
 

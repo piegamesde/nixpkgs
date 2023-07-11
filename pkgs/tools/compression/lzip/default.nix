@@ -12,7 +12,11 @@
 stdenv.mkDerivation rec {
   pname = "lzip";
   version = "1.23";
-  outputs = [ "out" "man" "info" ];
+  outputs = [
+    "out"
+    "man"
+    "info"
+  ];
 
   src = fetchurl {
     url = "mirror://savannah/lzip/${pname}-${version}.tar.gz";

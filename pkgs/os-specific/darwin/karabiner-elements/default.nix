@@ -17,9 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-InuSfXbaSYsncq8jVO15LbQmDTguRHlOiE/Pj5EfX5c=";
   };
 
-  outputs = [ "out" "driver" ];
+  outputs = [
+    "out"
+    "driver"
+  ];
 
-  nativeBuildInputs = [ cpio xar undmg ];
+  nativeBuildInputs = [
+    cpio
+    xar
+    undmg
+  ];
 
   unpackPhase = ''
     undmg $src

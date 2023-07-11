@@ -8,7 +8,12 @@ args@{
 
   description = "UFFI Compatibility Layer for CFFI";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";

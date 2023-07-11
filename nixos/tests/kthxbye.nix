@@ -20,13 +20,13 @@ import ./make-test-python.nix ({
             evaluation_interval = "5s";
           };
 
-          scrapeConfigs = [{
+          scrapeConfigs = [ {
             job_name = "prometheus";
             scrape_interval = "5s";
-            static_configs = [{ targets = [ "localhost:9090" ]; }];
-          }];
+            static_configs = [ { targets = [ "localhost:9090" ]; } ];
+          } ];
 
-          rules = [''
+          rules = [ ''
             groups:
               - name: test
                 rules:
@@ -37,10 +37,10 @@ import ./make-test-python.nix ({
                       severity: bottom of the barrel
                     annotations:
                       summary: node is fine
-          ''];
+          '' ];
 
           alertmanagers =
-            [{ static_configs = [{ targets = [ "localhost:9093" ]; }]; }];
+            [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
 
           alertmanager = {
             enable = true;
@@ -51,10 +51,10 @@ import ./make-test-python.nix ({
               group_interval = "5s";
               group_by = [ "..." ];
             };
-            configuration.receivers = [{
+            configuration.receivers = [ {
               name = "test";
-              webhook_configs = [{ url = "http://localhost:1234"; }];
-            }];
+              webhook_configs = [ { url = "http://localhost:1234"; } ];
+            } ];
           };
         };
 

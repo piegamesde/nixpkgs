@@ -36,13 +36,20 @@ buildPythonPackage rec {
 
   # for the optional dependency ipykernel, only versions < 6 are
   # supported, so it's not included in the tests, and not propagated
-  propagatedBuildInputs = [ traits apptools setuptools ];
+  propagatedBuildInputs = [
+    traits
+    apptools
+    setuptools
+  ];
 
   preCheck = ''
     export HOME=$PWD/HOME
   '';
 
-  nativeCheckInputs = [ ipython pytestCheckHook ];
+  nativeCheckInputs = [
+    ipython
+    pytestCheckHook
+  ];
 
   disabledTestPaths = lib.optionals (pythonAtLeast "3.10") [
     # https://github.com/enthought/envisage/issues/455

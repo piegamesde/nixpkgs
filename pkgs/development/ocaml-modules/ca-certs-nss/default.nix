@@ -26,9 +26,19 @@ buildDunePackage rec {
     hash = "sha256-3b20vYBP9T2uR17Vxyilfs/9C72WVUrgR7T582V++lQ=";
   };
 
-  propagatedBuildInputs = [ mirage-crypto mirage-clock x509 ];
+  propagatedBuildInputs = [
+    mirage-crypto
+    mirage-clock
+    x509
+  ];
 
-  buildInputs = [ logs fmt bos astring cmdliner ];
+  buildInputs = [
+    logs
+    fmt
+    bos
+    astring
+    cmdliner
+  ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

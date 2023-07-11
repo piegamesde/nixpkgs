@@ -44,12 +44,19 @@ in python3.pkgs.buildPythonApplication rec {
     webtest
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ mock pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [
+    mock
+    pytestCheckHook
+  ];
 
   # Slack backend test has an import issue
   pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
 
-  disabledTests = [ "backup" "broken_plugin" "plugin_cycle" ];
+  disabledTests = [
+    "backup"
+    "broken_plugin"
+    "plugin_cycle"
+  ];
 
   pythonImportsCheck = [ "errbot" ];
 

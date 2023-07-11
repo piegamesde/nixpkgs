@@ -18,7 +18,11 @@ buildKodiAddon rec {
     sha256 = "sha256-6JIAQwot5VZ36gvQym88BD/e/mSyS8WO8VqkPn2GcqY=";
   };
 
-  propagatedBuildInputs = [ requests six arrow ];
+  propagatedBuildInputs = [
+    requests
+    six
+    arrow
+  ];
 
   passthru = {
     pythonPath = "lib";

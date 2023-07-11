@@ -20,12 +20,15 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [{
+    lib.switch coq.coq-version [ {
       case = range "8.11" "8.16";
       out = "8.13.0";
-    }] null;
+    } ] null;
 
-  propagatedBuildInputs = [ hydra-battles pocklington ];
+  propagatedBuildInputs = [
+    hydra-battles
+    pocklington
+  ];
 
   meta = with lib; {
     description = "The Gödel-Rosser 1st incompleteness theorem in Coq";

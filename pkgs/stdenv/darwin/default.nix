@@ -117,10 +117,8 @@ in rec {
     name = "bootstrap-tools";
     builder =
       bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
-    args = if localSystem.isAarch64 then
-      [ ./unpack-bootstrap-tools-aarch64.sh ]
-    else
-      [ ./unpack-bootstrap-tools.sh ];
+    args =
+      if localSystem.isAarch64 then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
 
     inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
 
@@ -223,8 +221,10 @@ in rec {
         allowedRequisites = if allowedRequisites == null then
           null
         else
-          allowedRequisites ++ [ cc.expand-response-params cc.bintools ]
-          ++ lib.optionals doUpdateAutoTools [
+          allowedRequisites ++ [
+            cc.expand-response-params
+            cc.bintools
+          ] ++ lib.optionals doUpdateAutoTools [
             last.pkgs.updateAutotoolsGnuConfigScriptsHook
             last.pkgs.gnu-config
           ] ++ lib.optionals doSign [
@@ -485,15 +485,19 @@ in rec {
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
-      allowedRequisites = [ bootstrapTools ]
-        ++ (with pkgs; [ coreutils gnugrep ])
-        ++ (with pkgs."${finalLlvmPackages}"; [
-          libcxx
-          libcxxabi
-          compiler-rt
-          clang-unwrapped
-        ]) ++ (with pkgs.darwin;
-          [ Libsystem CF ] ++ lib.optional useAppleSDKLibs objc4);
+      allowedRequisites = [ bootstrapTools ] ++ (with pkgs; [
+        coreutils
+        gnugrep
+      ]) ++ (with pkgs."${finalLlvmPackages}"; [
+        libcxx
+        libcxxabi
+        compiler-rt
+        clang-unwrapped
+      ]) ++ (with pkgs.darwin;
+        [
+          Libsystem
+          CF
+        ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
     };
@@ -522,7 +526,12 @@ in rec {
                 libcxxabi = libSuper.libcxxabi.override ({
                   stdenv = overrideCC self.stdenv self.ccNoLibcxx;
                 } // lib.optionalAttrs
-                  (builtins.any (v: finalLlvmVersion == v) [ 7 11 12 13 ]) {
+                  (builtins.any (v: finalLlvmVersion == v) [
+                    7
+                    11
+                    12
+                    13
+                  ]) {
                     # TODO: the bootstrapping of llvm packages isn't consistent.
                     # `standalone` may be redundant if darwin behaves like useLLVM (or
                     # has useLLVM = true).
@@ -572,8 +581,13 @@ in rec {
           compiler-rt
           clang-unwrapped
         ]) ++ (with pkgs.darwin;
-          [ dyld Libsystem CF ICU locale ]
-          ++ lib.optional useAppleSDKLibs objc4);
+          [
+            dyld
+            Libsystem
+            CF
+            ICU
+            locale
+          ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
     };
@@ -612,7 +626,10 @@ in rec {
       # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
       # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
       extraNativeBuildInputs = with pkgs; [ xz ];
-      extraBuildInputs = [ pkgs.darwin.CF pkgs.bash ];
+      extraBuildInputs = [
+        pkgs.darwin.CF
+        pkgs.bash
+      ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
       extraPreHook = ''
@@ -647,7 +664,12 @@ in rec {
           compiler-rt
           clang-unwrapped
         ]) ++ (with pkgs.darwin;
-          [ dyld ICU Libsystem locale ] ++ lib.optional useAppleSDKLibs objc4);
+          [
+            dyld
+            ICU
+            Libsystem
+            locale
+          ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
     };
@@ -701,7 +723,10 @@ in rec {
     stageFun 4 prevStage {
       shell = "${pkgs.bash}/bin/bash";
       extraNativeBuildInputs = with pkgs; [ xz ];
-      extraBuildInputs = [ pkgs.darwin.CF pkgs.bash ];
+      extraBuildInputs = [
+        pkgs.darwin.CF
+        pkgs.bash
+      ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
 
       extraPreHook = ''
@@ -766,8 +791,8 @@ in rec {
 
       cc = pkgs."${finalLlvmPackages}".libcxxClang;
 
-      extraNativeBuildInputs = lib.optionals localSystem.isAarch64
-        [ pkgs.updateAutotoolsGnuConfigScriptsHook ];
+      extraNativeBuildInputs = lib.optionals
+        localSystem.isAarch64 [ pkgs.updateAutotoolsGnuConfigScriptsHook ];
 
       extraBuildInputs = [ pkgs.darwin.CF ];
 
@@ -841,9 +866,20 @@ in rec {
           libclang.dev
           libclang.lib
         ]) ++ (with pkgs.darwin;
-          [ dyld Libsystem CF cctools ICU libiconv locale libtapi ]
-          ++ lib.optional useAppleSDKLibs objc4
-          ++ lib.optionals doSign [ postLinkSignHook sigtool signingUtils ]);
+          [
+            dyld
+            Libsystem
+            CF
+            cctools
+            ICU
+            libiconv
+            locale
+            libtapi
+          ] ++ lib.optional useAppleSDKLibs objc4 ++ lib.optionals doSign [
+            postLinkSignHook
+            sigtool
+            signingUtils
+          ]);
 
       overrides = lib.composeExtensions persistent (self: super:
         {

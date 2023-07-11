@@ -22,8 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-M7czfpagXqoWWSu4enB3Z2hc2GtAaskI6cnJzJdpC8I=";
   };
 
-  propagatedBuildInputs =
-    [ base58 bitcoin-utils-fork-minimal pycryptodome requests setuptools ];
+  propagatedBuildInputs = [
+    base58
+    bitcoin-utils-fork-minimal
+    pycryptodome
+    requests
+    setuptools
+  ];
 
   preConfigure = ''
     substituteInPlace setup.py \

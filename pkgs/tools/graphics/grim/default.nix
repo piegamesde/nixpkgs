@@ -38,9 +38,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
 
-  buildInputs = [ pixman libpng libjpeg wayland wayland-protocols ];
+  buildInputs = [
+    pixman
+    libpng
+    libjpeg
+    wayland
+    wayland-protocols
+  ];
 
   meta = with lib; {
     description = "Grab images from a Wayland compositor";

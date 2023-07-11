@@ -33,19 +33,24 @@ in buildPythonPackage {
     hash = "sha256-PS5DIH1JuH2HweyebLLM+UNFGY/XsjKIrsD9x7g7yMI=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./setup.patch;
-      boost_version = let
-        pythonVersion = with lib.versions;
-          "${major python.version}${minor python.version}";
-      in "boost_python${pythonVersion}";
-    })
+  patches = [ (substituteAll {
+    src = ./setup.patch;
+    boost_version = let
+      pythonVersion = with lib.versions;
+        "${major python.version}${minor python.version}";
+    in "boost_python${pythonVersion}";
+  }) ];
+
+  nativeBuildInputs = [
+    pkg-config
+    glibc
   ];
 
-  nativeBuildInputs = [ pkg-config glibc ];
-
-  buildInputs = [ bluez boost glib ];
+  buildInputs = [
+    bluez
+    boost
+    glib
+  ];
 
   # has no tests
   doCheck = false;

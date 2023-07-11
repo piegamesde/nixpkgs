@@ -21,7 +21,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/senpai" ];
 
-  nativeBuildInputs = [ scdoc installShellFiles ];
+  nativeBuildInputs = [
+    scdoc
+    installShellFiles
+  ];
 
   postInstall = ''
     scdoc < doc/senpai.1.scd > doc/senpai.1

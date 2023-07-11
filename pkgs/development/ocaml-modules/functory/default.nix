@@ -27,7 +27,10 @@ in stdenv.mkDerivation {
     inherit (param) sha256;
   };
 
-  nativeBuildInputs = [ ocaml findlib ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
 
   strictDeps = true;
 

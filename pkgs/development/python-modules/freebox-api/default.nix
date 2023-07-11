@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp urllib3 ];
+  propagatedBuildInputs = [
+    aiohttp
+    urllib3
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

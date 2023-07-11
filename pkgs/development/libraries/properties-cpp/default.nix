@@ -25,9 +25,17 @@ stdenv.mkDerivation rec {
     sed -i "/add_subdirectory(tests)/d" CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ gtest doxygen graphviz lcov ];
+  buildInputs = [
+    gtest
+    doxygen
+    graphviz
+    lcov
+  ];
 
   meta = with lib; {
     homepage = "https://launchpad.net/properties-cpp";

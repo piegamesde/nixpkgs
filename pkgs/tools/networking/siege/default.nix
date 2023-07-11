@@ -17,13 +17,19 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isLinux [ "-lgcc_s" ];
 
-  buildInputs = [ openssl zlib ];
+  buildInputs = [
+    openssl
+    zlib
+  ];
 
   prePatch = ''
     sed -i -e 's/u_int32_t/uint32_t/g' -e '1i#include <stdint.h>' src/hash.c
   '';
 
-  configureFlags = [ "--with-ssl=${openssl.dev}" "--with-zlib=${zlib.dev}" ];
+  configureFlags = [
+    "--with-ssl=${openssl.dev}"
+    "--with-zlib=${zlib.dev}"
+  ];
 
   meta = with lib; {
     description = "HTTP load tester";

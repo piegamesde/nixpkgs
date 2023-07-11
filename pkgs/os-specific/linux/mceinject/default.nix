@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0gjapg2hrlxp8ssrnhvc19i3r1xpcnql7xv0zjgbv09zyha08g6z";
   };
 
-  nativeBuildInputs = [ flex bison ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Os -g -Wall";
 
@@ -27,7 +30,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "destdir=$(out)" "manprefix=/share" ];
+  installFlags = [
+    "destdir=$(out)"
+    "manprefix=/share"
+  ];
 
   meta = with lib; {
     description = "A tool to inject machine checks into x86 kernel for testing";

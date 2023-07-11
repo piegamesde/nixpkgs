@@ -54,7 +54,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-lsUS7JymCMOa5wlWJOwLFm4KRnAYixi9Kk5CYHB17Ac=";
   };
 
-  nativeBuildInputs = [ rpmextract makeWrapper ];
+  nativeBuildInputs = [
+    rpmextract
+    makeWrapper
+  ];
 
   libPath = lib.makeLibraryPath [
     libnotify

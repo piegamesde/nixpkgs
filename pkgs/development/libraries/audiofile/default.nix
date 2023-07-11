@@ -26,14 +26,21 @@ in stdenv.mkDerivation rec {
   version = "0.3.6";
 
   buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit ];
+    ++ lib.optionals stdenv.isDarwin [
+      CoreServices
+      AudioUnit
+    ];
 
   src = fetchurl {
     url = "https://audiofile.68k.org/audiofile-${version}.tar.gz";
     sha256 = "0rb927zknk9kmhprd8rdr4azql4gn2dp75a36iazx2xhkbqhvind";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   # fix build with gcc9
   NIX_CFLAGS_LINK = lib.optional (stdenv.system == "i686-linux") "-lgcc";

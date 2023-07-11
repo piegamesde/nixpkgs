@@ -37,16 +37,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G9l5sG5g5kMlSXzg0GX8+Et7M9/k2dRLMBgsMI4MaxA=";
   };
 
-  nativeBuildInputs =
-    [ bison cdrkit cpio flex getopt makeWrapper pkg-config qemu ]
-    ++ (with perlPackages; [ GetoptLong libintl-perl ModuleBuild perl Po4a ])
-    ++ (with ocamlPackages; [
-      findlib
-      gettext-stub
-      ocaml
-      ocaml_gettext
-      ounit2
-    ]);
+  nativeBuildInputs = [
+    bison
+    cdrkit
+    cpio
+    flex
+    getopt
+    makeWrapper
+    pkg-config
+    qemu
+  ] ++ (with perlPackages; [
+    GetoptLong
+    libintl-perl
+    ModuleBuild
+    perl
+    Po4a
+  ]) ++ (with ocamlPackages; [
+    findlib
+    gettext-stub
+    ocaml
+    ocaml_gettext
+    ounit2
+  ]);
 
   buildInputs = [
     bash-completion
@@ -75,30 +87,40 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "LIBGUESTFS_PATH=${libguestfs-with-appliance}/lib/guestfs" ];
 
-  installFlags = [
-    "BASH_COMPLETIONS_DIR=${
+  installFlags = [ "BASH_COMPLETIONS_DIR=${
       placeholder "out"
-    }/share/bash-completion/completions"
-  ];
+    }/share/bash-completion/completions" ];
 
   enableParallelBuilding = true;
 
   postInstall = ''
     wrapProgram $out/bin/virt-builder \
       --argv0 virt-builder \
-      --prefix PATH : ${lib.makeBinPath [ curl gnupg ]}:$out/bin \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          curl
+          gnupg
+        ]
+      }:$out/bin \
       --suffix VIRT_BUILDER_DIRS : /etc:$out/etc
     wrapProgram $out/bin/virt-win-reg \
       --prefix PERL5LIB : ${
         with perlPackages;
-        makeFullPerlPath [ hivex libintl-perl libguestfs-with-appliance ]
+        makeFullPerlPath [
+          hivex
+          libintl-perl
+          libguestfs-with-appliance
+        ]
       }
   '';
 
   meta = with lib; {
     description =
       "Extra tools for accessing and modifying virtual machine disk images";
-    license = with licenses; [ gpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     homepage = "https://libguestfs.org/";
     maintainers = with maintainers; [ thiagokokada ];
     platforms = platforms.linux;

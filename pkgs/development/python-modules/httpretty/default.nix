@@ -24,9 +24,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ sure freezegun pytestCheckHook ];
+  nativeCheckInputs = [
+    sure
+    freezegun
+    pytestCheckHook
+  ];
 
-  disabledTestPaths = [ "tests/bugfixes" "tests/functional" "tests/pyopenssl" ];
+  disabledTestPaths = [
+    "tests/bugfixes"
+    "tests/functional"
+    "tests/pyopenssl"
+  ];
 
   __darwinAllowLocalNetworking = true;
 

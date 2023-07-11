@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1wb4qmb9f8rnrwnnw1gdhzx1fmhy628bxfrg56khxy3j5ljxkhck";
   };
 
-  nativeBuildInputs = [ gfortran cmake ];
+  nativeBuildInputs = [
+    gfortran
+    cmake
+  ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 

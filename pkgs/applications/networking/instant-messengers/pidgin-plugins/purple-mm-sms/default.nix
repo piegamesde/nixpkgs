@@ -26,7 +26,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ glibmm pidgin modemmanager ];
+  buildInputs = [
+    glibmm
+    pidgin
+    modemmanager
+  ];
 
   meta = with lib; {
     homepage = "https://source.puri.sm/Librem5/purple-mm-sms";

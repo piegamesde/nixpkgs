@@ -18,7 +18,11 @@ buildGoModule rec {
   vendorSha256 = "sha256-xXwunk9rmzZEtqmSo8biuXnAjPp7fqWdQ+Kt9+Di9N8=";
 
   subPackages = [ "cmd/helm-docs" ];
-  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/norwoodj/helm-docs";

@@ -32,10 +32,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-JXX7vybCJxnRy4grWWAsmQDH90cRisEwiD9jQZvkaoA=";
   };
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
-  nativeBuildInputs =
-    [ buildPackages.libxslt.bin meson ninja pkg-config sphinx ];
+  nativeBuildInputs = [
+    buildPackages.libxslt.bin
+    meson
+    ninja
+    pkg-config
+    sphinx
+  ];
 
   buildInputs = [ ffmpeg_5-headless ];
 

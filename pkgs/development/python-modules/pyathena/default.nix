@@ -22,7 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-6T2qr0fcHzgDPZvc3StZwIH2ZRvTOJFXDLPc3iFmwCQ=";
   };
 
-  propagatedBuildInputs = [ boto3 botocore fsspec pandas tenacity ];
+  propagatedBuildInputs = [
+    boto3
+    botocore
+    fsspec
+    pandas
+    tenacity
+  ];
 
   # Nearly all tests depend on a working AWS Athena instance,
   # therefore deactivating them.

@@ -20,8 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CodNcN9O8i8euGjCfq9m4zVOFgnbje05JUT49rxUp7c=";
   };
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
-  buildInputs = [ fcitx5 anthy gettext ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+  ];
+  buildInputs = [
+    fcitx5
+    anthy
+    gettext
+  ];
 
   meta = with lib; {
     description = "Anthy Wrapper for Fcitx5";

@@ -18,8 +18,15 @@ in stdenv.mkDerivation {
     inherit (release) url sha256;
     name = "uctodata-${release.version}.tar.gz";
   };
-  nativeBuildInputs = [ pkg-config automake autoconf ];
-  buildInputs = [ libtool autoconf-archive ];
+  nativeBuildInputs = [
+    pkg-config
+    automake
+    autoconf
+  ];
+  buildInputs = [
+    libtool
+    autoconf-archive
+  ];
   preConfigure = "sh bootstrap.sh";
 
   meta = with lib; {

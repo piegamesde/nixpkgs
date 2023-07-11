@@ -32,9 +32,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mSZCq8UaiffMzWVflW1nAX6CQZ1DqwWJaSIzKslZSEk=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+    gfortran
+  ];
 
-  buildInputs = [ rocblas rocsolver ] ++ lib.optionals buildTests [ gtest ]
+  buildInputs = [
+    rocblas
+    rocsolver
+  ] ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
   cmakeFlags = [

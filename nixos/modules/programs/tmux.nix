@@ -136,7 +136,10 @@ in {
       keyMode = mkOption {
         default = defaultKeyMode;
         example = "vi";
-        type = types.enum [ "emacs" "vi" ];
+        type = types.enum [
+          "emacs"
+          "vi"
+        ];
         description = lib.mdDoc "VI or Emacs style shortcuts.";
       };
 
@@ -230,11 +233,13 @@ in {
     };
   };
 
-  imports = [
-    (lib.mkRenamedOptionModule [ "programs" "tmux" "extraTmuxConf" ] [
-      "programs"
-      "tmux"
-      "extraConfig"
-    ])
-  ];
+  imports = [ (lib.mkRenamedOptionModule [
+    "programs"
+    "tmux"
+    "extraTmuxConf"
+  ] [
+    "programs"
+    "tmux"
+    "extraConfig"
+  ]) ];
 }

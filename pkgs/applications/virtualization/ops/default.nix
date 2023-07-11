@@ -22,7 +22,11 @@ buildGoModule rec {
   doCheck = false;
   doInstallCheck = true;
 
-  ldflags = [ "-s" "-w" "-X github.com/nanovms/ops/lepton.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/nanovms/ops/lepton.Version=${version}"
+  ];
 
   meta = with lib; {
     description = "Build and run nanos unikernels";

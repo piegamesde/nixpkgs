@@ -22,9 +22,19 @@ stdenv.mkDerivation rec {
     sha256 = "0fndgbm1mkqb1sn2v2kj3nx9mxj70jbp31y2bjvzcmmkry0q3k5j";
   };
 
-  nativeBuildInputs = [ imagemagick makeWrapper ];
+  nativeBuildInputs = [
+    imagemagick
+    makeWrapper
+  ];
 
-  buildInputs = [ libXpm libXmu libXi libXp Xaw3d libXaw ];
+  buildInputs = [
+    libXpm
+    libXmu
+    libXi
+    libXp
+    Xaw3d
+    libXaw
+  ];
 
   postPatch = ''
     substituteInPlace src/main.c --replace '"fig2dev"' '"${fig2dev}/bin/fig2dev"'

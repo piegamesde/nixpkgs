@@ -558,8 +558,10 @@ in rec {
       vectorise = s:
         map (x: if isList x then toInt (head x) else x)
         (builtins.split "(0|[1-9][0-9]*)" s);
-      prepared = map (x: [ (vectorise x) x ])
-        lst; # remember vectorised version for O(n) regex splits
+      prepared = map (x: [
+        (vectorise x)
+        x
+      ]) lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
     in map (x: elemAt x 1) (sort less prepared);
 

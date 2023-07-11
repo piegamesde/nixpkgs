@@ -19,8 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-Jz5C35rwnDz0CXcfcvWjkwScGNQO1uijF7JrtZhM7mI=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ cctools ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
@@ -36,6 +38,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.unicorn-engine.org";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice luc65r ];
+    maintainers = with maintainers; [
+      thoughtpolice
+      luc65r
+    ];
   };
 }

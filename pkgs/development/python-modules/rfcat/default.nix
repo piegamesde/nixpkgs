@@ -26,7 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-VOLA/ZZLazW7u0VYkAHzDh4aaHGr3u09bKVOkhYk6Fk=";
   };
 
-  propagatedBuildInputs = [ future ipython numpy pyserial pyusb ];
+  propagatedBuildInputs = [
+    future
+    ipython
+    numpy
+    pyserial
+    pyusb
+  ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/etc/udev/rules.d

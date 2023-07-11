@@ -93,9 +93,17 @@ rec {
 
     configureFlags = [ "--without-readline" ];
 
-    nativeBuildInputs = [ re2c file makeWrapper ];
+    nativeBuildInputs = [
+      re2c
+      file
+      makeWrapper
+    ];
 
-    propagatedBuildInputs = [ six typing py-yajl ];
+    propagatedBuildInputs = [
+      six
+      typing
+      py-yajl
+    ];
 
     doCheck = true;
 

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0ap7rcngffhdd57jw9j22arzkbrhwh0zpxhwbdfwl8fixlhmkpy7";
   };
 
-  buildInputs = [ libpng libjpeg ];
+  buildInputs = [
+    libpng
+    libjpeg
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
   makeFlags = [ "CC:=$(CC)" ];

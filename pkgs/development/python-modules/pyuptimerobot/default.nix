@@ -31,7 +31,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [ aresponses pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    aresponses
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
   pythonImportsCheck = [ "pyuptimerobot" ];
 

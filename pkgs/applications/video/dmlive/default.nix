@@ -27,12 +27,19 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     wrapProgram "$out/bin/dmlive" --prefix PATH : "${
-      lib.makeBinPath [ mpv ffmpeg nodejs ]
+      lib.makeBinPath [
+        mpv
+        ffmpeg
+        nodejs
+      ]
     }"
   '';
 

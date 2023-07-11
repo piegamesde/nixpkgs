@@ -21,12 +21,25 @@ stdenv.mkDerivation rec {
     sha256 = "0m191ckqj1kj2yvxiilqw26x4vrn7pnlc2vy636yphjxr02q8bk4";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ zlib libpng libjpeg giflib libtiff ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    zlib
+    libpng
+    libjpeg
+    giflib
+    libtiff
+  ];
 
   doCheck = true;
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   installPhase = ''
     mkdir -p $out/lib

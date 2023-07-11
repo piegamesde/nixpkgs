@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "07r1ck2ijj30n19ylndgw75ly9k3815kj9inpxblfnjpwbbw6ic0";
   };
 
-  buildInputs = [ libX11 libXrandr libXinerama ];
+  buildInputs = [
+    libX11
+    libXrandr
+    libXinerama
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

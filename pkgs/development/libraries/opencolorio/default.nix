@@ -68,13 +68,27 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ expat yaml-cpp ilmbase pystring imath minizip-ng ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ glew freeglut ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Carbon GLUT Cocoa ]
-    ++ lib.optionals pythonBindings [
-      python3Packages.python
-      python3Packages.pybind11
-    ] ++ lib.optionals buildApps [ lcms2 openexr_3 ];
+  buildInputs = [
+    expat
+    yaml-cpp
+    ilmbase
+    pystring
+    imath
+    minizip-ng
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    glew
+    freeglut
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    Carbon
+    GLUT
+    Cocoa
+  ] ++ lib.optionals pythonBindings [
+    python3Packages.python
+    python3Packages.pybind11
+  ] ++ lib.optionals buildApps [
+    lcms2
+    openexr_3
+  ];
 
   cmakeFlags = [
     "-DOCIO_INSTALL_EXT_PACKAGES=NONE"

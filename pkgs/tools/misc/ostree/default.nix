@@ -43,7 +43,12 @@ in stdenv.mkDerivation rec {
   pname = "ostree";
   version = "2023.2";
 
-  outputs = [ "out" "dev" "man" "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "installedTests"
+  ];
 
   src = fetchurl {
     url =

@@ -48,9 +48,17 @@ in buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  propagatedBuildInputs = [ torch pybind11 ];
+  propagatedBuildInputs = [
+    torch
+    pybind11
+  ];
 
-  nativeCheckInputs = [ which scipy pytest-xdist pytestCheckHook ];
+  nativeCheckInputs = [
+    which
+    scipy
+    pytest-xdist
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "deepwave" ];
 

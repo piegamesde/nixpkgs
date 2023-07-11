@@ -16,7 +16,11 @@ buildPythonPackage rec {
     sha256 = "3894ed8a9157f8ac8f42e0130f43932490ac5d1e89e6f295b1252f08c00ba36b";
   };
 
-  propagatedBuildInputs = [ jupyterhub escapism docker ];
+  propagatedBuildInputs = [
+    jupyterhub
+    escapism
+    docker
+  ];
 
   # tests require docker
   doCheck = false;

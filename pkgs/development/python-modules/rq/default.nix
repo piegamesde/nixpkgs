@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-YbpH5Pt93nKYRZMb+MRFFGRxKcRITlvFTvbo574ruFs=";
   };
 
-  propagatedBuildInputs = [ click redis ];
+  propagatedBuildInputs = [
+    click
+    redis
+  ];
 
   # Tests require a running Redis rerver
   doCheck = false;

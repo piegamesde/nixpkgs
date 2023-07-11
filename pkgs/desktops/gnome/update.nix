@@ -14,7 +14,10 @@
 }:
 
 let
-  python = python3.withPackages (p: [ p.requests p.libversion ]);
+  python = python3.withPackages (p: [
+    p.requests
+    p.libversion
+  ]);
   package = lib.attrByPath (lib.splitString "." attrPath)
     (throw "Cannot find attribute ‘${attrPath}’.") pkgs;
   packageVersion = lib.getVersion package;
@@ -28,9 +31,7 @@ let
       "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
   in if builtins.isBool freeze then
     lib.optionals (freeze && minorAvailable) [ upperBound ]
-  else if builtins.isString freeze then
-    [ freeze ]
-  else
+  else if builtins.isString freeze then [ freeze ] else
     throw
     "“freeze” argument needs to be either a boolean, or a version string.";
   updateScript = writeScript "gnome-update-script" ''
@@ -93,7 +94,12 @@ let
   '';
 in {
   name = "gnome-update-script";
-  command = [ updateScript attrPath packageName packageVersion versionPolicy ]
-    ++ upperBound;
+  command = [
+    updateScript
+    attrPath
+    packageName
+    packageVersion
+    versionPolicy
+  ] ++ upperBound;
   supportedFeatures = [ "commit" ];
 }

@@ -16,8 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "VIvZ28MVnTSQru6l8flLVVqIIpxxXD8lCqzH81sPe/U=";
   };
 
-  buildInputs =
-    [ (perl.withPackages (ps: with ps; [ LWP LWPProtocolHttps CryptSSLeay ])) ];
+  buildInputs = [ (perl.withPackages (ps:
+    with ps; [
+      LWP
+      LWPProtocolHttps
+      CryptSSLeay
+    ])) ];
 
   installPhase = ''
     runHook preInstall

@@ -23,8 +23,14 @@ stdenv.mkDerivation {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ cmake perl ];
-  buildInputs = [ libubox json_c ];
+  nativeBuildInputs = [
+    cmake
+    perl
+  ];
+  buildInputs = [
+    libubox
+    json_c
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals
     (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [

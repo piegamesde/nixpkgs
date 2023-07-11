@@ -76,11 +76,22 @@ let
 in {
   imports = [
     # Migrations in NixOS 22.05
-    (mkRemovedOptionModule [ "services" "home-assistant" "applyDefaultConfig" ]
-      "The default config was migrated into services.home-assistant.config")
-    (mkRemovedOptionModule [ "services" "home-assistant" "autoExtraComponents" ]
+    (mkRemovedOptionModule [
+      "services"
+      "home-assistant"
+      "applyDefaultConfig"
+    ] "The default config was migrated into services.home-assistant.config")
+    (mkRemovedOptionModule [
+      "services"
+      "home-assistant"
+      "autoExtraComponents"
+    ]
       "Components are now parsed from services.home-assistant.config unconditionally")
-    (mkRenamedOptionModule [ "services" "home-assistant" "port" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "home-assistant"
+      "port"
+    ] [
       "services"
       "home-assistant"
       "config"
@@ -194,7 +205,10 @@ in {
             };
 
             unit_system = mkOption {
-              type = types.nullOr (types.enum [ "metric" "imperial" ]);
+              type = types.nullOr (types.enum [
+                "metric"
+                "imperial"
+              ]);
               default = null;
               example = "metric";
               description = lib.mdDoc ''
@@ -203,7 +217,10 @@ in {
             };
 
             temperature_unit = mkOption {
-              type = types.nullOr (types.enum [ "C" "F" ]);
+              type = types.nullOr (types.enum [
+                "C"
+                "F"
+              ]);
               default = null;
               example = "C";
               description = lib.mdDoc ''
@@ -228,7 +245,10 @@ in {
             # https://www.home-assistant.io/integrations/http/
             server_host = mkOption {
               type = types.either types.str (types.listOf types.str);
-              default = [ "0.0.0.0" "::" ];
+              default = [
+                "0.0.0.0"
+                "::"
+              ];
               example = "::1";
               description = lib.mdDoc ''
                 Only listen to incoming requests on specific IP/host. The default listed assumes support for IPv4 and IPv6.
@@ -247,7 +267,10 @@ in {
           lovelace = {
             # https://www.home-assistant.io/lovelace/dashboards/
             mode = mkOption {
-              type = types.enum [ "yaml" "storage" ];
+              type = types.enum [
+                "yaml"
+                "storage"
+              ];
               default =
                 if cfg.lovelaceConfig != null then "yaml" else "storage";
               defaultText = literalExpression ''
@@ -378,10 +401,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = cfg.openFirewall -> cfg.config != null;
       message = "openFirewall can only be used with a declarative config";
-    }];
+    } ];
 
     networking.firewall.allowedTCPPorts =
       mkIf cfg.openFirewall [ cfg.config.http.server_port ];
@@ -576,28 +599,35 @@ in {
         RemoveIPC = true;
         ReadWritePaths = let
           # Allow rw access to explicitly configured paths
-          cfgPath = [ "config" "homeassistant" "allowlist_external_dirs" ];
+          cfgPath = [
+            "config"
+            "homeassistant"
+            "allowlist_external_dirs"
+          ];
           value = attrByPath cfgPath [ ] cfg;
           allowPaths = if isList value then value else singleton value;
         in [ "${cfg.configDir}" ] ++ allowPaths;
-        RestrictAddressFamilies =
-          [ "AF_INET" "AF_INET6" "AF_NETLINK" "AF_UNIX" ]
-          ++ optionals (any useComponent componentsUsingBluetooth)
-          [ "AF_BLUETOOTH" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+          "AF_UNIX"
+        ] ++ optionals
+          (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        SupplementaryGroups =
-          optionals (any useComponent componentsUsingSerialDevices)
-          [ "dialout" ];
+        SupplementaryGroups = optionals
+          (any useComponent componentsUsingSerialDevices) [ "dialout" ];
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ]
-          ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
         UMask = "0077";
       };
-      path = [
-        "/run/wrappers" # needed for ping
-      ];
+      path = [ "/run/wrappers" # needed for ping
+        ];
     };
 
     systemd.targets.home-assistant = rec {

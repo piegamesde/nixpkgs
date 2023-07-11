@@ -23,8 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "10cq27mdgrrc54a40al9ahi0wqd0p2c1wxbdg518q8pzfxaxs5fi";
   };
 
-  nativeBuildInputs = [ autoconf automake pkg-config ];
-  buildInputs = [ fftwFloat libjack2 libsigcxx libxml2 wxGTK ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    pkg-config
+  ];
+  buildInputs = [
+    fftwFloat
+    libjack2
+    libsigcxx
+    libxml2
+    wxGTK
+  ];
 
   preConfigure = ''
     sh autogen.sh

@@ -24,10 +24,19 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ autoreconfHook which pkg-config gtk-doc gobject-introspection ];
+  nativeBuildInputs = [
+    autoreconfHook
+    which
+    pkg-config
+    gtk-doc
+    gobject-introspection
+  ];
 
-  buildInputs = [ libxcb json-glib xorgproto ];
+  buildInputs = [
+    libxcb
+    json-glib
+    xorgproto
+  ];
 
   preAutoreconf = ''
     gtkdocize

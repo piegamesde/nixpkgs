@@ -19,7 +19,12 @@ in stdenv.mkDerivation rec {
   pname = "vkd3d-proton";
   version = "unstable-2023-04-21";
 
-  nativeBuildInputs = [ meson ninja wine glslang ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    wine
+    glslang
+  ];
 
   src = fetchFromGitHub {
     owner = "HansKristian-Work";

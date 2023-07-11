@@ -24,9 +24,17 @@ buildDunePackage rec {
     sha256 = "0b7czgh08i6xcx3fsz6vd19sfyngwi0i27jdzg8cnjgrgwnagv6d";
   };
 
-  propagatedBuildInputs = [ lwt logs fmt cstruct ];
+  propagatedBuildInputs = [
+    lwt
+    logs
+    fmt
+    cstruct
+  ];
 
-  buildInputs = [ cmdliner xmlm ];
+  buildInputs = [
+    cmdliner
+    xmlm
+  ];
 
   checkInputs = [ alcotest-lwt ];
   doCheck = true;

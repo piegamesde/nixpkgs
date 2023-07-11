@@ -29,8 +29,11 @@ in rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional (!isCross) help2man;
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ libiconv Security CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+    CoreServices
+  ];
 
   # When we cross compile we cannot run the output executable to
   # generate the man page
@@ -47,7 +50,10 @@ in rustPlatform.buildRustPackage rec {
     description = "An implementation of the Language Server Protocol for LaTeX";
     homepage = "https://github.com/latex-lsp/texlab";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar kira-bruneau ];
+    maintainers = with maintainers; [
+      doronbehar
+      kira-bruneau
+    ];
     platforms = platforms.all;
   };
 }

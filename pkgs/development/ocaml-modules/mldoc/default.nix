@@ -43,10 +43,23 @@ in buildDunePackage rec {
     hash = "sha256-FiBlgTTGL5TQkbhpkOCKtBgDDxDs4S88Ps+XAHcNsJ4=";
   };
 
-  buildInputs =
-    [ cmdliner core core_bench core_unix js_of_ocaml js_of_ocaml-ppx lwt ];
+  buildInputs = [
+    cmdliner
+    core
+    core_bench
+    core_unix
+    js_of_ocaml
+    js_of_ocaml-ppx
+    lwt
+  ];
 
-  propagatedBuildInputs = [ angstrom' uri' yojson ppx_deriving_yojson xmlm ];
+  propagatedBuildInputs = [
+    angstrom'
+    uri'
+    yojson
+    ppx_deriving_yojson
+    xmlm
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/logseq/mldoc";

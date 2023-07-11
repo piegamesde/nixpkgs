@@ -27,7 +27,13 @@ stdenv.mkDerivation rec {
         --replace g++ c++
   '';
 
-  nativeBuildInputs = [ unzip zip perl aspell dos2unix ];
+  nativeBuildInputs = [
+    unzip
+    zip
+    perl
+    aspell
+    dos2unix
+  ];
   buildInputs = lib.optional (!stdenv.isLinux) libiconv;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";

@@ -11,8 +11,12 @@ let
   cfg = config.services.sshguard;
 
   configFile = let
-    args = lib.concatStringsSep " " ([ "-afb" "-p info" "-o cat" "-n1" ]
-      ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
+    args = lib.concatStringsSep " " ([
+      "-afb"
+      "-p info"
+      "-o cat"
+      "-n1"
+    ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
     backend = if config.networking.nftables.enable then
       "sshg-fw-nft-sets"
     else
@@ -80,7 +84,10 @@ in {
 
       whitelist = mkOption {
         default = [ ];
-        example = [ "198.51.100.56" "198.51.100.2" ];
+        example = [
+          "198.51.100.56"
+          "198.51.100.2"
+        ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Whitelist a list of addresses, hostnames, or address blocks.
@@ -89,7 +96,10 @@ in {
 
       services = mkOption {
         default = [ "sshd" ];
-        example = [ "sshd" "exim" ];
+        example = [
+          "sshd"
+          "exim"
+        ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Systemd services sshguard should receive logs of.

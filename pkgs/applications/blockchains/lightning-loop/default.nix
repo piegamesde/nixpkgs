@@ -17,12 +17,18 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-6bRg6is1g/eRCr82tHMXTWVFv2S0d2h/J3w1gpentjo=";
 
-  subPackages = [ "cmd/loop" "cmd/loopd" ];
+  subPackages = [
+    "cmd/loop"
+    "cmd/loopd"
+  ];
 
   meta = with lib; {
     description = "Lightning Loop Client";
     homepage = "https://github.com/lightninglabs/loop";
     license = licenses.mit;
-    maintainers = with maintainers; [ proofofkeags prusnak ];
+    maintainers = with maintainers; [
+      proofofkeags
+      prusnak
+    ];
   };
 }

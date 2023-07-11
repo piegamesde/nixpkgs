@@ -35,8 +35,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ dos2unix ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 
-  buildInputs = [ zlib ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib libjack2 ];
+  buildInputs = [ zlib ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    alsa-lib
+    libjack2
+  ];
 
   enableParallelBuilding = true;
 

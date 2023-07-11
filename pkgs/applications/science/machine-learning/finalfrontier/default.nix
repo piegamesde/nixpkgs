@@ -23,10 +23,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-C/D9EPfifyajrCyXE8w/qRuzWEoyJJIcj4xii94/9l4=";
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   postInstall = ''
     installManPage man/*.1

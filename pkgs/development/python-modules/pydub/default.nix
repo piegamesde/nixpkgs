@@ -23,7 +23,11 @@ buildPythonPackage rec {
     sha256 = "0xskllq66wqndjfmvp58k26cv3w480sqsil6ifwp4gghir7hqc8m";
   };
 
-  pythonImportsCheck = [ "pydub" "pydub.audio_segment" "pydub.playback" ];
+  pythonImportsCheck = [
+    "pydub"
+    "pydub.audio_segment"
+    "pydub.playback"
+  ];
 
   nativeCheckInputs = [ ffmpeg-full ];
 

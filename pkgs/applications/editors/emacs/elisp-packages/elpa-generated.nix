@@ -57,7 +57,12 @@
         url = "https://elpa.gnu.org/packages/ada-mode-8.0.5.tar";
         sha256 = "00baypl9bv2z42d6z2k531ai25yw2aj1dcv4pi1jhcp19c9kjg4l";
       };
-      packageRequires = [ emacs gnat-compiler uniquify-files wisi ];
+      packageRequires = [
+        emacs
+        gnat-compiler
+        uniquify-files
+        wisi
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ada-mode.html";
         license = lib.licenses.free;
@@ -469,7 +474,10 @@
         url = "https://elpa.gnu.org/packages/avy-0.5.0.tar";
         sha256 = "1xfcml38qmrwdd0rkhwrvv2s7dbznwhk3vy9pjd6ljpg22wkb80d";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/avy.html";
         license = lib.licenses.free;
@@ -490,7 +498,10 @@
         url = "https://elpa.gnu.org/packages/bbdb-3.2.2.2.tar";
         sha256 = "0bf20r5xhxln6z4qp8zrlln0303dkci2ydsr74pxcj08aqgk5xxf";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/bbdb.html";
         license = lib.licenses.free;
@@ -589,7 +600,10 @@
         url = "https://elpa.gnu.org/packages/bluetooth-0.3.1.tar";
         sha256 = "1p10kcim5wqnbj2kiqv6hgjkzznaa48qysnnf8ym90mylsczr70z";
       };
-      packageRequires = [ dash emacs ];
+      packageRequires = [
+        dash
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/bluetooth.html";
         license = lib.licenses.free;
@@ -610,7 +624,10 @@
         url = "https://elpa.gnu.org/packages/bnf-mode-0.4.5.tar";
         sha256 = "0bj5ffqi54cdrraj5bp4v2cpbxjzly1p467dx1hzrlwv2b1svy2y";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/bnf-mode.html";
         license = lib.licenses.free;
@@ -652,7 +669,11 @@
         url = "https://elpa.gnu.org/packages/boxy-headings-2.1.4.tar";
         sha256 = "101kiw10p0sd8j8px16zsw57my7h2f1anhnwj678z22hxhs8vla7";
       };
-      packageRequires = [ boxy emacs org ];
+      packageRequires = [
+        boxy
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/boxy-headings.html";
         license = lib.licenses.free;
@@ -673,7 +694,10 @@
         url = "https://elpa.gnu.org/packages/brief-5.88.22.2.tar";
         sha256 = "1i4sdm8kcrazzp22gb4hi1gd4lfq6hdh6pnldmi1zjjyhl1gbzn3";
       };
-      packageRequires = [ cl-lib nadvice ];
+      packageRequires = [
+        cl-lib
+        nadvice
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/brief.html";
         license = lib.licenses.free;
@@ -694,7 +718,10 @@
         url = "https://elpa.gnu.org/packages/buffer-env-0.4.tar";
         sha256 = "0y8ik87dqldhn6q631zp2ln9z5byqgm9icrvr4xrdx6g8mr9c56z";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/buffer-env.html";
         license = lib.licenses.free;
@@ -715,7 +742,10 @@
         url = "https://elpa.gnu.org/packages/buffer-expose-0.4.3.el";
         sha256 = "1blpvan31mvqhzal16sdn564jnfnn7xsfn8zb65ijndh23drljwd";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/buffer-expose.html";
         license = lib.licenses.free;
@@ -736,7 +766,10 @@
         url = "https://elpa.gnu.org/packages/bug-hunter-1.3.1.tar";
         sha256 = "0cgwq8b6jglbg9ydvf80ijgbbccrks3yb9af46sdd6aqdmvdlx21";
       };
-      packageRequires = [ cl-lib seq ];
+      packageRequires = [
+        cl-lib
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/bug-hunter.html";
         license = lib.licenses.free;
@@ -757,7 +790,10 @@
         url = "https://elpa.gnu.org/packages/cape-0.15.tar";
         sha256 = "1gy99a7zg8kbh7f4fqqq7cpwjmq7af066m6z6c1wrv438sfsd3kz";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/cape.html";
         license = lib.licenses.free;
@@ -1013,7 +1049,10 @@
         url = "https://elpa.gnu.org/packages/company-ebdb-1.1.el";
         sha256 = "146qpiigz12zp1823ggxfrx090g0mxs7gz1ba7sa0iq6ibgzwwm9";
       };
-      packageRequires = [ company ebdb ];
+      packageRequires = [
+        company
+        ebdb
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/company-ebdb.html";
         license = lib.licenses.free;
@@ -1034,7 +1073,10 @@
         url = "https://elpa.gnu.org/packages/company-math-1.5.1.tar";
         sha256 = "1inib2ywb4ycr9hxgrzyffqi0jnrpjsn52bkwlsqyzgfxr5n4qsw";
       };
-      packageRequires = [ company math-symbol-lists ];
+      packageRequires = [
+        company
+        math-symbol-lists
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/company-math.html";
         license = lib.licenses.free;
@@ -1055,7 +1097,10 @@
         url = "https://elpa.gnu.org/packages/company-statistics-0.2.3.tar";
         sha256 = "0780xp09f739jys469x4fqpgj1lysi8gnhiaz0735jib07lmh4ww";
       };
-      packageRequires = [ company emacs ];
+      packageRequires = [
+        company
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/company-statistics.html";
         license = lib.licenses.free;
@@ -1076,7 +1121,10 @@
         url = "https://elpa.gnu.org/packages/compat-29.1.4.1.tar";
         sha256 = "1r8laxmdyrpz4nmzjrndd668bks4fgmbya04m0bfzwvhlrsca940";
       };
-      packageRequires = [ emacs seq ];
+      packageRequires = [
+        emacs
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/compat.html";
         license = lib.licenses.free;
@@ -1097,7 +1145,10 @@
         url = "https://elpa.gnu.org/packages/consult-0.34.tar";
         sha256 = "12dljbs0x5gbayibzb0mb3bn78wlfx9078b8l0fyfpvbhd9lxhfl";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/consult.html";
         license = lib.licenses.free;
@@ -1118,7 +1169,10 @@
         url = "https://elpa.gnu.org/packages/consult-recoll-0.8.tar";
         sha256 = "02vg1rr2fkcqrrivqgggdjdq0ywvlyzazwq1xd02yah3j4sbv4ag";
       };
-      packageRequires = [ consult emacs ];
+      packageRequires = [
+        consult
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/consult-recoll.html";
         license = lib.licenses.free;
@@ -1159,7 +1213,10 @@
         url = "https://elpa.gnu.org/packages/corfu-0.36.tar";
         sha256 = "15ysg54rallbdx6la8q8yjdj9rag91wkga8agrwf0xh7pp3nij9d";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/corfu.html";
         license = lib.licenses.free;
@@ -1180,7 +1237,10 @@
         url = "https://elpa.gnu.org/packages/coterm-1.6.tar";
         sha256 = "0ikfm1acdsckflv1hcy9lmssyac2099x2yybhvb6vkghcgy99p00";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/coterm.html";
         license = lib.licenses.free;
@@ -1202,7 +1262,11 @@
         url = "https://elpa.gnu.org/packages/counsel-0.14.0.tar";
         sha256 = "03n1qk66dcbh9xlnlzpwkb441c2xdpfc7bzx4i2szw0xh4a6g5sj";
       };
-      packageRequires = [ emacs ivy swiper ];
+      packageRequires = [
+        emacs
+        ivy
+        swiper
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/counsel.html";
         license = lib.licenses.free;
@@ -1320,7 +1384,10 @@
         url = "https://elpa.gnu.org/packages/csv-mode-1.22.tar";
         sha256 = "1f9pny1hkhdfmkmfpsk6ayjmb9p5hdpxpnmcprf51nfbvmi7ssig";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/csv-mode.html";
         license = lib.licenses.free;
@@ -1440,7 +1507,10 @@
         url = "https://elpa.gnu.org/packages/debbugs-0.35.tar";
         sha256 = "1w6y02ikjshfk12sdgbryfgj2z4yia2mpifa7g13ab7v9phpqpl1";
       };
-      packageRequires = [ emacs soap-client ];
+      packageRequires = [
+        emacs
+        soap-client
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/debbugs.html";
         license = lib.licenses.free;
@@ -1461,7 +1531,10 @@
         url = "https://elpa.gnu.org/packages/delight-1.7.el";
         sha256 = "0pihsghrf9xnd1kqlq48qmjcmp5ra95wwwgrb3l8m1wagmmc0bi1";
       };
-      packageRequires = [ cl-lib nadvice ];
+      packageRequires = [
+        cl-lib
+        nadvice
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/delight.html";
         license = lib.licenses.free;
@@ -1502,7 +1575,10 @@
         url = "https://elpa.gnu.org/packages/denote-menu-1.1.1.tar";
         sha256 = "12ry0rv45hv1vrwx9wih72s9h0f3r18xssnkzfa9ilp77kgbas5q";
       };
-      packageRequires = [ denote emacs ];
+      packageRequires = [
+        denote
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/denote-menu.html";
         license = lib.licenses.free;
@@ -1564,7 +1640,11 @@
         url = "https://elpa.gnu.org/packages/dict-tree-0.16.tar";
         sha256 = "1myf26g3jjk2v8yp3k2n8m45vi20452wd7w2bja8csfkk0qx3300";
       };
-      packageRequires = [ heap tNFA trie ];
+      packageRequires = [
+        heap
+        tNFA
+        trie
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/dict-tree.html";
         license = lib.licenses.free;
@@ -1585,7 +1665,10 @@
         url = "https://elpa.gnu.org/packages/diff-hl-1.9.2.tar";
         sha256 = "1avpqwrxhbx8zxwghc8714rcdfhc15b5chq2ixb366ml8xdmvhck";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/diff-hl.html";
         license = lib.licenses.free;
@@ -1645,7 +1728,10 @@
         url = "https://elpa.gnu.org/packages/dired-du-0.5.2.tar";
         sha256 = "0vhph7vcicsiq28b10h3b4dvnhckcy4gccpdgsad5j7pwa5k26m1";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/dired-du.html";
         license = lib.licenses.free;
@@ -1706,7 +1792,10 @@
         url = "https://elpa.gnu.org/packages/dismal-1.5.2.tar";
         sha256 = "0pl5cnziilm4ps1xzh1fa8irazn7vcp9nsxnxcvjqbkflpcpq5c7";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/dismal.html";
         license = lib.licenses.free;
@@ -1824,7 +1913,10 @@
         url = "https://elpa.gnu.org/packages/easy-kill-0.9.5.tar";
         sha256 = "0h8rzd23sgkj3vxnyhis9iyq8n3xqp9x1mvxlm61s6wwj9j398j6";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/easy-kill.html";
         license = lib.licenses.free;
@@ -1845,7 +1937,10 @@
         url = "https://elpa.gnu.org/packages/ebdb-0.8.17.tar";
         sha256 = "0d2csc7b4mhaqcj8g3v46j11f5xcvbvgx06wxxfq2w0p2nzz1sik";
       };
-      packageRequires = [ emacs seq ];
+      packageRequires = [
+        emacs
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ebdb.html";
         license = lib.licenses.free;
@@ -1866,7 +1961,10 @@
         url = "https://elpa.gnu.org/packages/ebdb-gnorb-1.0.2.el";
         sha256 = "0bma7mqilp3lfgv0z2mk6nnqzh1nn1prkz2aiwrs4hxwydmda13i";
       };
-      packageRequires = [ ebdb gnorb ];
+      packageRequires = [
+        ebdb
+        gnorb
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ebdb-gnorb.html";
         license = lib.licenses.free;
@@ -1887,7 +1985,10 @@
         url = "https://elpa.gnu.org/packages/ebdb-i18n-chn-1.3.2.tar";
         sha256 = "06ii9xi2y157vfbhx75mn80ash22d1xgcyp9kzz1s0lkxwlv74zj";
       };
-      packageRequires = [ ebdb pyim ];
+      packageRequires = [
+        ebdb
+        pyim
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ebdb-i18n-chn.html";
         license = lib.licenses.free;
@@ -1973,8 +2074,16 @@
         url = "https://elpa.gnu.org/packages/eglot-1.14.tar";
         sha256 = "0aw28gdx90k87czxf436r9bva58bal55cdnp90ga36c89wzdjznj";
       };
-      packageRequires =
-        [ eldoc emacs external-completion flymake jsonrpc project seq xref ];
+      packageRequires = [
+        eldoc
+        emacs
+        external-completion
+        flymake
+        jsonrpc
+        project
+        seq
+        xref
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/eglot.html";
         license = lib.licenses.free;
@@ -1996,7 +2105,11 @@
         url = "https://elpa.gnu.org/packages/el-search-1.12.6.1.tar";
         sha256 = "150f4rirg107hmzpv8ifa32k2mgf07smbf9z44ln5rh8n17xwqah";
       };
-      packageRequires = [ cl-print emacs stream ];
+      packageRequires = [
+        cl-print
+        emacs
+        stream
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/el-search.html";
         license = lib.licenses.free;
@@ -2094,7 +2207,10 @@
         url = "https://elpa.gnu.org/packages/embark-0.22.1.tar";
         sha256 = "0dxbvrp057a0kyydnf8vfwnf4m3q3jy4180agcmizlr64lm2pmh1";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/embark.html";
         license = lib.licenses.free;
@@ -2116,7 +2232,11 @@
         url = "https://elpa.gnu.org/packages/embark-consult-0.7.tar";
         sha256 = "12b8p2f1bpy43jzjz3ask9h38z23hq4nxkid5dljnpmvf31d8x9c";
       };
-      packageRequires = [ consult emacs embark ];
+      packageRequires = [
+        consult
+        emacs
+        embark
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/embark-consult.html";
         license = lib.licenses.free;
@@ -2143,8 +2263,16 @@
         url = "https://elpa.gnu.org/packages/ement-0.8.3.tar";
         sha256 = "074ah73y2v285rlgzn3q2kcqmbra2qdz4hmjs8xd5hpk7za53c7w";
       };
-      packageRequires =
-        [ emacs map persist plz svg-lib taxy taxy-magit-section transient ];
+      packageRequires = [
+        emacs
+        map
+        persist
+        plz
+        svg-lib
+        taxy
+        taxy-magit-section
+        transient
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ement.html";
         license = lib.licenses.free;
@@ -2166,7 +2294,11 @@
         url = "https://elpa.gnu.org/packages/emms-15.tar";
         sha256 = "0kd9qx93cgcxyqsnbp95xx414s08rd5bb35aif3c7qyab5w05yi6";
       };
-      packageRequires = [ cl-lib nadvice seq ];
+      packageRequires = [
+        cl-lib
+        nadvice
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/emms.html";
         license = lib.licenses.free;
@@ -2246,7 +2378,10 @@
         url = "https://elpa.gnu.org/packages/erc-5.5.tar";
         sha256 = "02649ijnpyalk0k1yq1dcinj92awhbnkia2x9sdb9xjk80xw1gqp";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/erc.html";
         license = lib.licenses.free;
@@ -2268,7 +2403,11 @@
         url = "https://elpa.gnu.org/packages/ergoemacs-mode-5.16.10.12.tar";
         sha256 = "1zfzjmi30lllrbyzicmp11c9lpa82g57wi134q9bajvzn9ryx4jr";
       };
-      packageRequires = [ cl-lib emacs undo-tree ];
+      packageRequires = [
+        cl-lib
+        emacs
+        undo-tree
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ergoemacs-mode.html";
         license = lib.licenses.free;
@@ -2293,7 +2432,14 @@
         url = "https://elpa.gnu.org/packages/excorporate-1.0.0.tar";
         sha256 = "1g0wc2kp15ra323b4rxvdh58q9c4h7m20grw6a0cs53m7l9xi62f";
       };
-      packageRequires = [ cl-lib emacs fsm nadvice soap-client url-http-ntlm ];
+      packageRequires = [
+        cl-lib
+        emacs
+        fsm
+        nadvice
+        soap-client
+        url-http-ntlm
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/excorporate.html";
         license = lib.licenses.free;
@@ -2411,7 +2557,10 @@
         url = "https://elpa.gnu.org/packages/flylisp-0.2.el";
         sha256 = "0hh09qy1xwlv52lsh49nr11h4lk8qlmk06b669q494d79hxyv4v6";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/flylisp.html";
         license = lib.licenses.free;
@@ -2433,7 +2582,11 @@
         url = "https://elpa.gnu.org/packages/flymake-1.3.4.tar";
         sha256 = "0gm08rj83if9cs0jz7zig363zfqp809j6lgaqdb0apzh48fbznkd";
       };
-      packageRequires = [ eldoc emacs project ];
+      packageRequires = [
+        eldoc
+        emacs
+        project
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/flymake.html";
         license = lib.licenses.free;
@@ -2514,7 +2667,11 @@
         url = "https://elpa.gnu.org/packages/frog-menu-0.2.11.el";
         sha256 = "06iw11z61fd0g4w3562k3smcmzaq3nivvvc6gzm8y8k5pcrqzdff";
       };
-      packageRequires = [ avy emacs posframe ];
+      packageRequires = [
+        avy
+        emacs
+        posframe
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/frog-menu.html";
         license = lib.licenses.free;
@@ -2535,7 +2692,10 @@
         url = "https://elpa.gnu.org/packages/fsm-0.2.1.el";
         sha256 = "1jyxyqdbfl8nv7c50q0sg3w5p7whp1sqgi7w921k5hfar4d11qqp";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/fsm.html";
         license = lib.licenses.free;
@@ -2616,7 +2776,10 @@
         url = "https://elpa.gnu.org/packages/gited-0.6.0.tar";
         sha256 = "187asqrxfpxv53hhnrcid1sy46vcy07qx5yqgnrczi54jpcc57j5";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/gited.html";
         license = lib.licenses.free;
@@ -2657,7 +2820,10 @@
         url = "https://elpa.gnu.org/packages/gnat-compiler-1.0.2.tar";
         sha256 = "1cwjv1ziw5hjnk493vwwg25bnvy98wcryy0c4gknl1xp5qr2qxdg";
       };
-      packageRequires = [ emacs wisi ];
+      packageRequires = [
+        emacs
+        wisi
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/gnat-compiler.html";
         license = lib.licenses.free;
@@ -2757,7 +2923,11 @@
         url = "https://elpa.gnu.org/packages/gnugo-3.1.2.tar";
         sha256 = "138gzdyi8scqimvs49da66j8f5a43bhgpasn1bxzdj2zffwlwp6g";
       };
-      packageRequires = [ ascii-art-to-unicode cl-lib xpm ];
+      packageRequires = [
+        ascii-art-to-unicode
+        cl-lib
+        xpm
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/gnugo.html";
         license = lib.licenses.free;
@@ -2818,7 +2988,11 @@
         url = "https://elpa.gnu.org/packages/gpr-mode-1.0.3.tar";
         sha256 = "0m93szqyh9dd73z2pygvacg42n3siiy8pji3yzg1ynji859bc3b8";
       };
-      packageRequires = [ emacs gnat-compiler wisi ];
+      packageRequires = [
+        emacs
+        gnat-compiler
+        wisi
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/gpr-mode.html";
         license = lib.licenses.free;
@@ -2840,7 +3014,11 @@
         url = "https://elpa.gnu.org/packages/gpr-query-1.0.3.tar";
         sha256 = "13h8hl2g55mbaz95k9jfcvz718rv4vli9wccr3rr7cb7yfvn4c5j";
       };
-      packageRequires = [ emacs gnat-compiler wisi ];
+      packageRequires = [
+        emacs
+        gnat-compiler
+        wisi
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/gpr-query.html";
         license = lib.licenses.free;
@@ -2941,7 +3119,11 @@
         url = "https://elpa.gnu.org/packages/guess-language-0.0.1.el";
         sha256 = "11a6m2337j4ncppaf59yr2vavvvsph2qh51d12zmq58g9wh3d7wz";
       };
-      packageRequires = [ cl-lib emacs nadvice ];
+      packageRequires = [
+        cl-lib
+        emacs
+        nadvice
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/guess-language.html";
         license = lib.licenses.free;
@@ -3080,7 +3262,10 @@
         url = "https://elpa.gnu.org/packages/hydra-0.15.0.tar";
         sha256 = "1mppx20920kfq97wd7mkrn4bcmm46k5m8wqm49asd54w701iq3n1";
       };
-      packageRequires = [ cl-lib lv ];
+      packageRequires = [
+        cl-lib
+        lv
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/hydra.html";
         license = lib.licenses.free;
@@ -3160,7 +3345,10 @@
         url = "https://elpa.gnu.org/packages/ioccur-2.6.tar";
         sha256 = "0k7nr73gmd0z5zqkwdacvfsmyflri3f15a15zpr7va28pnxqzsdk";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ioccur.html";
         license = lib.licenses.free;
@@ -3242,7 +3430,11 @@
         url = "https://elpa.gnu.org/packages/ivy-avy-0.14.0.tar";
         sha256 = "0gjpvjahhkxsakqrcni78v71fsrh3f0jrs55a4kqc5hv6qyn8hk9";
       };
-      packageRequires = [ avy emacs ivy ];
+      packageRequires = [
+        avy
+        emacs
+        ivy
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ivy-avy.html";
         license = lib.licenses.free;
@@ -3263,7 +3455,10 @@
         url = "https://elpa.gnu.org/packages/ivy-explorer-0.3.2.el";
         sha256 = "0q9gy9w22hnq30bfmnpqknk0qc1rcbjcybpjgb8hnlldvcci95l7";
       };
-      packageRequires = [ emacs ivy ];
+      packageRequires = [
+        emacs
+        ivy
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ivy-explorer.html";
         license = lib.licenses.free;
@@ -3285,7 +3480,11 @@
         url = "https://elpa.gnu.org/packages/ivy-hydra-0.14.0.tar";
         sha256 = "1gsjr2yny9qcj56cb4xy47la11z0lszq0f2qws0yzyh02ng30k1n";
       };
-      packageRequires = [ emacs hydra ivy ];
+      packageRequires = [
+        emacs
+        hydra
+        ivy
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ivy-hydra.html";
         license = lib.licenses.free;
@@ -3307,7 +3506,11 @@
         url = "https://elpa.gnu.org/packages/ivy-posframe-0.6.3.tar";
         sha256 = "0b498qzaydjrhplx4d7zcrs883dlrhfiz812sv4m3pmhfwifcchh";
       };
-      packageRequires = [ emacs ivy posframe ];
+      packageRequires = [
+        emacs
+        ivy
+        posframe
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/ivy-posframe.html";
         license = lib.licenses.free;
@@ -3387,7 +3590,10 @@
         url = "https://elpa.gnu.org/packages/jinx-0.7.tar";
         sha256 = "0kfi5sjzrbxkbcql3h5qi0gd4dsbrxbjg5wldid8vjgqm9cnzvw4";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/jinx.html";
         license = lib.licenses.free;
@@ -3408,7 +3614,10 @@
         url = "https://elpa.gnu.org/packages/jit-spell-0.3.tar";
         sha256 = "0q8wd9phd0zcjhc92j633vz82fr0ji8zc9vir7kcn1msrf6jspwz";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/jit-spell.html";
         license = lib.licenses.free;
@@ -3429,7 +3638,10 @@
         url = "https://elpa.gnu.org/packages/js2-mode-20230408.tar";
         sha256 = "1rzlbqddvaa51dz13did5ylj0ggwqnl0wii8735sylfcv6b82241";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/js2-mode.html";
         license = lib.licenses.free;
@@ -3509,7 +3721,10 @@
         url = "https://elpa.gnu.org/packages/kind-icon-0.2.0.tar";
         sha256 = "1vgwbd99vx793iy04albkxl24c7vq598s7bg0raqwmgx84abww6r";
       };
-      packageRequires = [ emacs svg-lib ];
+      packageRequires = [
+        emacs
+        svg-lib
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/kind-icon.html";
         license = lib.licenses.free;
@@ -3530,7 +3745,10 @@
         url = "https://elpa.gnu.org/packages/kiwix-1.1.5.tar";
         sha256 = "17k4aa8s9m24c572qvl5a481iw9ny6wmd5yrg47iv4d2lb2i13h2";
       };
-      packageRequires = [ emacs request ];
+      packageRequires = [
+        emacs
+        request
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/kiwix.html";
         license = lib.licenses.free;
@@ -3669,7 +3887,10 @@
         url = "https://elpa.gnu.org/packages/lmc-1.4.el";
         sha256 = "0fm4sclx9gg0d0615smz105x320sk45y4ivpjk3nbc67c5l0sh2h";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/lmc.html";
         license = lib.licenses.free;
@@ -3847,7 +4068,10 @@
         url = "https://elpa.gnu.org/packages/marginalia-1.2.tar";
         sha256 = "1hhq09ghc8pcphgjhp5mc81i7j4xkkf5sc0swd6xr6mrxd044fnj";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/marginalia.html";
         license = lib.licenses.free;
@@ -3985,7 +4209,10 @@
         url = "https://elpa.gnu.org/packages/mines-1.6.tar";
         sha256 = "1199s1v4my0qpvc5aaxzbqayjn59vilxbqnywvyhvm7hz088aps2";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/mines.html";
         license = lib.licenses.free;
@@ -4064,7 +4291,10 @@
         url = "https://elpa.gnu.org/packages/mmm-mode-0.5.9.tar";
         sha256 = "12fss1ccb66xc87m5wpr3vg7bfrzz5m0q6s7pa0avvhsm2f8r2yh";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/mmm-mode.html";
         license = lib.licenses.free;
@@ -4223,7 +4453,11 @@
         url = "https://elpa.gnu.org/packages/names-20151201.0.tar";
         sha256 = "13smsf039x4yd7pzvllgn1vz8lhkwghnhip9y2bka38vk37w912d";
       };
-      packageRequires = [ cl-lib emacs nadvice ];
+      packageRequires = [
+        cl-lib
+        emacs
+        nadvice
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/names.html";
         license = lib.licenses.free;
@@ -4324,7 +4558,10 @@
         url = "https://elpa.gnu.org/packages/nhexl-mode-1.5.el";
         sha256 = "0qvxfg7sv4iqyjxzaim6b4v9k5hav36qd4vkf9jwzw6p5fri8w8d";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/nhexl-mode.html";
         license = lib.licenses.free;
@@ -4441,7 +4678,10 @@
         url = "https://elpa.gnu.org/packages/oauth2-0.16.tar";
         sha256 = "1rzly2nwjywrfgcmp8zidbmjl2ahyd8l8507lb1mxm4xqryvf316";
       };
-      packageRequires = [ cl-lib nadvice ];
+      packageRequires = [
+        cl-lib
+        nadvice
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/oauth2.html";
         license = lib.licenses.free;
@@ -4481,7 +4721,10 @@
         url = "https://elpa.gnu.org/packages/objed-0.8.3.tar";
         sha256 = "1s38d6bvggdk5p45ww1jb4gxifzgjwgw1m6ar920nlg0j4fgbcvr";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/objed.html";
         license = lib.licenses.free;
@@ -4601,7 +4844,10 @@
         url = "https://elpa.gnu.org/packages/org-contacts-1.1.tar";
         sha256 = "1kzdw9kbnpryxdb9ywh2va4nnjcxw6asszf5n7a95rw2gl6m3l10";
       };
-      packageRequires = [ emacs org ];
+      packageRequires = [
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-contacts.html";
         license = lib.licenses.free;
@@ -4623,7 +4869,11 @@
         url = "https://elpa.gnu.org/packages/org-edna-1.1.2.tar";
         sha256 = "1a022ssqpxbkp03n2bij78srwjx7kacpsgj9a6wbm0yn946hgjpz";
       };
-      packageRequires = [ emacs org seq ];
+      packageRequires = [
+        emacs
+        org
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-edna.html";
         license = lib.licenses.free;
@@ -4644,7 +4894,10 @@
         url = "https://elpa.gnu.org/packages/org-modern-0.9.tar";
         sha256 = "1aq02w1mbqfx370d18a21w6jhnwad55v73yhlvqyghkh1xdi3h0j";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-modern.html";
         license = lib.licenses.free;
@@ -4686,7 +4939,11 @@
         url = "https://elpa.gnu.org/packages/org-real-1.0.6.tar";
         sha256 = "1qfzmmv3c1yc14v502x0438pxh2bcwli1r3xmcxibhb7h6p9mr3k";
       };
-      packageRequires = [ boxy emacs org ];
+      packageRequires = [
+        boxy
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-real.html";
         license = lib.licenses.free;
@@ -4707,7 +4964,10 @@
         url = "https://elpa.gnu.org/packages/org-remark-1.0.5.tar";
         sha256 = "01pgfg9j5wrhggjklkc9nbfiwjd5qnmhcbcccc06jz3hmd0rnxr2";
       };
-      packageRequires = [ emacs org ];
+      packageRequires = [
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-remark.html";
         license = lib.licenses.free;
@@ -4728,7 +4988,10 @@
         url = "https://elpa.gnu.org/packages/org-transclusion-1.3.2.tar";
         sha256 = "02r48jzr5zivk11c3c3a9vj1cixfgf1wlmv1kjr5bxldayhg7aqb";
       };
-      packageRequires = [ emacs org ];
+      packageRequires = [
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-transclusion.html";
         license = lib.licenses.free;
@@ -4749,7 +5012,10 @@
         url = "https://elpa.gnu.org/packages/org-translate-0.1.4.tar";
         sha256 = "0dvg3h8mmzlqfg60rwxjgy17sqv84p6nj2ngjdafkp9a4halv0g7";
       };
-      packageRequires = [ emacs org ];
+      packageRequires = [
+        emacs
+        org
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/org-translate.html";
         license = lib.licenses.free;
@@ -4809,7 +5075,10 @@
         url = "https://elpa.gnu.org/packages/osm-0.11.tar";
         sha256 = "17bll1p3s5gkhaiisab8w5q9ygsmqgmzfq5irghl71vlac0r2gsk";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/osm.html";
         license = lib.licenses.free;
@@ -4869,7 +5138,10 @@
         url = "https://elpa.gnu.org/packages/paced-1.1.3.tar";
         sha256 = "1gaszf68h0nnv6p6yzv48m24csw6v479nsq0f02y6slixxaflnwl";
       };
-      packageRequires = [ async emacs ];
+      packageRequires = [
+        async
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/paced.html";
         license = lib.licenses.free;
@@ -4890,7 +5162,10 @@
         url = "https://elpa.gnu.org/packages/parsec-0.1.3.tar";
         sha256 = "032m9iks5a05vbc4159dfs9b7shmqm6mk05jgbs9ndvy400drwd6";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/parsec.html";
         license = lib.licenses.free;
@@ -5147,7 +5422,10 @@
         url = "https://elpa.gnu.org/packages/project-0.9.8.tar";
         sha256 = "0i1q9blvpj3bygjh98gv0kqn2rm01b8lqp9vra82sy3hzzj39pyx";
       };
-      packageRequires = [ emacs xref ];
+      packageRequires = [
+        emacs
+        xref
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/project.html";
         license = lib.licenses.free;
@@ -5227,7 +5505,11 @@
         url = "https://elpa.gnu.org/packages/pyim-5.3.2.tar";
         sha256 = "13irkmhlfq99glyy0vhj559si5672cqcysjxlxn7lvckxr298vzc";
       };
-      packageRequires = [ async emacs xr ];
+      packageRequires = [
+        async
+        emacs
+        xr
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/pyim.html";
         license = lib.licenses.free;
@@ -5267,7 +5549,10 @@
         url = "https://elpa.gnu.org/packages/python-0.28.tar";
         sha256 = "1kc596b8bbcp8y87kqyxsv3bblz8l0vyc0d645ayb1cmwwvk35d5";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/python.html";
         license = lib.licenses.free;
@@ -5405,7 +5690,12 @@
         url = "https://elpa.gnu.org/packages/realgud-1.5.1.tar";
         sha256 = "01155sydricdvxy3djk64w2zc6x0q4j669bvz8m8rd766wsmida8";
       };
-      packageRequires = [ emacs load-relative loc-changes test-simple ];
+      packageRequires = [
+        emacs
+        load-relative
+        loc-changes
+        test-simple
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud.html";
         license = lib.licenses.free;
@@ -5427,7 +5717,11 @@
         url = "https://elpa.gnu.org/packages/realgud-ipdb-1.0.0.tar";
         sha256 = "1ljh2igm6na92jdvnn4f51019v3klc6k03nayxf6qxzaxwq2w254";
       };
-      packageRequires = [ emacs load-relative realgud ];
+      packageRequires = [
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-ipdb.html";
         license = lib.licenses.free;
@@ -5450,7 +5744,12 @@
         url = "https://elpa.gnu.org/packages/realgud-jdb-1.0.0.tar";
         sha256 = "081lqsxbg6cxv8hz8s0z2gbdif9drp5b0crbixmwf164i4h8l4gc";
       };
-      packageRequires = [ cl-lib emacs load-relative realgud ];
+      packageRequires = [
+        cl-lib
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-jdb.html";
         license = lib.licenses.free;
@@ -5472,7 +5771,11 @@
         url = "https://elpa.gnu.org/packages/realgud-lldb-1.0.2.tar";
         sha256 = "0nqbvknhvw5lwf4i44q8wvh4y4s9mvs5kn7lskg3xicl464ag1d0";
       };
-      packageRequires = [ emacs load-relative realgud ];
+      packageRequires = [
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-lldb.html";
         license = lib.licenses.free;
@@ -5495,7 +5798,12 @@
         url = "https://elpa.gnu.org/packages/realgud-node-debug-1.0.0.tar";
         sha256 = "1wyh6apy289a3qa1bnwv68x8pjkpqy4m18ygqnr4x759hjkq3nir";
       };
-      packageRequires = [ cl-lib emacs load-relative realgud ];
+      packageRequires = [
+        cl-lib
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-node-debug.html";
         license = lib.licenses.free;
@@ -5518,7 +5826,12 @@
         url = "https://elpa.gnu.org/packages/realgud-node-inspect-1.0.0.tar";
         sha256 = "16cx0rq4zx5k0y75j044dbqzrzs1df3r95rissmhfgsi5m2qf1h2";
       };
-      packageRequires = [ cl-lib emacs load-relative realgud ];
+      packageRequires = [
+        cl-lib
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-node-inspect.html";
         license = lib.licenses.free;
@@ -5541,7 +5854,12 @@
         url = "https://elpa.gnu.org/packages/realgud-trepan-ni-1.0.1.tar";
         sha256 = "0vakfzlk4pgqi66mdvwqhzgdsnks6clgnj7cjjbi80v3ipkfdnak";
       };
-      packageRequires = [ cl-lib emacs load-relative realgud ];
+      packageRequires = [
+        cl-lib
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-trepan-ni.html";
         license = lib.licenses.free;
@@ -5563,7 +5881,11 @@
         url = "https://elpa.gnu.org/packages/realgud-trepan-xpy-1.0.1.tar";
         sha256 = "0qd9hcq7a9vn453rs4pf3p8wwh7fynxhim9j6sf97lm8pilif9yd";
       };
-      packageRequires = [ emacs load-relative realgud ];
+      packageRequires = [
+        emacs
+        load-relative
+        realgud
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/realgud-trepan-xpy.html";
         license = lib.licenses.free;
@@ -5623,7 +5945,10 @@
         url = "https://elpa.gnu.org/packages/relint-1.22.tar";
         sha256 = "1525hk961q4af06c5a60m7ryp5g8yvfxjp5nmmgkci7vl3ing8zi";
       };
-      packageRequires = [ emacs xr ];
+      packageRequires = [
+        emacs
+        xr
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/relint.html";
         license = lib.licenses.free;
@@ -5743,7 +6068,12 @@
         url = "https://elpa.gnu.org/packages/rudel-0.3.2.tar";
         sha256 = "03hcvpp6ykavidwn5x48gs986w1i5icvh7ks6p74pdaagpgw4jmk";
       };
-      packageRequires = [ cl-generic cl-lib cl-print emacs ];
+      packageRequires = [
+        cl-generic
+        cl-lib
+        cl-print
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/rudel.html";
         license = lib.licenses.free;
@@ -5764,7 +6094,10 @@
         url = "https://elpa.gnu.org/packages/satchel-0.2.tar";
         sha256 = "1ajsfrr988nglw2l4kqjbbdq9x8gidv0ymsrg3jm2b9nisfhnixv";
       };
-      packageRequires = [ emacs project ];
+      packageRequires = [
+        emacs
+        project
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/satchel.html";
         license = lib.licenses.free;
@@ -5785,7 +6118,10 @@
         url = "https://elpa.gnu.org/packages/scanner-0.2.tar";
         sha256 = "1nbfpgndjkv7mr81bxy58k4y13lc4cidyz9mbwh7433r8rfhymb5";
       };
-      packageRequires = [ dash emacs ];
+      packageRequires = [
+        dash
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/scanner.html";
         license = lib.licenses.free;
@@ -6077,7 +6413,10 @@
         url = "https://elpa.gnu.org/packages/sml-mode-6.12.tar";
         sha256 = "19wyxsnw60lmjbb7ijislpv9vzk9996rh1b0iw7wyrqszfxy2p20";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/sml-mode.html";
         license = lib.licenses.free;
@@ -6118,7 +6457,10 @@
         url = "https://elpa.gnu.org/packages/soap-client-3.2.1.tar";
         sha256 = "0v3aj059cvfv5yc9fx8naq8ygphlpbasc1nksgfim8iyk9wg7l3n";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/soap-client.html";
         license = lib.licenses.free;
@@ -6139,7 +6481,10 @@
         url = "https://elpa.gnu.org/packages/sokoban-1.4.9.tar";
         sha256 = "1zri4czw2d5impkgn8d4hliyw31vndadg7wj31gairk8kyakjpgm";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/sokoban.html";
         license = lib.licenses.free;
@@ -6259,7 +6604,10 @@
         url = "https://elpa.gnu.org/packages/srht-0.2.tar";
         sha256 = "1qps9vdsiy5zkz88kh9kl1hnn1wlfz6n5brzcxi28fwx0hb3ksz2";
       };
-      packageRequires = [ emacs plz ];
+      packageRequires = [
+        emacs
+        plz
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/srht.html";
         license = lib.licenses.free;
@@ -6380,7 +6728,10 @@
         url = "https://elpa.gnu.org/packages/svg-clock-1.2.el";
         sha256 = "15pmj07wnlcpv78av9qpnbfwdjlkf237vib8smpa7nvyikdfszfr";
       };
-      packageRequires = [ emacs svg ];
+      packageRequires = [
+        emacs
+        svg
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/svg-clock.html";
         license = lib.licenses.free;
@@ -6421,7 +6772,10 @@
         url = "https://elpa.gnu.org/packages/svg-tag-mode-0.3.2.tar";
         sha256 = "1sg05dg0d9ai21l8rgpqywmwgw29sl21x2zkvlv04rl3hdvdq75y";
       };
-      packageRequires = [ emacs svg-lib ];
+      packageRequires = [
+        emacs
+        svg-lib
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/svg-tag-mode.html";
         license = lib.licenses.free;
@@ -6442,7 +6796,10 @@
         url = "https://elpa.gnu.org/packages/swiper-0.14.0.tar";
         sha256 = "1p2qil6gj4y8y3ydqs8pbxn8j16q9r42nnc2f61c30hws504pkms";
       };
-      packageRequires = [ emacs ivy ];
+      packageRequires = [
+        emacs
+        ivy
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/swiper.html";
         license = lib.licenses.free;
@@ -6463,7 +6820,10 @@
         url = "https://elpa.gnu.org/packages/switchy-window-1.3.tar";
         sha256 = "1ax63fksjmjsgai7xxzm1mj5bhbc7dzk7c389abd280g637z2cy7";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/switchy-window.html";
         license = lib.licenses.free;
@@ -6565,7 +6925,11 @@
         url = "https://elpa.gnu.org/packages/taxy-magit-section-0.12.2.tar";
         sha256 = "1pf83zz5ibhqqlqgcxig0dsl1rnkk5r6v16s5ngvbc37q40vkwn1";
       };
-      packageRequires = [ emacs magit-section taxy ];
+      packageRequires = [
+        emacs
+        magit-section
+        taxy
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/taxy-magit-section.html";
         license = lib.licenses.free;
@@ -6606,7 +6970,10 @@
         url = "https://elpa.gnu.org/packages/tempel-0.7.tar";
         sha256 = "05yhsrricaxlz67w1j0s1gbzpbsw4iqryfvks25v25pm95xrr7c4";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/tempel.html";
         license = lib.licenses.free;
@@ -6647,7 +7014,10 @@
         url = "https://elpa.gnu.org/packages/timerfunctions-1.4.2.el";
         sha256 = "122q8nv08pz1mkgilvi9qfrs7rsnc5picr7jyz2jpnvpd9qw6jw5";
       };
-      packageRequires = [ cl-lib emacs ];
+      packageRequires = [
+        cl-lib
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/timerfunctions.html";
         license = lib.licenses.free;
@@ -6708,7 +7078,11 @@
         url = "https://elpa.gnu.org/packages/tomelr-0.4.3.tar";
         sha256 = "03dj7mhqyfdpxr32nyvfgkqr6wr55cd7yk9a0izjs4468zx8vl0d";
       };
-      packageRequires = [ emacs map seq ];
+      packageRequires = [
+        emacs
+        map
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/tomelr.html";
         license = lib.licenses.free;
@@ -6868,7 +7242,10 @@
         url = "https://elpa.gnu.org/packages/trie-0.5.tar";
         sha256 = "1qbzxw7h3p3k3r3fzq66pj223vjiw20dvaljkb8w3r5q16fnav3p";
       };
-      packageRequires = [ heap tNFA ];
+      packageRequires = [
+        heap
+        tNFA
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/trie.html";
         license = lib.licenses.free;
@@ -6889,7 +7266,10 @@
         url = "https://elpa.gnu.org/packages/triples-0.2.7.tar";
         sha256 = "1p980liprsnir4wqvf0ixzykv61iaaprkc6wc0vi7a4q2pj7ra6f";
       };
-      packageRequires = [ emacs seq ];
+      packageRequires = [
+        emacs
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/triples.html";
         license = lib.licenses.free;
@@ -6930,7 +7310,10 @@
         url = "https://elpa.gnu.org/packages/undo-tree-0.8.2.tar";
         sha256 = "0fgir9pls9439zwyl3j2yvrwx9wigisj1jil4ijma27dfrpgm288";
       };
-      packageRequires = [ emacs queue ];
+      packageRequires = [
+        emacs
+        queue
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/undo-tree.html";
         license = lib.licenses.free;
@@ -6990,7 +7373,10 @@
         url = "https://elpa.gnu.org/packages/url-http-ntlm-2.0.4.el";
         sha256 = "1cakq2ykraci7d1gl8rnpv4f2f5ffyaidhqb1282g7i72adwmb98";
       };
-      packageRequires = [ cl-lib ntlm ];
+      packageRequires = [
+        cl-lib
+        ntlm
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/url-http-ntlm.html";
         license = lib.licenses.free;
@@ -7031,7 +7417,10 @@
         url = "https://elpa.gnu.org/packages/use-package-2.4.5.tar";
         sha256 = "09aimbmkcpyffrq1qnavzx6c4ccfawz7ndz2ac8md7qxilxx58yc";
       };
-      packageRequires = [ bind-key emacs ];
+      packageRequires = [
+        bind-key
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/use-package.html";
         license = lib.licenses.free;
@@ -7053,7 +7442,11 @@
         url = "https://elpa.gnu.org/packages/validate-1.0.4.el";
         sha256 = "0vksssk98hcnz804g62k8kika13argf6p7bx8rf9hwidvzdsv6mi";
       };
-      packageRequires = [ cl-lib emacs seq ];
+      packageRequires = [
+        cl-lib
+        emacs
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/validate.html";
         license = lib.licenses.free;
@@ -7192,7 +7585,10 @@
         url = "https://elpa.gnu.org/packages/vdiff-0.2.4.tar";
         sha256 = "1mgzfrzp6nbb4xv2zjqk4za2dv3r5645jasiwf45wzqq5wbrgq2c";
       };
-      packageRequires = [ emacs hydra ];
+      packageRequires = [
+        emacs
+        hydra
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/vdiff.html";
         license = lib.licenses.free;
@@ -7233,7 +7629,10 @@
         url = "https://elpa.gnu.org/packages/vertico-1.2.tar";
         sha256 = "1vf2nh2wrjj6ig5iq7kx1p85a1m494lxfvhlqrl5nhi2hjbgnqy3";
       };
-      packageRequires = [ compat emacs ];
+      packageRequires = [
+        compat
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/vertico.html";
         license = lib.licenses.free;
@@ -7255,7 +7654,11 @@
         url = "https://elpa.gnu.org/packages/vertico-posframe-0.7.2.tar";
         sha256 = "1sbgg0syyk24phwzji40lyw5dmwxssgvwv2fs8mbmkhv0q44f9ny";
       };
-      packageRequires = [ emacs posframe vertico ];
+      packageRequires = [
+        emacs
+        posframe
+        vertico
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/vertico-posframe.html";
         license = lib.licenses.free;
@@ -7532,7 +7935,10 @@
         url = "https://elpa.gnu.org/packages/wisi-4.2.2.tar";
         sha256 = "041np2xssm4iv75wmwds25fwx0p2y3j6ph0j0pxmgcj9p028mbka";
       };
-      packageRequires = [ emacs seq ];
+      packageRequires = [
+        emacs
+        seq
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/wisi.html";
         license = lib.licenses.free;
@@ -7554,7 +7960,11 @@
         url = "https://elpa.gnu.org/packages/wisitoken-grammar-mode-1.3.0.tar";
         sha256 = "05g2zn3p9r7rha20wv8jy1dwvllfyjjpzr6agkcm523rj639jh2b";
       };
-      packageRequires = [ emacs mmm-mode wisi ];
+      packageRequires = [
+        emacs
+        mmm-mode
+        wisi
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/wisitoken-grammar-mode.html";
         license = lib.licenses.free;
@@ -7633,7 +8043,10 @@
         url = "https://elpa.gnu.org/packages/xelb-0.18.tar";
         sha256 = "1fp5mzl63sh0h3ws4l5p4qgvi7ny8a3fj6k4dhqa98xgw2bx03v7";
       };
-      packageRequires = [ cl-generic emacs ];
+      packageRequires = [
+        cl-generic
+        emacs
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/xelb.html";
         license = lib.licenses.free;
@@ -7654,7 +8067,10 @@
         url = "https://elpa.gnu.org/packages/xpm-1.0.5.tar";
         sha256 = "13p6s6b2v7h4bnwdkkrd1qz84jd7g2s18w0czhpxv6hvj9sqf5hx";
       };
-      packageRequires = [ cl-lib queue ];
+      packageRequires = [
+        cl-lib
+        queue
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/xpm.html";
         license = lib.licenses.free;
@@ -7816,7 +8232,10 @@
         url = "https://elpa.gnu.org/packages/zuul-0.4.0.tar";
         sha256 = "1bm91g001q3n5m9ihxc719siiiy23pkpfkhplwi9p1i4i9zrpx5g";
       };
-      packageRequires = [ emacs project ];
+      packageRequires = [
+        emacs
+        project
+      ];
       meta = {
         homepage = "https://elpa.gnu.org/packages/zuul.html";
         license = lib.licenses.free;

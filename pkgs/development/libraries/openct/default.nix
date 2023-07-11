@@ -33,8 +33,16 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ pcsclite libusb-compat-0_1 doxygen libxslt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    pcsclite
+    libusb-compat-0_1
+    doxygen
+    libxslt
+  ];
 
   preInstall = ''
     mkdir -p $out/etc

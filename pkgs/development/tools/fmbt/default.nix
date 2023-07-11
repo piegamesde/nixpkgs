@@ -30,8 +30,13 @@ stdenv.mkDerivation rec {
     sha256 = "1jb9nb2mipc5cg99a80dny4m06vz2zral0q30fv75rz2cb6ja4zp";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config flex makeWrapper python.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    flex
+    makeWrapper
+    python.pkgs.wrapPython
+  ];
 
   buildInputs = [
     python

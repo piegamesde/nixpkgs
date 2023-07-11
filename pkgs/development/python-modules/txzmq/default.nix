@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-jWB9C/CcqUYAuOQvByHb5D7lOgRwGCNErHrOfljcYXc=";
   };
 
-  propagatedBuildInputs = [ pyzmq twisted ];
+  propagatedBuildInputs = [
+    pyzmq
+    twisted
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

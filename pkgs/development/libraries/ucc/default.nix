@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [ libtool automake autoconf ];
+  nativeBuildInputs = [
+    libtool
+    automake
+    autoconf
+  ];
   buildInputs = [ ucx ] ++ lib.optional enableCuda cudatoolkit;
 
   configureFlags = [ ] ++ lib.optional enableSse41 "--with-sse41"

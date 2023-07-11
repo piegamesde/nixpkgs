@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm cython ];
+  nativeBuildInputs = [
+    setuptools-scm
+    cython
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

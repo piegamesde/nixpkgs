@@ -19,8 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-zkuVD6TH3eHFMu31PmKF2qlQ3itwWHMzVp0ZjdspWTk=";
   };
 
-  buildInputs = [ qtbase cpp-utilities ];
-  nativeBuildInputs = [ cmake qttools ];
+  buildInputs = [
+    qtbase
+    cpp-utilities
+  ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ];
 
   dontWrapQtApps = true;
 

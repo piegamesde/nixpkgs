@@ -87,8 +87,12 @@ stdenv.mkDerivation rec {
     cp bindings/python-cffi/_notmuch_config.py ${placeholder "bindingconfig"}/
   '';
 
-  outputs = [ "out" "man" "info" "bindingconfig" ]
-    ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby";
+  outputs = [
+    "out"
+    "man"
+    "info"
+    "bindingconfig"
+  ] ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby";
 
   preCheck = let
     test-database = fetchurl {
@@ -104,9 +108,21 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.hostPlatform.isDarwin
     && (lib.versionAtLeast gmime3.version "3.0.3");
   checkTarget = "test";
-  nativeCheckInputs = [ which dtach openssl bash gdb man emacs ];
+  nativeCheckInputs = [
+    which
+    dtach
+    openssl
+    bash
+    gdb
+    man
+    emacs
+  ];
 
-  installTargets = [ "install" "install-man" "install-info" ];
+  installTargets = [
+    "install"
+    "install-man"
+    "install-info"
+  ];
 
   postInstall = lib.optionalString withEmacs ''
     moveToOutput bin/notmuch-emacs-mua $emacs
@@ -128,7 +144,10 @@ stdenv.mkDerivation rec {
     description = "Mail indexer";
     homepage = "https://notmuchmail.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ flokli puckipedia ];
+    maintainers = with maintainers; [
+      flokli
+      puckipedia
+    ];
     platforms = platforms.unix;
   };
 }

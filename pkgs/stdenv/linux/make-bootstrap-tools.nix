@@ -5,10 +5,14 @@
 let
   libc = pkgs.stdenv.cc.libc;
   patchelf = pkgs.patchelf.overrideAttrs (previousAttrs: {
-    NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ])
-      ++ [ "-static-libgcc" "-static-libstdc++" ];
-    NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ])
-      ++ [ "-static-libgcc" "-static-libstdc++" ];
+    NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
+      "-static-libgcc"
+      "-static-libstdc++"
+    ];
+    NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ]) ++ [
+      "-static-libgcc"
+      "-static-libstdc++"
+    ];
   });
 in with pkgs; rec {
 
@@ -58,7 +62,10 @@ in with pkgs; rec {
       schedulingPriority = 200;
     };
 
-    nativeBuildInputs = [ buildPackages.nukeReferences buildPackages.cpio ];
+    nativeBuildInputs = [
+      buildPackages.nukeReferences
+      buildPackages.cpio
+    ];
 
     buildCommand = ''
       set -x
@@ -260,7 +267,12 @@ in with pkgs; rec {
     name = "test-bootstrap-tools";
     inherit (stdenv.hostPlatform) system; # We cannot "cross test"
     builder = bootstrapFiles.busybox;
-    args = [ "ash" "-e" "-c" ''eval "$buildCommand"'' ];
+    args = [
+      "ash"
+      "-e"
+      "-c"
+      ''eval "$buildCommand"''
+    ];
 
     buildCommand = ''
       export PATH=${bootstrapTools}/bin

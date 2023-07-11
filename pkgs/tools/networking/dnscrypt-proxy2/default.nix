@@ -24,7 +24,10 @@ buildGoModule rec {
 
     license = licenses.isc;
     homepage = "https://dnscrypt.info/";
-    maintainers = with maintainers; [ atemu waynr ];
+    maintainers = with maintainers; [
+      atemu
+      waynr
+    ];
     mainProgram = "dnscrypt-proxy";
     platforms = with platforms; unix;
   };

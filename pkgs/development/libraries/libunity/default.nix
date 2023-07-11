@@ -18,7 +18,11 @@ stdenv.mkDerivation {
   pname = "libunity";
   version = "unstable-2021-02-01";
 
-  outputs = [ "out" "dev" "py" ];
+  outputs = [
+    "out"
+    "dev"
+    "py"
+  ];
 
   # Obtained from https://git.launchpad.net/ubuntu/+source/libunity/log/
   src = fetchgit {
@@ -34,22 +38,32 @@ stdenv.mkDerivation {
     ./fix-vala.patch
   ];
 
-  nativeBuildInputs =
-    [ autoreconfHook gobject-introspection intltool pkg-config python3 vala ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gobject-introspection
+    intltool
+    pkg-config
+    python3
+    vala
+  ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
-  propagatedBuildInputs = [ dee libdbusmenu ];
+  propagatedBuildInputs = [
+    dee
+    libdbusmenu
+  ];
 
   preConfigure = ''
     intltoolize
   '';
 
-  configureFlags = [
-    "--with-pygi-overrides-dir=${
+  configureFlags = [ "--with-pygi-overrides-dir=${
       placeholder "py"
-    }/${python3.sitePackages}/gi/overrides"
-  ];
+    }/${python3.sitePackages}/gi/overrides" ];
 
   meta = with lib; {
     description =

@@ -32,16 +32,30 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ cmrt libdrm libva libX11 libGL wayland ];
+  buildInputs = [
+    cmrt
+    libdrm
+    libva
+    libX11
+    libGL
+    wayland
+  ];
 
   enableParallelBuilding = true;
 
   # Workaround build failure on -fno-common toolchains like upstream gcc-10.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  configureFlags = [ "--enable-drm" "--enable-x11" "--enable-wayland" ];
+  configureFlags = [
+    "--enable-drm"
+    "--enable-x11"
+    "--enable-wayland"
+  ];
 
   postPatch = ''
     patchShebangs ./src/shaders/gpp.py

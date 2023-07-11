@@ -27,15 +27,18 @@ in pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-ukqlAXGaqX89U77cM9Ux0RYquT31Ho8ri1Ue7S3+MwQ=";
   };
 
-  nativeBuildInputs = [ gettext qt5.wrapQtAppsHook qt5.qtbase ]
-    ++ lib.optionals (pyqt5.multimediaEnabled) [
-      qt5.qtmultimedia.bin
-      gst_all_1.gst-libav
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-vaapi
-      gst_all_1.gstreamer
-    ];
+  nativeBuildInputs = [
+    gettext
+    qt5.wrapQtAppsHook
+    qt5.qtbase
+  ] ++ lib.optionals (pyqt5.multimediaEnabled) [
+    qt5.qtmultimedia.bin
+    gst_all_1.gst-libav
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-vaapi
+    gst_all_1.gstreamer
+  ];
 
   propagatedBuildInputs = with pythonPackages; [
     chromaprint

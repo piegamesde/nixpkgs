@@ -47,15 +47,27 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs =
-    [ setuptools-rust setuptools-scm rustPlatform.cargoSetupHook ]
-    ++ (with rustPlatform; [ rust.cargo rust.rustc ]);
+  nativeBuildInputs = [
+    setuptools-rust
+    setuptools-scm
+    rustPlatform.cargoSetupHook
+  ] ++ (with rustPlatform; [
+    rust.cargo
+    rust.rustc
+  ]);
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [ typing-extensions typing-inspect pyyaml ];
+  propagatedBuildInputs = [
+    typing-extensions
+    typing-inspect
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ hypothesis pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ];
 
   preCheck = ''
     ${python.interpreter} -m libcst.codegen.generate visitors
@@ -75,7 +87,11 @@ buildPythonPackage rec {
     description =
       "Concrete Syntax Tree (CST) parser and serializer library for Python";
     homepage = "https://github.com/Instagram/libcst";
-    license = with licenses; [ mit asl20 psfl ];
+    license = with licenses; [
+      mit
+      asl20
+      psfl
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

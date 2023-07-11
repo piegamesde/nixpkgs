@@ -40,13 +40,21 @@ stdenv.mkDerivation rec {
   };
 
   # FIXME: -dev depends on -doc
-  outputs = [ "out" "dev" "man" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ];
   setOutputFlags = false; # it would move $out/modules, etc.
 
   nativeBuildInputs = [ which ];
 
-  buildInputs = [ perl libxcrypt ] ++ lib.optional brotliSupport brotli
-    ++ lib.optional sslSupport openssl ++ lib.optional modTlsSupport rustls-ffi
+  buildInputs = [
+    perl
+    libxcrypt
+  ] ++ lib.optional brotliSupport brotli ++ lib.optional sslSupport openssl
+    ++ lib.optional modTlsSupport rustls-ffi
     ++ lib.optional (modTlsSupport && stdenv.isDarwin) Foundation
     ++ lib.optional ldapSupport openldap ++ # there is no --with-ldap flag
     lib.optional libxml2Support libxml2 ++ lib.optional http2Support nghttp2
@@ -92,7 +100,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  stripDebugList = [ "lib" "modules" "bin" ];
+  stripDebugList = [
+    "lib"
+    "modules"
+    "bin"
+  ];
 
   postInstall = ''
     mkdir -p $doc/share/doc/httpd

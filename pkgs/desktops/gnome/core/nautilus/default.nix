@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
   pname = "nautilus";
   version = "44.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

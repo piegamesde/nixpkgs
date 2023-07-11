@@ -15,10 +15,10 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [ coq.version ] [{
+    lib.switch [ coq.version ] [ {
       cases = [ (range "8.13" "8.17") ];
       out = "1.0";
-    }] null;
+    } ] null;
 
   propagatedBuildInputs = [ coq-elpi ];
 

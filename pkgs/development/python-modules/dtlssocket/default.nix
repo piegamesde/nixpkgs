@@ -19,7 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-BLNfdKDKUvc+BJnhLqx7VzJg0opvrdaXhNLCigLH02k=";
   };
 
-  nativeBuildInputs = [ autoconf cython setuptools ];
+  nativeBuildInputs = [
+    autoconf
+    cython
+    setuptools
+  ];
 
   # no tests on PyPI, no tags on GitLab
   doCheck = false;

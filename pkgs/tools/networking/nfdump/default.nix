@@ -23,9 +23,19 @@ stdenv.mkDerivation rec {
     hash = "sha256-ns/RG0kyu2b0UjcJKArcAjY+dI397ljhrUO8euS5Snk=";
   };
 
-  nativeBuildInputs = [ autoconf automake flex libtool pkg-config bison ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    flex
+    libtool
+    pkg-config
+    bison
+  ];
 
-  buildInputs = [ bzip2 libpcap ];
+  buildInputs = [
+    bzip2
+    libpcap
+  ];
 
   preConfigure = ''
     # The script defaults to glibtoolize on darwin, so we pass the correct
@@ -33,8 +43,12 @@ stdenv.mkDerivation rec {
     LIBTOOLIZE=libtoolize ./autogen.sh
   '';
 
-  configureFlags =
-    [ "--enable-nsel" "--enable-sflow" "--enable-readpcap" "--enable-nfpcapd" ];
+  configureFlags = [
+    "--enable-nsel"
+    "--enable-sflow"
+    "--enable-readpcap"
+    "--enable-nfpcapd"
+  ];
 
   meta = with lib; {
     description = "Tools for working with netflow data";

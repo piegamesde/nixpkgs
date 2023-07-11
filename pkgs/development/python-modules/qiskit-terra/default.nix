@@ -47,8 +47,15 @@
 }:
 
 let
-  visualizationPackages =
-    [ ipywidgets matplotlib pillow pydot pygments pylatexenc seaborn ];
+  visualizationPackages = [
+    ipywidgets
+    matplotlib
+    pillow
+    pydot
+    pygments
+    pylatexenc
+    seaborn
+  ];
   crosstalkPackages = [ z3 ];
 
 in buildPythonPackage rec {
@@ -64,8 +71,11 @@ in buildPythonPackage rec {
     hash = "sha256-imktzBpgP+lq6FsVWIUK82+t76gKTgt53kPfKOnsseQ=";
   };
 
-  nativeBuildInputs = [ setuptools-rust ]
-    ++ (with rustPlatform; [ rust.rustc rust.cargo cargoSetupHook ]);
+  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
+    rust.rustc
+    rust.cargo
+    cargoSetupHook
+  ]);
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -92,10 +102,18 @@ in buildPythonPackage rec {
     ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
   # *** Tests ***
-  nativeCheckInputs = [ pytestCheckHook ddt hypothesis nbformat nbconvert ]
-    ++ lib.optionals (!withVisualization) visualizationPackages;
+  nativeCheckInputs = [
+    pytestCheckHook
+    ddt
+    hypothesis
+    nbformat
+    nbconvert
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
 
-  pythonImportsCheck = [ "qiskit" "qiskit.pulse" ];
+  pythonImportsCheck = [
+    "qiskit"
+    "qiskit.pulse"
+  ];
 
   disabledTestPaths = [
     "test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
@@ -118,10 +136,9 @@ in buildPythonPackage rec {
     "test_cx_equivalence" # Fails due to flaky test
     "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
     "test_qv_natural" # fails due to sign error. Not sure why
-  ] ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
-    "test_plot_circuit_layout"
-  ]
-  # Disabling slow tests for build constraints
+  ] ++ lib.optionals (lib.versionAtLeast matplotlib.version
+    "3.4.0") [ "test_plot_circuit_layout" ]
+    # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"
       "test_controlled_random_unitary"

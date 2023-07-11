@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yehjDPnUM/POrXSQahUg0iI/ibzT+pJUhhAXRAuOsi8=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   configureFlags = lib.optional exampleSupport "--enable-example";
 

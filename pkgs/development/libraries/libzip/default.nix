@@ -27,9 +27,17 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-/Wp/dF3j1pz1YD7cnLM9KJDwGY5BUlXQmHoM8Q2CTG8=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
-  nativeBuildInputs = [ cmake perl groff ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    groff
+  ];
   propagatedBuildInputs = [ zlib ];
   buildInputs = lib.optionals withLZMA [ xz ]
     ++ lib.optionals withBzip2 [ bzip2 ]

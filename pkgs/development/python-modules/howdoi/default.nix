@@ -29,8 +29,16 @@ buildPythonPackage rec {
     hash = "sha256-uLAc6E8+8uPpo070vsG6Od/855N3gTQMf5pSUvtlh0I=";
   };
 
-  propagatedBuildInputs =
-    [ appdirs cachelib cssselect keep lxml pygments pyquery requests ];
+  propagatedBuildInputs = [
+    appdirs
+    cachelib
+    cssselect
+    keep
+    lxml
+    pygments
+    pyquery
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

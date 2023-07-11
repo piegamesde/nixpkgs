@@ -34,9 +34,17 @@ stdenv.mkDerivation (finalAttrs: rec {
     sha256 = "02ik25aczkbi10jrjlnxby3fmixxrwm2k5r4fkfif3bjfym7nqbc";
   };
 
-  nativeBuildInputs = [ makeWrapper autoreconfHook python3 potrace ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoreconfHook
+    python3
+    potrace
+  ];
 
-  buildInputs = [ fontforge potrace ];
+  buildInputs = [
+    fontforge
+    potrace
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/mftrace --prefix PATH : ${
@@ -48,7 +56,11 @@ stdenv.mkDerivation (finalAttrs: rec {
   # (note that only the bin/ folder will be combined into texlive)
   passthru = {
     tlType = "bin";
-    tlDeps = with texlive; [ kpathsea t1utils metafont ];
+    tlDeps = with texlive; [
+      kpathsea
+      t1utils
+      metafont
+    ];
     pkgs = [ finalAttrs.finalPackage ];
   };
 
@@ -60,7 +72,10 @@ stdenv.mkDerivation (finalAttrs: rec {
       TTF (TrueType) font.
     '';
     homepage = "https://lilypond.org/mftrace/";
-    license = with licenses; [ gpl2Only mit ];
+    license = with licenses; [
+      gpl2Only
+      mit
+    ];
     maintainers = with maintainers; [ xworld21 ];
     platforms = platforms.all;
   };

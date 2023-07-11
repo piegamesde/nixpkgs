@@ -30,8 +30,12 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  makeWrapperArgs =
-    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ nss ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ nss ])
+  ];
 
   postFixup = ''
     wrapPythonPrograms

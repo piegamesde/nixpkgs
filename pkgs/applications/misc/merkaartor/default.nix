@@ -31,19 +31,27 @@ mkDerivation rec {
     sha256 = "sha256-I3QNCXzwhEFa8aOdwl3UJV8MLZ9caN9wuaaVrGFRvbQ=";
   };
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
-  buildInputs = [ gdal proj qtsvg qtwebengine ]
-    ++ lib.optional withGeoimage exiv2 ++ lib.optional withGpsdlib gpsd
+  buildInputs = [
+    gdal
+    proj
+    qtsvg
+    qtwebengine
+  ] ++ lib.optional withGeoimage exiv2 ++ lib.optional withGpsdlib gpsd
     ++ lib.optional withLibproxy libproxy ++ lib.optional withZbar zbar;
 
   preConfigure = ''
     lrelease src/src.pro
   '';
 
-  qmakeFlags =
-    [ "TRANSDIR_SYSTEM=${qttranslations}/translations" "USEWEBENGINE=1" ]
-    ++ lib.optional withGeoimage "GEOIMAGE=1"
+  qmakeFlags = [
+    "TRANSDIR_SYSTEM=${qttranslations}/translations"
+    "USEWEBENGINE=1"
+  ] ++ lib.optional withGeoimage "GEOIMAGE=1"
     ++ lib.optional withGpsdlib "GPSDLIB=1"
     ++ lib.optional withLibproxy "LIBPROXY=1" ++ lib.optional withZbar "ZBAR=1";
 

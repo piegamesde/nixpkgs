@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
   pname = "plymouth";
   version = "unstable-2021-10-18";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -29,10 +32,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+AP4ALOFdYFt/8MDXjMaHptkogCwK1iXKuza1zfMaws=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook docbook-xsl-nons gettext libxslt pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook-xsl-nons
+    gettext
+    libxslt
+    pkg-config
+  ];
 
-  buildInputs = [ cairo gtk3 libdrm pango systemd ];
+  buildInputs = [
+    cairo
+    gtk3
+    libdrm
+    pango
+    systemd
+  ];
 
   postPatch = ''
     sed -i \

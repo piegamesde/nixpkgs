@@ -25,7 +25,10 @@ let
 
   # old nix fails to build with newer aws-sdk-cpp and the patch doesn't apply
   aws-sdk-cpp-old-nix = (aws-sdk-cpp.override {
-    apis = [ "s3" "transfer" ];
+    apis = [
+      "s3"
+      "transfer"
+    ];
     customMemoryManagement = false;
   }).overrideAttrs (args: rec {
     # intentionally overriding postPatch
@@ -77,7 +80,10 @@ let
   });
 
   aws-sdk-cpp-nix = (aws-sdk-cpp.override {
-    apis = [ "s3" "transfer" ];
+    apis = [
+      "s3"
+      "transfer"
+    ];
     customMemoryManagement = false;
   }).overrideAttrs (args: {
     # only a stripped down version is build which takes a lot less resources to build
@@ -167,8 +173,11 @@ in lib.makeExtensible (self: {
   nix_2_12 = common {
     version = "2.12.1";
     sha256 = "sha256-GmHKhq0uFtdOiJnuBwj2YwlZjvh6YTkfQZgeu4e0dLU=";
-    patches =
-      [ ./patches/flaky-tests.patch patch-monitorfdhup patch-sqlite-exception ];
+    patches = [
+      ./patches/flaky-tests.patch
+      patch-monitorfdhup
+      patch-sqlite-exception
+    ];
   };
 
   nix_2_13 = common {

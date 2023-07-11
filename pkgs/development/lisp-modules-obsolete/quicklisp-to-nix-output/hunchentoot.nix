@@ -6,7 +6,10 @@ args@{
   baseName = "hunchentoot";
   version = "v1.3.0";
 
-  parasites = [ "hunchentoot-dev" "hunchentoot-test" ];
+  parasites = [
+    "hunchentoot-dev"
+    "hunchentoot-test"
+  ];
 
   description = ''
     Hunchentoot is a HTTP server based on USOCKET and

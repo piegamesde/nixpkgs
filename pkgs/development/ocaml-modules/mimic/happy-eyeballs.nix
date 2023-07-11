@@ -15,7 +15,10 @@ buildDunePackage {
 
   strictDeps = true;
 
-  propagatedBuildInputs = [ mimic happy-eyeballs-mirage ];
+  propagatedBuildInputs = [
+    mimic
+    happy-eyeballs-mirage
+  ];
   doCheck = false;
 
   meta = {

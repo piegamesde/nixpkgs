@@ -17,8 +17,12 @@
 }:
 
 let
-  scriptPython =
-    python.withPackages (ps: with ps; [ aiohttp requests python-magic ]);
+  scriptPython = python.withPackages (ps:
+    with ps; [
+      aiohttp
+      requests
+      python-magic
+    ]);
 
   version = "0.3.0";
 in buildPythonPackage {
@@ -89,6 +93,9 @@ in buildPythonPackage {
     homepage = "https://github.com/poljar/weechat-matrix";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ tilpner emily ];
+    maintainers = with maintainers; [
+      tilpner
+      emily
+    ];
   };
 }

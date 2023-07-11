@@ -20,7 +20,10 @@ buildDunePackage rec {
     hash = "sha256-uSbW2krEWquZlzXdK7/R91ETFnENeRr6NhAGtv42/Vs=";
   };
 
-  propagatedBuildInputs = [ cstruct mirage-crypto ];
+  propagatedBuildInputs = [
+    cstruct
+    mirage-crypto
+  ];
   checkInputs = [ alcotest ];
   doCheck = true;
 

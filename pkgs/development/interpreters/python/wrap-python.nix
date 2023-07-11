@@ -16,12 +16,20 @@ makePythonHook {
     # Looks weird? Of course, it's between single quoted shell strings.
     # NOTE: Order DOES matter here, so single character quotes need to be
     #       at the last position.
-    quoteVariants = [ "'\"'''\"'" ''"""'' ''"'' "'\"'\"'" ]; # hey Vim: ''
+    quoteVariants = [
+      "'\"'''\"'"
+      ''"""''
+      ''"''
+      "'\"'\"'"
+    ]; # hey Vim: ''
 
     mkStringSkipper = labelNum: quote:
       let
         label = "q${toString labelNum}";
-        isSingle = lib.elem quote [ ''"'' "'\"'\"'" ];
+        isSingle = lib.elem quote [
+          ''"''
+          "'\"'\"'"
+        ];
         endQuote = if isSingle then "[^\\\\]${quote}" else quote;
       in ''
         /^[a-z]?${quote}/ {

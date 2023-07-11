@@ -1004,7 +1004,10 @@ in {
         sources."ee-first-1.1.1"
         sources."encodeurl-1.0.2"
         (sources."engine.io-6.2.0" // {
-          dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
         })
         sources."engine.io-parser-5.0.4"
         sources."escape-html-1.0.3"
@@ -1055,11 +1058,17 @@ in {
         sources."serve-static-1.15.0"
         sources."setprototypeof-1.2.0"
         (sources."socket.io-4.5.3" // {
-          dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
         })
         sources."socket.io-adapter-2.4.0"
         (sources."socket.io-parser-4.2.1" // {
-          dependencies = [ sources."debug-4.3.4" sources."ms-2.1.2" ];
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
         })
         sources."source-map-0.6.1"
         sources."statsd-client-0.4.7"

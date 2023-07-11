@@ -9,7 +9,12 @@ stdenv.mkDerivation rec {
   pname = "uchardet";
   version = "0.0.8";
 
-  outputs = [ "bin" "out" "man" "dev" ];
+  outputs = [
+    "bin"
+    "out"
+    "man"
+    "dev"
+  ];
 
   src = fetchurl {
     url =

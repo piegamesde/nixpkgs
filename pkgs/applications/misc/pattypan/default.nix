@@ -24,8 +24,17 @@ stdenv.mkDerivation rec {
     sha256 = "0qmvlcqhqw5k500v2xdakk340ymgv5amhbfqxib5s4db1w32pi60";
   };
 
-  nativeBuildInputs = [ copyDesktopItems jdk ant makeWrapper wrapGAppsHook ];
-  buildInputs = [ glib jre ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    jdk
+    ant
+    makeWrapper
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    glib
+    jre
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -43,15 +52,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "Pattypan";
-      genericName = "An uploader for Wikimedia Commons";
-      categories = [ "Utility" ];
-      exec = "pattypan";
-      name = "pattypan";
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    desktopName = "Pattypan";
+    genericName = "An uploader for Wikimedia Commons";
+    categories = [ "Utility" ];
+    exec = "pattypan";
+    name = "pattypan";
+  }) ];
 
   meta = with lib; {
     homepage = "https://commons.wikimedia.org/wiki/Commons:Pattypan";

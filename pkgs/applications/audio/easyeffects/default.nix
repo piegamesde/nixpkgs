@@ -47,8 +47,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vHswNRu4JrW95nZaEBs95exUqslO0dyIr41E1gJhHow=";
   };
 
-  nativeBuildInputs =
-    [ desktop-file-utils itstool meson ninja pkg-config wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    itstool
+    meson
+    ninja
+    pkg-config
+    wrapGAppsHook4
+  ];
 
   buildInputs = [
     fftw
@@ -82,9 +88,8 @@ stdenv.mkDerivation rec {
       mda_lv2 # loudness
       zam-plugins # maximizer
     ];
-    ladspaPlugins = [
-      rubberband # pitch shifting
-    ];
+    ladspaPlugins = [ rubberband # pitch shifting
+      ];
   in ''
     gappsWrapperArgs+=(
       --set LV2_PATH "${lib.makeSearchPath "lib/lv2" lv2Plugins}"

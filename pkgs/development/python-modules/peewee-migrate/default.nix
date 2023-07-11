@@ -37,11 +37,17 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  propagatedBuildInputs = [ peewee click ];
+  propagatedBuildInputs = [
+    peewee
+    click
+  ];
 
   pythonImportsCheck = [ "peewee_migrate" ];
 
-  nativeCheckInputs = [ psycopg2 pytestCheckHook ];
+  nativeCheckInputs = [
+    psycopg2
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "Simple migration engine for Peewee";

@@ -61,9 +61,16 @@ in stdenv.mkDerivation rec {
 
   patches = [ ./001-patch-wrapper.patch ];
 
-  nativeBuildInputs = [ wrapGAppsHook copyDesktopItems nodePackages.asar ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    copyDesktopItems
+    nodePackages.asar
+  ];
 
-  buildInputs = [ gtk3 xorg.libxkbfile ];
+  buildInputs = [
+    gtk3
+    xorg.libxkbfile
+  ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -148,18 +155,20 @@ in stdenv.mkDerivation rec {
     cp ${./pulsar.nemo_action} $out/share/nemo/actions/pulsar.nemo_action
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Pulsar";
-      desktopName = "Pulsar";
-      exec = "pulsar";
-      icon = "pulsar";
-      comment = "A Community-led Hyper-Hackable Text Editor";
-      genericName = "Text Editor";
-      categories = [ "Development" "TextEditor" "Utility" ];
-      mimeTypes = [ "text/plain" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "Pulsar";
+    desktopName = "Pulsar";
+    exec = "pulsar";
+    icon = "pulsar";
+    comment = "A Community-led Hyper-Hackable Text Editor";
+    genericName = "Text Editor";
+    categories = [
+      "Development"
+      "TextEditor"
+      "Utility"
+    ];
+    mimeTypes = [ "text/plain" ];
+  }) ];
 
   passthru.updateScript = ./update.mjs;
 

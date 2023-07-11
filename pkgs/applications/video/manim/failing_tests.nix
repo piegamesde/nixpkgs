@@ -63,7 +63,11 @@
 # E           Mismatched elements: 18525 / 1639680 (1.13%)
 # E           Max absolute difference: 255
 # E           Max relative difference: 255.
-[ "test_Text2Color" "test_PointCloudDot" "test_Torus" ] ++
+[
+  "test_Text2Color"
+  "test_PointCloudDot"
+  "test_Torus"
+] ++
 
 # failing with:
 # TypeError: __init__() got an unexpected keyword argument 'msg' - maybe you meant pytest.mark.skipif?

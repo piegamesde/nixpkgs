@@ -19,7 +19,10 @@ buildPythonPackage rec {
     sha256 = "0mkggl5hwmj90djxbbz4svim6iv7xl8k324cb4rlc75p5rgcdwmh";
   };
 
-  propagatedBuildInputs = [ pycryptodomex coapthon3 ];
+  propagatedBuildInputs = [
+    pycryptodomex
+    coapthon3
+  ];
 
   # tests sometimes hang forever on tear-down
   doCheck = false;

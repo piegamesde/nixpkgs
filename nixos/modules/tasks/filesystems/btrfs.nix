@@ -85,14 +85,14 @@ in {
     })
 
     (mkIf enableAutoScrub {
-      assertions = [{
+      assertions = [ {
         assertion = cfgScrub.enable -> (cfgScrub.fileSystems != [ ]);
         message = ''
           If 'services.btrfs.autoScrub' is enabled, you need to have at least one
           btrfs file system mounted via 'fileSystems' or specify a list manually
           in 'services.btrfs.autoScrub.fileSystems'.
         '';
-      }];
+      } ];
 
       # This will yield duplicated units if the user mounts a filesystem multiple times
       # or additionally mounts subvolumes, but going the other way around via devices would
@@ -127,8 +127,14 @@ in {
           in nameValuePair "btrfs-scrub-${fs'}" {
             description = "btrfs scrub on ${fs}";
             # scrub prevents suspend2ram or proper shutdown
-            conflicts = [ "shutdown.target" "sleep.target" ];
-            before = [ "shutdown.target" "sleep.target" ];
+            conflicts = [
+              "shutdown.target"
+              "sleep.target"
+            ];
+            before = [
+              "shutdown.target"
+              "sleep.target"
+            ];
 
             serviceConfig = {
               # simple and not oneshot, otherwise ExecStop is not used

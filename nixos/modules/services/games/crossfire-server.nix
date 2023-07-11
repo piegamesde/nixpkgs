@@ -127,10 +127,13 @@ in {
     environment.etc = lib.attrsets.mapAttrs' (name: value:
       lib.attrsets.nameValuePair "crossfire/${name}" {
         mode = "0644";
-        text = (optionalString (!elem name [ "motd" "news" "rules" ])
-          (fileContents "${cfg.package}/etc/crossfire/${name}")) + ''
+        text = (optionalString (!elem name [
+          "motd"
+          "news"
+          "rules"
+        ]) (fileContents "${cfg.package}/etc/crossfire/${name}")) + ''
 
-            ${value}'';
+          ${value}'';
       }) ({
         ban_file = "";
         dm_file = "";

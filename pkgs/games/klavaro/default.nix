@@ -21,14 +21,25 @@ stdenv.mkDerivation rec {
     sha256 = "0z6c3lqikk50mkz3ipm93l48qj7b98lxyip8y6ndg9y9k0z0n878";
   };
 
-  nativeBuildInputs = [ intltool makeWrapper pkg-config ];
-  buildInputs = [ curl gtk3 gtkdatabox ];
+  nativeBuildInputs = [
+    intltool
+    makeWrapper
+    pkg-config
+  ];
+  buildInputs = [
+    curl
+    gtk3
+    gtkdatabox
+  ];
 
   postPatch = ''
     substituteInPlace src/tutor.c --replace '"espeak ' '"${espeak}/bin/espeak '
   '';
 
-  patches = [ ./icons.patch ./trans_lang_get_similar.patch ];
+  patches = [
+    ./icons.patch
+    ./trans_lang_get_similar.patch
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/klavaro \
@@ -51,6 +62,9 @@ stdenv.mkDerivation rec {
       "https://sourceforge.net/p/klavaro/code/HEAD/tree/trunk/ChangeLog";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mimame davidak ];
+    maintainers = with maintainers; [
+      mimame
+      davidak
+    ];
   };
 }

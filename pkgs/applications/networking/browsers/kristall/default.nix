@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     sed -i '1i #include <errno.h>' src/browsertab.cpp
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook qmake ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    qmake
+  ];
 
   buildInputs = [ qtmultimedia ];
 

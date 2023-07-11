@@ -66,7 +66,11 @@ in stdenv.mkDerivation rec {
     hash = "sha256-kFIpY8kHa8ds/JgYWcUMB4RhwcJDebfeWFnI3BkFWiI=";
   };
 
-  nativeBuildInputs = [ pkg-config autoPatchelfHook installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    autoPatchelfHook
+    installShellFiles
+  ];
 
   buildInputs = [ scons ];
 
@@ -99,7 +103,10 @@ in stdenv.mkDerivation rec {
     }"
   '';
 
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -119,7 +126,14 @@ in stdenv.mkDerivation rec {
     homepage = "https://godotengine.org";
     description = "Free and Open Source 2D and 3D game engine";
     license = licenses.mit;
-    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ twey shiryel ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    maintainers = with maintainers; [
+      twey
+      shiryel
+    ];
   };
 }

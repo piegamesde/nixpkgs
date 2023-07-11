@@ -40,7 +40,10 @@ in stdenv.mkDerivation rec {
 
   meta = {
     inherit (iosevka.meta) homepage downloadPage description license platforms;
-    maintainers = with lib.maintainers; [ cstrahan montchr ];
+    maintainers = with lib.maintainers; [
+      cstrahan
+      montchr
+    ];
   };
 
   passthru.updateScript = ./update-bin.sh;

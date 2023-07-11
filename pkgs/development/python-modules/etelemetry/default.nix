@@ -18,12 +18,20 @@ buildPythonPackage rec {
     sha256 = "1rw8im09ppnb7z7p7rx658rp5ib8zca8byxg1kiflqwgx5c8zddz";
   };
 
-  propagatedBuildInputs = [ ci-info ci-py requests ];
+  propagatedBuildInputs = [
+    ci-info
+    ci-py
+    requests
+  ];
 
   # all 2 of the tests both try to pull down from a url
   doCheck = false;
 
-  pythonImportsCheck = [ "etelemetry" "etelemetry.client" "etelemetry.config" ];
+  pythonImportsCheck = [
+    "etelemetry"
+    "etelemetry.client"
+    "etelemetry.config"
+  ];
 
   meta = with lib; {
     description =

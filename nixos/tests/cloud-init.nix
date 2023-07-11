@@ -59,12 +59,17 @@ let
 
 in makeTest {
   name = "cloud-init";
-  meta.maintainers = with pkgs.lib.maintainers; [ lewo illustris ];
+  meta.maintainers = with pkgs.lib.maintainers; [
+    lewo
+    illustris
+  ];
   nodes.machine = {
       ...
     }: {
-      virtualisation.qemu.options =
-        [ "-cdrom" "${metadataDrive}/metadata.iso" ];
+      virtualisation.qemu.options = [
+        "-cdrom"
+        "${metadataDrive}/metadata.iso"
+      ];
       services.cloud-init = {
         enable = true;
         network.enable = true;

@@ -22,7 +22,10 @@ buildRubyGem rec {
     sha256 = "sha256-QnNdseCSwQYhO/ybzWsflMEk68TMgPU3HqXJ7av3SHE=";
   };
 
-  buildInputs = [ ruby bundler ];
+  buildInputs = [
+    ruby
+    bundler
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
   preFixup = ''
@@ -44,7 +47,11 @@ buildRubyGem rec {
     '';
     homepage = "https://github.com/manveru/bundix";
     license = "MIT";
-    maintainers = with lib.maintainers; [ manveru marsam zimbatm ];
+    maintainers = with lib.maintainers; [
+      manveru
+      marsam
+      zimbatm
+    ];
     platforms = lib.platforms.all;
   };
 }

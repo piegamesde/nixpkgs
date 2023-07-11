@@ -19,7 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-53tGVVy0OJMdIZxUvPn1lTwEB9ZFQ2pgK1cwur/T/js=";
   };
 
-  propagatedBuildInputs = [ aiosmtpd werkzeug ];
+  propagatedBuildInputs = [
+    aiosmtpd
+    werkzeug
+  ];
 
   # all tests access network: does not work in sandbox
   doCheck = false;

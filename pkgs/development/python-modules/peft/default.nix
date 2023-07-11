@@ -30,8 +30,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ numpy packaging psutil pyyaml torch transformers accelerate ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    psutil
+    pyyaml
+    torch
+    transformers
+    accelerate
+  ];
 
   doCheck = false; # tried to download pretrained model
   pythonImportsCheck = [ "peft" ];

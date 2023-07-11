@@ -29,7 +29,14 @@ in {
       };
 
       settings = mkOption {
-        type = with types; attrsOf (oneOf [ bool int float str (listOf str) ]);
+        type = with types;
+          attrsOf (oneOf [
+            bool
+            int
+            float
+            str
+            (listOf str)
+          ]);
         default = { };
         example = {
           SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
@@ -59,13 +66,13 @@ in {
       Using config.services.tlp.extraConfig is deprecated and will become unsupported in a future release. Use config.services.tlp.settings instead.
     '';
 
-    assertions = [{
+    assertions = [ {
       assertion = cfg.enable -> config.powerManagement.scsiLinkPolicy == null;
       message = ''
         `services.tlp.enable` and `config.powerManagement.scsiLinkPolicy` cannot be set both.
         Set `services.tlp.settings.SATA_LINKPWR_ON_AC` and `services.tlp.settings.SATA_LINKPWR_ON_BAT` instead.
       '';
-    }];
+    } ];
 
     environment.etc = {
       "tlp.conf".text = (mkTlpConfig cfg.settings) + cfg.extraConfig;

@@ -58,7 +58,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libbsd ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ CoreFoundation IOKit ];
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+      CoreFoundation
+      IOKit
+    ];
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 

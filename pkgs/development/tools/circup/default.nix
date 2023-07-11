@@ -20,7 +20,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "semver" ];
 
-  nativeBuildInputs = with python3.pkgs; [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = with python3.pkgs; [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     appdirs

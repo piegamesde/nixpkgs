@@ -133,8 +133,11 @@ in stdenv.mkDerivation rec {
   dontBuild = true;
   dontFixup = true;
 
-  pythonPath =
-    optionals (withScripting) [ wxPython python.pkgs.six python.pkgs.requests ];
+  pythonPath = optionals (withScripting) [
+    wxPython
+    python.pkgs.six
+    python.pkgs.requests
+  ];
 
   nativeBuildInputs = [ makeWrapper ]
     ++ optionals (withScripting) [ python.pkgs.wrapPython ];
@@ -157,16 +160,13 @@ in stdenv.mkDerivation rec {
       "--set-default KICAD7_TEMPLATE_DIR ${templates}/share/kicad/template"
       "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
       "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
-    ] ++ optionals (with3d)
-    [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
-    ++ optionals (withNgspice) [
-      "--prefix LD_LIBRARY_PATH : ${libngspice}/lib"
-    ]
+    ] ++ optionals
+    (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
+    ++ optionals
+    (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493
-    ++ [
-      "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-    ];
+    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
@@ -181,7 +181,13 @@ in stdenv.mkDerivation rec {
       "pl_editor"
       "bitmap2component"
     ];
-    utils = [ "dxf2idf" "idf2vrml" "idfcyl" "idfrect" "kicad-cli" ];
+    utils = [
+      "dxf2idf"
+      "idf2vrml"
+      "idfcyl"
+      "idfrect"
+      "kicad-cli"
+    ];
   in (concatStringsSep "\n" (flatten [
     "runHook preInstall"
 
@@ -214,7 +220,10 @@ in stdenv.mkDerivation rec {
   # and kicad-small reuses stable
   # with "all" it updates both, run it manually if you don't want that
   # and can't git commit if this could be running in parallel with other scripts
-  passthru.updateScript = [ ./update.sh "all" ];
+  passthru.updateScript = [
+    ./update.sh
+    "all"
+  ];
 
   meta = rec {
     description = (if (stable) then
@@ -228,7 +237,10 @@ in stdenv.mkDerivation rec {
       The Programs handle Schematic Capture, and PCB Layout with Gerber output.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ evils kiwi ];
+    maintainers = with lib.maintainers; [
+      evils
+      kiwi
+    ];
     # kicad is cross platform
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin;

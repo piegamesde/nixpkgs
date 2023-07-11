@@ -43,9 +43,16 @@ stdenv.mkDerivation rec {
     cd ../runtimes
   '';
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake ninja python3 ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+  ];
 
   cmakeFlags = [ "-DLLVM_ENABLE_RUNTIMES=libunwind" ]
     ++ lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";

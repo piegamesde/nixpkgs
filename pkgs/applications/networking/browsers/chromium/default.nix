@@ -147,7 +147,12 @@ let
       ! find -iname '*.so' -exec ldd {} + | grep 'not found'
     '';
 
-    PATCH_RPATH = mkrpath [ gcc.cc glib nspr nss ];
+    PATCH_RPATH = mkrpath [
+      gcc.cc
+      glib
+      nspr
+      nss
+    ];
 
     patchPhase = ''
       patchelf --set-rpath "$PATCH_RPATH" _platform_specific/linux_x64/libwidevinecdm.so
@@ -191,7 +196,10 @@ in stdenv.mkDerivation {
   pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
   inherit version;
 
-  nativeBuildInputs = [ makeWrapper ed ];
+  nativeBuildInputs = [
+    makeWrapper
+    ed
+  ];
 
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
@@ -207,11 +215,21 @@ in stdenv.mkDerivation {
     libkrb5
   ];
 
-  outputs = [ "out" "sandbox" ];
+  outputs = [
+    "out"
+    "sandbox"
+  ];
 
   buildCommand = let
     browserBinary = "${chromiumWV}/libexec/chromium/chromium";
-    libPath = lib.makeLibraryPath [ libva pipewire wayland gtk3 gtk4 libkrb5 ];
+    libPath = lib.makeLibraryPath [
+      libva
+      pipewire
+      wayland
+      gtk3
+      gtk4
+      libkrb5
+    ];
 
   in with lib;
   ''

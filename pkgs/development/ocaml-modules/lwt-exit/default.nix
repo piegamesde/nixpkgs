@@ -20,7 +20,10 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ lwt ptime ];
+  propagatedBuildInputs = [
+    lwt
+    ptime
+  ];
 
   # for some reason this never exits
   doCheck = false;

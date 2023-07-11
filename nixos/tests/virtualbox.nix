@@ -23,7 +23,12 @@ let
 
       miniInit = ''
         #!${pkgs.runtimeShell} -xe
-        export PATH="${lib.makeBinPath [ pkgs.coreutils pkgs.util-linux ]}"
+        export PATH="${
+          lib.makeBinPath [
+            pkgs.coreutils
+            pkgs.util-linux
+          ]
+        }"
 
         mkdir -p /run/dbus /var
         ln -s /run /var
@@ -115,8 +120,10 @@ let
     let
       cfg = (import ../lib/eval-config.nix {
         system = if use64bitGuest then "x86_64-linux" else "i686-linux";
-        modules =
-          [ ../modules/profiles/minimal.nix (testVMConfig vmName vmScript) ];
+        modules = [
+          ../modules/profiles/minimal.nix
+          (testVMConfig vmName vmScript)
+        ];
       }).config;
     in pkgs.vmTools.runInLinuxVM (pkgs.runCommand "virtualbox-image" {
       preVM = ''
@@ -131,7 +138,10 @@ let
           "$diskImage" "$out/disk.vdi"
       '';
 
-      buildInputs = [ pkgs.util-linux pkgs.perl ];
+      buildInputs = [
+        pkgs.util-linux
+        pkgs.perl
+      ];
     } ''
       ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
       ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
@@ -187,10 +197,16 @@ let
         "--medium ${testVM name attrs}/disk.vdi"
       ];
 
-      sharedFlags = mkFlags [ "--name vboxshare" "--hostpath ${sharePath}" ];
+      sharedFlags = mkFlags [
+        "--name vboxshare"
+        "--hostpath ${sharePath}"
+      ];
 
-      nixstoreFlags =
-        mkFlags [ "--name nixstore" "--hostpath /nix/store" "--readonly" ];
+      nixstoreFlags = mkFlags [
+        "--name nixstore"
+        "--hostpath /nix/store"
+        "--readonly"
+      ];
     in {
       machine = {
         systemd.sockets."vboxtestlog-${name}" = {
@@ -362,9 +378,15 @@ let
           imports = let
             mkVMConf = name: val: val.machine // { key = "${name}-config"; };
             vmConfigs = mapAttrsToList mkVMConf vms;
-          in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
+          in [
+            ./common/user-account.nix
+            ./common/x11.nix
+          ] ++ vmConfigs;
           virtualisation.memorySize = 2048;
-          virtualisation.qemu.options = [ "-cpu" "kvm64,svm=on,vmx=on" ];
+          virtualisation.qemu.options = [
+            "-cpu"
+            "kvm64,svm=on,vmx=on"
+          ];
           virtualisation.virtualbox.host.enable = true;
           test-support.displayManager.auto.user = "alice";
           users.users.alice.extraGroups =
@@ -401,7 +423,10 @@ let
       '';
 
       meta = with pkgs.lib.maintainers; {
-        maintainers = [ aszlig cdepillabout ];
+        maintainers = [
+          aszlig
+          cdepillabout
+        ];
       };
     };
 

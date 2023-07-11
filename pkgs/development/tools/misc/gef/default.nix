@@ -14,7 +14,12 @@
 
 let
   pythonPath = with python3.pkgs;
-    makePythonPath [ keystone-engine unicorn capstone ropper ];
+    makePythonPath [
+      keystone-engine
+      unicorn
+      capstone
+      ropper
+    ];
 
 in stdenv.mkDerivation rec {
   pname = "gef";

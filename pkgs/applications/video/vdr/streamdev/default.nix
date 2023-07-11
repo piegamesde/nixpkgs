@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   # configure don't accept argument --prefix
   dontAddPrefix = true;
 
-  makeFlags = [ "DESTDIR=$(out)" "LIBDIR=/lib/vdr" "LOCDIR=/share/locale" ];
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "LIBDIR=/lib/vdr"
+    "LOCDIR=/share/locale"
+  ];
 
   enableParallelBuilding = true;
 

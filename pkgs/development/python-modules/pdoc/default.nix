@@ -30,19 +30,24 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ jinja2 pygments markupsafe ]
-    ++ lib.optional (pythonOlder "3.9") astunparse;
+  propagatedBuildInputs = [
+    jinja2
+    pygments
+    markupsafe
+  ] ++ lib.optional (pythonOlder "3.9") astunparse;
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
   disabledTestPaths = [
     # "test_snapshots" tries to match generated output against stored snapshots.
     # They are highly sensitive dep versions, which we unlike upstream do not pin.
     "test/test_snapshot.py"
   ];
 
-  pytestFlagsArray = [
-    ''-m "not slow"'' # skip tests marked slow
-  ];
+  pytestFlagsArray = [ ''-m "not slow"'' # skip tests marked slow
+    ];
 
   __darwinAllowLocalNetworking = true;
 

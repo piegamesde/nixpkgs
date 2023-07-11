@@ -18,7 +18,11 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1hiivlgni4r3nd5n2rzl5qzw6y2wpjpmyls5lybrc8imd6rmj3w2";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ crcmod python-lzo setuptools ];
+  propagatedBuildInputs = with python3.pkgs; [
+    crcmod
+    python-lzo
+    setuptools
+  ];
 
   dontBuild = true;
 

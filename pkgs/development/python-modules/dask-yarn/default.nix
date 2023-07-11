@@ -25,7 +25,12 @@ buildPythonPackage rec {
     hash = "sha256-/BTsxQSiVQrihrCa9DE7pueyg3aPAdjd/Dt4dpUwdtM=";
   };
 
-  propagatedBuildInputs = [ distributed dask grpcio skein ];
+  propagatedBuildInputs = [
+    distributed
+    dask
+    grpcio
+    skein
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

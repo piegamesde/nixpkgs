@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
   inherit (pip) version;
   name = "${python.libPrefix}-bootstrapped-${pname}-${version}";
 
-  srcs = [ wheel.src pip.src setuptools.src ];
+  srcs = [
+    wheel.src
+    pip.src
+    setuptools.src
+  ];
   sourceRoot = ".";
 
   dontUseSetuptoolsBuild = true;
@@ -36,7 +40,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
   '';
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
   buildInputs = [ python ];
 
   dontBuild = true;

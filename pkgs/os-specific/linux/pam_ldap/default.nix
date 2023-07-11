@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
     "\n    substituteInPlace Makefile --replace '-o root -g root' ''\n  ";
 
   nativeBuildInputs = [ perl ];
-  buildInputs = [ pam openldap ];
+  buildInputs = [
+    pam
+    openldap
+  ];
 
   meta = {
     homepage = "https://www.padl.com/OSS/pam_ldap.html";

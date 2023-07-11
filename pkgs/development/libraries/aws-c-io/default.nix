@@ -23,7 +23,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ aws-c-cal aws-c-common s2n-tls ];
+  buildInputs = [
+    aws-c-cal
+    aws-c-common
+    s2n-tls
+  ];
   propagatedBuildInputs =
     lib.optionals stdenv.hostPlatform.isDarwin [ Security ];
 

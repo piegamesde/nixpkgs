@@ -40,9 +40,19 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ glib gtk4 librsvg libadwaita gobject-introspection ];
+  buildInputs = [
+    glib
+    gtk4
+    librsvg
+    libadwaita
+    gobject-introspection
+  ];
 
-  propagatedBuildInputs = with python3.pkgs; [ netaddr requests pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [
+    netaddr
+    requests
+    pygobject3
+  ];
 
   meta = with lib; {
     description = "Info on your IP";

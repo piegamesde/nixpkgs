@@ -29,7 +29,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nbSyWcccu07FZbvOESFhlnuxgTNgJ+/6ujVQvEyQGGo=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
   buildInputs = [
     gtk
     glib

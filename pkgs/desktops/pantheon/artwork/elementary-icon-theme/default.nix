@@ -23,7 +23,14 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-4ZXqIMXyb9MLd6EHmPn672Dbw992GYYU64oB+4p6jXY=";
   };
 
-  nativeBuildInputs = [ gtk3 librsvg meson ninja python3 xcursorgen ];
+  nativeBuildInputs = [
+    gtk3
+    librsvg
+    meson
+    ninja
+    python3
+    xcursorgen
+  ];
 
   propagatedBuildInputs = [ hicolor-icon-theme ];
 

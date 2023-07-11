@@ -22,7 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "170qdzxlqikzvv2wphvfb37m19mn13az4aj88md87ka3rl5knk4m";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper ];
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
 
   dontUnpack = true;
 
@@ -38,7 +41,13 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filter_MFCL2700DN \
       --prefix PATH : ${
-        lib.makeBinPath [ coreutils ghostscript gnugrep gnused which ]
+        lib.makeBinPath [
+          coreutils
+          ghostscript
+          gnugrep
+          gnused
+          which
+        ]
       }
 
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)

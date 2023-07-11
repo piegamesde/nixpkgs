@@ -24,8 +24,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xeOiJEOPz5QEMlWP6bWhTjmj4tfNqh3rsEVmnKvrKuM=";
   };
 
-  buildInputs =
-    [ fontconfig imlib2 libX11 libXext libXft libXinerama libXrender ];
+  buildInputs = [
+    fontconfig
+    imlib2
+    libX11
+    libXext
+    libXft
+    libXinerama
+    libXrender
+  ];
 
   postPatch = let
     configFile = if lib.isDerivation conf || builtins.isPath conf then
@@ -34,7 +41,10 @@ stdenv.mkDerivation rec {
       writeText "config.h" conf;
   in lib.optionalString (conf != null) "mv ${configFile} config.h";
 
-  makeFlags = [ "INSTALL=install" "PREFIX=\${out}" ];
+  makeFlags = [
+    "INSTALL=install"
+    "PREFIX=\${out}"
+  ];
 
   meta = with lib; {
     description = "A pie-menu tool";

@@ -35,10 +35,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ branca jinja2 numpy requests ];
+  propagatedBuildInputs = [
+    branca
+    jinja2
+    numpy
+    requests
+  ];
 
-  nativeCheckInputs =
-    [ geopandas nbconvert pandas pillow pytestCheckHook selenium xyzservices ];
+  nativeCheckInputs = [
+    geopandas
+    nbconvert
+    pandas
+    pillow
+    pytestCheckHook
+    selenium
+    xyzservices
+  ];
 
   disabledTests = [
     # Tests require internet connection

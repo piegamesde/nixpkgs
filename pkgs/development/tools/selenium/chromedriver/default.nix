@@ -76,7 +76,10 @@ in stdenv.mkDerivation rec {
     sha256 = spec.sha256;
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   unpackPhase = "unzip $src";
 
@@ -100,7 +103,11 @@ in stdenv.mkDerivation rec {
     '';
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goibhniu marsam primeos ];
+    maintainers = with maintainers; [
+      goibhniu
+      marsam
+      primeos
+    ];
     # Note from primeos: By updating Chromium I also update Google Chrome and
     # ChromeDriver.
     platforms = attrNames allSpecs;

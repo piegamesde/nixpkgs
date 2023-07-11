@@ -31,9 +31,17 @@ mkDerivation rec {
                 "INSTALL_PREFIX             = '$out/'"
   '';
 
-  nativeBuildInputs = [ installShellFiles pkg-config qmake ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    qmake
+  ];
 
-  buildInputs = [ kcoreaddons kwidgetsaddons qtbase ];
+  buildInputs = [
+    kcoreaddons
+    kwidgetsaddons
+    qtbase
+  ];
 
   qmakeFlags = [ "INSTALLROOT=$(out)" ];
 

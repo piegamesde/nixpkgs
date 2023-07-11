@@ -77,7 +77,10 @@ stdenv.mkDerivation rec {
     rpcsvc-proto
   ];
 
-  nativeBuildInputs = [ flex bison ];
+  nativeBuildInputs = [
+    flex
+    bison
+  ];
 
   meta = {
     description = "Kernel-based automounter";

@@ -33,7 +33,10 @@ with lib;
 let
   warn = if verbose then builtins.trace else (x: y: y);
   references = import (runCommandLocal "references.nix" {
-    exportReferencesGraph = [ "graph" drv ];
+    exportReferencesGraph = [
+      "graph"
+      drv
+    ];
   } ''
     (echo {
     while read path
@@ -83,10 +86,10 @@ let
       } | $nixStore --restore $out
     '';
 
-  rewrittenDeps = listToAttrs [{
+  rewrittenDeps = listToAttrs [ {
     name = discard (toString oldDependency);
     value = newDependency;
-  }];
+  } ];
 
   rewriteMemo = listToAttrs (map (drv: {
     name = discard (toString drv);

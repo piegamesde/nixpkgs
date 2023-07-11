@@ -25,8 +25,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen nlopt boost tbb ]
-    ++ lib.optional (!stdenv.isDarwin) ipopt;
+  buildInputs = [
+    eigen
+    nlopt
+    boost
+    tbb
+  ] ++ lib.optional (!stdenv.isDarwin) ipopt;
 
   cmakeFlags = [
     "-DPAGMO_BUILD_TESTS=${if runTests then "ON" else "OFF"}"

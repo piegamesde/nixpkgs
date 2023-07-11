@@ -21,7 +21,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./jsfalse_to_null.patch ];
 
-  nativeBuildInputs = [ perl python3 zip ];
+  nativeBuildInputs = [
+    perl
+    python3
+    zip
+  ];
 
   strictDeps = true;
 

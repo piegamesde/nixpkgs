@@ -24,7 +24,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ libwpg libwpd lcms librevenge icu boost cppunit ];
+  buildInputs = [
+    libwpg
+    libwpd
+    lcms
+    librevenge
+    icu
+    boost
+    cppunit
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

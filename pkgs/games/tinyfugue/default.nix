@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = optional (!sslSupport) "--disable-ssl";
 
-  buildInputs = [ ncurses zlib ] ++ optional sslSupport openssl;
+  buildInputs = [
+    ncurses
+    zlib
+  ] ++ optional sslSupport openssl;
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

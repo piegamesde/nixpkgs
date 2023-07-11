@@ -48,14 +48,16 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.shutdownRamfs.contents."/shutdown".source =
       "${config.systemd.package}/lib/systemd/systemd-shutdown";
-    systemd.shutdownRamfs.storePaths =
-      [ pkgs.runtimeShell "${pkgs.coreutils}/bin" ];
+    systemd.shutdownRamfs.storePaths = [
+      pkgs.runtimeShell
+      "${pkgs.coreutils}/bin"
+    ];
 
-    systemd.mounts = [{
+    systemd.mounts = [ {
       what = "tmpfs";
       where = "/run/initramfs";
       type = "tmpfs";
-    }];
+    } ];
 
     systemd.services.generate-shutdown-ramfs = {
       description = "Generate shutdown ramfs";

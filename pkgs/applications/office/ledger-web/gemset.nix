@@ -112,7 +112,11 @@
     version = "2.0.5";
   };
   rspec = {
-    dependencies = [ "rspec-core" "rspec-expectations" "rspec-mocks" ];
+    dependencies = [
+      "rspec-core"
+      "rspec-expectations"
+      "rspec-mocks"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -134,7 +138,10 @@
     version = "3.8.0";
   };
   rspec-expectations = {
-    dependencies = [ "diff-lcs" "rspec-support" ];
+    dependencies = [
+      "diff-lcs"
+      "rspec-support"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -145,7 +152,10 @@
     version = "3.8.3";
   };
   rspec-mocks = {
-    dependencies = [ "diff-lcs" "rspec-support" ];
+    dependencies = [
+      "diff-lcs"
+      "rspec-support"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -176,7 +186,12 @@
     version = "5.19.0";
   };
   sinatra = {
-    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
+    dependencies = [
+      "mustermann"
+      "rack"
+      "rack-protection"
+      "tilt"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -13,7 +13,10 @@ in stdenv.mkDerivation {
 
   inherit (gcc.cc) src;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postUnpack = "sourceRoot=\${sourceRoot}/libiberty";
 
@@ -28,7 +31,10 @@ in stdenv.mkDerivation {
     homepage = "https://gcc.gnu.org/";
     license = licenses.lgpl2;
     description = "Collection of subroutines used by various GNU programs";
-    maintainers = with maintainers; [ abbradar ericson2314 ];
+    maintainers = with maintainers; [
+      abbradar
+      ericson2314
+    ];
     platforms = platforms.unix;
   };
 }

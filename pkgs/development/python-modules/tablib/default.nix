@@ -36,17 +36,33 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    all = [ markuppy odfpy openpyxl pandas pyyaml tabulate xlrd xlwt ];
+    all = [
+      markuppy
+      odfpy
+      openpyxl
+      pandas
+      pyyaml
+      tabulate
+      xlrd
+      xlwt
+    ];
     cli = [ tabulate ];
     html = [ markuppy ];
     ods = [ odfpy ];
     pandas = [ pandas ];
-    xls = [ xlrd xlwt ];
+    xls = [
+      xlrd
+      xlwt
+    ];
     xlsx = [ openpyxl ];
     yaml = [ pyyaml ];
   };
 
-  nativeCheckInputs = [ pandas pytestCheckHook unicodecsv ];
+  nativeCheckInputs = [
+    pandas
+    pytestCheckHook
+    unicodecsv
+  ];
 
   disabledTestPaths = [
     # test_tablib needs MarkupPy, which isn't packaged yet

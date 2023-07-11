@@ -15,7 +15,12 @@ stdenv.mkDerivation rec {
   pname = "lowdown";
   version = "1.0.1";
 
-  outputs = [ "out" "lib" "dev" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "man"
+  ];
 
   src = fetchurl {
     url = "https://kristaps.bsd.lv/lowdown/snapshots/lowdown-${version}.tar.gz";
@@ -39,9 +44,8 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  makeFlags = [
-    "bins" # prevents shared object from being built unnecessarily
-  ];
+  makeFlags = [ "bins" # prevents shared object from being built unnecessarily
+    ];
 
   installTargets = [ "install" ]
     ++ lib.optionals enableShared [ "install_shared" ]

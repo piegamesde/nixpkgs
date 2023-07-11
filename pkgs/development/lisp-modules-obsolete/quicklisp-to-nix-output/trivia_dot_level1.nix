@@ -8,7 +8,10 @@ args@{
 
   description = "Core patterns of Trivia";
 
-  deps = [ args."alexandria" args."trivia_dot_level0" ];
+  deps = [
+    args."alexandria"
+    args."trivia_dot_level0"
+  ];
 
   src = fetchurl {
     url =

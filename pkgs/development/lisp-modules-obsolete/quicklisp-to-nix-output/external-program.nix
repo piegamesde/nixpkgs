@@ -10,7 +10,10 @@ args@{
 
   description = "System lacks description";
 
-  deps = [ args."fiveam" args."trivial-features" ];
+  deps = [
+    args."fiveam"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
     url =

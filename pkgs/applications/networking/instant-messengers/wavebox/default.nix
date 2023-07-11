@@ -44,12 +44,26 @@ in stdenv.mkDerivation {
   # don't remove runtime deps
   dontPatchELF = true;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   buildInputs = with xorg;
-    [ libXdmcp libXScrnSaver libXtst ] ++ [ alsa-lib gtk3 nss ];
+    [
+      libXdmcp
+      libXScrnSaver
+      libXtst
+    ] ++ [
+      alsa-lib
+      gtk3
+      nss
+    ];
 
-  runtimeDependencies = [ (lib.getLib udev) libnotify ];
+  runtimeDependencies = [
+    (lib.getLib udev)
+    libnotify
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt/wavebox

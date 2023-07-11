@@ -27,7 +27,14 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk2 libX11 libXtst libXi libxkbfile xorgproto ];
+  buildInputs = [
+    gtk2
+    libX11
+    libXtst
+    libXi
+    libxkbfile
+    xorgproto
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

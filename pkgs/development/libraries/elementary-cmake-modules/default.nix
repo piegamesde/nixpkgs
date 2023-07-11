@@ -22,7 +22,10 @@ stdenv.mkDerivation {
       --replace ' ''${CMAKE_ROOT}/Modules' " $out/lib/cmake"
   '';
 
-  propagatedBuildInputs = [ cmake pkg-config ];
+  propagatedBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   setupHook = ./setup-hook.sh;
 

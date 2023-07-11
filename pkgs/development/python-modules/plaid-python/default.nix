@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-xe0HK6S612q/DiNLGpBqhfTg1RVvzeeez5Y0ot/+Tqk=";
   };
 
-  propagatedBuildInputs = [ nulltype python-dateutil urllib3 ];
+  propagatedBuildInputs = [
+    nulltype
+    python-dateutil
+    urllib3
+  ];
 
   # Tests require a Client IP
   doCheck = false;

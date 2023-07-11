@@ -19,7 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-hsRHFX3uLrI0HvvkU44SgadUdWuhqjLad6iWFMWLVgw=";
   };
 
-  propagatedBuildInputs = [ dawg-python docopt pymorphy2-dicts-ru ];
+  propagatedBuildInputs = [
+    dawg-python
+    docopt
+    pymorphy2-dicts-ru
+  ];
 
   pythonImportsCheck = [ "pymorphy2" ];
 

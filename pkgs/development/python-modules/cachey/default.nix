@@ -18,7 +18,10 @@ buildPythonPackage rec {
     rev = version;
     hash = "sha256-5USmuufrrWtmgibpfkjo9NtgN30hdl8plJfythmxM4s=";
   };
-  propagatedBuildInputs = [ typing-extensions heapdict ];
+  propagatedBuildInputs = [
+    typing-extensions
+    heapdict
+  ];
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "cachey" ];
   meta = with lib; {

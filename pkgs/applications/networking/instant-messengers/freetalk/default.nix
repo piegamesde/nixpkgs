@@ -45,7 +45,12 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [ pkg-config texinfo autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    texinfo
+    autoconf
+    automake
+  ];
   buildInputs = [
     guile
     glib

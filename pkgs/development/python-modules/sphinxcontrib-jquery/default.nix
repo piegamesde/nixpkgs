@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sphinxcontrib.jquery" ];
 
-  nativeCheckInputs = [ pytestCheckHook sphinx ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    sphinx
+  ];
 
   meta = with lib; {
     description = "Extension to include jQuery on newer Sphinx releases";

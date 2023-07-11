@@ -12,8 +12,11 @@ buildPythonPackage rec {
   pname = "audiotools";
   version = "3.1.1";
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ AudioToolbox AudioUnit CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AudioToolbox
+    AudioUnit
+    CoreServices
+  ];
 
   src = fetchFromGitHub {
     owner = "tuffy";

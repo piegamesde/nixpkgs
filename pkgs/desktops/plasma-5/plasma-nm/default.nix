@@ -35,7 +35,11 @@
 
 mkDerivation {
   pname = "plasma-nm";
-  nativeBuildInputs = [ extra-cmake-modules kdoctools qttools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    qttools
+  ];
   buildInputs = [
     kdeclarative
     ki18n
@@ -68,10 +72,8 @@ mkDerivation {
 
   cmakeFlags = [ "-DBUILD_MOBILE=ON" ];
 
-  patches = [
-    (substituteAll {
-      src = ./0002-openvpn-binary-path.patch;
-      inherit openvpn;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./0002-openvpn-binary-path.patch;
+    inherit openvpn;
+  }) ];
 }

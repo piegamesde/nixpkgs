@@ -71,7 +71,10 @@ in symlinkJoin rec {
   inherit client server version;
 
   name = "${pname}-${version}";
-  paths = [ client server ];
+  paths = [
+    client
+    server
+  ];
 
   meta = commonMeta // {
     description =

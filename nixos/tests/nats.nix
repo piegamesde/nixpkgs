@@ -31,10 +31,10 @@ in import ./make-test-python.nix ({
             enable = true;
             settings = {
               authorization = {
-                users = [{
+                users = [ {
                   user = username;
                   inherit password;
-                }];
+                } ];
               };
             };
           };

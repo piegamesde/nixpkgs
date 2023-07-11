@@ -23,8 +23,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-IVlZ6o+1EEEh547rFPN7z+W+EY7MrIM/yUh6+PPkNeI=";
   };
 
-  nativeBuildInputs = [ glslang meson ninja pkg-config ];
-  buildInputs = [ libX11 spirv-headers vulkan-headers ];
+  nativeBuildInputs = [
+    glslang
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    libX11
+    spirv-headers
+    vulkan-headers
+  ];
   mesonFlags = [ "-Dappend_libdir_vkbasalt=true" ];
 
   postInstall =

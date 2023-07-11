@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
     sha256 = "tPpVUL+J1Pnv9a5ufWFQ42YaItUw1q3cZ1e86N0qXT0=";
   };
 
-  nativeBuildInputs = [ pkg-config gettext itstool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    itstool
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     libxml2

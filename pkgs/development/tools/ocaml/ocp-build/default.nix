@@ -32,8 +32,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml findlib ];
-  buildInputs = [ cmdliner_1_0 re ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+  ];
+  buildInputs = [
+    cmdliner_1_0
+    re
+  ];
   propagatedBuildInputs = [ ncurses ];
   preInstall = "mkdir -p $out/bin";
 

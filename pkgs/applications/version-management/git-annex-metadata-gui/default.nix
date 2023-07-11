@@ -28,7 +28,10 @@ buildPythonApplication rec {
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '';
 
-  propagatedBuildInputs = [ pyqt5 git-annex-adapter ];
+  propagatedBuildInputs = [
+    pyqt5
+    git-annex-adapter
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/alpernebbi/git-annex-metadata-gui";

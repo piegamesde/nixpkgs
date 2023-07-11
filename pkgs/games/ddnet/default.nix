@@ -79,7 +79,12 @@ stdenv.mkDerivation rec {
     vulkan-headers
     glslang
     spirv-tools
-  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa OpenGL Security ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Carbon
+    Cocoa
+    OpenGL
+    Security
+  ];
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \
@@ -103,7 +108,11 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://ddnet.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sirseruju lom ncfavier ];
+    maintainers = with maintainers; [
+      sirseruju
+      lom
+      ncfavier
+    ];
     mainProgram = "DDNet";
   };
 }

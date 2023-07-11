@@ -52,13 +52,17 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib gnome.adwaita-icon-theme gtk3 libwnck ];
+  buildInputs = [
+    glib
+    gnome.adwaita-icon-theme
+    gtk3
+    libwnck
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
-  mesonFlags = [
-    "-Dtests=false" # needs dbus
-  ];
+  mesonFlags = [ "-Dtests=false" # needs dbus
+    ];
 
   postPatch = ''
     chmod +x meson_post_install.py

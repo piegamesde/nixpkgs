@@ -85,8 +85,15 @@ let
     homepage = "https://slack.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ mmahut maxeaubrey ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-darwin" ];
+    maintainers = with maintainers; [
+      mmahut
+      maxeaubrey
+    ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -140,11 +147,14 @@ let
       xorg.libxshmfence
     ] + ":${stdenv.cc.cc.lib}/lib64";
 
-    buildInputs = [
-      gtk3 # needed for GSETTINGS_SCHEMAS_PATH
-    ];
+    buildInputs = [ gtk3 # needed for GSETTINGS_SCHEMAS_PATH
+      ];
 
-    nativeBuildInputs = [ dpkg makeWrapper nodePackages.asar ];
+    nativeBuildInputs = [
+      dpkg
+      makeWrapper
+      nodePackages.asar
+    ];
 
     dontUnpack = true;
     dontBuild = true;

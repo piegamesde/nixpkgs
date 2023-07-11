@@ -29,14 +29,28 @@ buildPythonPackage rec {
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [ jax matplotlib msgpack numpy optax rich ];
+  propagatedBuildInputs = [
+    jax
+    matplotlib
+    msgpack
+    numpy
+    optax
+    rich
+  ];
 
   pythonImportsCheck = [ "flax" ];
 
-  nativeCheckInputs = [ keras pytest-xdist pytestCheckHook tensorflow ];
+  nativeCheckInputs = [
+    keras
+    pytest-xdist
+    pytestCheckHook
+    tensorflow
+  ];
 
-  pytestFlagsArray =
-    [ "-W ignore::FutureWarning" "-W ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W ignore::FutureWarning"
+    "-W ignore::DeprecationWarning"
+  ];
 
   disabledTestPaths = [
     # Docs test, needs extra deps + we're not interested in it.

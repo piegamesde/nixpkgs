@@ -12,11 +12,11 @@ import ./make-test-python.nix ({
         services.litestream = {
           enable = true;
           settings = {
-            dbs = [{
+            dbs = [ {
               path = "/var/lib/grafana/data/grafana.db";
               replicas =
-                [{ url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana"; }];
-            }];
+                [ { url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana"; } ];
+            } ];
           };
         };
         systemd.services.grafana.serviceConfig.ExecStartPost = "+"
@@ -41,10 +41,10 @@ import ./make-test-python.nix ({
         services.openssh = {
           enable = true;
           allowSFTP = true;
-          listenAddresses = [{
+          listenAddresses = [ {
             addr = "127.0.0.1";
             port = 22;
-          }];
+          } ];
         };
         services.grafana = {
           enable = true;

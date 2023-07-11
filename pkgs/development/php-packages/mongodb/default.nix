@@ -19,8 +19,14 @@ buildPecl {
   sha256 = "sha256-7rYmjTS9C0o9zGDd5OSE9c9PokOco9nwJMAADpnuckA=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ cyrus_sasl icu64 openssl snappy zlib pcre2 ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  buildInputs = [
+    cyrus_sasl
+    icu64
+    openssl
+    snappy
+    zlib
+    pcre2
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = with lib; {
     description = "MongoDB driver for PHP";

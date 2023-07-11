@@ -25,8 +25,16 @@ buildDunePackage rec {
     hash = "sha256-fzRoNFqdnj4Ke+eNdo5crvbnKDx6/+dQyu+K3rD5dYw=";
   };
 
-  propagatedBuildInputs =
-    [ lwt mirage-net cstruct ipaddr macaddr mirage-profile duration logs ];
+  propagatedBuildInputs = [
+    lwt
+    mirage-net
+    cstruct
+    ipaddr
+    macaddr
+    mirage-profile
+    duration
+    logs
+  ];
 
   meta = with lib; {
     description = "Virtual network interface and software switch for Mirage";

@@ -16,7 +16,10 @@ bundlerApp {
       "Toolkit to add Ruby development - in-editor coverage, libnotify of test runs";
     homepage = "https://github.com/nyarly/cadre";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyarly nicknovitski ];
+    maintainers = with maintainers; [
+      nyarly
+      nicknovitski
+    ];
     platforms = platforms.unix;
   };
 }

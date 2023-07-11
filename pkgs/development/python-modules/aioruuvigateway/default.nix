@@ -24,9 +24,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ bluetooth-data-tools httpx ];
+  propagatedBuildInputs = [
+    bluetooth-data-tools
+    httpx
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-httpx
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aioruuvigateway" ];
 

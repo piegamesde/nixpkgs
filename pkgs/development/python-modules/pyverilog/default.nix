@@ -26,7 +26,11 @@ buildPythonPackage rec {
       --replace "iverilog = 'iverilog'" "iverilog = '${verilog}/bin/iverilog'"
   '';
 
-  propagatedBuildInputs = [ jinja2 ply verilog ];
+  propagatedBuildInputs = [
+    jinja2
+    ply
+    verilog
+  ];
 
   preCheck = ''
     substituteInPlace pytest.ini \

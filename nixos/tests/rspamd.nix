@@ -57,18 +57,18 @@ in {
     nodes.machine = {
       services.rspamd = {
         enable = true;
-        workers.normal.bindSockets = [{
+        workers.normal.bindSockets = [ {
           socket = "/run/rspamd/rspamd.sock";
           mode = "0600";
           owner = "rspamd";
           group = "rspamd";
-        }];
-        workers.controller.bindSockets = [{
+        } ];
+        workers.controller.bindSockets = [ {
           socket = "/run/rspamd/rspamd-worker.sock";
           mode = "0666";
           owner = "rspamd";
           group = "rspamd";
-        }];
+        } ];
       };
     };
 
@@ -96,18 +96,18 @@ in {
     nodes.machine = {
       services.rspamd = {
         enable = true;
-        workers.normal.bindSockets = [{
+        workers.normal.bindSockets = [ {
           socket = "/run/rspamd/rspamd.sock";
           mode = "0600";
           owner = "rspamd";
           group = "rspamd";
-        }];
-        workers.controller.bindSockets = [{
+        } ];
+        workers.controller.bindSockets = [ {
           socket = "/run/rspamd/rspamd-worker.sock";
           mode = "0666";
           owner = "rspamd";
           group = "rspamd";
-        }];
+        } ];
         workers.controller2 = {
           type = "controller";
           bindSockets = [ "0.0.0.0:11335" ];

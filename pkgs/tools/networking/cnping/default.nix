@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libglvnd xorg.libXinerama xorg.libXext xorg.libX11 ];
+  buildInputs = [
+    libglvnd
+    xorg.libXinerama
+    xorg.libXext
+    xorg.libX11
+  ];
 
   # The "linuxinstall" target won't work for us:
   # it tries to setcap and copy to a FHS directory

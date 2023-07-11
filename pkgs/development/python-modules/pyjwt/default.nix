@@ -27,9 +27,16 @@ buildPythonPackage rec {
     sed -i '/types-cryptography/d' setup.cfg
   '';
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ sphinxHook sphinx-rtd-theme zope_interface ];
+  nativeBuildInputs = [
+    sphinxHook
+    sphinx-rtd-theme
+    zope_interface
+  ];
 
   passthru.optional-dependencies.crypto = [ cryptography ];
 

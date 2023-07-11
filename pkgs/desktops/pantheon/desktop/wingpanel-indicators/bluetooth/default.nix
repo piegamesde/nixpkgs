@@ -38,7 +38,14 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ glib granite gtk3 libgee libnotify wingpanel ];
+  buildInputs = [
+    glib
+    granite
+    gtk3
+    libgee
+    libnotify
+    wingpanel
+  ];
 
   postPatch = ''
     chmod +x meson/post_install.py

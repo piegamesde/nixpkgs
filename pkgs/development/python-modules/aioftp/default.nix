@@ -25,7 +25,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ siosocks ];
 
-  nativeCheckInputs = [ async-timeout pytest-asyncio pytestCheckHook trustme ];
+  nativeCheckInputs = [
+    async-timeout
+    pytest-asyncio
+    pytestCheckHook
+    trustme
+  ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     # uses 127.0.0.2, which macos doesn't like

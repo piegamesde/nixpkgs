@@ -20,9 +20,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Bh7qBlHh2bQ6y2HnI4TtxMU6N3t04tr1Juoul2KMrqs=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
-  buildInputs = [ glib-networking openssl webkitgtk wrapGAppsHook ];
+  buildInputs = [
+    glib-networking
+    openssl
+    webkitgtk
+    wrapGAppsHook
+  ];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
 

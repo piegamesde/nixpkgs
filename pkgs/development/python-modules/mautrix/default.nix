@@ -37,17 +37,29 @@ buildPythonPackage rec {
     hash = "sha256-XG2uAG5sKGGtnCTQJ2gsAm7jxtvMg+1MXPJLkb+2cPQ=";
   };
 
-  propagatedBuildInputs = [ aiohttp attrs yarl ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+    yarl
+  ];
 
   passthru.optional-dependencies = {
     detect_mimetype = [ python-magic ];
-    encryption = [ python-olm unpaddedbase64 pycryptodome ];
+    encryption = [
+      python-olm
+      unpaddedbase64
+      pycryptodome
+    ];
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [ pytest-asyncio aiosqlite sqlalchemy asyncpg ]
-    ++ passthru.optional-dependencies.encryption;
+  checkInputs = [
+    pytest-asyncio
+    aiosqlite
+    sqlalchemy
+    asyncpg
+  ] ++ passthru.optional-dependencies.encryption;
 
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 
@@ -63,6 +75,11 @@ buildPythonPackage rec {
     homepage = "https://github.com/tulir/mautrix-python";
     changelog = "https://github.com/mautrix/python/releases/tag/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nyanloutre ma27 sumnerevans nickcao ];
+    maintainers = with maintainers; [
+      nyanloutre
+      ma27
+      sumnerevans
+      nickcao
+    ];
   };
 }

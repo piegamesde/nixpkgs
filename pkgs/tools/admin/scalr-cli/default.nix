@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-xoxSQ9V9i7yxJzn8wAtIAtWlTn4q/UnNqMT93RyBHII=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preConfigure = ''
     # Set the version.

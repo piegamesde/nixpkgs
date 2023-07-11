@@ -21,7 +21,11 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gpsd libcap libnl ];
+  buildInputs = [
+    gpsd
+    libcap
+    libnl
+  ];
 
   preBuild = ''
     makeFlags="PREFIX=$out PKG_CONFIG=${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config"

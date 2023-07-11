@@ -14,7 +14,11 @@ buildDunePackage {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ dyn ordering csexp ];
+  propagatedBuildInputs = [
+    dyn
+    ordering
+    csexp
+  ];
 
   preBuild = ''
     rm -r vendor/csexp

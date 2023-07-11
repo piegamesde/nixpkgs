@@ -39,7 +39,13 @@ else
     };
 
     nativeBuildInputs = [ menhir ];
-    buildInputs = [ fmt lwt_ppx ocf_ppx ppx_blob xtmpl_ppx ];
+    buildInputs = [
+      fmt
+      lwt_ppx
+      ocf_ppx
+      ppx_blob
+      xtmpl_ppx
+    ];
     propagatedBuildInputs = [
       dune-build-info
       dune-site

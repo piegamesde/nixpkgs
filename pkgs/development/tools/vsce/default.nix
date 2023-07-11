@@ -27,7 +27,10 @@ buildNpmPackage rec {
     substituteInPlace package.json --replace '"version": "0.0.0"' '"version": "${version}"'
   '';
 
-  nativeBuildInputs = [ pkg-config python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+  ];
 
   buildInputs = [ libsecret ];
 

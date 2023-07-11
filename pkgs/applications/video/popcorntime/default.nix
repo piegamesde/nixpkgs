@@ -25,10 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cbKL5bgweZD/yfi/8KS0L7Raha8PTHqIm4qSPFidjUc=";
   };
 
-  nativeBuildInputs =
-    [ autoPatchelfHook makeWrapper unzip wrapGAppsHook copyDesktopItems ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    unzip
+    wrapGAppsHook
+    copyDesktopItems
+  ];
 
-  buildInputs = [ gcc-unwrapped gsettings-desktop-schemas gtk3 nwjs udev ];
+  buildInputs = [
+    gcc-unwrapped
+    gsettings-desktop-schemas
+    gtk3
+    nwjs
+    udev
+  ];
 
   sourceRoot = ".";
 
@@ -37,7 +48,11 @@ stdenv.mkDerivation rec {
 
   makeWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ gcc-unwrapped.lib gtk3 udev ]
+      lib.makeLibraryPath [
+        gcc-unwrapped.lib
+        gtk3
+        udev
+      ]
     }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
   ];

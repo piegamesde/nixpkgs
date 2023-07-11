@@ -36,7 +36,12 @@ in stdenv.mkDerivation rec {
     cp -r core $out/bin/core
 
     wrapProgram $out/bin/odin --prefix PATH : ${
-      lib.makeBinPath (with llvmPackages; [ bintools llvm clang lld ])
+      lib.makeBinPath (with llvmPackages; [
+        bintools
+        llvm
+        clang
+        lld
+      ])
     }
   '';
 

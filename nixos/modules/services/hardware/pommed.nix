@@ -42,7 +42,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.polkit pkgs.pommed_light ];
+    environment.systemPackages = [
+      pkgs.polkit
+      pkgs.pommed_light
+    ];
 
     environment.etc."pommed.conf".source =
       if cfg.configFile == null then defaultConf else cfg.configFile;

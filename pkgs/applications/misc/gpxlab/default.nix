@@ -26,7 +26,10 @@ mkDerivation rec {
     inherit qttranslations;
   });
 
-  nativeBuildInputs = [ qmake qttools ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+  ];
 
   preConfigure = ''
     lrelease GPXLab/locale/*.ts

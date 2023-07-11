@@ -24,11 +24,18 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ] ++ lib.optional stdenv.isDarwin libiconv;
 
-  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    makeWrapper
+    pkg-config
+  ];
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--sysconfdir=/etc" "--enable-lock-dir=/var/lock" ];
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--enable-lock-dir=/var/lock"
+  ];
 
   patches = [ ./xminicom_terminal_paths.patch ];
 

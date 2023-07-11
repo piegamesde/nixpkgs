@@ -32,7 +32,10 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "LDLIBS=-lncurses" ];
 
-  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   meta = {
     description = "Small ncurses-based file browser";

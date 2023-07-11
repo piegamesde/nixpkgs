@@ -21,7 +21,10 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [ "pyyaml" "xcffib" ];
+  pythonRelaxDeps = [
+    "pyyaml"
+    "xcffib"
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     i3ipc

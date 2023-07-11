@@ -19,7 +19,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t3Y576dXWp2Mj6OSQN5cm9FuNBWNqKq6xxkVRbjIBgE=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
   buildInputs = [ jdk ];
 
   buildPhase = ''
@@ -48,14 +51,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "graphwar";
-      exec = "graphwar";
-      desktopName = "Graphwar";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "graphwar";
+    exec = "graphwar";
+    desktopName = "Graphwar";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     homepage = "http://www.graphwar.com/";

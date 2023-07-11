@@ -154,11 +154,9 @@ let
       config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
         || name == "rspamd_proxy") {
           type = mkDefault name;
-          includes = mkDefault [
-            "$CONFDIR/worker-${
+          includes = mkDefault [ "$CONFDIR/worker-${
               if name == "rspamd_proxy" then "proxy" else name
-            }.inc"
-          ];
+            }.inc" ];
           bindSockets = let
             unixSocket = name: {
               mode = "0660";
@@ -166,13 +164,10 @@ let
               owner = cfg.user;
               group = cfg.group;
             };
-          in mkDefault (if name == "normal" then
-            [ (unixSocket "rspamd") ]
-          else if name == "controller" then
-            [ "localhost:11334" ]
-          else if name == "rspamd_proxy" then
-            [ (unixSocket "proxy") ]
-          else
+          in mkDefault
+          (if name == "normal" then [ (unixSocket "rspamd") ] else if name
+          == "controller" then [ "localhost:11334" ] else if name
+          == "rspamd_proxy" then [ (unixSocket "proxy") ] else
             [ ]);
         };
     };
@@ -241,10 +236,10 @@ let
   }) (filterFiles cfg.overrides)) ++ (optional (cfg.localLuaRules != null) {
     name = "rspamd.local.lua";
     path = cfg.localLuaRules;
-  }) ++ [{
+  }) ++ [ {
     name = "rspamd.conf";
     path = rspamdConfFile;
-  }]);
+  } ]);
 
   configFileModule = prefix:
     {
@@ -403,7 +398,12 @@ in {
         };
 
         config = mkOption {
-          type = with types; attrsOf (oneOf [ bool str (listOf str) ]);
+          type = with types;
+            attrsOf (oneOf [
+              bool
+              str
+              (listOf str)
+            ]);
           description = lib.mdDoc ''
             Addon to postfix configuration
           '';
@@ -423,12 +423,12 @@ in {
     services.rspamd.workers = mkIf cfg.postfix.enable {
       controller = { };
       rspamd_proxy = {
-        bindSockets = [{
+        bindSockets = [ {
           mode = "0660";
           socket = "/run/rspamd/rspamd-milter.sock";
           owner = cfg.user;
           group = postfixCfg.group;
-        }];
+        } ];
         extraConfig = ''
           upstream "local" {
             default = yes; # Self-scan upstreams are always default
@@ -497,7 +497,11 @@ in {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -508,23 +512,37 @@ in {
     };
   };
   imports = [
-    (mkRemovedOptionModule [ "services" "rspamd" "socketActivation" ]
+    (mkRemovedOptionModule [
+      "services"
+      "rspamd"
+      "socketActivation"
+    ]
       "Socket activation never worked correctly and could at this time not be fixed and so was removed")
-    (mkRenamedOptionModule [ "services" "rspamd" "bindSocket" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "rspamd"
+      "bindSocket"
+    ] [
       "services"
       "rspamd"
       "workers"
       "normal"
       "bindSockets"
     ])
-    (mkRenamedOptionModule [ "services" "rspamd" "bindUISocket" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "rspamd"
+      "bindUISocket"
+    ] [
       "services"
       "rspamd"
       "workers"
       "controller"
       "bindSockets"
     ])
-    (mkRemovedOptionModule [ "services" "rmilter" ]
-      "Use services.rspamd.* instead to set up milter service")
+    (mkRemovedOptionModule [
+      "services"
+      "rmilter"
+    ] "Use services.rspamd.* instead to set up milter service")
   ];
 }

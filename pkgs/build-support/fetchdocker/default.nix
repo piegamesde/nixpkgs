@@ -7,7 +7,13 @@
   writeText,
 }:
 let
-  stripScheme = builtins.replaceStrings [ "https://" "http://" ] [ "" "" ];
+  stripScheme = builtins.replaceStrings [
+    "https://"
+    "http://"
+  ] [
+    ""
+    ""
+  ];
   stripNixStore = s: lib.removePrefix "${builtins.storeDir}/" s;
 in {
   name,
@@ -36,11 +42,11 @@ let
 
   layers = builtins.map stripNixStore imageLayers;
 
-  manifest = writeText "manifest.json" (builtins.toJSON [{
+  manifest = writeText "manifest.json" (builtins.toJSON [ {
     Config = stripNixStore imageConfig;
     Layers = layers;
     RepoTags = [ "${repoTag1}:${tag}" ];
-  }]);
+  } ]);
 
   repositories = writeText "repositories"
     (builtins.toJSON { ${repoTag1} = { ${tag} = lib.last layers; }; });

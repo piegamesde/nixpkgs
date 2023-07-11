@@ -31,7 +31,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nelsonjchen/speedtest-rs";
     changelog =
       "https://github.com/nelsonjchen/speedtest-rs/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit asl20 ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
     maintainers = with maintainers; [ GaetanLepage ];
   };
 }

@@ -27,8 +27,17 @@ mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ csxcad qcsxcad hdf5 vtkWithQt5 qtbase fparser tinyxml cgal boost ];
+  buildInputs = [
+    csxcad
+    qcsxcad
+    hdf5
+    vtkWithQt5
+    qtbase
+    fparser
+    tinyxml
+    cgal
+    boost
+  ];
 
   postFixup = ''
     rm $out/bin/AppCSXCAD.sh

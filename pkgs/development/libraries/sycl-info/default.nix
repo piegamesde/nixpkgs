@@ -24,9 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "0fy0y1rcfb11p3vijd8wym6xkaicav49pv2bv2l18rma929n1m1m";
   };
 
-  buildInputs = [ nlohmann_json ronn opencl-headers ocl-icd doctest lyra ];
+  buildInputs = [
+    nlohmann_json
+    ronn
+    opencl-headers
+    ocl-icd
+    doctest
+    lyra
+  ];
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
 
   cmakeFlags = [
     "-DBUILD_TESTING=ON"

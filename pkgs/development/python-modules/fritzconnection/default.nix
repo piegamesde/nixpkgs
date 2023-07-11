@@ -37,6 +37,9 @@ buildPythonPackage rec {
     changelog =
       "https://fritzconnection.readthedocs.io/en/${version}/sources/version_history.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda valodim ];
+    maintainers = with maintainers; [
+      dotlambda
+      valodim
+    ];
   };
 }

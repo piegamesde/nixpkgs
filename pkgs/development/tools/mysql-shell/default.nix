@@ -34,7 +34,12 @@
   antlr,
 }:
 
-let pythonDeps = with python3.pkgs; [ certifi paramiko pyyaml ];
+let
+  pythonDeps = with python3.pkgs; [
+    certifi
+    paramiko
+    pyyaml
+  ];
 in stdenv.mkDerivation rec {
   pname = "mysql-shell";
   version = "8.0.33";
@@ -62,9 +67,18 @@ in stdenv.mkDerivation rec {
     substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
   '';
 
-  nativeBuildInputs = [ pkg-config cmake git bison makeWrapper ]
-    ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
-    ++ lib.optionals stdenv.isDarwin [ cctools developer_cmds DarwinTools ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    git
+    bison
+    makeWrapper
+  ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+    ++ lib.optionals stdenv.isDarwin [
+      cctools
+      developer_cmds
+      DarwinTools
+    ];
 
   buildInputs = [
     boost

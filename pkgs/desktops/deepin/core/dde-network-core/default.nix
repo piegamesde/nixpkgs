@@ -41,7 +41,12 @@ stdenv.mkDerivation rec {
       --replace "/usr/share" "/run/current-system/sw/share"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget

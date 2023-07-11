@@ -24,7 +24,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyqt5 qtpy typing-extensions pygments ];
+  propagatedBuildInputs = [
+    pyqt5
+    qtpy
+    typing-extensions
+    pygments
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

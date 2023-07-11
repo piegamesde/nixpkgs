@@ -28,7 +28,15 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/issues/134445
   doCheck = !stdenv.isDarwin && stdenv.isx86_64;
 
-  nativeCheckInputs = [ expect which coreutils pinentry.tty git gnutar procps ];
+  nativeCheckInputs = [
+    expect
+    which
+    coreutils
+    pinentry.tty
+    git
+    gnutar
+    procps
+  ];
 
   postPatch = ''
     patchShebangs bin tools

@@ -25,9 +25,21 @@ stdenv.mkDerivation rec {
     sha256 = "06bv5nyl8rcibyb83zzrfdq6x6f93g3rgnv47i5gsjcaw5w6l31y";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex ghostscript groff netpbm ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    ghostscript
+    groff
+    netpbm
+  ];
 
-  buildInputs = [ fltk libXinerama libXpm libjpeg ];
+  buildInputs = [
+    fltk
+    libXinerama
+    libXpm
+    libjpeg
+  ];
 
   patches = [ ./ghostscript-permit-file-write.patch ];
 

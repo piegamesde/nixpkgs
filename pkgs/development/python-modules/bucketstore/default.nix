@@ -29,7 +29,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ boto3 ];
 
-  nativeCheckInputs = [ moto pytestCheckHook ];
+  nativeCheckInputs = [
+    moto
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "bucketstore" ];
 

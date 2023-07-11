@@ -22,9 +22,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AsJGcyVqRGz7OBWTlQeTS412iUzMAbIsA4w6CmEf1G8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ intel-gmmlib intel-graphics-compiler libva level-zero ];
+  buildInputs = [
+    intel-gmmlib
+    intel-graphics-compiler
+    libva
+    level-zero
+  ];
 
   cmakeFlags = [
     "-DSKIP_UNIT_TESTS=1"
@@ -34,7 +42,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
-  outputs = [ "out" "drivers" ];
+  outputs = [
+    "out"
+    "drivers"
+  ];
 
   postInstall = ''
     # Avoid clash with intel-ocl
@@ -61,7 +72,10 @@ stdenv.mkDerivation rec {
     description =
       "Intel Graphics Compute Runtime for OpenCL. Replaces Beignet for Gen8 (Broadwell) and beyond";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

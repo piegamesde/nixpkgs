@@ -40,6 +40,10 @@ in mkDerivation {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfreeRedistributable;
     platforms = builtins.attrNames srcs;
-    maintainers = with lib.maintainers; [ impl nathyong nioncode ];
+    maintainers = with lib.maintainers; [
+      impl
+      nathyong
+      nioncode
+    ];
   };
 }

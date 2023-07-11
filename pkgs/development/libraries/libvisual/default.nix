@@ -42,8 +42,14 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ SDL glib ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    SDL
+    glib
+  ];
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     # Remove once "sdl-cross-prereq.patch" patch above is removed.

@@ -48,7 +48,10 @@ buildGoModule rec {
       "CLI to install, manage & troubleshoot Kubernetes clusters running Cilium";
     license = licenses.asl20;
     homepage = "https://www.cilium.io/";
-    maintainers = with maintainers; [ humancalico bryanasdev000 ];
+    maintainers = with maintainers; [
+      humancalico
+      bryanasdev000
+    ];
     mainProgram = "cilium";
   };
 }

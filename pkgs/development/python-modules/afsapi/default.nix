@@ -28,9 +28,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ aiohttp lxml ];
+  propagatedBuildInputs = [
+    aiohttp
+    lxml
+  ];
 
-  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "async_tests.py" ];
 

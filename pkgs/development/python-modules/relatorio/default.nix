@@ -23,7 +23,10 @@ buildPythonPackage rec {
     sha256 = "a0c72302d50d5dfa433ddab191672eec1dde1c6ed26330a378b720e5a3012e23";
   };
 
-  propagatedBuildInputs = [ genshi lxml ];
+  propagatedBuildInputs = [
+    genshi
+    lxml
+  ];
 
   passthru.optional-dependencies = {
     chart = [ # pycha

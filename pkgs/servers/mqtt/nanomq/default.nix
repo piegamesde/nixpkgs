@@ -30,9 +30,20 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "DESTINATION /etc" "DESTINATION $out/etc"
   '';
 
-  nativeBuildInputs = [ cmake ninja pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ cyclonedds libmysqlclient mariadb mbedtls sqlite zeromq ];
+  buildInputs = [
+    cyclonedds
+    libmysqlclient
+    mariadb
+    mbedtls
+    sqlite
+    zeromq
+  ];
 
   cmakeFlags = [
     "-DBUILD_BENCH=ON"

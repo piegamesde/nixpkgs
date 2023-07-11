@@ -11,7 +11,10 @@ let
   enginesMajorVersion = lib.versions.majorMinor pkgs.prisma-engines.version;
 
 in runCommand "${packageName}-tests" {
-  nativeBuildInputs = with pkgs; [ prisma sqlite-interactive ];
+  nativeBuildInputs = with pkgs; [
+    prisma
+    sqlite-interactive
+  ];
   meta.timeout = 60;
 } ''
   mkdir $out

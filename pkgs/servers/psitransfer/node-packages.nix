@@ -1653,7 +1653,10 @@ in {
         sources."basic-auth-2.0.1"
         sources."bl-4.1.0"
         (sources."body-parser-1.19.2" // {
-          dependencies = [ sources."bytes-3.1.2" sources."debug-2.6.9" ];
+          dependencies = [
+            sources."bytes-3.1.2"
+            sources."debug-2.6.9"
+          ];
         })
         sources."brace-expansion-1.1.11"
         sources."buffer-5.7.1"
@@ -1692,7 +1695,10 @@ in {
         sources."escape-html-1.0.3"
         sources."etag-1.8.1"
         (sources."express-4.17.3" // {
-          dependencies = [ sources."debug-2.6.9" sources."safe-buffer-5.2.1" ];
+          dependencies = [
+            sources."debug-2.6.9"
+            sources."safe-buffer-5.2.1"
+          ];
         })
         (sources."finalhandler-1.1.2" // {
           dependencies = [ sources."debug-2.6.9" ];
@@ -1745,7 +1751,10 @@ in {
         sources."mime-types-2.1.35"
         sources."minimatch-3.1.2"
         (sources."morgan-1.10.0" // {
-          dependencies = [ sources."debug-2.6.9" sources."depd-2.0.0" ];
+          dependencies = [
+            sources."debug-2.6.9"
+            sources."depd-2.0.0"
+          ];
         })
         sources."ms-2.0.0"
         sources."mz-2.7.0"

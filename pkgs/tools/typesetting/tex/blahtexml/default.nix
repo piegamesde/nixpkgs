@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-DL5DyfARHHbwWBVHSa/VwHzNaAx/v7EDdnw1GLOk+y0=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   nativeBuildInputs =
     [ texlive.combined.scheme-full ]; # scheme-full needed for ucs package

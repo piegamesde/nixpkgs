@@ -12,7 +12,10 @@
 stdenv.mkDerivation rec {
   pname = "erofs-utils";
   version = "1.5";
-  outputs = [ "out" "man" ];
+  outputs = [
+    "out"
+    "man"
+  ];
 
   src = fetchgit {
     url =
@@ -21,8 +24,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vMWAmGMJp0XDuc4sbo6Y7gfCQVAo4rETea0Tkdbg82U=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ fuse libuuid lz4 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    fuse
+    libuuid
+    lz4
+  ];
 
   configureFlags = [ "--enable-fuse" ];
 

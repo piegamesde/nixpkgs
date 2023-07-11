@@ -22,8 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "1sakj9a2q05brpd7lkqxi8q30bccycdzd96ns00s6jbxrzjlijkm";
   };
 
-  patches =
-    [ ./crack-attack-1.1.14-gcc43.patch ./crack-attack-1.1.14-glut.patch ];
+  patches = [
+    ./crack-attack-1.1.14-gcc43.patch
+    ./crack-attack-1.1.14-glut.patch
+  ];
 
   configureFlags = [
     "--enable-sound=yes"
@@ -32,7 +34,16 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 freeglut SDL SDL_mixer libGLU libGL libXi libXmu ];
+  buildInputs = [
+    gtk2
+    freeglut
+    SDL
+    SDL_mixer
+    libGLU
+    libGL
+    libXi
+    libXmu
+  ];
 
   hardeningDisable = [ "format" ];
   enableParallelBuilding = true;

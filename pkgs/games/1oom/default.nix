@@ -21,9 +21,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libsamplerate SDL2 SDL2_mixer readline ];
+  buildInputs = [
+    libsamplerate
+    SDL2
+    SDL2_mixer
+    readline
+  ];
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   postInstall = ''
     install -d $doc/share/doc/${pname}

@@ -36,7 +36,10 @@ let
   # will cause a build failure.
   vsix = build-deps.override {
     src = "${src}/editors/code";
-    outputs = [ "vsix" "out" ];
+    outputs = [
+      "vsix"
+      "out"
+    ];
 
     inherit releaseTag;
 
@@ -76,7 +79,10 @@ in vscode-utils.buildVscodeExtension {
   vscodeExtPublisher = publisher;
   vscodeExtName = pname;
 
-  nativeBuildInputs = lib.optionals setDefaultServerPath [ jq moreutils ];
+  nativeBuildInputs = lib.optionals setDefaultServerPath [
+    jq
+    moreutils
+  ];
 
   preInstall = lib.optionalString setDefaultServerPath ''
     jq '.contributes.configuration.properties."rust-analyzer.server.path".default = $s' \
@@ -87,7 +93,10 @@ in vscode-utils.buildVscodeExtension {
   meta = {
     description = "An alternative rust language server to the RLS";
     homepage = "https://github.com/rust-lang/rust-analyzer";
-    license = [ lib.licenses.mit lib.licenses.asl20 ];
+    license = [
+      lib.licenses.mit
+      lib.licenses.asl20
+    ];
     maintainers = [ ];
     platforms = lib.platforms.all;
   };

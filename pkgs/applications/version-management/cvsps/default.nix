@@ -55,7 +55,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ cvs zlib ];
+  buildInputs = [
+    cvs
+    zlib
+  ];
 
   installFlags = [ "prefix=$(out)" ];
 

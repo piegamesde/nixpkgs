@@ -36,9 +36,17 @@ buildPythonPackage rec {
     patchShebangs secp256k1/autogen.sh
   '';
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
-  propagatedBuildInputs = [ asn1crypto cffi ];
+  propagatedBuildInputs = [
+    asn1crypto
+    cffi
+  ];
 
   preCheck = ''
     # https://github.com/ofek/coincurve/blob/master/tox.ini#L20-L22=
@@ -55,7 +63,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cross-platform bindings for libsecp256k1";
     homepage = "https://github.com/ofek/coincurve";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

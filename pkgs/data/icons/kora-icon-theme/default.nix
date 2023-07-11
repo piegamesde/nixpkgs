@@ -22,8 +22,11 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs =
-    [ adwaita-icon-theme breeze-icons hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    adwaita-icon-theme
+    breeze-icons
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

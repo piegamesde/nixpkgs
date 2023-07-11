@@ -62,11 +62,20 @@ with lib;
       supportedLocales = mkOption {
         type = types.listOf types.str;
         default = unique (builtins.map (l:
-          (replaceStrings [ "utf8" "utf-8" "UTF8" ] [ "UTF-8" "UTF-8" "UTF-8" ]
-            l) + "/UTF-8")
-          ([ "C.UTF-8" "en_US.UTF-8" config.i18n.defaultLocale ] ++ (attrValues
-            (filterAttrs (n: v: n != "LANGUAGE")
-              config.i18n.extraLocaleSettings))));
+          (replaceStrings [
+            "utf8"
+            "utf-8"
+            "UTF8"
+          ] [
+            "UTF-8"
+            "UTF-8"
+            "UTF-8"
+          ] l) + "/UTF-8") ([
+            "C.UTF-8"
+            "en_US.UTF-8"
+            config.i18n.defaultLocale
+          ] ++ (attrValues (filterAttrs (n: v: n != "LANGUAGE")
+            config.i18n.extraLocaleSettings))));
         defaultText = literalExpression ''
           unique
             (builtins.map (l: (replaceStrings [ "utf8" "utf-8" "UTF8" ] [ "UTF-8" "UTF-8" "UTF-8" ] l) + "/UTF-8") (
@@ -76,8 +85,11 @@ with lib;
               ] ++ (attrValues (filterAttrs (n: v: n != "LANGUAGE") config.i18n.extraLocaleSettings))
             ))
         '';
-        example =
-          [ "en_US.UTF-8/UTF-8" "nl_NL.UTF-8/UTF-8" "nl_NL/ISO-8859-1" ];
+        example = [
+          "en_US.UTF-8/UTF-8"
+          "nl_NL.UTF-8/UTF-8"
+          "nl_NL/ISO-8859-1"
+        ];
         description = lib.mdDoc ''
           List of locales that the system should support.  The value
           `"all"` means that all locales supported by

@@ -17,7 +17,10 @@ buildPythonPackage rec {
   };
   propagatedBuildInputs = [ six ];
 
-  nativeBuildInputs = [ jdk cython ];
+  nativeBuildInputs = [
+    jdk
+    cython
+  ];
 
   pythonImportsCheck = [ "jnius" ];
 

@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-JWkUtMAROk4cePMuogx9dtyO/ihv6JAnDnXPrVD+UQ8=";
   };
 
-  propagatedBuildInputs = [ docloud requests ] ++ lib.optional isPy27 futures;
+  propagatedBuildInputs = [
+    docloud
+    requests
+  ] ++ lib.optional isPy27 futures;
 
   doCheck = false;
   pythonImportsCheck = [ "docplex" ];

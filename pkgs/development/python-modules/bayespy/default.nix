@@ -38,9 +38,18 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook nose glibcLocales ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+    glibcLocales
+  ];
 
-  propagatedBuildInputs = [ numpy scipy matplotlib h5py ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+    matplotlib
+    h5py
+  ];
 
   disabledTests = [
     # Assertion error

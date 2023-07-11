@@ -20,15 +20,31 @@ mkXfceDerivation {
 
   sha256 = "sha256-Wb1nq744HDO4erJ2nJdFD0OMHVh14810TngN3FLFWIA=";
 
-  nativeBuildInputs = [ gobject-introspection vala ];
-  buildInputs = [ gtk3 libstartup_notification libgtop libepoxy xfconf ];
-  propagatedBuildInputs = [ libxfce4util libICE libSM ];
+  nativeBuildInputs = [
+    gobject-introspection
+    vala
+  ];
+  buildInputs = [
+    gtk3
+    libstartup_notification
+    libgtop
+    libepoxy
+    xfconf
+  ];
+  propagatedBuildInputs = [
+    libxfce4util
+    libICE
+    libSM
+  ];
 
   configureFlags = [ "--with-vendor-info=NixOS" ];
 
   meta = with lib; {
     description = "Widgets library for Xfce";
-    license = with licenses; [ lgpl2Plus lgpl21Plus ];
+    license = with licenses; [
+      lgpl2Plus
+      lgpl21Plus
+    ];
     maintainers = with maintainers; [ ] ++ teams.xfce.members;
   };
 }

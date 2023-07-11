@@ -33,9 +33,16 @@ in stdenv.mkDerivation rec {
       --replace '--unit https_dns_proxy.service' '--unit https-dns-proxy.service'
   '';
 
-  nativeBuildInputs = [ cmake gtest ];
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ];
 
-  buildInputs = [ c-ares curl' libev ];
+  buildInputs = [
+    c-ares
+    curl'
+    libev
+  ];
 
   postInstall = ''
     install -Dm444 -t $out/share/doc/${pname} ../{LICENSE,*.md}

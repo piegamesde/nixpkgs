@@ -15,7 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "1g48cd74sqhl496wmljhq44iyfpghaz363a1ip8nyhpjz7d57f03";
   };
 
-  buildInputs = [ openssl libxcrypt ];
+  buildInputs = [
+    openssl
+    libxcrypt
+  ];
 
   patches = [
     ./fix-mail-spool-path.patch

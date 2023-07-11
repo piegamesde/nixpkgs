@@ -17,7 +17,11 @@ stdenv.mkDerivation rec {
   pname = "jsonrpc-glib";
   version = "3.44.0";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -26,10 +30,19 @@ stdenv.mkDerivation rec {
     sha256 = "aUBqAlDQzFF1QIyufsqAwMa/rvxK4YMLNUwEM7zVzgY=";
   };
 
-  nativeBuildInputs =
-    [ meson ninja pkg-config gobject-introspection vala gi-docgen ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    vala
+    gi-docgen
+  ];
 
-  buildInputs = [ glib json-glib ];
+  buildInputs = [
+    glib
+    json-glib
+  ];
 
   mesonFlags = [ "-Denable_gtk_doc=true" ];
 

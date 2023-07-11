@@ -16,8 +16,15 @@ callPackage ./generic.nix (args // rec {
 
   sha256 = "0vgr3rsvdj4w0xpc5iqpvyqilk42wr9zs8bg26sfv3f2wi4hb6gx";
 
-  additionalBuildInputs =
-    [ faust fontconfig cmake libvterm-neovim libevdev libglvnd fira-code ];
+  additionalBuildInputs = [
+    faust
+    fontconfig
+    cmake
+    libvterm-neovim
+    libevdev
+    libglvnd
+    fira-code
+  ];
 
   # see: https://github.com/OpenMusicKontrollers/mephisto.lv2/issues/6
   postPatch = ''

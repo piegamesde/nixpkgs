@@ -49,14 +49,24 @@ stdenv.mkDerivation rec {
     substituteInPlace bin/pathhelper --replace "/usr/bin/perl" "${perl}/bin/perl"
   '';
 
-  buildInputs = [ qt4 libX11 bluez perl ];
+  buildInputs = [
+    qt4
+    libX11
+    bluez
+    perl
+  ];
 
   meta = with lib; {
     description = "Qt Mobility";
     homepage = "http://qt.nokia.com/products/qt-addons/mobility";
     maintainers = [ maintainers.qknight ];
     platforms = platforms.linux;
-    license = with licenses; [ bsd3 fdl13Plus gpl3Plus lgpl21Plus ];
+    license = with licenses; [
+      bsd3
+      fdl13Plus
+      gpl3Plus
+      lgpl21Plus
+    ];
   };
 }
 

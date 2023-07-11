@@ -71,7 +71,10 @@ python3Packages.buildPythonApplication rec {
   dontWrapGapps = true;
   dontWrapQtApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = [
+    "\${gappsWrapperArgs[@]}"
+    "\${qtWrapperArgs[@]}"
+  ];
 
   meta = with lib; {
     homepage = "https://polychromatic.app/";

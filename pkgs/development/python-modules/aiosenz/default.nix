@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ httpx authlib ];
+  propagatedBuildInputs = [
+    httpx
+    authlib
+  ];
 
   # Project has no tests
   doCheck = false;

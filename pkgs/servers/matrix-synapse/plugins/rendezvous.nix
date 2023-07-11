@@ -29,8 +29,10 @@ buildPythonPackage rec {
     hash = "sha256-TyxDq6YxZUArRj5gpjB1afDQgtUlCVer3Uhq6YKvVYM=";
   };
 
-  nativeBuildInputs = [ setuptools-rust ]
-    ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
+  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ]);
 
   preBuild = ''
     cd synapse

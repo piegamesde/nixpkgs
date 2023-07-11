@@ -119,12 +119,18 @@ stdenv.mkDerivation rec {
     libaom
     portmidi
     lua
-  ] ++ lib.optionals stdenv.isLinux [ colord colord-gtk libX11 ocl-icd ]
-    ++ lib.optional stdenv.isDarwin gtk-mac-integration
+  ] ++ lib.optionals stdenv.isLinux [
+    colord
+    colord-gtk
+    libX11
+    ocl-icd
+  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
-  cmakeFlags = [ "-DBUILD_USERMANUAL=False" ]
-    ++ lib.optionals stdenv.isDarwin [ "-DUSE_COLORD=OFF" "-DUSE_KWALLET=OFF" ];
+  cmakeFlags = [ "-DBUILD_USERMANUAL=False" ] ++ lib.optionals stdenv.isDarwin [
+    "-DUSE_COLORD=OFF"
+    "-DUSE_KWALLET=OFF"
+  ];
 
   # darktable changed its rpath handling in commit
   # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
@@ -150,6 +156,11 @@ stdenv.mkDerivation rec {
     homepage = "https://www.darktable.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ goibhniu flosse mrVanDalo paperdigits ];
+    maintainers = with maintainers; [
+      goibhniu
+      flosse
+      mrVanDalo
+      paperdigits
+    ];
   };
 }

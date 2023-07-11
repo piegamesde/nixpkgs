@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig wayland scdoc pkg-config ];
+  nativeBuildInputs = [
+    zig
+    wayland
+    scdoc
+    pkg-config
+  ];
 
-  buildInputs = [ wayland-protocols libxkbcommon pam ];
+  buildInputs = [
+    wayland-protocols
+    libxkbcommon
+    pam
+  ];
 
   dontConfigure = true;
 

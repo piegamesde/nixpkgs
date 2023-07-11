@@ -18,11 +18,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tVvW7cbgj2t251SzUchfVEnHgLVgdkTLyGpQfn6VYow=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ glib libglibutil ];
+  buildInputs = [
+    glib
+    libglibutil
+  ];
 
   postPatch = ''
     # Fix pkg-config and ranlib names for cross-compilation
@@ -37,7 +43,10 @@ stdenv.mkDerivation rec {
     "INSTALL_PKGCONFIG_DIR=$(dev)/lib/pkgconfig"
   ];
 
-  installTargets = [ "install" "install-dev" ];
+  installTargets = [
+    "install"
+    "install-dev"
+  ];
 
   postInstall = ''
     sed -i -e "s@includedir=/usr@includedir=$dev@g" $dev/lib/pkgconfig/$pname.pc

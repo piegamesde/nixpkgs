@@ -31,17 +31,27 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [ certifi urllib3 ];
+  propagatedBuildInputs = [
+    certifi
+    urllib3
+  ];
 
   passthru.optional-dependencies = {
     fastimport = [ fastimport ];
-    pgp = [ gpgme gnupg ];
+    pgp = [
+      gpgme
+      gnupg
+    ];
     paramiko = [ paramiko ];
   };
 
-  nativeCheckInputs =
-    [ gevent geventhttpclient git glibcLocales pytestCheckHook ]
-    ++ passthru.optional-dependencies.fastimport
+  nativeCheckInputs = [
+    gevent
+    geventhttpclient
+    git
+    glibcLocales
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.fastimport
     ++ passthru.optional-dependencies.pgp
     ++ passthru.optional-dependencies.paramiko;
 
@@ -72,7 +82,10 @@ buildPythonPackage rec {
     homepage = "https://www.dulwich.io/";
     changelog =
       "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
-    license = with licenses; [ asl20 gpl2Plus ];
+    license = with licenses; [
+      asl20
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ koral ];
   };
 }

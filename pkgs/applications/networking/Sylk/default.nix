@@ -30,6 +30,9 @@ in appimageTools.wrapType2 rec {
     homepage = "https://sylkserver.com/";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ zimbatm ];
-    platforms = [ "i386-linux" "x86_64-linux" ];
+    platforms = [
+      "i386-linux"
+      "x86_64-linux"
+    ];
   };
 }

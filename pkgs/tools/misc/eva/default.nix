@@ -19,6 +19,10 @@ rustPlatform.buildRustPackage rec {
     description = "A calculator REPL, similar to bc";
     homepage = "https://github.com/NerdyPepper/eva";
     license = licenses.mit;
-    maintainers = with maintainers; [ nrdxp ma27 figsoda ];
+    maintainers = with maintainers; [
+      nrdxp
+      ma27
+      figsoda
+    ];
   };
 }

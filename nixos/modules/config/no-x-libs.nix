@@ -81,7 +81,11 @@ with lib;
         super.networkmanager-vpnc.override { withGnome = false; };
       pango = super.pango.override { x11Support = false; };
       pinentry = super.pinentry.override {
-        enabledFlavors = [ "curses" "tty" "emacs" ];
+        enabledFlavors = [
+          "curses"
+          "tty"
+          "emacs"
+        ];
         withLibsecret = false;
       };
       qemu = super.qemu.override {

@@ -26,10 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-ws9gUPCr5nM8HGbCt9+6IFjLgAKiCMQRkY/yfIb2mng=";
   };
 
-  propagatedBuildInputs = [ diff-match-patch django tablib ]
-    ++ (with tablib.optional-dependencies; html ++ ods ++ xls ++ xlsx ++ yaml);
+  propagatedBuildInputs = [
+    diff-match-patch
+    django
+    tablib
+  ] ++ (with tablib.optional-dependencies; html ++ ods ++ xls ++ xlsx ++ yaml);
 
-  nativeCheckInputs = [ chardet psycopg2 pytz ];
+  nativeCheckInputs = [
+    chardet
+    psycopg2
+    pytz
+  ];
 
   checkPhase = ''
     runHook preCheck

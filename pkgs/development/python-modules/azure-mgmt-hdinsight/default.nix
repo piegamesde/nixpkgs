@@ -20,12 +20,20 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-core
+    msrest
+    msrestazure
+  ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.common" "azure.mgmt.hdinsight" ];
+  pythonImportsCheck = [
+    "azure.common"
+    "azure.mgmt.hdinsight"
+  ];
 
   meta = with lib; {
     description =

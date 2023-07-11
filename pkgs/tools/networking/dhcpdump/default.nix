@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "143iyzkqvhj4dscwqs75jvfr4wvzrs11ck3fqn5p7yv2h50vjpkd";
   };
 
-  buildInputs = [ libpcap perl ];
+  buildInputs = [
+    libpcap
+    perl
+  ];
 
   hardeningDisable = [ "fortify" ];
 

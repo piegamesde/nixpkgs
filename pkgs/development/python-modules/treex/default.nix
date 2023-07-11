@@ -35,13 +35,28 @@ buildPythonPackage rec {
   # At the time of writing (2022-03-29), rich is currently at version 11.0.0.
   # The treeo dependency is compatible with a patch, but not marked as such in
   # treex. See https://github.com/cgarciae/treex/issues/68.
-  pythonRelaxDeps = [ "certifi" "flax" "rich" "treeo" ];
+  pythonRelaxDeps = [
+    "certifi"
+    "flax"
+    "rich"
+    "treeo"
+  ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [ einops flax pyyaml rich treeo torch ];
+  propagatedBuildInputs = [
+    einops
+    flax
+    pyyaml
+    rich
+    treeo
+    torch
+  ];
 
   nativeCheckInputs = [
     cloudpickle

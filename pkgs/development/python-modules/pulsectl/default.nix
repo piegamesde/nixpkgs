@@ -32,7 +32,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pulsectl" ];
 
-  nativeCheckInputs = [ unittestCheckHook pulseaudio ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    pulseaudio
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

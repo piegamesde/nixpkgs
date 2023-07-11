@@ -5,5 +5,8 @@
 }:
 buildEnv {
   name = "influxdb2";
-  paths = [ influxdb2-server influxdb2-cli ];
+  paths = [
+    influxdb2-server
+    influxdb2-cli
+  ];
 }

@@ -42,12 +42,19 @@ in stdenv.mkDerivation {
   dontConfigure = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ wrapGAppsHook autoPatchelfHook ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    autoPatchelfHook
+  ];
 
   buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
-  runtimeDependencies =
-    [ (lib.getLib systemd) pulseaudio libnotify libappindicator-gtk3 ];
+  runtimeDependencies = [
+    (lib.getLib systemd)
+    pulseaudio
+    libnotify
+    libappindicator-gtk3
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -81,7 +88,10 @@ in stdenv.mkDerivation {
     homepage = "https://about.mattermost.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = [ maintainers.joko ];
   };
 }

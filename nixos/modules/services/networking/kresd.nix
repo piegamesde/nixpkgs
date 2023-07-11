@@ -40,25 +40,36 @@ let
     + concatMapStrings (mkListen "tls") cfg.listenTLS
     + concatMapStrings (mkListen "doh2") cfg.listenDoH + cfg.extraConfig);
 in {
-  meta.maintainers = [
-    maintainers.vcunat # upstream developer
-  ];
+  meta.maintainers = [ maintainers.vcunat # upstream developer
+    ];
 
   imports = [
-    (mkChangedOptionModule [ "services" "kresd" "interfaces" ] [
+    (mkChangedOptionModule [
+      "services"
+      "kresd"
+      "interfaces"
+    ] [
       "services"
       "kresd"
       "listenPlain"
     ] (config:
-      let value = getAttrFromPath [ "services" "kresd" "interfaces" ] config;
+      let
+        value = getAttrFromPath [
+          "services"
+          "kresd"
+          "interfaces"
+        ] config;
       in map (iface:
         if elem ":" (stringToCharacters iface) then
           "[${iface}]:53"
         else
           "${iface}:53") # Syntax depends on being IPv6 or IPv4.
       value))
-    (mkRemovedOptionModule [ "services" "kresd" "cacheDir" ]
-      "Please use (bind-)mounting instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "kresd"
+      "cacheDir"
+    ] "Please use (bind-)mounting instead.")
   ];
 
   ###### interface
@@ -92,7 +103,10 @@ in {
     };
     listenPlain = mkOption {
       type = with types; listOf str;
-      default = [ "[::1]:53" "127.0.0.1:53" ];
+      default = [
+        "[::1]:53"
+        "127.0.0.1:53"
+      ];
       example = [ "53" ];
       description = lib.mdDoc ''
         What addresses and ports the server should listen on.
@@ -102,7 +116,11 @@ in {
     listenTLS = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [ "198.51.100.1:853" "[2001:db8::1]:853" "853" ];
+      example = [
+        "198.51.100.1:853"
+        "[2001:db8::1]:853"
+        "853"
+      ];
       description = lib.mdDoc ''
         Addresses and ports on which kresd should provide DNS over TLS (see RFC 7858).
         For detailed syntax see ListenStream in {manpage}`systemd.socket(5)`.
@@ -111,7 +129,11 @@ in {
     listenDoH = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [ "198.51.100.1:443" "[2001:db8::1]:443" "443" ];
+      example = [
+        "198.51.100.1:443"
+        "[2001:db8::1]:443"
+        "443"
+      ];
       description = lib.mdDoc ''
         Addresses and ports on which kresd should provide DNS over HTTPS/2 (see RFC 8484).
         For detailed syntax see ListenStream in {manpage}`systemd.socket(5)`.

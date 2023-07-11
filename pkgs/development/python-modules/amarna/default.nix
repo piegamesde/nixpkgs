@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-tyvHWBhanR7YH87MDWdXUsDEzZG6MgnbshezAbxWO+I=";
   };
 
-  propagatedBuildInputs = [ lark pydot ];
+  propagatedBuildInputs = [
+    lark
+    pydot
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

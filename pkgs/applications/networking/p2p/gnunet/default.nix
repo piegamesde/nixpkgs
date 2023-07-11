@@ -42,7 +42,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config libtool makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    makeWrapper
+  ];
   buildInputs = [
     adns
     curl
@@ -112,7 +116,10 @@ stdenv.mkDerivation rec {
 
     homepage = "https://gnunet.org/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ pstn vrthra ];
+    maintainers = with maintainers; [
+      pstn
+      vrthra
+    ];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

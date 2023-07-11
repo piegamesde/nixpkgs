@@ -17,7 +17,10 @@ buildPythonPackage rec {
 
   # The testsuite fails to modify the base environment
   doCheck = false;
-  propagatedBuildInputs = [ django six ];
+  propagatedBuildInputs = [
+    django
+    six
+  ];
 
   meta = with lib; {
     description =

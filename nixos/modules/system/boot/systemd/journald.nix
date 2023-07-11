@@ -97,8 +97,10 @@ in {
       "systemd-journal-flush.service"
       "systemd-journal-catalog-update.service"
     ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket")
-      ++ [ "systemd-journald-dev-log.socket" "syslog.socket" ]
-      ++ optionals cfg.enableHttpGateway [
+      ++ [
+        "systemd-journald-dev-log.socket"
+        "syslog.socket"
+      ] ++ optionals cfg.enableHttpGateway [
         "systemd-journal-gatewayd.socket"
         "systemd-journal-gatewayd.service"
       ];

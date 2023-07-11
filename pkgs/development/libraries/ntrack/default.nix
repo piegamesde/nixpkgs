@@ -18,14 +18,23 @@ stdenv.mkDerivation rec {
     sha256 = "037ig5y0mp327m0hh4pnfr3vmsk3wrxgfjy3645q4ws9vdhx807w";
   };
 
-  buildInputs = [ libnl qt4 ];
+  buildInputs = [
+    libnl
+    qt4
+  ];
 
-  nativeBuildInputs = [ pkg-config python3 ];
+  nativeBuildInputs = [
+    pkg-config
+    python3
+  ];
 
   # error: ISO C does not support '__FUNCTION__' predefined identifier [-Werror=pedantic]
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  configureFlags = [ "--without-gobject" "CFLAGS=--std=gnu99" ];
+  configureFlags = [
+    "--without-gobject"
+    "CFLAGS=--std=gnu99"
+  ];
 
   # Remove this patch after version 016
   patches = [ ./libnl-fix.patch ];

@@ -24,7 +24,10 @@ buildPythonPackage rec {
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs = [ django qrcode ];
+  propagatedBuildInputs = [
+    django
+    qrcode
+  ];
 
   nativeCheckInputs = [ freezegun ];
 

@@ -79,7 +79,10 @@ in buildRubyGem rec {
   #   - qemu: Make 'qemu-img' available for 'vagrant package'
   postInstall = let
     pathAdditions = lib.makeSearchPath "bin" (map (x: lib.getBin x)
-      ([ libarchive ] ++ lib.optionals withLibvirt [ libguestfs qemu ]));
+      ([ libarchive ] ++ lib.optionals withLibvirt [
+        libguestfs
+        qemu
+      ]));
   in ''
     wrapProgram "$out/bin/vagrant" \
       --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \

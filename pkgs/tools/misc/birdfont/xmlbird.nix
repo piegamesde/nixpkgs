@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "15z4rvii3p54g2hasibjnf83c1702d84367fnl8pbisjqqrdcl04";
   };
 
-  nativeBuildInputs = [ python3 pkg-config vala gobject-introspection ];
+  nativeBuildInputs = [
+    python3
+    pkg-config
+    vala
+    gobject-introspection
+  ];
 
   buildInputs = [ glib ];
 

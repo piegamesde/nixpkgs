@@ -131,7 +131,11 @@ in stdenv.mkDerivation {
     inherit description platforms;
     license = lib.licenses.isc;
     maintainers = with lib.maintainers;
-      [ pmahoney Profpatsch qyliss ] ++ maintainers;
+      [
+        pmahoney
+        Profpatsch
+        qyliss
+      ] ++ maintainers;
   };
 
   inherit passthru;

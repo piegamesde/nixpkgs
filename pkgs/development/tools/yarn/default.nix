@@ -43,7 +43,11 @@ in stdenvNoCC.mkDerivation (finalAttrs: {
     changelog =
       "https://github.com/yarnpkg/yarn/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ offline screendriver marsam ];
+    maintainers = with maintainers; [
+      offline
+      screendriver
+      marsam
+    ];
     platforms = nodejs.meta.platforms;
   };
 })

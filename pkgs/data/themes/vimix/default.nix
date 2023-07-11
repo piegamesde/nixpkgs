@@ -27,11 +27,20 @@ in lib.checkListOfEnum "${pname}: theme variants" [
   "jade"
   "grey"
   "all"
-] themeVariants lib.checkListOfEnum
-"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" "all" ]
-sizeVariants lib.checkListOfEnum
-"${pname}: tweaks" [ "flat" "grey" "mix" "translucent" ] tweaks
+] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+  "standard"
+  "compact"
+  "all"
+] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+  "flat"
+  "grey"
+  "mix"
+  "translucent"
+] tweaks
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;

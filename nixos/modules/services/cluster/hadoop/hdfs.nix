@@ -118,7 +118,12 @@ in {
           nullOr (listOf (submodule {
             options = {
               type = mkOption {
-                type = enum [ "SSD" "DISK" "ARCHIVE" "RAM_DISK" ];
+                type = enum [
+                  "SSD"
+                  "DISK"
+                  "ARCHIVE"
+                  "RAM_DISK"
+                ];
                 description = lib.mdDoc ''
                   Storage types ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for HDFS storage policies.
                 '';
@@ -200,9 +205,8 @@ in {
       environment.HTTPFS_TEMP = cfg.hdfs.httpfs.tempPath;
       preStart = "mkdir -p $HTTPFS_TEMP";
       User = "httpfs";
-      allowedTCPPorts = [
-        14000 # httpfs.http.port
-      ];
+      allowedTCPPorts = [ 14000 # httpfs.http.port
+        ];
     })
 
     (mkIf cfg.gatewayRole.enable {

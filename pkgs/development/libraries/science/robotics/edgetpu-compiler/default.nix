@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "ce03822053c2bddbb8640eaa988396ae66f9bc6b9d6d671914acd1727c2b445a";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    dpkg
+  ];
 
   buildInputs = [ libcxx ];
 

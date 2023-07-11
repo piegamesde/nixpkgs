@@ -13,7 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eddnNe6OJRluKnIpZM+Wg/WglYFQNTeISyVrATicwHM=";
   };
 
-  makeFlags = [ "prefix=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "prefix=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/dmidecode/";

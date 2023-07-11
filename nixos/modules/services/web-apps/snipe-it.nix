@@ -128,7 +128,10 @@ in {
 
     mail = {
       driver = mkOption {
-        type = types.enum [ "smtp" "sendmail" ];
+        type = types.enum [
+          "smtp"
+          "sendmail"
+        ];
         default = "smtp";
         description = lib.mdDoc "Mail driver to use.";
       };
@@ -143,7 +146,11 @@ in {
         description = lib.mdDoc "Mail host port.";
       };
       encryption = mkOption {
-        type = with types; nullOr (enum [ "tls" "ssl" ]);
+        type = with types;
+          nullOr (enum [
+            "tls"
+            "ssl"
+          ]);
         default = null;
         description = lib.mdDoc "SMTP encryption mechanism to use.";
       };
@@ -202,7 +209,12 @@ in {
     };
 
     poolConfig = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type = with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -239,10 +251,19 @@ in {
 
     config = mkOption {
       type = with types;
-        attrsOf (nullOr (either (oneOf [ bool int port path str ]) (submodule {
+        attrsOf (nullOr (either (oneOf [
+          bool
+          int
+          port
+          path
+          str
+        ]) (submodule {
           options = {
             _secret = mkOption {
-              type = nullOr (oneOf [ str path ]);
+              type = nullOr (oneOf [
+                str
+                path
+              ]);
               description = lib.mdDoc ''
                 The path to a file containing the value the
                 option should be set to in the final
@@ -332,10 +353,10 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ db.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = db.user;
         ensurePermissions = { "${db.name}.*" = "ALL PRIVILEGES"; };
-      }];
+      } ];
     };
 
     services.phpfpm.pools.snipe-it = {
@@ -445,9 +466,11 @@ in {
         '';
         secretReplacements =
           lib.concatMapStrings mkSecretReplacement secretPaths;
-        filteredConfig =
-          lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ { } null ]))
-          cfg.config;
+        filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+          !elem v [
+            { }
+            null
+          ])) cfg.config;
         snipeITEnv =
           pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
       in ''

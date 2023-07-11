@@ -36,10 +36,20 @@ in buildPythonPackage {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs =
-    [ astropy-extension-helpers astropy-helpers cython jinja2 setuptools-scm ];
+  nativeBuildInputs = [
+    astropy-extension-helpers
+    astropy-helpers
+    cython
+    jinja2
+    setuptools-scm
+  ];
 
-  propagatedBuildInputs = [ numpy packaging pyerfa pyyaml ];
+  propagatedBuildInputs = [
+    numpy
+    packaging
+    pyerfa
+    pyyaml
+  ];
 
   # infinite recursion with pytest-astropy (pytest-astropy-header depends on astropy itself)
   doCheck = false;

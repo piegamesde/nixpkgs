@@ -12,9 +12,15 @@ mkDerivation rec {
   pname = "herqq";
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase qtmultimedia ];
+  buildInputs = [
+    qtbase
+    qtmultimedia
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   sourceRoot = "source/herqq";
   src = fetchFromGitHub {

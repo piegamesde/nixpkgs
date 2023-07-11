@@ -50,13 +50,30 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ]
-    ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
     ++ lib.optionals gtkClient [ wrapGAppsHook ];
 
-  buildInputs = [ lua5_3 zlib bzip2 curl xz gettext libiconv icu ]
-    ++ [ SDL2 SDL2_mixer SDL2_image SDL2_ttf SDL2_gfx freetype fluidsynth ]
-    ++ lib.optionals gtkClient [ gtk3 ] ++ lib.optionals qtClient [ qt5.qtbase ]
+  buildInputs = [
+    lua5_3
+    zlib
+    bzip2
+    curl
+    xz
+    gettext
+    libiconv
+    icu
+  ] ++ [
+    SDL2
+    SDL2_mixer
+    SDL2_image
+    SDL2_ttf
+    SDL2_gfx
+    freetype
+    fluidsynth
+  ] ++ lib.optionals gtkClient [ gtk3 ] ++ lib.optionals qtClient [ qt5.qtbase ]
     ++ lib.optional server readline ++ lib.optional enableSqlite sqlite;
 
   dontWrapQtApps = true;

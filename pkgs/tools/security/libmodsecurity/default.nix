@@ -31,11 +31,29 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
-  buildInputs =
-    [ curl geoip libmaxminddb libxml2 lmdb lua pcre pcre2 ssdeep yajl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    bison
+    flex
+    pkg-config
+  ];
+  buildInputs = [
+    curl
+    geoip
+    libmaxminddb
+    libxml2
+    lmdb
+    lua
+    pcre
+    pcre2
+    ssdeep
+    yajl
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   configureFlags = [
     "--enable-parser-generation"

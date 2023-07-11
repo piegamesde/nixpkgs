@@ -22,7 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libjpeg libmcrypt libmhash zlib ];
+  buildInputs = [
+    libjpeg
+    libmcrypt
+    libmhash
+    zlib
+  ];
 
   postPatch = ''
     cd src

@@ -84,7 +84,10 @@ stdenv.mkDerivation rec {
     validatePkgConfig
   ];
 
-  buildInputs = [ libtool openssl_1_1 ];
+  buildInputs = [
+    libtool
+    openssl_1_1
+  ];
 
   BINUTILS_DIR = "${binutils}/bin";
 
@@ -272,7 +275,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel SGX SDK for Linux built with IPP Crypto Library";
     homepage = "https://github.com/intel/linux-sgx";
-    maintainers = with maintainers; [ sbellem arturcygan veehaitch ];
+    maintainers = with maintainers; [
+      sbellem
+      arturcygan
+      veehaitch
+    ];
     platforms = [ "x86_64-linux" ];
     license = with licenses; [ bsd3 ];
   };

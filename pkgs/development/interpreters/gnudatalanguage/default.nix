@@ -158,7 +158,10 @@ in stdenv.mkDerivation rec {
     ++ lib.optional enableSzip "-DSZIPDIR=${szip}" ++ lib.optionals enableXWin [
       "-DX11=ON"
       "-DX11DIR=${plplot-with-drivers.libX11}"
-    ] ++ lib.optionals enableMPI [ "-DMPI=ON" "-DMPIDIR=${mpi}" ];
+    ] ++ lib.optionals enableMPI [
+      "-DMPI=ON"
+      "-DMPIDIR=${mpi}"
+    ];
 
   # Tests are failing on Hydra:
   # ./src/common/dpycmn.cpp(137): assert ""IsOk()"" failed in GetClientArea(): invalid wxDisplay object

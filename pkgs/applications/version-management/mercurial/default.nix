@@ -59,9 +59,15 @@ let
     propagatedBuildInputs = lib.optional re2Support fb-re2
       ++ lib.optional gitSupport pygit2
       ++ lib.optional highlightSupport pygments;
-    nativeBuildInputs = [ makeWrapper gettext installShellFiles ]
-      ++ lib.optionals rustSupport
-      (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
+    nativeBuildInputs = [
+      makeWrapper
+      gettext
+      installShellFiles
+    ] ++ lib.optionals rustSupport (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
     buildInputs = [ docutils ]
       ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
@@ -105,7 +111,12 @@ let
       homepage = "https://www.mercurial-scm.org";
       downloadPage = "https://www.mercurial-scm.org/release/";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ eelco lukegb pacien techknowlogick ];
+      maintainers = with maintainers; [
+        eelco
+        lukegb
+        pacien
+        techknowlogick
+      ];
       platforms = platforms.unix;
     };
   };
@@ -120,7 +131,14 @@ let
 
       SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt"; # needed for git
       MERCURIAL_BASE = mercurial;
-      nativeBuildInputs = [ python unzip which sqlite git gnupg ];
+      nativeBuildInputs = [
+        python
+        unzip
+        which
+        sqlite
+        git
+        gnupg
+      ];
 
       postPatch = ''
         patchShebangs .

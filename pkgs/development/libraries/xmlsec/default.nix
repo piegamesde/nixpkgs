@@ -24,17 +24,27 @@ lib.fix (self:
       sha256 = "sha256-Us7UlD81vX0IGKOCmMFSjKSsilRED9cRNKB9LRNwomI=";
     };
 
-    patches = [ ./lt_dladdsearchdir.patch ] ++ lib.optionals stdenv.isDarwin
-      [ ./remove_bsd_base64_decode_flag.patch ];
+    patches = [ ./lt_dladdsearchdir.patch ] ++ lib.optionals
+      stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
     postPatch = ''
       substituteAllInPlace src/dl.c
     '';
 
-    outputs = [ "out" "dev" ];
+    outputs = [
+      "out"
+      "dev"
+    ];
 
     nativeBuildInputs = [ pkg-config ];
 
-    buildInputs = [ libxml2 gnutls libgcrypt libtool openssl nss ];
+    buildInputs = [
+      libxml2
+      gnutls
+      libgcrypt
+      libtool
+      openssl
+      nss
+    ];
 
     propagatedBuildInputs = [
       # required by xmlsec/transforms.h
@@ -64,7 +74,12 @@ lib.fix (self:
 
     passthru.tests.libxmlsec1-crypto = runCommandCC "libxmlsec1-crypto-test" {
       nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ self libxml2 libxslt libtool ];
+      buildInputs = [
+        self
+        libxml2
+        libxslt
+        libtool
+      ];
     } ''
       $CC $(pkg-config --cflags --libs xmlsec1) -o crypto-test ${
         writeText "crypto-test.c" ''

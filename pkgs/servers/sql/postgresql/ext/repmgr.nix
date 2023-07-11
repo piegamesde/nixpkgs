@@ -22,7 +22,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex ];
 
-  buildInputs = [ postgresql openssl zlib readline ];
+  buildInputs = [
+    postgresql
+    openssl
+    zlib
+    readline
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib,share/postgresql/extension}

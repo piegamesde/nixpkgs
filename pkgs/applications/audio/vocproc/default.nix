@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ lv2 fftw lv2-cpp-tools gtkmm2 ];
+  buildInputs = [
+    lv2
+    fftw
+    lv2-cpp-tools
+    gtkmm2
+  ];
 
   makeFlags = [ "INSTALL_DIR=$(out)/lib/lv2" ];
 

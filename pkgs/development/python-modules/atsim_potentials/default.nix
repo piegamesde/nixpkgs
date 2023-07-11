@@ -30,10 +30,21 @@ buildPythonPackage rec {
     sed -i '/openpyxl==2.6.4/d' setup.py
   '';
 
-  propagatedBuildInputs =
-    [ cexprtk configparser future openpyxl pyparsing scipy sympy wrapt ];
+  propagatedBuildInputs = [
+    cexprtk
+    configparser
+    future
+    openpyxl
+    pyparsing
+    scipy
+    sympy
+    wrapt
+  ];
 
-  nativeCheckInputs = [ deepdiff pytestCheckHook ];
+  nativeCheckInputs = [
+    deepdiff
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # Missing lammps executable

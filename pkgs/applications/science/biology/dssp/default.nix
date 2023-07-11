@@ -31,7 +31,11 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libcifpp' libmcfp zlib ];
+  buildInputs = [
+    libcifpp'
+    libmcfp
+    zlib
+  ];
 
   meta = with lib; {
     description =

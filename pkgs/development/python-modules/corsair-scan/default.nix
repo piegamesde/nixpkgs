@@ -24,9 +24,18 @@ buildPythonPackage rec {
     sha256 = "09jsv5bag7mjy0rxsxjzmg73rjl7qknzr0d7a7himd7v6a4ikpmk";
   };
 
-  propagatedBuildInputs = [ validators requests urllib3 tldextract click ];
+  propagatedBuildInputs = [
+    validators
+    requests
+    urllib3
+    tldextract
+    click
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

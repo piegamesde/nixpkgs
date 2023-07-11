@@ -38,9 +38,16 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "structlog" ];
 
-  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    poetry-core
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ aiohttp attrs structlog ];
+  propagatedBuildInputs = [
+    aiohttp
+    attrs
+    structlog
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

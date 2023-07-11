@@ -58,7 +58,12 @@ in {
           db = {
             type = mkOption {
               default = "postgres";
-              type = types.enum [ "postgres" "mysql" "mariadb" "mssql" ];
+              type = types.enum [
+                "postgres"
+                "mysql"
+                "mariadb"
+                "mssql"
+              ];
               description = lib.mdDoc ''
                 Database driver to use for persistence. Please note that `sqlite`
                 is currently not supported as the build process for it is currently not implemented
@@ -84,8 +89,14 @@ in {
 
           logLevel = mkOption {
             default = "info";
-            type =
-              types.enum [ "error" "warn" "info" "verbose" "debug" "silly" ];
+            type = types.enum [
+              "error"
+              "warn"
+              "info"
+              "verbose"
+              "debug"
+              "silly"
+            ];
             description = lib.mdDoc ''
               Define how much detail is supposed to be logged at runtime.
             '';

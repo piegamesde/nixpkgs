@@ -17,7 +17,10 @@ buildPythonPackage rec {
     sha256 = "1nmqxxhwa0isxdb889nhbp7w4axj1mcrwd3pr9d8nhpw4yj9h3vq";
   };
 
-  propagatedBuildInputs = [ requests urllib3 ];
+  propagatedBuildInputs = [
+    requests
+    urllib3
+  ];
 
   # Project doesn't have any tests
   doCheck = false;

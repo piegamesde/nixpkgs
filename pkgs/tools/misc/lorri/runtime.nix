@@ -10,7 +10,10 @@
 let
   tools = buildEnv {
     name = "lorri-runtime-tools";
-    paths = [ coreutils bash ];
+    paths = [
+      coreutils
+      bash
+    ];
   };
 
   runtimeClosureInfo = closureInfo { rootPaths = [ tools ]; };

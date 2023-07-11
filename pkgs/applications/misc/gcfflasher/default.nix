@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-m+iDBfsHo+PLYd3K8JaKwhIXcnj+Q8w7gIgmHp+0plk=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

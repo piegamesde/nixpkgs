@@ -21,7 +21,12 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libconfig libevent openssl libxcrypt ];
+  buildInputs = [
+    libconfig
+    libevent
+    openssl
+    libxcrypt
+  ];
 
   installFlags = [ "INSTALL_DIR=$(out)/bin/" ];
 

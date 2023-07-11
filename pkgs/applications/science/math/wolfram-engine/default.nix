@@ -37,7 +37,11 @@ let
 in stdenv.mkDerivation rec {
   inherit (l10n) version name src;
 
-  nativeBuildInputs = [ autoPatchelfHook installShellFiles wrapQtAppsHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    installShellFiles
+    wrapQtAppsHook
+  ];
   dontWrapQtApps = true;
 
   buildInputs = [

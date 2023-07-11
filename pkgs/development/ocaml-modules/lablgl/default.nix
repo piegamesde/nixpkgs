@@ -27,14 +27,23 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [ ocaml findlib ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
     buildInputs = [ freeglut ];
-    propagatedBuildInputs = [ libGLU libGL ] ++ lib.optionals stdenv.isDarwin [
+    propagatedBuildInputs = [
+      libGLU
+      libGL
+    ] ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.GLUT
       darwin.apple_sdk.libs.Xplugin
     ];
 
-    patches = [ ./Makefile.config.patch ./META.patch ];
+    patches = [
+      ./Makefile.config.patch
+      ./META.patch
+    ];
 
     preConfigure = ''
       mkdir -p $out/bin
@@ -47,7 +56,12 @@ else
         --subst-var-by XINCLUDES ""
     '';
 
-    buildFlags = [ "lib" "libopt" "glut" "glutopt" ];
+    buildFlags = [
+      "lib"
+      "libopt"
+      "glut"
+      "glutopt"
+    ];
 
     postInstall = ''
       cp ./META $out/lib/ocaml/${ocaml.version}/site-lib/lablgl
@@ -57,7 +71,10 @@ else
       description = "OpenGL bindings for ocaml";
       homepage = "http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/lablgl.html";
       license = licenses.gpl2;
-      maintainers = with maintainers; [ pSub vbgl ];
+      maintainers = with maintainers; [
+        pSub
+        vbgl
+      ];
       mainProgram = "lablglut";
     };
   }

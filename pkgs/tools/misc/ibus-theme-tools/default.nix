@@ -18,7 +18,10 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ gettext ];
 
-  propagatedBuildInputs = with python3Packages; [ tinycss2 pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [
+    tinycss2
+    pygobject3
+  ];
 
   # No test.
   doCheck = false;

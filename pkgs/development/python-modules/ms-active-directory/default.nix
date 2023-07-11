@@ -25,7 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-mErQib8xTgo29iPAtiLnhxLXyFboAzyEW9A/QMseM6k=";
   };
 
-  propagatedBuildInputs = [ dnspython ldap3 pyasn1 pycryptodome pytz six ];
+  propagatedBuildInputs = [
+    dnspython
+    ldap3
+    pyasn1
+    pycryptodome
+    pytz
+    six
+  ];
 
   # Module has no tests
   doCheck = false;

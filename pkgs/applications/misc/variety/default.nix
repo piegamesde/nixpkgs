@@ -31,11 +31,20 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Uln0uoaEZgV9FN3HEBTeFOD7d6RkAQLgQZw7bcgu26A=";
   };
 
-  nativeBuildInputs = [ intltool wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    intltool
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs =
-    [ gexiv2 gobject-introspection gtk3 hicolor-icon-theme libnotify librsvg ]
-    ++ lib.optional appindicatorSupport libayatana-appindicator;
+  buildInputs = [
+    gexiv2
+    gobject-introspection
+    gtk3
+    hicolor-icon-theme
+    libnotify
+    librsvg
+  ] ++ lib.optional appindicatorSupport libayatana-appindicator;
 
   propagatedBuildInputs = with python3.pkgs;
     [
@@ -88,6 +97,10 @@ python3.pkgs.buildPythonApplication rec {
       blur, as well as options to layer quotes and a clock onto the background.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ p3psi AndersonTorres zfnmxt ];
+    maintainers = with maintainers; [
+      p3psi
+      AndersonTorres
+      zfnmxt
+    ];
   };
 }

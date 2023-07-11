@@ -78,7 +78,13 @@ stdenv.mkDerivation rec {
       --replace "/usr/share" "$out/share"
   '';
 
-  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   dontWrapGApps = true;
 
   buildInputs = [

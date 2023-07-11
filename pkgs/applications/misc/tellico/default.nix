@@ -40,7 +40,12 @@ mkDerivation rec {
       --replace ksane_version.h KF5/ksane_version.h
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules kdoctools makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    kdoctools
+    makeWrapper
+  ];
 
   buildInputs = [
     exempi
@@ -63,7 +68,11 @@ mkDerivation rec {
   meta = with lib; {
     description = "Collection management software, free and simple";
     homepage = "https://tellico-project.org/";
-    license = with licenses; [ gpl2Only gpl3Only lgpl2Only ];
+    license = with licenses; [
+      gpl2Only
+      gpl3Only
+      lgpl2Only
+    ];
     maintainers = with maintainers; [ numkem ];
     platforms = platforms.linux;
   };

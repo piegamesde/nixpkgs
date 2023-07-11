@@ -22,7 +22,13 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ nose libjpeg libpng libtiff libwebp ];
+  buildInputs = [
+    nose
+    libjpeg
+    libpng
+    libtiff
+    libwebp
+  ];
   propagatedBuildInputs = [ numpy ];
 
   meta = with lib; {

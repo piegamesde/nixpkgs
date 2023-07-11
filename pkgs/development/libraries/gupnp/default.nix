@@ -23,8 +23,10 @@ stdenv.mkDerivation rec {
   pname = "gupnp";
   version = "1.4.4";
 
-  outputs = [ "out" "dev" ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gupnp/${
@@ -54,13 +56,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libuuid ];
 
-  propagatedBuildInputs = [ glib gssdp libsoup libxml2 ];
-
-  mesonFlags = [
-    "-Dgtk_doc=${
-      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
-    }"
+  propagatedBuildInputs = [
+    glib
+    gssdp
+    libsoup
+    libxml2
   ];
+
+  mesonFlags = [ "-Dgtk_doc=${
+      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
+    }" ];
 
   # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached
   doCheck = !stdenv.isDarwin;

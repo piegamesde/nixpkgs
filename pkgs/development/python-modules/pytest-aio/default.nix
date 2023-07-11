@@ -33,8 +33,15 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs =
-    [ anyio curio hypothesis pytestCheckHook sniffio trio trio-asyncio ];
+  nativeCheckInputs = [
+    anyio
+    curio
+    hypothesis
+    pytestCheckHook
+    sniffio
+    trio
+    trio-asyncio
+  ];
 
   pythonImportsCheck = [ "pytest_aio" ];
 

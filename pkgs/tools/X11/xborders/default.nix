@@ -21,11 +21,22 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-UKsseNkXest6npPqJKvKL0iBWeK+S7zynrDlyXIOmF4=";
   };
 
-  buildInputs = [ libwnck gtk3 libnotify ];
+  buildInputs = [
+    libwnck
+    gtk3
+    libnotify
+  ];
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ pycairo requests pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [
+    pycairo
+    requests
+    pygobject3
+  ];
 
   postPatch = let
     setup = substituteAll {

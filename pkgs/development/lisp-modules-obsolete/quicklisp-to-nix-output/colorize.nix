@@ -8,7 +8,11 @@ args@{
 
   description = "A Syntax highlighting library";
 
-  deps = [ args."alexandria" args."html-encode" args."split-sequence" ];
+  deps = [
+    args."alexandria"
+    args."html-encode"
+    args."split-sequence"
+  ];
 
   src = fetchurl {
     url =

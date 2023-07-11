@@ -47,7 +47,13 @@ stdenv.mkDerivation rec {
     sha256 = "1sgg4m3035a03ldipgysz7zqfa9pqaqa4j024gyvvcwh4ml8iasr";
   };
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+    wrapQtAppsHook
+  ];
   buildInputs = [
     libsndfile
     qtbase
@@ -85,7 +91,10 @@ stdenv.mkDerivation rec {
     description = "View and analyse contents of music audio files";
     homepage = "https://www.sonicvisualiser.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.goibhniu maintainers.marcweber ];
+    maintainers = [
+      maintainers.goibhniu
+      maintainers.marcweber
+    ];
     platforms = platforms.linux;
   };
 }

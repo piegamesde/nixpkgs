@@ -29,8 +29,16 @@ stdenv.mkDerivation rec {
       '$(INSTALL) -m 755 -s --strip-program=${stdenv.cc.targetPrefix}strip'
   '';
 
-  nativeBuildInputs = [ which texi2html ];
-  buildInputs = lib.optionals enableX11 [ libpng libX11 libXext libXv ];
+  nativeBuildInputs = [
+    which
+    texi2html
+  ];
+  buildInputs = lib.optionals enableX11 [
+    libpng
+    libX11
+    libXext
+    libXv
+  ];
 
   enableParallelBuilding = true;
 

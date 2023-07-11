@@ -25,19 +25,30 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xMXvc8gt3nfKWbU+WoS24wCUTGDQRhG0Q9m7yDhY5/w=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./000-fix-zip-paths.diff;
-      zipPath = "${zip}/bin/zip";
-      unzipPath = "${unzip}/bin/unzip";
-    })
+  patches = [ (substituteAll {
+    src = ./000-fix-zip-paths.diff;
+    zipPath = "${zip}/bin/zip";
+    unzipPath = "${unzip}/bin/unzip";
+  }) ];
+
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
   ];
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  buildInputs = [
+    qtbase
+    qtscript
+    qtsvg
+  ];
 
-  buildInputs = [ qtbase qtscript qtsvg ];
-
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ unzip zip ]}" ];
+  qtWrapperArgs = [ "--prefix PATH : ${
+      lib.makeBinPath [
+        unzip
+        zip
+      ]
+    }" ];
 
   meta = with lib; {
     homepage = "http://www.insilmaril.de/vym/";

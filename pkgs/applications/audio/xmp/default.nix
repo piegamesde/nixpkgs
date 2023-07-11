@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libxmp ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ AudioUnit CoreAudio ];
+    ++ lib.optionals stdenv.isDarwin [
+      AudioUnit
+      CoreAudio
+    ];
 
   meta = with lib; {
     description = "Extended module player";

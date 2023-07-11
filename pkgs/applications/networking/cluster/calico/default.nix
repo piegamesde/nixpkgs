@@ -25,7 +25,10 @@ builtins.mapAttrs (pname:
 
     inherit doCheck subPackages;
 
-    ldflags = [ "-s" "-w" ];
+    ldflags = [
+      "-s"
+      "-w"
+    ];
 
     meta = with lib; {
       homepage = "https://projectcalico.docs.tigera.io";
@@ -59,8 +62,11 @@ builtins.mapAttrs (pname:
     };
     calico-pod2daemon = {
       mainProgram = "flexvol";
-      subPackages =
-        [ "pod2daemon/csidriver" "pod2daemon/flexvol" "pod2daemon/nodeagent" ];
+      subPackages = [
+        "pod2daemon/csidriver"
+        "pod2daemon/flexvol"
+        "pod2daemon/nodeagent"
+      ];
     };
     calico-typha = { subPackages = [ "typha/cmd/..." ]; };
     calicoctl = { subPackages = [ "calicoctl/calicoctl" ]; };

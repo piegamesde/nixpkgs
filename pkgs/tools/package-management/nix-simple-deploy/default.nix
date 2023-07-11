@@ -24,7 +24,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/nix-simple-deploy" \
-      --prefix PATH : "${lib.makeBinPath [ openssh nix-serve ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          openssh
+          nix-serve
+        ]
+      }"
   '';
 
   meta = with lib; {

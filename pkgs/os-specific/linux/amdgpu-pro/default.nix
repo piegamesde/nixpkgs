@@ -114,7 +114,10 @@ in stdenv.mkDerivation rec {
     };
   };
 
-  outputs = [ "out" "vulkan" ];
+  outputs = [
+    "out"
+    "vulkan"
+  ];
 
   depLibPath = makeLibraryPath [
     stdenv.cc.cc.lib
@@ -207,7 +210,11 @@ in stdenv.mkDerivation rec {
     find "$out" -name '*.so*' -type f -exec patchelf --set-rpath "$libPath" {} \;
   '';
 
-  buildInputs = [ libdrm patchelf perl ];
+  buildInputs = [
+    libdrm
+    patchelf
+    perl
+  ];
 
   enableParallelBuilding = true;
 

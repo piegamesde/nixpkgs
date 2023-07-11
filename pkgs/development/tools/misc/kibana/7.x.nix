@@ -50,7 +50,13 @@ in stdenv.mkDerivation rec {
     mv * $out/libexec/kibana/
     rm -r $out/libexec/kibana/node
     makeWrapper $out/libexec/kibana/bin/kibana $out/bin/kibana \
-      --prefix PATH : "${lib.makeBinPath [ nodejs coreutils which ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          nodejs
+          coreutils
+          which
+        ]
+      }"
     sed -i 's@NODE=.*@NODE=${nodejs}/bin/node@' $out/libexec/kibana/bin/kibana
   '';
 
@@ -58,7 +64,10 @@ in stdenv.mkDerivation rec {
     description = "Visualize logs and time-stamped data";
     homepage = "http://www.elasticsearch.org/overview/kibana";
     license = licenses.elastic;
-    maintainers = with maintainers; [ offline basvandijk ];
+    maintainers = with maintainers; [
+      offline
+      basvandijk
+    ];
     platforms = with platforms; unix;
   };
 }

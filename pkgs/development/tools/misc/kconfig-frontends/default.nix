@@ -21,8 +21,17 @@ stdenv.mkDerivation rec {
       "http://ymorin.is-a-geek.org/download/kconfig-frontends/kconfig-frontends-${version}.tar.xz";
   };
 
-  nativeBuildInputs = [ bison flex gperf pkg-config ];
-  buildInputs = [ bash ncurses python3 ];
+  nativeBuildInputs = [
+    bison
+    flex
+    gperf
+    pkg-config
+  ];
+  buildInputs = [
+    bash
+    ncurses
+    python3
+  ];
 
   strictDeps = true;
 

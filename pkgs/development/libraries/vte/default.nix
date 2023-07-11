@@ -33,7 +33,11 @@ stdenv.mkDerivation rec {
   pname = "vte";
   version = "0.72.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -67,8 +71,13 @@ stdenv.mkDerivation rec {
     gi-docgen
   ];
 
-  buildInputs = [ fribidi gnutls pcre2 zlib icu ]
-    ++ lib.optionals systemdSupport [ systemd ];
+  buildInputs = [
+    fribidi
+    gnutls
+    pcre2
+    zlib
+    icu
+  ] ++ lib.optionals systemdSupport [ systemd ];
 
   propagatedBuildInputs = assert (gtkVersion == "3" || gtkVersion == "4"); [
     # Required by vte-2.91.pc.
@@ -79,8 +88,10 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Ddocs=true" ]
     ++ lib.optionals (!systemdSupport) [ "-D_systemd=false" ]
-    ++ lib.optionals (gtkVersion == "4") [ "-Dgtk3=false" "-Dgtk4=true" ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals (gtkVersion == "4") [
+      "-Dgtk3=false"
+      "-Dgtk4=true"
+    ] ++ lib.optionals stdenv.isDarwin [
       # -Bsymbolic-functions is not supported on darwin
       "-D_b_symbolic_functions=false"
     ];
@@ -125,7 +136,11 @@ stdenv.mkDerivation rec {
       the system's terminfo database.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ astsmtl antono ] ++ teams.gnome.members;
+    maintainers = with maintainers;
+      [
+        astsmtl
+        antono
+      ] ++ teams.gnome.members;
     platforms = platforms.unix;
   };
 }

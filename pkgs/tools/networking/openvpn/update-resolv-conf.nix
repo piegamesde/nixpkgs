@@ -8,7 +8,12 @@
   systemd,
 }:
 
-let binPath = lib.makeBinPath [ coreutils openresolv systemd ];
+let
+  binPath = lib.makeBinPath [
+    coreutils
+    openresolv
+    systemd
+  ];
 
 in stdenv.mkDerivation {
   pname = "update-resolv-conf";

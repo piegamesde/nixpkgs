@@ -26,9 +26,17 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data" ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config gettext ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    pkg-config
+    gettext
+  ];
 
-  buildInputs = [ fcitx5 librime ];
+  buildInputs = [
+    fcitx5
+    librime
+  ];
 
   rimeDataDrv = symlinkJoin {
     name = "fcitx5-rime-data";

@@ -36,11 +36,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VD+CTF0QLfzrUr4uFiyDlZux3MqsyyuJF/cXuhOFzwo=";
   };
 
-  outputs = [ "dev" "out" ];
+  outputs = [
+    "dev"
+    "out"
+  ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson pkg-config ninja wayland-scanner ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    wayland-scanner
+  ];
 
   buildInputs = [ libdrm ] ++ lib.optionals (!minimal) [
     libva-minimal

@@ -59,7 +59,11 @@ let
   featuresInfo = {
     # Needed always
     basic = {
-      native = [ cmake pkg-config orc ];
+      native = [
+        cmake
+        pkg-config
+        orc
+      ];
       runtime = [
         boost
         log4cpp
@@ -68,7 +72,10 @@ let
       # when gr-qtgui is disabled, icu needs to be included, otherwise
       # building with boost 1.7x fails
         ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
-      pythonNative = with python.pkgs; [ mako six ];
+      pythonNative = with python.pkgs; [
+        mako
+        six
+      ];
     };
     volk = {
       cmakeEnableFlag = "VOLK";
@@ -84,7 +91,10 @@ let
     };
     python-support = {
       pythonRuntime = [ python.pkgs.six ];
-      native = [ swig python ];
+      native = [
+        swig
+        python
+      ];
       cmakeEnableFlag = "PYTHON";
     };
     testing-support = {
@@ -104,8 +114,18 @@ let
       ];
     };
     gnuradio-companion = {
-      pythonRuntime = with python.pkgs; [ pyyaml mako numpy pygobject3 ];
-      runtime = [ gtk3 pango gobject-introspection cairo ];
+      pythonRuntime = with python.pkgs; [
+        pyyaml
+        mako
+        numpy
+        pygobject3
+      ];
+      runtime = [
+        gtk3
+        pango
+        gobject-introspection
+        cairo
+      ];
       cmakeEnableFlag = "GRC";
     };
     gr-blocks = { cmakeEnableFlag = "GR_BLOCKS"; };
@@ -122,13 +142,18 @@ let
     gr-digital = { cmakeEnableFlag = "GR_DIGITAL"; };
     gr-dtv = { cmakeEnableFlag = "GR_DTV"; };
     gr-audio = {
-      runtime = [ ] ++ lib.optionals stdenv.isLinux [ alsa-lib libjack2 ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+      runtime = [ ] ++ lib.optionals stdenv.isLinux [
+        alsa-lib
+        libjack2
+      ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = { cmakeEnableFlag = "GR_CHANNELS"; };
     gr-qtgui = {
-      runtime = [ qt5.qtbase libsForQt5.qwt ];
+      runtime = [
+        qt5.qtbase
+        libsForQt5.qwt
+      ];
       pythonRuntime = [ python.pkgs.pyqt5 ];
       cmakeEnableFlag = "GR_QTGUI";
     };
@@ -146,7 +171,11 @@ let
         ];
     };
     gr-modtool = {
-      pythonRuntime = with python.pkgs; [ setuptools click click-plugins ];
+      pythonRuntime = with python.pkgs; [
+        setuptools
+        click
+        click-plugins
+      ];
       cmakeEnableFlag = "GR_MODTOOL";
     };
     gr-video-sdl = {
@@ -154,7 +183,10 @@ let
       cmakeEnableFlag = "GR_VIDEO_SDL";
     };
     gr-vocoder = {
-      runtime = [ codec2 gsm ];
+      runtime = [
+        codec2
+        gsm
+      ];
       cmakeEnableFlag = "GR_VOCODER";
     };
     gr-wavelet = {
@@ -213,8 +245,8 @@ in stdenv.mkDerivation {
       "-DLIBGSM_FOUND=TRUE"
       "-DLIBGSM_LIBRARIES=${gsm}/lib/libgsm${stdenv.hostPlatform.extensions.sharedLibrary}"
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
-    ] ++ lib.optionals (hasFeature "volk" && volk != null)
-    [ "-DENABLE_INTERNAL_VOLK=OFF" ];
+    ] ++ lib.optionals
+    (hasFeature "volk" && volk != null) [ "-DENABLE_INTERNAL_VOLK=OFF" ];
 
   postInstall = shared.postInstall
     # This is the only python reference worth removing, if needed (3.7 doesn't

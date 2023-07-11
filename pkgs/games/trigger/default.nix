@@ -24,8 +24,18 @@ stdenv.mkDerivation rec {
     sha256 = "016bc2hczqscfmngacim870hjcsmwl8r3aq8x03vpf22s49nw23z";
   };
 
-  buildInputs =
-    [ SDL2 freealut SDL2_image openal physfs zlib libGLU libGL glew tinyxml-2 ];
+  buildInputs = [
+    SDL2
+    freealut
+    SDL2_image
+    openal
+    physfs
+    zlib
+    libGLU
+    libGL
+    glew
+    tinyxml-2
+  ];
 
   preConfigure = ''
     sed s,/usr/local,$out, -i bin/*defs

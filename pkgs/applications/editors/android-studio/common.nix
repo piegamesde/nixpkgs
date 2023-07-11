@@ -79,7 +79,10 @@ let
       sha256 = sha256Hash;
     };
 
-    nativeBuildInputs = [ unzip makeWrapper ];
+    nativeBuildInputs = [
+      unzip
+      makeWrapper
+    ];
 
     # Causes the shebangs in interpreter scripts deployed to mobile devices to be patched, which Android does not understand
     dontPatchShebangs = true;
@@ -171,7 +174,10 @@ let
 
       # AS launches LLDBFrontend with a custom LD_LIBRARY_PATH
       wrapProgram $(find $out -name LLDBFrontend) --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ ncurses5 zlib ]
+        lib.makeLibraryPath [
+          ncurses5
+          zlib
+        ]
       }"
     '';
   };
@@ -182,7 +188,10 @@ let
     icon = pname;
     desktopName = "Android Studio (${channel} channel)";
     comment = "The official Android IDE";
-    categories = [ "Development" "IDE" ];
+    categories = [
+      "Development"
+      "IDE"
+    ];
     startupNotify = true;
     startupWMClass = "jetbrains-studio";
   };

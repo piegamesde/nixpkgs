@@ -135,7 +135,10 @@ in {
     mkInstanceService = instance: {
       description = "Streaming relay for v4l2loopback using GStreamer";
 
-      after = [ "modprobe@v4l2loopback.service" "systemd-logind.service" ];
+      after = [
+        "modprobe@v4l2loopback.service"
+        "systemd-logind.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -161,12 +164,13 @@ in {
           "framerate=${toString instance.input.framerate}/1"
         ];
 
-        outputPipeline =
-          [ "appsrc name=appsrc ${appsrcOptions}" "videoconvert" ]
-          ++ optionals (instance.input.format != instance.output.format) [
-            "video/x-raw,format=${instance.output.format}"
-            "queue"
-          ] ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
+        outputPipeline = [
+          "appsrc name=appsrc ${appsrcOptions}"
+          "videoconvert"
+        ] ++ optionals (instance.input.format != instance.output.format) [
+          "video/x-raw,format=${instance.output.format}"
+          "queue"
+        ] ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
       in ''
         exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${
           concatStringsSep " ! " outputPipeline

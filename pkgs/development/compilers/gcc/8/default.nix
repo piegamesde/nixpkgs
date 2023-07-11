@@ -129,13 +129,20 @@ in stdenv.mkDerivation ({
 
   inherit patches;
 
-  outputs = [ "out" "man" "info" ] ++ lib.optional (!langJit) "lib";
+  outputs = [
+    "out"
+    "man"
+    "info"
+  ] ++ lib.optional (!langJit) "lib";
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
   libc_dev = stdenv.cc.libc_dev;
 
-  hardeningDisable = [ "format" "pie" ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ];
 
   postPatch = ''
     configureScripts=$(find . -name configure)
@@ -189,7 +196,11 @@ in stdenv.mkDerivation ({
 
   dontDisableStatic = true;
 
-  configurePlatforms = [ "build" "host" "target" ];
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
@@ -244,7 +255,10 @@ in stdenv.mkDerivation ({
 
   // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
     == "msvcrt" && crossStageStatic) {
-      makeFlags = [ "all-gcc" "all-target-libgcc" ];
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
       installTargets = "install-gcc install-target-libgcc";
     }
 

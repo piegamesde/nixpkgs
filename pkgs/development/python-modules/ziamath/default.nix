@@ -24,7 +24,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ziafont ];
 
-  nativeCheckInputs = [ pytestCheckHook nbval latex2mathml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbval
+    latex2mathml
+  ];
 
   pytestFlagsArray = [ "--nbval-lax" ];
 

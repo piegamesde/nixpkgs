@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-t8Xt70LozePoDXE3IHejWOTWCEYcOZytRDKz/QxgmZg=";
   };
 
-  propagatedBuildInputs = [ jre ncurses.dev ];
+  propagatedBuildInputs = [
+    jre
+    ncurses.dev
+  ];
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
@@ -46,6 +49,9 @@ stdenv.mkDerivation rec {
     homepage = "http://dotty.epfl.ch/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.karolchmist maintainers.virusdave ];
+    maintainers = [
+      maintainers.karolchmist
+      maintainers.virusdave
+    ];
   };
 }

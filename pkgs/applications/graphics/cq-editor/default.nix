@@ -56,7 +56,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     description = "CadQuery GUI editor based on PyQT";
     homepage = "https://github.com/CadQuery/CQ-editor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc marcus7070 ];
+    maintainers = with maintainers; [
+      costrouc
+      marcus7070
+    ];
   };
 
 }

@@ -25,9 +25,20 @@ stdenv.mkDerivation rec {
     sha256 = "IQpMeJXC6E8BpWglArpej6PqiWrzFw+yWS/OHdpW4C4=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+  ];
 
-  buildInputs = [ glib webkitgtk_4_1 libsoup_3 libxml2 libarchive ];
+  buildInputs = [
+    glib
+    webkitgtk_4_1
+    libsoup_3
+    libxml2
+    libarchive
+  ];
 
   doCheck = true;
 

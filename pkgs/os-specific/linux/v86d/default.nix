@@ -22,7 +22,10 @@ in stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [ "--with-klibc" "--with-x86emu" ];
+  configureFlags = [
+    "--with-klibc"
+    "--with-x86emu"
+  ];
 
   hardeningDisable = [ "stackprotector" ];
 
@@ -42,6 +45,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/mjanusz/v86d";
     license = licenses.gpl2;
     maintainers = with maintainers; [ codyopel ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

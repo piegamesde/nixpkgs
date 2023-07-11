@@ -23,11 +23,20 @@ buildPythonPackage rec {
     hash = "sha256-xSOITOVtsNMEDrq610l8LNipLdyMWzKOQDedQEGaNOQ=";
   };
 
-  propagatedBuildInputs = [ aiohttp jsonrpc-base ];
+  propagatedBuildInputs = [
+    aiohttp
+    jsonrpc-base
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-asyncio
+  ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" "tests.py" ];
+  pytestFlagsArray = [
+    "--asyncio-mode=auto"
+    "tests.py"
+  ];
 
   pythonImportsCheck = [ "jsonrpc_websocket" ];
 

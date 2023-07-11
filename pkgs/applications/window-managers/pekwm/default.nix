@@ -28,7 +28,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hA+TBAs9NMcc5DKIkzyUHWck3Xht+yeCO54xJ6oXXuQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   cmakeFlags = [
     "-DAWK=${awk}/bin/awk"
@@ -37,7 +40,15 @@ stdenv.mkDerivation (finalAttrs: {
     "-DSH=${runtimeShell}"
   ];
 
-  buildInputs = [ libXext libXft libXinerama libXpm libXrandr libjpeg libpng ];
+  buildInputs = [
+    libXext
+    libXft
+    libXinerama
+    libXpm
+    libXrandr
+    libjpeg
+    libpng
+  ];
 
   meta = {
     homepage = "https://www.pekwm.se/";

@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "plum" ];
 
-  nativeCheckInputs = [ baseline pytestCheckHook ];
+  nativeCheckInputs = [
+    baseline
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

@@ -75,5 +75,8 @@ let
 in symlinkJoin {
   inherit pname version meta;
   name = "${pname}-${version}";
-  paths = [ bin voices ];
+  paths = [
+    bin
+    voices
+  ];
 }

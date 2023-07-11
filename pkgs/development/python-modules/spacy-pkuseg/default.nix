@@ -26,7 +26,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy srsly ];
+  propagatedBuildInputs = [
+    numpy
+    srsly
+  ];
 
   pythonImportsCheck = [ "spacy_pkuseg" ];
 

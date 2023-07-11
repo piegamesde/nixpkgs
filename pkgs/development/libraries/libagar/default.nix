@@ -42,9 +42,16 @@ in stdenv.mkDerivation {
     "--with-manpages=yes"
   ];
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
-  nativeBuildInputs = [ pkg-config libtool gettext ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    gettext
+  ];
 
   buildInputs = [
     bsdbuild

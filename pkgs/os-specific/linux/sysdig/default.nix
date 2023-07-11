@@ -57,7 +57,12 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-9WzvO17Q4fLwJNoDLk8xN8mqIcrBhcMyxfRhUXkQ5vI=";
   };
 
-  nativeBuildInputs = [ cmake perl installShellFiles pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    perl
+    installShellFiles
+    pkg-config
+  ];
   buildInputs = [
     luajit
     ncurses
@@ -146,7 +151,11 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
-    license = with licenses; [ asl20 gpl2 mit ];
+    license = with licenses; [
+      asl20
+      gpl2
+      mit
+    ];
     maintainers = [ maintainers.raskin ];
     platforms = [ "x86_64-linux" ] ++ platforms.darwin;
     broken = kernel != null && versionOlder kernel.version "4.14";

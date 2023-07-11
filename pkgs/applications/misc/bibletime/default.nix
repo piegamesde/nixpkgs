@@ -27,10 +27,22 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-4O8F5/EyoJFJBEWOAs9lzN3TKuu/CEdKfPaOF8gNqps=";
   };
 
-  nativeBuildInputs = [ cmake docbook_xml_dtd_45 pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    docbook_xml_dtd_45
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs =
-    [ boost clucene_core_2 perlPackages.Po4a qtbase qtsvg qttools sword ];
+  buildInputs = [
+    boost
+    clucene_core_2
+    perlPackages.Po4a
+    qtbase
+    qtsvg
+    qttools
+    sword
+  ];
 
   preConfigure = ''
     export CLUCENE_HOME=${clucene_core_2};

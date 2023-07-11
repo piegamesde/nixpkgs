@@ -31,9 +31,17 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs =
-    [ aiodns cffi mpd2 potr pyasn1 pyasn1-modules pyinotify setuptools slixmpp ]
-    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
+  propagatedBuildInputs = [
+    aiodns
+    cffi
+    mpd2
+    potr
+    pyasn1
+    pyasn1-modules
+    pyinotify
+    setuptools
+    slixmpp
+  ] ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -382,11 +382,11 @@ let
         };
       });
       default = [ ];
-      example = [{
+      example = [ {
         protocol = "tcp";
         hostPort = 8080;
         containerPort = 80;
-      }];
+      } ];
       description = lib.mdDoc ''
         List of forwarded ports from host to container. Each forwarded port
         is specified by protocol, hostPort and containerPort. By default,
@@ -511,7 +511,7 @@ in {
                               boot.isContainer = true;
                               networking.hostName = mkDefault name;
                               networking.useDHCP = false;
-                              assertions = [{
+                              assertions = [ {
                                 assertion =
                                   (builtins.compareVersions kernelVersion "5.8"
                                     <= 0) -> config.privateNetwork
@@ -523,11 +523,14 @@ in {
                                   supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
                                   for details).
                                 '';
-                              }];
+                              } ];
                             };
                           };
                       in [ extraConfig ] ++ (map (x: x.value) defs);
-                      prefix = [ "containers" name ];
+                      prefix = [
+                        "containers"
+                        name
+                      ];
                       inherit (config) specialArgs;
                     }).config;
               };
@@ -547,7 +550,10 @@ in {
             additionalCapabilities = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "CAP_NET_ADMIN" "CAP_MKNOD" ];
+              example = [
+                "CAP_NET_ADMIN"
+                "CAP_MKNOD"
+              ];
               description = lib.mdDoc ''
                 Grant additional capabilities to the container.  See the
                 capabilities(7) and systemd-nspawn(1) man pages for more
@@ -626,7 +632,10 @@ in {
             interfaces = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "eth1" "eth2" ];
+              example = [
+                "eth1"
+                "eth2"
+              ];
               description = lib.mdDoc ''
                 The list of interfaces to be moved into the container.
               '';
@@ -635,7 +644,10 @@ in {
             macvlans = mkOption {
               type = types.listOf types.str;
               default = [ ];
-              example = [ "eth1" "eth2" ];
+              example = [
+                "eth1"
+                "eth2"
+              ];
               description = lib.mdDoc ''
                 The list of host interfaces from which macvlans will be
                 created. For each interface specified, a macvlan interface
@@ -688,10 +700,10 @@ in {
             allowedDevices = mkOption {
               type = with types; listOf (submodule allowedDeviceOpts);
               default = [ ];
-              example = [{
+              example = [ {
                 node = "/dev/net/tun";
                 modifier = "rw";
-              }];
+              } ];
               description = lib.mdDoc ''
                 A list of device nodes to which the containers has access to.
               '';
@@ -809,18 +821,18 @@ in {
 
     systemd.services = listToAttrs (filter (x: x.value != null) (
       # The generic container template used by imperative containers
-      [{
+      [ {
         name = "container@";
         value = unit;
-      }]
+      } ]
       # declarative containers
       ++ (mapAttrsToList (name: cfg:
         nameValuePair "container@${name}" (let
           containerConfig = cfg // (if cfg.enableTun then {
-            allowedDevices = cfg.allowedDevices ++ [{
+            allowedDevices = cfg.allowedDevices ++ [ {
               node = "/dev/net/tun";
               modifier = "rw";
-            }];
+            } ];
             additionalCapabilities = cfg.additionalCapabilities
               ++ [ "CAP_NET_ADMIN" ];
           } else
@@ -901,7 +913,10 @@ in {
         ${head (splitString "/" cfg.localAddress)} ${name}.containers
       '') config.containers);
 
-    networking.dhcpcd.denyInterfaces = [ "ve-*" "vb-*" ];
+    networking.dhcpcd.denyInterfaces = [
+      "ve-*"
+      "vb-*"
+    ];
 
     services.udev.extraRules =
       optionalString config.networking.networkmanager.enable ''
@@ -911,6 +926,11 @@ in {
 
     environment.systemPackages = [ nixos-container ];
 
-    boot.kernelModules = [ "bridge" "macvlan" "tap" "tun" ];
+    boot.kernelModules = [
+      "bridge"
+      "macvlan"
+      "tap"
+      "tun"
+    ];
   });
 }

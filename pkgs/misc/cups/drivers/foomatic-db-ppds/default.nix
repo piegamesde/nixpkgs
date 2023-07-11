@@ -36,8 +36,10 @@ let
   # the effective license is `free` if all database
   # packages have free licenses, `unfree` otherwise
   isFree = lib.trivial.pipe foomatic-db-packages [
-    (lib.lists.map
-      (lib.attrsets.attrByPath [ "meta" "license" ] lib.licenses.unfree))
+    (lib.lists.map (lib.attrsets.attrByPath [
+      "meta"
+      "license"
+    ] lib.licenses.unfree))
     (lib.lists.all (lib.attrsets.attrByPath [ "free" ] true))
   ];
 
@@ -52,10 +54,19 @@ in stdenv.mkDerivation {
     lib.lists.head
   ];
 
-  buildInputs = [ cups-filters ghostscript netpbm perl psutils ];
+  buildInputs = [
+    cups-filters
+    ghostscript
+    netpbm
+    perl
+    psutils
+  ];
 
-  nativeBuildInputs =
-    [ foomatic-db-combined foomatic-db-engine patchPpdFilesHook ];
+  nativeBuildInputs = [
+    foomatic-db-combined
+    foomatic-db-engine
+    patchPpdFilesHook
+  ];
 
   dontUnpack = true;
 

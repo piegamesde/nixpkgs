@@ -91,9 +91,8 @@ in stdenv.mkDerivation rec {
 
   buildInputs = lib.optional enableValgrindSupport valgrind;
 
-  buildFlags = [
-    "amalg" # Build highly optimized version
-  ];
+  buildFlags = [ "amalg" # Build highly optimized version
+    ];
   makeFlags = [
     "PREFIX=$(out)"
     "DEFAULT_CC=cc"
@@ -149,6 +148,11 @@ in stdenv.mkDerivation rec {
         "riscv64-linux" # See https://github.com/LuaJIT/LuaJIT/issues/628
         "powerpc64le-linux" # `#error "No support for PPC64"`
       ];
-      maintainers = with maintainers; [ thoughtpolice smironov vcunat lblasc ];
+      maintainers = with maintainers; [
+        thoughtpolice
+        smironov
+        vcunat
+        lblasc
+      ];
     } // extraMeta;
 }

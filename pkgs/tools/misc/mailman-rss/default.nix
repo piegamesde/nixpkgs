@@ -14,8 +14,12 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages;
-    [ python-dateutil future requests beautifulsoup4 ]
-    ++ lib.optional withTwitter python3Packages.twitter;
+    [
+      python-dateutil
+      future
+      requests
+      beautifulsoup4
+    ] ++ lib.optional withTwitter python3Packages.twitter;
 
   # No tests in Pypi Tarball
   doCheck = false;

@@ -31,10 +31,21 @@ buildPythonPackage rec {
   # rdflib-jsonld functionality is part of rdblib from version 6 onwards
   pythonRemoveDeps = [ "rdflib-jsonld" ];
 
-  propagatedBuildInputs =
-    [ html-text jstyleson lxml mf2py pyrdfa3 rdflib six w3lib ];
+  propagatedBuildInputs = [
+    html-text
+    jstyleson
+    lxml
+    mf2py
+    pyrdfa3
+    rdflib
+    six
+    w3lib
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "extruct" ];
 

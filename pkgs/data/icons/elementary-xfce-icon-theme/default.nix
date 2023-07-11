@@ -24,7 +24,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9WdVUCwHFX6wlu3++QqzV0RgTDYDnUYqK7yUl83liko=";
   };
 
-  nativeBuildInputs = [ pkg-config gdk-pixbuf librsvg optipng gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    gdk-pixbuf
+    librsvg
+    optipng
+    gtk3
+  ];
 
   propagatedBuildInputs = [
     pantheon.elementary-icon-theme

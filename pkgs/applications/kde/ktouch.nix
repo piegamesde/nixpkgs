@@ -34,7 +34,11 @@ mkDerivation {
     maintainers = [ lib.maintainers.schmittlauch ];
     description = "A touch typing tutor from the KDE software collection";
   };
-  nativeBuildInputs = [ extra-cmake-modules kdoctools qtdeclarative ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    kdoctools
+    qtdeclarative
+  ];
   buildInputs = [
     kconfig
     kconfigwidgets

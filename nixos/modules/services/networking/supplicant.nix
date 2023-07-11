@@ -33,12 +33,9 @@ let
   # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService = iface: suppl:
     let
-      deps = (if (iface == "WLAN" || iface == "LAN") then
-        [ "sys-subsystem-net-devices-%i.device" ]
-      else
-        (if (iface == "DBUS") then
-          [ "dbus.service" ]
-        else
+      deps = (if (iface == "WLAN" || iface
+        == "LAN") then [ "sys-subsystem-net-devices-%i.device" ] else
+        (if (iface == "DBUS") then [ "dbus.service" ] else
           (map subsystemDevice (splitString " " iface))))
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
 
@@ -250,29 +247,27 @@ in {
       mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
       cfg;
 
-    services.udev.packages = [
-      (pkgs.writeTextFile {
-        name = "99-zzz-60-supplicant.rules";
-        destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
-        text = ''
-          ${flip (concatMapStringsSep "\n")
-          (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
-          (iface:
-            flip (concatMapStringsSep "\n") (splitString " " iface) (i:
-              ''
-                ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                  replaceStrings [ " " ] [ "-" ] iface
-                }.service", TAG+="SUPPLICANT_ASSIGNED"''))}
+    services.udev.packages = [ (pkgs.writeTextFile {
+      name = "99-zzz-60-supplicant.rules";
+      destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
+      text = ''
+        ${flip (concatMapStringsSep "\n")
+        (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
+        (iface:
+          flip (concatMapStringsSep "\n") (splitString " " iface) (i:
+            ''
+              ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                replaceStrings [ " " ] [ "-" ] iface
+              }.service", TAG+="SUPPLICANT_ASSIGNED"''))}
 
-          ${optionalString (hasAttr "WLAN" cfg) ''
-            ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"
-          ''}
-          ${optionalString (hasAttr "LAN" cfg) ''
-            ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="lan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-lan@$result.service"
-          ''}
-        '';
-      })
-    ];
+        ${optionalString (hasAttr "WLAN" cfg) ''
+          ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"
+        ''}
+        ${optionalString (hasAttr "LAN" cfg) ''
+          ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="lan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-lan@$result.service"
+        ''}
+      '';
+    }) ];
 
   };
 

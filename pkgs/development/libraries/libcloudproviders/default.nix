@@ -25,15 +25,25 @@ stdenv.mkDerivation rec {
     sha256 = "0zazjhj3xbwxyzi2b2aws7qdnwn092zg9yrk9v3wd19m3mxq5na3";
   };
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ];
 
   mesonFlags = [ "-Denable-gtk-doc=true" ];
 
   strictDeps = true;
-  nativeBuildInputs =
-    [ meson ninja pkg-config gobject-introspection vala gtk-doc docbook_xsl ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    vala
+    gtk-doc
+    docbook_xsl
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [ glib ];
 

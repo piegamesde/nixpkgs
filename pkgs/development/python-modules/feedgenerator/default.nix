@@ -27,7 +27,10 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [ pytz six ];
+  propagatedBuildInputs = [
+    pytz
+    six
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

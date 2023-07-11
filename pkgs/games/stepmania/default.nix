@@ -33,7 +33,10 @@ stdenv.mkDerivation rec {
     sed '1i#include <ctime>' -i src/arch/ArchHooks/ArchHooks.h # gcc12
   '';
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   buildInputs = [
     gtk2

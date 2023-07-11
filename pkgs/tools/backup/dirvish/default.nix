@@ -17,11 +17,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ]
-    ++ (with perlPackages; [ GetoptLong TimeParseDate TimePeriod ]);
+  buildInputs = [ perl ] ++ (with perlPackages; [
+    GetoptLong
+    TimeParseDate
+    TimePeriod
+  ]);
 
-  executables =
-    [ "dirvish" "dirvish-runall" "dirvish-expire" "dirvish-locate" ];
+  executables = [
+    "dirvish"
+    "dirvish-runall"
+    "dirvish-expire"
+    "dirvish-locate"
+  ];
   manpages = [
     "dirvish.8"
     "dirvish-runall.8"

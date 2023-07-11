@@ -17,7 +17,12 @@ stdenv.mkDerivation {
   installPhase = ''
     install -vD ${./swiftpm2nix.sh} $out/bin/swiftpm2nix
     wrapProgram $out/bin/$name \
-      --prefix PATH : ${lib.makeBinPath [ jq nix-prefetch-git ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          jq
+          nix-prefetch-git
+        ]
+      } \
   '';
 
   preferLocalBuild = true;

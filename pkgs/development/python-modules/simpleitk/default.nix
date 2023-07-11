@@ -21,8 +21,16 @@ buildPythonPackage rec {
     make
   '';
 
-  nativeBuildInputs = [ cmake swig4 scikit-build ];
-  propagatedBuildInputs = [ itk simpleitk numpy ];
+  nativeBuildInputs = [
+    cmake
+    swig4
+    scikit-build
+  ];
+  propagatedBuildInputs = [
+    itk
+    simpleitk
+    numpy
+  ];
 
   pythonImportsCheck = [ "SimpleITK" ];
 }

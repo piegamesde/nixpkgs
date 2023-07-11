@@ -15,12 +15,11 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.06";
 
-  buildInputs = if lib.versionAtLeast version "4.7-414" then
-    [ merlin-lib ]
-  else [
-    yojson
-    csexp
-  ];
+  buildInputs =
+    if lib.versionAtLeast version "4.7-414" then [ merlin-lib ] else [
+      yojson
+      csexp
+    ];
 
   meta = with lib; {
     description = "Reads config files for merlin";

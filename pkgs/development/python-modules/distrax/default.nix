@@ -19,9 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-x9ORfhGX5catEZMfR+iXkZSRa/wIb0B3CrCWOWf35Ks=";
   };
 
-  buildInputs = [ chex jaxlib numpy tensorflow-probability ];
+  buildInputs = [
+    chex
+    jaxlib
+    numpy
+    tensorflow-probability
+  ];
 
-  nativeCheckInputs = [ dm-haiku pytestCheckHook ];
+  nativeCheckInputs = [
+    dm-haiku
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "distrax" ];
 

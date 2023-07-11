@@ -16,7 +16,10 @@ let
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";
 
-      nativeBuildInputs = [ unzip dos2unix ];
+      nativeBuildInputs = [
+        unzip
+        dos2unix
+      ];
 
       unpackPhase = ''
         mkdir rainloop

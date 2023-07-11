@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "1zdj87lzcr43gr2h05g17z31pd22n5kxdwbvx7rx656rmhv0sjq5";
   };
 
-  nativeBuildInputs = [ qmake4Hook unzip ];
+  nativeBuildInputs = [
+    qmake4Hook
+    unzip
+  ];
 
   buildInputs = [ qt4 ];
 

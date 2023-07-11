@@ -20,12 +20,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ciw28YXhR+GC6B2VPC+ZxjyhadOk3zYGuOssSgqjwH0=";
   };
 
-  outputs = [ "out" "dev" "doc" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ cairo glib gobject-introspection gnome.gnome-common gtk3 gnome.libsoup ];
+  buildInputs = [
+    cairo
+    glib
+    gobject-introspection
+    gnome.gnome-common
+    gtk3
+    gnome.libsoup
+  ];
 
   meta = with lib; {
     description = "GTK widget for displaying OpenStreetMap tiles";

@@ -30,9 +30,15 @@ rustPlatform.buildRustPackage rec {
   # Integration tests fail
   doCheck = false;
 
-  buildInputs = if stdenv.isDarwin then [ libiconv Security ] else [ openssl ];
+  buildInputs = if stdenv.isDarwin then [
+    libiconv
+    Security
+  ] else [ openssl ];
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   # Depends at run-time on having rustup in PATH
   postInstall = ''

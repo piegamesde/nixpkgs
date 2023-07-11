@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-meLAYBfCKHPHf4gYbrzAmGckTrbgQsdjuwlLArje9h4=";
   };
 
-  buildInputs = [ SDL libarchive ];
+  buildInputs = [
+    SDL
+    libarchive
+  ];
 
   configureFlags = [
     "--enable-debug-vdp"

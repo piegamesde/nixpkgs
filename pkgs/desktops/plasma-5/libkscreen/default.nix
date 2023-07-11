@@ -14,7 +14,10 @@
 
 mkDerivation {
   pname = "libkscreen";
-  nativeBuildInputs = [ extra-cmake-modules wayland-scanner ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    wayland-scanner
+  ];
   buildInputs = [
     kconfig
     kwayland
@@ -24,7 +27,10 @@ mkDerivation {
     qtx11extras
     qttools
   ];
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
   patches = [ ./libkscreen-backends-path.patch ];
   preConfigure = ''
     NIX_CFLAGS_COMPILE+=" -DNIXPKGS_LIBKSCREEN_BACKENDS=\"''${!outputBin}/$qtPluginPrefix/kf5/kscreen\""

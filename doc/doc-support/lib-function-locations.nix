@@ -8,10 +8,10 @@ let
 
   libDefPos = prefix: set:
     builtins.concatMap (name:
-      [{
+      [ {
         name = builtins.concatStringsSep "." (prefix ++ [ name ]);
         location = builtins.unsafeGetAttrPos name set;
-      }] ++ nixpkgsLib.optionals
+      } ] ++ nixpkgsLib.optionals
       (builtins.length prefix == 0 && builtins.isAttrs set.${name})
       (libDefPos (prefix ++ [ name ]) set.${name})) (builtins.attrNames set);
 

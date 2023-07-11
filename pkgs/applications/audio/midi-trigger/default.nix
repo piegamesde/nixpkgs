@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ lv2 ];
 
-  makeFlags = [ "CXX=cc" "BUILD_DIR=." ];
+  makeFlags = [
+    "CXX=cc"
+    "BUILD_DIR=."
+  ];
 
   installPhase = ''
     mkdir -p "$out/lib/lv2"

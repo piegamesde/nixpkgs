@@ -43,14 +43,23 @@ in stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  propagatedBuildInputs = [ stdenv.cc.cc zlib krb5 ];
+  propagatedBuildInputs = [
+    stdenv.cc.cc
+    zlib
+    krb5
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,share/${pname}-${version}}
     cp -r * $out/share/${pname}-${version}
 
     makeWrapper $out/share/${pname}-${version}/Ombi $out/bin/Ombi \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl icu ]} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          openssl
+          icu
+        ]
+      } \
       --chdir "$out/share/${pname}-${version}"
   '';
 
@@ -66,6 +75,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ woky ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

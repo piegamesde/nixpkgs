@@ -22,8 +22,14 @@ buildPythonApplication rec {
     sha256 = "0cvkmdlcax9da9iw4ls73vw0pxvm8wvchab5gwdy9w9ibqdpcmwh";
   };
 
-  propagatedBuildInputs =
-    [ pycurl python-dateutil configobj sqlalchemy sdnotify flask ];
+  propagatedBuildInputs = [
+    pycurl
+    python-dateutil
+    configobj
+    sqlalchemy
+    sdnotify
+    flask
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

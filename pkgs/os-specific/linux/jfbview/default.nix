@@ -24,8 +24,7 @@ let
     "jpdfcat"
     "jpdfgrep"
   ] # all require imlib2
-  else
-    [ "jfbpdf" ]; # does not
+  else [ "jfbpdf" ]; # does not
 
 in stdenv.mkDerivation rec {
   pname = package;

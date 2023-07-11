@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "1wd71wdnj9izg5d95m81yx3684g4zdi7fsy0j5wwnbd9j34ilz1i";
   };
 
-  buildInputs = [ ncurses SDL ];
+  buildInputs = [
+    ncurses
+    SDL
+  ];
 
   makeFlags = (lib.optionals (SDL != null) [ "SDL=yes" ]) ++ [
     "PREFIX=$(out)"

@@ -23,8 +23,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [ meson pkg-config ninja wayland-scanner ];
-  buildInputs = [ libdrm wayland wayland-protocols ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    wayland-scanner
+  ];
+  buildInputs = [
+    libdrm
+    wayland
+    wayland-protocols
+  ];
 
   meta = with lib; {
     description = "Wayland utilities (wayland-info)";

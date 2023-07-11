@@ -30,7 +30,11 @@ import ./make-test-python.nix ({
           }
 
           expect eof
-        '') [ "bash" "fish" "zsh" ];
+        '') [
+          "bash"
+          "fish"
+          "zsh"
+        ];
     };
 
     testScript = ''

@@ -25,9 +25,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hQTzaiPMo5FAVScmxV0iNhy80uJ1xvx/kzlbfwROOs4=";
   };
 
-  nativeBuildInputs = [ cmake rocm-cmake hip ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+    hip
+  ];
 
-  buildInputs = [ rocm-smi gtest ] ++ lib.optionals buildTests [ chrpath ];
+  buildInputs = [
+    rocm-smi
+    gtest
+  ] ++ lib.optionals buildTests [ chrpath ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -61,7 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "ROCm communication collectives library";
     homepage = "https://github.com/ROCmSoftwarePlatform/rccl";
-    license = with licenses; [ bsd2 bsd3 ];
+    license = with licenses; [
+      bsd2
+      bsd3
+    ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
     broken = versions.minor finalAttrs.version != versions.minor hip.version;

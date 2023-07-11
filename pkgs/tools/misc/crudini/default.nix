@@ -17,7 +17,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0298hvg0fpk0m0bjpwryj3icksbckwqqsr9w1ain55wf5s0v24k3";
   };
 
-  nativeBuildInputs = [ help2man installShellFiles ];
+  nativeBuildInputs = [
+    help2man
+    installShellFiles
+  ];
 
   propagatedBuildInputs = with python3Packages; [ iniparse ];
 

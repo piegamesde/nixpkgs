@@ -40,12 +40,18 @@ assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
 
-  buildInputs = [ boost17x libusb1 ]
-    ++ lib.optionals enableQt [ qtbase qtmultimedia ]
-    ++ lib.optional enableSdl2 SDL2 ++ lib.optional enableQtTranslation qttools
+  buildInputs = [
+    boost17x
+    libusb1
+  ] ++ lib.optionals enableQt [
+    qtbase
+    qtmultimedia
+  ] ++ lib.optional enableSdl2 SDL2 ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
     ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
     ffmpeg_4 ++ lib.optional useDiscordRichPresence rapidjson
@@ -110,6 +116,10 @@ stdenv.mkDerivation rec {
     mainProgram = if enableQt then "citra-qt" else "citra";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ abbradar ashley ivar ];
+    maintainers = with maintainers; [
+      abbradar
+      ashley
+      ivar
+    ];
   };
 }

@@ -34,13 +34,22 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ninja ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = with python.pkgs;
     with llvmPackages;
-    [ abseil-cpp boost libllvm.all libclang.all ]
-    ++ [ jedi jedi-language-server pybind11 ]
-    ++ lib.optional stdenv.isDarwin Cocoa;
+    [
+      abseil-cpp
+      boost
+      libllvm.all
+      libclang.all
+    ] ++ [
+      jedi
+      jedi-language-server
+      pybind11
+    ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   buildPhase = ''
     export EXTRA_CMAKE_ARGS="-DPATH_TO_LLVM_ROOT=${llvmPackages.libllvm} -DUSE_SYSTEM_ABSEIL=true"
@@ -106,7 +115,12 @@ stdenv.mkDerivation {
     description = "A code-completion and comprehension server";
     homepage = "https://github.com/ycm-core/ycmd";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rasendubi cstrahan lnl7 siriobalmelli ];
+    maintainers = with maintainers; [
+      rasendubi
+      cstrahan
+      lnl7
+      siriobalmelli
+    ];
     platforms = platforms.all;
   };
 }

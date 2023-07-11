@@ -60,7 +60,10 @@
             }
           ];
         };
-        networking.firewall.allowedTCPPorts = [ 3128 9999 ];
+        networking.firewall.allowedTCPPorts = [
+          3128
+          9999
+        ];
       };
 
     peer2 = {
@@ -92,11 +95,14 @@
               type = "proxy";
               bindPort = 3128;
               auth = [ "iponly" ];
-              acl = [{ rule = "allow"; }];
+              acl = [ { rule = "allow"; } ];
             }
           ];
         };
-        networking.firewall.allowedTCPPorts = [ 3128 9999 ];
+        networking.firewall.allowedTCPPorts = [
+          3128
+          9999
+        ];
       };
 
     peer3 = {
@@ -132,11 +138,14 @@
               type = "proxy";
               bindPort = 3128;
               auth = [ "strong" ];
-              acl = [{ rule = "allow"; }];
+              acl = [ { rule = "allow"; } ];
             }
           ];
         };
-        networking.firewall.allowedTCPPorts = [ 3128 9999 ];
+        networking.firewall.allowedTCPPorts = [
+          3128
+          9999
+        ];
       };
   };
 

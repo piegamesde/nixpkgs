@@ -39,8 +39,10 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''tar xvf "${srcData}"'';
 
-  configureFlags = [ "--enable-release" "--enable-sse" ]
-    ++ lib.optional enableEditor "--enable-uforadiant";
+  configureFlags = [
+    "--enable-release"
+    "--enable-sse"
+  ] ++ lib.optional enableEditor "--enable-uforadiant";
 
   buildInputs = [
     libtheora

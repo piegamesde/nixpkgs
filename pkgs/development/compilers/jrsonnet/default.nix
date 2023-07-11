@@ -45,6 +45,9 @@ rustPlatform.buildRustPackage rec {
       "Purely-functional configuration language that helps you define JSON data";
     homepage = "https://github.com/CertainLach/jrsonnet";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda lach ];
+    maintainers = with maintainers; [
+      figsoda
+      lach
+    ];
   };
 }

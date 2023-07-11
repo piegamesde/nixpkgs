@@ -21,7 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/I//7MhsC/CcBeIJblzbjXp/yOSBm83KWJsrYpl6UJk=";
   };
 
-  buildInputs = [ zlib htslib bzip2 xz ncurses boost ];
+  buildInputs = [
+    zlib
+    htslib
+    bzip2
+    xz
+    ncurses
+    boost
+  ];
 
   EBROOTHTSLIB = htslib;
 

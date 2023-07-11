@@ -23,7 +23,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pybind11 ];
 
-  propagatedBuildInputs = [ numpy scipy ];
+  propagatedBuildInputs = [
+    numpy
+    scipy
+  ];
 
   pythonImportsCheck = [ "qdldl" ];
   nativeCheckInputs = [ pytestCheckHook ];

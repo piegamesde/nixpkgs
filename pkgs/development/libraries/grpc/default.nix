@@ -35,20 +35,28 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    (fetchpatch {
-      # armv6l support, https://github.com/grpc/grpc/pull/21341
-      name = "grpc-link-libatomic.patch";
-      url =
-        "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
-      hash = "sha256-d6kMyjL5ZnEnEz4XZfRgXJBH53gp1r7q1tlwh+HM6+Y=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # armv6l support, https://github.com/grpc/grpc/pull/21341
+    name = "grpc-link-libatomic.patch";
+    url =
+      "https://github.com/lopsided98/grpc/commit/164f55260262c816e19cd2c41b564486097d62fe.patch";
+    hash = "sha256-d6kMyjL5ZnEnEz4XZfRgXJBH53gp1r7q1tlwh+HM6+Y=";
+  }) ];
 
-  nativeBuildInputs = [ cmake pkg-config ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc;
-  propagatedBuildInputs = [ c-ares re2 zlib abseil-cpp ];
-  buildInputs = [ openssl protobuf ] ++ lib.optionals stdenv.isLinux [ libnsl ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc;
+  propagatedBuildInputs = [
+    c-ares
+    re2
+    zlib
+    abseil-cpp
+  ];
+  buildInputs = [
+    openssl
+    protobuf
+  ] ++ lib.optionals stdenv.isLinux [ libnsl ];
 
   cmakeFlags = [
     "-DgRPC_ZLIB_PROVIDER=package"
@@ -59,9 +67,8 @@ stdenv.mkDerivation rec {
     "-DgRPC_ABSL_PROVIDER=package"
     "-DBUILD_SHARED_LIBS=ON"
     "-DCMAKE_CXX_STANDARD=${passthru.cxxStandard}"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
-  ];
+  ] ++ lib.optionals (stdenv.hostPlatform
+    != stdenv.buildPlatform) [ "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc" ];
 
   # CMake creates a build directory by default, this conflicts with the
   # basel BUILD file on case-insensitive filesystems.
@@ -103,7 +110,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The C based gRPC (C++, Python, Ruby, Objective-C, PHP, C#)";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lnl7 marsam ];
+    maintainers = with maintainers; [
+      lnl7
+      marsam
+    ];
     homepage = "https://grpc.io/";
     platforms = platforms.all;
     changelog = "https://github.com/grpc/grpc/releases/tag/v${version}";

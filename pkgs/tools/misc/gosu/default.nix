@@ -19,7 +19,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-3HIAPI1bbfwE2/cUsQnp2Vz2uvlvSFDUrp2xuGNr8Gk=";
 
-  ldflags = [ "-d" "-s" "-w" ];
+  ldflags = [
+    "-d"
+    "-s"
+    "-w"
+  ];
 
   passthru.tests.version = testers.testVersion { package = gosu; };
 

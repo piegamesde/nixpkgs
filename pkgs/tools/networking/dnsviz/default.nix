@@ -23,7 +23,11 @@ buildPythonApplication rec {
     ./fix-path.patch
   ];
 
-  propagatedBuildInputs = [ dnspython m2crypto pygraphviz ];
+  propagatedBuildInputs = [
+    dnspython
+    m2crypto
+    pygraphviz
+  ];
 
   postPatch = ''
     substituteInPlace dnsviz/config.py.in --replace '@out@' $out

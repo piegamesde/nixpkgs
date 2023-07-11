@@ -30,11 +30,15 @@ openvpn.overrideAttrs (oldAttrs:
 
     buildInputs = oldAttrs.buildInputs or [ ] ++ [ iproute2 ];
 
-    configureFlags = oldAttrs.configureFlags or [ ]
-      ++ [ "--enable-iproute2" "IPROUTE=${iproute2}/sbin/ip" ];
+    configureFlags = oldAttrs.configureFlags or [ ] ++ [
+      "--enable-iproute2"
+      "IPROUTE=${iproute2}/sbin/ip"
+    ];
 
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ]
-      ++ [ autoconf automake ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
+      autoconf
+      automake
+    ];
 
     patches = oldAttrs.patches or [ ] ++ [
       # look at compare to find the relevant commits

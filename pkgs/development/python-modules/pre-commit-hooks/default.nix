@@ -27,7 +27,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ruamel-yaml ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [ git pytestCheckHook ];
+  nativeCheckInputs = [
+    git
+    pytestCheckHook
+  ];
 
   # Note: this is not likely to ever work on Darwin
   # https://github.com/pre-commit/pre-commit-hooks/pull/655

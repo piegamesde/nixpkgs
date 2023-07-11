@@ -20,8 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-uJgm8l1SxIRC5PV6BIH/ht/1ucGT5UaUhkFMdusejgA=";
   };
 
-  propagatedBuildInputs = [ cloudpickle numpy gym-notices ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    cloudpickle
+    numpy
+    gym-notices
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   # The test needs MuJoCo that is not free library.
   doCheck = false;

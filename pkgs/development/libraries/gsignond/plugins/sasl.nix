@@ -41,7 +41,11 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ glib gsasl gsignond ];
+  buildInputs = [
+    glib
+    gsasl
+    gsignond
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

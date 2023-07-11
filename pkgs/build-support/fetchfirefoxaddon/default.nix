@@ -48,5 +48,9 @@ in stdenv.mkDerivation {
     zip -r -q -FS "$out/$UUID.xpi" *
     rm -r "$out/$UUID"
   '';
-  nativeBuildInputs = [ unzip zip jq ];
+  nativeBuildInputs = [
+    unzip
+    zip
+    jq
+  ];
 }

@@ -46,7 +46,10 @@ buildPythonPackage rec {
     sha256 = "1y3smw9620w2ia4zfsl2svb9j7mkfgc8z1bzjffyk1w5vryhwikh";
   };
 
-  nativeCheckInputs = [ pytest selenium ];
+  nativeCheckInputs = [
+    pytest
+    selenium
+  ];
 
   # No tests in sdist
   doCheck = false;

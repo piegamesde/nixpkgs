@@ -23,7 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-bSP6likSwEbxN4S9qbJmPcs8joc5e10FiqVL9gE7ni8=";
   };
 
-  propagatedBuildInputs = [ lz4 keyring pbkdf2 pyaes pycryptodomex ];
+  propagatedBuildInputs = [
+    lz4
+    keyring
+    pbkdf2
+    pyaes
+    pycryptodomex
+  ];
 
   # No tests implemented
   doCheck = false;

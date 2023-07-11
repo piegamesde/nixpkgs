@@ -20,7 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5xyBU+0XUNFUGgvw7U8YE64zncw6SvPmbJhc1LY2u/g=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ qtbase ];
 

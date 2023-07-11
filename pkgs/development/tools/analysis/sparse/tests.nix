@@ -15,7 +15,10 @@ let
     }
   '';
 in runCommand "${sparse.pname}-tests" {
-  buildInputs = [ gcc sparse ];
+  buildInputs = [
+    gcc
+    sparse
+  ];
   meta.timeout = 3;
 } ''
   set -eu

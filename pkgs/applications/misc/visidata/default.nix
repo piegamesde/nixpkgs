@@ -108,7 +108,10 @@ buildPythonApplication rec {
 
     setuptools
     importlib-metadata
-  ] ++ lib.optionals withPcap [ dpkt dnslib ] ++ lib.optional withXclip xclip;
+  ] ++ lib.optionals withPcap [
+    dpkt
+    dnslib
+  ] ++ lib.optional withXclip xclip;
 
   nativeCheckInputs = [ git ];
 
@@ -148,7 +151,10 @@ buildPythonApplication rec {
   meta = {
     description = "Interactive terminal multitool for tabular data";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ raskin markus1189 ];
+    maintainers = with lib.maintainers; [
+      raskin
+      markus1189
+    ];
     homepage = "https://visidata.org/";
     changelog =
       "https://github.com/saulpw/visidata/blob/v${version}/CHANGELOG.md";

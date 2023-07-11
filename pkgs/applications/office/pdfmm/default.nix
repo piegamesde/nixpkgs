@@ -31,7 +31,14 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/pdfmm" ];
     interpreter = "${bash}/bin/bash";
-    inputs = [ coreutils ghostscript glibc gnome.zenity gnused xorg.xmessage ];
+    inputs = [
+      coreutils
+      ghostscript
+      glibc
+      gnome.zenity
+      gnused
+      xorg.xmessage
+    ];
     execer = [
       "cannot:${glibc.bin}/bin/locale"
       "cannot:${gnome.zenity}/bin/zenity"

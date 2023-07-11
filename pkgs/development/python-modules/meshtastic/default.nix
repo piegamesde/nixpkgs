@@ -50,7 +50,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = { tunnel = [ pytap2 ]; };
 
-  nativeCheckInputs = [ pytap2 pytestCheckHook ];
+  nativeCheckInputs = [
+    pytap2
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

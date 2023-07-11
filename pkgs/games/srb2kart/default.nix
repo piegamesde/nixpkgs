@@ -36,9 +36,20 @@ in stdenv.mkDerivation rec {
     sha256 = "131g9bmc9ihvz0klsc3yzd0pnkhx3mz1vzm8y7nrrsgdz5278y49";
   };
 
-  nativeBuildInputs = [ cmake nasm unzip ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+    unzip
+  ];
 
-  buildInputs = [ curl game-music-emu libpng SDL2 SDL2_mixer zlib ];
+  buildInputs = [
+    curl
+    game-music-emu
+    libpng
+    SDL2
+    SDL2_mixer
+    zlib
+  ];
 
   cmakeFlags = [
     #"-DSRB2_ASSET_DIRECTORY=/build/source/assets"

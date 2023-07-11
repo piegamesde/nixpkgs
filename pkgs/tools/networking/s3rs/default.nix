@@ -23,7 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Q1EqEyNxWIx3wD8zuU7/MO3Qz6zsfBZbtT/IIUmJccE=";
 
-  nativeBuildInputs = [ python3 perl pkg-config ];
+  nativeBuildInputs = [
+    python3
+    perl
+    pkg-config
+  ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {

@@ -19,7 +19,12 @@ stdenv.mkDerivation rec {
     executable = true;
   };
 
-  nativeBuildInputs = [ libarchive python3 file which ];
+  nativeBuildInputs = [
+    libarchive
+    python3
+    file
+    which
+  ];
 
   dontUnpack = true;
   dontBuild = true;

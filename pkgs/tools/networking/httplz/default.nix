@@ -23,12 +23,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-BuNCKtK9ePV0d9o/DlW098Y4DWTIl0YKyryXMv09Woc=";
 
-  nativeBuildInputs = [ installShellFiles makeWrapper pkg-config ronn ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+    pkg-config
+    ronn
+  ];
 
   buildInputs = [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  cargoBuildFlags = [ "--bin" "httplz" ];
+  cargoBuildFlags = [
+    "--bin"
+    "httplz"
+  ];
 
   postInstall = ''
     sed -E 's/http(`| |\(|$)/httplz\1/g' http.md > httplz.1.ronn

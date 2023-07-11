@@ -75,7 +75,10 @@ in {
             enabled = true;
             period = "10s";
             processes = [ ".*" ];
-            cpu.metrics = [ "percentages" "normalized_percentages" ];
+            cpu.metrics = [
+              "percentages"
+              "normalized_percentages"
+            ];
             core.metrics = [ "percentages" ];
           };
         };
@@ -127,11 +130,11 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
+    assertions = [ {
       # empty modules would cause a failure at runtime
       assertion = cfg.settings.metricbeat.modules != [ ];
       message = "services.metricbeat: You must configure one or more modules.";
-    }];
+    } ];
 
     services.metricbeat.settings.metricbeat.modules = attrValues cfg.modules;
 

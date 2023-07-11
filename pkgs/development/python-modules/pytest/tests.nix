@@ -15,7 +15,10 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [ hypothesis pygments ];
+  nativeCheckInputs = [
+    hypothesis
+    pygments
+  ];
 
   doCheck = !isPyPy; # https://github.com/pytest-dev/pytest/issues/3460
 

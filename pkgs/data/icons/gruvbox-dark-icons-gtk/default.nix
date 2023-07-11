@@ -21,7 +21,11 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [ breeze-icons gnome-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    breeze-icons
+    gnome-icon-theme
+    hicolor-icon-theme
+  ];
 
   installPhase = ''
     mkdir -p $out/share/icons/oomox-gruvbox-dark

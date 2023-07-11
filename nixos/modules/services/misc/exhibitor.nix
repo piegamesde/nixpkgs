@@ -98,7 +98,12 @@ in {
         '';
       };
       configType = mkOption {
-        type = types.enum [ "file" "s3" "zookeeper" "none" ];
+        type = types.enum [
+          "file"
+          "s3"
+          "zookeeper"
+          "none"
+        ];
         description = lib.mdDoc ''
           Which configuration type you want to use. Additional config will be
           required depending on which type you are using.
@@ -133,7 +138,11 @@ in {
         default = null;
       };
       jqueryStyle = mkOption {
-        type = types.enum [ "red" "black" "custom" ];
+        type = types.enum [
+          "red"
+          "black"
+          "custom"
+        ];
         description = lib.mdDoc ''
           Styling used for the JQuery-based UI.
         '';
@@ -263,7 +272,10 @@ in {
         description = lib.mdDoc ''
           The initial connection string for ZooKeeper shared config storage
         '';
-        example = [ "host1:2181" "host2:2181" ];
+        example = [
+          "host1:2181"
+          "host2:2181"
+        ];
       };
       zkConfigExhibitorPath = mkOption {
         type = types.str;

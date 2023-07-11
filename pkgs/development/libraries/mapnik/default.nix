@@ -61,7 +61,10 @@ stdenv.mkDerivation rec {
     ./include.patch
   ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     boost

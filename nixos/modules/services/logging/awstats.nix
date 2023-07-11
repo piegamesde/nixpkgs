@@ -17,7 +17,10 @@ let
     }: {
       options = {
         type = mkOption {
-          type = types.enum [ "mail" "web" ];
+          type = types.enum [
+            "mail"
+            "web"
+          ];
           default = "web";
           example = "mail";
           description = lib.mdDoc ''
@@ -100,11 +103,25 @@ let
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
 in {
   imports = [
-    (mkRemovedOptionModule [ "services" "awstats" "service" "enable" ]
+    (mkRemovedOptionModule [
+      "services"
+      "awstats"
+      "service"
+      "enable"
+    ]
       "Please enable per domain with `services.awstats.configs.<name>.webService.enable`")
-    (mkRemovedOptionModule [ "services" "awstats" "service" "urlPrefix" ]
+    (mkRemovedOptionModule [
+      "services"
+      "awstats"
+      "service"
+      "urlPrefix"
+    ]
       "Please set per domain with `services.awstats.configs.<name>.webService.urlPrefix`")
-    (mkRenamedOptionModule [ "services" "awstats" "vardir" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "awstats"
+      "vardir"
+    ] [
       "services"
       "awstats"
       "dataDir"

@@ -29,12 +29,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-/Kr5h4/o87yCMX7xOhVYgky2jfH4loxnl/VWxeM7z/0=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ meson ninja gettext pkg-config python3 ]
-    ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    gettext
+    pkg-config
+    python3
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [ gstreamer gst-plugins-base libav ];
+  buildInputs = [
+    gstreamer
+    gst-plugins-base
+    libav
+  ];
 
   mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
 

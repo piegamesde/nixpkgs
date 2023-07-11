@@ -53,13 +53,23 @@ in buildPythonPackage {
     hash = "sha256-CQS2IXb8YSLrrkn/7BsO4Me5Cv0eXgMAKXM4rGzr0Bw=";
   };
 
-  nativeBuildInputs = [ libpng ninja which ]
-    ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [
+    libpng
+    ninja
+    which
+  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [ libjpeg_turbo libpng ]
-    ++ lib.optionals cudaSupport [ cuda-redist ];
+  buildInputs = [
+    libjpeg_turbo
+    libpng
+  ] ++ lib.optionals cudaSupport [ cuda-redist ];
 
-  propagatedBuildInputs = [ numpy pillow torch scipy ];
+  propagatedBuildInputs = [
+    numpy
+    pillow
+    torch
+    scipy
+  ];
 
   preConfigure = ''
     export TORCHVISION_INCLUDE="${libjpeg_turbo.dev}/include/"

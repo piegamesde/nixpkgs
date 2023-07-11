@@ -32,7 +32,10 @@ resholve.mkDerivation rec {
     hash = "sha256-TytCeejhjWYDzWFjGubUl08OrsAQa9fFULoamDfbdDY=";
   };
 
-  nativeBuildInputs = [ asciidoc gnum4 ];
+  nativeBuildInputs = [
+    asciidoc
+    gnum4
+  ];
 
   postPatch = ''
     substituteInPlace ./Makefile \
@@ -59,13 +62,23 @@ resholve.mkDerivation rec {
       # Specify 1 or more $out-relative script paths. Unlike many
       # builders, resholve.mkDerivation modifies the output files during
       # fixup (to correctly resolve in-package sourcing).
-      scripts = [ "bin/arch-chroot" "bin/genfstab" "bin/pacstrap" ];
+      scripts = [
+        "bin/arch-chroot"
+        "bin/genfstab"
+        "bin/pacstrap"
+      ];
 
       # "none" for no shebang, "${bash}/bin/bash" for bash, etc.
       interpreter = "${bash}/bin/bash";
 
       # packages resholve should resolve executables from
-      inputs = [ coreutils gawk gnugrep pacman util-linux ];
+      inputs = [
+        coreutils
+        gawk
+        gnugrep
+        pacman
+        util-linux
+      ];
 
       execer = [ "cannot:${pacman}/bin/pacman-key" ];
 
@@ -76,8 +89,12 @@ resholve.mkDerivation rec {
         umount = true;
       };
 
-      keep =
-        [ "$setup" "$pid_unshare" "$mount_unshare" "${pacman}/bin/pacman" ];
+      keep = [
+        "$setup"
+        "$pid_unshare"
+        "$mount_unshare"
+        "${pacman}/bin/pacman"
+      ];
     };
   };
 

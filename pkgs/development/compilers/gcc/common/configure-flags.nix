@@ -197,16 +197,17 @@ let
           ++ lib.optional langFortran "fortran" ++ lib.optional langJava "java"
           ++ lib.optional langAda "ada" ++ lib.optional langGo "go"
           ++ lib.optional langObjC "objc" ++ lib.optional langObjCpp "obj-c++"
-          ++ lib.optionals crossDarwin [ "objc" "obj-c++" ]
-          ++ lib.optional langJit "jit")
+          ++ lib.optionals crossDarwin [
+            "objc"
+            "obj-c++"
+          ] ++ lib.optional langJit "jit")
       }"
     ]
 
     ++ (if (enableMultilib || targetPlatform.isAvr) then [
       "--enable-multilib"
       "--disable-libquadmath"
-    ] else
-      [ "--disable-multilib" ])
+    ] else [ "--disable-multilib" ])
     ++ lib.optional (!enableShared) "--disable-shared" ++ lib.singleton
     (lib.enableFeature enablePlugin "plugin")
     # Libcc1 is the GCC cc1 plugin for the GDB debugger which is only used by gdb

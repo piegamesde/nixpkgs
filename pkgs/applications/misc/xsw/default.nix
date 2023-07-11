@@ -24,16 +24,29 @@ in stdenv.mkDerivation rec {
     sha256 = "092vp61ngd2vscsvyisi7dv6qrk5m1i81gg19hyfl5qvjq5p0p8g";
   };
 
-  nativeBuildInputs = [ pkg-config flex bison ];
-
-  buildInputs = [ SDL SDL_image SDL_ttf SDL_gfx ];
-
-  env.NIX_CFLAGS_COMPILE =
-    toString (makeSDLFlags [ SDL SDL_image SDL_ttf SDL_gfx ]);
-
-  patches = [
-    ./parse.patch # Fixes compilation error by avoiding redundant definitions.
+  nativeBuildInputs = [
+    pkg-config
+    flex
+    bison
   ];
+
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_ttf
+    SDL_gfx
+  ];
+
+  env.NIX_CFLAGS_COMPILE = toString (makeSDLFlags [
+    SDL
+    SDL_image
+    SDL_ttf
+    SDL_gfx
+  ]);
+
+  patches =
+    [ ./parse.patch # Fixes compilation error by avoiding redundant definitions.
+    ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

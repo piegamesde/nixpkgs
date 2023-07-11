@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
       --replace '$$[QMAKE_MKSPECS]' "$out/mkspecs"
   '';
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   meta = with lib; {
     description = "Qt provides several classes for DBus communication";

@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ ocaml perl ];
+  nativeBuildInputs = [
+    ocaml
+    perl
+  ];
   setSourceRoot = "export sourceRoot=$(echo */ekrh/src/)";
   preInstall = "export INSTALLDIR=$out";
   postInstall = ''

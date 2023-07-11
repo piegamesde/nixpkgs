@@ -66,13 +66,28 @@ in stdenv.mkDerivation rec {
     })
   ] ++ lib.optional stdenv.isDarwin ./remove_ldflags_macos.patch;
 
-  makeFlags = [ "VERSION=v${version}" "PREFIX=" "DESTDIR=$(out)" ];
+  makeFlags = [
+    "VERSION=v${version}"
+    "PREFIX="
+    "DESTDIR=$(out)"
+  ];
 
-  buildInputs = [ vte-ng gtk3 ncurses pcre2 ];
+  buildInputs = [
+    vte-ng
+    gtk3
+    ncurses
+    pcre2
+  ];
 
-  nativeBuildInputs = [ wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    pkg-config
+  ];
 
-  outputs = [ "out" "terminfo" ];
+  outputs = [
+    "out"
+    "terminfo"
+  ];
 
   passthru = {
     inherit vte-ng;

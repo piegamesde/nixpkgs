@@ -16,7 +16,10 @@ in buildGoModule {
     sha256 = "sha256-QZL3TSvxSPuBjjATAqoAOZNBSB6NCGfHHG2dq8C4Wwk=";
   };
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   vendorHash = "sha256-Q8t/NWGeUB1IpxdsxvyvbYh/adtcA4p+7bcCy9YFjsw=";
 

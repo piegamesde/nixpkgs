@@ -27,7 +27,10 @@ with lib;
       unitConfig = {
         Description = "v2rayA service";
         Documentation = "https://github.com/v2rayA/v2rayA/wiki";
-        After = [ "network.target" "nss-lookup.target" ] ++ tableServices;
+        After = [
+          "network.target"
+          "nss-lookup.target"
+        ] ++ tableServices;
         Wants = [ "network.target" ];
       };
 

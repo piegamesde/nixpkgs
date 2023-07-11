@@ -17,7 +17,11 @@ tcl.mkTclDerivation {
 
   inherit src patches;
 
-  outputs = [ "out" "man" "dev" ];
+  outputs = [
+    "out"
+    "man"
+    "dev"
+  ];
 
   setOutputFlags = false;
 
@@ -53,8 +57,8 @@ tcl.mkTclDerivation {
 
   propagatedBuildInputs = [ libXft ] ++ lib.optionals enableAqua
     ([ darwin.apple_sdk.frameworks.Cocoa ] ++ lib.optionals
-      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-      [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]);
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion
+        "11") [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]);
 
   enableParallelBuilding = true;
 
@@ -74,6 +78,9 @@ tcl.mkTclDerivation {
     homepage = "https://www.tcl.tk/";
     license = licenses.tcltk;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lovek323 vrthra ];
+    maintainers = with maintainers; [
+      lovek323
+      vrthra
+    ];
   };
 }

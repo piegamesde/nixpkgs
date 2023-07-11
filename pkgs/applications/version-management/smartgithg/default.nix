@@ -25,12 +25,27 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [ jre gnome.adwaita-icon-theme gtk3 ];
+  buildInputs = [
+    jre
+    gnome.adwaita-icon-theme
+    gtk3
+  ];
 
   preFixup = with lib; ''
     gappsWrapperArgs+=( \
-      --prefix PATH : ${makeBinPath [ jre which ]} \
-      --prefix LD_LIBRARY_PATH : ${makeLibraryPath [ gtk3 glib libXtst ]} \
+      --prefix PATH : ${
+        makeBinPath [
+          jre
+          which
+        ]
+      } \
+      --prefix LD_LIBRARY_PATH : ${
+        makeLibraryPath [
+          gtk3
+          glib
+          libXtst
+        ]
+      } \
       --prefix JRE_HOME : ${jre} \
       --prefix JAVA_HOME : ${jre} \
       --prefix SMARTGITHG_JAVA_HOME : ${jre} \
@@ -69,7 +84,11 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       icon = "smartgit";
       desktopName = "SmartGit";
-      categories = [ "Application" "Development" "RevisionControl" ];
+      categories = [
+        "Application"
+        "Development"
+        "RevisionControl"
+      ];
       mimeTypes = [
         "x-scheme-handler/git"
         "x-scheme-handler/smartgit"

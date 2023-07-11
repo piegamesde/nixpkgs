@@ -21,7 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-J6SgVd2m0wOVr2ZV/pryRcJrn+BYTGstAUQO349c2lE=";
   };
 
-  propagatedBuildInputs = [ mbstrdecoder python-dateutil pytz packaging ];
+  propagatedBuildInputs = [
+    mbstrdecoder
+    python-dateutil
+    pytz
+    packaging
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   checkInputs = [ tcolorpy ];

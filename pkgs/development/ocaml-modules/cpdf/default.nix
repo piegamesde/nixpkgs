@@ -23,7 +23,10 @@ else
       sha256 = "sha256:1qmx229nij7g6qmiacmyy4mcgx3k9509p4slahivshqm79d6wiwl";
     };
 
-    nativeBuildInputs = [ ocaml findlib ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+    ];
     buildInputs = [ ncurses ];
     propagatedBuildInputs = [ camlpdf ];
 

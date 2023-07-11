@@ -21,10 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-JrKGSlMyCU8sfzlo3uurzmm+Oe1dtNvyK0+guj0aza4=";
   };
 
-  propagatedBuildInputs = [ python-dateutil text-unidecode ];
+  propagatedBuildInputs = [
+    python-dateutil
+    text-unidecode
+  ];
 
-  nativeCheckInputs =
-    [ freezegun pillow pytestCheckHook ukpostcodeparser validators ];
+  nativeCheckInputs = [
+    freezegun
+    pillow
+    pytestCheckHook
+    ukpostcodeparser
+    validators
+  ];
 
   # avoid tests which import random2, an abandoned library
   pytestFlagsArray = [ "--ignore=tests/providers/test_ssn.py" ];

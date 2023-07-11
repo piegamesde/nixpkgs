@@ -20,7 +20,12 @@ let
     icon = "xxe";
     desktopName = "xxe";
     genericName = "XML Editor";
-    categories = [ "Development" "IDE" "TextEditor" "Java" ];
+    categories = [
+      "Development"
+      "IDE"
+      "TextEditor"
+      "Java"
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "xxe-pe";
@@ -39,7 +44,11 @@ in stdenv.mkDerivation rec {
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
     };
 
-  nativeBuildInputs = [ unzip makeWrapper icoutils ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+    icoutils
+  ];
 
   dontStrip = true;
 

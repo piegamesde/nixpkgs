@@ -32,11 +32,11 @@ import ./make-test-python.nix ({
         {
           tag = "vmess_out";
           protocol = "vmess";
-          settings.vnext = [{
+          settings.vnext = [ {
             address = "127.0.0.1";
             port = 1081;
             users = [ v2rayUser ];
-          }];
+          } ];
         }
         {
           tag = "direct";

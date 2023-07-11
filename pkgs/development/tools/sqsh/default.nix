@@ -28,19 +28,21 @@ in stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ freetds readline libiconv ];
+  buildInputs = [
+    freetds
+    readline
+    libiconv
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  patches = [
-    (fetchurl {
-      # https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/databases/sqsh/patches/patch-src_cmd_connect_c
-      name = "patch-src_cmd_connect_c.patch";
-      url =
-        "https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/ports/databases/sqsh/patches/patch-src_cmd_connect_c?rev=1.2&content-type=text/plain";
-      sha256 = "1dz97knr2h0a0ca1vq2mx6h8s3ns9jb1a0qraa4wkfmcdi3aqw0j";
-    })
-  ];
+  patches = [ (fetchurl {
+    # https://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/databases/sqsh/patches/patch-src_cmd_connect_c
+    name = "patch-src_cmd_connect_c.patch";
+    url =
+      "https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/ports/databases/sqsh/patches/patch-src_cmd_connect_c?rev=1.2&content-type=text/plain";
+    sha256 = "1dz97knr2h0a0ca1vq2mx6h8s3ns9jb1a0qraa4wkfmcdi3aqw0j";
+  }) ];
 
   patchFlags = [ "-p0" ];
 

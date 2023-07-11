@@ -180,7 +180,10 @@ let
   # Sage expects those in the same directory.
   pari_data = symlinkJoin {
     name = "pari_data";
-    paths = with pkgs; [ pari-galdata pari-seadata-small ];
+    paths = with pkgs; [
+      pari-galdata
+      pari-seadata-small
+    ];
   };
   # A wrapper around sage that makes sure sage finds its docs (if they were build).
 in callPackage ./sage.nix {

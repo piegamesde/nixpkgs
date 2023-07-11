@@ -27,7 +27,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ matplotlib palettable pandas scipy ];
+  propagatedBuildInputs = [
+    matplotlib
+    palettable
+    pandas
+    scipy
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

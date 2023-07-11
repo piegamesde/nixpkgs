@@ -32,11 +32,24 @@ buildPythonPackage rec {
     hash = "sha256-Q3Ay9FpJsvSVu0WU2bxFyo3ODKP/ZUo3SqsBtOGrIIE=";
   };
 
-  propagatedBuildInputs =
-    [ inflection more-itertools numpy pandas python-dateutil requests six ];
+  propagatedBuildInputs = [
+    inflection
+    more-itertools
+    numpy
+    pandas
+    python-dateutil
+    requests
+    six
+  ];
 
-  nativeCheckInputs =
-    [ factory_boy httpretty jsondate mock parameterized pytestCheckHook ];
+  nativeCheckInputs = [
+    factory_boy
+    httpretty
+    jsondate
+    mock
+    parameterized
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "nasdaqdatalink" ];
 

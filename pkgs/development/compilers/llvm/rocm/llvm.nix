@@ -33,10 +33,8 @@
   extraBuildInputs ? [ ],
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
-  checkTargets ? [
-    (lib.optionalString buildTests
-      (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
-  ],
+  checkTargets ? [ (lib.optionalString buildTests
+    (if targetDir == "runtimes" then "check-runtimes" else "check-all")) ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
   isBroken ? false
@@ -71,31 +69,44 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-BDvC6QFDFtahA9hmJDLiM6K4mrO3j9E9rEXm7KulcuA=";
   };
 
-  nativeBuildInputs = [ pkg-config cmake ninja git python3Packages.python ]
-    ++ lib.optionals (buildDocs || buildMan) [
-      doxygen
-      sphinx
-      python3Packages.recommonmark
-    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    git
+    python3Packages.python
+  ] ++ lib.optionals (buildDocs || buildMan) [
+    doxygen
+    sphinx
+    python3Packages.recommonmark
+  ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
     ++ extraNativeBuildInputs;
 
-  buildInputs = [ libxml2 libxcrypt libedit libffi mpfr ] ++ extraBuildInputs;
+  buildInputs = [
+    libxml2
+    libxcrypt
+    libedit
+    libffi
+    mpfr
+  ] ++ extraBuildInputs;
 
-  propagatedBuildInputs =
-    lib.optionals finalAttrs.passthru.isLLVM [ zlib ncurses ];
+  propagatedBuildInputs = lib.optionals finalAttrs.passthru.isLLVM [
+    zlib
+    ncurses
+  ];
 
   sourceRoot = "${finalAttrs.src.name}/${targetDir}";
 
-  cmakeFlags = [
-    "-DLLVM_TARGETS_TO_BUILD=${
+  cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=${
       builtins.concatStringsSep ";" llvmTargetsToBuild'
-    }"
-  ] ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ])
-    [ "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}" ]
-    ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
-      && targetRuntimes != [ ])
-    [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
-    ++ lib.optionals
+    }" ] ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects
+      != [ ]) [ "-DLLVM_ENABLE_PROJECTS=${
+      lib.concatStringsSep ";" targetProjects
+    }" ] ++ lib.optionals
+    ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes
+      != [ ]) [ "-DLLVM_ENABLE_RUNTIMES=${
+      lib.concatStringsSep ";" targetRuntimes
+    }" ] ++ lib.optionals
     (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
       "-DLLVM_ENABLE_RTTI=ON"
       "-DLLVM_ENABLE_EH=ON"
@@ -111,8 +122,9 @@ in stdenv.mkDerivation (finalAttrs: {
     ] ++ lib.optionals buildTests [
       "-DLLVM_INCLUDE_TESTS=ON"
       "-DLLVM_BUILD_TESTS=ON"
-    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM)
-    [ "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped" ] ++ extraCMakeFlags;
+    ] ++ lib.optionals (buildTests
+      && !finalAttrs.passthru.isLLVM) [ "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped" ]
+    ++ extraCMakeFlags;
 
   postPatch = lib.optionalString finalAttrs.passthru.isLLVM ''
     patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh
@@ -151,7 +163,10 @@ in stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/RadeonOpenCompute/llvm-project";
     license = with licenses; [ ncsa ] ++ extraLicenses;
     maintainers = with maintainers;
-      [ acowley lovesegfault ] ++ teams.rocm.members;
+      [
+        acowley
+        lovesegfault
+      ] ++ teams.rocm.members;
     platforms = platforms.linux;
     broken = isBroken;
   };

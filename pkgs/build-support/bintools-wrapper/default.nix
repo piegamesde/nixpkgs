@@ -77,7 +77,13 @@ let
   coreutils_bin = if nativeTools then "" else getBin coreutils;
 
   # See description in cc-wrapper.
-  suffixSalt = replaceStrings [ "-" "." ] [ "_" "_" ] targetPlatform.config;
+  suffixSalt = replaceStrings [
+    "-"
+    "."
+  ] [
+    "_"
+    "_"
+  ] targetPlatform.config;
 
   # The dynamic linker has different names on different platforms. This is a
   # shell glob that ought to match it.
@@ -237,7 +243,10 @@ in stdenv.mkDerivation {
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
 
-  setupHooks = [ ../setup-hooks/role.bash ./setup-hook.sh ];
+  setupHooks = [
+    ../setup-hooks/role.bash
+    ./setup-hook.sh
+  ];
 
   postFixup =
     ##
@@ -429,9 +438,10 @@ in stdenv.mkDerivation {
     removeAttrs bintools.meta [ "priority" ]
   else
     { }) // {
-      description =
-        lib.attrByPath [ "meta" "description" ] "System binary utilities"
-        bintools_ + " (wrapper script)";
+      description = lib.attrByPath [
+        "meta"
+        "description"
+      ] "System binary utilities" bintools_ + " (wrapper script)";
       priority = 10;
     }
   // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; };

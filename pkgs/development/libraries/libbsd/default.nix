@@ -16,7 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-m6oYYFnrvyXAYwjp+ZH9ox9xg8DySTGCbYOqar2KAmE=";
   };
 
-  outputs = [ "out" "dev" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ];
 
   # darwin changes configure.ac which means we need to regenerate
   # the configure scripts
@@ -33,7 +37,14 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Common functions found on BSD systems";
     homepage = "https://libbsd.freedesktop.org/";
-    license = with licenses; [ beerware bsd2 bsd3 bsdOriginal isc mit ];
+    license = with licenses; [
+      beerware
+      bsd2
+      bsd3
+      bsdOriginal
+      isc
+      mit
+    ];
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ matthewbauer ];
   };

@@ -35,6 +35,9 @@ buildPythonPackage rec {
     description = "Library for advanced object-relational mapping";
     homepage = "https://ponyorm.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ d-goldin xvapx ];
+    maintainers = with maintainers; [
+      d-goldin
+      xvapx
+    ];
   };
 }

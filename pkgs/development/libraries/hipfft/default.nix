@@ -35,7 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ hip git cmake rocm-cmake ];
+  nativeBuildInputs = [
+    hip
+    git
+    cmake
+    rocm-cmake
+  ];
 
   buildInputs = [ rocfft ]
     ++ lib.optionals (buildTests || buildBenchmarks || buildSamples) [

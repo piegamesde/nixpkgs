@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [ mock httpretty pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    httpretty
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "youtube_transcript_api" ];
 

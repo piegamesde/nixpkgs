@@ -31,9 +31,15 @@ let
   });
 in {
   imports = [
-    (mkRemovedOptionModule [ "sdImage" "bootPartitionID" ]
+    (mkRemovedOptionModule [
+      "sdImage"
+      "bootPartitionID"
+    ]
       "The FAT partition for SD image now only holds the Raspberry Pi firmware files. Use firmwarePartitionID to configure that partition's ID.")
-    (mkRemovedOptionModule [ "sdImage" "bootSize" ]
+    (mkRemovedOptionModule [
+      "sdImage"
+      "bootSize"
+    ]
       "The boot files for SD image have been moved to the main ext4 partition. The FAT partition now only holds the Raspberry Pi firmware files. Changing its size may not be required.")
     ../../profiles/all-hardware.nix
   ];
@@ -170,7 +176,10 @@ in {
         # Alternatively, this could be removed from the configuration.
         # The filesystem is not needed at runtime, it could be treated
         # as an opaque blob instead of a discrete FAT32 filesystem.
-        options = [ "nofail" "noauto" ];
+        options = [
+          "nofail"
+          "noauto"
+        ];
       };
       "/" = {
         device = "/dev/disk/by-label/NIXOS_SD";
@@ -192,9 +201,14 @@ in {
       stdenv.mkDerivation {
         name = config.sdImage.imageName;
 
-        nativeBuildInputs =
-          [ dosfstools 0.0 fsprogs libfaketime mtools util-linux ]
-          ++ lib.optional config.sdImage.compressImage zstd;
+        nativeBuildInputs = [
+          dosfstools
+          0.0
+          fsprogs
+          libfaketime
+          mtools
+          util-linux
+        ] ++ lib.optional config.sdImage.compressImage zstd;
 
         inherit (config.sdImage) imageName compressImage;
 

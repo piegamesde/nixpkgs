@@ -38,7 +38,10 @@ buildPythonPackage rec {
       --replace "./GCode" "./tests/GCode"
   '';
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
   propagatedBuildInputs = [ shapely ];
 

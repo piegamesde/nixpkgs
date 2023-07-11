@@ -36,10 +36,16 @@
 mkDerivation {
   pname = "kdepim-addons";
   meta = {
-    license = with lib.licenses; [ gpl2Plus lgpl21Plus ];
+    license = with lib.licenses; [
+      gpl2Plus
+      lgpl21Plus
+    ];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+  ];
   buildInputs = [
     akonadi-import-wizard
     akonadi-notes

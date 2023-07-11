@@ -47,7 +47,10 @@ buildGoModule rec {
     changelog =
       "https://github.com/stackrox/kube-linter/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mtesseract stehessel ];
+    maintainers = with maintainers; [
+      mtesseract
+      stehessel
+    ];
     platforms = platforms.all;
   };
 }

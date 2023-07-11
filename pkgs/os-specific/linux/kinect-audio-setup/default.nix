@@ -46,9 +46,16 @@ in stdenv.mkDerivation rec {
 
   # These patches are not upstream because the project has seen no
   # activity since 2016
-  patches = [ ./libusb-1-import-path.patch ./udev-rules-extra-devices.patch ];
+  patches = [
+    ./libusb-1-import-path.patch
+    ./udev-rules-extra-devices.patch
+  ];
 
-  nativeBuildInputs = [ p7zip libusb1 pkg-config ];
+  nativeBuildInputs = [
+    p7zip
+    libusb1
+    pkg-config
+  ];
 
   makeFlags = [
     "PREFIX=$(out)"

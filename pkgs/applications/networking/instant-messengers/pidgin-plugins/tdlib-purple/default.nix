@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libwebp pidgin tdlib ];
+  buildInputs = [
+    libwebp
+    pidgin
+    tdlib
+  ];
 
   cmakeFlags = [ "-DNoVoip=True" ]; # libtgvoip required
 

@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tornado ];
 
-  nativeCheckInputs = [ pytest tornado ];
+  nativeCheckInputs = [
+    pytest
+    tornado
+  ];
 
   checkPhase = ''
     pytest test

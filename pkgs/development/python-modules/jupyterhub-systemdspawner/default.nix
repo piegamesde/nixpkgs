@@ -18,7 +18,10 @@ buildPythonPackage rec {
     hash = "sha256-EUCA+CKCeYr+cLVrqTqe3Q32JkbqeALL6tfOnlVHk8Q=";
   };
 
-  propagatedBuildInputs = [ jupyterhub tornado ];
+  propagatedBuildInputs = [
+    jupyterhub
+    tornado
+  ];
 
   buildInputs = [ bash ];
 

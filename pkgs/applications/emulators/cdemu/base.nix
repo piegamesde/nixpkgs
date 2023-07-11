@@ -19,7 +19,10 @@ stdenv.mkDerivation (rec {
     url = "mirror://sourceforge/cdemu/${pname}-${version}.tar.xz";
     sha256 = pkgSha256;
   };
-  nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkg-config cmake ];
+  nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
+    pkg-config
+    cmake
+  ];
   setSourceRoot = ''
     mkdir build
     cd build

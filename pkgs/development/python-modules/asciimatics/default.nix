@@ -22,9 +22,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ pyfiglet pillow wcwidth future ];
+  propagatedBuildInputs = [
+    pyfiglet
+    pillow
+    wcwidth
+    future
+  ];
 
-  nativeCheckInputs = [ mock nose ];
+  nativeCheckInputs = [
+    mock
+    nose
+  ];
 
   # tests require a pty emulator
   # which is too complicated to setup here

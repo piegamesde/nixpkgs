@@ -34,11 +34,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ wsproto toml h2 priority ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    wsproto
+    toml
+    h2
+    priority
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [ pytest-asyncio pytest-trio pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.8") [ mock ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-trio
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
 
   pythonImportsCheck = [ "hypercorn" ];
 

@@ -39,7 +39,11 @@ stdenv.mkDerivation rec {
     ./0001-src-GetChisquare.f-use-correct-types-in-calls-to-DSY.patch
   ];
 
-  nativeBuildInputs = [ cmake gfortran pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    pkg-config
+  ];
   buildInputs = [
     apfel
     blas

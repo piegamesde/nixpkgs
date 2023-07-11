@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-aIvL0H0k0/lz2lCLxB17RxNm0cxVozYthy0z85/FuUE=";
   };
 
-  nativeBuildInputs = [ cmake python3 ];
+  nativeBuildInputs = [
+    cmake
+    python3
+  ];
 
   cmakeFlags = [
     "-DNOGIT=ON"
@@ -70,7 +73,10 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gitUpdater { rev-prefix = "v"; };
     tests.hello = runCommand "box64-test-hello" {
-      nativeBuildInputs = [ box64 hello-x86_64 ];
+      nativeBuildInputs = [
+        box64
+        hello-x86_64
+      ];
     } ''
       # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
       # tell what problems the emulator has run into.
@@ -83,8 +89,15 @@ stdenv.mkDerivation rec {
     description =
       "Lets you run x86_64 Linux programs on non-x86_64 Linux systems";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador OPNA2608 ];
-    platforms =
-      [ "x86_64-linux" "aarch64-linux" "riscv64-linux" "powerpc64le-linux" ];
+    maintainers = with maintainers; [
+      gador
+      OPNA2608
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "riscv64-linux"
+      "powerpc64le-linux"
+    ];
   };
 }

@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "13f7968bd0ffae133e2a1dede215e683b8c95285f046260603a5c3e25f2d57b0";
   };
 
-  propagatedBuildInputs = [ bsddb3 scrapy ];
+  propagatedBuildInputs = [
+    bsddb3
+    scrapy
+  ];
 
   # no tests
   doCheck = false;

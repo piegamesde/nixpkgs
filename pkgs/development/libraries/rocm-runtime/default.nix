@@ -28,9 +28,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  nativeBuildInputs = [ pkg-config cmake xxd ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    xxd
+  ];
 
-  buildInputs = [ rocm-thunk libelf libdrm numactl valgrind libxml2 ];
+  buildInputs = [
+    rocm-thunk
+    libelf
+    libdrm
+    numactl
+    valgrind
+    libxml2
+  ];
 
   postPatch = ''
     patchShebangs image/blit_src/create_hsaco_ascii_file.sh

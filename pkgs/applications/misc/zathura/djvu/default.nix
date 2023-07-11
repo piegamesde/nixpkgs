@@ -22,8 +22,18 @@ stdenv.mkDerivation rec {
     sha256 = "0062n236414db7q7pnn3ccg5111ghxj3407pn9ri08skxskgirln";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
-  buildInputs = [ djvulibre gettext zathura_core gtk girara ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
+  buildInputs = [
+    djvulibre
+    gettext
+    zathura_core
+    gtk
+    girara
+  ];
 
   PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 

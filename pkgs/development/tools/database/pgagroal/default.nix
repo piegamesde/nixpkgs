@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./do-not-search-libatomic.patch ];
 
-  nativeBuildInputs = [ cmake docutils ];
+  nativeBuildInputs = [
+    cmake
+    docutils
+  ];
 
-  buildInputs = [ libev openssl systemd ];
+  buildInputs = [
+    libev
+    openssl
+    systemd
+  ];
 
   meta = with lib; {
     description = "High-performance connection pool for PostgreSQL";

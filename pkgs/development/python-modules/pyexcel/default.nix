@@ -20,7 +20,12 @@ buildPythonPackage rec {
     hash = "sha256-+/Du5dk7ls728ZqfAHA/IsCmTxlyjZG5VCgAmlISlwk=";
   };
 
-  propagatedBuildInputs = [ chardet lml pyexcel-io texttable ];
+  propagatedBuildInputs = [
+    chardet
+    lml
+    pyexcel-io
+    texttable
+  ];
 
   pythonImportsCheck = [ "pyexcel" ];
 

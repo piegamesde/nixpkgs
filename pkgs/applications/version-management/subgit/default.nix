@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir $out;

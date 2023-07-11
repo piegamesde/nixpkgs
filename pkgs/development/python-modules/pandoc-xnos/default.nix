@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ pandocfilters psutil ];
+  propagatedBuildInputs = [
+    pandocfilters
+    psutil
+  ];
 
   pythonImportsCheck = [ "pandocxnos" ];
 

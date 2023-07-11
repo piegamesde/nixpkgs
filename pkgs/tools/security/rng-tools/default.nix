@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-km+MEng3VWZF07sdvGLbAG/vf8/A1DxhA/Xa2Y+LAEQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    libtool
+    pkg-config
+  ];
 
   configureFlags = [
     (lib.enableFeature (withJitterEntropy) "jitterentropy")
@@ -47,17 +51,21 @@ stdenv.mkDerivation rec {
   buildInputs = [ openssl ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
     ++ lib.optionals withJitterEntropy [ jitterentropy ]
-    ++ lib.optionals withNistBeacon [ curl jansson libxml2 ]
-    ++ lib.optionals withPkcs11 [ libp11 libp11.passthru.openssl ]
-    ++ lib.optionals withRtlsdr [ rtl-sdr ];
+    ++ lib.optionals withNistBeacon [
+      curl
+      jansson
+      libxml2
+    ] ++ lib.optionals withPkcs11 [
+      libp11
+      libp11.passthru.openssl
+    ] ++ lib.optionals withRtlsdr [ rtl-sdr ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "AR:=$(AR)" # For cross-compilation
-  ] ++ lib.optionals withPkcs11 [
-    "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
-  ];
+  makeFlags = [ "AR:=$(AR)" # For cross-compilation
+    ] ++ lib.optionals
+    withPkcs11 [ "PKCS11_ENGINE=${opensc}/lib/opensc-pkcs11.so" # Overrides configure script paths
+    ];
 
   doCheck = true;
   preCheck = "patchShebangs tests/*.sh";
@@ -77,6 +85,9 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/nhorman/rng-tools/releases/tag/v${version}";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ johnazoidberg c0bw3b ];
+    maintainers = with maintainers; [
+      johnazoidberg
+      c0bw3b
+    ];
   };
 }

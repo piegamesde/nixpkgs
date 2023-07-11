@@ -20,7 +20,10 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles pandoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    pandoc
+  ];
 
   ldflags = [
     "-s"

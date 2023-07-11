@@ -30,8 +30,14 @@ stdenv.mkDerivation {
     cp bin/milu $out/bin
   '';
 
-  nativeBuildInputs = [ pkg-config unzip ];
-  buildInputs = [ glib llvmPackages.libclang ];
+  nativeBuildInputs = [
+    pkg-config
+    unzip
+  ];
+  buildInputs = [
+    glib
+    llvmPackages.libclang
+  ];
 
   meta = {
     description = "Higher Order Mutation Testing Tool for C and C++ programs";

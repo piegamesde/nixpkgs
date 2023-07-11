@@ -30,9 +30,16 @@ in stdenv.mkDerivation {
       --replace "/usr/local/include/onnxruntime" "${onnxruntime}"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ espeak-ng onnxruntime pcaudiolib ];
+  buildInputs = [
+    espeak-ng
+    onnxruntime
+    pcaudiolib
+  ];
 
   installPhase = ''
     runHook preInstall

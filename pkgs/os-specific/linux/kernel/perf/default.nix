@@ -84,8 +84,11 @@ in stdenv.mkDerivation {
     patchShebangs pmu-events/jevents.py
   '';
 
-  makeFlags = [ "prefix=$(out)" "WERROR=0" "ASCIIDOC8=1" ] ++ kernel.makeFlags
-    ++ lib.optional (!withGtk) "NO_GTK2=1"
+  makeFlags = [
+    "prefix=$(out)"
+    "WERROR=0"
+    "ASCIIDOC8=1"
+  ] ++ kernel.makeFlags ++ lib.optional (!withGtk) "NO_GTK2=1"
     ++ lib.optional (!withZstd) "NO_LIBZSTD=1"
     ++ lib.optional (!withLibcap) "NO_LIBCAP=1";
 
@@ -140,7 +143,10 @@ in stdenv.mkDerivation {
 
   doCheck = false; # requires "sparse"
 
-  installTargets = [ "install" "install-man" ];
+  installTargets = [
+    "install"
+    "install-man"
+  ];
 
   # TODO: Add completions based on perf-completion.sh
   postInstall = ''
@@ -155,7 +161,12 @@ in stdenv.mkDerivation {
     # The embeded Python interpreter will search PATH to calculate the Python path configuration(Should be fixed by upstream).
     # Add python.interpreter to PATH for now.
     wrapProgram $out/bin/perf \
-      --prefix PATH : ${lib.makeBinPath [ binutils-unwrapped python3 ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          binutils-unwrapped
+          python3
+        ]
+      }
   '';
 
   meta = with lib; {

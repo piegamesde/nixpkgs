@@ -35,7 +35,13 @@ stdenv.mkDerivation rec {
   pname = "zbar";
   version = "0.23.92";
 
-  outputs = [ "out" "lib" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   src = fetchFromGitHub {
     owner = "mchehab";
@@ -44,15 +50,34 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VhVrngAX7pXZp+szqv95R6RGAJojp3svdbaRKigGb0w=";
   };
 
-  nativeBuildInputs = [ pkg-config xmlto autoreconfHook docbook_xsl ]
-    ++ lib.optionals enableVideo [ wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    xmlto
+    autoreconfHook
+    docbook_xsl
+  ] ++ lib.optionals enableVideo [
+    wrapGAppsHook
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ imagemagickBig libintl ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Foundation ]
-    ++ lib.optionals enableDbus [ dbus ] ++ lib.optionals withXorg [ libX11 ]
-    ++ lib.optionals enableVideo [ libv4l gtk3 qtbase qtx11extras ];
+  buildInputs = [
+    imagemagickBig
+    libintl
+  ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Foundation
+  ] ++ lib.optionals enableDbus [ dbus ] ++ lib.optionals withXorg [ libX11 ]
+    ++ lib.optionals enableVideo [
+      libv4l
+      gtk3
+      qtbase
+      qtx11extras
+    ];
 
-  nativeCheckInputs = [ bash python3 ];
+  nativeCheckInputs = [
+    bash
+    python3
+  ];
 
   checkInputs = lib.optionals stdenv.isDarwin [ argp-standalone ];
 
@@ -66,12 +91,11 @@ stdenv.mkDerivation rec {
   # Disable assertions which include -dev QtBase file paths.
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
-  configureFlags = [ "--without-python" ] ++ (if enableDbus then
-    [ "--with-dbusconfdir=${placeholder "out"}/share" ]
-  else
-    [ "--without-dbus" ]) ++ (if enableVideo then
-      [ "--with-gtk=gtk3" ]
-    else [
+  configureFlags = [ "--without-python" ]
+    ++ (if enableDbus then [ "--with-dbusconfdir=${
+      placeholder "out"
+    }/share" ] else [ "--without-dbus" ])
+    ++ (if enableVideo then [ "--with-gtk=gtk3" ] else [
       "--disable-video"
       "--without-gtk"
       "--without-qt"
@@ -102,7 +126,10 @@ stdenv.mkDerivation rec {
       EAN-13/UPC-A, UPC-E, EAN-8, Code 128, Code 39, Interleaved 2 of 5 and QR
       Code.
     '';
-    maintainers = with maintainers; [ delroth raskin ];
+    maintainers = with maintainers; [
+      delroth
+      raskin
+    ];
     platforms = platforms.unix;
     license = licenses.lgpl21;
     homepage = "https://github.com/mchehab/zbar";

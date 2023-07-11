@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ aiohttp colour setuptools ];
+  propagatedBuildInputs = [
+    aiohttp
+    colour
+    setuptools
+  ];
 
   # Module has no tests
   doCheck = false;

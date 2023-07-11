@@ -23,7 +23,10 @@ let
     # See https://github.com/NixOS/nix/issues/6660
     dontPatchShebangs = true;
 
-    nativeBuildInputs = [ php phpPackages.composer ];
+    nativeBuildInputs = [
+      php
+      phpPackages.composer
+    ];
 
     buildPhase = ''
       runHook preBuild

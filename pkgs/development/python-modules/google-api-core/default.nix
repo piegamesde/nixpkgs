@@ -28,16 +28,28 @@ buildPythonPackage rec {
     hash = "sha256-S5u11aOAoL76BXOzAmUbipqJJiwXMON79CPOxRGATCI=";
   };
 
-  propagatedBuildInputs =
-    [ googleapis-common-protos google-auth protobuf proto-plus requests ];
+  propagatedBuildInputs = [
+    googleapis-common-protos
+    google-auth
+    protobuf
+    proto-plus
+    requests
+  ];
 
   passthru.optional-dependencies = {
-    grpc = [ grpcio grpcio-status ];
+    grpc = [
+      grpcio
+      grpcio-status
+    ];
     grpcgcp = [ grpcio-gcp ];
     grpcio-gcp = [ grpcio-gcp ];
   };
 
-  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   # prevent google directory from shadowing google imports
   preCheck = ''

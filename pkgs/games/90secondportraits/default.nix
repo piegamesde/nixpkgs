@@ -37,7 +37,10 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ lua love ];
+  buildInputs = [
+    lua
+    love
+  ];
 
   dontUnpack = true;
 

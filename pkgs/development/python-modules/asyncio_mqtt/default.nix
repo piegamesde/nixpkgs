@@ -27,12 +27,18 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [ paho-mqtt ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [ anyio pytestCheckHook ];
+  nativeCheckInputs = [
+    anyio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "asyncio_mqtt" ];
 

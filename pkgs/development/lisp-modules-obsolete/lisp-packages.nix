@@ -54,7 +54,10 @@ let
       version = "1.0.0";
       src = ./quicklisp-to-nix;
       nativeBuildInputs = [ sbcl ];
-      buildInputs = [ lispPackages.quicklisp coreutils ];
+      buildInputs = [
+        lispPackages.quicklisp
+        coreutils
+      ];
       touch = coreutils;
       nix-prefetch-url = nix;
       inherit quicklisp;
@@ -72,7 +75,10 @@ let
       pname = "quicklisp-to-nix";
       version = "1.0.0";
       src = ./quicklisp-to-nix;
-      buildDependencies = [ sbcl quicklisp-to-nix-system-info ];
+      buildDependencies = [
+        sbcl
+        quicklisp-to-nix-system-info
+      ];
       buildInputs = with pkgs.lispPackages; [
         md5
         cl-emb
@@ -141,7 +147,10 @@ let
       parasites = [ "cluffer-test" ];
 
       description = "General purpose text-editor buffer";
-      deps = with pkgs.lispPackages; [ acclimation clump ];
+      deps = with pkgs.lispPackages; [
+        acclimation
+        clump
+      ];
       src = pkgs.fetchFromGitHub {
         owner = "robert-strandh";
         repo = "cluffer";
@@ -258,7 +267,11 @@ let
 
       packageName = "nyxt";
 
-      propagatedBuildInputs = [ pkgs.libressl.out pkgs.webkitgtk pkgs.sbcl ];
+      propagatedBuildInputs = [
+        pkgs.libressl.out
+        pkgs.webkitgtk
+        pkgs.sbcl
+      ];
     };
 
     mgl = buildLispPackage rec {
@@ -284,7 +297,10 @@ let
         sha256 = "sha256:09sf7nq7nmf9q7bh3a5ygl2i2n0nhrx5fk2kv5ili0ckv7g9x72s";
         # date = 2021-10-18T14:15+02:00
       };
-      buildSystems = [ "mgl" "mgl/test" ];
+      buildSystems = [
+        "mgl"
+        "mgl/test"
+      ];
       packageName = "mgl";
       parasites = [ "mgl/test" ];
       asdFilesToKeep = [
@@ -321,7 +337,10 @@ let
         # date = 2021-10-18T14:15+02:00
       };
       packageName = "mgl-mat";
-      buildSystems = [ "mgl-mat" "mgl-mat/test" ];
+      buildSystems = [
+        "mgl-mat"
+        "mgl-mat/test"
+      ];
       parasites = [ "mgl-mat/test" ];
       asdFilesToKeep = [ "mgl-mat.asd" ];
     };

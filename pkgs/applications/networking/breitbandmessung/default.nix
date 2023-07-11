@@ -23,7 +23,11 @@ let
         sha256 = "sha256-jSP+H9ej9Wd+swBZSy9uMi2ExSTZ191FGZhqaocTl7w=";
       };
 
-      nativeBuildInputs = [ dpkg makeWrapper nodePackages.asar ];
+      nativeBuildInputs = [
+        dpkg
+        makeWrapper
+        nodePackages.asar
+      ];
 
       unpackPhase = "dpkg-deb -x $src .";
 
@@ -90,6 +94,10 @@ in stdenv.mkDerivation ({
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ b4dm4n ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 } // systemArgs)

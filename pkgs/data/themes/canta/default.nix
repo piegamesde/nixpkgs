@@ -25,7 +25,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  buildInputs = [ gdk-pixbuf librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedBuildInputs = [
     gnome.adwaita-icon-theme

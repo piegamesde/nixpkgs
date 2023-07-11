@@ -19,11 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-t01P7MPWgOrktuW2zF0TIzt6u/jkLmrpD2OnqawhJaI=";
   };
 
-  nativeBuildInputs = [ gettext setuptools-scm ];
+  nativeBuildInputs = [
+    gettext
+    setuptools-scm
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
   pytestFlagsArray = [ "test.py" ];
   pythonImportsCheck = [ "bagit" ];
 

@@ -37,10 +37,16 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ lingeling btor2tools gmp ];
+  buildInputs = [
+    lingeling
+    btor2tools
+    gmp
+  ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DUSE_LINGELING=YES" ]
-    ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DUSE_LINGELING=YES"
+  ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
 
   nativeCheckInputs = [ python3 ];
   doCheck = true;

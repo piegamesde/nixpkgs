@@ -28,7 +28,11 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk perl gradle ];
+    nativeBuildInputs = [
+      jdk
+      perl
+      gradle
+    ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -81,14 +85,21 @@ let
     exec = pname;
     comment =
       "JavaFx application to visualize and modify the scenegraph of running JavaFx applications.";
-    mimeTypes =
-      [ "application/java" "application/java-vm" "application/java-archive" ];
+    mimeTypes = [
+      "application/java"
+      "application/java-vm"
+      "application/java-archive"
+    ];
     categories = [ "Development" ];
   };
 
 in stdenv.mkDerivation rec {
   inherit pname version src;
-  nativeBuildInputs = [ jdk gradle makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    gradle
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild

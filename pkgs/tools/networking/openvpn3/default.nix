@@ -83,7 +83,10 @@ in stdenv.mkDerivation rec {
   ];
 
   # runtime deps
-  pythonPath = with python3.pkgs; [ dbus-python pygobject3 ];
+  pythonPath = with python3.pkgs; [
+    dbus-python
+    pygobject3
+  ];
 
   dontWrapGApps = true;
   preFixup = ''
@@ -106,7 +109,10 @@ in stdenv.mkDerivation rec {
     description = "OpenVPN 3 Linux client";
     license = licenses.agpl3Plus;
     homepage = "https://github.com/OpenVPN/openvpn3-linux/";
-    maintainers = with maintainers; [ shamilton kfears ];
+    maintainers = with maintainers; [
+      shamilton
+      kfears
+    ];
     platforms = platforms.linux;
   };
 }

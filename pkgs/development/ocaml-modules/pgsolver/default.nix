@@ -19,7 +19,10 @@ buildOasisPackage rec {
   };
 
   buildInputs = [ ounit ];
-  propagatedBuildInputs = [ tcslib ocaml-sat-solvers ];
+  propagatedBuildInputs = [
+    tcslib
+    ocaml-sat-solvers
+  ];
 
   meta = {
     description =

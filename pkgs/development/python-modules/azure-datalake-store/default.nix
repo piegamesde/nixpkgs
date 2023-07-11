@@ -19,8 +19,14 @@ buildPythonPackage rec {
     sha256 = "4198ddb32614d16d4502b43d5c9739f81432b7e0e4d75d30e05149fe6007fea2";
   };
 
-  propagatedBuildInputs = [ requests adal azure-common ]
-    ++ lib.optionals (!isPy3k) [ futures pathlib2 ];
+  propagatedBuildInputs = [
+    requests
+    adal
+    azure-common
+  ] ++ lib.optionals (!isPy3k) [
+    futures
+    pathlib2
+  ];
 
   # has no tests
   doCheck = false;

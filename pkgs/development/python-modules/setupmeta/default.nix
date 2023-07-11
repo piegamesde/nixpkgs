@@ -31,7 +31,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [ git mock pep440 pytestCheckHook six ];
+  nativeCheckInputs = [
+    git
+    mock
+    pep440
+    pytestCheckHook
+    six
+  ];
 
   preCheck = ''
     unset PYGRADLE_PROJECT_VERSION

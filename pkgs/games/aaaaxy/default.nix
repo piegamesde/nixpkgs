@@ -42,9 +42,15 @@ buildGoModule rec {
     libXxf86vm
   ];
 
-  nativeBuildInputs = [ go-licenses pkg-config ];
+  nativeBuildInputs = [
+    go-licenses
+    pkg-config
+  ];
 
-  outputs = [ "out" "testing_infra" ];
+  outputs = [
+    "out"
+    "testing_infra"
+  ];
 
   postPatch = ''
     # Without patching, "go run" fails with the error message:

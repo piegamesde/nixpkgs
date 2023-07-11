@@ -58,7 +58,12 @@ let
     dontPatchELF = true;
     dontWrapGApps = true;
 
-    nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      dpkg
+      makeWrapper
+      wrapGAppsHook
+    ];
 
     buildInputs = atomEnv.packages;
 

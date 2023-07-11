@@ -55,14 +55,21 @@ in stdenv.mkDerivation rec {
     sha256 = "U/PO/YtS8bOb2yKk57UQKH4eRNysYC/hrmUR5YZyYlw=";
   };
 
-  outputs = [ "out" "dev" ] ++ optional enableTools "bin";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ optional enableTools "bin";
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [ libiconv zlib ] ++ optionals withALSA [ alsa-lib ]
-    ++ optionals withPulseAudio [ libpulseaudio ]
-    ++ optionals withCoreAudio [ CoreAudio AudioToolbox ]
-    ++ optionals withLibao [ libao ];
+  propagatedBuildInputs = [
+    libiconv
+    zlib
+  ] ++ optionals withALSA [ alsa-lib ]
+    ++ optionals withPulseAudio [ libpulseaudio ] ++ optionals withCoreAudio [
+      CoreAudio
+      AudioToolbox
+    ] ++ optionals withLibao [ libao ];
 
   cmakeFlags = [
     "-DBUILD_LIBAUDIO=${onOff enableAudio}"

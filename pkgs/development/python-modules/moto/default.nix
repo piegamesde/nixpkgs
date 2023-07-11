@@ -81,7 +81,11 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ freezegun pytestCheckHook sure ];
+  nativeCheckInputs = [
+    freezegun
+    pytestCheckHook
+    sure
+  ];
 
   pytestFlagsArray = [
     # Disable tests that try to access the network

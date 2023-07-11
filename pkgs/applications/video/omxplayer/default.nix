@@ -89,7 +89,14 @@ in stdenv.mkDerivation rec {
     cp omxplayer.bin $out/bin
   '';
 
-  buildInputs = [ raspberrypifw ffmpeg pcre boost freetype zlib ];
+  buildInputs = [
+    raspberrypifw
+    ffmpeg
+    pcre
+    boost
+    freetype
+    zlib
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/huceke/omxplayer";

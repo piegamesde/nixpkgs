@@ -14,9 +14,19 @@
 mkDerivation {
   pname = "juk";
 
-  nativeBuildInputs = [ extra-cmake-modules wrapQtAppsHook kdoctools ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    wrapQtAppsHook
+    kdoctools
+  ];
 
-  buildInputs = [ kcoreaddons kxmlgui kio phonon taglib ];
+  buildInputs = [
+    kcoreaddons
+    kxmlgui
+    kio
+    phonon
+    taglib
+  ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/multimedia/juk";

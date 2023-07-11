@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "1innsmpsd9n9ih80v16rhj2ijrl28jd7x6a4jmxdirba7mjibm8d";
   };
 
-  buildInputs = [ libX11 freeglut glew libXNVCtrl libXext ];
+  buildInputs = [
+    libX11
+    freeglut
+    glew
+    libXNVCtrl
+    libXext
+  ];
 
   installPhase = ''
     runHook preInstall

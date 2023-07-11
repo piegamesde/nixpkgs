@@ -62,7 +62,10 @@ rec {
 
       dontBuild = true;
 
-      nativeBuildInputs = [ makeWrapper unzip ];
+      nativeBuildInputs = [
+        makeWrapper
+        unzip
+      ];
       buildInputs = [ java ];
 
       installPhase = with builtins;
@@ -98,7 +101,11 @@ rec {
           jar xf $out/lib/gradle/lib/native-platform-linux-${arch}$variant-${nativeVersion}.jar
           patchelf \
             --set-rpath "${stdenv.cc.cc.lib}/lib64:${
-              lib.makeLibraryPath [ stdenv.cc.cc ncurses5 ncurses6 ]
+              lib.makeLibraryPath [
+                stdenv.cc.cc
+                ncurses5
+                ncurses6
+              ]
             }" \
             net/rubygrapefruit/platform/linux-${arch}$variant/libnative-platform*.so
           jar cf native-platform-linux-${arch}$variant-${nativeVersion}.jar .
@@ -134,7 +141,10 @@ rec {
           binaryNativeCode
         ];
         license = licenses.asl20;
-        maintainers = with maintainers; [ lorenzleutgeb liff ];
+        maintainers = with maintainers; [
+          lorenzleutgeb
+          liff
+        ];
       };
     };
 

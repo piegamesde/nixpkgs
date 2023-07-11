@@ -13,8 +13,13 @@ let
   mkdocs-macros-test = callPackage ./mkdocs-macros-test.nix { };
 
   env = {
-    nativeBuildInputs =
-      [ setuptools mkdocs mkdocs-macros mkdocs-macros-test mkdocs-material ];
+    nativeBuildInputs = [
+      setuptools
+      mkdocs
+      mkdocs-macros
+      mkdocs-macros-test
+      mkdocs-material
+    ];
   };
 in runCommand "mkdocs-macros-example-docs" env ''
   set -euo pipefail

@@ -23,9 +23,15 @@ stdenv.mkDerivation rec {
     echo '${version}' > .tarball-version
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ libplist libimobiledevice-glue ];
+  buildInputs = [
+    libplist
+    libimobiledevice-glue
+  ];
 
   meta = with lib; {
     description =

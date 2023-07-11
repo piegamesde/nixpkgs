@@ -29,7 +29,11 @@ import ./make-test-python.nix ({
           };
         };
 
-        environment.systemPackages = with pkgs; [ dnsutils powerdns mariadb ];
+        environment.systemPackages = with pkgs; [
+          dnsutils
+          powerdns
+          mariadb
+        ];
       };
 
     testScript = ''

@@ -66,11 +66,25 @@ stdenv.mkDerivation rec {
       --replace checkfor_matrox={yes,no}
   '';
 
-  nativeBuildInputs = [ autoreconfHook perl pkg-config flux ];
+  nativeBuildInputs = [
+    autoreconfHook
+    perl
+    pkg-config
+    flux
+  ];
 
-  buildInputs = [ zlib libjpeg freetype giflib libpng ]
-    ++ lib.optional enableSDL SDL ++ lib.optionals enableX11
-    (with xorg; [ xorgproto libX11 libXext libXrender ]);
+  buildInputs = [
+    zlib
+    libjpeg
+    freetype
+    giflib
+    libpng
+  ] ++ lib.optional enableSDL SDL ++ lib.optionals enableX11 (with xorg; [
+    xorgproto
+    libX11
+    libXext
+    libXrender
+  ]);
 
   NIX_LDFLAGS = "-lgcc_s";
 

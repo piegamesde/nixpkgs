@@ -30,7 +30,10 @@ let
   gems = bundlerEnv {
     name = "mikutter-gems"; # leave the version out to enable package reuse
     gemdir = ./deps;
-    groups = [ "default" "plugin" ];
+    groups = [
+      "default"
+      "plugin"
+    ];
     inherit ruby;
 
     # Avoid the following error:
@@ -83,8 +86,10 @@ stdenv.mkDerivation rec {
     sha256 = "05253nz4i1lmnq6czj48qdab2ny4vx2mznj6nsn2l1m2z6zqkwk3";
   };
 
-  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook ]
-    ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
   buildInputs = [
     atk
     gtk2
@@ -94,8 +99,11 @@ stdenv.mkDerivation rec {
     wrappedRuby
   ] ++ lib.optionals stdenv.isLinux [ alsa-utils ];
 
-  scriptPath = lib.makeBinPath ([ wrappedRuby libnotify which ]
-    ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
+  scriptPath = lib.makeBinPath ([
+    wrappedRuby
+    libnotify
+    which
+  ] ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
 
   postUnpack = ''
     rm -rf vendor
@@ -149,7 +157,11 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
   dontWrapGApps = true; # the target is placed outside of bin/
 
-  passthru.updateScript = [ ./update.sh version (toString ./.) ];
+  passthru.updateScript = [
+    ./update.sh
+    version
+    (toString ./.)
+  ];
 
   meta = with lib; {
     description = "An extensible Mastodon client";

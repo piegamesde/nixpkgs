@@ -22,9 +22,16 @@ buildPythonPackage rec {
   # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
-  nativeBuildInputs = [ setuptools-scm pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    pythonRelaxDepsHook
+  ];
 
-  propagatedBuildInputs = [ adlfs azure-identity knack ];
+  propagatedBuildInputs = [
+    adlfs
+    azure-identity
+    knack
+  ];
 
   # Network access is needed for tests
   doCheck = false;

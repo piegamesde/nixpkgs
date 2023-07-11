@@ -30,9 +30,21 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  nativeBuildInputs = [ makeWrapper ott menhir lem ];
+  nativeBuildInputs = [
+    makeWrapper
+    ott
+    menhir
+    lem
+  ];
 
-  propagatedBuildInputs = [ base64 omd dune-site linenoise pprint linksem ];
+  propagatedBuildInputs = [
+    base64
+    omd
+    dune-site
+    linenoise
+    pprint
+    linksem
+  ];
 
   preBuild = ''
     rm -r aarch*  # Remove code derived from non-bsd2 arm spec

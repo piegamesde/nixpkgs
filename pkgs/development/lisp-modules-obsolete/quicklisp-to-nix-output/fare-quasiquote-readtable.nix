@@ -8,7 +8,11 @@ args@{
 
   description = "Using fare-quasiquote with named-readtable";
 
-  deps = [ args."fare-quasiquote" args."fare-utils" args."named-readtables" ];
+  deps = [
+    args."fare-quasiquote"
+    args."fare-utils"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
     url =

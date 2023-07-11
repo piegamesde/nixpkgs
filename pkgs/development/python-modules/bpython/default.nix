@@ -63,6 +63,9 @@ buildPythonPackage rec {
       "A fancy curses interface to the Python interactive interpreter";
     homepage = "https://bpython-interpreter.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli dotlambda ];
+    maintainers = with maintainers; [
+      flokli
+      dotlambda
+    ];
   };
 }

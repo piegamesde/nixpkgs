@@ -57,10 +57,21 @@ buildPythonPackage rec {
     networkx
     pydot
     pygments
-  ] ++ lib.optionals withGui [ pyqt5 pyperclip ];
+  ] ++ lib.optionals withGui [
+    pyqt5
+    pyperclip
+  ];
 
-  nativeCheckInputs =
-    [ codecov coverage mock nose nose-timer pyperclip pyqt5 python-magic ];
+  nativeCheckInputs = [
+    codecov
+    coverage
+    mock
+    nose
+    nose-timer
+    pyperclip
+    pyqt5
+    python-magic
+  ];
   inherit doCheck;
 
   # If it won't be verbose, you'll see nothing going on for a long time.

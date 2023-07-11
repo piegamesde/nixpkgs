@@ -30,7 +30,11 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ python3.pkgs.pytestCheckHook git mercurial ];
+  nativeCheckInputs = [
+    python3.pkgs.pytestCheckHook
+    git
+    mercurial
+  ];
 
   disabledTests = [
     # fails due to more aggressive setuptools version specifier validation

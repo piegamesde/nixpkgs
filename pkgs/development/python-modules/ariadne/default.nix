@@ -29,7 +29,11 @@ buildPythonPackage rec {
     hash = "sha256-E7uC+l0Yjol8UPLF4CV+PN49tOUJXNUS5yYdF1oyfwU=";
   };
 
-  propagatedBuildInputs = [ graphql-core starlette typing-extensions ];
+  propagatedBuildInputs = [
+    graphql-core
+    starlette
+    typing-extensions
+  ];
 
   nativeCheckInputs = [
     freezegun

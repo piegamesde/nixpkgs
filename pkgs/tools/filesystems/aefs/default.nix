@@ -29,7 +29,10 @@ stdenv.mkDerivation {
   configureFlags =
     lib.optional stdenv.isDarwin "CPPFLAGS=-DFUSE_USE_VERSION=26";
 
-  nativeBuildInputs = [ autoreconfHook git ];
+  nativeBuildInputs = [
+    autoreconfHook
+    git
+  ];
 
   buildInputs = [ fuse ];
 

@@ -22,7 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-EKEQZFRUe+E65Z6DNCJFL5uCI5kbXrN7Tzd4O0X5Cqo=";
   };
 
-  nativeCheckInputs = [ dbus pytest pytest-cov pytest-asyncio pytest-timeout ];
+  nativeCheckInputs = [
+    dbus
+    pytest
+    pytest-cov
+    pytest-asyncio
+    pytest-timeout
+  ];
 
   # test_peer_interface hits a timeout
   # test_tcp_connection_with_forwarding fails due to dbus

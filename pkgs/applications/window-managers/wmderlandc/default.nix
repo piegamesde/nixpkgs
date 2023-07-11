@@ -22,7 +22,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libX11 xorgproto ];
+  buildInputs = [
+    libX11
+    xorgproto
+  ];
 
   meta = with lib; {
     description = "A tiny program to interact with wmderland";

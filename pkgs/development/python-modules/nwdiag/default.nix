@@ -23,9 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-uKrdkXpL5YBr953sRsHknYg+2/WwrZmyDf8BMA2+0tU=";
   };
 
-  propagatedBuildInputs = [ blockdiag setuptools ];
+  propagatedBuildInputs = [
+    blockdiag
+    setuptools
+  ];
 
-  nativeCheckInputs = [ nose pytestCheckHook ];
+  nativeCheckInputs = [
+    nose
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "src/nwdiag/tests/" ];
 

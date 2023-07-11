@@ -25,7 +25,10 @@ let
 in stdenv.mkDerivation {
   name = "${patchPpdFilesHook.name}-test";
   buildInputs = [ diffutils ];
-  nativeBuildInputs = [ diffutils patchPpdFilesHook ];
+  nativeBuildInputs = [
+    diffutils
+    patchPpdFilesHook
+  ];
   dontUnpack = true;
   dontInstall = true;
   ppdFileCommands = [ "cmp" ];

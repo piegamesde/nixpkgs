@@ -27,10 +27,18 @@ buildPythonPackage rec {
       --replace "==" ">="
   '';
 
-  propagatedBuildInputs =
-    [ funcy intervaltree pefile typing-extensions vivisect ];
+  propagatedBuildInputs = [
+    funcy
+    intervaltree
+    pefile
+    typing-extensions
+    vivisect
+  ];
 
-  nativeCheckInputs = [ pytest-sugar pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-sugar
+    pytestCheckHook
+  ];
 
   passthru = { optional-dependencies = { flirt = [ python-flirt ]; }; };
 

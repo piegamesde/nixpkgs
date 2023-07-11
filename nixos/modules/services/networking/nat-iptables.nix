@@ -198,7 +198,10 @@ in {
         nat = {
           description = "Network Address Translation";
           wantedBy = [ "network.target" ];
-          after = [ "network-pre.target" "systemd-modules-load.service" ];
+          after = [
+            "network-pre.target"
+            "systemd-modules-load.service"
+          ];
           path = [ config.networking.firewall.package ];
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 

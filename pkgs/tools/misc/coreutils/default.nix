@@ -84,17 +84,20 @@ in stdenv.mkDerivation rec {
     # intermittent failures on builders, unknown reason
     sed '2i echo Skipping du basic test && exit 77' -i ./tests/du/basic.sh
   '' + (optionalString (stdenv.hostPlatform.libc == "musl")
-    (concatStringsSep "\n" [''
+    (concatStringsSep "\n" [ ''
       echo "int main() { return 77; }" > gnulib-tests/test-parse-datetime.c
       echo "int main() { return 77; }" > gnulib-tests/test-getlogin.c
-    ''])) + (optionalString stdenv.isAarch64 ''
+    '' ])) + (optionalString stdenv.isAarch64 ''
       sed '2i print "Skipping tail assert test"; exit 77' -i ./tests/tail-2/assert.sh
 
       # Sometimes fails: https://github.com/NixOS/nixpkgs/pull/143097#issuecomment-954462584
       sed '2i echo Skipping cut huge range test && exit 77' -i ./tests/misc/cut-huge-range.sh
     '');
 
-  outputs = [ "out" "info" ];
+  outputs = [
+    "out"
+    "info"
+  ];
   separateDebugInfo = true;
 
   nativeBuildInputs = [

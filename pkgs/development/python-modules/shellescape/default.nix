@@ -23,7 +23,10 @@ buildPythonPackage rec {
     description =
       "Shell escape a string to safely use it as a token in a shell command (backport of Python shlex.quote)";
     homepage = "https://github.com/chrissimpkins/shellescape";
-    license = with licenses; [ mit psfl ];
+    license = with licenses; [
+      mit
+      psfl
+    ];
     maintainers = with maintainers; [ veprbl ];
   };
 }

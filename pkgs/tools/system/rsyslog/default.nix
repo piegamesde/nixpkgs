@@ -71,10 +71,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-0JDpAoPrS4Dei0Pl/8bktZxOOXDyqpHmO+7woRcg100=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook docutils ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    docutils
+  ];
 
-  buildInputs = [ fastJson libestr json_c zlib ]
-    ++ lib.optional withKrb5 libkrb5 ++ lib.optional withJemalloc jemalloc
+  buildInputs = [
+    fastJson
+    libestr
+    json_c
+    zlib
+  ] ++ lib.optional withKrb5 libkrb5 ++ lib.optional withJemalloc jemalloc
     ++ lib.optional withPostgres postgresql ++ lib.optional withDbi libdbi
     ++ lib.optional withNetSnmp net-snmp ++ lib.optional withUuid libuuid
     ++ lib.optional withCurl curl ++ lib.optional withGnutls gnutls
@@ -82,9 +90,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional withOpenssl openssl ++ lib.optional withRelp librelp
     ++ lib.optional withKsi libksi ++ lib.optional withLogging liblogging
     ++ lib.optional withNet libnet ++ lib.optional withHadoop hadoop
-    ++ lib.optional withRdkafka rdkafka
-    ++ lib.optionals withMongo [ libmongo-client mongoc ]
-    ++ lib.optional withCzmq czmq ++ lib.optional withRabbitmq rabbitmq-c
+    ++ lib.optional withRdkafka rdkafka ++ lib.optionals withMongo [
+      libmongo-client
+      mongoc
+    ] ++ lib.optional withCzmq czmq ++ lib.optional withRabbitmq rabbitmq-c
     ++ lib.optional withHiredis hiredis
     ++ lib.optional withMaxminddb libmaxminddb
     ++ lib.optional withMysql libmysqlclient

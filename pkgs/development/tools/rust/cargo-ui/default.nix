@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libgit2_1_5 openssl ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [
+    libgit2_1_5
+    openssl
+  ] ++ lib.optionals stdenv.isLinux [
     expat
     fontconfig
     libGL
@@ -39,7 +42,12 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/cargo-ui \
-      --add-rpath ${lib.makeLibraryPath [ fontconfig libGL ]}
+      --add-rpath ${
+        lib.makeLibraryPath [
+          fontconfig
+          libGL
+        ]
+      }
   '';
 
   meta = with lib; {
@@ -47,7 +55,11 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/slint-ui/cargo-ui";
     changelog =
       "https://github.com/slint-ui/cargo-ui/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit asl20 gpl3Only ];
+    license = with licenses; [
+      mit
+      asl20
+      gpl3Only
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

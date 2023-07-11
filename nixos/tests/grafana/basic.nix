@@ -62,10 +62,10 @@ import ../make-test-python.nix ({
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "grafana" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "grafana";
             ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
-          }];
+          } ];
         };
         systemd.services.grafana.after = [ "postgresql.service" ];
       };
@@ -75,18 +75,21 @@ import ../make-test-python.nix ({
         services.mysql = {
           enable = true;
           ensureDatabases = [ "grafana" ];
-          ensureUsers = [{
+          ensureUsers = [ {
             name = "grafana";
             ensurePermissions."grafana.*" = "ALL PRIVILEGES";
-          }];
+          } ];
           package = pkgs.mariadb;
         };
         systemd.services.grafana.after = [ "mysql.service" ];
       };
     };
 
-    nodes = builtins.mapAttrs (_: val: mkMerge [ val baseGrafanaConf ])
-      extraNodeConfs;
+    nodes = builtins.mapAttrs (_: val:
+      mkMerge [
+        val
+        baseGrafanaConf
+      ]) extraNodeConfs;
   in {
     name = "grafana-basic";
 

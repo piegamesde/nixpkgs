@@ -28,7 +28,10 @@ with lib;
 
   config = mkIf config.services.malcontent.enable {
 
-    environment.systemPackages = with pkgs; [ malcontent malcontent-ui ];
+    environment.systemPackages = with pkgs; [
+      malcontent
+      malcontent-ui
+    ];
 
     services.dbus.packages = [
       # D-Bus services are in `out`, not the default `bin` output that would be picked up by `makeDbusConf`.

@@ -25,7 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ parts ];
 
-  nativeCheckInputs = [ pytestCheckHook nose ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+  ];
 
   pythonImportsCheck = [ "bitlist" ];
 

@@ -6,7 +6,10 @@
 
 stdenv.mkDerivation {
   name = "xquartz-system-fonts";
-  buildInputs = [ xorg.mkfontdir xorg.mkfontscale ];
+  buildInputs = [
+    xorg.mkfontdir
+    xorg.mkfontscale
+  ];
   buildCommand = ''
     source $stdenv/setup
 

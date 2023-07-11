@@ -45,7 +45,12 @@ buildGoModule rec {
   # Only needed to build the man-pages
   excludedPackages = [ "github.com/github/hub/md2roff-bin" ];
 
-  nativeBuildInputs = [ groff installShellFiles makeWrapper unixtools.col ];
+  nativeBuildInputs = [
+    groff
+    installShellFiles
+    makeWrapper
+    unixtools.col
+  ];
 
   postInstall = ''
     installShellCompletion --cmd hub \

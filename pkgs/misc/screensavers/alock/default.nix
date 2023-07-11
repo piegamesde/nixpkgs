@@ -24,11 +24,24 @@ stdenv.mkDerivation rec {
 
   PAM_DEFAULT_SERVICE = "login";
 
-  configureFlags =
-    [ "--enable-pam" "--enable-hash" "--enable-xrender" "--enable-imlib2" ];
+  configureFlags = [
+    "--enable-pam"
+    "--enable-hash"
+    "--enable-xrender"
+    "--enable-imlib2"
+  ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [ libX11 pam libgcrypt libXrender imlib2 ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
+  buildInputs = [
+    libX11
+    pam
+    libgcrypt
+    libXrender
+    imlib2
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Arkq/alock";
@@ -43,7 +56,10 @@ stdenv.mkDerivation rec {
       X session.
     '';
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ftrvxmtrx chris-martin ];
+    maintainers = with maintainers; [
+      ftrvxmtrx
+      chris-martin
+    ];
     license = licenses.mit;
   };
 }

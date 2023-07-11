@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-HMJqZn0yzN2dP5WTRCbem1Xw8nyH2Hy7oVP4kEKHHAo=";
   };
 
-  propagatedBuildInputs = [ aiohttp awesomeversion ];
+  propagatedBuildInputs = [
+    aiohttp
+    awesomeversion
+  ];
 
-  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Upstream doesn't set a version for the tagged releases

@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
 
   pythonPath = with python3Packages; [ pygobject3 ];
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+    python3Packages.wrapPython
+  ];
   buildInputs = [
     atk
     dbus

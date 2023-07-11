@@ -35,7 +35,10 @@ buildPythonPackage rec {
       --replace "miniaudio/stb_vorbis.c" "miniaudio/extras/stb_vorbis.c";
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AudioToolbox CoreAudio ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AudioToolbox
+    CoreAudio
+  ];
 
   propagatedNativeBuildInputs = [ cffi ];
   propagatedBuildInputs = [ cffi ];

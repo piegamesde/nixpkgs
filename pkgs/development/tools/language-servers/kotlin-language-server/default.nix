@@ -26,12 +26,21 @@ stdenv.mkDerivation rec {
     cp -r bin/* $out/bin
   '';
 
-  nativeBuildInputs = [ gradle makeWrapper ];
-  buildInputs = [ openjdk gradle ];
+  nativeBuildInputs = [
+    gradle
+    makeWrapper
+  ];
+  buildInputs = [
+    openjdk
+    gradle
+  ];
 
   postFixup = ''
     wrapProgram "$out/bin/kotlin-language-server" --set JAVA_HOME ${openjdk} --prefix PATH : ${
-      lib.strings.makeBinPath [ openjdk maven ]
+      lib.strings.makeBinPath [
+        openjdk
+        maven
+      ]
     }
   '';
 

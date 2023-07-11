@@ -16,7 +16,13 @@ mkXfceDerivation {
 
   sha256 = "sha256-vL9zexPbQKPqIzK5UqUIxkE9I7hEupkDOJehMgj2Leo=";
 
-  buildInputs = [ gtk3 libical libnotify libxfce4ui popt ];
+  buildInputs = [
+    gtk3
+    libical
+    libnotify
+    libxfce4ui
+    popt
+  ];
 
   postPatch = ''
     substituteInPlace src/parameters.c        --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"

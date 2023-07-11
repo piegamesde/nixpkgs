@@ -16,7 +16,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-PlTdbA8Z2I2SWoG7oYG87VQfczx9zP1SCJx70UWOEog=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   # There are many modifications need to be done to make tests run. For example:
   # 1. Network access

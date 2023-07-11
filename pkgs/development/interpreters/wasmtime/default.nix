@@ -19,9 +19,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-A2JhjRFKPltHubiJYHBXj2H4cdU43Y2x6UjEpRGPX7U=";
 
-  cargoBuildFlags = [ "--package wasmtime-cli" "--package wasmtime-c-api" ];
+  cargoBuildFlags = [
+    "--package wasmtime-cli"
+    "--package wasmtime-c-api"
+  ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   # We disable tests on x86_64-darwin because Hydra runners do not
   # support SSE3, SSSE3, SSE4.1 and SSE4.2 at this time. This is
@@ -49,7 +55,10 @@ rustPlatform.buildRustPackage rec {
       "Standalone JIT-style runtime for WebAssembly, using Cranelift";
     homepage = "https://github.com/bytecodealliance/wasmtime";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre matthewbauer ];
+    maintainers = with maintainers; [
+      ereslibre
+      matthewbauer
+    ];
     platforms = platforms.unix;
   };
 }

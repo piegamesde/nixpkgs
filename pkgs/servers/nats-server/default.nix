@@ -28,6 +28,9 @@ buildGoModule rec {
     changelog =
       "https://github.com/nats-io/nats-server/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swdunlop derekcollison ];
+    maintainers = with maintainers; [
+      swdunlop
+      derekcollison
+    ];
   };
 }

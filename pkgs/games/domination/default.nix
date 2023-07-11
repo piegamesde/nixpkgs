@@ -41,7 +41,12 @@ in stdenv.mkDerivation {
     sha256 = "sha256-xvlPC7M6DaF3g2O3vQDmcdp7914qOaiikY02RTgAVkM=";
   };
 
-  nativeBuildInputs = [ jdk8 ant makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [
+    jdk8
+    ant
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -50,7 +55,10 @@ in stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  desktopItems = [ desktopItem editorDesktopItem ];
+  desktopItems = [
+    desktopItem
+    editorDesktopItem
+  ];
 
   installPhase = ''
     runHook preInstall

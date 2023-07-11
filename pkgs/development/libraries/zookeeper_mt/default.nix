@@ -25,9 +25,16 @@ stdenv.mkDerivation rec {
   sourceRoot =
     "apache-${zookeeper.pname}-${version}/zookeeper-client/zookeeper-client-c";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config jre ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    jre
+  ];
 
-  buildInputs = [ openssl zookeeper ];
+  buildInputs = [
+    openssl
+    zookeeper
+  ];
 
   # Generate the C marshallers/unmarshallers for the Jute-encoded
   # definitions.
@@ -49,7 +56,10 @@ stdenv.mkDerivation rec {
     homepage = "https://zookeeper.apache.org";
     description = "Apache Zookeeper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ commandodev ztzg ];
+    maintainers = with maintainers; [
+      commandodev
+      ztzg
+    ];
     platforms = platforms.unix;
   };
 }

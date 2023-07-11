@@ -72,14 +72,22 @@ buildPythonPackage rec {
     whoosh
   ];
 
-  nativeBuildInputs = [ gettext shared-mime-info which ];
+  nativeBuildInputs = [
+    gettext
+    shared-mime-info
+    which
+  ];
 
   preBuild = ''
     make l10n_compile
   '';
 
-  nativeCheckInputs =
-    [ libreoffice openpaperwork-gtk psutil unittestCheckHook ];
+  nativeCheckInputs = [
+    libreoffice
+    openpaperwork-gtk
+    psutil
+    unittestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -89,6 +97,9 @@ buildPythonPackage rec {
     description = "Backend part of Paperwork (Python API, no UI)";
     homepage = "https://openpaper.work";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aszlig symphorien ];
+    maintainers = with maintainers; [
+      aszlig
+      symphorien
+    ];
   };
 }

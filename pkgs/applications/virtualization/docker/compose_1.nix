@@ -37,7 +37,11 @@ buildPythonApplication rec {
   # lots of networking and other fails
   doCheck = false;
   nativeBuildInputs = [ installShellFiles ];
-  nativeCheckInputs = [ mock pytest nose ];
+  nativeCheckInputs = [
+    mock
+    pytest
+    nose
+  ];
   propagatedBuildInputs = [
     pyyaml
     colorama

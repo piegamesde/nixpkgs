@@ -19,7 +19,10 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [ gnome.adwaita-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    gnome.adwaita-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

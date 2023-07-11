@@ -20,7 +20,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sortedcontainers ];
 
-  nativeCheckInputs = [ pytest-cov pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-cov
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "sortedcollections" ];
 

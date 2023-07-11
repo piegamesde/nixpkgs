@@ -20,8 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GJvTwqgx34ZW10eIJj/xiKe3ZkAfs7GlJImz8jrnjfI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ numactl ncurses ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    numactl
+    ncurses
+  ];
   nativeCheckInputs = [ check ];
 
   patches = [
@@ -45,7 +51,11 @@ stdenv.mkDerivation rec {
     homepage = "https://01.org/numatop";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dtzWill ];
-    platforms =
-      [ "i686-linux" "x86_64-linux" "powerpc64-linux" "powerpc64le-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "powerpc64-linux"
+      "powerpc64le-linux"
+    ];
   };
 }

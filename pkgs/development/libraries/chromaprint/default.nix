@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
       zlib
     ]);
 
-  cmakeFlags = [ "-DBUILD_EXAMPLES=ON" "-DBUILD_TOOLS=ON" ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=ON"
+    "-DBUILD_TOOLS=ON"
+  ];
 
   meta = with lib; {
     homepage = "https://acoustid.org/chromaprint";

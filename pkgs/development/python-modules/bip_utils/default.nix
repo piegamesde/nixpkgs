@@ -52,6 +52,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/ebellocchia/bip_utils/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [ prusnak stargate01 ];
+    maintainers = with maintainers; [
+      prusnak
+      stargate01
+    ];
   };
 }

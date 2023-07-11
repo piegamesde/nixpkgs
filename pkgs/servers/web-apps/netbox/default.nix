@@ -22,7 +22,10 @@ in {
     ];
 
     tests.netbox = nixosTests.netbox_3_3;
-    maintainers = with lib.maintainers; [ n0emis raitobezarius ];
+    maintainers = with lib.maintainers; [
+      n0emis
+      raitobezarius
+    ];
     eol = true;
   };
 
@@ -35,6 +38,10 @@ in {
     ];
     tests = { inherit (nixosTests) netbox; };
 
-    maintainers = with lib.maintainers; [ minijackson n0emis raitobezarius ];
+    maintainers = with lib.maintainers; [
+      minijackson
+      n0emis
+      raitobezarius
+    ];
   };
 }

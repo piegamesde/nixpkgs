@@ -23,7 +23,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ libuuid lvm2_dmeventd zlib python3.pkgs.wrapPython ];
+  buildInputs = [
+    libuuid
+    lvm2_dmeventd
+    zlib
+    python3.pkgs.wrapPython
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [ pyyaml ];
 

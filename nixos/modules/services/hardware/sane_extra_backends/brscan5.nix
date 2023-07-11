@@ -107,14 +107,14 @@ in {
     environment.etc."sane.d/dll.d/brother5.conf".source =
       "${pkgs.brscan5}/etc/sane.d/dll.d/brother.conf";
 
-    assertions = [{
+    assertions = [ {
       assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;
       message = ''
         When describing a network device as part of the attribute list
         `hardware.sane.brscan5.netDevices`, only one of its `ip` or `nodename`
         attribute should be specified, not both!
       '';
-    }];
+    } ];
 
   };
 }

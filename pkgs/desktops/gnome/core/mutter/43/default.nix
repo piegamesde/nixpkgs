@@ -54,7 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";
   version = "43.5";
 
-  outputs = [ "out" "dev" "man" "devdoc" ];
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/mutter/${

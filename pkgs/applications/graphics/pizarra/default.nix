@@ -27,9 +27,18 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-pxRJXUeFGdVj6iCFZ4Y8b9z5hw83g8YywpKztTZ0g+4=";
 
-  nativeBuildInputs = [ wrapGAppsHook pkg-config gdk-pixbuf ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    pkg-config
+    gdk-pixbuf
+  ];
 
-  buildInputs = [ gtk3-x11 atk glib librsvg ];
+  buildInputs = [
+    gtk3-x11
+    atk
+    glib
+    librsvg
+  ];
 
   meta = with lib; {
     description = "A simple blackboard written in GTK";

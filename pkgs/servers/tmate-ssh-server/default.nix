@@ -29,8 +29,21 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ libtool zlib openssl libevent ncurses ruby msgpack libssh ];
-  nativeBuildInputs = [ autoreconfHook cmake pkg-config ];
+  buildInputs = [
+    libtool
+    zlib
+    openssl
+    libevent
+    ncurses
+    ruby
+    msgpack
+    libssh
+  ];
+  nativeBuildInputs = [
+    autoreconfHook
+    cmake
+    pkg-config
+  ];
 
   passthru.tests.tmate-ssh-server = nixosTests.tmate-ssh-server;
 

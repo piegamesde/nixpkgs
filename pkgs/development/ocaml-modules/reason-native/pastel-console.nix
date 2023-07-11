@@ -10,7 +10,10 @@
 
   nativeBuildInputs = [ reason ];
 
-  propagatedBuildInputs = [ console pastel ];
+  propagatedBuildInputs = [
+    console
+    pastel
+  ];
 
   meta = {
     description = "Small library for pretty coloring to Console output";

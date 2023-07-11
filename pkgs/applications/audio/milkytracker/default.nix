@@ -32,9 +32,22 @@ stdenv.mkDerivation rec {
       --replace 'CMAKE_CXX_STANDARD 98' 'CMAKE_CXX_STANDARD 11'
   '';
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ SDL2 alsa-lib libjack2 lhasa perl rtmidi zlib zziplib ];
+  buildInputs = [
+    SDL2
+    alsa-lib
+    libjack2
+    lhasa
+    perl
+    rtmidi
+    zlib
+    zziplib
+  ];
 
   # Somehow this does not get set automatically
   cmakeFlags = [ "-DSDL2MAIN_LIBRARY=${SDL2}/lib/libSDL2.so" ];
@@ -49,7 +62,10 @@ stdenv.mkDerivation rec {
     description = "Music tracker application, similar to Fasttracker II";
     homepage = "https://milkytracker.org/";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
     maintainers = with maintainers; [ ];
   };
 }

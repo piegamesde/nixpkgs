@@ -17,6 +17,9 @@ bundlerApp {
     homepage = "https://github.com/birkirb/hue-cli";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ manveru nicknovitski ];
+    maintainers = with maintainers; [
+      manveru
+      nicknovitski
+    ];
   };
 }

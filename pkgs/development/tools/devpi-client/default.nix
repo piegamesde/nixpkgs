@@ -38,7 +38,10 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ devpi-server git ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [
+    devpi-server
+    git
+  ] ++ (with python3.pkgs; [
     mercurial
     mock
     pypitoken
@@ -69,6 +72,9 @@ python3.pkgs.buildPythonApplication rec {
     changelog =
       "https://github.com/devpi/devpi/blob/client-${version}/client/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ lewo makefu ];
+    maintainers = with maintainers; [
+      lewo
+      makefu
+    ];
   };
 }

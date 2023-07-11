@@ -147,7 +147,10 @@ let
       gitlab_kas.secret_file = "${cfg.statePath}/.gitlab_kas_secret";
       git.bin_path = "git";
       monitoring = {
-        ip_whitelist = [ "127.0.0.0/8" "::1/128" ];
+        ip_whitelist = [
+          "127.0.0.0/8"
+          "::1/128"
+        ];
         sidekiq_exporter = {
           enable = true;
           address = "localhost";
@@ -271,22 +274,41 @@ let
 in {
 
   imports = [
-    (mkRenamedOptionModule [ "services" "gitlab" "stateDir" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab"
+      "stateDir"
+    ] [
       "services"
       "gitlab"
       "statePath"
     ])
-    (mkRenamedOptionModule [ "services" "gitlab" "backupPath" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "gitlab"
+      "backupPath"
+    ] [
       "services"
       "gitlab"
       "backup"
       "path"
     ])
-    (mkRemovedOptionModule [ "services" "gitlab" "satelliteDir" ] "")
-    (mkRemovedOptionModule [ "services" "gitlab" "logrotate" "extraConfig" ]
-      "Modify services.logrotate.settings.gitlab directly instead")
-    (mkRemovedOptionModule [ "services" "gitlab" "pagesExtraArgs" ]
-      "Use services.gitlab.pages.settings instead")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "satelliteDir"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "logrotate"
+      "extraConfig"
+    ] "Modify services.logrotate.settings.gitlab directly instead")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "pagesExtraArgs"
+    ] "Use services.gitlab.pages.settings instead")
   ];
 
   options = {
@@ -402,7 +424,10 @@ in {
             ];
           in either value (listOf value);
         default = [ ];
-        example = [ "artifacts" "lfs" ];
+        example = [
+          "artifacts"
+          "lfs"
+        ];
         apply = x: if isString x then x else concatStringsSep "," x;
         description = lib.mdDoc ''
           Directories to exclude from the backup. The example excludes
@@ -747,7 +772,12 @@ in {
 
         type = types.submodule {
           freeformType = with types;
-            attrsOf (nullOr (oneOf [ str int bool attrs ]));
+            attrsOf (nullOr (oneOf [
+              str
+              int
+              bool
+              attrs
+            ]));
 
           options = {
             listen-http = mkOption {
@@ -1163,8 +1193,12 @@ in {
       }
     ];
 
-    environment.systemPackages =
-      [ pkgs.git gitlab-rake gitlab-rails cfg.packages.gitlab-shell ];
+    environment.systemPackages = [
+      pkgs.git
+      gitlab-rake
+      gitlab-rails
+      cfg.packages.gitlab-shell
+    ];
 
     systemd.targets.gitlab = {
       description = "Common target for all GitLab services.";
@@ -1209,7 +1243,10 @@ in {
       bindsTo = [ "postgresql.service" ];
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      path = [ pgsql.package pkgs.util-linux ];
+      path = [
+        pgsql.package
+        pkgs.util-linux
+      ];
       script = ''
         set -eu
 
@@ -1333,7 +1370,12 @@ in {
     systemd.services.gitlab-config = {
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      path = with pkgs; [ jq openssl replace-secret git ];
+      path = with pkgs; [
+        jq
+        openssl
+        replace-secret
+        git
+      ];
       serviceConfig = {
         Type = "oneshot";
         User = cfg.user;
@@ -1531,7 +1573,10 @@ in {
     };
 
     systemd.services.gitaly = {
-      after = [ "network.target" "gitlab-config.service" ];
+      after = [
+        "network.target"
+        "gitlab-config.service"
+      ];
       bindsTo = [ "gitlab-config.service" ];
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
@@ -1598,12 +1643,22 @@ in {
         pkgs.writeText "gitlab-pages.conf" (mkPagesKeyValue filteredConfig);
     in mkIf cfg.pages.enable {
       description = "GitLab static pages daemon";
-      after = [ "network.target" "gitlab-config.service" "gitlab.service" ];
-      bindsTo = [ "gitlab-config.service" "gitlab.service" ];
+      after = [
+        "network.target"
+        "gitlab-config.service"
+        "gitlab.service"
+      ];
+      bindsTo = [
+        "gitlab-config.service"
+        "gitlab.service"
+      ];
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
 
-      path = with pkgs; [ unzip replace-secret ];
+      path = with pkgs; [
+        unzip
+        replace-secret
+      ];
 
       serviceConfig = {
         Type = "simple";
@@ -1671,8 +1726,11 @@ in {
     systemd.services.gitlab-mailroom =
       mkIf (gitlabConfig.production.incoming_email.enabled or false) {
         description = "GitLab incoming mail daemon";
-        after =
-          [ "network.target" "redis-gitlab.service" "gitlab-config.service" ];
+        after = [
+          "network.target"
+          "redis-gitlab.service"
+          "gitlab-config.service"
+        ];
         bindsTo = [ "gitlab-config.service" ];
         wantedBy = [ "gitlab.target" ];
         partOf = [ "gitlab.target" ];
@@ -1706,7 +1764,14 @@ in {
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv;
-      path = with pkgs; [ postgresqlPackage git openssh nodejs procps gnupg ];
+      path = with pkgs; [
+        postgresqlPackage
+        git
+        openssh
+        nodejs
+        procps
+        gnupg
+      ];
       serviceConfig = {
         Type = "notify";
         User = cfg.user;

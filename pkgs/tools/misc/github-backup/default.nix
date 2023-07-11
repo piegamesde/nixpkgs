@@ -14,7 +14,15 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-tFfS3Z7xrbN2QEOrYcUVd8/YwGKfmR2NaUBeXuSL+tY=";
   };
 
-  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ git git-lfs ]) ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      git
+      git-lfs
+    ])
+  ];
 
   # has no unit tests
   doCheck = false;

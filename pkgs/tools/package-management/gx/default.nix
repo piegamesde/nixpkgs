@@ -17,7 +17,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-6tdVpMztaBjoQRVG2vaUWuvnPq05zjbNAX9HBiC50t0=";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "A packaging tool built around IPFS";

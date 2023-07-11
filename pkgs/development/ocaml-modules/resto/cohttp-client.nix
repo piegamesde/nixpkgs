@@ -12,5 +12,11 @@ buildDunePackage {
   inherit (resto) src version meta doCheck;
   duneVersion = "3";
 
-  propagatedBuildInputs = [ resto resto-directory resto-cohttp uri lwt ];
+  propagatedBuildInputs = [
+    resto
+    resto-directory
+    resto-cohttp
+    uri
+    lwt
+  ];
 }

@@ -43,7 +43,10 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "teslajsonpy" ];
 

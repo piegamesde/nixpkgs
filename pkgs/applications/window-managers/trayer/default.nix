@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gdk-pixbuf gtk2 ];
+  buildInputs = [
+    gdk-pixbuf
+    gtk2
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

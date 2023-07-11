@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
   pname = "cctag";
   version = "1.0.3";
 
-  outputs = [ "lib" "dev" "out" ];
+  outputs = [
+    "lib"
+    "dev"
+    "out"
+  ];
 
   src = fetchFromGitHub {
     owner = "alicevision";
@@ -43,7 +47,11 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ tbb ];
 
-  buildInputs = [ boost eigen opencv ];
+  buildInputs = [
+    boost
+    eigen
+    opencv
+  ];
 
   # Tests are broken on Darwin (linking issue)
   doCheck = !stdenv.isDarwin;

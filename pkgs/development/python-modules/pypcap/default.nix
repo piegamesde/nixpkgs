@@ -28,7 +28,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libpcap ];
 
-  nativeCheckInputs = [ dpkt pytestCheckHook ];
+  nativeCheckInputs = [
+    dpkt
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

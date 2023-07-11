@@ -176,7 +176,10 @@ let
         version = "1.3.1";
         sha256 = "sha256-eoiQv4GFoyUs1OvYJv5fita5MCTt+IV26yeunl3BnWk=";
       };
-      beamDeps = [ katana_code zipper ];
+      beamDeps = [
+        katana_code
+        zipper
+      ];
     };
     docsh = builder {
       name = "docsh";

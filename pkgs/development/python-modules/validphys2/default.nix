@@ -26,8 +26,15 @@ buildPythonPackage rec {
       --replace '= __give_git()' '= "'$version'"'
   '';
 
-  propagatedBuildInputs =
-    [ lhapdf nnpdf prompt-toolkit reportengine requests seaborn validobj ];
+  propagatedBuildInputs = [
+    lhapdf
+    nnpdf
+    prompt-toolkit
+    reportengine
+    requests
+    seaborn
+    validobj
+  ];
 
   doCheck = false; # no tests
   pythonImportsCheck = [ "validphys" ];

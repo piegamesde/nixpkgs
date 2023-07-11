@@ -34,10 +34,24 @@
 stdenv.mkDerivation {
   inherit pname version src gitSrc;
 
-  nativeBuildInputs = [ pkg-config asciidoc ]
-    ++ (with python3Packages; [ python wrapPython ]);
-  buildInputs = buildInputs ++ [ openssl zlib libxml2 libxslt docbook_xsl ];
-  pythonPath = with python3Packages; [ pygments markdown ];
+  nativeBuildInputs = [
+    pkg-config
+    asciidoc
+  ] ++ (with python3Packages; [
+    python
+    wrapPython
+  ]);
+  buildInputs = buildInputs ++ [
+    openssl
+    zlib
+    libxml2
+    libxslt
+    docbook_xsl
+  ];
+  pythonPath = with python3Packages; [
+    pygments
+    markdown
+  ];
 
   postPatch = ''
     sed -e 's|"gzip"|"${gzip}/bin/gzip"|' \
@@ -82,7 +96,10 @@ stdenv.mkDerivation {
 
     for script in $out/lib/cgit/filters/*.sh $out/lib/cgit/filters/html-converters/txt2html; do
       wrapProgram $script --prefix PATH : '${
-        lib.makeBinPath [ coreutils gnused ]
+        lib.makeBinPath [
+          coreutils
+          gnused
+        ]
       }'
     done
   '';

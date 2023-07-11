@@ -31,8 +31,16 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libdrm libX11 libGL mesa ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libdrm
+    libX11
+    libGL
+    mesa
+  ];
 
   meta = with lib; {
     description = "Example OpenGL app using KMS/GBM";

@@ -29,7 +29,10 @@ buildGoModule rec {
     "-X github.com/slashformotion/radioboat/internal/buildinfo.Version=${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper installShellFiles ];
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ];
 
   preFixup = ''
     wrapProgram $out/bin/radioboat --prefix PATH ":" "${

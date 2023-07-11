@@ -20,7 +20,13 @@ stdenv.mkDerivation rec {
   pname = "libxmlb";
   version = "0.3.10";
 
-  outputs = [ "out" "lib" "dev" "devdoc" "installedTests" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "devdoc"
+    "installedTests"
+  ];
 
   src = fetchFromGitHub {
     owner = "hughsie";
@@ -43,7 +49,10 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  buildInputs = [ glib xz ];
+  buildInputs = [
+    glib
+    xz
+  ];
 
   mesonFlags = [
     "--libexecdir=${placeholder "out"}/libexec"

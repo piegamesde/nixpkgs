@@ -24,14 +24,23 @@ mkDerivation rec {
     sha256 = "sha256-PxHc7IeRsO+CPrNTofGypLLW8fSHDkcBqr75NwdlUyc=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython qmake imagemagick ];
+  nativeBuildInputs = [
+    python3.pkgs.wrapPython
+    qmake
+    imagemagick
+  ];
 
   postPatch = ''
     substituteInPlace ykman-gui/deployment.pri --replace '/usr/bin' "$out/bin"
   '';
 
-  buildInputs =
-    [ pyotherside python3 qtbase qtgraphicaleffects qtquickcontrols2 ];
+  buildInputs = [
+    pyotherside
+    python3
+    qtbase
+    qtgraphicaleffects
+    qtquickcontrols2
+  ];
 
   pythonPath =
     [ (yubikey-manager4.override { python3Packages = python3.pkgs; }) ];
@@ -62,7 +71,10 @@ mkDerivation rec {
     "--prefix"
     "LD_LIBRARY_PATH"
     ":"
-    (lib.makeLibraryPath [ pcsclite yubikey-personalization ])
+    (lib.makeLibraryPath [
+      pcsclite
+      yubikey-personalization
+    ])
   ];
 
   preFixup = ''

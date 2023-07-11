@@ -20,7 +20,10 @@ mkDerivation {
 
   outputs = [ "out" ]; # this package has no runtime components
 
-  propagatedBuildInputs = [ cmake pkg-config ];
+  propagatedBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   setupHook = ./setup-hook.sh;
 

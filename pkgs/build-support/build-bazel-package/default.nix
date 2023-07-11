@@ -49,7 +49,11 @@ args@{
 }:
 
 let
-  fArgs = removeAttrs args [ "buildAttrs" "fetchAttrs" "removeRulesCC" ] // {
+  fArgs = removeAttrs args [
+    "buildAttrs"
+    "fetchAttrs"
+    "removeRulesCC"
+  ] // {
     name = name;
     bazelFlags = bazelFlags;
     bazelBuildFlags = bazelBuildFlags;

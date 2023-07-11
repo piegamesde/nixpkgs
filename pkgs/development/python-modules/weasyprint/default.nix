@@ -36,31 +36,39 @@ buildPythonPackage rec {
     hash = "sha256-cPSCytjlPCw+rpz4avQS65NAWxash4G1GeozJtR1vW8=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./library-paths.patch;
-      fontconfig =
-        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangoft2 =
-        "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gobject =
-        "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pango =
-        "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangocairo =
-        "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      harfbuzz =
-        "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./library-paths.patch;
+    fontconfig =
+      "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+    pangoft2 =
+      "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+    gobject =
+      "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+    pango =
+      "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+    pangocairo =
+      "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+    harfbuzz =
+      "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs =
-    [ cffi cssselect2 fonttools html5lib pillow pydyf pyphen tinycss2 ]
-    ++ fonttools.optional-dependencies.woff;
+  propagatedBuildInputs = [
+    cffi
+    cssselect2
+    fonttools
+    html5lib
+    pillow
+    pydyf
+    pyphen
+    tinycss2
+  ] ++ fonttools.optional-dependencies.woff;
 
-  nativeCheckInputs = [ pytestCheckHook ghostscript ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    ghostscript
+  ];
 
   disabledTests = [
     # needs the Ahem font (fails on macOS)

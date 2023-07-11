@@ -9,7 +9,10 @@ args@{
   description =
     "Common UFFI Helper functions for Common Lisp SQL Interface Library";
 
-  deps = [ args."clsql" args."uffi" ];
+  deps = [
+    args."clsql"
+    args."uffi"
+  ];
 
   src = fetchurl {
     url =

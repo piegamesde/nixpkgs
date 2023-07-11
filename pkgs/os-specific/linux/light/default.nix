@@ -43,7 +43,10 @@ stdenv.mkDerivation rec {
     description = "GNU/Linux application to control backlights";
     homepage = "https://haikarainen.github.io/light/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ puffnfresh dtzWill ];
+    maintainers = with lib.maintainers; [
+      puffnfresh
+      dtzWill
+    ];
     platforms = lib.platforms.linux;
   };
 }

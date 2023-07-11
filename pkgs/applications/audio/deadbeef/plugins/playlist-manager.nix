@@ -20,7 +20,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ deadbeef gtk3 ];
+  buildInputs = [
+    deadbeef
+    gtk3
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +34,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  buildFlags = [ "CFLAGS=-I${deadbeef}/include/deadbeef" "gtk3" ];
+  buildFlags = [
+    "CFLAGS=-I${deadbeef}/include/deadbeef"
+    "gtk3"
+  ];
 
   meta = with lib; {
     description =

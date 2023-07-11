@@ -30,7 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-  nativeCheckInputs = [ mock nose pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pylacrosse" ];
 

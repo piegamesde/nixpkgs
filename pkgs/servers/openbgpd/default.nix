@@ -30,7 +30,13 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-TKs6tt/SCWes6kYAGIrSShZgOLf7xKh26xG3Zk7wCCw=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool m4 bison ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    m4
+    bison
+  ];
 
   preConfigure = ''
     mkdir ./openbsd

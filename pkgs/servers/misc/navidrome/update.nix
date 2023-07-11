@@ -11,7 +11,15 @@
 
 writeScript "update-navidrome" ''
   #!${runtimeShell}
-  PATH=${lib.makeBinPath [ coreutils nix-update git node2nix nix ]}
+  PATH=${
+    lib.makeBinPath [
+      coreutils
+      nix-update
+      git
+      node2nix
+      nix
+    ]
+  }
 
   set -euo pipefail
 

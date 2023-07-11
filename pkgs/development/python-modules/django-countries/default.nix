@@ -35,7 +35,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ asgiref typing-extensions ];
+  propagatedBuildInputs = [
+    asgiref
+    typing-extensions
+  ];
 
   nativeCheckInputs = [
     django

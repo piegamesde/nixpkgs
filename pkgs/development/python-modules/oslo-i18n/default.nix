@@ -26,7 +26,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  nativeCheckInputs = [ oslotest stestr testscenarios ];
+  nativeCheckInputs = [
+    oslotest
+    stestr
+    testscenarios
+  ];
 
   checkPhase = ''
     runHook preCheck

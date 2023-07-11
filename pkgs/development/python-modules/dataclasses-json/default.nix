@@ -20,9 +20,16 @@ buildPythonPackage rec {
     sha256 = "1xv9br6mm5pcwfy10ykbc1c0n83fqyj1pa81z272kqww7wpkkp6j";
   };
 
-  propagatedBuildInputs = [ typing-inspect marshmallow-enum ];
+  propagatedBuildInputs = [
+    typing-inspect
+    marshmallow-enum
+  ];
 
-  nativeCheckInputs = [ hypothesis mypy pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    mypy
+    pytestCheckHook
+  ];
 
   disabledTests = [
     # mypy_main(None, text_io, text_io, [__file__], clean_exit=True)

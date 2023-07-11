@@ -55,8 +55,16 @@ buildPythonPackage rec {
     "--verbose"
   ];
 
-  nativeBuildInputs = [ pkg-config lndir makeWrapper qt4 ];
-  buildInputs = [ qt4 dbus ];
+  nativeBuildInputs = [
+    pkg-config
+    lndir
+    makeWrapper
+    qt4
+  ];
+  buildInputs = [
+    qt4
+    dbus
+  ];
 
   propagatedBuildInputs = [ sip_4 ];
 

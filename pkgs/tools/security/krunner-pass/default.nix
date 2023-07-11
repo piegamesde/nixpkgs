@@ -22,10 +22,16 @@ mkDerivation rec {
     sha256 = "032fs2174ls545kjixbhzyd65wgxkw4s5vg8b20irc5c9ak3pxm0";
   };
 
-  buildInputs =
-    [ kauth krunner (pass.withExtensions (p: with p; [ pass-otp ])) ];
+  buildInputs = [
+    kauth
+    krunner
+    (pass.withExtensions (p: with p; [ pass-otp ]))
+  ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   patches = [
     (fetchpatch {

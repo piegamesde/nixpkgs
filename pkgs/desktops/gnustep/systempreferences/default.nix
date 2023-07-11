@@ -14,7 +14,11 @@ in gsmakeDerivation {
     sha256 = "1fg7c3ihfgvl6n21rd17fs9ivx3l8ps874m80vz86n1callgs339";
   };
   #  GNUSTEP_MAKEFILES = "${gnustep_make}/share/GNUstep/Makefiles";
-  buildInputs = [ back base gui ];
+  buildInputs = [
+    back
+    base
+    gui
+  ];
   #  propagatedBuildInputs = [ gnustep_back gnustep_base gnustep_gui ];
   meta = {
     description =

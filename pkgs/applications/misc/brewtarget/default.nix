@@ -23,7 +23,13 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ qtbase qttools qtmultimedia qtwebkit qtsvg ];
+  buildInputs = [
+    qtbase
+    qttools
+    qtmultimedia
+    qtwebkit
+    qtsvg
+  ];
 
   preConfigure = ''
     chmod +x configure

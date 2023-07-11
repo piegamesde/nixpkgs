@@ -74,12 +74,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
+    assertions = [ {
       assertion = (cfg.auth.username != null -> cfg.auth.password != null)
         && (cfg.auth.password != null -> cfg.auth.username != null);
       message =
         "You must set either both services.hqplayer.auth.username and password, or neither.";
-    }];
+    } ];
 
     environment = {
       etc = {
@@ -92,8 +92,12 @@ in {
       systemPackages = [ pkg ];
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ 8088 4321 ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [
+        8088
+        4321
+      ];
+    };
 
     systemd = {
       tmpfiles.rules = [
@@ -110,10 +114,13 @@ in {
 
         environment.HOME = "${stateDir}/home";
 
-        unitConfig.ConditionPathExists = [ configDir stateDir ];
+        unitConfig.ConditionPathExists = [
+          configDir
+          stateDir
+        ];
 
-        restartTriggers = optionals (cfg.config != null)
-          [ config.environment.etc."hqplayer/hqplayerd.xml".source ];
+        restartTriggers = optionals (cfg.config
+          != null) [ config.environment.etc."hqplayer/hqplayerd.xml".source ];
 
         preStart = ''
           cp -r "${pkg}/var/lib/hqplayer/web" "${stateDir}"
@@ -135,7 +142,10 @@ in {
     users.users = {
       hqplayer = {
         description = "hqplayer daemon user";
-        extraGroups = [ "audio" "video" ];
+        extraGroups = [
+          "audio"
+          "video"
+        ];
         group = "hqplayer";
         uid = config.ids.uids.hqplayer;
       };

@@ -25,11 +25,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-F8EHMKAQq/fV/i6+Vf42hmVjhbptuuiO8zfE9kfzzqA=";
   };
 
-  nativeBuildInputs = [ pkg-config bison ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    pkg-config
+    bison
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [ openssl libbsd libevent libuuid libmd zlib ncurses ]
-    ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
+  buildInputs = [
+    openssl
+    libbsd
+    libevent
+    libuuid
+    libmd
+    zlib
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     # The configure script assumes dependencies on Darwin are install via
@@ -68,6 +77,9 @@ stdenv.mkDerivation rec {
     homepage = "https://gameoftrees.org";
     license = licenses.isc;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ abbe afh ];
+    maintainers = with maintainers; [
+      abbe
+      afh
+    ];
   };
 }

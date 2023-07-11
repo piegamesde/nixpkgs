@@ -38,7 +38,10 @@ buildPythonPackage rec {
     testscenarios
   ];
 
-  nativeCheckInputs = [ oslotest stestr ];
+  nativeCheckInputs = [
+    oslotest
+    stestr
+  ];
 
   checkPhase = ''
     stestr run

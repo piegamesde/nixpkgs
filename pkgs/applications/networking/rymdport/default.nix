@@ -26,8 +26,20 @@ buildGoModule rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = with xorg;
-    [ libGL libX11 libXcursor libXext libXi libXinerama libXrandr libXxf86vm ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa IOKit ];
+    [
+      libGL
+      libX11
+      libXcursor
+      libXext
+      libXi
+      libXinerama
+      libXrandr
+      libXxf86vm
+    ] ++ lib.optionals stdenv.isDarwin [
+      Carbon
+      Cocoa
+      IOKit
+    ];
 
   meta = {
     description =

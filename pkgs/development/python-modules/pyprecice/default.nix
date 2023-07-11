@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy mpi4py precice ];
+  propagatedBuildInputs = [
+    numpy
+    mpi4py
+    precice
+  ];
 
   # Disable Test because everything depends on open mpi which requires network
   doCheck = false;

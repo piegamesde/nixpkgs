@@ -63,7 +63,11 @@ let
       description = "Unicode and globalization support library";
       homepage = "https://icu.unicode.org/";
       maintainers = with maintainers; [ raskin ];
-      pkgConfigModules = [ "icu-i18n" "icu-io" "icu-uc" ];
+      pkgConfigModules = [
+        "icu-i18n"
+        "icu-io"
+        "icu-uc"
+      ];
       platforms = platforms.all;
     };
   };
@@ -71,7 +75,10 @@ let
   realAttrs = baseAttrs // {
     name = pname + "-" + version;
 
-    outputs = [ "out" "dev" ];
+    outputs = [
+      "out"
+      "dev"
+    ];
     outputBin = "dev";
 
     # FIXME: This fixes dylib references in the dylibs themselves, but

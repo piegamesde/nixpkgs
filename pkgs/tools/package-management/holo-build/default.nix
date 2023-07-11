@@ -29,7 +29,10 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [ installShellFiles perl ];
+  nativeBuildInputs = [
+    installShellFiles
+    perl
+  ];
 
   subPackages = [ "src/holo-build" ];
 

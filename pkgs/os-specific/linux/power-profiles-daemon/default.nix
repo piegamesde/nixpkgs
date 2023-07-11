@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
   pname = "power-profiles-daemon";
   version = "0.12";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -54,10 +57,14 @@ stdenv.mkDerivation rec {
     wrapGAppsNoGuiHook
     python3.pkgs.wrapPython
     # checkInput but cheked for during the configuring
-    (python3.pythonForBuild.withPackages
-      (ps: with ps; [ pygobject3 dbus-python python-dbusmock ]))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    [ mesonEmulatorHook ];
+    (python3.pythonForBuild.withPackages (ps:
+      with ps; [
+        pygobject3
+        dbus-python
+        python-dbusmock
+      ]))
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
+    stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     libgudev
@@ -75,7 +82,10 @@ stdenv.mkDerivation rec {
   # for cli tool
   pythonPath = [ python3.pkgs.pygobject3 ];
 
-  nativeCheckInputs = [ umockdev dbus ];
+  nativeCheckInputs = [
+    umockdev
+    dbus
+  ];
 
   mesonFlags = [
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
@@ -120,6 +130,9 @@ stdenv.mkDerivation rec {
       "Makes user-selected power profiles handling available over D-Bus";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jtojnar mvnetbiz ];
+    maintainers = with maintainers; [
+      jtojnar
+      mvnetbiz
+    ];
   };
 }

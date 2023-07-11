@@ -20,9 +20,16 @@ buildPythonPackage rec {
     sha256 = "sha256-cZEpAw8uv/XGiGzdBZ9MnabNaTP0did2GT+BkKMJM/E=";
   };
 
-  propagatedBuildInputs = [ requests coverage ];
+  propagatedBuildInputs = [
+    requests
+    coverage
+  ];
 
-  nativeCheckInputs = [ ddt mock pytestCheckHook ];
+  nativeCheckInputs = [
+    ddt
+    mock
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests/test.py" ];
 

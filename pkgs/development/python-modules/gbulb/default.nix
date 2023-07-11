@@ -20,13 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-AdZSvxix0cpoFQSrslGl+hB/s6Nh0EsWMQmXZAJVJOg=";
   };
 
-  propagatedBuildInputs = [ pygobject3 gtk3 ];
-
-  nativeCheckInputs = [ pytestCheckHook gobject-introspection ];
-
-  disabledTests = [
-    "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
+  propagatedBuildInputs = [
+    pygobject3
+    gtk3
   ];
+
+  nativeCheckInputs = [
+    pytestCheckHook
+    gobject-introspection
+  ];
+
+  disabledTests =
+    [ "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
+    ];
 
   pythonImportsCheck = [ "gbulb" ];
 

@@ -30,7 +30,10 @@ buildPythonPackage rec {
       --replace "cmdclass={'install': install_with_kernelspec}," ""
   '';
 
-  propagatedBuildInputs = [ pexpect notebook ];
+  propagatedBuildInputs = [
+    pexpect
+    notebook
+  ];
 
   # no tests in repo
   doCheck = false;

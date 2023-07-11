@@ -24,11 +24,24 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake git pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    git
+    pkg-config
+  ];
 
-  buildInputs = [ gperf libmicrohttpd openssl readline zlib ];
+  buildInputs = [
+    gperf
+    libmicrohttpd
+    openssl
+    readline
+    zlib
+  ];
 
   meta = with lib; {
     description =

@@ -23,7 +23,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OVOoAfoqev33c7pIzBGK9HD+zgji/+BWKD33RYJaSDc=";
   };
 
-  nativeBuildInputs = [ bison cmake flex perl makeWrapper ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    flex
+    perl
+    makeWrapper
+  ];
 
   buildInputs = [ cadical ];
 

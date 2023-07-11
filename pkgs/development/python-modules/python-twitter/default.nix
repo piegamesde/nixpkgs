@@ -36,9 +36,18 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ filetype future requests requests-oauthlib ];
+  propagatedBuildInputs = [
+    filetype
+    future
+    requests
+    requests-oauthlib
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook responses hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    responses
+    hypothesis
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

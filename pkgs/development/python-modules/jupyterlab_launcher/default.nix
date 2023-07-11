@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "f880eada0b8b1f524d5951dc6fcae0d13b169897fc8a247d75fb5beadd69c5f0";
   };
 
-  propagatedBuildInputs = [ jsonschema notebook ];
+  propagatedBuildInputs = [
+    jsonschema
+    notebook
+  ];
 
   # depends on requests and a bunch of other libraries
   doCheck = false;

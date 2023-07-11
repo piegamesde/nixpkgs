@@ -69,12 +69,29 @@ in stdenv.mkDerivation {
 
   hardeningDisable = [ "format" ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs =
-    [ makeWrapper meson ninja pkg-config gradle strip-nondeterminism ];
+  nativeBuildInputs = [
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    gradle
+    strip-nondeterminism
+  ];
 
-  buildInputs = [ cryptopp fontconfig podofo openssl pcsclite curl libxml2 ];
+  buildInputs = [
+    cryptopp
+    fontconfig
+    podofo
+    openssl
+    pcsclite
+    curl
+    libxml2
+  ];
 
   postPatch = ''
     # substitute the cieid command with this $out/bin/cieid

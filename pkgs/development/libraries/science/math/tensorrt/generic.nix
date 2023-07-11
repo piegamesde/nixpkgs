@@ -39,9 +39,15 @@ backendStdenv.mkDerivation rec {
     '';
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    autoAddOpenGLRunpathHook
+  ];
 
   # Used by autoPatchelfHook
   buildInputs = [

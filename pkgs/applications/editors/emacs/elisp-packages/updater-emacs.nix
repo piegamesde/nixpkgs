@@ -27,7 +27,10 @@ let
         };
       };
 
-    in [ promise semaphore ]);
+    in [
+      promise
+      semaphore
+    ]);
 
 in pkgs.mkShell {
   packages = [

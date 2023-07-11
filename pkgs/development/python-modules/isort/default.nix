@@ -22,9 +22,17 @@ buildPythonPackage rec {
     hash = "sha256-8ija4xWWZuYkElXLdziV7ulN8dubIsChcZQ5dx9hfO0=";
   };
 
-  nativeBuildInputs = [ poetry-core setuptools ];
+  nativeBuildInputs = [
+    poetry-core
+    setuptools
+  ];
 
-  nativeCheckInputs = [ colorama hypothesis pylama pytestCheckHook ];
+  nativeCheckInputs = [
+    colorama
+    hypothesis
+    pylama
+    pytestCheckHook
+  ];
 
   postCheck = ''
     # Confirm that the produced executable script is wrapped correctly and runs

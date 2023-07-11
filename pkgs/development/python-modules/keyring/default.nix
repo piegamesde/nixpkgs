@@ -26,11 +26,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ jaraco_classes ]
-    ++ lib.optionals stdenv.isLinux [ jeepney secretstorage ]
-    ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
+  propagatedBuildInputs = [ jaraco_classes ] ++ lib.optionals stdenv.isLinux [
+    jeepney
+    secretstorage
+  ] ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
 
-  pythonImportsCheck = [ "keyring" "keyring.backend" ];
+  pythonImportsCheck = [
+    "keyring"
+    "keyring.backend"
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -42,7 +46,10 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/jaraco/keyring/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 dotlambda ];
+    maintainers = with maintainers; [
+      lovek323
+      dotlambda
+    ];
     platforms = platforms.unix;
   };
 }

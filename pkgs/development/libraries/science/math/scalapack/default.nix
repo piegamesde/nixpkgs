@@ -26,14 +26,12 @@ stdenv.mkDerivation rec {
   passthru = { inherit (blas) isILP64; };
 
   # upstream patch, remove with next release
-  patches = [
-    (fetchpatch {
-      name = "gcc-10";
-      url =
-        "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch";
-      sha256 = "0civn149ikghakic30bynqg1bal097hr7i12cm4kq3ssrhq073bp";
-    })
-  ];
+  patches = [ (fetchpatch {
+    name = "gcc-10";
+    url =
+      "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch";
+    sha256 = "0civn149ikghakic30bynqg1bal097hr7i12cm4kq3ssrhq073bp";
+  }) ];
 
   # Required to activate ILP64.
   # See https://github.com/Reference-ScaLAPACK/scalapack/pull/19
@@ -47,7 +45,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   nativeCheckInputs = [ openssh ];
-  buildInputs = [ blas lapack ];
+  buildInputs = [
+    blas
+    lapack
+  ];
   propagatedBuildInputs = [ mpi ];
   hardeningDisable =
     lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
@@ -92,7 +93,11 @@ stdenv.mkDerivation rec {
       "Library of high-performance linear algebra routines for parallel distributed memory machines";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ costrouc markuskowa gdinh ];
+    maintainers = with maintainers; [
+      costrouc
+      markuskowa
+      gdinh
+    ];
     # xslu and xsllt tests fail on x86 darwin
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };

@@ -36,7 +36,11 @@ stdenv.mkDerivation rec {
     ./undef-fpret-on-aarch64-darwin.patch
   ];
 
-  nativeBuildInputs = [ cmake doxygen pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+  ];
 
   buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ (if stdenv.isDarwin then [

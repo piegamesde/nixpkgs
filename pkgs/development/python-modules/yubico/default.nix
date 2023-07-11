@@ -21,9 +21,8 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "yubico" ];
 
-  disabledTests = [
-    "usb" # requires a physical yubikey to test
-  ];
+  disabledTests = [ "usb" # requires a physical yubikey to test
+    ];
 
   meta = with lib; {
     description = "Python code to talk to YubiKeys";

@@ -21,7 +21,11 @@ buildGoModule rec {
 
   subPackages = [ "cmd/grpcui" ];
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = with lib; {
     description = "An interactive web UI for gRPC, along the lines of postman";

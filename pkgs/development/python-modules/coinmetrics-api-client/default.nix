@@ -32,11 +32,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ orjson python-dateutil requests typer websocket-client ];
+  propagatedBuildInputs = [
+    orjson
+    python-dateutil
+    requests
+    typer
+    websocket-client
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-mock ]
-    ++ passthru.optional-dependencies.pandas;
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-mock
+  ] ++ passthru.optional-dependencies.pandas;
 
   pythonImportsCheck = [ "coinmetrics.api_client" ];
 

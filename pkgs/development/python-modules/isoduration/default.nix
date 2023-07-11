@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ arrow ];
 
-  nativeCheckInputs = [ hypothesis isodate pytestCheckHook ];
+  nativeCheckInputs = [
+    hypothesis
+    isodate
+    pytestCheckHook
+  ];
 
   disabledTestPaths = [
     # We don't care about benchmarks

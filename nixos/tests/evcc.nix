@@ -51,7 +51,7 @@ import ./make-test-python.nix ({
                 }
               ];
 
-              chargers = [{
+              chargers = [ {
                 name = "dummy-charger";
                 type = "custom";
                 status = {
@@ -70,12 +70,12 @@ import ./make-test-python.nix ({
                   source = "script";
                   cmd = "/bin/sh -c 'echo set charger max current 7200'";
                 };
-              }];
+              } ];
 
-              loadpoints = [{
+              loadpoints = [ {
                 title = "Dummy";
                 charger = "dummy-charger";
-              }];
+              } ];
             };
           };
         };

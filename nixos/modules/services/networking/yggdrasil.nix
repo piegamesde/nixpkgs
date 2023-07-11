@@ -14,13 +14,15 @@ let
 
   format = pkgs.formats.json { };
 in {
-  imports = [
-    (mkRenamedOptionModule [ "services" "yggdrasil" "config" ] [
-      "services"
-      "yggdrasil"
-      "settings"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "yggdrasil"
+    "config"
+  ] [
+    "services"
+    "yggdrasil"
+    "settings"
+  ]) ];
 
   options = with types; {
     services.yggdrasil = {
@@ -133,10 +135,10 @@ in {
     binYggdrasil = "${cfg.package}/bin/yggdrasil";
     binHjson = "${pkgs.hjson-go}/bin/hjson-cli";
   in {
-    assertions = [{
+    assertions = [ {
       assertion = config.networking.enableIPv6;
       message = "networking.enableIPv6 must be true for yggdrasil to work";
-    }];
+    } ];
 
     system.activationScripts.yggdrasil = mkIf cfg.persistentKeys ''
       if [ ! -e ${keysPath} ]
@@ -210,7 +212,10 @@ in {
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged @keyring" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @keyring"
+        ];
       } // (if (cfg.group != null) then { Group = cfg.group; } else { });
     };
 
@@ -222,6 +227,9 @@ in {
   });
   meta = {
     doc = ./yggdrasil.md;
-    maintainers = with lib.maintainers; [ gazally ehmry ];
+    maintainers = with lib.maintainers; [
+      gazally
+      ehmry
+    ];
   };
 }

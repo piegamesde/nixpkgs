@@ -31,11 +31,20 @@ in mkDerivation rec {
     sed -i -e '/add_subdirectory(mt32emu)/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libmt32emu portaudio qtbase qtmultimedia ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib libpulseaudio ]
-    ++ lib.optional withJack libjack2;
+  buildInputs = [
+    libmt32emu
+    portaudio
+    qtbase
+    qtmultimedia
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    alsa-lib
+    libpulseaudio
+  ] ++ lib.optional withJack libjack2;
 
   dontFixCmake = true;
 

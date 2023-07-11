@@ -21,7 +21,10 @@ let
       sha256 = "1pccvc0iqapms7kidrh09g5fdx44x622r5l9k7bkmssp3v4c68vy";
     };
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ python3 mypy ];
+    buildInputs = [
+      python3
+      mypy
+    ];
     checkPhase = ''
       mypy bin/*
     '';
@@ -29,7 +32,12 @@ let
       mkdir "$out"
       cp -r bin share "$out"
       wrapProgram $out/bin/nix-pin \
-        --prefix PATH : "${lib.makeBinPath [ nix git ]}"
+        --prefix PATH : "${
+          lib.makeBinPath [
+            nix
+            git
+          ]
+        }"
     '';
     passthru = let defaults = import "${self}/share/nix/defaults.nix";
     in {

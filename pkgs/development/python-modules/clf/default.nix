@@ -20,7 +20,11 @@ buildPythonPackage rec {
     sed -i 's/==/>=/' requirements.txt
   '';
 
-  propagatedBuildInputs = [ docopt requests pygments ];
+  propagatedBuildInputs = [
+    docopt
+    requests
+    pygments
+  ];
 
   # Error when running tests:
   # No local packages or download links found for requests

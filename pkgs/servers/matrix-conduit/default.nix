@@ -38,7 +38,10 @@ rustPlatform.buildRustPackage rec {
     cargo update --offline -p rusqlite
   '';
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook pkg-config ];
+  nativeBuildInputs = [
+    rustPlatform.bindgenHook
+    pkg-config
+  ];
 
   buildInputs = [ sqlite ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
@@ -55,7 +58,11 @@ rustPlatform.buildRustPackage rec {
     description = "A Matrix homeserver written in Rust";
     homepage = "https://conduit.rs/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pstn piegames pimeys ];
+    maintainers = with maintainers; [
+      pstn
+      piegames
+      pimeys
+    ];
     mainProgram = "conduit";
   };
 }

@@ -107,7 +107,10 @@ let
       generatedRockspecFilename =
         "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
 
-      nativeBuildInputs = [ wrapLua lua.pkgs.luarocks ];
+      nativeBuildInputs = [
+        wrapLua
+        lua.pkgs.luarocks
+      ];
 
       inherit doCheck extraVariables rockspecFilename knownRockspec externalDeps
         nativeCheckInputs;

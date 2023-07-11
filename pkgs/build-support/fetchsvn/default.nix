@@ -52,8 +52,10 @@ else
   stdenvNoCC.mkDerivation {
     name = name_;
     builder = ./builder.sh;
-    nativeBuildInputs = [ subversion glibcLocales ]
-      ++ lib.optional sshSupport openssh;
+    nativeBuildInputs = [
+      subversion
+      glibcLocales
+    ] ++ lib.optional sshSupport openssh;
 
     SVN_SSH = if sshSupport then "${buildPackages.openssh}/bin/ssh" else null;
 

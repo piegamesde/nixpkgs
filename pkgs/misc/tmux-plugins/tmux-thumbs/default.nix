@@ -18,12 +18,10 @@ mkTmuxPlugin rec {
     sha256 = "sha256-PH1nscmVhxJFupS7dlbOb+qEwG/Pa/2P6XFIbR/cfaQ=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./fix.patch;
-      tmuxThumbsDir = "${thumbs}/bin";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./fix.patch;
+    tmuxThumbsDir = "${thumbs}/bin";
+  }) ];
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";

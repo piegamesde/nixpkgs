@@ -27,9 +27,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ attrs cached-property click packaging ];
+  propagatedBuildInputs = [
+    attrs
+    cached-property
+    click
+    packaging
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pytest-cov pytest-timeout ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-cov
+    pytest-timeout
+  ];
 
   pythonImportsCheck = [ "pythonfinder" ];
 
@@ -37,7 +46,10 @@ buildPythonPackage rec {
 
   # these tests invoke git in a subprocess and
   # for some reason git can't be found even if included in nativeCheckInputs
-  disabledTests = [ "test_shims_are_kept" "test_shims_are_removed" ];
+  disabledTests = [
+    "test_shims_are_kept"
+    "test_shims_are_removed"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/sarugaku/pythonfinder";

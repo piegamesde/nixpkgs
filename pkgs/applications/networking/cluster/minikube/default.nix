@@ -26,14 +26,16 @@ buildGoModule rec {
     sha256 = "sha256-dw+aFckp5Q9i6bNKPetw2WlslrpKAgEzXI+aGAwDurU=";
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config which makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+    which
+    makeWrapper
+  ];
 
-  buildInputs = if stdenv.isDarwin then
-    [ vmnet ]
-  else if stdenv.isLinux then
-    [ libvirt ]
-  else
-    null;
+  buildInputs =
+    if stdenv.isDarwin then [ vmnet ] else if stdenv.isLinux then [ libvirt ] else
+      null;
 
   buildPhase = ''
     make COMMIT=${src.rev}

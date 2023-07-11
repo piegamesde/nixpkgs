@@ -35,9 +35,21 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config autoreconfHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ dbus gdk-pixbuf glib libX11 gtk2 dbus-glib librsvg ];
+  buildInputs = [
+    dbus
+    gdk-pixbuf
+    glib
+    libX11
+    gtk2
+    dbus-glib
+    librsvg
+  ];
 
   meta = with lib; {
     description = "Lightweight volume notification for Linux";

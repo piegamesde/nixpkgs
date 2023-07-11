@@ -60,7 +60,10 @@ mkDerivationWith buildPythonPackage rec {
       --replace "vispy>=0.11.0,<0.12" "vispy"
   '';
 
-  nativeBuildInputs = [ setuptools-scm wrapQtAppsHook ];
+  nativeBuildInputs = [
+    setuptools-scm
+    wrapQtAppsHook
+  ];
 
   propagatedBuildInputs = [
     app-model

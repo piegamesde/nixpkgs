@@ -29,8 +29,11 @@ buildGoModule rec {
 
   subPackages = "cmd/dirstalk";
 
-  ldflags =
-    [ "-w" "-s" "-X github.com/stefanoj3/dirstalk/pkg/cmd.Version=${version}" ];
+  ldflags = [
+    "-w"
+    "-s"
+    "-X github.com/stefanoj3/dirstalk/pkg/cmd.Version=${version}"
+  ];
 
   # Tests want to write to the root directory
   doCheck = false;

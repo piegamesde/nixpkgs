@@ -17,7 +17,10 @@ buildPythonApplication rec {
     sha256 = "LpDfJmH2FbL37Fk86CAC/bxFqM035DBN6c6FPfGpaIw=";
   };
 
-  propagatedBuildInputs = [ requests scapy ];
+  propagatedBuildInputs = [
+    requests
+    scapy
+  ];
 
   # Project has no tests
   doCheck = false;

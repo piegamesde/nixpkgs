@@ -36,7 +36,12 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [ ddt oslo-serialization requests-mock stestr ];
+  nativeCheckInputs = [
+    ddt
+    oslo-serialization
+    requests-mock
+    stestr
+  ];
 
   checkPhase = ''
     stestr run

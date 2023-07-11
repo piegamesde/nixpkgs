@@ -16,7 +16,10 @@ buildPythonPackage rec {
     sha256 = "0vhmpazc2n7qyyh7wqsz635w0f8afk2i5d592ikb84bgnfn83483";
   };
 
-  propagatedBuildInputs = [ aiohttp async-timeout ];
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+  ];
 
   # tests are not present
   doCheck = false;

@@ -25,8 +25,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aKrJzf9rwCyXAJsRIXdBzmJBASuXD5I5kZrp+atx4FA=";
   };
 
-  nativeBuildInputs = [ pkg-config vala wafHook python3 ];
-  buildInputs = [ gtk3 libwnck libxfce4util xfce4-panel ];
+  nativeBuildInputs = [
+    pkg-config
+    vala
+    wafHook
+    python3
+  ];
+  buildInputs = [
+    gtk3
+    libwnck
+    libxfce4util
+    xfce4-panel
+  ];
 
   postPatch = ''
     substituteInPlace src/namebar.vala --replace 'var dirs = Environment.get_system_data_dirs()' "string[] dirs = { \"$out/share\" }"

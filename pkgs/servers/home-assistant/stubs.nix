@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-5aWt+x1KpLzC9ApV9n/lSJb6HweKMIJGZzAwvbFel1k=";
   };
 
-  nativeBuildInputs = [ poetry-core home-assistant ];
+  nativeBuildInputs = [
+    poetry-core
+    home-assistant
+  ];
 
   postPatch = ''
     # Relax constraint to year and month

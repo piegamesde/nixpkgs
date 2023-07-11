@@ -35,7 +35,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ cython_3 gnutar numpy setuptools setuptools-scm ];
+  nativeBuildInputs = [
+    cython_3
+    gnutar
+    numpy
+    setuptools
+    setuptools-scm
+  ];
 
   pythonImportsCheck = [ "soxr" ];
 

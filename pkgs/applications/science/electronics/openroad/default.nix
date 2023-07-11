@@ -48,7 +48,15 @@ mkDerivation rec {
     hash = "sha256-BWUvFCuWKWQpifErpak03J+A7ni0jZWIrCMhMdKIbD0=";
   };
 
-  nativeBuildInputs = [ bison cmake doxygen flex git pkg-config swig4 ];
+  nativeBuildInputs = [
+    bison
+    cmake
+    doxygen
+    flex
+    git
+    pkg-config
+    swig4
+  ];
 
   buildInputs = [
     boost17x

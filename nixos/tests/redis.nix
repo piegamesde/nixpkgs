@@ -23,7 +23,10 @@ import ./make-test-python.nix ({
               description = "A member of the redis${suffix} group";
               isNormalUser = true;
               extraGroups = [ "redis${suffix}" ];
-            }) [ "" "-test" ]);
+            }) [
+              ""
+              "-test"
+            ]);
         };
     };
 

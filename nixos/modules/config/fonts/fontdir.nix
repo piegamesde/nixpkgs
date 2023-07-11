@@ -63,12 +63,13 @@ in {
 
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "fonts" "enableFontDir" ] [
-      "fonts"
-      "fontDir"
-      "enable"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "fonts"
+    "enableFontDir"
+  ] [
+    "fonts"
+    "fontDir"
+    "enable"
+  ]) ];
 
 }

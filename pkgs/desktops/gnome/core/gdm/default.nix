@@ -46,7 +46,10 @@ in stdenv.mkDerivation rec {
   pname = "gdm";
   version = "44.0";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gdm/${

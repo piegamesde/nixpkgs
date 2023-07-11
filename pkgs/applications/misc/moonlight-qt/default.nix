@@ -31,7 +31,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook pkg-config qmake ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    pkg-config
+    qmake
+  ];
 
   buildInputs = [
     qtquickcontrols2

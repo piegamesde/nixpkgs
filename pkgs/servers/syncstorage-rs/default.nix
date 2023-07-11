@@ -30,9 +30,17 @@ in rustPlatform.buildRustPackage rec {
     hash = "sha256-LCMbhFoxi/fYaivW5gNyDhfytW/avhrrd29fXobSxJU=";
   };
 
-  nativeBuildInputs = [ cmake makeBinaryWrapper pkg-config python3 ];
+  nativeBuildInputs = [
+    cmake
+    makeBinaryWrapper
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ libmysqlclient openssl ];
+  buildInputs = [
+    libmysqlclient
+    openssl
+  ];
 
   preFixup = ''
     wrapProgram $out/bin/syncserver \

@@ -22,7 +22,10 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ menhir ];
 
-  propagatedBuildInputs = [ menhirLib uutf ];
+  propagatedBuildInputs = [
+    menhirLib
+    uutf
+  ];
 
   meta = {
     description = "A TOML parsing and manipulation library for OCaml";

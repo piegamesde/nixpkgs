@@ -21,8 +21,8 @@ let
 in appleDerivation {
   nativeBuildInputs = [ python3 ];
 
-  depsBuildBuild = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-    [ buildPackages.stdenv.cc ];
+  depsBuildBuild = lib.optionals
+    (stdenv.hostPlatform != stdenv.buildPlatform) [ buildPackages.stdenv.cc ];
 
   postPatch = ''
     substituteInPlace makefile \

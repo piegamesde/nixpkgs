@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost zlib maeparser ];
+  buildInputs = [
+    boost
+    zlib
+    maeparser
+  ];
 
   meta = with lib; {
     description = "Schrodinger-developed 2D Coordinate Generation";

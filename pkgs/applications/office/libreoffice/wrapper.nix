@@ -103,7 +103,10 @@ let
 in runCommand "${unwrapped.name}-wrapped" {
   inherit (unwrapped) meta;
   paths = [ unwrapped ];
-  nativeBuildInputs = [ makeWrapper xorg.lndir ];
+  nativeBuildInputs = [
+    makeWrapper
+    xorg.lndir
+  ];
   passthru = {
     inherit unwrapped;
     # For backwards compatibility:

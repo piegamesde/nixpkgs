@@ -46,7 +46,11 @@ in {
     };
     exclude = mkOption {
       default = [ ];
-      example = [ "*.unrecoverable" "/tmp/" "/lost+found/" ];
+      example = [
+        "*.unrecoverable"
+        "/tmp/"
+        "/lost+found/"
+      ];
       description = lib.mdDoc "SnapRAID exclude directives.";
       type = listOf str;
     };

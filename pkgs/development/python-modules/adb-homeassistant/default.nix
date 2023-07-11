@@ -21,9 +21,16 @@ buildPythonPackage {
 
   };
 
-  propagatedBuildInputs = [ libusb1 rsa pycryptodome ];
+  propagatedBuildInputs = [
+    libusb1
+    rsa
+    pycryptodome
+  ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
   checkPhase = ''
     py.test test
   '';

@@ -16,7 +16,10 @@
 
 assert useMusl -> stdenv.isLinux;
 let
-  cLibs = [ glibc zlib.static ] ++ lib.optionals (!useMusl) [ glibc.static ]
+  cLibs = [
+    glibc
+    zlib.static
+  ] ++ lib.optionals (!useMusl) [ glibc.static ]
     ++ lib.optionals useMusl [ musl ] ++ extraCLibs;
   # GraalVM 21.3.0+ expects musl-gcc as <system>-musl-gcc
   musl-gcc = (writeShellScriptBin "${stdenv.hostPlatform.system}-musl-gcc"

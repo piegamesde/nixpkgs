@@ -14,7 +14,12 @@ stdenv.mkDerivation rec {
 
   src = dockapps-sources;
 
-  buildInputs = [ libX11 libXpm libXext libdockapp ];
+  buildInputs = [
+    libX11
+    libXpm
+    libXext
+    libdockapp
+  ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname}/wmsm)

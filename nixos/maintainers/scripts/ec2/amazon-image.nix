@@ -57,7 +57,11 @@ in {
     };
 
     format = mkOption {
-      type = types.enum [ "raw" "qcow2" "vpc" ];
+      type = types.enum [
+        "raw"
+        "qcow2"
+        "vpc"
+      ];
       default = "vpc";
       description = lib.mdDoc "The image format to output";
     };

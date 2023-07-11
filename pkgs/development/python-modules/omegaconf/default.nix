@@ -27,13 +27,10 @@ buildPythonPackage rec {
     hash = "sha256-Qxa4uIiX5TAyQ5rFkizdev60S4iVAJ08ES6FpNqf8zI=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./antlr4.patch;
-      antlr_jar =
-        "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./antlr4.patch;
+    antlr_jar = "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
+  }) ];
 
   postPatch = ''
     # We substitute the path to the jar with the one from our antlr4
@@ -45,13 +42,23 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jre_minimal ];
 
-  propagatedBuildInputs = [ antlr4-python3-runtime pyyaml ];
+  propagatedBuildInputs = [
+    antlr4-python3-runtime
+    pyyaml
+  ];
 
-  nativeCheckInputs = [ pydevd pytest-mock pytestCheckHook ];
+  nativeCheckInputs = [
+    pydevd
+    pytest-mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "omegaconf" ];
 
-  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
+  pytestFlagsArray = [
+    "-W"
+    "ignore::DeprecationWarning"
+  ];
 
   meta = with lib; {
     description = "Framework for configuring complex applications";

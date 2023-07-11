@@ -20,9 +20,19 @@ buildGoModule rec {
   };
   vendorHash = null;
 
-  outputs = [ "out" "man" ];
-  nativeBuildInputs = [ go-md2man installShellFiles pkg-config ];
-  buildInputs = [ bcc libseccomp ];
+  outputs = [
+    "out"
+    "man"
+  ];
+  nativeBuildInputs = [
+    go-md2man
+    installShellFiles
+    pkg-config
+  ];
+  buildInputs = [
+    bcc
+    libseccomp
+  ];
 
   checkPhase = ''
     go test -v ./...

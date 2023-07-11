@@ -19,8 +19,12 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0id2dddx6rl71472l47vafx968wnklmq6b980br68w82kcvqczzs";
   };
 
-  propagatedBuildInputs =
-    [ breeze-icons elementary-icon-theme gnome-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    breeze-icons
+    elementary-icon-theme
+    gnome-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 
@@ -42,7 +46,10 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Icon theme inspired by macOS and Google's Material Design";
     homepage = "https://github.com/keeferrourke/la-capitaine-icon-theme";
-    license = with licenses; [ gpl3Plus mit ];
+    license = with licenses; [
+      gpl3Plus
+      mit
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };

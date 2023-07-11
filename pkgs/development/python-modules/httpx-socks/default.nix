@@ -33,7 +33,11 @@ buildPythonPackage rec {
     hash = "sha256-HwLJ2pScgiNmM/l14aKp47MMuGW1qSaIq7ujpCSRtqA=";
   };
 
-  propagatedBuildInputs = [ httpx httpcore python-socks ];
+  propagatedBuildInputs = [
+    httpx
+    httpcore
+    python-socks
+  ];
 
   passthru.optional-dependencies = {
     asyncio = [ async-timeout ];

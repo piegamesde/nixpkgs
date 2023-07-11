@@ -28,7 +28,15 @@
   withAvahi ? true
 }:
 
-let binPath = lib.makeBinPath [ bc coreutils gawk gnused gnugrep which ];
+let
+  binPath = lib.makeBinPath [
+    bc
+    coreutils
+    gawk
+    gnused
+    gnugrep
+    which
+  ];
 
 in stdenv.mkDerivation rec {
   pname = "cups-filters";
@@ -40,7 +48,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-qQfsdp+7cu+/v5tUCyUKCOM7bjc6inw0P5hA+6TQR4s=";
   };
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
   buildInputs = [
     cups

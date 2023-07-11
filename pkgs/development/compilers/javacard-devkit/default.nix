@@ -21,7 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "1rzkw8izqq73ifvyp937wnjjc40a40drc4zsm0l1s6jyv3d7agb2";
   };
 
-  nativeBuildInputs = [ unzip oraclejdk8 makeWrapper autoPatchelfHook ];
+  nativeBuildInputs = [
+    unzip
+    oraclejdk8
+    makeWrapper
+    autoPatchelfHook
+  ];
   buildInputs = [ pcsclite ];
 
   zipPrefix = "java_card_kit-${uscoreVersion}";
@@ -74,6 +79,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.ekleog ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

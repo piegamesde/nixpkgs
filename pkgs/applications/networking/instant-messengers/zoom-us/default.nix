@@ -130,8 +130,10 @@ in stdenv.mkDerivation rec {
     zcat < zoomus.pkg/Payload | cpio -i
   '';
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [ xar cpio ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [
+    xar
+    cpio
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -177,7 +179,13 @@ in stdenv.mkDerivation rec {
       --unset QT_PLUGIN_PATH \
       --unset QT_SCREEN_SCALE_FACTORS \
       --prefix PATH : ${
-        lib.makeBinPath [ coreutils glib.dev pciutils procps util-linux ]
+        lib.makeBinPath [
+          coreutils
+          glib.dev
+          pciutils
+          procps
+          util-linux
+        ]
       } \
       --prefix LD_LIBRARY_PATH ":" ${libs}
 
@@ -196,6 +204,10 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = builtins.attrNames srcs;
-    maintainers = with maintainers; [ danbst tadfisher doronbehar ];
+    maintainers = with maintainers; [
+      danbst
+      tadfisher
+      doronbehar
+    ];
   };
 }

@@ -73,7 +73,10 @@ stdenv.mkDerivation rec {
     python.pythonForBuild
     swig4
     unzip
-  ] ++ (with python.pythonForBuild.pkgs; [ pip mypy-protobuf ]);
+  ] ++ (with python.pythonForBuild.pkgs; [
+    pip
+    mypy-protobuf
+  ]);
   buildInputs = [
     bzip2
     cbc
@@ -86,10 +89,17 @@ stdenv.mkDerivation rec {
     re2
     zlib
   ];
-  propagatedBuildInputs =
-    [ abseil-cpp protobuf python.pkgs.protobuf python.pkgs.numpy ];
-  nativeCheckInputs =
-    [ python.pkgs.matplotlib python.pkgs.pandas python.pkgs.virtualenv ];
+  propagatedBuildInputs = [
+    abseil-cpp
+    protobuf
+    python.pkgs.protobuf
+    python.pkgs.numpy
+  ];
+  nativeCheckInputs = [
+    python.pkgs.matplotlib
+    python.pkgs.pandas
+    python.pkgs.virtualenv
+  ];
 
   doCheck = true;
 
@@ -103,7 +113,11 @@ stdenv.mkDerivation rec {
     pip install --prefix="$python" python/
   '';
 
-  outputs = [ "out" "dev" "python" ];
+  outputs = [
+    "out"
+    "dev"
+    "python"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/google/or-tools";

@@ -30,7 +30,11 @@ mkDerivation rec {
     sha256 = "1cikz36w9phgczcqnwk4k3mx3kk919wy2327jksmfa4cjfjq4a8d";
   };
 
-  nativeBuildInputs = [ cmake gettext pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+  ];
 
   postPatch = ''
     substituteInPlace client/CMakeLists.txt \
@@ -61,6 +65,9 @@ mkDerivation rec {
     homepage = "https://www.id.ee/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mmahut yana ];
+    maintainers = with maintainers; [
+      mmahut
+      yana
+    ];
   };
 }

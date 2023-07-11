@@ -33,7 +33,10 @@
 
   # The rest of stripDebugList{Host,Target} will be populated in
   # postInstall to disambiguate lib/ object files.
-  stripDebugList = [ "bin" "libexec" ];
+  stripDebugList = [
+    "bin"
+    "libexec"
+  ];
   stripDebugListTarget = [ stdenv.targetPlatform.config ];
 
   preFixup = ''

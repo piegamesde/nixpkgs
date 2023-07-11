@@ -34,7 +34,13 @@ rustPlatform.buildRustPackage rec {
     description = "Yet another language server for Nix";
     homepage = "https://github.com/oxalica/nil";
     changelog = "https://github.com/oxalica/nil/releases/tag/${version}";
-    license = with licenses; [ mit asl20 ];
-    maintainers = with maintainers; [ figsoda oxalica ];
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [
+      figsoda
+      oxalica
+    ];
   };
 }

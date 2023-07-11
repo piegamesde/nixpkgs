@@ -38,11 +38,20 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ colorlog logging-journald setuptools ];
+  propagatedBuildInputs = [
+    colorlog
+    logging-journald
+    setuptools
+  ];
 
-  nativeCheckInputs =
-    [ aiocontextvars async-timeout fastapi pytestCheckHook raven setproctitle ]
-    ++ passthru.optional-dependencies.aiohttp
+  nativeCheckInputs = [
+    aiocontextvars
+    async-timeout
+    fastapi
+    pytestCheckHook
+    raven
+    setproctitle
+  ] ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.cron
     ++ passthru.optional-dependencies.uvloop;
 

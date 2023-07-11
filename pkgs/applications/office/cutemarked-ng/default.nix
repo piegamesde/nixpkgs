@@ -34,9 +34,19 @@ stdenv.mkDerivation rec {
       --replace '$$[QT_INSTALL_BINS]/lrelease' "lrelease"
   '';
 
-  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    qttools
+    pkg-config
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ md4c qtwebengine qmarkdowntextedit hunspell.dev ];
+  buildInputs = [
+    md4c
+    qtwebengine
+    qmarkdowntextedit
+    hunspell.dev
+  ];
 
   meta = with lib; {
     description = "A Qt-based, free and open source markdown editor";

@@ -50,7 +50,11 @@ in (callPackage ./common.nix { inherit stdenv; } {
   # The pie, stackprotector and fortify hardening flags are autodetected by
   # glibc and enabled by default if supported. Setting it for every gcc
   # invocation does not work.
-  hardeningDisable = [ "fortify" "pie" "stackprotector" ];
+  hardeningDisable = [
+    "fortify"
+    "pie"
+    "stackprotector"
+  ];
 
   env = (previousAttrs.env or { }) // {
     NIX_CFLAGS_COMPILE = (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
@@ -91,9 +95,8 @@ in (callPackage ./common.nix { inherit stdenv; } {
   # Conveniently, this will also inform Nix of the fact that glibc depends on
   # gcc.libgcc, since the path will be embedded in the resulting binary.
   #
-  makeFlags = (previousAttrs.makeFlags or [ ])
-    ++ lib.optionals (stdenv.cc.cc ? libgcc)
-    [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
+  makeFlags = (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc
+    ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
 
   postInstall = (if stdenv.hostPlatform == stdenv.buildPlatform then ''
     echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED

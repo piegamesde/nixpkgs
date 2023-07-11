@@ -57,7 +57,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jupyter_console" ];
 
-  nativeCheckInputs = [ flaky pexpect pytestCheckHook ];
+  nativeCheckInputs = [
+    flaky
+    pexpect
+    pytestCheckHook
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR

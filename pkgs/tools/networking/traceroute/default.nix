@@ -13,7 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UHwmjyl3tOIYznPn6+1Fug2XCoykmV3Zy7H/6OmbWx8=";
   };
 
-  makeFlags = [ "prefix=$(out)" "LDFLAGS=-lm" "env=yes" ];
+  makeFlags = [
+    "prefix=$(out)"
+    "LDFLAGS=-lm"
+    "env=yes"
+  ];
 
   preConfigure = ''
     sed -i 's@LIBS := \(.*\) -lm \(.*\)@LIBS := \1 \2@' Make.rules

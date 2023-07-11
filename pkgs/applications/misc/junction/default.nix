@@ -39,7 +39,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gjs gtk4 libadwaita libportal-gtk4 ];
+  buildInputs = [
+    gjs
+    gtk4
+    libadwaita
+    libportal-gtk4
+  ];
 
   postPatch = ''
     # gjs uses the invocation name to add gresource files

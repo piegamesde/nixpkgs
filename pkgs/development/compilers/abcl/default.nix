@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
 
   # note for the future:
   # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
-  nativeBuildInputs = [ makeWrapper ant jdk ];
+  nativeBuildInputs = [
+    makeWrapper
+    ant
+    jdk
+  ];
 
   buildPhase = ''
     runHook preBuild

@@ -31,7 +31,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [ libX11 libXext alsa-lib stdenv.cc.cc.lib ];
+  buildInputs = [
+    libX11
+    libXext
+    alsa-lib
+    stdenv.cc.cc.lib
+  ];
 
   installPhase = ''
     runHook preInstall

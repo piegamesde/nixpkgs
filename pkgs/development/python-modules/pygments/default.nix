@@ -23,7 +23,11 @@ let
 
     # circular dependencies if enabled by default
     doCheck = false;
-    nativeCheckInputs = [ lxml pytestCheckHook wcag-contrast-ratio ];
+    nativeCheckInputs = [
+      lxml
+      pytestCheckHook
+      wcag-contrast-ratio
+    ];
 
     disabledTestPaths = [
       # 5 lines diff, including one nix store path in 20000+ lines

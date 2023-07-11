@@ -29,9 +29,23 @@ in stdenv.mkDerivation rec {
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
-  nativeBuildInputs = [ pkg-config intltool gtk3 ];
-  buildInputs = [ gtk3 librsvg pango atk gtk2 gdk-pixbuf ];
-  propagatedBuildInputs = [ gnome.adwaita-icon-theme hicolor-icon-theme ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    gtk3
+  ];
+  buildInputs = [
+    gtk3
+    librsvg
+    pango
+    atk
+    gtk2
+    gdk-pixbuf
+  ];
+  propagatedBuildInputs = [
+    gnome.adwaita-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

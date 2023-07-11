@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  checkInputs = [ numpy pandas pytestCheckHook ];
+  checkInputs = [
+    numpy
+    pandas
+    pytestCheckHook
+  ];
   pythonImportsCheck = [ "ancpbids" ];
 
   pytestFlagsArray = [ "tests/auto" ];

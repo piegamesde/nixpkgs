@@ -127,12 +127,14 @@ let
   # FIXME: migrate to redist cudaPackages
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-merged";
-    paths = [ cudatoolkit.lib cudatoolkit.out ]
-      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
-        # for some reason some of the required libs are in the targets/x86_64-linux
-        # directory; not sure why but this works around it
-        "${cudatoolkit}/targets/${stdenv.system}"
-      ];
+    paths = [
+      cudatoolkit.lib
+      cudatoolkit.out
+    ] ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+      # for some reason some of the required libs are in the targets/x86_64-linux
+      # directory; not sure why but this works around it
+      "${cudatoolkit}/targets/${stdenv.system}"
+    ];
   };
 
   # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
@@ -274,8 +276,13 @@ let
     # On update, it can be useful to steal the changes from gentoo
     # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
 
-    nativeBuildInputs = [ which pythonEnv cython perl protobuf-core ]
-      ++ lib.optional cudaSupport addOpenGLRunpath;
+    nativeBuildInputs = [
+      which
+      pythonEnv
+      cython
+      perl
+      protobuf-core
+    ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
     buildInputs = [
       jemalloc
@@ -299,10 +306,13 @@ let
       (pybind11.overridePythonAttrs (_: { inherit stdenv; }))
       snappy
       sqlite
-    ] ++ lib.optionals cudaSupport [ cudatoolkit cudnn ]
-      ++ lib.optionals mklSupport [ mkl ]
-      ++ lib.optionals stdenv.isDarwin [ Foundation Security ]
-      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
+    ] ++ lib.optionals cudaSupport [
+      cudatoolkit
+      cudnn
+    ] ++ lib.optionals mklSupport [ mkl ] ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      Security
+    ] ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
     # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
@@ -350,9 +360,8 @@ let
       "typing_extensions_archive"
       "wrapt"
       "zlib"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "nsync" # fails to build on darwin
-    ]);
+    ] ++ lib.optionals (!stdenv.isDarwin) [ "nsync" # fails to build on darwin
+      ]);
 
     INCLUDEDIR = "${includes_joined}/include";
 
@@ -430,21 +439,20 @@ let
 
     hardeningDisable = [ "format" ];
 
-    bazelBuildFlags = [
-      "--config=opt" # optimize using the flags set in the configure phase
-    ] ++ lib.optionals stdenv.cc.isClang [
-      "--cxxopt=-x"
-      "--cxxopt=c++"
-      "--host_cxxopt=-x"
-      "--host_cxxopt=c++"
+    bazelBuildFlags =
+      [ "--config=opt" # optimize using the flags set in the configure phase
+      ] ++ lib.optionals stdenv.cc.isClang [
+        "--cxxopt=-x"
+        "--cxxopt=c++"
+        "--host_cxxopt=-x"
+        "--host_cxxopt=c++"
 
-      # workaround for https://github.com/bazelbuild/bazel/issues/15359
-      "--spawn_strategy=sandboxed"
-    ] ++ lib.optionals (mklSupport) [ "--config=mkl" ];
+        # workaround for https://github.com/bazelbuild/bazel/issues/15359
+        "--spawn_strategy=sandboxed"
+      ] ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
-    bazelTargets = [
-      "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
-    ];
+    bazelTargets =
+      [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ];
 
     removeRulesCC = false;
     # Without this Bazel complaints about sandbox violations.
@@ -464,7 +472,10 @@ let
     };
 
     buildAttrs = {
-      outputs = [ "out" "python" ];
+      outputs = [
+        "out"
+        "python"
+      ];
 
       preBuild = ''
         patchShebangs .
@@ -583,7 +594,12 @@ in buildPythonPackage {
   # TODO try to run them anyway
   # TODO better test (files in tensorflow/tools/ci_build/builds/*test)
   # TEST_PACKAGES in tensorflow/tools/pip_package/setup.py
-  nativeCheckInputs = [ dill keras portpicker tblib ];
+  nativeCheckInputs = [
+    dill
+    keras
+    portpicker
+    tblib
+  ];
   checkPhase = ''
     ${python.interpreter} <<EOF
     # A simple "Hello world"

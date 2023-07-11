@@ -47,7 +47,10 @@ in mkYarnPackage rec {
 
   meta = with lib; {
     description = "A Matrix <--> Slack bridge";
-    maintainers = with maintainers; [ beardhatcode chvp ];
+    maintainers = with maintainers; [
+      beardhatcode
+      chvp
+    ];
     license = licenses.asl20;
   };
 }

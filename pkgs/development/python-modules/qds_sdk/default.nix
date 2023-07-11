@@ -23,9 +23,18 @@ buildPythonPackage rec {
     sha256 = "05c7g63rcvvi4fgkcfsxh2a6hwlffbs18dhki222s5rpc49wi8zi";
   };
 
-  propagatedBuildInputs = [ boto inflection requests six urllib3 ];
+  propagatedBuildInputs = [
+    boto
+    inflection
+    requests
+    six
+    urllib3
+  ];
 
-  nativeCheckInputs = [ pytest mock ];
+  nativeCheckInputs = [
+    pytest
+    mock
+  ];
   checkPhase = ''
     py.test --disable-pytest-warnings tests
   '';

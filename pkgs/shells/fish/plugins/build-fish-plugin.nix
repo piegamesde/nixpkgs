@@ -31,7 +31,10 @@ attrs@{
 
 let
   # Do not pass attributes that are only relevant to buildFishPlugin to mkDerivation.
-  drvAttrs = builtins.removeAttrs attrs [ "checkPlugins" "checkFunctionDirs" ];
+  drvAttrs = builtins.removeAttrs attrs [
+    "checkPlugins"
+    "checkFunctionDirs"
+  ];
 
 in stdenv.mkDerivation (drvAttrs // {
   inherit name;
@@ -64,12 +67,10 @@ in stdenv.mkDerivation (drvAttrs // {
 
   inherit doCheck;
 
-  nativeCheckInputs = [
-    (wrapFish {
-      pluginPkgs = checkPlugins;
-      functionDirs = checkFunctionDirs;
-    })
-  ] ++ nativeCheckInputs;
+  nativeCheckInputs = [ (wrapFish {
+    pluginPkgs = checkPlugins;
+    functionDirs = checkFunctionDirs;
+  }) ] ++ nativeCheckInputs;
 
   checkPhase = ''
     export HOME=$(mktemp -d)  # fish wants a writable home

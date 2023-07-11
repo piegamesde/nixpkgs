@@ -35,7 +35,11 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace 0.19 0.20
   '';
 
-  nativeBuildInputs = [ autoreconfHook pkg-config gettext ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    gettext
+  ];
   buildInputs = [ ncurses ];
 
   configureFlags = lib.optional stdenv.hostPlatform.isMusl "--disable-nls";

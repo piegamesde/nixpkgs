@@ -45,7 +45,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-GNICAk9SPrLc+zm3tHVwkQdiS20j4MVktGIbNWEEMHs=";
   };
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   nativeBuildInputs = [
     meson
@@ -80,7 +83,10 @@ stdenv.mkDerivation rec {
     sofia_sip
   ];
 
-  nativeCheckInputs = [ dbus xvfb-run ];
+  nativeCheckInputs = [
+    dbus
+    xvfb-run
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
@@ -105,7 +111,11 @@ stdenv.mkDerivation rec {
       "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended.";
     homepage = "https://gitlab.gnome.org/GNOME/calls";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ craigem lheckemann tomfitzhenry ];
+    maintainers = with maintainers; [
+      craigem
+      lheckemann
+      tomfitzhenry
+    ];
     platforms = platforms.linux;
   };
 }

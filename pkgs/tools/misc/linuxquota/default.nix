@@ -16,10 +16,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nNrKFUvJKvwxF/Dl9bMgjdX4RYOvHPBhw5uqCiuxQvk=";
   };
 
-  outputs = [ "out" "dev" "doc" "man" ];
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+    "man"
+  ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ 0.0 fsprogs openldap ];
+  buildInputs = [
+    0.0
+    fsprogs
+    openldap
+  ];
 
   meta = with lib; {
     description = "Tools to manage kernel-level quotas in Linux";

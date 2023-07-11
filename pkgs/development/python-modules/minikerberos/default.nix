@@ -23,7 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-uB3J9DRZ23Hf31EkAUyxNTV7Ftgt0yjhEOiiv+Aft+w=";
   };
 
-  propagatedBuildInputs = [ asn1crypto asysocks oscrypto six tqdm unicrypto ];
+  propagatedBuildInputs = [
+    asn1crypto
+    asysocks
+    oscrypto
+    six
+    tqdm
+    unicrypto
+  ];
 
   # no tests are published: https://github.com/skelsec/minikerberos/pull/5
   doCheck = false;

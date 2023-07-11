@@ -47,7 +47,11 @@ stdenv.mkDerivation rec {
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config rpm ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    rpm
+  ];
 
   buildInputs = [
     bzip2

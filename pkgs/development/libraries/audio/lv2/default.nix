@@ -14,7 +14,10 @@ stdenv.mkDerivation rec {
   pname = "lv2";
   version = "1.18.10";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://lv2plug.in/spec/${pname}-${version}.tar.xz";
@@ -23,7 +26,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ meson ninja ];
+  nativeBuildInputs = [
+    meson
+    ninja
+  ];
 
   buildInputs = [ ];
 
@@ -40,8 +46,9 @@ stdenv.mkDerivation rec {
     "-Dtests=disabled"
     # Avoid heavyweight python dependencies.
     "-Ddocs=disabled"
-  ] ++ lib.optionals stdenv.isDarwin
-    [ "-Dlv2dir=${placeholder "out"}/lib/lv2" ];
+  ] ++ lib.optionals stdenv.isDarwin [ "-Dlv2dir=${
+      placeholder "out"
+    }/lib/lv2" ];
 
   passthru = {
     tests = { inherit pipewire; };

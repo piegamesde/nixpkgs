@@ -42,7 +42,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ meson ninja pkg-config itstool libxml2 wrapGAppsHook ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    itstool
+    libxml2
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     glib

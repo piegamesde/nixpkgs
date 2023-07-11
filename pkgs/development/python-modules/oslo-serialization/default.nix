@@ -28,9 +28,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [ msgpack oslo-utils pytz ];
+  propagatedBuildInputs = [
+    msgpack
+    oslo-utils
+    pytz
+  ];
 
-  nativeCheckInputs = [ oslotest stestr ];
+  nativeCheckInputs = [
+    oslotest
+    stestr
+  ];
 
   checkPhase = ''
     stestr run

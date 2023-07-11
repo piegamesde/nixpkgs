@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-4Y4cL254ZlZKF6d6cStIOya3J4ZfypuumwKOdDNzuNc=";
   };
 
-  propagatedBuildInputs = [ into-dbus-python dbus-python ];
+  propagatedBuildInputs = [
+    into-dbus-python
+    dbus-python
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

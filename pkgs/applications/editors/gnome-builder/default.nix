@@ -44,7 +44,10 @@ stdenv.mkDerivation rec {
   pname = "gnome-builder";
   version = "44.2";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -108,7 +111,10 @@ stdenv.mkDerivation rec {
     webkitgtk_6_0
   ];
 
-  nativeCheckInputs = [ dbus xvfb-run ];
+  nativeCheckInputs = [
+    dbus
+    xvfb-run
+  ];
 
   mesonFlags = [
     "-Ddocs=true"

@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ jre makeWrapper ];
+  nativeBuildInputs = [
+    jre
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib/amidst}

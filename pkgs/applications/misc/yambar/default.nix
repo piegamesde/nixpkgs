@@ -44,8 +44,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-0bgRnZYLGWJ9PE62i04hPBcgzWyd30DK7AUuejSgta4=";
   };
 
-  nativeBuildInputs =
-    [ bison flex meson ninja pkg-config scdoc wayland-scanner ];
+  nativeBuildInputs = [
+    bison
+    flex
+    meson
+    ninja
+    pkg-config
+    scdoc
+    wayland-scanner
+  ];
 
   buildInputs = [
     alsa-lib
@@ -58,13 +65,15 @@ stdenv.mkDerivation (finalAttrs: {
     pulseaudio
     tllist
     udev
-  ] ++ lib.optionals (waylandSupport) [ wayland wayland-protocols ]
-    ++ lib.optionals (x11Support) [
-      xcbutil
-      xcbutilcursor
-      xcbutilerrors
-      xcbutilwm
-    ];
+  ] ++ lib.optionals (waylandSupport) [
+    wayland
+    wayland-protocols
+  ] ++ lib.optionals (x11Support) [
+    xcbutil
+    xcbutilcursor
+    xcbutilerrors
+    xcbutilwm
+  ];
 
   mesonBuildType = "release";
 

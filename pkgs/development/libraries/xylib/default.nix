@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "1iqfrfrk78mki5csxysw86zm35ag71w0jvim0f12nwq1z8rwnhdn";
   };
 
-  buildInputs = [ boost zlib bzip2 wxGTK32 ];
+  buildInputs = [
+    boost
+    zlib
+    bzip2
+    wxGTK32
+  ];
 
   meta = with lib; {
     description =

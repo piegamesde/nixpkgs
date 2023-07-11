@@ -49,16 +49,27 @@ in buildPythonPackage rec {
     hash = "sha256-eDweEc+7dDbF0WBi6M5XAPIiHRjlYAdf2eNJdwj4D7c=";
   };
 
-  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+  nativeBuildInputs = with rustPlatform; [
+    cargoSetupHook
+    maturinBuildHook
+  ];
 
-  buildInputs = [ protobuf ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ protobuf ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ];
 
   propagatedBuildInputs = [ pyarrow ];
 
-  nativeCheckInputs = [ pytestCheckHook numpy ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    numpy
+  ];
   pythonImportsCheck = [ "datafusion" ];
-  pytestFlagsArray = [ "--pyargs" pname ];
+  pytestFlagsArray = [
+    "--pyargs"
+    pname
+  ];
 
   preCheck = ''
     pushd $TMPDIR

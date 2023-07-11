@@ -37,8 +37,10 @@ in {
   config = mkMerge [
 
     (mkIf cfg.enable {
-      systemd.additionalUpstreamSystemUnits =
-        [ "systemd-coredump.socket" "systemd-coredump@.service" ];
+      systemd.additionalUpstreamSystemUnits = [
+        "systemd-coredump.socket"
+        "systemd-coredump@.service"
+      ];
 
       environment.etc = {
         "systemd/coredump.conf".text = ''

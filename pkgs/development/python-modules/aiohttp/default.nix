@@ -44,14 +44,12 @@ buildPythonPackage rec {
     hash = "sha256-vy4akWLB5EG/gFof0WbiSdV0ygTgOzT5fikodp6Rq1w=";
   };
 
-  patches = [
-    (fetchpatch {
-      # https://github.com/aio-libs/aiohttp/pull/7178
-      url =
-        "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
-      hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    # https://github.com/aio-libs/aiohttp/pull/7178
+    url =
+      "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
+    hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
+  }) ];
 
   postPatch = ''
     sed -i '/--cov/d' setup.cfg
@@ -72,8 +70,10 @@ buildPythonPackage rec {
     aiodns
     brotli
     faust-cchardet
-  ] ++ lib.optionals (pythonOlder "3.8") [ asynctest typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ];
+  ] ++ lib.optionals (pythonOlder "3.8") [
+    asynctest
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ];
 
   nativeCheckInputs = [
     async_generator
@@ -104,9 +104,8 @@ buildPythonPackage rec {
       "test_close"
     ];
 
-  disabledTestPaths = [
-    "test_proxy_functional.py" # FIXME package proxy.py
-  ];
+  disabledTestPaths = [ "test_proxy_functional.py" # FIXME package proxy.py
+    ];
 
   __darwinAllowLocalNetworking = true;
 

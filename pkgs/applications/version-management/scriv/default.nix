@@ -18,8 +18,13 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3.pkgs;
-    [ attrs click click-log jinja2 requests ]
-    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
+    [
+      attrs
+      click
+      click-log
+      jinja2
+      requests
+    ] ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook

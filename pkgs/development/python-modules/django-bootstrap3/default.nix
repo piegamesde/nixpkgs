@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "bootstrap3" ];
 
-  nativeCheckInputs = [ pytest-django pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-django
+    pytestCheckHook
+  ];
 
   env.DJANGO_SETTINGS_MODULE = "tests.app.settings";
 

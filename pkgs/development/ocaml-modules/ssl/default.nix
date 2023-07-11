@@ -37,6 +37,10 @@ buildDunePackage rec {
     homepage = "http://savonet.rastageeks.org/";
     description = "OCaml bindings for libssl ";
     license = "LGPL+link exception";
-    maintainers = with lib.maintainers; [ anmonteiro dandellion maggesi ];
+    maintainers = with lib.maintainers; [
+      anmonteiro
+      dandellion
+      maggesi
+    ];
   };
 }

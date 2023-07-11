@@ -50,9 +50,16 @@ let
     pciutils
   ];
   recommendedDisplayInformationPrograms =
-    lib.optionals withRecommendedDisplayInformationPrograms
-    ([ glxinfo ] ++ (with xorg; [ xdpyinfo xprop xrandr ]));
-  programs = [ ps dnsutils ] # Core programs
+    lib.optionals withRecommendedDisplayInformationPrograms ([ glxinfo ]
+      ++ (with xorg; [
+        xdpyinfo
+        xprop
+        xrandr
+      ]));
+  programs = [
+    ps
+    dnsutils
+  ] # Core programs
     ++ recommendedSystemPrograms ++ recommendedDisplayInformationPrograms;
 in stdenv.mkDerivation rec {
   pname = "inxi";

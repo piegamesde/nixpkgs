@@ -23,11 +23,22 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  nativeBuildInputs = [ dpkg wrapGAppsHook autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    wrapGAppsHook
+    autoPatchelfHook
+  ];
 
-  buildInputs = [ openssl webkitgtk stdenv.cc.cc ];
+  buildInputs = [
+    openssl
+    webkitgtk
+    stdenv.cc.cc
+  ];
 
-  runtimeDependencies = [ (lib.getLib udev) libayatana-appindicator ];
+  runtimeDependencies = [
+    (lib.getLib udev)
+    libayatana-appindicator
+  ];
 
   installPhase = ''
     runHook preInstall

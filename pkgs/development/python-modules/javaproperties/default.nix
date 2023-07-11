@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ python-dateutil pytestCheckHook ];
+  nativeCheckInputs = [
+    python-dateutil
+    pytestCheckHook
+  ];
 
   disabledTests = [ "time" ];
 

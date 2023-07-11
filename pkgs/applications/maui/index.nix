@@ -22,7 +22,10 @@ mkDerivation {
       --replace "-Werror" ""
   '';
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
 
   buildInputs = [
     karchive

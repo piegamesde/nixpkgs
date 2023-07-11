@@ -21,12 +21,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QgSO4jFouowDJeUTT4kUEXD+ctQ7JiY/5DkiPyb+Z/I=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config doxygen ];
-  buildInputs = [ jansson openssl ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    doxygen
+  ];
+  buildInputs = [
+    jansson
+    openssl
+  ];
   nativeCheckInputs = [ check ];
 
-  configureFlags =
-    [ "--with-jansson=${jansson}" "--with-openssl=${openssl.dev}" ];
+  configureFlags = [
+    "--with-jansson=${jansson}"
+    "--with-openssl=${openssl.dev}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/zmartzone/cjose";

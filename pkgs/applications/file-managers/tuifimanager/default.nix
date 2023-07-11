@@ -21,7 +21,10 @@ python3Packages.buildPythonApplication rec {
       --replace "Send2Trash == 1.8.0" "Send2Trash >= 1.8.0"
   '';
 
-  propagatedBuildInputs = with python3Packages; [ unicurses send2trash ];
+  propagatedBuildInputs = with python3Packages; [
+    unicurses
+    send2trash
+  ];
   pythonImportsCheck = [ "TUIFIManager" ];
 
   # Tests currently cause build to fail

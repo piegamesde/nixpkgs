@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-5aikiPJkZf9OwD8QmQ7ijhBOtFQpkIErvb6gOvEu2L0=";
   };
 
-  buildInputs = [ zlib ncurses fuse ];
+  buildInputs = [
+    zlib
+    ncurses
+    fuse
+  ];
 
   patches = [
     ./fix-paths.diff

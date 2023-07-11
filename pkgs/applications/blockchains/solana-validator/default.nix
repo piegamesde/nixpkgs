@@ -70,10 +70,19 @@ in rustPlatform.buildRustPackage rec {
   # weird errors. see https://github.com/NixOS/nixpkgs/issues/52447#issuecomment-852079285
   # LLVM_CONFIG_PATH = "${llvm}/bin/llvm-config";
 
-  nativeBuildInputs =
-    [ pkg-config protobuf rustfmt perl rustPlatform.bindgenHook ];
-  buildInputs = [ openssl zlib libclang hidapi ]
-    ++ (lib.optionals stdenv.isLinux [ udev ]);
+  nativeBuildInputs = [
+    pkg-config
+    protobuf
+    rustfmt
+    perl
+    rustPlatform.bindgenHook
+  ];
+  buildInputs = [
+    openssl
+    zlib
+    libclang
+    hidapi
+  ] ++ (lib.optionals stdenv.isLinux [ udev ]);
   strictDeps = true;
 
   doCheck = false;

@@ -51,8 +51,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
-  buildInputs =
-    [ gsettings-desktop-schemas glib gtk3 gnome.adwaita-icon-theme dconf ];
+  buildInputs = [
+    gsettings-desktop-schemas
+    glib
+    gtk3
+    gnome.adwaita-icon-theme
+    dconf
+  ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -104,9 +109,15 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "Zotero";
     genericName = "Reference Management";
-    categories = [ "Office" "Database" ];
+    categories = [
+      "Office"
+      "Database"
+    ];
     startupNotify = true;
-    mimeTypes = [ "x-scheme-handler/zotero" "text/plain" ];
+    mimeTypes = [
+      "x-scheme-handler/zotero"
+      "text/plain"
+    ];
   };
 
   installPhase = ''

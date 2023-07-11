@@ -45,9 +45,16 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [ atomicwrites ruamel-yaml testfixtures ];
+  propagatedBuildInputs = [
+    atomicwrites
+    ruamel-yaml
+    testfixtures
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "pytest_golden" ];
 

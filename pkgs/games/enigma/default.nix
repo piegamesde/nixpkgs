@@ -36,9 +36,22 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config gettext makeWrapper imagemagick ];
-  buildInputs =
-    [ SDL2 SDL2_image SDL2_mixer SDL2_ttf libpng xercesc curl xdg-utils ];
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    makeWrapper
+    imagemagick
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    libpng
+    xercesc
+    curl
+    xdg-utils
+  ];
 
   # The configure script of enigma uses pkg-config to determine the header
   # directories of SDL2. However, pkg-config only returns the path to the core
@@ -61,7 +74,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "Puzzle game inspired by Oxyd on the Atari ST and Rock'n'Roll on the Amiga";
-    license = with licenses; [ gpl2 free ]; # source + bundles libs + art
+    license = with licenses; [
+      gpl2
+      free
+    ]; # source + bundles libs + art
     platforms = platforms.unix;
     broken = stdenv.targetPlatform.isDarwin;
     maintainers = with maintainers; [ iblech ];

@@ -22,10 +22,18 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
   # glib and wrapGAppsHook are needed to make the Open ROM menu work.
-  nativeBuildInputs = [ rgbds glib wrapGAppsHook ];
+  nativeBuildInputs = [
+    rgbds
+    glib
+    wrapGAppsHook
+  ];
   buildInputs = [ SDL2 ];
 
-  makeFlags = [ "CONF=release" "FREEDESKTOP=true" "PREFIX=$(out)" ];
+  makeFlags = [
+    "CONF=release"
+    "FREEDESKTOP=true"
+    "PREFIX=$(out)"
+  ];
 
   postPatch = ''
     substituteInPlace OpenDialog/gtk.c \

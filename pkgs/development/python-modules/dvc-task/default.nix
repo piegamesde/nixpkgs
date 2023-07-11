@@ -32,10 +32,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ kombu shortuuid celery funcy ];
+  propagatedBuildInputs = [
+    kombu
+    shortuuid
+    celery
+    funcy
+  ];
 
-  nativeCheckInputs =
-    [ pytest-celery pytest-mock pytest-test-utils pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-celery
+    pytest-mock
+    pytest-test-utils
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "dvc_task" ];
 

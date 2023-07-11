@@ -19,7 +19,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [ cssselect lxml nose ];
+  nativeCheckInputs = [
+    cssselect
+    lxml
+    nose
+  ];
 
   checkPhase = ''
     runHook preCheck

@@ -27,7 +27,10 @@ in {
 
       DBs = mkOption {
         type = types.listOf types.package;
-        default = with pkgs.dictdDBs; [ wiktionary wordnet ];
+        default = with pkgs.dictdDBs; [
+          wiktionary
+          wordnet
+        ];
         defaultText =
           literalExpression "with pkgs.dictdDBs; [ wiktionary wordnet ]";
         example = literalExpression "[ pkgs.dictdDBs.nld2eng ]";

@@ -281,9 +281,9 @@ in {
             hostElementsString =
               concatMapStringsSep "\n" hostElementForVirtualHost
               cfg.virtualHosts;
-            hostElementsSedString = replaceStrings [ "\n" ] [''
+            hostElementsSedString = replaceStrings [ "\n" ] [ ''
               \
-            ''] hostElementsString;
+            '' ] hostElementsString;
           in ''
             # Create a modified server.xml which also includes all virtual hosts
             sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${

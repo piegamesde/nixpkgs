@@ -147,8 +147,10 @@ in stdenv.mkDerivation rec {
   dontPatchELF = true;
   doInstallCheck = true;
 
-  nativeBuildInputs =
-    [ dpkg (wrapGAppsHook.override { inherit makeWrapper; }) ];
+  nativeBuildInputs = [
+    dpkg
+    (wrapGAppsHook.override { inherit makeWrapper; })
+  ];
 
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
@@ -261,7 +263,12 @@ in stdenv.mkDerivation rec {
     '';
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
-    maintainers = with maintainers; [ uskudnik rht jefflabonte nasirhm ];
+    maintainers = with maintainers; [
+      uskudnik
+      rht
+      jefflabonte
+      nasirhm
+    ];
     platforms = [ "x86_64-linux" ];
   };
 }

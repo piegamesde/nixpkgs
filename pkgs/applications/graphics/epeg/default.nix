@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config libtool autoconf automake ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+    autoconf
+    automake
+  ];
 
-  propagatedBuildInputs = [ libjpeg libexif ];
+  propagatedBuildInputs = [
+    libjpeg
+    libexif
+  ];
 
   preConfigure = ''
     ./autogen.sh

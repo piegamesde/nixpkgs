@@ -22,9 +22,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yBUFJG8//C52A21Dp3ISroKJW1iB2bniXBNhsam3qEY=";
   };
 
-  buildInputs = [ flex bison libmhash zlib acl attr libselinux pcre ];
+  buildInputs = [
+    flex
+    bison
+    libmhash
+    zlib
+    acl
+    attr
+    libselinux
+    pcre
+  ];
 
-  configureFlags = [ "--with-posix-acl" "--with-selinux" "--with-xattr" ];
+  configureFlags = [
+    "--with-posix-acl"
+    "--with-selinux"
+    "--with-xattr"
+  ];
 
   meta = with lib; {
     homepage = "https://aide.github.io/";

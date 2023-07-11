@@ -26,7 +26,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
-  checkFlags = [ "--skip" "runs_correctly" ];
+  checkFlags = [
+    "--skip"
+    "runs_correctly"
+  ];
 
   meta = with lib; {
     description =

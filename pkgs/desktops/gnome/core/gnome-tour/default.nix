@@ -53,7 +53,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gdk-pixbuf glib gtk4 libadwaita librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    glib
+    gtk4
+    libadwaita
+    librsvg
+  ];
 
   mesonFlags = let
     # ERROR: 'rust' compiler binary not defined in cross or native file
@@ -63,8 +69,8 @@ stdenv.mkDerivation rec {
         rust.toRustTargetSpec stdenv.hostPlatform
       }' ]
     '';
-  in lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-  [ "--cross-file=${crossFile}" ];
+  in lib.optionals
+  (stdenv.hostPlatform != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
 
   passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 

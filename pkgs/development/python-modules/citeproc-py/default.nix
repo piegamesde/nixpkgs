@@ -21,7 +21,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lxml ];
 
-  nativeCheckInputs = [ nose git ];
+  nativeCheckInputs = [
+    nose
+    git
+  ];
   checkPhase = "nosetests tests";
   doCheck =
     false; # seems to want a Git repository, but fetchgit with leaveDotGit also fails

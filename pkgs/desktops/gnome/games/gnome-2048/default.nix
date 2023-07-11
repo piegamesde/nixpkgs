@@ -37,9 +37,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ itstool meson ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    itstool
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ clutter-gtk libgee libgnome-games-support gtk3 ];
+  buildInputs = [
+    clutter-gtk
+    libgee
+    libgnome-games-support
+    gtk3
+  ];
 
   passthru = {
     updateScript = gnome.updateScript { packageName = "gnome-2048"; };

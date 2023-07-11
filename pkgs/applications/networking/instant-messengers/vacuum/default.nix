@@ -22,7 +22,15 @@ stdenv.mkDerivation {
     sha256 = "1jcw9c7s75y4c3m4skfc3cc0i519z39b23n997vj5mwcjplxyc76";
   };
 
-  buildInputs = [ qt4 openssl xorgproto libX11 libXScrnSaver xz zlib ];
+  buildInputs = [
+    qt4
+    openssl
+    xorgproto
+    libX11
+    libXScrnSaver
+    xz
+    zlib
+  ];
 
   # hack: needed to fix build issues in
   # https://hydra.nixos.org/build/38322959/nixlog/1

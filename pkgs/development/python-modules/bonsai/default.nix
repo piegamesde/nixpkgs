@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  buildInputs = [ cyrus_sasl openldap ];
+  buildInputs = [
+    cyrus_sasl
+    openldap
+  ];
 
   propagatedBuildInputs =
     lib.optionals (pythonOlder "3.8") [ typing-extensions ];

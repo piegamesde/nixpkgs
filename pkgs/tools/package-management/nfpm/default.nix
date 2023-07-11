@@ -20,7 +20,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-IcV/kXXvs/680zaeS/IQyW2aLTq1O73DEP+32cKXWnU=";
 
-  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -37,7 +41,11 @@ buildGoModule rec {
   meta = with lib; {
     description = "A simple deb and rpm packager written in Go";
     homepage = "https://github.com/goreleaser/nfpm";
-    maintainers = with maintainers; [ marsam techknowlogick caarlos0 ];
+    maintainers = with maintainers; [
+      marsam
+      techknowlogick
+      caarlos0
+    ];
     license = with licenses; [ mit ];
   };
 }

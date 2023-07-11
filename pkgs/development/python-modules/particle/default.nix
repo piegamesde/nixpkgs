@@ -33,11 +33,21 @@ buildPythonPackage rec {
       --replace '"--benchmark-disable",' ""
   '';
 
-  nativeBuildInputs = [ hatch-vcs hatchling ];
+  nativeBuildInputs = [
+    hatch-vcs
+    hatchling
+  ];
 
-  propagatedBuildInputs = [ attrs hepunits ];
+  propagatedBuildInputs = [
+    attrs
+    hepunits
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook tabulate pandas ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    tabulate
+    pandas
+  ];
 
   pythonImportsCheck = [ "particle" ];
 

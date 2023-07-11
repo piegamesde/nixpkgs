@@ -28,7 +28,10 @@ buildGoPackage rec {
 
     license = licenses.mit;
     homepage = "https://github.com/github-release/github-release";
-    maintainers = with maintainers; [ ardumont j03 ];
+    maintainers = with maintainers; [
+      ardumont
+      j03
+    ];
     platforms = with platforms; unix;
   };
 }

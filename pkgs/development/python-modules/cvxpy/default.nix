@@ -34,7 +34,15 @@ buildPythonPackage rec {
       --replace "setuptools <= 64.0.2" "setuptools"
   '';
 
-  propagatedBuildInputs = [ cvxopt ecos numpy osqp scipy scs setuptools ];
+  propagatedBuildInputs = [
+    cvxopt
+    ecos
+    numpy
+    osqp
+    scipy
+    scs
+    setuptools
+  ];
 
   # Required flags from https://github.com/cvxgrp/cvxpy/releases/tag/v1.1.11
   preBuild = lib.optionalString useOpenmp ''
@@ -52,9 +60,9 @@ buildPythonPackage rec {
     "test_diffcp_sdp_example"
     "test_huber"
     "test_partial_problem"
-  ] ++ lib.optionals stdenv.isAarch64 [
-    "test_ecos_bb_mi_lp_2" # https://github.com/cvxgrp/cvxpy/issues/1241#issuecomment-780912155
-  ];
+  ] ++ lib.optionals
+    stdenv.isAarch64 [ "test_ecos_bb_mi_lp_2" # https://github.com/cvxgrp/cvxpy/issues/1241#issuecomment-780912155
+    ];
 
   pythonImportsCheck = [ "cvxpy" ];
 

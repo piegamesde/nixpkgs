@@ -135,7 +135,10 @@ in {
     dataDirs = lib.mkOption {
       type = lib.types.listOf lib.types.path;
       default = [ ];
-      example = [ "/opt/peertube/storage" "/var/cache/peertube" ];
+      example = [
+        "/opt/peertube/storage"
+        "/var/cache/peertube"
+      ];
       description = lib.mdDoc "Allow access to custom data locations.";
     };
 
@@ -431,7 +434,10 @@ in {
 
     systemd.services.peertube-init-db = lib.mkIf cfg.database.createLocally {
       description = "Initialization database for PeerTube daemon";
-      after = [ "network.target" "postgresql.service" ];
+      after = [
+        "network.target"
+        "postgresql.service"
+      ];
       requires = [ "postgresql.service" ];
 
       script = let
@@ -535,12 +541,19 @@ in {
         # Environment
         EnvironmentFile = cfg.serviceEnvironmentFile;
         # Sandboxing
-        RestrictAddressFamilies =
-          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+        ];
         MemoryDenyWriteExecute = false;
         # System Call Filtering
-        SystemCallFilter =
-          [ ("~" + lib.concatStringsSep " " systemCallsList) "pipe" "pipe2" ];
+        SystemCallFilter = [
+          ("~" + lib.concatStringsSep " " systemCallsList)
+          "pipe"
+          "pipe2"
+        ];
       } // cfgService;
     };
 
@@ -918,7 +931,10 @@ in {
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [
+      (lib.attrsets.setAttrByPath [
+        cfg.user
+        "packages"
+      ] [
         cfg.package
         peertubeEnv
         peertubeCli

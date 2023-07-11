@@ -31,7 +31,12 @@ in {
       "gnome3"
       "gnome-settings-daemon"
       "enable"
-    ] [ "services" "gnome" "gnome-settings-daemon" "enable" ])
+    ] [
+      "services"
+      "gnome"
+      "gnome-settings-daemon"
+      "enable"
+    ])
   ];
 
   ###### interface

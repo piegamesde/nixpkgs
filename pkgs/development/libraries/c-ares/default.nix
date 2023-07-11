@@ -21,7 +21,10 @@
 stdenv.mkDerivation rec {
   pname = "c-ares";
   version = "1.19.0";
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url = "https://c-ares.haxx.se/download/${pname}-${version}.tar.gz";

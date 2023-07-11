@@ -15,8 +15,12 @@ buildGoModule rec {
     sha256 = "sha256-8+UHG4xTH9h1IvMoOY7YHPClk4t2vWSBOUnYU6+mynQ=";
   };
 
-  ldflags =
-    [ "-X main.GitTag=${version}" "-X main.GitSha=${version}" "-s" "-w" ];
+  ldflags = [
+    "-X main.GitTag=${version}"
+    "-X main.GitSha=${version}"
+    "-s"
+    "-w"
+  ];
 
   vendorSha256 = "sha256-swDoQeO44fkpS2JNUAXaj3ZVjjzhoEr34YZ1/ArnLBk=";
 

@@ -17,7 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DTi1JNN3JXsQa61thW2K4zBBQOHuJAhTQ+bd8bZYEfE=";
   };
 
-  buildInputs = [ ncurses readline flex texinfo ];
+  buildInputs = [
+    ncurses
+    readline
+    flex
+    texinfo
+  ];
 
   meta = with lib; {
     description = "A curses interface to gdb";

@@ -44,8 +44,13 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  checkInputs =
-    [ pytestCheckHook pytest-asyncio pytest-mock pytest-recording pyfakefs ];
+  checkInputs = [
+    pytestCheckHook
+    pytest-asyncio
+    pytest-mock
+    pytest-recording
+    pyfakefs
+  ];
 
   pytestFlagsArray = [ "tests/" ];
 

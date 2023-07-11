@@ -8,7 +8,10 @@
 let
   inherit (python3.pkgs) fonttools;
 
-  commonNativeBuildInputs = [ fontforge python3 ];
+  commonNativeBuildInputs = [
+    fontforge
+    python3
+  ];
   common = {
       version,
       repo,

@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LBiZI0pGAFWnvTigEhtkhHq4FGdbYiMzjLheMuP0YTU=";
   };
 
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+  ];
 
   unpackCmd = ''
     dpkg-deb -x ${src} ./sslmate-agent-${pname}

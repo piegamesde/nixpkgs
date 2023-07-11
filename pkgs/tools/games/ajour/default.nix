@@ -54,16 +54,32 @@ in rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ autoPatchelfHook cmake makeWrapper pkg-config python3 ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    cmake
+    makeWrapper
+    pkg-config
+    python3
+  ];
 
-  buildInputs = [ expat freetype openssl libxcb libX11 libxkbcommon ];
+  buildInputs = [
+    expat
+    freetype
+    openssl
+    libxcb
+    libX11
+    libxkbcommon
+  ];
 
   fixupPhase = ''
     patchelf --set-rpath "${
       lib.makeLibraryPath rpathLibs
     }:$(patchelf --print-rpath $out/bin/ajour)" $out/bin/ajour
     wrapProgram $out/bin/ajour --prefix PATH ":" ${
-      lib.makeBinPath [ zenity kdialog ]
+      lib.makeBinPath [
+        zenity
+        kdialog
+      ]
     }
   '';
 

@@ -27,7 +27,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ scdoc python3.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    scdoc
+    python3.pkgs.wrapPython
+  ];
 
   patches = [ ./runtime-sharedir.patch ];
 
@@ -41,7 +44,11 @@ buildGoModule rec {
 
   pythonPath = [ python3.pkgs.colorama ];
 
-  buildInputs = [ python3 notmuch gawk ];
+  buildInputs = [
+    python3
+    notmuch
+    gawk
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -55,9 +62,19 @@ buildGoModule rec {
     wrapProgram $out/bin/aerc \
       --prefix PATH ":" "${lib.makeBinPath [ ncurses ]}"
     wrapProgram $out/share/aerc/filters/html \
-      --prefix PATH ":"  ${lib.makeBinPath [ w3m dante ]}
+      --prefix PATH ":"  ${
+        lib.makeBinPath [
+          w3m
+          dante
+        ]
+      }
     wrapProgram $out/share/aerc/filters/html-unsafe \
-      --prefix PATH ":" ${lib.makeBinPath [ w3m dante ]}
+      --prefix PATH ":" ${
+        lib.makeBinPath [
+          w3m
+          dante
+        ]
+      }
     patchShebangs $out/share/aerc/filters
   '';
 

@@ -23,7 +23,10 @@ let
       sha256 = "sha256-aXScqJ1LijMSAy9YkS5QyXtTqxd19lLt3BbyVXlbw8o=";
     };
 
-    nativeBuildInputs = [ clang cmake ];
+    nativeBuildInputs = [
+      clang
+      cmake
+    ];
     buildInputs = [ llvmPackages.libclang ]
       ++ lib.optional stdenv.isDarwin Security;
 

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ fpyutils ];
 
-  nativeCheckInputs = [ pyfakefs pytestCheckHook ];
+  nativeCheckInputs = [
+    pyfakefs
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "md_toc/tests/*.py" ];
 

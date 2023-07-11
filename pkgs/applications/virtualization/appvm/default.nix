@@ -37,13 +37,22 @@ in buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/appvm \
-      --prefix PATH : "${lib.makeBinPath [ nix virt-manager-without-menu ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          nix
+          virt-manager-without-menu
+        ]
+      }"
   '';
 
   meta = with lib; {
     description = "Nix-based app VMs";
     homepage = "https://code.dumpstack.io/tools/${pname}";
-    maintainers = with maintainers; [ dump_stack cab404 onny ];
+    maintainers = with maintainers; [
+      dump_stack
+      cab404
+      onny
+    ];
     license = licenses.gpl3;
   };
 }

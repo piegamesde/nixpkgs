@@ -26,9 +26,18 @@ buildPythonPackage rec {
     hash = "sha256-nvfy1XLiMjyCiQo/YuzRbDtxGmAUAiq8UJwS/SkN3oM=";
   };
 
-  propagatedBuildInputs = [ aiohttp geojson haversine ];
+  propagatedBuildInputs = [
+    aiohttp
+    geojson
+    haversine
+  ];
 
-  nativeCheckInputs = [ aresponses mock pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    aresponses
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "aio_geojson_client" ];
 

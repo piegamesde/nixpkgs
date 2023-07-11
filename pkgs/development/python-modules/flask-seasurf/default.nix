@@ -22,7 +22,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [ unittestCheckHook mock ];
+  nativeCheckInputs = [
+    unittestCheckHook
+    mock
+  ];
 
   pythonImportsCheck = [ "flask_seasurf" ];
 

@@ -11,10 +11,10 @@
   libnvidia-container,
 }:
 let
-  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [{
+  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [ {
     name = "runc";
     path = containerRuntimePath;
-  }];
+  } ];
   warnIfXdgConfigHomeIsSet =
     writeShellScript "warn_if_xdg_config_home_is_set" ''
       set -eo pipefail
@@ -36,7 +36,10 @@ in buildGoPackage rec {
 
   goPackagePath = "github.com/NVIDIA/nvidia-container-toolkit";
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
 

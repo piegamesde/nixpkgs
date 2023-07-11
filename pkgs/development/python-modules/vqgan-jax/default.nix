@@ -23,7 +23,11 @@ buildPythonPackage rec {
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [ flax jax transformers ];
+  propagatedBuildInputs = [
+    flax
+    jax
+    transformers
+  ];
 
   doCheck = false;
 

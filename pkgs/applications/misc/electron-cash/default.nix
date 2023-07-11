@@ -100,7 +100,11 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://www.electroncash.org/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lassulus nyanloutre oxalica ];
+    maintainers = with maintainers; [
+      lassulus
+      nyanloutre
+      oxalica
+    ];
     license = licenses.mit;
   };
 }

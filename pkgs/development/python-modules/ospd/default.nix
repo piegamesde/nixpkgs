@@ -26,7 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-dZgs+G2vJQIKnN9xHcNeNViG7mOIdKb+Ms2AKE+FC4M=";
   };
 
-  propagatedBuildInputs = [ defusedxml deprecated lxml paramiko psutil ];
+  propagatedBuildInputs = [
+    defusedxml
+    deprecated
+    lxml
+    paramiko
+    psutil
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

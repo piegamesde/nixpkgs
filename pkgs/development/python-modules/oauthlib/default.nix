@@ -24,9 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-KADS1pEaLYi86LEt2VVuz8FVTBANzxC8EeQLgGMxuBU=";
   };
 
-  propagatedBuildInputs = [ blinker cryptography pyjwt ];
+  propagatedBuildInputs = [
+    blinker
+    cryptography
+    pyjwt
+  ];
 
-  nativeCheckInputs = [ mock pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "oauthlib" ];
 

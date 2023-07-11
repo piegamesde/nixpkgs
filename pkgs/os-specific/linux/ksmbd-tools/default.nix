@@ -23,9 +23,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R/OWZekAGtDxE71MrzjWsdpaWGBu0c+VP0VkPro6GEo=";
   };
 
-  buildInputs = [ glib libnl ] ++ lib.optional withKerberos libkrb5;
+  buildInputs = [
+    glib
+    libnl
+  ] ++ lib.optional withKerberos libkrb5;
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+  ];
 
   preConfigure = "./autogen.sh";
 

@@ -39,19 +39,28 @@ stdenv.mkDerivation rec {
     gnome.gnome-shell
   ];
 
-  buildInputs = [ gdk-pixbuf librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   postPatch = "patchShebangs .";
 
-  configureFlags =
-    [ "--disable-gtk_legacy" "--disable-gtk_next" "--disable-unity" ];
+  configureFlags = [
+    "--disable-gtk_legacy"
+    "--disable-gtk_next"
+    "--disable-unity"
+  ];
 
   meta = with lib; {
     description = "An adaptive GTK theme based on Material Design Guidelines";
     homepage = "https://github.com/adapta-project/adapta-gtk-theme";
-    license = with licenses; [ gpl2 cc-by-sa-30 ];
+    license = with licenses; [
+      gpl2
+      cc-by-sa-30
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];
   };

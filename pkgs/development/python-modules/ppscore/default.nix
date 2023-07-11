@@ -22,7 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-qiogjUgcLFauAMpVf2CKNC27c9xR9q7nY69n8/go1ms=";
   };
 
-  propagatedBuildInputs = [ pandas scikit-learn ];
+  propagatedBuildInputs = [
+    pandas
+    scikit-learn
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

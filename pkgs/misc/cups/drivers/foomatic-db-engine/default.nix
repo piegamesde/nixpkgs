@@ -34,8 +34,11 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  propagatedBuildInputs =
-    [ perlPackages.Clone perlPackages.DBI perlPackages.XMLLibXML ];
+  propagatedBuildInputs = [
+    perlPackages.Clone
+    perlPackages.DBI
+    perlPackages.XMLLibXML
+  ];
 
   buildInputs =
     # provide some "cups-*" commands to `foomatic-{configure,printjob}`
@@ -53,7 +56,12 @@ perlPackages.buildPerlPackage rec {
     # shared via the SMB protocol, but it needs the `smbclient` binary
     ++ lib.optional withSMBAccess samba;
 
-  nativeBuildInputs = [ autoconf automake file makeWrapper ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    file
+    makeWrapper
+  ];
 
   # sed-substitute indirection is more robust against
   # characters in paths that might need escaping

@@ -58,16 +58,14 @@ buildPythonPackage rec {
     hash = "sha256-e+6Vt+SlOxi16udsdx7WFoDWYupuXhggpoEZPe4tPr0=";
   };
 
-  patches = [
-    (fetchpatch {
-      # https://github.com/apache/beam/pull/24143
-      name = "fix-for-dill-0.3.6.patch";
-      url =
-        "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch";
-      hash = "sha256-iUmnzrItTFM98w3mpadzrmtI3t0fucpSujAg/6qxCGk=";
-      stripLen = 2;
-    })
-  ];
+  patches = [ (fetchpatch {
+    # https://github.com/apache/beam/pull/24143
+    name = "fix-for-dill-0.3.6.patch";
+    url =
+      "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch";
+    hash = "sha256-iUmnzrItTFM98w3mpadzrmtI3t0fucpSujAg/6qxCGk=";
+    stripLen = 2;
+  }) ];
 
   pythonRelaxDeps = [
     # See https://github.com/NixOS/nixpkgs/issues/156957
@@ -91,7 +89,12 @@ buildPythonPackage rec {
 
   sourceRoot = "source/sdks/python";
 
-  nativeBuildInputs = [ cython grpcio-tools mypy-protobuf pythonRelaxDepsHook ];
+  nativeBuildInputs = [
+    cython
+    grpcio-tools
+    mypy-protobuf
+    pythonRelaxDepsHook
+  ];
 
   propagatedBuildInputs = [
     cloudpickle

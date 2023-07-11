@@ -15,7 +15,10 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ csv lwt ];
+  propagatedBuildInputs = [
+    csv
+    lwt
+  ];
 
   doCheck = true;
 }

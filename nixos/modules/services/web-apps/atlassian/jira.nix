@@ -68,7 +68,10 @@ in {
       catalinaOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "-Xms1024m" "-Xmx2048m" ];
+        example = [
+          "-Xms1024m"
+          "-Xmx2048m"
+        ];
         description = lib.mdDoc "Java options to pass to catalina/tomcat.";
       };
 
@@ -182,7 +185,10 @@ in {
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      path = [ cfg.jrePackage pkgs.bash ];
+      path = [
+        cfg.jrePackage
+        pkgs.bash
+      ];
 
       environment = {
         JIRA_USER = cfg.user;
@@ -229,9 +235,12 @@ in {
     };
   };
 
-  imports = [
-    (mkRemovedOptionModule [ "services" "jira" "sso" "applicationPassword" ] ''
-      Use `applicationPasswordFile` instead!
-    '')
-  ];
+  imports = [ (mkRemovedOptionModule [
+    "services"
+    "jira"
+    "sso"
+    "applicationPassword"
+  ] ''
+    Use `applicationPasswordFile` instead!
+  '') ];
 }

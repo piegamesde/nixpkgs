@@ -31,18 +31,26 @@ stdenv.mkDerivation rec {
     sha256 = "042307grf4zvn61gnflhsj5xsjykrk9sjjsprprm4iij0qpybxcw";
   };
 
-  buildInputs = [ glib dbus-glib xorg.xcbutilwm ]
-    ++ lib.optionals (desktopSupport == "gnomeflashback") [
-      gtk3
-      gnome.gnome-panel
-    ] ++ lib.optionals (desktopSupport == "mate") [ gtk3 mate.mate-panel ]
-    ++ lib.optionals (desktopSupport == "xfce4") [
-      gtk2
-      libxfce4util
-      xfce4-panel
-    ];
+  buildInputs = [
+    glib
+    dbus-glib
+    xorg.xcbutilwm
+  ] ++ lib.optionals (desktopSupport == "gnomeflashback") [
+    gtk3
+    gnome.gnome-panel
+  ] ++ lib.optionals (desktopSupport == "mate") [
+    gtk3
+    mate.mate-panel
+  ] ++ lib.optionals (desktopSupport == "xfce4") [
+    gtk2
+    libxfce4util
+    xfce4-panel
+  ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
   configureFlags = [ "--with-panel=${desktopSupport}" ];
 

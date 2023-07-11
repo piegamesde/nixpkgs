@@ -44,7 +44,11 @@ stdenv.mkDerivation rec {
     qrencode
     libuuid
   ];
-  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ];
 
   meta = with lib; {
     description =

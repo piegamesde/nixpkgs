@@ -111,7 +111,10 @@ stdenv.mkDerivation rec {
   pname = "gst-plugins-bad";
   version = "1.22.2";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -137,8 +140,7 @@ stdenv.mkDerivation rec {
     gstreamer # for gst-tester-1.0
     gobject-introspection
   ] ++ lib.optionals enableDocumentation [ hotdoc ]
-    ++ lib.optionals stdenv.isLinux [
-      wayland # for wayland-scanner
+    ++ lib.optionals stdenv.isLinux [ wayland # for wayland-scanner
     ];
 
   buildInputs = [
@@ -196,8 +198,12 @@ stdenv.mkDerivation rec {
     libfreeaptx
     zxing-cpp
   ] ++ lib.optionals enableZbar [ zbar ] ++ lib.optionals faacSupport [ faac ]
-    ++ lib.optionals enableGplPlugins [ libmpeg2 mjpegtools faad2 x265 ]
-    ++ lib.optionals bluezSupport [ bluez ] ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals enableGplPlugins [
+      libmpeg2
+      mjpegtools
+      faad2
+      x265
+    ] ++ lib.optionals bluezSupport [ bluez ] ++ lib.optionals stdenv.isLinux [
       libva # vaapi requires libva -> libdrm -> libpciaccess, which is Linux-only in nixpkgs
       wayland
       wayland-protocols
@@ -301,9 +307,9 @@ stdenv.mkDerivation rec {
     "-Dladspa=disabled" # requires lrdf
     "-Dwebrtc=disabled" # requires libnice, which as of writing doesn't work on Darwin in nixpkgs
     "-Dwildmidi=disabled" # see dependencies above
-  ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
-    "-Dqsv=disabled" # Linux (and Windows) x86 only
-  ] ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
+  ] ++ lib.optionals (!stdenv.isLinux
+    || !stdenv.isx86_64) [ "-Dqsv=disabled" # Linux (and Windows) x86 only
+    ] ++ lib.optionals (!gst-plugins-base.glEnabled) [ "-Dgl=disabled" ]
     ++ lib.optionals (!gst-plugins-base.waylandEnabled) [
       "-Dgtk3=disabled" # Wayland-based GTK sink
       "-Dwayland=disabled"
@@ -311,9 +317,7 @@ stdenv.mkDerivation rec {
       # `applemedia/videotexturecache.h` requires `gst/gl/gl.h`,
       # but its meson build system does not declare the dependency.
       "-Dapplemedia=disabled"
-    ] ++ (if enableGplPlugins then
-      [ "-Dgpl=enabled" ]
-    else [
+    ] ++ (if enableGplPlugins then [ "-Dgpl=enabled" ] else [
       "-Ddts=disabled"
       "-Dfaad=disabled"
       "-Diqa=disabled"

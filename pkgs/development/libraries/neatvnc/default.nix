@@ -27,9 +27,21 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ meson ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ aml ffmpeg gnutls libjpeg_turbo mesa pixman zlib ];
+  buildInputs = [
+    aml
+    ffmpeg
+    gnutls
+    libjpeg_turbo
+    mesa
+    pixman
+    zlib
+  ];
 
   mesonFlags = [ (lib.mesonBool "tests" true) ];
 

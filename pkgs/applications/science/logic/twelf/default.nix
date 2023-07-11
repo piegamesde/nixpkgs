@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ smlnj rsync ];
+  buildInputs = [
+    smlnj
+    rsync
+  ];
 
   buildPhase = ''
     export SMLNJ_HOME=${smlnj}

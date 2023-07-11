@@ -40,7 +40,10 @@ stdenv.mkDerivation rec {
     ./quakespasm-darwin-makefile-improvements.patch
   ];
 
-  nativeBuildInputs = [ copyDesktopItems pkg-config ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    pkg-config
+  ];
 
   buildInputs = [
     gzip
@@ -52,8 +55,12 @@ stdenv.mkDerivation rec {
     libogg
     libxmp
     (if useSDL2 then SDL2 else SDL)
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa CoreAudio IOKit OpenGL ]
-    ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    Cocoa
+    CoreAudio
+    IOKit
+    OpenGL
+  ] ++ lib.optionals (stdenv.isDarwin && useSDL2) [ CoreFoundation ];
 
   buildFlags = [
     "DO_USERDIRS=1"
@@ -68,7 +75,10 @@ stdenv.mkDerivation rec {
     "USE_CODEC_XMP=1"
     "MP3LIB=mad"
     "VORBISLIB=vorbis"
-  ] ++ lib.optionals useSDL2 [ "SDL_CONFIG=sdl2-config" "USE_SDL2=1" ];
+  ] ++ lib.optionals useSDL2 [
+    "SDL_CONFIG=sdl2-config"
+    "USE_SDL2=1"
+  ];
 
   makefile = if (stdenv.isDarwin) then "Makefile.darwin" else "Makefile";
 
@@ -95,14 +105,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "quakespasm";
-      exec = "quake";
-      desktopName = "Quakespasm";
-      categories = [ "Game" ];
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = "quakespasm";
+    exec = "quake";
+    desktopName = "Quakespasm";
+    categories = [ "Game" ];
+  }) ];
 
   meta = with lib; {
     description = "An engine for iD software's Quake";

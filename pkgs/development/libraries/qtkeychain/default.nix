@@ -33,9 +33,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
   ;
 
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ [ qtbase qttools ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ [
+    qtbase
+    qttools
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreFoundation
+    Security
+  ];
 
   meta = {
     description = "Platform-independent Qt API for storing passwords securely";

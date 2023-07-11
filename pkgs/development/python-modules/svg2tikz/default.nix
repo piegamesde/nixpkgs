@@ -31,7 +31,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ inkex lxml ];
+  propagatedBuildInputs = [
+    inkex
+    lxml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -43,6 +46,9 @@ buildPythonPackage rec {
     homepage = "https://github.com/xyz2tex/svg2tikz";
     description = "Set of tools for converting SVG graphics to TikZ/PGF code";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda gal_bolle ];
+    maintainers = with maintainers; [
+      dotlambda
+      gal_bolle
+    ];
   };
 }

@@ -25,8 +25,10 @@ let
 
   ourNcurses = if useNcurses6 then ncurses6 else ncurses5;
 
-  libPath = lib.makeLibraryPath ([ ourNcurses gmp ]
-    ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
+  libPath = lib.makeLibraryPath ([
+    ourNcurses
+    gmp
+  ] ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
 
   libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY"
     + "LD_LIBRARY_PATH";
@@ -44,12 +46,10 @@ let
     targetPackages.stdenv.cc
     targetPackages.stdenv.cc.bintools
     coreutils # for cat
-  ] ++ lib.optionals useLLVM [
-    (lib.getBin llvmPackages.llvm)
-  ]
-  # On darwin, we need unwrapped bintools as well (for otool)
-    ++ lib.optionals (stdenv.targetPlatform.linker == "cctools")
-    [ targetPackages.stdenv.cc.bintools.bintools ];
+  ] ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    # On darwin, we need unwrapped bintools as well (for otool)
+    ++ lib.optionals (stdenv.targetPlatform.linker
+      == "cctools") [ targetPackages.stdenv.cc.bintools.bintools ];
 
 in stdenv.mkDerivation rec {
   version = "8.6.5";
@@ -148,11 +148,10 @@ in stdenv.mkDerivation rec {
     '';
 
   configurePlatforms = [ ];
-  configureFlags = [
-    "--with-gmp-includes=${lib.getDev gmp}/include"
+  configureFlags = [ "--with-gmp-includes=${lib.getDev gmp}/include"
     # Note `--with-gmp-libraries` does nothing for GHC bindists:
     # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
-  ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
+    ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # No building is necessary, but calling make without flags ironically
@@ -226,8 +225,12 @@ in stdenv.mkDerivation rec {
 
   meta = rec {
     license = lib.licenses.bsd3;
-    platforms =
-      [ "x86_64-linux" "i686-linux" "x86_64-darwin" "powerpc64le-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+      "powerpc64le-linux"
+    ];
     # build segfaults, use ghc8102Binary which has proper musl support instead
     broken = stdenv.hostPlatform.isMusl;
     maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;

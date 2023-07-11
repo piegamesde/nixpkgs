@@ -51,8 +51,12 @@ python.pkgs.buildPythonApplication rec {
     yamllint
   ];
 
-  makeWrapperArgs =
-    [ "--prefix" "PATH" ":" "${lib.makeBinPath [ apksigner ]}" ];
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [ apksigner ]}"
+  ];
 
   # no tests
   doCheck = false;

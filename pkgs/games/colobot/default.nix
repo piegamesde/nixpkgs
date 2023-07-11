@@ -36,7 +36,12 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-Nu7NyicNIk5yza9sXfd4KbGdB65guVuGREd6rwRU3lU=";
   };
 
-  nativeBuildInputs = [ cmake xmlstarlet doxygen python3 ];
+  nativeBuildInputs = [
+    cmake
+    xmlstarlet
+    doxygen
+    python3
+  ];
   buildInputs = [
     boost
     SDL2

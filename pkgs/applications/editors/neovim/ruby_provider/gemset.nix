@@ -20,7 +20,10 @@
     version = "1.15.0";
   };
   neovim = {
-    dependencies = [ "msgpack" "multi_json" ];
+    dependencies = [
+      "msgpack"
+      "multi_json"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -13,9 +13,15 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-ekqhzKyU2WqTOeRR1ZSZA9yW3UXsLBsC2Bk6FZrQgmc=";
   };
 
-  propagatedBuildInputs = [ mopidy python3Packages.tidalapi ];
+  propagatedBuildInputs = [
+    mopidy
+    python3Packages.tidalapi
+  ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   pytestFlagsArray = [ "tests/" ];
 

@@ -29,7 +29,11 @@ let
 in mkDerivation rec {
   pname = "kasts";
 
-  nativeBuildInputs = [ cmake extra-cmake-modules wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gst-plugins-bad

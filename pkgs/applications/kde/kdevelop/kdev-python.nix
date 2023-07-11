@@ -17,8 +17,15 @@ in mkDerivation rec {
 
   cmakeFlags = [ "-DPYTHON_EXECUTABLE=${python}/bin/python" ];
 
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
-  buildInputs = [ threadweaver ktexteditor kdevelop-unwrapped ];
+  nativeBuildInputs = [
+    cmake
+    extra-cmake-modules
+  ];
+  buildInputs = [
+    threadweaver
+    ktexteditor
+    kdevelop-unwrapped
+  ];
 
   dontWrapQtApps = true;
 

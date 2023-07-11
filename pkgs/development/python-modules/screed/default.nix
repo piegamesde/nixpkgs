@@ -25,8 +25,11 @@ buildPythonPackage rec {
 
   # These tests use the screed CLI and make assumptions on how screed is
   # installed that break with nix. Can be enabled when upstream is fixed.
-  disabledTests =
-    [ "Test_convert_shell" "Test_fa_shell_command" "Test_fq_shell_command" ];
+  disabledTests = [
+    "Test_convert_shell"
+    "Test_fa_shell_command"
+    "Test_fq_shell_command"
+  ];
 
   meta = with lib; {
     description =

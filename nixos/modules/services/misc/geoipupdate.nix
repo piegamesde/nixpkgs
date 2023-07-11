@@ -9,10 +9,11 @@ let
   cfg = config.services.geoipupdate;
   inherit (builtins) isAttrs isString isInt isList typeOf hashString;
 in {
-  imports = [
-    (lib.mkRemovedOptionModule [ "services" "geoip-updater" ]
-      "services.geoip-updater has been removed, use services.geoipupdate instead.")
-  ];
+  imports = [ (lib.mkRemovedOptionModule [
+    "services"
+    "geoip-updater"
+  ]
+    "services.geoip-updater has been removed, use services.geoipupdate instead.") ];
 
   options = {
     services.geoipupdate = {
@@ -57,7 +58,12 @@ in {
         '';
         type = lib.types.submodule {
           freeformType = with lib.types;
-            let type = oneOf [ str int bool ];
+            let
+              type = oneOf [
+                str
+                int
+                bool
+              ];
             in attrsOf (either type (listOf type));
 
           options = {
@@ -71,7 +77,11 @@ in {
 
             EditionIDs = lib.mkOption {
               type = with lib.types; listOf (either str int);
-              example = [ "GeoLite2-ASN" "GeoLite2-City" "GeoLite2-Country" ];
+              example = [
+                "GeoLite2-ASN"
+                "GeoLite2-City"
+                "GeoLite2-Country"
+              ];
               description = lib.mdDoc ''
                 List of database edition IDs. This includes new string
                 IDs like `GeoIP2-City` and old
@@ -210,8 +220,14 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProcSubset = "pid";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictRealtime = true;
         RestrictNamespaces = true;
         MemoryDenyWriteExecute = true;

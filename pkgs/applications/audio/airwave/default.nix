@@ -52,9 +52,18 @@ in multiStdenv.mkDerivation {
 
   src = airwave-src;
 
-  nativeBuildInputs = [ cmake makeWrapper wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ file libX11 qt5.qtbase wine-xembed ];
+  buildInputs = [
+    file
+    libX11
+    qt5.qtbase
+    wine-xembed
+  ];
 
   postPatch = ''
     # Binaries not used directly should land in libexec/.

@@ -40,7 +40,12 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     hash = "sha256-14MVimOxM7upq6vpEhvVRnrverBuFToE2ktNhG59LKE=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook wrapGAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapQtAppsHook
+    wrapGAppsHook
+  ];
   buildInputs = [
     gnuradioMinimal.unwrapped.logLib
     mpir
@@ -88,6 +93,9 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     # it's currently unknown which version of the BSD license that is.
     license = licenses.gpl3Plus;
     platforms = platforms.linux; # should work on Darwin / macOS too
-    maintainers = with maintainers; [ bjornfor fpletz ];
+    maintainers = with maintainers; [
+      bjornfor
+      fpletz
+    ];
   };
 }

@@ -20,7 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-NiNKFrWxpGkwbb7tFEDD5jZ6ETW20BBIqrdjCsL/DkY=";
   };
 
-  propagatedBuildInputs = [ async-timeout bitstring ifaddr ];
+  propagatedBuildInputs = [
+    async-timeout
+    bitstring
+    ifaddr
+  ];
 
   # tests are not implemented
   doCheck = false;

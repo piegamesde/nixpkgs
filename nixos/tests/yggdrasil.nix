@@ -10,13 +10,13 @@ let
   bobPrefix = "302:a483:73a4:9f2d";
   bobConfig = {
     InterfacePeers = { eth1 = [ "tcp://192.168.1.200:12345" ]; };
-    MulticastInterfaces = [{
+    MulticastInterfaces = [ {
       Regex = ".*";
       Beacon = true;
       Listen = true;
       Port = 54321;
       Priority = 0;
-    }];
+    } ];
     PublicKey =
       "2b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
     PrivateKey =
@@ -39,11 +39,14 @@ in import ./make-test-python.nix ({
           ...
         }: {
           networking = {
-            interfaces.eth1.ipv4.addresses = [{
+            interfaces.eth1.ipv4.addresses = [ {
               address = "192.168.1.200";
               prefixLength = 24;
-            }];
-            firewall.allowedTCPPorts = [ 80 12345 ];
+            } ];
+            firewall.allowedTCPPorts = [
+              80
+              12345
+            ];
           };
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
@@ -81,10 +84,10 @@ in import ./make-test-python.nix ({
           networking = {
             bridges.br0.interfaces = [ ];
             interfaces.br0 = {
-              ipv6.addresses = [{
+              ipv6.addresses = [ {
                 address = bobPrefix + "::1";
                 prefixLength = 64;
-              }];
+              } ];
             };
           };
 
@@ -99,15 +102,15 @@ in import ./make-test-python.nix ({
                 ...
               }: {
                 networking.interfaces.eth0.ipv6 = {
-                  addresses = [{
+                  addresses = [ {
                     address = bobPrefix + "::2";
                     prefixLength = 64;
-                  }];
-                  routes = [{
+                  } ];
+                  routes = [ {
                     address = "200::";
                     prefixLength = 7;
                     via = bobPrefix + "::1";
-                  }];
+                  } ];
                 };
                 services.httpd.enable = true;
                 services.httpd.adminAddr = "foo@example.org";
@@ -127,7 +130,7 @@ in import ./make-test-python.nix ({
             settings = {
               IfTAPMode = true;
               IfName = "ygg0";
-              MulticastInterfaces = [{ Port = 43210; }];
+              MulticastInterfaces = [ { Port = 43210; } ];
               openMulticastPort = true;
             };
             persistentKeys = true;

@@ -1,6 +1,10 @@
 {
   lolcat = {
-    dependencies = [ "manpages" "optimist" "paint" ];
+    dependencies = [
+      "manpages"
+      "optimist"
+      "paint"
+    ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

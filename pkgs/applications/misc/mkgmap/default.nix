@@ -24,13 +24,11 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-2DwIH6GNsK2XwaVxzPvN1qt4XRSi5fCQDwltBCBg4gI=";
   };
 
-  patches = [
-    (substituteAll {
-      # Disable automatic download of dependencies
-      src = ./build.xml.patch;
-      inherit version;
-    })
-  ];
+  patches = [ (substituteAll {
+    # Disable automatic download of dependencies
+    src = ./build.xml.patch;
+    inherit version;
+  }) ];
 
   postPatch = with deps;
     ''
@@ -55,7 +53,11 @@ in stdenv.mkDerivation rec {
       '') testInputs}
     '';
 
-  nativeBuildInputs = [ jdk ant makeWrapper ];
+  nativeBuildInputs = [
+    jdk
+    ant
+    makeWrapper
+  ];
 
   buildPhase = "ant";
 
@@ -74,7 +76,11 @@ in stdenv.mkDerivation rec {
     cp -r dist/examples $out/share/mkgmap/
   '';
 
-  passthru.updateScript = [ ./update.sh "mkgmap" meta.downloadPage ];
+  passthru.updateScript = [
+    ./update.sh
+    "mkgmap"
+    meta.downloadPage
+  ];
 
   meta = with lib; {
     description =

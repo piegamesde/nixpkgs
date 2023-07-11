@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ async-timeout bitstring pyserial-asyncio ];
+  propagatedBuildInputs = [
+    async-timeout
+    bitstring
+    pyserial-asyncio
+  ];
 
   # Project has no tests
   doCheck = false;

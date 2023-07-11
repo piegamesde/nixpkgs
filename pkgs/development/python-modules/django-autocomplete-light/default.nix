@@ -29,7 +29,10 @@ buildPythonPackage rec {
     hash = "sha256-YUiGN6q7ARM/rg7d+ykeDEYZDYjB+DHxMCmdme6QccU=";
   };
 
-  propagatedBuildInputs = [ django six ];
+  propagatedBuildInputs = [
+    django
+    six
+  ];
 
   # Too many un-packaged dependencies
   doCheck = false;

@@ -25,7 +25,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libX11 libXext sdbus-cpp udev ];
+  buildInputs = [
+    libX11
+    libXext
+    sdbus-cpp
+    udev
+  ];
 
   cmakeFlags = [ "-DUDEV_DIR=${placeholder "out"}/lib/udev" ];
 

@@ -13,7 +13,10 @@ stdenv.mkDerivation rec {
   pname = "jsoncpp";
   version = "1.9.5";
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchFromGitHub {
     owner = "open-source-parsers";
@@ -34,7 +37,11 @@ stdenv.mkDerivation rec {
     sed -i 's/#define JSONCPP_USING_SECURE_MEMORY 0/#define JSONCPP_USING_SECURE_MEMORY 1/' include/json/version.h
   '';
 
-  nativeBuildInputs = [ cmake python3 validatePkgConfig ];
+  nativeBuildInputs = [
+    cmake
+    python3
+    validatePkgConfig
+  ];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
@@ -59,7 +66,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/open-source-parsers/jsoncpp";
     description = "A C++ library for interacting with JSON";
-    maintainers = with maintainers; [ ttuegel cpages ];
+    maintainers = with maintainers; [
+      ttuegel
+      cpages
+    ];
     license = licenses.mit;
     platforms = platforms.all;
   };

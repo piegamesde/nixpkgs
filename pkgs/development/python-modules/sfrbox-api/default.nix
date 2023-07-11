@@ -34,9 +34,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [ click defusedxml httpx pydantic ];
+  propagatedBuildInputs = [
+    click
+    defusedxml
+    httpx
+    pydantic
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook respx ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    respx
+  ];
 
   pythonImportsCheck = [ "sfrbox_api" ];
 

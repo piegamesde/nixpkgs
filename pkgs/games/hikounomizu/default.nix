@@ -43,8 +43,17 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-  buildInputs =
-    [ libGL freetype pugixml SDL2 SDL2_image openal libogg libvorbis libGLU ];
+  buildInputs = [
+    libGL
+    freetype
+    pugixml
+    SDL2
+    SDL2_image
+    openal
+    libogg
+    libvorbis
+    libGLU
+  ];
 
   postBuild = ''
     make data -j$NIX_BUILD_CORES
@@ -64,7 +73,10 @@ stdenv.mkDerivation rec {
     homepage = "https://hikounomizu.org/";
     downloadPage = "https://hikounomizu.org/download.html";
     maintainers = with maintainers; [ fgaz ];
-    license = [ licenses.gpl3Plus licenses.lal13 ];
+    license = [
+      licenses.gpl3Plus
+      licenses.lal13
+    ];
     platforms = platforms.all;
   };
 }

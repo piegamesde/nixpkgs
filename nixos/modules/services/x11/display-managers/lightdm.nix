@@ -96,7 +96,13 @@ in {
       "lightdm"
       "autoLogin"
       "enable"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "enable"
+    ])
     (mkRenamedOptionModule [
       "services"
       "xserver"
@@ -104,7 +110,13 @@ in {
       "lightdm"
       "autoLogin"
       "user"
-    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
+    ] [
+      "services"
+      "xserver"
+      "displayManager"
+      "autoLogin"
+      "user"
+    ])
   ];
 
   options = {
@@ -237,11 +249,10 @@ in {
     '';
 
     # Replaces getty
-    systemd.services.display-manager.conflicts = [
-      "getty@tty7.service"
+    systemd.services.display-manager.conflicts = [ "getty@tty7.service"
       # TODO: Add "plymouth-quit.service" so LightDM can control when plymouth
       # quits. Currently this breaks switching to configurations with plymouth.
-    ];
+      ];
 
     # Pull in dependencies of services we replace.
     systemd.services.display-manager.after = [

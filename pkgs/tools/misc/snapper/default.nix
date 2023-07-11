@@ -34,8 +34,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Eq9b49zEIb3wMHUw9/jpfYDaMXBY5JHZ2u5RTTtD5I8=";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config docbook_xsl libxslt docbook_xml_dtd_45 ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    docbook_xsl
+    libxslt
+    docbook_xml_dtd_45
+  ];
   buildInputs = [
     acl
     attr
@@ -67,9 +72,8 @@ stdenv.mkDerivation rec {
       --replace '/`basename $(libdir)`' "$out/lib"
   '';
 
-  configureFlags = [
-    "--disable-ext4" # requires patched kernel & e2fsprogs
-  ];
+  configureFlags = [ "--disable-ext4" # requires patched kernel & e2fsprogs
+    ];
 
   enableParallelBuilding = true;
 

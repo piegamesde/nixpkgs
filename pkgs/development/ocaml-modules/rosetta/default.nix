@@ -19,7 +19,11 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ coin uuuu yuscii ];
+  propagatedBuildInputs = [
+    coin
+    uuuu
+    yuscii
+  ];
 
   doCheck = false; # No tests.
 

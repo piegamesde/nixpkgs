@@ -67,10 +67,10 @@ let
       dir = "libfreerdp/crypto/test";
       file = "Test_x509_cert_info.c";
     }
-  ] ++ lib.optionals stdenv.isDarwin [{
+  ] ++ lib.optionals stdenv.isDarwin [ {
     dir = "winpr/libwinpr/sysinfo/test";
     file = "TestGetComputerName.c";
-  }];
+  } ];
 
   inherit (lib) optionals;
 
@@ -140,17 +140,25 @@ in stdenv.mkDerivation rec {
     pcre2
     pcsclite
     zlib
-  ] ++ optionals stdenv.isLinux [ alsa-lib systemd wayland ]
-    ++ optionals stdenv.isDarwin [
-      AudioToolbox
-      AVFoundation
-      Carbon
-      Cocoa
-      CoreMedia
-    ] ++ optionals withUnfree [ faac ];
+  ] ++ optionals stdenv.isLinux [
+    alsa-lib
+    systemd
+    wayland
+  ] ++ optionals stdenv.isDarwin [
+    AudioToolbox
+    AVFoundation
+    Carbon
+    Cocoa
+    CoreMedia
+  ] ++ optionals withUnfree [ faac ];
 
-  nativeBuildInputs =
-    [ cmake libxslt docbook-xsl-nons pkg-config wayland-scanner ];
+  nativeBuildInputs = [
+    cmake
+    libxslt
+    docbook-xsl-nons
+    pkg-config
+    wayland-scanner
+  ];
 
   doCheck = true;
 
@@ -193,7 +201,10 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://www.freerdp.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterhoeg lheckemann ];
+    maintainers = with maintainers; [
+      peterhoeg
+      lheckemann
+    ];
     platforms = platforms.unix;
   };
 }

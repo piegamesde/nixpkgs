@@ -25,17 +25,24 @@ buildPythonPackage rec {
     hash = "sha256-RndjvbbmFNHqi0Vl5CxT+y6y/UMHpGAelxAqlYwJgSo=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./libgl-path.patch;
-      libgl =
-        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
-    })
+  patches = [ (substituteAll {
+    src = ./libgl-path.patch;
+    libgl =
+      "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+  }) ];
+
+  propagatedBuildInputs = [
+    imageio-ffmpeg
+    numpy
+    pillow
   ];
 
-  propagatedBuildInputs = [ imageio-ffmpeg numpy pillow ];
-
-  nativeCheckInputs = [ fsspec psutil pytestCheckHook tifffile ];
+  nativeCheckInputs = [
+    fsspec
+    psutil
+    pytestCheckHook
+    tifffile
+  ];
 
   pytestFlagsArray = [ "-m 'not needs_internet'" ];
 

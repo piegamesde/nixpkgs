@@ -41,7 +41,10 @@ stdenv.mkDerivation (finalAttrs: rec {
   pname = "spidermonkey";
   inherit version;
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   src = fetchurl {
     url =
@@ -98,7 +101,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     nspr
     readline
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ libobjc libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    libobjc
+    libiconv
+  ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -117,8 +123,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     "--enable-release"
     "--enable-shared-js"
   ] ++ lib.optionals (lib.versionAtLeast version "91") [ "--disable-debug" ]
-    ++ [ "--disable-jemalloc" "--disable-strip" "--disable-tests" ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ++ [
+      "--disable-jemalloc"
+      "--disable-strip"
+      "--disable-tests"
+    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Spidermonkey seems to use different host/build terminology for cross
       # compilation here.
       "--host=${stdenv.buildPlatform.config}"
@@ -182,7 +191,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     description = "Mozilla's JavaScript engine written in C/C++";
     homepage = "https://spidermonkey.dev/";
     license = licenses.mpl20; # TODO: MPL/GPL/LGPL tri-license for 78.
-    maintainers = with maintainers; [ abbradar lostnet catap ];
+    maintainers = with maintainers; [
+      abbradar
+      lostnet
+      catap
+    ];
     platforms = platforms.unix;
   };
 })

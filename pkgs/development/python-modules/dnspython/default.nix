@@ -34,11 +34,19 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    DOH = [ httpx h2 requests requests-toolbelt ];
+    DOH = [
+      httpx
+      h2
+      requests
+      requests-toolbelt
+    ];
     IDNA = [ idna ];
     DNSSEC = [ cryptography ];
     trio = [ trio ];
-    curio = [ curio sniffio ];
+    curio = [
+      curio
+      sniffio
+    ];
     DOQ = [ aioquic ];
   };
 

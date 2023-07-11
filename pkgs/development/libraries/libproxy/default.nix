@@ -41,13 +41,26 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [ "out" "dev" "py3" ];
+  outputs = [
+    "out"
+    "dev"
+    "py3"
+  ];
 
-  nativeBuildInputs = [ pkg-config cmake makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    makeWrapper
+  ];
 
-  buildInputs = [ pcre python3 zlib ] ++ lib.optionals enableJavaScript
-    [ (if stdenv.hostPlatform.isDarwin then JavaScriptCore else duktape) ]
-    ++ (if stdenv.hostPlatform.isDarwin then [
+  buildInputs = [
+    pcre
+    python3
+    zlib
+  ] ++ lib.optionals enableJavaScript [ (if stdenv.hostPlatform.isDarwin then
+    JavaScriptCore
+  else
+    duktape) ] ++ (if stdenv.hostPlatform.isDarwin then [
       SystemConfiguration
       CoreFoundation
     ] else [

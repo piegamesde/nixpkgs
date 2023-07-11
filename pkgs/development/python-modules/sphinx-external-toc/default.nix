@@ -25,7 +25,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ click pyyaml sphinx ];
+  propagatedBuildInputs = [
+    click
+    pyyaml
+    sphinx
+  ];
 
   pythonImportsCheck = [ "sphinx_external_toc" ];
 

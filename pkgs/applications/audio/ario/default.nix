@@ -26,11 +26,24 @@ stdenv.mkDerivation rec {
     sha256 = "16nhfb3h5pc7flagfdz7xy0iq6kvgy6h4bfpi523i57rxvlfshhl";
   };
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config gettext intltool wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    gettext
+    intltool
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ avahi curl dbus-glib gtk3 libmpdclient libsoup libxml2 taglib ];
+  buildInputs = [
+    avahi
+    curl
+    dbus-glib
+    gtk3
+    libmpdclient
+    libsoup
+    libxml2
+    taglib
+  ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     for file in $out/lib/ario/plugins/*.dylib; do

@@ -21,8 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "1bvddrwyk1479wibyayzc24h62qzfnlbk9qvdhb31yw9yn17gp6k";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
-  buildInputs = [ libgcrypt pam postgresql libxcrypt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
+  buildInputs = [
+    libgcrypt
+    pam
+    postgresql
+    libxcrypt
+  ];
 
   meta = with lib; {
     description =

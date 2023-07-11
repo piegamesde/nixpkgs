@@ -44,7 +44,11 @@ in buildPythonPackage rec {
 
   buildInputs = [ libxcrypt ];
 
-  nativeBuildInputs = [ cmake pog gtest ];
+  nativeBuildInputs = [
+    cmake
+    pog
+    gtest
+  ];
 
   setupPyBuildFlags = [ "--with-unit-tests" ];
 

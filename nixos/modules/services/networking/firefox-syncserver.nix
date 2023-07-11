@@ -251,10 +251,10 @@ in {
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [{
+      ensureUsers = [ {
         name = cfg.database.user;
         ensurePermissions = { "${cfg.database.name}.*" = "all privileges"; };
-      }];
+      } ];
     };
 
     systemd.services.firefox-syncserver = {
@@ -288,7 +288,11 @@ in {
         ProtectHostname = true;
         LockPersonality = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictRealtime = true;
         ProtectSystem = "strict";
         ProtectProc = "invisible";
@@ -296,7 +300,10 @@ in {
         ProtectHome = true;
         PrivateUsers = true;
         PrivateTmp = true;
-        SystemCallFilter = [ "@system-service" "~ @privileged @resources" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~ @privileged @resources"
+        ];
         UMask = "0077";
       };
     };

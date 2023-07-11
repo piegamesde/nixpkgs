@@ -18,7 +18,13 @@
 assert lib.assertMsg (stdenv.isDarwin -> !lazyLoad)
   "cubeb: lazyLoad is inert on Darwin";
 
-let backendLibs = [ alsa-lib jack2 libpulseaudio sndio ];
+let
+  backendLibs = [
+    alsa-lib
+    jack2
+    libpulseaudio
+    sndio
+  ];
 
 in stdenv.mkDerivation {
   pname = "cubeb";
@@ -31,7 +37,10 @@ in stdenv.mkDerivation {
     hash = "sha256-q+uz1dGU4LdlPogL1nwCR/KuOX4Oy3HhMdA6aJylBRk=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [ speexdsp ] ++ (if stdenv.isDarwin then [
     AudioUnit

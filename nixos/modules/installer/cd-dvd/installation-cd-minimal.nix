@@ -7,7 +7,10 @@
 }:
 
 {
-  imports = [ ../../profiles/minimal.nix ./installation-cd-base.nix ];
+  imports = [
+    ../../profiles/minimal.nix
+    ./installation-cd-base.nix
+  ];
 
   # Causes a lot of uncached builds for a negligible decrease in size.
   environment.noXlibs = lib.mkOverride 500 false;

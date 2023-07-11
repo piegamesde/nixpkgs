@@ -22,7 +22,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook responses ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+    responses
+  ];
 
   pythonImportsCheck = [ "backoff" ];
 

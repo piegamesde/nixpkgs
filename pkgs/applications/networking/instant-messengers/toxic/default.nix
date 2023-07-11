@@ -31,15 +31,24 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
   installFlags = [ "PREFIX=$(out)" ];
 
-  buildInputs = [ libtoxcore libsodium ncurses curl gdk-pixbuf libnotify ]
-    ++ lib.optionals (!stdenv.isAarch32) [
-      openal
-      libopus
-      libvpx
-      freealut
-      qrencode
-    ];
-  nativeBuildInputs = [ pkg-config libconfig ];
+  buildInputs = [
+    libtoxcore
+    libsodium
+    ncurses
+    curl
+    gdk-pixbuf
+    libnotify
+  ] ++ lib.optionals (!stdenv.isAarch32) [
+    openal
+    libopus
+    libvpx
+    freealut
+    qrencode
+  ];
+  nativeBuildInputs = [
+    pkg-config
+    libconfig
+  ];
 
   meta = with lib;
     src.meta // {

@@ -20,10 +20,18 @@ stdenv.mkDerivation {
     sha256 = "sha256-HHyZLZAXfmuimpHV8fOWldZmi4I5uV1NnSmP4E7ZQtc=";
   };
 
-  patches = [ ./openssl-1.1.patch ./signed-ptr.patch ];
+  patches = [
+    ./openssl-1.1.patch
+    ./signed-ptr.patch
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ gawk trousers cryptsetup openssl ];
+  buildInputs = [
+    gawk
+    trousers
+    cryptsetup
+    openssl
+  ];
 
   installPhase = ''
     mkdir -p $out

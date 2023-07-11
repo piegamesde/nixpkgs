@@ -54,7 +54,11 @@ lib.makeOverridable mkDerivation (rec {
   vmoptsFile =
     lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
-  nativeBuildInputs = [ makeWrapper patchelf unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    patchelf
+    unzip
+  ];
 
   postPatch = ''
     get_file_size() {
@@ -97,7 +101,13 @@ lib.makeOverridable mkDerivation (rec {
 
     makeWrapper "$out/$pname/bin/${loName}.sh" "$out/bin/${pname}" \
       --prefix PATH : "$out/libexec/${pname}:${
-        lib.makeBinPath [ jdk coreutils gnugrep which git ]
+        lib.makeBinPath [
+          jdk
+          coreutils
+          gnugrep
+          which
+          git
+        ]
       }" \
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath ([

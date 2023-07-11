@@ -100,9 +100,16 @@ in stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs = [ python3 python3.pkgs.dbus-python ];
+  buildInputs = [
+    python3
+    python3.pkgs.dbus-python
+  ];
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper dpkg ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    dpkg
+  ];
 
   unpackPhase = ''
     dpkg-deb -x $src $out
@@ -132,7 +139,13 @@ in stdenv.mkDerivation rec {
         --set LD_LIBRARY_PATH "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
 
     wrapProgram $out/opt/appgate/appgate-driver \
-        --prefix PATH : ${lib.makeBinPath [ iproute2 networkmanager dnsmasq ]} \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            iproute2
+            networkmanager
+            dnsmasq
+          ]
+        } \
         --set LD_LIBRARY_PATH $out/opt/appgate/service
 
     # make xdg-open overrideable at runtime

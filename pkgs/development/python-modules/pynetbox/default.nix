@@ -25,9 +25,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ requests six ];
+  propagatedBuildInputs = [
+    requests
+    six
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook pyyaml ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyyaml
+  ];
 
   disabledTestPaths = [
     # requires docker for integration test

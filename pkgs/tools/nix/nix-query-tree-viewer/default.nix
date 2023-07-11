@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [ glib gtk3 ];
+  buildInputs = [
+    glib
+    gtk3
+  ];
 
   cargoSha256 = "sha256-NSLBIvgo5EdCvZq52d+UbAa7K4uOST++2zbhO9DW38E=";
 

@@ -18,7 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OKAvJovGu9rMxEe5g4kdL7Foj41kl3zUYIJa04jf0dI=";
   };
 
-  buildInputs = [ libxcb xcbutil xcb-util-cursor ];
+  buildInputs = [
+    libxcb
+    xcbutil
+    xcb-util-cursor
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

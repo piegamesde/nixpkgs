@@ -26,11 +26,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xQzTGFptw/L+o8ivXGTxIzVFbAMrsMXvwUjCFS4rhdw=";
   };
 
-  nativeBuildInputs = [ libxslt docbook_xsl makeWrapper ];
+  nativeBuildInputs = [
+    libxslt
+    docbook_xsl
+    makeWrapper
+  ];
 
-  buildInputs = [ systemd libaio ];
+  buildInputs = [
+    systemd
+    libaio
+  ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" "SD_NOTIFY=1" ];
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SD_NOTIFY=1"
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -52,7 +62,13 @@ stdenv.mkDerivation rec {
         perl.withPackages (p: [ p.ConfigGeneral ])
       }/bin/perl"
     wrapProgram $out/sbin/tgt-admin --prefix PATH : \
-      ${lib.makeBinPath [ lsof sg3_utils (placeholder "out") ]}
+      ${
+        lib.makeBinPath [
+          lsof
+          sg3_utils
+          (placeholder "out")
+        ]
+      }
 
     install -D scripts/tgtd.service $out/etc/systemd/system/tgtd.service
     substituteInPlace $out/etc/systemd/system/tgtd.service \

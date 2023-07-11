@@ -21,7 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-GD5lRSUjASTwBk5vEK8v3xD8eNyxpwSrO3HHvtwubmk=";
   };
 
-  propagatedBuildInputs = [ async-timeout psycopg2 ];
+  propagatedBuildInputs = [
+    async-timeout
+    psycopg2
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

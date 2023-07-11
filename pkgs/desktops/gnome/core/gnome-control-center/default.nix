@@ -75,14 +75,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-er02UBjihnne9gpezTBJ2w+4XebaSaltrdIfuo2wAuc=";
   };
 
-  patches = [
-    (substituteAll {
-      src = ./paths.patch;
-      gcm = gnome-color-manager;
-      inherit glibc libgnomekbd tzdata shadow;
-      inherit cups networkmanagerapplet;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./paths.patch;
+    gcm = gnome-color-manager;
+    inherit glibc libgnomekbd tzdata shadow;
+    inherit cups networkmanagerapplet;
+  }) ];
 
   nativeBuildInputs = [
     docbook-xsl-nons
@@ -149,7 +147,10 @@ stdenv.mkDerivation rec {
     # In postInstall to run before gappsWrapperArgsHook.
     export GDK_PIXBUF_MODULE_FILE="${
       gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-        extraLoaders = [ librsvg webp-pixbuf-loader ];
+        extraLoaders = [
+          librsvg
+          webp-pixbuf-loader
+        ];
       }
     }"
   '';

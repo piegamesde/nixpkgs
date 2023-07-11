@@ -25,8 +25,11 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ Libsystem SystemConfiguration libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Libsystem
+    SystemConfiguration
+    libiconv
+  ];
 
   checkFlags = [
     "--test client_tests"

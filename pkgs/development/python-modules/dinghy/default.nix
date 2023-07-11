@@ -27,8 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-xtcNcykfgcWvifso0xaeMT31+G5x4HCp+tLAIEEq4cw=";
   };
 
-  propagatedBuildInputs =
-    [ aiofiles aiohttp click-log emoji glom jinja2 pyyaml ];
+  propagatedBuildInputs = [
+    aiofiles
+    aiohttp
+    click-log
+    emoji
+    glom
+    jinja2
+    pyyaml
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,6 +47,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/nedbat/dinghy/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ trundle veehaitch ];
+    maintainers = with maintainers; [
+      trundle
+      veehaitch
+    ];
   };
 }

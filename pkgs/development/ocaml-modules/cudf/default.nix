@@ -22,13 +22,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mTLk2V3OI1sUNIYv84nM3reiirf0AuozG5ZzLCmn4Rw=";
   };
 
-  buildFlags = [ "all" "opt" ];
+  buildFlags = [
+    "all"
+    "opt"
+  ];
 
-  nativeBuildInputs = [ findlib ocaml ocamlbuild pkg-config perl ];
-  buildInputs = [ glib stdlib-shims ];
+  nativeBuildInputs = [
+    findlib
+    ocaml
+    ocamlbuild
+    pkg-config
+    perl
+  ];
+  buildInputs = [
+    glib
+    stdlib-shims
+  ];
   propagatedBuildInputs = [ extlib ];
 
-  checkTarget = [ "all" "test" ];
+  checkTarget = [
+    "all"
+    "test"
+  ];
   checkInputs = [ ounit ];
   doCheck = true;
 

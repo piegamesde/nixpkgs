@@ -39,10 +39,22 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ gobject-introspection gtk-doc meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    gobject-introspection
+    gtk-doc
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ libepoxy glib gtk3 libpulseaudio libsamplerate ];
+  buildInputs = [
+    libepoxy
+    glib
+    gtk3
+    libpulseaudio
+    libsamplerate
+  ];
 
   meta = with lib; {
     description = "The GTK Libretro frontend framework";

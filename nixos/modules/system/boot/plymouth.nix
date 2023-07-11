@@ -45,7 +45,10 @@ let
 
   themesEnv = pkgs.buildEnv {
     name = "plymouth-themes";
-    paths = [ plymouth plymouthLogos ] ++ cfg.themePackages;
+    paths = [
+      plymouth
+      plymouthLogos
+    ] ++ cfg.themePackages;
   };
 
   configFile = pkgs.writeText "plymouthd.conf" ''
@@ -235,8 +238,10 @@ in {
         plymouth-quit.wantedBy = [ "multi-user.target" ];
         plymouth-read-write.wantedBy = [ "sysinit.target" ];
         plymouth-reboot.wantedBy = [ "reboot.target" ];
-        plymouth-start.wantedBy =
-          [ "initrd-switch-root.target" "sysinit.target" ];
+        plymouth-start.wantedBy = [
+          "initrd-switch-root.target"
+          "sysinit.target"
+        ];
         plymouth-switch-root-initramfs.wantedBy = [
           "halt.target"
           "kexec.target"
@@ -250,13 +255,12 @@ in {
 
     # Insert required udev rules. We take stage 2 systemd because the udev
     # rules are only generated when building with logind.
-    boot.initrd.services.udev.packages = [
-      (pkgs.runCommand "initrd-plymouth-udev-rules" { } ''
+    boot.initrd.services.udev.packages =
+      [ (pkgs.runCommand "initrd-plymouth-udev-rules" { } ''
         mkdir -p $out/etc/udev/rules.d
         cp ${config.systemd.package.out}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out/etc/udev/rules.d
         sed -i '/loginctl/d' $out/etc/udev/rules.d/71-seat.rules
-      '')
-    ];
+      '') ];
 
     boot.initrd.extraUtilsCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable) ''

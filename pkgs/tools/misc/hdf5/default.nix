@@ -45,7 +45,10 @@ in stdenv.mkDerivation rec {
       mpiSupport mpi;
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   nativeBuildInputs = [ removeReferencesTo ] ++ optional fortranSupport fortran;
 
@@ -56,13 +59,17 @@ in stdenv.mkDerivation rec {
 
   configureFlags = optional cppSupport "--enable-cxx"
     ++ optional fortranSupport "--enable-fortran"
-    ++ optional szipSupport "--with-szlib=${szip}"
-    ++ optionals mpiSupport [ "--enable-parallel" "CC=${mpi}/bin/mpicc" ]
-    ++ optional enableShared "--enable-shared"
+    ++ optional szipSupport "--with-szlib=${szip}" ++ optionals mpiSupport [
+      "--enable-parallel"
+      "CC=${mpi}/bin/mpicc"
+    ] ++ optional enableShared "--enable-shared"
     ++ optional javaSupport "--enable-java" ++ optional usev110Api
     "--with-default-api-version=v110"
     # hdf5 hl (High Level) library is not considered stable with thread safety and should be disabled.
-    ++ optionals threadsafe [ "--enable-threadsafe" "--disable-hl" ];
+    ++ optionals threadsafe [
+      "--enable-threadsafe"
+      "--disable-hl"
+    ];
 
   patches = [
     # Avoid non-determinism in autoconf build system:

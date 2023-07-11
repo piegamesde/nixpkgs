@@ -42,7 +42,10 @@ in rec {
       rev = "${pname}_v${version}";
       sha256 = "1bbpbdkshdc3xffqnr1qfy8qk64ldsmdc3s8mrcrlx132rgbi5f6";
     };
-    buildInputs = [ sumalibs zlib ];
+    buildInputs = [
+      sumalibs
+      zlib
+    ];
     makeFlags = [
       "LIBSUMA=${sumalibs}/lib/libsuma.a"
       "LIBSUMAPATH=-L${sumalibs}"

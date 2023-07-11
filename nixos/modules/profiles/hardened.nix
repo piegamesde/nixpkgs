@@ -16,7 +16,12 @@
 with lib;
 
 {
-  meta = { maintainers = [ maintainers.joachifm maintainers.emily ]; };
+  meta = {
+    maintainers = [
+      maintainers.joachifm
+      maintainers.emily
+    ];
+  };
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_hardened;
 

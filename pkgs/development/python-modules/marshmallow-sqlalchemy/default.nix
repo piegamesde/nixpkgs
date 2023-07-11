@@ -22,11 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-NSOndDkO8MHA98cIp1GYCcU5bPYIcg8U9Vw290/1u+w=";
   };
 
-  propagatedBuildInputs = [ marshmallow packaging sqlalchemy ];
+  propagatedBuildInputs = [
+    marshmallow
+    packaging
+    sqlalchemy
+  ];
 
   pythonImportsCheck = [ "marshmallow_sqlalchemy" ];
 
-  nativeCheckInputs = [ pytest-lazy-fixture pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-lazy-fixture
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "SQLAlchemy integration with marshmallow";

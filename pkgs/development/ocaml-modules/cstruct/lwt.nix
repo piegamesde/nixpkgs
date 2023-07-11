@@ -16,5 +16,8 @@ else
     minimalOCamlVersion = "4.08";
     duneVersion = "3";
 
-    propagatedBuildInputs = [ cstruct lwt ];
+    propagatedBuildInputs = [
+      cstruct
+      lwt
+    ];
   }

@@ -22,7 +22,11 @@ let
     optionalString (string != "") "${prefix}${string}";
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "keycloak" "bindAddress" ] [
+    (mkRenamedOptionModule [
+      "services"
+      "keycloak"
+      "bindAddress"
+    ] [
       "services"
       "keycloak"
       "settings"
@@ -32,26 +36,46 @@ in {
       "services"
       "keycloak"
       "forceBackendUrlToFrontendUrl"
-    ] [ "services" "keycloak" "settings" "hostname-strict-backchannel" ])
-    (mkChangedOptionModule [ "services" "keycloak" "httpPort" ] [
+    ] [
+      "services"
+      "keycloak"
+      "settings"
+      "hostname-strict-backchannel"
+    ])
+    (mkChangedOptionModule [
+      "services"
+      "keycloak"
+      "httpPort"
+    ] [
       "services"
       "keycloak"
       "settings"
       "http-port"
     ] (config: builtins.fromJSON config.services.keycloak.httpPort))
-    (mkChangedOptionModule [ "services" "keycloak" "httpsPort" ] [
+    (mkChangedOptionModule [
+      "services"
+      "keycloak"
+      "httpsPort"
+    ] [
       "services"
       "keycloak"
       "settings"
       "https-port"
     ] (config: builtins.fromJSON config.services.keycloak.httpsPort))
-    (mkRemovedOptionModule [ "services" "keycloak" "frontendUrl" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "keycloak"
+      "frontendUrl"
+    ] ''
       Set `services.keycloak.settings.hostname' and `services.keycloak.settings.http-relative-path' instead.
       NOTE: You likely want to set 'http-relative-path' to '/auth' to keep compatibility with your clients.
             See its description for more information.
     '')
-    (mkRemovedOptionModule [ "services" "keycloak" "extraConfig" ]
-      "Use `services.keycloak.settings' instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "keycloak"
+      "extraConfig"
+    ] "Use `services.keycloak.settings' instead.")
   ];
 
   options.services.keycloak = let
@@ -112,7 +136,11 @@ in {
 
     database = {
       type = mkOption {
-        type = enum [ "mysql" "mariadb" "postgresql" ];
+        type = enum [
+          "mysql"
+          "mariadb"
+          "postgresql"
+        ];
         default = "postgresql";
         example = "mariadb";
         description = lib.mdDoc ''
@@ -253,7 +281,12 @@ in {
 
     settings = mkOption {
       type = lib.types.submodule {
-        freeformType = attrsOf (nullOr (oneOf [ str int bool (attrsOf path) ]));
+        freeformType = attrsOf (nullOr (oneOf [
+          str
+          int
+          bool
+          (attrsOf path)
+        ]));
 
         options = {
           http-host = mkOption {
@@ -335,7 +368,12 @@ in {
           };
 
           proxy = mkOption {
-            type = enum [ "edge" "reencrypt" "passthrough" "none" ];
+            type = enum [
+              "edge"
+              "reencrypt"
+              "passthrough"
+              "none"
+            ];
             default = "none";
             example = "edge";
             description = lib.mdDoc ''
@@ -393,8 +431,10 @@ in {
       && cfg.database.host == "localhost";
     createLocalPostgreSQL = databaseActuallyCreateLocally && cfg.database.type
       == "postgresql";
-    createLocalMySQL = databaseActuallyCreateLocally
-      && elem cfg.database.type [ "mysql" "mariadb" ];
+    createLocalMySQL = databaseActuallyCreateLocally && elem cfg.database.type [
+      "mysql"
+      "mariadb"
+    ];
 
     mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" { } ''
       ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
@@ -452,9 +492,11 @@ in {
     };
 
     isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-    filteredConfig =
-      lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ { } null ]))
-      cfg.settings;
+    filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v:
+      !elem v [
+        { }
+        null
+      ])) cfg.settings;
     confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
     keycloakBuild = cfg.package.override {
       inherit confFile;
@@ -607,7 +649,11 @@ in {
       after = databaseServices;
       bindsTo = databaseServices;
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ keycloakBuild openssl replace-secret ];
+      path = with pkgs; [
+        keycloakBuild
+        openssl
+        replace-secret
+      ];
       environment = {
         KC_HOME_DIR = "/run/keycloak";
         KC_CONF_DIR = "/run/keycloak/conf";

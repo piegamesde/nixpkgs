@@ -30,7 +30,11 @@ in stdenv.mkDerivation rec {
 
   depsBuildBuild =
     lib.optionals isCrossCompiling [ buildPackages.knightos-scas ];
-  nativeBuildInputs = [ asciidoc libxslt.bin cmake ];
+  nativeBuildInputs = [
+    asciidoc
+    libxslt.bin
+    cmake
+  ];
   postInstall = ''
     cd ..
     make DESTDIR=$out install_man

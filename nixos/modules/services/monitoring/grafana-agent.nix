@@ -11,7 +11,12 @@ let
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "grafana-agent.yaml" cfg.settings;
 in {
-  meta = { maintainers = with maintainers; [ flokli zimbatm ]; };
+  meta = {
+    maintainers = with maintainers; [
+      flokli
+      zimbatm
+    ];
+  };
 
   options.services.grafana-agent = {
     enable = mkEnableOption (lib.mdDoc "grafana-agent");
@@ -70,15 +75,15 @@ in {
         }
       '';
       example = {
-        metrics.global.remote_write = [{
+        metrics.global.remote_write = [ {
           url = "\${METRICS_REMOTE_WRITE_URL}";
           basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
           basic_auth.password_file =
             "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
-        }];
-        logs.configs = [{
+        } ];
+        logs.configs = [ {
           name = "default";
-          scrape_configs = [{
+          scrape_configs = [ {
             job_name = "journal";
             journal = {
               max_age = "12h";
@@ -98,15 +103,15 @@ in {
                 target_label = "syslog_identifier";
               }
             ];
-          }];
+          } ];
           positions.filename = "\${STATE_DIRECTORY}/loki_positions.yaml";
-          clients = [{
+          clients = [ {
             url = "\${LOGS_REMOTE_WRITE_URL}";
             basic_auth.username = "\${LOGS_REMOTE_WRITE_USERNAME}";
             basic_auth.password_file =
               "\${CREDENTIALS_DIRECTORY}/logs_remote_write_password";
-          }];
-        }];
+          } ];
+        } ];
       };
     };
   };

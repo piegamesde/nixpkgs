@@ -66,7 +66,10 @@ in ((vscode-utils.override {
         "Live Share lets you achieve greater confidence at speed by streamlining collaborative editing, debugging, and more in real-time during development";
       homepage = "https://aka.ms/vsls-docs";
       license = lib.licenses.unfree;
-      maintainers = [ lib.maintainers.jraygauthier lib.maintainers.V ];
+      maintainers = [
+        lib.maintainers.jraygauthier
+        lib.maintainers.V
+      ];
       platforms = [ "x86_64-linux" ];
     };
   })

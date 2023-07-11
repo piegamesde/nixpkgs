@@ -34,8 +34,17 @@ in stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  nativeBuildInputs = [ python3Packages.wrapPython wrapGAppsHook ];
-  buildInputs = [ SDL2 SDL2_mixer SDL2_net gtk3 gobject-introspection ];
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    SDL2
+    SDL2_mixer
+    SDL2_net
+    gtk3
+    gobject-introspection
+  ];
 
   postInstall = ''
     make -C menu PREFIX=$out all install
@@ -44,7 +53,10 @@ in stdenv.mkDerivation rec {
     sed -ie 's+Exec=jumpnbump+Exec=jumpnbump-menu+' $out/share/applications/jumpnbump.desktop
   '';
 
-  pythonPath = with python3Packages; [ pygobject3 pillow ];
+  pythonPath = with python3Packages; [
+    pygobject3
+    pillow
+  ];
   preFixup = ''
     buildPythonPath "$out $pythonPath"
   '';

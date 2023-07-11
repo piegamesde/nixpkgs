@@ -36,7 +36,10 @@ import ./make-test-python.nix ({
             # test WPA2 fallback
             mixed-wpa = {
               psk = "password";
-              authProtocols = [ "WPA-PSK" "SAE" ];
+              authProtocols = [
+                "WPA-PSK"
+                "SAE"
+              ];
             };
             sae-only = {
               psk = "password";

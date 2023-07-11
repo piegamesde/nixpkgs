@@ -31,9 +31,14 @@ let
       description = "Ceph ${
           builtins.replaceStrings lowerChars upperChars daemonType
         } daemon ${daemonId}";
-      after = [ "network-online.target" "time-sync.target" ]
-        ++ optional (daemonType == "osd") "ceph-mon.target";
-      wants = [ "network-online.target" "time-sync.target" ];
+      after = [
+        "network-online.target"
+        "time-sync.target"
+      ] ++ optional (daemonType == "osd") "ceph-mon.target";
+      wants = [
+        "network-online.target"
+        "time-sync.target"
+      ];
       partOf = [ "ceph-${daemonType}.target" ];
       wantedBy = [ "ceph-${daemonType}.target" ];
 
@@ -43,7 +48,10 @@ let
       unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
       startLimitBurst = if daemonType == "osd" then
         30
-      else if lib.elem daemonType [ "mgr" "mds" ] then
+      else if lib.elem daemonType [
+        "mgr"
+        "mds"
+      ] then
         3
       else
         5;
@@ -151,7 +159,10 @@ in {
       };
 
       authClusterRequired = mkOption {
-        type = types.enum [ "cephx" "none" ];
+        type = types.enum [
+          "cephx"
+          "none"
+        ];
         default = "cephx";
         description = lib.mdDoc ''
           Enables requiring daemons to authenticate with eachother in the cluster.
@@ -159,7 +170,10 @@ in {
       };
 
       authServiceRequired = mkOption {
-        type = types.enum [ "cephx" "none" ];
+        type = types.enum [
+          "cephx"
+          "none"
+        ];
         default = "cephx";
         description = lib.mdDoc ''
           Enables requiring clients to authenticate with the cluster to access services in the cluster (e.g. radosgw, mds or osd).
@@ -167,7 +181,10 @@ in {
       };
 
       authClientRequired = mkOption {
-        type = types.enum [ "cephx" "none" ];
+        type = types.enum [
+          "cephx"
+          "none"
+        ];
         default = "cephx";
         description = lib.mdDoc ''
           Enables requiring the cluster to authenticate itself to the client.
@@ -220,7 +237,10 @@ in {
       daemons = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "name1" "name2" ];
+        example = [
+          "name1"
+          "name2"
+        ];
         description = lib.mdDoc ''
           A list of names for manager daemons that should have a service created. The names correspond
           to the id part in ceph i.e. [ "name1" ] would result in mgr.name1
@@ -240,7 +260,10 @@ in {
       daemons = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "name1" "name2" ];
+        example = [
+          "name1"
+          "name2"
+        ];
         description = lib.mdDoc ''
           A list of monitor daemons that should have a service created. The names correspond
           to the id part in ceph i.e. [ "name1" ] would result in mon.name1
@@ -260,7 +283,10 @@ in {
       daemons = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "name1" "name2" ];
+        example = [
+          "name1"
+          "name2"
+        ];
         description = lib.mdDoc ''
           A list of OSD daemons that should have a service created. The names correspond
           to the id part in ceph i.e. [ "name1" ] would result in osd.name1
@@ -288,7 +314,10 @@ in {
       daemons = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "name1" "name2" ];
+        example = [
+          "name1"
+          "name2"
+        ];
         description = lib.mdDoc ''
           A list of metadata service daemons that should have a service created. The names correspond
           to the id part in ceph i.e. [ "name1" ] would result in mds.name1
@@ -308,7 +337,10 @@ in {
       daemons = mkOption {
         type = with types; listOf str;
         default = [ ];
-        example = [ "name1" "name2" ];
+        example = [
+          "name1"
+          "name2"
+        ];
         description = lib.mdDoc ''
           A list of rados gateway daemons that should have a service created. The names correspond
           to the id part in ceph i.e. [ "name1" ] would result in client.name1, radosgw daemons
@@ -407,14 +439,14 @@ in {
     in mkMerge services;
 
     systemd.targets = let
-      targets = [{
+      targets = [ {
         ceph = {
           description =
             "Ceph target allowing to start/stop all ceph service instances at once";
           wantedBy = [ "multi-user.target" ];
           unitConfig.StopWhenUnneeded = true;
         };
-      }] ++ optional cfg.mon.enable (makeTarget "mon")
+      } ] ++ optional cfg.mon.enable (makeTarget "mon")
         ++ optional cfg.mds.enable (makeTarget "mds")
         ++ optional cfg.osd.enable (makeTarget "osd")
         ++ optional cfg.rgw.enable (makeTarget "rgw")

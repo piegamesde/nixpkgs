@@ -19,18 +19,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WMv2G4b7kYnWy0pz8YyI2eTdefs1mtWau+HQLiRygjE=";
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Pocket Casts";
-      genericName = "Podcasts Listener";
-      exec = "pocket-casts";
-      icon = "pocket-casts";
-      comment = meta.description;
-    })
-  ];
+  desktopItems = [ (makeDesktopItem {
+    name = pname;
+    desktopName = "Pocket Casts";
+    genericName = "Podcasts Listener";
+    exec = "pocket-casts";
+    icon = "pocket-casts";
+    comment = meta.description;
+  }) ];
 
-  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall

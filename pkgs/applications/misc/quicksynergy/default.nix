@@ -17,7 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 synergy ];
+  buildInputs = [
+    gtk2
+    synergy
+  ];
   preBuild =
     "\n    sed -i 's@/usr/bin@${synergy.out}/bin@' src/synergy_config.c\n  ";
   meta = {

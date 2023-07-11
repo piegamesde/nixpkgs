@@ -63,8 +63,16 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs =
-    [ alsa-lib dbus-glib fuse gtk3 libdbusmenu-gtk2 libXdamage nss udev ];
+  buildInputs = [
+    alsa-lib
+    dbus-glib
+    fuse
+    gtk3
+    libdbusmenu-gtk2
+    libXdamage
+    nss
+    udev
+  ];
 
   installPhase = ''
     mkdir "$out"

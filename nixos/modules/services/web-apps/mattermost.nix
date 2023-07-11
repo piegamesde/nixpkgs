@@ -187,7 +187,10 @@ in {
       };
 
       plugins = mkOption {
-        type = types.listOf (types.oneOf [ types.path types.package ]);
+        type = types.listOf (types.oneOf [
+          types.path
+          types.package
+        ]);
         default = [ ];
         example =
           "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
@@ -273,7 +276,10 @@ in {
         parameters = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [ "-mmserver chat.example.com" "-bind [::]:6667" ];
+          example = [
+            "-mmserver chat.example.com"
+            "-bind [::]:6667"
+          ];
           description = lib.mdDoc ''
             Set commandline parameters to pass to matterircd. See
             https://github.com/42wim/matterircd#usage for more information.
@@ -308,7 +314,10 @@ in {
       systemd.services.mattermost = {
         description = "Mattermost chat service";
         wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" "postgresql.service" ];
+        after = [
+          "network.target"
+          "postgresql.service"
+        ];
 
         preStart = ''
           mkdir -p "${cfg.statePath}"/{data,config,logs,plugins}

@@ -46,7 +46,12 @@ stdenv.mkDerivation rec {
       --replace "/usr/share" "$out/share"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     dtkwidget
@@ -76,8 +81,7 @@ stdenv.mkDerivation rec {
     "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0"
   ];
 
-  qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${
+  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${
       lib.makeLibraryPath [
         ffmpeg
         ffmpegthumbnailer
@@ -88,8 +92,7 @@ stdenv.mkDerivation rec {
         portaudio
         systemd
       ]
-    }"
-  ];
+    }" ];
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

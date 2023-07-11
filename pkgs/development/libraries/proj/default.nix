@@ -32,13 +32,27 @@ stdenv.mkDerivation (finalAttrs: rec {
     ./only-add-curl-for-static-builds.patch
   ];
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ sqlite libtiff curl nlohmann_json ];
+  buildInputs = [
+    sqlite
+    libtiff
+    curl
+    nlohmann_json
+  ];
 
-  nativeCheckInputs = [ cacert gtest ];
+  nativeCheckInputs = [
+    cacert
+    gtest
+  ];
 
   cmakeFlags = [
     "-DUSE_EXTERNAL_GTEST=ON"

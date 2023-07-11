@@ -2,7 +2,14 @@
   lib,
   nimPackages,
   fetchFromGitLab,
-  enableShells ? [ "bash" "zsh" "fish" "sh" "posh" "codium" ]
+  enableShells ? [
+    "bash"
+    "zsh"
+    "fish"
+    "sh"
+    "posh"
+    "codium"
+  ]
 }:
 nimPackages.buildNimPackage rec {
   pname = "swaycwd";

@@ -165,8 +165,15 @@ in {
         PrivateUsers = true;
         PrivateDevices = true;
         RestrictRealtime = true;
-        RestrictNamespaces = [ "user" "mnt" ]; # allow buildFHSUserEnv
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictNamespaces = [
+          "user"
+          "mnt"
+        ]; # allow buildFHSUserEnv
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         LockPersonality = true;
         DeviceAllow = [ "" ];
         DevicePolicy = "closed";

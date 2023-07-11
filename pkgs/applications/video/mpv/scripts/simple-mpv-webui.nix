@@ -25,7 +25,10 @@ stdenvNoCC.mkDerivation rec {
     description =
       "A web based user interface with controls for the mpv mediaplayer";
     homepage = "https://github.com/open-dynaMIX/simple-mpv-webui";
-    maintainers = with maintainers; [ cript0nauta zopieux ];
+    maintainers = with maintainers; [
+      cript0nauta
+      zopieux
+    ];
     longDescription = ''
       You can access the webui when accessing http://127.0.0.1:8080 or
       http://[::1]:8080 in your webbrowser. By default it listens on

@@ -61,8 +61,14 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     extra_pubkey_algs = [ oscrypto ];
     xmp = [ defusedxml ];
-    opentype = [ fonttools uharfbuzz ];
-    image-support = [ pillow python-barcode ];
+    opentype = [
+      fonttools
+      uharfbuzz
+    ];
+    image-support = [
+      pillow
+      python-barcode
+    ];
     pkcs11 = [ python-pkcs11 ];
     async_http = [ aiohttp ];
   };

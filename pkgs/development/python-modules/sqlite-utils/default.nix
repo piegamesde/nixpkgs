@@ -30,10 +30,18 @@ buildPythonPackage rec {
       --replace "click-default-group-wheel" "click-default-group"
   '';
 
-  propagatedBuildInputs =
-    [ click click-default-group python-dateutil sqlite-fts4 tabulate ];
+  propagatedBuildInputs = [
+    click
+    click-default-group
+    python-dateutil
+    sqlite-fts4
+    tabulate
+  ];
 
-  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    hypothesis
+  ];
 
   pythonImportsCheck = [ "sqlite_utils" ];
 
@@ -42,6 +50,9 @@ buildPythonPackage rec {
       "Python CLI utility and library for manipulating SQLite databases";
     homepage = "https://github.com/simonw/sqlite-utils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ meatcar techknowlogick ];
+    maintainers = with maintainers; [
+      meatcar
+      techknowlogick
+    ];
   };
 }

@@ -28,7 +28,14 @@ buildPythonPackage rec {
     hash = "sha256-StwTN1DmDnNiZ+3iF2NW5qMDFDiwkTZ8tPKzhN6ZrgM=";
   };
 
-  propagatedBuildInputs = [ colorcet numpy pandas panel param pyviz-comms ];
+  propagatedBuildInputs = [
+    colorcet
+    numpy
+    pandas
+    panel
+    param
+    pyviz-comms
+  ];
 
   # tests not fully included with pypi release
   doCheck = false;

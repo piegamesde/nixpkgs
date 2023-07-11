@@ -88,7 +88,10 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-79N0DX+yQhTuAhspBmeqM/iFQpJ1LabKyFfzHoLLbeg=";
   };
 
-  outputs = [ "out" "lib" ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
   prePatch = ''
     mkdir -p external/renderdoc/src external/spirv-headers external/video-parser external/vulkan-docs
@@ -122,8 +125,15 @@ in stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  nativeBuildInputs =
-    [ cmake glslang makeWrapper ninja pkg-config python3 wayland-scanner ];
+  nativeBuildInputs = [
+    cmake
+    glslang
+    makeWrapper
+    ninja
+    pkg-config
+    python3
+    wayland-scanner
+  ];
 
   cmakeFlags = [
     # Fix cts cmake not coping with absolute install dirs

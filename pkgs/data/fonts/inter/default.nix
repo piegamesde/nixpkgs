@@ -29,6 +29,9 @@ stdenvNoCC.mkDerivation rec {
     description = "A typeface specially designed for user interfaces";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ demize dtzWill ];
+    maintainers = with maintainers; [
+      demize
+      dtzWill
+    ];
   };
 }

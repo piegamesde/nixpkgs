@@ -92,7 +92,11 @@ in stdenv.mkDerivation rec {
   yarnCache = stdenv.mkDerivation {
     name = "${pname}-${version}-${system}-yarn-cache";
     inherit src;
-    nativeBuildInputs = [ yarn' git cacert ];
+    nativeBuildInputs = [
+      yarn'
+      git
+      cacert
+    ];
     buildPhase = ''
       export HOME=$PWD
       export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
@@ -116,17 +120,29 @@ in stdenv.mkDerivation rec {
     outputHash = "sha256-4Vr9u3+W/IhbbTc39jyDyDNQODlmdF+M/N8oJn0Z4+w=";
   };
 
-  nativeBuildInputs =
-    [ nodejs yarn' python pkg-config makeWrapper git rsync jq moreutils quilt ];
-  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ (with xorg; [ libX11 libxkbfile ]) ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      Cocoa
-      CoreServices
-      Security
-      cctools
-      xcbuild
-    ];
+  nativeBuildInputs = [
+    nodejs
+    yarn'
+    python
+    pkg-config
+    makeWrapper
+    git
+    rsync
+    jq
+    moreutils
+    quilt
+  ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+    libX11
+    libxkbfile
+  ]) ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    Cocoa
+    CoreServices
+    Security
+    cctools
+    xcbuild
+  ];
 
   patches = [
     # remove git calls from vscode build script
@@ -280,7 +296,14 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/coder/code-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ offline henkery ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [
+      offline
+      henkery
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ];
   };
 }

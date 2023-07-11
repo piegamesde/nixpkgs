@@ -22,7 +22,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libmpdclient dbus-glib audacious gtk2 gsl libaudclient ];
+  buildInputs = [
+    libmpdclient
+    dbus-glib
+    audacious
+    gtk2
+    gsl
+    libaudclient
+  ];
 
   hardeningDisable = [ "format" ];
 

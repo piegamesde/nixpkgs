@@ -81,15 +81,14 @@ let
           # Hence this one is run as root (the +) with RootDirectoryStartOnly=
           # to reach credentials wherever they are.
           # Note that each systemd service gets its own ${runDir}/config.ini file.
-          ExecStartPre = mkBefore [
-            ("+" + pkgs.writeShellScript "${serviceName}-credentials" ''
+          ExecStartPre = mkBefore [ ("+"
+            + pkgs.writeShellScript "${serviceName}-credentials" ''
               set -x
               # Replace values beginning with a '<' by the content of the file whose name is after.
               gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
               ${optionalString (!allowStripe) "gawk '!/^stripe-secret-key=/' |"}
               install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
-            '')
-          ];
+            '') ];
           # The following options are only for optimizing:
           # systemd-analyze security
           AmbientCapabilities = "";
@@ -114,7 +113,11 @@ let
           ProtectProc = "invisible";
           ProtectSystem = "strict";
           RemoveIPC = true;
-          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
@@ -193,7 +196,11 @@ in {
     gunicorn = {
       extraArgs = mkOption {
         type = with types; listOf str;
-        default = [ "--timeout 120" "--workers 1" "--log-level=info" ];
+        default = [
+          "--timeout 120"
+          "--workers 1"
+          "--log-level=info"
+        ];
         description = lib.mdDoc "Extra arguments passed to Gunicorn.";
       };
     };
@@ -201,8 +208,11 @@ in {
     webhooks = {
       extraArgs = mkOption {
         type = with types; listOf str;
-        default =
-          [ "--loglevel DEBUG" "--pool eventlet" "--without-heartbeat" ];
+        default = [
+          "--loglevel DEBUG"
+          "--pool eventlet"
+          "--without-heartbeat"
+        ];
         description = lib.mdDoc
           "Extra arguments passed to the Celery responsible for webhooks.";
       };
@@ -300,7 +310,16 @@ in {
         databases = 3;
         syslog = true;
         # TODO: set a more informed value
-        save = mkDefault [ [ 1800 10 ] [ 300 100 ] ];
+        save = mkDefault [
+          [
+            1800
+            10
+          ]
+          [
+            300
+            100
+          ]
+        ];
         settings = {
           # TODO: set a more informed value
           maxmemory = "128MB";
@@ -397,7 +416,10 @@ in {
           (baseService timerName { } (mkMerge [
             {
               description = "sourcehut ${timerName} service";
-              after = [ "network.target" "${srvsrht}.service" ];
+              after = [
+                "network.target"
+                "${srvsrht}.service"
+              ];
               serviceConfig = {
                 Type = "oneshot";
                 ExecStart = "${cfg.python}/bin/${timerName}";

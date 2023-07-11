@@ -9,7 +9,10 @@ import ./make-test-python.nix ({
         lib,
         ...
       }: {
-        imports = [ ./common/x11.nix ./common/user-account.nix ];
+        imports = [
+          ./common/x11.nix
+          ./common/user-account.nix
+        ];
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession =
           lib.mkForce "none+wmderland";

@@ -20,7 +20,12 @@ mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [ qtbase qttools alsa-lib libjack2 ];
+  buildInputs = [
+    qtbase
+    qttools
+    alsa-lib
+    libjack2
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

@@ -85,8 +85,14 @@ let
       sha256 = data.yarn_hash;
     };
 
-    nativeBuildInputs =
-      [ rubyEnv.wrappedRuby rubyEnv.bundler nodejs yarn git cacert ];
+    nativeBuildInputs = [
+      rubyEnv.wrappedRuby
+      rubyEnv.bundler
+      nodejs
+      yarn
+      git
+      cacert
+    ];
 
     patches = [
       # Since version 12.6.0, the rake tasks need the location of git,
@@ -157,8 +163,14 @@ in stdenv.mkDerivation {
   inherit src;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler tzdata git nettools ];
+  buildInputs = [
+    rubyEnv
+    rubyEnv.wrappedRuby
+    rubyEnv.bundler
+    tzdata
+    git
+    nettools
+  ];
 
   patches = [
     # Change hardcoded paths to the NixOS equivalent
@@ -232,7 +244,13 @@ in stdenv.mkDerivation {
     {
       homepage = "http://www.gitlab.com/";
       platforms = platforms.linux;
-      maintainers = with maintainers; [ globin krav talyz yayayayaka yuka ];
+      maintainers = with maintainers; [
+        globin
+        krav
+        talyz
+        yayayayaka
+        yuka
+      ];
     } // (if gitlabEnterprise then {
       license =
         licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE

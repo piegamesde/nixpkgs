@@ -38,6 +38,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.matroska.org";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ cawilliamson ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
   };
 }

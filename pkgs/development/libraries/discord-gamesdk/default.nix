@@ -34,7 +34,11 @@ stdenv.mkDerivation rec {
       "Library to allow other programs to interact with the Discord desktop application";
     license = licenses.unfree;
     maintainers = with maintainers; [ tomodachi94 ];
-    platforms =
-      [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "x86_64-windows" ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+      "x86_64-windows"
+    ];
   };
 }

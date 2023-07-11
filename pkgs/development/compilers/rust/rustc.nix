@@ -108,20 +108,21 @@ in stdenv.mkDerivation rec {
     "--host=${rust.toRustTargetSpec stdenv.hostPlatform}"
     # std is built for all platforms in --target.
     "--target=${
-      concatStringsSep "," ([
-        (rust.toRustTargetSpec stdenv.targetPlatform)
+      concatStringsSep "," ([ (rust.toRustTargetSpec stdenv.targetPlatform)
 
-        # (build!=target): When cross-building a compiler we need to add
-        # the build platform as well so rustc can compile build.rs
-        # scripts.
-      ] ++ optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
-        (rust.toRustTargetSpec stdenv.buildPlatform)
+      # (build!=target): When cross-building a compiler we need to add
+      # the build platform as well so rustc can compile build.rs
+      # scripts.
+        ] ++ optionals
+        (stdenv.buildPlatform != stdenv.targetPlatform) [ (rust.toRustTargetSpec
+          stdenv.buildPlatform)
 
         # (host!=target): When building a cross-targeting compiler we
         # need to add the host platform as well so rustc can compile
         # build.rs scripts.
-      ] ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform)
-        [ (rust.toRustTargetSpec stdenv.hostPlatform) ])
+        ] ++ optionals
+        (stdenv.hostPlatform != stdenv.targetPlatform) [ (rust.toRustTargetSpec
+          stdenv.hostPlatform) ])
     }"
 
     "${setBuild}.cc=${ccForBuild}"
@@ -144,14 +145,14 @@ in stdenv.mkDerivation rec {
     "${setBuild}.llvm-config=${llvmSharedForBuild.dev}/bin/llvm-config"
     "${setHost}.llvm-config=${llvmSharedForHost.dev}/bin/llvm-config"
     "${setTarget}.llvm-config=${llvmSharedForTarget.dev}/bin/llvm-config"
-  ] ++ optionals (stdenv.isLinux && !stdenv.targetPlatform.isRedox) [
-    "--enable-profiler" # build libprofiler_builtins
-  ] ++ optionals stdenv.buildPlatform.isMusl
-  [ "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}" ]
-  ++ optionals stdenv.hostPlatform.isMusl
-  [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
-  ++ optionals stdenv.targetPlatform.isMusl
-  [ "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}" ]
+  ] ++ optionals (stdenv.isLinux
+    && !stdenv.targetPlatform.isRedox) [ "--enable-profiler" # build libprofiler_builtins
+  ] ++ optionals
+  stdenv.buildPlatform.isMusl [ "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}" ]
+  ++ optionals
+  stdenv.hostPlatform.isMusl [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
+  ++ optionals
+  stdenv.targetPlatform.isMusl [ "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}" ]
   ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
   ++ optionals (stdenv.isDarwin && stdenv.isx86_64) [
     # https://github.com/rust-lang/rust/issues/92173
@@ -205,7 +206,10 @@ in stdenv.mkDerivation rec {
   # use it for the normal build. This disables cmake in Nix.
   dontUseCmakeConfigure = true;
 
-  depsBuildBuild = [ pkgsBuildHost.stdenv.cc pkg-config ];
+  depsBuildBuild = [
+    pkgsBuildHost.stdenv.cc
+    pkg-config
+  ];
 
   nativeBuildInputs = [
     file
@@ -219,10 +223,16 @@ in stdenv.mkDerivation rec {
     xz
   ];
 
-  buildInputs = [ openssl ] ++ optionals stdenv.isDarwin [ libiconv Security ]
-    ++ optional (!withBundledLLVM) llvmShared;
+  buildInputs = [ openssl ] ++ optionals stdenv.isDarwin [
+    libiconv
+    Security
+  ] ++ optional (!withBundledLLVM) llvmShared;
 
-  outputs = [ "out" "man" "doc" ];
+  outputs = [
+    "out"
+    "man"
+    "doc"
+  ];
   setOutputFlags = false;
 
   postInstall = lib.optionalString enableRustcDev ''
@@ -267,8 +277,15 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.rust-lang.org/";
     description = "A safe, concurrent, practical language";
     maintainers = with maintainers;
-      [ cstrahan globin havvy ] ++ teams.rust.members;
-    license = [ licenses.mit licenses.asl20 ];
+      [
+        cstrahan
+        globin
+        havvy
+      ] ++ teams.rust.members;
+    license = [
+      licenses.mit
+      licenses.asl20
+    ];
     platforms = [
       # Platforms with host tools from
       # https://doc.rust-lang.org/nightly/rustc/platform-support.html

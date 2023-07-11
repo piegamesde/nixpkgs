@@ -22,9 +22,16 @@ stdenv.mkDerivation rec {
     sha256 = "SInFYBu/7NJdgLo0IgnQqTbc9pHuVr1uykzeNh8aZkw=";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook gtk3 ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gtk3
+  ];
 
-  buildInputs = [ gdk-pixbuf librsvg ];
+  buildInputs = [
+    gdk-pixbuf
+    librsvg
+  ];
 
   propagatedBuildInputs = [
     # For convenience, we can specify adwaita-icon-theme only in packages

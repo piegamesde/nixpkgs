@@ -37,8 +37,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ ] ++ (if stdenv.hostPlatform.isDarwin then [
     Security
     libiconv
-  ] else
-    [ openssl ]) ++ lib.optional withNotmuchBackend notmuch;
+  ] else [ openssl ]) ++ lib.optional withNotmuchBackend notmuch;
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ ] ++ lib.optional withImapBackend "imap-backend"
@@ -62,6 +61,10 @@ rustPlatform.buildRustPackage rec {
     changelog =
       "https://github.com/soywod/himalaya/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ soywod toastal yanganto ];
+    maintainers = with maintainers; [
+      soywod
+      toastal
+      yanganto
+    ];
   };
 }

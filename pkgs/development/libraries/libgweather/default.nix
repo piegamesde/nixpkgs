@@ -24,7 +24,10 @@ stdenv.mkDerivation rec {
   pname = "libgweather";
   version = "4.2.0";
 
-  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -49,9 +52,19 @@ stdenv.mkDerivation rec {
     gettext
     glib
     (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
-  ] ++ lib.optionals withIntrospection [ gi-docgen gobject-introspection vala ];
+  ] ++ lib.optionals withIntrospection [
+    gi-docgen
+    gobject-introspection
+    vala
+  ];
 
-  buildInputs = [ glib libsoup_3 libxml2 json-glib geocode-glib_2 ];
+  buildInputs = [
+    glib
+    libsoup_3
+    libxml2
+    json-glib
+    geocode-glib_2
+  ];
 
   mesonFlags = [
     "-Dzoneinfo_dir=${tzdata}/share/zoneinfo"

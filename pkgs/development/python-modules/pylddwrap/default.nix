@@ -33,7 +33,10 @@ buildPythonPackage rec {
     rm -f $out/{LICENSE,README.rst,requirements.txt}
   '';
 
-  propagatedBuildInputs = [ icontract typing-extensions ];
+  propagatedBuildInputs = [
+    icontract
+    typing-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

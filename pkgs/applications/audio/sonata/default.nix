@@ -28,14 +28,28 @@ in buildPythonApplication rec {
 
   disabled = !isPy3k;
 
-  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [ glib gnome.adwaita-icon-theme gsettings-desktop-schemas gtk3 gdk-pixbuf ];
+  buildInputs = [
+    glib
+    gnome.adwaita-icon-theme
+    gsettings-desktop-schemas
+    gtk3
+    gdk-pixbuf
+  ];
 
   # The optional tagpy dependency (for editing metadata) is not yet
   # included because it's difficult to build.
-  pythonPath = [ dbus-python mpd2 pygobject3 setuptools ];
+  pythonPath = [
+    dbus-python
+    mpd2
+    pygobject3
+    setuptools
+  ];
 
   postPatch = ''
     # Remove "Local MPD" tab which is not suitable for NixOS.

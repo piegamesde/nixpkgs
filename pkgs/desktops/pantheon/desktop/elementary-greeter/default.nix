@@ -50,8 +50,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook ];
+  nativeBuildInputs = [
+    desktop-file-utils
+    meson
+    ninja
+    pkg-config
+    vala
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     accountsservice
@@ -107,11 +113,11 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = nix-update-script { };
 
-    xgreeters = linkFarm "pantheon-greeter-xgreeters" [{
+    xgreeters = linkFarm "pantheon-greeter-xgreeters" [ {
       path =
         "${elementary-greeter}/share/xgreeters/io.elementary.greeter.desktop";
       name = "io.elementary.greeter.desktop";
-    }];
+    } ];
   };
 
   meta = with lib; {

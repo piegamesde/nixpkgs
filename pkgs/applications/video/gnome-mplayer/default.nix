@@ -27,16 +27,26 @@ stdenv.mkDerivation rec {
     sha256 = "0qvy9fllvg1mad6y1j79iaqa6khs0q2cb0z62yfg4srbr07fi8xr";
   };
 
-  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
-  buildInputs = [ glib gtk3 gmtk dbus dbus-glib libnotify libpulseaudio ];
-
-  patches = [
-    (substituteAll {
-      src = ./fix-paths.patch;
-      mencoder = "${mplayer}/bin/mencoder";
-      mplayer = "${mplayer}/bin/mplayer";
-    })
+  nativeBuildInputs = [
+    pkg-config
+    gettext
+    wrapGAppsHook
   ];
+  buildInputs = [
+    glib
+    gtk3
+    gmtk
+    dbus
+    dbus-glib
+    libnotify
+    libpulseaudio
+  ];
+
+  patches = [ (substituteAll {
+    src = ./fix-paths.patch;
+    mencoder = "${mplayer}/bin/mencoder";
+    mplayer = "${mplayer}/bin/mplayer";
+  }) ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: mpris-interface.o:src/playlist.h:32: multiple definition of

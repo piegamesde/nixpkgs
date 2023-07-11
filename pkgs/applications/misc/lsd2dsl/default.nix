@@ -27,7 +27,14 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isLinux copyDesktopItems;
 
-  buildInputs = [ boost libvorbis libsndfile minizip gtest qtwebkit ];
+  buildInputs = [
+    boost
+    libvorbis
+    libsndfile
+    minizip
+    gtest
+    qtwebkit
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result -Wno-error=missing-braces";
 
@@ -37,7 +44,11 @@ mkDerivation rec {
     desktopName = "lsd2dsl";
     genericName = "lsd2dsl";
     comment = meta.description;
-    categories = [ "Dictionary" "FileTools" "Qt" ];
+    categories = [
+      "Dictionary"
+      "FileTools"
+      "Qt"
+    ];
   });
 
   installPhase = ''

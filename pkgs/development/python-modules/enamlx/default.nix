@@ -31,7 +31,11 @@ buildPythonPackage rec {
   # between enaml 0.9.0 and 0.10.0
   doCheck = false;
 
-  pythonImportsCheck = [ "enamlx.core" "enamlx.qt" "enamlx.widgets" ];
+  pythonImportsCheck = [
+    "enamlx.core"
+    "enamlx.qt"
+    "enamlx.widgets"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/frmdstryr/enamlx";

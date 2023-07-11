@@ -21,7 +21,13 @@ buildDunePackage rec {
     hash = "sha256-MmuRhm3pC69TX4t9Sy/yPjnZUuVzwEs8E/EFS1n/L7Y=";
   };
 
-  propagatedBuildInputs = [ bigstringaf hmap httpaf lwt sexplib0 ];
+  propagatedBuildInputs = [
+    bigstringaf
+    hmap
+    httpaf
+    lwt
+    sexplib0
+  ];
 
   meta = {
     description =

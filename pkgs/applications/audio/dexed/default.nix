@@ -38,7 +38,10 @@ stdenv.mkDerivation rec {
     sed -i -e '/juce::juce_recommended_lto_flags/d' Source/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libX11

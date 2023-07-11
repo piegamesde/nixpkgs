@@ -29,8 +29,17 @@ buildPythonPackage rec {
   # do subset of tests which don't fetch resources
   pytestFlagsArray = [ "nilearn/connectome/tests" ];
 
-  propagatedBuildInputs =
-    [ joblib lxml matplotlib nibabel numpy pandas requests scikit-learn scipy ];
+  propagatedBuildInputs = [
+    joblib
+    lxml
+    matplotlib
+    nibabel
+    numpy
+    pandas
+    requests
+    scikit-learn
+    scipy
+  ];
 
   meta = with lib; {
     homepage = "https://nilearn.github.io";

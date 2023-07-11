@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ gtk3 xsettingsd ];
+  buildInputs = [
+    gtk3
+    xsettingsd
+  ];
 
   postPatch = ''
     substituteInPlace font-config-info.c --replace "dump_xsettings |" "${xsettingsd}/bin/dump_xsettings |"

@@ -38,8 +38,14 @@ buildPythonPackage rec {
     hash = "sha256-yq+aTkoHI3zSsrYjokbn5UoPm/43LCnyTqdFtkrU92M=";
   };
 
-  propagatedBuildInputs =
-    [ django djangorestframework inflection jsonschema pyyaml uritemplate ];
+  propagatedBuildInputs = [
+    django
+    djangorestframework
+    inflection
+    jsonschema
+    pyyaml
+    uritemplate
+  ];
 
   nativeCheckInputs = [
     dj-rest-auth

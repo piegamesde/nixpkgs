@@ -29,9 +29,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [ aiohttp netifaces ];
+  propagatedBuildInputs = [
+    aiohttp
+    netifaces
+  ];
 
-  nativeCheckInputs = [ pytest-aio pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-aio
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   doCheck = false; # most tests access network
 

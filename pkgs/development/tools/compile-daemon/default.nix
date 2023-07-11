@@ -18,15 +18,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-UpktrXY6OntOA1sxKq3qI59zrOwwCuM+gfGGxPmUJRo=";
 
-  patches = [
-    (fetchpatch {
-      url =
-        "https://github.com/githubnemo/CompileDaemon/commit/39bc1352dc62fea06dff40c5eaef81ab1bdb1f14.patch";
-      hash = "sha256-Zftbw2nu8zzaoj0uwEwdq7xlyycdC0xxBu/qE9VHASI=";
-    })
-  ];
+  patches = [ (fetchpatch {
+    url =
+      "https://github.com/githubnemo/CompileDaemon/commit/39bc1352dc62fea06dff40c5eaef81ab1bdb1f14.patch";
+    hash = "sha256-Zftbw2nu8zzaoj0uwEwdq7xlyycdC0xxBu/qE9VHASI=";
+  }) ];
 
-  ldflags = [ "-s" "-w" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = with lib; {
     description = "Very simple compile daemon for Go";

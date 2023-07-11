@@ -15,7 +15,10 @@ buildPythonPackage rec {
     sha256 = "MUMU+/qsm92WENYFxfjQsSuR8/nE/asYG8HgIbaAaz0=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
   postInstall = ''
     mkdir -p $dev/include

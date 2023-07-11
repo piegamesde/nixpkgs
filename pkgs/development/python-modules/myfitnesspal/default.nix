@@ -43,7 +43,11 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ mock nose pytestCheckHook ];
+  nativeCheckInputs = [
+    mock
+    nose
+    pytestCheckHook
+  ];
 
   postPatch = ''
     # Remove overly restrictive version constraints

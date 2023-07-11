@@ -24,9 +24,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l0ncCMsStaeFACRU3Bt6F1zyiOTGY6wOHewA4AD58Ww=";
   };
 
-  nativeBuildInputs =
-    [ autoconf-archive autoreconfHook glib makeWrapper pkg-config which ];
-  buildInputs = [ tpm2-tss glib dbus ];
+  nativeBuildInputs = [
+    autoconf-archive
+    autoreconfHook
+    glib
+    makeWrapper
+    pkg-config
+    which
+  ];
+  buildInputs = [
+    tpm2-tss
+    glib
+    dbus
+  ];
   nativeCheckInputs = [ cmocka ];
 
   enableParallelBuilding = true;

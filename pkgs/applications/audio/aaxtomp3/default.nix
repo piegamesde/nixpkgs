@@ -42,7 +42,10 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [ "bin/aaxtomp3" "bin/interactiveaaxtomp3" ];
+    scripts = [
+      "bin/aaxtomp3"
+      "bin/interactiveaaxtomp3"
+    ];
     interpreter = "${bash}/bin/bash";
     inputs = [
       bc

@@ -38,18 +38,30 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake gettext perl pkg-config zip ];
+  nativeBuildInputs = [
+    cmake
+    gettext
+    perl
+    pkg-config
+    zip
+  ];
 
-  buildInputs = [ wxGTK32 curl qrencode openssl xercesc file ]
-    ++ lib.optionals stdenv.isLinux [
-      libXext
-      libXi
-      libXt
-      libXtst
-      libuuid
-      libyubikey
-      yubikey-personalization
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [
+    wxGTK32
+    curl
+    qrencode
+    openssl
+    xercesc
+    file
+  ] ++ lib.optionals stdenv.isLinux [
+    libXext
+    libXi
+    libXt
+    libXtst
+    libuuid
+    libyubikey
+    yubikey-personalization
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DNO_GTEST=ON"
@@ -94,7 +106,10 @@ in stdenv.mkDerivation rec {
       username/password combinations that you use.
     '';
     homepage = "https://pwsafe.org/";
-    maintainers = with maintainers; [ c0bw3b pjones ];
+    maintainers = with maintainers; [
+      c0bw3b
+      pjones
+    ];
     platforms = platforms.unix;
     license = licenses.artistic2;
   };

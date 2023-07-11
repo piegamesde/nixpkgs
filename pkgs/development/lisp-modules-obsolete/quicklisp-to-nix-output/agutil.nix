@@ -9,7 +9,11 @@ args@{
   description =
     "A collection of utility functions not found in other utility libraries.";
 
-  deps = [ args."alexandria" args."closer-mop" args."optima" ];
+  deps = [
+    args."alexandria"
+    args."closer-mop"
+    args."optima"
+  ];
 
   src = fetchurl {
     url =

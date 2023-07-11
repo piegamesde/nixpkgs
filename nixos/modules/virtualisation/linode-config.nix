@@ -27,7 +27,11 @@ with lib; {
   };
 
   # Install diagnostic tools for Linode support
-  environment.systemPackages = with pkgs; [ inetutils mtr sysstat ];
+  environment.systemPackages = with pkgs; [
+    inetutils
+    mtr
+    sysstat
+  ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -35,14 +39,18 @@ with lib; {
     autoResize = true;
   };
 
-  swapDevices = mkDefault [{ device = "/dev/sdb"; }];
+  swapDevices = mkDefault [ { device = "/dev/sdb"; } ];
 
   # Enable LISH and Linode Booting w/ GRUB
   boot = {
     # Add Required Kernel Modules
     # NOTE: These are not documented in the install guide
-    initrd.availableKernelModules =
-      [ "virtio_pci" "virtio_scsi" "ahci" "sd_mod" ];
+    initrd.availableKernelModules = [
+      "virtio_pci"
+      "virtio_scsi"
+      "ahci"
+      "sd_mod"
+    ];
 
     # Set Up LISH Serial Connection
     kernelParams = [ "console=ttyS0,19200n8" ];

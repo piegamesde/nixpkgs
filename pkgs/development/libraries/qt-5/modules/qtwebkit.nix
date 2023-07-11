@@ -47,8 +47,13 @@ let
   };
 in qtModule {
   pname = "qtwebkit";
-  qtInputs = [ qtbase qtdeclarative qtlocation qtsensors qtwebchannel ]
-    ++ lib.optional stdenv.isDarwin qtmultimedia;
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtlocation
+    qtsensors
+    qtwebchannel
+  ] ++ lib.optional stdenv.isDarwin qtmultimedia;
   buildInputs = [
     fontconfig
     libwebp
@@ -59,9 +64,21 @@ in qtModule {
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
     hyphen
-  ] ++ lib.optionals stdenv.isDarwin [ ICU OpenGL ];
-  nativeBuildInputs =
-    [ bison flex gdb gperf perl pkg-config python38 ruby cmake ];
+  ] ++ lib.optionals stdenv.isDarwin [
+    ICU
+    OpenGL
+  ];
+  nativeBuildInputs = [
+    bison
+    flex
+    gdb
+    gperf
+    perl
+    pkg-config
+    python38
+    ruby
+    cmake
+  ];
 
   cmakeFlags = [ "-DPORT=Qt" ] ++ lib.optionals stdenv.isDarwin [
     "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
@@ -91,9 +108,11 @@ in qtModule {
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ abbradar periklis ];
-    knownVulnerabilities = [
-      "QtWebkit upstream is unmaintained and receives no security updates, see https://blogs.gnome.org/mcatanzaro/2022/11/04/stop-using-qtwebkit/"
+    maintainers = with lib.maintainers; [
+      abbradar
+      periklis
     ];
+    knownVulnerabilities =
+      [ "QtWebkit upstream is unmaintained and receives no security updates, see https://blogs.gnome.org/mcatanzaro/2022/11/04/stop-using-qtwebkit/" ];
   };
 }

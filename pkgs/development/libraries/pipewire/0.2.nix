@@ -33,9 +33,20 @@ in stdenv.mkDerivation rec {
     sha256 = "1q5wrqnhhs6r49p8yvkw1pl0cnsd4rndxy4h5lvdydwgf1civcwc";
   };
 
-  outputs = [ "out" "lib" "dev" "doc" ];
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+    "doc"
+  ];
 
-  nativeBuildInputs = [ meson ninja pkg-config doxygen graphviz ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    doxygen
+    graphviz
+  ];
   buildInputs = [
     glib
     dbus
@@ -56,7 +67,10 @@ in stdenv.mkDerivation rec {
   #    multiple definition of `spa_a2dp_sink_factory'
   env.NIX_CFLAGS_COMPILE = toString [ "-fcommon" ];
 
-  mesonFlags = [ "-Ddocs=true" "-Dgstreamer=enabled" ];
+  mesonFlags = [
+    "-Ddocs=true"
+    "-Dgstreamer=enabled"
+  ];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
     "${placeholder "out"}/lib/systemd/user";

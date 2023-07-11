@@ -48,7 +48,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ttp" ];
 
-  nativeCheckInputs = [ pytestCheckHook pyyaml ttp-templates ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pyyaml
+    ttp-templates
+  ];
 
   disabledTestPaths = [
     # missing package n2g

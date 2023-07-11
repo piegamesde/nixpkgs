@@ -20,7 +20,10 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "cli" ];
 
-  cargoBuildFlags = [ "--lib" "--bin=lightningcss" ];
+  cargoBuildFlags = [
+    "--lib"
+    "--bin=lightningcss"
+  ];
 
   cargoTestFlags = [ "--lib" ];
 

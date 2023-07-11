@@ -17,7 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-ix/wxACUO2FF34EZxBwkTKggfx8QycBXru0VYOSAbj0=";
   };
 
-  propagatedBuildInputs = [ typing-extensions mypy-extensions ];
+  propagatedBuildInputs = [
+    typing-extensions
+    mypy-extensions
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -23,13 +23,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lNsmx1xirepITpUD30vpcs5slAQYQcvDW8FkA2K9JtU=";
   };
 
-  patches =
-    [ ./0001-Patch-plugindir-to-output.patch ./0002-Patch-add-cairo.patch ];
+  patches = [
+    ./0001-Patch-plugindir-to-output.patch
+    ./0002-Patch-add-cairo.patch
+  ];
 
-  nativeBuildInputs =
-    [ autoreconfHook gobject-introspection pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    autoreconfHook
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ cairo glib libgtop rofi-unwrapped ];
+  buildInputs = [
+    cairo
+    glib
+    libgtop
+    rofi-unwrapped
+  ];
 
   meta = with lib; {
     description = "A plugin for rofi that emulates top behaviour";

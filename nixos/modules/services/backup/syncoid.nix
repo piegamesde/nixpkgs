@@ -148,7 +148,13 @@ in {
     localSourceAllow = mkOption {
       type = types.listOf types.str;
       # Permissions snapshot and destroy are in case --no-sync-snap is not used
-      default = [ "bookmark" "hold" "send" "snapshot" "destroy" ];
+      default = [
+        "bookmark"
+        "hold"
+        "send"
+        "snapshot"
+        "destroy"
+      ];
       description = lib.mdDoc ''
         Permissions granted for the {option}`services.syncoid.user` user
         for local source datasets. See
@@ -168,7 +174,12 @@ in {
         "receive"
         "rollback"
       ];
-      example = [ "create" "mount" "receive" "rollback" ];
+      example = [
+        "create"
+        "mount"
+        "receive"
+        "rollback"
+      ];
       description = lib.mdDoc ''
         Permissions granted for the {option}`services.syncoid.user` user
         for local target datasets. See
@@ -360,9 +371,10 @@ in {
                 (localDatasetName c.target));
             ExecStart = lib.escapeShellArgs ([ "${cfg.package}/bin/syncoid" ]
               ++ optionals c.useCommonArgs cfg.commonArgs
-              ++ optional c.recursive "-r"
-              ++ optionals (c.sshKey != null) [ "--sshkey" c.sshKey ]
-              ++ c.extraArgs ++ [
+              ++ optional c.recursive "-r" ++ optionals (c.sshKey != null) [
+                "--sshkey"
+                c.sshKey
+              ] ++ c.extraArgs ++ [
                 "--sendoptions"
                 c.sendOptions
                 "--recvoptions"
@@ -403,14 +415,23 @@ in {
             ProtectKernelTunables = true;
             ProtectSystem = "strict";
             RemoveIPC = true;
-            RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+            RestrictAddressFamilies = [
+              "AF_UNIX"
+              "AF_INET"
+              "AF_INET6"
+            ];
             RestrictNamespaces = true;
             RestrictRealtime = true;
             RestrictSUIDSGID = true;
             RootDirectory = "/run/syncoid/${escapeUnitName name}";
             RootDirectoryStartOnly = true;
             BindPaths = [ "/dev/zfs" ];
-            BindReadOnlyPaths = [ builtins.storeDir "/etc" "/run" "/bin/sh" ];
+            BindReadOnlyPaths = [
+              builtins.storeDir
+              "/etc"
+              "/run"
+              "/bin/sh"
+            ];
             # Avoid useless mounting of RootDirectory= in the own RootDirectory= of ExecStart='s mount namespace.
             InaccessiblePaths = [ "-+/run/syncoid/${escapeUnitName name}" ];
             MountAPIVFS = true;
@@ -443,5 +464,8 @@ in {
       ])) cfg.commands;
   };
 
-  meta.maintainers = with maintainers; [ julm lopsided98 ];
+  meta.maintainers = with maintainers; [
+    julm
+    lopsided98
+  ];
 }

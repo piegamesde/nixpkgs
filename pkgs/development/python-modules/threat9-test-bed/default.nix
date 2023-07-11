@@ -31,7 +31,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ click faker flask gunicorn pyopenssl requests ];
+  propagatedBuildInputs = [
+    click
+    faker
+    flask
+    gunicorn
+    pyopenssl
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

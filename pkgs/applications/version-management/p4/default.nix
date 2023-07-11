@@ -36,7 +36,10 @@ let
   ];
   libcxxUnified = symlinkJoin {
     inherit (libcxx) name;
-    paths = [ libcxx libcxxabi ];
+    paths = [
+      libcxx
+      libcxxabi
+    ];
   };
 in stdenv.mkDerivation rec {
   pname = "p4";
@@ -51,10 +54,17 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ jam ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ CoreServices Foundation Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    CoreServices
+    Foundation
+    Security
+  ];
 
-  outputs = [ "out" "bin" "dev" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
 
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
@@ -84,9 +94,7 @@ in stdenv.mkDerivation rec {
 
   "C++FLAGS" =
     # Avoid a compilation error that only occurs for 4-byte longs.
-    lib.optionals stdenv.isi686 [
-      "-Wno-narrowing"
-    ]
+    lib.optionals stdenv.isi686 [ "-Wno-narrowing" ]
     # See the "Header dependency changes" section of
     # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
     # information on why we need to include these.
@@ -120,6 +128,9 @@ in stdenv.mkDerivation rec {
     license = licenses.bsd2;
     mainProgram = "p4";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ corngood impl ];
+    maintainers = with maintainers; [
+      corngood
+      impl
+    ];
   };
 }

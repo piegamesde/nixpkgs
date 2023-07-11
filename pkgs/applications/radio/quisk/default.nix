@@ -18,9 +18,16 @@ python39Packages.buildPythonApplication rec {
     sha256 = "sha256-eF/3++wRG0JulVTT+GvtqleBPkzLSZeu+RfHDI1xfOY=";
   };
 
-  buildInputs = [ fftw alsa-lib pulseaudio ];
+  buildInputs = [
+    fftw
+    alsa-lib
+    pulseaudio
+  ];
 
-  propagatedBuildInputs = [ pyusb wxPython_4_2 ];
+  propagatedBuildInputs = [
+    pyusb
+    wxPython_4_2
+  ];
 
   doCheck = false;
 

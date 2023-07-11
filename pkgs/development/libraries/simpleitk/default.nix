@@ -19,11 +19,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-0YxmixUTXpjegZQv7DDCNTWFTH8QEWqQQszee7aQ5EI=";
   };
 
-  nativeBuildInputs = [ cmake swig4 ];
-  buildInputs = [ lua itk ];
+  nativeBuildInputs = [
+    cmake
+    swig4
+  ];
+  buildInputs = [
+    lua
+    itk
+  ];
 
   # 2.0.0: linker error building examples
-  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = [
+    "-DBUILD_EXAMPLES=OFF"
+    "-DBUILD_SHARED_LIBS=ON"
+  ];
 
   meta = with lib; {
     homepage = "https://www.simpleitk.org";

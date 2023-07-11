@@ -15,9 +15,12 @@ stdenv.mkDerivation rec {
       "https://bitbucket.org/mpyne/game-music-emu/downloads/${pname}-${version}.tar.xz";
     sha256 = "07857vdkak306d9s5g6fhmjyxk7vijzjhkmqb15s7ihfxx9lx8xb";
   };
-  cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl)
-    [ "-DENABLE_UBSAN=OFF" ];
-  nativeBuildInputs = [ cmake removeReferencesTo ];
+  cmakeFlags = lib.optionals
+    (stdenv.isDarwin || stdenv.hostPlatform.isMusl) [ "-DENABLE_UBSAN=OFF" ];
+  nativeBuildInputs = [
+    cmake
+    removeReferencesTo
+  ];
 
   # It used to reference it, in the past, but thanks to the postFixup hook, now
   # it doesn't.
@@ -32,6 +35,9 @@ stdenv.mkDerivation rec {
     description = "A collection of video game music file emulators";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ luc65r lheckemann ];
+    maintainers = with maintainers; [
+      luc65r
+      lheckemann
+    ];
   };
 }

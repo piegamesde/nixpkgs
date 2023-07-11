@@ -26,7 +26,12 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [ jinja2 matplotlib nose pillow ];
+  propagatedBuildInputs = [
+    jinja2
+    matplotlib
+    nose
+    pillow
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

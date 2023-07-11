@@ -60,7 +60,10 @@ in stdenv.mkDerivation rec {
     ln -s ${catch2.src} Catch2
   '';
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libX11

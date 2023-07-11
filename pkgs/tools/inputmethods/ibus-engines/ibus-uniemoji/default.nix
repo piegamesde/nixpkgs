@@ -9,8 +9,13 @@
 }:
 
 let
-  python = python3.withPackages
-    (ps: with ps; [ pygobject3 (toPythonModule ibus) pyxdg levenshtein ]);
+  python = python3.withPackages (ps:
+    with ps; [
+      pygobject3
+      (toPythonModule ibus)
+      pyxdg
+      levenshtein
+    ]);
 in stdenv.mkDerivation rec {
   pname = "ibus-uniemoji";
   version = "0.6.0";
@@ -28,9 +33,15 @@ in stdenv.mkDerivation rec {
     ./allow-wrapping.patch
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
 
-  buildInputs = [ python ibus ];
+  buildInputs = [
+    python
+    ibus
+  ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -47,7 +58,10 @@ in stdenv.mkDerivation rec {
     description =
       "Input method (ibus) for entering unicode symbols and emoji by name";
     homepage = "https://github.com/salty-horse/ibus-uniemoji";
-    license = with licenses; [ gpl3 mit ];
+    license = with licenses; [
+      gpl3
+      mit
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ aske ];
   };

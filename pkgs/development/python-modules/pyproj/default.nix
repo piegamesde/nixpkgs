@@ -29,27 +29,35 @@ buildPythonPackage rec {
   };
 
   # force pyproj to use ${proj}
-  patches = [
-    (substituteAll {
-      src = ./001.proj.patch;
-      proj = proj;
-      projdev = proj.dev;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./001.proj.patch;
+    proj = proj;
+    projdev = proj.dev;
+  }) ];
 
   nativeBuildInputs = [ cython ];
   buildInputs = [ proj ];
 
   propagatedBuildInputs = [ certifi ];
 
-  nativeCheckInputs = [ pytestCheckHook mock numpy shapely pandas xarray ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    mock
+    numpy
+    shapely
+    pandas
+    xarray
+  ];
 
   preCheck = ''
     # import from $out
     rm -r pyproj
   '';
 
-  disabledTestPaths = [ "test/test_doctest_wrapper.py" "test/test_datadir.py" ];
+  disabledTestPaths = [
+    "test/test_doctest_wrapper.py"
+    "test/test_datadir.py"
+  ];
 
   disabledTests = [
     # The following tests try to access network and end up with a URLError
@@ -95,6 +103,9 @@ buildPythonPackage rec {
     changelog =
       "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lsix dotlambda ];
+    maintainers = with lib.maintainers; [
+      lsix
+      dotlambda
+    ];
   };
 }

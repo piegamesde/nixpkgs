@@ -202,9 +202,8 @@ in {
         7447 # RTSP via the controller
         7442 # Camera management from cameras to NVR over WAN
       ];
-      allowedUDPPorts = [
-        6666 # Inbound camera streams sent over WAN
-      ];
+      allowedUDPPorts = [ 6666 # Inbound camera streams sent over WAN
+        ];
     };
 
     systemd.tmpfiles.rules = [
@@ -255,7 +254,10 @@ in {
       after = [ "network.target" ];
       unitConfig.RequiresMountsFor = stateDir;
       # Make sure package upgrades trigger a service restart
-      restartTriggers = [ cfg.unifiVideoPackage cfg.mongodbPackage ];
+      restartTriggers = [
+        cfg.unifiVideoPackage
+        cfg.mongodbPackage
+      ];
       path = with pkgs; [
         gawk
         coreutils
@@ -278,13 +280,15 @@ in {
     };
   };
 
-  imports = [
-    (mkRenamedOptionModule [ "services" "unifi-video" "openPorts" ] [
-      "services"
-      "unifi-video"
-      "openFirewall"
-    ])
-  ];
+  imports = [ (mkRenamedOptionModule [
+    "services"
+    "unifi-video"
+    "openPorts"
+  ] [
+    "services"
+    "unifi-video"
+    "openFirewall"
+  ]) ];
 
   meta.maintainers = with lib.maintainers; [ rsynnest ];
 }

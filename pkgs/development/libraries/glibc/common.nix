@@ -147,8 +147,8 @@ stdenv.mkDerivation ({
     ] ++ lib.optionals stdenv.hostPlatform.isx86 [
       # Enable Intel Control-flow Enforcement Technology (CET) support
       "--enable-cet"
-    ] ++ lib.optionals withLinuxHeaders [
-      "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
+    ] ++ lib.optionals
+    withLinuxHeaders [ "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
     ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       (lib.flip lib.withFeature "fp"
         (stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
@@ -170,13 +170,23 @@ stdenv.mkDerivation ({
   installFlags = [ "sysconfdir=$(out)/etc" ];
 
   # out as the first output is an exception exclusive to glibc
-  outputs = [ "out" "bin" "dev" "static" ];
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+    "static"
+  ];
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bison python3Minimal ] ++ extraNativeBuildInputs;
-  buildInputs = [ linuxHeaders ] ++ lib.optionals withGd [ gd libpng ]
-    ++ extraBuildInputs;
+  nativeBuildInputs = [
+    bison
+    python3Minimal
+  ] ++ extraNativeBuildInputs;
+  buildInputs = [ linuxHeaders ] ++ lib.optionals withGd [
+    gd
+    libpng
+  ] ++ extraBuildInputs;
 
   env = {
     linuxHeaders = lib.optionalString withLinuxHeaders linuxHeaders;
@@ -194,7 +204,10 @@ stdenv.mkDerivation ({
   };
 }
 
-  // (removeAttrs args [ "withLinuxHeaders" "withGd" ]) //
+  // (removeAttrs args [
+    "withLinuxHeaders"
+    "withGd"
+  ]) //
 
   {
     src = fetchurl {
@@ -272,7 +285,10 @@ stdenv.mkDerivation ({
 
         license = licenses.lgpl2Plus;
 
-        maintainers = with maintainers; [ eelco ma27 ];
+        maintainers = with maintainers; [
+          eelco
+          ma27
+        ];
         platforms = platforms.linux;
       } // (args.meta or { });
   })

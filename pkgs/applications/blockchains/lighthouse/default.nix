@@ -59,10 +59,18 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  buildFeatures = [ "modern" "gnosis" ];
+  buildFeatures = [
+    "modern"
+    "gnosis"
+  ];
 
-  nativeBuildInputs =
-    [ rustPlatform.bindgenHook cmake perl pkg-config protobuf ];
+  nativeBuildInputs = [
+    rustPlatform.bindgenHook
+    cmake
+    perl
+    pkg-config
+    protobuf
+  ];
 
   buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [
     CoreFoundation
@@ -115,7 +123,10 @@ rustPlatform.buildRustPackage rec {
     "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
   ];
 
-  nativeCheckInputs = [ nodePackages.ganache postgresql ];
+  nativeCheckInputs = [
+    nodePackages.ganache
+    postgresql
+  ];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -130,6 +141,9 @@ rustPlatform.buildRustPackage rec {
     description = "Ethereum consensus client in Rust";
     homepage = "https://lighthouse.sigmaprime.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ centromere pmw ];
+    maintainers = with maintainers; [
+      centromere
+      pmw
+    ];
   };
 }

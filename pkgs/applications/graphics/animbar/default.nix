@@ -18,7 +18,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ qt4 file ];
+  buildInputs = [
+    qt4
+    file
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/pixmaps

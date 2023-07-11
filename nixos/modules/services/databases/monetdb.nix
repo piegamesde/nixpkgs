@@ -10,7 +10,10 @@ with lib;
 let cfg = config.services.monetdb;
 
 in {
-  meta.maintainers = with maintainers; [ StillerHarpo primeos ];
+  meta.maintainers = with maintainers; [
+    StillerHarpo
+    primeos
+  ];
 
   ###### interface
   options = {

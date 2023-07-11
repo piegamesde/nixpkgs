@@ -18,7 +18,10 @@
 
 with lib;
 
-assert (lib.assertOneOf "vc" vc [ "hg" "git" ]);
+assert (lib.assertOneOf "vc" vc [
+  "hg"
+  "git"
+]);
 
 let
   baseUrl = "https://${vc}.${domain}/${owner}/${repo}";

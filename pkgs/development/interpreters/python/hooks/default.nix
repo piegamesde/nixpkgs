@@ -17,7 +17,10 @@ in {
     }:
     makePythonHook {
       name = "conda-install-hook";
-      propagatedBuildInputs = [ gnutar lbzip2 ];
+      propagatedBuildInputs = [
+        gnutar
+        lbzip2
+      ];
       substitutions = { inherit pythonSitePackages; };
     } ./conda-install-hook.sh) { };
 
@@ -72,7 +75,10 @@ in {
     }:
     makePythonHook {
       name = "pip-build-hook.sh";
-      propagatedBuildInputs = [ pip wheel ];
+      propagatedBuildInputs = [
+        pip
+        wheel
+      ];
       substitutions = { inherit pythonInterpreter pythonSitePackages; };
     } ./pip-build-hook.sh) { };
 
@@ -138,8 +144,11 @@ in {
       name = "python-recompile-bytecode-hook";
       substitutions = {
         inherit pythonInterpreter pythonSitePackages;
-        compileArgs = lib.concatStringsSep " " ([ "-q" "-f" "-i -" ]
-          ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
+        compileArgs = lib.concatStringsSep " " ([
+          "-q"
+          "-f"
+          "-i -"
+        ] ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
         bytecodeName = if isPy3k then "__pycache__" else "*.pyc";
       };
     } ./python-recompile-bytecode-hook.sh) { };
@@ -175,7 +184,10 @@ in {
     }:
     makePythonHook {
       name = "setuptools-setup-hook";
-      propagatedBuildInputs = [ setuptools wheel ];
+      propagatedBuildInputs = [
+        setuptools
+        wheel
+      ];
       substitutions = { inherit pythonInterpreter pythonSitePackages setuppy; };
     } ./setuptools-build-hook.sh) { };
 
@@ -227,6 +239,9 @@ in {
     }:
     makePythonHook {
       name = "python${python.pythonVersion}-sphinx-hook";
-      propagatedBuildInputs = [ sphinx installShellFiles ];
+      propagatedBuildInputs = [
+        sphinx
+        installShellFiles
+      ];
     } ./sphinx-hook.sh) { };
 }

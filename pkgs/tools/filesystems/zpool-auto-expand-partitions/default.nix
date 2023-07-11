@@ -28,9 +28,15 @@ rustPlatform.buildRustPackage rec {
       --replace '"lsblk"' '"${util-linux}/bin/lsblk"'
   '';
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ];
 
-  buildInputs = [ util-linux zfs ];
+  buildInputs = [
+    util-linux
+    zfs
+  ];
 
   meta = with lib; {
     description =

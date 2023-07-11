@@ -44,9 +44,17 @@ in stdenv.mkDerivation rec {
     sha256 = "05ghqqkdj4s3d0xkp7mkdzjig5zj3k6ajx71j0g2wv6rdbvg6899";
   };
 
-  nativeBuildInputs = [ dotnet-sdk mono unzip makeWrapper ];
+  nativeBuildInputs = [
+    dotnet-sdk
+    mono
+    unzip
+    makeWrapper
+  ];
 
-  buildInputs = [ dotnetPackages.Nuget glibcLocales ];
+  buildInputs = [
+    dotnetPackages.Nuget
+    glibcLocales
+  ];
 
   # https://github.com/NixOS/nixpkgs/issues/38991
   # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)

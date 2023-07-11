@@ -23,8 +23,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ SDL2 freetype libGL ]
-    ++ lib.optional stdenv.isDarwin darwin.libobjc;
+  buildInputs = [
+    SDL2
+    freetype
+    libGL
+  ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
   meta = with lib; {
     description = "SDL TrueType library";

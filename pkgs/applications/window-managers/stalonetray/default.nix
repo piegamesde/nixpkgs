@@ -29,8 +29,14 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace '${ac_str}' '${ac_str_sub}'
   '';
 
-  nativeBuildInputs =
-    [ autoreconfHook docbook-xsl-ns docbook_xml_dtd_44 libX11 libXpm libxslt ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook-xsl-ns
+    docbook_xml_dtd_44
+    libX11
+    libXpm
+    libxslt
+  ];
 
   hardeningDisable = [ "format" ];
 

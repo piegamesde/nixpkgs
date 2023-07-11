@@ -40,9 +40,16 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ sbcl ]} --argv0 ros
   '';
 
-  nativeBuildInputs = [ autoconf automake makeWrapper ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    makeWrapper
+  ];
 
-  buildInputs = [ sbcl curl ];
+  buildInputs = [
+    sbcl
+    curl
+  ];
 
   meta = with lib; {
     description = "Lisp implementation installer/manager and launcher";

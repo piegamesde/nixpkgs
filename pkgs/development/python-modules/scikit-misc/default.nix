@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [ cython numpy ];
+  buildInputs = [
+    cython
+    numpy
+  ];
 
   # Tests fail because of infinite recursion error
   doCheck = false;

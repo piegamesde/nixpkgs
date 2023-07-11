@@ -22,9 +22,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-yId5bbdmELinBmZ5eISa5hQSYkeZCkix2FJ287GdcCs=";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config vala ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    vala
+  ];
 
-  buildInputs = [ budgie-desktop gtk3 libpeas ];
+  buildInputs = [
+    budgie-desktop
+    gtk3
+    libpeas
+  ];
 
   meta = with lib; {
     description = "Analogue Clock Applet for the Budgie desktop";

@@ -23,12 +23,10 @@ buildPythonPackage rec {
     sha256 = "3f0f93f355a91bc3e6245319bf4c1d50e3416cc7a35cc1133c1ff38306bbccab";
   };
 
-  patches = lib.optionals withGraphviz [
-    (substituteAll {
-      src = ./graphviz.patch;
-      inherit graphviz;
-    })
-  ];
+  patches = lib.optionals withGraphviz [ (substituteAll {
+    src = ./graphviz.patch;
+    inherit graphviz;
+  }) ];
 
   propagatedBuildInputs = [ six ];
 
@@ -40,7 +38,10 @@ buildPythonPackage rec {
   # circular dependency anytree → graphviz → pango → glib → gtk-doc → anytree
   doCheck = withGraphviz;
 
-  nativeCheckInputs = [ pytestCheckHook nose ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    nose
+  ];
 
   pytestFlagsArray = lib.optionals (pythonOlder "3.4") [
     # Use enums, which aren't available pre-python3.4

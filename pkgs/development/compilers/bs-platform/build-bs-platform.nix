@@ -40,7 +40,11 @@ in stdenv.mkDerivation rec {
   # https://github.com/BuckleScript/bucklescript/blob/7.2.0/scripts/install.js#L225-L227
   BS_TRAVIS_CI = "1";
 
-  buildInputs = [ nodejs python3 custom-ninja ];
+  buildInputs = [
+    nodejs
+    python3
+    custom-ninja
+  ];
 
   prePatch = ''
     sed -i 's:./configure.py --bootstrap:python3 ./configure.py --bootstrap:' ./scripts/install.js

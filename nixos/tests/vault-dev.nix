@@ -3,7 +3,12 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "vault-dev";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 mic92 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [
+        lnl7
+        mic92
+      ];
+    };
     nodes.machine = {
         pkgs,
         config,

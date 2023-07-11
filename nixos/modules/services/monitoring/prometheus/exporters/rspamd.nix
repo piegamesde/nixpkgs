@@ -16,8 +16,21 @@ let
   generateConfig = extraLabels: {
     modules.default.metrics = (map (path: {
       name = "rspamd_${
-          replaceStrings [ "[" "." " " "]" "\\" "'" ] [ "_" "_" "_" "" "" "" ]
-          path
+          replaceStrings [
+            "["
+            "."
+            " "
+            "]"
+            "\\"
+            "'"
+          ] [
+            "_"
+            "_"
+            "_"
+            ""
+            ""
+            ""
+          ] path
         }";
       path = "{ .${path} }";
       labels = extraLabels;
@@ -43,7 +56,7 @@ let
       "shared_chunks_allocated"
       "spam_count"
       "total_learns"
-    ]) ++ [{
+    ]) ++ [ {
       name = "rspamd_statfiles";
       type = "object";
       path = "{.statfiles[*]}";
@@ -59,7 +72,7 @@ let
         languages = "{.languages}";
         users = "{.users}";
       };
-    }];
+    } ];
   };
 in {
   port = 7980;

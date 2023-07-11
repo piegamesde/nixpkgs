@@ -68,8 +68,10 @@ let
       # If we're disabling graphviz, apply the patches and corresponding
       # configure flag. We also need to override the path to the valac compiler
       # so that it can be used to regenerate documentation.
-      patches =
-        lib.optionals disableGraphviz [ graphvizPatch ./gvc-compat.patch ];
+      patches = lib.optionals disableGraphviz [
+        graphvizPatch
+        ./gvc-compat.patch
+      ];
       configureFlags = lib.optional disableGraphviz "--disable-graphviz";
       # when cross-compiling ./compiler/valac is valac for host
       # so add the build vala in nativeBuildInputs
@@ -77,17 +79,27 @@ let
         (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
         ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
 
-      outputs = [ "out" "devdoc" ];
+      outputs = [
+        "out"
+        "devdoc"
+      ];
 
-      nativeBuildInputs = [ pkg-config flex bison libxslt ]
-        ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
+      nativeBuildInputs = [
+        pkg-config
+        flex
+        bison
+        libxslt
+      ] ++ lib.optional (stdenv.isDarwin && (lib.versionAtLeast version "0.38"))
         expat ++ lib.optional disableGraphviz
         autoreconfHook # if we changed our ./configure script, need to reconfigure
         ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ vala ]
         ++ extraNativeBuildInputs;
 
-      buildInputs = [ glib libiconv libintl ]
-        ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
+      buildInputs = [
+        glib
+        libiconv
+        libintl
+      ] ++ lib.optional (lib.versionAtLeast version "0.38" && withGraphviz)
         graphviz ++ extraBuildInputs;
 
       enableParallelBuilding = true;
@@ -112,7 +124,11 @@ let
         license = licenses.lgpl21Plus;
         platforms = platforms.unix;
         maintainers = with maintainers;
-          [ antono jtojnar maxeaubrey ] ++ teams.pantheon.members;
+          [
+            antono
+            jtojnar
+            maxeaubrey
+          ] ++ teams.pantheon.members;
       };
     });
 

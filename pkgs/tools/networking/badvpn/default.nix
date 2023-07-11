@@ -22,8 +22,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bLTDpq3ohUP+KooPvhv1/AZfdo0HwB3g9QOuE2E/pmY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ openssl nss nspr ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    openssl
+    nss
+    nspr
+  ];
 
   preConfigure = ''
     find . -name '*.sh' -exec sed -e 's@#!/bin/sh@${stdenv.shell}@' -i '{}' ';'

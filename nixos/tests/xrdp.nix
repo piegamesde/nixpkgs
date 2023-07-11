@@ -20,7 +20,10 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          imports = [ ./common/x11.nix ./common/user-account.nix ];
+          imports = [
+            ./common/x11.nix
+            ./common/user-account.nix
+          ];
           test-support.displayManager.auto.user = "alice";
           environment.systemPackages = [ pkgs.freerdp ];
           services.xrdp.enable = true;

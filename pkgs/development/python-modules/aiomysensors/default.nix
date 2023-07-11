@@ -30,10 +30,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ aiofiles asyncio-mqtt awesomeversion click marshmallow pyserial-asyncio ];
+  propagatedBuildInputs = [
+    aiofiles
+    asyncio-mqtt
+    awesomeversion
+    click
+    marshmallow
+    pyserial-asyncio
+  ];
 
-  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytestCheckHook
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -18,7 +18,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ which ];
-  buildInputs = [ gfortran libGLU xorg.libX11 xorg.libXmu ];
+  buildInputs = [
+    gfortran
+    libGLU
+    xorg.libX11
+    xorg.libXmu
+  ];
 
   patches = [ ./dont_register_file_types.patch ];
 

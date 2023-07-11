@@ -20,8 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "1hmp11mrr01b29phw0xyj4h9b92qz19cf56ssf6c47c5j2c4xmbv";
   };
 
-  nativeBuildInputs =
-    [ xorg.mkfontscale bdf2psf bdftopcf xorg.fonttosfnt libfaketime ];
+  nativeBuildInputs = [
+    xorg.mkfontscale
+    bdf2psf
+    bdftopcf
+    xorg.fonttosfnt
+    libfaketime
+  ];
 
   buildPhase = ''
     # convert bdf fonts to psf

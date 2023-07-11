@@ -26,7 +26,10 @@ mkDerivation rec {
     sha256 = "0v8z6r9gngzckvqyxjm9kp7hilwfqibyk2f9vag9l98ar0iwr97q";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules shared-mime-info ];
+  nativeBuildInputs = [
+    extra-cmake-modules
+    shared-mime-info
+  ];
 
   buildInputs = [
     qtsvg

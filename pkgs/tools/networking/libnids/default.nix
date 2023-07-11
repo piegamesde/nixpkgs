@@ -15,7 +15,11 @@ stdenv.mkDerivation {
     sha256 = "1cblklfdfxcmy0an6xyyzx4l877xdawhjd28daqfsvrh81mb07k1";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libpcap glib libnet ];
+  buildInputs = [
+    libpcap
+    glib
+    libnet
+  ];
 
   /* Quoting the documentation of glib: g_thread_init has been deprecated since
      version 2.32 and should not be used in newly-written code.  This function is

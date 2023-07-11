@@ -17,11 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eqSKsiIqC5iBER1tf3DDAU09kziCfZ4C3xBaaMDfXbw=";
   };
 
-  nativeBuildInputs = [ bison flex ];
+  nativeBuildInputs = [
+    bison
+    flex
+  ];
   buildInputs = [ libsepol ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" "LIBSEPOLA=${lib.getLib libsepol}/lib/libsepol.a" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "LIBSEPOLA=${lib.getLib libsepol}/lib/libsepol.a"
+  ];
 
   meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
     description = "SELinux policy compiler";

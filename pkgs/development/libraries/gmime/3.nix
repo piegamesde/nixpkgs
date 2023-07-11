@@ -23,9 +23,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OPm3aBgjQsSExBIobbjVgRaX/4FiQ3wFea3w0G4icFs=";
   };
 
-  outputs = [ "out" "dev" ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-  nativeBuildInputs = [ pkg-config gobject-introspection vala ];
+  nativeBuildInputs = [
+    pkg-config
+    gobject-introspection
+    vala
+  ];
   buildInputs = [
     zlib
     gpgme
@@ -34,9 +41,11 @@ stdenv.mkDerivation rec {
     vala # for share/vala/Makefile.vapigen
   ];
   propagatedBuildInputs = [ glib ];
-  configureFlags = [ "--enable-introspection=yes" "--enable-vala=yes" ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-    [ "ac_cv_have_iconv_detect_h=yes" ];
+  configureFlags = [
+    "--enable-introspection=yes"
+    "--enable-vala=yes"
+  ] ++ lib.optionals (stdenv.buildPlatform
+    != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \

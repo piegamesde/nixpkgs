@@ -29,8 +29,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs =
-    [ procps tmux ncurses pytest-rerunfailures pytestCheckHook ];
+  nativeCheckInputs = [
+    procps
+    tmux
+    ncurses
+    pytest-rerunfailures
+    pytestCheckHook
+  ];
 
   pytestFlagsArray = [ "tests" ];
 

@@ -24,7 +24,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [ aiohttp awesomeversion ];
+  propagatedBuildInputs = [
+    aiohttp
+    awesomeversion
+  ];
 
   # Module have no tests
   doCheck = false;

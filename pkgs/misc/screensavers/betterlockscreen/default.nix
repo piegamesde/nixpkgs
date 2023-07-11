@@ -65,6 +65,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pavanjadhaw/betterlockscreen";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ eyjhb sebtm ];
+    maintainers = with maintainers; [
+      eyjhb
+      sebtm
+    ];
   };
 }

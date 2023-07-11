@@ -31,7 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ v8 postgresql ];
+  buildInputs = [
+    v8
+    postgresql
+  ];
 
   buildFlags = [ "all" ];
 
@@ -71,7 +74,13 @@ stdenv.mkDerivation (finalAttrs: {
         postgresql.withPackages (_: [ finalAttrs.finalPackage ]);
     in {
       smoke = runCommand "plv8-smoke-test" { } ''
-        export PATH=${lib.makeBinPath [ postgresqlWithSelf coreutils gnugrep ]}
+        export PATH=${
+          lib.makeBinPath [
+            postgresqlWithSelf
+            coreutils
+            gnugrep
+          ]
+        }
         db="$PWD/testdb"
         initdb "$db"
         postgres -k "$db" -D "$db" &

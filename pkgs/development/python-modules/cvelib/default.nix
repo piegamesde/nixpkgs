@@ -27,7 +27,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  propagatedBuildInputs = [ click jsonschema requests ];
+  propagatedBuildInputs = [
+    click
+    jsonschema
+    requests
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

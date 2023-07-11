@@ -89,8 +89,15 @@ in crystal.buildCrystalPackage rec {
         }/bin/rsvg-convert'
   '';
 
-  nativeBuildInputs = [ pkg-config shards ];
-  buildInputs = [ libxml2 openssl sqlite ];
+  nativeBuildInputs = [
+    pkg-config
+    shards
+  ];
+  buildInputs = [
+    libxml2
+    openssl
+    sqlite
+  ];
 
   format = "crystal";
   shardsFile = ./shards.nix;
@@ -142,6 +149,9 @@ in crystal.buildCrystalPackage rec {
     description = "An open source alternative front-end to YouTube";
     homepage = "https://invidious.io/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ infinisil sbruder ];
+    maintainers = with maintainers; [
+      infinisil
+      sbruder
+    ];
   };
 }

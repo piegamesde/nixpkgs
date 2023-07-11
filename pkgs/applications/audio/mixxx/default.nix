@@ -62,7 +62,10 @@ mkDerivation rec {
     sha256 = "sha256-1hOMU/Mdk1vT0GQipn/WX2fm9ddN0mPIq7kf2i2w3xQ=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     chromaprint
@@ -133,7 +136,10 @@ mkDerivation rec {
     homepage = "https://mixxx.org";
     description = "Digital DJ mixing software";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ goibhniu bfortz ];
+    maintainers = with maintainers; [
+      goibhniu
+      bfortz
+    ];
     platforms = platforms.linux;
   };
 }

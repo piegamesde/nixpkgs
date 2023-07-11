@@ -26,7 +26,10 @@ buildDunePackage {
     hash = "sha256-DLQupCkZ14kOuSQatbb7j07I+jvvDCKpdlaR3rijT4s=";
   };
 
-  propagatedBuildInputs = [ lwt ppxlib ];
+  propagatedBuildInputs = [
+    lwt
+    ppxlib
+  ];
 
   meta = {
     description = "Ppx syntax extension for Lwt";

@@ -28,11 +28,25 @@ in stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-component" ];
 
-  nativeBuildInputs = [ pkg-config intltool bison itstool wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    intltool
+    bison
+    itstool
+    wrapGAppsHook
+  ];
 
   # ToDo: optional libgda, introspection?
-  buildInputs = [ goffice gtk3 gnome.adwaita-icon-theme python pygobject3 ]
-    ++ (with perlPackages; [ perl XMLParser ]);
+  buildInputs = [
+    goffice
+    gtk3
+    gnome.adwaita-icon-theme
+    python
+    pygobject3
+  ] ++ (with perlPackages; [
+    perl
+    XMLParser
+  ]);
 
   enableParallelBuilding = true;
 

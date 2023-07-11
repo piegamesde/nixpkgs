@@ -45,9 +45,17 @@ in stdenv.mkDerivation {
   inherit (param) version src env;
 
   # gnumake42: https://github.com/garrigue/lablgtk/issues/162
-  nativeBuildInputs = [ pkg-config ocaml findlib gnumake42 ];
-  buildInputs = [ gtk2 libgnomecanvas gtksourceview ]
-    ++ param.buildInputs or [ ];
+  nativeBuildInputs = [
+    pkg-config
+    ocaml
+    findlib
+    gnumake42
+  ];
+  buildInputs = [
+    gtk2
+    libgnomecanvas
+    gtksourceview
+  ] ++ param.buildInputs or [ ];
 
   configureFlags =
     [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
@@ -64,7 +72,11 @@ in stdenv.mkDerivation {
     description = "An OCaml interface to GTK";
     homepage = "http://lablgtk.forge.ocamlcore.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ maggesi roconnor vbgl ];
+    maintainers = with maintainers; [
+      maggesi
+      roconnor
+      vbgl
+    ];
     mainProgram = "lablgtk2";
     inherit (ocaml.meta) platforms;
   };

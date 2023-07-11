@@ -101,7 +101,10 @@
             in if str == "" then acc else continue;
 
           isIPv6 = str: builtins.match ".*:.*" str != null;
-          loopbackIps = [ "127.0.0.1" "::1" ];
+          loopbackIps = [
+            "127.0.0.1"
+            "::1"
+          ];
           filterLoopback = lib.filter (e: !lib.elem e.ipAddr loopbackIps);
 
           allEntries = lib.concatMap (entry:

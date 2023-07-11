@@ -21,7 +21,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [ iocapture mock pytestCheckHook ];
+  nativeCheckInputs = [
+    iocapture
+    mock
+    pytestCheckHook
+  ];
 
   pythonImportsCheck = [ "argh" ];
 

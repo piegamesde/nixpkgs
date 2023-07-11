@@ -106,8 +106,10 @@ let
         --rev="$commit_sha"
   '';
 
-in [ updateScript "--url=${builtins.toString url}" ]
-++ lib.optionals (branch != null) [ "--branch=${branch}" ]
+in [
+  updateScript
+  "--url=${builtins.toString url}"
+] ++ lib.optionals (branch != null) [ "--branch=${branch}" ]
 ++ lib.optionals stableVersion [
   "--use-stable-version"
   "--tag-prefix=${tagPrefix}"

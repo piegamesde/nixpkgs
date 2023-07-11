@@ -19,7 +19,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-XmEbXzpynkUPXywaf4wPcWq9zf3gNOHkcVr2jz3WNnc=";
 
-  nativeBuildInputs = [ installShellFiles scdoc ];
+  nativeBuildInputs = [
+    installShellFiles
+    scdoc
+  ];
 
   preFixup = ''
     scdoc < docs/uair.1.scd > docs/uair.1

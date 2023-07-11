@@ -42,12 +42,10 @@ in rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-wcgu4KApkn68Tpk3PQ9Tkxif++/8CmS4f8AOOpCA/X8=";
 
-  patches = [
-    (substituteAll {
-      src = ./target-dir.patch;
-      rustTarget = rust.toRustTarget stdenv.hostPlatform;
-    })
-  ];
+  patches = [ (substituteAll {
+    src = ./target-dir.patch;
+    rustTarget = rust.toRustTarget stdenv.hostPlatform;
+  }) ];
 
   postPatch = ''
     pushd $cargoDepsCopy/librclone-sys
@@ -73,7 +71,10 @@ in rustPlatform.buildRustPackage rec {
 
   # We need to build celeste-tray first because celeste/src/launch.rs reads that file at build time.
   # Upstream does the same: https://github.com/hwittenborn/celeste/blob/765dfa2/justfile#L1-L3
-  cargoBuildFlags = [ "--bin" "celeste-tray" ];
+  cargoBuildFlags = [
+    "--bin"
+    "celeste-tray"
+  ];
   postConfigure = ''
     cargoBuildHook
     cargoBuildFlags=
@@ -81,10 +82,23 @@ in rustPlatform.buildRustPackage rec {
 
   RUSTC_BOOTSTRAP = 1;
 
-  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook wrapGAppsHook4 ];
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+    wrapGAppsHook4
+  ];
 
-  buildInputs =
-    [ cairo gdk-pixbuf glib graphene gtk3 gtk4 libadwaita librclone pango ];
+  buildInputs = [
+    cairo
+    gdk-pixbuf
+    glib
+    graphene
+    gtk3
+    gtk4
+    libadwaita
+    librclone
+    pango
+  ];
 
   preFixup = ''
     gappsWrapperArgs+=(

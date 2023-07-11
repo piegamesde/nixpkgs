@@ -23,7 +23,10 @@ buildPythonPackage rec {
   version = "0.15.0";
   format = "pyproject";
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   src = fetchFromGitHub {
     owner = "felix-hilden";
@@ -32,12 +35,20 @@ buildPythonPackage rec {
     hash = "sha256-iXUdOwyTRViDTDRPCcteiJ2Rcdbpiol7JPEzqbUwIPc=";
   };
 
-  nativeBuildInputs =
-    [ setuptools sphinxHook sphinx-rtd-theme matplotlib ipython ];
+  nativeBuildInputs = [
+    setuptools
+    sphinxHook
+    sphinx-rtd-theme
+    matplotlib
+    ipython
+  ];
 
   sphinxRoot = "docs/src";
 
-  propagatedBuildInputs = [ sphinx beautifulsoup4 ];
+  propagatedBuildInputs = [
+    sphinx
+    beautifulsoup4
+  ];
 
   nativeCheckInputs = [ pytest ];
 

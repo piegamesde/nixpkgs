@@ -23,7 +23,11 @@ buildKodiAddon rec {
     hash = "sha256-DpsAQUOUYCs3rpWwsk82+00KME4J+Iocu/v781dyyws=";
   };
 
-  propagatedBuildInputs = [ requests inputstream-adaptive inputstreamhelper ];
+  propagatedBuildInputs = [
+    requests
+    inputstream-adaptive
+    inputstreamhelper
+  ];
 
   passthru = { pythonPath = "resources/lib"; };
 

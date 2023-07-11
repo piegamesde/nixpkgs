@@ -30,7 +30,10 @@ buildPythonPackage rec {
 
   buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [ readstat pandas ];
+  propagatedBuildInputs = [
+    readstat
+    pandas
+  ];
 
   pythonImportsCheck = [ "pyreadstat" ];
 

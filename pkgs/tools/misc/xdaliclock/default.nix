@@ -20,7 +20,10 @@ stdenv.mkDerivation rec {
   # on aarch64 doesn't find the files to patch and the aarch64 build fails!
   preConfigure = "cd X11";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
   buildInputs = [ gtk3 ];
 
   preInstall = ''

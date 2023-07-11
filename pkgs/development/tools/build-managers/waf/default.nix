@@ -23,7 +23,10 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-wqZEAfGRHhcd7Xm2pQ0FTjZGfuPafRrZAUdpc7ACoEA=";
   };
 
-  nativeBuildInputs = [ python3 ensureNewerSourcesForZipFilesHook ];
+  nativeBuildInputs = [
+    python3
+    ensureNewerSourcesForZipFilesHook
+  ];
 
   # waf bin has #!/usr/bin/env python
   buildInputs = [ python3 ];
