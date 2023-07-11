@@ -290,15 +290,9 @@ rec {
               ;
           in
           if
-            (
-              substring 0 4 name == "test" || elem name testsToRun
-            )
-            && (
-              (testsToRun == [ ]) || elem name tests.tests
-            )
-            && (
-              test.expr != test.expected
-            )
+            (substring 0 4 name == "test" || elem name testsToRun)
+            && ((testsToRun == [ ]) || elem name tests.tests)
+            && (test.expr != test.expected)
 
           then
             [ {

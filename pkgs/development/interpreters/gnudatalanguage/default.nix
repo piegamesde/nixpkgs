@@ -58,15 +58,11 @@
   plplot-forced ? null,
   # wxWidgets is preferred over X11 for this project but we only have it on Linux
   # and Darwin.
-  enableWX ? (
-    stdenv.isLinux || stdenv.isDarwin
-  ),
+  enableWX ? (stdenv.isLinux || stdenv.isDarwin),
   wxGTK32,
   Cocoa,
   # X11: OFF by default for platform consistency. Use X where WX is not available
-  enableXWin ? (
-    !stdenv.isLinux && !stdenv.isDarwin
-  ),
+  enableXWin ? (!stdenv.isLinux && !stdenv.isDarwin),
 }:
 
 let

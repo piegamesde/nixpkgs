@@ -221,9 +221,7 @@ in
       {
         assertion =
           !cfg.greeter.enable
-          -> (
-            dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0
-          )
+          -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0)
           ;
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it

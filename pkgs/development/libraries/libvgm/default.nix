@@ -131,13 +131,9 @@ stdenv.mkDerivation rec {
     description = "More modular rewrite of most components from VGMPlay";
     license =
       if
-        (
-          enableEmulation
-          && (
-            withAllEmulators
-            || (lib.lists.any (core: core == "WSWAN_ALL") emulators)
-          )
-        )
+        (enableEmulation
+          && (withAllEmulators
+            || (lib.lists.any (core: core == "WSWAN_ALL") emulators)))
       then
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
       else

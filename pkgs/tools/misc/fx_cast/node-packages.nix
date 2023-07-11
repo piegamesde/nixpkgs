@@ -2040,11 +2040,9 @@ let
       sources."base64-js-1.5.1"
       sources."big-integer-1.6.51"
       sources."bindings-1.2.1"
-      (
-        sources."bl-4.1.0" // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."bl-4.1.0" // {
+        dependencies = [ sources."readable-stream-3.6.0" ];
+      })
       sources."bplist-creator-0.1.0"
       sources."bplist-parser-0.3.1"
       sources."braces-3.0.2"
@@ -2052,16 +2050,14 @@ let
       sources."castv2-0.1.10"
       sources."chalk-4.1.2"
       sources."chownr-1.1.4"
-      (
-        sources."cliui-7.0.4" // {
-          dependencies = [
-            sources."ansi-regex-5.0.1"
-            sources."is-fullwidth-code-point-3.0.0"
-            sources."string-width-4.2.3"
-            sources."strip-ansi-6.0.1"
-          ];
-        }
-      )
+      (sources."cliui-7.0.4" // {
+        dependencies = [
+          sources."ansi-regex-5.0.1"
+          sources."is-fullwidth-code-point-3.0.0"
+          sources."string-width-4.2.3"
+          sources."strip-ansi-6.0.1"
+        ];
+      })
       sources."code-point-at-1.1.0"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
@@ -2131,19 +2127,15 @@ let
       sources."minimist-1.2.6"
       sources."mkdirp-classic-0.5.3"
       sources."ms-2.1.2"
-      (
-        sources."multistream-4.1.0" // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."multistream-4.1.0" // {
+        dependencies = [ sources."readable-stream-3.6.0" ];
+      })
       sources."mustache-4.2.0"
       sources."nan-2.15.0"
       sources."napi-build-utils-1.0.2"
-      (
-        sources."node-abi-2.30.1" // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."node-abi-2.30.1" // {
+        dependencies = [ sources."semver-5.7.1" ];
+      })
       sources."node-domexception-1.0.0"
       sources."node-fetch-3.2.3"
       sources."npmlog-4.1.2"
@@ -2156,20 +2148,18 @@ let
       sources."path-type-4.0.0"
       sources."picomatch-2.3.1"
       (sources."pkg-5.6.0" // { dependencies = [ sources."fs-extra-9.1.0" ]; })
-      (
-        sources."pkg-fetch-3.3.0" // {
-          dependencies = [
-            sources."ansi-regex-5.0.1"
-            sources."fs-extra-9.1.0"
-            sources."is-fullwidth-code-point-3.0.0"
-            sources."node-fetch-2.6.7"
-            sources."string-width-4.2.3"
-            sources."strip-ansi-6.0.1"
-            sources."yargs-16.2.0"
-            sources."yargs-parser-20.2.9"
-          ];
-        }
-      )
+      (sources."pkg-fetch-3.3.0" // {
+        dependencies = [
+          sources."ansi-regex-5.0.1"
+          sources."fs-extra-9.1.0"
+          sources."is-fullwidth-code-point-3.0.0"
+          sources."node-fetch-2.6.7"
+          sources."string-width-4.2.3"
+          sources."strip-ansi-6.0.1"
+          sources."yargs-16.2.0"
+          sources."yargs-parser-20.2.9"
+        ];
+      })
       sources."prebuild-install-6.1.4"
       sources."prelude-ls-1.1.2"
       sources."process-nextick-args-2.0.1"
@@ -2200,11 +2190,9 @@ let
       sources."supports-color-7.2.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tar-fs-2.1.1"
-      (
-        sources."tar-stream-2.2.0" // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."tar-stream-2.2.0" // {
+        dependencies = [ sources."readable-stream-3.6.0" ];
+      })
       sources."tiny-typed-emitter-2.1.0"
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"
@@ -2221,30 +2209,26 @@ let
       sources."whatwg-url-5.0.0"
       sources."wide-align-1.1.5"
       sources."word-wrap-1.2.3"
-      (
-        sources."wrap-ansi-7.0.0" // {
-          dependencies = [
-            sources."ansi-regex-5.0.1"
-            sources."is-fullwidth-code-point-3.0.0"
-            sources."string-width-4.2.3"
-            sources."strip-ansi-6.0.1"
-          ];
-        }
-      )
+      (sources."wrap-ansi-7.0.0" // {
+        dependencies = [
+          sources."ansi-regex-5.0.1"
+          sources."is-fullwidth-code-point-3.0.0"
+          sources."string-width-4.2.3"
+          sources."strip-ansi-6.0.1"
+        ];
+      })
       sources."wrappy-1.0.2"
       sources."ws-8.5.0"
       sources."y18n-5.0.8"
       sources."yallist-4.0.0"
-      (
-        sources."yargs-17.5.1" // {
-          dependencies = [
-            sources."ansi-regex-5.0.1"
-            sources."is-fullwidth-code-point-3.0.0"
-            sources."string-width-4.2.3"
-            sources."strip-ansi-6.0.1"
-          ];
-        }
-      )
+      (sources."yargs-17.5.1" // {
+        dependencies = [
+          sources."ansi-regex-5.0.1"
+          sources."is-fullwidth-code-point-3.0.0"
+          sources."string-width-4.2.3"
+          sources."strip-ansi-6.0.1"
+        ];
+      })
       sources."yargs-parser-21.1.1"
     ];
     buildInputs = globalBuildInputs;

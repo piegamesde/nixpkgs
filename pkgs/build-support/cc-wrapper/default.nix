@@ -154,12 +154,10 @@ let
     targetPlatform.config;
 
   expand-response-params = lib.optionalString
-    (
-      (
-        buildPackages.stdenv.hasCC or false
-      )
-      && buildPackages.stdenv.cc != "/dev/null"
+    ((
+      buildPackages.stdenv.hasCC or false
     )
+      && buildPackages.stdenv.cc != "/dev/null")
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
@@ -458,8 +456,7 @@ stdenv.mkDerivation {
       echo "-L${gccForLibs.lib}/${targetPlatform.config}/lib" >> $out/nix-support/cc-ldflags
     ''
     + optionalString
-      (
-        isClang
+      (isClang
         && targetPlatform.isLinux
         && !(
           stdenv.targetPlatform.useAndroidPrebuilt or false
@@ -467,8 +464,7 @@ stdenv.mkDerivation {
         && !(
           stdenv.targetPlatform.useLLVM or false
         )
-        && gccForLibs != null
-      )
+        && gccForLibs != null)
       (
         ''
           echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags
@@ -513,27 +509,17 @@ stdenv.mkDerivation {
       ''
     )
     + optionalString
-      (
-        libcxx != null
-        || (
-          useGccForLibs && gccForLibs.langCC or false
-        )
-        || (
-          isGNU && cc.langCC or false
-        )
-      )
+      (libcxx != null
+        || (useGccForLibs && gccForLibs.langCC or false)
+        || (isGNU && cc.langCC or false))
       ''
         touch "$out/nix-support/libcxx-cxxflags"
         touch "$out/nix-support/libcxx-ldflags"
       ''
     + optionalString
-      (
-        libcxx == null
+      (libcxx == null
         && isClang
-        && (
-          useGccForLibs && gccForLibs.langCC or false
-        )
-      )
+        && (useGccForLibs && gccForLibs.langCC or false))
       ''
         for dir in ${gccForLibs}${
           lib.optionalString
@@ -597,27 +583,19 @@ stdenv.mkDerivation {
       }"
     ''
     + optionalString
-      (
-        (
-          targetPlatform ? gcc.arch
-        )
-        && (
-          isClang || !(stdenv.isDarwin && stdenv.isAarch64)
-        )
-        && isGccArchSupported targetPlatform.gcc.arch
+      ((
+        targetPlatform ? gcc.arch
       )
+        && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
+        && isGccArchSupported targetPlatform.gcc.arch)
       ''
         echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
       ''
     + optionalString
-      (
-        (
-          targetPlatform ? gcc.cpu
-        )
-        && (
-          isClang || !(stdenv.isDarwin && stdenv.isAarch64)
-        )
+      ((
+        targetPlatform ? gcc.cpu
       )
+        && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
       ''
         echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
       ''

@@ -638,9 +638,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."os" == "wasi"
-              )
+              (target."os" == "wasi")
               ;
           }
         ];
@@ -1068,9 +1066,7 @@ rec {
               target,
               features,
             }:
-            (
-              (target."os" == "macos") || (target."os" == "freebsd")
-            )
+            ((target."os" == "macos") || (target."os" == "freebsd"))
             ;
         } ];
       };
@@ -1200,9 +1196,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."env" == "msvc"
-              )
+              (target."env" == "msvc")
               ;
           }
         ];
@@ -1475,9 +1469,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."os" == "emscripten"
-              )
+              (target."os" == "emscripten")
               ;
           }
         ];
@@ -1700,9 +1692,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                (target."os" == "android") || (target."os" == "linux")
-              )
+              ((target."os" == "android") || (target."os" == "linux"))
               ;
           }
           {
@@ -1715,9 +1705,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                (target."os" == "android") || (target."os" == "linux")
-              )
+              ((target."os" == "android") || (target."os" == "linux"))
               ;
             features = [ "std" ];
           }
@@ -1730,26 +1718,12 @@ rec {
                 target,
                 features,
               }:
-              (
-                (
-                  target."os" == "dragonfly"
-                )
-                || (
-                  target."os" == "freebsd"
-                )
-                || (
-                  target."os" == "illumos"
-                )
-                || (
-                  target."os" == "netbsd"
-                )
-                || (
-                  target."os" == "openbsd"
-                )
-                || (
-                  target."os" == "solaris"
-                )
-              )
+              ((target."os" == "dragonfly")
+                || (target."os" == "freebsd")
+                || (target."os" == "illumos")
+                || (target."os" == "netbsd")
+                || (target."os" == "openbsd")
+                || (target."os" == "solaris"))
               ;
             features = [ "std" ];
           }
@@ -1762,30 +1736,12 @@ rec {
                 target,
                 features,
               }:
-              (
-                (
-                  target."arch" == "x86"
-                )
-                || (
-                  target."arch" == "x86_64"
-                )
-                || (
-                  (
-                    (target."arch" == "aarch64") || (target."arch" == "arm")
-                  )
-                  && (
-                    (
-                      target."os" == "android"
-                    )
-                    || (
-                      target."os" == "fuchsia"
-                    )
-                    || (
-                      target."os" == "linux"
-                    )
-                  )
-                )
-              )
+              ((target."arch" == "x86")
+                || (target."arch" == "x86_64")
+                || (((target."arch" == "aarch64") || (target."arch" == "arm"))
+                  && ((target."os" == "android")
+                    || (target."os" == "fuchsia")
+                    || (target."os" == "linux"))))
               ;
           }
           {
@@ -1801,20 +1757,10 @@ rec {
                 target,
                 features,
               }:
-              (
-                (
-                  target."arch" == "wasm32"
-                )
-                && (
-                  target."vendor" == "unknown"
-                )
-                && (
-                  target."os" == "unknown"
-                )
-                && (
-                  target."env" == ""
-                )
-              )
+              ((target."arch" == "wasm32")
+                && (target."vendor" == "unknown")
+                && (target."os" == "unknown")
+                && (target."env" == ""))
               ;
             features = [
               "Crypto"
@@ -1830,9 +1776,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."os" == "windows"
-              )
+              (target."os" == "windows")
               ;
             features = [
               "ntsecapi"
@@ -1854,9 +1798,7 @@ rec {
               target,
               features,
             }:
-            (
-              (target."unix" or false) || (target."windows" or false)
-            )
+            ((target."unix" or false) || (target."windows" or false))
             ;
         } ];
         features = {
@@ -2219,9 +2161,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."family" == "unix"
-              )
+              (target."family" == "unix")
               ;
           }
           {
@@ -2232,9 +2172,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                target."family" == "unix"
-              )
+              (target."family" == "unix")
               ;
           }
           {
@@ -4023,9 +3961,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                stdenv.hostPlatform.config == "i686-pc-windows-gnu"
-              )
+              (stdenv.hostPlatform.config == "i686-pc-windows-gnu")
               ;
           }
           {
@@ -4036,9 +3972,7 @@ rec {
                 target,
                 features,
               }:
-              (
-                stdenv.hostPlatform.config == "x86_64-pc-windows-gnu"
-              )
+              (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu")
               ;
           }
         ];
@@ -4252,26 +4186,17 @@ rec {
       !(
         # Filter out git
           baseName
-          == ".gitignore"
-        || (
-          type == "directory" && baseName == ".git"
-        )
-        || (
-          type == "directory"
-          && (
-            baseName == "target"
+        == ".gitignore"
+        || (type == "directory" && baseName == ".git")
+        || (type == "directory"
+          && (baseName == "target"
             || baseName == "_site"
             || baseName == ".sass-cache"
             || baseName == ".jekyll-metadata"
-            || baseName == "build-artifacts"
-          )
-        )
-        || (
-          type == "symlink" && lib.hasPrefix "result" baseName
-        )
-        || (
-          type == "directory" && (baseName == ".idea" || baseName == ".vscode")
-        )
+            || baseName == "build-artifacts"))
+        || (type == "symlink" && lib.hasPrefix "result" baseName)
+        || (type == "directory"
+          && (baseName == ".idea" || baseName == ".vscode"))
         || lib.hasSuffix ".iml" baseName
         || baseName == "Cargo.nix"
         || lib.hasSuffix "~" baseName
@@ -4279,8 +4204,7 @@ rec {
         || builtins.match "^\\..*\\.sw[a-z]$$" baseName != null
         || lib.hasSuffix ".tmp" baseName
         || lib.hasSuffix ".bak" baseName
-        || baseName == "tests.nix"
-      )
+        || baseName == "tests.nix")
       ;
 
     /* Returns a crate which depends on successful test execution
@@ -4853,12 +4777,10 @@ rec {
           targetFunc = dep.target or (features: true);
         in
         targetFunc { inherit features target; }
-        && (
-          !(
-            dep.optional or false
-          )
-          || builtins.any (doesFeatureEnableDependency dep) features
+        && (!(
+          dep.optional or false
         )
+          || builtins.any (doesFeatureEnableDependency dep) features)
       )
       dependencies
       ;

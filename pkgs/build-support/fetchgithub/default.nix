@@ -56,14 +56,10 @@ let
     }_GITHUB_PRIVATE_";
   useFetchGit =
     fetchSubmodules
-    || (
-      leaveDotGit == true
-    )
+    || (leaveDotGit == true)
     || deepClone
     || forceFetchGit
-    || !(
-      sparseCheckout == "" || sparseCheckout == [ ]
-    )
+    || !(sparseCheckout == "" || sparseCheckout == [ ])
     ;
   # We prefer fetchzip in cases we don't need submodules as the hash
   # is more stable in that case.

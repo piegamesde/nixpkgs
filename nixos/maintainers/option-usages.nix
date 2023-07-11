@@ -94,9 +94,7 @@ let
           fst,
           snd,
         }:
-        !(
-          fst.success -> snd.success
-        )
+        !(fst.success -> snd.success)
       );
 
       keepNames = map (

@@ -185,11 +185,9 @@ let
 
               ''
               + lib.optionalString
-                (
-                  stdenv.isDarwin
+                (stdenv.isDarwin
                   && lib.versionAtLeast version "1.3.0"
-                  && lib.versionOlder version "1.7.0"
-                )
+                  && lib.versionOlder version "1.7.0")
                 ''
                   # See https://github.com/NixOS/nixpkgs/pull/195606#issuecomment-1356491277
                   substituteInPlace spec/compiler/loader/unix_spec.cr \
@@ -244,10 +242,8 @@ let
                 "--single-module" # needed for deterministic builds
               ]
               ++ lib.optionals
-                (
-                  lib.versionAtLeast version "1.3.0"
-                  && lib.versionOlder version "1.6.1"
-                )
+                (lib.versionAtLeast version "1.3.0"
+                  && lib.versionOlder version "1.6.1")
                 [
                   # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                   "-Dwithout_ffi"

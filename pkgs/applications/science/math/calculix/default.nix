@@ -9,11 +9,9 @@
   lapack,
 }:
 
-assert (
-  blas.isILP64 == lapack.isILP64
+assert (blas.isILP64 == lapack.isILP64
   && blas.isILP64 == arpack.isILP64
-  && !blas.isILP64
-);
+  && !blas.isILP64);
 
 stdenv.mkDerivation rec {
   pname = "calculix";

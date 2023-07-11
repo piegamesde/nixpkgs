@@ -29,9 +29,7 @@
     && (
       !stdenv.hostPlatform.isMusl
     )
-    && (
-      stdenv.hostPlatform == stdenv.buildPlatform
-    ),
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   enablePFM ? stdenv.isLinux # PFM only supports Linux

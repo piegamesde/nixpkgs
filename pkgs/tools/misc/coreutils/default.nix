@@ -160,12 +160,9 @@ stdenv.mkDerivation rec {
     (
       !isCross
     )
-    && (
-      stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl"
-    )
-    && !(
-      stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64
-    )
+    && (stdenv.hostPlatform.libc == "glibc"
+      || stdenv.hostPlatform.libc == "musl")
+    && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
     && !stdenv.isAarch32
     ;
 

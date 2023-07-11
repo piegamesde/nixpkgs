@@ -14,8 +14,7 @@
   gsaslSupport ? false,
   gsasl,
   gssSupport ? with stdenv.hostPlatform;
-    (
-      !isWindows
+    (!isWindows
       &&
       # disable gss becuase of: undefined reference to `k5_bcmp'
         # a very sad story re static: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=439039
@@ -24,10 +23,7 @@
       # the "mig" tool does not configure its compiler correctly. This could be
         # fixed in mig, but losing gss support on cross compilation to darwin is
         # not worth the effort.
-        !(
-          isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform)
-        )
-    ),
+        !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))),
   libkrb5,
   http2Support ? true,
   nghttp2,
@@ -72,15 +68,13 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert !(
-  (lib.count (x: x) [
-    gnutlsSupport
-    opensslSupport
-    wolfsslSupport
-    rustlsSupport
-  ])
-  > 1
-);
+assert !((lib.count (x: x) [
+  gnutlsSupport
+  opensslSupport
+  wolfsslSupport
+  rustlsSupport
+])
+  > 1);
 
 stdenv.mkDerivation (
   finalAttrs: {

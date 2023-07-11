@@ -69,13 +69,11 @@ in
           builtins.filter
           (
             n:
-            (
-              builtins.match ".*\\.nix" n != null
+            (builtins.match ".*\\.nix" n != null
               &&
                 # ignore Emacs lock files (.#foo.nix)
                   builtins.match "\\.#.*" n
-                == null
-            )
+                == null)
             || builtins.pathExists (path + ("/" + n + "/default.nix"))
           )
           (builtins.attrNames content)

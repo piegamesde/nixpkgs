@@ -66,9 +66,8 @@
   enablePluginMailmbox ? true,
   enablePluginManageSieve ? true,
   enablePluginNewMail ? true,
-  enablePluginNotification ? (
-    enablePluginNotificationDialogs || enablePluginNotificationSounds
-  ),
+  enablePluginNotification ?
+    (enablePluginNotificationDialogs || enablePluginNotificationSounds),
   libcanberra-gtk3,
   libnotify,
   enablePluginPdfViewer ? enablePluginPdf,

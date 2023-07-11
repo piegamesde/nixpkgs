@@ -47,9 +47,7 @@
 
   # Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
   # this is also what official pytorch build does
-  mklDnnSupport ? !(
-    stdenv.isDarwin && stdenv.isAarch64
-  ),
+  mklDnnSupport ? !(stdenv.isDarwin && stdenv.isAarch64),
 
   # virtual pkg that consistently instantiates blas across nixpkgs
   # See https://github.com/NixOS/nixpkgs/pull/83888
@@ -159,10 +157,8 @@ let
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
-    (
-      "No supported GPU targets specified. Requested GPU targets: "
-      + strings.concatStringsSep ", " unsupported
-    )
+    ("No supported GPU targets specified. Requested GPU targets: "
+      + strings.concatStringsSep ", " unsupported)
     supported
     ;
 
@@ -297,10 +293,8 @@ buildPythonPackage rec {
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     + lib.optionalString
-      (
-        stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
-      )
+      (stdenv.isDarwin
+        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
       ''
         substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
         inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
@@ -382,8 +376,7 @@ buildPythonPackage rec {
   # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
   # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
   env.NIX_CFLAGS_COMPILE = toString (
-    (
-      lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
+    (lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
@@ -400,8 +393,7 @@ buildPythonPackage rec {
         (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
         [
           "-Wno-error=free-nonheap-object"
-        ]
-    )
+        ])
   );
 
   nativeBuildInputs =

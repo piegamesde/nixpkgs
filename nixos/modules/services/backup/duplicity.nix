@@ -204,10 +204,8 @@ in
                   ])
                   cfg.exclude
                 ++ (lib.optionals
-                  (
-                    cfg.fullIfOlderThan != "never"
-                    && cfg.fullIfOlderThan != "always"
-                  )
+                  (cfg.fullIfOlderThan != "never"
+                    && cfg.fullIfOlderThan != "always")
                   [
                     "--full-if-older-than"
                     cfg.fullIfOlderThan

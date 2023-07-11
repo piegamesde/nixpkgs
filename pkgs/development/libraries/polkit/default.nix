@@ -31,9 +31,7 @@
   # Not yet investigated; it may be due to the "Make netgroup support optional"
   # patch not updating the tests correctly yet, or doing something wrong,
   # or being unrelated to that.
-  doCheck ? (
-    stdenv.isLinux && !stdenv.hostPlatform.isMusl
-  ),
+  doCheck ? (stdenv.isLinux && !stdenv.hostPlatform.isMusl),
 }:
 
 let
@@ -92,10 +90,8 @@ stdenv.mkDerivation rec {
       gtk-doc
     ]
     ++ lib.optionals
-      (
-        withIntrospection
-        && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-      )
+      (withIntrospection
+        && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
       [
         mesonEmulatorHook
       ]

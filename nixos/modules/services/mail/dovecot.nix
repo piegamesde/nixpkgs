@@ -570,12 +570,8 @@ in
       {
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
-          && (
-            cfg.sslCACert != null
-            -> !(
-              cfg.sslServerCert == null || cfg.sslServerKey == null
-            )
-          )
+          && (cfg.sslCACert != null
+            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null))
           ;
         message =
           "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
@@ -588,9 +584,7 @@ in
       {
         assertion =
           cfg.sieveScripts != { }
-          -> (
-            cfg.mailUser != null && cfg.mailGroup != null
-          )
+          -> (cfg.mailUser != null && cfg.mailGroup != null)
           ;
         message =
           "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";

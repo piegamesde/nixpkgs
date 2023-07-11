@@ -313,10 +313,8 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion =
-        (
-          cfg.bantime-increment.formula == null
-          || cfg.bantime-increment.multipliers == null
-        );
+        (cfg.bantime-increment.formula == null
+          || cfg.bantime-increment.multipliers == null);
       message = ''
         Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
       '';

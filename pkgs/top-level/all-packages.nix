@@ -47,12 +47,8 @@ with pkgs;
     }
 
     // lib.optionalAttrs
-    (
-      stdenv.hostPlatform.isDarwin
-      && (
-        stdenv.hostPlatform != stdenv.buildPlatform
-      )
-    )
+    (stdenv.hostPlatform.isDarwin
+      && (stdenv.hostPlatform != stdenv.buildPlatform))
     {
       # TODO: This is a hack to use stdenvNoCC to produce a CF when cross
       # compiling. It's not very sound. The cross stdenv has:
@@ -87,10 +83,8 @@ with pkgs;
   stdenvNoLibs =
     if
       stdenv.hostPlatform != stdenv.buildPlatform
-      && (
-        stdenv.hostPlatform.isDarwin
-        || stdenv.hostPlatform.isDarwin.useLLVM or false
-      )
+      && (stdenv.hostPlatform.isDarwin
+        || stdenv.hostPlatform.isDarwin.useLLVM or false)
     then
       # We cannot touch binutils or cc themselves, because that will cause
       # infinite recursion. So instead, we just choose a libc based on the
@@ -33647,17 +33641,15 @@ with pkgs;
   };
 
   jetbrains =
-    (
-      recurseIntoAttrs (
-        callPackages ../applications/editors/jetbrains {
-          vmopts = config.jetbrains.vmopts or null;
-          jdk = jetbrains.jdk;
-        }
-      ) // {
-        jdk = callPackage ../development/compilers/jetbrains-jdk { };
-        jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
+    (recurseIntoAttrs (
+      callPackages ../applications/editors/jetbrains {
+        vmopts = config.jetbrains.vmopts or null;
+        jdk = jetbrains.jdk;
       }
-    );
+    ) // {
+      jdk = callPackage ../development/compilers/jetbrains-jdk { };
+      jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
+    });
 
   jmusicbot = callPackage ../applications/audio/jmusicbot { };
 

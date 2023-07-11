@@ -34,9 +34,7 @@ let
           filterAttrs
           (
             name: config:
-            !(
-              config.type == "internal" || hasAttr name cfg.interfaces
-            )
+            !(config.type == "internal" || hasAttr name cfg.interfaces)
           )
           i.interfaces
         )
@@ -1646,9 +1644,7 @@ in
       ++ [ {
         assertion =
           cfg.hostId == null
-          || (
-            stringLength cfg.hostId == 8 && isHexString cfg.hostId
-          )
+          || (stringLength cfg.hostId == 8 && isHexString cfg.hostId)
           ;
         message = "Invalid value given to the networking.hostId option.";
       } ]

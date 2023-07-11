@@ -233,10 +233,8 @@ let
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
           + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
+            (!stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false)
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''
@@ -326,12 +324,8 @@ let
             (
               stdenv.hostPlatform.useLLVM or false
             )
-            || (
-              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-            )
-            || (
-              stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit
-            )
+            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
@@ -346,9 +340,7 @@ let
             (
               stdenv.hostPlatform.useLLVM or false
             )
-            || (
-              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-            )
+            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
@@ -360,12 +352,8 @@ let
       compiler-rt =
         if
           stdenv.hostPlatform.isAndroid
-          || (
-            stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-          )
-          || (
-            stdenv.hostPlatform.libc == "newlib"
-          )
+          || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+          || (stdenv.hostPlatform.libc == "newlib")
         then
           libraries.compiler-rt-libc
         else
@@ -383,9 +371,7 @@ let
             (
               stdenv.hostPlatform.useLLVM or false
             )
-            || (
-              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-            )
+            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
@@ -400,9 +386,7 @@ let
             (
               stdenv.hostPlatform.useLLVM or false
             )
-            || (
-              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-            )
+            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else
@@ -417,9 +401,7 @@ let
             (
               stdenv.hostPlatform.useLLVM or false
             )
-            || (
-              stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-            )
+            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
           else

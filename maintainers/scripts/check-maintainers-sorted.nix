@@ -75,10 +75,8 @@ let
       in
       if a.line >= b.line then
         trace
-        (
-          "maintainer ${a.name} (line ${toString a.line}) should be listed "
-          + "after ${lim}, not after ${b.name} (line ${toString b.line})"
-        )
+        ("maintainer ${a.name} (line ${toString a.line}) should be listed "
+          + "after ${lim}, not after ${b.name} (line ${toString b.line})")
         1
       else
         0

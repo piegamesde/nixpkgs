@@ -134,13 +134,11 @@ let
           args.meta or { }
         );
       } // lib.optionalAttrs
-        (
-          stdenv.isDarwin
+        (stdenv.isDarwin
           && lib.elem language [
             "is"
             "nb"
-          ]
-        )
+          ])
         {
           # tar: Cannot open: Illegal byte sequence
           unpackPhase = ''

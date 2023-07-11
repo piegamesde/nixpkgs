@@ -327,8 +327,7 @@ in
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-            (
-              "+"
+            ("+"
               + pkgs.writeShellScript "transmission-prestart" ''
                 set -eu${
                   lib.optionalString (cfg.settings.message-level >= 3) "x"
@@ -336,8 +335,7 @@ in
                 ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
                 install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
                  '${cfg.home}/${settingsDir}/settings.json'
-              ''
-            )
+              '')
           ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
@@ -373,10 +371,8 @@ in
             cfg.settings.incomplete-dir-enabled
             cfg.settings.incomplete-dir
           ++ optional
-            (
-              cfg.settings.watch-dir-enabled
-              && cfg.settings.trash-original-torrent-files
-            )
+            (cfg.settings.watch-dir-enabled
+              && cfg.settings.trash-original-torrent-files)
             cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
@@ -388,16 +384,12 @@ in
             "/run"
           ]
           ++ optional
-            (
-              cfg.settings.script-torrent-done-enabled
-              && cfg.settings.script-torrent-done-filename != null
-            )
+            (cfg.settings.script-torrent-done-enabled
+              && cfg.settings.script-torrent-done-filename != null)
             cfg.settings.script-torrent-done-filename
           ++ optional
-            (
-              cfg.settings.watch-dir-enabled
-              && !cfg.settings.trash-original-torrent-files
-            )
+            (cfg.settings.watch-dir-enabled
+              && !cfg.settings.trash-original-torrent-files)
             cfg.settings.watch-dir
           ;
         StateDirectory = [
@@ -567,10 +559,8 @@ in
       }
 
       ${optionalString
-      (
-        cfg.settings.script-torrent-done-enabled
-        && cfg.settings.script-torrent-done-filename != null
-      )
+      (cfg.settings.script-torrent-done-enabled
+        && cfg.settings.script-torrent-done-filename != null)
       ''
         # Stack transmission_directories profile on top of
         # any existing profile for script-torrent-done-filename

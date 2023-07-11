@@ -197,10 +197,8 @@ in
       apply =
         v:
         lib.warnIf
-        (
-          options.system.stateVersion.highestPrio
-          == (lib.mkOptionDefault { }).priority
-        )
+        (options.system.stateVersion.highestPrio
+          == (lib.mkOptionDefault { }).priority)
         "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
         v
         ;

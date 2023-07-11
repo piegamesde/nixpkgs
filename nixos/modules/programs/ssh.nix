@@ -336,12 +336,8 @@ in
       ++ flip mapAttrsToList cfg.knownHosts (
         name: data: {
           assertion =
-            (
-              data.publicKey == null && data.publicKeyFile != null
-            )
-            || (
-              data.publicKey != null && data.publicKeyFile == null
-            )
+            (data.publicKey == null && data.publicKeyFile != null)
+            || (data.publicKey != null && data.publicKeyFile == null)
             ;
           message =
             "knownHost ${name} must contain either a publicKey or publicKeyFile";

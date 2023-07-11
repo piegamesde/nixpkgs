@@ -11,9 +11,7 @@ let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
   checkConfigEnabled =
-    (
-      lib.isBool cfg.checkConfig && cfg.checkConfig
-    )
+    (lib.isBool cfg.checkConfig && cfg.checkConfig)
     || cfg.checkConfig == "syntax-only"
     ;
 

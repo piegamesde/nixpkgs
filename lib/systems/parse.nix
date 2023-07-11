@@ -386,18 +386,10 @@ rec {
   gnuNetBSDDefaultExecFormat =
     cpu:
     if
-      (
-        cpu.family == "arm" && cpu.bits == 32
-      )
-      || (
-        cpu.family == "sparc" && cpu.bits == 32
-      )
-      || (
-        cpu.family == "m68k" && cpu.bits == 32
-      )
-      || (
-        cpu.family == "x86" && cpu.bits == 32
-      )
+      (cpu.family == "arm" && cpu.bits == 32)
+      || (cpu.family == "sparc" && cpu.bits == 32)
+      || (cpu.family == "m68k" && cpu.bits == 32)
+      || (cpu.family == "x86" && cpu.bits == 32)
     then
       execFormats.aout
     else
@@ -917,10 +909,8 @@ rec {
     assert isSystem sys;
     let
       optExecFormat = lib.optionalString
-        (
-          kernel.name == "netbsd"
-          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
-        )
+        (kernel.name == "netbsd"
+          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
         kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in

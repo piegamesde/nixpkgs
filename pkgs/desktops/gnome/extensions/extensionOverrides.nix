@@ -26,9 +26,7 @@ let
   # Helper method to reduce redundancy
   patchExtension =
     name: override: super:
-    (
-      super // { ${name} = super.${name}.overrideAttrs override; }
-    )
+    (super // { ${name} = super.${name}.overrideAttrs override; })
     ;
 in
 # A set of overrides for automatically packaged extensions that require some small fixes.

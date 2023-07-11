@@ -441,13 +441,11 @@ in
       deps = pkgs.lib.filter
         (
           x:
-          (
-            x.name != quicklisp-to-nix-packages.dbd-mysql.name
+          (x.name != quicklisp-to-nix-packages.dbd-mysql.name
             && x.name != quicklisp-to-nix-packages.dbd-postgres.name
             && x.name != quicklisp-to-nix-packages.dbd-sqlite3.name
             && x.name != quicklisp-to-nix-packages.dbi-test.name
-            && true
-          )
+            && true)
         )
         x.deps;
     }

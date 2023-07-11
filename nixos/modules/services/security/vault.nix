@@ -220,9 +220,7 @@ in
       {
         assertion =
           cfg.storageBackend == "inmem"
-          -> (
-            cfg.storagePath == null && cfg.storageConfig == null
-          )
+          -> (cfg.storagePath == null && cfg.storageConfig == null)
           ;
         message =
           ''
@@ -230,20 +228,11 @@ in
       }
       {
         assertion =
-          (
-            (
-              cfg.storageBackend == "file"
-              -> (
-                cfg.storagePath != null && cfg.storageConfig == null
-              )
-            )
-            && (
-              cfg.storagePath != null
-              -> (
-                cfg.storageBackend == "file" || cfg.storageBackend == "raft"
-              )
-            )
-          );
+          ((cfg.storageBackend == "file"
+            -> (cfg.storagePath != null && cfg.storageConfig == null))
+            && (cfg.storagePath != null
+              -> (cfg.storageBackend == "file"
+                || cfg.storageBackend == "raft")));
         message =
           ''
             You must set services.vault.storagePath only when using the "file" or "raft" backend'';

@@ -370,15 +370,9 @@ in
               # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
               # directories with `declarativeContents`.
               assertion =
-                (
-                  olcDbDirectory != null
-                )
-                -> (
-                  (hasPrefix "/var/lib/openldap/" olcDbDirectory)
-                  && (
-                    olcDbDirectory != "/var/lib/openldap/"
-                  )
-                )
+                (olcDbDirectory != null)
+                -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory)
+                  && (olcDbDirectory != "/var/lib/openldap/"))
                 ;
               message = ''
                 Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of

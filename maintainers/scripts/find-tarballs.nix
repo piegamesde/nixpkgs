@@ -38,9 +38,7 @@ let
       drv:
       drv.outputHash or "" != ""
       && drv.outputHashMode or "flat" == "flat"
-      && (
-        drv ? url || drv ? urls
-      )
+      && (drv ? url || drv ? urls)
     )
     dependencies;
 

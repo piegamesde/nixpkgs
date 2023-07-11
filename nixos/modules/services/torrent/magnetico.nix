@@ -53,9 +53,7 @@ let
         "--database=${dbURI}"
         (
           if
-            (
-              cfg.web.credentialsFile != null || cfg.web.credentials != { }
-            )
+            (cfg.web.credentialsFile != null || cfg.web.credentials != { })
           then
             "--credentials=${toString credFile}"
           else

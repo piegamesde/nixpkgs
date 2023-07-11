@@ -46,14 +46,8 @@ in
 
     assertions = [ {
       assertion =
-        (
-          (
-            cfg.configuration == { } -> cfg.configFile != null
-          )
-          && (
-            cfg.configFile != null -> cfg.configuration == { }
-          )
-        );
+        ((cfg.configuration == { } -> cfg.configFile != null)
+          && (cfg.configFile != null -> cfg.configuration == { }));
       message = ''
         Please specify either
         'services.mimir.configuration' or

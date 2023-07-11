@@ -243,12 +243,10 @@ in
               check =
                 p:
                 assertMsg
-                (
-                  package.check p
+                (package.check p
                   && p ? providedSessions
                   && p.providedSessions != [ ]
-                  && all isString p.providedSessions
-                )
+                  && all isString p.providedSessions)
                 ''
                   Package, '${p.name}', did not specify any session names, as strings, in
                   'passthru.providedSessions'. This is required when used as a session package.
@@ -327,13 +325,9 @@ in
             check =
               d:
               assertMsg
-              (
-                d != null
-                -> (
-                  str.check d
-                  && elem d cfg.displayManager.sessionData.sessionNames
-                )
-              )
+              (d != null
+                -> (str.check d
+                  && elem d cfg.displayManager.sessionData.sessionNames))
               ''
                 Default graphical session, '${d}', not found.
                 Valid names for 'services.xserver.displayManager.defaultSession' are:
@@ -464,7 +458,7 @@ in
       {
         assertion =
           cfg.desktopManager.default != null
-            || cfg.windowManager.default != null
+          || cfg.windowManager.default != null
           -> cfg.displayManager.defaultSession
             == defaultSessionFromLegacyOptions
           ;

@@ -90,12 +90,10 @@ let
       ../ppc-musl.patch
     ]
     ++ optional
-      (
-        stdenv.isDarwin
+      (stdenv.isDarwin
         && stdenv.isAarch64
         && buildPlatform == hostPlatform
-        && hostPlatform == targetPlatform
-      )
+        && hostPlatform == targetPlatform)
       (
         fetchpatch {
           name = "gcc-12-darwin-aarch64-support.patch";
@@ -155,11 +153,9 @@ let
       (stdenv.isDarwin && langAda)
       ../gnat-darwin-dylib-install-name.patch
     ++ optional
-      (
-        !crossStageStatic
+      (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf"
-      )
+        && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ;
 
@@ -373,11 +369,9 @@ lib.pipe
         target =
           lib.optionalString (profiledCompiler) "profiled"
           + lib.optionalString
-            (
-              targetPlatform == hostPlatform
+            (targetPlatform == hostPlatform
               && hostPlatform == buildPlatform
-              && !disableBootstrap
-            )
+              && !disableBootstrap)
             "bootstrap"
           ;
       in
@@ -451,11 +445,9 @@ lib.pipe
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
+  (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
+    && crossStageStatic)
   {
     makeFlags = [
       "all-gcc"

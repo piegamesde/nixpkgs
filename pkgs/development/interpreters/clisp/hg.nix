@@ -39,14 +39,12 @@
 }:
 
 assert x11Support
-  -> (
-    libX11 != null
+  -> (libX11 != null
     && libXau != null
     && libXt != null
     && libXpm != null
     && xorgproto != null
-    && libXext != null
-  );
+    && libXext != null);
 
 stdenv.mkDerivation rec {
   version = "2.50pre20171114";

@@ -336,12 +336,8 @@ let
       gitIgnores = findGitIgnores src;
       pycacheFilter =
         name: type:
-        (
-          type == "directory" && !lib.strings.hasInfix "__pycache__" name
-        )
-        || (
-          type == "regular" && !lib.strings.hasSuffix ".pyc" name
-        )
+        (type == "directory" && !lib.strings.hasInfix "__pycache__" name)
+        || (type == "regular" && !lib.strings.hasSuffix ".pyc" name)
         ;
     in
     lib.cleanSourceWith {

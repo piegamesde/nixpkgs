@@ -70,11 +70,9 @@ let
           type = types.passwdEntry types.str;
           apply =
             x:
-            assert (
-              builtins.stringLength x < 32
+            assert (builtins.stringLength x < 32
               || abort
-                "Username '${x}' is longer than 31 characters which is not allowed!"
-            );
+                "Username '${x}' is longer than 31 characters which is not allowed!");
             x
             ;
           description = lib.mdDoc ''
@@ -136,11 +134,9 @@ let
           type = types.str;
           apply =
             x:
-            assert (
-              builtins.stringLength x < 32
+            assert (builtins.stringLength x < 32
               || abort
-                "Group name '${x}' is longer than 31 characters which is not allowed!"
-            );
+                "Group name '${x}' is longer than 31 characters which is not allowed!");
             x
             ;
           default = "";
@@ -379,11 +375,9 @@ let
           hashedPassword = mkDefault config.initialHashedPassword;
         })
         (mkIf
-          (
-            config.isNormalUser
+          (config.isNormalUser
             && config.subUidRanges == [ ]
-            && config.subGidRanges == [ ]
-          )
+            && config.subGidRanges == [ ])
           {
             autoSubUidGidRange = mkDefault true;
           })
@@ -929,9 +923,7 @@ in
           {
             assertion =
               !cfg.enforceIdUniqueness
-              || (
-                sdInitrdUidsAreUnique && sdInitrdGidsAreUnique
-              )
+              || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique)
               ;
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
@@ -949,18 +941,14 @@ in
                 mapAttrsToList
                   (
                     name: cfg:
-                    (
-                      name == "root"
+                    (name == "root"
                       || cfg.group == "wheel"
-                      || elem "wheel" cfg.extraGroups
-                    )
-                    && (
-                      allowsLogin cfg.hashedPassword
+                      || elem "wheel" cfg.extraGroups)
+                    && (allowsLogin cfg.hashedPassword
                       || cfg.password != null
                       || cfg.passwordFile != null
                       || cfg.openssh.authorizedKeys.keys != [ ]
-                      || cfg.openssh.authorizedKeys.keyFiles != [ ]
-                    )
+                      || cfg.openssh.authorizedKeys.keyFiles != [ ])
                   )
                   cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
@@ -981,12 +969,8 @@ in
             [
               {
                 assertion =
-                  (
-                    user.hashedPassword != null
-                  )
-                  -> (
-                    builtins.match ".*:.*" user.hashedPassword == null
-                  )
+                  (user.hashedPassword != null)
+                  -> (builtins.match ".*:.*" user.hashedPassword == null)
                   ;
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
@@ -1022,12 +1006,8 @@ in
             ++ (map
               (shell: {
                 assertion =
-                  (
-                    user.shell == pkgs.${shell}
-                  )
-                  -> (
-                    config.programs.${shell}.enable == true
-                  )
+                  (user.shell == pkgs.${shell})
+                  -> (config.programs.${shell}.enable == true)
                   ;
                 message = ''
                   users.users.${user.name}.shell is set to ${shell}, but
@@ -1069,11 +1049,9 @@ in
             mcf = "^${sep}${scheme}${sep}${content}$";
           in
           if
-            (
-              allowsLogin user.hashedPassword
+            (allowsLogin user.hashedPassword
               && user.hashedPassword != "" # login without password
-              && builtins.match mcf user.hashedPassword == null
-            )
+              && builtins.match mcf user.hashedPassword == null)
           then
             ''
               The password hash of user "${user.name}" may be invalid. You must set a

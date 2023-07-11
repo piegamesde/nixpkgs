@@ -43,16 +43,14 @@ let
             '';
             withPackages =
               pkgsFun:
-              (
-                python // {
-                  extraEnv = ''
-                    ${python.extraEnv}
-                    export PYTHONHOME="${
-                      python3Packages.python.withPackages pkgsFun
-                    }"
-                  '';
-                }
-              )
+              (python // {
+                extraEnv = ''
+                  ${python.extraEnv}
+                  export PYTHONHOME="${
+                    python3Packages.python.withPackages pkgsFun
+                  }"
+                '';
+              })
               ;
           };
           perl = (simplePlugin "perl") // {
@@ -61,16 +59,14 @@ let
             '';
             withPackages =
               pkgsFun:
-              (
-                perl // {
-                  extraEnv = ''
-                    ${perl.extraEnv}
-                    export PERL5LIB=${
-                      perlPackages.makeFullPerlPath (pkgsFun perlPackages)
-                    }
-                  '';
-                }
-              )
+              (perl // {
+                extraEnv = ''
+                  ${perl.extraEnv}
+                  export PERL5LIB=${
+                    perlPackages.makeFullPerlPath (pkgsFun perlPackages)
+                  }
+                '';
+              })
               ;
           };
           tcl = simplePlugin "tcl";

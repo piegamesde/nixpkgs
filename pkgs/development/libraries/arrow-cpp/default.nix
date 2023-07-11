@@ -46,10 +46,8 @@
   enableS3 ? (
     !stdenv.isDarwin
   )
-    || (
-      lib.versionOlder boost.version "1.69"
-      || lib.versionAtLeast boost.version "1.70"
-    ),
+    || (lib.versionOlder boost.version "1.69"
+      || lib.versionAtLeast boost.version "1.70"),
   enableGcs ? (
     !stdenv.isDarwin
   )
@@ -60,15 +58,9 @@
 }:
 
 assert lib.asserts.assertMsg
-  (
-    (
-      enableS3 && stdenv.isDarwin
-    )
-    -> (
-      lib.versionOlder boost.version "1.69"
-      || lib.versionAtLeast boost.version "1.70"
-    )
-  )
+  ((enableS3 && stdenv.isDarwin)
+    -> (lib.versionOlder boost.version "1.69"
+      || lib.versionAtLeast boost.version "1.70"))
   "S3 on Darwin requires Boost != 1.69";
 
 let

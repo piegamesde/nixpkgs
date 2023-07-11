@@ -255,11 +255,9 @@ in
         })
 
         (mkIf
-          (
-            cfg.earlySetup
+          (cfg.earlySetup
             && cfg.font != null
-            && !config.boot.initrd.systemd.enable
-          )
+            && !config.boot.initrd.systemd.enable)
           {
             boot.initrd.extraUtilsCommands = ''
               mkdir -p $out/share/consolefonts

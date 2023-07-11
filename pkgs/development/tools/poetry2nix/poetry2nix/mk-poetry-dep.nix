@@ -44,14 +44,11 @@ pythonPackages.callPackage
     fileCandidates =
       let
         supportedRegex =
-          (
-            "^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")"
-          );
+          ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
         matchesVersion =
           fname:
           builtins.match
-            (
-              "^.*"
+            ("^.*"
               + builtins.replaceStrings
                 [
                   "."
@@ -62,8 +59,7 @@ pythonPackages.callPackage
                   "\\+"
                 ]
                 version
-              + ".*$"
-            )
+              + ".*$")
             fname
           != null
           ;
@@ -210,13 +206,11 @@ pythonPackages.callPackage
       ;
 
     buildInputs =
-      (
-        lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
+      (lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
         ++ lib.optional isDirectory buildSystemPkgs
         ++ lib.optional
           (stdenv.buildPlatform != stdenv.hostPlatform)
-          pythonPackages.setuptools
-      );
+          pythonPackages.setuptools);
 
     propagatedBuildInputs =
       let
@@ -270,12 +264,10 @@ pythonPackages.callPackage
                   "HEAD"
               );
           } // (lib.optionalAttrs
-            (
-              (
-                sourceSpec ? rev
-              )
-              && (lib.versionAtLeast builtins.nixVersion "2.4")
+            ((
+              sourceSpec ? rev
             )
+              && (lib.versionAtLeast builtins.nixVersion "2.4"))
             {
               allRefs = true;
             })

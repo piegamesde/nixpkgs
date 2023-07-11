@@ -22,9 +22,7 @@ let
 
   enableDHCP =
     config.networking.dhcpcd.enable
-    && (
-      config.networking.useDHCP || any (i: i.useDHCP == true) interfaces
-    )
+    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces)
     ;
 
   # Don't start dhcpcd on explicitly configured interfaces or on
@@ -142,11 +140,9 @@ let
     ''}
 
     ${optionalString
-    (
-      config.networking.enableIPv6
+    (config.networking.enableIPv6
       && cfg.IPv6rs == null
-      && staticIPv6Addresses != [ ]
-    )
+      && staticIPv6Addresses != [ ])
     noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
@@ -297,15 +293,10 @@ in
       let
         cfgN = config.networking;
         hasDefaultGatewaySet =
-          (
-            cfgN.defaultGateway != null && cfgN.defaultGateway.address != ""
-          )
-          && (
-            !cfgN.enableIPv6
-            || (
-              cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""
-            )
-          )
+          (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
+          && (!cfgN.enableIPv6
+            || (cfgN.defaultGateway6 != null
+              && cfgN.defaultGateway6.address != ""))
           ;
       in
       {

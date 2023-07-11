@@ -149,10 +149,8 @@ let
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
       configurePlatforms ? lib.optionals
-        (
-          stdenv.hostPlatform != stdenv.buildPlatform
-          || config.configurePlatformsByDefault
-        )
+        (stdenv.hostPlatform != stdenv.buildPlatform
+          || config.configurePlatformsByDefault)
         [
           "build"
           "host"
@@ -284,9 +282,7 @@ let
           # Except when:
             #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
             #    - static armv7l, where compilation fails.
-            !(
-              stdenv.hostPlatform.isAarch && stdenv.hostPlatform.isStatic
-            )
+            !(stdenv.hostPlatform.isAarch && stdenv.hostPlatform.isStatic)
         then
           supportedHardeningFlags'
         else
@@ -489,10 +485,8 @@ let
                 # just used for their side-affects. Those might as well since the
                 # hash can't be the same. See #32986.
                 hostSuffix = lib.optionalString
-                  (
-                    stdenv.hostPlatform != stdenv.buildPlatform
-                    && !dontAddHostSuffix
-                  )
+                  (stdenv.hostPlatform != stdenv.buildPlatform
+                    && !dontAddHostSuffix)
                   "-${stdenv.hostPlatform.config}";
 
                 # Disambiguate statically built packages. This was originally
@@ -731,11 +725,9 @@ let
             enableParallelChecking = attrs.enableParallelChecking or true;
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           } // lib.optionalAttrs
-          (
-            hardeningDisable != [ ]
+          (hardeningDisable != [ ]
             || hardeningEnable != [ ]
-            || stdenv.hostPlatform.isMusl
-          )
+            || stdenv.hostPlatform.isMusl)
           {
             NIX_HARDENING_ENABLE = enabledHardeningOptions;
           } // lib.optionalAttrs
@@ -838,12 +830,10 @@ let
           (
             n: v:
             assert lib.assertMsg
-              (
-                lib.isString v
+              (lib.isString v
                 || lib.isBool v
                 || lib.isInt v
-                || lib.isDerivation v
-              )
+                || lib.isDerivation v)
               "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
                 builtins.typeOf v
               }.";

@@ -171,12 +171,10 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--enable-pch=no" ]
     ++ lib.optionals contribPlugins [
-      (
-        "--with-contrib-plugins"
+      ("--with-contrib-plugins"
         + lib.optionalString
           stdenv.isDarwin
-          "=all,-FileManager,-NassiShneiderman"
-      )
+          "=all,-FileManager,-NassiShneiderman")
       "--with-boost-libdir=${boost}/lib"
     ]
     ;

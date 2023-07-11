@@ -522,11 +522,9 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
+  (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
+    && crossStageStatic)
   {
     makeFlags = [
       "all-gcc"

@@ -253,9 +253,7 @@ in
                     check =
                       x:
                       types.str.check x
-                      && (
-                        substring 0 1 x == "/" || substring 0 2 x == "~/"
-                      )
+                      && (substring 0 1 x == "/" || substring 0 2 x == "~/")
                       ;
                     description =
                       types.str.description + " starting with / or ~/";

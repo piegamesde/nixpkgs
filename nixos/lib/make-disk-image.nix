@@ -217,12 +217,10 @@ assert (lib.assertMsg
   (partitionTableType != "none" -> fsType == "ext4")
   "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
 assert (lib.assertMsg
-  (
-    touchEFIVars
+  (touchEFIVars
     -> partitionTableType == "hybrid"
       || partitionTableType == "efi"
-      || partitionTableType == "legacy+gpt"
-  )
+      || partitionTableType == "legacy+gpt")
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt.");
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
 assert (lib.assertMsg

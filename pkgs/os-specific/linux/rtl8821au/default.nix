@@ -36,28 +36,22 @@ stdenv.mkDerivation rec {
   makeFlags =
     [
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-      (
-        "CONFIG_PLATFORM_I386_PC="
+      ("CONFIG_PLATFORM_I386_PC="
         + (
           if stdenv.hostPlatform.isx86 then
             "y"
           else
             "n"
-        )
-      )
-      (
-        "CONFIG_PLATFORM_ARM_RPI="
+        ))
+      ("CONFIG_PLATFORM_ARM_RPI="
         + (
           if
-            (
-              stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64
-            )
+            (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64)
           then
             "y"
           else
             "n"
-        )
-      )
+        ))
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "CROSS_COMPILE=${stdenv.cc.targetPrefix}"

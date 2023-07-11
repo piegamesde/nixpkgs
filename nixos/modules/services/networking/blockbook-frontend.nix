@@ -280,9 +280,7 @@ in
                 ${cfg.package}/bin/blockbook \
                 ${
                   if
-                    (
-                      cfg.rpc.passwordFile != null && cfg.configFile == null
-                    )
+                    (cfg.rpc.passwordFile != null && cfg.configFile == null)
                   then
                     "-blockchaincfg=${cfg.dataDir}/${blockbookName}-config.json"
                   else

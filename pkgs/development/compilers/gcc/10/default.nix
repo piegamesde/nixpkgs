@@ -94,17 +94,13 @@ let
       (targetPlatform.libc == "musl" && targetPlatform.isPower)
       ../ppc-musl.patch
     ++ optional
-      (
-        !crossStageStatic
+      (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf"
-      )
+        && threadsCross.model == "mcf")
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ optional
-      (
-        buildPlatform.system == "aarch64-darwin"
-        && targetPlatform != buildPlatform
-      )
+      (buildPlatform.system == "aarch64-darwin"
+        && targetPlatform != buildPlatform)
       (
         fetchpatch {
           url =
@@ -390,11 +386,9 @@ stdenv.mkDerivation (
   }
 
   // optionalAttrs
-  (
-    targetPlatform != hostPlatform
+  (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic
-  )
+    && crossStageStatic)
   {
     makeFlags = [
       "all-gcc"

@@ -48,13 +48,11 @@ let
             "https://code.call-cc.org/cgi-bin/gitweb.cgi?p=eggs-5-latest.git;a=tree;f=${pname}/${version}";
           meta.description = synopsis;
           meta.license =
-            (
-              licenses // {
-                "bsd-2-clause" = licenses.bsd2;
-                "bsd-3-clause" = licenses.bsd3;
-                "public-domain" = licenses.publicDomain;
-              }
-            ).${license} or license;
+            (licenses // {
+              "bsd-2-clause" = licenses.bsd2;
+              "bsd-3-clause" = licenses.bsd3;
+              "public-domain" = licenses.publicDomain;
+            }).${license} or license;
         }
       )
       (importTOML ./deps.toml)

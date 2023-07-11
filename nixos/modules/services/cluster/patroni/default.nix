@@ -262,11 +262,9 @@ in
             KillMode = "process";
           }
           (mkIf
-            (
-              cfg.postgresqlDataDir
-                == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
-              && cfg.dataDir == "/var/lib/patroni"
-            )
+            (cfg.postgresqlDataDir
+              == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
+              && cfg.dataDir == "/var/lib/patroni")
             {
               StateDirectory =
                 "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";

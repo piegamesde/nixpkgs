@@ -246,12 +246,8 @@ let
   generateUnit =
     name: values:
     assert assertMsg
-      (
-        values.configFile != null
-        || (
-          (values.privateKey != null) != (values.privateKeyFile != null)
-        )
-      )
+      (values.configFile != null
+        || ((values.privateKey != null) != (values.privateKeyFile != null)))
       "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile =
@@ -335,14 +331,8 @@ let
               peer:
               assert assertMsg
                 (
-                  !(
-                    (
-                      peer.presharedKeyFile != null
-                    )
-                    && (
-                      peer.presharedKey != null
-                    )
-                  )
+                  !((peer.presharedKeyFile != null)
+                    && (peer.presharedKey != null))
                 )
                 "Only one of presharedKey or presharedKeyFile may be set";
               ''

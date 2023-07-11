@@ -81,12 +81,8 @@ let
         null
       # simple types
       else if
-        (
-          f.wrapped == null && f'.wrapped == null
-        )
-        && (
-          f.payload == null && f'.payload == null
-        )
+        (f.wrapped == null && f'.wrapped == null)
+        && (f.payload == null && f'.payload == null)
       then
         f.type
       # composed types
@@ -594,9 +590,7 @@ let
           in
           if
             builtins.isPath res
-            || (
-              builtins.isString res && !builtins.hasContext res
-            )
+            || (builtins.isString res && !builtins.hasContext res)
           then
             toDerivation res
           else
@@ -638,12 +632,10 @@ let
                     (
                       m: def':
                       (mergeDefinitions
-                        (
-                          loc
+                        (loc
                           ++ [
                             "[definition ${toString n}-entry ${toString m}]"
-                          ]
-                        )
+                          ])
                         elemType
                         [ {
                           inherit (def) file;
@@ -1282,9 +1274,7 @@ let
             } convertible to it";
           check =
             x:
-            (
-              coercedType.check x && finalType.check (coerceFunc x)
-            )
+            (coercedType.check x && finalType.check (coerceFunc x))
             || finalType.check x
             ;
           merge =
