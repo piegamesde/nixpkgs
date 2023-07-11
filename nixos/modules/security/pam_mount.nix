@@ -158,23 +158,17 @@ in {
         <debug enable="${toString cfg.debugLevel}" />
         <!-- if activated, requires ofl from hxtools to be present -->
         <logout wait="${toString cfg.logoutWait}" hup="${
-          if
-            cfg.logoutHup
-          then
+          if cfg.logoutHup then
             "yes"
           else
             "no"
         }" term="${
-          if
-            cfg.logoutTerm
-          then
+          if cfg.logoutTerm then
             "yes"
           else
             "no"
         }" kill="${
-          if
-            cfg.logoutKill
-          then
+          if cfg.logoutKill then
             "yes"
           else
             "no"
@@ -185,16 +179,12 @@ in {
         }</path>
         <!-- create mount point if not present -->
         <mkmountpoint enable="${
-          if
-            cfg.createMountPoints
-          then
+          if cfg.createMountPoints then
             "1"
           else
             "0"
         }" remove="${
-          if
-            cfg.removeCreatedMountPoints
-          then
+          if cfg.removeCreatedMountPoints then
             "true"
           else
             "false"

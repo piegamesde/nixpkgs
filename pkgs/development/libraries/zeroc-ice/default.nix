@@ -58,9 +58,7 @@ stdenv.mkDerivation rec {
       "USR_DIR_INSTALL=yes"
       "LANGUAGES=cpp"
       "CONFIGS=${
-        if
-          cpp11
-        then
+        if cpp11 then
           "cpp11-shared"
         else
           "shared"

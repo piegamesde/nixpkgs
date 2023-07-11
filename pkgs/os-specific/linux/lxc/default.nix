@@ -83,9 +83,7 @@ stdenv.mkDerivation rec {
       "--enable-python"
       "--disable-lua"
       "--enable-bash"
-      (if
-        doCheck
-      then
+      (if doCheck then
         "--enable-tests"
       else
         "--disable-tests")

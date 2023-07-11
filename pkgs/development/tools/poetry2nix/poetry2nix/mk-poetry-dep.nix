@@ -75,9 +75,7 @@ pythonPackages.callPackage ({
     buildSystemPkgs = let
       pyProjectPath = localDepPath + "/pyproject.toml";
       pyProject = poetryLib.readTOML pyProjectPath;
-    in if
-      builtins.pathExists pyProjectPath
-    then
+    in if builtins.pathExists pyProjectPath then
       poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
     else
       [ ];
@@ -93,15 +91,11 @@ pythonPackages.callPackage ({
       eggs = builtins.filter isEgg fileCandidates;
       # the `wheel` package cannot be built from a wheel, since that requires the wheel package
       # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
-      entries = (if
-        preferWheel'
-      then
+      entries = (if preferWheel' then
         binaryDist ++ sourceDist
       else
         sourceDist ++ binaryDist) ++ eggs;
-      lockFileEntry = (if
-        lib.length entries > 0
-      then
+      lockFileEntry = (if lib.length entries > 0 then
         builtins.head entries
       else
         throw "Missing suitable source/wheel file entry for ${name}");
@@ -109,17 +103,13 @@ pythonPackages.callPackage ({
     in rec {
       inherit (lockFileEntry) file hash;
       name = file;
-      format = if
-        _isEgg
-      then
+      format = if _isEgg then
         "egg"
       else if lib.strings.hasSuffix ".whl" name then
         "wheel"
       else
         "pyproject";
-      kind = if
-        _isEgg
-      then
+      kind = if _isEgg then
         python.pythonVersion
       else if format == "pyproject" then
         "source"
@@ -127,9 +117,7 @@ pythonPackages.callPackage ({
         (builtins.elemAt (lib.strings.splitString "-" name) 2);
     } ;
 
-    format = if
-      isWheelUrl
-    then
+    format = if isWheelUrl then
       "wheel"
     else if isDirectory || isGit || isUrl then
       "pyproject"
@@ -145,9 +133,7 @@ pythonPackages.callPackage ({
       ;
 
       # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
-    format = if
-      format == "pyproject"
-    then
+    format = if format == "pyproject" then
       "poetry2nix"
     else
       format;
@@ -207,16 +193,12 @@ pythonPackages.callPackage ({
     # We need to retrieve kind from the interpreter and the filename of the package
     # Interpreters should declare what wheel types they're compatible with (python type + ABI)
     # Here we can then choose a file based on that info.
-    src = if
-      isGit
-    then
+    src = if isGit then
       (builtins.fetchGit ({
         inherit (source) url;
         submodules = true;
         rev = source.resolved_reference or source.reference;
-        ref = sourceSpec.branch or (if
-          sourceSpec ? tag
-        then
+        ref = sourceSpec.branch or (if sourceSpec ? tag then
           "refs/tags/${sourceSpec.tag}"
         else
           "HEAD");

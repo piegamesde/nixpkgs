@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
 
   version = "0.6.2";
 
-  src = if
-    stdenv.isDarwin
-  then
+  src = if stdenv.isDarwin then
     fetchurl {
       url =
         "https://github.com/purescript/psc-package/releases/download/v0.6.2/macos.tar.gz";

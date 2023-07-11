@@ -74,9 +74,7 @@ in let
     passthru.tests = let
       with-sdk = sdk:
         runCommand "with-${
-          if
-            sdk ? version
-          then
+          if sdk ? version then
             sdk.version
           else
             "no"
@@ -96,9 +94,7 @@ in let
               exit 1
             }
             expect ".NET Core SDK ${
-              if
-                sdk ? version
-              then
+              if sdk ? version then
                 sdk.version
               else
                 sdk_6_0.version

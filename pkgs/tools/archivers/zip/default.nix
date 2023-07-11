@@ -29,7 +29,10 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   makefile = "unix/Makefile";
-  buildFlags = if stdenv.isCygwin then [ "cygwin" ] else [ "generic" ];
+  buildFlags = if stdenv.isCygwin then
+    [ "cygwin" ]
+  else
+    [ "generic" ];
   installFlags = [
     "prefix=${placeholder "out"}"
     "INSTALL=cp"

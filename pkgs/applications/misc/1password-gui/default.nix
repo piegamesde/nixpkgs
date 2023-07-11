@@ -12,9 +12,7 @@
 let
 
   pname = "1password";
-  version = if
-    channel == "stable"
-  then
+  version = if channel == "stable" then
     "8.10.4"
   else
     "8.10.5-10.BETA";
@@ -82,9 +80,7 @@ let
     platforms = builtins.attrNames sources.${channel};
   };
 
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   callPackage ./darwin.nix { inherit pname version src meta; }
 else
   callPackage ./linux.nix { inherit pname version src meta polkitPolicyOwners; }

@@ -33,17 +33,13 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DNOGIT=ON"
     "-DARM_DYNAREC=${
-      if
-        withDynarec
-      then
+      if withDynarec then
         "ON"
       else
         "OFF"
     }"
     "-DRV64=${
-      if
-        stdenv.hostPlatform.isRiscV64
-      then
+      if stdenv.hostPlatform.isRiscV64 then
         "ON"
       else
         "OFF"

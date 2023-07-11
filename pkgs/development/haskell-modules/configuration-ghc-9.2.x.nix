@@ -43,9 +43,7 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if
-    pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
-  then
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
     null
   else
     self.terminfo_0_4_1_6;
@@ -55,9 +53,7 @@ self: super: {
   unix = null;
   # GHC only bundles the xhtml library if haddock is enabled, check if this is
   # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
-  xhtml = if
-    self.ghc.hasHaddock or true
-  then
+  xhtml = if self.ghc.hasHaddock or true then
     null
   else
     self.xhtml_3000_2_2_1;
@@ -100,9 +96,7 @@ self: super: {
   protolude = doJailbreak super.protolude;
 
   # https://github.com/fpco/inline-c/pull/131
-  inline-c-cpp = (if
-    isDarwin
-  then
+  inline-c-cpp = (if isDarwin then
     appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
   else
     x: x) super.inline-c-cpp;

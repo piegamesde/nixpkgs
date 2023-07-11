@@ -164,42 +164,32 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dalsa=${
-      if
-        !libOnly && alsaSupport
-      then
+      if !libOnly && alsaSupport then
         "enabled"
       else
         "disabled"
     }"
     "-Dasyncns=${
-      if
-        !libOnly
-      then
+      if !libOnly then
         "enabled"
       else
         "disabled"
     }"
     "-Davahi=${
-      if
-        zeroconfSupport
-      then
+      if zeroconfSupport then
         "enabled"
       else
         "disabled"
     }"
     "-Dbluez5=${
-      if
-        !libOnly && bluetoothSupport
-      then
+      if !libOnly && bluetoothSupport then
         "enabled"
       else
         "disabled"
     }"
     # advanced bluetooth audio codecs are provided by gstreamer
     "-Dbluez5-gstreamer=${
-      if
-        (!libOnly && bluetoothSupport && advancedBluetoothCodecs)
-      then
+      if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then
         "enabled"
       else
         "disabled"
@@ -209,9 +199,7 @@ stdenv.mkDerivation rec {
     "-Delogind=disabled"
     # gsettings does not support cross-compilation
     "-Dgsettings=${
-      if
-        stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform)
-      then
+      if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then
         "enabled"
       else
         "disabled"
@@ -219,60 +207,46 @@ stdenv.mkDerivation rec {
     "-Dgstreamer=disabled"
     "-Dgtk=disabled"
     "-Djack=${
-      if
-        jackaudioSupport && !libOnly
-      then
+      if jackaudioSupport && !libOnly then
         "enabled"
       else
         "disabled"
     }"
     "-Dlirc=${
-      if
-        remoteControlSupport
-      then
+      if remoteControlSupport then
         "enabled"
       else
         "disabled"
     }"
     "-Dopenssl=${
-      if
-        airtunesSupport
-      then
+      if airtunesSupport then
         "enabled"
       else
         "disabled"
     }"
     "-Dorc=disabled"
     "-Dsystemd=${
-      if
-        useSystemd && !libOnly
-      then
+      if useSystemd && !libOnly then
         "enabled"
       else
         "disabled"
     }"
     "-Dtcpwrap=disabled"
     "-Dudev=${
-      if
-        !libOnly && udevSupport
-      then
+      if !libOnly && udevSupport then
         "enabled"
       else
         "disabled"
     }"
     "-Dvalgrind=disabled"
     "-Dwebrtc-aec=${
-      if
-        !libOnly
-      then
+      if !libOnly then
         "enabled"
       else
         "disabled"
     }"
     "-Dx11=${
-      if
-        x11Support
-      then
+      if x11Support then
         "enabled"
       else
         "disabled"

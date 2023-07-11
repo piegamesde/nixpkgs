@@ -42,14 +42,15 @@ stdenv.mkDerivation {
     "--with-pythia=${pythia}"
   ];
 
-  postInstall = if
-    stdenv.isDarwin
-  then ''
-    install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
-  '' else ''
-    wrapProgram $out/bin/run-pythia \
-      --prefix LD_LIBRARY_PATH : "${pythia}/lib"
-  '';
+  postInstall = if stdenv.isDarwin then
+    ''
+      install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
+    ''
+  else
+    ''
+      wrapProgram $out/bin/run-pythia \
+        --prefix LD_LIBRARY_PATH : "${pythia}/lib"
+    '';
 
   enableParallelBuilding = true;
 

@@ -49,9 +49,7 @@ let
   }.${stdenv.hostPlatform.system} or (throw
     "unsupported system ${stdenv.hostPlatform.system}");
 
-  jce = if
-    installjce
-  then
+  jce = if installjce then
     requireFile {
       name = jceName;
       url =
@@ -70,9 +68,7 @@ let
 
 in let
   result = stdenv.mkDerivation rec {
-    pname = if
-      installjdk
-    then
+    pname = if installjdk then
       "oraclejdk"
     else
       "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
@@ -214,9 +210,7 @@ in let
 
     rpath = lib.strings.makeLibraryPath libraries;
 
-    passthru.mozillaPlugin = if
-      installjdk
-    then
+    passthru.mozillaPlugin = if installjdk then
       "/jre/lib/${architecture}/plugins"
     else
       "/lib/${architecture}/plugins";

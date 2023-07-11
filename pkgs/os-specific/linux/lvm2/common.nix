@@ -95,9 +95,7 @@ stdenv.mkDerivation rec {
     # fixes paths to and checks for tools
     (substituteAll (let
       optionalTool = cond: pkg:
-        if
-          cond
-        then
+        if cond then
           pkg
         else
           "/run/current-system/sw";
@@ -136,9 +134,7 @@ stdenv.mkDerivation rec {
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "a"
       else
         "so"

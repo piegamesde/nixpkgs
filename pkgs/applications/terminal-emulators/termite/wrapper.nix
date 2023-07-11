@@ -5,9 +5,7 @@
   termite,
 }:
 
-if
-  configFile == null
-then
+if configFile == null then
   termite
 else
   symlinkJoin {

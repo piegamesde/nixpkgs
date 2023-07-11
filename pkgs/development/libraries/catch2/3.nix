@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCATCH_DEVELOPMENT_BUILD=ON"
     "-DCATCH_BUILD_TESTING=${
-      if
-        doCheck
-      then
+      if doCheck then
         "ON"
       else
         "OFF"

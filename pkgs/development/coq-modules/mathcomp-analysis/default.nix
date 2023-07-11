@@ -130,23 +130,17 @@ let
         mathcomp.field
         mathcomp-bigenough
       ];
-      intra-deps = if
-        package == "single"
-      then
+      intra-deps = if package == "single" then
         [ ]
       else
         map mathcomp_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if
-        package == "single"
-      then
+      pkgpath = if package == "single" then
         "."
       else if package == "analysis" then
         "theories"
       else
         "${package}";
-      pname = if
-        package == "single"
-      then
+      pname = if package == "single" then
         "mathcomp-analysis-single"
       else
         "mathcomp-${package}";
@@ -202,9 +196,7 @@ let
     patched-derivation
   ;
 in
-mathcomp_ (if
-  single
-then
+mathcomp_ (if single then
   "single"
 else
   "analysis")

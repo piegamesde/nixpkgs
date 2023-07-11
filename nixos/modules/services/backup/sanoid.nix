@@ -110,17 +110,13 @@ let
 
   configFile = let
     mkValueString = v:
-      if
-        builtins.isList v
-      then
+      if builtins.isList v then
         concatStringsSep "," v
       else
         generators.mkValueStringDefault { } v;
 
     mkKeyValue = k: v:
-      if
-        v == null
-      then
+      if v == null then
         ""
       else if k == "processChildrenOnly" then
         ""

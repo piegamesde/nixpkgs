@@ -37,15 +37,16 @@ stdenv.mkDerivation rec {
     mpfr
     libedit
     gnused
-  ] ++ lib.optionals gpgmeSupport [ gpgme ] ++ (if
-    usePython
-  then [
-    python3
-    (boost.override {
-      enablePython = true;
-      python = python3;
-    })
-  ] else [ boost ]);
+  ] ++ lib.optionals gpgmeSupport [ gpgme ] ++ (if usePython then
+    [
+      python3
+      (boost.override {
+        enablePython = true;
+        python = python3;
+      })
+    ]
+  else
+    [ boost ]);
 
   nativeBuildInputs = [
     cmake
@@ -57,17 +58,13 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DBUILD_DOCS:BOOL=ON"
     "-DUSE_PYTHON:BOOL=${
-      if
-        usePython
-      then
+      if usePython then
         "ON"
       else
         "OFF"
     }"
     "-DUSE_GPGME:BOOL=${
-      if
-        gpgmeSupport
-      then
+      if gpgmeSupport then
         "ON"
       else
         "OFF"

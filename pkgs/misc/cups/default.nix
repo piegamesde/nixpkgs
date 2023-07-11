@@ -139,9 +139,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     libexec=${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "libexec/cups"
       else
         "lib/cups"

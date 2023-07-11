@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     "-DUSE_HTTP_PARSER=system"
     "-DUSE_SSH=ON"
     "-DBUILD_SHARED_LIBS=${
-      if
-        staticBuild
-      then
+      if staticBuild then
         "OFF"
       else
         "ON"

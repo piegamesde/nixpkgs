@@ -57,9 +57,7 @@ in rec {
     msg:
     # Value to return
     x:
-    if
-      pred
-    then
+    if pred then
       trace msg x
     else
       x;
@@ -125,9 +123,7 @@ in rec {
   traceSeqN = depth: x: y:
     let
       snip = v:
-        if
-          isList v
-        then
+        if isList v then
           noQuotes "[…]" v
         else if isAttrs v then
           noQuotes "{…}" v
@@ -138,9 +134,7 @@ in rec {
         val = v;
       };
       modify = n: fn: v:
-        if
-          (n == 0)
-        then
+        if (n == 0) then
           fn v
         else if isList v then
           map (modify (n - 1) fn) v
@@ -267,9 +261,7 @@ in rec {
     tests:
     concatLists (attrValues (mapAttrs (name: test:
       let
-        testsToRun = if
-          tests ? tests
-        then
+        testsToRun = if tests ? tests then
           tests.tests
         else
           [ ];
@@ -278,11 +270,13 @@ in rec {
         && ((testsToRun == [ ]) || elem name tests.tests)
         && (test.expr != test.expected)
 
-      then [ {
-        inherit name;
-        expected = test.expected;
-        result = test.expr;
-      } ] else
+      then
+        [ {
+          inherit name;
+          expected = test.expected;
+          result = test.expr;
+        } ]
+      else
         [ ]) tests));
 
   /* Create a test assuming that list elements are `true`.

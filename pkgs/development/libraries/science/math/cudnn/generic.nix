@@ -48,9 +48,7 @@ let
   versionTriple = majorMinorPatch version;
 
   # cudatoolkit_root :: Derivation
-  cudatoolkit_root = if
-    useCudatoolkitRunfile
-  then
+  cudatoolkit_root = if useCudatoolkitRunfile then
     cudatoolkit
   else
     libcublas;

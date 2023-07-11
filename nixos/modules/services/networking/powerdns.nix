@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.powerdns;
   configDir = pkgs.writeTextDir "pdns.conf" "${cfg.extraConfig}";
-  finalConfigDir = if
-    cfg.secretFile == null
-  then
+  finalConfigDir = if cfg.secretFile == null then
     configDir
   else
     "/run/pdns";

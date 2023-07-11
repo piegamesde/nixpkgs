@@ -67,22 +67,21 @@ stdenv.mkDerivation {
   pname = "mobilesdk";
   version = "8.2.1.GA";
 
-  src = if
-    (stdenv.system == "i686-linux" || stdenv.system == "x86_64-linux")
-  then
-    fetchurl {
-      url =
-        "https://builds.appcelerator.com/mobile/8_2_X/mobilesdk-8.2.1.v20191025070136-linux.zip";
-      sha256 = "1nvcmm6cby6bmwdiacq46n5y4zjpz9qlipakvglw27j3p4rbmkwl";
-    }
-  else if stdenv.system == "x86_64-darwin" then
-    fetchurl {
-      url =
-        "https://builds.appcelerator.com/mobile/8_2_X/mobilesdk-8.2.1.v20191025070136-osx.zip";
-      sha256 = "1nxwmyw3vqc5wghj38kpksisy0i808x0x3pa8w3p290w709g311l";
-    }
-  else
-    throw "Platform: ${stdenv.system} not supported!";
+  src =
+    if (stdenv.system == "i686-linux" || stdenv.system == "x86_64-linux") then
+      fetchurl {
+        url =
+          "https://builds.appcelerator.com/mobile/8_2_X/mobilesdk-8.2.1.v20191025070136-linux.zip";
+        sha256 = "1nvcmm6cby6bmwdiacq46n5y4zjpz9qlipakvglw27j3p4rbmkwl";
+      }
+    else if stdenv.system == "x86_64-darwin" then
+      fetchurl {
+        url =
+          "https://builds.appcelerator.com/mobile/8_2_X/mobilesdk-8.2.1.v20191025070136-osx.zip";
+        sha256 = "1nxwmyw3vqc5wghj38kpksisy0i808x0x3pa8w3p290w709g311l";
+      }
+    else
+      throw "Platform: ${stdenv.system} not supported!";
 
   nativeBuildInputs = [
     makeWrapper
@@ -119,11 +118,11 @@ stdenv.mkDerivation {
 
     # Patch some executables
 
-    ${if
-      stdenv.system == "i686-linux"
-    then ''
-      patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
-    '' else
+    ${if stdenv.system == "i686-linux" then
+      ''
+        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
+      ''
+    else
       lib.optionalString (stdenv.system == "x86_64-linux") ''
         patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
       ''}

@@ -34,17 +34,13 @@ buildPythonPackage {
 
   setupPyBuildFlags = [
     "--set USE_SSE4_INSTRUCTIONS=${
-      if
-        sse4Support
-      then
+      if sse4Support then
         "yes"
       else
         "no"
     }"
     "--set USE_AVX_INSTRUCTIONS=${
-      if
-        avxSupport
-      then
+      if avxSupport then
         "yes"
       else
         "no"

@@ -9,9 +9,7 @@
   astring,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.03"
-then
+if lib.versionOlder ocaml.version "4.03" then
   throw "fpath is not available for OCaml ${ocaml.version}"
 else
 

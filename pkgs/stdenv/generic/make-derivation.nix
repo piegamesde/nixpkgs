@@ -70,9 +70,7 @@ let
         f = self: super:
           let
             x = f0 super;
-          in if
-            builtins.isFunction x
-          then
+          in if builtins.isFunction x then
             f0 self super
           else
             x;
@@ -159,9 +157,7 @@ let
       doInstallCheck ? config.doCheckByDefault or false
 
       , # TODO(@Ericson2314): Make always true and remove / resolve #178468
-      strictDeps ? if
-        config.strictDepsByDefault
-      then
+      strictDeps ? if config.strictDepsByDefault then
         true
       else
         stdenv.hostPlatform != stdenv.buildPlatform
@@ -173,9 +169,7 @@ let
       meta ? { },
       passthru ? { },
       pos ? # position used in error messages and for meta.position
-        (if
-          attrs.meta.description or null != null
-        then
+        (if attrs.meta.description or null != null then
           builtins.unsafeGetAttrPos "description" attrs.meta
         else if attrs.version or null != null then
           builtins.unsafeGetAttrPos "version" attrs
@@ -226,9 +220,7 @@ let
       # Turn a derivation into its outPath without a string context attached.
       # See the comment at the usage site.
       unsafeDerivationToUntrackedOutpath = drv:
-        if
-          lib.isDerivation drv
-        then
+        if lib.isDerivation drv then
           builtins.unsafeDiscardStringContext drv.outPath
         else
           drv;
@@ -275,9 +267,7 @@ let
         supportedHardeningFlags'
       else
         lib.remove "pie" supportedHardeningFlags';
-      enabledHardeningOptions = if
-        builtins.elem "all" hardeningDisable'
-      then
+      enabledHardeningOptions = if builtins.elem "all" hardeningDisable' then
         [ ]
       else
         lib.subtractLists hardeningDisable'
@@ -301,9 +291,7 @@ let
               lib.concatMapStrings (ix: "element ${toString ix} of ")
               ([ index ] ++ positions)
             }${name} for ${attrs.name or attrs.pname}");
-    in if
-      builtins.length erroneousHardeningFlags != 0
-    then
+    in if builtins.length erroneousHardeningFlags != 0 then
       abort ("mkDerivation was called with unsupported hardening flags: "
         + lib.generators.toPretty { } {
           inherit
@@ -430,9 +418,7 @@ let
                 staticMarker =
                   lib.optionalString stdenv.hostPlatform.isStatic "-static";
               in
-              lib.strings.sanitizeDerivationName (if
-                attrs ? name
-              then
+              lib.strings.sanitizeDerivationName (if attrs ? name then
                 attrs.name + hostSuffix
               else
               # we cannot coerce null to a string below
@@ -486,9 +472,7 @@ let
               configureFlags = let
                 inherit (lib) optional elem;
               in
-              (if
-                lib.isString configureFlags
-              then
+              (if lib.isString configureFlags then
                 lib.warn
                 "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
                   pos.file or "unknown file"
@@ -508,9 +492,7 @@ let
               ;
 
               cmakeFlags = let
-                explicitFlags = if
-                  lib.isString cmakeFlags
-                then
+                explicitFlags = if lib.isString cmakeFlags then
                   lib.warn
                   "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
                     pos.file or "unknown file"
@@ -546,9 +528,7 @@ let
               ;
 
               mesonFlags = let
-                explicitFlags = if
-                  lib.isString mesonFlags
-                then
+                explicitFlags = if lib.isString mesonFlags then
                   lib.warn
                   "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
                     pos.file or "unknown file"
@@ -564,9 +544,7 @@ let
                 # See https://mesonbuild.com/Reference-tables.html#cpu-families
                 cpuFamily = platform:
                   with platform;
-                  if
-                    isAarch32
-                  then
+                  if isAarch32 then
                     "arm"
                   else if isx86_32 then
                     "x86"
@@ -585,9 +563,7 @@ let
                   cpu_family = '${cpuFamily stdenv.targetPlatform}'
                   cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
                   endian = ${
-                    if
-                      stdenv.targetPlatform.isLittleEndian
-                    then
+                    if stdenv.targetPlatform.isLittleEndian then
                       "'little'"
                     else
                       "'big'"
@@ -761,9 +737,7 @@ let
 
 in
 fnOrAttrs:
-if
-  builtins.isFunction fnOrAttrs
-then
+if builtins.isFunction fnOrAttrs then
   makeDerivationExtensible fnOrAttrs
 else
   makeDerivationExtensibleConst fnOrAttrs

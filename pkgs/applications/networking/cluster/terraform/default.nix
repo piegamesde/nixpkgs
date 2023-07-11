@@ -130,9 +130,7 @@ let
           };
           # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
           # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
-        in if
-          actualPlugins == [ ]
-        then
+        in if actualPlugins == [ ] then
           terraform.overrideAttrs
           (orig: { passthru = orig.passthru // passthru; })
         else

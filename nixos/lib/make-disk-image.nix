@@ -146,9 +146,7 @@
   fsType ? "ext4"
 
   , # Filesystem label
-  label ? if
-    onlyNixStore
-  then
+  label ? if onlyNixStore then
     "nix-store"
   else
     "nixos"
@@ -191,9 +189,7 @@
     # When fsType = ext4, this is the root Filesystem Unique Identifier.
     # TODO: support other filesystems someday.
   ,
-  rootFSUID ? (if
-    fsType == "ext4"
-  then
+  rootFSUID ? (if fsType == "ext4" then
     rootGPUID
   else
     null)
@@ -239,9 +235,7 @@ let
   format' = format;
 in let
 
-  format = if
-    format' == "qcow2-compressed"
-  then
+  format = if format' == "qcow2-compressed" then
     "qcow2"
   else
     format';
@@ -460,9 +454,7 @@ in let
     nixos-install --root $root --no-bootloader --no-root-passwd \
       --system ${config.system.build.toplevel} \
       ${
-        if
-          copyChannel
-        then
+        if copyChannel then
           "--channel ${channelSources}"
         else
           "--no-channel-copy"
@@ -477,75 +469,82 @@ in let
 
     diskImage=nixos.raw
 
-    ${if
-      diskSize == "auto"
-    then ''
-      ${if
-        partitionTableType == "efi" || partitionTableType == "hybrid"
-      then ''
-        # Add the GPT at the end
-        gptSpace=$(( 512 * 34 * 1 ))
-        # Normally we'd need to account for alignment and things, if bootSize
-        # represented the actual size of the boot partition. But it instead
-        # represents the offset at which it ends.
-        # So we know bootSize is the reserved space in front of the partition.
-        reservedSpace=$(( gptSpace + $(numfmt --from=iec '${bootSize}') ))
-      '' else if partitionTableType == "legacy+gpt" then ''
-        # Add the GPT at the end
-        gptSpace=$(( 512 * 34 * 1 ))
-        # And include the bios_grub partition; the ext4 partition starts at 2MB exactly.
-        reservedSpace=$(( gptSpace + 2 * mebibyte ))
-      '' else if partitionTableType == "legacy" then ''
-        # Add the 1MiB aligned reserved space (includes MBR)
-        reservedSpace=$(( mebibyte ))
-      '' else ''
-        reservedSpace=0
+    ${if diskSize == "auto" then
+      ''
+        ${if partitionTableType == "efi" || partitionTableType == "hybrid" then
+          ''
+            # Add the GPT at the end
+            gptSpace=$(( 512 * 34 * 1 ))
+            # Normally we'd need to account for alignment and things, if bootSize
+            # represented the actual size of the boot partition. But it instead
+            # represents the offset at which it ends.
+            # So we know bootSize is the reserved space in front of the partition.
+            reservedSpace=$(( gptSpace + $(numfmt --from=iec '${bootSize}') ))
+          ''
+        else if partitionTableType == "legacy+gpt" then
+          ''
+            # Add the GPT at the end
+            gptSpace=$(( 512 * 34 * 1 ))
+            # And include the bios_grub partition; the ext4 partition starts at 2MB exactly.
+            reservedSpace=$(( gptSpace + 2 * mebibyte ))
+          ''
+        else if partitionTableType == "legacy" then
+          ''
+            # Add the 1MiB aligned reserved space (includes MBR)
+            reservedSpace=$(( mebibyte ))
+          ''
+        else
+          ''
+            reservedSpace=0
+          ''}
+        additionalSpace=$(( $(numfmt --from=iec '${additionalSpace}') + reservedSpace ))
+
+        # Compute required space in filesystem blocks
+        diskUsage=$(find . ! -type d -print0 | du --files0-from=- --apparent-size --block-size "${blockSize}" | cut -f1 | sum_lines)
+        # Each inode takes space!
+        numInodes=$(find . | wc -l)
+        # Convert to bytes, inodes take two blocks each!
+        diskUsage=$(( (diskUsage + 2 * numInodes) * ${blockSize} ))
+        # Then increase the required space to account for the reserved blocks.
+        fudge=$(compute_fudge $diskUsage)
+        requiredFilesystemSpace=$(( diskUsage + fudge ))
+
+        diskSize=$(( requiredFilesystemSpace  + additionalSpace ))
+
+        # Round up to the nearest mebibyte.
+        # This ensures whole 512 bytes sector sizes in the disk image
+        # and helps towards aligning partitions optimally.
+        if (( diskSize % mebibyte )); then
+          diskSize=$(( ( diskSize / mebibyte + 1) * mebibyte ))
+        fi
+
+        truncate -s "$diskSize" $diskImage
+
+        printf "Automatic disk size...\n"
+        printf "  Closure space use: %d bytes\n" $diskUsage
+        printf "  fudge: %d bytes\n" $fudge
+        printf "  Filesystem size needed: %d bytes\n" $requiredFilesystemSpace
+        printf "  Additional space: %d bytes\n" $additionalSpace
+        printf "  Disk image size: %d bytes\n" $diskSize
+      ''
+    else
+      ''
+        truncate -s ${toString diskSize}M $diskImage
       ''}
-      additionalSpace=$(( $(numfmt --from=iec '${additionalSpace}') + reservedSpace ))
-
-      # Compute required space in filesystem blocks
-      diskUsage=$(find . ! -type d -print0 | du --files0-from=- --apparent-size --block-size "${blockSize}" | cut -f1 | sum_lines)
-      # Each inode takes space!
-      numInodes=$(find . | wc -l)
-      # Convert to bytes, inodes take two blocks each!
-      diskUsage=$(( (diskUsage + 2 * numInodes) * ${blockSize} ))
-      # Then increase the required space to account for the reserved blocks.
-      fudge=$(compute_fudge $diskUsage)
-      requiredFilesystemSpace=$(( diskUsage + fudge ))
-
-      diskSize=$(( requiredFilesystemSpace  + additionalSpace ))
-
-      # Round up to the nearest mebibyte.
-      # This ensures whole 512 bytes sector sizes in the disk image
-      # and helps towards aligning partitions optimally.
-      if (( diskSize % mebibyte )); then
-        diskSize=$(( ( diskSize / mebibyte + 1) * mebibyte ))
-      fi
-
-      truncate -s "$diskSize" $diskImage
-
-      printf "Automatic disk size...\n"
-      printf "  Closure space use: %d bytes\n" $diskUsage
-      printf "  fudge: %d bytes\n" $fudge
-      printf "  Filesystem size needed: %d bytes\n" $requiredFilesystemSpace
-      printf "  Additional space: %d bytes\n" $additionalSpace
-      printf "  Disk image size: %d bytes\n" $diskSize
-    '' else ''
-      truncate -s ${toString diskSize}M $diskImage
-    ''}
 
     ${partitionDiskScript}
 
-    ${if
-      partitionTableType != "none"
-    then ''
-      # Get start & length of the root partition in sectors to $START and $SECTORS.
-      eval $(partx $diskImage -o START,SECTORS --nr ${rootPartition} --pairs)
+    ${if partitionTableType != "none" then
+      ''
+        # Get start & length of the root partition in sectors to $START and $SECTORS.
+        eval $(partx $diskImage -o START,SECTORS --nr ${rootPartition} --pairs)
 
-      mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage -E offset=$(sectorsToBytes $START) $(sectorsToKilobytes $SECTORS)K
-    '' else ''
-      mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage
-    ''}
+        mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage -E offset=$(sectorsToBytes $START) $(sectorsToKilobytes $SECTORS)K
+      ''
+    else
+      ''
+        mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage
+      ''}
 
     echo "copying staging root to image..."
     cptofs -p ${
@@ -558,13 +557,14 @@ in let
   '';
 
   moveOrConvertImage = ''
-    ${if
-      format == "raw"
-    then ''
-      mv $diskImage $out/${filename}
-    '' else ''
-      ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
-    ''}
+    ${if format == "raw" then
+      ''
+        mv $diskImage $out/${filename}
+      ''
+    else
+      ''
+        ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
+      ''}
     diskImage=$out/${filename}
   '';
 
@@ -592,9 +592,7 @@ in let
     export PATH=${binPath}:$PATH
 
     rootDisk=${
-      if
-        partitionTableType != "none"
-      then
+      if partitionTableType != "none" then
         "/dev/vda${rootPartition}"
       else
         "/dev/vda"
@@ -678,9 +676,7 @@ in let
       ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
     ''}
   '');
-in if
-  onlyNixStore
-then
+in if onlyNixStore then
   pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)
 else
   buildImage

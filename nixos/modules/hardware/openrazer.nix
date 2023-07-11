@@ -12,9 +12,7 @@ let
   kernelPackages = config.boot.kernelPackages;
 
   toPyBoolStr = b:
-    if
-      b
-    then
+    if b then
       "True"
     else
       "False";

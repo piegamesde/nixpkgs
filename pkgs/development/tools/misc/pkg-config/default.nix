@@ -30,13 +30,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isCygwin ./2.36.3-not-win32.patch;
 
   # These three tests fail due to a (desired) behavior change from our ./requires-private.patch
-  postPatch = if
-    vanilla
-  then
+  postPatch = if vanilla then
     null
-  else ''
-    rm -f check/check-requires-private check/check-gtk check/missing
-  '';
+  else
+    ''
+      rm -f check/check-requires-private check/check-gtk check/missing
+    '';
 
   buildInputs = [ libiconv ];
 

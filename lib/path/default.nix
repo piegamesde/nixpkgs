@@ -18,9 +18,7 @@ let
 
     # Return the reason why a subpath is invalid, or `null` if it's valid
   subpathInvalidReason = value:
-    if
-      !isString value
-    then
+    if !isString value then
       "The given value is of type ${
         builtins.typeOf value
       }, but a string was expected"
@@ -61,15 +59,11 @@ let
       # - Skip a potential leading ".", normalising "./foo" to "foo"
       # - Skip a potential trailing "." or "", normalising "foo/" and "foo/." to
       #   "foo". See ./path.md#trailing-slashes
-      skipStart = if
-        head parts == "."
-      then
+      skipStart = if head parts == "." then
         1
       else
         0;
-      skipEnd = if
-        last parts == "." || last parts == ""
-      then
+      skipEnd = if last parts == "." || last parts == "" then
         1
       else
         0;
@@ -81,9 +75,7 @@ let
       # Special case of a single "." path component. Such a case leaves a
       # componentCount of -1 due to the skipStart/skipEnd not verifying that
       # they don't refer to the same character
-    in if
-      path == "."
-    then
+    in if path == "." then
       [ ]
 
       # Generate the result list directly. This is more efficient than a
@@ -100,9 +92,7 @@ let
     # Always return relative paths with `./` as a prefix (./path.md#leading-dots-for-relative-paths)
     "./" +
     # An empty string is not a valid relative path, so we need to return a `.` when we have no components
-    (if
-      components == [ ]
-    then
+    (if components == [ ] then
       "."
     else
       concatStringsSep "/" components);
@@ -262,18 +252,14 @@ in {
     # The list of subpaths to join together
     subpaths:
     # Fast in case all paths are valid
-    if
-      all isValid subpaths
-    then
+    if all isValid subpaths then
       joinRelPath (concatMap splitRelPath subpaths)
     else
     # Otherwise we take our time to gather more info for a better error message
     # Strictly go through each path, throwing on the first invalid one
     # Tracks the list index in the fold accumulator
       foldl' (i: path:
-        if
-          isValid path
-        then
+        if isValid path then
           i + 1
         else
           throw ''

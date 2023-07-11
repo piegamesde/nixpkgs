@@ -172,17 +172,18 @@ in {
     (hadoopServiceConfig {
       name = "DataNode";
       # port numbers for datanode changed between hadoop 2 and 3
-      allowedTCPPorts = if
-        versionAtLeast cfg.package.version "3"
-      then [
-        9864 # datanode.http.address
-        9866 # datanode.address
-        9867 # datanode.ipc.address
-      ] else [
-        50075 # datanode.http.address
-        50010 # datanode.address
-        50020 # datanode.ipc.address
-      ];
+      allowedTCPPorts = if versionAtLeast cfg.package.version "3" then
+        [
+          9864 # datanode.http.address
+          9866 # datanode.address
+          9867 # datanode.ipc.address
+        ]
+      else
+        [
+          50075 # datanode.http.address
+          50010 # datanode.address
+          50020 # datanode.ipc.address
+        ];
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
         mkIf (cfg.hdfs.datanode.dataDirs != null)
         (concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path)

@@ -7,17 +7,20 @@
 }:
 
 let
-  cross = if crossSystem != null then { inherit crossSystem; } else { };
-  custom-bootstrap = if
-    bootstrapFiles != null
-  then {
-    stdenvStages = args:
-      let
-        args' = args // { bootstrapFiles = bootstrapFiles; };
-      in
-      (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
-    ;
-  } else
+  cross = if crossSystem != null then
+    { inherit crossSystem; }
+  else
+    { };
+  custom-bootstrap = if bootstrapFiles != null then
+    {
+      stdenvStages = args:
+        let
+          args' = args // { bootstrapFiles = bootstrapFiles; };
+        in
+        (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
+      ;
+    }
+  else
     { };
 in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
@@ -183,14 +186,15 @@ in rec {
         fi
       done
 
-      ${if
-        stdenv.targetPlatform.isx86_64
-      then ''
-        rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
-      '' else ''
-        sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
-          $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-      ''}
+      ${if stdenv.targetPlatform.isx86_64 then
+        ''
+          rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+        ''
+      else
+        ''
+          sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
+            $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
+        ''}
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*
@@ -328,9 +332,7 @@ in rec {
   test-pkgs = import test-pkgspath {
     # if the bootstrap tools are for another platform, we should be testing
     # that platform.
-    localSystem = if
-      crossSystem != null
-    then
+    localSystem = if crossSystem != null then
       crossSystem
     else
       localSystem;

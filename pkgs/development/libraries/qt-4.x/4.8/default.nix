@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
     ./kill-legacy-darwin-apis.patch
     (substituteAll {
       src = ./dlopen-absolute-paths.diff;
-      cups = if
-        cups != null
-      then
+      cups = if cups != null then
         lib.getLib cups
       else
         null;
@@ -197,106 +195,97 @@ stdenv.mkDerivation rec {
   configurePlatforms = [ ];
   configureFlags = let
     mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
-    platformFlag = if
-      stdenv.hostPlatform != stdenv.buildPlatform
-    then
+    platformFlag = if stdenv.hostPlatform != stdenv.buildPlatform then
       "-xplatform"
     else
       "-platform";
   in
-  (if
-    stdenv.hostPlatform != stdenv.buildPlatform
-  then [
-    # I've not tried any case other than i686-pc-mingw32.
-    # -nomake tools: it fails linking some asian language symbols
-    # -no-svg: it fails to build on mingw64
-    "-static"
-    "-release"
-    "-confirm-license"
-    "-opensource"
-    "-no-opengl"
-    "-no-phonon"
-    "-no-svg"
-    "-make"
-    "qmake"
-    "-make"
-    "libs"
-    "-nomake"
-    "tools"
-  ] else [
-    "-v"
-    "-no-separate-debug-info"
-    "-release"
-    "-fast"
-    "-confirm-license"
-    "-opensource"
+  (if stdenv.hostPlatform != stdenv.buildPlatform then
+    [
+      # I've not tried any case other than i686-pc-mingw32.
+      # -nomake tools: it fails linking some asian language symbols
+      # -no-svg: it fails to build on mingw64
+      "-static"
+      "-release"
+      "-confirm-license"
+      "-opensource"
+      "-no-opengl"
+      "-no-phonon"
+      "-no-svg"
+      "-make"
+      "qmake"
+      "-make"
+      "libs"
+      "-nomake"
+      "tools"
+    ]
+  else
+    [
+      "-v"
+      "-no-separate-debug-info"
+      "-release"
+      "-fast"
+      "-confirm-license"
+      "-opensource"
 
-    (mk (!stdenv.isFreeBSD) "opengl")
-    "-xrender"
-    "-xrandr"
-    "-xinerama"
-    "-xcursor"
-    "-xinput"
-    "-xfixes"
-    "-fontconfig"
-    "-qdbus"
-    (mk (cups != null) "cups")
-    "-glib"
-    "-dbus-linked"
-    "-openssl-linked"
+      (mk (!stdenv.isFreeBSD) "opengl")
+      "-xrender"
+      "-xrandr"
+      "-xinerama"
+      "-xcursor"
+      "-xinput"
+      "-xfixes"
+      "-fontconfig"
+      "-qdbus"
+      (mk (cups != null) "cups")
+      "-glib"
+      "-dbus-linked"
+      "-openssl-linked"
 
-    "-${
-      if
-        libmysqlclient != null
-      then
-        "plugin"
-      else
-        "no"
-    }-sql-mysql"
-    "-system-sqlite"
+      "-${
+        if libmysqlclient != null then
+          "plugin"
+        else
+          "no"
+      }-sql-mysql"
+      "-system-sqlite"
 
-    "-exceptions"
-    "-xmlpatterns"
+      "-exceptions"
+      "-xmlpatterns"
 
-    "-make"
-    "libs"
-    "-make"
-    "tools"
-    "-make"
-    "translations"
-    "-no-phonon"
-    "-no-webkit"
-    "-no-multimedia"
-    "-audio-backend"
-  ]) ++ [
-    "-${
-      if
-        demos
-      then
-        ""
-      else
-        "no"
-    }make"
-    "demos"
-    "-${
-      if
-        examples
-      then
-        ""
-      else
-        "no"
-    }make"
-    "examples"
-    "-${
-      if
-        docs
-      then
-        ""
-      else
-        "no"
-    }make"
-    "docs"
-  ] ++ lib.optional developerBuild "-developer-build"
+      "-make"
+      "libs"
+      "-make"
+      "tools"
+      "-make"
+      "translations"
+      "-no-phonon"
+      "-no-webkit"
+      "-no-multimedia"
+      "-audio-backend"
+    ]) ++ [
+      "-${
+        if demos then
+          ""
+        else
+          "no"
+      }make"
+      "demos"
+      "-${
+        if examples then
+          ""
+        else
+          "no"
+      }make"
+      "examples"
+      "-${
+        if docs then
+          ""
+        else
+          "no"
+      }make"
+      "docs"
+    ] ++ lib.optional developerBuild "-developer-build"
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     platformFlag
     "unsupported/macx-clang-libc++"

@@ -137,9 +137,7 @@ stdenv.mkDerivation rec {
     "-DWITH_SYSTEMD=OFF"
   ] ++ map (e:
     "-DWITH_${e.name}=${
-      if
-        e.enable
-      then
+      if e.enable then
         "ON"
       else
         "OFF"

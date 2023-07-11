@@ -42,9 +42,7 @@
   z3,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.08"
-then
+if lib.versionOlder ocaml.version "4.08" then
   throw "BAP is not available for OCaml ${ocaml.version}"
 else
 

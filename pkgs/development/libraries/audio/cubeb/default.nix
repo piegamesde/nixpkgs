@@ -43,13 +43,13 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ speexdsp ] ++ (if
-    stdenv.isDarwin
-  then [
-    AudioUnit
-    CoreAudio
-    CoreServices
-  ] else
+  buildInputs = [ speexdsp ] ++ (if stdenv.isDarwin then
+    [
+      AudioUnit
+      CoreAudio
+      CoreServices
+    ]
+  else
     backendLibs);
 
   cmakeFlags = [
@@ -60,9 +60,7 @@ stdenv.mkDerivation {
 
     # Whether to lazily load libraries with dlopen()
     "-DLAZY_LOAD_LIBS=${
-      if
-        lazyLoad
-      then
+      if lazyLoad then
         "ON"
       else
         "OFF"

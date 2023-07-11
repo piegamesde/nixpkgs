@@ -53,9 +53,7 @@ rec {
     pkgs.lib.mapAttrs (name: src:
       let
         isPath = x: builtins.substring 0 1 (toString x) == "/";
-        generateExprs = if
-          isPath src
-        then
+        generateExprs = if isPath src then
           self.callCabal2nix
         else
           self.callHackage;
@@ -420,9 +418,7 @@ rec {
     drv:
     overrideCabal (_: {
       inherit src;
-      version = if
-        version == null
-      then
+      version = if version == null then
         drv.version
       else
         version;
@@ -440,9 +436,7 @@ rec {
   # Under normal evaluation, simply return the original package. Under
   # nix-shell evaluation, return a nix-shell optimized environment.
   shellAware = p:
-    if
-      lib.inNixShell
-    then
+    if lib.inNixShell then
       p.env
     else
       p;
@@ -450,9 +444,7 @@ rec {
   ghcInfo = ghc: rec {
     isCross = (ghc.cross or null) != null;
     isGhcjs = ghc.isGhcjs or false;
-    nativeGhc = if
-      isCross || isGhcjs
-    then
+    nativeGhc = if isCross || isGhcjs then
       ghc.bootPkgs.ghc
     else
       ghc;
@@ -574,20 +566,18 @@ rec {
             val,
             ...
           }:
-          if
-            !lib.isDerivation val
-          then
+          if !lib.isDerivation val then
             [ ]
           else
             builtins.concatMap (drv:
-              if
-                !lib.isDerivation drv
-              then
+              if !lib.isDerivation drv then
                 [ ]
-              else [ {
-                key = drv.outPath;
-                val = drv;
-              } ]) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
+              else
+                [ {
+                  key = drv.outPath;
+                  val = drv;
+                } ])
+            (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
       });
   in
   overrideCabal (old: {

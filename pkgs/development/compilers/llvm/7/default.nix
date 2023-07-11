@@ -23,15 +23,11 @@
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
   ,
-  bootBintoolsNoLibc ? if
-    stdenv.targetPlatform.linker == "lld"
-  then
+  bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then
     null
   else
     pkgs.bintoolsNoLibc,
-  bootBintools ? if
-    stdenv.targetPlatform.linker == "lld"
-  then
+  bootBintools ? if stdenv.targetPlatform.linker == "lld" then
     null
   else
     pkgs.bintools
@@ -89,15 +85,11 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         '';
 
-      bintoolsNoLibc' = if
-        bootBintoolsNoLibc == null
-      then
+      bintoolsNoLibc' = if bootBintoolsNoLibc == null then
         tools.bintoolsNoLibc
       else
         bootBintoolsNoLibc;
-      bintools' = if
-        bootBintools == null
-      then
+      bintools' = if bootBintools == null then
         tools.bintools
       else
         bootBintools;
@@ -140,9 +132,7 @@ let
       });
 
       # pick clang appropriate for package set we are targeting
-      clang = if
-        stdenv.targetPlatform.useLLVM or false
-      then
+      clang = if stdenv.targetPlatform.useLLVM or false then
         tools.clangUseLLVM
       else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
         tools.libstdcxxClang
@@ -261,9 +251,7 @@ let
 
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if
-          stdenv.hostPlatform.useLLVM or false
-        then
+        stdenv = if stdenv.hostPlatform.useLLVM or false then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
         else
           stdenv;
@@ -271,9 +259,7 @@ let
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv = if
-          stdenv.hostPlatform.useLLVM or false
-        then
+        stdenv = if stdenv.hostPlatform.useLLVM or false then
           overrideCC stdenv buildLlvmTools.clangNoCompilerRt
         else
           stdenv;
@@ -294,9 +280,7 @@ let
 
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
-        stdenv = if
-          stdenv.hostPlatform.useLLVM or false
-        then
+        stdenv = if stdenv.hostPlatform.useLLVM or false then
           overrideCC stdenv buildLlvmTools.clangNoLibcxx
         else
           stdenv;
@@ -304,9 +288,7 @@ let
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
-        stdenv = if
-          stdenv.hostPlatform.useLLVM or false
-        then
+        stdenv = if stdenv.hostPlatform.useLLVM or false then
           overrideCC stdenv buildLlvmTools.clangNoLibcxx
         else
           stdenv;
@@ -315,9 +297,7 @@ let
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
         inherit (buildLlvmTools) llvm;
-        stdenv = if
-          stdenv.hostPlatform.useLLVM or false
-        then
+        stdenv = if stdenv.hostPlatform.useLLVM or false then
           overrideCC stdenv buildLlvmTools.clangNoLibcxx
         else
           stdenv;

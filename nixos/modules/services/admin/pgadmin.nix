@@ -29,18 +29,14 @@ let
     }}";
 
   formatPyValue = value:
-    if
-      builtins.isString value
-    then
+    if builtins.isString value then
       builtins.toJSON value
     else if value ? _expr then
       value._expr
     else if builtins.isInt value then
       toString value
     else if builtins.isBool value then
-      (if
-        value
-      then
+      (if value then
         "True"
       else
         "False")

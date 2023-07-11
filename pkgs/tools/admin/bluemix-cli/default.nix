@@ -8,9 +8,7 @@ stdenv.mkDerivation rec {
   pname = "bluemix-cli";
   version = "0.8.0";
 
-  src = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  src = if stdenv.hostPlatform.system == "i686-linux" then
     fetchurl {
       name = "linux32-${version}.tar.gz";
       url =

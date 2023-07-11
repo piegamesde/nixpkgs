@@ -33,9 +33,7 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  pname = if
-    withGui
-  then
+  pname = if withGui then
     "bitcoin"
   else
     "bitcoind";

@@ -430,9 +430,7 @@ assert buildPostproc -> buildAvutil;
 assert buildSwscale -> buildAvutil;
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "ffmpeg" + (if
-    ffmpegVariant == "small"
-  then
+  pname = "ffmpeg" + (if ffmpegVariant == "small" then
     ""
   else
     "-${ffmpegVariant}");
@@ -471,9 +469,7 @@ stdenv.mkDerivation (finalAttrs: {
   configureFlags = [
     #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
     "--target_os=${
-      if
-        stdenv.hostPlatform.isMinGW
-      then
+      if stdenv.hostPlatform.isMinGW then
         "mingw64"
       else
         stdenv.hostPlatform.parsed.kernel.name
@@ -697,9 +693,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optionals withSpeex [ speex ] ++ optionals withSrt [ srt ]
     ++ optionals withSsh [ libssh ] ++ optionals withSvg [ librsvg ]
     ++ optionals withSvtav1 [ svt-av1 ] ++ optionals withTheora [ libtheora ]
-    ++ optionals withVaapi [ (if
-      withSmallDeps
-    then
+    ++ optionals withVaapi [ (if withSmallDeps then
       libva
     else
       libva-minimal) ] ++ optionals withVdpau [ libvdpau ]
@@ -736,9 +730,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Fails with SIGABRT otherwise FIXME: Why?
   checkPhase = let
-    ldLibraryPathEnv = if
-      stdenv.isDarwin
-    then
+    ldLibraryPathEnv = if stdenv.isDarwin then
       "DYLD_LIBRARY_PATH"
     else
       "LD_LIBRARY_PATH";

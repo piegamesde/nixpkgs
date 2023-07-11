@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=OFF"
     "-DBUILD_STATIC_LIBS=OFF"
     "-DGLM_TEST_ENABLE=${
-      if
-        doCheck
-      then
+      if doCheck then
         "ON"
       else
         "OFF"

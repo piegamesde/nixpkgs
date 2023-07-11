@@ -64,9 +64,7 @@
 # }
 
 let
-  baseName = if
-    (stable)
-  then
+  baseName = if (stable) then
     "kicad"
   else
     "kicad-unstable";
@@ -98,30 +96,22 @@ let
   # use default source and version (as defined in versions.nix) by
   # default, or use the appropriate attribute from `srcs` if building
   # unstable with `srcs` properly defined.
-  kicadSrc = if
-    srcOverridep "kicad"
-  then
+  kicadSrc = if srcOverridep "kicad" then
     srcs.kicad
   else
     kicadSrcFetch;
-  kicadVersion = if
-    srcOverridep "kicadVersion"
-  then
+  kicadVersion = if srcOverridep "kicadVersion" then
     srcs.kicadVersion
   else
     versionsImport.${baseName}.kicadVersion.version;
 
   libSrc = name:
-    if
-      srcOverridep name
-    then
+    if srcOverridep name then
       srcs.${name}
     else
       libSrcFetch name;
   # TODO does it make sense to only have one version for all libs?
-  libVersion = if
-    srcOverridep "libVersion"
-  then
+  libVersion = if srcOverridep "libVersion" then
     srcs.libVersion
   else
     versionsImport.${baseName}.libVersion.version;
@@ -145,9 +135,7 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version = if
-    (stable)
-  then
+  version = if (stable) then
     kicadVersion
   else
     builtins.substring 0 10 src.src.rev;
@@ -196,9 +184,7 @@ stdenv.mkDerivation rec {
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
   installPhase = let
-    bin = if
-      stdenv.isDarwin
-    then
+    bin = if stdenv.isDarwin then
       "*.app/Contents/MacOS"
     else
       "bin";
@@ -258,9 +244,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = rec {
-    description = (if
-      (stable)
-    then
+    description = (if (stable) then
       "Open Source Electronics Design Automation suite"
     else
       "Open Source EDA suite, development build")
@@ -279,9 +263,7 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin;
 
-    hydraPlatforms = if
-      (with3d)
-    then
+    hydraPlatforms = if (with3d) then
       [ ]
     else
       platforms;

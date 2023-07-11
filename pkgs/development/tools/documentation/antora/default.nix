@@ -10,9 +10,7 @@ let
       name ? ""
     }:
     let
-      targetModule = if
-        name != ""
-      then
+      targetModule = if name != "" then
         name
       else
         lib.getName pkg;

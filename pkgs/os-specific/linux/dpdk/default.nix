@@ -21,9 +21,7 @@
   pciutils,
   withExamples ? [ ],
   shared ? false,
-  machine ? (if
-    stdenv.isx86_64
-  then
+  machine ? (if stdenv.isx86_64 then
     "nehalem"
   else if stdenv.isAarch64 then
     "generic"

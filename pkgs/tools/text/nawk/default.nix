@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "HOSTCC=${
-      if
-        stdenv.buildPlatform.isDarwin
-      then
+      if stdenv.buildPlatform.isDarwin then
         "clang"
       else
         "cc"

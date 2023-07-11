@@ -13,9 +13,7 @@ let
   user = config.services.nginx.user;
 
   withTrailingSlash = str:
-    if
-      hasSuffix "/" str
-    then
+    if hasSuffix "/" str then
       str
     else
       "${str}/";
@@ -145,9 +143,7 @@ in {
           cfg.nginxConfig
           {
             extraConfig = let
-              clientMaxBodySize = if
-                cfg.maxUploadSizeMegabytes == 0
-              then
+              clientMaxBodySize = if cfg.maxUploadSizeMegabytes == 0 then
                 "0"
               else
                 "${cfg.maxUploadSizeMegabytes}m";

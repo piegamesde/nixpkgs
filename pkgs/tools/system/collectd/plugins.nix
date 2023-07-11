@@ -182,9 +182,7 @@ let
     lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
     plugins.${plugin}.buildInputs;
 
-  buildInputs = if
-    enabledPlugins == null
-  then
+  buildInputs = if enabledPlugins == null then
     builtins.concatMap pluginBuildInputs
     (builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ]))
   else

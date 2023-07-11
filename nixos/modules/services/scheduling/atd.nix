@@ -92,9 +92,7 @@ in {
 
         install -dm755 -o atd -g atd "$etcdir"
         spool_and_job_dir_perms=${
-          if
-            cfg.allowEveryone
-          then
+          if cfg.allowEveryone then
             "1777"
           else
             "1770"

@@ -25,9 +25,7 @@ assert enableQt -> qtbase != null;
 assert enableQt -> qttools != null;
 assert enableQt -> qwt != null;
 
-(if
-  enableQt
-then
+(if enableQt then
   mkDerivation
 else
   stdenv.mkDerivation) rec {

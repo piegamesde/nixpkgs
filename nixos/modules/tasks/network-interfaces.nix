@@ -84,18 +84,14 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (n:
-            n >= 0 && n <= (if
-              v == 4
-            then
+            n >= 0 && n <= (if v == 4 then
               32
             else
               128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix (`${
-              if
-                v == 4
-              then
+              if v == 4 then
                 "24"
               else
                 "64"
@@ -114,18 +110,14 @@ let
 
       prefixLength = mkOption {
         type = types.addCheck types.int (n:
-          n >= 0 && n <= (if
-            v == 4
-          then
+          n >= 0 && n <= (if v == 4 then
             32
           else
             128));
         description = lib.mdDoc ''
           Subnet mask of the network, specified as the number of
           bits in the prefix (`${
-            if
-              v == 4
-            then
+            if v == 4 then
               "24"
             else
               "64"
@@ -373,9 +365,7 @@ let
         };
 
         virtualType = mkOption {
-          default = if
-            hasPrefix "tun" name
-          then
+          default = if hasPrefix "tun" name then
             "tun"
           else
             "tap";
@@ -430,9 +420,7 @@ let
           (config:
             let
               bool = getAttrFromPath [ "preferTempAddress" ] config;
-            in if
-              bool
-            then
+            in if bool then
               "default"
             else
               "enabled"))
@@ -538,13 +526,14 @@ let
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
     hi="${cfg.hostId}"
-    ${if
-      pkgs.stdenv.isBigEndian
-    then ''
-      echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > $out
-    '' else ''
-      echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
-    ''}
+    ${if pkgs.stdenv.isBigEndian then
+      ''
+        echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > $out
+      ''
+    else
+      ''
+        echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
+      ''}
   '';
 
 in {
@@ -585,9 +574,7 @@ in {
     networking.fqdn = mkOption {
       readOnly = true;
       type = types.str;
-      default = if
-        (cfg.hostName != "" && cfg.domain != null)
-      then
+      default = if (cfg.hostName != "" && cfg.domain != null) then
         "${cfg.hostName}.${cfg.domain}"
       else
         throw ''
@@ -610,9 +597,7 @@ in {
     networking.fqdnOrHostName = mkOption {
       readOnly = true;
       type = types.str;
-      default = if
-        cfg.domain == null
-      then
+      default = if cfg.domain == null then
         cfg.hostName
       else
         cfg.fqdn;
@@ -1510,9 +1495,7 @@ in {
     };
 
     networking.tempAddresses = mkOption {
-      default = if
-        cfg.enableIPv6
-      then
+      default = if cfg.enableIPv6 then
         "default"
       else
         "disabled";
@@ -1733,9 +1716,7 @@ in {
         # Convert device:interface key:value pairs into a list, and if it exists,
         # place the interface which is named after the device at the beginning.
         wlanListDeviceFirst = device: interfaces:
-          if
-            hasAttr device interfaces
-          then
+          if hasAttr device interfaces then
             mapAttrsToList (n: v: v // { _iName = n; })
             (filterAttrs (n: _: n == device) interfaces)
             ++ mapAttrsToList (n: v: v // { _iName = n; })
@@ -1767,9 +1748,7 @@ in {
             ${optionalString
             (current.type == "managed" && current.fourAddr != null)
             "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-              if
-                current.fourAddr
-              then
+              if current.fourAddr then
                 "on"
               else
                 "off"
@@ -1790,9 +1769,7 @@ in {
             "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
             ${optionalString (new.type == "managed" && new.fourAddr != null)
             "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-              if
-                new.fourAddr
-              then
+              if new.fourAddr then
                 "on"
               else
                 "off"

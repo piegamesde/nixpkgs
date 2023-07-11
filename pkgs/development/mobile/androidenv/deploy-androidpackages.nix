@@ -32,9 +32,7 @@ let
     lib.concatStrings (lib.mapAttrsToList (name: value:
       let
         tag = builtins.head (builtins.match "([^:]+).*" name);
-      in if
-        builtins.typeOf value == "string"
-      then
+      in if builtins.typeOf value == "string" then
         "<${tag}>${value}</${tag}>"
       else
         mkXmlDoc name value) attrs);
@@ -44,9 +42,7 @@ let
       hasXmlAttrs = builtins.hasAttr "element-attributes" doc;
       xmlValues = removeAttrs doc [ "element-attributes" ];
       hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
-    in if
-      hasXmlAttrs && hasXmlValues
-    then
+    in if hasXmlAttrs && hasXmlValues then
       "<${tag}${mkXmlAttrs doc.element-attributes}>${
         mkXmlValues xmlValues
       }</${tag}>"
@@ -79,9 +75,7 @@ let
       <localPackage path="${
         builtins.replaceStrings [ "/" ] [ ";" ] package.path
       }" obsolete="${
-        if
-          (lib.hasAttrByPath [ "obsolete" ] package)
-        then
+        if (lib.hasAttrByPath [ "obsolete" ] package) then
           package.obsolete
         else
           "false"
@@ -104,9 +98,7 @@ stdenv.mkDerivation ({
   version =
     lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
   src = map (package:
-    if
-      os != null && builtins.hasAttr os package.archives
-    then
+    if os != null && builtins.hasAttr os package.archives then
       package.archives.${os}
     else
       package.archives.all) packages;

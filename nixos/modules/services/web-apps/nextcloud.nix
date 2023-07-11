@@ -26,9 +26,10 @@ let
         # use OpenSSL 1.1 for RC4 Nextcloud encryption if user
         # has acknowledged the brokenness of the ciphers (RC4).
         # TODO: remove when https://github.com/nextcloud/server/issues/32003 is fixed.
-        ++ (if
-          cfg.enableBrokenCiphersForSSE
-        then [ cfg.phpPackage.extensions.openssl-legacy ] else [ cfg.phpPackage.extensions.openssl ])
+        ++ (if cfg.enableBrokenCiphersForSSE then
+          [ cfg.phpPackage.extensions.openssl-legacy ]
+        else
+          [ cfg.phpPackage.extensions.openssl ])
         ++ optional cfg.enableImagemagick imagick
         # Optionally enabled depending on caching settings
         ++ optional cfg.caching.apcu apcu ++ optional cfg.caching.redis redis
@@ -398,9 +399,7 @@ in {
       };
       dbhost = mkOption {
         type = types.nullOr types.str;
-        default = if
-          pgsqlLocal
-        then
+        default = if pgsqlLocal then
           "/run/postgresql"
         else if mysqlLocal then
           "localhost:/run/mysqld/mysqld.sock"
@@ -786,9 +785,7 @@ in {
       ;
 
       services.nextcloud.package = with pkgs;
-        mkDefault (if
-          pkgs ? nextcloud
-        then
+        mkDefault (if pkgs ? nextcloud then
           throw ''
             The `pkgs.nextcloud`-attribute has been removed. If it's supposed to be the default
             nextcloud defined in an overlay, please set `services.nextcloud.package` to
@@ -801,12 +798,11 @@ in {
         else
           nextcloud26);
 
-      services.nextcloud.phpPackage = if
-        versionOlder cfg.package.version "26"
-      then
-        pkgs.php81
-      else
-        pkgs.php82;
+      services.nextcloud.phpPackage =
+        if versionOlder cfg.package.version "26" then
+          pkgs.php81
+        else
+          pkgs.php82;
     }
 
     {
@@ -891,9 +887,7 @@ in {
             != { };
           renderedAppStoreSetting = let
             x = cfg.appstoreEnable;
-          in if
-            x == null
-          then
+          in if x == null then
             "false"
           else
             boolToString x;
@@ -1009,9 +1003,7 @@ in {
               "export ${arg}=${value}";
             dbpass = {
               arg = "DBPASS";
-              value = if
-                c.dbpassFile != null
-              then
+              value = if c.dbpassFile != null then
                 ''"$(<"${toString c.dbpassFile}")"''
               else
                 ''""'';
@@ -1027,33 +1019,25 @@ in {
                 # database.  Those that evaluate to null on the left hand side
                 # will be omitted.
                 ${
-                  if
-                    c.dbname != null
-                  then
+                  if c.dbname != null then
                     "--database-name"
                   else
                     null
                 } = ''"${c.dbname}"'';
                 ${
-                  if
-                    c.dbhost != null
-                  then
+                  if c.dbhost != null then
                     "--database-host"
                   else
                     null
                 } = ''"${c.dbhost}"'';
                 ${
-                  if
-                    c.dbport != null
-                  then
+                  if c.dbport != null then
                     "--database-port"
                   else
                     null
                 } = ''"${toString c.dbport}"'';
                 ${
-                  if
-                    c.dbuser != null
-                  then
+                  if c.dbuser != null then
                     "--database-user"
                   else
                     null
@@ -1285,9 +1269,7 @@ in {
                 fastcgi_param PATH_INFO $path_info;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 fastcgi_param HTTPS ${
-                  if
-                    cfg.https
-                  then
+                  if cfg.https then
                     "on"
                   else
                     "off"

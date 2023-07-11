@@ -193,9 +193,7 @@ let
     };
   };
 
-  distSetName = if
-    stdenv.hostPlatform.isMusl
-  then
+  distSetName = if stdenv.hostPlatform.isMusl then
     "musl"
   else
     "defaultLibc";
@@ -381,9 +379,7 @@ stdenv.mkDerivation rec {
   #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: �?: symbol not found
   #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
   # This is extremely bogus and should be investigated.
-  dontStrip = if
-    stdenv.hostPlatform.isMusl
-  then
+  dontStrip = if stdenv.hostPlatform.isMusl then
     true
   else
     false; # `if` for explicitness
@@ -397,50 +393,52 @@ stdenv.mkDerivation rec {
     # Keep rpath as small as possible on aarch64 for patchelf#244.  All Elfs
     # are 2 directories deep from $out/lib, so pooling symlinks there makes
     # a short rpath.
-    ''
-      (cd $out/lib; ln -s ${ncurses6.out}/lib/libtinfo.so.6)
-      (cd $out/lib; ln -s ${lib.getLib gmpUsed}/lib/libgmp.so.10)
-      (cd $out/lib; ln -s ${numactl.out}/lib/libnuma.so.1)
-      for p in $(find "$out/lib" -type f -name "*\.so*"); do
-        (cd $out/lib; ln -s $p)
-      done
+      ''
+        (cd $out/lib; ln -s ${ncurses6.out}/lib/libtinfo.so.6)
+        (cd $out/lib; ln -s ${lib.getLib gmpUsed}/lib/libgmp.so.10)
+        (cd $out/lib; ln -s ${numactl.out}/lib/libnuma.so.1)
+        for p in $(find "$out/lib" -type f -name "*\.so*"); do
+          (cd $out/lib; ln -s $p)
+        done
 
-      for p in $(find "$out/lib" -type f -executable); do
-        if isELF "$p"; then
-          echo "Patchelfing $p"
-          patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../.." $p
-        fi
-      done
-    '' else ''
-      for p in $(find "$out" -type f -executable); do
-        if isELF "$p"; then
-          echo "Patchelfing $p"
-          patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
-        fi
-      done
-    '') + lib.optionalString stdenv.isDarwin ''
-      # not enough room in the object files for the full path to libiconv :(
-      for exe in $(find "$out" -type f -executable); do
-        isScript $exe && continue
-        ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
-        install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
-      done
+        for p in $(find "$out/lib" -type f -executable); do
+          if isELF "$p"; then
+            echo "Patchelfing $p"
+            patchelf --set-rpath "\$ORIGIN:\$ORIGIN/../.." $p
+          fi
+        done
+      ''
+    else
+      ''
+        for p in $(find "$out" -type f -executable); do
+          if isELF "$p"; then
+            echo "Patchelfing $p"
+            patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
+          fi
+        done
+      '') + lib.optionalString stdenv.isDarwin ''
+        # not enough room in the object files for the full path to libiconv :(
+        for exe in $(find "$out" -type f -executable); do
+          isScript $exe && continue
+          ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
+          install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
+        done
 
-      for file in $(find "$out" -name setup-config); do
-        substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
-      done
-    '' + lib.optionalString minimal ''
-      # Remove profiling files
-      find $out -type f -name '*.p_o' -delete
-      find $out -type f -name '*.p_hi' -delete
-      find $out -type f -name '*_p.a' -delete
-      # `-f` because e.g. musl bindist does not have this file.
-      rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
-      # Hydra will redistribute this derivation, so we have to keep the docs for
-      # legal reasons (retaining the legal notices etc)
-      # As a last resort we could unpack the docs separately and symlink them in.
-      # They're in $out/share/{doc,man}.
-    ''
+        for file in $(find "$out" -name setup-config); do
+          substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
+        done
+      '' + lib.optionalString minimal ''
+        # Remove profiling files
+        find $out -type f -name '*.p_o' -delete
+        find $out -type f -name '*.p_hi' -delete
+        find $out -type f -name '*_p.a' -delete
+        # `-f` because e.g. musl bindist does not have this file.
+        rm -f $out/lib/ghc-*/bin/ghc-iserv-prof
+        # Hydra will redistribute this derivation, so we have to keep the docs for
+        # legal reasons (retaining the legal notices etc)
+        # As a last resort we could unpack the docs separately and symlink them in.
+        # They're in $out/share/{doc,man}.
+      ''
     # Recache package db which needs to happen for Hadrian bindists
     # where we modify the package db before installing
     + ''

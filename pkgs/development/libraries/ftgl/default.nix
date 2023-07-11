@@ -39,16 +39,17 @@ stdenv.mkDerivation rec {
     doxygen
     pkg-config
   ];
-  buildInputs = [ freetype ] ++ (if
-    stdenv.isDarwin
-  then [
-    OpenGL
-    GLUT
-  ] else [
-    libGL
-    libGLU
-    freeglut
-  ]);
+  buildInputs = [ freetype ] ++ (if stdenv.isDarwin then
+    [
+      OpenGL
+      GLUT
+    ]
+  else
+    [
+      libGL
+      libGLU
+      freeglut
+    ]);
 
   configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];
 

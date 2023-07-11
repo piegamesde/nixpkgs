@@ -24,9 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preBuild = ''
     cp ${
-      if
-        stdenv.cc.isClang
-      then
+      if stdenv.cc.isClang then
         "CLUnix.mak"
       else
         "GccUnix.mak"

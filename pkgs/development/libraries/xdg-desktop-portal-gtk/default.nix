@@ -42,21 +42,22 @@ stdenv.mkDerivation rec {
     gnome.gnome-settings-daemon # schemas needed for settings api (mostly useless now that fonts were moved to g-d-s)
   ];
 
-  configureFlags = if
-    buildPortalsInGnome
-  then [
-    "--enable-wallpaper"
-    "--enable-screenshot"
-    "--enable-screencast"
-    "--enable-background"
-    "--enable-settings"
-    "--enable-appchooser"
-  ] else [
-    # These are now enabled by default, even though we do not need them for GNOME.
-    # https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
-    "--disable-settings"
-    "--disable-appchooser"
-  ];
+  configureFlags = if buildPortalsInGnome then
+    [
+      "--enable-wallpaper"
+      "--enable-screenshot"
+      "--enable-screencast"
+      "--enable-background"
+      "--enable-settings"
+      "--enable-appchooser"
+    ]
+  else
+    [
+      # These are now enabled by default, even though we do not need them for GNOME.
+      # https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
+      "--disable-settings"
+      "--disable-appchooser"
+    ];
 
   meta = with lib; {
     description = "Desktop integration portals for sandboxed apps";

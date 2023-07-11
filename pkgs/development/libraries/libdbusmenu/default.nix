@@ -18,9 +18,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdbusmenu-${
-      if
-        gtkVersion == null
-      then
+      if gtkVersion == null then
         "glib"
       else
         "gtk${gtkVersion}"
@@ -72,9 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--sysconfdir=/etc"
     "--localstatedir=/var"
     # TODO use `lib.withFeatureAs`
-    (if
-      gtkVersion == null
-    then
+    (if gtkVersion == null then
       "--disable-gtk"
     else
       "--with-gtk=${gtkVersion}")

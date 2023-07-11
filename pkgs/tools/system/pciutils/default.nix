@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "SHARED=${
-      if
-        static
-      then
+      if static then
         "no"
       else
         "yes"

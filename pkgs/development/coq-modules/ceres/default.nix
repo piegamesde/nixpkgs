@@ -12,9 +12,7 @@ mkCoqDerivation {
   owner = "Lysxia";
 
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.8" "8.16" coq.version
-  then
+  defaultVersion = if lib.versions.range "8.8" "8.16" coq.version then
     "0.4.0"
   else
     null;

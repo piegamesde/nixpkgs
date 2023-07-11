@@ -7,9 +7,7 @@
   ppx_derivers,
 }:
 
-if
-  lib.versionOlder "4.13" ocaml.version
-then
+if lib.versionOlder "4.13" ocaml.version then
   throw
   "ocaml-migrate-parsetree-1.8 is not available for OCaml ${ocaml.version}"
 else
@@ -18,9 +16,7 @@ else
     pname = "ocaml-migrate-parsetree";
     version = "1.8.0";
 
-    duneVersion = if
-      lib.versionAtLeast ocaml.version "4.08"
-    then
+    duneVersion = if lib.versionAtLeast ocaml.version "4.08" then
       "3"
     else
       "1";

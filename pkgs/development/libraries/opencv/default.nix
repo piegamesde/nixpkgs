@@ -33,9 +33,7 @@
 let
   opencvFlag = name: enabled:
     "-DWITH_${name}=${
-      if
-        enabled
-      then
+      if enabled then
         "ON"
       else
         "OFF"
@@ -115,9 +113,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";
     homepage = "https://opencv.org/";
-    license = if
-      enableUnfree
-    then
+    license = if enableUnfree then
       licenses.unfree
     else
       licenses.bsd3;

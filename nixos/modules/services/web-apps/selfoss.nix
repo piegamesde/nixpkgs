@@ -14,9 +14,7 @@ let
 
   selfoss-config = let
     db_type = cfg.database.type;
-    default_port = if
-      (db_type == "mysql")
-    then
+    default_port = if (db_type == "mysql") then
       3306
     else
       5342;
@@ -30,9 +28,7 @@ let
       db_username=${cfg.database.user}
       db_password=${cfg.database.password}
       db_port=${
-        toString (if
-          (cfg.database.port != null)
-        then
+        toString (if (cfg.database.port != null) then
           cfg.database.port
         else
           default_port)

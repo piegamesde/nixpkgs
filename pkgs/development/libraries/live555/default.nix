@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
     runHook preConfigure
 
     ./genMakefiles ${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "linux"
       else if stdenv.isDarwin then
         "macosx-catalina"

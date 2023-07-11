@@ -52,9 +52,7 @@ let
       lpropagatedBuildInputs = [ unzip ];
       dontBuild = true;
       installPhase = let
-        so = if
-          bass.so ? ${stdenv.hostPlatform.system}
-        then
+        so = if bass.so ? ${stdenv.hostPlatform.system} then
           bass.so.${stdenv.hostPlatform.system}
         else
           throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";

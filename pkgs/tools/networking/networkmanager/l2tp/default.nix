@@ -58,17 +58,13 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-gnome=${
-      if
-        withGnome
-      then
+      if withGnome then
         "yes"
       else
         "no"
     }"
     "--with-gtk4=${
-      if
-        withGnome
-      then
+      if withGnome then
         "yes"
       else
         "no"

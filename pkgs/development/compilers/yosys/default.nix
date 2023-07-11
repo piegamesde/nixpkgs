@@ -118,9 +118,7 @@ stdenv.mkDerivation rec {
   in ''
     chmod -R u+w .
     make config-${
-      if
-        stdenv.cc.isClang or false
-      then
+      if stdenv.cc.isClang or false then
         "clang"
       else
         "gcc"

@@ -52,18 +52,20 @@ stdenv.mkDerivation rec {
     for lib in $out/lib/*${stdenv.hostPlatform.extensions.sharedLibrary}* ; do
       if [[ -L "$lib" ]]; then
         ${
-          if
-            stdenv.hostPlatform.isDarwin
-          then ''
-            install_name_tool ${
-              lib.strings.concatMapStrings
-              (x: " -add_rpath ${makeLibraryPath [ x ]} ") propagatedBuildInputs
-            } "$lib"
-          '' else ''
-            patchelf --set-rpath "$(patchelf --print-rpath $lib):${
-              makeLibraryPath propagatedBuildInputs
-            }" "$lib"
-          ''
+          if stdenv.hostPlatform.isDarwin then
+            ''
+              install_name_tool ${
+                lib.strings.concatMapStrings
+                (x: " -add_rpath ${makeLibraryPath [ x ]} ")
+                propagatedBuildInputs
+              } "$lib"
+            ''
+          else
+            ''
+              patchelf --set-rpath "$(patchelf --print-rpath $lib):${
+                makeLibraryPath propagatedBuildInputs
+              }" "$lib"
+            ''
         }
       fi
     done

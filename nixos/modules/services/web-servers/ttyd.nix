@@ -86,9 +86,7 @@ in {
         type = types.nullOr types.path;
         default = null;
         apply = value:
-          if
-            value == null
-          then
+          if value == null then
             null
           else
             toString value;
@@ -168,9 +166,7 @@ in {
         type = types.nullOr types.path;
         default = null;
         apply = value:
-          if
-            value == null
-          then
+          if value == null then
             null
           else
             toString value;
@@ -228,17 +224,18 @@ in {
         User = "root";
       };
 
-      script = if
-        cfg.passwordFile != null
-      then ''
-        PASSWORD=$(cat ${escapeShellArg cfg.passwordFile})
-        ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-          --credential ${escapeShellArg cfg.username}:"$PASSWORD" \
-          ${pkgs.shadow}/bin/login
-      '' else ''
-        ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-          ${pkgs.shadow}/bin/login
-      '';
+      script = if cfg.passwordFile != null then
+        ''
+          PASSWORD=$(cat ${escapeShellArg cfg.passwordFile})
+          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+            --credential ${escapeShellArg cfg.username}:"$PASSWORD" \
+            ${pkgs.shadow}/bin/login
+        ''
+      else
+        ''
+          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+            ${pkgs.shadow}/bin/login
+        '';
     };
   };
 }

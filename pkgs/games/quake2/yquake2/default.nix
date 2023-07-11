@@ -15,9 +15,7 @@
 
 let
   mkFlag = b:
-    if
-      b
-    then
+    if b then
       "yes"
     else
       "no";

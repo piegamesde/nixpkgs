@@ -17,9 +17,7 @@
 let
   overrides = callPackage ./overrides.nix { };
   baseName = lib.getName name;
-  override = if
-    builtins.hasAttr baseName overrides
-  then
+  override = if builtins.hasAttr baseName overrides then
     builtins.getAttr baseName overrides
   else
     lib.id;

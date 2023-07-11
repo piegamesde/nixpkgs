@@ -55,16 +55,17 @@ stdenv.mkDerivation rec {
     configureFlagsArray=(
       $configureFlagsArray
       ${
-        if
-          !mpiSupport
-        then ''
-          "--with-mpi=0"
-        '' else ''
-          "--CC=mpicc"
-          "--with-cxx=mpicxx"
-          "--with-fc=mpif90"
-          "--with-mpi=1"
-        ''
+        if !mpiSupport then
+          ''
+            "--with-mpi=0"
+          ''
+        else
+          ''
+            "--CC=mpicc"
+            "--with-cxx=mpicxx"
+            "--with-fc=mpif90"
+            "--with-mpi=1"
+          ''
       }
       ${
         lib.optionalString withp4est ''

@@ -148,9 +148,7 @@ let
             "disable"
             "manual"
           ]) (x:
-            if
-              x == "disable"
-            then
+            if x == "disable" then
               0
             else
               1) types.ints.unsigned);
@@ -238,9 +236,7 @@ in {
           ExecStart = ''
             ${cfg.package}/bin/bitcoind \
             ${
-              if
-                (cfg.configFile != null)
-              then
+              if (cfg.configFile != null) then
                 "-conf=${cfg.configFile}"
               else
                 "-conf=${configFile}"

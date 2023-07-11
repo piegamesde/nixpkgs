@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
     # z/OS plugin is not useful on Linux,
     # and pulls in an extra openldap dependency otherwise
     "--disable-zos-remote"
-    (if
-      enablePython
-    then
+    (if enablePython then
       "--with-python"
     else
       "--without-python")

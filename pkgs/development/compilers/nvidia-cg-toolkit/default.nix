@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
 
   pname = "nvidia-cg-toolkit";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "https://developer.download.nvidia.com/cg/Cg_${version}/Cg-${version}_${date}_x86_64.tgz";

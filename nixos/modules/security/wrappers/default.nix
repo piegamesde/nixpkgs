@@ -135,16 +135,12 @@ let
       chown ${owner}:${group} "$wrapperDir/${program}"
 
       chmod "u${
-        if
-          setuid
-        then
+        if setuid then
           "+"
         else
           "-"
       }s,g${
-        if
-          setgid
-        then
+        if setgid then
           "+"
         else
           "-"
@@ -152,9 +148,7 @@ let
     '';
 
   mkWrappedPrograms = builtins.map (opts:
-    if
-      opts.capabilities != ""
-    then
+    if opts.capabilities != "" then
       mkSetcapProgram opts
     else
       mkSetuidProgram opts) (lib.attrValues wrappers);

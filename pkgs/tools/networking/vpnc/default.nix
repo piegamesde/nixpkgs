@@ -33,7 +33,10 @@ stdenv.mkDerivation {
   buildInputs = [
     libgcrypt
     perl
-  ] ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
+  ] ++ (if opensslSupport then
+    [ openssl ]
+  else
+    [ gnutls ]);
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -55,9 +58,7 @@ stdenv.mkDerivation {
     homepage = "https://davidepucci.it/doc/vpnc/";
     description =
       "Virtual private network (VPN) client for Cisco's VPN concentrators";
-    license = if
-      opensslSupport
-    then
+    license = if opensslSupport then
       licenses.unfree
     else
       licenses.gpl2Plus;

@@ -9,15 +9,16 @@
 
 # for compat with ocaml-lsp
 let
-  source = if
-    lib.versionAtLeast ocaml.version "4.13"
-  then {
-    version = "0.21.0";
-    sha256 = "sha256-KhgX9rxYH/DM6fCqloe4l7AnJuKrdXSe6Y1XY3BXMy0=";
-  } else {
-    version = "0.20.0";
-    sha256 = "sha256-JtmNCgwjbCyUE4bWqdH5Nc2YSit+rekwS43DcviIfgk=";
-  };
+  source = if lib.versionAtLeast ocaml.version "4.13" then
+    {
+      version = "0.21.0";
+      sha256 = "sha256-KhgX9rxYH/DM6fCqloe4l7AnJuKrdXSe6Y1XY3BXMy0=";
+    }
+  else
+    {
+      version = "0.20.0";
+      sha256 = "sha256-JtmNCgwjbCyUE4bWqdH5Nc2YSit+rekwS43DcviIfgk=";
+    };
 
 in
 buildDunePackage rec {

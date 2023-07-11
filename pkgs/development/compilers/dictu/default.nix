@@ -41,25 +41,19 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_CLI=${
-      if
-        cliSupport
-      then
+      if cliSupport then
         "ON"
       else
         "OFF"
     }"
     "-DDISABLE_HTTP=${
-      if
-        httpSupport
-      then
+      if httpSupport then
         "OFF"
       else
         "ON"
     }"
     "-DDISABLE_LINENOISE=${
-      if
-        linenoiseSupport
-      then
+      if linenoiseSupport then
         "OFF"
       else
         "ON"

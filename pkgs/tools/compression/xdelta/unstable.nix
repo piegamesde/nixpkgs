@@ -11,9 +11,7 @@ assert lzmaSupport -> xz != null;
 
 let
   mkWith = flag: name:
-    if
-      flag
-    then
+    if flag then
       "--with-${name}"
     else
       "--without-${name}";

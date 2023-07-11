@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     cd build/${
-      if
-        stdenv.cc.isGNU
-      then
+      if stdenv.cc.isGNU then
         "gcc"
       else if stdenv.cc.isClang then
         "clang"

@@ -14,9 +14,7 @@ let
       # String values need to be quoted
       mkKeyValue = generators.mkKeyValueDefault {
         mkValueString = v:
-          if
-            isString v
-          then
+          if isString v then
             ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
           else
             generators.mkValueStringDefault { } v;
@@ -349,9 +347,10 @@ in {
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet = if
-          (cfg.server.port < 1024)
-        then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if (cfg.server.port < 1024) then
+          [ "CAP_NET_BIND_SERVICE" ]
+        else
+          [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

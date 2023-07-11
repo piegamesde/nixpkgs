@@ -21,9 +21,7 @@
   xtmpl,
 }:
 
-if
-  lib.versionAtLeast ocaml.version "4.13"
-then
+if lib.versionAtLeast ocaml.version "4.13" then
   throw "stog is not available for OCaml ${ocaml.version}"
 else
 

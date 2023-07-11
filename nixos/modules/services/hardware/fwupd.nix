@@ -58,9 +58,7 @@ let
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
       # which should not be done by default.
-      if
-        cfg.enableTestRemote
-      then
+      if cfg.enableTestRemote then
         (enableRemote cfg.package.installedTests "fwupd-tests")
       else
         { });

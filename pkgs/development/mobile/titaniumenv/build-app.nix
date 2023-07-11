@@ -91,9 +91,7 @@ stdenv.mkDerivation ({
     ''}
 
     export HOME=${
-      if
-        target == "iphone"
-      then
+      if target == "iphone" then
         "/Users/$(whoami)"
       else
         "$TMPDIR"
@@ -117,121 +115,122 @@ stdenv.mkDerivation ({
 
     mkdir -p $out
 
-    ${if
-      target == "android"
-    then ''
-      titanium config --config-file $TMPDIR/config.json --no-colors android.sdkPath ${androidsdk}/libexec/android-sdk
+    ${if target == "android" then
+      ''
+        titanium config --config-file $TMPDIR/config.json --no-colors android.sdkPath ${androidsdk}/libexec/android-sdk
 
-      export PATH=${androidsdk}/libexec/android-sdk/tools:$(echo ${androidsdk}/libexec/android-sdk/build-tools/android-*):$PATH
-      export GRADLE_USER_HOME=$TMPDIR/gradle
+        export PATH=${androidsdk}/libexec/android-sdk/tools:$(echo ${androidsdk}/libexec/android-sdk/build-tools/android-*):$PATH
+        export GRADLE_USER_HOME=$TMPDIR/gradle
 
-      ${if
-        release
-      then ''
-        ${lib.optionalString stdenv.isDarwin ''
-          # Signing the app does not work with OpenJDK on macOS, use host SDK instead
-          export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-        ''}
-        titanium build --config-file $TMPDIR/config.json --no-colors --force --platform android --target dist-playstore --keystore ${androidKeyStore} --alias "${androidKeyAlias}" --store-password "${androidKeyStorePassword}" --output-dir $out
-      '' else ''
-        titanium build --config-file $TMPDIR/config.json --no-colors --force --platform android --target emulator --build-only -B foo --output $out
-      ''}
-    '' else if target == "iphone" then ''
-      # Be sure that the Xcode wrapper has priority over everything else.
-      # When using buildInputs this does not seem to be the case.
-      export PATH=${xcodewrapper}/bin:$PATH
+        ${if release then
+          ''
+            ${lib.optionalString stdenv.isDarwin ''
+              # Signing the app does not work with OpenJDK on macOS, use host SDK instead
+              export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+            ''}
+            titanium build --config-file $TMPDIR/config.json --no-colors --force --platform android --target dist-playstore --keystore ${androidKeyStore} --alias "${androidKeyAlias}" --store-password "${androidKeyStorePassword}" --output-dir $out
+          ''
+        else
+          ''
+            titanium build --config-file $TMPDIR/config.json --no-colors --force --platform android --target emulator --build-only -B foo --output $out
+          ''}
+      ''
+    else if target == "iphone" then
+      ''
+        # Be sure that the Xcode wrapper has priority over everything else.
+        # When using buildInputs this does not seem to be the case.
+        export PATH=${xcodewrapper}/bin:$PATH
 
-      # Configure the path to Xcode
-      titanium --config-file $TMPDIR/config.json --no-colors config paths.xcode ${xcodeBaseDir}
+        # Configure the path to Xcode
+        titanium --config-file $TMPDIR/config.json --no-colors config paths.xcode ${xcodeBaseDir}
 
-      # Link the modules folder
-      if [ ! -e modules ]
-      then
-          ln -s ${titaniumsdk}/modules modules
-          createdModulesSymlink=1
-      fi
-
-      ${if
-        release
-      then ''
-        # Create a keychain with the component hash name (should always be unique)
-        export keychainName=$(basename $out)
-
-        security create-keychain -p "" $keychainName
-        security default-keychain -s $keychainName
-        security unlock-keychain -p "" $keychainName
-        security import ${iosCertificate} -k $keychainName -P "${iosCertificatePassword}" -A
-        security set-key-partition-list -S apple-tool:,apple: -s -k "" $keychainName
-        provisioningId=$(grep UUID -A1 -a ${iosMobileProvisioningProfile} | grep -o "[-A-Za-z0-9]\{36\}")
-
-        # Ensure that the requested provisioning profile can be found
-
-        if [ ! -f "$HOME/Library/MobileDevice/Provisioning Profiles/$provisioningId.mobileprovision" ]
+        # Link the modules folder
+        if [ ! -e modules ]
         then
-            mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-            cp ${iosMobileProvisioningProfile} "$HOME/Library/MobileDevice/Provisioning Profiles/$provisioningId.mobileprovision"
+            ln -s ${titaniumsdk}/modules modules
+            createdModulesSymlink=1
         fi
 
-        # Take precautions to prevent concurrent builds blocking the keychain
-        while [ -f $HOME/lock-keychain ]
-        do
-            echo "Keychain locked, waiting for a couple of seconds, or remove $HOME/lock-keychain to unblock..."
-            sleep 3
-        done
+        ${if release then
+          ''
+            # Create a keychain with the component hash name (should always be unique)
+            export keychainName=$(basename $out)
 
-        touch $HOME/lock-keychain
+            security create-keychain -p "" $keychainName
+            security default-keychain -s $keychainName
+            security unlock-keychain -p "" $keychainName
+            security import ${iosCertificate} -k $keychainName -P "${iosCertificatePassword}" -A
+            security set-key-partition-list -S apple-tool:,apple: -s -k "" $keychainName
+            provisioningId=$(grep UUID -A1 -a ${iosMobileProvisioningProfile} | grep -o "[-A-Za-z0-9]\{36\}")
 
-        security default-keychain -s $keychainName
+            # Ensure that the requested provisioning profile can be found
 
-        # Do the actual build
-        titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target ${
-          if
-            iosBuildStore
-          then
-            "dist-appstore"
-          else
-            "dist-adhoc"
-        } --pp-uuid $provisioningId --distribution-name "${iosCertificateName}" --keychain $HOME/Library/Keychains/$keychainName-db --device-family universal --ios-version ${iosVersion} --output-dir $out
+            if [ ! -f "$HOME/Library/MobileDevice/Provisioning Profiles/$provisioningId.mobileprovision" ]
+            then
+                mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+                cp ${iosMobileProvisioningProfile} "$HOME/Library/MobileDevice/Provisioning Profiles/$provisioningId.mobileprovision"
+            fi
 
-        # Remove our generated keychain
-        ${deleteKeychain}
-      '' else ''
-        # Copy all sources to the output store directory.
-        # Why? Debug application include *.js files, which are symlinked into their
-        # sources. If they are not copied, we have dangling references to the
-        # temp folder.
+            # Take precautions to prevent concurrent builds blocking the keychain
+            while [ -f $HOME/lock-keychain ]
+            do
+                echo "Keychain locked, waiting for a couple of seconds, or remove $HOME/lock-keychain to unblock..."
+                sleep 3
+            done
 
-        cp -av * $out
-        cd $out
+            touch $HOME/lock-keychain
 
-        # Execute the build
-        titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target simulator --build-only --device-family universal --ios-version ${iosVersion} --output-dir $out
+            security default-keychain -s $keychainName
 
-        # Remove the modules symlink
-        if [ "$createdModulesSymlink" = "1" ]
-        then
-            rm $out/modules
-        fi
-      ''}
-    '' else
+            # Do the actual build
+            titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target ${
+              if iosBuildStore then
+                "dist-appstore"
+              else
+                "dist-adhoc"
+            } --pp-uuid $provisioningId --distribution-name "${iosCertificateName}" --keychain $HOME/Library/Keychains/$keychainName-db --device-family universal --ios-version ${iosVersion} --output-dir $out
+
+            # Remove our generated keychain
+            ${deleteKeychain}
+          ''
+        else
+          ''
+            # Copy all sources to the output store directory.
+            # Why? Debug application include *.js files, which are symlinked into their
+            # sources. If they are not copied, we have dangling references to the
+            # temp folder.
+
+            cp -av * $out
+            cd $out
+
+            # Execute the build
+            titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target simulator --build-only --device-family universal --ios-version ${iosVersion} --output-dir $out
+
+            # Remove the modules symlink
+            if [ "$createdModulesSymlink" = "1" ]
+            then
+                rm $out/modules
+            fi
+          ''}
+      ''
+    else
       throw "Target: ${target} is not supported!"}
   '';
 
   installPhase = ''
-    ${if
-      target == "android"
-    then ''
-      ${if
-        release
-      then
-        ""
-      else ''
-        cp "$(ls build/android/bin/*.apk | grep -v '\-unsigned.apk')" $out
-      ''}
+    ${if target == "android" then
+      ''
+        ${if release then
+          ""
+        else
+          ''
+            cp "$(ls build/android/bin/*.apk | grep -v '\-unsigned.apk')" $out
+          ''}
 
-      mkdir -p $out/nix-support
-      echo "file binary-dist \"$(ls $out/*.apk)\"" > $out/nix-support/hydra-build-products
-    '' else if target == "iphone" then
+        mkdir -p $out/nix-support
+        echo "file binary-dist \"$(ls $out/*.apk)\"" > $out/nix-support/hydra-build-products
+      ''
+    else if target == "iphone" then
       lib.optionalString release ''
         mkdir -p $out/nix-support
         echo "file binary-dist \"$(echo $out/*.ipa)\"" > $out/nix-support/hydra-build-products

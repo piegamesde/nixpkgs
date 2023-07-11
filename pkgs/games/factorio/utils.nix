@@ -44,9 +44,7 @@ with lib; {
         ;
 
         # Use the name of the zip, but endstrip ".zip" and possibly the querystring that gets left in by fetchurl
-      name = replaceStrings [ "_" ] [ "-" ] (if
-        name != null
-      then
+      name = replaceStrings [ "_" ] [ "-" ] (if name != null then
         name
       else
         removeSuffix ".zip" (head (splitString "?" src.name)));

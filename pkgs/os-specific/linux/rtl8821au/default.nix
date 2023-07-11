@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ("CONFIG_PLATFORM_I386_PC=" + (if
-      stdenv.hostPlatform.isx86
-    then
+    ("CONFIG_PLATFORM_I386_PC=" + (if stdenv.hostPlatform.isx86 then
       "y"
     else
       "n"))

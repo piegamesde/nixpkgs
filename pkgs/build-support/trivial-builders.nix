@@ -326,19 +326,19 @@ in rec {
         ${text}
       '';
 
-      checkPhase = if
-        checkPhase == null
-      then ''
-        runHook preCheck
-        ${stdenv.shellDryRun} "$target"
-        # use shellcheck which does not include docs
-        # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
-        ${
-          lib.getExe
-          (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
-        } "$target"
-        runHook postCheck
-      '' else
+      checkPhase = if checkPhase == null then
+        ''
+          runHook preCheck
+          ${stdenv.shellDryRun} "$target"
+          # use shellcheck which does not include docs
+          # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
+          ${
+            lib.getExe
+            (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
+          } "$target"
+          runHook postCheck
+        ''
+      else
         checkPhase;
 
       meta.mainProgram = name;
@@ -527,9 +527,7 @@ in rec {
   */
   linkFarm = name: entries:
     let
-      entries' = if
-        (lib.isAttrs entries)
-      then
+      entries' = if (lib.isAttrs entries) then
         entries
         # We do this foldl to have last-wins semantics in case of repeated entries
       else if (lib.isList entries) then
@@ -609,11 +607,10 @@ in rec {
         }" (lib.warnIf (deps != [ ])
           "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
             toString deps
-          }" propagatedBuildInputs ++ (if
-            lib.isList deps
-          then
+          }" propagatedBuildInputs ++ (if lib.isList deps then
             deps
-          else [ deps ]));
+          else
+            [ deps ]));
       strictDeps = true;
       # TODO 2023-01, no backport: simplify to inherit passthru;
       passthru = passthru // optionalAttrs (substitutions ? passthru) (warn
@@ -726,9 +723,7 @@ in rec {
             string)) (lib.remove "out" value.outputs))) packages);
       # Only `out` outputs
       outputPaths = lib.flatten (lib.mapAttrsToList (name: value:
-        if
-          lib.elem "out" value.outputs
-        then
+        if lib.elem "out" value.outputs then
           lib.filter (x:
             lib.isList x &&
             # If the matched path is in `namedOutputPaths`,
@@ -742,9 +737,7 @@ in rec {
       allPaths = lib.concatStringsSep "\n"
         (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
-    in if
-      builtins ? getContext
-    then
+    in if builtins ? getContext then
       writeText "string-references" allPathsWithContext
     else
       writeDirectReferencesToFile (writeText "string-file" string);
@@ -776,37 +769,30 @@ in rec {
     assert (sha256 != null) || (sha1 != null) || (hash != null);
     assert (name != null) || (url != null);
     let
-      msg = if
-        message != null
-      then
+      msg = if message != null then
         message
-      else ''
-        Unfortunately, we cannot download file ${name_} automatically.
-        Please go to ${url} to download it yourself, and add it to the Nix store
-        using either
-          nix-store --add-fixed ${hashAlgo} ${name_}
-        or
-          nix-prefetch-url --type ${hashAlgo} file:///path/to/${name_}
-      '';
-      hashAlgo = if
-        hash != null
-      then
+      else
+        ''
+          Unfortunately, we cannot download file ${name_} automatically.
+          Please go to ${url} to download it yourself, and add it to the Nix store
+          using either
+            nix-store --add-fixed ${hashAlgo} ${name_}
+          or
+            nix-prefetch-url --type ${hashAlgo} file:///path/to/${name_}
+        '';
+      hashAlgo = if hash != null then
         ""
       else if sha256 != null then
         "sha256"
       else
         "sha1";
-      hash_ = if
-        hash != null
-      then
+      hash_ = if hash != null then
         hash
       else if sha256 != null then
         sha256
       else
         sha1;
-      name_ = if
-        name == null
-      then
+      name_ = if name == null then
         baseNameOf (toString url)
       else
         name;
@@ -860,9 +846,7 @@ in rec {
   */
   applyPatches = {
       src,
-      name ? (if
-        builtins.typeOf src == "path"
-      then
+      name ? (if builtins.typeOf src == "path" then
         builtins.baseNameOf src
       else if builtins.isAttrs src && builtins.hasAttr "name" src then
         src.name

@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   pname = "scmccid";
   version = "5.0.11";
 
-  src = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  src = if stdenv.hostPlatform.system == "i686-linux" then
     (fetchurl {
       url =
         "http://www.scmmicro.com/support/download/scmccid_${version}_linux.tar.gz";

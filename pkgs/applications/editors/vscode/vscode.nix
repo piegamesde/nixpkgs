@@ -19,9 +19,7 @@ let
     armv7l-linux = "linux-armhf";
   }.${system} or throwSystem;
 
-  archive_fmt = if
-    stdenv.isDarwin
-  then
+  archive_fmt = if stdenv.isDarwin then
     "zip"
   else
     "tar.gz";

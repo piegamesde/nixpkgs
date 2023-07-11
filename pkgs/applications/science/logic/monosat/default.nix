@@ -17,9 +17,7 @@ with lib;
 
 let
   boolToCmake = x:
-    if
-      x
-    then
+    if x then
       "ON"
     else
       "OFF";
@@ -83,9 +81,7 @@ let
     meta = {
       description = "SMT solver for Monotonic Theories";
       platforms = platforms.unix;
-      license = if
-        includeGplCode
-      then
+      license = if includeGplCode then
         licenses.gpl2
       else
         licenses.mit;

@@ -21,9 +21,7 @@ mkYarnPackage rec {
 
   NODE_ENV = "production";
   ${
-    if
-      baseUrl != null
-    then
+    if baseUrl != null then
       "REACT_APP_SERVER"
     else
       null

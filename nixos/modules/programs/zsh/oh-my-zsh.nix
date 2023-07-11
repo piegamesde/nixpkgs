@@ -25,9 +25,7 @@ let
 
   mkLinkFarmEntry' = name: mkLinkFarmEntry name name;
 
-  custom = if
-    cfg.custom != null
-  then
+  custom = if cfg.custom != null then
     cfg.custom
   else if length cfg.customPkgs == 0 then
     null

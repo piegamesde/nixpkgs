@@ -184,9 +184,7 @@ in {
           # hardening :
           # Filesystem access
           ProtectSystem = "strict";
-          ProtectHome = if
-            isProtected cfg.passwordFile
-          then
+          ProtectHome = if isProtected cfg.passwordFile then
             "read-only"
           else
             "true";
@@ -221,9 +219,7 @@ in {
           serviceConfig = {
             # Filesystem access
             ProtectSystem = "strict";
-            ProtectHome = if
-              isProtected cfg.server.passwordFile
-            then
+            ProtectHome = if isProtected cfg.server.passwordFile then
               "read-only"
             else
               "true";

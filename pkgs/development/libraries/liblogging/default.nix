@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-rfc3195"
     "--enable-stdlog"
-    (if
-      systemd != null
-    then
+    (if systemd != null then
       "--enable-journal"
     else
       "--disable-journal")

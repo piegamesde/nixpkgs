@@ -35,9 +35,7 @@ in {
       type = types.nullOr types.path;
       default = null;
       apply = final:
-        if
-          final == null
-        then
+        if final == null then
           null
         else
           toString final;

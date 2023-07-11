@@ -93,9 +93,7 @@ stdenv.mkDerivation rec {
     # FIXME: Fails to link in static mode with undefined reference to
     # `boost::unit_test::unit_test_main(bool (*)(), int, char**)'
     "-DBUILD_TESTING:BOOL=${
-      if
-        static
-      then
+      if static then
         "OFF"
       else
         "ON"

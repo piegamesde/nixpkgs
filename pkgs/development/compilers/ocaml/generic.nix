@@ -69,9 +69,7 @@ in let
   x11inc = x11env + "/include";
 
   fetchpatch' = x:
-    if
-      builtins.isAttrs x
-    then
+    if builtins.isAttrs x then
       fetchpatch x
     else
       x;
@@ -88,9 +86,7 @@ stdenv.mkDerivation (args // {
   prefixKey = "-prefix ";
   configureFlags = let
     flags = new: old:
-      if
-        lib.versionAtLeast version "4.08"
-      then
+      if lib.versionAtLeast version "4.08" then
         new
       else
         old;
@@ -151,9 +147,10 @@ stdenv.mkDerivation (args // {
   # we place nixpkgs-specific targets to a separate file and set
   # sequential order among them as a single rule.
   makefile = ./Makefile.nixpkgs;
-  buildFlags = if
-    useNativeCompilers
-  then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
+  buildFlags = if useNativeCompilers then
+    [ "nixpkgs_world_bootstrap_world_opt" ]
+  else
+    [ "nixpkgs_world" ];
   buildInputs = optional (lib.versionOlder version "4.07") ncurses
     ++ optionals useX11 [
       libX11
@@ -207,12 +204,11 @@ stdenv.mkDerivation (args // {
     '';
 
     platforms = with platforms; linux ++ darwin;
-    broken = stdenv.isAarch64 && lib.versionOlder version (if
-      stdenv.isDarwin
-    then
-      "4.10"
-    else
-      "4.02");
+    broken = stdenv.isAarch64 && lib.versionOlder version
+      (if stdenv.isDarwin then
+        "4.10"
+      else
+        "4.02");
   };
 
 })

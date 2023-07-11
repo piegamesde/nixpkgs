@@ -65,33 +65,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DNRN_ENABLE_INTERVIEWS=${
-      if
-        useIv
-      then
+      if useIv then
         "ON"
       else
         "OFF"
     }"
     "-DNRN_ENABLE_MPI=${
-      if
-        useMpi
-      then
+      if useMpi then
         "ON"
       else
         "OFF"
     }"
     "-DNRN_ENABLE_CORENEURON=${
-      if
-        useCore
-      then
+      if useCore then
         "ON"
       else
         "OFF"
     }"
     "-DNRN_ENABLE_RX3D=${
-      if
-        useRx3d
-      then
+      if useRx3d then
         "ON"
       else
         "OFF"

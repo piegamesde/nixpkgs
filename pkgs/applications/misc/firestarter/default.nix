@@ -77,12 +77,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optionals withCuda [ addOpenGLRunpath ];
 
-  buildInputs = [ hwloc ] ++ (if
-    withCuda
-  then [
-    glibc_multi
-    cudatoolkit
-  ] else [ glibc.static ]);
+  buildInputs = [ hwloc ] ++ (if withCuda then
+    [
+      glibc_multi
+      cudatoolkit
+    ]
+  else
+    [ glibc.static ]);
 
   NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];
 

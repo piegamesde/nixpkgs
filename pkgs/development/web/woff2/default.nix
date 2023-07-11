@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCANONICAL_PREFIXES=ON"
     "-DBUILD_SHARED_LIBS=${
-      if
-        static
-      then
+      if static then
         "OFF"
       else
         "ON"

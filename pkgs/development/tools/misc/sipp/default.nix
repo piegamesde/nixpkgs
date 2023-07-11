@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
     "-DUSE_PCAP=1"
     "-DUSE_SSL=1"
     "-DUSE_SCTP=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "1"
       else
         "0"

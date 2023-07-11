@@ -31,12 +31,11 @@ in
     # such as `pkgs: "${pkgs.lzop}/bin/lzop"`.
   ,
   compressor ? "gzip",
-  _compressorFunction ? if
-    lib.isFunction compressor
-  then
+  _compressorFunction ? if lib.isFunction compressor then
     compressor
-  else if !builtins.hasContext compressor
-  && builtins.hasAttr compressor compressors then
+  else if
+    !builtins.hasContext compressor && builtins.hasAttr compressor compressors
+  then
     compressors.${compressor}.executable
   else
     _: compressor,
@@ -47,9 +46,7 @@ in
     # List of arguments to pass to the compressor program, or null to use its defaults
   ,
   compressorArgs ? null,
-  _compressorArgsReal ? if
-    compressorArgs == null
-  then
+  _compressorArgsReal ? if compressorArgs == null then
     _compressorMeta.defaultArgs or [ ]
   else
     compressorArgs
@@ -102,9 +99,7 @@ runCommand name ({
 
   inherit extension makeUInitrd uInitrdArch prepend;
   ${
-    if
-      makeUInitrd
-    then
+    if makeUInitrd then
       "uInitrdCompression"
     else
       null
@@ -117,9 +112,7 @@ runCommand name ({
       ...
     }: ''
       ${object}
-      ${if
-        symlink == null
-      then
+      ${if symlink == null then
         ""
       else
         symlink}'') contents + "\n";
@@ -129,9 +122,7 @@ runCommand name ({
     cpio
   ] ++ lib.optional makeUInitrd ubootTools ++ lib.optional strip binutils;
 
-  STRIP = if
-    strip
-  then
+  STRIP = if strip then
     "${pkgsBuildHost.binutils.targetPrefix}strip"
   else
     null;

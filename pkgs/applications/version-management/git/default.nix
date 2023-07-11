@@ -168,24 +168,24 @@ stdenv.mkDerivation (finalAttrs: {
     # Git does not allow setting a shell separately for building and run-time.
     # Therefore lets leave it at the default /bin/sh when cross-compiling
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform)
-    "SHELL_PATH=${stdenv.shell}" ++ (if
-      perlSupport
-    then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
-    ++ (if
-      pythonSupport
-    then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
-    ++ lib.optionals stdenv.isSunOS [
-      "INSTALL=install"
-      "NO_INET_NTOP="
-      "NO_INET_PTON="
-    ] ++ (if
-      stdenv.isDarwin
-    then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
-      "NO_SYS_POLL_H=1"
-      "NO_GETTEXT=YesPlease"
-    ] ++ lib.optional withpcre2 "USE_LIBPCRE2=1" ++ lib.optional (!nlsSupport)
-    "NO_GETTEXT=1"
+    "SHELL_PATH=${stdenv.shell}" ++ (if perlSupport then
+      [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
+    else
+      [ "NO_PERL=1" ]) ++ (if pythonSupport then
+        [ "PYTHON_PATH=${python3}/bin/python" ]
+      else
+        [ "NO_PYTHON=1" ]) ++ lib.optionals stdenv.isSunOS [
+          "INSTALL=install"
+          "NO_INET_NTOP="
+          "NO_INET_PTON="
+        ] ++ (if stdenv.isDarwin then
+          [ "NO_APPLE_COMMON_CRYPTO=1" ]
+        else
+          [ "sysconfdir=/etc" ]) ++ lib.optionals stdenv.hostPlatform.isMusl [
+            "NO_SYS_POLL_H=1"
+            "NO_GETTEXT=YesPlease"
+          ] ++ lib.optional withpcre2 "USE_LIBPCRE2=1"
+    ++ lib.optional (!nlsSupport) "NO_GETTEXT=1"
     # git-gui refuses to start with the version of tk distributed with
     # macOS Catalina. We can prevent git from building the .app bundle
     # by specifying an invalid tk framework. The postInstall step will
@@ -316,60 +316,63 @@ stdenv.mkDerivation (finalAttrs: {
     done
   ''
 
-    + (if
-      svnSupport
-    then ''
-      # wrap git-svn
-      wrapProgram $out/libexec/git-core/git-svn                                                                                \
-                   --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                     perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
-                   }" \
-                   --prefix PATH : "${svn.out}/bin" '' else ''
+    + (if svnSupport then
+      ''
+        # wrap git-svn
+        wrapProgram $out/libexec/git-core/git-svn                                                                                \
+                     --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+                       perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
+                     }" \
+                     --prefix PATH : "${svn.out}/bin" ''
+    else
+      ''
         # replace git-svn by notification script
                notSupported $out/libexec/git-core/git-svn
       '')
 
-    + (if
-      sendEmailSupport
-    then ''
-      # wrap git-send-email
-      wrapProgram $out/libexec/git-core/git-send-email \
-                   --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                     perlPackages.makePerlPath smtpPerlLibs
-                   }"
-    '' else ''
-      # replace git-send-email by notification script
-      notSupported $out/libexec/git-core/git-send-email
-    '')
+    + (if sendEmailSupport then
+      ''
+        # wrap git-send-email
+        wrapProgram $out/libexec/git-core/git-send-email \
+                     --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+                       perlPackages.makePerlPath smtpPerlLibs
+                     }"
+      ''
+    else
+      ''
+        # replace git-send-email by notification script
+        notSupported $out/libexec/git-core/git-send-email
+      '')
 
     + lib.optionalString withManual ''
       # Install man pages
              make -j $NIX_BUILD_CORES PERL_PATH="${buildPackages.perl}/bin/perl" cmd-list.made install install-html \
                -C Documentation ''
 
-    + (if
-      guiSupport
-    then ''
-      # Wrap Tcl/Tk programs
-      for prog in bin/gitk libexec/git-core/{git-gui,git-citool,git-gui--askpass}; do
-        sed -i -e "s|exec 'wish'|exec '${tk}/bin/wish'|g" \
-               -e "s|exec wish|exec '${tk}/bin/wish'|g" \
-               "$out/$prog"
-      done
-      ln -s $out/share/git/contrib/completion/git-completion.bash $out/share/bash-completion/completions/gitk
-    '' else ''
-      # Don't wrap Tcl/Tk, replace them by notification scripts
-      for prog in bin/gitk libexec/git-core/git-gui; do
-        notSupported "$out/$prog"
-      done
-    '') + lib.optionalString osxkeychainSupport ''
-      # enable git-credential-osxkeychain on darwin if desired (default)
-      mkdir -p $out/etc
-      cat > $out/etc/gitconfig << EOF
-      [credential]
-        helper = osxkeychain
-      EOF
-    '';
+    + (if guiSupport then
+      ''
+        # Wrap Tcl/Tk programs
+        for prog in bin/gitk libexec/git-core/{git-gui,git-citool,git-gui--askpass}; do
+          sed -i -e "s|exec 'wish'|exec '${tk}/bin/wish'|g" \
+                 -e "s|exec wish|exec '${tk}/bin/wish'|g" \
+                 "$out/$prog"
+        done
+        ln -s $out/share/git/contrib/completion/git-completion.bash $out/share/bash-completion/completions/gitk
+      ''
+    else
+      ''
+        # Don't wrap Tcl/Tk, replace them by notification scripts
+        for prog in bin/gitk libexec/git-core/git-gui; do
+          notSupported "$out/$prog"
+        done
+      '') + lib.optionalString osxkeychainSupport ''
+        # enable git-credential-osxkeychain on darwin if desired (default)
+        mkdir -p $out/etc
+        cat > $out/etc/gitconfig << EOF
+        [credential]
+          helper = osxkeychain
+        EOF
+      '';
 
   ## InstallCheck
 

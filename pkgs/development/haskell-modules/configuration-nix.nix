@@ -287,12 +287,12 @@ builtins.intersectAttrs super {
         pcre2
         util-linux
         pcre
-      ] ++ (if
-        pkgs.stdenv.isLinux
-      then [
-        libselinux
-        libsepol
-      ] else
+      ] ++ (if pkgs.stdenv.isLinux then
+        [
+          libselinux
+          libsepol
+        ]
+      else
         [ ])))
   ];
   glib = disableHardening [ "fortify" ] (addPkgconfigDepend pkgs.glib
@@ -313,16 +313,16 @@ builtins.intersectAttrs super {
         libdatrie
         xorg.libXdmcp
         libdeflate
-      ] ++ (if
-        pkgs.stdenv.isLinux
-      then [
-        libselinux
-        libsepol
-      ] else
+      ] ++ (if pkgs.stdenv.isLinux then
+        [
+          libselinux
+          libsepol
+        ]
+      else
         [ ])))
-  ] ++ (if
-    pkgs.stdenv.isDarwin
-  then [ (appendConfigureFlag "-fhave-quartz-gtk") ] else
+  ] ++ (if pkgs.stdenv.isDarwin then
+    [ (appendConfigureFlag "-fhave-quartz-gtk") ]
+  else
     [ ]));
   gtksourceview2 = addPkgconfigDepend pkgs.gtk2 super.gtksourceview2;
   gtk-traymanager = addPkgconfigDepend pkgs.gtk3 super.gtk-traymanager;
@@ -614,9 +614,7 @@ builtins.intersectAttrs super {
   # Additional note: nixpkgs' freeglut and macOS's OpenGL implementation do not cooperate,
   # so disable this on Darwin only
   ${
-    if
-      pkgs.stdenv.isDarwin
-    then
+    if pkgs.stdenv.isDarwin then
       null
     else
       "GLUT"
@@ -682,13 +680,12 @@ builtins.intersectAttrs super {
   servant-streaming-server = dontCheck super.servant-streaming-server;
 
   # https://github.com/haskell-servant/servant/pull/1238
-  servant-client-core = if
-    (pkgs.lib.getVersion super.servant-client-core) == "0.16"
-  then
-    appendPatch ./patches/servant-client-core-redact-auth-header.patch
-    super.servant-client-core
-  else
-    super.servant-client-core;
+  servant-client-core =
+    if (pkgs.lib.getVersion super.servant-client-core) == "0.16" then
+      appendPatch ./patches/servant-client-core-redact-auth-header.patch
+      super.servant-client-core
+    else
+      super.servant-client-core;
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -809,21 +806,15 @@ builtins.intersectAttrs super {
     '' + (drv.postFixup or "");
     buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
   }) (super.git-annex.override {
-    dbus = if
-      pkgs.stdenv.isLinux
-    then
+    dbus = if pkgs.stdenv.isLinux then
       self.dbus
     else
       null;
-    fdo-notify = if
-      pkgs.stdenv.isLinux
-    then
+    fdo-notify = if pkgs.stdenv.isLinux then
       self.fdo-notify
     else
       null;
-    hinotify = if
-      pkgs.stdenv.isLinux
-    then
+    hinotify = if pkgs.stdenv.isLinux then
       self.hinotify
     else
       self.fsnotify;

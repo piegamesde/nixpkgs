@@ -64,9 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dpython=python3"
     "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     "-DBUILD_WITH_TENSILE=${
-      if
-        buildTensile
-      then
+      if buildTensile then
         "ON"
       else
         "OFF"
@@ -83,17 +81,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-DTensile_LOGIC=${tensileLogic}"
     "-DTensile_CODE_OBJECT_VERSION=${tensileCOVersion}"
     "-DTensile_SEPARATE_ARCHITECTURES=${
-      if
-        tensileSepArch
-      then
+      if tensileSepArch then
         "ON"
       else
         "OFF"
     }"
     "-DTensile_LAZY_LIBRARY_LOADING=${
-      if
-        tensileLazyLib
-      then
+      if tensileLazyLib then
         "ON"
       else
         "OFF"

@@ -64,17 +64,13 @@ import ./make-test-python.nix ({
 
       with subtest("Make sure that cups is up on both sides and printers are set up"):
           server.wait_for_unit("cups.${
-            if
-              socket
-            then
+            if socket then
               "socket"
             else
               "service"
           }")
           client.wait_for_unit("cups.${
-            if
-              socket
-            then
+            if socket then
               "socket"
             else
               "service"

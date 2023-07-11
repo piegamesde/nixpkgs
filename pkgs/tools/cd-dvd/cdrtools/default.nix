@@ -19,15 +19,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ m4 ];
-  buildInputs = if
-    stdenv.isDarwin
-  then [
-    Carbon
-    IOKit
-  ] else [
-    acl
-    libcap
-  ];
+  buildInputs = if stdenv.isDarwin then
+    [
+      Carbon
+      IOKit
+    ]
+  else
+    [
+      acl
+      libcap
+    ];
 
   postPatch = ''
     sed "/\.mk3/d" -i libschily/Targets.man

@@ -14,9 +14,7 @@ let
   cfg = config.services.nntp-proxy;
 
   configBool = b:
-    if
-      b
-    then
+    if b then
       "TRUE"
     else
       "FALSE";

@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
     export JAVA_TOOL_OPTIONS=-Djava.home=$JAVA_HOME
     export CLASSPATH=${jdk}/lib/openjdk/lib/tools.jar
 
-    ${if
-      stdenv.isi686
-    then
+    ${if stdenv.isi686 then
       "./build32.sh"
     else
       "./build64.sh"}

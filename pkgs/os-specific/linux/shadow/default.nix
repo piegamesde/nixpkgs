@@ -20,9 +20,7 @@
   tcb,
 }:
 let
-  glibc = if
-    stdenv.hostPlatform != stdenv.buildPlatform
-  then
+  glibc = if stdenv.hostPlatform != stdenv.buildPlatform then
     glibcCross
   else
     assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;

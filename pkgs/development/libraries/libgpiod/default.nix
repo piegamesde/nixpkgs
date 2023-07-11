@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--enable-tools=${
-      if
-        enable-tools
-      then
+      if enable-tools then
         "yes"
       else
         "no"

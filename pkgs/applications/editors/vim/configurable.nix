@@ -42,9 +42,7 @@
   features ? "huge" # One of tiny, small, normal, big or huge
   ,
   wrapPythonDrv ? false,
-  guiSupport ? config.vim.gui or (if
-    stdenv.isDarwin
-  then
+  guiSupport ? config.vim.gui or (if stdenv.isDarwin then
     "gtk2"
   else
     "gtk3"),
@@ -158,9 +156,8 @@ stdenv.mkDerivation rec {
     "vim_cv_stat_ignores_slash=yes"
     "vim_cv_memmove_handles_overlap=yes"
   ] ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
-    "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin (if
-      darwinSupport
-    then
+    "--enable-gui=${guiSupport}" ++ lib.optional stdenv.isDarwin
+    (if darwinSupport then
       "--enable-darwin"
     else
       "--disable-darwin") ++ lib.optionals luaSupport [

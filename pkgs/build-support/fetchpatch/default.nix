@@ -23,14 +23,13 @@
   ...
 }@args:
 let
-  args' = if
-    relative != null
-  then {
-    stripLen = 1 + lib.length (lib.splitString "/" relative) + stripLen;
-    extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
-  } else {
-    inherit stripLen extraPrefix;
-  };
+  args' = if relative != null then
+    {
+      stripLen = 1 + lib.length (lib.splitString "/" relative) + stripLen;
+      extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
+    }
+  else
+    { inherit stripLen extraPrefix; };
 in let
   inherit (args') stripLen extraPrefix;
 in

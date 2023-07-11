@@ -30,9 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [ "-DSIDX_BUILD_TESTS=${
-      if
-        finalAttrs.doCheck
-      then
+      if finalAttrs.doCheck then
         "ON"
       else
         "OFF"

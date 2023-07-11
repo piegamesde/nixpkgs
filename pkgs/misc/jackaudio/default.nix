@@ -38,36 +38,26 @@
 let
   inherit (python3Packages) python dbus-python;
   shouldUsePkg = pkg:
-    if
-      pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg
-    then
+    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
       pkg
     else
       null;
 
   libOnly = prefix == "lib";
 
-  optDbus = if
-    stdenv.isDarwin
-  then
+  optDbus = if stdenv.isDarwin then
     null
   else
     shouldUsePkg dbus;
-  optPythonDBus = if
-    libOnly
-  then
+  optPythonDBus = if libOnly then
     null
   else
     shouldUsePkg dbus-python;
-  optLibffado = if
-    libOnly
-  then
+  optLibffado = if libOnly then
     null
   else
     shouldUsePkg libffado;
-  optAlsaLib = if
-    libOnly
-  then
+  optAlsaLib = if libOnly then
     null
   else
     shouldUsePkg alsa-lib;
@@ -118,9 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
   wafConfigureFlags = [
     "--classic"
     "--autostart=${
-      if
-        (optDbus != null)
-      then
+      if (optDbus != null) then
         "dbus"
       else
         "classic"
@@ -129,14 +117,15 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (optLibffado != null) "--firewire"
     ++ lib.optional (optAlsaLib != null) "--alsa";
 
-  postInstall = (if
-    libOnly
-  then ''
-    rm -rf $out/{bin,share}
-    rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
-  '' else ''
-    wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
-  '');
+  postInstall = (if libOnly then
+    ''
+      rm -rf $out/{bin,share}
+      rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
+    ''
+  else
+    ''
+      wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
+    '');
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

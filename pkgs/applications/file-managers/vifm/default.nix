@@ -25,9 +25,7 @@ let
   isFullPackage = mediaSupport;
 in
 stdenv.mkDerivation rec {
-  pname = if
-    isFullPackage
-  then
+  pname = if isFullPackage then
     "vifm-full"
   else
     "vifm";
@@ -82,9 +80,7 @@ stdenv.mkDerivation rec {
         "; Includes support for optional features"
       }";
     maintainers = with maintainers; [ raskin ];
-    platforms = if
-      mediaSupport
-    then
+    platforms = if mediaSupport then
       platforms.linux
     else
       platforms.unix;

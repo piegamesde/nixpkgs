@@ -94,9 +94,7 @@ with lib;
       services.xserver.inputClassSections = [ ''
         Identifier "Trackpoint Wheel Emulation"
         MatchProduct "${
-          if
-            cfg.fakeButtons
-          then
+          if cfg.fakeButtons then
             "PS/2 Generic Mouse"
           else
             "ETPS/2 Elantech TrackPoint|Elantech PS/2 TrackPoint|TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint|${cfg.device}"

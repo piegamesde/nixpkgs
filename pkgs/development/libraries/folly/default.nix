@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-DFOLLY_MOBILE=${
-      if
-        follyMobile
-      then
+      if follyMobile then
         "1"
       else
         "0"
@@ -75,9 +73,7 @@ stdenv.mkDerivation rec {
     # temporary hack until folly builds work on aarch64,
     # see https://github.com/facebook/folly/issues/1880
     "-DCMAKE_LIBRARY_ARCHITECTURE=${
-      if
-        stdenv.isx86_64
-      then
+      if stdenv.isx86_64 then
         "x86_64"
       else
         "dummy"

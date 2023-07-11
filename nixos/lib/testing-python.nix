@@ -63,9 +63,7 @@ pkgs.lib.throwIf (args ? specialArgs) ''
       passthru ? { },
       meta ? { }, # For meta.position
       pos ? # position used in error messages and for meta.position
-        (if
-          meta.description or null != null
-        then
+        (if meta.description or null != null then
           builtins.unsafeGetAttrPos "description" meta
         else
           builtins.unsafeGetAttrPos "testScript" t),

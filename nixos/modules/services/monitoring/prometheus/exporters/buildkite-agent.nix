@@ -15,9 +15,7 @@ in {
     tokenPath = mkOption {
       type = types.nullOr types.path;
       apply = final:
-        if
-          final == null
-        then
+        if final == null then
           null
         else
           toString final;

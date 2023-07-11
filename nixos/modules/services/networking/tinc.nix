@@ -10,9 +10,7 @@ let
   cfg = config.services.tinc;
 
   mkValueString = value:
-    if
-      value == true
-    then
+    if value == true then
       "yes"
     else if value == false then
       "no"
@@ -162,9 +160,7 @@ let
             config.addresses);
 
         Subnet = mkDefault (map (subnet:
-          if
-            subnet.prefixLength == null
-          then
+          if subnet.prefixLength == null then
             "${subnet.address}#${toString subnet.weight}"
           else
             "${subnet.address}/${toString subnet.prefixLength}#${
@@ -355,9 +351,7 @@ in {
 
                 settings = {
                   DeviceType = mkDefault config.interfaceType;
-                  Name = mkDefault (if
-                    config.name == null
-                  then
+                  Name = mkDefault (if config.name == null then
                     "$HOST"
                   else
                     config.name);
@@ -440,21 +434,19 @@ in {
           # Determine how we should generate our keys
           if type tinc >/dev/null 2>&1; then
             # Tinc 1.1+ uses the tinc helper application for key generation
-          ${if
-            data.ed25519PrivateKeyFile != null
-          then
+          ${if data.ed25519PrivateKeyFile != null then
             "  # ed25519 Keyfile managed by nix"
-          else ''
-            # Prefer ED25519 keys (only in 1.1+)
-            [ -f "/etc/tinc/${network}/ed25519_key.priv" ] || tinc -n ${network} generate-ed25519-keys
-          ''}
-          ${if
-            data.rsaPrivateKeyFile != null
-          then
+          else
+            ''
+              # Prefer ED25519 keys (only in 1.1+)
+              [ -f "/etc/tinc/${network}/ed25519_key.priv" ] || tinc -n ${network} generate-ed25519-keys
+            ''}
+          ${if data.rsaPrivateKeyFile != null then
             "  # RSA Keyfile managed by nix"
-          else ''
-            [ -f "/etc/tinc/${network}/rsa_key.priv" ] || tinc -n ${network} generate-rsa-keys 4096
-          ''}
+          else
+            ''
+              [ -f "/etc/tinc/${network}/rsa_key.priv" ] || tinc -n ${network} generate-rsa-keys 4096
+            ''}
             # In case there isn't anything to do
             true
           else

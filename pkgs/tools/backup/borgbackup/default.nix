@@ -68,9 +68,7 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
     packaging
-    (if
-      stdenv.isLinux
-    then
+    (if stdenv.isLinux then
       pyfuse3
     else
       llfuse)

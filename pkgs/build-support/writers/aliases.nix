@@ -5,9 +5,7 @@ let
   # set to appear while listing all the packages available.
   removeRecurseForDerivations = alias:
     with lib;
-    if
-      alias.recurseForDerivations or false
-    then
+    if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
     else
       alias;
@@ -16,9 +14,7 @@ let
   # sets from building on Hydra.
   removeDistribute = alias:
     with lib;
-    if
-      isDerivation alias
-    then
+    if isDerivation alias then
       dontDistribute alias
     else
       alias;
@@ -26,9 +22,7 @@ let
   # Make sure that we are not shadowing something from
   # writers.
   checkInPkgs = n: alias:
-    if
-      builtins.hasAttr n prev
-    then
+    if builtins.hasAttr n prev then
       throw "Alias ${n} is still in writers"
     else
       alias;

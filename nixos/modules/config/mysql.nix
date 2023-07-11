@@ -396,17 +396,13 @@ in {
         users.password_column=${cfg.pam.passwordColumn}
         users.password_crypt=${cfg.pam.passwordCrypt}
         users.disconnect_every_operation=${
-          if
-            cfg.pam.disconnectEveryOperation
-          then
+          if cfg.pam.disconnectEveryOperation then
             "1"
           else
             "0"
         }
         verbose=${
-          if
-            cfg.pam.verbose
-          then
+          if cfg.pam.verbose then
             "1"
           else
             "0"

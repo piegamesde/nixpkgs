@@ -22,9 +22,7 @@ let
   ];
   linuxDeps = [ ncurses6 ];
 
-  buildInputs = if
-    stdenv.isDarwin
-  then
+  buildInputs = if stdenv.isDarwin then
     darwinDeps
   else
     linuxDeps;

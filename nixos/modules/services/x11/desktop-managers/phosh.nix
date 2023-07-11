@@ -113,20 +113,17 @@ let
   };
 
   optionalKV = k: v:
-    if
-      v == null
-    then
+    if v == null then
       ""
     else
       "${k} = ${builtins.toString v}";
 
   renderPhocOutput = name: output:
     let
-      modelines = if
-        builtins.isList output.modeline
-      then
+      modelines = if builtins.isList output.modeline then
         output.modeline
-      else [ output.modeline ];
+      else
+        [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
     in ''
       [output:${name}]
@@ -240,13 +237,12 @@ in {
     services.gnome.core-os-services.enable = true;
     services.xserver.displayManager.sessionPackages = [ cfg.package ];
 
-    environment.etc."phosh/phoc.ini".source = if
-      builtins.isPath cfg.phocConfig
-    then
-      cfg.phocConfig
-    else if builtins.isString cfg.phocConfig then
-      pkgs.writeText "phoc.ini" cfg.phocConfig
-    else
-      pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
+    environment.etc."phosh/phoc.ini".source =
+      if builtins.isPath cfg.phocConfig then
+        cfg.phocConfig
+      else if builtins.isString cfg.phocConfig then
+        pkgs.writeText "phoc.ini" cfg.phocConfig
+      else
+        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
   };
 }

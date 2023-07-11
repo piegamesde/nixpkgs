@@ -19,9 +19,7 @@ with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
 let
 
   version = fileContents ../.version;
-  versionSuffix = (if
-    stableBranch
-  then
+  versionSuffix = (if stableBranch then
     "."
   else
     "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";

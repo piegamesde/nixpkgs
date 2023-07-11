@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
 
   patches = [ (substituteAll {
     src = ./0001-Setting-markdown_bin.patch;
-    markdown_path = if
-      usePandoc
-    then
+    markdown_path = if usePandoc then
       pandoc_path
     else
       markdownpl_path;

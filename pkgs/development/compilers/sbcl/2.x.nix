@@ -82,15 +82,16 @@ stdenv.mkDerivation rec {
     purgeNixReferences
   then
   # This is the default location to look for the core; by default in $out/lib/sbcl
-  ''
-    sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
-      -i src/runtime/runtime.c
-  '' else
+    ''
+      sed 's@^\(#define SBCL_HOME\) .*$@\1 "/no-such-path"@' \
+        -i src/runtime/runtime.c
+    ''
+  else
   # Fix software version retrieval
-  ''
-    sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
-      src/code/run-program.lisp
-  '');
+    ''
+      sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
+        src/code/run-program.lisp
+    '');
 
   preBuild = ''
     export INSTALL_ROOT=$out

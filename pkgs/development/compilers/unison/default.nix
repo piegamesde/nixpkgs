@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
   milestone_id = "M4h";
   version = "1.0.${milestone_id}-alpha";
 
-  src = if
-    (stdenv.isDarwin)
-  then
+  src = if (stdenv.isDarwin) then
     fetchurl {
       url =
         "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";

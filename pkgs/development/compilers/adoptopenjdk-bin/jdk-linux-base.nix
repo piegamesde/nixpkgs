@@ -40,9 +40,7 @@ let
 
 in let
   result = stdenv.mkDerivation rec {
-    pname = if
-      sourcePerArch.packageType == "jdk"
-    then
+    pname = if sourcePerArch.packageType == "jdk" then
       "adoptopenjdk-${sourcePerArch.vmType}-bin"
     else
       "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";

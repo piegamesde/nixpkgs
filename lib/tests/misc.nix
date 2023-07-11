@@ -85,9 +85,7 @@ runTests {
 
   testFix = {
     expr = fix (x: {
-      a = if
-        x ? a
-      then
+      a = if x ? a then
         "a"
       else
         "b";

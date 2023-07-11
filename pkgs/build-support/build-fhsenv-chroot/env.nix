@@ -41,9 +41,7 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if
-    multiPkgs == null
-  then
+  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then
     [ ]
   else
     multiPkgs pkgs);
@@ -58,9 +56,7 @@ let
   # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
   basePkgs = with pkgs; [
     glibcLocales
-    (if
-      isMultiBuild
-    then
+    (if isMultiBuild then
       glibc_multi
     else
       glibc)
@@ -216,9 +212,7 @@ let
     # link content of targetPaths
     cp -rsHf ${staticUsrProfileTarget}/lib lib
     ln -s lib lib${
-      if
-        is64Bit
-      then
+      if is64Bit then
         "64"
       else
         "32"
@@ -244,9 +238,7 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if
-    isTargetBuild
-  then
+  setupLibDirs = if isTargetBuild then
     setupLibDirs_target
   else
     setupLibDirs_multi;

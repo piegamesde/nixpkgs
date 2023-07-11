@@ -37,9 +37,7 @@
 
 let
   # Determine the Android os identifier from Nix's system identifier
-  os = if
-    stdenv.system == "x86_64-linux"
-  then
+  os = if stdenv.system == "x86_64-linux" then
     "linux"
   else if stdenv.system == "x86_64-darwin" then
     "macosx"
@@ -91,9 +89,7 @@ let
   ;
 
   # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
-  repo = if
-    repoXmls != null
-  then
+  repo = if repoXmls != null then
     let
       repoXmlSpec = {
         packages = repoXmls.packages or [ ];
@@ -108,9 +104,7 @@ let
   # Converts all 'archives' keys in a repo spec to fetchurl calls.
   fetchArchives = attrSet:
     lib.attrsets.mapAttrsRecursive (path: value:
-      if
-        (builtins.elemAt path ((builtins.length path) - 1)) == "archives"
-      then
+      if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
         (builtins.listToAttrs (builtins.map (archive:
           lib.attrsets.nameValuePair archive.os
           (fetchurl { inherit (archive) url sha1; })) value))
@@ -172,9 +166,7 @@ in rec {
 
   platform-tools = callPackage ./platform-tools.nix {
     inherit deployAndroidPackage;
-    os = if
-      stdenv.system == "aarch64-darwin"
-    then
+    os = if stdenv.system == "aarch64-darwin" then
       "macosx"
     else
       os; # "macosx" is a universal binary here
@@ -298,9 +290,7 @@ in rec {
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
 
   # The "default" NDK bundle.
-  ndk-bundle = if
-    includeNDK
-  then
+  ndk-bundle = if includeNDK then
     lib.findFirst (x: x != null) null ndk-bundles
   else
     null;
@@ -393,9 +383,7 @@ in rec {
   # This derivation deploys the tools package and symlinks all the desired
   # plugins that we want to use. If the license isn't accepted, prints all the licenses
   # requested and throws.
-  androidsdk = if
-    !licenseAccepted
-  then
+  androidsdk = if !licenseAccepted then
     throw ''
       ${builtins.concatStringsSep "\n\n" (mkLicenseTexts licenseNames)}
 

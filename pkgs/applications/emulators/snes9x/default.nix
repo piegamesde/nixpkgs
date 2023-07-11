@@ -29,9 +29,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if
-    withGtk
-  then
+  pname = if withGtk then
     "snes9x-gtk"
   else
     "snes9x";
@@ -95,9 +93,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  preConfigure = if
-    withGtk
-  then
+  preConfigure = if withGtk then
     "cd gtk"
   else
     "cd unix";
@@ -106,9 +102,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib;
     let
-      interface = if
-        withGtk
-      then
+      interface = if withGtk then
         "GTK"
       else
         "X11";

@@ -29,9 +29,7 @@ let
     '';
 
   check = cond:
-    if
-      cond
-    then
+    if cond then
       "ok"
     else
       "nok";

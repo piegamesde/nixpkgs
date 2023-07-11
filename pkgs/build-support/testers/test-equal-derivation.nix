@@ -11,15 +11,11 @@ let
     "testEqualDerivation second argument must be a package");
   drvB = builtins.unsafeDiscardOutputDependency
     b.drvPath or (throw "testEqualDerivation third argument must be a package");
-  name = if
-    a ? name
-  then
+  name = if a ? name then
     "testEqualDerivation-${a.name}"
   else
     "testEqualDerivation";
-in if
-  drvA == drvB
-then
+in if drvA == drvB then
   emptyFile
 else
   runCommand name {

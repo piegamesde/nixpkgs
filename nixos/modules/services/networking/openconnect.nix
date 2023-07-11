@@ -99,9 +99,7 @@ let
   };
   generateExtraConfig = extra_cfg:
     strings.concatStringsSep "\n" (attrsets.mapAttrsToList (name: value:
-      if
-        (value == true)
-      then
+      if (value == true) then
         name
       else
         "${name}=${value}")

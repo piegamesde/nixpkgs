@@ -66,9 +66,7 @@ let
       $out
   '';
 
-  compilerName = if
-    stdenv.cc.isClang
-  then
+  compilerName = if stdenv.cc.isClang then
     "clang"
   else if stdenv.cc.isGNU then
     "gcc"
@@ -132,9 +130,7 @@ stdenv.mkDerivation rec {
 
   # recommended build flags for performance optimized foot builds
   # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#release-build
-  CFLAGS = if
-    !doPgo
-  then
+  CFLAGS = if !doPgo then
     "-O3 -fno-plt"
   else
     pgoCflags;

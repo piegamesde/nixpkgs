@@ -25,9 +25,7 @@ let
       writeShellScript
       ;
     inherit pkgs;
-    libtool = if
-      stdenv.isDarwin
-    then
+    libtool = if stdenv.isDarwin then
       pkgs.darwin.cctools
     else
       null;

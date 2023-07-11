@@ -18,20 +18,18 @@
 }:
 
 let
-  package = if
-    imageSupport
-  then
+  package = if imageSupport then
     "jfbview"
   else
     "jfbpdf";
-  binaries = if
-    imageSupport
-  then [
-    "jfbview"
-    "jpdfcat"
-    "jpdfgrep"
-  ] # all require imlib2
-  else [ "jfbpdf" ]; # does not
+  binaries = if imageSupport then
+    [
+      "jfbview"
+      "jpdfcat"
+      "jpdfgrep"
+    ] # all require imlib2
+  else
+    [ "jfbpdf" ]; # does not
 
 in
 stdenv.mkDerivation rec {

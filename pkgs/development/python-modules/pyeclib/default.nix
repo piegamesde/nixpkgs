@@ -28,9 +28,7 @@ buildPythonPackage rec {
   '';
 
   preBuild = let
-    ldLibraryPathEnvName = if
-      stdenv.isDarwin
-    then
+    ldLibraryPathEnvName = if stdenv.isDarwin then
       "DYLD_LIBRARY_PATH"
     else
       "LD_LIBRARY_PATH";

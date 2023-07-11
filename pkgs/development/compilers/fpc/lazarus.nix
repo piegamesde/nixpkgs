@@ -90,9 +90,7 @@ stdenv.mkDerivation rec {
     "bigide"
   ];
 
-  LCL_PLATFORM = if
-    withQt
-  then
+  LCL_PLATFORM = if withQt then
     "qt5"
   else
     "gtk2";

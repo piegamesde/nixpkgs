@@ -14,9 +14,7 @@ let
     drivers = config.services.xserver.videoDrivers;
     isDeprecated = str: (hasPrefix "nvidia" str) && (str != "nvidia");
     hasDeprecated = drivers: any isDeprecated drivers;
-  in if
-    (hasDeprecated drivers)
-  then
+  in if (hasDeprecated drivers) then
     throw ''
       Selecting an nvidia driver has been modified for NixOS 19.03. The version is now set using `hardware.nvidia.package`.
     ''
@@ -307,15 +305,11 @@ in {
   };
 
   config = let
-    igpuDriver = if
-      pCfg.intelBusId != ""
-    then
+    igpuDriver = if pCfg.intelBusId != "" then
       "modesetting"
     else
       "amdgpu";
-    igpuBusId = if
-      pCfg.intelBusId != ""
-    then
+    igpuBusId = if pCfg.intelBusId != "" then
       pCfg.intelBusId
     else
       pCfg.amdgpuBusId;
@@ -457,9 +451,7 @@ in {
         "`${pkgs.xorg.xrandr}/bin/xrandr --listproviders | ${pkgs.gnugrep}/bin/grep -i AMD | ${pkgs.gnused}/bin/sed -n 's/^.*name://p'`"
       else
         igpuDriver;
-      providerCmdParams = if
-        syncCfg.enable
-      then
+      providerCmdParams = if syncCfg.enable then
         ''"${gpuProviderName}" NVIDIA-0''
       else
         ''NVIDIA-G0 "${gpuProviderName}"'';
@@ -562,8 +554,10 @@ in {
         && config.virtualisation.docker.enableNvidia)
       "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
-    boot.extraModulePackages =
-      if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
+    boot.extraModulePackages = if cfg.open then
+      [ nvidia_x11.open ]
+    else
+      [ nvidia_x11.bin ];
     hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
     # nvidia-uvm is required by CUDA applications.

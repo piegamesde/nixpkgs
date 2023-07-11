@@ -38,9 +38,7 @@ let
   inherit (cudaPackages) cudaFlags backendStdenv;
   inherit (cudaFlags) cudaCapabilities dropDot;
 
-  stdenv = if
-    cudaSupport
-  then
+  stdenv = if cudaSupport then
     backendStdenv
   else
     inputs.stdenv;
@@ -97,17 +95,13 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DFAISS_ENABLE_GPU=${
-      if
-        cudaSupport
-      then
+      if cudaSupport then
         "ON"
       else
         "OFF"
     }"
     "-DFAISS_ENABLE_PYTHON=${
-      if
-        pythonSupport
-      then
+      if pythonSupport then
         "ON"
       else
         "OFF"

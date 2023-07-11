@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "OFF"
       else
         "ON"

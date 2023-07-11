@@ -59,9 +59,7 @@ in {
           path
         ]);
       apply = mapAttrs (n: v:
-        if
-          isList v
-        then
+        if isList v then
           concatStringsSep ":" v
         else
           "${v}");

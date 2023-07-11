@@ -66,9 +66,7 @@ in rec {
     let
       len = length list;
       fold' = n:
-        if
-          n == len
-        then
+        if n == len then
           nul
         else
           op (elemAt list n) (fold' (n + 1));
@@ -97,9 +95,7 @@ in rec {
   foldl = op: nul: list:
     let
       foldl' = n:
-        if
-          n == -1
-        then
+        if n == -1 then
           nul
         else
           op (foldl' (n - 1)) (elemAt list n);
@@ -157,11 +153,10 @@ in rec {
        => [1]
   */
   flatten = x:
-    if
-      isList x
-    then
+    if isList x then
       concatMap (y: flatten y) x
-    else [ x ];
+    else
+      [ x ];
 
   /* Remove elements equal to 'e' from a list.  Useful for buildInputs.
 
@@ -202,9 +197,7 @@ in rec {
     let
       found = filter pred list;
       len = length found;
-    in if
-      len == 0
-    then
+    in if len == 0 then
       default
     else if len != 1 then
       multiple
@@ -231,9 +224,7 @@ in rec {
     list:
     let
       found = filter pred list;
-    in if
-      found == [ ]
-    then
+    in if found == [ ] then
       default
     else
       head found;
@@ -251,9 +242,7 @@ in rec {
   */
   any = builtins.any or (pred:
     foldr (x: y:
-      if
-        pred x
-      then
+      if pred x then
         true
       else
         y) false);
@@ -271,9 +260,7 @@ in rec {
   */
   all = builtins.all or (pred:
     foldr (x: y:
-      if
-        pred x
-      then
+      if pred x then
         y
       else
         false) true);
@@ -291,9 +278,7 @@ in rec {
     # Predicate
     pred:
     foldl' (c: x:
-      if
-        pred x
-      then
+      if pred x then
         c + 1
       else
         c) 0;
@@ -310,7 +295,11 @@ in rec {
        optional false "foo"
        => [ ]
   */
-  optional = cond: elem: if cond then [ elem ] else [ ];
+  optional = cond: elem:
+    if cond then
+      [ elem ]
+    else
+      [ ];
 
   /* Return a list or an empty list, depending on a boolean value.
 
@@ -327,9 +316,7 @@ in rec {
     cond:
     # List to return if condition is true
     elems:
-    if
-      cond
-    then
+    if cond then
       elems
     else
       [ ];
@@ -345,11 +332,10 @@ in rec {
        => [ "hi "]
   */
   toList = x:
-    if
-      isList x
-    then
+    if isList x then
       x
-    else [ x ];
+    else
+      [ x ];
 
   /* Return a list of integers from `first` up to and including `last`.
 
@@ -366,9 +352,7 @@ in rec {
     first:
     # Last integer in the range
     last:
-    if
-      first > last
-    then
+    if first > last then
       [ ]
     else
       genList (n: first + n) (last - first + 1);
@@ -396,18 +380,19 @@ in rec {
   */
   partition = builtins.partition or (pred:
     foldr (h: t:
-      if
-        pred h
-      then {
-        right = [ h ] ++ t.right;
-        wrong = t.wrong;
-      } else {
-        right = t.right;
-        wrong = [ h ] ++ t.wrong;
-      }) {
-        right = [ ];
-        wrong = [ ];
-      });
+      if pred h then
+        {
+          right = [ h ] ++ t.right;
+          wrong = t.wrong;
+        }
+      else
+        {
+          right = t.right;
+          wrong = [ h ] ++ t.wrong;
+        }) {
+          right = [ ];
+          wrong = [ ];
+        });
 
   /* Splits the elements of a list into many lists, using the return value of a predicate.
      Predicate should return a string which becomes keys of attrset `groupBy` returns.
@@ -513,17 +498,18 @@ in rec {
         let
           c = filter (x: before x us) visited;
           b = partition (x: before x us) rest;
-        in if
-          stopOnCycles && (length c > 0)
-        then {
-          cycle = us;
-          loops = c;
-          inherit visited rest;
-        } else if length b.right == 0 then # nothing is before us
-        {
-          minimal = us;
-          inherit visited rest;
-        } else # grab the first one before us and continue
+        in if stopOnCycles && (length c > 0) then
+          {
+            cycle = us;
+            loops = c;
+            inherit visited rest;
+          }
+        else if length b.right == 0 then # nothing is before us
+          {
+            minimal = us;
+            inherit visited rest;
+          }
+        else # grab the first one before us and continue
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
     in
     dfs' (head list) [ ] (tail list)
@@ -554,24 +540,22 @@ in rec {
     let
       dfsthis = listDfs true before list;
       toporest = toposort before (dfsthis.visited ++ dfsthis.rest);
-    in if
-      length list < 2
-    then # finish
-    {
-      result = list;
-    } else if dfsthis
-    ? cycle then # there's a cycle, starting from the current vertex, return it
-    {
-      cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
-      inherit (dfsthis) loops;
-    } else if toporest
-    ? cycle then # there's a cycle somewhere else in the graph, return it
+    in if length list < 2 then # finish
+      { result = list; }
+    else if
+      dfsthis ? cycle
+    then # there's a cycle, starting from the current vertex, return it
+      {
+        cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
+        inherit (dfsthis) loops;
+      }
+    else if
+      toporest ? cycle
+    then # there's a cycle somewhere else in the graph, return it
       toporest
       # Slow, but short. Can be made a bit faster with an explicit stack.
     else # there are no cycles
-    {
-      result = [ dfsthis.minimal ] ++ toporest.result;
-    };
+      { result = [ dfsthis.minimal ] ++ toporest.result; };
 
   /* Sort a list based on a comparator function which compares two
      elements and returns true if the first argument is strictly below
@@ -594,9 +578,7 @@ in rec {
         let
           el = elemAt list n;
           next = pivot' (n + 1);
-        in if
-          n == len
-        then
+        in if n == len then
           acc
         else if strictLess first el then
           next {
@@ -612,9 +594,7 @@ in rec {
         left = [ ];
         right = [ ];
       };
-    in if
-      len < 2
-    then
+    in if len < 2 then
       list
     else
       (sort strictLess pivot.left) ++ [ first ]
@@ -633,12 +613,8 @@ in rec {
        => -1
   */
   compareLists = cmp: a: b:
-    if
-      a == [ ]
-    then
-      if
-        b == [ ]
-      then
+    if a == [ ] then
+      if b == [ ] then
         0
       else
         -1
@@ -647,9 +623,7 @@ in rec {
     else
       let
         rel = cmp (head a) (head b);
-      in if
-        rel == 0
-      then
+      in if rel == 0 then
         compareLists cmp (tail a) (tail b)
       else
         rel;
@@ -669,9 +643,7 @@ in rec {
     let
       vectorise = s:
         map (x:
-          if
-            isList x
-          then
+          if isList x then
             toInt (head x)
           else
             x) (builtins.split "(0|[1-9][0-9]*)" s);
@@ -737,9 +709,7 @@ in rec {
     let
       len = length list;
     in
-    genList (n: elemAt list (n + start)) (if
-      start >= len
-    then
+    genList (n: elemAt list (n + start)) (if start >= len then
       0
     else if start + count > len then
       len - start
@@ -794,9 +764,7 @@ in rec {
        => [ 3 2 4 ]
   */
   unique = foldl' (acc: e:
-    if
-      elem e acc
-    then
+    if elem e acc then
       acc
     else
       acc ++ [ e ]) [ ];

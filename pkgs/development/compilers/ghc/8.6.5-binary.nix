@@ -23,9 +23,7 @@ let
   useNcurses6 = stdenv.hostPlatform.system == "x86_64-linux"
     || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
 
-  ourNcurses = if
-    useNcurses6
-  then
+  ourNcurses = if useNcurses6 then
     ncurses6
   else
     ncurses5;

@@ -19,9 +19,7 @@ in
 }:
 let
   seqIf = cond:
-    if
-      cond
-    then
+    if cond then
       builtins.seq
     else
       a: b: b;

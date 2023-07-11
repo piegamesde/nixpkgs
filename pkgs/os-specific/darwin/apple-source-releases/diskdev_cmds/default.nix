@@ -11,15 +11,11 @@
 }:
 
 let
-  xnu-src = if
-    stdenv.isAarch64
-  then
+  xnu-src = if stdenv.isAarch64 then
     macosPackages_11_0_1.xnu.src
   else
     xnu.src;
-  arch = if
-    stdenv.isAarch64
-  then
+  arch = if stdenv.isAarch64 then
     "arm"
   else
     "i386";

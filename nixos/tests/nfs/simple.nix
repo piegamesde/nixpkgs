@@ -13,9 +13,7 @@ import ../make-test-python.nix ({
         virtualisation.fileSystems = {
           "/data" =
             { # nfs4 exports the export with fsid=0 as a virtual root directory
-              device = if
-                (version == 4)
-              then
+              device = if (version == 4) then
                 "server:/"
               else
                 "server:/data";

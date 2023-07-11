@@ -106,9 +106,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [ "-DBUILD_TESTS=${
-      if
-        doCheck
-      then
+      if doCheck then
         "ON"
       else
         "OFF"

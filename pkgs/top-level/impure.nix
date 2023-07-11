@@ -10,9 +10,7 @@ let
   try = x: def:
     let
       res = builtins.tryEval x;
-    in if
-      res.success
-    then
+    in if res.success then
       res.value
     else
       def;
@@ -37,9 +35,7 @@ in
     configFile = builtins.getEnv "NIXPKGS_CONFIG";
     configFile2 = homeDir + "/.config/nixpkgs/config.nix";
     configFile3 = homeDir + "/.nixpkgs/config.nix"; # obsolete
-  in if
-    configFile != "" && builtins.pathExists configFile
-  then
+  in if configFile != "" && builtins.pathExists configFile then
     import configFile
   else if homeDir != "" && builtins.pathExists configFile2 then
     import configFile2
@@ -74,27 +70,22 @@ in
       else
       # it's a file, so the result is the contents of the file itself
         import path;
-  in if
-    pathOverlays != "" && builtins.pathExists pathOverlays
-  then
+  in if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays
-  else if builtins.pathExists homeOverlaysFile
-  && builtins.pathExists homeOverlaysDir then
+  else if
+    builtins.pathExists homeOverlaysFile && builtins.pathExists homeOverlaysDir
+  then
     throw ''
       Nixpkgs overlays can be specified with ${homeOverlaysFile} or ${homeOverlaysDir}, but not both.
       Please remove one of them and try again.
     ''
   else if builtins.pathExists homeOverlaysFile then
-    if
-      isDir homeOverlaysFile
-    then
+    if isDir homeOverlaysFile then
       throw (homeOverlaysFile + " should be a file")
     else
       overlays homeOverlaysFile
   else if builtins.pathExists homeOverlaysDir then
-    if
-      !(isDir homeOverlaysDir)
-    then
+    if !(isDir homeOverlaysDir) then
       throw (homeOverlaysDir + " should be a directory")
     else
       overlays homeOverlaysDir

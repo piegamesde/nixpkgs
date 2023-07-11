@@ -32,9 +32,7 @@ in {
     programs.bash.promptPluginInit = ''
       export LONG_RUNNING_COMMAND_TIMEOUT=${toString cfg.timeout}
       export UDM_PLAY_SOUND=${
-        if
-          cfg.playSound
-        then
+        if cfg.playSound then
           "1"
         else
           "0"

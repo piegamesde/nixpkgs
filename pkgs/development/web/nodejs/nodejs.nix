@@ -44,9 +44,7 @@ let
   majorVersion = lib.versions.major version;
   minorVersion = lib.versions.minor version;
 
-  pname = if
-    enableNpm
-  then
+  pname = if enableNpm then
     "nodejs"
   else
     "nodejs-slim";
@@ -124,9 +122,7 @@ let
       "--dest-cpu=${
         let
           platform = stdenv.hostPlatform;
-        in if
-          platform.isAarch32
-        then
+        in if platform.isAarch32 then
           "arm"
         else if platform.isAarch64 then
           "arm64"
@@ -224,15 +220,16 @@ let
       mkdir -p $libv8/lib
       pushd out/Release/obj.target
       find . -path "./torque_*/**/*.o" -or -path "./v8*/**/*.o" | sort -u >files
-      ${if
-        stdenv.buildPlatform.isGnu
-      then ''
-        ar -cqs $libv8/lib/libv8.a @files
-      '' else ''
-        cat files | while read -r file; do
-          ar -cqS $libv8/lib/libv8.a $file
-        done
-      ''}
+      ${if stdenv.buildPlatform.isGnu then
+        ''
+          ar -cqs $libv8/lib/libv8.a @files
+        ''
+      else
+        ''
+          cat files | while read -r file; do
+            ar -cqS $libv8/lib/libv8.a $file
+          done
+        ''}
       popd
 
       # copy v8 headers

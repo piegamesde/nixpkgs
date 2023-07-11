@@ -44,9 +44,7 @@ assert enableTools -> enableAudio && enableEmulation && enableLibplayer;
 let
   inherit (lib) optional optionals;
   onOff = val:
-    if
-      val
-    then
+    if val then
       "ON"
     else
       "OFF";
@@ -86,9 +84,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_PLAYER=${onOff enableTools}"
     "-DBUILD_VGM2WAV=${onOff enableTools}"
     "-DLIBRARY_TYPE=${
-      if
-        enableShared
-      then
+      if enableShared then
         "SHARED"
       else
         "STATIC"

@@ -74,9 +74,7 @@ stdenv.mkDerivation rec {
           ]);
       in
       basePackage.overrideAttrs (prev: {
-        pname = if
-          builtins.isFunction pname
-        then
+        pname = if builtins.isFunction pname then
           pname prev
         else
           pname;

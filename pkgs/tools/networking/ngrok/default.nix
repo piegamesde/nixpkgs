@@ -6,9 +6,7 @@
 
 let
   versions = lib.importJSON ./versions.json;
-  arch = if
-    stdenv.isi686
-  then
+  arch = if stdenv.isi686 then
     "386"
   else if stdenv.isx86_64 then
     "amd64"
@@ -18,9 +16,7 @@ let
     "arm64"
   else
     throw "Unsupported architecture";
-  os = if
-    stdenv.isLinux
-  then
+  os = if stdenv.isLinux then
     "linux"
   else if stdenv.isDarwin then
     "darwin"

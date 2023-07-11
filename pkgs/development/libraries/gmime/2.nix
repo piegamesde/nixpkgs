@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
   preConfigure =
     lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp ${
-        if
-          stdenv.hostPlatform.isMusl
-        then
+        if stdenv.hostPlatform.isMusl then
           ./musl-iconv-detect.h
         else
           ./iconv-detect.h

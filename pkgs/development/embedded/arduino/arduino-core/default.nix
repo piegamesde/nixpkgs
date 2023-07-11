@@ -80,9 +80,7 @@ let
     xorg.libXxf86vm
     zlib
   ];
-  teensy_architecture = if
-    stdenv.hostPlatform.isx86_32
-  then
+  teensy_architecture = if stdenv.hostPlatform.isx86_32 then
     "linux32"
   else if stdenv.hostPlatform.isx86_64 then
     "linux64"
@@ -95,9 +93,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = (if
-    withTeensyduino
-  then
+  pname = (if withTeensyduino then
     "teensyduino"
   else
     "arduino") + lib.optionalString (!withGui) "-core";
@@ -281,9 +277,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source electronics prototyping platform";
     homepage = "https://www.arduino.cc/";
-    license = if
-      withTeensyduino
-    then
+    license = if withTeensyduino then
       licenses.unfreeRedistributable
     else
       licenses.gpl2;

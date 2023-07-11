@@ -34,9 +34,7 @@ let
 
   pythonPlugin = pkg:
     lib.nameValuePair "python${
-      if
-        pkg.isPy2
-      then
+      if pkg.isPy2 then
         "2"
       else
         "3"
@@ -81,9 +79,7 @@ let
   getPlugin = name:
     let
       all = lib.concatStringsSep ", " (lib.attrNames available);
-    in if
-      lib.hasAttr name available
-    then
+    in if lib.hasAttr name available then
       lib.getAttr name available // { inherit name; }
     else
       throw "Unknown UWSGI plugin ${name}, available : ${all}";

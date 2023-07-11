@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   # See https://trac.macports.org/ticket/60656
-  LDFLAGS = if
-    stdenv.hostPlatform.isDarwin
-  then
+  LDFLAGS = if stdenv.hostPlatform.isDarwin then
     "-Wl,-w"
   else
     null;

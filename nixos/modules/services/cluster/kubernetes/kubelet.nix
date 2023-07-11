@@ -13,9 +13,7 @@ let
   otop = options.services.kubernetes;
   cfg = top.kubelet;
 
-  cniConfig = if
-    cfg.cni.config != [ ] && cfg.cni.configDir != null
-  then
+  cniConfig = if cfg.cni.config != [ ] && cfg.cni.configDir != null then
     throw "Verbatim CNI-config and CNI configDir cannot both be set."
   else if cfg.cni.configDir != null then
     cfg.cni.configDir
@@ -331,9 +329,7 @@ in {
         preStart = ''
           ${concatMapStrings (img: ''
             echo "Seeding container image: ${img}"
-            ${if
-              (lib.hasSuffix "gz" img)
-            then
+            ${if (lib.hasSuffix "gz" img) then
               ''
                 ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
             else

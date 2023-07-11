@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
     description = "A satisfiability modulo theory (SMT) solver";
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
-    license = if
-      enableReadline
-    then
+    license = if enableReadline then
       licenses.gpl2Plus
     else
       licenses.mit;

@@ -677,9 +677,7 @@ let
               session required pam_unix.so
             '' + optionalString cfg.setLoginUid ''
               session ${
-                if
-                  config.boot.isContainer
-                then
+                if config.boot.isContainer then
                   "optional"
                 else
                   "required"
@@ -750,9 +748,7 @@ let
   inherit (pkgs) pam_krb5 pam_ccreds;
 
   use_ldap = (config.users.ldap.enable && config.users.ldap.loginPam);
-  pam_ldap = if
-    config.users.ldap.daemon.enable
-  then
+  pam_ldap = if config.users.ldap.daemon.enable then
     pkgs.nss_pam_ldapd
   else
     pkgs.pam_ldap;
@@ -824,9 +820,7 @@ let
         };
       }));
 
-  motd = if
-    config.users.motdFile == null
-  then
+  motd = if config.users.motdFile == null then
     pkgs.writeText "motd" config.users.motd
   else
     config.users.motdFile;

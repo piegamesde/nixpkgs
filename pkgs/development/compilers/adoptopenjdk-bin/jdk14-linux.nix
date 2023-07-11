@@ -4,9 +4,7 @@
 }:
 
 let
-  variant = if
-    stdenv.hostPlatform.isMusl
-  then
+  variant = if stdenv.hostPlatform.isMusl then
     "alpine_linux"
   else
     "linux";

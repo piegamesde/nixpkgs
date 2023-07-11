@@ -173,17 +173,13 @@ in {
         boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
           (mkBefore ''
             kbd_mode ${
-              if
-                isUnicode
-              then
+              if isUnicode then
                 "-u"
               else
                 "-a"
             } -C /dev/console
             printf "\033%%${
-              if
-                isUnicode
-              then
+              if isUnicode then
                 "G"
               else
                 "@"
@@ -248,15 +244,16 @@ in {
         && !config.boot.initrd.systemd.enable) {
           boot.initrd.extraUtilsCommands = ''
             mkdir -p $out/share/consolefonts
-            ${if
-              substring 0 1 cfg.font == "/"
-            then ''
-              font="${cfg.font}"
-            '' else ''
-              font="$(echo ${
-                consoleEnv pkgs.kbd
-              }/share/consolefonts/${cfg.font}.*)"
-            ''}
+            ${if substring 0 1 cfg.font == "/" then
+              ''
+                font="${cfg.font}"
+              ''
+            else
+              ''
+                font="$(echo ${
+                  consoleEnv pkgs.kbd
+                }/share/consolefonts/${cfg.font}.*)"
+              ''}
             if [[ $font == *.gz ]]; then
               gzip -cd $font > $out/share/consolefonts/font.psf
             else

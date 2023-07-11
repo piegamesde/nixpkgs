@@ -8,21 +8,15 @@
 bundlerApp {
   inherit ruby;
   pname = "cocoapods";
-  gemfile = if
-    beta
-  then
+  gemfile = if beta then
     ./Gemfile-beta
   else
     ./Gemfile;
-  lockfile = if
-    beta
-  then
+  lockfile = if beta then
     ./Gemfile-beta.lock
   else
     ./Gemfile.lock;
-  gemset = if
-    beta
-  then
+  gemset = if beta then
     ./gemset-beta.nix
   else
     ./gemset.nix;

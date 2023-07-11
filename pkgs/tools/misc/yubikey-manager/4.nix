@@ -31,9 +31,7 @@ python3Packages.buildPythonPackage rec {
       --replace 'cryptography = ">=2.1, <39"' 'cryptography = ">=2.1"'
     substituteInPlace "ykman/pcsc/__init__.py" \
       --replace 'pkill' '${
-        if
-          stdenv.isLinux
-        then
+        if stdenv.isLinux then
           "${procps}"
         else
           "/usr"

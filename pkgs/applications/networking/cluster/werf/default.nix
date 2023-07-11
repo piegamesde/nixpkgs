@@ -31,9 +31,7 @@ buildGoModule rec {
   buildInputs = lib.optionals stdenv.isLinux [ btrfs-progs ]
     ++ lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
 
-  CGO_ENABLED = if
-    stdenv.isLinux
-  then
+  CGO_ENABLED = if stdenv.isLinux then
     1
   else
     0;

@@ -6,9 +6,7 @@
   unittestCheckHook,
 }:
 
-if
-  pythonAtLeast "3.4"
-then
+if pythonAtLeast "3.4" then
   null
 else
   buildPythonPackage rec {

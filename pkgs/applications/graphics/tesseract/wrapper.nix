@@ -12,9 +12,7 @@
 
     # A list of files or a directory containing files
   ,
-  tessdata ? (if
-    enableLanguages == null
-  then
+  tessdata ? (if enableLanguages == null then
     languages.all
   else
     map (lang: languages.${lang}) enableLanguages)
@@ -87,15 +85,11 @@ let
     '';
   };
 
-  tesseract = (if
-    enableLanguages == [ ]
-  then
+  tesseract = (if enableLanguages == [ ] then
     tesseractBase
   else
     tesseractWithData) // passthru // test;
-in if
-  enableLanguagesHash == null
-then
+in if enableLanguagesHash == null then
   tesseract
 else
   lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."

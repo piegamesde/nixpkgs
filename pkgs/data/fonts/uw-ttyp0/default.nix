@@ -32,24 +32,24 @@ stdenv.mkDerivation rec {
   ];
 
   # configure sizes, encodings and variants
-  preConfigure = (if
-    targetsDat == null
-  then ''
-    cat << EOF > TARGETS.dat
-    SIZES = 11 12 13 14 15 16 17 18 22 \
-    11b 12b 13b 14b 15b 16b 17b 18b 22b 15i 16i 17i 18i
-    ENCODINGS = uni
-    EOF
-  '' else
-    ''cp "${targetsDat}" TARGETS.dat'') + (if
-      variantsDat == null
-    then ''
-      cat << EOF > VARIANTS.dat
-      COPYTO AccStress PApostropheAscii
-      COPYTO PAmComma AccGraveAscii
-      COPYTO Digit0Slashed Digit0
+  preConfigure = (if targetsDat == null then
+    ''
+      cat << EOF > TARGETS.dat
+      SIZES = 11 12 13 14 15 16 17 18 22 \
+      11b 12b 13b 14b 15b 16b 17b 18b 22b 15i 16i 17i 18i
+      ENCODINGS = uni
       EOF
-    '' else
+    ''
+  else
+    ''cp "${targetsDat}" TARGETS.dat'') + (if variantsDat == null then
+      ''
+        cat << EOF > VARIANTS.dat
+        COPYTO AccStress PApostropheAscii
+        COPYTO PAmComma AccGraveAscii
+        COPYTO Digit0Slashed Digit0
+        EOF
+      ''
+    else
       ''cp "${variantsDat}" VARIANTS.dat'');
 
   postBuild = ''

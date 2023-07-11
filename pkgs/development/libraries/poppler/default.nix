@@ -39,9 +39,7 @@
 let
   mkFlag = optset: flag:
     "-DENABLE_${flag}=${
-      if
-        optset
-      then
+      if optset then
         "on"
       else
         "off"

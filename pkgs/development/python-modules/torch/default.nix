@@ -112,9 +112,7 @@ assert !cudaSupport || magma.cudaPackages.cudatoolkit == cudatoolkit;
 
 let
   setBool = v:
-    if
-      v
-    then
+    if v then
       "1"
     else
       "0";

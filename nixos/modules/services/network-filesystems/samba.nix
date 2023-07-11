@@ -10,9 +10,7 @@ with lib;
 let
 
   smbToString = x:
-    if
-      builtins.typeOf x == "bool"
-    then
+    if builtins.typeOf x == "bool" then
       boolToString x
     else
       toString x;
@@ -30,20 +28,19 @@ let
     '') (attrNames share)))
   ;
 
-  configFile = pkgs.writeText "smb.conf" (if
-    cfg.configText != null
-  then
+  configFile = pkgs.writeText "smb.conf" (if cfg.configText != null then
     cfg.configText
-  else ''
-    [global]
-    security = ${cfg.securityType}
-    passwd program = /run/wrappers/bin/passwd %u
-    invalid users = ${smbToString cfg.invalidUsers}
+  else
+    ''
+      [global]
+      security = ${cfg.securityType}
+      passwd program = /run/wrappers/bin/passwd %u
+      invalid users = ${smbToString cfg.invalidUsers}
 
-    ${cfg.extraConfig}
+      ${cfg.extraConfig}
 
-    ${smbToString (map shareConfig (attrNames cfg.shares))}
-  '');
+      ${smbToString (map shareConfig (attrNames cfg.shares))}
+    '');
 
   # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
@@ -229,12 +226,11 @@ in {
           "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
       } ];
       # Always provide a smb.conf to shut up programs like smbclient and smbspool.
-      environment.etc."samba/smb.conf".source = mkOptionDefault (if
-        cfg.enable
-      then
-        configFile
-      else
-        pkgs.writeText "smb-dummy.conf" "# Samba is disabled.");
+      environment.etc."samba/smb.conf".source = mkOptionDefault
+        (if cfg.enable then
+          configFile
+        else
+          pkgs.writeText "smb-dummy.conf" "# Samba is disabled.");
     }
 
     (mkIf cfg.enable {

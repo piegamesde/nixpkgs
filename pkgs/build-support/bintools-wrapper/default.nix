@@ -16,14 +16,10 @@
   gnugrep ? null,
   netbsd ? null,
   netbsdCross ? null,
-  sharedLibraryLoader ? if
-    libc == null
-  then
+  sharedLibraryLoader ? if libc == null then
     null
   else if stdenvNoCC.targetPlatform.isNetBSD then
-    if
-      !(targetPackages ? netbsdCross)
-    then
+    if !(targetPackages ? netbsdCross) then
       netbsd.ld_elf_so
     else if libc != targetPackages.netbsdCross.headers then
       targetPackages.netbsdCross.ld_elf_so
@@ -76,34 +72,24 @@ let
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
 
-  libc_bin = if
-    libc == null
-  then
+  libc_bin = if libc == null then
     ""
   else
     getBin libc;
-  libc_dev = if
-    libc == null
-  then
+  libc_dev = if libc == null then
     ""
   else
     getDev libc;
-  libc_lib = if
-    libc == null
-  then
+  libc_lib = if libc == null then
     ""
   else
     getLib libc;
-  bintools_bin = if
-    nativeTools
-  then
+  bintools_bin = if nativeTools then
     ""
   else
     getBin bintools;
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin = if
-    nativeTools
-  then
+  coreutils_bin = if nativeTools then
     ""
   else
     getBin coreutils;
@@ -119,9 +105,7 @@ let
 
   # The dynamic linker has different names on different platforms. This is a
   # shell glob that ought to match it.
-  dynamicLinker = if
-    sharedLibraryLoader == null
-  then
+  dynamicLinker = if sharedLibraryLoader == null then
     ""
   else if targetPlatform.libc == "musl" then
     "${sharedLibraryLoader}/lib/ld-musl-*"
@@ -168,15 +152,11 @@ let
 
 in
 stdenv.mkDerivation {
-  pname = targetPrefix + (if
-    name != ""
-  then
+  pname = targetPrefix + (if name != "" then
     name
   else
     "${bintoolsName}-wrapper");
-  version = if
-    bintools == null
-  then
+  version = if bintools == null then
     ""
   else
     bintoolsVersion;
@@ -219,9 +199,7 @@ stdenv.mkDerivation {
       local wrapper="$2"
       export prog="$3"
       export use_response_file_by_default=${
-        if
-          isCCTools
-        then
+        if isCCTools then
           "1"
         else
           "0"
@@ -231,13 +209,13 @@ stdenv.mkDerivation {
     }
   ''
 
-    + (if
-      nativeTools
-    then ''
-      echo ${nativePrefix} > $out/nix-support/orig-bintools
+    + (if nativeTools then
+      ''
+        echo ${nativePrefix} > $out/nix-support/orig-bintools
 
-      ldPath="${nativePrefix}/bin"
-    '' else
+        ldPath="${nativePrefix}/bin"
+      ''
+    else
       ''
         echo $bintools_bin > $out/nix-support/orig-bintools
 
@@ -272,28 +250,29 @@ stdenv.mkDerivation {
         fi
       done
 
-    '' + (if
-      !useMacosReexportHack
-    then ''
-      if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
-        wrap ${targetPrefix}ld ${
-          ./ld-wrapper.sh
+    '' + (if !useMacosReexportHack then
+      ''
+        if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
+          wrap ${targetPrefix}ld ${
+            ./ld-wrapper.sh
+          } ''${ld:-$ldPath/${targetPrefix}ld}
+        fi
+      ''
+    else
+      ''
+        ldInner="${targetPrefix}ld-reexport-delegate"
+        wrap "$ldInner" ${
+          ./macos-sierra-reexport-hack.bash
         } ''${ld:-$ldPath/${targetPrefix}ld}
-      fi
-    '' else ''
-      ldInner="${targetPrefix}ld-reexport-delegate"
-      wrap "$ldInner" ${
-        ./macos-sierra-reexport-hack.bash
-      } ''${ld:-$ldPath/${targetPrefix}ld}
-      wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
-      unset ldInner
-    '') + ''
+        wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
+        unset ldInner
+      '') + ''
 
-      for variant in $ldPath/${targetPrefix}ld.*; do
-        basename=$(basename "$variant")
-        wrap $basename ${./ld-wrapper.sh} $variant
-      done
-    '';
+        for variant in $ldPath/${targetPrefix}ld.*; do
+          basename=$(basename "$variant")
+          wrap $basename ${./ld-wrapper.sh} $variant
+        done
+      '';
 
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
@@ -341,11 +320,11 @@ stdenv.mkDerivation {
           echo $dynamicLinker > $out/nix-support/dynamic-linker
 
           ${
-            if
-              targetPlatform.isDarwin
-            then ''
-              printf "export LD_DYLD_PATH=%q\n" "$dynamicLinker" >> $out/nix-support/setup-hook
-            '' else
+            if targetPlatform.isDarwin then
+              ''
+                printf "export LD_DYLD_PATH=%q\n" "$dynamicLinker" >> $out/nix-support/setup-hook
+              ''
+            else
               lib.optionalString (sharedLibraryLoader != null) ''
                 if [ -e ${sharedLibraryLoader}/lib/32/ld-linux.so.2 ]; then
                   echo ${sharedLibraryLoader}/lib/32/ld-linux.so.2 > $out/nix-support/dynamic-linker-m32
@@ -365,9 +344,7 @@ stdenv.mkDerivation {
     # binaries of libc).
     + optionalString (!nativeTools) ''
       printWords ${bintools_bin} ${
-        if
-          libc == null
-        then
+        if libc == null then
           ""
         else
           libc_bin
@@ -492,9 +469,7 @@ stdenv.mkDerivation {
     expandResponseParams =
       "${expand-response-params}/bin/expand-response-params";
     shell = getBin shell + shell.shellPath or "";
-    gnugrep_bin = if
-      nativeTools
-    then
+    gnugrep_bin = if nativeTools then
       ""
     else
       gnugrep;
@@ -504,16 +479,12 @@ stdenv.mkDerivation {
   };
 
   meta = let
-    bintools_ = if
-      bintools != null
-    then
+    bintools_ = if bintools != null then
       bintools
     else
       { };
   in
-  (if
-    bintools_ ? meta
-  then
+  (if bintools_ ? meta then
     removeAttrs bintools.meta [ "priority" ]
   else
     { }) // {

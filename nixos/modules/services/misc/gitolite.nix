@@ -200,31 +200,33 @@ in {
         config.programs.ssh.package
       ];
       script = let
-        rcSetupScriptIfCustomFile = if
-          manageGitoliteRc
-        then ''
-          cat <<END
-          <3>ERROR: NixOS can't apply declarative configuration
-          <3>to your .gitolite.rc file, because it seems to be
-          <3>already customized manually.
-          <3>See the services.gitolite.extraGitoliteRc option
-          <3>in "man configuration.nix" for more information.
-          END
-          # Not sure if the line below addresses the issue directly or just
-          # adds a delay, but without it our error message often doesn't
-          # show up in `systemctl status gitolite-init`.
-          journalctl --flush
-          exit 1
-        '' else ''
-          :
-        '';
-        rcSetupScriptIfDefaultFileOrStoreSymlink = if
-          manageGitoliteRc
-        then ''
-          ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
-        '' else ''
-          [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
-        '';
+        rcSetupScriptIfCustomFile = if manageGitoliteRc then
+          ''
+            cat <<END
+            <3>ERROR: NixOS can't apply declarative configuration
+            <3>to your .gitolite.rc file, because it seems to be
+            <3>already customized manually.
+            <3>See the services.gitolite.extraGitoliteRc option
+            <3>in "man configuration.nix" for more information.
+            END
+            # Not sure if the line below addresses the issue directly or just
+            # adds a delay, but without it our error message often doesn't
+            # show up in `systemctl status gitolite-init`.
+            journalctl --flush
+            exit 1
+          ''
+        else
+          ''
+            :
+          '';
+        rcSetupScriptIfDefaultFileOrStoreSymlink = if manageGitoliteRc then
+          ''
+            ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
+          ''
+        else
+          ''
+            [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
+          '';
       in
       ''
         if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||

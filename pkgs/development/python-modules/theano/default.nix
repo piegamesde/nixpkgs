@@ -38,9 +38,7 @@ let
     '';
 
   # Theano spews warnings and disabled flags if the compiler isn't named g++
-  cxx_compiler_name = if
-    stdenv.cc.isGNU
-  then
+  cxx_compiler_name = if stdenv.cc.isGNU then
     "g++"
   else if stdenv.cc.isClang then
     "clang++"

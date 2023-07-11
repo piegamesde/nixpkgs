@@ -403,9 +403,7 @@ in {
           mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
             mkValueString = v:
               with builtins;
-              if
-                isInt v
-              then
+              if isInt v then
                 toString v
               else if isString v then
                 v

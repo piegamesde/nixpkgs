@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
     # JQuake emits a lot of debug-like messages on stdout. Either drop the output
     # stream entirely or log them at 'user.debug' level.
     sed -i "/^java/ s/$/ ${
-      if
-        logOutput
-      then
+      if logOutput then
         "| logger -p user.debug"
       else
         "> \\/dev\\/null"

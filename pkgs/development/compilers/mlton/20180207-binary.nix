@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   pname = "mlton";
   version = "20180207";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     (fetchurl {
       url =
         "https://github.com/MLton/mlton/releases/download/on-${version}-release/${pname}-${version}-1.amd64-linux.tgz";

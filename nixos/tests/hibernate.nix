@@ -86,9 +86,7 @@ makeTest {
         machine = create_machine(
             {
                 "qemuFlags": "-cpu max ${
-                  if
-                    system == "x86_64-linux"
-                  then
+                  if system == "x86_64-linux" then
                     "-m 1024"
                   else
                     "-m 768 -enable-kvm -machine virt,gic-version=host"

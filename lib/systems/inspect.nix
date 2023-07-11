@@ -241,9 +241,7 @@ in rec {
   };
 
   matchAnyAttrs = patterns:
-    if
-      builtins.isList patterns
-    then
+    if builtins.isList patterns then
       attrs: any (pattern: matchAttrs pattern attrs) patterns
     else
       matchAttrs patterns;

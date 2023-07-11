@@ -172,9 +172,7 @@ in {
           --password-helper="${lsh}/sbin/lsh-pam-checkpw" \
           -p ${toString portNumber} \
           ${
-            if
-              interfaces == [ ]
-            then
+            if interfaces == [ ] then
               ""
             else
               (concatStrings (map (i: ''--interface="${i}"'') interfaces))
@@ -182,25 +180,19 @@ in {
           -h "${hostKey}" \
           ${optionalString (!syslog) "--no-syslog"} \
           ${
-            if
-              passwordAuthentication
-            then
+            if passwordAuthentication then
               "--password"
             else
               "--no-password"
           } \
           ${
-            if
-              publicKeyAuthentication
-            then
+            if publicKeyAuthentication then
               "--publickey"
             else
               "--no-publickey"
           } \
           ${
-            if
-              rootLogin
-            then
+            if rootLogin then
               "--root-login"
             else
               "--no-root-login"
@@ -210,25 +202,19 @@ in {
             ''--login-shell="${loginShell}"''
           } \
           ${
-            if
-              srpKeyExchange
-            then
+            if srpKeyExchange then
               "--srp-keyexchange"
             else
               "--no-srp-keyexchange"
           } \
           ${
-            if
-              !tcpForwarding
-            then
+            if !tcpForwarding then
               "--no-tcpip-forward"
             else
               "--tcpip-forward"
           } \
           ${
-            if
-              x11Forwarding
-            then
+            if x11Forwarding then
               "--x11-forward"
             else
               "--no-x11-forward"

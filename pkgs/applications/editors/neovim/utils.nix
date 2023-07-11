@@ -64,19 +64,14 @@ let
         };
       in
       map (x:
-        defaultPlugin // (if
-          (x ? plugin)
-        then
+        defaultPlugin // (if (x ? plugin) then
           x
-        else {
-          plugin = x;
-        })) plugins
+        else
+          { plugin = x; })) plugins
       ;
 
       pluginRC = lib.foldl (acc: p:
-        if
-          p.config != null
-        then
+        if p.config != null then
           acc ++ [ p.config ]
         else
           acc) [ ] pluginsNormalized;
@@ -172,9 +167,7 @@ let
     let
 
       # we convert from the old configure.format to
-      plugins = if
-        builtins.hasAttr "plug" configure
-      then
+      plugins = if builtins.hasAttr "plug" configure then
         throw
         "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
       else
@@ -232,9 +225,7 @@ let
       };
 
       genProviderCommand = prog: withProg:
-        if
-          withProg
-        then
+        if withProg then
           "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'"
         else
           "vim.g.loaded_${prog}_provider=0";

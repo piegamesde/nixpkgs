@@ -9,9 +9,7 @@ with lib;
 
 let
   boolToStr = value:
-    if
-      value
-    then
+    if value then
       "on"
     else
       "off";

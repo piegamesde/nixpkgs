@@ -102,25 +102,19 @@ stdenv.mkDerivation {
     "--with-gif"
     "--disable-mmx-optimization"
     "--${
-      if
-        static
-      then
+      if static then
         "enable"
       else
         "disable"
     }-staticlibs"
     "--${
-      if
-        !static
-      then
+      if !static then
         "enable"
       else
         "disable"
     }-sharedlibs"
     "--${
-      if
-        withX
-      then
+      if withX then
         "with"
       else
         "without"

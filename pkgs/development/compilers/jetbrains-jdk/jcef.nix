@@ -76,9 +76,7 @@ let
     udev
   ];
 
-  buildType = if
-    debugBuild
-  then
+  buildType = if debugBuild then
     "Debug"
   else
     "Release";

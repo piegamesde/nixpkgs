@@ -9,9 +9,7 @@
   symlinkJoin,
   tbb,
   hostSystem ? "CPP",
-  deviceSystem ? if
-    config.cudaSupport or false
-  then
+  deviceSystem ? if config.cudaSupport or false then
     "CUDA"
   else
     "OMP"
@@ -93,9 +91,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DTHRUST_INCLUDE_CUB_CMAKE=${
-      if
-        cudaSupport
-      then
+      if cudaSupport then
         "ON"
       else
         "OFF"

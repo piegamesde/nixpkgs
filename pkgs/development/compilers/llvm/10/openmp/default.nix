@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
     cmake
     perl
   ];
-  buildInputs = [ (if
-    stdenv.buildPlatform == stdenv.hostPlatform
-  then
+  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then
     llvm
   else
     targetLlvm) ];

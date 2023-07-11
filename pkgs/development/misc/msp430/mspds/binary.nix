@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = ".";
 
-  libname = if
-    stdenv.hostPlatform.isWindows
-  then
+  libname = if stdenv.hostPlatform.isWindows then
     "MSP430${archPostfix}.dll"
   else
     "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}";

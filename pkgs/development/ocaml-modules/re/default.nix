@@ -8,15 +8,16 @@
 }:
 
 let
-  version_sha = if
-    lib.versionAtLeast ocaml.version "4.08"
-  then {
-    version = "1.10.4";
-    sha256 = "sha256-g+s+QwCqmx3HggdJAQ9DYuqDUkdCEwUk14wgzpnKdHw=";
-  } else {
-    version = "1.9.0";
-    sha256 = "1gas4ky49zgxph3870nffzkr6y41kkpqp4nj38pz1gh49zcf12aj";
-  };
+  version_sha = if lib.versionAtLeast ocaml.version "4.08" then
+    {
+      version = "1.10.4";
+      sha256 = "sha256-g+s+QwCqmx3HggdJAQ9DYuqDUkdCEwUk14wgzpnKdHw=";
+    }
+  else
+    {
+      version = "1.9.0";
+      sha256 = "1gas4ky49zgxph3870nffzkr6y41kkpqp4nj38pz1gh49zcf12aj";
+    };
 
 in
 buildDunePackage (rec {

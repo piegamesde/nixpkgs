@@ -50,9 +50,7 @@ let
     mkdir $out
   '' + (lib.concatStrings (lib.mapAttrsToList (name: grammar: ''
     ln -s ${
-      if
-        grammar ? src
-      then
+      if grammar ? src then
         grammar.src
       else
         fetchGrammar grammar

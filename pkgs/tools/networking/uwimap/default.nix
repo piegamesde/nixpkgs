@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
-    (if
-      stdenv.isDarwin
-    then
+    (if stdenv.isDarwin then
       "osx"
     else
       "lnp") # Linux with PAM modules;
@@ -33,9 +31,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     openssl
-    (if
-      stdenv.isDarwin
-    then
+    (if stdenv.isDarwin then
       libkrb5
     else
       pam) # Matches the make target.

@@ -6,17 +6,18 @@
   stdenv,
 }:
 let
-  versions = if
-    stdenv.isLinux
-  then {
-    stable = "0.0.26";
-    ptb = "0.0.42";
-    canary = "0.0.151";
-  } else {
-    stable = "0.0.273";
-    ptb = "0.0.59";
-    canary = "0.0.283";
-  };
+  versions = if stdenv.isLinux then
+    {
+      stable = "0.0.26";
+      ptb = "0.0.42";
+      canary = "0.0.151";
+    }
+  else
+    {
+      stable = "0.0.273";
+      ptb = "0.0.59";
+      canary = "0.0.283";
+    };
   version = versions.${branch};
   srcs = rec {
     x86_64-linux = {
@@ -73,9 +74,7 @@ let
       "aarch64-darwin"
     ];
   };
-  package = if
-    stdenv.isLinux
-  then
+  package = if stdenv.isLinux then
     ./linux.nix
   else
     ./darwin.nix;
@@ -94,9 +93,7 @@ let
       };
       ptb = rec {
         pname = "discord-ptb";
-        binaryName = if
-          stdenv.isLinux
-        then
+        binaryName = if stdenv.isLinux then
           "DiscordPTB"
         else
           desktopName;
@@ -104,9 +101,7 @@ let
       };
       canary = rec {
         pname = "discord-canary";
-        binaryName = if
-          stdenv.isLinux
-        then
+        binaryName = if stdenv.isLinux then
           "DiscordCanary"
         else
           desktopName;

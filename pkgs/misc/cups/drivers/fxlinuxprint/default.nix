@@ -7,9 +7,7 @@
   cups,
 }:
 let
-  debPlatform = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  debPlatform = if stdenv.hostPlatform.system == "x86_64-linux" then
     "amd64"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "i386"

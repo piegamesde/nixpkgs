@@ -27,9 +27,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     six
     numpy
-  ] ++ lib.optional withTreeVisualization (if
-    isPy3k
-  then
+  ] ++ lib.optional withTreeVisualization (if isPy3k then
     pyqt5
   else
     pyqt4) ++ lib.optional withXmlSupport lxml;

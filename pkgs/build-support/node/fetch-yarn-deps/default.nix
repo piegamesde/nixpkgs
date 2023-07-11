@@ -72,18 +72,21 @@ in {
         ...
       }@args:
       let
-        hash_ = if
-          hash != ""
-        then {
-          outputHashAlgo = null;
-          outputHash = hash;
-        } else if sha256 != "" then {
-          outputHashAlgo = "sha256";
-          outputHash = sha256;
-        } else {
-          outputHashAlgo = "sha256";
-          outputHash = lib.fakeSha256;
-        };
+        hash_ = if hash != "" then
+          {
+            outputHashAlgo = null;
+            outputHash = hash;
+          }
+        else if sha256 != "" then
+          {
+            outputHashAlgo = "sha256";
+            outputHash = sha256;
+          }
+        else
+          {
+            outputHashAlgo = "sha256";
+            outputHash = lib.fakeSha256;
+          };
       in
       stdenv.mkDerivation ({
         inherit name;

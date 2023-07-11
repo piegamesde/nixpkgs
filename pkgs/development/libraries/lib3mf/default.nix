@@ -47,7 +47,10 @@ stdenv.mkDerivation rec {
     libzip
     gtest
     openssl
-  ] ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ]);
+  ] ++ (if stdenv.isDarwin then
+    [ libossp_uuid ]
+  else
+    [ libuuid ]);
 
   postPatch = ''
     # fix libdir=''${exec_prefix}/@CMAKE_INSTALL_LIBDIR@

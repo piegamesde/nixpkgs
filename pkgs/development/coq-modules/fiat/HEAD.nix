@@ -12,9 +12,7 @@ mkCoqDerivation rec {
   repo = "fiat";
   displayVersion = { fiat = v: "unstable-${v}"; };
   inherit version;
-  defaultVersion = if
-    coq.coq-version == "8.5"
-  then
+  defaultVersion = if coq.coq-version == "8.5" then
     "2016-10-24"
   else
     null;

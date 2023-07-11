@@ -252,9 +252,7 @@ in {
       '';
     };
 
-    system.nssModules = mkIf cfg.nsswitch (singleton (if
-      cfg.daemon.enable
-    then
+    system.nssModules = mkIf cfg.nsswitch (singleton (if cfg.daemon.enable then
       nss_pam_ldapd
     else
       nss_ldap));

@@ -57,7 +57,10 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     http2 = [ h2 ];
     socks = [ socksio ];
-    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
+    brotli = if isPyPy then
+      [ brotlicffi ]
+    else
+      [ brotli ];
     cli = [
       click
       rich

@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   version = "2.0.0-M17";
   versionWithDate = "2.0.0.v20210717-M17";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "mirror://apache/directory/studio/${versionWithDate}/ApacheDirectoryStudio-${versionWithDate}-linux.gtk.x86_64.tar.gz";

@@ -122,9 +122,7 @@ in {
             User = "minio";
             Group = "minio";
             LimitNOFILE = 65536;
-            EnvironmentFile = if
-              (cfg.rootCredentialsFile != null)
-            then
+            EnvironmentFile = if (cfg.rootCredentialsFile != null) then
               cfg.rootCredentialsFile
             else if ((cfg.accessKey != "") || (cfg.secretKey != "")) then
               (legacyCredentials cfg)
@@ -133,9 +131,7 @@ in {
           };
           environment = {
             MINIO_REGION = "${cfg.region}";
-            MINIO_BROWSER = "${if
-              cfg.browser
-            then
+            MINIO_BROWSER = "${if cfg.browser then
               "on"
             else
               "off"}";

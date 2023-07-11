@@ -164,16 +164,12 @@ in {
         Group = cfg.group;
       };
       postStart = let
-        scheme = if
-          configOptions.http.https-enabled
-        then
+        scheme = if configOptions.http.https-enabled then
           "-k https"
         else
           "http";
         bindAddr = (ba:
-          if
-            hasPrefix ":" ba
-          then
+          if hasPrefix ":" ba then
             "127.0.0.1${ba}"
           else
             "${ba}") (toString configOptions.http.bind-address);

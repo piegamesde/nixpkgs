@@ -24,9 +24,7 @@
 
 let
   zero_or_one = cond:
-    if
-      cond
-    then
+    if cond then
       1
     else
       0;

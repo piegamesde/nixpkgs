@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_GUI=${
-      if
-        withGUI
-      then
+      if withGUI then
         "ON"
       else
         "OFF"
@@ -63,9 +61,7 @@ stdenv.mkDerivation rec {
     "-DSYSTEM_SDL2=ON"
     "-DSYSTEM_ZLIB=ON"
     "-DWITH_JACK=${
-      if
-        withJACK
-      then
+      if withJACK then
         "ON"
       else
         "OFF"

@@ -66,9 +66,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = let
     mkFlag = opt:
-      if
-        opt
-      then
+      if opt then
         "ON"
       else
         "OFF";

@@ -111,34 +111,33 @@ let
       }: ''
         zone "${name}" {
           type ${
-            if
-              master
-            then
+            if master then
               "master"
             else
               "slave"
           };
           file "${file}";
           ${
-            if
-              master
-            then ''
-              allow-transfer {
-                ${
-                  concatMapStrings (ip: ''
-                    ${ip};
-                  '') slaves
-                }
-              };
-            '' else ''
-              masters {
-                ${
-                  concatMapStrings (ip: ''
-                    ${ip};
-                  '') masters
-                }
-              };
-            ''
+            if master then
+              ''
+                allow-transfer {
+                  ${
+                    concatMapStrings (ip: ''
+                      ${ip};
+                    '') slaves
+                  }
+                };
+              ''
+            else
+              ''
+                masters {
+                  ${
+                    concatMapStrings (ip: ''
+                      ${ip};
+                    '') masters
+                  }
+                };
+              ''
           }
           allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
           ${extraConfig}

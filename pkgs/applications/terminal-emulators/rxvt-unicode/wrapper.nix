@@ -28,9 +28,7 @@ let
       deps = p.perlPackages or [ ];
     in
     map (x:
-      if
-        x == "self"
-      then
+      if x == "self" then
         p
       else
         x) deps

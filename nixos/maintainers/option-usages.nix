@@ -142,7 +142,10 @@ let
   }) introspectionModules;
 
   displayOptionsGraph = let
-    checkList = if testOption != null then [ testOption ] else testOptions;
+    checkList = if testOption != null then
+      [ testOption ]
+    else
+      testOptions;
     checkAll = checkList == [ ];
   in
   flip filter graph ({

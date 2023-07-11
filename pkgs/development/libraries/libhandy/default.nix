@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dgtk_doc=true"
     "-Dglade_catalog=${
-      if
-        enableGlade
-      then
+      if enableGlade then
         "enabled"
       else
         "disabled"

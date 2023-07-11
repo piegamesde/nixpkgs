@@ -98,9 +98,7 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.targetPlatform.isMips64n64
     # this patch is from debian:
     # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-    (if
-      stdenv.targetPlatform.isMusl
-    then
+    (if stdenv.targetPlatform.isMusl then
       substitute {
         src = ./mips64-default-n64.patch;
         replacements = [
@@ -175,9 +173,7 @@ stdenv.mkDerivation {
 
   # As binutils takes part in the stdenv building, we don't want references
   # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
-  env.NIX_CFLAGS_COMPILE = if
-    hostPlatform.isDarwin
-  then
+  env.NIX_CFLAGS_COMPILE = if hostPlatform.isDarwin then
     "-Wno-string-plus-int -Wno-deprecated-declarations"
   else
     "-static-libgcc";
@@ -218,15 +214,16 @@ stdenv.mkDerivation {
     ++ lib.optionals enableGold [
       "--enable-gold"
       "--enable-plugins"
-    ] ++ (if
-      enableShared
-    then [
-      "--enable-shared"
-      "--disable-static"
-    ] else [
-      "--disable-shared"
-      "--enable-static"
-    ]);
+    ] ++ (if enableShared then
+      [
+        "--enable-shared"
+        "--disable-static"
+      ]
+    else
+      [
+        "--disable-shared"
+        "--enable-static"
+      ]);
 
   # Fails
   doCheck = false;
@@ -236,9 +233,7 @@ stdenv.mkDerivation {
   postFixup = "";
 
   # Break dependency on pkgsBuildBuild.gcc when building a cross-binutils
-  stripDebugList = if
-    stdenv.hostPlatform != stdenv.targetPlatform
-  then
+  stripDebugList = if stdenv.hostPlatform != stdenv.targetPlatform then
     "bin lib ${stdenv.hostPlatform.config}"
   else
     null;

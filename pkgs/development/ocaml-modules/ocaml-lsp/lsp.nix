@@ -27,9 +27,7 @@ buildDunePackage rec {
   pname = "lsp";
   inherit (jsonrpc) version src;
   duneVersion = "3";
-  minimalOCamlVersion = if
-    lib.versionAtLeast version "1.7.0"
-  then
+  minimalOCamlVersion = if lib.versionAtLeast version "1.7.0" then
     "4.12"
   else
     "4.06";
@@ -42,50 +40,55 @@ buildDunePackage rec {
     rm -r ocaml-lsp-server/vendor/{octavius,uutf,omd,cmdliner}
   '';
 
-  buildInputs = if
-    lib.versionAtLeast version "1.12.0"
-  then [
-    pp
-    re
-    ppx_yojson_conv_lib
-    octavius
-    dune-build-info
-    dune-rpc
-    omd
-    cmdliner
-    ocamlformat-rpc-lib
-    dyn
-    stdune
-    chrome-trace
-  ] else if lib.versionAtLeast version "1.10.0" then [
-    pp
-    re
-    ppx_yojson_conv_lib
-    octavius
-    dune-build-info
-    dune-rpc
-    omd
-    cmdliner
-    ocamlformat-rpc-lib
-    dyn
-    stdune
-  ] else if lib.versionAtLeast version "1.7.0" then [
-    pp
-    re
-    ppx_yojson_conv_lib
-    octavius
-    dune-build-info
-    omd
-    cmdliner
-    ocamlformat-rpc-lib
-  ] else [
-    ppx_yojson_conv_lib
-    ocaml-syntax-shims
-    octavius
-    dune-build-info
-    omd
-    cmdliner
-  ];
+  buildInputs = if lib.versionAtLeast version "1.12.0" then
+    [
+      pp
+      re
+      ppx_yojson_conv_lib
+      octavius
+      dune-build-info
+      dune-rpc
+      omd
+      cmdliner
+      ocamlformat-rpc-lib
+      dyn
+      stdune
+      chrome-trace
+    ]
+  else if lib.versionAtLeast version "1.10.0" then
+    [
+      pp
+      re
+      ppx_yojson_conv_lib
+      octavius
+      dune-build-info
+      dune-rpc
+      omd
+      cmdliner
+      ocamlformat-rpc-lib
+      dyn
+      stdune
+    ]
+  else if lib.versionAtLeast version "1.7.0" then
+    [
+      pp
+      re
+      ppx_yojson_conv_lib
+      octavius
+      dune-build-info
+      omd
+      cmdliner
+      ocamlformat-rpc-lib
+    ]
+  else
+    [
+      ppx_yojson_conv_lib
+      ocaml-syntax-shims
+      octavius
+      dune-build-info
+      omd
+      cmdliner
+    ];
 
   nativeBuildInputs = lib.optional (lib.versionOlder version "1.7.0") cppo;
 

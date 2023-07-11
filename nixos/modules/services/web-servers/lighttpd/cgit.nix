@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.services.lighttpd.cgit;
-  pathPrefix = if
-    stringLength cfg.subdir == 0
-  then
+  pathPrefix = if stringLength cfg.subdir == 0 then
     ""
   else
     "/" + cfg.subdir;

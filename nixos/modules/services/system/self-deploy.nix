@@ -17,9 +17,7 @@ let
   renderNixArgs = args:
     let
       toArg = key: value:
-        if
-          builtins.isString value
-        then
+        if builtins.isString value then
           " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
         else
           " --arg ${lib.escapeShellArg key} ${

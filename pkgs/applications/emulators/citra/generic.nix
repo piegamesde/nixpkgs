@@ -113,9 +113,7 @@ stdenv.mkDerivation rec {
       Using the canary branch is recommended if you would like to try out
       experimental features, with a cost of stability.
     '';
-    mainProgram = if
-      enableQt
-    then
+    mainProgram = if enableQt then
       "citra-qt"
     else
       "citra";

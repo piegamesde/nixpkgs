@@ -161,9 +161,7 @@ stdenv.mkDerivation rec {
     "--disable-docs"
     "--as=yasm"
     # Limit default decoder max to WHXGA
-    (if
-      sizeLimitSupport
-    then
+    (if sizeLimitSupport then
       "--size-limit=5120x3200"
     else
       null)
@@ -181,9 +179,7 @@ stdenv.mkDerivation rec {
     (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
     (enableFeature errorConcealmentSupport "error-concealment")
     # Shared libraries are only supported on ELF platforms
-    (if
-      isDarwin || isCygwin
-    then
+    (if isDarwin || isCygwin then
       "--enable-static --disable-shared"
     else
       "--enable-shared")
@@ -210,12 +206,8 @@ stdenv.mkDerivation rec {
     # See all_platforms: https://github.com/webmproject/libvpx/blob/master/configure
     # Darwin versions: 10.4=8, 10.5=9, 10.6=10, 10.7=11, 10.8=12, 10.9=13, 10.10=14
     "--force-target=${stdenv.hostPlatform.config}${
-      if
-        stdenv.hostPlatform.isDarwin
-      then
-        if
-          stdenv.hostPlatform.osxMinVersion == "10.10"
-        then
+      if stdenv.hostPlatform.isDarwin then
+        if stdenv.hostPlatform.osxMinVersion == "10.10" then
           "14"
         else if stdenv.hostPlatform.osxMinVersion == "10.9" then
           "13"

@@ -23,9 +23,7 @@ rec {
   } nixpkgsArgs);
   inherit lib;
 
-  hydraJob' = if
-    scrubJobs
-  then
+  hydraJob' = if scrubJobs then
     hydraJob
   else
     id;
@@ -54,9 +52,7 @@ rec {
 
     in
     system:
-    if
-      system == "x86_64-linux"
-    then
+    if system == "x86_64-linux" then
       pkgs_x86_64_linux
     else if system == "i686-linux" then
       pkgs_i686_linux
@@ -99,12 +95,11 @@ rec {
   crossSystem:
   let
     candidate = examplesByConfig.${crossSystem.config} or null;
-  in if
-    crossSystem == null
-  then
+  in if crossSystem == null then
     native
-  else if candidate != null
-  && lib.matchAttrs crossSystem candidate.crossSystem then
+  else if
+    candidate != null && lib.matchAttrs crossSystem candidate.crossSystem
+  then
     candidate.pkgsFor
   else
     mkPkgsFor crossSystem
@@ -132,9 +127,7 @@ rec {
   ;
 
   assertTrue = bool:
-    if
-      bool
-    then
+    if bool then
       pkgs.runCommand "evaluated-to-true" { } "touch $out"
     else
       pkgs.runCommand "evaluated-to-false" { } "false";
@@ -189,14 +182,13 @@ rec {
      set of meta.platforms values.
   */
   packagePlatforms = mapAttrs (name: value:
-    if
-      isDerivation value
-    then
+    if isDerivation value then
       value.meta.hydraPlatforms or (lib.subtractLists
         (value.meta.badPlatforms or [ ])
         (value.meta.platforms or [ "x86_64-linux" ]))
-    else if value.recurseForDerivations or false
-    || value.recurseForRelease or false then
+    else if
+      value.recurseForDerivations or false || value.recurseForRelease or false
+    then
       packagePlatforms value
     else
       [ ]);

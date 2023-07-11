@@ -45,9 +45,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
     # Pick an SDK
-    apple_sdk = if
-      stdenv.hostPlatform.isAarch64
-    then
+    apple_sdk = if stdenv.hostPlatform.isAarch64 then
       apple_sdk_11_0
     else
       apple_sdk_10_12;
@@ -64,9 +62,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     chooseLibs = (
       # There are differences in which libraries are exported. Avoid evaluation
       # errors when a package is not provided.
-      selectAttrs (if
-        useAppleSDKLibs
-      then
+      selectAttrs (if useAppleSDKLibs then
         apple_sdk
       else
         appleSourcePackages) [
@@ -78,9 +74,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           "configd"
           "IOKit"
         ]) // {
-          inherit (if
-            useAppleSDKLibs
-          then
+          inherit (if useAppleSDKLibs then
             apple_sdk.frameworks
           else
             appleSourcePackages)
@@ -101,9 +95,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     binutils = pkgs.wrapBintoolsWith {
-      libc = if
-        stdenv.targetPlatform != stdenv.hostPlatform
-      then
+      libc = if stdenv.targetPlatform != stdenv.hostPlatform then
         pkgs.libcCross
       else
         pkgs.stdenv.cc.libc;
@@ -117,9 +109,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     binutilsDualAs = pkgs.wrapBintoolsWith {
-      libc = if
-        stdenv.targetPlatform != stdenv.hostPlatform
-      then
+      libc = if stdenv.targetPlatform != stdenv.hostPlatform then
         pkgs.libcCross
       else
         pkgs.stdenv.cc.libc;
@@ -132,18 +122,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         stdenv
       else
         pkgs.libcxxStdenv;
     };
 
     cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
-      stdenv = if
-        stdenv.isDarwin
-      then
+      stdenv = if stdenv.isDarwin then
         stdenv
       else
         pkgs.libcxxStdenv;

@@ -190,9 +190,7 @@ in {
 
           script = let
             receiverCommand = postgresqlPackage:
-              if
-                (versionAtLeast postgresqlPackage.version "10")
-              then
+              if (versionAtLeast postgresqlPackage.version "10") then
                 "${postgresqlPackage}/bin/pg_receivewal"
               else
                 "${postgresqlPackage}/bin/pg_receivexlog";

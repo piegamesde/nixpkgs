@@ -108,15 +108,16 @@ stdenv.mkDerivation {
     fi
     EOF
         ${
-          if
-            stdenv.hostPlatform == stdenv.buildPlatform
-          then ''
-            $out/bin/zsh -c "zcompile $out/etc/zshenv"
-          '' else ''
-            ${
-              lib.getBin buildPackages.zsh
-            }/bin/zsh -c "zcompile $out/etc/zshenv"
-          ''
+          if stdenv.hostPlatform == stdenv.buildPlatform then
+            ''
+              $out/bin/zsh -c "zcompile $out/etc/zshenv"
+            ''
+          else
+            ''
+              ${
+                lib.getBin buildPackages.zsh
+              }/bin/zsh -c "zcompile $out/etc/zshenv"
+            ''
         }
         mv $out/etc/zshenv $out/etc/zshenv_zwc_is_used
 

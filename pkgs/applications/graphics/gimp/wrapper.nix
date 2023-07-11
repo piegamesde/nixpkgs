@@ -12,9 +12,7 @@ let
   allPlugins =
     lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false)
     (lib.attrValues gimpPlugins);
-  selectedPlugins = lib.filter (pkg: pkg != gimp) (if
-    plugins == null
-  then
+  selectedPlugins = lib.filter (pkg: pkg != gimp) (if plugins == null then
     allPlugins
   else
     plugins);

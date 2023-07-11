@@ -82,9 +82,7 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if
-          config.networking.nftables.enable
-        then
+        default = if config.networking.nftables.enable then
           pkgs.nftables
         else
           pkgs.iptables;

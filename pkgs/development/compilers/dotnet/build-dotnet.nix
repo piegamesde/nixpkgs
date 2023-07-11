@@ -10,9 +10,7 @@ assert builtins.elem type [
   "runtime"
   "sdk"
 ];
-assert if
-  type == "sdk"
-then
+assert if type == "sdk" then
   packages != null
 else
   true;
@@ -38,9 +36,7 @@ else
 }:
 
 let
-  pname = if
-    type == "aspnetcore"
-  then
+  pname = if type == "aspnetcore" then
     "aspnetcore-runtime"
   else if type == "runtime" then
     "dotnet-runtime"
@@ -53,9 +49,7 @@ let
     sdk = ".NET SDK ${version}";
   };
 
-  packageDeps = if
-    type == "sdk"
-  then
+  packageDeps = if type == "sdk" then
     mkNugetDeps {
       name = "${pname}-${version}-deps";
       nugetDeps = packages;
@@ -143,9 +137,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     inherit icu;
     packages = packageDeps;
 
-    updateScript = if
-      type == "sdk"
-    then
+    updateScript = if type == "sdk" then
       let
         majorVersion = with lib;
           concatStringsSep "." (take 2 (splitVersion version));

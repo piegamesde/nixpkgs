@@ -30,9 +30,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    (if
-      stdenv.isDarwin
-    then
+    (if stdenv.isDarwin then
       fuse
     else
       fuse3)

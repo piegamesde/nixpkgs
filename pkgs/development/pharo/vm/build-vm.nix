@@ -38,26 +38,20 @@ stdenv.mkDerivation rec {
 
     # Command line invocation name.
     # Distinct name for 64-bit builds because they only work with 64-bit images.
-  cmd = if
-    stdenv.is64bit
-  then
+  cmd = if stdenv.is64bit then
     "pharo-spur64"
   else
     "pharo-spur";
 
   # Choose desired VM sources. Separate for 32-bit and 64-bit VM.
   # (Could extent to building more VM variants e.g. SpurV3, Sista, etc.)
-  vm = if
-    stdenv.is64bit
-  then
+  vm = if stdenv.is64bit then
     "spur64src"
   else
     "spursrc";
 
   # Choose target platform name in the format used by the vm.
-  flavor = if
-    stdenv.isLinux && stdenv.isi686
-  then
+  flavor = if stdenv.isLinux && stdenv.isi686 then
     "linux32x86"
   else if stdenv.isLinux && stdenv.isx86_64 then
     "linux64x64"

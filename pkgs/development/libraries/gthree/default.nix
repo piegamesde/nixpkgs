@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgtk_doc=${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "false"
       else
         "true"

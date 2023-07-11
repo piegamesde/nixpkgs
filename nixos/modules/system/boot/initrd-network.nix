@@ -14,9 +14,7 @@ let
   dhcpInterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true)
     (config.networking.interfaces or { }));
   doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
-  dhcpIfShellExpr = if
-    config.networking.useDHCP
-  then
+  dhcpIfShellExpr = if config.networking.useDHCP then
     "$(ls /sys/class/net/ | grep -v ^lo$)"
   else
     lib.concatMapStringsSep " " lib.escapeShellArg dhcpInterfaces;

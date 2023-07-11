@@ -45,21 +45,22 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/bin
-  '' + (if
-    buildNativeImage
-  then ''
-    mv dapl $out/bin
-  '' else ''
-    mkdir -p $out/share/${pname}
-    mv APL.jar $out/share/${pname}/
+  '' + (if buildNativeImage then
+    ''
+      mv dapl $out/bin
+    ''
+  else
+    ''
+      mkdir -p $out/share/${pname}
+      mv APL.jar $out/share/${pname}/
 
-    makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
-      --add-flags "-jar $out/share/${pname}/APL.jar"
-  '') + ''
-    ln -s $out/bin/dapl $out/bin/apl
+      makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
+        --add-flags "-jar $out/share/${pname}/APL.jar"
+    '') + ''
+      ln -s $out/bin/dapl $out/bin/apl
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/dzaima/APL";

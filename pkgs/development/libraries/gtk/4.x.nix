@@ -156,9 +156,7 @@ stdenv.mkDerivation rec {
     "-Dgtk_doc=${lib.boolToString x11Support}"
     "-Dbuild-tests=false"
     "-Dtracker=${
-      if
-        trackerSupport
-      then
+      if trackerSupport then
         "enabled"
       else
         "disabled"

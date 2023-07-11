@@ -30,12 +30,12 @@ stdenv.mkDerivation rec {
     qtdeclarative
   ];
 
-  installPhase = if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    cp -r DwarfTherapist.app $out/Applications
-  '' else
+  installPhase = if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      cp -r DwarfTherapist.app $out/Applications
+    ''
+  else
     null;
 
   dontWrapQtApps = true;

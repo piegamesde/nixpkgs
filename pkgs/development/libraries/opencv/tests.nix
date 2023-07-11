@@ -40,9 +40,7 @@ let
     "stitching"
     "video"
   ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ];
-  testRunner = if
-    stdenv.isDarwin
-  then
+  testRunner = if stdenv.isDarwin then
     ""
   else
     "${lib.getExe xvfb-run} -a ";

@@ -71,9 +71,7 @@ let
     fetchurl {
       url =
         "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-          if
-            isLinux
-          then
+          if isLinux then
             "linux"
           else
             "darwin"
@@ -148,9 +146,7 @@ let
             rest = builtins.tail (builtins.tail path);
           in {
             system = builtins.head path;
-            phpMajor = if
-              builtins.length rest == 0
-            then
+            phpMajor = if builtins.length rest == 0 then
               null
             else
               builtins.head rest;

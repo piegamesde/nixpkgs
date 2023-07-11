@@ -19,9 +19,7 @@
 }@args:
 
 let
-  d2u = if
-    normalizeCore
-  then
+  d2u = if normalizeCore then
     (lib.replaceStrings [ "-" ] [ "_" ])
   else
     (x: x);

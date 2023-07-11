@@ -11,14 +11,10 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    unit = if
-      nftables
-    then
+    unit = if nftables then
       "nftables"
     else
-      (if
-        withFirewall
-      then
+      (if withFirewall then
         "firewall"
       else
         "nat");
@@ -35,12 +31,11 @@ import ./make-test-python.nix ({
       networking.nat.externalInterface = "eth1";
     } ];
   in {
-    name = "nat" + (lib.optionalString nftables "Nftables") + (if
-      withFirewall
-    then
-      "WithFirewall"
-    else
-      "Standalone");
+    name = "nat" + (lib.optionalString nftables "Nftables")
+      + (if withFirewall then
+        "WithFirewall"
+      else
+        "Standalone");
     meta = with pkgs.lib.maintainers; {
       maintainers = [
         eelco

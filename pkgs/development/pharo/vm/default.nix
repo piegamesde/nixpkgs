@@ -12,9 +12,7 @@ let
 in rec {
   cog32 = i686.cog;
   spur32 = i686.spur;
-  spur64 = if
-    stdenv.is64bit
-  then
+  spur64 = if stdenv.is64bit then
     native.spur
   else
     "none";

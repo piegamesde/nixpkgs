@@ -86,9 +86,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     perl
     pkg-config
     # 78 requires python up to 3.9
-    (if
-      lib.versionOlder version "91"
-    then
+    (if lib.versionOlder version "91" then
       python39
     else
       python3)
@@ -102,9 +100,7 @@ stdenv.mkDerivation (finalAttrs: rec {
   ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = [
-    (if
-      lib.versionOlder version "91"
-    then
+    (if lib.versionOlder version "91" then
       icu67
     else
       icu)

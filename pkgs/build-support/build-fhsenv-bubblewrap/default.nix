@@ -34,9 +34,7 @@ assert (pname != null || version != null) -> (name == null && pname
 
 with builtins;
 let
-  pname = if
-    args.name != null
-  then
+  pname = if args.name != null then
     args.name
   else
     args.pname;

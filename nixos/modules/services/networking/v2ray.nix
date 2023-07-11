@@ -68,9 +68,7 @@ with lib;
 
   config = let
     cfg = config.services.v2ray;
-    configFile = if
-      cfg.configFile != null
-    then
+    configFile = if cfg.configFile != null then
       cfg.configFile
     else
       pkgs.writeTextFile {

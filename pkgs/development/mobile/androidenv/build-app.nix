@@ -56,9 +56,7 @@ stdenv.mkDerivation ({
       ${androidsdk}/libexec/android-sdk/ndk-bundle/ndk-build
     ''}
     ant ${antFlags} ${
-      if
-        release
-      then
+      if release then
         "release"
       else
         "debug"
@@ -67,9 +65,7 @@ stdenv.mkDerivation ({
   installPhase = ''
     mkdir -p $out
     mv bin/*-${
-      if
-        release
-      then
+      if release then
         "release"
       else
         "debug"

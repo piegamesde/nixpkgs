@@ -28,9 +28,7 @@
 }:
 
 let
-  bin_folder = if
-    stdenv.isDarwin
-  then
+  bin_folder = if stdenv.isDarwin then
     "darwin"
   else
     "linux";

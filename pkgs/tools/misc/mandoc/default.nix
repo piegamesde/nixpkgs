@@ -11,9 +11,7 @@ let
   # Name of an UTF-8 locale _always_ present at runtime, used for UTF-8 support
   # (locale set by the user may differ). This would usually be C.UTF-8, but
   # darwin has no such locale.
-  utf8Locale = if
-    stdenv.hostPlatform.isDarwin
-  then
+  utf8Locale = if stdenv.hostPlatform.isDarwin then
     "en_US.UTF-8"
   else
     "C.UTF-8";

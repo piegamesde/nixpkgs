@@ -11,9 +11,7 @@
 }:
 
 let
-  aPackage = if
-    nvidia_x11 == null
-  then
+  aPackage = if nvidia_x11 == null then
     libGL
   else if nvidia_x11.useGLVND then
     libglvnd
@@ -57,9 +55,7 @@ stdenv.mkDerivation {
     ln -s $out/lib/libGL.so.1 $out/lib/libGL.so
   '';
 
-  passthru.glvnd = if
-    nvidia_x11 != null && nvidia_x11.useGLVND
-  then
+  passthru.glvnd = if nvidia_x11 != null && nvidia_x11.useGLVND then
     nvidia_x11
   else
     null;

@@ -53,14 +53,15 @@ in {
         json = builtins.toJSON cfg.settings;
         passAsFile = [ "json" ];
       } ''
-        ${if
-          cfg.upstreamDefaults
-        then ''
-          ${pkgs.remarshal}/bin/toml2json ${pkgs.dnscrypt-proxy2.src}/dnscrypt-proxy/example-dnscrypt-proxy.toml > example.json
-          ${pkgs.jq}/bin/jq --slurp add example.json $jsonPath > config.json # merges the two
-        '' else ''
-          cp $jsonPath config.json
-        ''}
+        ${if cfg.upstreamDefaults then
+          ''
+            ${pkgs.remarshal}/bin/toml2json ${pkgs.dnscrypt-proxy2.src}/dnscrypt-proxy/example-dnscrypt-proxy.toml > example.json
+            ${pkgs.jq}/bin/jq --slurp add example.json $jsonPath > config.json # merges the two
+          ''
+        else
+          ''
+            cp $jsonPath config.json
+          ''}
         ${pkgs.remarshal}/bin/json2toml < config.json > $out
       '';
       defaultText = literalMD

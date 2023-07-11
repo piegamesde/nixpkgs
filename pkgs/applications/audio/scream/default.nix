@@ -39,33 +39,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DPULSEAUDIO_ENABLE=${
-      if
-        pulseSupport
-      then
+      if pulseSupport then
         "ON"
       else
         "OFF"
     }"
     "-DALSA_ENABLE=${
-      if
-        alsaSupport
-      then
+      if alsaSupport then
         "ON"
       else
         "OFF"
     }"
     "-DJACK_ENABLE=${
-      if
-        jackSupport
-      then
+      if jackSupport then
         "ON"
       else
         "OFF"
     }"
     "-DPCAP_ENABLE=${
-      if
-        pcapSupport
-      then
+      if pcapSupport then
         "ON"
       else
         "OFF"

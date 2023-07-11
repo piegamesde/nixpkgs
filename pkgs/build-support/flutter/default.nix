@@ -147,19 +147,16 @@ let
   packageOverrideRepository =
     (callPackage ../../development/compilers/flutter/package-overrides { })
     // customPackageOverrides;
-  productPackages = builtins.filter (package: package.kind != "dev") (if
-    autoDepsList
-  then
-    builtins.fromJSON (builtins.readFile deps.depsListFile)
-  else if depsListFile == null then
-    [ ]
-  else
-    builtins.fromJSON (builtins.readFile depsListFile));
+  productPackages = builtins.filter (package: package.kind != "dev")
+    (if autoDepsList then
+      builtins.fromJSON (builtins.readFile deps.depsListFile)
+    else if depsListFile == null then
+      [ ]
+    else
+      builtins.fromJSON (builtins.readFile depsListFile));
 in
 builtins.foldl' (prev: package:
-  if
-    packageOverrideRepository ? ${package.name}
-  then
+  if packageOverrideRepository ? ${package.name} then
     prev.overrideAttrs (packageOverrideRepository.${package.name} {
       inherit (package) name version kind source dependencies;
     })

@@ -70,17 +70,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_STATIC=${
-      if
-        enableStatic
-      then
+      if enableStatic then
         "1"
       else
         "0"
     }"
     "-DENABLE_SHARED=${
-      if
-        enableShared
-      then
+      if enableShared then
         "1"
       else
         "0"

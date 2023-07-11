@@ -37,12 +37,13 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "-framework System" "-lSystem"
   '';
 
-  configureFlags = [ (lib.withFeature usePAM "pam") ] ++ (if
-    useSSL
-  then [
-    "--with-ssl-incl-dir=${openssl.dev}/include"
-    "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
-  ] else [ "--without-ssl" ])
+  configureFlags = [ (lib.withFeature usePAM "pam") ] ++ (if useSSL then
+    [
+      "--with-ssl-incl-dir=${openssl.dev}/include"
+      "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
+    ]
+  else
+    [ "--without-ssl" ])
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # will need to check both these are true for musl
       "libmonit_cv_setjmp_available=yes"

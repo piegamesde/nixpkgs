@@ -72,18 +72,17 @@ mkDerivation rec {
     perl
     qtbase
     netpbm
-  ] ++ (if
-    stdenv.isDarwin
-  then
+  ] ++ (if stdenv.isDarwin then
     (with darwin.apple_sdk.frameworks; [
       OpenGL
       GLUT
     ])
-  else [
-    libGLU
-    libGL
-    freeglut
-  ]) ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; });
+  else
+    [
+      libGLU
+      libGL
+      freeglut
+    ]) ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; });
 
   patches = [
     ./glut.patch

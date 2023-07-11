@@ -13,13 +13,13 @@ let
       "outputHash"
     ] value;
   getChecksum = name: value:
-    if
-      hasChecksum value
-    then {
-      submodules = value.src.fetchSubmodules or false;
-      sha256 = value.src.outputHash;
-      rev = value.src.rev;
-    } else
+    if hasChecksum value then
+      {
+        submodules = value.src.fetchSubmodules or false;
+        sha256 = value.src.outputHash;
+        rev = value.src.rev;
+      }
+    else
       null;
   checksums = lib.mapAttrs getChecksum generated;
 in

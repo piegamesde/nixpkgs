@@ -14,16 +14,12 @@ let
   inherit (pkgs) sudo;
 
   toUserString = user:
-    if
-      (isInt user)
-    then
+    if (isInt user) then
       "#${toString user}"
     else
       "${user}";
   toGroupString = group:
-    if
-      (isInt group)
-    then
+    if (isInt group) then
       "%#${toString group}"
     else
       "%${group}";
@@ -35,9 +31,7 @@ let
 
   toCommandsString = commands:
     concatStringsSep ", " (map (command:
-      if
-        (isString command)
-      then
+      if (isString command) then
         command
       else
         "${toCommandOptionsString command.options}${command.command}")
@@ -226,12 +220,13 @@ in {
       groups = [ "wheel" ];
       commands = [ {
         command = "ALL";
-        options = (if
-          cfg.wheelNeedsPassword
-        then [ "SETENV" ] else [
-          "NOPASSWD"
-          "SETENV"
-        ]);
+        options = (if cfg.wheelNeedsPassword then
+          [ "SETENV" ]
+        else
+          [
+            "NOPASSWD"
+            "SETENV"
+          ]);
       } ];
     } ];
 
@@ -247,18 +242,18 @@ in {
 
       # extraRules
       ${concatStringsSep "\n" (lists.flatten (map (rule:
-        if
-          (length rule.commands != 0)
-        then [
-          (map (user:
-            "${toUserString user}	${rule.host}=(${rule.runAs})	${
-              toCommandsString rule.commands
-            }") rule.users)
-          (map (group:
-            "${toGroupString group}	${rule.host}=(${rule.runAs})	${
-              toCommandsString rule.commands
-            }") rule.groups)
-        ] else
+        if (length rule.commands != 0) then
+          [
+            (map (user:
+              "${toUserString user}	${rule.host}=(${rule.runAs})	${
+                toCommandsString rule.commands
+              }") rule.users)
+            (map (group:
+              "${toGroupString group}	${rule.host}=(${rule.runAs})	${
+                toCommandsString rule.commands
+              }") rule.groups)
+          ]
+        else
           [ ]) cfg.extraRules))}
 
       ${cfg.extraConfig}
@@ -266,16 +261,12 @@ in {
 
     security.wrappers = let
       owner = "root";
-      group = if
-        cfg.execWheelOnly
-      then
+      group = if cfg.execWheelOnly then
         "wheel"
       else
         "root";
       setuid = true;
-      permissions = if
-        cfg.execWheelOnly
-      then
+      permissions = if cfg.execWheelOnly then
         "u+rx,g+x"
       else
         "u+rx,g+x,o+x";

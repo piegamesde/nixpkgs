@@ -5,9 +5,7 @@
   conf ? { }
 }:
 
-if
-  (conf == { })
-then
+if (conf == { }) then
   element-web-unwrapped
 else
   stdenv.mkDerivation rec {

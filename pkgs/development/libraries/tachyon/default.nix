@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
     export USEPNG=" -DUSEPNG"
     export PNGLIB=" -lpng -lz"
   '';
-  arch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux-64-thr"
   else if stdenv.hostPlatform.system == "i686-linux" then
     "linux-thr"

@@ -34,39 +34,40 @@ with lib;
 }:
 
 let
-  variants = if
-    versionAtLeast version "6.0"
-  then rec {
-    python = scons.python.withPackages (ps:
-      with ps; [
-        pyyaml
-        cheetah3
-        psutil
-        setuptools
-        packaging
-        pymongo
-      ]);
+  variants = if versionAtLeast version "6.0" then
+    rec {
+      python = scons.python.withPackages (ps:
+        with ps; [
+          pyyaml
+          cheetah3
+          psutil
+          setuptools
+          packaging
+          pymongo
+        ]);
 
-    scons = sconsPackages.scons_3_1_2;
+      scons = sconsPackages.scons_3_1_2;
 
-    mozjsVersion = "60";
-    mozjsReplace = "defined(HAVE___SINCOS)";
+      mozjsVersion = "60";
+      mozjsReplace = "defined(HAVE___SINCOS)";
 
-  } else rec {
-    python = scons.python.withPackages (ps:
-      with ps; [
-        pyyaml
-        cheetah3
-        psutil
-        setuptools
-      ]);
+    }
+  else
+    rec {
+      python = scons.python.withPackages (ps:
+        with ps; [
+          pyyaml
+          cheetah3
+          psutil
+          setuptools
+        ]);
 
-    scons = sconsPackages.scons_3_1_2;
+      scons = sconsPackages.scons_3_1_2;
 
-    mozjsVersion = "60";
-    mozjsReplace = "defined(HAVE___SINCOS)";
+      mozjsVersion = "60";
+      mozjsReplace = "defined(HAVE___SINCOS)";
 
-  };
+    };
 
   system-libraries = [
     "boost"
@@ -183,18 +184,14 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  installTargets = if
-    (versionAtLeast version "6.0")
-  then
+  installTargets = if (versionAtLeast version "6.0") then
     "install-devcore"
   else if (versionAtLeast version "4.4") then
     "install-core"
   else
     "install";
 
-  prefixKey = if
-    (versionAtLeast version "4.4")
-  then
+  prefixKey = if (versionAtLeast version "4.4") then
     "DESTDIR="
   else
     "--prefix=";

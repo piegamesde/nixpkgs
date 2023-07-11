@@ -58,15 +58,16 @@ in with self;
       ocaml-migrate-parsetree
     ];
     meta.description = "OCaml AST used by Jane Street ppx rewriters";
-  } // (if
-    lib.versionAtLeast ocaml.version "4.06"
-  then {
-    version = "0.9.2";
-    hash = "1h4qf26rg23z21rrw83fakiavw9km7174p3830pg0gg4bwakvba0";
-  } else {
-    version = "0.9.1";
-    hash = "0a9rxwavy2748k0yd4db3hg1ypq7mpqnwq9si5a5qdiclgkhcggw";
-  }));
+  } // (if lib.versionAtLeast ocaml.version "4.06" then
+    {
+      version = "0.9.2";
+      hash = "1h4qf26rg23z21rrw83fakiavw9km7174p3830pg0gg4bwakvba0";
+    }
+  else
+    {
+      version = "0.9.1";
+      hash = "0a9rxwavy2748k0yd4db3hg1ypq7mpqnwq9si5a5qdiclgkhcggw";
+    }));
 
   ppx_traverse_builtins = janePackage {
     pname = "ppx_traverse_builtins";

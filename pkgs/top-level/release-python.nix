@@ -21,12 +21,11 @@ with lib;
 let
   packagePython = mapAttrs (name: value:
     let
-      res = builtins.tryEval (if
-        isDerivation value
-      then
+      res = builtins.tryEval (if isDerivation value then
         value.meta.isBuildPythonPackage or [ ]
-      else if value.recurseForDerivations or false
-      || value.recurseForRelease or false then
+      else if
+        value.recurseForDerivations or false || value.recurseForRelease or false
+      then
         packagePython value
       else
         [ ]);

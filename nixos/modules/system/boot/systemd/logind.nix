@@ -107,9 +107,7 @@ in {
       "systemd/logind.conf".text = ''
         [Login]
         KillUserProcesses=${
-          if
-            cfg.killUserProcesses
-          then
+          if cfg.killUserProcesses then
             "yes"
           else
             "no"

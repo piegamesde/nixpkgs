@@ -156,9 +156,7 @@ in {
         Type = "simple";
         ExecStart = lib.concatStringsSep " " ([
           bin
-          (if
-            cfg.debug
-          then
+          (if cfg.debug then
             "-vvv"
           else
             "-v")

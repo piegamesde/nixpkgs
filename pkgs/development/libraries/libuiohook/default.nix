@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = if
-    stdenv.isDarwin
-  then [
-    AppKit
-    ApplicationServices
-    Carbon
-  ] else
+  buildInputs = if stdenv.isDarwin then
+    [
+      AppKit
+      ApplicationServices
+      Carbon
+    ]
+  else
     [
       libX11
       libxkbcommon

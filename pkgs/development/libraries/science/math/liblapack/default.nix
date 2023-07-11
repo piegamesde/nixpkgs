@@ -47,9 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = { inherit blas64; };
 
   postInstall = let
-    canonicalExtension = if
-      stdenv.hostPlatform.isLinux
-    then
+    canonicalExtension = if stdenv.hostPlatform.isLinux then
       "${stdenv.hostPlatform.extensions.sharedLibrary}.${
         lib.versions.major finalAttrs.version
       }"

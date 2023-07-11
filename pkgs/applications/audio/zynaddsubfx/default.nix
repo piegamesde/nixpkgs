@@ -175,9 +175,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "High quality software synthesizer (${guiName} GUI)";
-    homepage = if
-      guiModule == "zest"
-    then
+    homepage = if guiModule == "zest" then
       "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
     else
       "https://zynaddsubfx.sourceforge.io";

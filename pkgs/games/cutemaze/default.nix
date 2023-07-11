@@ -30,17 +30,17 @@ stdenv.mkDerivation rec {
     qtsvg
   ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
-  installPhase = if
-    stdenv.isDarwin
-  then ''
-    runHook preInstall
+  installPhase = if stdenv.isDarwin then
+    ''
+      runHook preInstall
 
-    mkdir -p $out/Applications
-    mv CuteMaze.app $out/Applications
-    makeWrapper $out/Applications/CuteMaze.app/Contents/MacOS/CuteMaze $out/bin/cutemaze
+      mkdir -p $out/Applications
+      mv CuteMaze.app $out/Applications
+      makeWrapper $out/Applications/CuteMaze.app/Contents/MacOS/CuteMaze $out/bin/cutemaze
 
-    runHook postInstall
-  '' else
+      runHook postInstall
+    ''
+  else
     null;
 
   meta = with lib; {

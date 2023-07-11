@@ -79,49 +79,37 @@ stdenv.mkDerivation rec {
     "-DGEANT4_USE_GDML=ON"
     "-DGEANT4_USE_G3TOG4=ON"
     "-DGEANT4_USE_QT=${
-      if
-        enableQt
-      then
+      if enableQt then
         "ON"
       else
         "OFF"
     }"
     "-DGEANT4_USE_XM=${
-      if
-        enableXM
-      then
+      if enableXM then
         "ON"
       else
         "OFF"
     }"
     "-DGEANT4_USE_OPENGL_X11=${
-      if
-        enableOpenGLX11
-      then
+      if enableOpenGLX11 then
         "ON"
       else
         "OFF"
     }"
     "-DGEANT4_USE_INVENTOR=${
-      if
-        enableInventor
-      then
+      if enableInventor then
         "ON"
       else
         "OFF"
     }"
     "-DGEANT4_USE_PYTHON=${
-      if
-        enablePython
-      then
+      if enablePython then
         "ON"
       else
         "OFF"
     }"
     "-DGEANT4_USE_RAYTRACER_X11=${
-      if
-        enableRaytracerX11
-      then
+      if enableRaytracerX11 then
         "ON"
       else
         "OFF"
@@ -130,9 +118,7 @@ stdenv.mkDerivation rec {
     "-DGEANT4_USE_SYSTEM_EXPAT=ON"
     "-DGEANT4_USE_SYSTEM_ZLIB=ON"
     "-DGEANT4_BUILD_MULTITHREADED=${
-      if
-        enableMultiThreading
-      then
+      if enableMultiThreading then
         "ON"
       else
         "OFF"

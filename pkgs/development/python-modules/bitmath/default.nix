@@ -18,9 +18,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [
-    (if
-      isPy3k
-    then
+    (if isPy3k then
       progressbar33
     else
       progressbar231)

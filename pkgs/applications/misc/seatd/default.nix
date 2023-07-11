@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dlibseat-logind=${
-      if
-        systemdSupport
-      then
+      if systemdSupport then
         "systemd"
       else
         "disabled"

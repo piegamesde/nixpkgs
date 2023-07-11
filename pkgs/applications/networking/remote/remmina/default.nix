@@ -99,9 +99,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DWITH_VTE=${
-      if
-        withVte
-      then
+      if withVte then
         "ON"
       else
         "OFF"
@@ -109,17 +107,13 @@ stdenv.mkDerivation rec {
     "-DWITH_TELEPATHY=OFF"
     "-DWITH_AVAHI=OFF"
     "-DWITH_KF5WALLET=${
-      if
-        withKf5Wallet
-      then
+      if withKf5Wallet then
         "ON"
       else
         "OFF"
     }"
     "-DWITH_LIBSECRET=${
-      if
-        withLibsecret
-      then
+      if withLibsecret then
         "ON"
       else
         "OFF"

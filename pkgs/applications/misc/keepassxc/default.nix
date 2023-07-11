@@ -58,9 +58,7 @@ stdenv.mkDerivation rec {
     "-Wno-old-style-cast"
     "-Wno-error"
     "-D__BIG_ENDIAN__=${
-      if
-        stdenv.isBigEndian
-      then
+      if stdenv.isBigEndian then
         "1"
       else
         "0"

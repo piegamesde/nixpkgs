@@ -83,7 +83,8 @@ lib.makeOverridable ({
           && drv.meta.outputsToInstall or null != null
         then
           map (outName: drv.${outName}) drv.meta.outputsToInstall
-        else [ drv ])
+        else
+          [ drv ])
         # Add any extra outputs specified by the caller of `buildEnv`.
         ++ lib.filter (p: p != null)
         (builtins.map (outName: drv.${outName} or null) extraOutputsToInstall);
@@ -92,8 +93,10 @@ lib.makeOverridable ({
     preferLocalBuild = true;
     allowSubstitutes = false;
     # XXX: The size is somewhat arbitrary
-    passAsFile =
-      if builtins.stringLength pkgs >= 128 * 1024 then [ "pkgs" ] else [ ];
+    passAsFile = if builtins.stringLength pkgs >= 128 * 1024 then
+      [ "pkgs" ]
+    else
+      [ ];
   } ''
     ${buildPackages.perl}/bin/perl -w ${builder}
     eval "$postBuild"

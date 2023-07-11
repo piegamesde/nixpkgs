@@ -7,9 +7,7 @@
 }:
 
 let
-  arch = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "i686-linux" then
     "32"
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     "64"

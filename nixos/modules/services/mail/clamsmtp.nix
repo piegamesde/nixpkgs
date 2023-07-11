@@ -149,9 +149,7 @@ in {
         KeepAlives: ${toString conf.keepAlives}
         Listen: ${conf.listen}
         Quarantine: ${
-          if
-            conf.quarantine
-          then
+          if conf.quarantine then
             "on"
           else
             "off"
@@ -161,9 +159,7 @@ in {
         TempDirectory: ${conf.tempDirectory}
         TimeOut: ${toString conf.timeout}
         TransparentProxy: ${
-          if
-            conf.transparentProxy
-          then
+          if conf.transparentProxy then
             "on"
           else
             "off"
@@ -172,9 +168,7 @@ in {
         ${optionalString (conf.virusAction != null)
         "VirusAction: ${conf.virusAction}"}
         XClient: ${
-          if
-            conf.xClient
-          then
+          if conf.xClient then
             "on"
           else
             "off"

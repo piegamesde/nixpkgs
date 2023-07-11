@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = let
     ynf = a: b:
-      a + "=" + (if
-        b
-      then
+      a + "=" + (if b then
         "yes"
       else
         "no");

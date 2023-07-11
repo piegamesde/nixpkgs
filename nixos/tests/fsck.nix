@@ -30,9 +30,7 @@ import ./make-test-python.nix {
 
     with subtest("root fs is fsckd"):
         machine.succeed("journalctl -b | grep '${
-          if
-            systemdStage1
-          then
+          if systemdStage1 then
             "fsck.*vda.*clean"
           else
             "fsck.ext4.*/dev/vda"

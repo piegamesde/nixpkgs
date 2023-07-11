@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
     export BLASOPT="-L${blas}/lib -lblas"
     export LAPACK_LIB="-L${lapack}/lib -llapack"
     export BLAS_SIZE=${
-      if
-        blas.isILP64
-      then
+      if blas.isILP64 then
         "8"
       else
         "4"

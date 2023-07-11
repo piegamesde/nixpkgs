@@ -44,9 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=${
-      if
-        enableStatic
-      then
+      if enableStatic then
         "OFF"
       else
         "ON"

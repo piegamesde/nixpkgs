@@ -9,9 +9,7 @@
 stdenv.mkDerivation rec {
   pname = "insync";
   version = "1.5.7.37371";
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "http://s.insynchq.com/builds/insync-portable_${version}_amd64.tar.bz2";

@@ -21,13 +21,10 @@ let
       entrypoint = "apiServiceWorker";
       conf = {
         mwApis = map (x:
-          if
-            isAttrs x
-          then
+          if isAttrs x then
             x
-          else {
-            uri = x;
-          }) cfg.wikis;
+          else
+            { uri = x; }) cfg.wikis;
         serverInterface = cfg.interface;
         serverPort = cfg.port;
       };

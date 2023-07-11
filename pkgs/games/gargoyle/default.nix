@@ -18,21 +18,22 @@ let
 
   jamenv = ''
     unset AR
-  '' + (if
-    stdenv.isDarwin
-  then ''
-    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
-      lib.getDev SDL
-    }/include/SDL"
-    export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
-  '' else ''
-    export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
-    export DESTDIR="$out"
-    export _BINDIR=libexec/gargoyle
-    export _APPDIR=libexec/gargoyle
-    export _LIBDIR=libexec/gargoyle
-    export GARGLKINI="$out/etc/garglk.ini"
-  '');
+  '' + (if stdenv.isDarwin then
+    ''
+      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${
+        lib.getDev SDL
+      }/include/SDL"
+      export GARGLKINI="$out/Applications/Gargoyle.app/Contents/Resources/garglk.ini"
+    ''
+  else
+    ''
+      export NIX_LDFLAGS="$NIX_LDFLAGS -rpath $out/libexec/gargoyle"
+      export DESTDIR="$out"
+      export _BINDIR=libexec/gargoyle
+      export _APPDIR=libexec/gargoyle
+      export _LIBDIR=libexec/gargoyle
+      export GARGLKINI="$out/etc/garglk.ini"
+    '');
 
 in
 stdenv.mkDerivation rec {
@@ -69,9 +70,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = jamenv + "jam -j$NIX_BUILD_CORES";
 
-  installPhase = if
-    stdenv.isDarwin
-  then
+  installPhase = if stdenv.isDarwin then
     (substituteAll {
       inherit (stdenv) shell;
       isExecutable = true;

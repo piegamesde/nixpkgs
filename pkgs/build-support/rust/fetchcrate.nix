@@ -14,9 +14,7 @@
 
 assert pname == null || pname == crateName;
 
-(if
-  unpack
-then
+(if unpack then
   fetchzip
 else
   fetchurl) ({

@@ -246,41 +246,31 @@ in {
           # database.  Those that evaluate to null on the left hand side
           # will be omitted.
           ${
-            if
-              cfg.database.name != null
-            then
+            if cfg.database.name != null then
               "--db-base"
             else
               null
           } = ''"${cfg.database.name}"'';
           ${
-            if
-              cfg.database.passFile != null
-            then
+            if cfg.database.passFile != null then
               "--db-password"
             else
               null
           } = ''"$(cat ${cfg.database.passFile})"'';
           ${
-            if
-              cfg.database.user != null
-            then
+            if cfg.database.user != null then
               "--db-user"
             else
               null
           } = ''"${cfg.database.user}"'';
           ${
-            if
-              cfg.database.tableprefix != null
-            then
+            if cfg.database.tableprefix != null then
               "--db-prefix"
             else
               null
           } = ''"${cfg.database.tableprefix}"'';
           ${
-            if
-              cfg.database.host != null && cfg.database.port != null
-            then
+            if cfg.database.host != null && cfg.database.port != null then
               "--db-host"
             else
               null

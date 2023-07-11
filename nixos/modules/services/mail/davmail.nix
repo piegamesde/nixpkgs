@@ -23,9 +23,7 @@ let
     };
 
   toStr = val:
-    if
-      isBool val
-    then
+    if isBool val then
       boolToString val
     else
       toString val;
@@ -34,11 +32,10 @@ let
     concatMap (name:
       let
         value = attrs.${name};
-      in if
-        isAttrs value
-      then
+      in if isAttrs value then
         map (line: name + "." + line) (linesForAttrs value)
-      else [ "${name}=${toStr value}" ]) (attrNames attrs);
+      else
+        [ "${name}=${toStr value}" ]) (attrNames attrs);
 
   configFile = pkgs.writeText "davmail.properties"
     (concatStringsSep "\n" (linesForAttrs cfg.config));

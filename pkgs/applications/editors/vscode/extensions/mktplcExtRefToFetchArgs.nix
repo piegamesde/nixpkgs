@@ -6,9 +6,7 @@
   sha256 ? ""
 }:
 let
-  archurl = (if
-    arch == ""
-  then
+  archurl = (if arch == "" then
     ""
   else
     "?targetPlatform=${arch}");

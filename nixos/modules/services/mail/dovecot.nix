@@ -32,19 +32,20 @@ let
       }
     '') cfg.mailPlugins.perProtocol))
 
-    (if
-      cfg.sslServerCert == null
-    then ''
-      ssl = no
-      disable_plaintext_auth = no
-    '' else ''
-      ssl_cert = <${cfg.sslServerCert}
-      ssl_key = <${cfg.sslServerKey}
-      ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
-      ${optionalString cfg.enableDHE
-      "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
-      disable_plaintext_auth = yes
-    '')
+    (if cfg.sslServerCert == null then
+      ''
+        ssl = no
+        disable_plaintext_auth = no
+      ''
+    else
+      ''
+        ssl_cert = <${cfg.sslServerCert}
+        ssl_key = <${cfg.sslServerKey}
+        ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
+        ${optionalString cfg.enableDHE
+        "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
+        disable_plaintext_auth = yes
+      '')
 
     ''
       default_internal_user = ${cfg.user}
@@ -282,9 +283,7 @@ in {
       description =
         lib.mdDoc "Config file used for the whole dovecot configuration.";
       apply = v:
-        if
-          v != null
-        then
+        if v != null then
           v
         else
           pkgs.writeText "dovecot.conf" dovecotConf;

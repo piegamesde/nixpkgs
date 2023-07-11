@@ -8,9 +8,7 @@ args:
 # The `replacements` attribute should be a list of list of arguments
 # to `substitute`, such as `[ "--replace" "sourcetext" "replacementtext" ]`
 stdenvNoCC.mkDerivation ({
-  name = if
-    args ? name
-  then
+  name = if args ? name then
     args.name
   else
     baseNameOf (toString args.src);

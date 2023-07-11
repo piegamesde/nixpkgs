@@ -198,9 +198,7 @@ in {
         url = lib.mkOption {
           type = lib.types.str;
           default = "${
-              if
-                cfg.singleNode.enableTLS
-              then
+              if cfg.singleNode.enableTLS then
                 "https"
               else
                 "http"

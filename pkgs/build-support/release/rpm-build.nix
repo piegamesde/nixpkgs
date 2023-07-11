@@ -51,9 +51,7 @@ vmTools.buildRPM (
       done
     '';
 
-    meta = (if
-      args ? meta
-    then
+    meta = (if args ? meta then
       args.meta
     else
       { }) // {

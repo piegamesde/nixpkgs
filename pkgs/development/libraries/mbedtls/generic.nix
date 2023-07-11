@@ -44,9 +44,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DUSE_SHARED_MBEDTLS_LIBRARY=${
-      if
-        stdenv.hostPlatform.isStatic
-      then
+      if stdenv.hostPlatform.isStatic then
         "off"
       else
         "on"

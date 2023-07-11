@@ -64,93 +64,63 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [
-    (if
-      enableApacheWebApplication
-    then
+    (if enableApacheWebApplication then
       "--with-apache"
     else
       "--without-apache")
-    (if
-      enableAxis2WebService
-    then
+    (if enableAxis2WebService then
       "--with-axis2"
     else
       "--without-axis2")
-    (if
-      enableEjabberdDump
-    then
+    (if enableEjabberdDump then
       "--with-ejabberd"
     else
       "--without-ejabberd")
-    (if
-      enableMySQLDatabase
-    then
+    (if enableMySQLDatabase then
       "--with-mysql"
     else
       "--without-mysql")
-    (if
-      enablePostgreSQLDatabase
-    then
+    (if enablePostgreSQLDatabase then
       "--with-postgresql"
     else
       "--without-postgresql")
-    (if
-      enableSubversionRepository
-    then
+    (if enableSubversionRepository then
       "--with-subversion"
     else
       "--without-subversion")
-    (if
-      enableTomcatWebApplication
-    then
+    (if enableTomcatWebApplication then
       "--with-tomcat=${catalinaBaseDir}"
     else
       "--without-tomcat")
-    (if
-      enableMongoDatabase
-    then
+    (if enableMongoDatabase then
       "--with-mongodb"
     else
       "--without-mongodb")
-    (if
-      enableInfluxDatabase
-    then
+    (if enableInfluxDatabase then
       "--with-influxdb"
     else
       "--without-influxdb")
-    (if
-      enableSupervisordProgram
-    then
+    (if enableSupervisordProgram then
       "--with-supervisord"
     else
       "--without-supervisord")
-    (if
-      enableDockerContainer
-    then
+    (if enableDockerContainer then
       "--with-docker"
     else
       "--without-docker")
-    (if
-      enableNginxWebApplication
-    then
+    (if enableNginxWebApplication then
       "--with-nginx"
     else
       "--without-nginx")
-    (if
-      enableXinetdService
-    then
+    (if enableXinetdService then
       "--with-xinetd"
     else
       "--without-xinetd")
-    (if
-      enableS6RCService
-    then
+    (if enableS6RCService then
       "--with-s6-rc"
     else
       "--without-s6-rc")
-    (if
-      stdenv.isDarwin
-    then
+    (if stdenv.isDarwin then
       "--with-launchd"
     else
       "--without-launchd")

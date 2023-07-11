@@ -110,21 +110,21 @@ in {
             + optionalString (options.useCuda) " --use_cuda"
             + (concatMapStringsSep " " escapeShellArgs options.extraArgs);
           CapabilityBoundingSet = "";
-          DeviceAllow = if
-            options.useCuda
-          then [
-            # https://docs.nvidia.com/dgx/pdf/dgx-os-5-user-guide.pdf
-            "/dev/nvidia1"
-            "/dev/nvidia2"
-            "/dev/nvidia3"
-            "/dev/nvidia4"
-            "/dev/nvidia-caps/nvidia-cap1"
-            "/dev/nvidia-caps/nvidia-cap2"
-            "/dev/nvidiactl"
-            "/dev/nvidia-modeset"
-            "/dev/nvidia-uvm"
-            "/dev/nvidia-uvm-tools"
-          ] else
+          DeviceAllow = if options.useCuda then
+            [
+              # https://docs.nvidia.com/dgx/pdf/dgx-os-5-user-guide.pdf
+              "/dev/nvidia1"
+              "/dev/nvidia2"
+              "/dev/nvidia3"
+              "/dev/nvidia4"
+              "/dev/nvidia-caps/nvidia-cap1"
+              "/dev/nvidia-caps/nvidia-cap2"
+              "/dev/nvidiactl"
+              "/dev/nvidia-modeset"
+              "/dev/nvidia-uvm"
+              "/dev/nvidia-uvm-tools"
+            ]
+          else
             "";
           DevicePolicy = "closed";
           LockPersonality = true;

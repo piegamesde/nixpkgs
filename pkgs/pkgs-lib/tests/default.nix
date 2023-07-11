@@ -36,11 +36,9 @@ let
 
   flatten = prefix: as:
     foldl' mergeAttrs { } (attrValues (mapAttrs (k: v:
-      if
-        isDerivation v
-      then {
-        "${prefix}${k}" = v;
-      } else if v ? recurseForDerivations then
+      if isDerivation v then
+        { "${prefix}${k}" = v; }
+      else if v ? recurseForDerivations then
         flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
       else
         builtins.trace v throw "expected derivation or recurseIntoAttrs") as));

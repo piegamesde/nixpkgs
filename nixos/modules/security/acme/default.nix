@@ -9,9 +9,7 @@ with lib;
 let
   cfg = config.security.acme;
   opt = options.security.acme;
-  user = if
-    cfg.useRoot
-  then
+  user = if cfg.useRoot then
     "root"
   else
     "acme";
@@ -177,9 +175,7 @@ let
       accountHash = (mkAccountHash acmeServer data);
       accountDir = accountDirRoot + accountHash;
 
-      protocolOpts = if
-        useDns
-      then
+      protocolOpts = if useDns then
         ([
           "--dns"
           data.dnsProvider
@@ -188,15 +184,18 @@ let
             "--dns.resolvers"
             data.dnsResolver
           ])
-      else if data.listenHTTP != null then [
-        "--http"
-        "--http.port"
-        data.listenHTTP
-      ] else [
-        "--http"
-        "--http.webroot"
-        data.webroot
-      ];
+      else if data.listenHTTP != null then
+        [
+          "--http"
+          "--http.port"
+          data.listenHTTP
+        ]
+      else
+        [
+          "--http"
+          "--http.webroot"
+          data.webroot
+        ];
 
       commonOpts = [
         "--accept-tos" # Checking the option is covered by the assertions
@@ -500,9 +499,7 @@ let
         # When ! isDefaults then this is the option declaration for the
         # security.acme.certs.<name> path, which has the extra inheritDefaults
         # option, which if disabled means that we can't inherit it
-        default = if
-          isDefaults || !config.inheritDefaults
-        then
+        default = if isDefaults || !config.inheritDefaults then
           default
         else
           cfg.defaults.${name};
@@ -510,9 +507,7 @@ let
         # stay constant. Though notably it wouldn't matter much, because to get
         # the option information, a submodule with name `<name>` is evaluated
         # without any definitions.
-        defaultText = if
-          isDefaults
-        then
+        defaultText = if isDefaults then
           default
         else
           literalExpression "config.security.acme.defaults.${name}";

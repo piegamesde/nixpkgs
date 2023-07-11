@@ -30,9 +30,7 @@ makePythonHook {
           ''"''
           "'\"'\"'"
         ];
-        endQuote = if
-          isSingle
-        then
+        endQuote = if isSingle then
           "[^\\\\]${quote}"
         else
           quote;

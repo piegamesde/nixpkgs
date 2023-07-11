@@ -41,9 +41,7 @@ in {
       let
         package-linux = import path-linux { inherit stdenv lib; };
         package-darwin = import path-darwin { inherit lib; };
-        package = if
-          stdenv.isLinux
-        then
+        package = if stdenv.isLinux then
           package-linux
         else
           package-darwin;
@@ -62,9 +60,7 @@ in {
         !stdenv.hostPlatform.isi686
       then
       # only linux has the gtkSupport option
-        if
-          stdenv.isLinux
-        then
+        if stdenv.isLinux then
           adoptopenjdk.jdk-hotspot.override { gtkSupport = false; }
         else
           adoptopenjdk.jdk-hotspot
@@ -72,9 +68,7 @@ in {
         callPackage path args;
 
     mkOpenjdk = path-linux: path-darwin: args:
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         mkOpenjdkLinuxOnly path-linux args
       else
         let
@@ -206,16 +200,12 @@ in {
         openjfx = openjfx19;
       };
 
-    temurin-bin = recurseIntoAttrs (callPackage (if
-      stdenv.isLinux
-    then
+    temurin-bin = recurseIntoAttrs (callPackage (if stdenv.isLinux then
       ../development/compilers/temurin-bin/jdk-linux.nix
     else
       ../development/compilers/temurin-bin/jdk-darwin.nix) { });
 
-    semeru-bin = recurseIntoAttrs (callPackage (if
-      stdenv.isLinux
-    then
+    semeru-bin = recurseIntoAttrs (callPackage (if stdenv.isLinux then
       ../development/compilers/semeru-bin/jdk-linux.nix
     else
       ../development/compilers/semeru-bin/jdk-darwin.nix) { });

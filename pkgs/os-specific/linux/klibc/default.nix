@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = commonMakeFlags ++ [
     "KLIBCARCH=${
-      if
-        stdenv.hostPlatform.isRiscV64
-      then
+      if stdenv.hostPlatform.isRiscV64 then
         "riscv64"
       else
         stdenv.hostPlatform.linuxArch

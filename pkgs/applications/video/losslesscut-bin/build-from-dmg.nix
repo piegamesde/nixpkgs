@@ -15,9 +15,7 @@ let
   src = fetchurl {
     url =
       "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-mac-${
-        if
-          isAarch64
-        then
+        if isAarch64 then
           "arm64"
         else
           "x64"
@@ -40,9 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = metaCommon // (with lib; {
-    platforms = singleton (if
-      isAarch64
-    then
+    platforms = singleton (if isAarch64 then
       "aarch64-darwin"
     else
       "x86_64-darwin");

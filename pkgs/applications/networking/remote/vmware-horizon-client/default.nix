@@ -13,9 +13,7 @@
 let
   version = "2303";
 
-  sysArch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  sysArch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "x64"
   else
     throw "Unsupported system: ${stdenv.hostPlatform.system}";

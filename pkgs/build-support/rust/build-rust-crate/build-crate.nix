@@ -28,9 +28,7 @@
 
 let
   baseRustcOpts = [
-    (if
-      release
-    then
+    (if release then
       "-C opt-level=3"
     else
       "-C debuginfo=2")
@@ -57,9 +55,7 @@ let
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
 
-  build_bin = if
-    buildTests
-  then
+  build_bin = if buildTests then
     "build_bin_test"
   else
     "build_bin";
@@ -98,27 +94,29 @@ in ''
           == bin.requiredFeatures
         else
           true;
-      in if
-        haveRequiredFeature
-      then ''
-        mkdir -p target/bin
-        BIN_NAME='${bin.name or crateName}'
-        ${if
-          !bin ? path
-        then ''
-          BIN_PATH=""
-          search_for_bin_path "$BIN_NAME"
-        '' else ''
-          BIN_PATH='${bin.path}'
-        ''}
-          ${build_bin} "$BIN_NAME" "$BIN_PATH"
-      '' else ''
-        echo Binary ${
-          bin.name or crateName
-        } not compiled due to not having all of the required features -- ${
-          lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
-        } -- enabled.
-      '') crateBin)}
+      in if haveRequiredFeature then
+        ''
+          mkdir -p target/bin
+          BIN_NAME='${bin.name or crateName}'
+          ${if !bin ? path then
+            ''
+              BIN_PATH=""
+              search_for_bin_path "$BIN_NAME"
+            ''
+          else
+            ''
+              BIN_PATH='${bin.path}'
+            ''}
+            ${build_bin} "$BIN_NAME" "$BIN_PATH"
+        ''
+      else
+        ''
+          echo Binary ${
+            bin.name or crateName
+          } not compiled due to not having all of the required features -- ${
+            lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
+          } -- enabled.
+        '') crateBin)}
 
   ${lib.optionalString buildTests ''
     # When tests are enabled build all the files in the `tests` directory as

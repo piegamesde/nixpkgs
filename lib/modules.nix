@@ -150,9 +150,7 @@ in rec {
             # not for all individual submodules.
             # Allow merging option decls to make this internal regardless.
             ${
-              if
-                prefix == [ ]
-              then
+              if prefix == [ ] then
                 null # unset => visible
               else
                 "internal"
@@ -277,16 +275,12 @@ in rec {
             file = def.file;
             value = setAttrByPath def.prefix def.value;
           }) merged.unmatchedDefns;
-        in if
-          defs == [ ]
-        then
+        in if defs == [ ] then
           { }
         else
           declaredConfig._module.freeformType.merge prefix defs;
 
-      in if
-        declaredConfig._module.freeformType == null
-      then
+      in if declaredConfig._module.freeformType == null then
         declaredConfig
         # Because all definitions that had an associated option ended in
         # declaredConfig, freeformConfig can only contain the non-option
@@ -310,14 +304,10 @@ in rec {
           in
           "The option `${optText}' does not exist. Definition values:${defText}"
           ;
-        in if
-          attrNames options == [ "_module" ]
-        then
+        in if attrNames options == [ "_module" ] then
           let
             optionName = showOption prefix;
-          in if
-            optionName == ""
-          then
+          in if optionName == "" then
             throw ''
               ${baseMsg}
 
@@ -371,9 +361,7 @@ in rec {
 
     # Like unifyModuleSyntax, but also imports paths and calls functions if necessary
     loadModule = args: fallbackFile: fallbackKey: m:
-      if
-        isFunction m || isAttrs m
-      then
+      if isFunction m || isAttrs m then
         unifyModuleSyntax fallbackFile fallbackKey
         (applyModuleArgsIfFunction fallbackKey m args)
       else if isList m then
@@ -431,12 +419,12 @@ in rec {
         key = module.key;
         module = module;
         modules = collectedImports.modules;
-        disabled = (if
-          module.disabledModules != [ ]
-        then [ {
-          file = module._file;
-          disabled = module.disabledModules;
-        } ] else
+        disabled = (if module.disabledModules != [ ] then
+          [ {
+            file = module._file;
+            disabled = module.disabledModules;
+          } ]
+        else
           [ ]) ++ collectedImports.disabled;
       } ) initialModules)
     ;
@@ -452,20 +440,14 @@ in rec {
       }:
       let
         moduleKey = file: m:
-          if
-            isString m
-          then
-            if
-              builtins.substring 0 1 m == "/"
-            then
+          if isString m then
+            if builtins.substring 0 1 m == "/" then
               m
             else
               toString modulesPath + "/" + m
 
           else if isConvertibleWithToString m then
-            if
-              m ? key && m.key != toString m
-            then
+            if m ? key && m.key != toString m then
               throw
               "Module `${file}` contains a disabledModules item that is an attribute set that can be converted to a string (${
                 toString m
@@ -516,9 +498,7 @@ in rec {
   unifyModuleSyntax = file: key: m:
     let
       addMeta = config:
-        if
-          m ? meta
-        then
+        if m ? meta then
           mkMerge [
             config
             { meta = m.meta; }
@@ -526,18 +506,14 @@ in rec {
         else
           config;
       addFreeformType = config:
-        if
-          m ? freeformType
-        then
+        if m ? freeformType then
           mkMerge [
             config
             { _module.freeformType = m.freeformType; }
           ]
         else
           config;
-    in if
-      m ? config || m ? options
-    then
+    in if m ? config || m ? options then
       let
         badAttrs = removeAttrs m [
           "_file"
@@ -549,22 +525,21 @@ in rec {
           "meta"
           "freeformType"
         ];
-      in if
-        badAttrs != { }
-      then
+      in if badAttrs != { } then
         throw "Module `${key}' has an unsupported attribute `${
           head (attrNames badAttrs)
         }'. This is caused by introducing a top-level `config' or `options' attribute. Add configuration attributes immediately on the top level instead, or move all of them (namely: ${
           toString (attrNames badAttrs)
         }) into the explicit `config' attribute."
-      else {
-        _file = toString m._file or file;
-        key = toString m.key or key;
-        disabledModules = m.disabledModules or [ ];
-        imports = m.imports or [ ];
-        options = m.options or { };
-        config = addFreeformType (addMeta (m.config or { }));
-      }
+      else
+        {
+          _file = toString m._file or file;
+          key = toString m.key or key;
+          disabledModules = m.disabledModules or [ ];
+          imports = m.imports or [ ];
+          options = m.options or { };
+          config = addFreeformType (addMeta (m.config or { }));
+        }
     else
     # shorthand syntax
       lib.throwIfNot (isAttrs m)
@@ -591,9 +566,7 @@ in rec {
       lib,
       ...
     }:
-    if
-      isFunction f
-    then
+    if isFunction f then
       let
         # Module arguments are resolved in a strict manner when attribute set
         # deconstruction is used.  As the arguments are now defined with the
@@ -677,30 +650,29 @@ in rec {
         zipAttrsWith (n: concatLists) (map (module:
           let
             subtree = module.${attr};
-          in if
-            !(builtins.isAttrs subtree)
-          then
-            throw (if
-              attr == "config"
-            then ''
-              You're trying to define a value of type `${
-                builtins.typeOf subtree
-              }'
-              rather than an attribute set for the option
-              `${builtins.concatStringsSep "." prefix}'!
+          in if !(builtins.isAttrs subtree) then
+            throw (if attr == "config" then
+              ''
+                You're trying to define a value of type `${
+                  builtins.typeOf subtree
+                }'
+                rather than an attribute set for the option
+                `${builtins.concatStringsSep "." prefix}'!
 
-              This usually happens if `${
-                builtins.concatStringsSep "." prefix
-              }' has option
-              definitions inside that are not matched. Please check how to properly define
-              this option by e.g. referring to `man 5 configuration.nix'!
-            '' else ''
-              An option declaration for `${
-                builtins.concatStringsSep "." prefix
-              }' has type
-              `${builtins.typeOf subtree}' rather than an attribute set.
-              Did you mean to define this outside of `options'?
-            '')
+                This usually happens if `${
+                  builtins.concatStringsSep "." prefix
+                }' has option
+                definitions inside that are not matched. Please check how to properly define
+                this option by e.g. referring to `man 5 configuration.nix'!
+              ''
+            else
+              ''
+                An option declaration for `${
+                  builtins.concatStringsSep "." prefix
+                }' has type
+                `${builtins.typeOf subtree}' rather than an attribute set.
+                Did you mean to define this outside of `options'?
+              '')
           else
             mapAttrs (n: f module) subtree) modules);
       # an attrset 'name' => list of submodules that declare ‘name’.
@@ -722,9 +694,7 @@ in rec {
 
       # Convert an option tree decl to a submodule option decl
       optionTreeToOption = decl:
-        if
-          isOption decl.options
-        then
+        if isOption decl.options then
           decl
         else
           decl // {
@@ -746,9 +716,7 @@ in rec {
           defns = defnsByName.${name} or [ ];
           defns' = defnsByName'.${name} or [ ];
           optionDecls = filter (m: isOption m.options) decls;
-        in if
-          length optionDecls == length decls
-        then
+        in if length optionDecls == length decls then
           let
             opt = fixupOptionType loc (mergeOptionDecls loc decls);
           in {
@@ -838,11 +806,9 @@ in rec {
         t' = opt.options.type;
         mergedType = t.typeMerge t'.functor;
         typesMergeable = mergedType != null;
-        typeSet = if
-          (bothHave "type") && typesMergeable
-        then {
-          type = mergedType;
-        } else
+        typeSet = if (bothHave "type") && typesMergeable then
+          { type = mergedType; }
+        else
           { };
         bothHave = k: opt.options ? ${k} && res ? ${k};
       in if
@@ -857,9 +823,7 @@ in rec {
       else
         let
           getSubModules = opt.options.type.getSubModules or null;
-          submodules = if
-            getSubModules != null
-          then
+          submodules = if getSubModules != null then
             map (setDefaultModuleLocation opt._file) getSubModules
             ++ res.options
           else
@@ -887,9 +851,7 @@ in rec {
       }) ++ defs;
 
       # Handle properties, check types, and merge everything together.
-      res = if
-        opt.readOnly or false && length defs' > 1
-      then
+      res = if opt.readOnly or false && length defs' > 1 then
         let
           # For a better error message, evaluate all readOnly definitions as
           # if they were the only definition.
@@ -908,9 +870,7 @@ in rec {
 
       # Apply the 'apply' function to the merged value. This allows options to
       # yield a value computed from the definitions
-      value = if
-        opt ? apply
-      then
+      value = if opt ? apply then
         opt.apply res.mergedValue
       else
         res.mergedValue;
@@ -956,9 +916,7 @@ in rec {
       # Sort mkOrder properties.
       defs''' =
         # Avoid sorting if we don't have to.
-        if
-          any (def: def.value._type or "" == "order") defs''.values
-        then
+        if any (def: def.value._type or "" == "order") defs''.values then
           sortProperties defs''.values
         else
           defs''.values;
@@ -969,12 +927,8 @@ in rec {
     defsFinal = defsFinal'.values;
 
     # Type-check the remaining definitions, and merge them. Or throw if no definitions.
-    mergedValue = if
-      isDefined
-    then
-      if
-        all (def: type.check def.value) defsFinal
-      then
+    mergedValue = if isDefined then
+      if all (def: type.check def.value) defsFinal then
         type.merge loc defsFinal
       else
         let
@@ -992,7 +946,10 @@ in rec {
 
     isDefined = defsFinal != [ ];
 
-    optionalValue = if isDefined then { value = mergedValue; } else { };
+    optionalValue = if isDefined then
+      { value = mergedValue; }
+    else
+      { };
   };
 
   /* Given a config set, expand mkMerge properties, and push down the
@@ -1011,9 +968,7 @@ in rec {
      recursion.
   */
   pushDownProperties = cfg:
-    if
-      cfg._type or "" == "merge"
-    then
+    if cfg._type or "" == "merge" then
       concatMap pushDownProperties cfg.contents
     else if cfg._type or "" == "if" then
       map (mapAttrs (n: v: mkIf cfg.condition v))
@@ -1022,7 +977,7 @@ in rec {
       map (mapAttrs (n: v: mkOverride cfg.priority v))
       (pushDownProperties cfg.content)
     else # FIXME: handle mkOrder?
-    [ cfg ];
+      [ cfg ];
 
   /* Given a config value, expand mkMerge properties, and discharge
      any mkIf conditions.  That is, this is the place where mkIf
@@ -1035,23 +990,18 @@ in rec {
      yields ‘[ 1 2 ]’.
   */
   dischargeProperties = def:
-    if
-      def._type or "" == "merge"
-    then
+    if def._type or "" == "merge" then
       concatMap dischargeProperties def.contents
     else if def._type or "" == "if" then
-      if
-        isBool def.condition
-      then
-        if
-          def.condition
-        then
+      if isBool def.condition then
+        if def.condition then
           dischargeProperties def.content
         else
           [ ]
       else
         throw "‘mkIf’ called with a non-Boolean condition"
-    else [ def ];
+    else
+      [ def ];
 
   /* Given a list of config values, process the mkOverride properties,
      that is, return the values that have the highest (that is,
@@ -1077,23 +1027,22 @@ in rec {
   filterOverrides' = defs:
     let
       getPrio = def:
-        if
-          def.value._type or "" == "override"
-        then
+        if def.value._type or "" == "override" then
           def.value.priority
         else
           defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip = def:
-        if
-          def.value._type or "" == "override"
-        then
+        if def.value._type or "" == "override" then
           def // { value = def.value.content; }
         else
           def;
     in {
-      values = concatMap
-        (def: if getPrio def == highestPrio then [ (strip def) ] else [ ]) defs;
+      values = concatMap (def:
+        if getPrio def == highestPrio then
+          [ (strip def) ]
+        else
+          [ ]) defs;
       inherit highestPrio;
     } ;
 
@@ -1104,9 +1053,7 @@ in rec {
   sortProperties = defs:
     let
       strip = def:
-        if
-          def.value._type or "" == "order"
-        then
+        if def.value._type or "" == "order" then
           def // {
             value = def.value.content;
             inherit (def.value) priority;
@@ -1125,9 +1072,7 @@ in rec {
   # option declarations in submodules have accurate position information.
   # TODO: Merge this into mergeOptionDecls
   fixupOptionType = loc: opt:
-    if
-      opt.type.getSubModules or null == null
-    then
+    if opt.type.getSubModules or null == null then
       opt // { type = opt.type or types.unspecified; }
     else
       opt // {
@@ -1143,9 +1088,7 @@ in rec {
   };
 
   mkAssert = assertion: message: content:
-    mkIf (if
-      assertion
-    then
+    mkIf (if assertion then
       true
     else
       throw ''
@@ -1465,9 +1408,7 @@ in rec {
     in {
       options = setAttrByPath from (mkOption {
         inherit visible;
-        description = if
-          markdown
-        then
+        description = if markdown then
           lib.mdDoc "Alias of {option}`${showOption to}`."
         else
           "Alias of <option>${showOption to}</option>.";
@@ -1480,9 +1421,7 @@ in rec {
               showFiles fromOpt.files
             } has been renamed to `${showOption to}'.";
         })
-        (if
-          withPriority
-        then
+        (if withPriority then
           mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt
         else
           mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt)

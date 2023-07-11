@@ -19,8 +19,10 @@ let
 
   envFile = pkgs.writeText "nifi.env" (lib.concatMapStrings (s: s + "\n")
     ((lib.concatLists (lib.mapAttrsToList (name: value:
-      if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-      env))));
+      if value != null then
+        [ ''${name}="${toString value}"'' ]
+      else
+        [ ]) env))));
 
   nifiEnv = pkgs.writeShellScriptBin "nifi-env" ''
     set -a
@@ -61,9 +63,7 @@ in {
 
       listenHost = lib.mkOption {
         type = lib.types.str;
-        default = if
-          cfg.enableHTTPS
-        then
+        default = if cfg.enableHTTPS then
           "0.0.0.0"
         else
           "127.0.0.1";
@@ -77,9 +77,7 @@ in {
 
       listenPort = lib.mkOption {
         type = lib.types.int;
-        default = if
-          cfg.enableHTTPS
-        then
+        default = if cfg.enableHTTPS then
           8443
         else
           8080;
@@ -93,9 +91,7 @@ in {
 
       proxyHost = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if
-          cfg.enableHTTPS
-        then
+        default = if cfg.enableHTTPS then
           "0.0.0.0"
         else
           null;
@@ -109,9 +105,7 @@ in {
 
       proxyPort = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
-        default = if
-          cfg.enableHTTPS
-        then
+        default = if cfg.enableHTTPS then
           8443
         else
           null;

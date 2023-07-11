@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DBUILD_TESTS=ON"
     "-DBUILD_SHARED_LIBS=${
-      if
-        shared
-      then
+      if shared then
         "ON"
       else
         "OFF"

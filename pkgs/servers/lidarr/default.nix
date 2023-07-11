@@ -15,9 +15,7 @@
 }:
 
 let
-  os = if
-    stdenv.isDarwin
-  then
+  os = if stdenv.isDarwin then
     "osx"
   else
     "linux";

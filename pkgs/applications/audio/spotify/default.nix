@@ -19,9 +19,7 @@ let
     ];
   };
 
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   callPackage ./darwin.nix { inherit pname meta; }
 else
   callPackage ./linux.nix { inherit pname meta; }

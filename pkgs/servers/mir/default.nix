@@ -152,9 +152,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DMIR_PLATFORM='gbm-kms;x11;eglstream-kms;wayland'"
     "-DMIR_ENABLE_TESTS=${
-      if
-        doCheck
-      then
+      if doCheck then
         "ON"
       else
         "OFF"

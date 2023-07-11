@@ -7,9 +7,7 @@
   sqlite,
 }:
 
-(if
-  stdenv.isDarwin
-then
+(if stdenv.isDarwin then
   darwin.apple_sdk_11_0.clang14Stdenv
 else
   stdenv).mkDerivation rec {

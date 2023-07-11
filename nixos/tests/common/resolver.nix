@@ -71,9 +71,7 @@
               matched = builtins.match "[ 	]+(${reHost})(.*)" str;
               continue = lib.singleton (lib.head matched)
                 ++ matchAliases (lib.last matched);
-            in if
-              matched == null
-            then
+            in if matched == null then
               [ ]
             else
               continue;
@@ -81,15 +79,14 @@
           matchLine = str:
             let
               result = builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
-            in if
-              result == null
-            then
+            in if result == null then
               null
-            else {
-              ipAddr = lib.head result;
-              hosts = lib.singleton (lib.elemAt result 1)
-                ++ matchAliases (lib.last result);
-            };
+            else
+              {
+                ipAddr = lib.head result;
+                hosts = lib.singleton (lib.elemAt result 1)
+                  ++ matchAliases (lib.last result);
+              };
 
           skipLine = str:
             let
@@ -97,9 +94,7 @@
                 [^
                 ]*
                 (.*)'' str;
-            in if
-              rest == null
-            then
+            in if rest == null then
               ""
             else
               lib.head rest;
@@ -109,15 +104,11 @@
               result = matchLine str;
               next = getEntries (skipLine str);
               newEntry = acc ++ lib.singleton result;
-              continue = if
-                result == null
-              then
+              continue = if result == null then
                 next acc
               else
                 next newEntry;
-            in if
-              str == ""
-            then
+            in if str == "" then
               acc
             else
               continue;
@@ -133,9 +124,7 @@
             map (host: {
               inherit host;
               ${
-                if
-                  isIPv6 entry.ipAddr
-                then
+                if isIPv6 entry.ipAddr then
                   "ipv6"
                 else
                   "ipv4"

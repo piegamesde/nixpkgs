@@ -54,12 +54,13 @@ stdenv.mkDerivation rec {
 
   buildFlags = [
     # interpreter binary
-    (lib.flatten (if
-      enableSingeli
-    then [
-      "o3n-singeli"
-      "f='-mavx2'"
-    ] else [ "o3" ]))
+    (lib.flatten (if enableSingeli then
+      [
+        "o3n-singeli"
+        "f='-mavx2'"
+      ]
+    else
+      [ "o3" ]))
   ] ++ lib.optionals enableLibcbqn [
     # embeddable interpreter as a shared lib
     "shared-o3"
@@ -68,17 +69,18 @@ stdenv.mkDerivation rec {
   preBuild = ''
     # Purity: avoids git downloading bytecode files
     mkdir -p build/bytecodeLocal/gen
-  '' + (if
-    genBytecode
-  then ''
-    ${bqn-path} ./build/genRuntime ${mbqn-source} build/bytecodeLocal/
-  '' else ''
-    cp -r ${cbqn-bytecode-submodule}/dev/* build/bytecodeLocal/gen/
-  '') + lib.optionalString enableReplxx ''
-    cp -r ${replxx-submodule}/dev/* build/replxxLocal/
-  '' + lib.optionalString enableSingeli ''
-    cp -r ${singeli-submodule}/dev/* build/singeliLocal/
-  '';
+  '' + (if genBytecode then
+    ''
+      ${bqn-path} ./build/genRuntime ${mbqn-source} build/bytecodeLocal/
+    ''
+  else
+    ''
+      cp -r ${cbqn-bytecode-submodule}/dev/* build/bytecodeLocal/gen/
+    '') + lib.optionalString enableReplxx ''
+      cp -r ${replxx-submodule}/dev/* build/replxxLocal/
+    '' + lib.optionalString enableSingeli ''
+      cp -r ${singeli-submodule}/dev/* build/singeliLocal/
+    '';
 
   outputs = [ "out" ] ++ lib.optionals enableLibcbqn [
     "lib"

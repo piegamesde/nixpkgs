@@ -11,9 +11,7 @@ let
   inherit (lib.strings) escapeNixIdentifier;
 
   allTests = lib.mapAttrs (k: v:
-    if
-      v == null
-    then
+    if v == null then
       null
     else
       makePkgConfigTestMaybe k v)
@@ -27,9 +25,7 @@ let
     '';
 
   makePkgConfigTestMaybe = moduleName: pkg:
-    if
-      !lib.isDerivation pkg
-    then
+    if !lib.isDerivation pkg then
       throw "pkg-config module `${
         escapeNixIdentifier moduleName
       }` is not defined to be a derivation. Please check the attribute value for `${
@@ -43,7 +39,9 @@ let
         escapeNixIdentifier moduleName
       }` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
 
-    else if pkg.meta.unsupported then
+    else if
+      pkg.meta.unsupported
+    then
     # We return `null` instead of doing a `filterAttrs`, because with
     # `filterAttrs` the evaluator would not be able to return the attribute
     # set without first evaluating all of the attribute _values_. This would

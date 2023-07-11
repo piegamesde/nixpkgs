@@ -8,9 +8,7 @@ with lib;
 let
   cfg = config.security.ipa;
   pyBool = x:
-    if
-      x
-    then
+    if x then
       "True"
     else
       "False";

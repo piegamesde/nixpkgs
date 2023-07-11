@@ -35,18 +35,19 @@ stdenv.mkDerivation {
     cp -p converters/op2calltree $out/bin/op2calltree
     cp -p converters/pprof2calltree $out/bin/pprof2calltree
     chmod -R +x $out/bin/
-  '' + (if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    cp cgview/cgview.app/Contents/MacOS/cgview $out/bin
-    cp -a qcachegrind/qcachegrind.app $out/Applications
-  '' else ''
-    install qcachegrind/qcachegrind cgview/cgview -t "$out/bin"
-    install -Dm644 qcachegrind/qcachegrind.desktop -t "$out/share/applications"
-    install -Dm644 kcachegrind/32-apps-kcachegrind.png "$out/share/icons/hicolor/32x32/apps/kcachegrind.png"
-    install -Dm644 kcachegrind/48-apps-kcachegrind.png "$out/share/icons/hicolor/48x48/apps/kcachegrind.png"
-  '');
+  '' + (if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      cp cgview/cgview.app/Contents/MacOS/cgview $out/bin
+      cp -a qcachegrind/qcachegrind.app $out/Applications
+    ''
+  else
+    ''
+      install qcachegrind/qcachegrind cgview/cgview -t "$out/bin"
+      install -Dm644 qcachegrind/qcachegrind.desktop -t "$out/share/applications"
+      install -Dm644 kcachegrind/32-apps-kcachegrind.png "$out/share/icons/hicolor/32x32/apps/kcachegrind.png"
+      install -Dm644 kcachegrind/48-apps-kcachegrind.png "$out/share/icons/hicolor/48x48/apps/kcachegrind.png"
+    '');
 
   preFixup = ''
     wrapQtApp "$out/bin/qcachegrind"

@@ -61,9 +61,7 @@
 
 let
   cmFlag = flag:
-    if
-      flag
-    then
+    if flag then
       "ON"
     else
       "OFF";

@@ -27,9 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     "-DJSON_BuildTests=${
-      if
-        finalAttrs.doCheck
-      then
+      if finalAttrs.doCheck then
         "ON"
       else
         "OFF"

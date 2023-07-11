@@ -53,9 +53,7 @@ let
   });
 
   filterEmbeddedMetadata = value:
-    if
-      isAttrs value
-    then
+    if isAttrs value then
       (filterAttrs
         (attrName: attrValue: attrName != "_module" && attrValue != null) value)
     else
@@ -64,17 +62,13 @@ let
   indent = "  ";
 
   mkRelation = name: value:
-    if
-      (isList value)
-    then
+    if (isList value) then
       concatMapStringsSep "\n" (mkRelation name) value
     else
       "${name} = ${mkVal value}";
 
   mkVal = value:
-    if
-      (value == true)
-    then
+    if (value == true) then
       "true"
     else if (value == false) then
       "false"
@@ -95,14 +89,10 @@ let
 
   mkMappedAttrsOrString = value:
     concatMapStringsSep "\n" (line:
-      if
-        builtins.stringLength line > 0
-      then
+      if builtins.stringLength line > 0 then
         "${indent}${line}"
       else
-        line) (splitString "\n" (if
-          isAttrs value
-        then
+        line) (splitString "\n" (if isAttrs value then
           concatStringsSep "\n" (mapAttrsToList mkRelation value)
         else
           value));
@@ -331,9 +321,7 @@ in {
 
     environment.systemPackages = [ cfg.kerberos ];
 
-    environment.etc."krb5.conf".text = if
-      isString cfg.config
-    then
+    environment.etc."krb5.conf".text = if isString cfg.config then
       cfg.config
     else
       (''

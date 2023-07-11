@@ -48,9 +48,7 @@ rec {
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset = f: set:
     lib.mapAttrs (name: pkg:
-      if
-        lib.isDerivation pkg
-      then
+      if lib.isDerivation pkg then
         (f pkg)
       else
         pkg) set;
@@ -90,15 +88,12 @@ rec {
   */
   platformMatch = platform: elem:
     let
-      pattern = if
-        builtins.isString elem
-      then {
-        system = elem;
-      } else if elem ? parsed then
+      pattern = if builtins.isString elem then
+        { system = elem; }
+      else if elem ? parsed then
         elem
-      else {
-        parsed = elem;
-      };
+      else
+        { parsed = elem; };
     in
     lib.matchAttrs pattern platform
   ;

@@ -57,9 +57,7 @@
 let
   cmakeFeatureFlag = feature: flag:
     "-D${feature}=${
-      if
-        flag
-      then
+      if flag then
         "on"
       else
         "off"

@@ -33,9 +33,7 @@
   libunwind,
   vulkan-loader,
   glslang,
-  galliumDrivers ? if
-    stdenv.isLinux
-  then
+  galliumDrivers ? if stdenv.isLinux then
     [
       "d3d12" # WSL emulated GPU (aka Dozen)
       "nouveau" # Nvidia
@@ -59,10 +57,9 @@
       "iris" # new Intel, could work on non-x86 with PCIe cards, but doesn't build as of 22.3.4
       "crocus" # Intel legacy, x86 only
     ]
-  else [ "auto" ],
-  vulkanDrivers ? if
-    stdenv.isLinux
-  then
+  else
+    [ "auto" ],
+  vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
@@ -81,7 +78,8 @@
         "intel" # Intel (aka ANV), could work on non-x86 with PCIe cards, but doesn't build
         "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
       ]
-  else [ "auto" ],
+  else
+    [ "auto" ],
   eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
   vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
@@ -420,9 +418,7 @@ let
       inherit (libglvnd) driverLink;
       inherit llvmPackages;
 
-      libdrm = if
-        withLibdrm
-      then
+      libdrm = if withLibdrm then
         libdrm
       else
         null;

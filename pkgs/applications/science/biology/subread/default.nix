@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     cd src
     cp Makefile.${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "Linux"
       else
         "MacOS"

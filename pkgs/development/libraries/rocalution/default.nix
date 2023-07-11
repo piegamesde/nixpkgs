@@ -60,9 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DSUPPORT_OMP=ON"
     "-DSUPPORT_MPI=ON"
     "-DBUILD_CLIENTS_SAMPLES=${
-      if
-        buildSamples
-      then
+      if buildSamples then
         "ON"
       else
         "OFF"

@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
   pname = "racer";
   version = "1.1";
 
-  src = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  src = if stdenv.hostPlatform.system == "i686-linux" then
     fetchurl {
       url = "http://hippo.nipax.cz/src/racer-${version}.tar.gz";
       sha256 = "0fll1qkqfcjq87k0jzsilcw701z92lfxn2y5ga1n038772lymxl9";

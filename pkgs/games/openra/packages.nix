@@ -36,9 +36,7 @@ let
   */
   buildOpenRASet = f: args:
     builtins.mapAttrs (name: value:
-      if
-        builtins.isFunction value
-      then
+      if builtins.isFunction value then
         value name
       else
         value) (f ({
@@ -67,9 +65,7 @@ in rec {
         pkgs.callPackage ./engine.nix (common // {
           engine = engine // { inherit name installExperimental; };
         });
-    in if
-      name == null
-    then
+    in if name == null then
       builder
     else
       builder name;
@@ -95,9 +91,7 @@ in rec {
             mod = mod // { inherit name; };
             engine = engine // { inherit mods; };
           });
-      in if
-        name == null
-      then
+      in if name == null then
         builder
       else
         builder name) engine;

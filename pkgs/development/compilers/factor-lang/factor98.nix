@@ -63,9 +63,7 @@ let
       findGdkPixbufLoaders "${librsvg}"
 
       ${
-        if
-          to
-        then
+        if to then
           "makeWrapper ${from} ${to}"
         else
           "wrapProgram ${from}"

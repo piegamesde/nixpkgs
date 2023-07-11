@@ -24,15 +24,11 @@ let
       dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
     ''}
     dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
-    ${if
-      length (splitString "/" conf.privateKey) > 1
-    then
+    ${if length (splitString "/" conf.privateKey) > 1 then
       "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
     else
       "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
-    ${if
-      length (splitString "/" conf.privateKey) > 1
-    then
+    ${if length (splitString "/" conf.privateKey) > 1 then
       "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
     else
       "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}

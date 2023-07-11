@@ -21,9 +21,7 @@
 let
   useGccGoBootstrap = stdenv.buildPlatform.isMusl
     || stdenv.buildPlatform.isRiscV;
-  goBootstrap = if
-    useGccGoBootstrap
-  then
+  goBootstrap = if useGccGoBootstrap then
     buildPackages.gccgo12
   else
     buildPackages.callPackage ./bootstrap116.nix { };
@@ -121,15 +119,11 @@ stdenv.mkDerivation rec {
 
   # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
   # to be different from CC/CXX
-  CC_FOR_TARGET = if
-    isCross
-  then
+  CC_FOR_TARGET = if isCross then
     "${targetCC}/bin/${targetCC.targetPrefix}cc"
   else
     null;
-  CXX_FOR_TARGET = if
-    isCross
-  then
+  CXX_FOR_TARGET = if isCross then
     "${targetCC}/bin/${targetCC.targetPrefix}c++"
   else
     null;
@@ -143,9 +137,7 @@ stdenv.mkDerivation rec {
   GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
 
-  GOROOT_BOOTSTRAP = if
-    useGccGoBootstrap
-  then
+  GOROOT_BOOTSTRAP = if useGccGoBootstrap then
     goBootstrap
   else
     "${goBootstrap}/share/go";
@@ -176,15 +168,15 @@ stdenv.mkDerivation rec {
     # Contains the wrong perl shebang when cross compiling,
     # since it is not used for anything we can deleted as well.
     rm src/regexp/syntax/make_perl_groups.pl
-  '' + (if
-    (stdenv.buildPlatform.system != stdenv.hostPlatform.system)
-  then ''
-    mv bin/*_*/* bin
-    rmdir bin/*_*
-    ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-      rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
-    ''}
-  '' else
+  '' + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then
+    ''
+      mv bin/*_*/* bin
+      rmdir bin/*_*
+      ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+        rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
+      ''}
+    ''
+  else
     lib.optionalString
     (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
       rm -rf bin/*_*

@@ -5,9 +5,7 @@
 }:
 
 let
-  chezArch = if
-    stdenv.hostPlatform.isAarch
-  then
+  chezArch = if stdenv.hostPlatform.isAarch then
     "arm${toString stdenv.hostPlatform.parsed.cpu.bits}"
   else if stdenv.hostPlatform.isx86_32 then
     "i3"
@@ -19,9 +17,7 @@ let
     throw
     "Add ${stdenv.hostPlatform.parsed.cpu.arch} to chezArch to enable building chez-racket";
 
-  chezOs = if
-    stdenv.hostPlatform.isDarwin
-  then
+  chezOs = if stdenv.hostPlatform.isDarwin then
     "osx"
   else if stdenv.hostPlatform.isFreeBSD then
     "fb"

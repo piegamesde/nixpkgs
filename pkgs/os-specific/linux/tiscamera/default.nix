@@ -97,25 +97,19 @@ stdenv.mkDerivation rec {
     "-DTCAM_BUILD_LIBUSB=ON"
     "-DTCAM_BUILD_TESTS=ON"
     "-DTCAM_BUILD_ARAVIS=${
-      if
-        withAravis
-      then
+      if withAravis then
         "ON"
       else
         "OFF"
     }"
     "-DTCAM_BUILD_DOCUMENTATION=${
-      if
-        withDoc
-      then
+      if withDoc then
         "ON"
       else
         "OFF"
     }"
     "-DTCAM_BUILD_WITH_GUI=${
-      if
-        withGui
-      then
+      if withGui then
         "ON"
       else
         "OFF"
@@ -123,9 +117,7 @@ stdenv.mkDerivation rec {
     "-DTCAM_DOWNLOAD_MESON=OFF"
     "-DTCAM_INTERNAL_ARAVIS=OFF"
     "-DTCAM_ARAVIS_USB_VISION=${
-      if
-        withAravis && withAravisUsbVision
-      then
+      if withAravis && withAravisUsbVision then
         "ON"
       else
         "OFF"

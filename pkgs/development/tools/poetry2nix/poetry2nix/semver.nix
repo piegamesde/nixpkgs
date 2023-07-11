@@ -19,15 +19,11 @@ let
       let
         m = matchWildCard constraint;
         hasWildcard = m != null;
-        c = if
-          hasWildcard
-        then
+        c = if hasWildcard then
           (elemAt m 0)
         else
           constraint;
-        v = if
-          hasWildcard
-        then
+        v = if hasWildcard then
           (builtins.substring 0 (builtins.stringLength c) version)
         else
           version;
@@ -77,28 +73,27 @@ let
       # There is also an infix operator to match ranges
       mIn = match "${re.version} *(-) *${re.version}" constraintStr;
     in
-    (if
-      mPre != null
-    then {
-      op = elemAt mPre 0;
-      v = elemAt mPre 1;
-    }
-    # Infix operators are range matches
-    else if mIn != null then {
-      op = elemAt mIn 1;
-      v = {
-        vl = (elemAt mIn 0);
-        vu = (elemAt mIn 2);
-      };
-    } else
+    (if mPre != null then
+      {
+        op = elemAt mPre 0;
+        v = elemAt mPre 1;
+      }
+      # Infix operators are range matches
+    else if mIn != null then
+      {
+        op = elemAt mIn 1;
+        v = {
+          vl = (elemAt mIn 0);
+          vu = (elemAt mIn 2);
+        };
+      }
+    else
       throw ''Constraint "${constraintStr}" could not be parsed'')
   ;
   satisfiesSemver = version: constraint:
     let
       inherit (parseConstraint constraint) op v;
-    in if
-      constraint == "*"
-    then
+    in if constraint == "*" then
       true
     else
       operators."${op}" version v;

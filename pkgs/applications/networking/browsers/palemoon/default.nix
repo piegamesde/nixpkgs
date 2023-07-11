@@ -123,9 +123,7 @@ stdenv.mkDerivation rec {
 
     export build64=${lib.optionalString stdenv.hostPlatform.is64bit "1"}
     export gtkversion=${
-      if
-        withGTK3
-      then
+      if withGTK3 then
         "3"
       else
         "2"

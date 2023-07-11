@@ -78,9 +78,7 @@ let
     categories = [ "Game" ];
   };
 
-  branch = if
-    experimental
-  then
+  branch = if experimental then
     "experimental"
   else
     "stable";
@@ -97,12 +95,8 @@ let
   makeBinDists = versions:
     let
       f = path: name: value:
-        if
-          builtins.isAttrs value
-        then
-          if
-            value ? "name"
-          then
+        if builtins.isAttrs value then
+          if value ? "name" then
             makeBinDist value
           else
             builtins.mapAttrs (f (path ++ [ name ])) value
@@ -120,9 +114,7 @@ let
       needsAuth,
     }: {
       inherit version tarDirectory;
-      src = if
-        !needsAuth
-      then
+      src = if !needsAuth then
         fetchurl { inherit name url sha256; }
       else
         (lib.overrideDerivation (fetchurl {
@@ -136,16 +128,17 @@ let
           ];
         }) (_: {
           # This preHook hides the credentials from /proc
-          preHook = if
-            username != "" && token != ""
-          then ''
-            echo -n "${username}" >username
-            echo -n "${token}"    >token
-          '' else ''
-            # Deliberately failing since username/token was not provided, so we can't fetch.
-            # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
-            exit 1
-          '';
+          preHook = if username != "" && token != "" then
+            ''
+              echo -n "${username}" >username
+              echo -n "${token}"    >token
+            ''
+          else
+            ''
+              # Deliberately failing since username/token was not provided, so we can't fetch.
+              # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
+              exit 1
+            '';
           failureHook = ''
             cat <<EOF
             ${helpMsg}
@@ -192,13 +185,13 @@ let
         $out/bin/factorio
     '';
 
-    passthru.updateScript = if
-      (username != "" && token != "")
-    then [
-      ./update.py
-      "--username=${username}"
-      "--token=${token}"
-    ] else
+    passthru.updateScript = if (username != "" && token != "") then
+      [
+        ./update.py
+        "--username=${username}"
+        "--token=${token}"
+      ]
+    else
       null;
 
     meta = {

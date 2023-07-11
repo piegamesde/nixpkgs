@@ -72,9 +72,7 @@ lib.makeOverridable (
   }@attrs:
 
   let
-    src = attrs.src or (if
-      type == "gem"
-    then
+    src = attrs.src or (if type == "gem" then
       fetchurl {
         urls = map (remote: "${remote}/gems/${gemName}-${version}.gem")
           (attrs.source.remotes or [ "https://rubygems.org" ]);
@@ -86,9 +84,7 @@ lib.makeOverridable (
       fetchurl attrs.source
     else
       throw ''buildRubyGem: don't know how to build a gem of type "${type}"'');
-    documentFlag = if
-      document == [ ]
-    then
+    documentFlag = if document == [ ] then
       "-N"
     else
       "--document ${lib.concatStringsSep "," document}";
@@ -232,9 +228,7 @@ lib.makeOverridable (
         pushd $out/${ruby.gemPath}
         find doc/ -iname created.rid -delete -print
         find gems/*/ext/ extensions/ \( -iname Makefile -o -iname mkmf.log -o -iname gem_make.out \) -delete -print
-        ${if
-          keepGemCache
-        then
+        ${if keepGemCache then
           ""
         else
           "rm -fvr cache"}

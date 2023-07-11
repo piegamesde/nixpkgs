@@ -70,13 +70,13 @@ let
     };
     authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
     interfaces = {
-      ETHInterface = if
-        (cfg.ETHInterface.bind != "")
-      then [ (parseModules cfg.ETHInterface) ] else
+      ETHInterface = if (cfg.ETHInterface.bind != "") then
+        [ (parseModules cfg.ETHInterface) ]
+      else
         [ ];
-      UDPInterface = if
-        (cfg.UDPInterface.bind != "")
-      then [ (parseModules cfg.UDPInterface) ] else
+      UDPInterface = if (cfg.UDPInterface.bind != "") then
+        [ (parseModules cfg.UDPInterface) ]
+      else
         [ ];
     };
 
@@ -262,45 +262,43 @@ in {
       after = [ "network-online.target" ];
       bindsTo = [ "network-online.target" ];
 
-      preStart = if
-        cfg.confFile != null
-      then
+      preStart = if cfg.confFile != null then
         ""
-      else ''
-        [ -e /etc/cjdns.keys ] && source /etc/cjdns.keys
+      else
+        ''
+          [ -e /etc/cjdns.keys ] && source /etc/cjdns.keys
 
-        if [ -z "$CJDNS_PRIVATE_KEY" ]; then
-            shopt -s lastpipe
-            ${pkg}/bin/makekeys | { read private ipv6 public; }
+          if [ -z "$CJDNS_PRIVATE_KEY" ]; then
+              shopt -s lastpipe
+              ${pkg}/bin/makekeys | { read private ipv6 public; }
 
-            umask 0077
-            echo "CJDNS_PRIVATE_KEY=$private" >> /etc/cjdns.keys
-            echo -e "CJDNS_IPV6=$ipv6\nCJDNS_PUBLIC_KEY=$public" > /etc/cjdns.public
+              umask 0077
+              echo "CJDNS_PRIVATE_KEY=$private" >> /etc/cjdns.keys
+              echo -e "CJDNS_IPV6=$ipv6\nCJDNS_PUBLIC_KEY=$public" > /etc/cjdns.public
 
-            chmod 600 /etc/cjdns.keys
-            chmod 444 /etc/cjdns.public
-        fi
+              chmod 600 /etc/cjdns.keys
+              chmod 444 /etc/cjdns.public
+          fi
 
-        if [ -z "$CJDNS_ADMIN_PASSWORD" ]; then
-            echo "CJDNS_ADMIN_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" \
-                >> /etc/cjdns.keys
-        fi
-      '';
+          if [ -z "$CJDNS_ADMIN_PASSWORD" ]; then
+              echo "CJDNS_ADMIN_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" \
+                  >> /etc/cjdns.keys
+          fi
+        '';
 
-      script = (if
-        cfg.confFile != null
-      then
+      script = (if cfg.confFile != null then
         "${pkg}/bin/cjdroute < ${cfg.confFile}"
-      else ''
-        source /etc/cjdns.keys
-        (cat <<'EOF'
-        ${cjdrouteConf}
-        EOF
-        ) | sed \
-            -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
-            -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
-            | ${pkg}/bin/cjdroute
-      '');
+      else
+        ''
+          source /etc/cjdns.keys
+          (cat <<'EOF'
+          ${cjdrouteConf}
+          EOF
+          ) | sed \
+              -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
+              -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
+              | ${pkg}/bin/cjdroute
+        '');
 
       startLimitIntervalSec = 0;
       serviceConfig = {

@@ -55,51 +55,35 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DUSE_SYSTEM_MBEDTLS=on" # Policy to use Nix deps, and Nix uses up to date deps
-    (if
-      enableCache
-    then
+    (if enableCache then
       "-DENABLE_CACHE=on"
     else
       "-DENABLE_CACHE=off")
-    (if
-      enableIpV6
-    then
+    (if enableIpV6 then
       "-DENABLE_IPV6=on"
     else
       "-DENABLE_IPV6=off")
-    (if
-      enableTls
-    then
+    (if enableTls then
       "-DENABLE_TLS=on"
     else
       "-DENABLE_TLS=off")
-    (if
-      enableMonitor
-    then
+    (if enableMonitor then
       "-DENABLE_MONITOR=on"
     else
       "-DENABLE_MONITOR=off")
-    (if
-      enableRproxy
-    then
+    (if enableRproxy then
       "-DENABLE_RPROXY=on"
     else
       "-DENABLE_RPROXY=off")
-    (if
-      enableTomahawk
-    then
+    (if enableTomahawk then
       "-DENABLE_TOMAHAWK=on"
     else
       "-DENABLE_TOMAHAWK=off")
-    (if
-      enableXslt
-    then
+    (if enableXslt then
       "-DENABLE_XSLT=on"
     else
       "-DENABLE_XSLT=off")
-    (if
-      enableToolkit
-    then
+    (if enableToolkit then
       "-DENABLE_TOOLKIT=on"
     else
       "-DENABLE_TOOLKIT=off")

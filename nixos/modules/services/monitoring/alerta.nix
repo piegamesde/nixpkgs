@@ -21,17 +21,13 @@ let
         concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins
       } ];
       AUTH_REQUIRED = ${
-        if
-          cfg.authenticationRequired
-        then
+        if cfg.authenticationRequired then
           "True"
         else
           "False"
       }
       SIGNUP_ENABLED = ${
-        if
-          cfg.signupEnabled
-        then
+        if cfg.signupEnabled then
           "True"
         else
           "False"

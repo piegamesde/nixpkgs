@@ -49,29 +49,28 @@ stdenv.mkDerivation rec {
     "COMMUNI_INSTALL_DESKTOP=${placeholder "out"}/share/applications"
     "COMMUNI_INSTALL_THEMES=${placeholder "out"}/share/communi/themes"
     "COMMUNI_INSTALL_BINS=${placeholder "out"}/${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "Applications"
       else
         "bin"
     }"
   ];
 
-  postInstall = if
-    stdenv.isDarwin
-  then ''
-    # Nix qmake does not add the bundle rpath by default.
-    install_name_tool \
-      -add_rpath @executable_path/../Frameworks \
-      $out/Applications/Communi.app/Contents/MacOS/Communi
+  postInstall = if stdenv.isDarwin then
+    ''
+      # Nix qmake does not add the bundle rpath by default.
+      install_name_tool \
+        -add_rpath @executable_path/../Frameworks \
+        $out/Applications/Communi.app/Contents/MacOS/Communi
 
-    # Do not remove until wrapQtAppsHook doesn't wrap dylibs in app bundles anymore
-    wrapQtApp $out/Applications/Communi.app/Contents/MacOS/Communi
-  '' else ''
-    substituteInPlace "$out/share/applications/communi.desktop" \
-      --replace "/usr/bin" "$out/bin"
-  '';
+      # Do not remove until wrapQtAppsHook doesn't wrap dylibs in app bundles anymore
+      wrapQtApp $out/Applications/Communi.app/Contents/MacOS/Communi
+    ''
+  else
+    ''
+      substituteInPlace "$out/share/applications/communi.desktop" \
+        --replace "/usr/bin" "$out/bin"
+    '';
 
   preFixup = ''
     rm -rf lib

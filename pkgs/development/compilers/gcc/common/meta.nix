@@ -17,9 +17,9 @@ with lib; {
   '';
 
   platforms = platforms.unix;
-  maintainers = if
-    versionOlder version "5"
-  then [ maintainers.veprbl ] else
+  maintainers = if versionOlder version "5" then
+    [ maintainers.veprbl ]
+  else
     teams.gcc.members;
 
 }

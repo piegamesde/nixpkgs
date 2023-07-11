@@ -36,9 +36,7 @@
 let
   inherit (builtins) elemAt;
   nullableOr = o: default:
-    if
-      o == null
-    then
+    if o == null then
       default
     else
       o;

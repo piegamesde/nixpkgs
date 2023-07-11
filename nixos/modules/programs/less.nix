@@ -11,26 +11,25 @@ let
 
   cfg = config.programs.less;
 
-  configText = if
-    (cfg.configFile != null)
-  then
+  configText = if (cfg.configFile != null) then
     (builtins.readFile cfg.configFile)
-  else ''
-    #command
-    ${concatStringsSep "\n"
-    (mapAttrsToList (command: action: "${command} ${action}") cfg.commands)}
-    ${optionalString cfg.clearDefaultCommands "#stop"}
+  else
+    ''
+      #command
+      ${concatStringsSep "\n"
+      (mapAttrsToList (command: action: "${command} ${action}") cfg.commands)}
+      ${optionalString cfg.clearDefaultCommands "#stop"}
 
-    #line-edit
-    ${concatStringsSep "\n"
-    (mapAttrsToList (command: action: "${command} ${action}")
-      cfg.lineEditingKeys)}
+      #line-edit
+      ${concatStringsSep "\n"
+      (mapAttrsToList (command: action: "${command} ${action}")
+        cfg.lineEditingKeys)}
 
-    #env
-    ${concatStringsSep "\n"
-    (mapAttrsToList (variable: values: "${variable}=${values}")
-      cfg.envVariables)}
-  '';
+      #env
+      ${concatStringsSep "\n"
+      (mapAttrsToList (variable: values: "${variable}=${values}")
+        cfg.envVariables)}
+    '';
 
   lessKey = pkgs.writeText "lessconfig" configText;
 

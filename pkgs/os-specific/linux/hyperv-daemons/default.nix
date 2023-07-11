@@ -18,9 +18,7 @@ let
     inherit (kernel) src version;
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ (if
-      lib.versionOlder version "4.19"
-    then
+    buildInputs = [ (if lib.versionOlder version "4.19" then
       python2
     else
       python3) ];

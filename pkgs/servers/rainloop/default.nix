@@ -71,9 +71,7 @@ let
         homepage = "https://www.rainloop.net";
         downloadPage = "https://github.com/RainLoop/rainloop-webmail/releases";
         license = with licenses;
-          if
-            edition == ""
-          then
+          if edition == "" then
             unfree
           else
             agpl3;

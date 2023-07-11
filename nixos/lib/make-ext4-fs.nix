@@ -40,9 +40,7 @@ pkgs.stdenv.mkDerivation {
   ] ++ lib.optional compressImage zstd;
 
   buildCommand = ''
-    ${if
-      compressImage
-    then
+    ${if compressImage then
       "img=temp.img"
     else
       "img=$out"}

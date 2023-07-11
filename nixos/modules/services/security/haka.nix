@@ -18,9 +18,7 @@ let
   hakaConf = pkgs.writeText "haka.conf" ''
     [general]
     configuration = ${
-      if
-        lib.strings.hasPrefix "/" cfg.configFile
-      then
+      if lib.strings.hasPrefix "/" cfg.configFile then
         "${cfg.configFile}"
       else
         "${haka}/share/haka/sample/${cfg.configFile}"

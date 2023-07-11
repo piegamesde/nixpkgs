@@ -39,9 +39,7 @@ in {
   };
   serviceOpts = {
     serviceConfig = {
-      SupplementaryGroups = singleton (if
-        cfg.birdVersion == 1
-      then
+      SupplementaryGroups = singleton (if cfg.birdVersion == 1 then
         "bird"
       else
         "bird2");
@@ -50,17 +48,13 @@ in {
           -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           -bird.socket ${cfg.birdSocket} \
           -bird.v2=${
-            if
-              cfg.birdVersion == 2
-            then
+            if cfg.birdVersion == 2 then
               "true"
             else
               "false"
           } \
           -format.new=${
-            if
-              cfg.newMetricFormat
-            then
+            if cfg.newMetricFormat then
               "true"
             else
               "false"

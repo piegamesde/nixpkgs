@@ -29,9 +29,7 @@ stdenv.mkDerivation {
 
   configureFlags = [
     "--with-systemdsystemunitdir=${
-      if
-        useSystemd
-      then
+      if useSystemd then
         "${placeholder "out"}/etc/systemd/system"
       else
         "no"

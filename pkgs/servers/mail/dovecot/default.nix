@@ -125,25 +125,19 @@ stdenv.mkDerivation rec {
     "--with-icu"
   ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "i_cv_epoll_works=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "yes"
       else
         "no"
     }"
     "i_cv_posix_fallocate_works=${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "no"
       else
         "yes"
     }"
     "i_cv_inotify_works=${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "yes"
       else
         "no"

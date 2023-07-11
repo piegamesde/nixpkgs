@@ -20,9 +20,7 @@ let
       ghc ? ghcWithPackages (p: with p; [ ieee754 ])
     }:
     let
-      pkgs' = if
-        builtins.isList pkgs
-      then
+      pkgs' = if builtins.isList pkgs then
         pkgs
       else
         pkgs self;
@@ -56,9 +54,7 @@ let
   ; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages = arg:
-    if
-      builtins.isAttrs arg
-    then
+    if builtins.isAttrs arg then
       withPackages' arg
     else
       withPackages' { pkgs = arg; };
@@ -99,31 +95,29 @@ let
 
       buildInputs = buildInputs ++ [ agdaWithArgs ];
 
-      buildPhase = if
-        buildPhase != null
-      then
+      buildPhase = if buildPhase != null then
         buildPhase
-      else ''
-        runHook preBuild
-        agda ${includePathArgs} ${everythingFile}
-        runHook postBuild
-      '';
+      else
+        ''
+          runHook preBuild
+          agda ${includePathArgs} ${everythingFile}
+          runHook postBuild
+        '';
 
-      installPhase = if
-        installPhase != null
-      then
+      installPhase = if installPhase != null then
         installPhase
-      else ''
-        runHook preInstall
-        mkdir -p $out
-        find -not \( -path ${everythingFile} -or -path ${
-          lib.interfaceFile everythingFile
-        } \) -and \( ${
-          concatMapStringsSep " -or " (p: "-name '*.${p}'")
-          (extensions ++ extraExtensions)
-        } \) -exec cp -p --parents -t "$out" {} +
-        runHook postInstall
-      '';
+      else
+        ''
+          runHook preInstall
+          mkdir -p $out
+          find -not \( -path ${everythingFile} -or -path ${
+            lib.interfaceFile everythingFile
+          } \) -and \( ${
+            concatMapStringsSep " -or " (p: "-name '*.${p}'")
+            (extensions ++ extraExtensions)
+          } \) -exec cp -p --parents -t "$out" {} +
+          runHook postInstall
+        '';
 
       # As documented at https://github.com/NixOS/nixpkgs/issues/172752,
       # we need to set LC_ALL to an UTF-8-supporting locale. However, on
@@ -132,9 +126,7 @@ let
       # set this only on non-darwin.
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
-      meta = if
-        meta.broken or false
-      then
+      meta = if meta.broken or false then
         meta // { hydraPlatforms = lib.platforms.none; }
       else
         meta;

@@ -108,9 +108,7 @@ in {
   };
 
   config = mkIf cfg.enable (let
-    atop = if
-      cfg.atopgpu.enable
-    then
+    atop = if cfg.atopgpu.enable then
       (cfg.package.override { withAtopgpu = true; })
     else
       cfg.package;
@@ -130,9 +128,7 @@ in {
       mkSystemd = type: cond: name: restartTriggers: {
         ${name} = lib.mkIf cond {
           inherit restartTriggers;
-          wantedBy = [ (if
-            type == "services"
-          then
+          wantedBy = [ (if type == "services" then
             "multi-user.target"
           else if type == "timers" then
             "timers.target"

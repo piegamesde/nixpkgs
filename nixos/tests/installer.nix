@@ -43,16 +43,17 @@ let
             ''}
 
             boot.loader.grub.extraConfig = "serial; terminal_output serial";
-            ${if
-              grubUseEfi
-            then ''
-              boot.loader.grub.device = "nodev";
-              boot.loader.grub.efiSupport = true;
-              boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
-            '' else ''
-              boot.loader.grub.device = "${grubDevice}";
-              boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-            ''}
+            ${if grubUseEfi then
+              ''
+                boot.loader.grub.device = "nodev";
+                boot.loader.grub.efiSupport = true;
+                boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
+              ''
+            else
+              ''
+                boot.loader.grub.device = "${grubDevice}";
+                boot.loader.grub.fsIdentifier = "${grubIdentifier}";
+              ''}
 
             boot.loader.grub.configurationLimit = 100 + ${
               toString forceGrubReinstallCount
@@ -97,32 +98,26 @@ let
       testSpecialisationConfig,
     }:
     let
-      iface = if
-        grubVersion == 1
-      then
+      iface = if grubVersion == 1 then
         "ide"
       else
         "virtio";
       isEfi = bootLoader == "systemd-boot"
         || (bootLoader == "grub" && grubUseEfi);
-      bios = if
-        pkgs.stdenv.isAarch64
-      then
+      bios = if pkgs.stdenv.isAarch64 then
         "QEMU_EFI.fd"
       else
         "OVMF.fd";
-    in if
-      !isEfi && !pkgs.stdenv.hostPlatform.isx86
-    then ''
-      machine.succeed("true")
-    '' else
+    in if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
+      ''
+        machine.succeed("true")
+      ''
+    else
       ''
         def assemble_qemu_flags():
             flags = "-cpu max"
             ${
-              if
-                (system == "x86_64-linux" || system == "i686-linux")
-              then
+              if (system == "x86_64-linux" || system == "i686-linux") then
                 ''flags += " -m 1024"''
               else
                 ''
@@ -213,9 +208,7 @@ let
         with subtest("Assert that /boot get mounted"):
             machine.wait_for_unit("local-fs.target")
             ${
-              if
-                bootLoader == "grub"
-              then
+              if bootLoader == "grub" then
                 ''machine.succeed("test -e /boot/grub")''
               else
                 ''machine.succeed("test -e /boot/loader/loader.conf")''
@@ -394,16 +387,12 @@ let
             # installer. This ensures the target disk (/dev/vda) is
             # the same during and after installation.
             virtualisation.emptyDiskImages = [ 512 ];
-            virtualisation.rootDevice = if
-              grubVersion == 1
-            then
+            virtualisation.rootDevice = if grubVersion == 1 then
               "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
             else
               "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
-            virtualisation.qemu.diskInterface = if
-              grubVersion == 1
-            then
+            virtualisation.qemu.diskInterface = if grubVersion == 1 then
               "scsi"
             else
               "virtio";

@@ -5,9 +5,7 @@
   ...
 }:
 let
-  ssh-keys = if
-    builtins.pathExists ../../ssh-keys.nix
-  then # Outside sandbox
+  ssh-keys = if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
     ../../ssh-keys.nix
   else # In sandbox
     ./ssh-keys.nix;

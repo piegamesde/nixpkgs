@@ -67,33 +67,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_MONOLITHIC=${
-      if
-        monolithic
-      then
+      if monolithic then
         "ON"
       else
         "OFF"
     }"
     "-DBUILD_DAEMON=${
-      if
-        enableDaemon
-      then
+      if enableDaemon then
         "ON"
       else
         "OFF"
     }"
     "-DBUILD_REMOTEGUI=${
-      if
-        client
-      then
+      if client then
         "ON"
       else
         "OFF"
     }"
     "-DBUILD_WEBSERVER=${
-      if
-        httpServer
-      then
+      if httpServer then
         "ON"
       else
         "OFF"

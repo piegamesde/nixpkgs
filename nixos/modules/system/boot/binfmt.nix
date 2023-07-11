@@ -22,18 +22,14 @@ let
       ...
     }:
     let
-      type = if
-        recognitionType == "magic"
-      then
+      type = if recognitionType == "magic" then
         "M"
       else
         "E";
       offset' = toString offset;
       mask' = toString mask;
       interpreter = "/run/binfmt/${name}";
-      flags = if
-        !(matchCredentials -> openBinary)
-      then
+      flags = if !(matchCredentials -> openBinary) then
         throw
         "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
       else
@@ -50,19 +46,20 @@ let
       wrapInterpreterInShell,
       ...
     }:
-    if
-      wrapInterpreterInShell
-    then ''
-      rm -f /run/binfmt/${name}
-      cat > /run/binfmt/${name} << 'EOF'
-      #!${pkgs.bash}/bin/sh
-      exec -- ${interpreter} "$@"
-      EOF
-      chmod +x /run/binfmt/${name}
-    '' else ''
-      rm -f /run/binfmt/${name}
-      ln -s ${interpreter} /run/binfmt/${name}
-    '';
+    if wrapInterpreterInShell then
+      ''
+        rm -f /run/binfmt/${name}
+        cat > /run/binfmt/${name} << 'EOF'
+        #!${pkgs.bash}/bin/sh
+        exec -- ${interpreter} "$@"
+        EOF
+        chmod +x /run/binfmt/${name}
+      ''
+    else
+      ''
+        rm -f /run/binfmt/${name}
+        ln -s ${interpreter} /run/binfmt/${name}
+      '';
 
   getEmulator = system:
     (lib.systems.elaborate { inherit system; }).emulator pkgs;
@@ -392,9 +389,7 @@ in {
           interpreterReg = let
             wrapperName = "qemu-${qemuArch}-binfmt-P";
             wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-          in if
-            preserveArgvZero
-          then
+          in if preserveArgvZero then
             "${wrapper}/bin/${wrapperName}"
           else
             interpreter;

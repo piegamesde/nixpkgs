@@ -27,9 +27,7 @@ let
   knownHostsText = (flip (concatMapStringsSep "\n") knownHosts (h:
     assert h.hostNames != [ ];
     optionalString h.certAuthority "@cert-authority "
-    + concatStringsSep "," h.hostNames + " " + (if
-      h.publicKey != null
-    then
+    + concatStringsSep "," h.hostNames + " " + (if h.publicKey != null then
       h.publicKey
     else
       readFile h.publicKeyFile))) + "\n";
@@ -333,9 +331,7 @@ in {
       # Generated options from other settings
       Host *
       AddressFamily ${
-        if
-          config.networking.enableIPv6
-        then
+        if config.networking.enableIPv6 then
           "any"
         else
           "inet"
@@ -347,9 +343,7 @@ in {
       ''}
 
       ForwardX11 ${
-        if
-          cfg.forwardX11
-        then
+        if cfg.forwardX11 then
           "yes"
         else
           "no"

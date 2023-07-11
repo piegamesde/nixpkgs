@@ -144,9 +144,7 @@ let
         type: data:
         fetchsvn {
           inherit (data) rev sha256;
-          url = if
-            type == "plugin" || type == "theme"
-          then
+          url = if type == "plugin" || type == "theme" then
             "https://" + type + "s.svn.wordpress.org/" + data.path
           else if type == "language" then
             "https://i18n.svn.wordpress.org/core/" + data.version + "/"

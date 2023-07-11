@@ -48,17 +48,13 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-std=c++11"
     "-DOpenMVG_BUILD_EXAMPLES=${
-      if
-        enableExamples
-      then
+      if enableExamples then
         "ON"
       else
         "OFF"
     }"
     "-DOpenMVG_BUILD_DOC=${
-      if
-        enableDocs
-      then
+      if enableDocs then
         "ON"
       else
         "OFF"

@@ -1228,18 +1228,19 @@ let
             useNetworkd = networkd;
             useDHCP = false;
           };
-        } // (if
-          networkd
-        then {
-          systemd.network.links."10-custom_name" = {
-            matchConfig.MACAddress = "52:54:00:12:01:01";
-            linkConfig.Name = "custom_name";
-          };
-        } else {
-          boot.initrd.services.udev.rules = ''
-            SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
-          '';
-        });
+        } // (if networkd then
+          {
+            systemd.network.links."10-custom_name" = {
+              matchConfig.MACAddress = "52:54:00:12:01:01";
+              linkConfig.Name = "custom_name";
+            };
+          }
+        else
+          {
+            boot.initrd.services.udev.rules = ''
+              SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
+            '';
+          });
       testScript = ''
         machine.succeed("udevadm settle")
         print(machine.succeed("ip link show dev custom_name"))
@@ -1304,9 +1305,7 @@ in
 mapAttrs (const (attrs:
   makeTest (attrs // {
     name = "${attrs.name}-Networking-${
-        if
-          networkd
-        then
+        if networkd then
           "Networkd"
         else
           "Scripted"

@@ -26,23 +26,24 @@ stdenv.mkDerivation rec {
     sha256 = "0p846q1l66k3rnd512sncp26zpv411b8ahi145sghfcsz9w8abc4";
   };
 
-  postPatch = if
-    stdenv.isDarwin
-  then ''
-    substituteInPlace "./XADMaster.xcodeproj/project.pbxproj" \
-      --replace "libstdc++.6.dylib" "libc++.1.dylib"
-  '' else ''
-    for f in Makefile.linux ../UniversalDetector/Makefile.linux ; do
-      substituteInPlace $f \
-        --replace "= gcc" "=${stdenv.cc.targetPrefix}cc" \
-        --replace "= g++" "=${stdenv.cc.targetPrefix}c++" \
-        --replace "-DGNU_RUNTIME=1" "" \
-        --replace "-fgnu-runtime" "-fobjc-runtime=gnustep-2.0"
-    done
+  postPatch = if stdenv.isDarwin then
+    ''
+      substituteInPlace "./XADMaster.xcodeproj/project.pbxproj" \
+        --replace "libstdc++.6.dylib" "libc++.1.dylib"
+    ''
+  else
+    ''
+      for f in Makefile.linux ../UniversalDetector/Makefile.linux ; do
+        substituteInPlace $f \
+          --replace "= gcc" "=${stdenv.cc.targetPrefix}cc" \
+          --replace "= g++" "=${stdenv.cc.targetPrefix}c++" \
+          --replace "-DGNU_RUNTIME=1" "" \
+          --replace "-fgnu-runtime" "-fobjc-runtime=gnustep-2.0"
+      done
 
-    # we need to build inside this directory as well, so we have to make it writeable
-    chmod +w ../UniversalDetector -R
-  '';
+      # we need to build inside this directory as well, so we have to make it writeable
+      chmod +w ../UniversalDetector -R
+    '';
 
   buildInputs = [
     bzip2

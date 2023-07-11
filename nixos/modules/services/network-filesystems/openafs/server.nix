@@ -61,9 +61,7 @@ let
         end
       ''));
 
-  netInfo = if
-    (cfg.advertisedAddresses != [ ])
-  then
+  netInfo = if (cfg.advertisedAddresses != [ ]) then
     pkgs.writeText "NetInfo" ((concatStringsSep ''
 
       f '' cfg.advertisedAddresses) + "\n")

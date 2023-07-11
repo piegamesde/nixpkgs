@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  makefile = if
-    stdenv.hostPlatform.isDarwin
-  then
+  makefile = if stdenv.hostPlatform.isDarwin then
     "makefile.osx"
   else if stdenv.hostPlatform.isFreeBSD then
     "makefile.bsd"

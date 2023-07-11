@@ -134,9 +134,7 @@ in {
       }) enabledPolicies
       ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes);
     environment.etc."apparmor/parser.conf".text = ''
-      ${if
-        cfg.enableCache
-      then
+      ${if cfg.enableCache then
         "write-cache"
       else
         "skip-cache"}

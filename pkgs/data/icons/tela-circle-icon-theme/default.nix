@@ -73,9 +73,7 @@ stdenvNoCC.mkDerivation rec {
     ./install.sh -d $out/share/icons \
       ${lib.optionalString circularFolder "-c"} \
       ${
-        if
-          allColorVariants
-        then
+        if allColorVariants then
           "-a"
         else
           builtins.toString colorVariants

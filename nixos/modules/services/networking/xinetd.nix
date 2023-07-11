@@ -30,18 +30,14 @@ let
       ${optionalString srv.unlisted "type        = UNLISTED"}
       ${optionalString (srv.flags != "") "flags = ${srv.flags}"}
       socket_type = ${
-        if
-          srv.protocol == "udp"
-        then
+        if srv.protocol == "udp" then
           "dgram"
         else
           "stream"
       }
       ${optionalString (srv.port != 0) "port        = ${toString srv.port}"}
       wait        = ${
-        if
-          srv.protocol == "udp"
-        then
+        if srv.protocol == "udp" then
           "yes"
         else
           "no"

@@ -16,19 +16,18 @@ let
     mv config.js $out
   '';
 
-  finalConfigFile = if
-    (cfg.configFile != null)
-  then
+  finalConfigFile = if (cfg.configFile != null) then
     cfg.configFile
-  else ''
-    var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
+  else
+    ''
+      var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
 
-    module.exports = _.merge(
-      {},
-      require('${defaultConfig}'),
-      ${builtins.toJSON cfg.config}
-    )
-  '';
+      module.exports = _.merge(
+        {},
+        require('${defaultConfig}'),
+        ${builtins.toJSON cfg.config}
+      )
+    '';
 
 in {
   options.services.shout = {
@@ -110,9 +109,7 @@ in {
         } ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"
-        (if
-          cfg.private
-        then
+        (if cfg.private then
           "--private"
         else
           "--public")

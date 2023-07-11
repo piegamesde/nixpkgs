@@ -24,9 +24,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = if
-    withGui
-  then
+  pname = if withGui then
     "elements"
   else
     "elementsd";

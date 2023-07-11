@@ -50,9 +50,7 @@ let
     ++ optional (cfg.defaultMode == "norouting") "--routing=none"
     ++ cfg.extraFlags);
 
-  profile = if
-    cfg.localDiscovery
-  then
+  profile = if cfg.localDiscovery then
     "local-discovery"
   else
     "server";
@@ -61,11 +59,10 @@ let
 
   multiaddrsToListenStreams = addrIn:
     let
-      addrs = if
-        builtins.typeOf addrIn == "list"
-      then
+      addrs = if builtins.typeOf addrIn == "list" then
         addrIn
-      else [ addrIn ];
+      else
+        [ addrIn ];
       unfilteredResult = map multiaddrToListenStream addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
@@ -73,11 +70,10 @@ let
 
   multiaddrsToListenDatagrams = addrIn:
     let
-      addrs = if
-        builtins.typeOf addrIn == "list"
-      then
+      addrs = if builtins.typeOf addrIn == "list" then
         addrIn
-      else [ addrIn ];
+      else
+        [ addrIn ];
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
@@ -87,9 +83,7 @@ let
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
-    in if
-      s 0 == "ip4" && s 2 == "tcp"
-    then
+    in if s 0 == "ip4" && s 2 == "tcp" then
       "${s 1}:${s 3}"
     else if s 0 == "ip6" && s 2 == "tcp" then
       "[${s 1}]:${s 3}"
@@ -102,9 +96,7 @@ let
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
-    in if
-      s 0 == "ip4" && s 2 == "udp"
-    then
+    in if s 0 == "ip4" && s 2 == "udp" then
       "${s 1}:${s 3}"
     else if s 0 == "ip6" && s 2 == "udp" then
       "[${s 1}]:${s 3}"
@@ -143,9 +135,7 @@ in {
 
       dataDir = mkOption {
         type = types.str;
-        default = if
-          versionAtLeast config.system.stateVersion "17.09"
-        then
+        default = if versionAtLeast config.system.stateVersion "17.09" then
           "/var/lib/ipfs"
         else
           "/var/lib/ipfs/.ipfs";
@@ -352,9 +342,10 @@ in {
       ];
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
-    systemd.packages = if
-      cfg.autoMount
-    then [ cfg.package.systemd_unit ] else [ cfg.package.systemd_unit_hardened ];
+    systemd.packages = if cfg.autoMount then
+      [ cfg.package.systemd_unit ]
+    else
+      [ cfg.package.systemd_unit_hardened ];
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;

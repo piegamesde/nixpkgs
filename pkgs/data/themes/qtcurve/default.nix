@@ -97,9 +97,7 @@ mkDerivation rec {
 
   configureFlags = [
     "-DENABLE_GTK2=${
-      if
-        gtk2Support
-      then
+      if gtk2Support then
         "ON"
       else
         "OFF"

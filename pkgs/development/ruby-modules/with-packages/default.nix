@@ -25,9 +25,7 @@ let
 
   buildGems = gemset:
     let
-      realGemset = if
-        builtins.isAttrs gemset
-      then
+      realGemset = if builtins.isAttrs gemset then
         gemset
       else
         import gemset;

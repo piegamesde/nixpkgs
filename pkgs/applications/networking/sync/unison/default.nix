@@ -48,9 +48,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "INSTALLDIR=$(out)/bin/"
     "UISTYLE=${
-      if
-        enableX11
-      then
+      if enableX11 then
         "gtk3"
       else
         "text"

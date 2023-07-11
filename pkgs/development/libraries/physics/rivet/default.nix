@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
       --replace 'num_jobs=$(getconf _NPROCESSORS_ONLN)' 'num_jobs=''${NIX_BUILD_CORES:-$(getconf _NPROCESSORS_ONLN)}' \
       --replace 'which' '"${which}/bin/which"' \
       --replace 'mycxx=' 'mycxx=${stdenv.cc}/bin/${
-        if
-          stdenv.cc.isClang or false
-        then
+        if stdenv.cc.isClang or false then
           "clang++"
         else
           "g++"
@@ -96,9 +94,10 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-fastjet=${fastjet}"
     "--with-yoda=${yoda}"
-  ] ++ (if
-    lib.versions.major hepmc.version == "3"
-  then [ "--with-hepmc3=${hepmc}" ] else [ "--with-hepmc=${hepmc}" ]);
+  ] ++ (if lib.versions.major hepmc.version == "3" then
+    [ "--with-hepmc3=${hepmc}" ]
+  else
+    [ "--with-hepmc=${hepmc}" ]);
 
   enableParallelBuilding = true;
 

@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.amazonImage;
-  amiBootMode = if
-    config.ec2.efi
-  then
+  amiBootMode = if config.ec2.efi then
     "uefi"
   else
     "legacy-bios";
@@ -150,9 +148,7 @@ in {
       }; # ensure we use the regular qemu-kvm package
 
       fsType = "ext4";
-      partitionTableType = if
-        config.ec2.efi
-      then
+      partitionTableType = if config.ec2.efi then
         "efi"
       else
         "legacy+gpt";
@@ -185,9 +181,7 @@ in {
            ' > $out/nix-support/image-info.json
       '';
     };
-  in if
-    config.ec2.zfs.enable
-  then
+  in if config.ec2.zfs.enable then
     zfsBuilder
   else
     extBuilder;

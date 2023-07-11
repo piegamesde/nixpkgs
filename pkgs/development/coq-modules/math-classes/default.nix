@@ -10,9 +10,7 @@ mkCoqDerivation {
 
   pname = "math-classes";
   inherit version;
-  defaultVersion = if
-    lib.versions.range "8.6" "8.16" coq.coq-version
-  then
+  defaultVersion = if lib.versions.range "8.6" "8.16" coq.coq-version then
     "8.15.0"
   else
     null;

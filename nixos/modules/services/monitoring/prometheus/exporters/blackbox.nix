@@ -14,9 +14,7 @@ let
   # This ensures that we can deal with string paths, path types and
   # store-path strings with context.
   coerceConfigFile = file:
-    if
-      (builtins.isPath file) || (lib.isStorePath file)
-    then
+    if (builtins.isPath file) || (lib.isStorePath file) then
       file
     else
       (lib.warn ''
@@ -24,9 +22,7 @@ let
         If you would like to avoid that, please set enableConfigCheck to false.
       '' /. + file);
   checkConfigLocation = file:
-    if
-      lib.hasPrefix "/tmp/" file
-    then
+    if lib.hasPrefix "/tmp/" file then
       throw
       "${logPrefix}: configuration file must not reside within /tmp - it won't be visible to the systemd service."
     else
@@ -60,9 +56,7 @@ in {
   };
 
   serviceOpts = let
-    adjustedConfigFile = if
-      cfg.enableConfigCheck
-    then
+    adjustedConfigFile = if cfg.enableConfigCheck then
       checkConfig cfg.configFile
     else
       checkConfigLocation cfg.configFile;

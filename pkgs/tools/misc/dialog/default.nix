@@ -27,9 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   configureFlags = [
     "--disable-rpath-hacks"
     "--${
-      if
-        withLibrary
-      then
+      if withLibrary then
         "with"
       else
         "without"

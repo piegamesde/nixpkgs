@@ -96,9 +96,7 @@ with lib;
 let
   # some python packages need legacy ciphers, so we're using openssl 3, but with that config
   # null check for Minimal
-  openssl' = if
-    openssl != null
-  then
+  openssl' = if openssl != null then
     openssl_legacy
   else
     null;
@@ -133,9 +131,7 @@ let
     pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
     pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
     pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
-    pythonOnTargetForTarget = if
-      lib.hasAttr pythonAttr pkgsTargetTarget
-    then
+    pythonOnTargetForTarget = if lib.hasAttr pythonAttr pkgsTargetTarget then
       (override pkgsTargetTarget.${pythonAttr})
     else
       { };
@@ -181,12 +177,11 @@ let
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
-  pythonForBuildInterpreter = if
-    stdenv.hostPlatform == stdenv.buildPlatform
-  then
-    "$out/bin/python"
-  else
-    pythonForBuild.interpreter;
+  pythonForBuildInterpreter =
+    if stdenv.hostPlatform == stdenv.buildPlatform then
+      "$out/bin/python"
+    else
+      pythonForBuild.interpreter;
 
   # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
   # module that is imported by the sysconfig and distutils.sysconfig modules.
@@ -224,12 +219,8 @@ let
       ;
 
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
-      multiarchCpu = if
-        isAarch32
-      then
-        if
-          parsed.cpu.significantByte.name == "littleEndian"
-        then
+      multiarchCpu = if isAarch32 then
+        if parsed.cpu.significantByte.name == "littleEndian" then
           "arm"
         else
           "armeb"
@@ -257,9 +248,7 @@ let
           parsed.abi.name
         else
           "gnu";
-      multiarch = if
-        isDarwin
-      then
+      multiarch = if isDarwin then
         "darwin"
       else
         "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}";
@@ -341,9 +330,7 @@ stdenv.mkDerivation {
       # Upstream distutils is calling C compiler to compile C++ code, which
       # only works for GCC and Apple Clang. This makes distutils to call C++
       # compiler when needed.
-      (if
-        pythonAtLeast "3.7" && pythonOlder "3.11"
-      then
+      (if pythonAtLeast "3.7" && pythonOlder "3.11" then
         ./3.7/python-3.x-distutils-C++.patch
       else if pythonAtLeast "3.11" then
         ./3.11/python-3.x-distutils-C++.patch
@@ -442,9 +429,7 @@ stdenv.mkDerivation {
   '' + optionalString stdenv.isDarwin ''
     # Override the auto-detection in setup.py, which assumes a universal build
     export PYTHON_DECIMAL_WITH_MACHINE=${
-      if
-        stdenv.isAarch64
-      then
+      if stdenv.isAarch64 then
         "uint128"
       else
         "x64"
@@ -604,9 +589,7 @@ stdenv.mkDerivation {
         "-"
         "-alpha-"
       ] version;
-    in if
-      sourceVersion.suffix == ""
-    then
+    in if sourceVersion.suffix == "" then
       "https://docs.python.org/release/${version}/whatsnew/changelog.html"
     else
       "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}";

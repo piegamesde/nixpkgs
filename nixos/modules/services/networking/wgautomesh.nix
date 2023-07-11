@@ -13,15 +13,11 @@ let
     # if value is null
     settingsFormat.generate "wgautomesh-config.toml"
     (filterAttrs (k: v: v != null) (mapAttrs (k: v:
-      if
-        k == "peers"
-      then
+      if k == "peers" then
         map (e: filterAttrs (k: v: v != null) e) v
       else
         v) cfg.settings));
-  runtimeConfigFile = if
-    cfg.enableGossipEncryption
-  then
+  runtimeConfigFile = if cfg.enableGossipEncryption then
     "/run/wgautomesh/wgautomesh.toml"
   else
     configFile;

@@ -171,10 +171,11 @@ mapAttrs (name:
         ];
 
         # Helpful reminder to add this test to passthru.tests
-        warnings = if
-          !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests")
-        then [ "The package for ${name} doesn't have a passthru.tests" ] else
-          [ ];
+        warnings =
+          if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
+            [ "The package for ${name} doesn't have a passthru.tests" ]
+          else
+            [ ];
       };
 
     # We need imagemagick, though not tesseract
@@ -193,9 +194,7 @@ mapAttrs (name:
         with subtest("have the terminal run a command"):
             # We run this command synchronously, so we can be certain the exit codes are happy
             machine.${
-              if
-                kill
-              then
+              if kill then
                 "execute"
               else
                 "succeed"

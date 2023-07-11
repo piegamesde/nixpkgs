@@ -9,9 +9,7 @@ with lib;
 let
   cfg = config.services.openldap;
   openldap = cfg.package;
-  configDir = if
-    cfg.configDir != null
-  then
+  configDir = if cfg.configDir != null then
     cfg.configDir
   else
     "/etc/openldap/slapd.d";
@@ -85,20 +83,14 @@ let
 
   valueToLdif = attr: values:
     let
-      listValues = if
-        lib.isList values
-      then
+      listValues = if lib.isList values then
         values
       else
         lib.singleton values;
     in
     map (value:
-      if
-        lib.isAttrs value
-      then
-        if
-          lib.hasAttr "path" value
-        then
+      if lib.isAttrs value then
+        if lib.hasAttr "path" value then
           "${attr}:< file://${value.path}"
         else
           "${attr}:: ${value.base64}"
@@ -295,9 +287,7 @@ in {
         ${openldap}/bin/slapadd -F ${configDir} -bcn=config -l ${settingsFile}
       fi
       chmod -R ${
-        if
-          cfg.mutableConfig
-        then
+        if cfg.mutableConfig then
           "u+rw"
         else
           "u+r-w"

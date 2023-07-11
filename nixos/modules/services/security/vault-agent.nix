@@ -64,9 +64,7 @@ let
                       default = [ ];
                       type = with types; listOf (attrsOf anything);
                       description = let
-                        upstreamDocs = if
-                          flavour == "vault-agent"
-                        then
+                        upstreamDocs = if flavour == "vault-agent" then
                           "https://developer.hashicorp.com/vault/docs/agent/template"
                         else
                           "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#templates";
@@ -83,9 +81,7 @@ let
                 default = { };
 
                 description = let
-                  upstreamDocs = if
-                    flavour == "vault-agent"
-                  then
+                  upstreamDocs = if flavour == "vault-agent" then
                     "https://developer.hashicorp.com/vault/docs/agent#configuration-file-options"
                   else
                     "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#configuration-file";

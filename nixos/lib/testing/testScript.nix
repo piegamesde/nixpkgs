@@ -42,9 +42,7 @@ in {
     withoutTestScriptReferences.includeTestScriptReferences = false;
     withoutTestScriptReferences.testScript = lib.mkForce "testscript omitted";
 
-    testScriptString = if
-      lib.isFunction config.testScript
-    then
+    testScriptString = if lib.isFunction config.testScript then
       config.testScript {
         nodes = lib.mapAttrs (k: v:
           if

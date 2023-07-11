@@ -82,9 +82,7 @@ let
     postPatch = ''
       substituteInPlace scripts/msmtpq/msmtpq \
         --replace @journal@ ${
-          if
-            withSystemd
-          then
+          if withSystemd then
             "Y"
           else
             "N"

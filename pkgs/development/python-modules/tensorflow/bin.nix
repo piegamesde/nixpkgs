@@ -59,21 +59,15 @@ buildPythonPackage {
 
   src = let
     pyVerNoDot = lib.strings.stringAsChars (x:
-      if
-        x == "."
-      then
+      if x == "." then
         ""
       else
         x) python.pythonVersion;
-    platform = if
-      stdenv.isDarwin
-    then
+    platform = if stdenv.isDarwin then
       "mac"
     else
       "linux";
-    unit = if
-      cudaSupport
-    then
+    unit = if cudaSupport then
       "gpu"
     else
       "cpu";

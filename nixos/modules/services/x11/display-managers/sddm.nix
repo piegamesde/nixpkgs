@@ -38,9 +38,7 @@ let
     General = {
       HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
       RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
-      Numlock = if
-        cfg.autoNumlock
-      then
+      Numlock = if cfg.autoNumlock then
         "on"
       else
         "none"; # on, off none
@@ -63,9 +61,7 @@ let
     };
 
     X11 = {
-      MinimumVT = if
-        xcfg.tty != null
-      then
+      MinimumVT = if xcfg.tty != null then
         xcfg.tty
       else
         7;

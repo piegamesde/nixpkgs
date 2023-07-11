@@ -96,17 +96,16 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enableCurl [
     curl
     openssl
-  ] ++ lib.optionals enableGL (if
-    stdenv.isDarwin
-  then
+  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
     with darwin.apple_sdk.frameworks; [
       GLUT
       OpenGL
     ]
-  else [
-    freeglut-mupdf
-    libGLU
-  ]);
+  else
+    [
+      freeglut-mupdf
+      libGLU
+    ]);
   outputs = [
     "bin"
     "dev"
@@ -171,11 +170,11 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString (enableX11 || enableGL) ''
     mkdir -p $bin/share/icons/hicolor/48x48/apps
     cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
-  '' + (if
-    enableGL
-  then ''
-    ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
-  '' else
+  '' + (if enableGL then
+    ''
+      ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
+    ''
+  else
     lib.optionalString (enableX11) ''
       ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
     '');

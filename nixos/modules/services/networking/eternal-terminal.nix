@@ -85,9 +85,7 @@ in {
                 [Debug]
                 verbose = ${toString cfg.verbosity}
                 silent = ${
-                  if
-                    cfg.silent
-                  then
+                  if cfg.silent then
                     "1"
                   else
                     "0"

@@ -57,9 +57,7 @@ let
     options.verbosity = mkOption {
       type = types.enum (attrNames logLevels ++ attrValues logLevels);
       apply = v:
-        if
-          isString v
-        then
+        if isString v then
           logLevels.${v}
         else
           v;

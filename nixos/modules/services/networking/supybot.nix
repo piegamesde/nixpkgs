@@ -27,9 +27,7 @@ in {
 
       stateDir = mkOption {
         type = types.path;
-        default = if
-          versionAtLeast config.system.stateVersion "20.09"
-        then
+        default = if versionAtLeast config.system.stateVersion "20.09" then
           "/var/lib/supybot"
         else
           "/home/supybot";

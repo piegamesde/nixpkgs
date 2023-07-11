@@ -9,9 +9,7 @@
 let
   version = "20130715";
 
-  usr_prefix = if
-    stdenv.isDarwin
-  then
+  usr_prefix = if stdenv.isDarwin then
     "usr/local"
   else
     "usr";
@@ -23,9 +21,7 @@ stdenv.mkDerivation rec {
   pname = "mlton";
   inherit version;
 
-  binSrc = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  binSrc = if stdenv.hostPlatform.system == "i686-linux" then
     (fetchurl {
       url =
         "mirror://sourceforge/project/mlton/mlton/${version}/${pname}-${version}-1.x86-linux.tgz";

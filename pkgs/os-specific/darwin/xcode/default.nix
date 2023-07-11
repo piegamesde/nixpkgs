@@ -9,17 +9,18 @@ let
     let
       xip = "Xcode_" + version + ".xip";
       # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
-      unxip = if
-        stdenv.buildPlatform.isDarwin
-      then ''
-        open -W ${xip}
-        rm -rf ${xip}
-      '' else ''
-        xar -xf ${xip}
-        rm -rf ${xip}
-        pbzx -n Content | cpio -i
-        rm Content Metadata
-      '';
+      unxip = if stdenv.buildPlatform.isDarwin then
+        ''
+          open -W ${xip}
+          rm -rf ${xip}
+        ''
+      else
+        ''
+          xar -xf ${xip}
+          rm -rf ${xip}
+          pbzx -n Content | cpio -i
+          rm Content Metadata
+        '';
       app = requireFile rec {
         name = "Xcode.app";
         url =
@@ -127,9 +128,8 @@ lib.makeExtensible (self: {
   xcode_14_1 =
     requireXcode "14.1" "sha256-QJGAUVIhuDYyzDNttBPv5lIGOfvkYqdOFSUAr5tlkfs=";
   xcode = self."xcode_${
-      lib.replaceStrings [ "." ] [ "_" ] (if
-        (stdenv.targetPlatform ? xcodeVer)
-      then
+      lib.replaceStrings [ "." ] [ "_" ]
+      (if (stdenv.targetPlatform ? xcodeVer) then
         stdenv.targetPlatform.xcodeVer
       else
         "12.3")

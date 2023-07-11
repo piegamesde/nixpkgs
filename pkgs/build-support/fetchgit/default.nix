@@ -20,9 +20,7 @@ let
         "-${short}";
     in
     "${
-      if
-        matched == null
-      then
+      if matched == null then
         base
       else
         builtins.head matched
@@ -80,9 +78,7 @@ in
 assert deepClone -> leaveDotGit;
 assert nonConeMode -> !(sparseCheckout == "" || sparseCheckout == [ ]);
 
-if
-  md5 != ""
-then
+if md5 != "" then
   throw "fetchgit does not support md5 anymore, please use sha256"
 else if hash != "" && sha256 != "" then
   throw "Only one of sha256 or hash can be set"
@@ -97,16 +93,12 @@ else
 
     nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
 
-    outputHashAlgo = if
-      hash != ""
-    then
+    outputHashAlgo = if hash != "" then
       null
     else
       "sha256";
     outputHashMode = "recursive";
-    outputHash = if
-      hash != ""
-    then
+    outputHash = if hash != "" then
       hash
     else if sha256 != "" then
       sha256
@@ -116,9 +108,7 @@ else
     # git-sparse-checkout(1) says:
     # > When the --stdin option is provided, the directories or patterns are read
     # > from standard in as a newline-delimited list instead of from the arguments.
-    sparseCheckout = if
-      builtins.isString sparseCheckout
-    then
+    sparseCheckout = if builtins.isString sparseCheckout then
       sparseCheckout
     else
       builtins.concatStringsSep "\n" sparseCheckout;
@@ -135,16 +125,15 @@ else
       postFetch
       ;
 
-    postHook = if
-      netrcPhase == null
-    then
+    postHook = if netrcPhase == null then
       null
-    else ''
-      ${netrcPhase}
-      # required that git uses the netrc file
-      mv {,.}netrc
-      export HOME=$PWD
-    '';
+    else
+      ''
+        ${netrcPhase}
+        # required that git uses the netrc file
+        mv {,.}netrc
+        export HOME=$PWD
+      '';
 
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 

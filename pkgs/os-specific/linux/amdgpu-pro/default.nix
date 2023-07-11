@@ -21,16 +21,12 @@ with lib;
 
 let
 
-  bitness = if
-    stdenv.is64bit
-  then
+  bitness = if stdenv.is64bit then
     "64"
   else
     "32";
 
-  libArch = if
-    stdenv.hostPlatform.system == "i686-linux"
-  then
+  libArch = if stdenv.hostPlatform.system == "i686-linux" then
     "i386-linux-gnu"
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     "x86_64-linux-gnu"
@@ -56,9 +52,7 @@ stdenv.mkDerivation rec {
     mkdir root
     pushd $sourceRoot
     for deb in *_all.deb *_${
-      if
-        stdenv.is64bit
-      then
+      if stdenv.is64bit then
         "amd64"
       else
         "i386"
@@ -194,31 +188,34 @@ stdenv.mkDerivation rec {
     stdenv.is64bit
     # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
     # set in the user session and for Xorg
-  then ''
-    expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
-    expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
-    perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
-  '' else ''
-    expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
-    # we replace a different path on 32-bit because it's the only one long
-    # enough to fit the target path :(
-    expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
-  '') + ''
-    perl -pi -e "$expr1" \
-      $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
-      $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
-      $out/opt/amdgpu/lib/libGL.so.1.2.0
+  then
+    ''
+      expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
+      expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
+      perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
+    ''
+  else
+    ''
+      expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
+      # we replace a different path on 32-bit because it's the only one long
+      # enough to fit the target path :(
+      expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
+    '') + ''
+      perl -pi -e "$expr1" \
+        $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
+        $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
+        $out/opt/amdgpu/lib/libGL.so.1.2.0
 
-    perl -pi -e "$expr2" \
-      $out/opt/amdgpu-pro/lib/libEGL.so.1 \
-      $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
-      $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
+      perl -pi -e "$expr2" \
+        $out/opt/amdgpu-pro/lib/libEGL.so.1 \
+        $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
+        $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
 
-    find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
-    find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
+      find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
+      find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
 
-    substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
-  '';
+      substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
+    '';
 
   # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''

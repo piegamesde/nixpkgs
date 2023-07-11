@@ -18,9 +18,7 @@ let
 
   ruby = cfg.packages.gitlab.ruby;
 
-  postgresqlPackage = if
-    config.services.postgresql.enable
-  then
+  postgresqlPackage = if config.services.postgresql.enable then
     config.services.postgresql.package
   else
     pkgs.postgresql_12;
@@ -38,13 +36,10 @@ let
       encoding = "utf8";
       pool = cfg.databasePool;
     } // cfg.extraDatabaseConfig;
-  in if
-    lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0"
-  then {
-    production.main = val;
-  } else {
-    production = val;
-  };
+  in if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
+    { production.main = val; }
+  else
+    { production = val; };
 
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally = cfg.databaseCreateLocally && cfg.databaseHost
@@ -435,9 +430,7 @@ in {
           "lfs"
         ];
         apply = x:
-          if
-            isString x
-          then
+          if isString x then
             x
           else
             concatStringsSep "," x;
@@ -795,9 +788,7 @@ in {
             listen-http = mkOption {
               type = with types; listOf str;
               apply = x:
-                if
-                  x == [ ]
-                then
+                if x == [ ] then
                   null
                 else
                   lib.concatStringsSep "," x;
@@ -810,9 +801,7 @@ in {
             listen-https = mkOption {
               type = with types; listOf str;
               apply = x:
-                if
-                  x == [ ]
-                then
+                if x == [ ] then
                   null
                 else
                   lib.concatStringsSep "," x;
@@ -825,9 +814,7 @@ in {
             listen-proxy = mkOption {
               type = with types; listOf str;
               apply = x:
-                if
-                  x == [ ]
-                then
+                if x == [ ] then
                   null
                 else
                   lib.concatStringsSep "," x;
@@ -1472,36 +1459,39 @@ in {
             rm -f '${cfg.statePath}/config/database.yml'
 
             ${
-              if
-                cfg.databasePasswordFile != null
-              then ''
-                db_password="$(<'${cfg.databasePasswordFile}')"
-                export db_password
+              if cfg.databasePasswordFile != null then
+                ''
+                  db_password="$(<'${cfg.databasePasswordFile}')"
+                  export db_password
 
-                if [[ -z "$db_password" ]]; then
-                  >&2 echo "Database password was an empty string!"
-                  exit 1
-                fi
+                  if [[ -z "$db_password" ]]; then
+                    >&2 echo "Database password was an empty string!"
+                    exit 1
+                  fi
 
-                jq <${
-                  pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)
-                } \
-                   '.${
-                     if
-                       lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
-                       "15.0"
-                     then
-                       "production.main"
-                     else
-                       "production"
-                   }.password = $ENV.db_password' \
-                   >'${cfg.statePath}/config/database.yml'
-              '' else ''
-                jq <${
-                  pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)
-                } \
-                   >'${cfg.statePath}/config/database.yml'
-              ''
+                  jq <${
+                    pkgs.writeText "database.yml"
+                    (builtins.toJSON databaseConfig)
+                  } \
+                     '.${
+                       if
+                         lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
+                         "15.0"
+                       then
+                         "production.main"
+                       else
+                         "production"
+                     }.password = $ENV.db_password' \
+                     >'${cfg.statePath}/config/database.yml'
+                ''
+              else
+                ''
+                  jq <${
+                    pkgs.writeText "database.yml"
+                    (builtins.toJSON databaseConfig)
+                  } \
+                     >'${cfg.statePath}/config/database.yml'
+                ''
             }
 
             ${
@@ -1650,9 +1640,7 @@ in {
       mkPagesKeyValue = lib.generators.toKeyValue {
         mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" rec {
           mkValueString = v:
-            if
-              isInt v
-            then
+            if isInt v then
               toString v
             else if isString v then
               v

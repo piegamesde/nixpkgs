@@ -5,15 +5,11 @@
 }:
 
 let
-  os = if
-    stdenv.isDarwin
-  then
+  os = if stdenv.isDarwin then
     "macos"
   else
     "linux";
-  arch = if
-    stdenv.isAarch64
-  then
+  arch = if stdenv.isAarch64 then
     "aarch64"
   else
     "x86_64";

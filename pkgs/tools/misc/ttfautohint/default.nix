@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional enableGUI qtbase;
 
   configureFlags = [ "--with-qt=${
-      if
-        enableGUI
-      then
+      if enableGUI then
         "${qtbase}/lib"
       else
         "no"

@@ -10,15 +10,14 @@
 }:
 
 let
-  load_num = if
-    num == null
-  then
+  load_num = if num == null then
     ""
-  else ''
-    -I ${num}/lib/ocaml/${ocaml.version}/site-lib/num \
-    -I ${num}/lib/ocaml/${ocaml.version}/site-lib/top-num \
-    -I ${num}/lib/ocaml/${ocaml.version}/site-lib/stublibs \
-  '';
+  else
+    ''
+      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/num \
+      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/top-num \
+      -I ${num}/lib/ocaml/${ocaml.version}/site-lib/stublibs \
+    '';
 
   start_script = ''
     #!${runtimeShell}

@@ -29,9 +29,7 @@ stdenv.mkDerivation {
   ];
 
   prePatch = let
-    subdir = if
-      stdenv.isDarwin
-    then
+    subdir = if stdenv.isDarwin then
       "osx"
     else
       "linux";

@@ -21,8 +21,10 @@ with lib;
       nftablesEnabled = config.networking.nftables.enable;
       iptablesServices = [ "iptables.service" ]
         ++ optional config.networking.enableIPv6 "ip6tables.service";
-      tableServices =
-        if nftablesEnabled then [ "nftables.service" ] else iptablesServices;
+      tableServices = if nftablesEnabled then
+        [ "nftables.service" ]
+      else
+        iptablesServices;
     in {
       unitConfig = {
         Description = "v2rayA service";

@@ -111,9 +111,7 @@ let
       then
         "./config"
       else if stdenv.hostPlatform.isBSD then
-        if
-          stdenv.hostPlatform.isx86_64
-        then
+        if stdenv.hostPlatform.isx86_64 then
           "./Configure BSD-x86_64"
         else if stdenv.hostPlatform.isx86_32 then
           "./Configure BSD-x86" + lib.optionalString
@@ -128,9 +126,7 @@ let
           (toString stdenv.hostPlatform.parsed.cpu.bits)
         }"
       else if stdenv.hostPlatform.isLinux then
-        if
-          stdenv.hostPlatform.isx86_64
-        then
+        if stdenv.hostPlatform.isx86_64 then
           "./Configure linux-x86_64"
         else if stdenv.hostPlatform.isMips32 then
           "./Configure linux-mips32"
@@ -153,9 +149,7 @@ let
       configureFlags = [
         "shared" # "shared" builds both shared and static libraries
         "--libdir=lib"
-        (if
-          !static
-        then
+        (if !static then
           "--openssldir=etc/ssl"
         else
         # Move OPENSSLDIR to the 'etc' output for static builds. Prepend '/.'
@@ -195,26 +189,27 @@ let
 
       enableParallelBuilding = true;
 
-      postInstall = (if
-        static
-      then ''
-        # OPENSSLDIR has a reference to self
-        remove-references-to -t $out $out/lib/*.a
-      '' else ''
-        # If we're building dynamic libraries, then don't install static
-        # libraries.
-        if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
-            rm "$out/lib/"*.a
-        fi
+      postInstall = (if static then
+        ''
+          # OPENSSLDIR has a reference to self
+          remove-references-to -t $out $out/lib/*.a
+        ''
+      else
+        ''
+          # If we're building dynamic libraries, then don't install static
+          # libraries.
+          if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
+              rm "$out/lib/"*.a
+          fi
 
-        # 'etc' is a separate output on static builds only.
-        etc=$out
-      '') + ''
-        mkdir -p $bin
-        mv $out/bin $bin/bin
+          # 'etc' is a separate output on static builds only.
+          etc=$out
+        '') + ''
+          mkdir -p $bin
+          mv $out/bin $bin/bin
 
-      '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
-      # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
+        '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
+        # makeWrapper is broken for windows cross (https://github.com/NixOS/nixpkgs/issues/120726)
         ''
           # c_rehash is a legacy perl script with the same functionality
           # as `openssl rehash`
@@ -271,9 +266,7 @@ in {
     patches = [
       ./1.1/nix-ssl-cert-file.patch
 
-      (if
-        stdenv.hostPlatform.isDarwin
-      then
+      (if stdenv.hostPlatform.isDarwin then
         ./use-etc-ssl-certs-darwin.patch
       else
         ./use-etc-ssl-certs.patch)
@@ -291,9 +284,7 @@ in {
       # This patch disables build-time detection.
       ./3.0/openssl-disable-kernel-detection.patch
 
-      (if
-        stdenv.hostPlatform.isDarwin
-      then
+      (if stdenv.hostPlatform.isDarwin then
         ./use-etc-ssl-certs-darwin.patch
       else
         ./use-etc-ssl-certs.patch)

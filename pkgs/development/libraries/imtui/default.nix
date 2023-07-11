@@ -39,33 +39,25 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DEMSCRIPTEN:BOOL=${
-      if
-        withEmscripten
-      then
+      if withEmscripten then
         "ON"
       else
         "OFF"
     }"
     "-DIMTUI_SUPPORT_CURL:BOOL=${
-      if
-        withCurl
-      then
+      if withCurl then
         "ON"
       else
         "OFF"
     }"
     "-DIMTUI_SUPPORT_NCURSES:BOOL=${
-      if
-        withNcurses
-      then
+      if withNcurses then
         "ON"
       else
         "OFF"
     }"
     "-DBUILD_SHARED_LIBS:BOOL=${
-      if
-        (!static)
-      then
+      if (!static) then
         "ON"
       else
         "OFF"

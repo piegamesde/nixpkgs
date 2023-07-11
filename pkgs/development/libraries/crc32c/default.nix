@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
     "-DCRC32C_USE_GLOG=0"
     "-DINSTALL_GTEST=0"
     "-DBUILD_SHARED_LIBS=${
-      if
-        staticOnly
-      then
+      if staticOnly then
         "0"
       else
         "1"

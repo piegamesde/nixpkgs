@@ -8,9 +8,7 @@ stdenv.mkDerivation rec {
   pname = "amazon-ecs-cli";
   version = "1.21.0";
 
-  src = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchurl {
       url =
         "https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-v${version}";

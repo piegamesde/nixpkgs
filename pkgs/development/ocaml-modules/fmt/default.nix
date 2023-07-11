@@ -9,9 +9,7 @@
   cmdliner,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.08"
-then
+if lib.versionOlder ocaml.version "4.08" then
   throw "fmt is not available for OCaml ${ocaml.version}"
 else
 

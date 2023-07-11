@@ -52,17 +52,13 @@ let
 
       <StorageHints>
       TroveSyncMeta ${
-        if
-          fs.troveSyncMeta
-        then
+        if fs.troveSyncMeta then
           "yes"
         else
           "no"
       }
       TroveSyncData ${
-        if
-          fs.troveSyncData
-        then
+        if fs.troveSyncData then
           "yes"
         else
           "no"

@@ -21,15 +21,11 @@
 }:
 
 let
-  extid = if
-    fixedExtid == null
-  then
+  extid = if fixedExtid == null then
     "nixos@${name}"
   else
     fixedExtid;
-  source = if
-    url == null
-  then
+  source = if url == null then
     src
   else
     fetchurl {

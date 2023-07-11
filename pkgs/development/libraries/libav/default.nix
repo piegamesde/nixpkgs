@@ -162,9 +162,7 @@ in let
         description =
           "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
         license = with licenses;
-          if
-            enableUnfree
-          then
+          if enableUnfree then
             unfree # ToDo: redistributable or not?
           else if enableGPL then
             gpl2Plus

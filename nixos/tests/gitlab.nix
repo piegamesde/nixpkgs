@@ -44,9 +44,7 @@ import ./make-test-python.nix ({
         }: {
           imports = [ common/user-account.nix ];
 
-          virtualisation.memorySize = if
-            pkgs.stdenv.is64bit
-          then
+          virtualisation.memorySize = if pkgs.stdenv.is64bit then
             4096
           else
             2047;

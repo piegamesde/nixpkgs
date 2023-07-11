@@ -130,9 +130,7 @@ stdenv.mkDerivation {
     install doc/nvidia-settings.png -D -t $out/share/icons/hicolor/128x128/apps/
   '';
 
-  binaryName = if
-    withGtk3
-  then
+  binaryName = if withGtk3 then
     ".nvidia-settings-wrapped"
   else
     "nvidia-settings";

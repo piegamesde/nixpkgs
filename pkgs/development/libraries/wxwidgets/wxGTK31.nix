@@ -82,15 +82,11 @@ stdenv.mkDerivation rec {
     # This is the default option, but be explicit
     "--disable-monolithic"
     "--enable-mediactrl"
-    (if
-      compat28
-    then
+    (if compat28 then
       "--enable-compat28"
     else
       "--disable-compat28")
-    (if
-      compat30
-    then
+    (if compat30 then
       "--enable-compat30"
     else
       "--disable-compat30")

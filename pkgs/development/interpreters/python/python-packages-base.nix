@@ -36,21 +36,19 @@ let
       }) (_: origArgs));
       result = f args;
       overrideWith = newArgs:
-        args // (if
-          pkgs.lib.isFunction newArgs
-        then
+        args // (if pkgs.lib.isFunction newArgs then
           newArgs args
         else
           newArgs);
-    in if
-      builtins.isAttrs result
-    then
+    in if builtins.isAttrs result then
       result
-    else if builtins.isFunction result then {
-      overridePythonAttrs = newArgs:
-        makeOverridablePythonPackage f (overrideWith newArgs);
-      __functor = self: result;
-    } else
+    else if builtins.isFunction result then
+      {
+        overridePythonAttrs = newArgs:
+          makeOverridablePythonPackage f (overrideWith newArgs);
+        __functor = self: result;
+      }
+    else
       result;
 
   buildPythonPackage = makeOverridablePythonPackage (lib.makeOverridable
@@ -118,9 +116,7 @@ let
     } not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv:
-    if
-      x
-    then
+    if x then
       disabled drv
     else
       drv;

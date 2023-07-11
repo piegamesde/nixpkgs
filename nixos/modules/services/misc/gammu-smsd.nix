@@ -14,9 +14,7 @@ let
     Device = ${cfg.device.path}
     Connection = ${cfg.device.connection}
     SynchronizeTime = ${
-      if
-        cfg.device.synchronizeTime
-      then
+      if cfg.device.synchronizeTime then
         "yes"
       else
         "no"

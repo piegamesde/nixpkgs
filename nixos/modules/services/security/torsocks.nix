@@ -21,9 +21,7 @@ let
     ${optionalNullStr cfg.socks5Password "SOCKS5Password ${cfg.socks5Password}"}
 
     AllowInbound ${
-      if
-        cfg.allowInbound
-      then
+      if cfg.allowInbound then
         "1"
       else
         "0"

@@ -44,9 +44,7 @@ let
     };
   };
 
-  release = if
-    hasAttr dfVersion twbt-releases
-  then
+  release = if hasAttr dfVersion twbt-releases then
     getAttr dfVersion twbt-releases
   else
     throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
@@ -57,9 +55,7 @@ stdenvNoCC.mkDerivation rec {
   version = release.twbtRelease;
 
   src = fetchurl {
-    url = if
-      version == "6.xx"
-    then
+    url = if version == "6.xx" then
       "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${version}-linux64-${release.dfhackRelease}.zip"
     else
       "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip";

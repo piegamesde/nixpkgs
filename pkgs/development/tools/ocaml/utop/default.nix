@@ -16,24 +16,25 @@
 }:
 
 let
-  switch = if
-    lib.versionAtLeast ocaml.version "4.08"
-  then {
-    version = "2.10.0";
-    sha256 = "sha256-R10WovnqYcYCrDJnPuIQx2zHaPchSYfXDAaVMsJ4LQA=";
-    duneVersion = "3";
-    propagatedBuildInputs = [
-      findlib
-      lambda-term
-      zed
-      logs
-    ];
-  } else {
-    version = "2.9.2";
-    sha256 = "sha256-kvFBCe69TRQIWvZV47SH7ISus9k8afGRw5WLKzKqw08=";
-    duneVersion = "2";
-    propagatedBuildInputs = [ lambda-term ];
-  };
+  switch = if lib.versionAtLeast ocaml.version "4.08" then
+    {
+      version = "2.10.0";
+      sha256 = "sha256-R10WovnqYcYCrDJnPuIQx2zHaPchSYfXDAaVMsJ4LQA=";
+      duneVersion = "3";
+      propagatedBuildInputs = [
+        findlib
+        lambda-term
+        zed
+        logs
+      ];
+    }
+  else
+    {
+      version = "2.9.2";
+      sha256 = "sha256-kvFBCe69TRQIWvZV47SH7ISus9k8afGRw5WLKzKqw08=";
+      duneVersion = "2";
+      propagatedBuildInputs = [ lambda-term ];
+    };
 
 in
 buildDunePackage rec {

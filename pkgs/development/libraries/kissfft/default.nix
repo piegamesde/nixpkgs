@@ -15,9 +15,7 @@
 let
   py = python3.withPackages (ps: with ps; [ numpy ]);
   option = cond:
-    if
-      cond
-    then
+    if cond then
       "1"
     else
       "0";
@@ -64,9 +62,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [
     py
-    (if
-      datatype == "float"
-    then
+    (if datatype == "float" then
       fftwFloat
     else
       fftw)

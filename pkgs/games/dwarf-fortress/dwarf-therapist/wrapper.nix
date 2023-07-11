@@ -8,9 +8,7 @@
 }:
 
 let
-  platformSlug = if
-    stdenv.targetPlatform.is32bit
-  then
+  platformSlug = if stdenv.targetPlatform.is32bit then
     "linux32"
   else
     "linux64";

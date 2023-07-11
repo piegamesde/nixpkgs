@@ -105,21 +105,15 @@ let
 
   mathcomp_ = package:
     let
-      mathcomp-deps = if
-        package == "single"
-      then
+      mathcomp-deps = if package == "single" then
         [ ]
       else
         map mathcomp_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if
-        package == "single"
-      then
+      pkgpath = if package == "single" then
         "mathcomp"
       else
         "mathcomp/${package}";
-      pname = if
-        package == "single"
-      then
+      pname = if package == "single" then
         "mathcomp"
       else
         "mathcomp-${package}";
@@ -201,9 +195,7 @@ let
     patched-derivation
   ;
 in
-mathcomp_ (if
-  single
-then
+mathcomp_ (if single then
   "single"
 else
   "all")

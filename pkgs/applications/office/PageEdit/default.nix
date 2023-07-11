@@ -32,17 +32,17 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [ "-DINSTALL_BUNDLED_DICTS=0" ];
 
-  installPhase = if
-    stdenv.isDarwin
-  then ''
-    runHook preInstall
+  installPhase = if stdenv.isDarwin then
+    ''
+      runHook preInstall
 
-    mkdir -p $out/Applications
-    cp -r bin/PageEdit.app $out/Applications
-    makeWrapper $out/Applications/PageEdit.app/Contents/MacOS/PageEdit $out/bin/pageedit
+      mkdir -p $out/Applications
+      cp -r bin/PageEdit.app $out/Applications
+      makeWrapper $out/Applications/PageEdit.app/Contents/MacOS/PageEdit $out/bin/pageedit
 
-    runHook postInstall
-  '' else
+      runHook postInstall
+    ''
+  else
     null;
 
   meta = with lib; {

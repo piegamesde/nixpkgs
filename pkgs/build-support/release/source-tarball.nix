@@ -7,9 +7,7 @@
   buildInputs ? [ ],
   name ? "source-tarball",
   version ? "0",
-  versionSuffix ? if
-    officialRelease
-  then
+  versionSuffix ? if officialRelease then
     ""
   else
     "pre${toString (src.rev or src.revCount or "")}",
@@ -108,9 +106,7 @@ stdenv.mkDerivation (
       eval "$nextPostUnpack"
     '';
 
-    nextPostUnpack = if
-      args ? postUnpack
-    then
+    nextPostUnpack = if args ? postUnpack then
       args.postUnpack
     else
       "";
@@ -133,9 +129,7 @@ stdenv.mkDerivation (
       version = version + versionSuffix;
     };
 
-    meta = (if
-      args ? meta
-    then
+    meta = (if args ? meta then
       args.meta
     else
       { }) // {

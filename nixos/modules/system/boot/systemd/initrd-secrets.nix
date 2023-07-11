@@ -13,9 +13,7 @@
         lib.mkIf (!config.boot.loader.supportsInitrdSecrets) (lib.mapAttrs'
           (dest: source:
             lib.nameValuePair "/.initrd-secrets/${dest}" {
-              source = if
-                source == null
-              then
+              source = if source == null then
                 dest
               else
                 source;

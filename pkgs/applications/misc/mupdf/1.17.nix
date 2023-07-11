@@ -66,17 +66,16 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enableCurl [
     curl
     openssl
-  ] ++ lib.optionals enableGL (if
-    stdenv.isDarwin
-  then
+  ] ++ lib.optionals enableGL (if stdenv.isDarwin then
     with darwin.apple_sdk.frameworks; [
       GLUT
       OpenGL
     ]
-  else [
-    freeglut
-    libGLU
-  ]);
+  else
+    [
+      freeglut
+      libGLU
+    ]);
   outputs = [
     "bin"
     "dev"

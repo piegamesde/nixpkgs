@@ -14,9 +14,7 @@
   yarn,
 }:
 let
-  arch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "linux-x64"
   else
     throw "Unsupported architecture: ${stdenv.hostPlatform.system}";

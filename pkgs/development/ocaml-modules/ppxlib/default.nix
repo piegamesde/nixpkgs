@@ -3,15 +3,9 @@
   fetchurl,
   buildDunePackage,
   ocaml,
-  version ? if
-    lib.versionAtLeast ocaml.version "4.07"
-  then
-    if
-      lib.versionAtLeast ocaml.version "4.08"
-    then
-      if
-        lib.versionAtLeast ocaml.version "4.11"
-      then
+  version ? if lib.versionAtLeast ocaml.version "4.07" then
+    if lib.versionAtLeast ocaml.version "4.08" then
+      if lib.versionAtLeast ocaml.version "4.11" then
         "0.28.0"
       else
         "0.24.0"
@@ -88,9 +82,7 @@ else
     pname = "ppxlib";
     inherit version;
 
-    duneVersion = if
-      param.useDune2 or true
-    then
+    duneVersion = if param.useDune2 or true then
       "3"
     else
       "1";
@@ -103,9 +95,7 @@ else
 
     propagatedBuildInputs = [
       ocaml-compiler-libs
-      (if
-        param.useOMP2 or true
-      then
+      (if param.useOMP2 or true then
         ocaml-migrate-parsetree-2
       else
         ocaml-migrate-parsetree)

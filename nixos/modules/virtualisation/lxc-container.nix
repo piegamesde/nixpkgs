@@ -38,9 +38,7 @@ let
   toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
 
   cfg = config.virtualisation.lxc;
-  templates = if
-    cfg.templates != { }
-  then
+  templates = if cfg.templates != { } then
     let
       list = mapAttrsToList (name: value: { inherit name; } // value)
         (filterAttrs (name: value: value.enable) cfg.templates);
@@ -56,10 +54,11 @@ let
           properties = tpl.properties;
         }) list);
     }
-  else {
-    files = [ ];
-    properties = { };
-  };
+  else
+    {
+      files = [ ];
+      properties = { };
+    };
 
 in {
   imports = [

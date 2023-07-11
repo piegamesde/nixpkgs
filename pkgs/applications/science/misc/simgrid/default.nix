@@ -34,9 +34,7 @@ with lib;
 
 let
   optionOnOff = option:
-    if
-      option
-    then
+    if option then
       "on"
     else
       "off";

@@ -30,9 +30,7 @@ let
       path ? lib.getName pluginName,
       ...
     }:
-    if
-      lib.hasAttr "dependencies" a
-    then
+    if lib.hasAttr "dependencies" a then
       throw
       "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
     else

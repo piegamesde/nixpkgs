@@ -14,9 +14,7 @@
 
 let
   enableFeature = yes:
-    if
-      yes
-    then
+    if yes then
       "ON"
     else
       "OFF";

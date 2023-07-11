@@ -34,9 +34,7 @@ let
       (haskell.lib.compose.overrideCabal (old: {
         enableSharedExecutables = dynamic;
         ${
-          if
-            !dynamic
-          then
+          if !dynamic then
             "postInstall"
           else
             null
@@ -46,9 +44,7 @@ let
           remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
         '';
       }))
-      ((if
-        dynamic
-      then
+      ((if dynamic then
         enableCabalFlag
       else
         disableCabalFlag) "dynamic")

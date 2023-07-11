@@ -29,18 +29,14 @@ let
     ];
   };
 
-  filename = if
-    stdenv.isDarwin
-  then
+  filename = if stdenv.isDarwin then
     "Obsidian-${version}-universal.dmg"
   else
     "obsidian-${version}.tar.gz";
   src = fetchurl {
     url =
       "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
-    sha256 = if
-      stdenv.isDarwin
-    then
+    sha256 = if stdenv.isDarwin then
       "sha256-E+1B+KgdvOuDyJP4W5tnkDe8sC4NdplRqY24Yu/DlEA="
     else
       "sha256-TDgi0jwNRL0zXJSIBap0Q8WX29ab2HhY0ylb/sxgapE=";
@@ -122,9 +118,7 @@ let
       runHook postInstall
     '';
   };
-in if
-  stdenv.isDarwin
-then
+in if stdenv.isDarwin then
   darwin
 else
   linux

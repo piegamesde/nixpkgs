@@ -18,9 +18,7 @@ let
   };
 
   dataDir = "${dataPath}/share/uvcdynctrl/data";
-  udevDebugVarValue = if
-    udevDebug
-  then
+  udevDebugVarValue = if udevDebug then
     "1"
   else
     "0";

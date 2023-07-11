@@ -75,9 +75,7 @@ let
     ,
   '' (filter (x: x != "") (map maybeModuleString allKnownModules));
 
-  configFile = if
-    cfg.configText != ""
-  then
+  configFile = if cfg.configText != "" then
     pkgs.writeText "lighttpd.conf" ''
       ${cfg.configText}
     ''

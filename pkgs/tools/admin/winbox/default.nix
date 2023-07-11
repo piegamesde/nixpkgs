@@ -16,15 +16,16 @@ let
   version = "3.37";
   name = "${pname}-${version}";
 
-  executable = fetchurl (if
-    (wine.meta.mainProgram == "wine64")
-  then {
-    url = "https://download.mikrotik.com/winbox/${version}/winbox64.exe";
-    sha256 = "0fbl0i5ga9afg8mklm9xqidcr388sca00slj401npwh9b3j9drmb";
-  } else {
-    url = "https://download.mikrotik.com/winbox/${version}/winbox.exe";
-    sha256 = "1zla30bc755x5gfv9ff1bgjvpsjmg2d7jsjxnwwy679fry4n4cwl";
-  });
+  executable = fetchurl (if (wine.meta.mainProgram == "wine64") then
+    {
+      url = "https://download.mikrotik.com/winbox/${version}/winbox64.exe";
+      sha256 = "0fbl0i5ga9afg8mklm9xqidcr388sca00slj401npwh9b3j9drmb";
+    }
+  else
+    {
+      url = "https://download.mikrotik.com/winbox/${version}/winbox.exe";
+      sha256 = "1zla30bc755x5gfv9ff1bgjvpsjmg2d7jsjxnwwy679fry4n4cwl";
+    });
 
   # This is from the winbox AUR package:
   # https://aur.archlinux.org/cgit/aur.git/tree/winbox64?h=winbox64&id=8edd93792af84e87592e8645ca09e9795931e60e

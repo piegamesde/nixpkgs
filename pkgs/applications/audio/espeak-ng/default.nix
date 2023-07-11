@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
   preConfigure = "./autogen.sh";
 
   configureFlags = [ "--with-mbrola=${
-      if
-        mbrolaSupport
-      then
+      if mbrolaSupport then
         "yes"
       else
         "no"

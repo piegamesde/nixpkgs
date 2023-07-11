@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "lib=lib"
     "PAM_CAP=${
-      if
-        usePam
-      then
+      if usePam then
         "yes"
       else
         "no"

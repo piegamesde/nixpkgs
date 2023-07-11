@@ -46,9 +46,7 @@ let
         builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
-    in if
-      parts == null
-    then
+    in if parts == null then
       null
     else
       {
@@ -57,9 +55,7 @@ let
       } // lib.optionalAttrs (type != null) { inherit type value; };
 
   # shadows args.lockFileContents
-  lockFileContents = if
-    lockFile != null
-  then
+  lockFileContents = if lockFile != null then
     builtins.readFile lockFile
   else
     args.lockFileContents;
@@ -174,9 +170,7 @@ let
           If you use `buildRustPackage`, you can add this attribute to the `cargoLock`
           attribute set.
         '';
-        tree = if
-          gitShaOutputHash ? ${gitParts.sha}
-        then
+        tree = if gitShaOutputHash ? ${gitParts.sha} then
           fetchgit {
             inherit (gitParts) url;
             rev = gitParts.sha; # The commit SHA is always available.
@@ -247,56 +241,53 @@ let
     else
       throw "Cannot handle crate source: ${pkg.source}";
 
-  vendorDir = runCommand "cargo-vendor-dir" (if
-    lockFile == null
-  then {
-    inherit lockFileContents;
-    passAsFile = [ "lockFileContents" ];
-  } else {
-    passthru = { inherit lockFile; };
-  }) ''
-        mkdir -p $out/.cargo
+  vendorDir = runCommand "cargo-vendor-dir" (if lockFile == null then
+    {
+      inherit lockFileContents;
+      passAsFile = [ "lockFileContents" ];
+    }
+  else
+    { passthru = { inherit lockFile; }; }) ''
+          mkdir -p $out/.cargo
 
-        ${
-          if
-            lockFile != null
-          then
-            "ln -s ${lockFile} $out/Cargo.lock"
-          else
-            "cp $lockFileContentsPath $out/Cargo.lock"
-        }
+          ${
+            if lockFile != null then
+              "ln -s ${lockFile} $out/Cargo.lock"
+            else
+              "cp $lockFileContentsPath $out/Cargo.lock"
+          }
 
-        cat > $out/.cargo/config <<EOF
-    [source.crates-io]
-    replace-with = "vendored-sources"
+          cat > $out/.cargo/config <<EOF
+      [source.crates-io]
+      replace-with = "vendored-sources"
 
-    [source.vendored-sources]
-    directory = "cargo-vendor-dir"
-    EOF
+      [source.vendored-sources]
+      directory = "cargo-vendor-dir"
+      EOF
 
-        declare -A keysSeen
+          declare -A keysSeen
 
-        for registry in ${toString (builtins.attrNames extraRegistries)}; do
-          cat >> $out/.cargo/config <<EOF
+          for registry in ${toString (builtins.attrNames extraRegistries)}; do
+            cat >> $out/.cargo/config <<EOF
 
-    [source."$registry"]
-    registry = "$registry"
-    replace-with = "vendored-sources"
-    EOF
-        done
+      [source."$registry"]
+      registry = "$registry"
+      replace-with = "vendored-sources"
+      EOF
+          done
 
-        for crate in ${toString depCrates}; do
-          # Link the crate directory, removing the output path hash from the destination.
-          ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
+          for crate in ${toString depCrates}; do
+            # Link the crate directory, removing the output path hash from the destination.
+            ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
 
-          if [ -e "$crate/.cargo-config" ]; then
-            key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
-            if [[ -z ''${keysSeen[$key]} ]]; then
-              keysSeen[$key]=1
-              cat "$crate/.cargo-config" >> $out/.cargo/config
+            if [ -e "$crate/.cargo-config" ]; then
+              key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
+              if [[ -z ''${keysSeen[$key]} ]]; then
+                keysSeen[$key]=1
+                cat "$crate/.cargo-config" >> $out/.cargo/config
+              fi
             fi
-          fi
-        done
-  '';
+          done
+    '';
 in
 vendorDir

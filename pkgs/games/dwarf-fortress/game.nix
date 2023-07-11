@@ -42,21 +42,15 @@ let
   baseVersion = elemAt dfVersionTriple 1;
   patchVersion = elemAt dfVersionTriple 2;
 
-  game = if
-    hasAttr dfVersion df-hashes
-  then
+  game = if hasAttr dfVersion df-hashes then
     getAttr dfVersion df-hashes
   else
     throw "Unknown Dwarf Fortress version: ${dfVersion}";
-  dfPlatform = if
-    hasAttr stdenv.hostPlatform.system platforms
-  then
+  dfPlatform = if hasAttr stdenv.hostPlatform.system platforms then
     getAttr stdenv.hostPlatform.system platforms
   else
     throw "Unsupported system: ${stdenv.hostPlatform.system}";
-  sha256 = if
-    hasAttr dfPlatform game
-  then
+  sha256 = if hasAttr dfPlatform game then
     getAttr dfPlatform game
   else
     throw "Unsupported dfPlatform: ${dfPlatform}";
@@ -78,9 +72,7 @@ stdenv.mkDerivation {
     rm $out/libs/lib*
 
     exe=$out/${
-      if
-        stdenv.isLinux
-      then
+      if stdenv.isLinux then
         "libs/Dwarf_Fortress"
       else
         "dwarfort.exe"

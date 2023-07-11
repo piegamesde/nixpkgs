@@ -45,9 +45,7 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if
-    multiPkgs == null
-  then
+  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then
     [ ]
   else
     multiPkgs pkgs);
@@ -62,9 +60,7 @@ let
   # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
   basePkgs = with pkgs; [
     glibcLocales
-    (if
-      isMultiBuild
-    then
+    (if isMultiBuild then
       glibc_multi
     else
       glibc)
@@ -89,9 +85,7 @@ let
   ldconfig = writeShellScriptBin "ldconfig" ''
     # due to a glibc bug, 64-bit ldconfig complains about patchelf'd 32-bit libraries, so we're using 32-bit ldconfig
     exec ${
-      if
-        stdenv.isx86_64 && stdenv.isLinux
-      then
+      if stdenv.isx86_64 && stdenv.isLinux then
         pkgsi686Linux.glibc.bin
       else
         pkgs.glibc.bin
@@ -191,9 +185,7 @@ let
     # link content of targetPaths
     cp -rsHf ${staticUsrProfileTarget}/lib lib
     ln -s lib lib${
-      if
-        is64bit
-      then
+      if is64bit then
         "64"
       else
         "32"
@@ -219,9 +211,7 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if
-    isTargetBuild
-  then
+  setupLibDirs = if isTargetBuild then
     setupLibDirsTarget
   else
     setupLibDirsMulti;

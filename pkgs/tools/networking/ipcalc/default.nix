@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Duse_geoip=${
-      if
-        withGeo
-      then
+      if withGeo then
         "en"
       else
         "dis"

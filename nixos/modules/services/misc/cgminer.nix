@@ -12,9 +12,7 @@ let
 
   convType = with builtins;
     v:
-    if
-      isBool v
-    then
+    if isBool v then
       boolToString v
     else
       toString v;
@@ -25,16 +23,12 @@ let
     mapAttrsToList (n: v:
       ''
         "${n}":  ${
-          if
-            isBool v
-          then
+          if isBool v then
             ""
           else
             ''"''
         }${convType v}${
-          if
-            isBool v
-          then
+          if isBool v then
             ""
           else
             ''"''

@@ -37,9 +37,7 @@ let
   buildmonth = "03"; # sometimes differs from release month
   timestamp = "${year}${buildmonth}020300";
   gtk = gtk3;
-  arch = if
-    stdenv.hostPlatform.isx86_64
-  then
+  arch = if stdenv.hostPlatform.isx86_64 then
     "x86_64"
   else if stdenv.hostPlatform.isAarch64 then
     "aarch64"

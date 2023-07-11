@@ -447,14 +447,15 @@ in
       })
     ];
 
-    postPatch = if
-      kbdcompSupport
-    then ''
-      sed -i util/grub-kbdcomp.in -e 's@\bckbcomp\b@${ckbcomp}/bin/ckbcomp@'
-    '' else ''
-      echo '#! ${runtimeShell}' > util/grub-kbdcomp.in
-      echo 'echo "Compile grub2 with { kbdcompSupport = true; } to enable support for this command."' >> util/grub-kbdcomp.in
-    '';
+    postPatch = if kbdcompSupport then
+      ''
+        sed -i util/grub-kbdcomp.in -e 's@\bckbcomp\b@${ckbcomp}/bin/ckbcomp@'
+      ''
+    else
+      ''
+        echo '#! ${runtimeShell}' > util/grub-kbdcomp.in
+        echo 'echo "Compile grub2 with { kbdcompSupport = true; } to enable support for this command."' >> util/grub-kbdcomp.in
+      '';
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
     nativeBuildInputs = [
@@ -533,9 +534,7 @@ in
       ];
 
     # save target that grub is compiled for
-    grubTarget = if
-      efiSupport
-    then
+    grubTarget = if efiSupport then
       "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
     else
       lib.optionalString inPCSystems

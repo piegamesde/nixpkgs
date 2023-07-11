@@ -65,9 +65,7 @@ let
     ];
   };
 
-  solc = if
-    gccStdenv.isLinux
-  then
+  solc = if gccStdenv.isLinux then
     gccStdenv.mkDerivation rec {
       inherit
         pname
@@ -95,9 +93,10 @@ let
 
       cmakeFlags = [ "-DBoost_USE_STATIC_LIBS=OFF"
 
-        ] ++ (if
-          z3Support
-        then [ "-DSTRICT_Z3_VERSION=OFF" ] else [ "-DUSE_Z3=OFF" ])
+        ] ++ (if z3Support then
+          [ "-DSTRICT_Z3_VERSION=OFF" ]
+        else
+          [ "-DUSE_Z3=OFF" ])
         ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ];
 
       nativeBuildInputs = [ cmake ];

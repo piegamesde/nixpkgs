@@ -255,16 +255,17 @@ stdenv.mkDerivation {
         yayayayaka
         yuka
       ];
-    } // (if
-      gitlabEnterprise
-    then {
-      license =
-        licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
-      description = "GitLab Enterprise Edition";
-    } else {
-      license = licenses.mit;
-      description = "GitLab Community Edition";
-      longDescription =
-        "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
-    });
+    } // (if gitlabEnterprise then
+      {
+        license =
+          licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
+        description = "GitLab Enterprise Edition";
+      }
+    else
+      {
+        license = licenses.mit;
+        description = "GitLab Community Edition";
+        longDescription =
+          "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
+      });
 }

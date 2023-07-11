@@ -10,9 +10,7 @@ let
   # python3Minimal can't be overridden with packages on Darwin, due to a missing framework.
   # Instead of modifying stdenv, we take the easy way out, since most people on Darwin will
   # just be hacking on the Nixpkgs manual (which also uses make-options-doc).
-  python = ((if
-    stdenv.isDarwin
-  then
+  python = ((if stdenv.isDarwin then
     python3
   else
     python3Minimal).override {

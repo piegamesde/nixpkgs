@@ -24,9 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preBuild = ''
     cd ${
-      if
-        stdenv.isi686
-      then
+      if stdenv.isi686 then
         "build32"
       else
         "build64"

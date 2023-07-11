@@ -31,21 +31,15 @@ let
   sha256_linux = "sha256-jNty0iJoXG+sp7v2fGCrwZWCSZfQ4tkYe8ERixQMKL0=";
   sha256_darwin = "sha256-3/P3puM6a7tCHP5eZM6IzbdPrqnhY1dTa7QWss9M08M=";
 
-  platform = if
-    stdenv.isDarwin
-  then
+  platform = if stdenv.isDarwin then
     "macosx"
   else
     "linux";
-  hash = if
-    stdenv.isDarwin
-  then
+  hash = if stdenv.isDarwin then
     sha256_darwin
   else
     sha256_linux;
-  extension = if
-    stdenv.isDarwin
-  then
+  extension = if stdenv.isDarwin then
     "zip"
   else
     "tar.gz";

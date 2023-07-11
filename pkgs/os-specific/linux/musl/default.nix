@@ -43,9 +43,7 @@ let
     sha256 = "1mzxnc2ncq8lw9x6n7p00fvfklc9p3wfv28m68j0dfz5l8q2k6pp";
   };
 
-  arch = if
-    stdenv.hostPlatform.isx86_64
-  then
+  arch = if stdenv.hostPlatform.isx86_64 then
     "x86_64"
   else if stdenv.hostPlatform.isx86_32 then
     "i386"

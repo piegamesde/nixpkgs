@@ -16,22 +16,21 @@ let
       lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
     }' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql"
-    (concatStringsSep "\n" (mapAttrsToList setDatabaseOption (if
-      (cfg.database.settings != null)
-    then
-      cfg.database.settings
-    else
-      { })));
+    (concatStringsSep "\n" (mapAttrsToList setDatabaseOption
+      (if (cfg.database.settings != null) then
+        cfg.database.settings
+      else
+        { })));
   updateDatabaseConfigScript =
     pkgs.writeShellScriptBin "update-database-config.sh" ''
-      ${if
-        cfg.database.mutableSettings
-      then ''
-        if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-          ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-          touch /var/lib/listmonk/.db_settings_initialized
-        fi
-      '' else
+      ${if cfg.database.mutableSettings then
+        ''
+          if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+            ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+            touch /var/lib/listmonk/.db_settings_initialized
+          fi
+        ''
+      else
         "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
     '';
 

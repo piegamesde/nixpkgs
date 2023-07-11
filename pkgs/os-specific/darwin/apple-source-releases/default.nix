@@ -135,9 +135,7 @@ let
       # When cross-compiling, fetchurl depends on libiconv, resulting
       # in an infinite recursion without this. It's not clear why this
       # worked fine when not cross-compiling
-      fetch = if
-        pname == "libiconv"
-      then
+      fetch = if pname == "libiconv" then
         stdenv.fetchurlBoot
       else
         fetchurl;
@@ -160,9 +158,7 @@ let
     stdenv.mkDerivation ({
       inherit pname version;
 
-      src = if
-        attrs ? srcs
-      then
+      src = if attrs ? srcs then
         null
       else
         (fetchApple' pname version sha256);
@@ -236,9 +232,7 @@ let
   };
 
   IOKitSrcs = lib.mapAttrs (name: value:
-    if
-      lib.isFunction value
-    then
+    if lib.isFunction value then
       value name
     else
       value) IOKitSpecs;
@@ -351,9 +345,7 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
   removefile = applePackage "removefile" "osx-10.12.6"
     "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M=" { };
-  xnu = if
-    stdenv.isx86_64
-  then
+  xnu = if stdenv.isx86_64 then
     applePackage "xnu" "osx-10.12.6"
     "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
       python3 =
@@ -375,9 +367,7 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
       macosPackages_11_0_1 = macosPackages_11_0_1;
     };
-  network_cmds = if
-    stdenv.isx86_64
-  then
+  network_cmds = if stdenv.isx86_64 then
     applePackage "network_cmds" "osx-10.11.6"
     "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
   else

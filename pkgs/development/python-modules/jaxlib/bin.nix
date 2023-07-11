@@ -84,9 +84,7 @@ buildPythonPackage rec {
   disabled = !(pythonVersion == "3.10");
 
   # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
-  src = if
-    !cudaSupport
-  then
+  src = if !cudaSupport then
     (cpuSrcs."${stdenv.hostPlatform.system}" or (throw
       "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}"))
   else

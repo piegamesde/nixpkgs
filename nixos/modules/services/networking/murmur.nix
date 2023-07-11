@@ -24,15 +24,11 @@ let
     welcometext="${cfg.welcometext}"
     port=${toString cfg.port}
 
-    ${if
-      cfg.hostName == ""
-    then
+    ${if cfg.hostName == "" then
       ""
     else
       "host=" + cfg.hostName}
-    ${if
-      cfg.password == ""
-    then
+    ${if cfg.password == "" then
       ""
     else
       "serverpassword=" + cfg.password}
@@ -47,47 +43,33 @@ let
     bonjour=${boolToString cfg.bonjour}
     sendversion=${boolToString cfg.sendVersion}
 
-    ${if
-      cfg.registerName == ""
-    then
+    ${if cfg.registerName == "" then
       ""
     else
       "registerName=" + cfg.registerName}
-    ${if
-      cfg.registerPassword == ""
-    then
+    ${if cfg.registerPassword == "" then
       ""
     else
       "registerPassword=" + cfg.registerPassword}
-    ${if
-      cfg.registerUrl == ""
-    then
+    ${if cfg.registerUrl == "" then
       ""
     else
       "registerUrl=" + cfg.registerUrl}
-    ${if
-      cfg.registerHostname == ""
-    then
+    ${if cfg.registerHostname == "" then
       ""
     else
       "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
-    ${if
-      cfg.sslCert == ""
-    then
+    ${if cfg.sslCert == "" then
       ""
     else
       "sslCert=" + cfg.sslCert}
-    ${if
-      cfg.sslKey == ""
-    then
+    ${if cfg.sslKey == "" then
       ""
     else
       "sslKey=" + cfg.sslKey}
-    ${if
-      cfg.sslCa == ""
-    then
+    ${if cfg.sslCa == "" then
       ""
     else
       "sslCA=" + cfg.sslCa}
@@ -394,9 +376,7 @@ in {
 
       serviceConfig = {
         # murmurd doesn't fork when logging to the console.
-        Type = if
-          forking
-        then
+        Type = if forking then
           "forking"
         else
           "simple";

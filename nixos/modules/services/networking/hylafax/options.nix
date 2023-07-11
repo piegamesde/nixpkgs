@@ -42,9 +42,7 @@ let
     let
       inherit (lib.types) attrsOf coercedTo int listOf;
       innerType = coercedTo bool (x:
-        if
-          x
-        then
+        if x then
           "Yes"
         else
           "No") (coercedTo int (toString) str);

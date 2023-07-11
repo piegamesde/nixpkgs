@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DINSTALL_EXAMPLE_SCRIPTS=${
-      if
-        installExampleScripts
-      then
+      if installExampleScripts then
         "ON"
       else
         "OFF"

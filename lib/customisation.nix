@@ -43,9 +43,7 @@ rec {
     in
     lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv ({
       meta = drv.meta or { };
-      passthru = if
-        drv ? passthru
-      then
+      passthru = if drv ? passthru then
         drv.passthru
       else
         { };
@@ -86,9 +84,7 @@ rec {
       copyArgs = g: lib.setFunctionArgs g (lib.functionArgs f);
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith = newArgs:
-        origArgs // (if
-          lib.isFunction newArgs
-        then
+        origArgs // (if lib.isFunction newArgs then
           newArgs origArgs
         else
           newArgs);
@@ -99,24 +95,22 @@ rec {
       # Change the result of the function call by applying g to it
       overrideResult = g:
         makeOverridable (copyArgs (args: g (f args))) origArgs;
-    in if
-      builtins.isAttrs result
-    then
+    in if builtins.isAttrs result then
       result // {
         override = overrideArgs;
         overrideDerivation = fdrv:
           overrideResult (x: overrideDerivation x fdrv);
         ${
-          if
-            result ? overrideAttrs
-          then
+          if result ? overrideAttrs then
             "overrideAttrs"
           else
             null
         } = fdrv:
           overrideResult (x: x.overrideAttrs fdrv);
       }
-    else if lib.isFunction result then
+    else if
+      lib.isFunction result
+    then
     # Transform the result into a functor while propagating its arguments
       lib.setFunctionArgs result (lib.functionArgs result) // {
         override = overrideArgs;
@@ -147,9 +141,7 @@ rec {
   */
   callPackageWith = autoArgs: fn: args:
     let
-      f = if
-        lib.isFunction fn
-      then
+      f = if lib.isFunction fn then
         fn
       else
         import fn;
@@ -184,9 +176,7 @@ rec {
         ];
 
       prettySuggestions = suggestions:
-        if
-          suggestions == [ ]
-        then
+        if suggestions == [ ] then
           ""
         else if lib.length suggestions == 1 then
           ", did you mean ${lib.elemAt suggestions 0}?"
@@ -200,9 +190,7 @@ rec {
           loc = builtins.unsafeGetAttrPos arg fargs;
           # loc' can be removed once lib/minver.nix is >2.3.4, since that includes
           # https://github.com/NixOS/nix/pull/3468 which makes loc be non-null
-          loc' = if
-            loc != null
-          then
+          loc' = if loc != null then
             loc.file + ":" + toString loc.line
           else if !lib.isFunction fn then
             toString fn
@@ -217,9 +205,7 @@ rec {
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
 
-    in if
-      missingArgs == [ ]
-    then
+    in if missingArgs == [ ] then
       makeOverridable f allArgs
     else
       abort error;
@@ -230,9 +216,7 @@ rec {
   */
   callPackagesWith = autoArgs: fn: args:
     let
-      f = if
-        lib.isFunction fn
-      then
+      f = if lib.isFunction fn then
         fn
       else
         import fn;
@@ -241,9 +225,7 @@ rec {
       pkgs = f origArgs;
       mkAttrOverridable = name: _:
         makeOverridable (newArgs: (f newArgs).${name}) origArgs;
-    in if
-      lib.isDerivation pkgs
-    then
+    in if lib.isDerivation pkgs then
       throw ("function `callPackages` was called on a *single* derivation "
         + ''"${pkgs.name or "<unknown-name>"}";''
         + " did you mean to use `callPackage` instead?")
@@ -318,9 +300,7 @@ rec {
       outputsList = map makeOutput outputs;
 
       drv' = (lib.head outputsList).value;
-    in if
-      drv == null
-    then
+    in if drv == null then
       null
     else
       lib.deepSeq drv' drv';

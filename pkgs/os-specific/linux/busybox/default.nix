@@ -97,9 +97,7 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     export KCONFIG_NOTIMESTAMP=1
     make ${
-      if
-        enableMinimal
-      then
+      if enableMinimal then
         "allnoconfig"
       else
         "defconfig"

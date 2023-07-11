@@ -10,9 +10,7 @@
 }:
 
 let
-  testDir = if
-    isPy3k
-  then
+  testDir = if isPy3k then
     "src"
   else
     "python2";

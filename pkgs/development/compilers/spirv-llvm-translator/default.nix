@@ -15,22 +15,26 @@ let
   isROCm = lib.hasPrefix "rocm" llvm.pname;
 
   # ROCm will always be at the latest version
-  branch = if
-    llvmMajor == "15" || isROCm
-  then rec {
-    version = "15.0.0";
-    rev = "v${version}";
-    hash = "sha256-OsDohXRxovtEXaWiRGp8gJ0dXmoALyO+ZimeSO8aPVI=";
-  } else if llvmMajor == "14" then rec {
-    version = "14.0.0";
-    rev = "v${version}";
-    hash = "sha256-BhNAApgZ/w/92XjpoDY6ZEIhSTwgJ4D3/EfNvPmNM2o=";
-  } else if llvmMajor == "11" then {
-    version = "unstable-2022-05-04";
-    rev =
-      "4ef524240833abfeee1c5b9fff6b1bd53f4806b3"; # 267 commits ahead of v11.0.0
-    hash = "sha256-NoIoa20+2sH41rEnr8lsMhtfesrtdPINiXtUnxYVm8s=";
-  } else
+  branch = if llvmMajor == "15" || isROCm then
+    rec {
+      version = "15.0.0";
+      rev = "v${version}";
+      hash = "sha256-OsDohXRxovtEXaWiRGp8gJ0dXmoALyO+ZimeSO8aPVI=";
+    }
+  else if llvmMajor == "14" then
+    rec {
+      version = "14.0.0";
+      rev = "v${version}";
+      hash = "sha256-BhNAApgZ/w/92XjpoDY6ZEIhSTwgJ4D3/EfNvPmNM2o=";
+    }
+  else if llvmMajor == "11" then
+    {
+      version = "unstable-2022-05-04";
+      rev =
+        "4ef524240833abfeee1c5b9fff6b1bd53f4806b3"; # 267 commits ahead of v11.0.0
+      hash = "sha256-NoIoa20+2sH41rEnr8lsMhtfesrtdPINiXtUnxYVm8s=";
+    }
+  else
     throw "Incompatible LLVM version.";
 in
 stdenv.mkDerivation {
@@ -47,7 +51,10 @@ stdenv.mkDerivation {
     pkg-config
     cmake
     spirv-tools
-  ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
+  ] ++ (if isROCm then
+    [ llvm ]
+  else
+    [ llvm.dev ]);
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 
@@ -56,9 +63,7 @@ stdenv.mkDerivation {
   cmakeFlags = [
     "-DLLVM_INCLUDE_TESTS=ON"
     "-DLLVM_DIR=${
-      (if
-        isROCm
-      then
+      (if isROCm then
         llvm
       else
         llvm.dev)

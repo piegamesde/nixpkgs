@@ -121,9 +121,7 @@ stdenv.mkDerivation rec {
     ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
   '';
 
-  preDistPhases = [ (if
-    certifyBooks
-  then
+  preDistPhases = [ (if certifyBooks then
     "certifyBooksPhase"
   else
     "removeBooksPhase") ];
@@ -162,14 +160,15 @@ stdenv.mkDerivation rec {
       build tools cert.pl and clean.pl, renamed to ${pname}-cert and
       ${pname}-clean.
 
-    '' + (if
-      certifyBooks
-    then ''
-      The community books are also included and certified with the `make
-      everything` target.
-    '' else ''
-      The community books are not included in this package.
-    '');
+    '' + (if certifyBooks then
+      ''
+        The community books are also included and certified with the `make
+        everything` target.
+      ''
+    else
+      ''
+        The community books are not included in this package.
+      '');
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
     license = with licenses;

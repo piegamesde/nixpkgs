@@ -7,9 +7,7 @@
 with lib;
 let
   mergeFalseByDefault = locs: defs:
-    if
-      defs == [ ]
-    then
+    if defs == [ ] then
       abort "This case should never happen."
     else if any (x: x == false) (getValues defs) then
       false
@@ -70,9 +68,7 @@ let
           "9"
         ];
 
-    in if
-      (val == "")
-    then
+    in if (val == "") then
       ''""''
     else if val == "y" || val == "m" || val == "n" then
       val
@@ -98,21 +94,20 @@ let
     let
       mkConfigLine = key: item:
         let
-          val = if
-            item.freeform != null
-          then
+          val = if item.freeform != null then
             item.freeform
           else
             item.tristate;
-        in if
-          val == null
-        then
+        in if val == null then
           ""
-        else if (item.optional) then ''
-          ${key}? ${mkValue val}
-        '' else ''
-          ${key} ${mkValue val}
-        '';
+        else if (item.optional) then
+          ''
+            ${key}? ${mkValue val}
+          ''
+        else
+          ''
+            ${key} ${mkValue val}
+          '';
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in

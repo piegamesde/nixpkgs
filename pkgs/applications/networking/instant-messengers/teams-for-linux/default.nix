@@ -62,16 +62,12 @@ stdenv.mkDerivation rec {
 
     yarn --offline electron-builder \
       --dir ${
-        if
-          stdenv.isDarwin
-        then
+        if stdenv.isDarwin then
           "--macos"
         else
           "--linux"
       } ${
-        if
-          stdenv.hostPlatform.isAarch64
-        then
+        if stdenv.hostPlatform.isAarch64 then
           "--arm64"
         else
           "--x64"
@@ -87,9 +83,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/{applications,teams-for-linux}
     cp dist/${
-      if
-        stdenv.isDarwin
-      then
+      if stdenv.isDarwin then
         "darwin-"
       else
         "linux-"

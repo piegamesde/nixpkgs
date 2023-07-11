@@ -14,9 +14,7 @@ let
   format = pkgs.formats.json { };
 
   chooseNotNull = x: y:
-    if
-      x != null
-    then
+    if x != null then
       x
     else
       y;

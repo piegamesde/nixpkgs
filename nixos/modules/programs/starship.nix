@@ -14,9 +14,7 @@ let
 
   settingsFile = settingsFormat.generate "starship.toml" cfg.settings;
 
-  initOption = if
-    cfg.interactiveOnly
-  then
+  initOption = if cfg.interactiveOnly then
     "promptInit"
   else
     "shellInit";

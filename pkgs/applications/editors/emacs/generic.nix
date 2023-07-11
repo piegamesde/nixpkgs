@@ -96,9 +96,7 @@
   gtk3 ? null,
   withXinput2 ? withX && lib.versionAtLeast version "29",
   withImageMagick ? lib.versionOlder version "27" && (withX || withNS),
-  toolkit ? (if
-    withGTK2
-  then
+  toolkit ? (if withGTK2 then
     "gtk2"
   else if withGTK3 then
     "gtk3"
@@ -135,9 +133,7 @@ let
       lib.getLib stdenv.cc.cc.libgcc
     }/lib" ];
 in
-(if
-  withMacport
-then
+(if withMacport then
   llvmPackages_6.stdenv
 else
   stdenv).mkDerivation (finalAttrs:
@@ -151,9 +147,7 @@ else
 
       patches = patches fetchpatch
         ++ lib.optionals nativeComp [ (substituteAll {
-          src = if
-            lib.versionOlder finalAttrs.version "29"
-          then
+          src = if lib.versionOlder finalAttrs.version "29" then
             ./native-comp-driver-options-28.patch
           else
             ./native-comp-driver-options.patch;
@@ -169,9 +163,7 @@ else
             ])));
         }) ];
 
-      src = if
-        macportVersion != null
-      then
+      src = if macportVersion != null then
         fetchFromBitbucket {
           owner = "mituharu";
           repo = "emacs-mac";
@@ -292,25 +284,31 @@ else
       configureFlags = [
         "--disable-build-details" # for a (more) reproducible build
         "--with-modules"
-      ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns")) ++ (if
-        withNS
-      then [ "--disable-ns-self-contained" ] else if withX then [
-        "--with-x-toolkit=${toolkit}"
-        "--with-xft"
-        "--with-cairo"
-      ] else if withPgtk then [ "--with-pgtk" ] else [
-        "--with-x=no"
-        "--with-xpm=no"
-        "--with-jpeg=no"
-        "--with-png=no"
-        "--with-gif=no"
-        "--with-tiff=no"
-      ]) ++ lib.optionals withMacport [
-        "--with-mac"
-        "--enable-mac-app=$$out/Applications"
-        "--with-xml2=yes"
-        "--with-gnutls=yes"
-      ] ++ lib.optional withXwidgets "--with-xwidgets"
+      ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
+        ++ (if withNS then
+          [ "--disable-ns-self-contained" ]
+        else if withX then
+          [
+            "--with-x-toolkit=${toolkit}"
+            "--with-xft"
+            "--with-cairo"
+          ]
+        else if withPgtk then
+          [ "--with-pgtk" ]
+        else
+          [
+            "--with-x=no"
+            "--with-xpm=no"
+            "--with-jpeg=no"
+            "--with-png=no"
+            "--with-gif=no"
+            "--with-tiff=no"
+          ]) ++ lib.optionals withMacport [
+            "--with-mac"
+            "--enable-mac-app=$$out/Applications"
+            "--with-xml2=yes"
+            "--with-gnutls=yes"
+          ] ++ lib.optional withXwidgets "--with-xwidgets"
         ++ lib.optional nativeComp "--with-native-compilation"
         ++ lib.optional withImageMagick "--with-imagemagick"
         ++ lib.optional withXinput2 "--with-xinput2"
@@ -378,9 +376,7 @@ else
         description = "The extensible, customizable GNU text editor"
           + optionalString withMacport
           " with Mitsuharu Yamamoto's macport patches";
-        homepage = if
-          withMacport
-        then
+        homepage = if withMacport then
           "https://bitbucket.org/mituharu/emacs-mac/"
         else
           "https://www.gnu.org/software/emacs/";
@@ -392,9 +388,7 @@ else
           matthewbauer
           atemu
         ];
-        platforms = if
-          withMacport
-        then
+        platforms = if withMacport then
           platforms.darwin
         else
           platforms.all;

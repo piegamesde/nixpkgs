@@ -210,9 +210,7 @@ in {
             + concatMapStrings (n: " -config-file ${n}") configFiles;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           PermissionsStartOnly = true;
-          User = if
-            cfg.dropPrivileges
-          then
+          User = if cfg.dropPrivileges then
             "consul"
           else
             null;
@@ -228,9 +226,7 @@ in {
           cfg.package
         ];
         preStart = let
-          family = if
-            cfg.forceAddrFamily == "ipv6"
-          then
+          family = if cfg.forceAddrFamily == "ipv6" then
             "-6"
           else if cfg.forceAddrFamily == "ipv4" then
             "-4"
@@ -293,9 +289,7 @@ in {
               ${optionalString cfg.alerts.watchChecks "--watch-checks"} \
               ${optionalString cfg.alerts.watchEvents "--watch-events"}
           '';
-          User = if
-            cfg.dropPrivileges
-          then
+          User = if cfg.dropPrivileges then
             "consul"
           else
             null;

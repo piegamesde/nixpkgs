@@ -149,9 +149,7 @@ in {
           "-f"
           "-i -"
         ] ++ lib.optionals isPy3k [ "-j $NIX_BUILD_CORES" ]);
-        bytecodeName = if
-          isPy3k
-        then
+        bytecodeName = if isPy3k then
           "__pycache__"
         else
           "*.pyc";

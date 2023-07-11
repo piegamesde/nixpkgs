@@ -61,17 +61,13 @@ mkDerivation rec {
   cmakeFlags = [
     "-DCHAT_TYPE=${chatType}"
     "-DENABLE_PLUGINS=${
-      if
-        enablePlugins
-      then
+      if enablePlugins then
         "ON"
       else
         "OFF"
     }"
     "-DBUILD_PSIMEDIA=${
-      if
-        enablePsiMedia
-      then
+      if enablePsiMedia then
         "ON"
       else
         "OFF"

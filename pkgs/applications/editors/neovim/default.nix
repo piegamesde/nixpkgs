@@ -47,9 +47,7 @@ let
         penlight
         inspect
       ]));
-  codegenLua = if
-    lua.pkgs.isLuaJIT
-  then
+  codegenLua = if lua.pkgs.isLuaJIT then
     let
       deterministicLuajit = lua.override {
         deterministicStringIds = true;

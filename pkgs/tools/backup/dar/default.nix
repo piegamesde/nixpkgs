@@ -25,9 +25,7 @@ args@{
 let
   # Fails to build with clang-11 on Darwin:
   # error: exception specification of overriding function is more lax than base version
-  stdenv = if
-    args.stdenv.isDarwin
-  then
+  stdenv = if args.stdenv.isDarwin then
     llvmPackages_12.stdenv
   else
     args.stdenv;

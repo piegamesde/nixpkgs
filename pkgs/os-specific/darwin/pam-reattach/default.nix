@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_OSX_ARCHITECTURES=${
-      if
-        stdenv.hostPlatform.system == "x86_64-darwin"
-      then
+      if stdenv.hostPlatform.system == "x86_64-darwin" then
         "x86_64"
       else
         "arm64"

@@ -77,9 +77,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DNOVERSIONINFOUPDATE=ON"
     "-DNOSERVER=${
-      if
-        withServer
-      then
+      if withServer then
         "OFF"
       else
         "ON"

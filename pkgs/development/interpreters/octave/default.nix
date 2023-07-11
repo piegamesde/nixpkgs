@@ -78,15 +78,11 @@
 let
 
   # Not always evaluated
-  blas' = if
-    use64BitIdx
-  then
+  blas' = if use64BitIdx then
     blas.override { isILP64 = true; }
   else
     blas;
-  lapack' = if
-    use64BitIdx
-  then
+  lapack' = if use64BitIdx then
     lapack.override { isILP64 = true; }
   else
     lapack;
@@ -101,9 +97,7 @@ let
     lapack = lapack';
   };
   # Not always suitesparse is required at all
-  suitesparse' = if
-    suitesparse != null
-  then
+  suitesparse' = if suitesparse != null then
     suitesparse.override {
       blas = blas';
       lapack = lapack';
@@ -200,9 +194,7 @@ let
     configureFlags = [
       "--with-blas=blas"
       "--with-lapack=lapack"
-      (if
-        use64BitIdx
-      then
+      (if use64BitIdx then
         "--enable-64"
       else
         "--disable-64")
@@ -249,9 +241,7 @@ let
         doronbehar
       ];
       description = "Scientific Programming Language";
-      platforms = if
-        overridePlatforms == null
-      then
+      platforms = if overridePlatforms == null then
         (lib.platforms.linux ++ lib.platforms.darwin)
       else
         overridePlatforms;

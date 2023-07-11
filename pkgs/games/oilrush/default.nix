@@ -27,9 +27,7 @@ stdenv.mkDerivation {
   assert url != null && sha256 != null; fetchurl { inherit url sha256; }
   ;
   shell = stdenv.shell;
-  arch = if
-    stdenv.hostPlatform.system == "x86_64-linux"
-  then
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "x64"
   else
     lib.optionalString (stdenv.hostPlatform.system == "i686-linux") "x86";

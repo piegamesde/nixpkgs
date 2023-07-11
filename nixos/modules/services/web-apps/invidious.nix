@@ -74,9 +74,7 @@ let
         port = cfg.database.port;
         # Blank for unix sockets, see
         # https://github.com/will/crystal-pg/blob/1548bb255210/src/pq/conninfo.cr#L100-L108
-        host = if
-          cfg.database.host == null
-        then
+        host = if cfg.database.host == null then
           ""
         else
           cfg.database.host;

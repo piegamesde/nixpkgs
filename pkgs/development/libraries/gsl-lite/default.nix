@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.mapAttrsToList (name: value:
     "-DGSL_LITE_OPT_${name}:BOOL=${
-      if
-        value
-      then
+      if value then
         "ON"
       else
         "OFF"

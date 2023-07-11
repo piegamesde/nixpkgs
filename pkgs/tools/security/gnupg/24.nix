@@ -93,35 +93,36 @@ stdenv.mkDerivation rec {
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
-  postInstall = if
-    enableMinimal
-  then ''
-    rm -r $out/{libexec,sbin,share}
-    for f in $(find $out/bin -type f -not -name gpg)
-    do
-      rm $f
-    done
-  '' else ''
-    mkdir -p $out/lib/systemd/user
-    for f in doc/examples/systemd-user/*.{service,socket} ; do
-      substitute $f $out/lib/systemd/user/$(basename $f) \
-        --replace /usr/bin $out/bin
-    done
+  postInstall = if enableMinimal then
+    ''
+      rm -r $out/{libexec,sbin,share}
+      for f in $(find $out/bin -type f -not -name gpg)
+      do
+        rm $f
+      done
+    ''
+  else
+    ''
+      mkdir -p $out/lib/systemd/user
+      for f in doc/examples/systemd-user/*.{service,socket} ; do
+        substitute $f $out/lib/systemd/user/$(basename $f) \
+          --replace /usr/bin $out/bin
+      done
 
-    # add gpg2 symlink to make sure git does not break when signing commits
-    ln -s $out/bin/gpg $out/bin/gpg2
+      # add gpg2 symlink to make sure git does not break when signing commits
+      ln -s $out/bin/gpg $out/bin/gpg2
 
-    # Make libexec tools available in PATH
-    for f in $out/libexec/; do
-      if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
-      ln -s $f $out/bin/$(basename $f)
-    done
+      # Make libexec tools available in PATH
+      for f in $out/libexec/; do
+        if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
+        ln -s $f $out/bin/$(basename $f)
+      done
 
-    for f in $out/libexec/; do
-      if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
-      ln -s $f $out/bin/$(basename $f)
-    done
-  '';
+      for f in $out/libexec/; do
+        if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
+        ln -s $f $out/bin/$(basename $f)
+      done
+    '';
 
   enableParallelBuilding = true;
 

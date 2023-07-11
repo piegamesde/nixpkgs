@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.attrsets.mapAttrsToList (name: value:
     "-DCASS_BUILD_${name}:BOOL=${
-      if
-        value
-      then
+      if value then
         "ON"
       else
         "OFF"

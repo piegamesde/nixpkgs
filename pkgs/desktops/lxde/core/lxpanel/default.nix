@@ -46,23 +46,17 @@ stdenv.mkDerivation rec {
     libxmlxx
   ];
   buildInputs = [
-    (if
-      withGtk3
-    then
+    (if withGtk3 then
       keybinder3
     else
       keybinder)
-    (if
-      withGtk3
-    then
+    (if withGtk3 then
       gtk3
     else
       gtk2)
     libX11
     (libfm.override { inherit withGtk3; })
-    (if
-      withGtk3
-    then
+    (if withGtk3 then
       libwnck
     else
       libwnck2)

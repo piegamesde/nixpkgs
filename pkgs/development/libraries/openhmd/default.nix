@@ -12,9 +12,7 @@
 }:
 
 let
-  examplesOnOff = if
-    withExamples
-  then
+  examplesOnOff = if withExamples then
     "ON"
   else
     "OFF";

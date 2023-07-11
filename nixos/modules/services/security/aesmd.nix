@@ -72,9 +72,7 @@ in {
               "direct"
               "manual"
             ]);
-          default = if
-            (cfg.settings.proxy != null)
-          then
+          default = if (cfg.settings.proxy != null) then
             "manual"
           else
             null;

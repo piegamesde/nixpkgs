@@ -26,9 +26,7 @@ mkCoqDerivation {
   owner = "gil.hur";
   domain = "sf.snu.ac.kr";
   inherit version fetcher;
-  defaultVersion = if
-    lib.versions.isLt "8.8" coq.coq-version
-  then
+  defaultVersion = if lib.versions.isLt "8.8" coq.coq-version then
     "0.92"
   else
     null;

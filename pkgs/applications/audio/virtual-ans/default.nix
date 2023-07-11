@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
     ln -s $out/${startScript} $out/bin/virtual-ans
   '';
 
-  startScript = if
-    stdenv.isx86_32
-  then
+  startScript = if stdenv.isx86_32 then
     "START_LINUX_X86"
   else if stdenv.isx86_64 then
     "START_LINUX_X86_64"
@@ -53,9 +51,7 @@ stdenv.mkDerivation rec {
   else
     abort "Unsupported platform: ${stdenv.hostPlatform.linuxArch}.";
 
-  linuxExecutable = if
-    stdenv.isx86_32
-  then
+  linuxExecutable = if stdenv.isx86_32 then
     "pixilang_linux_x86"
   else if stdenv.isx86_64 then
     "pixilang_linux_x86_64"

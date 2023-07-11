@@ -154,9 +154,7 @@ in {
       "server"
       "PROTOCOL"
     ] (config:
-      if
-        config.services.gitea.enableUnixSocket
-      then
+      if config.services.gitea.enableUnixSocket then
         "http+unix"
       else
         "http"))
@@ -239,9 +237,7 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if
-            !usePostgresql
-          then
+          default = if !usePostgresql then
             3306
           else
             pg.port;
@@ -287,9 +283,7 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if
-            (cfg.database.createDatabase && usePostgresql)
-          then
+          default = if (cfg.database.createDatabase && usePostgresql) then
             "/run/postgresql"
           else if (cfg.database.createDatabase && useMysql) then
             "/run/mysqld/mysqld.sock"
@@ -475,12 +469,11 @@ in {
 
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
-                default = if
-                  lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL
-                then
-                  "/run/gitea/gitea.sock"
-                else
-                  "0.0.0.0";
+                default =
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
+                    "/run/gitea/gitea.sock"
+                  else
+                    "0.0.0.0";
                 defaultText = literalExpression ''
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description = lib.mdDoc
@@ -589,9 +582,7 @@ in {
       database = mkMerge [
         { DB_TYPE = cfg.database.type; }
         (mkIf (useMysql || usePostgresql) {
-          HOST = if
-            cfg.database.socket != null
-          then
+          HOST = if cfg.database.socket != null then
             cfg.database.socket
           else
             cfg.database.host + ":" + toString cfg.database.port;

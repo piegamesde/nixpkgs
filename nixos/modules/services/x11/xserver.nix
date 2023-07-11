@@ -514,9 +514,7 @@ in {
             hasPrimary = any (x: x.primary) heads;
             firstPrimary = head heads // { primary = true; };
             newHeads = singleton firstPrimary ++ tail heads;
-          in if
-            heads != [ ] && !hasPrimary
-          then
+          in if heads != [ ] && !hasPrimary then
             newHeads
           else
             heads;
@@ -712,11 +710,9 @@ in {
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (name:
       let
-        driver = attrByPath [ name ] (if
-          xorg ? ${"xf86video" + name}
-        then {
-          modules = [ xorg.${"xf86video" + name} ];
-        } else
+        driver = attrByPath [ name ] (if xorg ? ${"xf86video" + name} then
+          { modules = [ xorg.${"xf86video" + name} ]; }
+        else
           null) knownVideoDrivers;
       in
       optional (driver != null) ({
@@ -878,9 +874,7 @@ in {
       Section "ServerFlags"
         Option "AllowMouseOpenFail" "on"
         Option "DontZap" "${
-          if
-            cfg.enableCtrlAltBackspace
-          then
+          if cfg.enableCtrlAltBackspace then
             "off"
           else
             "on"
@@ -992,9 +986,7 @@ in {
 
     fonts.enableDefaultFonts = mkDefault true;
     fonts.fonts = [
-      (if
-        cfg.upscaleDefaultCursor
-      then
+      (if cfg.upscaleDefaultCursor then
         fontcursormisc_hidpi
       else
         pkgs.xorg.fontcursormisc)

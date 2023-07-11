@@ -13,9 +13,7 @@ let
   mapExtra = v:
     lib.concatStringsSep "\n" (mapAttrsToList (key: val:
       "${key} = ${
-        if
-          (isString val)
-        then
+        if (isString val) then
           ''"${val}"''
         else
           "${builtins.toString val}"
@@ -62,9 +60,7 @@ in {
 
       # `yabar-stable` segfaults under certain conditions.
       apply = x:
-        if
-          x == pkgs.yabar-unstable
-        then
+        if x == pkgs.yabar-unstable then
           x
         else
           flip warn x ''

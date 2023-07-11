@@ -30,24 +30,23 @@ rustPlatform.buildRustPackage rec {
     copyDesktopItems
   ];
 
-  buildInputs = if
-    withGui
-  then [
-    openssl
-    xorg.libxcb
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXi
-    xorg.libxcb
-    libGL
-    libGL.dev
-  ] else [ openssl ];
+  buildInputs = if withGui then
+    [
+      openssl
+      xorg.libxcb
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXrandr
+      xorg.libXi
+      xorg.libxcb
+      libGL
+      libGL.dev
+    ]
+  else
+    [ openssl ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ (if
-    withGui
-  then
+  buildFeatures = [ (if withGui then
     "egui"
   else
     "cli") ];

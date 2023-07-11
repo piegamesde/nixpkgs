@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DPAGMO_BUILD_TESTS=${
-      if
-        runTests
-      then
+      if runTests then
         "ON"
       else
         "OFF"

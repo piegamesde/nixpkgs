@@ -51,9 +51,7 @@ let
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${
-        if
-          isPy39OrNewer
-        then
+        if isPy39OrNewer then
           lib.versions.majorMinor pythonVersion
         else
           lib.optionalString isPy3k "3"
@@ -137,9 +135,7 @@ stdenv.mkDerivation rec {
       --replace "multiprocessing.cpu_count()" "$NIX_BUILD_CORES"
 
     substituteInPlace "lib-python/${
-      if
-        isPy3k
-      then
+      if isPy3k then
         "3/tkinter/tix.py"
       else
         "2.7/lib-tk/Tix.py"
@@ -172,9 +168,7 @@ stdenv.mkDerivation rec {
     # other packages expect to find stuff according to libPrefix
     ln -s $out/${executable}-c/include $out/include/${libPrefix}
     ln -s $out/${executable}-c/lib-python/${
-      if
-        isPy3k
-      then
+      if isPy3k then
         "3"
       else
         pythonVersion
@@ -182,9 +176,7 @@ stdenv.mkDerivation rec {
 
     # Include a sitecustomize.py file
     cp ${../sitecustomize.py} $out/${
-      if
-        isPy38OrNewer
-      then
+      if isPy38OrNewer then
         sitePackages
       else
         "lib/${libPrefix}/${sitePackages}"

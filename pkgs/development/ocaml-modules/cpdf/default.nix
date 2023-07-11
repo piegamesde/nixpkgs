@@ -8,9 +8,7 @@
   ncurses,
 }:
 
-if
-  lib.versionOlder ocaml.version "4.10"
-then
+if lib.versionOlder ocaml.version "4.10" then
   throw "cpdf is not available for OCaml ${ocaml.version}"
 else
 

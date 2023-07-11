@@ -50,26 +50,25 @@ stdenv.mkDerivation rec {
     extraPrefix = "";
   }) ];
 
-  configureFlags = if
-    stdenv.isLinux
-  then [
-    # It seems that the e2fsprogs is one of the few packages that cannot be
-    # build with shared and static libs.
-    (if
-      shared
-    then
-      "--enable-elf-shlibs"
-    else
-      "--disable-elf-shlibs")
-    "--enable-symlink-install"
-    "--enable-relative-symlinks"
-    "--with-crond-dir=no"
-    # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
-    "--disable-fsck"
-    "--disable-libblkid"
-    "--disable-libuuid"
-    "--disable-uuidd"
-  ] else [ "--enable-libuuid --disable-e2initrd-helper" ];
+  configureFlags = if stdenv.isLinux then
+    [
+      # It seems that the e2fsprogs is one of the few packages that cannot be
+      # build with shared and static libs.
+      (if shared then
+        "--enable-elf-shlibs"
+      else
+        "--disable-elf-shlibs")
+      "--enable-symlink-install"
+      "--enable-relative-symlinks"
+      "--with-crond-dir=no"
+      # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
+      "--disable-fsck"
+      "--disable-libblkid"
+      "--disable-libuuid"
+      "--disable-uuidd"
+    ]
+  else
+    [ "--enable-libuuid --disable-e2initrd-helper" ];
 
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;

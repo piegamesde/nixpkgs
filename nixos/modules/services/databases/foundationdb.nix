@@ -12,9 +12,7 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr = if
-    (cfg.publicAddress != "auto")
-  then
+  initialIpAddr = if (cfg.publicAddress != "auto") then
     cfg.publicAddress
   else
     "127.0.0.1";

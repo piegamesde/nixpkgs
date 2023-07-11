@@ -20,9 +20,7 @@
 
 let
   # Do either a coverage analysis build or a standard build.
-  builder = if
-    coverageAnalysis != null
-  then
+  builder = if coverageAnalysis != null then
     coverageAnalysis
   else
     stdenv.mkDerivation;

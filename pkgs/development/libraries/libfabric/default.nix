@@ -35,15 +35,11 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enablePsm2 [ libpsm2 ];
 
   configureFlags = [
-    (if
-      enablePsm2
-    then
+    (if enablePsm2 then
       "--enable-psm2=${libpsm2}"
     else
       "--disable-psm2")
-    (if
-      enableOpx
-    then
+    (if enableOpx then
       "--enable-opx"
     else
       "--disable-opx")

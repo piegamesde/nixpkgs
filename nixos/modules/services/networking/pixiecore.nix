@@ -152,9 +152,7 @@ in {
         AmbientCapabilities = [ "cap_net_bind_service" ]
           ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart = let
-          argString = if
-            cfg.mode == "boot"
-          then
+          argString = if cfg.mode == "boot" then
             [
               "boot"
               cfg.kernel
@@ -163,13 +161,16 @@ in {
               "--cmdline"
               cfg.cmdLine
             ]
-          else if cfg.mode == "quick" then [
-            "quick"
-            cfg.quick
-          ] else [
-            "api"
-            cfg.apiServer
-          ];
+          else if cfg.mode == "quick" then
+            [
+              "quick"
+              cfg.quick
+            ]
+          else
+            [
+              "api"
+              cfg.apiServer
+            ];
         in ''
           ${pkgs.pixiecore}/bin/pixiecore \
             ${lib.escapeShellArgs argString} \

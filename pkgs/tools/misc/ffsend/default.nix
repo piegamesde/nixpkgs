@@ -37,20 +37,23 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs = if
-    stdenv.isDarwin
-  then [
-    Security
-    AppKit
-  ] else [ openssl ];
+  buildInputs = if stdenv.isDarwin then
+    [
+      Security
+      AppKit
+    ]
+  else
+    [ openssl ];
 
-  preBuild = lib.optionalString (x11Support && usesX11) (if
-    preferXsel && xsel != null
-  then ''
-    export XSEL_PATH="${xsel}/bin/xsel"
-  '' else ''
-    export XCLIP_PATH="${xclip}/bin/xclip"
-  '');
+  preBuild = lib.optionalString (x11Support && usesX11)
+    (if preferXsel && xsel != null then
+      ''
+        export XSEL_PATH="${xsel}/bin/xsel"
+      ''
+    else
+      ''
+        export XCLIP_PATH="${xclip}/bin/xclip"
+      '');
 
   postInstall = ''
     installShellCompletion contrib/completions/ffsend.{bash,fish} --zsh contrib/completions/_ffsend

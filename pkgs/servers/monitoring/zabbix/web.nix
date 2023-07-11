@@ -30,9 +30,7 @@ import ./versions.nix ({
     installPhase = ''
       mkdir -p $out/share/zabbix/
       cp -a ${
-        if
-          lib.versionAtLeast version "5.0.0"
-        then
+        if lib.versionAtLeast version "5.0.0" then
           "ui/."
         else
           "frontends/php/."

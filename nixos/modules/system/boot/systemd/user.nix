@@ -51,9 +51,7 @@ let
       user ? null
     }:
     let
-      suffix = if
-        user == null
-      then
+      suffix = if user == null then
         ""
       else
         "-${user}";

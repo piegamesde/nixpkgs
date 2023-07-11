@@ -14,15 +14,11 @@
   headersOnly ? true
 }:
 
-appleDerivation' (if
-  headersOnly
-then
+appleDerivation' (if headersOnly then
   stdenvNoCC
 else
   stdenv) (let
-    arch = if
-      stdenv.isx86_64
-    then
+    arch = if stdenv.isx86_64 then
       "x86_64"
     else
       "arm64";

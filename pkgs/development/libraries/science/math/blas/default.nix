@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
 
   postInstall = let
-    canonicalExtension = if
-      stdenv.hostPlatform.isLinux
-    then
+    canonicalExtension = if stdenv.hostPlatform.isLinux then
       "${stdenv.hostPlatform.extensions.sharedLibrary}.${
         lib.versions.major version
       }"

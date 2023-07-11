@@ -66,9 +66,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     ++ lib.optionals portaudioSupport [ portaudio ];
 
   cmakeFlags = let
-    audioBackend = if
-      pulseaudioSupport
-    then
+    audioBackend = if pulseaudioSupport then
       "Pulseaudio"
     else if portaudioSupport then
       "Portaudio"

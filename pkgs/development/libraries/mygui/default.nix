@@ -17,9 +17,7 @@
 }:
 
 let
-  renderSystem = if
-    withOgre
-  then
+  renderSystem = if withOgre then
     "3"
   else
     "4";

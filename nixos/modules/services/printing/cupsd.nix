@@ -91,27 +91,21 @@ let
     Listen /run/cups/cups.sock
 
     DefaultShared ${
-      if
-        cfg.defaultShared
-      then
+      if cfg.defaultShared then
         "Yes"
       else
         "No"
     }
 
     Browsing ${
-      if
-        cfg.browsing
-      then
+      if cfg.browsing then
         "Yes"
       else
         "No"
     }
 
     WebInterface ${
-      if
-        cfg.webInterface
-      then
+      if cfg.webInterface then
         "Yes"
       else
         "No"
@@ -158,7 +152,10 @@ in {
           "printing"
           "gutenprint"
         ] config;
-      in if enabled then [ pkgs.gutenprint ] else [ ]))
+      in if enabled then
+        [ pkgs.gutenprint ]
+      else
+        [ ]))
     (mkRemovedOptionModule [
       "services"
       "printing"

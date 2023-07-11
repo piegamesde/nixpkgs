@@ -26,9 +26,7 @@ let
 
   mkBot = n: c:
     format.generate "${n}.json" (c.settings // {
-      SteamLogin = if
-        c.username == ""
-      then
+      SteamLogin = if c.username == "" then
         n
       else
         c.username;

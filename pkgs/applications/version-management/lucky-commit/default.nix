@@ -21,9 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-8r/EGIiN+HTtChgLTdOS+Y7AdmjswqD4BZtYlL5UiEo=";
 
-  buildInputs = lib.optional withOpenCL (if
-    stdenv.isDarwin
-  then
+  buildInputs = lib.optional withOpenCL (if stdenv.isDarwin then
     OpenCL
   else
     ocl-icd);

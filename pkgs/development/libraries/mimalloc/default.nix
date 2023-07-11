@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.hostPlatform.isStatic;
   preCheck = let
-    ldLibraryPathEnv = if
-      stdenv.isDarwin
-    then
+    ldLibraryPathEnv = if stdenv.isDarwin then
       "DYLD_LIBRARY_PATH"
     else
       "LD_LIBRARY_PATH";
@@ -44,9 +42,7 @@ stdenv.mkDerivation rec {
 
   postInstall = let
     rel = lib.versions.majorMinor version;
-    suffix = if
-      stdenv.isLinux
-    then
+    suffix = if stdenv.isLinux then
       "${soext}.${rel}"
     else
       ".${rel}${soext}";

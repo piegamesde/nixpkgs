@@ -8,9 +8,7 @@
 let
   cfg = config.services.ddclient;
   boolToStr = bool:
-    if
-      bool
-    then
+    if bool then
       "yes"
     else
       "no";
@@ -25,9 +23,7 @@ let
     use=${cfg.use}
     login=${cfg.username}
     password=${
-      if
-        cfg.protocol == "nsupdate"
-      then
+      if cfg.protocol == "nsupdate" then
         "/run/${RuntimeDirectory}/ddclient.key"
       else
         "@password_placeholder@"
@@ -44,24 +40,26 @@ let
     ${cfg.extraConfig}
     ${lib.concatStringsSep "," cfg.domains}
   '';
-  configFile = if
-    (cfg.configFile != null)
-  then
+  configFile = if (cfg.configFile != null) then
     cfg.configFile
   else
     configFile';
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
-    ${lib.optionalString (cfg.configFile == null) (if
-      (cfg.protocol == "nsupdate")
-    then ''
-      install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
-    '' else if (cfg.passwordFile != null) then ''
-      "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
-    '' else ''
-      sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
-    '')}
+    ${lib.optionalString (cfg.configFile == null)
+    (if (cfg.protocol == "nsupdate") then
+      ''
+        install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
+      ''
+    else if (cfg.passwordFile != null) then
+      ''
+        "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
+      ''
+    else
+      ''
+        sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
+      '')}
   '';
 
 in with lib;
@@ -84,7 +82,10 @@ in with lib;
           "ddclient"
           "domain"
         ] config;
-      in if value != "" then [ value ] else [ ]))
+      in if value != "" then
+        [ value ]
+      else
+        [ ]))
     (mkRemovedOptionModule [
       "services"
       "ddclient"

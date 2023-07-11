@@ -40,16 +40,16 @@ let
       entryAt = builtins.elemAt entries';
 
       # Hack: Remove version "suffixes" like 2.11.4-1
-      entries = if
-        el == 6
-      then [
-        (entryAt 0) # name
-        (entryAt 1) # version
-        # build tag is skipped
-        (entryAt (el - 3)) # python version
-        (entryAt (el - 2)) # abi
-        (entryAt (el - 1)) # platform
-      ] else
+      entries = if el == 6 then
+        [
+          (entryAt 0) # name
+          (entryAt 1) # version
+          # build tag is skipped
+          (entryAt (el - 3)) # python version
+          (entryAt (el - 2)) # abi
+          (entryAt (el - 1)) # platform
+        ]
+      else
         entries';
       p = removeSuffix ".whl" (builtins.elemAt entries 4);
     in {
@@ -69,9 +69,7 @@ let
     let
       v = lib.lists.head versions;
       vs = lib.lists.tail versions;
-    in if
-      (builtins.length versions == 0)
-    then
+    in if (builtins.length versions == 0) then
       [ ]
     else
       (builtins.filter (x: hasInfix v x.file) candidates)
@@ -93,9 +91,7 @@ let
           tag = builtins.substring 0 2 v;
           major = builtins.substring 2 1 v;
           end = builtins.substring 3 3 v;
-          minor = if
-            builtins.stringLength end > 0
-          then
+          minor = if builtins.stringLength end > 0 then
             end
           else
             "0";
@@ -122,9 +118,7 @@ let
           == "abi3");
       withPython = ver: abi: x:
         (isPyVersionCompatible ver x.pyVer) && (isPyAbiCompatible abi x.abi);
-      withPlatform = if
-        isLinux
-      then
+      withPlatform = if isLinux then
         if
           targetMachine != null
         then
@@ -136,9 +130,7 @@ let
         else
           (p: p == "any")
       else if stdenv.isDarwin then
-        if
-          stdenv.targetPlatform.isAarch64
-        then
+        if stdenv.targetPlatform.isAarch64 then
           (p:
             p == "any" || (hasInfix "macosx" p
               && lib.lists.any (e: hasSuffix e p) [
@@ -182,15 +174,11 @@ let
           ];
           chooseLinux = x: lib.take 1 (findBestMatches linuxMatches x);
           chooseOSX = x: lib.take 1 (findBestMatches osxMatches x);
-        in if
-          isLinux
-        then
+        in if isLinux then
           chooseLinux files
         else
           chooseOSX files;
-    in if
-      (builtins.length filtered == 0)
-    then
+    in if (builtins.length filtered == 0) then
       [ ]
     else
       choose (filtered);

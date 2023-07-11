@@ -11,9 +11,7 @@ let
   cfg = config.services.avahi;
 
   yesNo = yes:
-    if
-      yes
-    then
+    if yes then
       "yes"
     else
       "no";
@@ -292,9 +290,7 @@ in {
     environment.etc = (mapAttrs' (n: v:
       nameValuePair "avahi/services/${n}.service" {
         ${
-          if
-            types.path.check v
-          then
+          if types.path.check v then
             "source"
           else
             "text"

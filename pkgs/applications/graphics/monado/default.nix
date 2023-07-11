@@ -70,9 +70,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DXRT_FEATURE_SERVICE=${
-      if
-        serviceSupport
-      then
+      if serviceSupport then
         "ON"
       else
         "OFF"

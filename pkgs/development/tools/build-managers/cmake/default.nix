@@ -112,12 +112,13 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "CXXFLAGS=-Wno-elaborated-enum-base"
     "--docdir=share/doc/${pname}${version}"
-  ] ++ (if
-    useSharedLibraries
-  then [
-    "--no-system-jsoncpp"
-    "--system-libs"
-  ] else [ "--no-system-libs" ]) # FIXME: cleanup
+  ] ++ (if useSharedLibraries then
+    [
+      "--no-system-jsoncpp"
+      "--system-libs"
+    ]
+  else
+    [ "--no-system-libs" ]) # FIXME: cleanup
     ++ lib.optional qt5UI "--qt-gui" ++ lib.optionals buildDocs [
       "--sphinx-build=${sphinx}/bin/sphinx-build"
       "--sphinx-info"
@@ -148,18 +149,14 @@ stdenv.mkDerivation rec {
       }/bin/${stdenv.cc.targetPrefix}strip"
 
       "-DCMAKE_USE_OPENSSL=${
-        if
-          useOpenSSL
-        then
+        if useOpenSSL then
           "ON"
         else
           "OFF"
       }"
       # Avoid depending on frameworks.
       "-DBUILD_CursesDialog=${
-        if
-          cursesUI
-        then
+        if cursesUI then
           "ON"
         else
           "OFF"

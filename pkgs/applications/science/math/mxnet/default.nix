@@ -69,15 +69,15 @@ stdenv.mkDerivation rec {
       nvidia_x11
     ] ++ lib.optional cudnnSupport cudnn;
 
-  cmakeFlags = [ "-DUSE_MKL_IF_AVAILABLE=OFF" ] ++ (if
-    cudaSupport
-  then [
-    "-DUSE_OLDCMAKECUDA=ON" # see https://github.com/apache/incubator-mxnet/issues/10743
-    "-DCUDA_ARCH_NAME=All"
-    "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    "-DMXNET_CUDA_ARCH=${builtins.concatStringsSep ";" cudaFlags.realArches}"
-  ] else [ "-DUSE_CUDA=OFF" ])
-    ++ lib.optional (!cudnnSupport) "-DUSE_CUDNN=OFF";
+  cmakeFlags = [ "-DUSE_MKL_IF_AVAILABLE=OFF" ] ++ (if cudaSupport then
+    [
+      "-DUSE_OLDCMAKECUDA=ON" # see https://github.com/apache/incubator-mxnet/issues/10743
+      "-DCUDA_ARCH_NAME=All"
+      "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+      "-DMXNET_CUDA_ARCH=${builtins.concatStringsSep ";" cudaFlags.realArches}"
+    ]
+  else
+    [ "-DUSE_CUDA=OFF" ]) ++ lib.optional (!cudnnSupport) "-DUSE_CUDNN=OFF";
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

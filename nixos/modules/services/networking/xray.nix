@@ -68,9 +68,7 @@ with lib;
 
   config = let
     cfg = config.services.xray;
-    settingsFile = if
-      cfg.settingsFile != null
-    then
+    settingsFile = if cfg.settingsFile != null then
       cfg.settingsFile
     else
       pkgs.writeTextFile {

@@ -82,9 +82,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${
-      if
-        debug
-      then
+      if debug then
         "Debug"
       else
         "Release"

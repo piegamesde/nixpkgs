@@ -200,9 +200,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  LIVE555_PREFIX = if
-    stdenv.hostPlatform.isAarch
-  then
+  LIVE555_PREFIX = if stdenv.hostPlatform.isAarch then
     null
   else
     live555;

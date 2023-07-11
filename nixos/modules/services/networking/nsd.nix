@@ -25,9 +25,7 @@ let
   };
 
   mkZoneFileName = name:
-    if
-      name == "."
-    then
+    if name == "." then
       "root"
     else
       name;
@@ -152,23 +150,17 @@ let
   '';
 
   yesOrNo = b:
-    if
-      b
-    then
+    if b then
       "yes"
     else
       "no";
   maybeString = prefix: x:
-    if
-      x == null
-    then
+    if x == null then
       ""
     else
       ''${prefix} "${x}"'';
   maybeToString = prefix: x:
-    if
-      x == null
-    then
+    if x == null then
       ""
     else
       "${prefix} ${toString x}";
@@ -496,9 +488,7 @@ let
   };
 
   dnssecZones = (filterAttrs (n: v:
-    if
-      v ? dnssec
-    then
+    if v ? dnssec then
       v.dnssec
     else
       false) zoneConfigs);

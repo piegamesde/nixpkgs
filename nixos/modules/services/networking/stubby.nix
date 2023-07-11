@@ -77,9 +77,7 @@ in {
         type = types.nullOr
           (types.enum (attrNames logLevels ++ attrValues logLevels));
         apply = v:
-          if
-            isString v
-          then
+          if isString v then
             logLevels.${v}
           else
             v;

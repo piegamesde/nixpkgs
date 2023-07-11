@@ -20,9 +20,7 @@ let
     "0"
   ] version;
   host = stdenv.hostPlatform.system;
-  system = if
-    host == "x86_64-linux"
-  then
+  system = if host == "x86_64-linux" then
     "linuxx64"
   else if host == "aarch64-linux" then
     "linuxarmv8"
@@ -31,9 +29,7 @@ let
   src = fetchurl {
     url =
       "https://download.roonlabs.com/updates/stable/RoonBridge_${system}_${urlVersion}.tar.bz2";
-    hash = if
-      system == "linuxx64"
-    then
+    hash = if system == "linuxx64" then
       "sha256-DbtKPFEz2WIoKTxP+zoehzz+BjfsLZ2ZQk/FMh+zFBM="
     else if system == "linuxarmv8" then
       "sha256-+przEj96R+f1z4ewETFarF4oY6tT2VW/ukSTgUBLiYk="

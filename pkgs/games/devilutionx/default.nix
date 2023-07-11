@@ -109,23 +109,24 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-  '' + (if
-    stdenv.isDarwin
-  then ''
-    mkdir -p $out/Applications
-    mv devilutionx.app $out/Applications
-  '' else ''
-    install -Dm755 -t $out/bin devilutionx
-    install -Dm755 -t $out/share/diasurgical/devilutionx devilutionx.mpq
-    install -Dm755 -t $out/share/applications ../Packaging/nix/devilutionx-hellfire.desktop ../Packaging/nix/devilutionx.desktop
-    install -Dm755 ../Packaging/resources/icon.png $out/share/icons/hicolor/512x512/apps/devilutionx.png
-    install -Dm755 ../Packaging/resources/hellfire.png $out/share/icons/hicolor/512x512/apps/devilutionx-hellfire.png
-    install -Dm755 ../Packaging/resources/icon_32.png $out/share/icons/hicolor/32x32/apps/devilutionx.png
-    install -Dm755 ../Packaging/resources/hellfire_32.png $out/share/icons/hicolor/32x32/apps/devilutionx-hellfire.png
-  '') + ''
+  '' + (if stdenv.isDarwin then
+    ''
+      mkdir -p $out/Applications
+      mv devilutionx.app $out/Applications
+    ''
+  else
+    ''
+      install -Dm755 -t $out/bin devilutionx
+      install -Dm755 -t $out/share/diasurgical/devilutionx devilutionx.mpq
+      install -Dm755 -t $out/share/applications ../Packaging/nix/devilutionx-hellfire.desktop ../Packaging/nix/devilutionx.desktop
+      install -Dm755 ../Packaging/resources/icon.png $out/share/icons/hicolor/512x512/apps/devilutionx.png
+      install -Dm755 ../Packaging/resources/hellfire.png $out/share/icons/hicolor/512x512/apps/devilutionx-hellfire.png
+      install -Dm755 ../Packaging/resources/icon_32.png $out/share/icons/hicolor/32x32/apps/devilutionx.png
+      install -Dm755 ../Packaging/resources/hellfire_32.png $out/share/icons/hicolor/32x32/apps/devilutionx-hellfire.png
+    '') + ''
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/diasurgical/devilutionX";

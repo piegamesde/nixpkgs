@@ -34,9 +34,7 @@ let
      escapeShellArgs' : [ShellArg] -> String
   */
   escapeShellArgs' = lib.concatMapStringsSep " " (arg:
-    if
-      arg ? __rawShell
-    then
+    if arg ? __rawShell then
       arg.__rawShell
     else
       lib.escapeShellArg arg);
@@ -50,17 +48,18 @@ let
       paths,
     }:
     arg:
-    if
-      builtins.isPath arg
-    then {
-      args = args
-        ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
-      maxArgIndex = maxArgIndex + 1;
-      paths = paths ++ [ arg ];
-    } else {
-      args = args ++ [ arg ];
-      inherit maxArgIndex paths;
-    };
+    if builtins.isPath arg then
+      {
+        args = args
+          ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
+        maxArgIndex = maxArgIndex + 1;
+        paths = paths ++ [ arg ];
+      }
+    else
+      {
+        args = args ++ [ arg ];
+        inherit maxArgIndex paths;
+      };
   /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
   */
@@ -137,9 +136,7 @@ in rec {
           ...
         }:
         supportedFeatures == [ "commit" ]) null null scripts != null;
-      validateFeatures = if
-        hasCommitSupport
-      then
+      validateFeatures = if hasCommitSupport then
         ({
             supportedFeatures,
             ...

@@ -95,9 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     "-DGMIC_QT_HOST=${
-      if
-        variant == "standalone"
-      then
+      if variant == "standalone" then
         "none"
       else
         variant

@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     cp -ra . $out/share/sbt
     ln -sT ../share/sbt/bin/sbt $out/bin/sbt
     ln -sT ../share/sbt/bin/sbtn-x86_64-${
-      if
-        (stdenv.isDarwin)
-      then
+      if (stdenv.isDarwin) then
         "apple-darwin"
       else
         "pc-linux"

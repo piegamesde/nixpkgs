@@ -71,9 +71,7 @@ in {
         popd
       '';
       format = "raw";
-      configFile = if
-        cfg.configFile == null
-      then
+      configFile = if cfg.configFile == null then
         defaultConfigFile
       else
         cfg.configFile;

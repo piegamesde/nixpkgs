@@ -13,9 +13,7 @@ let
   cfg = config.services.healthchecks;
   pkg = cfg.package;
   boolToPython = b:
-    if
-      b
-    then
+    if b then
       "True"
     else
       "False";

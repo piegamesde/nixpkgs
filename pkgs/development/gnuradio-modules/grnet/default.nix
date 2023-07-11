@@ -75,18 +75,17 @@ mkDerivation {
     gmp
     libpcap
     icu
-  ] ++ (if
-    lib.versionAtLeast gnuradio.versionAttr.major "3.9"
-  then
+  ] ++ (if lib.versionAtLeast gnuradio.versionAttr.major "3.9" then
     with python.pkgs; [
       pybind11
       numpy
     ]
-  else [
-    swig
-    thrift
-    python.pkgs.thrift
-  ]);
+  else
+    [
+      swig
+      thrift
+      python.pkgs.thrift
+    ]);
   nativeBuildInputs = [
     cmake
     pkg-config

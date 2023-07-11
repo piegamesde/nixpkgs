@@ -34,11 +34,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ coverage ];
 
   doCheck = false; # lot's of transient errors, too much hassle
-  checkPhase = if
-    isPy3k
-  then ''
-    ${python.pythonForBuild.interpreter} setup.py build_tests
-  '' else
+  checkPhase = if isPy3k then
+    ''
+      ${python.pythonForBuild.interpreter} setup.py build_tests
+    ''
+  else
     "" + ''
       rm functional_tests/test_multiprocessing/test_concurrent_shared.py* # see https://github.com/nose-devs/nose/commit/226bc671c73643887b36b8467b34ad485c2df062
       ${python.pythonForBuild.interpreter} selftest.py

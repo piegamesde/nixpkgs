@@ -232,9 +232,7 @@ in {
         vmName="${cfg.vmName}";
         VBoxManage createvm --name "$vmName" --register \
           --ostype ${
-            if
-              pkgs.stdenv.hostPlatform.system == "x86_64-linux"
-            then
+            if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
               "Linux26_64"
             else
               "Linux26"

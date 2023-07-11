@@ -11,9 +11,7 @@ let
 
   cfg = config.services.fcron;
 
-  queuelen = if
-    cfg.queuelen == null
-  then
+  queuelen = if cfg.queuelen == null then
     ""
   else
     "-q ${toString cfg.queuelen}";
@@ -106,9 +104,7 @@ in {
       {
         source = let
           isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-          sendmailPath = if
-            isSendmailWrapped
-          then
+          sendmailPath = if isSendmailWrapped then
             "/run/wrappers/bin/sendmail"
           else
             "${config.system.path}/bin/sendmail";

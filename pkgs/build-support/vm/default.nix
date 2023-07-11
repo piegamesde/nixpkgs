@@ -515,9 +515,7 @@ in rec {
         echo "installing RPMs..."
         PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
           rpm -iv --nosignature ${
-            if
-              runScripts
-            then
+            if runScripts then
               ""
             else
               "--noscripts"

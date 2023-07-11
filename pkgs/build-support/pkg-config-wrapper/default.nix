@@ -131,16 +131,12 @@ stdenv.mkDerivation {
   };
 
   meta = let
-    pkg-config_ = if
-      pkg-config != null
-    then
+    pkg-config_ = if pkg-config != null then
       pkg-config
     else
       { };
   in
-  (if
-    pkg-config_ ? meta
-  then
+  (if pkg-config_ ? meta then
     removeAttrs pkg-config.meta [ "priority" ]
   else
     { }) // {

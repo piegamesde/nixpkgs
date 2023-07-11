@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dman-pages=enabled"
     "-Dlogind=${
-      if
-        systemdSupport
-      then
+      if systemdSupport then
         "enabled"
       else
         "disabled"

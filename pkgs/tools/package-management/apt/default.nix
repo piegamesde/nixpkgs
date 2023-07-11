@@ -75,17 +75,13 @@ stdenv.mkDerivation rec {
     "-DGNUTLS_INCLUDE_DIR=${gnutls.dev}/include"
     "-DROOT_GROUP=root"
     "-DUSE_NLS=${
-      if
-        withNLS
-      then
+      if withNLS then
         "ON"
       else
         "OFF"
     }"
     "-DWITH_DOC=${
-      if
-        withDocs
-      then
+      if withDocs then
         "ON"
       else
         "OFF"

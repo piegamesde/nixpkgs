@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
   pname = "ccl";
   version = "1.12";
 
-  src = if
-    cfg.arch == "linuxarm"
-  then
+  src = if cfg.arch == "linuxarm" then
     linuxarm-src
   else
     fetchurl {
@@ -94,38 +92,40 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = if
-    stdenv.isDarwin
-  then [
-    bootstrap_cmds
-    m4
-  ] else [
-    glibc
-    m4
-  ];
+  buildInputs = if stdenv.isDarwin then
+    [
+      bootstrap_cmds
+      m4
+    ]
+  else
+    [
+      glibc
+      m4
+    ];
 
   CCL_RUNTIME = cfg.runtime;
   CCL_KERNEL = cfg.kernel;
 
-  postPatch = if
-    stdenv.isDarwin
-  then ''
-    substituteInPlace lisp-kernel/${CCL_KERNEL}/Makefile \
-      --replace "M4 = gm4"   "M4 = m4" \
-      --replace "dtrace"     "/usr/sbin/dtrace" \
-      --replace "/bin/rm"    "${coreutils}/bin/rm" \
-      --replace "/bin/echo"  "${coreutils}/bin/echo"
+  postPatch = if stdenv.isDarwin then
+    ''
+      substituteInPlace lisp-kernel/${CCL_KERNEL}/Makefile \
+        --replace "M4 = gm4"   "M4 = m4" \
+        --replace "dtrace"     "/usr/sbin/dtrace" \
+        --replace "/bin/rm"    "${coreutils}/bin/rm" \
+        --replace "/bin/echo"  "${coreutils}/bin/echo"
 
-    substituteInPlace lisp-kernel/m4macros.m4 \
-      --replace "/bin/pwd" "${coreutils}/bin/pwd"
-  '' else ''
-    substituteInPlace lisp-kernel/${CCL_KERNEL}/Makefile \
-      --replace "/bin/rm"    "${coreutils}/bin/rm" \
-      --replace "/bin/echo"  "${coreutils}/bin/echo"
+      substituteInPlace lisp-kernel/m4macros.m4 \
+        --replace "/bin/pwd" "${coreutils}/bin/pwd"
+    ''
+  else
+    ''
+      substituteInPlace lisp-kernel/${CCL_KERNEL}/Makefile \
+        --replace "/bin/rm"    "${coreutils}/bin/rm" \
+        --replace "/bin/echo"  "${coreutils}/bin/echo"
 
-    substituteInPlace lisp-kernel/m4macros.m4 \
-      --replace "/bin/pwd" "${coreutils}/bin/pwd"
-  '';
+      substituteInPlace lisp-kernel/m4macros.m4 \
+        --replace "/bin/pwd" "${coreutils}/bin/pwd"
+    '';
 
   buildPhase = ''
     make -C lisp-kernel/${CCL_KERNEL} clean

@@ -11,9 +11,7 @@ let
 
   cfg = config.services.stunnel;
   yesNo = val:
-    if
-      val
-    then
+    if val then
       "yes"
     else
       "no";
@@ -33,9 +31,7 @@ let
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
   mkValueString = v:
-    if
-      v == true
-    then
+    if v == true then
       "yes"
     else if v == false then
       "no"

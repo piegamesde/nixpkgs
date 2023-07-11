@@ -16,9 +16,7 @@ let
   };
   builderGeneric = import ./raspberrypi-builder.nix { inherit pkgs configTxt; };
 
-  builder = if
-    cfg.uboot.enable
-  then
+  builder = if cfg.uboot.enable then
     "${builderUboot} -g ${
       toString cfg.uboot.configurationLimit
     } -t ${timeoutStr} -c"
@@ -26,9 +24,7 @@ let
     "${builderGeneric} -c";
 
   blCfg = config.boot.loader;
-  timeoutStr = if
-    blCfg.timeout == null
-  then
+  timeoutStr = if blCfg.timeout == null then
     "-1"
   else
     toString blCfg.timeout;
@@ -47,14 +43,15 @@ let
   '' + optional isAarch64 ''
     # Boot in 64-bit mode.
     arm_64bit=1
-  '' + (if
-    cfg.uboot.enable
-  then ''
-    kernel=u-boot-rpi.bin
-  '' else ''
-    kernel=kernel.img
-    initramfs initrd followkernel
-  '') + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
+  '' + (if cfg.uboot.enable then
+    ''
+      kernel=u-boot-rpi.bin
+    ''
+  else
+    ''
+      kernel=kernel.img
+      initramfs initrd followkernel
+    '') + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
 
 in {
   options = {

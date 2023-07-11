@@ -62,9 +62,7 @@ in {
       '';
       format = "raw";
       partitionTableType = "none";
-      configFile = if
-        cfg.configFile == null
-      then
+      configFile = if cfg.configFile == null then
         defaultConfigFile
       else
         cfg.configFile;

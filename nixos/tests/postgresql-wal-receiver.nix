@@ -22,9 +22,7 @@ let
       walBackupDir = "/tmp/pg_wal";
       atLeast12 = lib.versionAtLeast pkg.version "12.0";
 
-      recoveryFile = if
-        atLeast12
-      then
+      recoveryFile = if atLeast12 then
         pkgs.writeTextDir "recovery.signal" ""
       else
         pkgs.writeTextDir "recovery.conf"

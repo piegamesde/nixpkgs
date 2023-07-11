@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--with-distro=${
       with stdenv.hostPlatform;
-      if
-        isBSD
-      then
+      if isBSD then
         parsed.kernel.name
       else
         "none"

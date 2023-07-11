@@ -23,9 +23,7 @@ let
     matrix.domain = cfg.matrix.domain;
     key.path = "${cfg.dataDir}/signing.key";
     storage = {
-      provider.sqlite.database = if
-        isMa1sd cfg.package
-      then
+      provider.sqlite.database = if isMa1sd cfg.package then
         "${cfg.dataDir}/ma1sd.db"
       else
         "${cfg.dataDir}/mxisd.db";
@@ -35,9 +33,7 @@ let
   # merges baseConfig and extraConfig into a single file
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
 
-  configFile = if
-    isMa1sd cfg.package
-  then
+  configFile = if isMa1sd cfg.package then
     pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
   else
     pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
@@ -127,9 +123,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        executable = if
-          isMa1sd cfg.package
-        then
+        executable = if isMa1sd cfg.package then
           "ma1sd"
         else
           "mxisd";
