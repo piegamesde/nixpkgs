@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
       makeWrapper
       pkg-config
       python3
-    ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
     ;
 
   buildInputs =
@@ -131,7 +132,8 @@ stdenv.mkDerivation rec {
       twolame
       wxGTK32
       gtk3
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       at-spi2-core
       dbus
       libepoxy

@@ -78,11 +78,13 @@ stdenv.mkDerivation rec {
       hidapi
       rapidjson
       quirc
-    ] ++ lib.optionals trezorSupport [
+    ]
+    ++ lib.optionals trezorSupport [
       libusb1
       protobuf
       python3
-    ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
     ;
 
   postUnpack = ''

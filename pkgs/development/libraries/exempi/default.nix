@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       expat
       zlib
       boost
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       darwin.apple_sdk.frameworks.CoreServices
     ]

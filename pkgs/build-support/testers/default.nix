@@ -22,7 +22,8 @@
             src = ./expect-failure.sh;
           })
           orig.realBuilder or stdenv.shell
-        ] ++ orig.args or [
+        ]
+        ++ orig.args or [
           "-e"
           (orig.builder or ../../stdenv/generic/default-builder.sh)
         ]

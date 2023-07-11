@@ -74,7 +74,8 @@ stdenv.mkDerivation (recursiveUpdate packageAttrs rec {
       concatStringsSep "," ([
         "common"
         "modcontent"
-      ] ++ engine.mods)
+      ]
+        ++ engine.mods)
     }} mods/* \
       $out/lib/${pname}/mods/
 

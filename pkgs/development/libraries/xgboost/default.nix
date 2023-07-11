@@ -62,13 +62,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
+    [ cmake ]
+    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
     ++ lib.optionals rLibrary [ R ]
     ;
 
   buildInputs =
-    [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
+    [ gtest ]
+    ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional ncclSupport cudaPackages.nccl
     ;
 
@@ -79,16 +81,19 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags =
-    lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ] ++ lib.optionals cudaSupport [
+    lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ]
+    ++ lib.optionals cudaSupport [
       "-DUSE_CUDA=ON"
       # Their CMakeLists.txt does not respect CUDA_HOST_COMPILER, instead using the CXX compiler.
       # https://github.com/dmlc/xgboost/blob/ccf43d4ba0a94e2f0a3cc5a526197539ae46f410/CMakeLists.txt#L145
       "-DCMAKE_C_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/gcc"
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/g++"
-    ] ++ lib.optionals (cudaSupport
+    ]
+    ++ lib.optionals (cudaSupport
       && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0") [
-      "-DBUILD_WITH_CUDA_CUB=ON"
-    ] ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
+        "-DBUILD_WITH_CUDA_CUB=ON"
+      ]
+    ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
     ++ lib.optionals rLibrary [ "-DR_LIB=ON" ]
     ;
 
@@ -132,17 +137,19 @@ stdenv.mkDerivation rec {
       cp -r ../include $out
       cp -r ../dmlc-core/include/dmlc $out/include
       cp -r ../rabit/include/rabit $out/include
-    '' + lib.optionalString (!rLibrary) ''
+    ''
+    + lib.optionalString (!rLibrary) ''
       install -Dm755 ../lib/${libname} $out/lib/${libname}
       install -Dm755 ../xgboost $out/bin/xgboost
     ''
-    # the R library option builds a completely different binary xgboost.so instead of
-    # libxgboost.so, which isn't full featured for python and CLI
+      # the R library option builds a completely different binary xgboost.so instead of
+      # libxgboost.so, which isn't full featured for python and CLI
     + lib.optionalString rLibrary ''
       mkdir $out/library
       export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
       make install -l $out/library
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

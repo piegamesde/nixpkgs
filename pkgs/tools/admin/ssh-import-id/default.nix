@@ -23,7 +23,8 @@ buildPythonPackage rec {
     [
       requests
       distro
-    ] ++ extraHandlers
+    ]
+    ++ extraHandlers
     ;
 
   nativeBuildInputs = [

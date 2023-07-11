@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/sbin
       ln -sf $out/bin/sshfs $out/sbin/mount.sshfs
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       wrapProgram $out/bin/sshfs --prefix PATH : "${openssh}/bin"
     ''
     ;

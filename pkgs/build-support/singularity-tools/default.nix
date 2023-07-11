@@ -58,7 +58,8 @@
       layer = mkLayer {
         inherit name;
         contents =
-          contents ++ [
+          contents
+          ++ [
             bash
             runScriptFile
           ]

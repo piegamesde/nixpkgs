@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs =
-    [ SDL2 ] ++ lib.optionals stdenv.isDarwin [
+    [ SDL2 ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
       CoreVideo

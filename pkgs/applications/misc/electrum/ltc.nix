@@ -84,7 +84,8 @@ python3.pkgs.buildPythonApplication {
       ckcc-protocol
       keepkey
       trezor
-    ] ++ lib.optionals enableQt [
+    ]
+    ++ lib.optionals enableQt [
       pyqt5
       qdarkstyle
     ];
@@ -94,7 +95,8 @@ python3.pkgs.buildPythonApplication {
       sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py
       substituteInPlace ./electrum_ltc/ecc_fast.py \
         --replace ${libsecp256k1_name} ${secp256k1}/lib/libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}
-    '' + (if enableQt then
+    ''
+    + (if enableQt then
       ''
         substituteInPlace ./electrum_ltc/qrscanner.py \
           --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}

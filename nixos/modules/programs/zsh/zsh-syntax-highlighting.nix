@@ -134,8 +134,11 @@ in
     programs.zsh.interactiveShellInit = with pkgs;
       lib.mkAfter (lib.concatStringsSep "\n" ([
           "source ${zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-        ] ++ optional (length (cfg.highlighters) > 0)
-        "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${concatStringsSep " " cfg.highlighters})"
+        ]
+        ++ optional (length (cfg.highlighters) > 0)
+          "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${
+            concatStringsSep " " cfg.highlighters
+          })"
         ++ optionals (length (attrNames cfg.patterns) > 0) (mapAttrsToList
           (pattern: design:
             "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')") cfg.patterns)

@@ -157,7 +157,8 @@ in
             extra = escapeShellArgs ([
               "--archive-dir"
               stateDirectory
-            ] ++ cfg.extraFlags);
+            ]
+              ++ cfg.extraFlags);
             dup = "${pkgs.duplicity}/bin/duplicity";
           in
           ''
@@ -184,17 +185,20 @@ in
               lib.escapeShellArgs ([
                 cfg.root
                 cfg.targetUrl
-              ] ++ concatMap (p: [
-                "--include"
-                p
-              ]) cfg.include ++ concatMap (p: [
-                "--exclude"
-                p
-              ]) cfg.exclude ++ (lib.optionals (cfg.fullIfOlderThan != "never"
-                && cfg.fullIfOlderThan != "always") [
-                  "--full-if-older-than"
-                  cfg.fullIfOlderThan
-                ]))
+              ]
+                ++ concatMap (p: [
+                  "--include"
+                  p
+                ]) cfg.include
+                ++ concatMap (p: [
+                  "--exclude"
+                  p
+                ]) cfg.exclude
+                ++ (lib.optionals (cfg.fullIfOlderThan != "never"
+                  && cfg.fullIfOlderThan != "always") [
+                    "--full-if-older-than"
+                    cfg.fullIfOlderThan
+                  ]))
             } ${extra}
           ''
           ;

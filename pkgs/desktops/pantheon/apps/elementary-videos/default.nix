@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       gtk3
       libgee
       libhandy
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-libav
       gst-plugins-bad
       gst-plugins-base

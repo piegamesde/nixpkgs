@@ -36,7 +36,8 @@ let
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ] ++ cuda-common-redist;
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -62,14 +63,16 @@ buildPythonPackage {
       libpng
       ninja
       which
-    ] ++ lib.optionals cudaSupport [ cuda-native-redist ]
+    ]
+    ++ lib.optionals cudaSupport [ cuda-native-redist ]
     ;
 
   buildInputs =
     [
       libjpeg_turbo
       libpng
-    ] ++ lib.optionals cudaSupport [ cuda-redist ]
+    ]
+    ++ lib.optionals cudaSupport [ cuda-redist ]
     ;
 
   propagatedBuildInputs = [

@@ -105,7 +105,8 @@ buildPythonPackage {
       keras-applications
       keras-preprocessing
       h5py
-    ] ++ lib.optional (!isPy3k) mock
+    ]
+    ++ lib.optional (!isPy3k) mock
     ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ]
     ;
 

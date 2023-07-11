@@ -97,7 +97,8 @@ rec {
                 } // lib.optionalAttrs
                 (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
                   configureFlags =
-                    (finalAttrs.configureFlags or [ ]) ++ [
+                    (finalAttrs.configureFlags or [ ])
+                    ++ [
                       "--disable-shared" # brrr...
                     ]
                     ;
@@ -118,7 +119,8 @@ rec {
           dontDisableStatic = true;
         } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
           configureFlags =
-            (args.configureFlags or [ ]) ++ [
+            (args.configureFlags or [ ])
+            ++ [
               "--enable-static"
               "--disable-shared"
             ]
@@ -144,7 +146,8 @@ rec {
           + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
           ;
         nativeBuildInputs =
-          (args.nativeBuildInputs or [ ]) ++ [
+          (args.nativeBuildInputs or [ ])
+          ++ [
             (pkgs.buildPackages.makeSetupHook {
               name = "darwin-portable-libSystem-hook";
               substitutions = {
@@ -172,8 +175,8 @@ rec {
       # So we can’t build static binaries without extensive hacks.
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeStaticBinaries
 
-      # Glibc doesn’t come with static runtimes by default.
-      # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
+        # Glibc doesn’t come with static runtimes by default.
+        # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
     )
     ;
 
@@ -279,7 +282,8 @@ rec {
       {
         cc = stdenv.cc.override { inherit bintools; };
         allowedRequisites = lib.mapNullable (rs:
-          rs ++ [
+          rs
+          ++ [
             bintools
             pkgs.mold
             (lib.getLib pkgs.mimalloc)

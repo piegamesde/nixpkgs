@@ -478,7 +478,9 @@ in
         fuse
         libtool
         bash
-      ] ++ lib.optional doCheck qemu ++ lib.optional zfsSupport zfs
+      ]
+      ++ lib.optional doCheck qemu
+      ++ lib.optional zfsSupport zfs
       ;
 
     strictDeps = true;
@@ -520,7 +522,8 @@ in
     configureFlags =
       [
         "--enable-grub-mount" # dep of os-prober
-      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         # grub doesn't do cross-compilation as usual and tries to use unprefixed
         # tools to target the host. Provide toolchain information explicitly for
         # cross builds.
@@ -531,12 +534,14 @@ in
         "TARGET_OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
         "TARGET_RANLIB=${stdenv.cc.targetPrefix}ranlib"
         "TARGET_STRIP=${stdenv.cc.targetPrefix}strip"
-      ] ++ lib.optional zfsSupport "--enable-libzfs"
+      ]
+      ++ lib.optional zfsSupport "--enable-libzfs"
       ++ lib.optionals efiSupport [
         "--with-platform=efi"
         "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
         "--program-prefix="
-      ] ++ lib.optionals xenSupport [
+      ]
+      ++ lib.optionals xenSupport [
         "--with-platform=xen"
         "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
       ]

@@ -332,7 +332,8 @@ in
     assertions = [
       {
         assertion =
-          (cfg.ETHInterface.bind != "" || cfg.UDPInterface.bind != ""
+          (cfg.ETHInterface.bind != ""
+            || cfg.UDPInterface.bind != ""
             || cfg.confFile != null);
         message =
           "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";

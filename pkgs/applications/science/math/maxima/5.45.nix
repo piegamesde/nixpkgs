@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/emacs $out/share/doc
       ln -s ../maxima/${version}/emacs $out/share/emacs/site-lisp
       ln -s ../maxima/${version}/doc $out/share/doc/maxima
-    '' + (lib.optionalString (lisp-compiler.pname == "ecl") ''
+    ''
+    + (lib.optionalString (lisp-compiler.pname == "ecl") ''
       cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
     '')
     ;
@@ -88,7 +89,8 @@ stdenv.mkDerivation rec {
           "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/undoing_true_false_printing_patch.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
         sha256 = "0fvi3rcjv6743sqsbgdzazy9jb6r1p1yq63zyj9fx42wd1hgf7yx";
       })
-    ] ++ lib.optionals (lisp-compiler.pname == "ecl") [
+    ]
+    ++ lib.optionals (lisp-compiler.pname == "ecl") [
       # build fasl, needed for ECL support
       (fetchpatch {
         url =

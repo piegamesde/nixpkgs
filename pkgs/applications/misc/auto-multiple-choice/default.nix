@@ -124,7 +124,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       opencv
       pango
       poppler
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       ArchiveZip
       Cairo

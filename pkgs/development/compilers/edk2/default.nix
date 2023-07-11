@@ -76,9 +76,10 @@ let
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
     makeFlags =
-      [ "-C BaseTools" ] ++ lib.optionals (stdenv.cc.isClang) [
-        "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
-      ]
+      [ "-C BaseTools" ]
+      ++ lib.optionals (stdenv.cc.isClang) [
+          "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld"
+        ]
       ;
 
     env.NIX_CFLAGS_COMPILE =
@@ -127,7 +128,8 @@ let
               [
                 bc
                 pythonEnv
-              ] ++ attrs.nativeBuildInputs or [ ]
+              ]
+              ++ attrs.nativeBuildInputs or [ ]
               ;
             strictDeps = true;
 

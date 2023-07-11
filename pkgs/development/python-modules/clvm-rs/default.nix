@@ -35,7 +35,8 @@ buildPythonPackage rec {
   nativeBuildInputs =
     [
       perl # used by openssl-sys to configure
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ])

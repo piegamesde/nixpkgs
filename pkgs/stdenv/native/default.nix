@@ -22,7 +22,8 @@ let
   path =
     (lib.optionals (system == "i686-solaris") [ "/usr/gnu" ])
     ++ (lib.optionals (system == "i686-netbsd") [ "/usr/pkg" ])
-    ++ (lib.optionals (system == "x86_64-solaris") [ "/opt/local/gnu" ]) ++ [
+    ++ (lib.optionals (system == "x86_64-solaris") [ "/opt/local/gnu" ])
+    ++ [
       "/"
       "/usr"
       "/usr/local"
@@ -82,7 +83,8 @@ let
     [
       ../cygwin/all-buildinputs-as-runtimedep.sh
       ../cygwin/wrap-exes-to-find-dlls.sh
-    ] ++ (if system == "i686-cygwin" then
+    ]
+    ++ (if system == "i686-cygwin" then
       [ ../cygwin/rebase-i686.sh ]
     else if system == "x86_64-cygwin" then
       [ ../cygwin/rebase-x86_64.sh ]
@@ -124,7 +126,8 @@ let
         ;
 
       extraNativeBuildInputs =
-        extraNativeBuildInputs ++ (if system == "i686-cygwin" then
+        extraNativeBuildInputs
+        ++ (if system == "i686-cygwin" then
           extraNativeBuildInputsCygwin
         else if system == "x86_64-cygwin" then
           extraNativeBuildInputsCygwin

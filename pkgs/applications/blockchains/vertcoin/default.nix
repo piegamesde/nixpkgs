@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
       hexdump
-    ] ++ lib.optionals withGui [ wrapQtAppsHook ]
+    ]
+    ++ lib.optionals withGui [ wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
       db4
       zeromq
       gmp
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qtbase
       qttools
       protobuf
@@ -57,7 +59,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ] ++ lib.optionals withGui [
+    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]

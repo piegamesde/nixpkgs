@@ -44,14 +44,16 @@ buildPythonPackage rec {
     [
       llvmPackages.clang
       pkg-config
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ])
     ;
 
   buildInputs =
-    [ nettle ] ++ lib.optionals stdenv.isLinux [ pcsclite ]
+    [ nettle ]
+    ++ lib.optionals stdenv.isLinux [ pcsclite ]
     ++ lib.optionals stdenv.isDarwin [
       PCSC
       libiconv

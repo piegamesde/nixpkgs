@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       "--with-openssl=${openssl.dev}"
       "--disable-embedded-perl"
       "--without-perl-modules"
-    ] ++ lib.optional stdenv.isLinux "--with-mnttab=/proc/mounts"
+    ]
+    ++ lib.optional stdenv.isLinux "--with-mnttab=/proc/mounts"
     ;
 
   postPatch = ''

@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ (with ocamlPackages; [
+    [ makeWrapper ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
     ])
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
       libGLU
       mpfr
       gmp
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       camlp4
       lablgl
       camlimages

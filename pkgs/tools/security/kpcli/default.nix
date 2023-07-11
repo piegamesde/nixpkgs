@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
           FileKeePass
           TermReadLineGnu
           XMLParser
-        ] ++ lib.optional stdenv.isDarwin MacPasteboard)
+        ]
+          ++ lib.optional stdenv.isDarwin MacPasteboard)
       }"
   '';
 

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       libunistring
       ncurses
       zlib
-    ] ++ lib.optional qrcodegenSupport qrcodegen
+    ]
+    ++ lib.optional qrcodegenSupport qrcodegen
     ++ lib.optional multimediaSupport ffmpeg
     ;
 

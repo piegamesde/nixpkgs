@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
     in
     openrgb.overrideAttrs (old: {
       qmakeFlags =
-        old.qmakeFlags or [ ] ++ [
+        old.qmakeFlags or [ ]
+        ++ [
           # Welcome to Escape Hell, we have backslashes
           ''
             DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${

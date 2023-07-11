@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   installPhase =
     lib.optionalString (!stdenv.isDarwin) ''
       install -D Source/Forms/PokeFinder $out/bin/PokeFinder
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       cp -R Source/Forms/PokeFinder.app $out/Applications
     ''
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
     [
       qtbase
       qttools
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   passthru.updateScript = gitUpdater { };

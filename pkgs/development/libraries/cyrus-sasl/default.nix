@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pruneLibtoolFiles
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
   buildInputs =
     [
@@ -64,7 +65,9 @@ stdenv.mkDerivation rec {
       gettext
       libkrb5
       libxcrypt
-    ] ++ lib.optional enableLdap openldap ++ lib.optional stdenv.isLinux pam
+    ]
+    ++ lib.optional enableLdap openldap
+    ++ lib.optional stdenv.isLinux pam
     ;
 
   configureFlags =
@@ -74,7 +77,8 @@ stdenv.mkDerivation rec {
       "--with-saslauthd=/run/saslauthd"
       "--enable-login"
       "--enable-shared"
-    ] ++ lib.optional enableLdap "--with-ldap=${openldap.dev}"
+    ]
+    ++ lib.optional enableLdap "--with-ldap=${openldap.dev}"
     ;
 
   installFlags = lib.optionals stdenv.isDarwin [

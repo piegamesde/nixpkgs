@@ -45,7 +45,8 @@ rustPlatform.buildRustPackage rec {
       libnotify
       xclip
       openssl
-    ] ++ lib.optionals stdenv.isLinux [ xdotool ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ xdotool ]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa

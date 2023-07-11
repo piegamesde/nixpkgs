@@ -71,9 +71,10 @@ stdenv.mkDerivation rec {
       libxml2 # for xml-stripblanks
       dbus # for dbus-run-session
       gobject-introspection
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs = [
@@ -90,8 +91,8 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
     ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
-      "-Dprofiler=disabled"
-    ]
+        "-Dprofiler=disabled"
+      ]
     ;
 
   doCheck = !stdenv.isDarwin;
@@ -100,7 +101,8 @@ stdenv.mkDerivation rec {
     ''
       patchShebangs build/choose-tests-locale.sh
       substituteInPlace installed-tests/debugger-test.sh --subst-var-by gjsConsole $out/bin/gjs-console
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace installed-tests/js/meson.build \
         --replace "'Encoding'," "#'Encoding',"
     ''

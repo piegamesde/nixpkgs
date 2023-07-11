@@ -21,7 +21,8 @@
     "tty"
     "gtk2"
     "emacs"
-  ] ++ lib.optionals stdenv.isLinux [ "gnome3" ]
+  ]
+    ++ lib.optionals stdenv.isLinux [ "gnome3" ]
     ++ lib.optionals (!stdenv.isDarwin) [ "qt" ]
 }:
 
@@ -92,15 +93,17 @@ pinentryMkDerivation rec {
     [
       pkg-config
       autoreconfHook
-    ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
-    enabledFlavors
+    ]
+    ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
+      enabledFlavors
     ;
 
   buildInputs =
     [
       libgpg-error
       libassuan
-    ] ++ lib.optional withLibsecret libsecret
+    ]
+    ++ lib.optional withLibsecret libsecret
     ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors
     ;
 
@@ -108,13 +111,14 @@ pinentryMkDerivation rec {
   dontWrapQtApps = true;
 
   patches =
-    [ ./autoconf-ar.patch ] ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [
-      (fetchpatch {
-        url =
-          "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
-        sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
-      })
-    ]
+    [ ./autoconf-ar.patch ]
+    ++ lib.optionals (lib.elem "gtk2" enabledFlavors) [
+        (fetchpatch {
+          url =
+            "https://salsa.debian.org/debian/pinentry/raw/debian/1.1.0-1/debian/patches/0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch";
+          sha256 = "15r1axby3fdlzz9wg5zx7miv7gqx2jy4immaw4xmmw5skiifnhfd";
+        })
+      ]
     ;
 
   configureFlags =
@@ -122,7 +126,8 @@ pinentryMkDerivation rec {
       "--with-libgpg-error-prefix=${libgpg-error.dev}"
       "--with-libassuan-prefix=${libassuan.dev}"
       (lib.enableFeature withLibsecret "libsecret")
-    ] ++ (map enableFeaturePinentry (lib.attrNames flavorInfo))
+    ]
+    ++ (map enableFeaturePinentry (lib.attrNames flavorInfo))
     ;
 
   postInstall =
@@ -133,12 +138,15 @@ pinentryMkDerivation rec {
       ''
         moveToOutput bin/${binary} ${placeholder f}
         ln -sf ${placeholder f}/bin/${binary} ${placeholder f}/bin/pinentry
-      '' + lib.optionalString (f == "gnome3") ''
+      ''
+      + lib.optionalString (f == "gnome3") ''
         wrapGApp ${placeholder f}/bin/${binary}
-      '' + lib.optionalString (f == "qt") ''
+      ''
+      + lib.optionalString (f == "qt") ''
         wrapQtApp ${placeholder f}/bin/${binary}
       ''
-    )) + ''
+    ))
+    + ''
       ln -sf ${placeholder (lib.head enabledFlavors)}/bin/pinentry-${
         flavorInfo.${lib.head enabledFlavors}.bin
       } $out/bin/pinentry

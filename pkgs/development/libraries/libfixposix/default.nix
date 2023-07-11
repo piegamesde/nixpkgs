@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ getconf ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ getconf ]
     ;
 
   meta = with lib; {

@@ -36,7 +36,8 @@ buildPythonPackage rec {
       proto-plus
       protobuf
       sqlparse
-    ] ++ google-api-core.optional-dependencies.grpc
+    ]
+    ++ google-api-core.optional-dependencies.grpc
     ;
 
   passthru.optional-dependencies = { libcst = [ libcst ]; };

@@ -113,10 +113,11 @@ stdenv.mkDerivation rec {
       perlPackages.perl
       perlPackages.XMLParser
       m4
-    ] ++ lib.optionals stdenv.isLinux [
-      glib
     ]
-    # gstreamer plugin discovery requires wrapping
+    ++ lib.optionals stdenv.isLinux [
+        glib
+      ]
+      # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook
     ;
 
@@ -130,42 +131,51 @@ stdenv.mkDerivation rec {
       speexdsp
       fftwFloat
       check
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       glib
       dbus
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       Cocoa
       CoreServices
       CoreAudio
       libintl
-    ] ++ lib.optionals (!libOnly) ([
+    ]
+    ++ lib.optionals (!libOnly) ([
       libasyncns
       webrtc-audio-processing
-    ] ++ lib.optional jackaudioSupport libjack2 ++ lib.optionals x11Support [
-      xorg.libICE
-      xorg.libSM
-      xorg.libX11
-      xorg.libXi
-      xorg.libXtst
-    ] ++ lib.optional useSystemd systemd ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      udev
-    ] ++ lib.optional airtunesSupport openssl
+    ]
+      ++ lib.optional jackaudioSupport libjack2
+      ++ lib.optionals x11Support [
+        xorg.libICE
+        xorg.libSM
+        xorg.libX11
+        xorg.libXi
+        xorg.libXtst
+      ]
+      ++ lib.optional useSystemd systemd
+      ++ lib.optionals stdenv.isLinux [
+        alsa-lib
+        udev
+      ]
+      ++ lib.optional airtunesSupport openssl
       ++ lib.optionals bluetoothSupport [
         bluez5
         sbc
       ]
       # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
       ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
-      (builtins.attrValues {
-        inherit (gst_all_1)
-          gst-plugins-bad
-          gst-plugins-good
-          gst-plugins-base
-          gstreamer
-          ;
-      }) ++ lib.optional remoteControlSupport lirc
+        (builtins.attrValues {
+          inherit (gst_all_1)
+            gst-plugins-bad
+            gst-plugins-good
+            gst-plugins-base
+            gstreamer
+            ;
+        })
+      ++ lib.optional remoteControlSupport lirc
       ++ lib.optional zeroconfSupport avahi)
     ;
 
@@ -269,8 +279,9 @@ stdenv.mkDerivation rec {
       # this is needed so that wrapGApp can operate *without*
       # renaming the unwrapped binaries (see below)
       "--bindir=${placeholder "out"}/.bin-unwrapped"
-    ] ++ lib.optional (stdenv.isLinux && useSystemd)
-    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    ]
+    ++ lib.optional (stdenv.isLinux && useSystemd)
+      "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
     ++ lib.optionals stdenv.isDarwin [
       "-Ddbus=disabled"
       "-Dglib=disabled"
@@ -289,7 +300,8 @@ stdenv.mkDerivation rec {
       find $out/share -maxdepth 1 -mindepth 1 ! -name "vala" -prune -exec rm -r {} \;
       find $out/share/vala -maxdepth 1 -mindepth 1 ! -name "vapi" -prune -exec rm -r {} \;
       rm -r $out/{.bin-unwrapped,etc,lib/pulse-*}
-    '' + ''
+    ''
+    + ''
       moveToOutput lib/cmake "$dev"
       rm -f $out/.bin-unwrapped/qpaeq # this is packaged by the "qpaeq" package now, because of missing deps
     ''
@@ -297,23 +309,23 @@ stdenv.mkDerivation rec {
 
   preFixup =
     lib.optionalString
-    (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
-      wrapProgram $out/libexec/pulse/gsettings-helper \
-       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-    ''
-    # add .so symlinks for modules to be found under macOS
+      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
+        wrapProgram $out/libexec/pulse/gsettings-helper \
+         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+      ''
+      # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do
         ln -s "$file" "''${file%.dylib}.so"
         ln -s "$file" "$out/lib/pulseaudio/$(basename $file .dylib).so"
       done
     ''
-    # put symlinks to binaries in `$prefix/bin`;
-    # then wrapGApp will *rename these symlinks* instead of
-    # the original binaries in `$prefix/.bin-unwrapped` (see above);
-    # when pulseaudio is looking for its own binary (it does!),
-    # it will be happy to find it in its original installation location
+      # put symlinks to binaries in `$prefix/bin`;
+      # then wrapGApp will *rename these symlinks* instead of
+      # the original binaries in `$prefix/.bin-unwrapped` (see above);
+      # when pulseaudio is looking for its own binary (it does!),
+      # it will be happy to find it in its original installation location
     + lib.optionalString (!libOnly) ''
       mkdir -p $out/bin
       ln -st $out/bin $out/.bin-unwrapped/*

@@ -41,7 +41,8 @@ buildPythonPackage rec {
       pandas
       scikit-learn
       scipy
-    ] ++ dask.optional-dependencies.array
+    ]
+    ++ dask.optional-dependencies.array
     ++ dask.optional-dependencies.dataframe
     ;
 

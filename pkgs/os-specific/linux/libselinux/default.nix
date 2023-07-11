@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "man"
-    ] ++ optional enablePython "py"
+    ]
+    ++ optional enablePython "py"
     ;
 
   src = fetchurl {
@@ -63,14 +64,16 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       python3
-    ] ++ optionals enablePython [ swig ]
+    ]
+    ++ optionals enablePython [ swig ]
     ;
   buildInputs =
     [
       libsepol
       pcre
       fts
-    ] ++ optionals enablePython [ python3 ]
+    ]
+    ++ optionals enablePython [ python3 ]
     ;
 
     # drop fortify here since package uses it by default, leading to compile error:
@@ -92,7 +95,8 @@ stdenv.mkDerivation rec {
 
       "LIBSEPOLA=${lib.getLib libsepol}/lib/libsepol.a"
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ] ++ optionals stdenv.hostPlatform.isStatic [ "DISABLE_SHARED=y" ]
+    ]
+    ++ optionals stdenv.hostPlatform.isStatic [ "DISABLE_SHARED=y" ]
     ++ optionals enablePython [
       "PYTHON=${python3.pythonForBuild.interpreter}"
       "PYTHONLIBDIR=$(py)/${python3.sitePackages}"

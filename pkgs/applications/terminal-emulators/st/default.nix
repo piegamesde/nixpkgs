@@ -50,7 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       libX11
       libXft
-    ] ++ extraLibs
+    ]
+    ++ extraLibs
     ;
 
   preInstall = ''

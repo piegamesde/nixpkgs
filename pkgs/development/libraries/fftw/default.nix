@@ -36,7 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
       "out"
       "dev"
       "man"
-    ] ++ lib.optional withDoc "info"
+    ]
+    ++ lib.optional withDoc "info"
     ; # it's dev-doc only
   outputBin = "dev"; # fftw-wisdom
 
@@ -46,7 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionals stdenv.cc.isClang [
       # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
       llvmPackages.openmp
-    ] ++ lib.optional enableMpi mpi
+    ]
+    ++ lib.optional enableMpi mpi
     ;
 
   configureFlags =
@@ -57,13 +59,13 @@ stdenv.mkDerivation (finalAttrs: {
     ]
 
     ++ lib.optional (precision != "double") "--enable-${precision}"
-    # https://www.fftw.org/fftw3_doc/SIMD-alignment-and-fftw_005fmalloc.html
-    # FFTW will try to detect at runtime whether the CPU supports these extensions
+      # https://www.fftw.org/fftw3_doc/SIMD-alignment-and-fftw_005fmalloc.html
+      # FFTW will try to detect at runtime whether the CPU supports these extensions
     ++ lib.optional
-    (stdenv.isx86_64 && (precision == "single" || precision == "double"))
-    "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
+      (stdenv.isx86_64 && (precision == "single" || precision == "double"))
+      "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
     ++ lib.optional enableMpi "--enable-mpi"
-    # doc generation causes Fortran wrapper generation which hard-codes gcc
+      # doc generation causes Fortran wrapper generation which hard-codes gcc
     ++ lib.optional (!withDoc) "--disable-doc"
     ;
 

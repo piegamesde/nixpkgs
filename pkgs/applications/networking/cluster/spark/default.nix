@@ -39,7 +39,9 @@ let
         [
           jdk
           python3Packages.python
-        ] ++ extraPythonPackages ++ lib.optional RSupport R
+        ]
+        ++ extraPythonPackages
+        ++ lib.optional RSupport R
         ;
 
       untarDir = "${pname}-${version}";
@@ -53,9 +55,11 @@ let
           cat > $out/lib/${untarDir}/conf/spark-env.sh <<- EOF
           export JAVA_HOME="${jdk}"
           export SPARK_HOME="$out/lib/${untarDir}"
-        '' + lib.optionalString hadoopSupport ''
+        ''
+        + lib.optionalString hadoopSupport ''
           export SPARK_DIST_CLASSPATH=$(${hadoop}/bin/hadoop classpath)
-        '' + ''
+        ''
+        + ''
           export PYSPARK_PYTHON="${python3Packages.python}/bin/${python3Packages.python.executable}"
           export PYTHONPATH="\$PYTHONPATH:$PYTHONPATH"
           ${lib.optionalString RSupport ''

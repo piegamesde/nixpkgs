@@ -49,7 +49,8 @@ stdenv.mkDerivation {
       SDL2
       boost
       ffmpeg_4
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       OpenAL
       Cocoa
     ]

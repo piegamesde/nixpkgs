@@ -46,7 +46,8 @@ rustPlatform.buildRustPackage rec {
       python39
       nodejs
       pkg-config
-    ] ++
+    ]
+    ++
     # for flock
     lib.optional stdenv.isLinux util-linux
     ;
@@ -62,10 +63,11 @@ rustPlatform.buildRustPackage rec {
     "-Wno-error=array-bounds"
     "-Wno-error=stringop-overflow"
     "-Wno-error=stringop-truncation"
-  ] ++ lib.optionals
-    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-      "-Wno-error=stringop-overread"
-    ]);
+  ]
+    ++ lib.optionals
+      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
+        "-Wno-error=stringop-overread"
+      ]);
 
   passthru.tests.basic = nixosTests.cjdns;
 

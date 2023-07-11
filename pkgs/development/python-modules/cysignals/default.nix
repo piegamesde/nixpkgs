@@ -34,7 +34,8 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [ cython ] ++ lib.optionals pariSupport [
+    [ cython ]
+    ++ lib.optionals pariSupport [
       # When cysignals is built with pari, including cysignals into the
       # buildInputs of another python package will cause cython to link against
       # pari.

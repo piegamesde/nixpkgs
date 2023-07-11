@@ -62,17 +62,20 @@ stdenv.mkDerivation rec {
       opencv3
       gtest
       blas.provider
-    ] ++ lib.optional stdenv.cc.isGNU gomp ++ lib.optional stdenv.cc.isClang
-    llvmPackages.openmp
-    # FIXME: when cuda build is fixed, remove nvidia_x11, and use /run/opengl-driver/lib
+    ]
+    ++ lib.optional stdenv.cc.isGNU gomp
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
+      # FIXME: when cuda build is fixed, remove nvidia_x11, and use /run/opengl-driver/lib
     ++ lib.optionals cudaSupport [
       cudatoolkit
       nvidia_x11
-    ] ++ lib.optional cudnnSupport cudnn
+    ]
+    ++ lib.optional cudnnSupport cudnn
     ;
 
   cmakeFlags =
-    [ "-DUSE_MKL_IF_AVAILABLE=OFF" ] ++ (if cudaSupport then
+    [ "-DUSE_MKL_IF_AVAILABLE=OFF" ]
+    ++ (if cudaSupport then
       [
         "-DUSE_OLDCMAKECUDA=ON" # see https://github.com/apache/incubator-mxnet/issues/10743
         "-DCUDA_ARCH_NAME=All"
@@ -82,7 +85,8 @@ stdenv.mkDerivation rec {
         }"
       ]
     else
-      [ "-DUSE_CUDA=OFF" ]) ++ lib.optional (!cudnnSupport) "-DUSE_CUDNN=OFF"
+      [ "-DUSE_CUDA=OFF" ])
+    ++ lib.optional (!cudnnSupport) "-DUSE_CUDNN=OFF"
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [

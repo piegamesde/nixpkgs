@@ -134,7 +134,8 @@ let
           btrfs-progs
           util-linux
           mdadm
-        ] ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
+        ]
+          ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
           ++ optionals cfg.useOSProber [
             busybox
             os-prober
@@ -162,8 +163,9 @@ let
         cfg.font
         "--output"
         "$out"
-      ] ++ (optional (cfg.fontSize != null)
-        "--size ${toString cfg.fontSize}"))));
+      ]
+        ++ (optional (cfg.fontSize != null)
+          "--size ${toString cfg.fontSize}"))));
 
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
@@ -879,9 +881,11 @@ in
           set -e
           ${optionalString cfg.enableCryptodisk
           "export GRUB_ENABLE_CRYPTODISK=y"}
-        '' + flip concatMapStrings cfg.mirroredBoots (args: ''
-          ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
-        '') + cfg.extraInstallCommands)
+        ''
+          + flip concatMapStrings cfg.mirroredBoots (args: ''
+            ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
+          '')
+          + cfg.extraInstallCommands)
         ;
 
       system.build.grub = grub;
@@ -912,7 +916,8 @@ in
           }
           {
             assertion =
-              cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c:
+              cfg.efiSupport
+              || all (c: c < 2) (mapAttrsToList (n: c:
                 if n == "nodev" then
                   0
                 else
@@ -934,8 +939,8 @@ in
           }
           {
             assertion =
-              !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM
-              == "YES_TPM_is_activated"
+              !cfg.trustedBoot.enable
+              || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated"
               ;
             message =
               "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
@@ -953,7 +958,8 @@ in
             message =
               "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
-        ] ++ flip concatMap cfg.mirroredBoots (args:
+        ]
+        ++ flip concatMap cfg.mirroredBoots (args:
           [
             {
               assertion = args.devices != [ ];
@@ -974,7 +980,8 @@ in
               message =
                 "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
-          ] ++ forEach args.devices (device: {
+          ]
+          ++ forEach args.devices (device: {
             assertion = device == "nodev" || hasPrefix "/" device;
             message =
               "GRUB devices must be absolute paths, not ${device} in ${args.path}";

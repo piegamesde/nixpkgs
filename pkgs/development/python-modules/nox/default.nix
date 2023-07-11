@@ -49,7 +49,8 @@ buildPythonPackage rec {
       colorlog
       packaging
       virtualenv
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
     ]

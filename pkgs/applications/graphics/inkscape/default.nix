@@ -56,7 +56,8 @@ let
       pyserial
       requests
       pygobject3
-    ] ++ inkex.propagatedBuildInputs);
+    ]
+    ++ inkex.propagatedBuildInputs);
 in
 stdenv.mkDerivation rec {
   pname = "inkscape";
@@ -108,7 +109,8 @@ stdenv.mkDerivation rec {
       glib # for setup hook
       gdk-pixbuf # for setup hook
       wrapGAppsHook
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])
@@ -144,7 +146,8 @@ stdenv.mkDerivation rec {
       potrace
       python3Env
       zlib
-    ] ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
     ++ lib.optionals stdenv.isDarwin [
       cairo
       gtk-mac-integration

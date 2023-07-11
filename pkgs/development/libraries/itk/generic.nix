@@ -88,7 +88,8 @@ stdenv.mkDerivation {
       libX11
       libuuid
       vtk
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
     # Due to ITKVtkGlue=ON and the additional dependencies needed to configure VTK 9
     # (specifically libGL and libX11 on Linux),

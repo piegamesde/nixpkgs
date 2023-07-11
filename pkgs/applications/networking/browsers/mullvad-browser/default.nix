@@ -77,7 +77,8 @@ let
     stdenv.cc.cc
     stdenv.cc.libc
     zlib
-  ] ++ lib.optionals libnotifySupport [ libnotify ]
+  ]
+    ++ lib.optionals libnotifySupport [ libnotify ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals mediaSupport [ ffmpeg ]);
 

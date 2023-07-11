@@ -21,19 +21,21 @@ deployAndroidPackage {
     fontconfig
     fontconfig.lib
     stdenv.cc.cc.libgcc or null # fix for https://github.com/NixOS/nixpkgs/issues/226357
-  ]) ++ (with pkgs.xorg; [
-    libX11
-    libXrender
-    libXext
-  ]) ++ (with pkgsi686Linux; [
-    glibc
-    xorg.libX11
-    xorg.libXrender
-    xorg.libXext
-    fontconfig.lib
-    freetype
-    zlib
-  ]));
+  ])
+    ++ (with pkgs.xorg; [
+      libX11
+      libXrender
+      libXext
+    ])
+    ++ (with pkgsi686Linux; [
+      glibc
+      xorg.libX11
+      xorg.libXrender
+      xorg.libXext
+      fontconfig.lib
+      freetype
+      zlib
+    ]));
 
   patchInstructions = ''
     ${lib.optionalString (os == "linux") ''

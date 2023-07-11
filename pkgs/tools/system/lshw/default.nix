@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ hwdata ] ++ lib.optionals withGUI [
+    [ hwdata ]
+    ++ lib.optionals withGUI [
       gtk2
       sqlite
     ]

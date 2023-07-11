@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       vala
-    ] ++ lib.optionals telepathySupport [ python3 ]
+    ]
+    ++ lib.optionals telepathySupport [ python3 ]
     ;
 
   buildInputs =
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
       dbus-glib
       evolution-data-server-gtk4 # UI part not needed, using gtk4 version to reduce system closure.
       readline
-    ] ++ lib.optionals telepathySupport [ telepathy-glib ]
+    ]
+    ++ lib.optionals telepathySupport [ telepathy-glib ]
     ;
 
   propagatedBuildInputs = [

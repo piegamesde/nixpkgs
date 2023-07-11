@@ -45,7 +45,8 @@ buildGoModule rec {
         --replace \
           '`ffmpeg' \
           '`${lib.getBin ffmpeg}/bin/ffmpeg'
-    '' + ''
+    ''
+    + ''
       substituteInPlace \
         jukebox/jukebox.go \
         --replace \

@@ -40,8 +40,11 @@ let
       os' = prefix: val: optionalString (val != null) (prefix + "${val}");
       flatten = key: value: "&${key}=${value}";
     in
-    ''--stream.stream="${opt.type}://'' + os opt.location + "?"
-    + os' "name=" name + concatStrings (mapAttrsToList flatten opt.query)
+    ''--stream.stream="${opt.type}://''
+    + os opt.location
+    + "?"
+    + os' "name=" name
+    + concatStrings (mapAttrsToList flatten opt.query)
     + ''"''
     ;
 
@@ -54,10 +57,10 @@ let
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
     ++ optionalNull cfg.streamBuffer
-    "--stream.stream_buffer=${toString cfg.streamBuffer}"
+      "--stream.stream_buffer=${toString cfg.streamBuffer}"
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
-    # tcp json rpc
+      # tcp json rpc
     ++ [ "--tcp.enabled=${toString cfg.tcp.enable}" ]
     ++ optionals cfg.tcp.enable [
       "--tcp.bind_to_address=${cfg.tcp.listenAddress}"
@@ -68,8 +71,9 @@ let
     ++ optionals cfg.http.enable [
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
-    ] ++ optional (cfg.http.docRoot != null)
-    ''--http.doc_root="${toString cfg.http.docRoot}"'');
+    ]
+    ++ optional (cfg.http.docRoot != null)
+      ''--http.doc_root="${toString cfg.http.docRoot}"'');
 
 in
 {

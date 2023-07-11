@@ -48,7 +48,8 @@ buildPythonPackage rec {
     [
       rustPlatform.cargoSetupHook
       setuptools-rust
-    ] ++ (with rustPlatform.rust; [
+    ]
+    ++ (with rustPlatform.rust; [
       cargo
       rustc
     ])
@@ -68,7 +69,8 @@ buildPythonPackage rec {
       tqdm
       unicrypto
       winsspi
-    ] ++ lib.optionals (stdenv.isDarwin) [ iconv ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [ iconv ]
     ;
 
     # Module doesn't have tests

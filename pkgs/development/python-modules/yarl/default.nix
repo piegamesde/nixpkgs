@@ -31,7 +31,8 @@ buildPythonPackage rec {
     [
       idna
       multidict
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   preCheck = ''

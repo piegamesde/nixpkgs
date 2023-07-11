@@ -9,7 +9,8 @@ let
   compileFlags = lib.concatStringsSep " " ([
     "-O3"
     "-DNDEBUG"
-  ] ++ lib.optional (stdenv.hostPlatform.isUnix) "-Dunix -pthread"
+  ]
+    ++ lib.optional (stdenv.hostPlatform.isUnix) "-Dunix -pthread"
     ++ lib.optional (!stdenv.hostPlatform.isx86) "-DNOJIT");
 in
 stdenv.mkDerivation rec {

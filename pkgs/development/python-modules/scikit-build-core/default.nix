@@ -40,7 +40,8 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ packaging ] ++ lib.optionals (pythonOlder "3.11") [
+    [ packaging ]
+    ++ lib.optionals (pythonOlder "3.11") [
       exceptiongroup
       tomli
     ]
@@ -62,7 +63,8 @@ buildPythonPackage rec {
       cmake
       pytest-subprocess
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.pyproject
+    ]
+    ++ passthru.optional-dependencies.pyproject
     ;
 
   disabledTestPaths = [

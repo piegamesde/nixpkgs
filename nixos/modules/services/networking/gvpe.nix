@@ -132,7 +132,8 @@ in
       script =
         "${pkgs.gvpe}/sbin/gvpe -c /var/gvpe -D ${cfg.nodename} "
         + " ${cfg.nodename}.pid-file=/var/gvpe/gvpe.pid"
-        + " ${cfg.nodename}.if-up=if-up" + " &> /var/log/gvpe"
+        + " ${cfg.nodename}.if-up=if-up"
+        + " &> /var/log/gvpe"
         ;
 
       serviceConfig.Restart = "always";

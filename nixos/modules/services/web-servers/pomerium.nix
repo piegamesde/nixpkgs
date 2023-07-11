@@ -77,11 +77,13 @@ in
       systemd.services.pomerium = {
         description = "Pomerium authenticating reverse proxy";
         wants =
-          [ "network.target" ] ++ (optional (cfg.useACMEHost != null)
+          [ "network.target" ]
+          ++ (optional (cfg.useACMEHost != null)
             "acme-finished-${cfg.useACMEHost}.target")
           ;
         after =
-          [ "network.target" ] ++ (optional (cfg.useACMEHost != null)
+          [ "network.target" ]
+          ++ (optional (cfg.useACMEHost != null)
             "acme-finished-${cfg.useACMEHost}.target")
           ;
         wantedBy = [ "multi-user.target" ];

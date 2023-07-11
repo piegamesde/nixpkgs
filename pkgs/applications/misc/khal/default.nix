@@ -24,7 +24,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       glibcLocales
       installShellFiles
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       setuptools-scm
       sphinx
       sphinxcontrib_newsfeed

@@ -54,7 +54,8 @@ buildPythonPackage rec {
     [
       intake-parquet
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   passthru.optional-dependencies = {
@@ -109,7 +110,8 @@ buildPythonPackage rec {
       "test_python"
       # Timing-based, flaky on darwin and possibly others
       "TestServerV1Source.test_idle_timer"
-    ] ++ lib.optionals (stdenv.isDarwin
+    ]
+    ++ lib.optionals (stdenv.isDarwin
       && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13") [
         # Flaky with older low-res mtime on darwin < 10.13 (#143987)
         "test_second_load_timestamp"

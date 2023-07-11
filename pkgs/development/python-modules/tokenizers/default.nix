@@ -90,7 +90,8 @@ buildPythonPackage rec {
     [
       pkg-config
       setuptools-rust
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc
@@ -98,7 +99,8 @@ buildPythonPackage rec {
     ;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ]

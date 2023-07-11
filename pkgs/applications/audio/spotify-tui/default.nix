@@ -84,16 +84,19 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [
+    [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [
       pkg-config
       python3
     ]
     ;
   buildInputs =
-    [ ] ++ lib.optionals stdenv.isLinux [
+    [ ]
+    ++ lib.optionals stdenv.isLinux [
       openssl
       libxcb
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Security
     ]

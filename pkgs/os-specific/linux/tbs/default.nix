@@ -65,7 +65,8 @@ stdenv.mkDerivation {
       kmod
       perl
       perlPackages.ProcProcessTable
-    ] ++ kernel.moduleBuildDependencies
+    ]
+    ++ kernel.moduleBuildDependencies
     ;
 
   postInstall = ''

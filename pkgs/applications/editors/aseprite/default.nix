@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals unfree [ ninja ]
+    ]
+    ++ lib.optionals unfree [ ninja ]
     ;
 
   buildInputs =
@@ -80,7 +81,8 @@ stdenv.mkDerivation rec {
       libXext
       libXcursor
       libXxf86vm
-    ] ++ lib.optionals unfree [
+    ]
+    ++ lib.optionals unfree [
       cmark
       harfbuzzFull
       glib
@@ -127,7 +129,8 @@ stdenv.mkDerivation rec {
       "-DUSE_SHARED_ZLIB=ON"
       "-DWITH_DESKTOP_INTEGRATION=ON"
       "-DWITH_WEBP_SUPPORT=ON"
-    ] ++ lib.optionals unfree [
+    ]
+    ++ lib.optionals unfree [
       "-DUSE_SHARED_CMARK=ON"
       "-DUSE_SHARED_HARFBUZZ=ON"
       # Aseprite needs internal freetype headers.
@@ -179,7 +182,8 @@ stdenv.mkDerivation rec {
                   - Multiple editors support.
                   - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
                   - Onion skinning.
-      '' + lib.optionalString unfree ''
+      ''
+      + lib.optionalString unfree ''
         This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
         Consider supporting the developer: https://aseprite.org/#buy
       ''

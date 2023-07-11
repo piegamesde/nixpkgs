@@ -64,7 +64,8 @@ buildPythonPackage rec {
       "test_wantWriteError"
       # https://github.com/pyca/pyopenssl/issues/1043
       "test_alpn_call_failure"
-    ] ++ lib.optionals (lib.hasPrefix "libressl" openssl.meta.name) [
+    ]
+    ++ lib.optionals (lib.hasPrefix "libressl" openssl.meta.name) [
       # https://github.com/pyca/pyopenssl/issues/791
       # These tests, we disable in the case that libressl is passed in as openssl.
       "test_op_no_compression"
@@ -86,7 +87,8 @@ buildPythonPackage rec {
       "test_dump_privatekey_text"
       "test_dump_certificate_request"
       "test_export_text"
-    ] ++ lib.optionals stdenv.is32bit [
+    ]
+    ++ lib.optionals stdenv.is32bit [
       # https://github.com/pyca/pyopenssl/issues/974
       "test_verify_with_time"
     ]

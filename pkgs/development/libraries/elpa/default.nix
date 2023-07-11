@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       blas
       lapack
       scalapack
-    ] ++ lib.optional enableCuda cudatoolkit
+    ]
+    ++ lib.optional enableCuda cudatoolkit
     ;
 
   preConfigure = ''
@@ -92,7 +93,8 @@ stdenv.mkDerivation rec {
       "--with-mpi"
       "--enable-openmp"
       "--without-threading-support-check-during-build"
-    ] ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
+    ]
+    ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
     ++ lib.optional (!avxSupport) "--disable-avx"
     ++ lib.optional (!avx2Support) "--disable-avx2"
     ++ lib.optional (!avx512Support) "--disable-avx512"

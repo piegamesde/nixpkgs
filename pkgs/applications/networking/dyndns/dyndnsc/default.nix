@@ -38,7 +38,8 @@ python3Packages.buildPythonApplication rec {
       # dnswanip connects to an external server to discover the
       # machine's IP address.
       "dnswanip"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # The tests that spawn a server using Bottle cannot be run on
       # macOS or Windows as the default multiprocessing start method
       # on those platforms is 'spawn', which requires the code to be

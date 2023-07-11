@@ -16,7 +16,8 @@ let
       git
       xdg-user-dirs
       ncurses
-    ]) ++ (with python.pkgs; [
+    ])
+    ++ (with python.pkgs; [
       python
       setuptools
       pip

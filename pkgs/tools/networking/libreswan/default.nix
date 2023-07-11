@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
       # needed to patch shebangs
       python3
       bash
-    ] ++ lib.optional stdenv.isLinux libselinux
+    ]
+    ++ lib.optional stdenv.isLinux libselinux
     ;
 
   prePatch = ''

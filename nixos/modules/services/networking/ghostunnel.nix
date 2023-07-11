@@ -172,8 +172,11 @@ let
               - services.ghostunnel.servers.${name}.allowURI
           '';
           assertion =
-            config.disableAuthentication || config.allowAll || config.allowCN
-            != [ ] || config.allowOU != [ ] || config.allowDNS != [ ]
+            config.disableAuthentication
+            || config.allowAll
+            || config.allowCN != [ ]
+            || config.allowOU != [ ]
+            || config.allowDNS != [ ]
             || config.allowURI != [ ]
             ;
         } ];
@@ -195,16 +198,18 @@ let
           };
           script = concatStringsSep " " ([ "${mainCfg.package}/bin/ghostunnel" ]
             ++ optional (config.keystore != null)
-            "--keystore=$CREDENTIALS_DIRECTORY/keystore"
+              "--keystore=$CREDENTIALS_DIRECTORY/keystore"
             ++ optional (config.cert != null)
-            "--cert=$CREDENTIALS_DIRECTORY/cert"
+              "--cert=$CREDENTIALS_DIRECTORY/cert"
             ++ optional (config.key != null) "--key=$CREDENTIALS_DIRECTORY/key"
             ++ optional (config.cacert != null)
-            "--cacert=$CREDENTIALS_DIRECTORY/cacert" ++ [
+              "--cacert=$CREDENTIALS_DIRECTORY/cacert"
+            ++ [
               "server"
               "--listen ${config.listen}"
               "--target ${config.target}"
-            ] ++ optional config.allowAll "--allow-all"
+            ]
+            ++ optional config.allowAll "--allow-all"
             ++ map (v: "--allow-cn=${escapeShellArg v}") config.allowCN
             ++ map (v: "--allow-ou=${escapeShellArg v}") config.allowOU
             ++ map (v: "--allow-dns=${escapeShellArg v}") config.allowDNS

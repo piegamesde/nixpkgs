@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       python3
       pkg-config
       npmHooks.npmConfigHook
-    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ]
+    ++ lib.optional stdenv.isDarwin xcbuild
     ;
 
   buildInputs =

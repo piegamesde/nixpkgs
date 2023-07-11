@@ -42,7 +42,8 @@ stdenv.mkDerivation {
       zlib
       python
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
     ;
 
     # https://github.com/arvidn/libtorrent/issues/6865

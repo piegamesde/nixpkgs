@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       libogg
       libopus
       libvorbis
-    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       AudioToolbox

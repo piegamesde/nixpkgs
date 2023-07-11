@@ -49,13 +49,15 @@ mkDerivation rec {
       libopus
       libGL
       alsa-lib
-    ] ++ [
+    ]
+    ++ [
       qtbase
       qtsvg
       qtmultimedia
       qtwebsockets
       qtimageformats
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXScrnSaver
       libXcursor

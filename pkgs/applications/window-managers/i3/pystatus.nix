@@ -35,7 +35,8 @@ python3Packages.buildPythonApplication rec {
       psutil
       basiciw
       pygobject3
-    ] ++ extraLibs;
+    ]
+    ++ extraLibs;
 
   makeWrapperArgs = [
     # LC_TIME != C results in locale.Error: unsupported locale setting

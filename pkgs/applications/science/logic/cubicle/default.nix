@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       which
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       findlib
       ocaml
     ])

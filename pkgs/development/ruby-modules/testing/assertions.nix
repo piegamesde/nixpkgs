@@ -10,7 +10,8 @@
     else
       (test.failed
         ("expected '${toString expected}'(${builtins.typeOf expected})"
-          + " !=  " + "actual '${toString actual}'(${builtins.typeOf actual})"))
+          + " !=  "
+          + "actual '${toString actual}'(${builtins.typeOf actual})"))
     ;
 
   beASet =

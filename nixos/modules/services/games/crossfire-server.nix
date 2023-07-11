@@ -133,7 +133,8 @@ in
             "motd"
             "news"
             "rules"
-          ]) (fileContents "${cfg.package}/etc/crossfire/${name}")) + ''
+          ]) (fileContents "${cfg.package}/etc/crossfire/${name}"))
+          + ''
 
             ${value}''
           ;

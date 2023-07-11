@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       apacheHttpd
       python3
-    ] ++ lib.optional stdenv.isDarwin libintl
+    ]
+    ++ lib.optional stdenv.isDarwin libintl
     ;
 
   meta = with lib; {

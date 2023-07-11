@@ -163,29 +163,36 @@ stdenv.mkDerivation rec {
       systemd
       taglib
       zlib
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libSM
       libXpm
       libXv
       libXvMC
       xcbutilkeysyms
-    ]) ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
-    ++ optional jackSupport libjack2 ++ optionals chromecastSupport [
+    ])
+    ++ optional (!stdenv.hostPlatform.isAarch && !onlyLibVLC) live555
+    ++ optional jackSupport libjack2
+    ++ optionals chromecastSupport [
       libmicrodns
       protobuf
-    ] ++ optionals skins2Support (with xorg; [
+    ]
+    ++ optionals skins2Support (with xorg; [
       freetype
       libXext
       libXinerama
       libXpm
-    ]) ++ optionals waylandSupport [
+    ])
+    ++ optionals waylandSupport [
       wayland
       wayland-protocols
-    ] ++ optionals withQt5 [
+    ]
+    ++ optionals withQt5 [
       qtbase
       qtsvg
       qtx11extras
-    ] ++ optional (waylandSupport && withQt5) qtwayland
+    ]
+    ++ optional (waylandSupport && withQt5) qtwayland
     ;
 
   nativeBuildInputs =
@@ -196,7 +203,9 @@ stdenv.mkDerivation rec {
       removeReferencesTo
       unzip
       wrapGAppsHook
-    ] ++ optionals withQt5 [ wrapQtAppsHook ] ++ optionals waylandSupport [
+    ]
+    ++ optionals withQt5 [ wrapQtAppsHook ]
+    ++ optionals waylandSupport [
       wayland
       wayland-protocols
     ]
@@ -251,7 +260,8 @@ stdenv.mkDerivation rec {
     ''
       find $out/lib/vlc/plugins -exec touch -d @1 '{}' ';'
       $out/lib/vlc/vlc-cache-gen $out/vlc/plugins
-    '' + optionalString withQt5 ''
+    ''
+    + optionalString withQt5 ''
       remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
     ''
     ;
@@ -262,7 +272,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-srt" # Explicit enable srt to ensure the patch is applied.
       "--with-kde-solid=$out/share/apps/solid/actions"
-    ] ++ optional onlyLibVLC "--disable-vlc"
+    ]
+    ++ optional onlyLibVLC "--disable-vlc"
     ++ optional skins2Support "--enable-skins2"
     ++ optional waylandSupport "--enable-wayland"
     ++ optionals chromecastSupport [

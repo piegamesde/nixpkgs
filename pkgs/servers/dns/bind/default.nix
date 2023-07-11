@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
       libuv
       nghttp2
       jemalloc
-    ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5
+    ]
+    ++ lib.optional stdenv.isLinux libcap
+    ++ lib.optional enableGSSAPI libkrb5
     ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]))
     ;
 
@@ -69,7 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "BUILD_CC=$(CC_FOR_BUILD)"
+      "BUILD_CC=$(CC_FOR_BUILD)"
     ;
 
   postInstall = ''

@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       freetype
       alsa-lib
       libjack2
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Cocoa
       WebKit
       MetalKit
@@ -93,7 +94,8 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
 
-    '' + (if stdenv.hostPlatform.isDarwin then
+    ''
+    + (if stdenv.hostPlatform.isDarwin then
       ''
         mkdir -p $out/{Applications,bin}
         mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
@@ -102,17 +104,20 @@ stdenv.mkDerivation rec {
     else
       ''
         install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
-      '') + ''
-        mkdir -p ${vst3Dir} ${clapDir}
-        mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
-        mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
-      '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        mkdir -p ${auDir}
-        mv Source/Dexed_artefacts/Release/AU/* ${auDir}
-      '' + ''
+      '')
+    + ''
+      mkdir -p ${vst3Dir} ${clapDir}
+      mv Source/Dexed_artefacts/Release/VST3/* ${vst3Dir}
+      mv Source/Dexed_artefacts/Release/CLAP/* ${clapDir}
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p ${auDir}
+      mv Source/Dexed_artefacts/Release/AU/* ${auDir}
+    ''
+    + ''
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ which ] ++ (with ocamlPackages; [
+    [ which ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
       ocamlbuild

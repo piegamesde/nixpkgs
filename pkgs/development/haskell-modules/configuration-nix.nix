@@ -119,7 +119,8 @@ builtins.intersectAttrs super {
         preCheck =
           ''
             export HOME=$TMPDIR/home
-          '' + (drv.preCheck or "")
+          ''
+          + (drv.preCheck or "")
           ;
       })) super)
     hls-brittany-plugin
@@ -217,7 +218,8 @@ builtins.intersectAttrs super {
     extraLibraries =
       (drv.extraLibraries or [ ]) ++ [ pkgs.linuxPackages.nvidia_x11 ];
     configureFlags =
-      (drv.configureFlags or [ ]) ++ [
+      (drv.configureFlags or [ ])
+      ++ [
         "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
         "--extra-include-dirs=${pkgs.cudatoolkit}/include"
       ]
@@ -294,7 +296,8 @@ builtins.intersectAttrs super {
         pcre2
         util-linux
         pcre
-      ] ++ (if pkgs.stdenv.isLinux then
+      ]
+      ++ (if pkgs.stdenv.isLinux then
         [
           libselinux
           libsepol
@@ -320,17 +323,19 @@ builtins.intersectAttrs super {
         libdatrie
         xorg.libXdmcp
         libdeflate
-      ] ++ (if pkgs.stdenv.isLinux then
+      ]
+      ++ (if pkgs.stdenv.isLinux then
         [
           libselinux
           libsepol
         ]
       else
         [ ])))
-  ] ++ (if pkgs.stdenv.isDarwin then
-    [ (appendConfigureFlag "-fhave-quartz-gtk") ]
-  else
-    [ ]));
+  ]
+    ++ (if pkgs.stdenv.isDarwin then
+      [ (appendConfigureFlag "-fhave-quartz-gtk") ]
+    else
+      [ ]));
   gtksourceview2 = addPkgconfigDepend pkgs.gtk2 super.gtksourceview2;
   gtk-traymanager = addPkgconfigDepend pkgs.gtk3 super.gtk-traymanager;
 
@@ -490,14 +495,16 @@ builtins.intersectAttrs super {
     # Tries to run GUI in tests
   leksah = dontCheck (overrideCabal (drv: {
     executableSystemDepends =
-      (drv.executableSystemDepends or [ ]) ++ (with pkgs; [
+      (drv.executableSystemDepends or [ ])
+      ++ (with pkgs; [
         gnome.adwaita-icon-theme # Fix error: Icon 'window-close' not present in theme ...
         wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
         gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
       ])
       ;
     postPatch =
-      (drv.postPatch or "") + ''
+      (drv.postPatch or "")
+      + ''
         for f in src/IDE/Leksah.hs src/IDE/Utils/ServerConnection.hs
         do
           substituteInPlace "$f" --replace "\"leksah-server\"" "\"${self.leksah-server}/bin/leksah-server\""
@@ -550,7 +557,8 @@ builtins.intersectAttrs super {
     # https://github.com/ivanperez-keera/hcwiid/pull/4
   hcwiid = overrideCabal (drv: {
     configureFlags =
-      (drv.configureFlags or [ ]) ++ [
+      (drv.configureFlags or [ ])
+      ++ [
         "--extra-lib-dirs=${pkgs.bluez.out}/lib"
         "--extra-lib-dirs=${pkgs.cwiid}/lib"
         "--extra-include-dirs=${pkgs.cwiid}/include"
@@ -582,7 +590,8 @@ builtins.intersectAttrs super {
     libraryToolDepends =
       (drv.libraryToolDepends or [ ]) ++ [ pkgs.buildPackages.autoconf ];
     librarySystemDepends =
-      (drv.librarySystemDepends or [ ]) ++ [
+      (drv.librarySystemDepends or [ ])
+      ++ [
         pkgs.fltk13
         pkgs.libGL
         pkgs.libjpeg
@@ -601,7 +610,8 @@ builtins.intersectAttrs super {
     # Tests execute goldplate
   goldplate = overrideCabal (drv: {
     preCheck =
-      drv.preCheck or "" + ''
+      drv.preCheck or ""
+      + ''
         export PATH="$PWD/dist/build/goldplate:$PATH"
       ''
       ;
@@ -611,8 +621,8 @@ builtins.intersectAttrs super {
     # unbounded-delays via .cabal file conditions.
   tasty = overrideCabal (drv: {
     libraryHaskellDepends =
-      (drv.libraryHaskellDepends or [ ]) ++ lib.optionals
-      (!(pkgs.stdenv.hostPlatform.isAarch64
+      (drv.libraryHaskellDepends or [ ])
+      ++ lib.optionals (!(pkgs.stdenv.hostPlatform.isAarch64
         || pkgs.stdenv.hostPlatform.isx86_64)) [ self.unbounded-delays ]
       ;
   }) super.tasty;
@@ -622,7 +632,8 @@ builtins.intersectAttrs super {
     preBuild =
       ''
         export PATH="$PWD/dist/build/tasty-discover:$PATH"
-      '' + (drv.preBuild or "")
+      ''
+      + (drv.preBuild or "")
       ;
   }) super.tasty-discover;
 
@@ -651,7 +662,8 @@ builtins.intersectAttrs super {
     # so cabal2nix will not detect test dependencies.
   either-unwrap = overrideCabal (drv: {
     testHaskellDepends =
-      (drv.testHaskellDepends or [ ]) ++ [
+      (drv.testHaskellDepends or [ ])
+      ++ [
         self.test-framework
         self.test-framework-hunit
       ]
@@ -798,13 +810,15 @@ builtins.intersectAttrs super {
     # Compile manpages (which are in RST and are compiled with Sphinx).
   futhark = overrideCabal (_drv: {
     postBuild =
-      (_drv.postBuild or "") + ''
+      (_drv.postBuild or "")
+      + ''
         make -C docs man
       ''
       ;
 
     postInstall =
-      (_drv.postInstall or "") + ''
+      (_drv.postInstall or "")
+      + ''
         mkdir -p $out/share/man/man1
         mv docs/_build/man/*.1 $out/share/man/man1/
       ''
@@ -822,7 +836,8 @@ builtins.intersectAttrs super {
       pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
         substituteInPlace Test.hs \
           --replace ', testCase "crypto" test_crypto' ""
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
       # Ensure git-annex uses the exact same coreutils it saw at build-time.
       # This is especially important on Darwin but also in Linux environments
@@ -836,7 +851,8 @@ builtins.intersectAttrs super {
               lsof
             ])
           }"
-      '' + (drv.postFixup or "")
+      ''
+      + (drv.postFixup or "")
       ;
     buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
   }) (super.git-annex.override {
@@ -917,7 +933,8 @@ builtins.intersectAttrs super {
 
       spagoDocs = overrideCabal (drv: {
         postUnpack =
-          (drv.postUnpack or "") + ''
+          (drv.postUnpack or "")
+          + ''
             # Spago includes the following two files directly into the binary
             # with Template Haskell.  They are fetched at build-time from the
             # `purescript-docs-search` repo above.  If they cannot be fetched at
@@ -1068,7 +1085,8 @@ builtins.intersectAttrs super {
     preCheck =
       ''
         export PATH=dist/build/stutter:$PATH
-      '' + (drv.preCheck or "")
+      ''
+      + (drv.preCheck or "")
       ;
   }) super.stutter;
 
@@ -1077,7 +1095,8 @@ builtins.intersectAttrs super {
     postInstall =
       ''
         install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
-      '' + (drv.postInstall or "")
+      ''
+      + (drv.postInstall or "")
       ;
   }) (self.generateOptparseApplicativeCompletions [ "pnbackup" ]
     super.pinboard-notes-backup);
@@ -1090,7 +1109,8 @@ builtins.intersectAttrs super {
     postInstall =
       ''
         install -Dm644 data/hlint.1 -t "$out/share/man/man1"
-      '' + drv.postInstall or ""
+      ''
+      + drv.postInstall or ""
       ;
   }) super.hlint;
 
@@ -1140,7 +1160,8 @@ builtins.intersectAttrs super {
     postPatch =
       ''
         sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
   }) super.tophat;
 
@@ -1151,7 +1172,8 @@ builtins.intersectAttrs super {
       doCheck = false;
       buildTools = drv.buildTools or [ ] ++ [ pkgs.buildPackages.makeWrapper ];
       postInstall =
-        drv.postInstall or "" + ''
+        drv.postInstall or ""
+        + ''
           wrapProgram "$out/bin/nvfetcher" --prefix 'PATH' ':' "${
             pkgs.lib.makeBinPath [
               pkgs.nvchecker
@@ -1251,7 +1273,8 @@ builtins.intersectAttrs super {
           import Distribution.Simple
           main = defaultMain
           EOF
-        '' + (drv.preCompileBuildDriver or "")
+        ''
+        + (drv.preCompileBuildDriver or "")
         ;
         # install man page
       buildTools =
@@ -1259,7 +1282,8 @@ builtins.intersectAttrs super {
       postInstall =
         ''
           installManPage man/atsfmt.1
-        '' + (drv.postInstall or "")
+        ''
+        + (drv.postInstall or "")
         ;
     }) super.ats-format));
 
@@ -1295,14 +1319,16 @@ builtins.intersectAttrs super {
           echo "Used Kernel doesn't support close_range, disabling tests"
           unset doCheck
         fi
-      '' + (drv.postConfigure or "")
+      ''
+      + (drv.postConfigure or "")
       ;
   }) super.procex;
 
     # Test suite wants to run main executable
   fourmolu = overrideCabal (drv: {
     preCheck =
-      drv.preCheck or "" + ''
+      drv.preCheck or ""
+      + ''
         export PATH="$PWD/dist/build/fourmolu:$PATH"
       ''
       ;
@@ -1311,7 +1337,8 @@ builtins.intersectAttrs super {
     # Test suite wants to run main executable
   fourmolu_0_10_1_0 = overrideCabal (drv: {
     preCheck =
-      drv.preCheck or "" + ''
+      drv.preCheck or ""
+      + ''
         export PATH="$PWD/dist/build/fourmolu:$PATH"
       ''
       ;
@@ -1320,12 +1347,14 @@ builtins.intersectAttrs super {
     # Test suite needs to execute 'disco' binary
   disco = overrideCabal (drv: {
     preCheck =
-      drv.preCheck or "" + ''
+      drv.preCheck or ""
+      + ''
         export PATH="$PWD/dist/build/disco:$PATH"
       ''
       ;
     testFlags =
-      drv.testFlags or [ ] ++ [
+      drv.testFlags or [ ]
+      ++ [
         # Needs network access
         "-p"
         "!/oeis/"
@@ -1344,7 +1373,8 @@ builtins.intersectAttrs super {
           src = ./patches/graphviz-hardcode-graphviz-store-path.patch;
           inherit (pkgs) graphviz;
         })
-      ] ++ (drv.patches or [ ])
+      ]
+      ++ (drv.patches or [ ])
       ;
   }) super.graphviz;
 
@@ -1358,7 +1388,8 @@ builtins.intersectAttrs super {
       [
         "-p"
         "!/Can be used with http-client/"
-      ] ++ drv.testFlags or [ ]
+      ]
+      ++ drv.testFlags or [ ]
       ;
   }) super.http-api-data-qq;
 
@@ -1384,7 +1415,8 @@ builtins.intersectAttrs super {
     # https://github.com/georgefst/evdev/issues/25
   evdev = overrideCabal (drv: {
     testFlags =
-      drv.testFlags or [ ] ++ [
+      drv.testFlags or [ ]
+      ++ [
         "-p"
         "!/Smoke/"
       ]
@@ -1419,7 +1451,8 @@ builtins.intersectAttrs super {
     executableToolDepends =
       [ pkgs.buildPackages.makeWrapper ] ++ old.buildToolDepends or [ ];
     postInstall =
-      old.postInstall + ''
+      old.postInstall
+      + ''
         mkdir -p "$out/share/man/man1"
         "$out/bin/cabal" man --raw > "$out/share/man/man1/cabal.1"
 

@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     [
       curl
       libmrss
-    ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
+    ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
     ++ lib.optional (!stdenv.isLinux) libiconv
     ;
 
@@ -34,9 +35,11 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace Makefile \
         --replace '$(CC) $(CFLAGS) $(LDFLAGS)' '$(CXX) $(CFLAGS) $(LDFLAGS)'
-    '' + lib.optionalString (!stdenv.isLinux) ''
+    ''
+    + lib.optionalString (!stdenv.isLinux) ''
       sed 's/#EXTRA/EXTRA/' -i Makefile
-    '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed 's/^PDF/#PDF/' -i Makefile
     ''
     ;

@@ -52,6 +52,7 @@ stdenv.mkDerivation rec {
       [
         matejc
         ftrvxmtrx
-      ] ++ teams.enlightenment.members;
+      ]
+      ++ teams.enlightenment.members;
   };
 }

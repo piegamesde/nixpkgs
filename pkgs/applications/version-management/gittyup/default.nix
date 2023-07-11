@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       openssl
       qtbase
       qttools
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       CoreFoundation
       Security
     ])
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
       # Those are not program libs, just some Qt5 libs that the build system leaks for some reason
       rm -f $out/*.so.*
       rm -rf $out/{include,lib,Plugins,Resources}
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # Install icons
       install -Dm0644 ${src}/rsrc/Gittyup.iconset/gittyup_logo.svg $out/share/icons/hicolor/scalable/apps/gittyup.svg
       for res in 16x16 32x32 64x64 128x128 256x256 512x512; do

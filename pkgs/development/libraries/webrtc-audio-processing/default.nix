@@ -24,8 +24,9 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ abseil-cpp_202111 ] ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ ApplicationServices ])
+    [ abseil-cpp_202111 ]
+    ++ lib.optionals stdenv.isDarwin
+      (with darwin.apple_sdk.frameworks; [ ApplicationServices ])
     ;
 
   patchPhase =
@@ -34,7 +35,8 @@ stdenv.mkDerivation rec {
       # see https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/issues/4
       substituteInPlace meson.build \
         --replace "absl_flags_registry" "absl_flags_reflection"
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1
     ''
     ;

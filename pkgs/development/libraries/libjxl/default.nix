@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       cmake
       gtest
       pkg-config
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       asciidoc
       doxygen
       python3
@@ -120,7 +121,8 @@ stdenv.mkDerivation rec {
       # * the `gdk-pixbuf` one, which allows applications like `eog` to load jpeg-xl files
       # * the `gimp` one, which allows GIMP to load jpeg-xl files
       # "-DJPEGXL_ENABLE_PLUGINS=ON"
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DJPEGXL_STATIC=ON" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DJPEGXL_STATIC=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DJPEGXL_FORCE_NEON=ON" ]
     ;
 

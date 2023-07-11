@@ -147,7 +147,8 @@ let
       genStubsScript (defs // args // {
         inherit confFiles bundler groups;
         binPaths = envPaths;
-      }) + lib.optionalString (postBuild != null) postBuild
+      })
+      + lib.optionalString (postBuild != null) postBuild
       ;
 
     meta = { platforms = ruby.meta.platforms; } // meta;

@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     [
       meson
       ninja
-    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ;
 
   meta = with lib; {

@@ -94,34 +94,35 @@ stdenv.mkDerivation {
       # https://sourceware.org/git/?p=binutils-gdb.git;a=patch;h=99852365513266afdd793289813e8e565186c9e6
       # https://github.com/NixOS/nixpkgs/issues/170946
       ./deterministic-temp-prefixes.patch
-    ] ++ lib.optional targetPlatform.isiOS ./support-ios.patch
+    ]
+    ++ lib.optional targetPlatform.isiOS ./support-ios.patch
     ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
     ++ lib.optional stdenv.targetPlatform.isMips64n64
-    # this patch is from debian:
-    # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-    (if stdenv.targetPlatform.isMusl then
-      substitute {
-        src = ./mips64-default-n64.patch;
-        replacements = [
-          "--replace"
-          "gnuabi64"
-          "muslabi64"
-        ];
-      }
-    else
-      ./mips64-default-n64.patch)
-    # On PowerPC, when generating assembly code, GCC generates a `.machine`
-    # custom instruction which instructs the assembler to generate code for this
-    # machine. However, some GCC versions generate the wrong one, or make it
-    # too strict, which leads to some confusing "unrecognized opcode: wrtee"
-    # or "unrecognized opcode: eieio" errors.
-    #
-    # To remove when binutils 2.39 is released.
-    #
-    # Upstream commit:
-    # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=cebc89b9328eab994f6b0314c263f94e7949a553
+      # this patch is from debian:
+      # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
+      (if stdenv.targetPlatform.isMusl then
+        substitute {
+          src = ./mips64-default-n64.patch;
+          replacements = [
+            "--replace"
+            "gnuabi64"
+            "muslabi64"
+          ];
+        }
+      else
+        ./mips64-default-n64.patch)
+      # On PowerPC, when generating assembly code, GCC generates a `.machine`
+      # custom instruction which instructs the assembler to generate code for this
+      # machine. However, some GCC versions generate the wrong one, or make it
+      # too strict, which leads to some confusing "unrecognized opcode: wrtee"
+      # or "unrecognized opcode: eieio" errors.
+      #
+      # To remove when binutils 2.39 is released.
+      #
+      # Upstream commit:
+      # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=cebc89b9328eab994f6b0314c263f94e7949a553
     ++ lib.optional stdenv.targetPlatform.isPower
-    ./ppc-make-machine-less-strict.patch
+      ./ppc-make-machine-less-strict.patch
     ;
 
   outputs = [
@@ -137,13 +138,15 @@ stdenv.mkDerivation {
       bison
       perl
       texinfo
-    ] ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
+    ]
+    ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
     ++ lib.optionals buildPlatform.isDarwin [
       autoconf269
       automake
       gettext
       libtool
-    ] ++ lib.optionals targetPlatform.isVc4 [ flex ]
+    ]
+    ++ lib.optionals targetPlatform.isVc4 [ flex ]
     ;
 
   buildInputs = [
@@ -163,7 +166,8 @@ stdenv.mkDerivation {
         autoconf
         popd
       done
-    '') + ''
+    '')
+    + ''
       # Clear the default library search path.
       if test "$noSysDirs" = "1"; then
           echo 'NATIVE_LIB_DIRS=' >> ld/configure.tgt
@@ -219,11 +223,13 @@ stdenv.mkDerivation {
       # for us to do is not leave it to chance, and force the program prefix to be
       # what we want it to be.
       "--program-prefix=${targetPrefix}"
-    ] ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
+    ]
+    ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
     ++ lib.optionals enableGold [
       "--enable-gold"
       "--enable-plugins"
-    ] ++ (if enableShared then
+    ]
+    ++ (if enableShared then
       [
         "--enable-shared"
         "--disable-static"

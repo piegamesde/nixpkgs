@@ -45,7 +45,8 @@ buildPythonPackage rec {
       "test_new_session_width_height"
       # Assertion error
       "test_capture_pane_start"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # tests/test_pane.py:113: AssertionError
       "test_capture_pane_start"
     ]

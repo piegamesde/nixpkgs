@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     [
       ncurses
       jansson
-    ] ++ lib.optional withGtk gtk3 ++ lib.optional stdenv.isLinux libcap
+    ]
+    ++ lib.optional withGtk gtk3
+    ++ lib.optional stdenv.isLinux libcap
     ;
 
   enableParallelBuilding = true;

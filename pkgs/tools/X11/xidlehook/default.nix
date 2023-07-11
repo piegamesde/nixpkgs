@@ -32,7 +32,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libX11
       xorg.libXScrnSaver
       libpulseaudio
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
   nativeBuildInputs = [
     pkg-config

@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       wayland-protocols
       wayland
       xorg.libX11
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
     ;
 
   cmakeFlags = [

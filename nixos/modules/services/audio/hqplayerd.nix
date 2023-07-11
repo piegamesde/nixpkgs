@@ -135,10 +135,11 @@ in
               echo "creating initial config file"
               install -m 0644 "${pkg}/etc/hqplayer/hqplayerd.xml" "${configDir}/hqplayerd.xml"
             fi
-          '' + optionalString
-          (cfg.auth.username != null && cfg.auth.password != null) ''
-            ${pkg}/bin/hqplayerd -s ${cfg.auth.username} ${cfg.auth.password}
           ''
+          + optionalString
+            (cfg.auth.username != null && cfg.auth.password != null) ''
+              ${pkg}/bin/hqplayerd -s ${cfg.auth.username} ${cfg.auth.password}
+            ''
           ;
       };
     };

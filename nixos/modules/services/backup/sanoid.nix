@@ -237,7 +237,8 @@ in
           "--cron"
           "--configdir"
           (pkgs.writeTextDir "sanoid.conf" configFile)
-        ] ++ cfg.extraArgs);
+        ]
+          ++ cfg.extraArgs);
         User = "sanoid";
         Group = "sanoid";
         DynamicUser = true;

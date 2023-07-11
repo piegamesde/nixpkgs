@@ -32,10 +32,12 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ ] ++ lib.optionals stdenv.isLinux [
+    [ ]
+    ++ lib.optionals stdenv.isLinux [
       pcsclite
       udev
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       PCSC
       IOKit
       CoreFoundation

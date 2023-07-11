@@ -157,7 +157,8 @@ stdenv.mkDerivation rec {
       gradle
       makeWrapper
       jdk
-    ] ++ lib.optionals enableClient [
+    ]
+    ++ lib.optionals enableClient [
       ant
       copyDesktopItems
     ]
@@ -178,7 +179,8 @@ stdenv.mkDerivation rec {
       sed -ie "/curl.*sdlmingw/{;s#curl -o #cp ${SDLmingwSource} #;s# -L http.*\.tar.gz##;}" Arc/backends/backend-sdl/build.gradle
 
       pushd Mindustry
-    '' + optionalString enableClient ''
+    ''
+    + optionalString enableClient ''
 
       pushd ../Arc
       gradle --offline --no-daemon jnigenBuild -Pbuildversion=${buildVersion}
@@ -194,14 +196,16 @@ stdenv.mkDerivation rec {
       popd
 
       gradle --offline --no-daemon desktop:dist -Pbuildversion=${buildVersion}
-    '' + optionalString enableServer ''
+    ''
+    + optionalString enableServer ''
       gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
     '';
 
   installPhase = with lib;
     ''
       runHook preInstall
-    '' + optionalString enableClient ''
+    ''
+    + optionalString enableClient ''
       install -Dm644 desktop/build/libs/Mindustry.jar $out/share/mindustry.jar
       mkdir -p $out/bin
       makeWrapper ${jdk}/bin/java $out/bin/mindustry \
@@ -226,12 +230,14 @@ stdenv.mkDerivation rec {
       done
 
       install -Dm644 core/assets/icons/icon_64.png $out/share/icons/hicolor/64x64/apps/mindustry.png
-    '' + optionalString enableServer ''
+    ''
+    + optionalString enableServer ''
       install -Dm644 server/build/libs/server-release.jar $out/share/mindustry-server.jar
       mkdir -p $out/bin
       makeWrapper ${jdk}/bin/java $out/bin/mindustry-server \
         --add-flags "-jar $out/share/mindustry-server.jar"
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     '';
 

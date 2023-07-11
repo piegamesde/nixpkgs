@@ -57,7 +57,8 @@ buildPackage {
       "--with-dynlib=${execline.lib}/lib"
       "--with-dynlib=${s6.out}/lib"
       "--with-dynlib=${s6-dns.lib}/lib"
-    ] ++ (lib.optionals sslSupportEnabled [
+    ]
+    ++ (lib.optionals sslSupportEnabled [
       "--enable-ssl=${sslSupport}"
       "--with-include=${lib.getDev sslLibs.${sslSupport}}/include"
       "--with-lib=${lib.getLib sslLibs.${sslSupport}}/lib"

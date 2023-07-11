@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       mpfr
       ppl
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       apron
       batteries
       menhirLib

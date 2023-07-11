@@ -35,7 +35,9 @@ let
           xorg.libXxf86vm
           xorg.libXext
           openal
-        ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
+        ]
+        + ":"
+        + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
         ;
 
       buildCommand = ''

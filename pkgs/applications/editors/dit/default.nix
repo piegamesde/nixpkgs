@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       lua
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
     # fix paths

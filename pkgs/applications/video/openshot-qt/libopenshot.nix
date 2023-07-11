@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
+    lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ [
       cmake
       doxygen
       pkg-config
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
       qtbase
       qtmultimedia
       zeromq
-    ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ;
 
   dontWrapQtApps = true;

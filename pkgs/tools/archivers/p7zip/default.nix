@@ -45,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # I think this is a typo and should be CXX? Either way let's kill it
       sed -i '/XX=\/usr/d' makefile.macosx_llvm_64bits
-    '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       substituteInPlace makefile.machine \
         --replace 'CC=gcc'  'CC=${stdenv.cc.targetPrefix}gcc' \
         --replace 'CXX=g++' 'CXX=${stdenv.cc.targetPrefix}g++'
@@ -55,7 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
   preConfigure =
     ''
       buildFlags=all3
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       cp makefile.macosx_llvm_64bits makefile.machine
     ''
     ;
@@ -91,7 +93,8 @@ stdenv.mkDerivation (finalAttrs: {
       [
         lgpl2Plus # and
         bsd3
-      ] ++
+      ]
+      ++
       # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
       # the unRAR compression code is disabled by default
       lib.optionals enableUnfree [ unfree ];

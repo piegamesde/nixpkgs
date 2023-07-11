@@ -75,7 +75,8 @@ let
     "dropAttrs"
     "dropDerivationAttrs"
     "keepAttrs"
-  ] ++ dropAttrs) keepAttrs;
+  ]
+    ++ dropAttrs) keepAttrs;
   fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; }
     ({
       inherit release releaseRev;
@@ -94,7 +95,8 @@ let
         else
           true);
     in
-    n + optionalString (v != "" && v != null) (switch d [
+    n
+    + optionalString (v != "" && v != null) (switch d [
       {
         case = true;
         out = sep + v;
@@ -119,7 +121,8 @@ let
         case = isString;
         out = optionalString (d != "") (sep + d);
       }
-    ] "") + optionalString (v == null) "-broken"
+    ] "")
+    + optionalString (v == null) "-broken"
     ;
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
   prefix-name = foldl append-version "" namePrefix;
@@ -149,9 +152,12 @@ stdenv.mkDerivation (removeAttrs ({
       ++ optionals (useDune || mlPlugin) [
         coq.ocamlPackages.ocaml
         coq.ocamlPackages.findlib
-      ] ++ (args.nativeBuildInputs or [ ]) ++ extraNativeBuildInputs);
+      ]
+      ++ (args.nativeBuildInputs or [ ])
+      ++ extraNativeBuildInputs);
   buildInputs =
-    args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ])
+    args.overrideBuildInputs or ([ coq ]
+      ++ (args.buildInputs or [ ])
       ++ extraBuildInputs);
   inherit enableParallelBuilding;
 

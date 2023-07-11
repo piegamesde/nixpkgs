@@ -33,7 +33,8 @@ symlinkJoin {
           ''--set OBS_PLUGINS_PATH "${pluginsJoined}/lib/obs-plugins"''
           ''
             --set OBS_PLUGINS_DATA_PATH "${pluginsJoined}/share/obs/obs-plugins"''
-        ] ++ lists.unique pluginArguments
+        ]
+        ++ lists.unique pluginArguments
         ;
     in
     ''

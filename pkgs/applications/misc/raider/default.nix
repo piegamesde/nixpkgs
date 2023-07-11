@@ -37,9 +37,10 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       wrapGAppsHook4
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs = [

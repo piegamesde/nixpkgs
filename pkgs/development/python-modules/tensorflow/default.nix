@@ -138,7 +138,8 @@ let
       [
         cudatoolkit.lib
         cudatoolkit.out
-      ] ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+      ]
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
         # for some reason some of the required libs are in the targets/x86_64-linux
         # directory; not sure why but this works around it
         "${cudatoolkit}/targets/${stdenv.system}"
@@ -269,7 +270,8 @@ let
     if stdenv.isDarwin then
       _bazel-build.overrideAttrs (prev: {
         bazelFlags =
-          prev.bazelFlags ++ [
+          prev.bazelFlags
+          ++ [
             "--override_repository=rules_cc=${rules_cc_darwin_patched}"
             "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
           ]
@@ -303,7 +305,8 @@ let
         cython
         perl
         protobuf-core
-      ] ++ lib.optional cudaSupport addOpenGLRunpath
+      ]
+      ++ lib.optional cudaSupport addOpenGLRunpath
       ;
 
     buildInputs =
@@ -329,13 +332,17 @@ let
         (pybind11.overridePythonAttrs (_: { inherit stdenv; }))
         snappy
         sqlite
-      ] ++ lib.optionals cudaSupport [
+      ]
+      ++ lib.optionals cudaSupport [
         cudatoolkit
         cudnn
-      ] ++ lib.optionals mklSupport [ mkl ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals mklSupport [ mkl ]
+      ++ lib.optionals stdenv.isDarwin [
         Foundation
         Security
-      ] ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
       ;
 
       # arbitrarily set to the current latest bazel version, overly careful
@@ -384,9 +391,10 @@ let
       "typing_extensions_archive"
       "wrapt"
       "zlib"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-        "nsync" # fails to build on darwin
-      ]);
+    ]
+      ++ lib.optionals (!stdenv.isDarwin) [
+          "nsync" # fails to build on darwin
+        ]);
 
     INCLUDEDIR = "${includes_joined}/include";
 
@@ -422,11 +430,13 @@ let
         # bazel 3.3 should work just as well as bazel 3.1
         rm -f .bazelversion
         patchShebangs .
-      '' + lib.optionalString (stdenv.hostPlatform.system == "x86_64-darwin") ''
+      ''
+      + lib.optionalString (stdenv.hostPlatform.system == "x86_64-darwin") ''
         cat ${
           ./com_google_absl_fix_macos.patch
         } >> third_party/absl/com_google_absl_fix_mac_and_nvcc_build.patch
-      '' + lib.optionalString (!withTensorboard) ''
+      ''
+      + lib.optionalString (!withTensorboard) ''
         # Tensorboard pulls in a bunch of dependencies, some of which may
         # include security vulnerabilities. So we make it optional.
         # https://github.com/tensorflow/tensorflow/issues/20280#issuecomment-400230560
@@ -440,7 +450,8 @@ let
     preConfigure =
       let
         opt_flags =
-          [ ] ++ lib.optionals sse42Support [ "-msse4.2" ]
+          [ ]
+          ++ lib.optionals sse42Support [ "-msse4.2" ]
           ++ lib.optionals avx2Support [ "-mavx2" ]
           ++ lib.optionals fmaSupport [ "-mfma" ]
           ;
@@ -474,7 +485,8 @@ let
     bazelBuildFlags =
       [
         "--config=opt" # optimize using the flags set in the configure phase
-      ] ++ lib.optionals stdenv.cc.isClang [
+      ]
+      ++ lib.optionals stdenv.cc.isClang [
         "--cxxopt=-x"
         "--cxxopt=c++"
         "--host_cxxopt=-x"
@@ -482,7 +494,8 @@ let
 
         # workaround for https://github.com/bazelbuild/bazel/issues/15359
         "--spawn_strategy=sandboxed"
-      ] ++ lib.optionals (mklSupport) [ "--config=mkl" ]
+      ]
+      ++ lib.optionals (mklSupport) [ "--config=mkl" ]
       ;
 
     bazelTargets = [
@@ -620,7 +633,8 @@ buildPythonPackage {
       termcolor
       typing-extensions
       wrapt
-    ] ++ lib.optionals withTensorboard [ tensorboard ]
+    ]
+    ++ lib.optionals withTensorboard [ tensorboard ]
     ;
 
   nativeBuildInputs = lib.optionals cudaSupport [ addOpenGLRunpath ];

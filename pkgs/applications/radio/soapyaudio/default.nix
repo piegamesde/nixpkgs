@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
       libjack2
       libusb1
       soapysdr
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libpulseaudio
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreAudio
     ]

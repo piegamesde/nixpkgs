@@ -89,7 +89,8 @@ let
       [
         gradle
         perl
-      ] ++ lib.optional stdenv.isDarwin xcbuild
+      ]
+      ++ lib.optional stdenv.isDarwin xcbuild
       ;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
@@ -125,7 +126,8 @@ stdenv.mkDerivation rec {
       unzip
       makeWrapper
       icoutils
-    ] ++ lib.optional stdenv.isDarwin xcbuild
+    ]
+    ++ lib.optional stdenv.isDarwin xcbuild
     ;
 
   dontStrip = true;

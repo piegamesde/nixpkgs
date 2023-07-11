@@ -295,7 +295,7 @@ rec {
           in
           if
             final.parsed.kernel.name
-            == pkgs.stdenv.hostPlatform.parsed.kernel.name
+              == pkgs.stdenv.hostPlatform.parsed.kernel.name
             && pkgs.stdenv.hostPlatform.canExecute final
           then
             ''${pkgs.runtimeShell} -c '"$@"' --''
@@ -304,8 +304,9 @@ rec {
               lib.optionalString (final.parsed.cpu.bits == 64) "64"
             }"
           else if
-            final.isLinux && pkgs.stdenv.hostPlatform.isLinux && final.qemuArch
-            != null
+            final.isLinux
+            && pkgs.stdenv.hostPlatform.isLinux
+            && final.qemuArch != null
           then
             "${qemu-user}/bin/qemu-${final.qemuArch}"
           else if final.isWasi then

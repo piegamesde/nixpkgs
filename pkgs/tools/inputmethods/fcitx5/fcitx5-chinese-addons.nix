@@ -64,7 +64,8 @@ mkDerivation rec {
       opencc
       qtwebengine
       fmt
-    ] ++ lib.optional luaSupport fcitx5-lua
+    ]
+    ++ lib.optional luaSupport fcitx5-lua
     ;
 
   meta = with lib; {

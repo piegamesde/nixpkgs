@@ -153,7 +153,8 @@ appleDerivation' stdenv {
       #define TARGET_RT_64_BIT        1
       #endif  /* __TARGETCONDITIONALS__ */
       EOF
-    '' + lib.optionalString (!headersOnly) ''
+    ''
+    + lib.optionalString (!headersOnly) ''
 
       # The startup object files
       cp ${Csu}/lib/* $out/lib
@@ -171,7 +172,8 @@ appleDerivation' stdenv {
       for name in c dbm dl info m mx poll proc pthread rpcsvc util gcc_s.10.4 gcc_s.10.5; do
         ln -s libSystem.tbd $out/lib/lib$name.tbd
       done
-    '' + lib.optionalString withLibresolv ''
+    ''
+    + lib.optionalString withLibresolv ''
 
       # This probably doesn't belong here, but we want to stay similar to glibc, which includes resolv internally...
       cp ${libresolv}/lib/libresolv.9.dylib $out/lib/libresolv.9.dylib

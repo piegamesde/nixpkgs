@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       python3
       rustPlatform.rust.cargo
       rustPlatform.rust.rustc
-    ] ++ lib.optional withCockpit rsync
+    ]
+    ++ lib.optional withCockpit rsync
     ;
 
   buildInputs =
@@ -81,8 +82,11 @@ stdenv.mkDerivation rec {
       pcre2
       openssl
       zlib
-    ] ++ lib.optional withSystemd systemd ++ lib.optional withOpenldap openldap
-    ++ lib.optional withBdb db ++ lib.optional withNetSnmp net-snmp
+    ]
+    ++ lib.optional withSystemd systemd
+    ++ lib.optional withOpenldap openldap
+    ++ lib.optional withBdb db
+    ++ lib.optional withNetSnmp net-snmp
     ;
 
   postPatch = ''
@@ -102,17 +106,21 @@ stdenv.mkDerivation rec {
     [
       "--enable-rust-offline"
       "--enable-autobind"
-    ] ++ lib.optionals withSystemd [
+    ]
+    ++ lib.optionals withSystemd [
       "--with-systemd"
       "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-    ] ++ lib.optionals withOpenldap [ "--with-openldap" ]
+    ]
+    ++ lib.optionals withOpenldap [ "--with-openldap" ]
     ++ lib.optionals withBdb [
       "--with-db-inc=${lib.getDev db}/include"
       "--with-db-lib=${lib.getLib db}/lib"
-    ] ++ lib.optionals withNetSnmp [
+    ]
+    ++ lib.optionals withNetSnmp [
       "--with-netsnmp-inc=${lib.getDev net-snmp}/include"
       "--with-netsnmp-lib=${lib.getLib net-snmp}/lib"
-    ] ++ lib.optionals (!withCockpit) [ "--disable-cockpit" ]
+    ]
+    ++ lib.optionals (!withCockpit) [ "--disable-cockpit" ]
     ++ lib.optionals withAsan [
       "--enable-asan"
       "--enable-debug"

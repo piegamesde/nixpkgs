@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       configureFlags =
         (readLinesToList ./config/pjsip_args_common)
         ++ lib.optionals stdenv.isLinux
-        (readLinesToList ./config/pjsip_args_linux)
+          (readLinesToList ./config/pjsip_args_linux)
         ;
     }
   );
@@ -191,14 +191,16 @@ stdenv.mkDerivation rec {
       qtpositioning
       qtsvg
       qtwebchannel
-    ] ++ lib.optionals withWebengine [ qtwebengine ]
+    ]
+    ++ lib.optionals withWebengine [ qtwebengine ]
     ;
 
   cmakeFlags =
     [
       "-DLIBJAMI_INCLUDE_DIR=${daemon}/include/jami"
       "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
-    ] ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ]
+    ]
+    ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ]
     ;
 
   qtWrapperArgs =

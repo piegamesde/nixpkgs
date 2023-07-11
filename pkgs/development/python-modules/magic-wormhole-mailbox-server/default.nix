@@ -42,7 +42,8 @@ buildPythonPackage rec {
       six
       twisted
       autobahn
-    ] ++ autobahn.optional-dependencies.twisted
+    ]
+    ++ autobahn.optional-dependencies.twisted
     ++ twisted.optional-dependencies.tls
     ;
 

@@ -54,11 +54,13 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       perl
-    ] ++ lib.optional withQt wrapQtAppsHook
+    ]
+    ++ lib.optional withQt wrapQtAppsHook
     ;
 
   buildInputs =
-    [ udev ] ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
+    [ udev ]
+    ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
     ++ lib.optionals withQt [
       alsa-lib
       libX11

@@ -21,7 +21,8 @@ let
     targets: pkg:
     pkg.override (old: {
       nativeBuildInputs =
-        (old.nativeBuildInputs or [ ]) ++ [
+        (old.nativeBuildInputs or [ ])
+        ++ [
           binwrap
           binwrap-install
         ]
@@ -34,7 +35,8 @@ let
           binFile =
             module: lib.strings.removeSuffix ("-" + module.version) module.name;
         in
-        (old.postInstall or "") + ''
+        (old.postInstall or "")
+        + ''
           ${lib.concatStrings (map (module: ''
             echo "linking ${binFile module}"
             ln -sf ${module}/bin/${binFile module} \
@@ -49,13 +51,15 @@ let
     pkg:
     pkg.override (old: {
       preRebuild =
-        (old.preRebuild or "") + ''
+        (old.preRebuild or "")
+        + ''
           rm node_modules/elm/install.js
           echo "console.log('Nixpkgs\' version of Elm will be used');" > node_modules/elm/install.js
         ''
         ;
       postInstall =
-        (old.postInstall or "") + ''
+        (old.postInstall or "")
+        + ''
           ln -sf ${elm}/bin/elm node_modules/elm/bin/elm
         ''
         ;

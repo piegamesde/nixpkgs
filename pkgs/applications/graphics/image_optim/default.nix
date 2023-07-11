@@ -33,12 +33,18 @@ with lib;
 
 let
   optionalDepsPath =
-    optional withPngcrush pngcrush ++ optional withPngout pngout
-    ++ optional withAdvpng advancecomp ++ optional withOptipng optipng
-    ++ optional withPngquant pngquant ++ optional withOxipng oxipng
-    ++ optional withJhead jhead ++ optional withJpegoptim jpegoptim
-    ++ optional withJpegrecompress jpeg-archive ++ optional withJpegtran libjpeg
-    ++ optional withGifsicle gifsicle ++ optional withSvgo svgo
+    optional withPngcrush pngcrush
+    ++ optional withPngout pngout
+    ++ optional withAdvpng advancecomp
+    ++ optional withOptipng optipng
+    ++ optional withPngquant pngquant
+    ++ optional withOxipng oxipng
+    ++ optional withJhead jhead
+    ++ optional withJpegoptim jpegoptim
+    ++ optional withJpegrecompress jpeg-archive
+    ++ optional withJpegtran libjpeg
+    ++ optional withGifsicle gifsicle
+    ++ optional withSvgo svgo
     ;
 
   disabledWorkersFlags =

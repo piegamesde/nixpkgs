@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       libcanberra
       libgee
       libhandy
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-plugins-bad
       gst-plugins-base
       # gtkSupport needed for gtksink

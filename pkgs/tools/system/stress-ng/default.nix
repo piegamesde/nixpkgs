@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       libbsd
       libgcrypt
       zlib
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       attr
       keyutils
       libaio

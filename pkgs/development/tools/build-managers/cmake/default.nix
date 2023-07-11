@@ -37,12 +37,14 @@ in
 assert lib.subtractLists [
   "ncurses"
   "qt5"
-] uiToolkits == [ ];
+] uiToolkits
+  == [ ];
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
   pname =
-    "cmake" + lib.optionalString isBootstrap "-boot"
+    "cmake"
+    + lib.optionalString isBootstrap "-boot"
     + lib.optionalString cursesUI "-cursesUI"
     + lib.optionalString qt5UI "-qt5UI"
     ;
@@ -64,16 +66,18 @@ stdenv.mkDerivation rec {
       ./002-application-services.diff
       # Derived from https://github.com/libuv/libuv/commit/1a5d4f08238dd532c3718e210078de1186a5920d
       ./003-libuv-application-services.diff
-    ] ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
-    # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
+    ]
+    ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
+      # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
     ++ lib.optional (stdenv.isDarwin && isBootstrap)
-    ./005-remove-systemconfiguration-dep.diff
-    # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
+      ./005-remove-systemconfiguration-dep.diff
+      # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff
     ;
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [
+    [ "out" ]
+    ++ lib.optionals buildDocs [
       "man"
       "info"
     ]
@@ -88,7 +92,9 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs =
-    setupHooks ++ [ pkg-config ] ++ lib.optionals buildDocs [ texinfo ]
+    setupHooks
+    ++ [ pkg-config ]
+    ++ lib.optionals buildDocs [ texinfo ]
     ++ lib.optionals qt5UI [ wrapQtAppsHook ]
     ;
 
@@ -102,7 +108,9 @@ stdenv.mkDerivation rec {
       zlib
       libuv
       rhash
-    ] ++ lib.optional useOpenSSL openssl ++ lib.optional cursesUI ncurses
+    ]
+    ++ lib.optional useOpenSSL openssl
+    ++ lib.optional cursesUI ncurses
     ++ lib.optional qt5UI qtbase
     ++ lib.optional (stdenv.isDarwin && !isBootstrap) SystemConfiguration
     ;
@@ -123,14 +131,16 @@ stdenv.mkDerivation rec {
     [
       "CXXFLAGS=-Wno-elaborated-enum-base"
       "--docdir=share/doc/${pname}${version}"
-    ] ++ (if useSharedLibraries then
+    ]
+    ++ (if useSharedLibraries then
       [
         "--no-system-jsoncpp"
         "--system-libs"
       ]
     else
       [ "--no-system-libs" ]) # FIXME: cleanup
-    ++ lib.optional qt5UI "--qt-gui" ++ lib.optionals buildDocs [
+    ++ lib.optional qt5UI "--qt-gui"
+    ++ lib.optionals buildDocs [
       "--sphinx-build=${sphinx}/bin/sphinx-build"
       "--sphinx-info"
       "--sphinx-man"
@@ -139,7 +149,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.is32bit [
       "CFLAGS=-D_FILE_OFFSET_BITS=64"
       "CXXFLAGS=-D_FILE_OFFSET_BITS=64"
-    ] ++ [
+    ]
+    ++ [
       "--"
       # We should set the proper `CMAKE_SYSTEM_NAME`.
       # http://www.cmake.org/Wiki/CMake_Cross_Compiling

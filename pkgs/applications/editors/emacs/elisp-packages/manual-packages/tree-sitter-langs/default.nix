@@ -34,22 +34,25 @@ let
   } (''
     install -d $out/langs/bin
     echo -n $version > $out/langs/bin/BUNDLE-VERSION
-  '' + lib.concatStringsSep "\n"
-    (map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins));
+  ''
+    + lib.concatStringsSep "\n"
+      (map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins));
   siteDir =
     "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 
 in
 melpaStablePackages.tree-sitter-langs.overrideAttrs (old: {
   postPatch =
-    old.postPatch or "" + ''
+    old.postPatch or ""
+    + ''
       substituteInPlace ./tree-sitter-langs-build.el \
       --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
     ''
     ;
 
   postInstall =
-    old.postInstall or "" + lib.concatStringsSep "\n" (map (g: ''
+    old.postInstall or ""
+    + lib.concatStringsSep "\n" (map (g: ''
       if [[ -d "${g}/queries" ]]; then
         mkdir -p ${siteDir}/queries/${langName g}/
         for f in ${g}/queries/*; do

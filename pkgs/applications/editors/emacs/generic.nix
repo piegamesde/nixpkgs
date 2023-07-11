@@ -130,9 +130,10 @@ let
     [
       "${lib.getLib libgccjit}/lib/gcc"
       "${lib.getLib stdenv.cc.libc}/lib"
-    ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [
-      "${lib.getLib stdenv.cc.cc.libgcc}/lib"
     ]
+    ++ lib.optionals (stdenv.cc ? cc.libgcc) [
+        "${lib.getLib stdenv.cc.cc.libgcc}/lib"
+      ]
     ;
 in
 (if withMacport then
@@ -144,32 +145,36 @@ else
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
     } // {
       pname =
-        pname + lib.optionalString
-        (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox"
+        pname
+        + lib.optionalString
+          (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox"
         ;
       inherit version;
 
       patches =
-        patches fetchpatch ++ lib.optionals nativeComp [
-          (substituteAll {
-            src =
-              if lib.versionOlder finalAttrs.version "29" then
-                ./native-comp-driver-options-28.patch
-              else
-                ./native-comp-driver-options.patch
-              ;
-            backendPath =
-              (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') ([
-                # Paths necessary so the JIT compiler finds its libraries:
-                "${lib.getLib libgccjit}/lib"
-              ] ++ libGccJitLibraryPaths ++ [
-                # Executable paths necessary for compilation (ld, as):
-                "${lib.getBin stdenv.cc.cc}/bin"
-                "${lib.getBin stdenv.cc.bintools}/bin"
-                "${lib.getBin stdenv.cc.bintools.bintools}/bin"
-              ])));
-          })
-        ]
+        patches fetchpatch
+        ++ lib.optionals nativeComp [
+            (substituteAll {
+              src =
+                if lib.versionOlder finalAttrs.version "29" then
+                  ./native-comp-driver-options-28.patch
+                else
+                  ./native-comp-driver-options.patch
+                ;
+              backendPath =
+                (lib.concatStringsSep " " (builtins.map (x: ''"-B${x}"'') ([
+                  # Paths necessary so the JIT compiler finds its libraries:
+                  "${lib.getLib libgccjit}/lib"
+                ]
+                  ++ libGccJitLibraryPaths
+                  ++ [
+                    # Executable paths necessary for compilation (ld, as):
+                    "${lib.getBin stdenv.cc.cc}/bin"
+                    "${lib.getBin stdenv.cc.bintools}/bin"
+                    "${lib.getBin stdenv.cc.bintools.bintools}/bin"
+                  ])));
+            })
+          ]
         ;
 
       src =
@@ -227,10 +232,11 @@ else
         [
           pkg-config
           makeWrapper
-        ] ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
+        ]
+        ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
         ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets))
-        wrapGAppsHook
+          wrapGAppsHook
         ;
 
       buildInputs =
@@ -242,41 +248,51 @@ else
           gettext
           jansson
           harfbuzz.dev
-        ] ++ lib.optionals stdenv.isLinux [
+        ]
+        ++ lib.optionals stdenv.isLinux [
           dbus
           libselinux
           alsa-lib
           acl
           gpm
-        ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withX [
+        ]
+        ++ lib.optionals withSystemd [ systemd ]
+        ++ lib.optionals withX [
           libXaw
           Xaw3d
           gconf
           cairo
-        ] ++ lib.optionals (withX || withPgtk) [
+        ]
+        ++ lib.optionals (withX || withPgtk) [
           libXpm
           libpng
           libjpeg
           giflib
           libtiff
-        ] ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
+        ]
+        ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
         ++ lib.optionals withImageMagick [ imagemagick ]
         ++ lib.optionals (stdenv.isLinux && withX) [
           m17n_lib
           libotf
-        ] ++ lib.optional (withX && withGTK2) gtk2-x11
+        ]
+        ++ lib.optional (withX && withGTK2) gtk2-x11
         ++ lib.optional (withX && withGTK3) gtk3-x11
         ++ lib.optional (!stdenv.isDarwin && withGTK3) gsettings-desktop-schemas
-        ++ lib.optional withPgtk gtk3 ++ lib.optional (withX && withMotif) motif
-        ++ lib.optional withSQLite3 sqlite ++ lib.optional withWebP libwebp
+        ++ lib.optional withPgtk gtk3
+        ++ lib.optional (withX && withMotif) motif
+        ++ lib.optional withSQLite3 sqlite
+        ++ lib.optional withWebP libwebp
         ++ lib.optionals (withX && withXwidgets) [
           webkitgtk
           glib-networking
-        ] ++ lib.optionals withNS [
+        ]
+        ++ lib.optionals withNS [
           AppKit
           GSS
           ImageIO
-        ] ++ lib.optionals withMacport [
+        ]
+        ++ lib.optionals withMacport [
           AppKit
           Carbon
           Cocoa
@@ -289,7 +305,8 @@ else
           ImageCaptureCore
           GSS
           ImageIO
-        ] ++ lib.optionals stdenv.isDarwin [ sigtool ]
+        ]
+        ++ lib.optionals stdenv.isDarwin [ sigtool ]
         ++ lib.optionals nativeComp [ libgccjit ]
         ++ lib.optionals withTreeSitter [ tree-sitter ]
         ;
@@ -300,7 +317,8 @@ else
         [
           "--disable-build-details" # for a (more) reproducible build
           "--with-modules"
-        ] ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
+        ]
+        ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
         ++ (if withNS then
           [ "--disable-ns-self-contained" ]
         else if withX then
@@ -319,12 +337,14 @@ else
             "--with-png=no"
             "--with-gif=no"
             "--with-tiff=no"
-          ]) ++ lib.optionals withMacport [
-            "--with-mac"
-            "--enable-mac-app=$$out/Applications"
-            "--with-xml2=yes"
-            "--with-gnutls=yes"
-          ] ++ lib.optional withXwidgets "--with-xwidgets"
+          ])
+        ++ lib.optionals withMacport [
+          "--with-mac"
+          "--enable-mac-app=$$out/Applications"
+          "--with-xml2=yes"
+          "--with-gnutls=yes"
+        ]
+        ++ lib.optional withXwidgets "--with-xwidgets"
         ++ lib.optional nativeComp "--with-native-compilation"
         ++ lib.optional withImageMagick "--with-imagemagick"
         ++ lib.optional withXinput2 "--with-xinput2"
@@ -347,7 +367,8 @@ else
           siteVersionDir=`ls $out/share/emacs | grep -v site-lisp | head -n 1`
 
           rm -r $out/share/emacs/$siteVersionDir/site-lisp
-        '' + lib.optionalString withCsrc ''
+        ''
+        + lib.optionalString withCsrc ''
           for srcdir in src lisp lwlib ; do
             dstdir=$out/share/emacs/$siteVersionDir/$srcdir
             mkdir -p $dstdir
@@ -355,12 +376,15 @@ else
             cp $srcdir/TAGS $dstdir
             echo '((nil . ((tags-file-name . "TAGS"))))' > $dstdir/.dir-locals.el
           done
-        '' + lib.optionalString withNS ''
+        ''
+        + lib.optionalString withNS ''
           mkdir -p $out/Applications
           mv nextstep/Emacs.app $out/Applications
-        '' + lib.optionalString (nativeComp && (withNS || withMacport)) ''
+        ''
+        + lib.optionalString (nativeComp && (withNS || withMacport)) ''
           ln -snf $out/lib/emacs/*/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
-        '' + lib.optionalString nativeComp ''
+        ''
+        + lib.optionalString nativeComp ''
           echo "Generating native-compiled trampolines..."
           # precompile trampolines in parallel, but avoid spawning one process per trampoline.
           # 1000 is a rough lower bound on the number of trampolines compiled.
@@ -395,7 +419,7 @@ else
         description =
           "The extensible, customizable GNU text editor"
           + optionalString withMacport
-          " with Mitsuharu Yamamoto's macport patches"
+            " with Mitsuharu Yamamoto's macport patches"
           ;
         homepage =
           if withMacport then

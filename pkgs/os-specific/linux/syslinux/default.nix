@@ -30,8 +30,10 @@ stdenv.mkDerivation {
         name: commit: hash:
         fetchurl {
           url =
-            "https://salsa.debian.org/images-team/syslinux/raw/" + commit
-            + "/debian/patches/" + name
+            "https://salsa.debian.org/images-team/syslinux/raw/"
+            + commit
+            + "/debian/patches/"
+            + name
             ;
           inherit name hash;
         }
@@ -41,7 +43,9 @@ stdenv.mkDerivation {
         fetchurl {
           url =
             "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
-            + commit + "/trunk/" + name
+            + commit
+            + "/trunk/"
+            + name
             ;
           inherit name hash;
         }
@@ -122,7 +126,8 @@ stdenv.mkDerivation {
       "MANDIR=$(out)/share/man"
       "PERL=perl"
       "HEXDATE=0x00000000"
-    ] ++ lib.optionals stdenv.hostPlatform.isi686 [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isi686 [
       "bios"
       "efi32"
     ]

@@ -69,17 +69,23 @@ mkDerivation rec {
       hunspell
       xz
       lzo
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       qtx11extras
       libXtst
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       bzip2
       libiconv
-    ] ++ lib.optional withCC opencc ++ lib.optional withEpwing libeb
-    ++ lib.optional withExtraTiff libtiff ++ lib.optionals withFFmpeg [
+    ]
+    ++ lib.optional withCC opencc
+    ++ lib.optional withEpwing libeb
+    ++ lib.optional withExtraTiff libtiff
+    ++ lib.optionals withFFmpeg [
       libao
       ffmpeg
-    ] ++ lib.optional withZim zstd
+    ]
+    ++ lib.optional withZim zstd
     ;
 
   qmakeFlags = with lib; [

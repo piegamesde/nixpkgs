@@ -44,14 +44,16 @@ stdenv.mkDerivation rec {
       pkg-config
       bison
       doxygen
-    ] ++ lib.optional withWaylandTools wayland-scanner
+    ]
+    ++ lib.optional withWaylandTools wayland-scanner
     ;
   buildInputs =
     [
       xkeyboard_config
       libxcb
       libxml2
-    ] ++ lib.optionals withWaylandTools [
+    ]
+    ++ lib.optionals withWaylandTools [
       wayland
       wayland-protocols
     ]

@@ -73,16 +73,20 @@ stdenv.mkDerivation rec {
       openssl
       readline
       sqlite
-    ] ++ lib.optionals autoAwaySupport [
+    ]
+    ++ lib.optionals autoAwaySupport [
       libXScrnSaver
       libX11
-    ] ++ lib.optionals notifySupport [
+    ]
+    ++ lib.optionals notifySupport [
       libnotify
       gdk-pixbuf
-    ] ++ lib.optionals omemoSupport [
+    ]
+    ++ lib.optionals omemoSupport [
       libsignal-protocol-c
       libgcrypt
-    ] ++ lib.optionals pgpSupport [ gpgme ]
+    ]
+    ++ lib.optionals pgpSupport [ gpgme ]
     ++ lib.optionals pythonPluginSupport [ python3 ]
     ++ lib.optionals traySupport [ gtk3 ]
     ;
@@ -92,7 +96,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-c-plugins"
       "--enable-otr"
-    ] ++ lib.optionals notifySupport [ "--enable-notifications" ]
+    ]
+    ++ lib.optionals notifySupport [ "--enable-notifications" ]
     ++ lib.optionals traySupport [ "--enable-icons-and-clipboard" ]
     ++ lib.optionals pgpSupport [ "--enable-pgp" ]
     ++ lib.optionals pythonPluginSupport [ "--enable-python-plugins" ]

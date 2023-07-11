@@ -146,8 +146,10 @@ stdenv.mkDerivation rec {
       hdf5-custom
       netcdf-custom
       plplot-with-drivers
-    ] ++ lib.optional enableXWin plplot-with-drivers.libX11
-    ++ lib.optional enableGRIB eccodes ++ lib.optional enableGLPK glpk
+    ]
+    ++ lib.optional enableXWin plplot-with-drivers.libX11
+    ++ lib.optional enableGRIB eccodes
+    ++ lib.optional enableGLPK glpk
     ++ lib.optional enableWX wxGTK32
     ++ lib.optional (enableWX && stdenv.isDarwin) Cocoa
     ++ lib.optional enableMPI mpi
@@ -160,20 +162,24 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ] ++ lib.optional enableWX wrapGAppsHook;
 
   cmakeFlags =
-    lib.optional (!enableHDF4) "-DHDF=OFF" ++ [
+    lib.optional (!enableHDF4) "-DHDF=OFF"
+    ++ [
       (if enableHDF5 then
         "-DHDF5DIR=${hdf5-custom}"
       else
         "-DHDF5=OFF")
-    ] ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
+    ]
+    ++ lib.optional (!enableNetCDF) "-DNETCDF=OFF"
     ++ lib.optional (!enablePlplotDrivers) "-DINTERACTIVE_GRAPHICS=OFF"
     ++ lib.optional (!enableGRIB) "-DGRIB=OFF"
     ++ lib.optional (!enableGLPK) "-DGLPK=OFF"
     ++ lib.optional (!enableWX) "-DWXWIDGETS=OFF"
-    ++ lib.optional enableSzip "-DSZIPDIR=${szip}" ++ lib.optionals enableXWin [
+    ++ lib.optional enableSzip "-DSZIPDIR=${szip}"
+    ++ lib.optionals enableXWin [
       "-DX11=ON"
       "-DX11DIR=${plplot-with-drivers.libX11}"
-    ] ++ lib.optionals enableMPI [
+    ]
+    ++ lib.optionals enableMPI [
       "-DMPI=ON"
       "-DMPIDIR=${mpi}"
     ]

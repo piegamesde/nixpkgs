@@ -42,7 +42,8 @@ mkCoqDerivation rec {
   '';
 
   propagatedBuildInputs =
-    [ serapi ] ++ (with coq.ocamlPackages; [
+    [ serapi ]
+    ++ (with coq.ocamlPackages; [
       camlp-streams
       dune-build-info
       menhir

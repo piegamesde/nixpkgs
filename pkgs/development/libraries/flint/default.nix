@@ -12,8 +12,10 @@
   withBlas ? true
 }:
 
-assert withBlas -> openblas != null && blas.implementation == "openblas"
-  && lapack.implementation == "openblas";
+assert withBlas
+  -> openblas != null
+    && blas.implementation == "openblas"
+    && lapack.implementation == "openblas";
 
 stdenv.mkDerivation rec {
   pname = "flint";
@@ -30,7 +32,8 @@ stdenv.mkDerivation rec {
       mpir
       mpfr
       ntl
-    ] ++ lib.optionals withBlas [ openblas ]
+    ]
+    ++ lib.optionals withBlas [ openblas ]
     ;
 
   propagatedBuildInputs = [
@@ -43,7 +46,8 @@ stdenv.mkDerivation rec {
       "--with-mpir=${mpir}"
       "--with-mpfr=${mpfr}"
       "--with-ntl=${ntl}"
-    ] ++ lib.optionals withBlas [ "--with-blas=${openblas}" ]
+    ]
+    ++ lib.optionals withBlas [ "--with-blas=${openblas}" ]
     ;
 
   enableParallelBuilding = true;

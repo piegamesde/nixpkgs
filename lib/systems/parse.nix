@@ -70,7 +70,8 @@ rec {
     merge = mergeOneOption;
     check =
       x:
-      types.bitWidth.check x.bits && (if 8 < x.bits then
+      types.bitWidth.check x.bits
+      && (if 8 < x.bits then
         types.significantByte.check x.significantByte
       else
         !(x ? significantByte))
@@ -702,8 +703,10 @@ rec {
         kernel,
         abi,
       }:
-      types.cpuType.check cpu && types.vendor.check vendor
-      && types.kernel.check kernel && types.abi.check abi
+      types.cpuType.check cpu
+      && types.vendor.check vendor
+      && types.kernel.check kernel
+      && types.abi.check abi
       ;
   };
 
@@ -761,7 +764,8 @@ rec {
       "3" =
         # cpu-kernel-environment
         if
-          elemAt l 1 == "linux" || elem (elemAt l 2) [
+          elemAt l 1 == "linux"
+          || elem (elemAt l 2) [
             "eabi"
             "eabihf"
             "elf"
@@ -776,14 +780,17 @@ rec {
           }
           # cpu-vendor-os
         else if
-          elemAt l 1 == "apple" || elem (elemAt l 2) [
+          elemAt l 1 == "apple"
+          || elem (elemAt l 2) [
             "wasi"
             "redox"
             "mmixware"
             "ghcjs"
             "mingw32"
-          ] || hasPrefix "freebsd" (elemAt l 2)
-          || hasPrefix "netbsd" (elemAt l 2) || hasPrefix "genode" (elemAt l 2)
+          ]
+          || hasPrefix "freebsd" (elemAt l 2)
+          || hasPrefix "netbsd" (elemAt l 2)
+          || hasPrefix "genode" (elemAt l 2)
         then
           {
             cpu = elemAt l 0;

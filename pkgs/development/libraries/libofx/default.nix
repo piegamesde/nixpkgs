@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       opensp
       libxml2
       curl
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
   meta = {

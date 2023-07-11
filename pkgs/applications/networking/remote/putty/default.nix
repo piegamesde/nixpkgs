@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       ( cd doc ; make );
       ./mkauto.sh
       cd unix
-    '' + lib.optionalString stdenv.hostPlatform.isWindows ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWindows ''
       cd windows
     ''
     ;
@@ -70,7 +71,8 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.hostPlatform.isUnix [
       gtk2
       ncurses
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
     ;
   enableParallelBuilding = true;
 

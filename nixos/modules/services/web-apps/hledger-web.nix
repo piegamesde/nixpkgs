@@ -111,7 +111,8 @@ in
     systemd.services.hledger-web =
       let
         capabilityString = with cfg.capabilities;
-          concatStringsSep "," ((optional view "view") ++ (optional add "add")
+          concatStringsSep "," ((optional view "view")
+            ++ (optional add "add")
             ++ (optional manage "manage"));
         serverArgs = with cfg;
           escapeShellArgs ([
@@ -121,7 +122,8 @@ in
             "--capabilities=${capabilityString}"
             (optionalString (cfg.baseUrl != null) "--base-url=${cfg.baseUrl}")
             (optionalString (cfg.serveApi) "--serve-api")
-          ] ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
+          ]
+            ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
             ++ extraOptions);
       in
       {

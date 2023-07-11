@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
       openssh
       gsettings-desktop-schemas
       libsoup_3
-    ] ++ lib.optionals udevSupport [
+    ]
+    ++ lib.optionals udevSupport [
       libgudev
       udisks2
       fuse3
@@ -112,7 +113,8 @@ stdenv.mkDerivation rec {
       libcap
       polkit
       libcdio-paranoia
-    ] ++ lib.optionals gnomeSupport [
+    ]
+    ++ lib.optionals gnomeSupport [
       gcr
       glib-networking # TLS support
       gnome-online-accounts
@@ -125,7 +127,8 @@ stdenv.mkDerivation rec {
     [
       "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
       "-Dtmpfilesdir=no"
-    ] ++ lib.optionals (!udevSupport) [
+    ]
+    ++ lib.optionals (!udevSupport) [
       "-Dgudev=false"
       "-Dudisks2=false"
       "-Dfuse=false"
@@ -136,12 +139,14 @@ stdenv.mkDerivation rec {
       "-Dgphoto2=false"
       "-Dlibusb=false"
       "-Dlogind=false"
-    ] ++ lib.optionals (!gnomeSupport) [
+    ]
+    ++ lib.optionals (!gnomeSupport) [
       "-Dgcr=false"
       "-Dgoa=false"
       "-Dkeyring=false"
       "-Dgoogle=false"
-    ] ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
+    ]
+    ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
     ++ lib.optionals (samba == null) [
       # Xfce don't want samba
       "-Dsmb=false"

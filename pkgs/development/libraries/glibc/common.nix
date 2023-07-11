@@ -100,8 +100,9 @@ stdenv.mkDerivation ({
          See https://github.com/NixOS/nixpkgs/pull/188492#issuecomment-1233802991 for context.
       */
       ./reenable_DT_HASH.patch
-    ] ++ lib.optional stdenv.hostPlatform.isMusl
-    ./fix-rpc-types-musl-conflicts.patch
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl
+      ./fix-rpc-types-musl-conflicts.patch
     ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch
     ;
 
@@ -143,24 +144,29 @@ stdenv.mkDerivation ({
       "--enable-bind-now"
       (lib.withFeatureAs withLinuxHeaders "headers" "${linuxHeaders}/include")
       (lib.enableFeature profilingLibraries "profile")
-    ] ++ lib.optionals
-    (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64) [
-      # This feature is currently supported on
-      # i386, x86_64 and x32 with binutils 2.29 or later,
-      # and on aarch64 with binutils 2.30 or later.
-      # https://sourceware.org/glibc/wiki/PortStatus
-      "--enable-static-pie"
-    ] ++ lib.optionals stdenv.hostPlatform.isx86 [
+    ]
+    ++ lib.optionals
+      (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64) [
+        # This feature is currently supported on
+        # i386, x86_64 and x32 with binutils 2.29 or later,
+        # and on aarch64 with binutils 2.30 or later.
+        # https://sourceware.org/glibc/wiki/PortStatus
+        "--enable-static-pie"
+      ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [
       # Enable Intel Control-flow Enforcement Technology (CET) support
       "--enable-cet"
-    ] ++ lib.optionals withLinuxHeaders [
-      "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals withLinuxHeaders [
+        "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
+      ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       (lib.flip lib.withFeature "fp"
         (stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
           == "soft"))
       "--with-__thread"
-    ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform
+    ]
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform
       && stdenv.hostPlatform.isAarch32) [
         "--host=arm-linux-gnueabi"
         "--build=arm-linux-gnueabi"
@@ -168,7 +174,8 @@ stdenv.mkDerivation ({
         # To avoid linking with -lgcc_s (dynamic link)
         # so the glibc does not depend on its compiler store path
         "libc_cv_as_needed=no"
-      ] ++ lib.optional withGd "--with-gd"
+      ]
+    ++ lib.optional withGd "--with-gd"
     ++ lib.optional (!withLibcrypt) "--disable-crypt"
     ;
 
@@ -190,13 +197,16 @@ stdenv.mkDerivation ({
     [
       bison
       python3Minimal
-    ] ++ extraNativeBuildInputs
+    ]
+    ++ extraNativeBuildInputs
     ;
   buildInputs =
-    [ linuxHeaders ] ++ lib.optionals withGd [
+    [ linuxHeaders ]
+    ++ lib.optionals withGd [
       gd
       libpng
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
 
   env = {
@@ -247,7 +257,8 @@ stdenv.mkDerivation ({
           makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib OBJDUMP=${stdenv.cc.bintools.bintools}/bin/objdump"''}
 
 
-      '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      ''
+      + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
         sed -i s/-lgcc_eh//g "../$sourceRoot/Makeconfig"
 
         cat > config.cache << "EOF"

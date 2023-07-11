@@ -119,7 +119,8 @@ let
       script = with builtins;
         ''
           chown -R ${user} .lego/accounts
-        '' + (concatStringsSep "\n" (mapAttrsToList (cert: data: ''
+        ''
+        + (concatStringsSep "\n" (mapAttrsToList (cert: data: ''
           for fixpath in ${escapeShellArg cert} .lego/${escapeShellArg cert}; do
             if [ -d "$fixpath" ]; then
               chmod -R u=rwX,g=rX,o= "$fixpath"
@@ -193,7 +194,8 @@ let
           ([
             "--dns"
             data.dnsProvider
-          ] ++ optionals (!data.dnsPropagationCheck) [ "--dns.disable-cp" ]
+          ]
+            ++ optionals (!data.dnsPropagationCheck) [ "--dns.disable-cp" ]
             ++ optionals (data.dnsResolver != null) [
               "--dns.resolvers"
               data.dnsResolver
@@ -223,24 +225,31 @@ let
           data.email
           "--key-type"
           data.keyType
-        ] ++ protocolOpts ++ optionals (acmeServer != null) [
+        ]
+        ++ protocolOpts
+        ++ optionals (acmeServer != null) [
           "--server"
           acmeServer
-        ] ++ concatMap (name: [
+        ]
+        ++ concatMap (name: [
           "-d"
           name
-        ]) extraDomains ++ data.extraLegoFlags
+        ]) extraDomains
+        ++ data.extraLegoFlags
         ;
 
         # Although --must-staple is common to both modes, it is not declared as a
         # mode-agnostic argument in lego and thus must come after the mode.
-      runOpts = escapeShellArgs (commonOpts ++ [ "run" ]
+      runOpts = escapeShellArgs (commonOpts
+        ++ [ "run" ]
         ++ optionals data.ocspMustStaple [ "--must-staple" ]
         ++ data.extraLegoRunFlags);
-      renewOpts = escapeShellArgs (commonOpts ++ [
-        "renew"
-        "--no-random-sleep"
-      ] ++ optionals data.ocspMustStaple [ "--must-staple" ]
+      renewOpts = escapeShellArgs (commonOpts
+        ++ [
+          "renew"
+          "--no-random-sleep"
+        ]
+        ++ optionals data.ocspMustStaple [ "--must-staple" ]
         ++ data.extraLegoRenewFlags);
 
         # We need to collect all the ACME webroots to grant them write
@@ -340,13 +349,15 @@ let
             "network-online.target"
             "acme-fixperms.service"
             "nss-lookup.target"
-          ] ++ selfsignedDeps
+          ]
+          ++ selfsignedDeps
           ;
         wants =
           [
             "network-online.target"
             "acme-fixperms.service"
-          ] ++ selfsignedDeps
+          ]
+          ++ selfsignedDeps
           ;
 
           # https://github.com/NixOS/nixpkgs/pull/81371#issuecomment-605526099
@@ -388,7 +399,8 @@ let
 
             # Run as root (Prefixed with +)
           ExecStartPost =
-            "+" + (pkgs.writeShellScript "acme-postrun" ''
+            "+"
+            + (pkgs.writeShellScript "acme-postrun" ''
               cd /var/lib/acme/${escapeShellArg cert}
               if [ -e renewed ]; then
                 rm renewed
@@ -1013,7 +1025,8 @@ in
                 to `true`. For Let's Encrypt's ToS see https://letsencrypt.org/repository/
               '';
             }
-          ] ++ (builtins.concatLists (mapAttrsToList (cert: data: [
+          ]
+          ++ (builtins.concatLists (mapAttrsToList (cert: data: [
             {
               assertion = data.user == "_mkRemovedOptionModule";
               message = ''
@@ -1066,7 +1079,8 @@ in
             }
             {
               assertion =
-                data.dnsProvider != null || data.webroot != null
+                data.dnsProvider != null
+                || data.webroot != null
                 || data.listenHTTP != null
                 ;
               message = ''

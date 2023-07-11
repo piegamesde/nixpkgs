@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       libjack2
       fftw
       zita-alsa-pcmi
-    ] ++ (with qt5; [
+    ]
+    ++ (with qt5; [
       qtbase
       qttools
     ])

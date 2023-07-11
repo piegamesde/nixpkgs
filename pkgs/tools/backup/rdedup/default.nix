@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       libsodium
       xz
-    ] ++ (lib.optional stdenv.isDarwin Security)
+    ]
+    ++ (lib.optional stdenv.isDarwin Security)
     ;
 
   configurePhase = ''

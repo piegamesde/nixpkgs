@@ -51,15 +51,17 @@ let
   hasAllowlistedLicense =
     assert areLicenseListsValid;
     attrs:
-    hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist)
-    (lib.lists.toList attrs.meta.license)
+    hasLicense attrs
+    && lib.lists.any (l: builtins.elem l allowlist)
+      (lib.lists.toList attrs.meta.license)
     ;
 
   hasBlocklistedLicense =
     assert areLicenseListsValid;
     attrs:
-    hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist)
-    (lib.lists.toList attrs.meta.license)
+    hasLicense attrs
+    && lib.lists.any (l: builtins.elem l blocklist)
+      (lib.lists.toList attrs.meta.license)
     ;
 
   allowBroken =
@@ -111,7 +113,8 @@ let
 
   hasAllowedInsecure =
     attrs:
-    !(isMarkedInsecure attrs) || allowInsecurePredicate attrs
+    !(isMarkedInsecure attrs)
+    || allowInsecurePredicate attrs
     || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1"
     ;
 
@@ -136,7 +139,8 @@ let
     # `allowNonSourcePredicate` function.
   hasDeniedNonSourceProvenance =
     attrs:
-    hasNonSourceProvenance attrs && !allowNonSource
+    hasNonSourceProvenance attrs
+    && !allowNonSource
     && !allowNonSourcePredicate attrs
     ;
 
@@ -221,38 +225,40 @@ let
     ''
 
       Known issues:
-    '' + (lib.concatStrings
-      (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities)) + ''
+    ''
+    + (lib.concatStrings
+      (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities))
+    + ''
 
-        You can install it anyway by allowing this package, using the
-        following methods:
+      You can install it anyway by allowing this package, using the
+      following methods:
 
-        a) To temporarily allow all insecure packages, you can use an environment
-           variable for a single invocation of the nix tools:
+      a) To temporarily allow all insecure packages, you can use an environment
+         variable for a single invocation of the nix tools:
 
-             $ export NIXPKGS_ALLOW_INSECURE=1
-             ${flakeNote}
-        b) for `nixos-rebuild` you can add ‘${getName attrs}’ to
-           `nixpkgs.config.permittedInsecurePackages` in the configuration.nix,
-           like so:
+           $ export NIXPKGS_ALLOW_INSECURE=1
+           ${flakeNote}
+      b) for `nixos-rebuild` you can add ‘${getName attrs}’ to
+         `nixpkgs.config.permittedInsecurePackages` in the configuration.nix,
+         like so:
 
-             {
-               nixpkgs.config.permittedInsecurePackages = [
-                 "${getName attrs}"
-               ];
-             }
+           {
+             nixpkgs.config.permittedInsecurePackages = [
+               "${getName attrs}"
+             ];
+           }
 
-        c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
-           ‘${getName attrs}’ to `permittedInsecurePackages` in
-           ~/.config/nixpkgs/config.nix, like so:
+      c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
+         ‘${getName attrs}’ to `permittedInsecurePackages` in
+         ~/.config/nixpkgs/config.nix, like so:
 
-             {
-               permittedInsecurePackages = [
-                 "${getName attrs}"
-               ];
-             }
+           {
+             permittedInsecurePackages = [
+               "${getName attrs}"
+             ];
+           }
 
-      ''
+    ''
     ;
 
   remediateOutputsToInstall =
@@ -299,7 +305,8 @@ let
               pos_str meta
             } ${errormsg}, refusing to evaluate.
 
-          '' + (builtins.getAttr reason remediation) attrs
+          ''
+          + (builtins.getAttr reason remediation) attrs
         ;
 
       handler =
@@ -328,8 +335,8 @@ let
           "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
         else
           "Package ${getName attrs} in ${
-            pos_str meta
-          } ${errormsg}, continuing anyway."
+              pos_str meta
+            } ${errormsg}, continuing anyway."
           + (lib.optionalString (remediationMsg != "") ''
 
             ${remediationMsg}'')
@@ -391,7 +398,8 @@ let
       name = "test";
       check =
         x:
-        x == { } || ( # Accept {} for tests that are unsupported
+        x == { }
+        || ( # Accept {} for tests that are unsupported
           isDerivation x && x ? meta.timeout)
         ;
       merge = lib.options.mergeOneOption;
@@ -619,8 +627,10 @@ let
           (lib.findFirst hasOutput null ([
             "bin"
             "out"
-          ] ++ outputs))
-        ] ++ lib.optional (hasOutput "man") "man"
+          ]
+            ++ outputs))
+        ]
+        ++ lib.optional (hasOutput "man") "man"
         ;
     } // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.
@@ -631,7 +641,8 @@ let
       inherit (validity) unfree broken unsupported insecure;
 
       available =
-        validity.valid != "no" && (if config.checkMetaRecursively or false then
+        validity.valid != "no"
+        && (if config.checkMetaRecursively or false then
           lib.all (d: d.meta.available or true) references
         else
           true)

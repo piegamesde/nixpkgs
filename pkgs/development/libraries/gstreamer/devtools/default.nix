@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       gobject-introspection
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs = [

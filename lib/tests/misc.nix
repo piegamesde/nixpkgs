@@ -503,58 +503,71 @@ runTests {
   ];
 
   testToIntFails = testAllTrue [
-    (builtins.tryEval (toInt "") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt "123 123") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt "0 123") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " 0d ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " 1d ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " d0 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt "00") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt "01") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt "002") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " 002 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " foo ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " foo 123 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toInt " foo123 ") == {
-      success = false;
-      value = false;
-    })
+    (builtins.tryEval (toInt "")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt "123 123")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt "0 123")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " 0d ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " 1d ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " d0 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt "00")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt "01")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt "002")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " 002 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " foo ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " foo 123 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toInt " foo123 ")
+      == {
+        success = false;
+        value = false;
+      })
   ];
 
   testToIntBase10 = testAllTrue [
@@ -588,46 +601,56 @@ runTests {
   ];
 
   testToIntBase10Fails = testAllTrue [
-    (builtins.tryEval (toIntBase10 "") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 "123 123") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 "0 123") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " 0d ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " 1d ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " d0 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " foo ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " foo 123 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " foo 00123 ") == {
-      success = false;
-      value = false;
-    })
-    (builtins.tryEval (toIntBase10 " foo00123 ") == {
-      success = false;
-      value = false;
-    })
+    (builtins.tryEval (toIntBase10 "")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 "123 123")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 "0 123")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " 0d ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " 1d ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " d0 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " foo ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " foo 123 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " foo 00123 ")
+      == {
+        success = false;
+        value = false;
+      })
+    (builtins.tryEval (toIntBase10 " foo00123 ")
+      == {
+        success = false;
+        value = false;
+      })
   ];
 
     # LISTS
@@ -682,42 +705,47 @@ runTests {
     ;
 
   testTake = testAllTrue [
-    ([ ] == (take 0 [
-      1
-      2
-      3
-    ]))
-    ([ 1 ] == (take 1 [
-      1
-      2
-      3
-    ]))
+    ([ ]
+      == (take 0 [
+        1
+        2
+        3
+      ]))
+    ([ 1 ]
+      == (take 1 [
+        1
+        2
+        3
+      ]))
     ([
       1
       2
-    ] == (take 2 [
-      1
-      2
-      3
-    ]))
-    ([
-      1
-      2
-      3
-    ] == (take 3 [
-      1
-      2
-      3
-    ]))
+    ]
+      == (take 2 [
+        1
+        2
+        3
+      ]))
     ([
       1
       2
       3
-    ] == (take 4 [
+    ]
+      == (take 3 [
+        1
+        2
+        3
+      ]))
+    ([
       1
       2
       3
-    ]))
+    ]
+      == (take 4 [
+        1
+        2
+        3
+      ]))
   ];
 
   testFoldAttrs = {

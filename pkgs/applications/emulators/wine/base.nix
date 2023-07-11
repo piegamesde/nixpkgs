@@ -74,8 +74,9 @@ stdenv.mkDerivation
         fontforge
         makeWrapper
         pkg-config
-      ] ++ lib.optionals supportFlags.mingwSupport
-      (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin)
+      ]
+      ++ lib.optionals supportFlags.mingwSupport
+        (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin)
       ;
 
     buildInputs = toBuildInputs pkgArches (with supportFlags;
@@ -84,7 +85,8 @@ stdenv.mkDerivation
           pkgs.freetype
           pkgs.perl
           pkgs.libunwind
-        ] ++ lib.optional stdenv.isLinux pkgs.libcap
+        ]
+        ++ lib.optional stdenv.isLinux pkgs.libcap
         ++ lib.optional stdenv.isDarwin pkgs.libinotify-kqueue
         ++ lib.optional cupsSupport pkgs.cups
         ++ lib.optional gettextSupport pkgs.gettext
@@ -103,11 +105,13 @@ stdenv.mkDerivation
         ++ lib.optional alsaSupport pkgs.alsa-lib
         ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
         ++ lib.optional (xineramaSupport && !waylandSupport)
-        pkgs.xorg.libXinerama ++ lib.optional udevSupport pkgs.udev
+          pkgs.xorg.libXinerama
+        ++ lib.optional udevSupport pkgs.udev
         ++ lib.optional vulkanSupport (if stdenv.isDarwin then
           moltenvk
         else
-          pkgs.vulkan-loader) ++ lib.optional sdlSupport pkgs.SDL2
+          pkgs.vulkan-loader)
+        ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1
         ++ lib.optionals gstreamerSupport (with pkgs.gst_all_1; [
           gstreamer
@@ -116,40 +120,45 @@ stdenv.mkDerivation
           gst-plugins-ugly
           gst-libav
           (gst-plugins-bad.override { enableZbar = false; })
-        ]) ++ lib.optionals gtkSupport [
+        ])
+        ++ lib.optionals gtkSupport [
           pkgs.gtk3
           pkgs.glib
-        ] ++ lib.optionals openclSupport [
+        ]
+        ++ lib.optionals openclSupport [
           pkgs.opencl-headers
           pkgs.ocl-icd
-        ] ++ lib.optionals tlsSupport [
+        ]
+        ++ lib.optionals tlsSupport [
           pkgs.openssl
           pkgs.gnutls
-        ] ++ lib.optionals (openglSupport && !stdenv.isDarwin) [
+        ]
+        ++ lib.optionals (openglSupport && !stdenv.isDarwin) [
           pkgs.libGLU
           pkgs.libGL
           pkgs.mesa.osmesa
           pkgs.libdrm
-        ] ++ lib.optionals stdenv.isDarwin
-        (with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
-          CoreServices
-          Foundation
-          ForceFeedback
-          AppKit
-          OpenGL
-          IOKit
-          DiskArbitration
-          Security
-          ApplicationServices
-          AudioToolbox
-          CoreAudio
-          AudioUnit
-          CoreMIDI
-          OpenCL
-          Cocoa
-          Carbon
-        ]) ++ lib.optionals (stdenv.isLinux && !waylandSupport)
-        (with pkgs.xorg; [
+        ]
+        ++ lib.optionals stdenv.isDarwin
+          (with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
+            CoreServices
+            Foundation
+            ForceFeedback
+            AppKit
+            OpenGL
+            IOKit
+            DiskArbitration
+            Security
+            ApplicationServices
+            AudioToolbox
+            CoreAudio
+            AudioUnit
+            CoreMIDI
+            OpenCL
+            Cocoa
+            Carbon
+          ])
+        ++ lib.optionals (stdenv.isLinux && !waylandSupport) (with pkgs.xorg; [
           libX11
           libXi
           libXcursor
@@ -158,7 +167,8 @@ stdenv.mkDerivation
           libXxf86vm
           libXcomposite
           libXext
-        ]) ++ lib.optionals waylandSupport (with pkgs; [
+        ])
+        ++ lib.optionals waylandSupport (with pkgs; [
           wayland
           libxkbcommon
           wayland-protocols
@@ -168,13 +178,15 @@ stdenv.mkDerivation
         ])));
 
     patches =
-      [ ] ++ lib.optionals stdenv.isDarwin [
+      [ ]
+      ++ lib.optionals stdenv.isDarwin [
         # Wine requires `MTLDevice.registryID` for `winemac.drv`, but that property is not available
         # in the 10.12 SDK (current SDK on x86_64-darwin). Work around that by using selector syntax.
         ./darwin-metal-compat.patch
         # Wine requires `qos.h`, which is not included by default on the 10.12 SDK in nixpkgs.
         ./darwin-qos.patch
-      ] ++ patches'
+      ]
+      ++ patches'
       ;
 
     configureFlags =
@@ -182,8 +194,8 @@ stdenv.mkDerivation
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
       ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
-        "--without-x"
-      ]
+          "--without-x"
+        ]
       ;
 
       # Wine locates a lot of libraries dynamically through dlopen().  Add
@@ -193,11 +205,11 @@ stdenv.mkDerivation
       (map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
       # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport
-        (map (x: "${lib.getLib x}/lib/pulseaudio")
-          (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
+          (map (x: "${lib.getLib x}/lib/pulseaudio")
+            (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
         ++ lib.optionals supportFlags.waylandSupport
-        (map (x: "${lib.getLib x}/share/wayland-protocols")
-          (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))));
+          (map (x: "${lib.getLib x}/share/wayland-protocols")
+            (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))));
 
       # Don't shrink the ELF RPATHs in order to keep the extra RPATH
       # elements specified above.
@@ -217,7 +229,8 @@ stdenv.mkDerivation
         ${lib.strings.concatStringsSep "\n"
         ((map (links "share/wine/gecko") geckos)
           ++ (map (links "share/wine/mono") monos))}
-      '' + lib.optionalString supportFlags.gstreamerSupport ''
+      ''
+      + lib.optionalString supportFlags.gstreamerSupport ''
         # Wrapping Wine is tricky.
         # https://github.com/NixOS/nixpkgs/issues/63170
         # https://github.com/NixOS/nixpkgs/issues/28486
@@ -248,7 +261,8 @@ stdenv.mkDerivation
       # https://bugs.winehq.org/show_bug.cgi?id=43530
       # https://github.com/NixOS/nixpkgs/issues/31989
     hardeningDisable =
-      [ "bindnow" ] ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
+      [ "bindnow" ]
+      ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
       ++ lib.optional (supportFlags.mingwSupport) "format"
       ;
 

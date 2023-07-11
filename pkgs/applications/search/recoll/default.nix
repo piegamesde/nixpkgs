@@ -50,10 +50,12 @@ mkDerivation rec {
       "--enable-recollq"
       "--disable-webkit"
       "--without-systemd"
-    ] ++ lib.optionals (!withGui) [
+    ]
+    ++ lib.optionals (!withGui) [
       "--disable-qtgui"
       "--disable-x11mon"
-    ] ++ (if stdenv.isLinux then
+    ]
+    ++ (if stdenv.isLinux then
       [ "--with-inotify" ]
     else
       [ "--without-inotify" ])
@@ -83,7 +85,8 @@ mkDerivation rec {
       python3Packages.mutagen
       xapian
       zlib
-    ] ++ lib.optionals withGui [ qtbase ]
+    ]
+    ++ lib.optionals withGui [ qtbase ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
@@ -165,9 +168,11 @@ mkDerivation rec {
           with perlPackages;
           makeFullPerlPath [ ImageExifTool ]
         }"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace  $f --replace '"lyx"' '"${lib.getBin lyx}/bin/lyx"'
-    '' + lib.optionalString (stdenv.isDarwin && withGui) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && withGui) ''
       mkdir $out/Applications
       mv $out/bin/recoll.app $out/Applications
     ''

@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       zlib
       libpng
       libjpeg
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       SystemConfiguration
     ]

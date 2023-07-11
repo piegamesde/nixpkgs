@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libxcrypt ] ++ lib.optional (pam != null && stdenv.isLinux) pam
+    [ libxcrypt ]
+    ++ lib.optional (pam != null && stdenv.isLinux) pam
     ++ lib.optional withTcb tcb
     ;
 
@@ -96,7 +97,8 @@ stdenv.mkDerivation rec {
       "--with-group-name-max-length=32"
       "--with-bcrypt"
       "--with-yescrypt"
-    ] ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
+    ]
+    ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
     ++ lib.optional withTcb "--with-tcb"
     ;
 

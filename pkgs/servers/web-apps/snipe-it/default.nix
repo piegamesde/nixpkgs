@@ -15,7 +15,8 @@ let
     noDev = true; # Disable development dependencies
   }).overrideAttrs (attrs: {
     installPhase =
-      attrs.installPhase + ''
+      attrs.installPhase
+      + ''
         # Before symlinking the following directories, copy the invalid_barcode.gif
         # to a different location. The `snipe-it-setup` oneshot service will then
         # copy the file back during bootstrap.

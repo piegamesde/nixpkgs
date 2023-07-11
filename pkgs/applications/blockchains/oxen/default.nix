@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       protobuf
       curl
       sqlite
-    ] ++ lib.optionals trezorSupport [
+    ]
+    ++ lib.optionals trezorSupport [
       libusb1
       protobuf
       python3
@@ -85,7 +86,8 @@ stdenv.mkDerivation rec {
       # It build with shared libs but doesn't install them. Fail.
       # "-DBUILD_SHARED_LIBS=ON"
       "-DLIBZMQ_TARBALL_URL=${lbzmqsrc}"
-    ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
+    ]
+    ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
     ;
 
   meta = with lib; {

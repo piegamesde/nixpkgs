@@ -62,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
       # test/run requires the compgen function which is available in
       # bashInteractive, but not bash.
       bashInteractive
-    ] ++ lib.optional stdenv.isDarwin xcodebuild
+    ]
+    ++ lib.optional stdenv.isDarwin xcodebuild
     ;
 
   checkPhase =
@@ -70,7 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
       badTests =
         [
           "test.trim_dir" # flaky on hydra (possibly filesystem-specific?)
-        ] ++ lib.optionals stdenv.isDarwin [
+        ]
+        ++ lib.optionals stdenv.isDarwin [
           "test.basedir"
           "test.multi_arch"
           "test.nocpp2"

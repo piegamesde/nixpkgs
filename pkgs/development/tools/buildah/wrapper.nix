@@ -24,15 +24,17 @@
 }:
 
 let
-  binPath = lib.makeBinPath ([ ] ++ lib.optionals stdenv.isLinux [
-    runc
-    crun
-    conmon
-    slirp4netns
-    fuse-overlayfs
-    util-linux
-    iptables
-  ] ++ extraPackages);
+  binPath = lib.makeBinPath ([ ]
+    ++ lib.optionals stdenv.isLinux [
+      runc
+      crun
+      conmon
+      slirp4netns
+      fuse-overlayfs
+      util-linux
+      iptables
+    ]
+    ++ extraPackages);
 
   helpersBin = symlinkJoin {
     name =
@@ -40,7 +42,8 @@ let
 
       # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths =
-      [ ] ++ lib.optionals stdenv.isLinux [
+      [ ]
+      ++ lib.optionals stdenv.isLinux [
         aardvark-dns
         netavark
       ]

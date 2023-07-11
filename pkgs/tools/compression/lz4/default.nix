@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.hostPlatform.isWindows ''
       mv $out/bin/*.dll $out/lib
       ln -s $out/lib/*.dll
-    '' + ''
+    ''
+    + ''
       moveToOutput bin "$bin"
     ''
     ;

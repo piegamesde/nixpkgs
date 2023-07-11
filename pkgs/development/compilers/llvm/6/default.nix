@@ -42,8 +42,12 @@ let
 
       # See llvm/cmake/config-ix.cmake.
     platforms =
-      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
-      ++ lib.platforms.power ++ lib.platforms.s390x ++ lib.platforms.wasi
+      lib.platforms.aarch64
+      ++ lib.platforms.arm
+      ++ lib.platforms.mips
+      ++ lib.platforms.power
+      ++ lib.platforms.s390x
+      ++ lib.platforms.wasi
       ++ lib.platforms.x86
       ;
   };

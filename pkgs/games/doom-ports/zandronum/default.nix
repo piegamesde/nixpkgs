@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       libjpeg
       sqlite
       game-music-emu
-    ] ++ lib.optionals (!serverOnly) [
+    ]
+    ++ lib.optionals (!serverOnly) [
       libGL
       glew
       fmod
@@ -82,7 +83,8 @@ stdenv.mkDerivation rec {
       ln -s ${sqlite}/* sqlite/
       sed -ie 's| restrict| _restrict|g' dumb/include/dumb.h \
                                          dumb/src/it/*.c
-    '' + lib.optionalString (!serverOnly) ''
+    ''
+    + lib.optionalString (!serverOnly) ''
       sed -i \
         -e "s@/usr/share/sounds/sf2/@${soundfont-fluid}/share/soundfonts/@g" \
         -e "s@FluidR3_GM.sf2@FluidR3_GM2-2.sf2@g" \
@@ -91,7 +93,8 @@ stdenv.mkDerivation rec {
     ;
 
   cmakeFlags =
-    [ "-DFORCE_INTERNAL_GME=OFF" ] ++ (if serverOnly then
+    [ "-DFORCE_INTERNAL_GME=OFF" ]
+    ++ (if serverOnly then
       [ "-DSERVERONLY=ON" ]
     else
       [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ])

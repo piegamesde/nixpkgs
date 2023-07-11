@@ -35,7 +35,8 @@ buildGoModule rec {
       libXinerama
       libXrandr
       libXxf86vm
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
       IOKit

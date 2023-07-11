@@ -149,7 +149,8 @@ in
             templates = templates.properties;
           };
           target = "/metadata.yaml";
-        } ] ++ templates.files
+        } ]
+        ++ templates.files
         ;
     };
 
@@ -193,7 +194,8 @@ in
               ProtectKernelTunables=no
               NoNewPrivileges=no
               LoadCredential=
-            '' + optionalString cfg.privilegedContainer ''
+            ''
+            + optionalString cfg.privilegedContainer ''
               # Additional settings for privileged containers
               ProtectHome=no
               ProtectSystem=no

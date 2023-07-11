@@ -63,8 +63,10 @@ stdenv.mkDerivation rec {
       "--with-gsl-prefix=${lib.getDev gsl}"
       "--with-libxc-prefix=${lib.getDev libxc}"
       "--enable-openmp"
-    ] ++ optional enableFma "--enable-fma3"
-    ++ optional enableFma4 "--enable-fma4" ++ optional enableAvx "--enable-avx"
+    ]
+    ++ optional enableFma "--enable-fma3"
+    ++ optional enableFma4 "--enable-fma4"
+    ++ optional enableAvx "--enable-avx"
     ++ optional enableAvx512 "--enable-avx512";
 
   doCheck = false;

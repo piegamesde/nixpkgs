@@ -60,7 +60,9 @@ let
         gss
         libintl
         libdaemon
-      ] ++ lib.optional gtkWidgets gtk3 ++ lib.optional avahiSupport avahi
+      ]
+      ++ lib.optional gtkWidgets gtk3
+      ++ lib.optional avahiSupport avahi
       ;
 
     propagatedBuildInputs = [ gnutls ];

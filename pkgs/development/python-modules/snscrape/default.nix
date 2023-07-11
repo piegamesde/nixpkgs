@@ -35,7 +35,8 @@ buildPythonPackage rec {
       filelock
       lxml
       requests
-    ] ++ requests.optional-dependencies.socks
+    ]
+    ++ requests.optional-dependencies.socks
     ++ lib.optionals (pythonOlder "3.9") [ pytz ]
     ;
 

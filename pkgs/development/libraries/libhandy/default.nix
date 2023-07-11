@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "devdoc"
-    ] ++ lib.optionals enableGlade [ "glade" ]
+    ]
+    ++ lib.optionals enableGlade [ "glade" ]
     ;
   outputBin = "dev";
 
@@ -56,16 +57,18 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       vala
-    ] ++ lib.optionals enableGlade [
-      libxml2 # for xmllint
     ]
+    ++ lib.optionals enableGlade [
+        libxml2 # for xmllint
+      ]
     ;
 
   buildInputs =
     [
       gdk-pixbuf
       gtk3
-    ] ++ lib.optionals enableGlade [ glade ]
+    ]
+    ++ lib.optionals enableGlade [ glade ]
     ;
 
   nativeCheckInputs = [

@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
       mpfr
       gcc
       # replaces ecl's own gc which other packages can depend on, thus propagated
-    ] ++ lib.optionals useBoehmgc [
+    ]
+    ++ lib.optionals useBoehmgc [
       # replaces ecl's own gc which other packages can depend on, thus propagated
       boehmgc
     ]
@@ -68,10 +69,12 @@ stdenv.mkDerivation rec {
       "--with-gmp-libdir=${lib.getLib gmp}/lib"
       "--with-libffi-incdir=${lib.getDev libffi}/include"
       "--with-libffi-libdir=${lib.getLib libffi}/lib"
-    ] ++ lib.optionals useBoehmgc [
+    ]
+    ++ lib.optionals useBoehmgc [
       "--with-libgc-incdir=${lib.getDev boehmgc}/include"
       "--with-libgc-libdir=${lib.getLib boehmgc}/lib"
-    ] ++ lib.optional (!noUnicode) "--enable-unicode"
+    ]
+    ++ lib.optional (!noUnicode) "--enable-unicode"
     ;
 
   hardeningDisable = [ "format" ];

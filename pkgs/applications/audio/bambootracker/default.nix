@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       qtbase
       rtaudio
       rtmidi
-    ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ]
+    ]
+    ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ]
     ;
 
   qmakeFlags = [

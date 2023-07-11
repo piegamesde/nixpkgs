@@ -331,7 +331,8 @@ in
             thin-provisioning-tools
             iptables
             socat
-          ] ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
+          ]
+          ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
           ++ top.path;
         preStart = ''
           ${concatMapStrings (img: ''

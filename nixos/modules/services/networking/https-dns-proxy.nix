@@ -142,7 +142,9 @@ in
           "-p ${toString cfg.port}"
           "-l -"
           providerCfg
-        ] ++ lib.optional cfg.preferIPv4 "-4" ++ cfg.extraArgs);
+        ]
+          ++ lib.optional cfg.preferIPv4 "-4"
+          ++ cfg.extraArgs);
         Restart = "on-failure";
       };
     };

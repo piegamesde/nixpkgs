@@ -26,7 +26,9 @@ runCommand (rstudio.name + "-wrapper") {
     [
       R
       rstudio
-    ] ++ recommendedPackages ++ packages
+    ]
+    ++ recommendedPackages
+    ++ packages
     ;
 
     # rWrapper points R to a specific set of packages by using a wrapper
@@ -46,16 +48,17 @@ runCommand (rstudio.name + "-wrapper") {
   echo -n $R_LIBS_SITE | sed -e 's/:/", "/g' >> $out/$fixLibsR
   echo -n "\"))" >> $out/$fixLibsR
   echo >> $out/$fixLibsR
-'' + (if rstudio.server then
-  ''
-    makeWrapper ${rstudio}/bin/rsession $out/bin/rsession \
-      --set R_PROFILE_USER $out/$fixLibsR --set FONTCONFIG_FILE ${fontconfig.out}/etc/fonts/fonts.conf
+''
+  + (if rstudio.server then
+    ''
+      makeWrapper ${rstudio}/bin/rsession $out/bin/rsession \
+        --set R_PROFILE_USER $out/$fixLibsR --set FONTCONFIG_FILE ${fontconfig.out}/etc/fonts/fonts.conf
 
-    makeWrapper ${rstudio}/bin/rserver $out/bin/rserver \
-      --add-flags --rsession-path=$out/bin/rsession
-  ''
-else
-  ''
-    makeQtWrapper ${rstudio}/bin/rstudio $out/bin/rstudio \
-      --set R_PROFILE_USER $out/$fixLibsR
-  ''))
+      makeWrapper ${rstudio}/bin/rserver $out/bin/rserver \
+        --add-flags --rsession-path=$out/bin/rsession
+    ''
+  else
+    ''
+      makeQtWrapper ${rstudio}/bin/rstudio $out/bin/rstudio \
+        --set R_PROFILE_USER $out/$fixLibsR
+    ''))

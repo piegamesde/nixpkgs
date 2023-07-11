@@ -66,7 +66,8 @@ buildPythonPackage rec {
       pydyf
       pyphen
       tinycss2
-    ] ++ fonttools.optional-dependencies.woff
+    ]
+    ++ fonttools.optional-dependencies.woff
     ;
 
   nativeCheckInputs = [

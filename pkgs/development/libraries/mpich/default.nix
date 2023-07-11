@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       "--enable-shared"
       "--enable-sharedlib"
       "--with-pm=${withPm}"
-    ] ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
+    ]
+    ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
       "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
       "FCFLAGS=-fallow-argument-mismatch"
     ]
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
       perl
       openssh
       hwloc
-    ] ++ lib.optional (!stdenv.isDarwin) ch4backend
+    ]
+    ++ lib.optional (!stdenv.isDarwin) ch4backend
     ;
 
   doCheck = true;

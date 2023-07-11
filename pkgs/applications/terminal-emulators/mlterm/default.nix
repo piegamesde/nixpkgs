@@ -121,20 +121,23 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       autoconf
-    ] ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ]
+    ]
+    ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ]
     ;
   buildInputs =
     [
       gtk
       vte
       gdk-pixbuf
-    ] ++ lib.optionals enableTypeEngines.xcore [ libX11 ]
+    ]
+    ++ lib.optionals enableTypeEngines.xcore [ libX11 ]
     ++ lib.optionals enableTypeEngines.xft [ libXft ]
     ++ lib.optionals enableTypeEngines.cairo [ cairo ]
     ++ lib.optionals enableGuis.wayland [
       libxkbcommon
       wayland
-    ] ++ lib.optionals enableGuis.sdl2 [ SDL2 ]
+    ]
+    ++ lib.optionals enableGuis.sdl2 [ SDL2 ]
     ++ lib.optionals enableFeatures.otl [ harfbuzz ]
     ++ lib.optionals enableFeatures.bidi [ fribidi ]
     ++ lib.optionals enableFeatures.ssh2 [ libssh2 ]
@@ -142,7 +145,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableFeatures.fcitx [
       fcitx5
       fcitx5-gtk
-    ] ++ lib.optionals enableFeatures.ibus [ ibus ]
+    ]
+    ++ lib.optionals enableFeatures.ibus [ ibus ]
     ++ lib.optionals enableFeatures.uim [ uim ]
     ;
 
@@ -172,9 +176,11 @@ stdenv.mkDerivation rec {
       (withFeaturesList "tools" enableTools)
       (withFeaturesList "gui" enableGuis)
       (lib.withFeature enableX11 "x")
-    ] ++ lib.optionals (gtk != null) [
-      "--with-gtk=${lib.versions.major gtk.version}.0"
-    ] ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
+    ]
+    ++ lib.optionals (gtk != null) [
+        "--with-gtk=${lib.versions.major gtk.version}.0"
+      ]
+    ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
     ++ [ ]
     ;
 
@@ -185,7 +191,8 @@ stdenv.mkDerivation rec {
       install -D contrib/icon/mlterm-icon.svg "$out/share/icons/hicolor/scalable/apps/mlterm.svg"
       install -D contrib/icon/mlterm-icon-gnome2.png "$out/share/icons/hicolor/48x48/apps/mlterm.png"
       install -D -t $out/share/applications $desktopItem/share/applications/*
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications/
       cp -a cocoa/mlterm.app $out/Applications/
       install $out/bin/mlterm -Dt $out/Applications/mlterm.app/Contents/MacOS/

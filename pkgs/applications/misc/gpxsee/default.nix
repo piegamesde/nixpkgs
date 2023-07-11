@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     [
       qtpbfimageplugin
       qtserialport
-    ] ++ (if isQt6 then
+    ]
+    ++ (if isQt6 then
       [
         qtbase
         qtpositioning

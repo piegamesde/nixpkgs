@@ -47,7 +47,9 @@ stdenv.mkDerivation ({
       perl
       unzip
       makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs
+    ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook
+    ++ extraNativeBuildInputs
     ;
 
   buildInputs =
@@ -55,7 +57,8 @@ stdenv.mkDerivation ({
       stdenv.cc.cc.lib # libstdc++.so.6
       zlib
       libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
 
   unpackPhase = ''

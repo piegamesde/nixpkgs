@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       expat
       libxml2
       openssl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       pam
       systemd
@@ -56,8 +57,9 @@ stdenv.mkDerivation rec {
       "--enable-delay-pools"
       "--enable-x-accelerator-vary"
       "--enable-htcp"
-    ] ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
-    "--enable-linux-netfilter"
+    ]
+    ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
+      "--enable-linux-netfilter"
     ;
 
   doCheck = true;

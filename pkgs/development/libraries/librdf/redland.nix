@@ -43,8 +43,11 @@ stdenv.mkDerivation rec {
       pcre
       libxml2
       gmp
-    ] ++ lib.optional withMysql libmysqlclient ++ lib.optional withSqlite sqlite
-    ++ lib.optional withPostgresql postgresql ++ lib.optional withBdb db
+    ]
+    ++ lib.optional withMysql libmysqlclient
+    ++ lib.optional withSqlite sqlite
+    ++ lib.optional withPostgresql postgresql
+    ++ lib.optional withBdb db
     ;
 
   propagatedBuildInputs = [ librdf_rasqal ];
@@ -52,7 +55,8 @@ stdenv.mkDerivation rec {
   postInstall = "rm -rvf $out/share/gtk-doc";
 
   configureFlags =
-    [ "--with-threads" ] ++ lib.optionals withBdb [
+    [ "--with-threads" ]
+    ++ lib.optionals withBdb [
       "--with-bdb-include=${db.dev}/include"
       "--with-bdb-lib=${db.out}/lib"
     ]

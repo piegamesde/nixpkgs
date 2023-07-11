@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       SDL2
       fontconfig
       gtk3
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   postPatch = ''
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       mkdir -p "$out/Applications"
       mv "$out/openboardview.app" "$out/Applications/OpenBoardView.app"
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       wrapGApp "$out/bin/${pname}" \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
     ''

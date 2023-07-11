@@ -101,7 +101,8 @@ let
               "https://github.com/openzfs/zfs/commit/1f19826c9ac85835cbde61a7439d9d1fefe43a4a.patch";
             sha256 = "XEaK227ubfOwlB2s851UvZ6xp/QOtYUWYsKTkEHzmo0=";
           })
-        ] ++ extraPatches
+        ]
+        ++ extraPatches
         ;
 
       postPatch =
@@ -112,7 +113,8 @@ let
           substituteInPlace ./module/os/linux/zfs/zfs_ctldir.c \
             --replace '"/usr/bin/env", "umount"' '"${util-linux}/bin/umount", "-n"' \
             --replace '"/usr/bin/env", "mount"'  '"${util-linux}/bin/mount", "-n"'
-        '' + optionalString buildUser ''
+        ''
+        + optionalString buildUser ''
           substituteInPlace ./lib/libshare/os/linux/nfs.c --replace "/usr/sbin/exportfs" "${
           # We don't *need* python support, but we set it like this to minimize closure size:
           # If it's disabled by default, no need to enable it, even if we have python enabled
@@ -166,7 +168,8 @@ let
         [
           autoreconfHook269
           nukeReferences
-        ] ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
+        ]
+        ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
         ++ optional buildUser pkg-config
         ;
       buildInputs =
@@ -175,7 +178,9 @@ let
           libuuid
           attr
           libtirpc
-        ] ++ optional buildUser openssl ++ optional buildUser curl
+        ]
+        ++ optional buildUser openssl
+        ++ optional buildUser curl
         ++ optional (buildUser && enablePython) python3
         ;
 
@@ -194,7 +199,8 @@ let
           "--with-tirpc=1"
           (lib.withFeatureAs (buildUser && enablePython) "python"
             python3.interpreter)
-        ] ++ optionals buildUser [
+        ]
+        ++ optionals buildUser [
           "--with-dracutdir=$(out)/lib/dracut"
           "--with-udevdir=$(out)/lib/udev"
           "--with-systemdunitdir=$(out)/etc/systemd/system"
@@ -205,10 +211,12 @@ let
           "--sysconfdir=/etc"
           "--localstatedir=/var"
           "--enable-systemd"
-        ] ++ optionals buildKernel ([
+        ]
+        ++ optionals buildKernel ([
           "--with-linux=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
           "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-        ] ++ kernel.makeFlags)
+        ]
+          ++ kernel.makeFlags)
         ;
 
       makeFlags = optionals buildKernel kernel.makeFlags;
@@ -233,7 +241,8 @@ let
           # Add reference that cannot be detected due to compressed kernel module
           mkdir -p "$out/nix-support"
           echo "${util-linux}" >> "$out/nix-support/extra-refs"
-        '' + optionalString buildUser ''
+        ''
+        + optionalString buildUser ''
           # Remove provided services as they are buggy
           rm $out/etc/systemd/system/zfs-import-*.service
 

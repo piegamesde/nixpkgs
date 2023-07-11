@@ -36,12 +36,15 @@ stdenv.mkDerivation rec {
     [
       libevdev
       xorg.libXtst
-    ] ++ lib.optionals gtkSupport [
+    ]
+    ++ lib.optionals gtkSupport [
       gtk3
       pcre
       glib
       wrapGAppsHook
-    ] ++ lib.optionals fltkSupport [ fltk ] ++ lib.optionals qtSupport [
+    ]
+    ++ lib.optionals fltkSupport [ fltk ]
+    ++ lib.optionals qtSupport [
       qt5.qtbase
       qt5.wrapQtAppsHook
     ]

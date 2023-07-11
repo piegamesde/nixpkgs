@@ -102,7 +102,8 @@ let
   joinRelPath =
     components:
     # Always return relative paths with `./` as a prefix (./path.md#leading-dots-for-relative-paths)
-    "./" +
+    "./"
+    +
     # An empty string is not a valid relative path, so we need to return a `.` when we have no components
     (if components == [ ] then
       "."

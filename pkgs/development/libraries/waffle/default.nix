@@ -38,15 +38,19 @@ stdenv.mkDerivation rec {
     [
       bash-completion
       libGL
-    ] ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
-      libglvnd
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
+        libglvnd
+      ]
+    ++ lib.optionals x11Support [
       libX11
       libxcb
-    ] ++ lib.optionals waylandSupport [
+    ]
+    ++ lib.optionals waylandSupport [
       wayland
       wayland-protocols
-    ] ++ lib.optionals useGbm [
+    ]
+    ++ lib.optionals useGbm [
       udev
       mesa
     ]

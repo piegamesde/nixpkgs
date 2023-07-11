@@ -85,7 +85,8 @@ buildPythonPackage rec {
       nbformat
       pytest-cases
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.data
+    ]
+    ++ passthru.optional-dependencies.data
     ;
 
   disabledTestPaths = [

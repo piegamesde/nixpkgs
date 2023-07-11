@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       libtool
       icu
       pcre2
-    ] ++ lib.optional pulseaudioSupport libpulseaudio
+    ]
+    ++ lib.optional pulseaudioSupport libpulseaudio
     ;
 
   env.NIX_CFLAGS_COMPILE = toString [

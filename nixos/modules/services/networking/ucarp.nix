@@ -22,7 +22,9 @@ let
     "--upscript=${cfg.upscript}"
     "--downscript=${cfg.downscript}"
     "--deadratio=${toString cfg.deadratio}"
-  ] ++ (optional cfg.preempt "--preempt") ++ (optional cfg.neutral "--neutral")
+  ]
+    ++ (optional cfg.preempt "--preempt")
+    ++ (optional cfg.neutral "--neutral")
     ++ (optional cfg.shutdown "--shutdown")
     ++ (optional cfg.ignoreIfState "--ignoreifstate")
     ++ (optional cfg.noMcast "--nomcast")

@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       SDL2_mixer
       tinyxml-2
       utf8cpp
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       IOKit
     ]
@@ -88,14 +89,16 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A retro-styled platform game" + lib.optionalString makeAndPlay
-      " (redistributable, without original levels)"
+      "A retro-styled platform game"
+      + lib.optionalString makeAndPlay
+        " (redistributable, without original levels)"
       ;
     longDescription =
       ''
         VVVVVV is a platform game all about exploring one simple mechanical
         idea - what if you reversed gravity instead of jumping?
-      '' + lib.optionalString makeAndPlay ''
+      ''
+      + lib.optionalString makeAndPlay ''
         (Redistributable version, doesn't include the original levels.)
       ''
       ;

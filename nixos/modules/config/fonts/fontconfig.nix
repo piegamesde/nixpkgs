@@ -332,7 +332,8 @@ in
         "fonts"
         "optimizeForVeryHighDPI"
       ] fontconfigNote)
-    ] ++ lib.forEach [
+    ]
+    ++ lib.forEach [
       "enable"
       "substitutions"
       "preset"

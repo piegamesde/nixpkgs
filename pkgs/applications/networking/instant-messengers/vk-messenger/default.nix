@@ -63,7 +63,8 @@ let
         libXtst
         libXScrnSaver
         libxkbfile
-      ]) ++ [
+      ])
+      ++ [
         gtk3
         nss
         alsa-lib

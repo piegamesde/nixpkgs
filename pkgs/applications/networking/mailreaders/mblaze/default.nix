@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       installShellCompletion contrib/_mblaze
-    '' + lib.optionalString (ruby != null) ''
+    ''
+    + lib.optionalString (ruby != null) ''
       install -Dt $out/bin contrib/msuck contrib/mblow
 
       # The following wrappings are used to preserve the executable

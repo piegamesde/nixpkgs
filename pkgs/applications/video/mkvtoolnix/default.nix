@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       libxslt
       pkg-config
       rake
-    ] ++ optional withGUI wrapQtAppsHook
+    ]
+    ++ optional withGUI wrapQtAppsHook
     ;
 
     # 1. qtbase and qtmultimedia are needed without the GUI
@@ -91,7 +92,9 @@ stdenv.mkDerivation rec {
       qtmultimedia
       xdg-utils
       zlib
-    ] ++ optional withGUI cmark ++ optional stdenv.isDarwin libiconv
+    ]
+    ++ optional withGUI cmark
+    ++ optional stdenv.isDarwin libiconv
     ;
 
     # autoupdate is not needed but it silences a ton of pointless warnings

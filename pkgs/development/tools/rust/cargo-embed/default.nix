@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
     [
       libusb1
       libftdi1
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ;
 
   buildFeatures = [ "ftdi" ];

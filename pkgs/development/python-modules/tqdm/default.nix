@@ -33,7 +33,8 @@ buildPythonPackage rec {
       numpy
       rich
       tkinter
-    ] ++
+    ]
+    ++
     # pandas is not supported on i686 or risc-v
     lib.optional (!stdenv.isi686 && !stdenv.hostPlatform.isRiscV) pandas
     ;

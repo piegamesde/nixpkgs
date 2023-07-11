@@ -31,7 +31,8 @@ gnuradio3_8Minimal.pkgs.mkDerivation rec {
       fftwFloat
       liquid-dsp
       qt5.qtbase
-    ] ++ lib.optionals (gnuradio3_8Minimal.hasFeature "gr-ctrlport") [
+    ]
+    ++ lib.optionals (gnuradio3_8Minimal.hasFeature "gr-ctrlport") [
       thrift
       gnuradio3_8Minimal.unwrapped.python.pkgs.thrift
     ]

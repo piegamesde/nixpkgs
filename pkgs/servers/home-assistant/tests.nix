@@ -134,13 +134,15 @@ lib.listToAttrs (map (component:
     dontUsePytestXdist = true;
 
     pytestFlagsArray =
-      lib.remove "tests" old.pytestFlagsArray ++ [ "--numprocesses=2" ]
+      lib.remove "tests" old.pytestFlagsArray
+      ++ [ "--numprocesses=2" ]
       ++ extraPytestFlagsArray.${component} or [ ]
       ++ [ "tests/components/${component}" ]
       ;
 
     preCheck =
-      old.preCheck + lib.optionalString (builtins.elem component [
+      old.preCheck
+      + lib.optionalString (builtins.elem component [
         "emulated_hue"
         "songpal"
         "system_log"

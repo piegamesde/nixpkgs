@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
     [
       ncurses
       openssl
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   meta = with lib; {

@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       Xaw3d
       ghostscriptX
       perl
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   patchPhase = ''

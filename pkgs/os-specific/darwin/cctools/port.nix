@@ -56,7 +56,8 @@ stdenv.mkDerivation {
     installShellFiles
   ];
   buildInputs =
-    [ libuuid ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
+    [ libuuid ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc ]
     ++ lib.optional enableTapiSupport libtapi
     ;
 
@@ -74,7 +75,8 @@ stdenv.mkDerivation {
           "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
         hash = "sha256-SWVUzFaJHH2fu9y8RcU3Nx/QKx60hPE5zFx0odYDeQs=";
       })
-    ] ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch
+    ]
+    ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch
     ;
 
   __propagatedImpureHostDeps = [
@@ -90,10 +92,12 @@ stdenv.mkDerivation {
     [
       "build"
       "host"
-    ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target"
+    ]
+    ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target"
     ;
   configureFlags =
-    [ "--disable-clang-as" ] ++ lib.optionals enableTapiSupport [
+    [ "--disable-clang-as" ]
+    ++ lib.optionals enableTapiSupport [
       "--enable-tapi-support"
       "--with-libtapi=${libtapi}"
     ]
@@ -102,7 +106,8 @@ stdenv.mkDerivation {
   postPatch =
     lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace cctools/Makefile.am --replace libobjc2 ""
-    '' + ''
+    ''
+    + ''
       sed -i -e 's/addStandardLibraryDirectories = true/addStandardLibraryDirectories = false/' cctools/ld64/src/ld/Options.cpp
 
       # FIXME: there are far more absolute path references that I don't want to fix right now

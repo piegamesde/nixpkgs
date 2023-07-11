@@ -48,7 +48,8 @@ mkDerivation {
       boost
       gmp
       icu
-    ] ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
+    ]
+    ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
       python.pkgs.thrift
     ]

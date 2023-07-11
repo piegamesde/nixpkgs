@@ -65,7 +65,8 @@ python3.pkgs.buildPythonApplication rec {
       libsoup_3
       pango
       totem-pl-parser
-    ] ++ lib.optional lastFMSupport libsecret;
+    ]
+    ++ lib.optional lastFMSupport libsecret;
 
   propagatedBuildInputs = with python3.pkgs;
     [
@@ -73,7 +74,8 @@ python3.pkgs.buildPythonApplication rec {
       pillow
       pycairo
       pygobject3
-    ] ++ lib.optional lastFMSupport pylast
+    ]
+    ++ lib.optional lastFMSupport pylast
     ++ lib.optional youtubeSupport youtube-dl;
 
   postPatch = ''

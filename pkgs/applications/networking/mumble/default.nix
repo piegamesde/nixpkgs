@@ -50,7 +50,8 @@ let
           python3
           qt5.wrapQtAppsHook
           qt5.qttools
-        ] ++ (overrides.nativeBuildInputs or [ ])
+        ]
+        ++ (overrides.nativeBuildInputs or [ ])
         ;
 
       buildInputs =
@@ -59,7 +60,8 @@ let
           boost
           poco
           protobuf
-        ] ++ (overrides.buildInputs or [ ])
+        ]
+        ++ (overrides.buildInputs or [ ])
         ;
 
       cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
@@ -99,7 +101,8 @@ let
           qt5.qtsvg
           rnnoise
           speex
-        ] ++ lib.optional (!jackSupport) alsa-lib
+        ]
+        ++ lib.optional (!jackSupport) alsa-lib
         ++ lib.optional jackSupport libjack2
         ++ lib.optional speechdSupport speechd
         ++ lib.optional pulseSupport libpulseaudio
@@ -117,7 +120,8 @@ let
           "-D update=OFF"
           "-D overlay-xcompile=OFF"
           "-D oss=OFF"
-        ] ++ lib.optional (!speechdSupport) "-D speechd=OFF"
+        ]
+        ++ lib.optional (!speechdSupport) "-D speechd=OFF"
         ++ lib.optional (!pulseSupport) "-D pulseaudio=OFF"
         ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
         ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON"
@@ -142,16 +146,19 @@ let
       type = "murmur";
 
       configureFlags =
-        [ "-D client=OFF" ] ++ lib.optional (!iceSupport) "-D ice=OFF"
+        [ "-D client=OFF" ]
+        ++ lib.optional (!iceSupport) "-D ice=OFF"
         ++ lib.optionals iceSupport [
           "-D Ice_HOME=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
           "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
           "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
-        ] ++ lib.optional grpcSupport "-D grpc=ON"
+        ]
+        ++ lib.optional grpcSupport "-D grpc=ON"
         ;
 
       buildInputs =
-        [ libcap ] ++ lib.optional iceSupport zeroc-ice
+        [ libcap ]
+        ++ lib.optional iceSupport zeroc-ice
         ++ lib.optionals grpcSupport [
           grpc
           which

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       readline
       which
       ed
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ++ lib.optional (!withInternalSqlite) sqlite
     ;
 

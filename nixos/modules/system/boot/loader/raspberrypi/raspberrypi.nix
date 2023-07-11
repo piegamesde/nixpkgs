@@ -44,18 +44,21 @@ let
     # Prevent the firmware from smashing the framebuffer setup done by the mainline kernel
     # when attempting to show low-voltage or overtemperature warnings.
     avoid_warnings=1
-  '' + optional isAarch64 ''
-    # Boot in 64-bit mode.
-    arm_64bit=1
-  '' + (if cfg.uboot.enable then
+  ''
+    + optional isAarch64 ''
+      # Boot in 64-bit mode.
+      arm_64bit=1
     ''
-      kernel=u-boot-rpi.bin
-    ''
-  else
-    ''
-      kernel=kernel.img
-      initramfs initrd followkernel
-    '') + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
+    + (if cfg.uboot.enable then
+      ''
+        kernel=u-boot-rpi.bin
+      ''
+    else
+      ''
+        kernel=kernel.img
+        initramfs initrd followkernel
+      '')
+    + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
 
 in
 {

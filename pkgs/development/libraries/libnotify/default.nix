@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       libxslt
       docbook-xsl-ns
       glib # for glib-mkenums needed during the build
-    ] ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ]
     ;
 
   propagatedBuildInputs = [

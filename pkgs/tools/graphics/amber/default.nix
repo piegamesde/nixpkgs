@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       python3
-    ] ++ lib.optionals stdenv.isDarwin [ cctools ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ cctools ]
     ;
 
     # Tests are disabled so we do not have to pull in googletest and more dependencies

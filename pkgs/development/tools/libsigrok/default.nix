@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       libserialport
       glibmm
       hidapi
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libieee1284
       bluez
     ]

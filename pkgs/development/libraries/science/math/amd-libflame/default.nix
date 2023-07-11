@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       # implicit dependency. Moreover, since the point of the AMD forks
       # is to optimized for recent AMD CPUs, link against AMD BLIS.
       "LDFLAGS=-lcblas"
-    ] ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ]
+    ]
+    ++ lib.optionals withOpenMP [ "--enable-multithreading=openmp" ]
     ;
 
   enableParallelBuilding = true;

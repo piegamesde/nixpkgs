@@ -63,7 +63,8 @@ in
       [
         pkgs.wmderland
         pkgs.wmderlandc
-      ] ++ cfg.extraPackages
+      ]
+      ++ cfg.extraPackages
       ;
   };
 }

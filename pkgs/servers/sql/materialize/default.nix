@@ -48,10 +48,12 @@ let
             src = js_dev_file;
             dst = "${jsDevVendor}/${name}.js";
           }
-        ] ++ lib.optional (args ? css_file) {
+        ]
+        ++ lib.optional (args ? css_file) {
           src = css_file;
           dst = "${cssVendor}/${name}.css";
-        } ++ lib.optional (args ? extra_file) {
+        }
+        ++ lib.optional (args ? extra_file) {
           src = extra_file.src;
           dst = "${static}/${extra_file.dst}";
         };
@@ -117,7 +119,8 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       DiskArbitration
       Foundation

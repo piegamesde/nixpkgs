@@ -45,7 +45,8 @@ buildPythonPackage rec {
       cffsubr
       ufoLib2
       skia-pathops
-    ] ++ fonttools.optional-dependencies.lxml
+    ]
+    ++ fonttools.optional-dependencies.lxml
     ++ fonttools.optional-dependencies.ufo
     ;
 

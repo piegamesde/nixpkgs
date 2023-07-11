@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optionals withIntrospection [ "devdoc" ]
+    ]
+    ++ lib.optionals withIntrospection [ "devdoc" ]
     ;
 
   src = fetchurl {
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       python3Packages.docutils
       vala
       rustPlatform.cargoSetupHook
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       gi-docgen
     ]
@@ -84,7 +86,8 @@ stdenv.mkDerivation rec {
       pango
       libintl
       vala # for share/vala/Makefile.vapigen
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Foundation
       libobjc
@@ -103,9 +106,10 @@ stdenv.mkDerivation rec {
       (lib.enableFeature withIntrospection "vala")
 
       "--enable-always-build-tests"
-    ] ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
+    ]
+    ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-    "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
+      "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
     ;
 
   doCheck =
@@ -145,7 +149,8 @@ stdenv.mkDerivation rec {
 
       # 'error: linker `cc` not found' when cross-compiling
       export RUSTFLAGS="-Clinker=$CC"
-    '' + lib.optionalString ((stdenv.buildPlatform != stdenv.hostPlatform)
+    ''
+    + lib.optionalString ((stdenv.buildPlatform != stdenv.hostPlatform)
       && (stdenv.hostPlatform.emulatorAvailable buildPackages)) ''
         # the replacement is the native conditional
         substituteInPlace gdk-pixbuf-loader/Makefile \

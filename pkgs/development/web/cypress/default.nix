@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       libXdamage
       libXtst
       libxshmfence
-    ] ++ [
+    ]
+    ++ [
       nss
       gtk2
       alsa-lib

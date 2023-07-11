@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       cmake
-    ] ++ lib.optional stdenv.isLinux wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.isLinux wrapQtAppsHook
     ;
 
   buildInputs =
@@ -98,13 +99,15 @@ stdenv.mkDerivation rec {
       fmt
       xz
       qtbase
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       bluez
       udev
       libevdev
       alsa-lib
       vulkan-loader
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreBluetooth
       OpenGL
       ForceFeedback
@@ -116,7 +119,8 @@ stdenv.mkDerivation rec {
     [
       "-DUSE_SHARED_ENET=ON"
       "-DENABLE_LTO=ON"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DOSX_USE_DEFAULT_SEARCH_PATH=True" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DOSX_USE_DEFAULT_SEARCH_PATH=True" ]
     ;
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
@@ -130,7 +134,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       substituteInPlace CMakeLists.txt --replace 'DISTRIBUTOR "None"' 'DISTRIBUTOR "NixOS"'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace CMakeLists.txt --replace 'if(NOT APPLE)' 'if(true)'
       substituteInPlace CMakeLists.txt --replace 'if(LIBUSB_FOUND AND NOT APPLE)' 'if(LIBUSB_FOUND)'
     ''
@@ -143,7 +148,8 @@ stdenv.mkDerivation rec {
       mv $out/share/applications/dolphin-emu.desktop $out/share/applications/dolphin-emu-primehack.desktop
       mv $out/share/icons/hicolor/256x256/apps/dolphin-emu.png $out/share/icons/hicolor/256x256/apps/dolphin-emu-primehack.png
       substituteInPlace $out/share/applications/dolphin-emu-primehack.desktop --replace 'dolphin-emu' 'dolphin-emu-primehack'
-    '' + lib.optionalString stdenv.hostPlatform.isLinux ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isLinux ''
       install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
     ''
     ;

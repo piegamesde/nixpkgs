@@ -29,7 +29,8 @@ buildPythonPackage rec {
       six
       twisted
       zope_interface
-    ] ++ twisted.optional-dependencies.tls
+    ]
+    ++ twisted.optional-dependencies.tls
     ;
 
   nativeCheckInputs = [ twisted ];

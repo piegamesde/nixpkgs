@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       xercesc
       zlib
       zstd
-    ] ++ lib.optionals enableE57 [ libe57format ]
+    ]
+    ++ lib.optionals enableE57 [ libe57format ]
     ;
 
   cmakeFlags = [

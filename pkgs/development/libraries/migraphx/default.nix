@@ -53,7 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals buildTests [ "test" ]
     ;
 
@@ -72,7 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
       hip
       clang-tools-extra
       python3Packages.python
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       latex
       doxygen
       sphinx
@@ -121,10 +123,12 @@ stdenv.mkDerivation (finalAttrs: {
 
       substituteInPlace src/targets/gpu/CMakeLists.txt \
         --replace "CMAKE_CXX_COMPILER MATCHES \".*clang\\\+\\\+\$\"" "TRUE"
-    '' + lib.optionalString (!buildDocs) ''
+    ''
+    + lib.optionalString (!buildDocs) ''
       substituteInPlace CMakeLists.txt \
         --replace "add_subdirectory(doc)" ""
-    '' + lib.optionalString (!buildTests) ''
+    ''
+    + lib.optionalString (!buildTests) ''
       substituteInPlace CMakeLists.txt \
         --replace "add_subdirectory(test)" ""
     ''
@@ -143,7 +147,8 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildDocs ''
       mv ../doc/html $out/share/doc/migraphx
       mv ../doc/pdf/MIGraphX.pdf $out/share/doc/migraphx
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv bin/test_* $test/bin
       patchelf $test/bin/test_* --shrink-rpath --allowed-rpath-prefixes /nix/store

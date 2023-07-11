@@ -53,7 +53,9 @@ stdenv.mkDerivation rec {
       pantheon.granite
       webkitgtk
       # We add libqalculate's runtime dependencies because nasc has it as a modified subproject.
-    ] ++ libqalculate.buildInputs ++ libqalculate.propagatedBuildInputs
+    ]
+    ++ libqalculate.buildInputs
+    ++ libqalculate.propagatedBuildInputs
     ;
 
   postPatch = ''

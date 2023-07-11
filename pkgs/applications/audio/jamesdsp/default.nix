@@ -54,7 +54,9 @@ mkDerivation rec {
       libarchive
       qtbase
       qtsvg
-    ] ++ lib.optional usePipewire pipewire ++ lib.optionals usePulseaudio [
+    ]
+    ++ lib.optional usePipewire pipewire
+    ++ lib.optionals usePulseaudio [
       pulseaudio
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-good

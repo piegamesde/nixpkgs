@@ -35,7 +35,8 @@ let
     lib.makeLibraryPath [
       cups
       libusb-compat-0_1
-    ] + ":$out/lib:${stdenv.cc.cc.lib}/lib${appendPath}"
+    ]
+    + ":$out/lib:${stdenv.cc.cc.lib}/lib${appendPath}"
     ;
 in
 stdenv.mkDerivation rec {

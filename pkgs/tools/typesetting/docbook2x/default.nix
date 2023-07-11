@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       opensp
       libiconv
       bash
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLSAX
       XMLParser

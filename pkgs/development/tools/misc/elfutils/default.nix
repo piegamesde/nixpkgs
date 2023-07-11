@@ -62,13 +62,15 @@ stdenv.mkDerivation rec {
           "https://git.alpinelinux.org/aports/plain/main/elfutils/musl-strndupa.patch?id=2e3d4976eeffb4704cf83e2cc3306293b7c7b2e9";
         sha256 = "sha256-7daehJj1t0wPtQzTv+/Rpuqqs5Ng/EYnZzrcf2o/Lb0=";
       })
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ./musl-error_h.patch ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ ./musl-error_h.patch ]
     ;
 
   postPatch =
     ''
       patchShebangs tests/*.sh
-    '' + lib.optionalString stdenv.hostPlatform.isRiscV ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isRiscV ''
       # disable failing test:
       #
       # > dwfl_thread_getframes: No DWARF information found
@@ -92,7 +94,8 @@ stdenv.mkDerivation rec {
       flex
       gettext
       bzip2
-    ] ++ lib.optional enableDebuginfod pkg-config
+    ]
+    ++ lib.optional enableDebuginfod pkg-config
     ;
   buildInputs =
     [
@@ -100,11 +103,13 @@ stdenv.mkDerivation rec {
       zstd
       bzip2
       xz
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
       argp-standalone
       musl-fts
       musl-obstack
-    ] ++ lib.optionals enableDebuginfod [
+    ]
+    ++ lib.optionals enableDebuginfod [
       sqlite
       curl
       libmicrohttpd

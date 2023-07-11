@@ -32,14 +32,16 @@ let
       network {
         bindAddress = "${cfg.listen.ip}:${toString cfg.listen.port}"
       }
-  '' + optionalString (cfg.api.keyHash != null) ''
-    restApi {
-       apiKeyHash = "${cfg.api.keyHash}"
-       bindAddress = "${cfg.api.listen.ip}:${toString cfg.api.listen.port}"
-    }
-  '' + ''
-    }
-  '');
+  ''
+    + optionalString (cfg.api.keyHash != null) ''
+      restApi {
+         apiKeyHash = "${cfg.api.keyHash}"
+         bindAddress = "${cfg.api.listen.ip}:${toString cfg.api.listen.port}"
+      }
+    ''
+    + ''
+      }
+    '');
 
 in
 {

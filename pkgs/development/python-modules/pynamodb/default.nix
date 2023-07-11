@@ -30,7 +30,8 @@ buildPythonPackage rec {
     [
       python-dateutil
       botocore
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   passthru.optional-dependencies = { signal = [ blinker ]; };
@@ -39,7 +40,8 @@ buildPythonPackage rec {
     [
       pytest-mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.signal
+    ]
+    ++ passthru.optional-dependencies.signal
     ;
 
   pythonImportsCheck = [ "pynamodb" ];

@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./hardening-format.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    [ ./hardening-format.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
       (fetchpatch {
         url =
           "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/006-musl-libc.patch";
@@ -38,7 +39,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       sed -i 's/\[\[[^]]*\]\]/[ "$''${n##*.}" = "so" ]/' */lib/Makefile.in
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE"
     ''
     ;

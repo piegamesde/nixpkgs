@@ -10,7 +10,8 @@
 
 assert crossSystem == localSystem;
 
-bootStages ++ [
+bootStages
+++ [
   (prevStage: {
     inherit config overlays;
 

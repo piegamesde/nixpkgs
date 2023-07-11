@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       libsodium
       xz
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ DiskArbitration ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ DiskArbitration ]
     ;
 
   propagatedBuildInputs =
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
       coreutils
       unzip
       zip
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       mtools
       dosfstools
     ]

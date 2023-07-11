@@ -40,8 +40,11 @@ let
       nativeBuildInputs = [ pkg-config ];
 
       buildInputs =
-        [ lzo ] ++ optional stdenv.isLinux pam ++ optional withIpRoute iproute2
-        ++ optional useSystemd systemd ++ optional pkcs11Support pkcs11helper
+        [ lzo ]
+        ++ optional stdenv.isLinux pam
+        ++ optional withIpRoute iproute2
+        ++ optional useSystemd systemd
+        ++ optional pkcs11Support pkcs11helper
         ++ extraBuildInputs
         ;
 
@@ -49,7 +52,8 @@ let
         optionals withIpRoute [
           "--enable-iproute2"
           "IPROUTE=${iproute2}/sbin/ip"
-        ] ++ optional useSystemd "--enable-systemd"
+        ]
+        ++ optional useSystemd "--enable-systemd"
         ++ optional pkcs11Support "--enable-pkcs11"
         ++ optional stdenv.isDarwin "--disable-plugin-auth-pam"
         ;
@@ -62,7 +66,8 @@ let
         ''
           mkdir -p $out/share/doc/openvpn/examples
           cp -r sample/sample-{config-files,keys,scripts}/ $out/share/doc/openvpn/examples
-        '' + optionalString useSystemd ''
+        ''
+        + optionalString useSystemd ''
           install -Dm555 -t $out/libexec ${update-systemd-resolved}/libexec/openvpn/*
         ''
         ;

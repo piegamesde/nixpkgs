@@ -33,12 +33,13 @@ stdenv.mkDerivation rec {
   version = "10.2.0";
 
   src =
-    assert !acceptLicense -> throw ''
-      You must accept the XMLmind XML Editor Personal Edition License at
-      https://www.xmlmind.com/xmleditor/license_xxe_perso.html
-      by setting nixpkgs config option `xxe-pe.acceptLicense = true;`
-      or by using `xxe-pe.override { acceptLicense = true; }` package.
-    '';
+    assert !acceptLicense
+      -> throw ''
+        You must accept the XMLmind XML Editor Personal Edition License at
+        https://www.xmlmind.com/xmleditor/license_xxe_perso.html
+        by setting nixpkgs config option `xxe-pe.acceptLicense = true;`
+        or by using `xxe-pe.override { acceptLicense = true; }` package.
+      '';
     fetchurl {
       url =
         "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${

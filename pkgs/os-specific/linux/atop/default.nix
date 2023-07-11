@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       zlib
       ncurses
-    ] ++ lib.optionals withAtopgpu [ python3 ]
+    ]
+    ++ lib.optionals withAtopgpu [ python3 ]
     ;
 
   pythonPath = lib.optionals withAtopgpu [ python3.pkgs.pynvml ];
@@ -70,7 +71,8 @@ stdenv.mkDerivation rec {
     ''
       # Remove extra files we don't need
       rm -r $out/{var,etc} $out/bin/atop{sar,}-${version}
-    '' + (if withAtopgpu then
+    ''
+    + (if withAtopgpu then
       ''
         wrapPythonPrograms
       ''

@@ -31,7 +31,8 @@ python.pkgs.buildPythonApplication rec {
     lib.optionalString (lib.versionAtLeast version "4.0.0") ''
       substituteInPlace setup.cfg \
         --replace "build/dist" "dist"
-    '' + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
+    ''
+    + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
       substituteInPlace setup.cfg \
         --replace "build/doc/man/" ""
     ''

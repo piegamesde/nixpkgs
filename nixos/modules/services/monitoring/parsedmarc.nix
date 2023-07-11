@@ -574,7 +574,8 @@ in
                   cp ${parsedmarcConfig} /run/parsedmarc/parsedmarc.ini
                   chown parsedmarc:parsedmarc /run/parsedmarc/parsedmarc.ini
                   ${secretReplacements}
-                '' + lib.optionalString cfg.provision.localMail.enable ''
+                ''
+                + lib.optionalString cfg.provision.localMail.enable ''
                   openssl rand -hex 64 >/run/parsedmarc/dmarc_user_passwd
                   replace-secret '@imap-password@' '/run/parsedmarc/dmarc_user_passwd' /run/parsedmarc/parsedmarc.ini
                   echo "Setting new randomized password for user '${cfg.provision.localMail.recipientName}'."

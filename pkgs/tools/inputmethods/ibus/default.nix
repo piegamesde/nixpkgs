@@ -150,7 +150,8 @@ stdenv.mkDerivation rec {
       isocodes
       json-glib
       libnotify
-    ] ++ lib.optionals withWayland [
+    ]
+    ++ lib.optionals withWayland [
       libxkbcommon
       wayland
     ]

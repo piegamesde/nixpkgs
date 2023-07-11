@@ -19,7 +19,8 @@ in
         "stubby"
         "debugLogging"
       ] ''Use services.stubby.logLevel = "debug"; instead.'')
-    ] ++ map (x:
+    ]
+    ++ map (x:
       (mkRemovedOptionModule [
         "services"
         "stubby"

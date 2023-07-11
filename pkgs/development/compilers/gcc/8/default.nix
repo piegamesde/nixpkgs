@@ -78,23 +78,26 @@ let
         sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
       })
       ../9/fix-struct-redefinition-on-glibc-2.36.patch
-    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+    ]
+    ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional targetPlatform.isNetBSD ../libstdc++-netbsd-ctypes.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
-    /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
-         url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
-         sha256 = ""; # TODO: uncomment and check hash when available.
-       })
-    */
+      /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
+           url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
+           sha256 = ""; # TODO: uncomment and check hash when available.
+         })
+      */
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-    ../ppc-musl.patch ++ optional (targetPlatform.libc == "musl")
-    ../libgomp-dont-force-initial-exec.patch
+      ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl")
+      ../libgomp-dont-force-initial-exec.patch
 
-    # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional
-    (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-    ./Added-mcf-thread-model-support-from-mcfgthread.patch
+      # Obtain latest patch with ../update-mcfgthread-patches.sh
+    ++ optional (!crossStageStatic
+      && targetPlatform.isMinGW
+      && threadsCross.model == "mcf")
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
 
@@ -186,7 +189,8 @@ stdenv.mkDerivation ({
       "out"
       "man"
       "info"
-    ] ++ lib.optional (!langJit) "lib"
+    ]
+    ++ lib.optional (!langJit) "lib"
     ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
@@ -216,7 +220,8 @@ stdenv.mkDerivation ({
 
       substituteInPlace libgfortran/configure \
         --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
-    '' + (lib.optionalString
+    ''
+    + (lib.optionalString
       (targetPlatform != hostPlatform || stdenv.cc.libc != null)
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
@@ -238,14 +243,16 @@ stdenv.mkDerivation ({
                         -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
                         -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
                   done
-      '' + lib.optionalString (targetPlatform.libc == "musl") ''
-        sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
-      '')
-      )) + lib.optionalString targetPlatform.isAvr ''
-        makeFlagsArray+=(
-           'LIMITS_H_TEST=false'
-        )
       ''
+        + lib.optionalString (targetPlatform.libc == "musl") ''
+          sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
+        '')
+      ))
+    + lib.optionalString targetPlatform.isAvr ''
+      makeFlagsArray+=(
+         'LIMITS_H_TEST=false'
+      )
+    ''
     ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
@@ -343,8 +350,9 @@ stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

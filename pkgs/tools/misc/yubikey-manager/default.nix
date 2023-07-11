@@ -44,7 +44,8 @@ python3Packages.buildPythonPackage rec {
       six
       fido2
       keyring
-    ] ++ [
+    ]
+    ++ [
       libu2f-host
       libusb1
       yubikey-personalization

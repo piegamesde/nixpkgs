@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     ];
 
   installTargets =
-    [ "install" ] ++ lib.optionals enableShared [ "install_shared" ]
+    [ "install" ]
+    ++ lib.optionals enableShared [ "install_shared" ]
     ++ lib.optionals enableStatic [ "install_static" ]
     ;
 

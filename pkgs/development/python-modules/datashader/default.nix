@@ -51,7 +51,8 @@ buildPythonPackage rec {
       param
       pyct
       scipy
-    ] ++ dask.optional-dependencies.complete
+    ]
+    ++ dask.optional-dependencies.complete
     ;
 
   nativeCheckInputs = [

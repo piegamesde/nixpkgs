@@ -101,7 +101,8 @@ buildPythonApplication rec {
       libnotify
       pango
       webkitgtk
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-libav
       gst-plugins-bad
       gst-plugins-base
@@ -135,7 +136,8 @@ buildPythonApplication rec {
       xvfb-run
       nose2
       flake8
-    ] ++ requiredTools
+    ]
+    ++ requiredTools
     ;
   checkPhase = ''
     runHook preCheck

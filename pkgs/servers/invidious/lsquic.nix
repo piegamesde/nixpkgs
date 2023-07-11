@@ -78,7 +78,8 @@ let
       ];
 
       preBuild =
-        preBuild + lib.optionalString stdenv.isLinux ''
+        preBuild
+        + lib.optionalString stdenv.isLinux ''
           sed -e '/^build crypto\/fipsmodule\/CMakeFiles\/fipsmodule\.dir\/bcm\.c\.o:/,/^ *FLAGS =/ s/^ *FLAGS = -Werror/& -Wno-error=stringop-overflow/' \
               -i build.ninja
         ''

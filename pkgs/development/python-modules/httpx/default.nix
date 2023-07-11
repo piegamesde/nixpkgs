@@ -82,7 +82,8 @@ buildPythonPackage rec {
       pytest-trio
       trustme
       uvicorn
-    ] ++ passthru.optional-dependencies.http2
+    ]
+    ++ passthru.optional-dependencies.http2
     ++ passthru.optional-dependencies.brotli
     ++ passthru.optional-dependencies.socks
     ;

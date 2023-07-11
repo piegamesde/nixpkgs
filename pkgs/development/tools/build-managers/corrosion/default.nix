@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
   nativeBuildInputs =
-    [ cmake ] ++ (with rustPlatform; [
+    [ cmake ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

@@ -93,7 +93,8 @@ stdenv.mkDerivation rec {
       sqlite
       gsettings-desktop-schemas
       gtk3
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreFoundation
     ]
@@ -120,7 +121,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-${shared}"
       "--enable-lt=${libtool}/bin/libtool"
-    ] ++ lib.optionals disableDocs [ "--disable-docs" ]
+    ]
+    ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
     ;
 

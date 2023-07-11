@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
           #define LUA_CPATH_DEFAULT "./lib/lua/${luaversion}/?.so;./?.so;./lib/lua/${luaversion}/loadall.so"
         '
       } >> src/luaconf.h
-    '' + lib.optionalString (!stdenv.isDarwin && !staticOnly) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin && !staticOnly) ''
       # Add a target for a shared library to the Makefile.
       sed -e '1s/^/LUA_SO = liblua.so/' \
           -e 's/ALL_T *= */&$(LUA_SO) /' \
@@ -135,8 +136,9 @@ stdenv.mkDerivation rec {
         if stdenv.isDarwin then
           "liblua.${version}.dylib"
         else
-          ("liblua.a" + lib.optionalString (!staticOnly)
-            " liblua.so liblua.so.${luaversion} liblua.so.${version}")
+          ("liblua.a"
+            + lib.optionalString (!staticOnly)
+              " liblua.so liblua.so.${luaversion} liblua.so.${version}")
       }" )
 
     runHook postConfigure

@@ -65,7 +65,8 @@ python3.pkgs.buildPythonApplication rec {
       "test_creation_allow_system_packages"
       # Formatting changes with pygments 2.14.0
       "test_create_necessary_directories"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # https://github.com/NixOS/nixpkgs/issues/209358
       "test_scripts_no_environment"
     ]

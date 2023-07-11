@@ -37,7 +37,8 @@ let
         "libone"
         "libtwo"
         "libthree"
-      ] ++ lib.optionals buildTests [ "test" ]
+      ]
+      ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
       ;
 
@@ -58,7 +59,8 @@ let
       [
         sqlite
         python3
-      ] ++ lib.optionals buildTests [ gtest ]
+      ]
+      ++ lib.optionals buildTests [ gtest ]
       ++ lib.optionals (buildTests || buildBenchmarks) [
         rocrand
         boost
@@ -84,7 +86,8 @@ let
         "-DCMAKE_INSTALL_BINDIR=bin"
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
-      ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+      ]
+      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [
         "-DBUILD_CLIENTS_RIDER=ON"
         "-DBUILD_CLIENTS_SAMPLES=ON"
@@ -101,18 +104,21 @@ let
         ln -s $libone $out/lib/${name-one}
         ln -s $libtwo $out/lib/${name-two}
         ln -s $libthree $out/lib/${name-three}
-      '' + lib.optionalString buildTests ''
+      ''
+      + lib.optionalString buildTests ''
         mkdir -p $test/{bin,lib/fftw}
         cp -a $out/bin/* $test/bin
         ln -s ${fftw}/lib/libfftw*.so $test/lib/fftw
         ln -s ${fftwFloat}/lib/libfftw*.so $test/lib/fftw
         rm -r $out/lib/fftw
         rm $test/bin/{rocfft_rtc_helper,*-rider} || true
-      '' + lib.optionalString buildBenchmarks ''
+      ''
+      + lib.optionalString buildBenchmarks ''
         mkdir -p $benchmark/bin
         cp -a $out/bin/* $benchmark/bin
         rm $benchmark/bin/{rocfft_rtc_helper,*-test} || true
-      '' + lib.optionalString (buildTests || buildBenchmarks) ''
+      ''
+      + lib.optionalString (buildTests || buildBenchmarks) ''
         mv $out/bin/rocfft_rtc_helper $out
         rm -r $out/bin/*
         mv $out/rocfft_rtc_helper $out/bin
@@ -155,7 +161,8 @@ stdenv.mkDerivation {
   inherit (rf) pname version src passthru meta;
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -174,11 +181,14 @@ stdenv.mkDerivation {
       ln -sf ${rf-two} $out/lib/${name-two}
       ln -sf ${rf-three} $out/lib/${name-three}
       cp -an ${rf}/* $out
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       cp -a ${rf.test} $test
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       cp -a ${rf.benchmark} $benchmark
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;
@@ -192,11 +202,13 @@ stdenv.mkDerivation {
       patchelf --set-rpath \
         $(patchelf --print-rpath $out/lib/librocfft.so | sed 's,${rf}/lib,'"$out/lib"',') \
         $out/lib/librocfft.so
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       patchelf --set-rpath \
         $(patchelf --print-rpath $test/bin/rocfft-test | sed 's,${rf}/lib,'"$out/lib"',') \
         $test/bin/rocfft-test
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       patchelf --set-rpath \
         $(patchelf --print-rpath $benchmark/bin/rocfft-rider | sed 's,${rf}/lib,'"$out/lib"',') \
         $benchmark/bin/rocfft-rider

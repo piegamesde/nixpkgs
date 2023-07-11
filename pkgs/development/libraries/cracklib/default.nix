@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       chmod +x util/cracklib-format
       patchShebangs util
 
-    '' + ''
+    ''
+    + ''
       ln -vs ${toString wordlists} dicts/
     ''
     ;

@@ -62,7 +62,8 @@ buildGoModule rec {
     [
       llvm
       clang.cc
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       zlib
       ncurses
       libffi
@@ -130,7 +131,8 @@ buildGoModule rec {
         lib.getBin lld
       }/bin/wasm-ld $out/libexec/tinygo/wasm-ld-${llvmMajor}
       ln -s ${gdb}/bin/gdb $out/libexec/tinygo/gdb-multiarch
-    '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       substituteInPlace Makefile \
         --replace "./build/tinygo" "${buildPackages.tinygo}/bin/tinygo"
     ''

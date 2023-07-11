@@ -21,7 +21,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ numpy ] ++ lib.optionals scipySupport [ scipy ]
+    [ numpy ]
+    ++ lib.optionals scipySupport [ scipy ]
     ++ lib.optionals scikitSupport [ scikit-learn ]
     ;
 

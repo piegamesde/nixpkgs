@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       pari
       ntl
       gmp
-    ] ++ lib.optionals withFlint [ flint ]
+    ]
+    ++ lib.optionals withFlint [ flint ]
     ;
   nativeBuildInputs = [ autoreconfHook ];
   doCheck = true;

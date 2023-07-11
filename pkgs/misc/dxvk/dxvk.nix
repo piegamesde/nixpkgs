@@ -71,10 +71,12 @@ stdenv.mkDerivation {
     ninja
   ];
   buildInputs =
-    lib.optionals isWindows [ windows.pthreads ] ++ lib.optionals isDxvk2 ([
+    lib.optionals isWindows [ windows.pthreads ]
+    ++ lib.optionals isDxvk2 ([
       spirv-headers
       vulkan-headers
-    ] ++ lib.optional (!isWindows && sdl2Support) SDL2
+    ]
+      ++ lib.optional (!isWindows && sdl2Support) SDL2
       ++ lib.optional (!isWindows && glfwSupport) glfw)
     ;
 
@@ -105,10 +107,12 @@ stdenv.mkDerivation {
       "release"
       "--prefix"
       "${placeholder "out"}"
-    ] ++ lib.optionals isCross [
+    ]
+    ++ lib.optionals isCross [
       "--cross-file"
       "build-win${arch}.txt"
-    ] ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw"
+    ]
+    ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw"
     ;
 
   doCheck = isDxvk2 && !isCross;

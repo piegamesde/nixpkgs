@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       "-DDBUS_CONFIG_DIR=${placeholder "out"}/etc/dbus-1/system.d"
       # systemd.pc has prefix=${systemd.out}
       "-DMODULE_LOAD_DIR=${placeholder "out"}/lib/modules-load.d"
-    ] ++ optional enableDdc "-DENABLE_DDC=1"
+    ]
+    ++ optional enableDdc "-DENABLE_DDC=1"
     ++ optional enableDpms "-DENABLE_DPMS=1"
     ++ optional enableGamma "-DENABLE_GAMMA=1"
     ++ optional enableScreen "-DENABLE_SCREEN=1"
@@ -79,7 +80,9 @@ stdenv.mkDerivation rec {
       libXdmcp
       util-linux
       libpthreadstubs
-    ] ++ optionals enableDdc [ ddcutil ] ++ optionals enableDpms [ libXext ]
+    ]
+    ++ optionals enableDdc [ ddcutil ]
+    ++ optionals enableDpms [ libXext ]
     ++ optionals enableGamma [ libXrandr ]
     ++ optionals (enableDpms || enableGamma || enableScreen) [
       libdrm

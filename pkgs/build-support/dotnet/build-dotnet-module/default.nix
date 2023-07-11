@@ -197,7 +197,8 @@ let
 in
 stdenvNoCC.mkDerivation (args // {
   nativeBuildInputs =
-    args.nativeBuildInputs or [ ] ++ [
+    args.nativeBuildInputs or [ ]
+    ++ [
       dotnetConfigureHook
       dotnetBuildHook
       dotnetCheckHook

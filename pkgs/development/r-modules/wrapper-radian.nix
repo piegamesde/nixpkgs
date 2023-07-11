@@ -17,7 +17,9 @@ runCommand (radian.name + "-wrapper") {
     [
       R
       radian
-    ] ++ recommendedPackages ++ packages
+    ]
+    ++ recommendedPackages
+    ++ packages
     ;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -34,10 +36,11 @@ runCommand (radian.name + "-wrapper") {
   makeWrapper "${radian}/bin/radian" "$out/bin/radian" \
     --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE" \
     --set "R_HOME" "${R}/lib/R"
-'' + lib.optionalString wrapR ''
-  cd ${R}/bin
-  for exe in *; do
-    makeWrapper "${R}/bin/$exe" "$out/bin/$exe" \
-      --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE"
-  done
-'')
+''
+  + lib.optionalString wrapR ''
+    cd ${R}/bin
+    for exe in *; do
+      makeWrapper "${R}/bin/$exe" "$out/bin/$exe" \
+        --prefix "R_LIBS_SITE" ":" "$R_LIBS_SITE"
+    done
+  '')

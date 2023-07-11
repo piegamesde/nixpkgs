@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       boehmgc
       openssl
       zlib
-    ] ++ lib.optional odbcSupport libiodbc
+    ]
+    ++ lib.optional odbcSupport libiodbc
     ;
 
   meta = with lib; {

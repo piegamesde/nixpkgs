@@ -86,7 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       autoPatchelfHook
       makeWrapper
-    ] ++ optional (withQt5 || withGtk3) copyDesktopItems
+    ]
+    ++ optional (withQt5 || withGtk3) copyDesktopItems
     ++ optional withQt5 wrapQtAppsHook
     ;
 
@@ -105,9 +106,13 @@ stdenv.mkDerivation (finalAttrs: {
       util-linux
       which
       xz
-    ] ++ optional withCryptsetup cryptsetup ++ optional withExt4 0.0 fsprogs
-    ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g
-    ++ optional withXfs xfsprogs ++ optional withQt5 qtbase
+    ]
+    ++ optional withCryptsetup cryptsetup
+    ++ optional withExt4 0.0 fsprogs
+    ++ optional withGtk3 gtk3
+    ++ optional withNtfs ntfs3g
+    ++ optional withXfs xfsprogs
+    ++ optional withQt5 qtbase
     ;
 
   desktopItems = [
@@ -181,13 +186,17 @@ stdenv.mkDerivation (finalAttrs: {
                   --chdir "$VENTOY_PATH"
       mkdir "$out"/share/{applications,pixmaps}
       ln -s "$VENTOY_PATH"/WebUI/static/img/VentoyLogo.png "$out"/share/pixmaps/
-    '' + optionalString (!withGtk3) ''
+    ''
+    + optionalString (!withGtk3) ''
       rm "$VENTOY_PATH"/tool/{"$ARCH"/Ventoy2Disk.gtk3,VentoyGTK.glade}
-    '' + optionalString (!withQt5) ''
+    ''
+    + optionalString (!withQt5) ''
       rm "$VENTOY_PATH/tool/$ARCH/Ventoy2Disk.qt5"
-    '' + optionalString (!withGtk3 && !withQt5) ''
+    ''
+    + optionalString (!withGtk3 && !withQt5) ''
       rm "$VENTOY_PATH"/VentoyGUI.*
-    '' + ''
+    ''
+    + ''
 
       runHook postInstall
     ''

@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       zlib
-    ] ++ lib.optional stdenv.isLinux 0.0 fsprogs
+    ]
+    ++ lib.optional stdenv.isLinux 0.0 fsprogs
     ++ lib.optional stdenv.isDarwin bzip2
     ;
 

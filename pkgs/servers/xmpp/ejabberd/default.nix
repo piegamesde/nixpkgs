@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
       expat
       libyaml
       gd
-    ] ++ lib.optional withSqlite sqlite ++ lib.optional withPam pam
+    ]
+    ++ lib.optional withSqlite sqlite
+    ++ lib.optional withPam pam
     ++ lib.optional withZlib zlib
     ;
 
@@ -132,7 +134,8 @@ stdenv.mkDerivation rec {
       (lib.enableFeature withZlib "zlib")
       (lib.enableFeature withTools "tools")
       (lib.enableFeature withRedis "redis")
-    ] ++ lib.optional withSqlite "--with-sqlite3=${sqlite.dev}"
+    ]
+    ++ lib.optional withSqlite "--with-sqlite3=${sqlite.dev}"
     ;
 
   enableParallelBuilding = true;

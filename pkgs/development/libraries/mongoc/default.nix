@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       openssl
       zlib
       cyrus_sasl
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
   propagatedBuildInputs = [
     libbson

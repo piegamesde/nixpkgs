@@ -31,14 +31,21 @@
   withModules ? [
     "pcre"
     "rawsock"
-  ] ++ lib.optionals stdenv.isLinux [
-    "bindings/glibc"
-    "zlib"
-  ] ++ lib.optional x11Support "clx/new-clx"
+  ]
+    ++ lib.optionals stdenv.isLinux [
+      "bindings/glibc"
+      "zlib"
+    ]
+    ++ lib.optional x11Support "clx/new-clx"
 }:
 
-assert x11Support -> (libX11 != null && libXau != null && libXt != null
-  && libXpm != null && xorgproto != null && libXext != null);
+assert x11Support
+  -> (libX11 != null
+    && libXau != null
+    && libXt != null
+    && libXpm != null
+    && xorgproto != null
+    && libXext != null);
 
 stdenv.mkDerivation rec {
   version = "2.50pre20171114";
@@ -56,12 +63,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ automake ]; # sometimes fails otherwise
   buildInputs =
-    [ libsigsegv ] ++ lib.optional (gettext != null) gettext
+    [ libsigsegv ]
+    ++ lib.optional (gettext != null) gettext
     ++ lib.optional (ncurses != null) ncurses
-    ++ lib.optional (pcre != null) pcre ++ lib.optional (zlib != null) zlib
+    ++ lib.optional (pcre != null) pcre
+    ++ lib.optional (zlib != null) zlib
     ++ lib.optional (readline != null) readline
     ++ lib.optional (ffcallAvailable && (libffi != null)) libffi
-    ++ lib.optional ffcallAvailable libffcall ++ lib.optionals x11Support [
+    ++ lib.optional ffcallAvailable libffcall
+    ++ lib.optionals x11Support [
       libX11
       libXau
       libXt
@@ -85,9 +95,10 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags =
-    [ "builddir" ] ++ lib.optional (!dllSupport) "--without-dynamic-modules"
+    [ "builddir" ]
+    ++ lib.optional (!dllSupport) "--without-dynamic-modules"
     ++ lib.optional (readline != null) "--with-readline"
-    # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
+      # --with-dynamic-ffi can only exist with --with-ffcall - foreign.d does not compile otherwise
     ++ lib.optional (ffcallAvailable && (libffi != null)) "--with-dynamic-ffi"
     ++ lib.optional ffcallAvailable "--with-ffcall"
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"

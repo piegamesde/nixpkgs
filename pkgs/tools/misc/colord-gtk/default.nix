@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs =
-    [ colord ] ++ (if withGtk4 then
+    [ colord ]
+    ++ (if withGtk4 then
       [ gtk4 ]
     else
       [ gtk3 ])

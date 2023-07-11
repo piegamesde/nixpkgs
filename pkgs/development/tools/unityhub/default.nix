@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
         fontconfig
         freetype
         lsb-release
-      ] ++ extraPkgs pkgs
+      ]
+      ++ extraPkgs pkgs
       ;
 
     multiPkgs =
@@ -102,7 +103,8 @@ stdenv.mkDerivation rec {
         zlib
         clang
         git # for git-based packages in unity package manager
-      ] ++ extraLibs pkgs
+      ]
+      ++ extraLibs pkgs
       ;
   };
 

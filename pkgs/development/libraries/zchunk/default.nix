@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       curl
       zstd
-    ] ++ lib.optional stdenv.isDarwin argp-standalone
+    ]
+    ++ lib.optional stdenv.isDarwin argp-standalone
     ;
 
   outputs = [

@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
     [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ python3 ];
 
   buildInputs =
-    [ ] ++ lib.optionals stdenv.isLinux [ libxcb ]
+    [ ]
+    ++ lib.optionals stdenv.isLinux [ libxcb ]
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       AppKit

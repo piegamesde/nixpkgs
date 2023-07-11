@@ -97,7 +97,8 @@ rustPlatform.buildRustPackage.override {
       python3
       openssl
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
     ]
@@ -133,7 +134,7 @@ rustPlatform.buildRustPackage.override {
   doInstallCheck =
     !stdenv.hostPlatform.isStatic
     && stdenv.hostPlatform.parsed.kernel.execFormat
-    == lib.systems.parse.execFormats.elf
+      == lib.systems.parse.execFormats.elf
     ;
   installCheckPhase = ''
     runHook preInstallCheck

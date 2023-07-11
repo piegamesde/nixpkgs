@@ -28,7 +28,8 @@ buildFHSEnv rec {
       libxkbcommon
       libudev0-shim
       tbb
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libICE
       libSM
       libXmu

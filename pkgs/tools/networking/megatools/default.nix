@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       curl
       glib
-    ] ++ lib.optionals stdenv.isLinux [ fuse ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ fuse ]
     ;
 
   enableParallelBuilding = true;

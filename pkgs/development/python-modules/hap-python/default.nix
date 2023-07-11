@@ -47,7 +47,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytest-timeout
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.QRCode
+    ]
+    ++ passthru.optional-dependencies.QRCode
     ;
 
   disabledTestPaths = [

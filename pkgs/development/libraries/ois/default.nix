@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ libX11 ] ++ lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.isLinux [ libX11 ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       IOKit
       Kernel

@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
       # override default path to allow MIDI files to be played
       "--with-timidity-cfg=${timidity}/share/timidity/timidity.cfg"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "--disable-sdltest"
       "--disable-smpegtest"
     ]

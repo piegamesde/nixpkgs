@@ -326,24 +326,30 @@ in
             mkdir -p "${cfg.statePath}"/{data,config,logs,plugins}
             mkdir -p "${cfg.statePath}/plugins"/{client,server}
             ln -sf ${cfg.package}/{bin,fonts,i18n,templates,client} "${cfg.statePath}"
-          '' + lib.optionalString (mattermostPlugins != null) ''
+          ''
+          + lib.optionalString (mattermostPlugins != null) ''
             rm -rf "${cfg.statePath}/data/plugins"
             ln -sf ${mattermostPlugins}/data/plugins "${cfg.statePath}/data"
-          '' + lib.optionalString (!cfg.mutableConfig) ''
+          ''
+          + lib.optionalString (!cfg.mutableConfig) ''
             rm -f "${cfg.statePath}/config/config.json"
             ${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${cfg.package}/config/config.json ${mattermostConfJSON} > "${cfg.statePath}/config/config.json"
-          '' + lib.optionalString cfg.mutableConfig ''
+          ''
+          + lib.optionalString cfg.mutableConfig ''
             if ! test -e "${cfg.statePath}/config/.initial-created"; then
               rm -f ${cfg.statePath}/config/config.json
               ${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${cfg.package}/config/config.json ${mattermostConfJSON} > "${cfg.statePath}/config/config.json"
               touch "${cfg.statePath}/config/.initial-created"
             fi
-          '' + lib.optionalString (cfg.mutableConfig && cfg.preferNixConfig) ''
+          ''
+          + lib.optionalString (cfg.mutableConfig && cfg.preferNixConfig) ''
             new_config="$(${pkgs.jq}/bin/jq -s '.[0] * .[1]' "${cfg.statePath}/config/config.json" ${mattermostConfJSON})"
 
             rm -f "${cfg.statePath}/config/config.json"
             echo "$new_config" > "${cfg.statePath}/config/config.json"
-          '' + lib.optionalString cfg.localDatabaseCreate (createDb { }) + ''
+          ''
+          + lib.optionalString cfg.localDatabaseCreate (createDb { })
+          + ''
             # Don't change permissions recursively on the data, current, and symlinked directories (see ln -sf command above).
             # This dramatically decreases startup times for installations with a lot of files.
             find . -maxdepth 1 -not -name data -not -name client -not -name templates -not -name i18n -not -name fonts -not -name bin -not -name . \

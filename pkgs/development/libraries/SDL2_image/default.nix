@@ -41,7 +41,8 @@ stdenv.mkDerivation {
       libwebp
       libXpm
       zlib
-    ] ++ lib.optional stdenv.isDarwin Foundation
+    ]
+    ++ lib.optional stdenv.isDarwin Foundation
     ;
 
   configureFlags =
@@ -51,7 +52,8 @@ stdenv.mkDerivation {
       "--disable-png-shared"
       "--disable-tif-shared"
       "--disable-webp-shared"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Darwin headless will hang when trying to run the SDL test program
       "--disable-sdltest"
       # Don't use native macOS frameworks

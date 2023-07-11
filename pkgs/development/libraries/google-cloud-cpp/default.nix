@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       cmake
       ninja
       pkg-config
-    ] ++ lib.optionals (!doInstallCheck) [
+    ]
+    ++ lib.optionals (!doInstallCheck) [
       # enable these dependencies when doInstallCheck is false because we're
       # unconditionally building tests and benchmarks
       #
@@ -98,9 +99,10 @@ stdenv.mkDerivation rec {
       export ${ldLibraryPathName}=${
         lib.concatStringsSep ":" additionalLibraryPaths
       }
-    '' + ''
-      export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
-    '')
+    ''
+      + ''
+        export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
+      '')
     ;
 
   installCheckPhase = lib.optionalString doInstallCheck ''
@@ -130,9 +132,10 @@ stdenv.mkDerivation rec {
       "-DBUILD_TESTING:BOOL=ON"
       "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
       "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
-    ] ++ lib.optionals (apis != [ "*" ]) [
-      "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
     ]
+    ++ lib.optionals (apis != [ "*" ]) [
+        "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
+      ]
     ;
 
   meta = with lib; {

@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       zlib
       bzip2
       perl
-    ] ++ lib.optionals stdenv.isLinux [ libcap ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libcap ]
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       Carbon
       IOKit

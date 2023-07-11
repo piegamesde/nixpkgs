@@ -50,10 +50,12 @@ let
   pythonEnvArg =
     (ps:
       with ps;
-      [ mako ] ++ optionals (enablePythonApi) [
+      [ mako ]
+      ++ optionals (enablePythonApi) [
         numpy
         setuptools
-      ] ++ optionals (enableUtils) [
+      ]
+      ++ optionals (enableUtils) [
         requests
         six
       ]);
@@ -131,7 +133,8 @@ stdenv.mkDerivation rec {
     ++ optionals (enableExamples) [
       ncurses
       ncurses.dev
-    ] ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
+    ]
+    ++ optionals (enablePythonApi || enableUtils) [ pythonEnv ]
     ++ optionals (enableDpdk) [ dpdk ]
     ;
 
@@ -154,9 +157,10 @@ stdenv.mkDerivation rec {
     [
       "installFirmware"
       "removeInstalledTests"
-    ] ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [
-      "moveUdevRules"
     ]
+    ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [
+        "moveUdevRules"
+      ]
     ;
 
     # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`

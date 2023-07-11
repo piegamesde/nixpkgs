@@ -24,7 +24,8 @@ stdenv.mkDerivation {
     [
       installShellFiles
       makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook
+    ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook
     ;
   buildInputs =
     assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
@@ -68,7 +69,8 @@ stdenv.mkDerivation {
   postFixup =
     lib.optionalString stdenv.isLinux ''
       autoPatchelf $out
-    '' + ''
+    ''
+    + ''
       # hack to ensure the completion function looks right
       # as $0 is used to generate the compdef directive
       mkdir temp

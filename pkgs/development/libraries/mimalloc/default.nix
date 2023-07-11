@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       mv $out/lib/cmake $dev/lib/
 
       find $dev $out -type f
-    '' + (lib.optionalString secureBuild ''
+    ''
+    + (lib.optionalString secureBuild ''
       # pretend we're normal mimalloc
       ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${suffix}
       ln -sfv $out/lib/libmimalloc-secure${suffix} $out/lib/libmimalloc${soext}

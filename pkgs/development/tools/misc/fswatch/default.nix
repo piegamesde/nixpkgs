@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
     ;
   buildInputs = [
     gettext

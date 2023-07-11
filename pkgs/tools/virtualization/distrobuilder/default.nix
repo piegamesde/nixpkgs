@@ -61,7 +61,8 @@ buildGoModule rec {
     [
       pkg-config
       makeWrapper
-    ] ++ bins
+    ]
+    ++ bins
     ;
 
   postInstall = ''

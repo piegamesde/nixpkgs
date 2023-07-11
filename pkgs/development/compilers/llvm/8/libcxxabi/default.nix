@@ -28,11 +28,14 @@ stdenv.mkDerivation {
       unpackFile ${libcxx.src}
       unpackFile ${llvm.src}
       cmakeFlags+=" -DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       export TRIPLE=x86_64-apple-darwin
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-    '' + lib.optionalString stdenv.hostPlatform.isWasm ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
     ''
     ;
@@ -50,10 +53,12 @@ stdenv.mkDerivation {
     lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-    ] ++ lib.optionals stdenv.hostPlatform.isWasm [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
+    ]
+    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
     ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''

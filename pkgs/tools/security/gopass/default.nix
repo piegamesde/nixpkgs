@@ -43,7 +43,8 @@ buildGoModule rec {
     git
     gnupg
     xclip
-  ] ++ lib.optional stdenv.isLinux wl-clipboard);
+  ]
+    ++ lib.optional stdenv.isLinux wl-clipboard);
 
   postInstall =
     ''
@@ -52,7 +53,8 @@ buildGoModule rec {
         --zsh zsh.completion \
         --bash bash.completion \
         --fish fish.completion
-    '' + lib.optionalString passAlias ''
+    ''
+    + lib.optionalString passAlias ''
       ln -s $out/bin/gopass $out/bin/pass
     ''
     ;

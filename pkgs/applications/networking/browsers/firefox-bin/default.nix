@@ -149,7 +149,9 @@ stdenv.mkDerivation {
       libpulseaudio
       systemd
       ffmpeg
-    ] + ":" + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
+    ]
+    + ":"
+    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
     ;
 
   inherit gtk3;

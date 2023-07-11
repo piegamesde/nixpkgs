@@ -23,7 +23,8 @@ let
   scriptPath = lib.makeBinPath ([
     gnused
     hostname
-  ] ++ lib.optionals enableMail [ mailutils ]);
+  ]
+    ++ lib.optionals enableMail [ mailutils ]);
 
 in
 stdenv.mkDerivation rec {

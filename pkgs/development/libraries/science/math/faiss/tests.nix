@@ -33,6 +33,7 @@ buildPythonPackage {
       faiss
       pytestCheckHook
       scipy
-    ] ++ faiss.extra-requires.all
+    ]
+    ++ faiss.extra-requires.all
     ;
 }

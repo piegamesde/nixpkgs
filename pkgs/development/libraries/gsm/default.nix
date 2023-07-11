@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
         --replace "= gcc " "?= gcc "
       # Fix include directory
       sed -e 's,$(GSM_INSTALL_ROOT)/inc,$(GSM_INSTALL_ROOT)/include/gsm,' -i Makefile
-    '' + optionalString (!staticSupport) ((if isDarwin then
+    ''
+    + optionalString (!staticSupport) ((if isDarwin then
       ''
         # Build dylib on Darwin
         sed -e 's,libgsm.a,libgsm.dylib,' -i Makefile
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
         # Build ELF shared object by default
         sed -e 's,libgsm.a,libgsm.so,' -i Makefile
         sed -e 's/$(AR) $(ARFLAGS) $(LIBGSM) $(GSM_OBJECTS)/$(LD) -shared -Wl,-soname,libgsm.so -o $(LIBGSM) $(GSM_OBJECTS) -lc/' -i Makefile
-      '') + ''
+      '')
+      + ''
         # Remove line that is unused when building shared libraries
         sed -e 's,$(RANLIB) $(LIBGSM),,' -i Makefile
       '')
@@ -46,7 +48,8 @@ stdenv.mkDerivation rec {
     [
       "SHELL=${stdenv.shell}"
       "INSTALL_ROOT=$(out)"
-    ] ++ optional stdenv.cc.isClang "CC=clang"
+    ]
+    ++ optional stdenv.cc.isClang "CC=clang"
     ;
 
   preInstall = "mkdir -p $out/{bin,lib,man/man1,man/man3,include/gsm}";

@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       oniguruma
       libsass
-    ] ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
     ;
 
   RUSTONIG_SYSTEM_LIBONIG = true;

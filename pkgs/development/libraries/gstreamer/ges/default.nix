@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       gobject-introspection
       python3
       flex
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ;
 
   buildInputs = [

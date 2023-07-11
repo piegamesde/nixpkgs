@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       gtk2
       glib
       xorg.libXtst
-    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ]
+    ++ lib.optional stdenv.isDarwin Cocoa
     ;
 
   src = fetchFromGitHub {

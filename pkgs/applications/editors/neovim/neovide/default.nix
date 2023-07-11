@@ -76,7 +76,8 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       pkg-config
       python3 # skia
       removeReferencesTo
-    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ xcbuild ]
     ;
 
     # All tests passes but at the end cargo prints for unknown reason:
@@ -90,7 +91,8 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       SDL2
       fontconfig
       rustPlatform.bindgenHook
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
     ;
 
   postFixup =
@@ -102,7 +104,8 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
         xorg.libXext
         xorg.libXrandr
         xorg.libXi
-      ] ++ lib.optionals enableWayland [ wayland ]);
+      ]
+        ++ lib.optionals enableWayland [ wayland ]);
     in
     ''
       # library skia embeds the path to its sources

@@ -77,11 +77,13 @@ stdenv.mkDerivation rec {
       cmake
       git
       pkg-config
-    ] ++ lib.optionals withCuda [ addOpenGLRunpath ]
+    ]
+    ++ lib.optionals withCuda [ addOpenGLRunpath ]
     ;
 
   buildInputs =
-    [ hwloc ] ++ (if withCuda then
+    [ hwloc ]
+    ++ (if withCuda then
       [
         glibc_multi
         cudatoolkit
@@ -97,7 +99,8 @@ stdenv.mkDerivation rec {
       "-DFIRESTARTER_BUILD_HWLOC=OFF"
       "-DCMAKE_C_COMPILER_WORKS=1"
       "-DCMAKE_CXX_COMPILER_WORKS=1"
-    ] ++ lib.optionals withCuda [ "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA" ]
+    ]
+    ++ lib.optionals withCuda [ "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA" ]
     ;
 
   installPhase = ''

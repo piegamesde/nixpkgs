@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs =
-    [ perl ] ++ (with perlPackages; [
+    [ perl ]
+    ++ (with perlPackages; [
       FileRemove
       DigestSHA1
       Later

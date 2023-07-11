@@ -40,7 +40,8 @@ stdenv.mkDerivation (args // {
     ;
 
   nativeBuildInputs =
-    nativeBuildInputs ++ [
+    nativeBuildInputs
+    ++ [
       ghc
       pkg-config
       stack

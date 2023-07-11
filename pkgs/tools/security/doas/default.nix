@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       sed -i '/\(chown\|chmod\)/d' GNUmakefile
-    '' + lib.optionalString (withPAM && stdenv.hostPlatform.isStatic) ''
+    ''
+    + lib.optionalString (withPAM && stdenv.hostPlatform.isStatic) ''
       sed -i 's/-lpam/-lpam -laudit/' configure
     ''
     ;

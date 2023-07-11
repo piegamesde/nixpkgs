@@ -215,7 +215,8 @@ let
           _40ants-doc
           parachute
           osicat
-        ] ++ [ self.cl-tar-file ];
+        ]
+        ++ [ self.cl-tar-file ];
       systems = [
         "tar"
         "tar/common-extract"
@@ -262,7 +263,8 @@ let
         [
           self.lessp
           self.rollback
-        ] ++ [ super.local-time ]
+        ]
+        ++ [ super.local-time ]
         ;
     };
 
@@ -322,7 +324,8 @@ let
       version = "2.2.4";
 
       lispLibs =
-        super.nyxt.lispLibs ++ (with super; [
+        super.nyxt.lispLibs
+        ++ (with super; [
           cl-cffi-gtk
           cl-webkit2
           mk-string-metrics
@@ -360,7 +363,8 @@ let
         # See https://github.com/atlas-engineer/nyxt/issues/1781
         # TODO(kasper): use wrapGAppsHook
       installPhase =
-        super.nyxt.installPhase + ''
+        super.nyxt.installPhase
+        + ''
           rm -v $out/nyxt
           mkdir -p $out/bin
           cp -v nyxt $out/bin
@@ -505,7 +509,8 @@ let
     qtools = build-with-compile-into-pwd {
       inherit (super.qtools) pname version src nativeLibs;
       lispLibs =
-        [ self.qt ] ++ remove super.qt_plus_libs super.qtools.lispLibs
+        [ self.qt ]
+        ++ remove super.qt_plus_libs super.qtools.lispLibs
         ++ [ self.qt-libs ]
         ;
       patches = [ ./patches/qtools-use-nix-libs.patch ];
@@ -555,7 +560,8 @@ let
         hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
       };
       lispLibs = with super;
-        [ cl-gobject-introspection-wrapper ] ++ [
+        [ cl-gobject-introspection-wrapper ]
+        ++ [
           self.cl-glib
           self.cl-glib_dot_gio
         ];

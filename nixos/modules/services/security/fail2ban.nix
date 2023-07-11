@@ -352,7 +352,8 @@ in
           cfg.package
           cfg.packageFirewall
           pkgs.iproute2
-        ] ++ cfg.extraPackages
+        ]
+        ++ cfg.extraPackages
         ;
 
       serviceConfig = {

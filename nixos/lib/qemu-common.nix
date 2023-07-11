@@ -7,7 +7,8 @@
 let
   zeroPad =
     n:
-    lib.optionalString (n < 16) "0" + (if n > 255 then
+    lib.optionalString (n < 16) "0"
+    + (if n > 255 then
       throw "Can't have more than 255 nets or nodes!"
     else
       lib.toHexString n)

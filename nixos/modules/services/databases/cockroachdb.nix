@@ -34,7 +34,8 @@ let
       "--insecure"
     else
       "--certs-dir=${cfg.certsDir}")
-  ] ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
+  ]
+    ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
     ++ lib.optional (cfg.locality != null) "--locality=${cfg.locality}"
     ++ cfg.extraArgs);
 

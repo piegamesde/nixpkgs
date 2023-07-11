@@ -43,7 +43,8 @@ buildPythonPackage rec {
       pytest-mock
       pytest-asyncio
       pytestCheckHook
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
     # Tests for 2.0.0 currently fail on python3.11

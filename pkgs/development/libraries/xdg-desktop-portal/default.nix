@@ -80,7 +80,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # For document-fuse installed test.
       (python3.withPackages (pp: with pp; [ pygobject3 ]))
-    ] ++ lib.optionals enableGeoLocation [ geoclue2 ]
+    ]
+    ++ lib.optionals enableGeoLocation [ geoclue2 ]
     ;
 
   configureFlags =

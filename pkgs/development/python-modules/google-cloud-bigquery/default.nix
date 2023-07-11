@@ -50,7 +50,8 @@ buildPythonPackage rec {
       protobuf
       requests
       python-dateutil
-    ] ++ google-api-core.optional-dependencies.grpc
+    ]
+    ++ google-api-core.optional-dependencies.grpc
     ;
 
   passthru.optional-dependencies = {
@@ -78,7 +79,8 @@ buildPythonPackage rec {
       google-cloud-storage
       pytestCheckHook
       pytest-xdist
-    ] ++ passthru.optional-dependencies.pandas
+    ]
+    ++ passthru.optional-dependencies.pandas
     ++ passthru.optional-dependencies.ipython
     ;
 

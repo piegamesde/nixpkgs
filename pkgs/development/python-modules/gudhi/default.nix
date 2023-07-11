@@ -47,7 +47,8 @@ buildPythonPackage rec {
       gmp
       cgal_5
       mpfr
-    ] ++ lib.optionals enableTBB [ tbb ]
+    ]
+    ++ lib.optionals enableTBB [ tbb ]
     ;
   propagatedBuildInputs = [
     numpy

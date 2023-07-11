@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       pkg-config
       autoreconfHook
       python3
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       wrapQtAppsHook
       qttools
     ]
@@ -54,11 +55,13 @@ stdenv.mkDerivation rec {
       util-linux
       protobuf
       libevent
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qtbase
       qttools
       qrencode
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       ApplicationServices
       AppKit
@@ -66,7 +69,8 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ] ++ lib.optionals withGui [
+    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ]

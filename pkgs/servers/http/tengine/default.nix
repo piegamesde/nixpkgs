@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       geoip
       gperftools
       jemalloc
-    ] ++ concatMap (mod: mod.inputs or [ ]) modules
+    ]
+    ++ concatMap (mod: mod.inputs or [ ]) modules
     ;
 
   patches =
@@ -55,7 +56,8 @@ stdenv.mkDerivation rec {
       preInstall = ''
         export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
       '';
-    }) ++ [
+    })
+    ++ [
       ./check-resolv-conf.patch
       ../nginx/nix-skip-check-logs-path.patch
     ]
@@ -95,21 +97,26 @@ stdenv.mkDerivation rec {
       "--http-fastcgi-temp-path=/var/cache/nginx/fastcgi"
       "--http-uwsgi-temp-path=/var/cache/nginx/uwsgi"
       "--http-scgi-temp-path=/var/cache/nginx/scgi"
-    ] ++ optionals withDebug [ "--with-debug" ] ++ optionals withMail [
+    ]
+    ++ optionals withDebug [ "--with-debug" ]
+    ++ optionals withMail [
       "--with-mail"
       "--with-mail_ssl_module"
-    ] ++ optionals (!withMail) [
+    ]
+    ++ optionals (!withMail) [
       "--without-mail_pop3_module"
       "--without-mail_imap_module"
       "--without-mail_smtp_module"
-    ] ++ optionals withStream [
+    ]
+    ++ optionals withStream [
       "--with-stream"
       "--with-stream_ssl_module"
       "--with-stream_realip_module"
       "--with-stream_geoip_module"
       "--with-stream_ssl_preread_module"
       "--with-stream_sni"
-    ] ++ optionals (!withStream) [
+    ]
+    ++ optionals (!withStream) [
       "--without-stream_limit_conn_module"
       "--without-stream_access_module"
       "--without-stream_geo_module"
@@ -120,9 +127,11 @@ stdenv.mkDerivation rec {
       "--without-stream_upstream_least_conn_module"
       "--without-stream_upstream_random_module"
       "--without-stream_upstream_zone_module"
-    ] ++ optional (gd != null) "--with-http_image_filter_module"
+    ]
+    ++ optional (gd != null) "--with-http_image_filter_module"
     ++ optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
-    "--with-file-aio" ++ map (mod: "--add-module=${mod.src}") modules
+      "--with-file-aio"
+    ++ map (mod: "--add-module=${mod.src}") modules
     ;
 
   env.NIX_CFLAGS_COMPILE =

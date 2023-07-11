@@ -35,7 +35,8 @@ let
       unpackPhase =
         lib.optionalString (zip == "") ''
           cp $src SourceHan${Family}.ttc${zip}
-        '' + lib.optionalString (zip == ".zip") ''
+        ''
+        + lib.optionalString (zip == ".zip") ''
           unzip $src
         ''
         ;

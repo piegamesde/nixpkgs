@@ -44,7 +44,8 @@ buildGoModule rec {
     ''
       echo "complete -C $out/bin/vault vault" > vault.bash
       installShellCompletion vault.bash
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/vault \
         --prefix PATH ${
           lib.makeBinPath [

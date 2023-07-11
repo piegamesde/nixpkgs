@@ -49,7 +49,8 @@ buildPythonPackage rec {
       qiskit-ibmq-provider
       qiskit-ignis
       qiskit-terra
-    ] ++ lib.optionals withOptionalPackages optionalQiskitPackages
+    ]
+    ++ lib.optionals withOptionalPackages optionalQiskitPackages
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

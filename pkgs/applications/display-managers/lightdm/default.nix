@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       libxklavier
       pam
       polkit
-    ] ++ lib.optional withQt5 qtbase
+    ]
+    ++ lib.optional withQt5 qtbase
     ;
 
   patches = [
@@ -103,7 +104,8 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--disable-tests"
       "--disable-dmrc"
-    ] ++ lib.optional withQt5 "--enable-liblightdm-qt5"
+    ]
+    ++ lib.optional withQt5 "--enable-liblightdm-qt5"
     ;
 
   installFlags = [

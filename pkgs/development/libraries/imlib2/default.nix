@@ -61,11 +61,15 @@ stdenv.mkDerivation (finalAttrs: {
       bzip2
       freetype
       libid3tag
-    ] ++ optionals x11Support [
+    ]
+    ++ optionals x11Support [
       xorg.libXft
       xorg.libXext
-    ] ++ optional heifSupport libheif ++ optional svgSupport librsvg
-    ++ optional webpSupport libwebp ++ optional jxlSupport libjxl
+    ]
+    ++ optional heifSupport libheif
+    ++ optional svgSupport librsvg
+    ++ optional webpSupport libwebp
+    ++ optional jxlSupport libjxl
     ++ optional psSupport libspectre
     ;
 

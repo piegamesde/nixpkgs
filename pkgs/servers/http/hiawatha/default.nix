@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     [
       mbedtls_2
       libxcrypt
-    ] ++ lib.optionals enableXslt [
+    ]
+    ++ lib.optionals enableXslt [
       libxslt
       libxml2
     ]

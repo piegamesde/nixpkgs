@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
     [
       libpng
       libjpeg
-    ] ++ lib.optional guiSupport libX11
+    ]
+    ++ lib.optional guiSupport libX11
     ;
 
   meta = with lib; {

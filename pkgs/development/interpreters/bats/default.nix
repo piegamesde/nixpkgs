@@ -186,7 +186,8 @@ resholve.mkDerivation rec {
         parallel # skips some tests if it can't detect
         flock # skips some tests if it can't detect
         procps
-      ] ++ lib.optionals stdenv.isDarwin [ lsof ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ lsof ]
       ;
     inherit doInstallCheck;
     installCheckPhase =
@@ -197,11 +198,13 @@ resholve.mkDerivation rec {
         # skip tests that assume bats `install.sh` will be in BATS_ROOT
         rm test/root.bats
 
-      '' + (lib.optionalString stdenv.hostPlatform.isDarwin ''
+      ''
+      + (lib.optionalString stdenv.hostPlatform.isDarwin ''
         # skip new timeout tests which are failing on macOS for unclear reasons
         # This might relate to procps not having a pkill?
         rm test/timeout.bats
-      '') + ''
+      '')
+      + ''
 
         # test generates file with absolute shebang dynamically
         substituteInPlace test/install.bats --replace \

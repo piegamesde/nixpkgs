@@ -60,10 +60,12 @@ gnuradioMinimal.pkgs.mkDerivation rec {
       gnuradioMinimal.pkgs.osmosdr
       rtl-sdr
       hackrf
-    ] ++ lib.optionals (gnuradioMinimal.hasFeature "gr-ctrlport") [
+    ]
+    ++ lib.optionals (gnuradioMinimal.hasFeature "gr-ctrlport") [
       thrift
       gnuradioMinimal.unwrapped.python.pkgs.thrift
-    ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ]
+    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals portaudioSupport [ portaudio ]
     ;
 

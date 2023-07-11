@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
       glib
       libxml2
       libsoup
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
     ]
@@ -69,9 +70,10 @@ stdenv.mkDerivation rec {
   configureFlags =
     [
       "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-    ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
-      "--enable-gtk-doc"
     ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+        "--enable-gtk-doc"
+      ]
     ;
 
   doCheck = true;

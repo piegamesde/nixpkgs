@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       zlib
-    ] ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ]
     ;
 
   postPatch = ''

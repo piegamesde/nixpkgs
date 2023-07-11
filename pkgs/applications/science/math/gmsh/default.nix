@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       libjpeg
       zlib
       opencascade-occt
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libGL
       libGLU
       xorg.libXrender
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
       xorg.libX11
       xorg.libSM
       xorg.libICE
-    ] ++ lib.optional enablePython python
+    ]
+    ++ lib.optional enablePython python
     ;
 
   enableParallelBuilding = true;

@@ -129,7 +129,8 @@ stdenv.mkDerivation {
       extraPrefix = "plugins/stonesense/";
       stripLen = 1;
       hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
-    }) ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
+    })
+    ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
       name = "fix-protobuf.patch";
       url =
         "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
@@ -165,7 +166,8 @@ stdenv.mkDerivation {
     [
       zlib
       SDL
-    ] ++ lib.optionals enableStoneSense [
+    ]
+    ++ lib.optionals enableStoneSense [
       allegro5
       libGLU
       libGL
@@ -182,7 +184,8 @@ stdenv.mkDerivation {
     [
       "-DDFHACK_BUILD_ARCH=${arch}"
       "-DDOWNLOAD_RUBY=OFF"
-    ] ++ lib.optionals enableStoneSense [
+    ]
+    ++ lib.optionals enableStoneSense [
       "-DBUILD_STONESENSE=ON"
       "-DSTONESENSE_INTERNAL_SO=OFF"
     ]

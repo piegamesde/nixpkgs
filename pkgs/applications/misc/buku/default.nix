@@ -53,7 +53,8 @@ buildPythonApplication rec {
       certifi
       urllib3
       html5lib
-    ] ++ lib.optionals withServer serverRequire
+    ]
+    ++ lib.optionals withServer serverRequire
     ;
 
   preCheck =
@@ -65,7 +66,8 @@ buildPythonApplication rec {
         --replace "self.assertEqual(url, \"https://www.google.com\")" ""
       substituteInPlace setup.py \
         --replace mypy-extensions==0.4.1 mypy-extensions>=0.4.1
-    '' + lib.optionalString (!withServer) ''
+    ''
+    + lib.optionalString (!withServer) ''
       rm tests/test_{server,views}.py
     ''
     ;
@@ -78,7 +80,8 @@ buildPythonApplication rec {
       cp auto-completion/zsh/* $out/share/zsh/site-functions
       cp auto-completion/bash/* $out/share/bash-completion/completions
       cp auto-completion/fish/* $out/share/fish/vendor_completions.d
-    '' + lib.optionalString (!withServer) ''
+    ''
+    + lib.optionalString (!withServer) ''
       rm $out/bin/bukuserver
     ''
     ;

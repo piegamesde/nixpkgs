@@ -139,7 +139,8 @@ stdenv.mkDerivation rec {
     libappindicator-gtk3
     libdbusmenu
     wayland
-  ] ++ lib.optional withTTS speechd);
+  ]
+    ++ lib.optional withTTS speechd);
 
   installPhase = ''
     runHook preInstall

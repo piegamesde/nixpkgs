@@ -106,10 +106,12 @@ stdenv.mkDerivation rec {
       vmware-unpack-env
       autoPatchelfHook
       makeWrapper
-    ] ++ lib.optionals enableInstaller [
+    ]
+    ++ lib.optionals enableInstaller [
       sqlite
       bzip2
-    ] ++ lib.optionals enableMacOSGuests [
+    ]
+    ++ lib.optionals enableMacOSGuests [
       gnutar
       unzip
     ]

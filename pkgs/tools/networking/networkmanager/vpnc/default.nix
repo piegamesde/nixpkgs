@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       vpnc
       networkmanager
       glib
-    ] ++ lib.optionals withGnome [
+    ]
+    ++ lib.optionals withGnome [
       gtk3
       gtk4
       libsecret

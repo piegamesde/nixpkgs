@@ -75,7 +75,8 @@ buildPythonPackage rec {
       pygments
       tinycss2
       traitlets
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;
 
   preCheck = ''

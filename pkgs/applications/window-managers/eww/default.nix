@@ -31,7 +31,8 @@ rustPlatform.buildRustPackage rec {
     [
       gtk3
       gdk-pixbuf
-    ] ++ lib.optional withWayland gtk-layer-shell
+    ]
+    ++ lib.optional withWayland gtk-layer-shell
     ;
 
   buildNoDefaultFeatures = withWayland;

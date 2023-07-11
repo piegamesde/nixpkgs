@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ libcdio ] ++ lib.optionals stdenv.isDarwin [
+    [ libcdio ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       IOKit
       DiskArbitration

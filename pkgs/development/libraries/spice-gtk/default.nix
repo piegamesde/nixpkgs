@@ -93,9 +93,11 @@ stdenv.mkDerivation rec {
       python3.pkgs.pyparsing
       python3.pkgs.six
       vala
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ]
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
+    ++ lib.optionals stdenv.isLinux [ wayland-scanner ]
     ;
 
   propagatedBuildInputs = [
@@ -122,10 +124,12 @@ stdenv.mkDerivation rec {
       usbredir
       vala
       zlib
-    ] ++ lib.optionals withPolkit [
+    ]
+    ++ lib.optionals withPolkit [
       polkit
       acl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap_ng
       libdrm
       wayland-protocols
@@ -139,13 +143,15 @@ stdenv.mkDerivation rec {
     [
       "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
       "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
-    ] ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
+    ]
+    ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
     ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+        "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
+      ]
     ;
 
   postPatch = ''

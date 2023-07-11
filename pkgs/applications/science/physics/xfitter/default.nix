@@ -58,13 +58,16 @@ stdenv.mkDerivation rec {
       gsl
       yaml-cpp
       zlib
-    ] ++ lib.optionals ("5" == lib.versions.major root.version) [
+    ]
+    ++ lib.optionals ("5" == lib.versions.major root.version) [
       apfelgrid
       applgrid
-    ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [
+    ]
+    ++ lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook
       memstreamHook
-    ] ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc
+    ]
+    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc
     ;
 
   env.NIX_CFLAGS_COMPILE =

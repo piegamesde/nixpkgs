@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       elfutils
       zlib
       libbpf
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
       argp-standalone
       musl-obstack
     ]

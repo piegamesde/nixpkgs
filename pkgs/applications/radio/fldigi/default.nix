@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       portaudio
       libsndfile
       libsamplerate
-    ] ++ lib.optionals (stdenv.isLinux) [
+    ]
+    ++ lib.optionals (stdenv.isLinux) [
       libpulseaudio
       alsa-lib
       udev

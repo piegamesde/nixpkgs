@@ -43,7 +43,8 @@ buildPythonPackage rec {
       pygments
       rchitect
       six
-    ] ++ (with rPackages; [
+    ]
+    ++ (with rPackages; [
       reticulate
       askpass
     ])

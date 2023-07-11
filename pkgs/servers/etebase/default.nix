@@ -38,7 +38,9 @@ buildPythonPackage rec {
       pynacl
       redis
       typing-extensions
-    ] ++ lib.optional withLdap python-ldap ++ lib.optional withPostgres psycopg2
+    ]
+    ++ lib.optional withLdap python-ldap
+    ++ lib.optional withPostgres psycopg2
     ;
 
   installPhase = ''

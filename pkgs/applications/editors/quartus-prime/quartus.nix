@@ -84,10 +84,11 @@ stdenv.mkDerivation rec {
       name = "ModelSimSetup-${version}-linux.run";
       sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
     }
-  ] ++ (map (id: {
-    name = "${id}-${version}.qdz";
-    sha256 = lib.getAttr id componentHashes;
-  }) (lib.attrValues supportedDeviceIds)));
+  ]
+    ++ (map (id: {
+      name = "${id}-${version}.qdz";
+      sha256 = lib.getAttr id componentHashes;
+    }) (lib.attrValues supportedDeviceIds)));
 
   nativeBuildInputs = [ unstick ];
 
@@ -114,7 +115,8 @@ stdenv.mkDerivation rec {
           "quartus_update"
           # not modelsim_ase
           "modelsim_ae"
-        ] ++ (lib.attrValues unsupportedDeviceIds)
+        ]
+        ++ (lib.attrValues unsupportedDeviceIds)
         ;
     in
     ''

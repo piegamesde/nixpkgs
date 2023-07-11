@@ -50,7 +50,8 @@ let
       ocamlPackages.menhir
     ];
     propagatedBuildInputs =
-      [ alt-ergo-lib ] ++ (with ocamlPackages; [
+      [ alt-ergo-lib ]
+      ++ (with ocamlPackages; [
         camlzip
         psmt2-frontend
       ])

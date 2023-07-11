@@ -86,39 +86,41 @@ let
         sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
       })
       ./fix-struct-redefinition-on-glibc-2.36.patch
-    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+    ]
+    ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional (noSysDirs && hostPlatform.isRiscV) ../no-sys-dirs-riscv.patch
-    /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
-         url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
-         sha256 = ""; # TODO: uncomment and check hash when available.
-       })
-    */
+      /* ++ optional (hostPlatform != buildPlatform) (fetchpatch { # XXX: Refine when this should be applied
+           url = "https://git.busybox.net/buildroot/plain/package/gcc/${version}/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
+           sha256 = ""; # TODO: uncomment and check hash when available.
+         })
+      */
     ++ optional langAda ../gnat-cflags-11.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-    ../ppc-musl.patch
+      ../ppc-musl.patch
 
     ++ optionals stdenv.isDarwin [
-      (fetchpatch {
-        # There are no upstream release tags in https://github.com/iains/gcc-11-branch.
-        # 2d280e7 is the commit from https://github.com/gcc-mirror/gcc/releases/tag/releases%2Fgcc-11.3.0
-        url =
-          "https://github.com/iains/gcc-11-branch/compare/2d280e7eafc086e9df85f50ed1a6526d6a3a204d..gcc-11.3-darwin-r2.diff";
-        sha256 = "sha256-LFAXUEoYD7YeCG8V9mWanygyQOI7U5OhCRIKOVCCDAg=";
-      })
-    ]
-    # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
+        (fetchpatch {
+          # There are no upstream release tags in https://github.com/iains/gcc-11-branch.
+          # 2d280e7 is the commit from https://github.com/gcc-mirror/gcc/releases/tag/releases%2Fgcc-11.3.0
+          url =
+            "https://github.com/iains/gcc-11-branch/compare/2d280e7eafc086e9df85f50ed1a6526d6a3a204d..gcc-11.3-darwin-r2.diff";
+          sha256 = "sha256-LFAXUEoYD7YeCG8V9mWanygyQOI7U5OhCRIKOVCCDAg=";
+        })
+      ]
+      # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
     ++ optional (stdenv.isDarwin && targetPlatform.isAvr)
-    ./avr-gcc-11.3-darwin.patch
+      ./avr-gcc-11.3-darwin.patch
 
-    # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional
-    (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-    ./Added-mcf-thread-model-support-from-mcfgthread.patch
+      # Obtain latest patch with ../update-mcfgthread-patches.sh
+    ++ optional (!crossStageStatic
+      && targetPlatform.isMinGW
+      && threadsCross.model == "mcf")
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
-    # openjdk build fails without this on -march=opteron; is upstream in gcc12
+      # openjdk build fails without this on -march=opteron; is upstream in gcc12
     ++ [ ./gcc-issue-103910.patch ]
     ;
 
@@ -216,7 +218,8 @@ lib.pipe (stdenv.mkDerivation ({
       "out"
       "man"
       "info"
-    ] ++ lib.optional (!langJit) "lib"
+    ]
+    ++ lib.optional (!langJit) "lib"
     ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
@@ -246,7 +249,8 @@ lib.pipe (stdenv.mkDerivation ({
 
       substituteInPlace libgfortran/configure \
         --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
-    '' + (lib.optionalString
+    ''
+    + (lib.optionalString
       (targetPlatform != hostPlatform || stdenv.cc.libc != null)
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
@@ -268,15 +272,17 @@ lib.pipe (stdenv.mkDerivation ({
                         -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
                         -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
                   done
-      '' + lib.optionalString (targetPlatform.libc == "musl") ''
-        sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
-      '')
-      )) + lib.optionalString targetPlatform.isAvr ''
-        makeFlagsArray+=(
-           '-s' # workaround for hitting hydra log limit
-           'LIMITS_H_TEST=false'
-        )
       ''
+        + lib.optionalString (targetPlatform.libc == "musl") ''
+          sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
+        '')
+      ))
+    + lib.optionalString targetPlatform.isAvr ''
+      makeFlagsArray+=(
+         '-s' # workaround for hitting hydra log limit
+         'LIMITS_H_TEST=false'
+      )
+    ''
     ;
 
   inherit noSysDirs staticCompiler crossStageStatic libcCross crossMingw;
@@ -292,7 +298,8 @@ lib.pipe (stdenv.mkDerivation ({
   NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
   preConfigure =
-    (callFile ../common/pre-configure.nix { }) + ''
+    (callFile ../common/pre-configure.nix { })
+    + ''
       ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
     ''
     ;
@@ -317,8 +324,9 @@ lib.pipe (stdenv.mkDerivation ({
   buildFlags =
     let
       target =
-        lib.optionalString (profiledCompiler) "profiled" + lib.optionalString
-        (targetPlatform == hostPlatform && hostPlatform == buildPlatform
+        lib.optionalString (profiledCompiler) "profiled"
+        + lib.optionalString (targetPlatform == hostPlatform
+          && hostPlatform == buildPlatform
           && !disableBootstrap) "bootstrap"
         ;
     in
@@ -391,8 +399,9 @@ lib.pipe (stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

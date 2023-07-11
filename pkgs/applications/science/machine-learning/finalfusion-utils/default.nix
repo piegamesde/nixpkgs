@@ -32,7 +32,8 @@ rustPlatform.buildRustPackage rec {
       gfortran.cc.lib
       lapack
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
     # Enables build against a generic BLAS.

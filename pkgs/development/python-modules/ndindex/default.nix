@@ -46,7 +46,8 @@ buildPythonPackage rec {
       hypothesis
       pytest-cov # uses cov markers
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.arrays
+    ]
+    ++ passthru.optional-dependencies.arrays
     ;
 
   pytestFlagsArray =

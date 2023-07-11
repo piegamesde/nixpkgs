@@ -47,10 +47,12 @@ stdenv.mkDerivation rec {
       blas
       python3
       boost
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       ocl-icd
       opencl-headers
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
       CoreVideo

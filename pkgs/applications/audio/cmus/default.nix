@@ -157,12 +157,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ ncurses ] ++ lib.optionals stdenv.isDarwin [
+    [ ncurses ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreAudio
       AudioUnit
       VideoToolbox
-    ] ++ lib.flatten (lib.concatMap (a: a.deps) opts)
+    ]
+    ++ lib.flatten (lib.concatMap (a: a.deps) opts)
     ;
 
   prefixKey = "prefix=";
@@ -171,7 +173,8 @@ stdenv.mkDerivation rec {
     [
       "CONFIG_WAV=y"
       "HOSTCC=${stdenv.cc.targetPrefix}cc"
-    ] ++ lib.concatMap (a: a.flags) opts
+    ]
+    ++ lib.concatMap (a: a.flags) opts
     ;
 
   makeFlags = [ "LD=$(CC)" ];

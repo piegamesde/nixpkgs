@@ -120,7 +120,8 @@ stdenv.mkDerivation (finalAttrs: {
       libjpeg
       libpng
       pcre2
-    ] ++ (if stdenv.isDarwin then
+    ]
+    ++ (if stdenv.isDarwin then
       [
         # TODO: move to buildInputs, this should not be propagated.
         AGL
@@ -166,16 +167,19 @@ stdenv.mkDerivation (finalAttrs: {
         xcbutilkeysyms
         xcbutilrenderutil
         xcbutilwm
-      ] ++ lib.optional libGLSupported libGL)
+      ]
+      ++ lib.optional libGLSupported libGL)
     ;
 
   buildInputs =
     [
       python3
       at-spi2-core
-    ] ++ lib.optionals (!stdenv.isDarwin)
-    ([ libinput ] ++ lib.optional withGtk3 gtk3)
-    ++ lib.optional developerBuild gdb ++ lib.optional (cups != null) cups
+    ]
+    ++ lib.optionals (!stdenv.isDarwin)
+      ([ libinput ] ++ lib.optional withGtk3 gtk3)
+    ++ lib.optional developerBuild gdb
+    ++ lib.optional (cups != null) cups
     ++ lib.optional (mysqlSupport) libmysqlclient
     ++ lib.optional (postgresql != null) postgresql
     ;
@@ -189,7 +193,8 @@ stdenv.mkDerivation (finalAttrs: {
       perl
       pkg-config
       which
-    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ xcbuild ]
     ;
 
   propagatedNativeBuildInputs = [ lndir ];
@@ -235,7 +240,8 @@ stdenv.mkDerivation (finalAttrs: {
       sed -i 's/-lpthread/-pthread/' mkspecs/common/linux.conf src/corelib/configure.json
 
       patchShebangs ./bin
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         sed -i \
             -e 's|/usr/bin/xcode-select|xcode-select|' \
@@ -302,17 +308,20 @@ stdenv.mkDerivation (finalAttrs: {
     ''-DNIXPKGS_QTCOMPOSE="${libX11.out}/share/X11/locale"''
     ''-DLIBRESOLV_SO="${stdenv.cc.libc.out}/lib/libresolv"''
     ''-DNIXPKGS_LIBXCURSOR="${libXcursor.out}/lib/libXcursor"''
-  ] ++ lib.optional libGLSupported
-    ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
+  ]
+    ++ lib.optional libGLSupported
+      ''-DNIXPKGS_MESA_GL="${libGL.out}/lib/libGL"''
     ++ lib.optional stdenv.isLinux "-DUSE_X11"
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-darwin") [
       # ignore "is only available on macOS 10.12.2 or newer" in obj-c code
       "-Wno-error=unguarded-availability"
-    ] ++ lib.optionals withGtk3 [
+    ]
+    ++ lib.optionals withGtk3 [
       ''
         -DNIXPKGS_QGTK3_XDG_DATA_DIRS="${gtk3}/share/gsettings-schemas/${gtk3.name}"''
       ''-DNIXPKGS_QGTK3_GIO_EXTRA_MODULES="${dconf.lib}/lib/gio/modules"''
-    ] ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
+    ]
+    ++ lib.optional decryptSslTraffic "-DQT_DECRYPT_SSL_TRAFFIC");
 
   prefixKey = "-prefix ";
 
@@ -351,10 +360,13 @@ stdenv.mkDerivation (finalAttrs: {
       "-I"
       "${icu.dev}/include"
       "-pch"
-    ] ++ lib.optional debugSymbols "-debug" ++ lib.optionals developerBuild [
+    ]
+    ++ lib.optional debugSymbols "-debug"
+    ++ lib.optionals developerBuild [
       "-developer-build"
       "-no-warnings-are-errors"
-    ] ++ (if (!stdenv.hostPlatform.isx86_64) then
+    ]
+    ++ (if (!stdenv.hostPlatform.isx86_64) then
       [ "-no-sse2" ]
     else
       [
@@ -369,90 +381,98 @@ stdenv.mkDerivation (finalAttrs: {
         }-sse4.2"
         "${lib.optionalString (!stdenv.hostPlatform.avxSupport) "-no"}-avx"
         "${lib.optionalString (!stdenv.hostPlatform.avx2Support) "-no"}-avx2"
-      ]) ++ [
-        "-no-mips_dsp"
-        "-no-mips_dspr2"
-      ] ++ [
-        "-system-zlib"
-        "-L"
-        "${zlib.out}/lib"
-        "-I"
-        "${zlib.dev}/include"
-        "-system-libjpeg"
-        "-L"
-        "${libjpeg.out}/lib"
-        "-I"
-        "${libjpeg.dev}/include"
-        "-system-harfbuzz"
-        "-L"
-        "${harfbuzz.out}/lib"
-        "-I"
-        "${harfbuzz.dev}/include"
-        "-system-pcre"
-        "-openssl-linked"
-        "-L"
-        "${lib.getLib openssl}/lib"
-        "-I"
-        "${openssl.dev}/include"
-        "-system-sqlite"
-        "-${
-          if mysqlSupport then
-            "plugin"
-          else
-            "no"
-        }-sql-mysql"
-        "-${
-          if postgresql != null then
-            "plugin"
-          else
-            "no"
-        }-sql-psql"
+      ])
+    ++ [
+      "-no-mips_dsp"
+      "-no-mips_dspr2"
+    ]
+    ++ [
+      "-system-zlib"
+      "-L"
+      "${zlib.out}/lib"
+      "-I"
+      "${zlib.dev}/include"
+      "-system-libjpeg"
+      "-L"
+      "${libjpeg.out}/lib"
+      "-I"
+      "${libjpeg.dev}/include"
+      "-system-harfbuzz"
+      "-L"
+      "${harfbuzz.out}/lib"
+      "-I"
+      "${harfbuzz.dev}/include"
+      "-system-pcre"
+      "-openssl-linked"
+      "-L"
+      "${lib.getLib openssl}/lib"
+      "-I"
+      "${openssl.dev}/include"
+      "-system-sqlite"
+      "-${
+        if mysqlSupport then
+          "plugin"
+        else
+          "no"
+      }-sql-mysql"
+      "-${
+        if postgresql != null then
+          "plugin"
+        else
+          "no"
+      }-sql-psql"
 
-        "-make libs"
-        "-make tools"
-        "-${lib.optionalString (!buildExamples) "no"}make examples"
-        "-${lib.optionalString (!buildTests) "no"}make tests"
-      ] ++ (if stdenv.isDarwin then
-        [
-          "-no-fontconfig"
-          "-qt-freetype"
-          "-qt-libpng"
-          "-no-framework"
-        ]
-      else
-        [ "-rpath" ] ++ [
-          "-xcb"
-          "-qpa xcb"
-          "-L"
-          "${libX11.out}/lib"
-          "-I"
-          "${libX11.out}/include"
-          "-L"
-          "${libXext.out}/lib"
-          "-I"
-          "${libXext.out}/include"
-          "-L"
-          "${libXrender.out}/lib"
-          "-I"
-          "${libXrender.out}/include"
+      "-make libs"
+      "-make tools"
+      "-${lib.optionalString (!buildExamples) "no"}make examples"
+      "-${lib.optionalString (!buildTests) "no"}make tests"
+    ]
+    ++ (if stdenv.isDarwin then
+      [
+        "-no-fontconfig"
+        "-qt-freetype"
+        "-qt-libpng"
+        "-no-framework"
+      ]
+    else
+      [ "-rpath" ]
+      ++ [
+        "-xcb"
+        "-qpa xcb"
+        "-L"
+        "${libX11.out}/lib"
+        "-I"
+        "${libX11.out}/include"
+        "-L"
+        "${libXext.out}/lib"
+        "-I"
+        "${libXext.out}/include"
+        "-L"
+        "${libXrender.out}/lib"
+        "-I"
+        "${libXrender.out}/include"
 
-          "-libinput"
+        "-libinput"
 
-          "-${lib.optionalString (cups == null) "no-"}cups"
-          "-dbus-linked"
-          "-glib"
-        ] ++ [ "-system-libpng" ] ++ lib.optional withGtk3 "-gtk"
-        ++ [ "-inotify" ] ++ lib.optionals (cups != null) [
-          "-L"
-          "${cups.lib}/lib"
-          "-I"
-          "${cups.dev}/include"
-        ] ++ lib.optionals (mysqlSupport) [
-          "-L"
-          "${libmysqlclient}/lib"
-          "-I"
-          "${libmysqlclient}/include"
-        ])
+        "-${lib.optionalString (cups == null) "no-"}cups"
+        "-dbus-linked"
+        "-glib"
+      ]
+      ++ [ "-system-libpng" ]
+      ++ lib.optional withGtk3 "-gtk"
+      ++ [ "-inotify" ]
+      ++ lib.optionals (cups != null) [
+        "-L"
+        "${cups.lib}/lib"
+        "-I"
+        "${cups.dev}/include"
+      ]
+      ++ lib.optionals (mysqlSupport) [
+        "-L"
+        "${libmysqlclient}/lib"
+        "-I"
+        "${libmysqlclient}/include"
+      ])
     ;
 
     # Move selected outputs.

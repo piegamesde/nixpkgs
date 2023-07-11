@@ -39,7 +39,8 @@ buildPythonApplication rec {
       pyserial
       setuptools
       wxPython_4_2
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       billiard
       gnureadline
     ]

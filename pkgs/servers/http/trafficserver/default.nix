@@ -86,10 +86,12 @@ stdenv.mkDerivation rec {
       pkg-config
       file
       python3
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       ExtUtilsMakeMaker
-    ]) ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ])
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
     ;
 
   buildInputs =
@@ -97,13 +99,19 @@ stdenv.mkDerivation rec {
       openssl
       pcre
       perlPackages.perl
-    ] ++ lib.optional withBrotli brotli ++ lib.optional withCap libcap
-    ++ lib.optional withCjose cjose ++ lib.optional withCurl curl
-    ++ lib.optional withGeoIP geoip ++ lib.optional withHiredis hiredis
-    ++ lib.optional withHwloc hwloc ++ lib.optional withImageMagick imagemagick
+    ]
+    ++ lib.optional withBrotli brotli
+    ++ lib.optional withCap libcap
+    ++ lib.optional withCjose cjose
+    ++ lib.optional withCurl curl
+    ++ lib.optional withGeoIP geoip
+    ++ lib.optional withHiredis hiredis
+    ++ lib.optional withHwloc hwloc
+    ++ lib.optional withImageMagick imagemagick
     ++ lib.optional withJansson jansson
     ++ lib.optional withKyotoCabinet kyotocabinet
-    ++ lib.optional withCurses ncurses ++ lib.optional withLuaJIT luajit
+    ++ lib.optional withCurses ncurses
+    ++ lib.optional withLuaJIT luajit
     ++ lib.optional withUnwind libunwind
     ++ lib.optional withMaxmindDB libmaxminddb
     ;
@@ -122,10 +130,12 @@ stdenv.mkDerivation rec {
         tools/check-unused-dependencies
 
       substituteInPlace configure --replace '/usr/bin/file' '${file}/bin/file'
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace configure \
         --replace '/usr/include/linux' '${linuxHeaders}/include/linux'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # 'xcrun leaks' probably requires non-free XCode
       substituteInPlace iocore/net/test_certlookup.cc \
         --replace 'xcrun leaks' 'true'

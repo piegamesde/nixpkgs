@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zstd ] ++ lib.optionals stdenv.isDarwin [
+    [ zstd ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       libresolv
       Security

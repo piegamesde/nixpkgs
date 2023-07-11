@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ wrapGAppsHook ] ++ (with ocamlPackages; [
+    [ wrapGAppsHook ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
       dune_3

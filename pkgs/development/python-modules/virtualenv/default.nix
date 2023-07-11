@@ -42,7 +42,8 @@ buildPythonPackage rec {
       distlib
       filelock
       platformdirs
-    ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
@@ -76,7 +77,8 @@ buildPythonPackage rec {
       "test_seed_link_via_app_data"
       # Permission Error
       "test_bad_exe_py_info_no_raise"
-    ] ++ lib.optionals (isPyPy) [
+    ]
+    ++ lib.optionals (isPyPy) [
       # encoding problems
       "test_bash"
       # permission error

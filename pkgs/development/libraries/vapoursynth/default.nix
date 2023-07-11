@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
           sphinx
           cython
         ]))
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       ApplicationServices
     ]

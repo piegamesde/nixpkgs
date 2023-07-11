@@ -91,13 +91,15 @@ assert xarSupport -> libxml2 != null;
       xz
       zlib
       zstd
-    ] ++ lib.optional stdenv.hostPlatform.isUnix sharutils
+    ]
+    ++ lib.optional stdenv.hostPlatform.isUnix sharutils
     ++ lib.optionals stdenv.isLinux [
       acl
       attr
       0.0
       fsprogs
-    ] ++ lib.optional xarSupport libxml2
+    ]
+    ++ lib.optional xarSupport libxml2
     ;
 
     # Without this, pkg-config-based dependencies are unhappy

@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       python3
       readline
       rtrlib
-    ] ++ lib.optionals stdenv.isLinux [ libcap ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libcap ]
     ;
 
   configureFlags = [

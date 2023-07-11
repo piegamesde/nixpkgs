@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
       freeimage
       boost.out
       boost.dev
-    ] ++ (lib.optional stdenv.isLinux ocl-icd)
+    ]
+    ++ (lib.optional stdenv.isLinux ocl-icd)
     ++ (lib.optional cudaSupport cudatoolkit)
     ++ (lib.optional buildDocs doxygen)
     ;

@@ -18,9 +18,8 @@ let
         ++ optional (proxy != null) "aesm proxy = ${proxy}"
         ++ optional (proxyType != null) "proxy type = ${proxyType}"
         ++ optional (defaultQuotingType != null)
-        "default quoting type = ${defaultQuotingType}" ++
-        # Newline at end of file
-        [ "" ]));
+          "default quoting type = ${defaultQuotingType}"
+        ++ [ "" ]));
 in
 {
   options.services.aesmd = {

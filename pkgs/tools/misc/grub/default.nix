@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       # /dev/disk/by-label/bla.  The symlink resolution code in
       # grub-install isn't smart enough.
       ./symlink.patch
-    ] ++ (lib.optional buggyBiosCDSupport ./buggybios.patch)
+    ]
+    ++ (lib.optional buggyBiosCDSupport ./buggybios.patch)
     ++ map fetchurl (import ./grub1.patches.nix)
     ;
 

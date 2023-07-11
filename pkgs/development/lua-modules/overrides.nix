@@ -299,7 +299,8 @@ with prev; {
       MYSQL_LIBDIR = "${libmysqlclient}/lib/mysql";
     };
     buildInputs =
-      oa.buildInputs ++ [
+      oa.buildInputs
+      ++ [
         mariadb.client
         libmysqlclient
       ]
@@ -463,7 +464,8 @@ with prev; {
       [
         pkg-config
         cmake
-      ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
       ;
   };
 

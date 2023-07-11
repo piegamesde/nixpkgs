@@ -213,8 +213,9 @@ rec {
             if loc != null then
               loc.file + ":" + toString loc.line
             else if !lib.isFunction fn then
-              toString fn + lib.optionalString (lib.sources.pathIsDirectory fn)
-              "/default.nix"
+              toString fn
+              + lib.optionalString (lib.sources.pathIsDirectory fn)
+                "/default.nix"
             else
               "<unknown location>"
             ;

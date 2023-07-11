@@ -56,7 +56,8 @@
 
 let
   pythonEnv = python.withPackages (ps:
-    lib.optional withManual ps.sphinx ++ lib.optionals pythonSupport (with ps; [
+    lib.optional withManual ps.sphinx
+    ++ lib.optionals pythonSupport (with ps; [
       pybindgen
       pygccxml
     ]));
@@ -86,11 +87,13 @@ stdenv.mkDerivation rec {
     lib.optionals pythonSupport [
       castxml
       ncurses
-    ] ++ lib.optionals enableDoxygen [
+    ]
+    ++ lib.optionals enableDoxygen [
       doxygen
       graphviz
       imagemagick
-    ] ++ lib.optionals withManual [
+    ]
+    ++ lib.optionals withManual [
       dia
       tetex
       ghostscript
@@ -108,14 +111,16 @@ stdenv.mkDerivation rec {
     [
       "--enable-modules=${concatStringsSep "," modules}"
       "--with-python=${pythonEnv.interpreter}"
-    ] ++ optional (build_profile != null) "--build-profile=${build_profile}"
+    ]
+    ++ optional (build_profile != null) "--build-profile=${build_profile}"
     ++ optional withExamples " --enable-examples "
     ++ optional doCheck " --enable-tests ";
 
   doCheck = true;
 
   buildTargets =
-    "build" + lib.optionalString enableDoxygen " doxygen"
+    "build"
+    + lib.optionalString enableDoxygen " doxygen"
     + lib.optionalString withManual "sphinx"
     ;
 

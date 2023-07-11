@@ -47,7 +47,8 @@ stdenv.mkDerivation {
       ncurses
       bash
       gawk
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       Cocoa
     ]
@@ -59,7 +60,8 @@ stdenv.mkDerivation {
     [
       "--enable-multibyte"
       "--enable-nls"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "vim_cv_toupper_broken=no"
       "--with-tlib=ncurses"
       "vim_cv_terminfo=yes"

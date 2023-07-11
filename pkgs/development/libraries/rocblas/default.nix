@@ -31,7 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -49,18 +50,21 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ python3 ] ++ lib.optionals buildTensile [
+    [ python3 ]
+    ++ lib.optionals buildTensile [
       msgpack
       libxml2
       python3Packages.msgpack
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildBenchmarks) [
       gfortran
       openmp
       amd-blis
-    ] ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
-      python3Packages.pyyaml
     ]
+    ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
+        python3Packages.pyyaml
+      ]
     ;
 
   cmakeFlags =
@@ -80,7 +84,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTensile [
+    ]
+    ++ lib.optionals buildTensile [
       "-DVIRTUALENV_HOME_DIR=/build/source/tensile"
       "-DTensile_TEST_LOCAL_PATH=/build/source/tensile"
       "-DTensile_ROOT=/build/source/tensile/lib/python${python3.pythonVersion}/site-packages/Tensile"
@@ -99,11 +104,12 @@ stdenv.mkDerivation (finalAttrs: {
           "OFF"
       }"
       "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
     ++ lib.optionals (buildTests || buildBenchmarks) [
-      "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
-    ]
+        "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
+      ]
     ;
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
@@ -125,11 +131,13 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $test/bin
       cp -a $out/bin/* $test/bin
       rm $test/bin/*-bench || true
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       cp -a $out/bin/* $benchmark/bin
       rm $benchmark/bin/*-test || true
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rm -rf $out/bin
     ''
     ;

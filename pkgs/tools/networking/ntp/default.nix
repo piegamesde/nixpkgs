@@ -34,14 +34,16 @@ stdenv.mkDerivation rec {
       "--with-openssl-incdir=${openssl.dev}/include"
       "--enable-ignore-dns-errors"
       "--with-yielding-select=yes"
-    ] ++ lib.optional stdenv.isLinux "--enable-linuxcaps"
+    ]
+    ++ lib.optional stdenv.isLinux "--enable-linuxcaps"
     ;
 
   buildInputs =
     [
       openssl
       perl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       pps-tools
       libcap
     ]

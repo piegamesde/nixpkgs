@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       libdmtx
       imagemagick
-    ] ++ lib.optional stdenv.isDarwin Foundation
+    ]
+    ++ lib.optional stdenv.isDarwin Foundation
     ;
 
   meta = {

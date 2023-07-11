@@ -55,8 +55,11 @@ import ./versions.nix ({
         openssl
         pcre
         zlib
-      ] ++ optional odbcSupport unixODBC ++ optional snmpSupport net-snmp
-      ++ optional sqliteSupport sqlite ++ optional sshSupport libssh2
+      ]
+      ++ optional odbcSupport unixODBC
+      ++ optional snmpSupport net-snmp
+      ++ optional sqliteSupport sqlite
+      ++ optional sshSupport libssh2
       ++ optional mysqlSupport libmysqlclient
       ++ optional postgresqlSupport postgresql
       ;
@@ -70,7 +73,8 @@ import ./versions.nix ({
         "--with-libpcre"
         "--with-openssl=${openssl.dev}"
         "--with-zlib=${zlib}"
-      ] ++ optional odbcSupport "--with-unixodbc"
+      ]
+      ++ optional odbcSupport "--with-unixodbc"
       ++ optional snmpSupport "--with-net-snmp"
       ++ optional sqliteSupport "--with-sqlite3=${sqlite.dev}"
       ++ optional sshSupport "--with-ssh2=${libssh2.dev}"
@@ -90,13 +94,16 @@ import ./versions.nix ({
     postInstall =
       ''
         mkdir -p $out/share/zabbix/database/
-      '' + optionalString sqliteSupport ''
+      ''
+      + optionalString sqliteSupport ''
         mkdir -p $out/share/zabbix/database/sqlite3
         cp -prvd database/sqlite3/schema.sql $out/share/zabbix/database/sqlite3/
-      '' + optionalString mysqlSupport ''
+      ''
+      + optionalString mysqlSupport ''
         mkdir -p $out/share/zabbix/database/mysql
         cp -prvd database/mysql/schema.sql $out/share/zabbix/database/mysql/
-      '' + optionalString postgresqlSupport ''
+      ''
+      + optionalString postgresqlSupport ''
         mkdir -p $out/share/zabbix/database/postgresql
         cp -prvd database/postgresql/schema.sql $out/share/zabbix/database/postgresql/
       ''

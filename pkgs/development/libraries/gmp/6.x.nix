@@ -60,14 +60,16 @@ let
         # ARM optimization flags via /proc/cpuinfo (and is also
         # broken on multicore CPUs). Avoid this impurity.
         "--build=${stdenv.buildPlatform.config}"
-      ] ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
+      ]
+      ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
       ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64"
-      # to build a .dll on windows, we need --disable-static + --enable-shared
-      # see https://gmplib.org/manual/Notes-for-Particular-Systems.html
+        # to build a .dll on windows, we need --disable-static + --enable-shared
+        # see https://gmplib.org/manual/Notes-for-Particular-Systems.html
       ++ optional (!withStatic && stdenv.hostPlatform.isWindows)
-      "--disable-static --enable-shared" ++ optional
-      (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-      "--disable-assembly"
+        "--disable-static --enable-shared"
+      ++ optional
+        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+        "--disable-assembly"
       ;
 
     doCheck = true; # not cross;

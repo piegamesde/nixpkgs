@@ -60,7 +60,8 @@ rustPlatform.buildRustPackage rec {
       patchelf --set-rpath "${
         lib.makeLibraryPath buildInputs
       }" $out/bin/rusty-psn
-    '' + lib.optionalString withGui ''
+    ''
+    + lib.optionalString withGui ''
       mv $out/bin/rusty-psn $out/bin/rusty-psn-gui
     ''
     ;

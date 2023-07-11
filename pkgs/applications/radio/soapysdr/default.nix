@@ -51,7 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       libusb-compat-0_1
       ncurses
-    ] ++ lib.optionals usePython [
+    ]
+    ++ lib.optionals usePython [
       python
       swig2
     ]

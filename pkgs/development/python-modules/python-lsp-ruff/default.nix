@@ -31,7 +31,8 @@ buildPythonPackage rec {
     [
       lsprotocol
       python-lsp-server
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   doCheck = true;

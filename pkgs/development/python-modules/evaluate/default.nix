@@ -55,7 +55,8 @@ buildPythonPackage rec {
       packaging
       pyarrow
       responses
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
     # most tests require internet access.

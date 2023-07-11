@@ -32,7 +32,8 @@ buildPythonPackage rec {
     [
       pillow
       glibcLocales
-    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
     ;
 
   nativeBuildInputs = [
@@ -70,7 +71,8 @@ buildPythonPackage rec {
       "check_regressors_train"
       "check_classifiers_train"
       "xfail_ignored_in_check_estimator"
-    ] ++ lib.optionals (stdenv.isDarwin) [ "test_graphical_lasso" ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [ "test_graphical_lasso" ]
     ;
 
   pytestFlagsArray = [

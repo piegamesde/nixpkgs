@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       xmlto
       autoreconfHook
       docbook_xsl
-    ] ++ lib.optionals enableVideo [
+    ]
+    ++ lib.optionals enableVideo [
       wrapGAppsHook
       wrapQtAppsHook
     ]
@@ -66,10 +67,13 @@ stdenv.mkDerivation rec {
     [
       imagemagickBig
       libintl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Foundation
-    ] ++ lib.optionals enableDbus [ dbus ] ++ lib.optionals withXorg [ libX11 ]
+    ]
+    ++ lib.optionals enableDbus [ dbus ]
+    ++ lib.optionals withXorg [ libX11 ]
     ++ lib.optionals enableVideo [
       libv4l
       gtk3
@@ -96,17 +100,19 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
   configureFlags =
-    [ "--without-python" ] ++ (if enableDbus then
+    [ "--without-python" ]
+    ++ (if enableDbus then
       [ "--with-dbusconfdir=${placeholder "out"}/share" ]
     else
-      [ "--without-dbus" ]) ++ (if enableVideo then
-        [ "--with-gtk=gtk3" ]
-      else
-        [
-          "--disable-video"
-          "--without-gtk"
-          "--without-qt"
-        ])
+      [ "--without-dbus" ])
+    ++ (if enableVideo then
+      [ "--with-gtk=gtk3" ]
+    else
+      [
+        "--disable-video"
+        "--without-gtk"
+        "--without-qt"
+      ])
     ;
 
   doCheck = true;

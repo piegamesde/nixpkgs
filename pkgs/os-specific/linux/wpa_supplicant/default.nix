@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       # Fix a bug when using two config files
       ./Use-unique-IDs-for-networks-and-credentials.patch
-    ] ++ lib.optionals readOnlyModeSSIDs [
+    ]
+    ++ lib.optionals readOnlyModeSSIDs [
       # Allow read-only networks
       ./0001-Implement-read-only-mode-for-ssids.patch
     ]
@@ -77,25 +78,28 @@ stdenv.mkDerivation rec {
       CONFIG_WPS=y
       CONFIG_WPS_ER=y
       CONFIG_WPS_NFS=y
-    '' + optionalString withPcsclite ''
+    ''
+    + optionalString withPcsclite ''
       CONFIG_EAP_SIM=y
       CONFIG_EAP_AKA=y
       CONFIG_EAP_AKA_PRIME=y
       CONFIG_PCSC=y
-    '' + optionalString dbusSupport ''
+    ''
+    + optionalString dbusSupport ''
       CONFIG_CTRL_IFACE_DBUS=y
       CONFIG_CTRL_IFACE_DBUS_NEW=y
       CONFIG_CTRL_IFACE_DBUS_INTRO=y
     ''
-    # Upstream uses conditionals based on ifdef, so opposite of =y is
-    # not =n, as one may expect, but undefine.
-    #
-    # This config is sourced into makefile.
+      # Upstream uses conditionals based on ifdef, so opposite of =y is
+      # not =n, as one may expect, but undefine.
+      #
+      # This config is sourced into makefile.
     + optionalString (!dbusSupport) ''
       undefine CONFIG_CTRL_IFACE_DBUS
       undefine CONFIG_CTRL_IFACE_DBUS_NEW
       undefine CONFIG_CTRL_IFACE_DBUS_INTRO
-    '' + (if withReadline then
+    ''
+    + (if withReadline then
       ''
         CONFIG_READLINE=y
       ''
@@ -123,7 +127,9 @@ stdenv.mkDerivation rec {
     [
       openssl
       libnl
-    ] ++ optional dbusSupport dbus ++ optional withReadline readline
+    ]
+    ++ optional dbusSupport dbus
+    ++ optional withReadline readline
     ++ optional withPcsclite pcsclite
     ;
 
@@ -134,13 +140,15 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/man/man5 $out/share/man/man8
       cp -v "doc/docbook/"*.5 $out/share/man/man5/
       cp -v "doc/docbook/"*.8 $out/share/man/man8/
-    '' + lib.optionalString dbusSupport ''
+    ''
+    + lib.optionalString dbusSupport ''
       mkdir -p $out/share/dbus-1/system.d $out/share/dbus-1/system-services $out/etc/systemd/system
       cp -v "dbus/"*service $out/share/dbus-1/system-services
       sed -e "s@/sbin/wpa_supplicant@$out&@" -i "$out/share/dbus-1/system-services/"*
       cp -v dbus/dbus-wpa_supplicant.conf $out/share/dbus-1/system.d
       cp -v "systemd/"*.service $out/etc/systemd/system
-    '' + ''
+    ''
+    + ''
       rm $out/share/man/man8/wpa_priv.8
       install -Dm444 wpa_supplicant.conf $out/share/doc/wpa_supplicant/wpa_supplicant.conf.example
     ''

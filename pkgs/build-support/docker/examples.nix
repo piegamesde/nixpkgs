@@ -568,7 +568,8 @@ rec {
         [
           pkgs.bash
           pkgs.coreutils
-        ] ++ nonRootShadowSetup {
+        ]
+        ++ nonRootShadowSetup {
           uid = 999;
           user = "somebody";
         }

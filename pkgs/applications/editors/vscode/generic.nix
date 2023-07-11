@@ -120,7 +120,8 @@ let
     ];
 
     nativeBuildInputs =
-      [ unzip ] ++ lib.optionals stdenv.isLinux [
+      [ unzip ]
+      ++ lib.optionals stdenv.isLinux [
         autoPatchelfHook
         nodePackages.asar
         # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
@@ -137,7 +138,8 @@ let
     installPhase =
       ''
         runHook preInstall
-      '' + (if stdenv.isDarwin then
+      ''
+      + (if stdenv.isDarwin then
         ''
           mkdir -p "$out/Applications/${longName}.app" "$out/bin"
           cp -r ./* "$out/Applications/${longName}.app"
@@ -160,9 +162,10 @@ let
           # Override the previously determined VSCODE_PATH with the one we know to be correct
           sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}"
           grep -q "VSCODE_PATH='$out/lib/vscode'" "$out/bin/${executableName}" # check if sed succeeded
-        '') + ''
-          runHook postInstall
-        ''
+        '')
+      + ''
+        runHook postInstall
+      ''
       ;
 
     preFixup = ''
@@ -195,7 +198,8 @@ let
 
         # this fixes bundled ripgrep
         chmod +x resources/app/node_modules/@vscode/ripgrep/bin/rg
-      '' + lib.optionalString (lib.versionOlder version "1.78.0") ''
+      ''
+      + lib.optionalString (lib.versionOlder version "1.78.0") ''
         # see https://github.com/gentoo/gentoo/commit/4da5959
         chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper
       ''
@@ -239,7 +243,8 @@ let
 
           # mono
           krb5
-        ]) ++ additionalPkgs pkgs
+        ])
+        ++ additionalPkgs pkgs
         ;
 
       extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];

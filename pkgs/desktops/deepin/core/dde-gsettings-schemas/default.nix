@@ -35,7 +35,8 @@ let
       deepin-movie-reborn
       deepin-screen-recorder
       deepin-system-monitor
-    ] ++ extraGSettingsOverridePackages
+    ]
+    ++ extraGSettingsOverridePackages
     ;
 
 in

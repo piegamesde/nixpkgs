@@ -45,7 +45,8 @@ let
         ++ lib.optionals (lang == "uk") [
           pymorphy3
           pymorphy3-dicts-uk
-        ] ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
+        ]
+        ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
         ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ]
         ;
 

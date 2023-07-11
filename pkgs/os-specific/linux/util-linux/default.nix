@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname =
     "util-linux"
     + lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
-    "-minimal"
+      "-minimal"
     ;
   version = "2.38.1";
 
@@ -76,8 +76,9 @@ stdenv.mkDerivation rec {
         "${placeholder "bin"}/lib/systemd/system/")
       (lib.enableFeature translateManpages "poman")
       "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
-    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "scanf_cv_type_modifier=ms"
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "scanf_cv_type_modifier=ms"
     ;
 
   makeFlags = [
@@ -90,14 +91,16 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       installShellFiles
-    ] ++ lib.optionals translateManpages [ po4a ]
+    ]
+    ++ lib.optionals translateManpages [ po4a ]
     ;
 
   buildInputs =
     [
       zlib
       libxcrypt
-    ] ++ lib.optionals pamSupport [ pam ]
+    ]
+    ++ lib.optionals pamSupport [ pam ]
     ++ lib.optionals capabilitiesSupport [ libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals systemdSupport [ systemd ]

@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ rsync ] ++ (with ocamlPackages; [
+    [ rsync ]
+    ++ (with ocamlPackages; [
       ocaml
       ocamlbuild
       findlib

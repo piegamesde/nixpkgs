@@ -224,11 +224,13 @@ in
     '';
 
     virtualisation.xen.bootParams =
-      [ ] ++ optionals cfg.trace [
+      [ ]
+      ++ optionals cfg.trace [
         "loglvl=all"
         "guest_loglvl=all"
-      ] ++ optional (cfg.domain0MemorySize != 0)
-      "dom0_mem=${toString cfg.domain0MemorySize}M"
+      ]
+      ++ optional (cfg.domain0MemorySize != 0)
+        "dom0_mem=${toString cfg.domain0MemorySize}M"
       ;
 
     system.extraSystemBuilderCmds = ''

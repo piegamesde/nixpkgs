@@ -32,14 +32,16 @@ stdenv.mkDerivation rec {
       flex
       bison
       which
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       DarwinTools
       xcbuild
     ]
     ;
 
   buildInputs =
-    [ libsndfile ] ++ lib.optional (!stdenv.isDarwin) alsa-lib
+    [ libsndfile ]
+    ++ lib.optional (!stdenv.isDarwin) alsa-lib
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Carbon

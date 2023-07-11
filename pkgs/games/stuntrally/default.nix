@@ -22,7 +22,8 @@
 let
   stuntrally_ogre = ogre.overrideAttrs (old: {
     cmakeFlags =
-      old.cmakeFlags ++ [
+      old.cmakeFlags
+      ++ [
         "-DOGRE_NODELESS_POSITIONING=ON"
         "-DOGRE_RESOURCEMANAGER_STRICT=0"
       ]

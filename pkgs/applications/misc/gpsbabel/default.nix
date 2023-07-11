@@ -43,12 +43,14 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs testo
-    '' + lib.optionalString withGUI ''
+    ''
+    + lib.optionalString withGUI ''
       # See https://github.com/NixOS/nixpkgs/issues/86054
       substituteInPlace gui/mainwindow.cc \
         --replace 'QLibraryInfo::location(QLibraryInfo::TranslationsPath)' \
                   'QLatin1String("${qttranslations}/translations")'
-    '' + lib.optionalString withDoc ''
+    ''
+    + lib.optionalString withDoc ''
       substituteInPlace gbversion.h.qmake.in \
         --replace /usr/share/doc $doc/share/doc
 
@@ -66,10 +68,12 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       qmake
-    ] ++ lib.optionals withGUI [
+    ]
+    ++ lib.optionals withGUI [
       qttools
       wrapQtAppsHook
-    ] ++ lib.optionals withDoc [
+    ]
+    ++ lib.optionals withDoc [
       docbook_xml_dtd_45
       docbook_xsl
       expat
@@ -85,7 +89,8 @@ stdenv.mkDerivation rec {
       libusb1
       shapelib
       zlib
-    ] ++ lib.optional withGUI qtserialport
+    ]
+    ++ lib.optional withGUI qtserialport
     ++ lib.optional (withGUI && withMapPreview) qtwebengine
     ;
 
@@ -103,13 +108,15 @@ stdenv.mkDerivation rec {
       "WITH_LIBUSB=pkgconfig"
       "WITH_SHAPELIB=pkgconfig"
       "WITH_ZLIB=pkgconfig"
-    ] ++ lib.optionals (withGUI && !withMapPreview) [
-      "CONFIG+=disable-mappreview"
     ]
+    ++ lib.optionals (withGUI && !withMapPreview) [
+        "CONFIG+=disable-mappreview"
+      ]
     ;
 
   makeFlags =
-    lib.optional withGUI "gui" ++ lib.optionals withDoc [
+    lib.optional withGUI "gui"
+    ++ lib.optionals withDoc [
       "gpsbabel.pdf"
       "gpsbabel.html"
       "gpsbabel.org"
@@ -127,7 +134,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       install -Dm755 gpsbabel -t $out/bin
-    '' + lib.optionalString withGUI (if stdenv.isDarwin then
+    ''
+    + lib.optionalString withGUI (if stdenv.isDarwin then
       ''
         mkdir -p $out/Applications
         mv gui/GPSBabelFE.app $out/Applications
@@ -140,10 +148,11 @@ stdenv.mkDerivation rec {
         install -Dm644 gui/gpsbabel.desktop -t $out/share/application
         install -Dm644 gui/images/appicon.png $out/share/icons/hicolor/512x512/apps/gpsbabel.png
         install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/share/gpsbabel/translations
-      '') + lib.optionalString withDoc ''
-        install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
-        cp -r html $doc/share/doc/gpsbabel
-      ''
+      '')
+    + lib.optionalString withDoc ''
+      install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
+      cp -r html $doc/share/doc/gpsbabel
+    ''
     ;
 
   postFixup = lib.optionalString withGUI (if stdenv.isDarwin then

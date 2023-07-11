@@ -38,7 +38,8 @@ stdenv.mkDerivation {
     pkg-config
   ];
   buildInputs =
-    [ json_c ] ++ lib.optional with_lua lua5_1
+    [ json_c ]
+    ++ lib.optional with_lua lua5_1
     ++ lib.optional with_ustream_ssl ustream-ssl
     ;
 

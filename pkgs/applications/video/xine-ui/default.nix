@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       ncurses
       readline
       xine-lib
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libXext
       libXft
       libXi

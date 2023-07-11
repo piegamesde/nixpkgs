@@ -44,7 +44,8 @@ pkgs.stdenv.mkDerivation (attrs // {
   '';
 
   buildInputs =
-    buildInputs ++ [
+    buildInputs
+    ++ [
       pkgs.git
       pkgs.nodePackages.bower
     ]

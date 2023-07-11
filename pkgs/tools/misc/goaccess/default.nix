@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       openssl
-    ] ++ lib.optionals withGeolocation [ libmaxminddb ]
+    ]
+    ++ lib.optionals withGeolocation [ libmaxminddb ]
     ++ lib.optionals stdenv.isDarwin [ gettext ]
     ;
 
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-utf8"
       "--with-openssl"
-    ] ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ]
+    ]
+    ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ]
     ;
 
   meta = with lib; {

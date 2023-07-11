@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       libpcap
       libnet
       ncurses
-    ] ++ lib.optional withGtk gtk2
+    ]
+    ++ lib.optional withGtk gtk2
     ;
 
   autoreconfPhase = "./autogen.sh";
@@ -65,7 +66,8 @@ stdenv.mkDerivation rec {
     [
       "--with-pcap-includes=${libpcap}/include"
       "--with-libnet-includes=${libnet}/include"
-    ] ++ lib.optional (!enableAdmin) "--disable-admin"
+    ]
+    ++ lib.optional (!enableAdmin) "--disable-admin"
     ++ lib.optional (!withGtk) "--disable-gtk"
     ;
 

@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ gtest ] ++ lib.optionals withTranscoder [
+    [ gtest ]
+    ++ lib.optionals withTranscoder [
       eigen
       ghc_filesystem
       tinygltf
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
       "-DDRACO_GOOGLETEST_PATH=${gtest}"
       "-DBUILD_SHARED_LIBS=${cmakeBool true}"
       "-DDRACO_TRANSCODER_SUPPORTED=${cmakeBool withTranscoder}"
-    ] ++ lib.optionals withTranscoder [
+    ]
+    ++ lib.optionals withTranscoder [
       "-DDRACO_EIGEN_PATH=${eigen}/include/eigen3"
       "-DDRACO_FILESYSTEM_PATH=${ghc_filesystem}"
       "-DDRACO_TINYGLTF_PATH=${tinygltf}"

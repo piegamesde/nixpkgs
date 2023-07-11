@@ -243,7 +243,8 @@ let
         wrapPython
         ensureNewerSourcesForZipFilesHook # move to wheel installer (pip) or builder (setuptools, flit, ...)?
         pythonRemoveTestsDirHook
-      ] ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
+      ]
+      ++ lib.optionals catchConflicts [ pythonCatchConflictsHook ]
       ++ lib.optionals removeBinBytecode [ pythonRemoveBinBytecodeHook ]
       ++ lib.optionals (lib.hasSuffix "zip" (attrs.src.name or "")) [ unzip ]
       ++ lib.optionals (format == "setuptools") [ setuptoolsBuildHook ]
@@ -254,15 +255,19 @@ let
         eggUnpackHook
         eggBuildHook
         eggInstallHook
-      ] ++ lib.optionals (!(format == "other") || dontUsePipInstall) [
-        pipInstallHook
-      ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+      ]
+      ++ lib.optionals (!(format == "other") || dontUsePipInstall) [
+          pipInstallHook
+        ]
+      ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
         # This is a test, however, it should be ran independent of the checkPhase and checkInputs
         pythonImportsCheckHook
-      ] ++ lib.optionals (python.pythonAtLeast "3.3") [
+      ]
+      ++ lib.optionals (python.pythonAtLeast "3.3") [
         # Optionally enforce PEP420 for python3
         pythonNamespacesHook
-      ] ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
+      ]
+      ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
       ++ nativeBuildInputs
       ;
 
@@ -270,12 +275,13 @@ let
       validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
 
     propagatedBuildInputs = validatePythonMatches "propagatedBuildInputs"
-      (propagatedBuildInputs ++ [
-        # we propagate python even for packages transformed with 'toPythonApplication'
-        # this pollutes the PATH but avoids rebuilds
-        # see https://github.com/NixOS/nixpkgs/issues/170887 for more context
-        python
-      ]);
+      (propagatedBuildInputs
+        ++ [
+          # we propagate python even for packages transformed with 'toPythonApplication'
+          # this pollutes the PATH but avoids rebuilds
+          # see https://github.com/NixOS/nixpkgs/issues/170887 for more context
+          python
+        ]);
 
     inherit strictDeps;
 
@@ -291,19 +297,22 @@ let
     doCheck = false;
     doInstallCheck = attrs.doCheck or true;
     nativeInstallCheckInputs =
-      [ ] ++ lib.optionals (format == "setuptools") [
+      [ ]
+      ++ lib.optionals (format == "setuptools") [
         # Longer-term we should get rid of this and require
         # users of this function to set the `installCheckPhase` or
         # pass in a hook that sets it.
         setuptoolsCheckHook
-      ] ++ nativeCheckInputs
+      ]
+      ++ nativeCheckInputs
       ;
     installCheckInputs = checkInputs;
 
     postFixup =
       lib.optionalString (!dontWrapPythonPrograms) ''
         wrapPythonPrograms
-      '' + attrs.postFixup or ""
+      ''
+      + attrs.postFixup or ""
       ;
 
       # Python packages built through cross-compilation are always for the host platform.

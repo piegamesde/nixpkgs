@@ -97,7 +97,8 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
       setuptools
       show-in-file-manager
       tenacity
-    ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+    ]
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   preFixup = ''
     makeWrapperArgs+=(

@@ -54,13 +54,15 @@ let
         cuda_cudart # cuda_runtime.h
         libcublas
         libcurand
-      ] ++ lib.optionals useThrustSourceBuild [ nvidia-thrust ]
+      ]
+      ++ lib.optionals useThrustSourceBuild [ nvidia-thrust ]
       ++ lib.optionals (!useThrustSourceBuild) [ cuda_cccl ]
       ++ lib.optionals (cudaPackages ? cuda_profiler_api) [
-        cuda_profiler_api # cuda_profiler_api.h
-      ] ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
-        cuda_nvprof # cuda_profiler_api.h
-      ];
+          cuda_profiler_api # cuda_profiler_api.h
+        ]
+      ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
+          cuda_nvprof # cuda_profiler_api.h
+        ];
   };
 in
 stdenv.mkDerivation {
@@ -82,21 +84,25 @@ stdenv.mkDerivation {
     [
       blas
       swig
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       pythonPackages.setuptools
       pythonPackages.pip
       pythonPackages.wheel
-    ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
     ++ lib.optionals cudaSupport [ cudaJoined ]
     ;
 
   propagatedBuildInputs = lib.optionals pythonSupport [ pythonPackages.numpy ];
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals cudaSupport [
+    [ cmake ]
+    ++ lib.optionals cudaSupport [
       cudaPackages.cuda_nvcc
       addOpenGLRunpath
-    ] ++ lib.optionals pythonSupport [ pythonPackages.python ]
+    ]
+    ++ lib.optionals pythonSupport [ pythonPackages.python ]
     ;
 
   passthru.extra-requires.all = [ pythonPackages.numpy ];
@@ -116,7 +122,8 @@ stdenv.mkDerivation {
           "OFF"
       }"
       "-DFAISS_OPT_LEVEL=${optLevel}"
-    ] ++ lib.optionals cudaSupport [
+    ]
+    ++ lib.optionals cudaSupport [
       "-DCMAKE_CUDA_ARCHITECTURES=${
         builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
       }"
@@ -130,7 +137,8 @@ stdenv.mkDerivation {
     ''
       make -j faiss
       make demo_ivfpq_indexing
-    '' + lib.optionalString pythonSupport ''
+    ''
+    + lib.optionalString pythonSupport ''
       make -j swigfaiss
       (cd faiss/python &&
        python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .)
@@ -142,7 +150,8 @@ stdenv.mkDerivation {
       make install
       mkdir -p $demos/bin
       cp ./demos/demo_ivfpq_indexing $demos/bin/
-    '' + lib.optionalString pythonSupport ''
+    ''
+    + lib.optionalString pythonSupport ''
       mkdir -p $out/${pythonPackages.python.sitePackages}
       (cd faiss/python && python -m pip install dist/*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache)
     ''

@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ] ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
+    [ ]
+    ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
     ++ lib.optional pulseSupport ./pulseaudio.patch
     ;
 
@@ -82,22 +83,26 @@ stdenv.mkDerivation rec {
     ]
     # Sound sub-systems
     ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional pulseSupport libpulseaudio ++ lib.optional jackSupport
-    libjack2
-    # Audio formats
+    ++ lib.optional pulseSupport libpulseaudio
+    ++ lib.optional jackSupport libjack2
+      # Audio formats
     ++ lib.optional (aacSupport || mp3Support) libid3tag
-    ++ lib.optional aacSupport faad2 ++ lib.optional flacSupport flac
+    ++ lib.optional aacSupport faad2
+    ++ lib.optional flacSupport flac
     ++ lib.optional midiSupport timidity
-    ++ lib.optional modplugSupport libmodplug ++ lib.optional mp3Support libmad
+    ++ lib.optional modplugSupport libmodplug
+    ++ lib.optional mp3Support libmad
     ++ lib.optionals musepackSupport [
       libmpc
       libmpcdec
       taglib
-    ] ++ lib.optional vorbisSupport libvorbis ++ lib.optional speexSupport speex
+    ]
+    ++ lib.optional vorbisSupport libvorbis
+    ++ lib.optional speexSupport speex
     ++ lib.optional ffmpegSupport ffmpeg_4
-    ++ lib.optional sndfileSupport libsndfile ++ lib.optional wavpackSupport
-    wavpack
-    # Misc
+    ++ lib.optional sndfileSupport libsndfile
+    ++ lib.optional wavpackSupport wavpack
+      # Misc
     ++ lib.optional curlSupport curl
     ++ lib.optional samplerateSupport libsamplerate
     ++ lib.optionals stdenv.isDarwin [
@@ -127,10 +132,11 @@ stdenv.mkDerivation rec {
     # Misc
     (lib.withFeature curlSupport "curl")
     (lib.withFeature samplerateSupport "samplerate")
-    ("--enable-debug=" + (if withDebug then
-      "yes"
-    else
-      "no"))
+    ("--enable-debug="
+      + (if withDebug then
+        "yes"
+      else
+        "no"))
     "--disable-cache"
     "--without-rcc"
   ];

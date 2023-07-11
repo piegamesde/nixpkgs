@@ -46,7 +46,8 @@ buildPythonPackage rec {
       raven
       six
       werkzeug
-    ] ++ raven.optional-dependencies.flask
+    ]
+    ++ raven.optional-dependencies.flask
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

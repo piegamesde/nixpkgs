@@ -52,9 +52,11 @@ stdenv.mkDerivation {
       ln -s $out/lib/libcnbpcnclapicom2.so $out/lib/cups/filter
 
       export NIX_LDFLAGS="$NIX_LDFLAGS -L$out/lib"
-    '' + lib.optionalString withDebug ''
+    ''
+    + lib.optionalString withDebug ''
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -D__DEBUG__ -DDEBUG_LOG"
-    '' + ''
+    ''
+    + ''
 
       (
         cd lgmon3

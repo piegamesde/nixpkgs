@@ -29,7 +29,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       curl
       sqlite
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   postInstall = ''

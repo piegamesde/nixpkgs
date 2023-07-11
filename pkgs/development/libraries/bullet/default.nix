@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       libGLU
       libGL
       freeglut
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
     ]
@@ -37,7 +38,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace examples/ThirdPartyLibs/Gwen/CMakeLists.txt \
         --replace "-DGLEW_STATIC" "-DGLEW_STATIC -Wno-narrowing"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i 's/FIND_PACKAGE(OpenGL)//' CMakeLists.txt
       sed -i 's/FIND_LIBRARY(COCOA_LIBRARY Cocoa)//' CMakeLists.txt
     ''
@@ -48,7 +50,8 @@ stdenv.mkDerivation rec {
       "-DBUILD_SHARED_LIBS=ON"
       "-DBUILD_CPU_DEMOS=OFF"
       "-DINSTALL_EXTRA_LIBS=ON"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_FOUND=true"
       "-DOPENGL_LIBRARIES=${OpenGL}/Library/Frameworks/OpenGL.framework"
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks/OpenGL.framework"

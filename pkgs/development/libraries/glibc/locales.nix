@@ -48,7 +48,8 @@ callPackage ./common.nix { inherit stdenv; } {
 
       # Hack to allow building of the locales (needed since glibc-2.12)
       sed -i -e 's,^$(rtld-prefix) $(common-objpfx)locale/localedef,localedef $(LOCALEDEF_FLAGS),' ../glibc-2*/localedata/Makefile
-    '' + lib.optionalString (!allLocales) ''
+    ''
+    + lib.optionalString (!allLocales) ''
       # Check that all locales to be built are supported
       echo -n '${lib.concatMapStrings (s: s + " \\\n") locales}' \
         | sort -u > locales-to-build.txt
@@ -67,7 +68,8 @@ callPackage ./common.nix { inherit stdenv; } {
       echo SUPPORTED-LOCALES='${
         toString locales
       }' > ../glibc-2*/localedata/SUPPORTED
-    '' + ''
+    ''
+    + ''
       make localedata/install-locales \
           localedir=$out/lib/locale \
     ''

@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ freetype ] ++ (if stdenv.isDarwin then
+    [ freetype ]
+    ++ (if stdenv.isDarwin then
       [
         OpenGL
         GLUT

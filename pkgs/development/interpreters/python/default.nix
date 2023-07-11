@@ -46,14 +46,16 @@
               ] false;
               valid =
                 value:
-                pythonPackages.hasPythonModule value || providesSetupHook value
+                pythonPackages.hasPythonModule value
+                || providesSetupHook value
                 || lib.elem value exceptions
                 ;
               func =
                 name: value:
                 if lib.isDerivation value then
-                  lib.extendDerivation (valid value || throw
-                    "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set.")
+                  lib.extendDerivation (valid value
+                    || throw
+                      "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set.")
                   { } value
                 else
                   value
@@ -94,7 +96,8 @@
               python2Extension = import ../../../top-level/python2-packages.nix;
               extensions = lib.composeManyExtensions ([ pythonExtension ]
                 ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
-                ++ pythonPackagesExtensions ++ [ overrides ]);
+                ++ pythonPackagesExtensions
+                ++ [ overrides ]);
               aliases =
                 self: super:
                 lib.optionalAttrs config.allowAliases

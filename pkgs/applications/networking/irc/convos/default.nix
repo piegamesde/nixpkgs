@@ -103,9 +103,11 @@ perlPackages.buildPerlPackage rec {
       ln -s $AUTO_SHARE_PATH/public/asset $out/asset
       cp -vR templates $out/templates
       cp cpanfile $out/cpanfile
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/convos
-    '' + ''
+    ''
+    + ''
       wrapProgram $out/bin/convos --set MOJO_HOME $out
     ''
     ;

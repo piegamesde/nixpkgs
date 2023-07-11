@@ -53,13 +53,16 @@ stdenv.mkDerivation rec {
       libsodium
       libstemmer
       cyrus_sasl.dev
-    ] ++ lib.optionals (stdenv.isLinux) [
+    ]
+    ++ lib.optionals (stdenv.isLinux) [
       systemd
       pam
       libcap
       inotify-tools
-    ] ++ lib.optional withMySQL libmysqlclient
-    ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
+    ]
+    ++ lib.optional withMySQL libmysqlclient
+    ++ lib.optional withPgSQL postgresql
+    ++ lib.optional withSQLite sqlite
     ++ lib.optional withLua lua5_3
     ;
 
@@ -88,7 +91,8 @@ stdenv.mkDerivation rec {
 
       # DES-encrypted passwords are not supported by NixPkgs anymore
       sed '/test_password_scheme("CRYPT"/d' -i src/auth/test-libpassword.c
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       export systemdsystemunitdir=$out/etc/systemd/system
     ''
     ;
@@ -129,7 +133,8 @@ stdenv.mkDerivation rec {
       "--with-ldap"
       "--with-lucene"
       "--with-icu"
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "i_cv_epoll_works=${
         if stdenv.isLinux then
           "yes"
@@ -159,7 +164,8 @@ stdenv.mkDerivation rec {
       "lib_cv_va_copy=yes"
       "lib_cv___va_copy=yes"
       "lib_cv_va_val_copy=yes"
-    ] ++ lib.optional stdenv.isLinux "--with-systemd"
+    ]
+    ++ lib.optional stdenv.isLinux "--with-systemd"
     ++ lib.optional stdenv.isDarwin "--enable-static"
     ++ lib.optional withMySQL "--with-mysql"
     ++ lib.optional withPgSQL "--with-pgsql"

@@ -45,10 +45,11 @@ stdenv.mkDerivation rec {
         cabextract
         mtools
         ntfs3g
-      ] ++ lib.optionals (!stdenv.isDarwin) [
-        cdrkit
-        syslinux
-      ]);
+      ]
+        ++ lib.optionals (!stdenv.isDarwin) [
+          cdrkit
+          syslinux
+        ]);
     in
     ''
       for prog in $out/bin/*; do

@@ -107,7 +107,9 @@ stdenv.mkDerivation {
       gd
       geoip
       perl
-    ] ++ buildInputs ++ mapModules "inputs"
+    ]
+    ++ buildInputs
+    ++ mapModules "inputs"
     ;
 
   configureFlags =
@@ -138,37 +140,44 @@ stdenv.mkDerivation {
       "--http-fastcgi-temp-path=/tmp/nginx_fastcgi"
       "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
       "--http-scgi-temp-path=/tmp/nginx_scgi"
-    ] ++ lib.optionals withDebug [ "--with-debug" ]
+    ]
+    ++ lib.optionals withDebug [ "--with-debug" ]
     ++ lib.optionals withKTLS [ "--with-openssl-opt=enable-ktls" ]
     ++ lib.optionals withStream [
       "--with-stream"
       "--with-stream_realip_module"
       "--with-stream_ssl_module"
       "--with-stream_ssl_preread_module"
-    ] ++ lib.optionals withMail [
+    ]
+    ++ lib.optionals withMail [
       "--with-mail"
       "--with-mail_ssl_module"
-    ] ++ lib.optionals withPerl [
+    ]
+    ++ lib.optionals withPerl [
       "--with-http_perl_module"
       "--with-perl=${perl}/bin/perl"
       "--with-perl_modules_path=lib/perl5"
-    ] ++ lib.optional withSlice "--with-http_slice_module"
+    ]
+    ++ lib.optional withSlice "--with-http_slice_module"
     ++ lib.optional (gd != null) "--with-http_image_filter_module"
     ++ lib.optional (geoip != null) "--with-http_geoip_module"
     ++ lib.optional (withStream && geoip != null) "--with-stream_geoip_module"
     ++ lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
-    "--with-file-aio" ++ configureFlags
+      "--with-file-aio"
+    ++ configureFlags
     ++ map (mod: "--add-module=${mod.src}") modules
     ;
 
   env.NIX_CFLAGS_COMPILE = toString ([
     "-I${libxml2.dev}/include/libxml2"
     "-Wno-error=implicit-fallthrough"
-  ] ++ lib.optionals
-    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
-      # fix build vts module on gcc11
-      "-Wno-error=stringop-overread"
-    ] ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
+  ]
+    ++ lib.optionals
+      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
+        # fix build vts module on gcc11
+        "-Wno-error=stringop-overread"
+      ]
+    ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations");
 
   configurePlatforms = [ ];
 
@@ -177,7 +186,8 @@ stdenv.mkDerivation {
   preConfigure =
     ''
       setOutputFlags=
-    '' + preConfigure
+    ''
+    + preConfigure
     + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules
     ;
 
@@ -190,23 +200,26 @@ stdenv.mkDerivation {
         '';
       })
       ./nix-skip-check-logs-path.patch
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch";
-        sha256 = "0i2k30ac8d7inj9l6bl0684kjglam2f68z8lf3xggcc2i5wzhh8a";
-      })
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch";
-        sha256 = "0v6890a85aqmw60pgj3mm7g8nkaphgq65dj4v9c6h58wdsrc6f0y";
-      })
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch";
-        sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
-      })
-    ] ++ mapModules "patches") ++ extraPatches
+    ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch";
+          sha256 = "0i2k30ac8d7inj9l6bl0684kjglam2f68z8lf3xggcc2i5wzhh8a";
+        })
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch";
+          sha256 = "0v6890a85aqmw60pgj3mm7g8nkaphgq65dj4v9c6h58wdsrc6f0y";
+        })
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch";
+          sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
+        })
+      ]
+      ++ mapModules "patches")
+    ++ extraPatches
     ;
 
   inherit postPatch;

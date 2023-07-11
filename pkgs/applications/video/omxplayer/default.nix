@@ -26,7 +26,8 @@ let
       ++ lib.optionals stdenv.hostPlatform.isAarch32 [
         # TODO be better with condition
         "--cpu=arm1176jzf-s"
-      ] ++ [
+      ]
+      ++ [
         "--disable-muxers"
         "--enable-muxer=spdif"
         "--enable-muxer=adts"
@@ -56,7 +57,8 @@ let
         "--disable-debug"
         "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
         "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
-      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "--cross-prefix=${stdenv.cc.targetPrefix}"
         "--enable-cross-compile"
       ]

@@ -216,8 +216,10 @@ assert (lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
 # We use -E offset=X below, which is only supported by e2fsprogs
 assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
   "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
-assert (lib.assertMsg (touchEFIVars -> partitionTableType == "hybrid"
-  || partitionTableType == "efi" || partitionTableType == "legacy+gpt")
+assert (lib.assertMsg (touchEFIVars
+  -> partitionTableType == "hybrid"
+    || partitionTableType == "efi"
+    || partitionTableType == "legacy+gpt")
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt.");
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
 assert (lib.assertMsg
@@ -246,13 +248,14 @@ let
   compress = optionalString (format' == "qcow2-compressed") "-c";
 
   filename =
-    "nixos." + {
+    "nixos."
+    + {
       qcow2 = "qcow2";
       vdi = "vdi";
       vpc = "vhd";
       raw = "img";
     }
-    .${format} or format
+      .${format} or format
     ;
 
   rootPartition =
@@ -352,7 +355,9 @@ let
       config.system.build.nixos-enter
       nix
       systemdMinimal
-    ] ++ lib.optional deterministic gptfdisk ++ stdenv.initialPath);
+    ]
+      ++ lib.optional deterministic gptfdisk
+      ++ stdenv.initialPath);
 
     # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
     # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
@@ -596,8 +601,8 @@ let
     QEMU_OPTS = concatStringsSep " " (lib.optional useEFIBoot
       "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
       ++ lib.optionals touchEFIVars [
-        "-drive if=pflash,format=raw,unit=1,file=$efiVars"
-      ]);
+          "-drive if=pflash,format=raw,unit=1,file=$efiVars"
+        ]);
     inherit memSize;
   } ''
     export PATH=${binPath}:$PATH

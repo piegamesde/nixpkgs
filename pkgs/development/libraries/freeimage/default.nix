@@ -44,19 +44,22 @@ stdenv.mkDerivation {
         --replace "pkg-config" "$PKG_CONFIG"
       substituteInPlace Makefile.gnu \
         --replace "pkg-config" "$PKG_CONFIG"
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       # Upstream Makefile hardcodes i386 and x86_64 architectures only
       substituteInPlace Makefile.osx --replace "x86_64" "arm64"
     ''
     ;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [
+    [ pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.cctools
       fixDarwinDylibNames
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
     ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ]
     ;
   buildInputs = [
     libtiff
@@ -92,7 +95,8 @@ stdenv.mkDerivation {
   postInstall =
     lib.optionalString (!stdenv.isDarwin) ''
       make -f Makefile.fip install
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       ln -s $out/lib/libfreeimage.3.dylib $out/lib/libfreeimage.dylib
     ''
     ;

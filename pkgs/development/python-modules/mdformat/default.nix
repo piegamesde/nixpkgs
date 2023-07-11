@@ -35,7 +35,8 @@ buildPythonPackage rec {
     [
       markdown-it-py
       tomli
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
     ;
 

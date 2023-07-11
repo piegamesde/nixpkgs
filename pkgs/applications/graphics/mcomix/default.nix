@@ -56,7 +56,8 @@ python3.pkgs.buildPythonApplication rec {
           p7zip
           lhasa
           mupdf
-        ] ++ lib.optional (unrarSupport) unrar)
+        ]
+          ++ lib.optional (unrarSupport) unrar)
       }"
     )
   '';

@@ -43,14 +43,16 @@ stdenv.mkDerivation {
       XCTest
       sqlite
       ncursesInput
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CryptoKit
       LocalAuthentication
     ]
     ;
 
   configurePhase =
-    generated.configure + ''
+    generated.configure
+    + ''
       swiftpmMakeMutable indexstore-db
       patch -p1 -d .build/checkouts/indexstore-db -i ${
         ./patches/indexstore-db-macos-target.patch

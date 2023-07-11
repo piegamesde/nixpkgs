@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       glib
       json-glib
       gnutls
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       fuse
       libseccomp
     ]

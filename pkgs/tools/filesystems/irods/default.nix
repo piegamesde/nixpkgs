@@ -93,7 +93,8 @@ rec {
       "-Wno-deprecated-register -Wno-deprecated-declarations";
 
     postPatch =
-      common.postPatch + ''
+      common.postPatch
+      + ''
         patchShebangs ./test
         substituteInPlace plugins/database/CMakeLists.txt --replace "COMMAND cpp" "COMMAND ${gcc.cc}/bin/cpp"
         substituteInPlace cmake/server.cmake --replace "DESTINATION usr/sbin" "DESTINATION sbin"
@@ -140,13 +141,15 @@ rec {
     buildInputs = common.buildInputs ++ [ irods ];
 
     postPatch =
-      common.postPatch + ''
+      common.postPatch
+      + ''
         patchShebangs ./bin
       ''
       ;
 
     cmakeFlags =
-      common.cmakeFlags ++ [
+      common.cmakeFlags
+      ++ [
         "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
         "-DIRODS_DIR=${irods}/lib/irods/cmake"
         "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"

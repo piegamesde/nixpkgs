@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       libGL
       fribidi
       zlib
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       python
       pygame_sdl2
       tkinter

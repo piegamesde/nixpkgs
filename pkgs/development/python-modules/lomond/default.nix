@@ -40,7 +40,8 @@ buildPythonPackage rec {
       freezegun
       pytest-mock
       pytestCheckHook
-    ] ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ]
     ;
 
   disabledTests = [

@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       libtiff
       libwebp
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   preBuild = ''

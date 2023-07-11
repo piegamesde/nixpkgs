@@ -154,7 +154,8 @@ in
           "--netlink"
           "--confdir"
           "${acpiConfDir}"
-        ] ++ optional cfg.logEvents "--logevents");
+        ]
+          ++ optional cfg.logEvents "--logevents");
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";

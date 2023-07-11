@@ -62,21 +62,31 @@ assert withUnfreeAac -> withAac;
 
 let
   runtimeDeps =
-    [ ] ++ lib.optional withCD cdparanoia ++ lib.optional withFlac flac
-    ++ lib.optional withSpeex speex ++ lib.optional withFfmpeg ffmpeg-full
-    ++ lib.optional withMplayer mplayer ++ lib.optional withSox sox
-    ++ lib.optional withOpus opusTools ++ lib.optional withTwolame twolame
-    ++ lib.optional withApe mac ++ lib.optional withWavpack wavpack
-    ++ lib.optional withUnfreeAac faac ++ lib.optionals withMidi [
+    [ ]
+    ++ lib.optional withCD cdparanoia
+    ++ lib.optional withFlac flac
+    ++ lib.optional withSpeex speex
+    ++ lib.optional withFfmpeg ffmpeg-full
+    ++ lib.optional withMplayer mplayer
+    ++ lib.optional withSox sox
+    ++ lib.optional withOpus opusTools
+    ++ lib.optional withTwolame twolame
+    ++ lib.optional withApe mac
+    ++ lib.optional withWavpack wavpack
+    ++ lib.optional withUnfreeAac faac
+    ++ lib.optionals withMidi [
       fluidsynth
       timidity
-    ] ++ lib.optionals withVorbis [
+    ]
+    ++ lib.optionals withVorbis [
       vorbis-tools
       vorbisgain
-    ] ++ lib.optionals withMp3 [
+    ]
+    ++ lib.optionals withMp3 [
       lame
       mp3gain
-    ] ++ lib.optionals withAac [
+    ]
+    ++ lib.optionals withAac [
       faad2
       aacgain
     ]

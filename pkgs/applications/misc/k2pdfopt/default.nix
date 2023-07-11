@@ -182,10 +182,12 @@ stdenv.mkDerivation rec {
     [
       zlib
       libpng
-    ] ++ lib.optional enableGSL gsl
+    ]
+    ++ lib.optional enableGSL gsl
     ++ lib.optional enableGhostScript ghostscript
     ++ lib.optional enableMuPDF mupdf_modded
-    ++ lib.optional enableDJVU djvulibre ++ lib.optional enableGOCR gocr
+    ++ lib.optional enableDJVU djvulibre
+    ++ lib.optional enableGOCR gocr
     ++ lib.optionals enableTesseract [
       leptonica_modded
       tesseract_modded

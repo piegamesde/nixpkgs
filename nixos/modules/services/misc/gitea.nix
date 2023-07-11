@@ -585,8 +585,8 @@ in
   config = mkIf cfg.enable {
     assertions = [ {
       assertion =
-        cfg.database.createDatabase -> useSqlite || cfg.database.user
-        == cfg.user
+        cfg.database.createDatabase
+        -> useSqlite || cfg.database.user == cfg.user
         ;
       message =
         "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
@@ -686,7 +686,8 @@ in
         # And symlink the current gitea locales in place
         "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
 
-      ] ++ lib.optionals cfg.lfs.enable [
+      ]
+      ++ lib.optionals cfg.lfs.enable [
         "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
         "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
         "Z '${cfg.lfs.contentDir}' - ${cfg.user} ${cfg.group} - -"
@@ -696,7 +697,8 @@ in
     systemd.services.gitea = {
       description = "gitea";
       after =
-        [ "network.target" ] ++ lib.optional usePostgresql "postgresql.service"
+        [ "network.target" ]
+        ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service"
         ;
       wantedBy = [ "multi-user.target" ];
@@ -861,7 +863,7 @@ in
 
     warnings =
       optional (cfg.database.password != "")
-      "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
+        "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
       ''

@@ -60,14 +60,17 @@ stdenv.mkDerivation rec {
       cmake
       perl
       python3
-    ] ++ optionals fortranSupport [ gfortran ]
+    ]
+    ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
     ++ optionals buildDocumentation [
       fig2dev
       ghostscript
       doxygen
-    ] ++ optionals bmfSupport [ eigen ] ++ optionals modelCheckingSupport [
+    ]
+    ++ optionals bmfSupport [ eigen ]
+    ++ optionals modelCheckingSupport [
       libunwind
       libevent
       elfutils
@@ -133,7 +136,8 @@ stdenv.mkDerivation rec {
       # remove bin from output if requested.
       # having a specific bin output would be cleaner but it does not work currently (circular references)
       rm -rf $out/bin
-    '' + lib.optionalString buildPythonBindings ''
+    ''
+    + lib.optionalString buildPythonBindings ''
       # manually install the python binding if requested.
       mkdir -p $python/lib/python${
         lib.versions.majorMinor python3.version

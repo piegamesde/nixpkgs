@@ -77,7 +77,8 @@ buildPythonPackage rec {
       "test_libcurl_ssl_gnutls"
       # AssertionError: assert 'crypto' in ['curl']
       "test_ssl_in_static_libs"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       # Fatal Python error: Segmentation fault
       "cadata_test"
     ]

@@ -28,10 +28,12 @@ python3Packages.buildPythonApplication rec {
       qemu_pkg
       socat
       vde2
-    ] ++ (lib.optionals enableOCR [
+    ]
+    ++ (lib.optionals enableOCR [
       imagemagick_light
       tesseract4
-    ]) ++ extraPythonPackages python3Packages
+    ])
+    ++ extraPythonPackages python3Packages
     ;
 
   doCheck = true;

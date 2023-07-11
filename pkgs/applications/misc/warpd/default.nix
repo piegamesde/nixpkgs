@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       cairo
       libxkbcommon
       wayland
-    ] ++ lib.optionals withX [
+    ]
+    ++ lib.optionals withX [
       libXi
       libXinerama
       libXft
@@ -48,7 +49,8 @@ stdenv.mkDerivation rec {
     ;
 
   makeFlags =
-    [ "PREFIX=$(out)" ] ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
+    [ "PREFIX=$(out)" ]
+    ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
     ++ lib.optional (!withX) "DISABLE_X=y"
     ;
 

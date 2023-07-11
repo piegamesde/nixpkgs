@@ -46,7 +46,8 @@ let
         bison
         cmake
         pkg-config
-      ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
       ;
 
     patches = [
@@ -75,10 +76,12 @@ let
         zlib
         zstd
         libfido2
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         numactl
         libtirpc
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         cctools
         CoreServices
         developer_cmds

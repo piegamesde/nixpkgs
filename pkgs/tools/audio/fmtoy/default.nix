@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       dos2unix Makefile
       # Don't hardcode compilers
       sed -i -e '/CC=/d' -e '/CXX=/d' Makefile
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       # Remove Linux-only program & its dependencies
       sed -i -e '/PROGS/ s/fmtoy_jack//' Makefile
       substituteInPlace Makefile \
@@ -38,7 +39,8 @@ stdenv.mkDerivation rec {
     [ dos2unix ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 
   buildInputs =
-    [ zlib ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    [ zlib ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       libjack2
     ]

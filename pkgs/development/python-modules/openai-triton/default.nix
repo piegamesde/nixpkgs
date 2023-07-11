@@ -131,7 +131,8 @@ buildPythonPackage {
         --replace "add_subdirectory(FileCheck)" ""
 
       rm cmake/FindLLVM.cmake
-    '' + (let
+    ''
+    + (let
       # Bash was getting weird without linting,
       # but basically upstream contains [cc, ..., "-lcuda", ...]
       # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]

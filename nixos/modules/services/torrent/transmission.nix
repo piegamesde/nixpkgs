@@ -302,9 +302,11 @@ in
           install -d -m 700 '${cfg.home}/${settingsDir}'
           chown -R '${cfg.user}:${cfg.group}' ${cfg.home}/${settingsDir}
           install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.download-dir}'
-        '' + optionalString cfg.settings.incomplete-dir-enabled ''
+        ''
+        + optionalString cfg.settings.incomplete-dir-enabled ''
           install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.incomplete-dir}'
-        '' + optionalString cfg.settings.watch-dir-enabled ''
+        ''
+        + optionalString cfg.settings.watch-dir-enabled ''
           install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
         ''
         ;
@@ -321,12 +323,15 @@ in
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-            ("+" + pkgs.writeShellScript "transmission-prestart" ''
-              set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
-              ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
-              install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
-               '${cfg.home}/${settingsDir}/settings.json'
-            '')
+            ("+"
+              + pkgs.writeShellScript "transmission-prestart" ''
+                set -eu${
+                  lib.optionalString (cfg.settings.message-level >= 3) "x"
+                }
+                ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
+                install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
+                 '${cfg.home}/${settingsDir}/settings.json'
+              '')
           ];
         ExecStart =
           "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
@@ -357,9 +362,10 @@ in
           [
             "${cfg.home}/${settingsDir}"
             cfg.settings.download-dir
-          ] ++ optional cfg.settings.incomplete-dir-enabled
-          cfg.settings.incomplete-dir ++ optional
-          (cfg.settings.watch-dir-enabled
+          ]
+          ++ optional cfg.settings.incomplete-dir-enabled
+            cfg.settings.incomplete-dir
+          ++ optional (cfg.settings.watch-dir-enabled
             && cfg.settings.trash-original-torrent-files) cfg.settings.watch-dir
           ;
         BindReadOnlyPaths =
@@ -369,12 +375,13 @@ in
             builtins.storeDir
             "/etc"
             "/run"
-          ] ++ optional (cfg.settings.script-torrent-done-enabled
+          ]
+          ++ optional (cfg.settings.script-torrent-done-enabled
             && cfg.settings.script-torrent-done-filename != null)
-          cfg.settings.script-torrent-done-filename ++ optional
-          (cfg.settings.watch-dir-enabled
+            cfg.settings.script-torrent-done-filename
+          ++ optional (cfg.settings.watch-dir-enabled
             && !cfg.settings.trash-original-torrent-files)
-          cfg.settings.watch-dir
+            cfg.settings.watch-dir
           ;
         StateDirectory = [
           "transmission"

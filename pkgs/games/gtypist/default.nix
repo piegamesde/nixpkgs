@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
       ncurses
       perl
       fortune
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
   preFixup = ''

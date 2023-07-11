@@ -47,7 +47,8 @@ buildPythonPackage rec {
       # optional backends
       "Redis"
       "Memcache"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # ignore flaky test
       "test_cached_view_class"
     ]

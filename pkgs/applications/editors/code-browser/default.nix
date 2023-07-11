@@ -33,12 +33,15 @@ mkDerivation rec {
     ''
       substituteInPlace Makefile --replace "LFLAGS=-no-pie" "LFLAGS=-no-pie -L."
       patchShebangs .
-    '' + lib.optionalString withQt ''
+    ''
+    + lib.optionalString withQt ''
       substituteInPlace libs/copper-ui/Makefile --replace "moc -o" "${qtbase.dev}/bin/moc -o"
       substituteInPlace libs/copper-ui/Makefile --replace "all: qt gtk gtk2" "all: qt"
-    '' + lib.optionalString withGtk2 ''
+    ''
+    + lib.optionalString withGtk2 ''
       substituteInPlace libs/copper-ui/Makefile --replace "all: qt gtk gtk2" "all: gtk2"
-    '' + lib.optionalString withGtk3 ''
+    ''
+    + lib.optionalString withGtk3 ''
       substituteInPlace libs/copper-ui/Makefile --replace "all: qt gtk gtk2" "all: gtk"
     ''
     ;
@@ -47,14 +50,17 @@ mkDerivation rec {
       copper
       python3
       pkg-config
-    ] ++ lib.optionals withGtk2 [ gtk2 ] ++ lib.optionals withGtk3 [ gtk3 ]
+    ]
+    ++ lib.optionals withGtk2 [ gtk2 ]
+    ++ lib.optionals withGtk3 [ gtk3 ]
     ++ lib.optionals withQt [
       qtbase
       wrapQtAppsHook
     ]
     ;
   buildInputs =
-    lib.optionals withQt [ qtbase ] ++ lib.optionals withGtk2 [ gtk2 ]
+    lib.optionals withQt [ qtbase ]
+    ++ lib.optionals withGtk2 [ gtk2 ]
     ++ lib.optionals withGtk3 [ gtk3 ]
     ;
   makeFlags =
@@ -62,10 +68,12 @@ mkDerivation rec {
       "prefix=$(out)"
       "COPPER=${copper}/bin/copper-elf64"
       "with-local-libs"
-    ] ++ lib.optionals withQt [
+    ]
+    ++ lib.optionals withQt [
       "QINC=${qtbase.dev}/include"
       "UI=qt"
-    ] ++ lib.optionals withGtk2 [ "UI=gtk2" ]
+    ]
+    ++ lib.optionals withGtk2 [ "UI=gtk2" ]
     ++ lib.optionals withGtk3 [ "UI=gtk" ]
     ;
 

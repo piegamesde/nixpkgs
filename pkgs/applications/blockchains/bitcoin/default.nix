@@ -53,11 +53,13 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optionals stdenv.isLinux [ util-linux ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ util-linux ]
     ++ lib.optionals stdenv.isDarwin [ hexdump ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
-    ] ++ lib.optionals withGui [ wrapQtAppsHook ]
+        autoSignDarwinBinariesHook
+      ]
+    ++ lib.optionals withGui [ wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -67,10 +69,12 @@ stdenv.mkDerivation rec {
       miniupnpc
       zeromq
       zlib
-    ] ++ lib.optionals withWallet [
+    ]
+    ++ lib.optionals withWallet [
       db48
       sqlite
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qrencode
       qtbase
       qttools
@@ -87,10 +91,12 @@ stdenv.mkDerivation rec {
     [
       "--with-boost-libdir=${boost.out}/lib"
       "--disable-bench"
-    ] ++ lib.optionals (!doCheck) [
+    ]
+    ++ lib.optionals (!doCheck) [
       "--disable-tests"
       "--disable-gui-tests"
-    ] ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
+    ]
+    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"

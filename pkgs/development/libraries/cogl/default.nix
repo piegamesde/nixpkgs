@@ -59,16 +59,19 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--enable-introspection" ] ++ lib.optionals (!stdenv.isDarwin) [
+    [ "--enable-introspection" ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       "--enable-kms-egl-platform"
       "--enable-wayland-egl-platform"
       "--enable-wayland-egl-server"
       "--enable-gles1"
       "--enable-gles2"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "--disable-glx"
       "--without-x"
-    ] ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ]
+    ]
+    ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ]
     ;
 
     # TODO: this shouldn't propagate so many things
@@ -78,7 +81,8 @@ stdenv.mkDerivation rec {
       glib
       gdk-pixbuf
       gobject-introspection
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       wayland
       mesa
       libGL
@@ -86,7 +90,8 @@ stdenv.mkDerivation rec {
       xorg.libXfixes
       xorg.libXcomposite
       xorg.libXdamage
-    ] ++ lib.optionals gstreamerSupport [
+    ]
+    ++ lib.optionals gstreamerSupport [
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
     ]
@@ -97,7 +102,8 @@ stdenv.mkDerivation rec {
       pango
       cairo
       harfbuzz
-    ] ++ lib.optionals stdenv.isDarwin [ OpenGL ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ OpenGL ]
     ;
 
   COGL_PANGO_DEP_CFLAGS = toString

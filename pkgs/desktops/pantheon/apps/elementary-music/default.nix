@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       glib
       granite7
       gtk4
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-plugins-bad
       gst-plugins-base
       gst-plugins-good

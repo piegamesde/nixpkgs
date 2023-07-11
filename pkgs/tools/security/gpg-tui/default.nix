@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
       libgpg-error
       libxcb
       libxkbcommon
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Foundation
       libiconv

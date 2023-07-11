@@ -203,7 +203,8 @@ let
             libs = concatMap (x: x.nativeLibs) libsFlat;
             paths = filter (x: x != "") (map (x: x.LD_LIBRARY_PATH) libsFlat);
             path =
-              makeLibraryPath libs + optionalString (length paths != 0) ":"
+              makeLibraryPath libs
+              + optionalString (length paths != 0) ":"
               + concatStringsSep ":" paths
               ;
           in

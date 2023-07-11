@@ -55,7 +55,8 @@ mkDerivation rec {
           GetoptLong
           TermShellUI
         ]))
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 
   cmakeFlags = [

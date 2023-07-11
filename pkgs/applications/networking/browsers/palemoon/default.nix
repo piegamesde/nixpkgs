@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
       libstartup_notification
       pango
       zlib
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXext
       libXft
@@ -101,7 +102,8 @@ stdenv.mkDerivation rec {
       libXt
       pixman
       xorgproto
-    ]) ++ lib.optionals withGTK3 [ gtk3 ]
+    ])
+    ++ lib.optionals withGTK3 [ gtk3 ]
     ;
 
   enableParallelBuilding = true;

@@ -57,12 +57,14 @@ stdenv.mkDerivation rec {
       "--enable-early-chroot"
       "--sysconfdir=/etc"
       "--localstatedir=/var"
-    ] ++ lib.optional stdenv.isLinux "--with-randomdev=/dev/random"
+    ]
+    ++ lib.optional stdenv.isLinux "--with-randomdev=/dev/random"
     ++ lib.optionals (openldap != null) [
       "--with-ldap"
       "--with-ldapcrypto"
-    ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    "BUILD_CC=$(CC_FOR_BUILD)"
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "BUILD_CC=$(CC_FOR_BUILD)"
     ;
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
@@ -88,9 +90,11 @@ stdenv.mkDerivation rec {
         --replace /sbin/ip ${iproute2}/sbin/ip
       wrapProgram "$out/sbin/dhclient-script" --prefix PATH : \
         "${nettools}/bin:${nettools}/sbin:${iputils}/bin:${coreutils}/bin:${gnused}/bin"
-    '' + lib.optionalString (!withClient) ''
+    ''
+    + lib.optionalString (!withClient) ''
       rm $out/sbin/{dhclient,dhclient-script,.dhclient-script-wrapped}
-    '' + lib.optionalString (!withRelay) ''
+    ''
+    + lib.optionalString (!withRelay) ''
       rm $out/sbin/dhcrelay
     ''
     ;

@@ -33,13 +33,15 @@ let
         !i.useDHCP
       else
         i.ipv4.addresses != [ ]) interfaces)
-    ++ mapAttrsToList (i: _: i) config.networking.sits ++ concatLists
-    (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
+    ++ mapAttrsToList (i: _: i) config.networking.sits
+    ++ concatLists
+      (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (concatMap (i:
       attrNames
       (filterAttrs (_: config: config.type != "internal") i.interfaces))
-      (attrValues config.networking.vswitches)) ++ concatLists
-    (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
+      (attrValues config.networking.vswitches))
+    ++ concatLists
+      (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
     ++ config.networking.dhcpcd.denyInterfaces
     ;
 
@@ -117,7 +119,8 @@ let
       noipv6
     ''}
 
-    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null
+    ${optionalString (config.networking.enableIPv6
+      && cfg.IPv6rs == null
       && staticIPv6Addresses != [ ]) noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
@@ -270,8 +273,9 @@ in
         cfgN = config.networking;
         hasDefaultGatewaySet =
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
-          && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
-            && cfgN.defaultGateway6.address != ""))
+          && (!cfgN.enableIPv6
+            || (cfgN.defaultGateway6 != null
+              && cfgN.defaultGateway6.address != ""))
           ;
       in
       {

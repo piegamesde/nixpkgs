@@ -14,7 +14,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs =
-    [ mopidy ] ++ (with python3Packages; [
+    [ mopidy ]
+    ++ (with python3Packages; [
       configobj
       requests
       tornado

@@ -36,7 +36,8 @@ buildPythonPackage rec {
       pyjwt
       requests
       requests-oauthlib
-    ] ++ pyjwt.optional-dependencies.crypto
+    ]
+    ++ pyjwt.optional-dependencies.crypto
     ;
 
   checkPhase = ''

@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       openal
       libogg
       libXext
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ;
 
   patches =

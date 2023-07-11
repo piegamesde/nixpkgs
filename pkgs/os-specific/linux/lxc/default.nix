@@ -76,10 +76,12 @@ stdenv.mkDerivation rec {
       "--disable-api-docs"
       "--with-init-script=none"
       "--with-distro=nixos" # just to be sure it is "unknown"
-    ] ++ optional (libapparmor != null) "--enable-apparmor"
+    ]
+    ++ optional (libapparmor != null) "--enable-apparmor"
     ++ optional (libselinux != null) "--enable-selinux"
     ++ optional (libseccomp != null) "--enable-seccomp"
-    ++ optional (libcap != null) "--enable-capabilities" ++ [
+    ++ optional (libcap != null) "--enable-capabilities"
+    ++ [
       "--disable-examples"
       "--enable-python"
       "--disable-lua"

@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       gsettings-qt
       lshw
       libuchardet
-    ] ++ lib.optional withSystemd systemd
+    ]
+    ++ lib.optional withSystemd systemd
     ;
 
   propagatedBuildInputs = [ dtkcommon ];

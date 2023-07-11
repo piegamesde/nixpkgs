@@ -42,7 +42,8 @@ stdenv.mkDerivation {
       perl
       which
       bison
-    ] ++ kernel.moduleBuildDependencies
+    ]
+    ++ kernel.moduleBuildDependencies
     ;
 
   buildInputs = [ libkrb5 ];

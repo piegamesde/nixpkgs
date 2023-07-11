@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       "--enable-usbdropdir=/var/lib/pcsc/drivers"
       (lib.enableFeature stdenv.isLinux "libsystemd")
       (lib.enableFeature polkitSupport "polkit")
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-ipcdir=/run/pcscd"
       "--with-systemdsystemunitdir=${placeholder "bin"}/lib/systemd/system"
     ]
@@ -73,8 +74,10 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ python3 ] ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit ] ++ lib.optionals polkitSupport [
+    [ python3 ]
+    ++ lib.optionals stdenv.isLinux [ systemdMinimal ]
+    ++ lib.optionals stdenv.isDarwin [ IOKit ]
+    ++ lib.optionals polkitSupport [
       dbus
       polkit
     ]

@@ -60,7 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.2";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals buildTests [ "test" ]
     ;
 
@@ -92,14 +93,16 @@ stdenv.mkDerivation (finalAttrs: {
       sqlite
       bzip2
       nlohmann_json
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       latex
       doxygen
       sphinx
       python3Packages.sphinx-rtd-theme
       python3Packages.breathe
       python3Packages.myst-parser
-    ] ++ lib.optionals buildTests [ zlib ]
+    ]
+    ++ lib.optionals buildTests [ zlib ]
     ;
 
   cmakeFlags =
@@ -110,11 +113,13 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals (!useOpenCL) [
+    ]
+    ++ lib.optionals (!useOpenCL) [
       "-DCMAKE_C_COMPILER=hipcc"
       "-DCMAKE_CXX_COMPILER=hipcc"
       "-DMIOPEN_BACKEND=HIP"
-    ] ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
+    ]
+    ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
     ++ lib.optionals buildTests [
       "-DBUILD_TESTS=ON"
       "-DMIOPEN_TEST_ALL=ON"
@@ -133,13 +138,16 @@ stdenv.mkDerivation (finalAttrs: {
         --replace "enable_testing()" "" \
         --replace "MIOPEN_HIP_COMPILER MATCHES \".*clang\\\\+\\\\+$\"" "true" \
         --replace "set(MIOPEN_TIDY_ERRORS ALL)" "" # error: missing required key 'key'
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       substituteInPlace test/gtest/CMakeLists.txt \
         --replace "enable_testing()" ""
-    '' + lib.optionalString (!buildTests) ''
+    ''
+    + lib.optionalString (!buildTests) ''
       substituteInPlace CMakeLists.txt \
         --replace "add_subdirectory(test)" ""
-    '' + lib.optionalString fetchKDBs ''
+    ''
+    + lib.optionalString fetchKDBs ''
       ln -sf ${kdbs.gfx1030_36} src/kernels/gfx1030_36.kdb
       ln -sf ${kdbs.gfx900_56} src/kernels/gfx900_56.kdb
       ln -sf ${kdbs.gfx900_64} src/kernels/gfx900_64.kdb
@@ -156,7 +164,8 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildDocs ''
       export HOME=$(mktemp -d)
       make -j$NIX_BUILD_CORES doc
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       make -j$NIX_BUILD_CORES check
     ''
     ;
@@ -164,7 +173,8 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall =
     ''
       rm $out/bin/install_precompiled_kernels.sh
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       mv ../doc/html $out/share/doc/miopen-${
         if useOpenCL then
           "opencl"
@@ -177,16 +187,19 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "hip"
       }
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv bin/test_* $test/bin
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs ++ [
-          hip
-          rocm-comgr
-        ])
+        lib.makeLibraryPath (finalAttrs.buildInputs
+          ++ [
+            hip
+            rocm-comgr
+          ])
       } $test/bin/*
-    '' + lib.optionalString fetchKDBs ''
+    ''
+    + lib.optionalString fetchKDBs ''
       # Apparently gfx1030_40 wasn't generated so the developers suggest just renaming gfx1030_36 to it
       # Should be fixed in the next miopen kernel generation batch
       ln -s ${kdbs.gfx1030_36} $out/share/miopen/db/gfx1030_40.kdb

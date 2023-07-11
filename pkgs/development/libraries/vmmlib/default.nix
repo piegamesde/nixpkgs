@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     [
       boost
       lapack
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
       CoreVideo

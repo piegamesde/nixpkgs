@@ -138,7 +138,8 @@ rec {
       brotli_decompressor_1_3_1.default = true;
       brotli_decompressor_1_3_1.seccomp =
         (f.brotli_decompressor_1_3_1.seccomp or false)
-        || (brotli_2_5_0.seccomp or false) || (f.brotli_2_5_0.seccomp or false)
+        || (brotli_2_5_0.seccomp or false)
+        || (f.brotli_2_5_0.seccomp or false)
         ;
     }) [
       alloc_no_stdlib_1_3_0_features

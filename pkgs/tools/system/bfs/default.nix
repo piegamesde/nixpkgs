@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ oniguruma ] ++ lib.optionals stdenv.isLinux [
+    [ oniguruma ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       acl
     ]

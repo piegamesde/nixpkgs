@@ -57,8 +57,8 @@ let
       embedSupport ? false,
       ipv6Support ? true,
       systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
-      valgrindSupport ? !stdenv.isDarwin
-        && lib.meta.availableOn stdenv.hostPlatform valgrind,
+      valgrindSupport ?
+        !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
       ztsSupport ? apxs2Support
     }@args:
 
@@ -240,7 +240,8 @@ let
             libtool
             pkg-config
             re2c
-          ] ++ lib.optional stdenv.isDarwin xcbuild
+          ]
+          ++ lib.optional stdenv.isDarwin xcbuild
           ;
 
         buildInputs =
@@ -251,10 +252,10 @@ let
 
           # Enable sapis
           ++ lib.optionals pearSupport [
-            libxml2.dev
-          ]
+              libxml2.dev
+            ]
 
-          # Misc deps
+            # Misc deps
           ++ lib.optional apxs2Support apacheHttpd
           ++ lib.optional argon2Support libargon2
           ++ lib.optional systemdSupport systemd
@@ -283,12 +284,13 @@ let
             "--with-pear"
             "--enable-xml"
             "--with-libxml"
-          ] ++ lib.optional pharSupport "--enable-phar"
+          ]
+          ++ lib.optional pharSupport "--enable-phar"
           ++ lib.optional (!phpdbgSupport) "--disable-phpdbg"
 
-          # Misc flags
+            # Misc flags
           ++ lib.optional apxs2Support
-          "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
+            "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
           ++ lib.optional argon2Support "--with-password-argon2=${libargon2}"
           ++ lib.optional cgotoSupport "--enable-re2c-cgoto"
           ++ lib.optional embedSupport "--enable-embed"
@@ -296,11 +298,11 @@ let
           ++ lib.optional systemdSupport "--with-fpm-systemd"
           ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
           ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
-          "--enable-maintainer-zts"
+            "--enable-maintainer-zts"
           ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
-          "--enable-zts"
+            "--enable-zts"
 
-          # Sendmail
+            # Sendmail
           ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ]
           ;
 
@@ -324,7 +326,8 @@ let
             if test -f $src/genfiles; then
               ./genfiles
             fi
-          '' + lib.optionalString stdenv.isDarwin ''
+          ''
+          + lib.optionalString stdenv.isDarwin ''
             substituteInPlace configure --replace "-lstdc++" "-lc++"
           ''
           ;

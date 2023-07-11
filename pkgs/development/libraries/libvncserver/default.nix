@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       openssl
       libgcrypt
       libpng
-    ] ++ lib.optionals stdenv.isLinux [ systemd ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ systemd ]
     ++ lib.optionals stdenv.isDarwin [ Carbon ]
     ;
 

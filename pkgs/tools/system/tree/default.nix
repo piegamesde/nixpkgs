@@ -12,11 +12,13 @@ let
     lib.optionalString stdenv.isDarwin ''
       CFLAGS="-O2 -Wall -fomit-frame-pointer -no-cpp-precomp"
       LDFLAGS=
-    '' + lib.optionalString stdenv.isCygwin ''
+    ''
+    + lib.optionalString stdenv.isCygwin ''
       CFLAGS="-O2 -Wall -fomit-frame-pointer"
       LDFLAGS=-s
       TREE_DEST=tree.exe
-    '' + lib.optionalString (stdenv.isFreeBSD || stdenv.isOpenBSD) ''
+    ''
+    + lib.optionalString (stdenv.isFreeBSD || stdenv.isOpenBSD) ''
       CFLAGS="-O2 -Wall -fomit-frame-pointer"
       LDFLAGS=-s
     ''

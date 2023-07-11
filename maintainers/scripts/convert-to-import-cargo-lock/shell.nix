@@ -7,6 +7,7 @@ mkShell {
       cargo
       clippy
       rustfmt
-    ] ++ lib.optional stdenv.isDarwin libiconv
+    ]
+    ++ lib.optional stdenv.isDarwin libiconv
     ;
 }

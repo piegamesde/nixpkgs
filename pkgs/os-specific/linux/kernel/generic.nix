@@ -107,8 +107,9 @@ let
 
   intermediateNixConfig =
     configfile.moduleStructuredConfig.intermediateNixConfig
-    # extra config in legacy string format
-    + extraConfig + stdenv.hostPlatform.linux-kernel.extraConfig or ""
+      # extra config in legacy string format
+    + extraConfig
+    + stdenv.hostPlatform.linux-kernel.extraConfig or ""
     ;
 
   structuredConfigFromPatches = map ({
@@ -154,10 +155,12 @@ let
         gmp
         libmpc
         mpfr
-      ] ++ lib.optionals (lib.versionAtLeast version "4.16") [
+      ]
+      ++ lib.optionals (lib.versionAtLeast version "4.16") [
         bison
         flex
-      ] ++ lib.optional (lib.versionAtLeast version "5.2") pahole
+      ]
+      ++ lib.optional (lib.versionAtLeast version "5.2") pahole
       ;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
@@ -173,11 +176,13 @@ let
 
     makeFlags =
       lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
-      stdenv.hostPlatform.linux-kernel.makeFlags ++ extraMakeFlags
+        stdenv.hostPlatform.linux-kernel.makeFlags
+      ++ extraMakeFlags
       ;
 
     postPatch =
-      kernel.postPatch + ''
+      kernel.postPatch
+      + ''
         # Patch kconfig to print "###" after every question so that
         # generate-config.pl from the generic builder can answer them.
         sed -e '/fflush(stdout);/i\printf("###");' -i scripts/kconfig/conf.c
@@ -234,7 +239,8 @@ let
                 settings = structuredExtraConfig;
                 _file = "structuredExtraConfig";
               }
-            ] ++ structuredConfigFromPatches
+            ]
+            ++ structuredConfigFromPatches
             ;
         }).config;
 
@@ -272,7 +278,8 @@ let
       # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
     configEnv = kernel.overrideAttrs (old: {
       nativeBuildInputs =
-        old.nativeBuildInputs or [ ] ++ (with buildPackages; [
+        old.nativeBuildInputs or [ ]
+        ++ (with buildPackages; [
           pkg-config
           ncurses
         ])

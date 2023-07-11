@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     ''
       # https://github.com/CCExtractor/ccextractor/issues/1467
       sed -i '/allheaders.h/a#include <leptonica/pix_internal.h>' src/lib_ccx/ocr.c
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/CMakeLists.txt \
       --replace 'add_definitions(-DGPAC_CONFIG_LINUX)' 'add_definitions(-DGPAC_CONFIG_DARWIN)'
     ''
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ zlib ] ++ lib.optional (!stdenv.isLinux) libiconv
+    [ zlib ]
+    ++ lib.optional (!stdenv.isLinux) libiconv
     ++ lib.optionals enableOcr [
       leptonica
       tesseract4
@@ -55,7 +57,8 @@ stdenv.mkDerivation rec {
     [
       # file RPATH_CHANGE could not write new RPATH:
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ] ++ lib.optionals enableOcr [
+    ]
+    ++ lib.optionals enableOcr [
       "-DWITH_OCR=on"
       "-DWITH_HARDSUBX=on"
     ]

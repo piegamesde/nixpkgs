@@ -64,13 +64,16 @@ stdenv.mkDerivation rec {
       perl
       openssh
       hwloc
-    ] ++ optionals (network == "infiniband") [
+    ]
+    ++ optionals (network == "infiniband") [
       rdma-core
       opensm
-    ] ++ optionals (network == "omnipath") [
+    ]
+    ++ optionals (network == "omnipath") [
       libpsm2
       libfabric
-    ] ++ optional useSlurm slurm;
+    ]
+    ++ optional useSlurm slurm;
 
   configureFlags = with lib;
     [
@@ -81,12 +84,14 @@ stdenv.mkDerivation rec {
       "--enable-hybrid"
       "--enable-shared"
       "FFLAGS=-fallow-argument-mismatch" # fix build with gfortran 10
-    ] ++ optional useSlurm "--with-pm=slurm"
+    ]
+    ++ optional useSlurm "--with-pm=slurm"
     ++ optional (network == "ethernet") "--with-device=ch3:sock"
     ++ optionals (network == "infiniband") [
       "--with-device=ch3:mrail"
       "--with-rdma=gen2"
-    ] ++ optionals (network == "omnipath") [
+    ]
+    ++ optionals (network == "omnipath") [
       "--with-device=ch3:psm"
       "--with-psm2=${libpsm2}"
     ];

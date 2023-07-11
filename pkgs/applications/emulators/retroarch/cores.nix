@@ -389,7 +389,8 @@ in
         hidapi
         libevdev
         udev
-      ] ++ (with xorg; [
+      ]
+      ++ (with xorg; [
         libSM
         libX11
         libXi

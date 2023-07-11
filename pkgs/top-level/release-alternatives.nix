@@ -92,7 +92,8 @@ let
         "haskellPackages"
         "bindings-levmar"
       ]
-    ] ++ lib.optionals allowUnfree [ "magma" ]
+    ]
+    ++ lib.optionals allowUnfree [ "magma" ]
     ;
   blas64Users =
     [
@@ -122,7 +123,8 @@ let
         "haskellPackages"
         "bindings-levmar"
       ]
-    ] ++ lib.optionals allowUnfree [ "magma" ]
+    ]
+    ++ lib.optionals allowUnfree [ "magma" ]
     ;
   blasProviders =
     system:
@@ -130,7 +132,8 @@ let
       "openblasCompat"
       "lapack-reference"
       "openblas"
-    ] ++ lib.optionals (allowUnfree && system.isx86) [
+    ]
+    ++ lib.optionals (allowUnfree && system.isx86) [
       "mkl"
       "mkl64"
     ]

@@ -26,7 +26,8 @@ python3.pkgs.buildPythonApplication rec {
       aria2
       mpv
       nodejs
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       beautifulsoup4
       cfscrape
       click

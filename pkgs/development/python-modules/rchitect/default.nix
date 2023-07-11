@@ -29,7 +29,8 @@ buildPythonPackage rec {
     [
       cffi
       six
-    ] ++ (with rPackages; [ reticulate ])
+    ]
+    ++ (with rPackages; [ reticulate ])
     ;
 
   nativeCheckInputs = [

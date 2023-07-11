@@ -92,7 +92,8 @@ buildPythonPackage rec {
     [
       "msgpack"
       "test_check_privileges_no_fchown"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # too many open files on hydra
       "test_cleanup"
       "test_with_autoscaler_file_descriptor_safety"

@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ SDL ] ++ lib.optional stdenv.isDarwin Foundation
+    [ SDL ]
+    ++ lib.optional stdenv.isDarwin Foundation
     ++ lib.optional stdenv.isLinux jack2
     ;
 

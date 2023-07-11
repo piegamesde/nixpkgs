@@ -90,7 +90,8 @@ stdenv.mkDerivation {
       # Fix `extcap` and `plugins` paths. See https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=16444
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DLEMON_C_COMPILER=cc"
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-DHAVE_C99_VSNPRINTF_EXITCODE=0"
       "-DHAVE_C99_VSNPRINTF_EXITCODE__TRYRUN_OUTPUT="
     ]
@@ -110,7 +111,8 @@ stdenv.mkDerivation {
       pkg-config
       python3
       perl
-    ] ++ lib.optionals withQt [
+    ]
+    ++ lib.optionals withQt [
       qt5.wrapQtAppsHook
       wrapGAppsHook
     ]
@@ -144,21 +146,25 @@ stdenv.mkDerivation {
       c-ares
       glib
       zlib
-    ] ++ lib.optionals withQt (with qt5; [
+    ]
+    ++ lib.optionals withQt (with qt5; [
       qtbase
       qtmultimedia
       qtsvg
       qttools
-    ]) ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
+    ])
+    ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
     ++ lib.optionals stdenv.isLinux [
       libcap
       libnl
       sbc
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       ApplicationServices
       gmp
-    ] ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ])
+    ]
+    ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ])
     ;
 
   strictDeps = true;
@@ -174,7 +180,8 @@ stdenv.mkDerivation {
       # to remove "cycle detected in the references"
       mkdir -p $dev/lib/wireshark
       mv $out/lib/wireshark/cmake $dev/lib/wireshark
-    '' + (if stdenv.isDarwin && withQt then
+    ''
+    + (if stdenv.isDarwin && withQt then
       ''
         mkdir -p $out/Applications
         mv $out/bin/Wireshark.app $out/Applications/Wireshark.app

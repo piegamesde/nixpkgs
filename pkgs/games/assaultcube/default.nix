@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       file
       zlib
-    ] ++ lib.optionals client [
+    ]
+    ++ lib.optionals client [
       openal
       SDL2
       SDL2_image

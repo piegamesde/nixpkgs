@@ -43,7 +43,8 @@ buildPythonPackage rec {
       "test_unicode_path"
       # fails to import itself after modifying the environment
       "test_environment"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Disable tests that fail on Darwin sandbox
       "test_background_exception"
       "test_cwd"

@@ -43,7 +43,8 @@ let
               (pkgs.writeShellScriptBin "run-test"
                 config.system.build.testScript)
             ];
-        } ] ++ configs)
+        } ]
+          ++ configs)
         ;
 
       testScript = ''

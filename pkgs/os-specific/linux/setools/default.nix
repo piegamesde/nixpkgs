@@ -29,7 +29,8 @@ buildPythonApplication rec {
       enum34
       libselinux
       networkx
-    ] ++ optionals withGraphics [ pyqt5 ]
+    ]
+    ++ optionals withGraphics [ pyqt5 ]
     ;
 
   nativeCheckInputs = [

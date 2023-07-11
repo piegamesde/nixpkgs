@@ -35,7 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       rocm-smi
       gtest
-    ] ++ lib.optionals buildTests [ chrpath ]
+    ]
+    ++ lib.optionals buildTests [ chrpath ]
     ;
 
   cmakeFlags =
@@ -47,7 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
     ;
 
     # Replace the manually set parallel jobs to NIX_BUILD_CORES

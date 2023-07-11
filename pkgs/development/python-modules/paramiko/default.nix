@@ -47,7 +47,8 @@ buildPythonPackage rec {
       cryptography
       pyasn1
       six
-    ] ++ passthru.optional-dependencies.ed25519
+    ]
+    ++ passthru.optional-dependencies.ed25519
     ; # remove on 3.0 update
 
   passthru.optional-dependencies = {
@@ -66,7 +67,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   disabledTestPaths = [

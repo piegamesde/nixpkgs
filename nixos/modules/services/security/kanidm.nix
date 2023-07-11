@@ -228,7 +228,8 @@ in
     assertions = [
       {
         assertion =
-          !cfg.enableServer || ((cfg.serverSettings.tls_chain or null) == null)
+          !cfg.enableServer
+          || ((cfg.serverSettings.tls_chain or null) == null)
           || (!lib.isStorePath cfg.serverSettings.tls_chain)
           ;
         message = ''
@@ -239,7 +240,8 @@ in
       }
       {
         assertion =
-          !cfg.enableServer || ((cfg.serverSettings.tls_key or null) == null)
+          !cfg.enableServer
+          || ((cfg.serverSettings.tls_key or null) == null)
           || (!lib.isStorePath cfg.serverSettings.tls_key)
           ;
         message = ''
@@ -266,9 +268,10 @@ in
       }
       {
         assertion =
-          !cfg.enableServer || (cfg.serverSettings.domain == null
+          !cfg.enableServer
+          || (cfg.serverSettings.domain == null
             -> cfg.serverSettings.role == "WriteReplica"
-            || cfg.serverSettings.role == "WriteReplicaNoUI")
+              || cfg.serverSettings.role == "WriteReplicaNoUI")
           ;
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance

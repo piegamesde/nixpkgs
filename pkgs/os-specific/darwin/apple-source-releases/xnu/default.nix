@@ -75,7 +75,8 @@ else
           --replace 'MACHINE_ARCH=armv7' 'MACHINE_ARCH=arm64' # this might break the comments saying 32-bit is required
 
         patchShebangs .
-      '' + lib.optionalString stdenv.isAarch64 ''
+      ''
+      + lib.optionalString stdenv.isAarch64 ''
         # iig is closed-sourced, we don't have it
         # create an empty file to the header instead
         # this line becomes: echo "" > $@; echo --header ...

@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags =
-    (lib.optionals (SDL != null) [ "SDL=yes" ]) ++ [
+    (lib.optionals (SDL != null) [ "SDL=yes" ])
+    ++ [
       "PREFIX=$(out)"
       # force platform's cc on darwin, otherwise gcc is used
       "CC=${stdenv.cc.targetPrefix}cc"

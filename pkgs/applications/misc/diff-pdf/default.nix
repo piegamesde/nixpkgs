@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       cairo
       poppler
       wxGTK
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   preConfigure = "./bootstrap";

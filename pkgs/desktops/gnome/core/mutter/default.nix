@@ -147,7 +147,8 @@ stdenv.mkDerivation (finalAttrs: {
       xwayland
       wayland
       wayland-protocols
-    ] ++ [
+    ]
+    ++ [
       # X11 client
       gtk4
       libICE

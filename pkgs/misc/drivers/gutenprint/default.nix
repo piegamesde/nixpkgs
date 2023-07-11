@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       makeWrapper
       pkg-config
-    ] ++ lib.optionals cupsSupport [
+    ]
+    ++ lib.optionals cupsSupport [
       cups
       perl
     ]
@@ -38,10 +39,12 @@ stdenv.mkDerivation rec {
     [
       ijs
       zlib
-    ] ++ lib.optionals gimp2Support [
+    ]
+    ++ lib.optionals gimp2Support [
       gimp.gtk
       gimp
-    ] ++ lib.optionals cupsSupport [
+    ]
+    ++ lib.optionals cupsSupport [
       cups
       libusb1
       perl
@@ -61,7 +64,8 @@ stdenv.mkDerivation rec {
         -e "s,cups_conf_serverbin=.*,cups_conf_serverbin=\"$out/lib/cups\",g" \
         -e "s,cups_conf_serverroot=.*,cups_conf_serverroot=\"$out/etc/cups\",g" \
         configure
-    '' + lib.optionalString gimp2Support ''
+    ''
+    + lib.optionalString gimp2Support ''
       sed -i \
         -e "s,gimp2_plug_indir=.*,gimp2_plug_indir=\"$out/lib/gimp/${gimp.majorVersion}\",g" \
         configure

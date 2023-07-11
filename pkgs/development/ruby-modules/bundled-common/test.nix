@@ -42,7 +42,8 @@ builtins.concatLists [
     functions.filterGemset {
       inherit ruby;
       groups = [ "default" ];
-    } set == { }))
+    } set
+    == { }))
   (let
     gemSet = {
       test = {
@@ -60,7 +61,8 @@ builtins.concatLists [
         "y"
         "z"
       ];
-    } set == gemSet)
+    } set
+    == gemSet)
   )
   (let
     gemSet = { test = { platforms = [ ]; }; };
@@ -69,7 +71,8 @@ builtins.concatLists [
     functions.filterGemset {
       inherit ruby;
       groups = [ ];
-    } set == gemSet)
+    } set
+    == gemSet)
   )
   (let
     gemSet = {
@@ -85,7 +88,8 @@ builtins.concatLists [
     functions.filterGemset {
       inherit ruby;
       groups = [ ];
-    } set == gemSet)
+    } set
+    == gemSet)
   )
   (let
     gemSet = {
@@ -104,6 +108,7 @@ builtins.concatLists [
         "a"
         "b"
       ];
-    } set == { })
+    } set
+    == { })
   )
 ]

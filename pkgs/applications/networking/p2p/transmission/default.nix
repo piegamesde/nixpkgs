@@ -89,7 +89,8 @@ stdenv.mkDerivation {
     [
       pkg-config
       cmake
-    ] ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+    ]
+    ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
     ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
     ;
 
@@ -105,13 +106,16 @@ stdenv.mkDerivation {
       miniupnpc
       dht
       libnatpmp
-    ] ++ lib.optionals enableQt [
+    ]
+    ++ lib.optionals enableQt [
       qt5.qttools
       qt5.qtbase
-    ] ++ lib.optionals enableGTK3 [
+    ]
+    ++ lib.optionals enableGTK3 [
       gtk3
       xorg.libpthreadstubs
-    ] ++ lib.optionals enableSystemd [ systemd ]
+    ]
+    ++ lib.optionals enableSystemd [ systemd ]
     ++ lib.optionals stdenv.isLinux [ inotify-tools ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
@@ -133,7 +137,8 @@ stdenv.mkDerivation {
           zlib
           libnatpmp
           miniupnpc
-        ] ++ lib.optionals enableSystemd [ systemd ]
+        ]
+          ++ lib.optionals enableSystemd [ systemd ]
           ++ lib.optionals stdenv.isLinux [ inotify-tools ])
       }"
       r @{PROC}/sys/kernel/random/uuid,

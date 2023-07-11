@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
       openssl
       libgee
       sqlite
-    ] ++ lib.optionals mysqlSupport [ libmysqlclient ]
+    ]
+    ++ lib.optionals mysqlSupport [ libmysqlclient ]
     ++ lib.optionals postgresSupport [ postgresql ]
     ;
 

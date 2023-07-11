@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
       xercesc
       zlib
       python3
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXcursor
       libXext

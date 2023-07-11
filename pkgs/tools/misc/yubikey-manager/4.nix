@@ -49,7 +49,9 @@ python3Packages.buildPythonPackage rec {
       pyusb
       six
       fido2
-    ] ++ lib.optionals pyOpenSSLSupport [ pyopenssl ]) ++ [
+    ]
+      ++ lib.optionals pyOpenSSLSupport [ pyopenssl ])
+    ++ [
       libu2f-host
       libusb1
       yubikey-personalization

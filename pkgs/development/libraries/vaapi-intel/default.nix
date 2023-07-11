@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-x11"
       "--enable-wayland"
-    ] ++ lib.optional enableHybridCodec "--enable-hybrid-codec"
+    ]
+    ++ lib.optional enableHybridCodec "--enable-hybrid-codec"
     ;
 
   nativeBuildInputs = [
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       libXext
       libGL
       wayland
-    ] ++ lib.optional enableHybridCodec vaapi-intel-hybrid
+    ]
+    ++ lib.optional enableHybridCodec vaapi-intel-hybrid
     ;
 
   enableParallelBuilding = true;

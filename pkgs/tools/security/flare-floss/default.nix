@@ -59,7 +59,8 @@ py.pkgs.buildPythonPackage rec {
       tqdm
       viv-utils
       vivisect
-    ] ++ viv-utils.optional-dependencies.flirt;
+    ]
+    ++ viv-utils.optional-dependencies.flirt;
 
   nativeCheckInputs = with py.pkgs; [
     pytest-sugar

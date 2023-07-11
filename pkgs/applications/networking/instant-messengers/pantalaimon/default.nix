@@ -57,7 +57,9 @@ buildPythonApplication rec {
       peewee
       prompt-toolkit
       setuptools
-    ] ++ matrix-nio.optional-dependencies.e2e ++ lib.optionals enableDbusUi [
+    ]
+    ++ matrix-nio.optional-dependencies.e2e
+    ++ lib.optionals enableDbusUi [
       dbus-python
       notify2
       pygobject3

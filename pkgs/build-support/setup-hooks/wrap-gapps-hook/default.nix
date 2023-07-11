@@ -19,7 +19,8 @@ makeSetupHook {
     [
       # We use the wrapProgram function.
       makeWrapper
-    ] ++ lib.optionals isGraphical [
+    ]
+    ++ lib.optionals isGraphical [
       # TODO: remove this, packages should depend on GTK explicitly.
       gtk3
 
@@ -41,7 +42,8 @@ makeSetupHook {
 
       # TODO: remove this, packages should depend on GTK explicitly.
       gtk3
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       # It is highly probable that a program will use GSettings,
       # at minimum through GTK file chooser dialogue.
       # Let’s add a GIO module for “dconf” GSettings backend

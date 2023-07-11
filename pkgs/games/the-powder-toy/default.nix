@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       lua
       luajit
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   installPhase = ''

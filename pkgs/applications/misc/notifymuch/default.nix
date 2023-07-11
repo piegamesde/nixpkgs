@@ -25,7 +25,8 @@ python3.pkgs.buildPythonApplication rec {
     [
       libnotify
       gtk3
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       notmuch
       pygobject3
     ])

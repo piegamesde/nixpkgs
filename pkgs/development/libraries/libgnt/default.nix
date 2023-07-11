@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional buildDocs "devdoc"
+    ]
+    ++ lib.optional buildDocs "devdoc"
     ;
 
   src = fetchurl {
@@ -33,7 +34,8 @@ stdenv.mkDerivation rec {
       meson
       ninja
       pkg-config
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       gtk-doc
       docbook-xsl-nons
     ]
@@ -50,7 +52,8 @@ stdenv.mkDerivation rec {
       substituteInPlace meson.build --replace \
         "ncurses_sys_prefix = '/usr'" \
         "ncurses_sys_prefix = '${lib.getDev ncurses}'"
-    '' + lib.optionalString (!buildDocs) ''
+    ''
+    + lib.optionalString (!buildDocs) ''
       sed "/^subdir('doc')$/d" -i meson.build
     ''
     ;

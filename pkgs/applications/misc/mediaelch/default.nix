@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       qtsvg
       qtwayland
       quazip
-    ] ++ lib.optionals (qtVersion == "6") [ qt5compat ]
+    ]
+    ++ lib.optionals (qtVersion == "6") [ qt5compat ]
     ;
 
   cmakeFlags = [

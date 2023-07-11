@@ -102,7 +102,8 @@ stdenv.mkDerivation (finalAttrs: {
       optLibffado
       optAlsaLib
       optLibopus
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       aften
       AudioUnit
       CoreAudio
@@ -126,7 +127,8 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "classic"
       }"
-    ] ++ lib.optional (optDbus != null) "--dbus"
+    ]
+    ++ lib.optional (optDbus != null) "--dbus"
     ++ lib.optional (optLibffado != null) "--firewire"
     ++ lib.optional (optAlsaLib != null) "--alsa"
     ;

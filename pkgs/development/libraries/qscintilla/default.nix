@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       unzip
       qmake
-    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 
     # Make sure that libqscintilla2.so is available in $out/lib since it is expected

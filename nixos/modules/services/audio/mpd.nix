@@ -266,8 +266,9 @@ in
         ''
           set -euo pipefail
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
-        '' + optionalString (cfg.credentials != [ ]) (concatStringsSep "\n"
-          (imap0 (i: c:
+        ''
+        + optionalString (cfg.credentials != [ ]) (concatStringsSep "\n" (imap0
+          (i: c:
             "${pkgs.replace-secret}/bin/replace-secret '{{password-${
               toString i
             }}}' '${c.passwordFile}' /run/mpd/mpd.conf") cfg.credentials))
@@ -282,11 +283,13 @@ in
         ];
         RuntimeDirectory = "mpd";
         StateDirectory =
-          [ ] ++ optionals (cfg.dataDir == "/var/lib/${name}") [ name ]
+          [ ]
+          ++ optionals (cfg.dataDir == "/var/lib/${name}") [ name ]
           ++ optionals (cfg.playlistDirectory == "/var/lib/${name}/playlists") [
             name
             "${name}/playlists"
-          ] ++ optionals (cfg.musicDirectory == "/var/lib/${name}/music") [
+          ]
+          ++ optionals (cfg.musicDirectory == "/var/lib/${name}/music") [
             name
             "${name}/music"
           ]

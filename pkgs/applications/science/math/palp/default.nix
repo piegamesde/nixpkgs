@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       for file in poly class cws nef mori; do
         cp -p $file.x "$out/bin/$file-${dim}d.x"
       done
-    '' + lib.optionalString doSymlink ''
+    ''
+    + lib.optionalString doSymlink ''
       cd $out/bin
       for file in poly class cws nef mori; do
         ln -sf $file-6d.x $file.x

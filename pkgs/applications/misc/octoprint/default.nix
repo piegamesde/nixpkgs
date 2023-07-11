@@ -170,7 +170,8 @@ let
               wrapt
               zeroconf
               zipstream-ng
-            ] ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
+            ]
+            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
 
           nativeCheckInputs = with self; [
             ddt
@@ -232,9 +233,10 @@ let
           disabledTests =
             [
               "test_check_setup" # Why should it be able to call pip?
-            ] ++ lib.optionals stdenv.isDarwin [
-              "test_set_external_modification"
             ]
+            ++ lib.optionals stdenv.isDarwin [
+                "test_set_external_modification"
+              ]
             ;
 
           passthru = {

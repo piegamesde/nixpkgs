@@ -41,7 +41,8 @@ else
       [
         topkg
         uutf
-      ] ++ lib.optional cmdlinerSupport cmdliner
+      ]
+      ++ lib.optional cmdlinerSupport cmdliner
       ;
 
     propagatedBuildInputs = [ uchar ];

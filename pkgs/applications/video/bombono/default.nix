@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
           "https://svnweb.mageia.org/packages/cauldron/bombono-dvd/current/SOURCES/bombono-dvd-1.2.4-scons-python3.patch?revision=1447925&view=co&pathrev=1484457";
         sha256 = "sha256-5OKBWrRZvHem2MTdAObfdw76ig3Z4ZdDFtq4CJoJISA=";
       })
-    ] ++ (map fetchPatchFromAur [
+    ]
+    ++ (map fetchPatchFromAur [
       {
         name = "fix_ffmpeg_codecid.patch";
         sha256 = "sha256-58L+1BJy5HK/R+xALbq2z4+Se4i6yp21lo/MjylgTqs=";

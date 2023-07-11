@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       "out"
       "man"
       "doc"
-    ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test"
+    ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test"
     ;
 
   nativeBuildInputs = [
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       mkdir -p $doc/share/doc
       cp -a doc $doc/share/doc/iwd
       cp -a README AUTHORS TODO $doc/share/doc/iwd
-    '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
       mkdir -p $test/bin
       cp -a test/* $test/bin/
     ''

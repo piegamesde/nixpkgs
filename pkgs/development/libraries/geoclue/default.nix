@@ -60,9 +60,10 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook-xsl-nons
       docbook_xml_dtd_412
-    ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs =
@@ -72,10 +73,12 @@ stdenv.mkDerivation rec {
       libsoup_3
       avahi
       gobject-introspection
-    ] ++ lib.optionals withDemoAgent [
+    ]
+    ++ lib.optionals withDemoAgent [
       libnotify
       gdk-pixbuf
-    ] ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ]
     ;
 
   propagatedBuildInputs = [
@@ -92,7 +95,8 @@ stdenv.mkDerivation rec {
       "-Dmozilla-api-key=5c28d1f4-9511-47ff-b11a-2bef80fc177c"
       "-Ddbus-srv-user=geoclue"
       "-Ddbus-sys-dir=${placeholder "out"}/share/dbus-1/system.d"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-D3g-source=false"
       "-Dcdma-source=false"
       "-Dmodem-gps-source=false"

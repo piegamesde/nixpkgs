@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
       gnome2.gnome_vfs
       gnome2.libgnome
       gnome2.libgnomeui
-    ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ]
+    ]
+    ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ]
     ;
 
   patches = [
@@ -109,17 +110,23 @@ stdenv.mkDerivation rec {
         # the latter works more consistently.
         /^[A-Z0-9_]\+CFLAGS = `pkg-config --cflags [^`]\+`$/ {
           N
-          s'' + "/" + ''
+          s''
+        + "/"
+        + ''
           ^\([A-Z0-9_]\+\)CFLAGS = `pkg-config --cflags \(.\+\)`\
-          \1LIBS = `pkg-config --libs-only-L .\+$'' + "/" + ''
-            \1CFLAGS = `pkg-config --cflags \2`\
-            \1LIBS = `pkg-config --libs \2`'' + ''
-              /
-            '' + ''
-              }
-              # fix WebKit libs not being there
-              s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
-            '');
+          \1LIBS = `pkg-config --libs-only-L .\+$''
+        + "/"
+        + ''
+          \1CFLAGS = `pkg-config --cflags \2`\
+          \1LIBS = `pkg-config --libs \2`''
+        + ''
+          /
+        ''
+        + ''
+          }
+          # fix WebKit libs not being there
+          s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
+        '');
     in
     ''
       declare -a makefiles=(./*.mak)

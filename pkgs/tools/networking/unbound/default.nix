@@ -40,9 +40,11 @@
     # Avoid .lib depending on lib.getLib openssl
     # The build gets a little hacky, so in some cases we disable this approach.
   ,
-  withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
-    # enable support for python plugins in unbound: note this is distinct from pyunbound
-    # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
+  withSlimLib ? stdenv.isLinux
+    && !stdenv.hostPlatform.isMusl
+    && !withDNSTAP
+      # enable support for python plugins in unbound: note this is distinct from pyunbound
+      # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
   ,
   withPythonModule ? false,
   libnghttp2
@@ -71,7 +73,8 @@ stdenv.mkDerivation rec {
     [
       makeWrapper
       pkg-config
-    ] ++ lib.optionals withPythonModule [ swig ]
+    ]
+    ++ lib.optionals withPythonModule [ swig ]
     ;
 
   buildInputs =
@@ -80,7 +83,8 @@ stdenv.mkDerivation rec {
       nettle
       expat
       libevent
-    ] ++ lib.optionals withSystemd [ systemd ]
+    ]
+    ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
     ++ lib.optionals withPythonModule [ python ]
     ;
@@ -98,7 +102,8 @@ stdenv.mkDerivation rec {
       "--with-rootkey-file=${dns-root-data}/root.key"
       "--enable-pie"
       "--enable-relro-now"
-    ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "--disable-flto" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--disable-flto" ]
     ++ lib.optionals withSystemd [ "--enable-systemd" ]
     ++ lib.optionals withPythonModule [ "--with-pythonmodule" ]
     ++ lib.optionals withDoH [ "--with-libnghttp2=${libnghttp2.dev}" ]
@@ -114,13 +119,16 @@ stdenv.mkDerivation rec {
           ];
         }
       }"
-    ] ++ lib.optionals withDNSTAP [
+    ]
+    ++ lib.optionals withDNSTAP [
       "--enable-dnstap"
       "--with-protobuf-c=${protobufc}"
-    ] ++ lib.optionals withTFO [
+    ]
+    ++ lib.optionals withTFO [
       "--enable-tfo-client"
       "--enable-tfo-server"
-    ] ++ lib.optionals withRedis [
+    ]
+    ++ lib.optionals withRedis [
       "--enable-cachedb"
       "--with-libhiredis=${hiredis}"
     ]
@@ -154,7 +162,8 @@ stdenv.mkDerivation rec {
       make unbound-event-install
       wrapProgram $out/bin/unbound-control-setup \
         --prefix PATH : ${lib.makeBinPath [ openssl ]}
-    '' + lib.optionalString withPythonModule ''
+    ''
+    + lib.optionalString withPythonModule ''
       wrapProgram $out/bin/unbound \
         --prefix PYTHONPATH : "$out/${python.sitePackages}" \
         --argv0 $out/bin/unbound
@@ -163,23 +172,23 @@ stdenv.mkDerivation rec {
 
   preFixup =
     lib.optionalString withSlimLib
-    # Build libunbound again, but only against nettle instead of openssl.
-    # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
-    ''
-      configureFlags="$configureFlags --with-nettle=${nettle.dev} --with-libunbound-only"
-      configurePhase
-      buildPhase
-      if [ -n "$doCheck" ]; then
-          checkPhase
-      fi
-      installPhase
-    ''
-    # get rid of runtime dependencies on $dev outputs
-    + ''substituteInPlace "$lib/lib/libunbound.la" '' + lib.concatMapStrings
-    (pkg:
+      # Build libunbound again, but only against nettle instead of openssl.
+      # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
+      ''
+        configureFlags="$configureFlags --with-nettle=${nettle.dev} --with-libunbound-only"
+        configurePhase
+        buildPhase
+        if [ -n "$doCheck" ]; then
+            checkPhase
+        fi
+        installPhase
+      ''
+      # get rid of runtime dependencies on $dev outputs
+    + ''substituteInPlace "$lib/lib/libunbound.la" ''
+    + lib.concatMapStrings (pkg:
       lib.optionalString (pkg ? dev)
       " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'")
-    (builtins.filter (p: p != null) buildInputs)
+      (builtins.filter (p: p != null) buildInputs)
     ;
 
   passthru.tests = {

@@ -296,7 +296,8 @@ in
           }) ? efiBootStub
           ;
         message = "This kernel does not support the EFI boot stub";
-      } ] ++ concatMap (filename: [
+      } ]
+      ++ concatMap (filename: [
         {
           assertion = !(hasInfix "/" filename);
           message =
@@ -311,7 +312,8 @@ in
               lib.strings.escapeNixIdentifier filename
             } is invalid: entries must have a .conf file extension";
         }
-      ]) (builtins.attrNames cfg.extraEntries) ++ concatMap (filename: [
+      ]) (builtins.attrNames cfg.extraEntries)
+      ++ concatMap (filename: [
         {
           assertion = !(hasPrefix "/" filename);
           message =

@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
     [
       "--sysconfdir=/etc"
       "--localstatedir=/var"
-    ] ++ (if !enablePrivSep then
+    ]
+    ++ (if !enablePrivSep then
       [ "--disable-privsep" ]
     else
       [

@@ -836,7 +836,8 @@ in
               ''
                 You need to setup at least a MUC domain to comply with
                 XEP-0423.
-              '' + genericErrMsg
+              ''
+              + genericErrMsg
               ;
           }
           {
@@ -846,7 +847,8 @@ in
                 You need to setup the uploadHttp module through
                 config.services.prosody.uploadHttp to comply with
                 XEP-0423.
-              '' + genericErrMsg
+              ''
+              + genericErrMsg
               ;
           }
         ];
@@ -871,7 +873,8 @@ in
           [ {
             url = muc.domain;
             description = "${muc.domain} MUC endpoint";
-          } ] ++ acc) [ ] cfg.muc;
+          } ]
+          ++ acc) [ ] cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''

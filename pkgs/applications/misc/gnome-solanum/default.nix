@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       python3
       git
       desktop-file-utils
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

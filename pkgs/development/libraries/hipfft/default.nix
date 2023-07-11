@@ -24,7 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ++ lib.optionals buildSamples [ "sample" ]
     ;
@@ -67,7 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_RIDER=ON" ]
     ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ]
     ;
@@ -76,14 +78,17 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/hipfft-test $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/hipfft-rider $benchmark/bin
-    '' + lib.optionalString buildSamples ''
+    ''
+    + lib.optionalString buildSamples ''
       mkdir -p $sample/bin
       mv clients/staging/hipfft_* $sample/bin
       patchelf $sample/bin/hipfft_* --shrink-rpath --allowed-rpath-prefixes /nix/store
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rmdir $out/bin
     ''
     ;

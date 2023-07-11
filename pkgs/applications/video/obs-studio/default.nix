@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
       pkg-config
       wrapGAppsHook
       wrapQtAppsHook
-    ] ++ optional scriptingSupport swig
+    ]
+    ++ optional scriptingSupport swig
     ;
 
   buildInputs =
@@ -102,11 +103,14 @@ stdenv.mkDerivation rec {
       libva
       srt
       qtwayland
-    ] ++ optionals scriptingSupport [
+    ]
+    ++ optionals scriptingSupport [
       luajit
       python3
-    ] ++ optional alsaSupport alsa-lib
-    ++ optional pulseaudioSupport libpulseaudio ++ optionals pipewireSupport [
+    ]
+    ++ optional alsaSupport alsa-lib
+    ++ optional pulseaudioSupport libpulseaudio
+    ++ optionals pipewireSupport [
       pipewire
       libdrm
     ]

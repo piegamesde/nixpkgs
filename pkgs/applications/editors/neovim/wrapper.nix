@@ -61,7 +61,8 @@ let
           "--add-flags"
           ''--cmd "lua ${providerLuaRc}"''
           # (lib.intersperse "|" hostProviderViml)
-        ] ++ lib.optionals (packpathDirs.myNeovimPackages.start != [ ]
+        ]
+        ++ lib.optionals (packpathDirs.myNeovimPackages.start != [ ]
           || packpathDirs.myNeovimPackages.opt != [ ]) [
             "--add-flags"
             ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
@@ -83,18 +84,22 @@ let
         [
           "${neovim}/bin/nvim"
           "${placeholder "out"}/bin/nvim"
-        ] ++ [
+        ]
+        ++ [
           "--set"
           "NVIM_SYSTEM_RPLUGIN_MANIFEST"
           "${placeholder "out"}/rplugin.vim"
-        ] ++ lib.optionals wrapRc [
+        ]
+        ++ lib.optionals wrapRc [
           "--add-flags"
           "-u ${writeText "init.vim" neovimRcContent}"
-        ] ++ commonWrapperArgs
+        ]
+        ++ commonWrapperArgs
         ;
     in
-    assert withPython2 -> throw
-      "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
+    assert withPython2
+      -> throw
+        "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
 
     symlinkJoin {
       name = "neovim-${lib.getVersion neovim}${extraName}";
@@ -105,22 +110,29 @@ let
           rm $out/share/applications/nvim.desktop
           substitute ${neovim}/share/applications/nvim.desktop $out/share/applications/nvim.desktop \
             --replace 'Name=Neovim' 'Name=Neovim wrapper'
-        '' + lib.optionalString withPython3 ''
+        ''
+        + lib.optionalString withPython3 ''
           makeWrapper ${python3Env.interpreter} $out/bin/nvim-python3 --unset PYTHONPATH
-        '' + lib.optionalString (rubyEnv != null) ''
+        ''
+        + lib.optionalString (rubyEnv != null) ''
           ln -s ${rubyEnv}/bin/neovim-ruby-host $out/bin/nvim-ruby
-        '' + lib.optionalString withNodeJs ''
+        ''
+        + lib.optionalString withNodeJs ''
           ln -s ${nodePackages.neovim}/bin/neovim-node-host $out/bin/nvim-node
-        '' + lib.optionalString vimAlias ''
+        ''
+        + lib.optionalString vimAlias ''
           ln -s $out/bin/nvim $out/bin/vim
-        '' + lib.optionalString viAlias ''
+        ''
+        + lib.optionalString viAlias ''
           ln -s $out/bin/nvim $out/bin/vi
-        '' + lib.optionalString (manifestRc != null) (let
+        ''
+        + lib.optionalString (manifestRc != null) (let
           manifestWrapperArgs =
             [
               "${neovim}/bin/nvim"
               "${placeholder "out"}/bin/nvim-wrapper"
-            ] ++ commonWrapperArgs
+            ]
+            ++ commonWrapperArgs
             ;
         in
         ''
@@ -156,7 +168,8 @@ let
           fi
           rm "${placeholder "out"}/bin/nvim-wrapper"
         ''
-        ) + ''
+        )
+        + ''
           rm $out/bin/nvim
           touch $out/rplugin.vim
           makeWrapper ${

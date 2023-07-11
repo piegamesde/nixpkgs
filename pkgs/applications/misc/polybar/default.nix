@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3Packages.sphinx
       removeReferencesTo
-    ] ++ lib.optional i3Support makeWrapper
+    ]
+    ++ lib.optional i3Support makeWrapper
     ;
 
   buildInputs =
@@ -80,10 +81,13 @@ stdenv.mkDerivation rec {
       xcbutilrenderutil
       xcbutilwm
       xcbutilxrm
-    ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional githubSupport curl
+    ]
+    ++ lib.optional alsaSupport alsa-lib
+    ++ lib.optional githubSupport curl
     ++ lib.optional mpdSupport libmpdclient
     ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional iwSupport wirelesstools ++ lib.optional nlSupport libnl
+    ++ lib.optional iwSupport wirelesstools
+    ++ lib.optional nlSupport libnl
     ++ lib.optionals i3Support [
       jsoncpp
       i3

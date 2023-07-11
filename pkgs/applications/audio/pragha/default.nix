@@ -80,23 +80,28 @@ mkDerivation rec {
       sqlite
       taglib
       zlib
-    ] ++ lib.optionals withGstPlugins [
+    ]
+    ++ lib.optionals withGstPlugins [
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ] ++ lib.optionals withCD [
+    ]
+    ++ lib.optionals withCD [
       libcddb
       libcdio
       libcdio-paranoia
-    ] ++ lib.optional withGudev libgudev
+    ]
+    ++ lib.optional withGudev libgudev
     ++ lib.optional withKeybinder keybinder3
     ++ lib.optional withLibnotify libnotify
-    ++ lib.optional withLastfm liblastfmSF ++ lib.optional withGlyr glyr
-    ++ lib.optional withLibsoup libsoup ++ lib.optional withMtp libmtp
+    ++ lib.optional withLastfm liblastfmSF
+    ++ lib.optional withGlyr glyr
+    ++ lib.optional withLibsoup libsoup
+    ++ lib.optional withMtp libmtp
     ++ lib.optional withXfce4ui xfce.libxfce4ui
     ++ lib.optional withTotemPlParser totem-pl-parser
-    # ++ lib.optional withGrilo grilo
-    # ++ lib.optional withRygel rygel
+      # ++ lib.optional withGrilo grilo
+      # ++ lib.optional withRygel rygel
     ;
 
   CFLAGS = [ "-DHAVE_PARANOIA_NEW_INCLUDES" ];

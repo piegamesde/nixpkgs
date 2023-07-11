@@ -24,10 +24,12 @@ let
       prefixLength = mkOption {
         default = pref;
         type = types.addCheck types.int (n:
-          n >= 0 && n <= (if v == 4 then
-            32
-          else
-            128));
+          n >= 0
+          && n
+            <= (if v == 4 then
+              32
+            else
+              128));
         description = lib.mdDoc ''
           Subnet mask of the ${name} address, specified as the number of
           bits in the prefix (`${
@@ -125,7 +127,8 @@ in
 
               # speed up boot
               setprop debug.sf.nobootanimation 1
-            '' + cfg.extraInit);
+            ''
+              + cfg.extraInit);
             initshloc =
               "${anboxloc}/rootfs-overlay/system/etc/init.goldfish.sh";
           in

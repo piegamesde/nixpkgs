@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     tcl
   ];
   buildInputs =
-    [ bluez ] ++ lib.optional alsaSupport alsa-lib
+    [ bluez ]
+    ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional systemdSupport systemd
     ;
 

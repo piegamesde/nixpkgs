@@ -31,7 +31,8 @@ buildPythonPackage rec {
       six
       twisted
       pyopenssl
-    ] ++ twisted.optional-dependencies.tls
+    ]
+    ++ twisted.optional-dependencies.tls
     ;
 
   passthru.optional-dependencies = {
@@ -43,7 +44,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   pythonImportsCheck = [ "foolscap" ];

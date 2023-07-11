@@ -112,7 +112,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               ./install.sh --prefix=$out
             ''
             ;
@@ -139,7 +141,9 @@ let
             '';
 
             postInstall =
-              (old.postInstall or "") + "\n" + ''
+              (old.postInstall or "")
+              + "\n"
+              + ''
                 outd=$out/share/emacs/site-lisp/elpa/jinx-*
                 install -m444 -t $outd jinx-mod${libExt}
                 rm $outd/jinx-mod.c $outd/emacs-module.h
@@ -154,7 +158,8 @@ let
         plz = super.plz.overrideAttrs (old: {
           dontUnpack = false;
           postPatch =
-            old.postPatch or "" + ''
+            old.postPatch or ""
+            + ''
               substituteInPlace ./plz.el \
                 --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
             ''

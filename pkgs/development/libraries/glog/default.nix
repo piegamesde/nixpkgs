@@ -41,9 +41,10 @@ stdenv.mkDerivation rec {
         lib.optionals stdenv.hostPlatform.isMusl [
           "Symbolize.SymbolizeStackConsumption"
           "Symbolize.SymbolizeWithDemanglingStackConsumption"
-        ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-          "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
         ]
+        ++ lib.optionals stdenv.hostPlatform.isStatic [
+            "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
+          ]
         ;
     in
     lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"

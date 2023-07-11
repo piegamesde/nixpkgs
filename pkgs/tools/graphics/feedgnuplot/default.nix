@@ -34,14 +34,16 @@ perlPackages.buildPerlPackage rec {
     [
       makeWrapper
       installShellFiles
-    ] ++ lib.optional stdenv.isDarwin shortenPerlShebang
+    ]
+    ++ lib.optional stdenv.isDarwin shortenPerlShebang
     ;
 
   buildInputs =
     [
       gnuplot
       perl
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       ListMoreUtils
       IPCRun
       StringShellQuote
@@ -61,7 +63,8 @@ perlPackages.buildPerlPackage rec {
   postInstall =
     lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/feedgnuplot
-    '' + ''
+    ''
+    + ''
       wrapProgram $out/bin/feedgnuplot \
           --prefix "PATH" ":" "$PATH" \
           --prefix "PERL5LIB" ":" "$PERL5LIB"

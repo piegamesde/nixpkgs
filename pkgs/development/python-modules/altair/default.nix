@@ -39,7 +39,8 @@ buildPythonPackage rec {
       six
       toolz
       jinja2
-    ] ++ lib.optionals (pythonOlder "3.5") [ typing ]
+    ]
+    ++ lib.optionals (pythonOlder "3.5") [ typing ]
     ;
 
   nativeCheckInputs = [

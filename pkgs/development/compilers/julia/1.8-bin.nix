@@ -10,14 +10,16 @@ let
     [
       # Test flaky on ofborg
       "channels"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Test flaky on ofborg
       "FileWatching"
       # Test requires pbcopy
       "InteractiveUtils"
       # Test requires network access
       "Sockets"
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       # Test Failed at $out/share/julia/stdlib/v1.8/LinearAlgebra/test/blas.jl:702
       "LinearAlgebra/blas"
       # Test Failed at $out/share/julia/test/misc.jl:724

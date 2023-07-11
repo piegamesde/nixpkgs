@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       libiconv
       libpng
-    ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc ]
     ;
 
   configureFlags = [ "--with-tests" ];

@@ -31,13 +31,15 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.isLinux [
       systemd
       parted
-    ] ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
     ;
 
   buildFlags =
     [
       "all" # f3read, f3write
-    ] ++ lib.optional stdenv.isLinux "extra"
+    ]
+    ++ lib.optional stdenv.isLinux "extra"
     ; # f3brew, f3fix, f3probe
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];

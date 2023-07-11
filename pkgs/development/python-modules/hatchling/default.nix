@@ -42,7 +42,8 @@ buildPythonPackage {
       packaging
       pathspec
       pluggy
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 

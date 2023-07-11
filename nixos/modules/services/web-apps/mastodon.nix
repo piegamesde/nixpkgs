@@ -159,7 +159,8 @@ let
         [
           "network.target"
           "mastodon-init-dirs.service"
-        ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+        ]
+        ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
         ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
         ;
       requires =
@@ -684,7 +685,8 @@ in
         }
         {
           assertion =
-            1 == builtins.length (lib.mapAttrsToList (_: v:
+            1
+            == builtins.length (lib.mapAttrsToList (_: v:
               builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
               cfg.sidekiqProcesses)
             ;
@@ -727,11 +729,14 @@ in
             OTP_SECRET="$(cat ${cfg.otpSecretFile})"
             VAPID_PRIVATE_KEY="$(cat ${cfg.vapidPrivateKeyFile})"
             VAPID_PUBLIC_KEY="$(cat ${cfg.vapidPublicKeyFile})"
-          '' + lib.optionalString (cfg.database.passwordFile != null) ''
+          ''
+          + lib.optionalString (cfg.database.passwordFile != null) ''
             DB_PASS="$(cat ${cfg.database.passwordFile})"
-          '' + lib.optionalString cfg.smtp.authenticate ''
+          ''
+          + lib.optionalString cfg.smtp.authenticate ''
             SMTP_PASSWORD="$(cat ${cfg.smtp.passwordFile})"
-          '' + ''
+          ''
+          + ''
             EOF
           ''
           ;
@@ -765,7 +770,8 @@ in
             }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
             EOF
 
-          '' + ''
+          ''
+          + ''
             if [ `psql ${cfg.database.name} -c \
                     "select count(*) from pg_class c \
                     join pg_namespace s on s.oid = c.relnamespace \
@@ -776,7 +782,8 @@ in
             else
               rails db:migrate
             fi
-          '' + lib.optionalString (!databaseActuallyCreateLocally) ''
+          ''
+          + lib.optionalString (!databaseActuallyCreateLocally) ''
             rm $PGPASSFILE
             unset PGPASSFILE
           ''
@@ -808,7 +815,8 @@ in
           [
             "network.target"
             "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
           ;
         requires =
           [ "mastodon-init-dirs.service" ]
@@ -821,7 +829,8 @@ in
           [
             "network.target"
             "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
           ;
         requires =
@@ -847,10 +856,12 @@ in
           RuntimeDirectoryMode = "0750";
             # System Call Filtering
           SystemCallFilter = [
-            ("~" + lib.concatStringsSep " " (systemCallsList ++ [
-              "@memlock"
-              "@resources"
-            ]))
+            ("~"
+              + lib.concatStringsSep " " (systemCallsList
+                ++ [
+                  "@memlock"
+                  "@resources"
+                ]))
             "pipe"
             "pipe2"
           ];
@@ -862,7 +873,8 @@ in
           [
             "network.target"
             "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
           ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
           ;
         requires =

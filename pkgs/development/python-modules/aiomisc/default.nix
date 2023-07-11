@@ -52,7 +52,8 @@ buildPythonPackage rec {
       pytestCheckHook
       raven
       setproctitle
-    ] ++ passthru.optional-dependencies.aiohttp
+    ]
+    ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.cron
     ++ passthru.optional-dependencies.uvloop
     ;

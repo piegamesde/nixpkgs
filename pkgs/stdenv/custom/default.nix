@@ -22,7 +22,8 @@ let
   };
 
 in
-bootStages ++ [
+bootStages
+++ [
 
   # Additional stage, built using custom stdenv
   (vanillaPackages: {

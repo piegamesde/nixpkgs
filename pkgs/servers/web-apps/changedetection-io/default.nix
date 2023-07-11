@@ -60,7 +60,8 @@ python3.pkgs.buildPythonApplication rec {
       validators
       werkzeug
       wtforms
-    ] ++ requests.optional-dependencies.socks;
+    ]
+    ++ requests.optional-dependencies.socks;
 
     # tests can currently not be run in one pytest invocation and without docker
   doCheck = false;

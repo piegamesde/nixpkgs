@@ -78,7 +78,8 @@ let
         bash
         fish
         zsh
-      ] ++ (lib.optionals stdenv.isDarwin [ getconf ])
+      ]
+      ++ (lib.optionals stdenv.isDarwin [ getconf ])
       ;
     checkPhase = ''
       runHook preCheck
@@ -145,7 +146,8 @@ let
           bash
           fish
           zsh
-        ] ++ (lib.optionals stdenv.isDarwin [ getconf ])
+        ]
+        ++ (lib.optionals stdenv.isDarwin [ getconf ])
         ;
       checkPhase = ''
         runHook preCheck
@@ -158,10 +160,12 @@ let
           runHook preInstall
           mkdir -p $out/bin
           cp -p bin/${name} $out/bin/${name}
-        '' + lib.optionalString (dependencies != [ ]) ''
+        ''
+        + lib.optionalString (dependencies != [ ]) ''
           wrapProgram $out/bin/${name} \
             --prefix PATH : ${lib.makeBinPath dependencies}
-        '' + ''
+        ''
+        + ''
           runHook postInstall
         ''
         ;
@@ -179,7 +183,8 @@ in
     less
     coreutils
     gitMinimal
-  ] ++ optionalDep withDelta delta);
+  ]
+    ++ optionalDep withDelta delta);
   batgrep = script "batgrep" [
     less
     coreutils
@@ -190,8 +195,10 @@ in
   batwatch = script "batwatch" ([
     less
     coreutils
-  ] ++ optionalDep withEntr entr);
-  prettybat = script "prettybat" ([ ] ++ optionalDep withShFmt shfmt
+  ]
+    ++ optionalDep withEntr entr);
+  prettybat = script "prettybat" ([ ]
+    ++ optionalDep withShFmt shfmt
     ++ optionalDep withPrettier nodePackages.prettier
     ++ optionalDep withClangTools clang-tools
     ++ optionalDep withRustFmt rustfmt);

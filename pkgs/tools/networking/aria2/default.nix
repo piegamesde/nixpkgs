@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       sqlite
       zlib
       libssh2
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   outputs = [

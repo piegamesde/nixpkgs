@@ -42,7 +42,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     lib.optionals useIcon [
       "LIBSRC=icon"
       "ICONC=icont"
-    ] ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ]
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
     ;
 
   preInstall = ''

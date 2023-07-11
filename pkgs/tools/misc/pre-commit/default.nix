@@ -81,7 +81,8 @@ buildPythonApplication rec {
     lib.optionalString (!(stdenv.isLinux && stdenv.isAarch64)) ''
       # Disable outline atomics for rust tests on aarch64-linux.
       export RUSTFLAGS="-Ctarget-feature=-outline-atomics"
-    '' + ''
+    ''
+    + ''
       export GIT_AUTHOR_NAME=test GIT_COMMITTER_NAME=test \
              GIT_AUTHOR_EMAIL=test@example.com GIT_COMMITTER_EMAIL=test@example.com \
              VIRTUALENV_NO_DOWNLOAD=1 PRE_COMMIT_NO_CONCURRENCY=1 LANG=en_US.UTF-8

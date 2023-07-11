@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       libexif
       pango
       wxGTK
-    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ]
+    ++ lib.optional stdenv.isDarwin Cocoa
     ;
 
   meta = with lib; {

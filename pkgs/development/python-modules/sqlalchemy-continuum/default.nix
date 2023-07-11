@@ -46,7 +46,8 @@ buildPythonPackage rec {
       psycopg2
       pymysql
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
     # Indicate tests that we don't have a database server at hand

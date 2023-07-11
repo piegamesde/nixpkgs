@@ -79,16 +79,18 @@ rec {
       ...
     }:
     attrs:
-    (!(attrs ? platforms) || builtins.length attrs.platforms == 0
+    (!(attrs ? platforms)
+      || builtins.length attrs.platforms == 0
       || builtins.any (platform:
         platform.engine == rubyEngine
         && (!(platform ? version) || platform.version == version.majMin))
-      attrs.platforms)
+        attrs.platforms)
     ;
 
   groupMatches =
     groups: attrs:
-    groups == null || !(attrs ? groups)
+    groups == null
+    || !(attrs ? groups)
     || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ]
     ;
 

@@ -22,7 +22,8 @@ let
       gnutar
       gzip
       git
-    ] ++ lib.optional stdenv.isLinux runc
+    ]
+    ++ lib.optional stdenv.isLinux runc
     ;
 
   pkg =

@@ -66,7 +66,8 @@ let
   postPatch =
     lib.optionalString ifDeps ''
       sed -i $(find -name omhome.m4) -e 's|if test ! -z "$USINGPRESETBUILDDIR"|if test ! -z "$USINGPRESETBUILDDIR" -a -z "$OMHOME"|'
-    '' + appendByAttr "postPatch" "\n" pkg
+    ''
+    + appendByAttr "postPatch" "\n" pkg
     ;
 
     # Update shebangs in the scripts before running configuration.
@@ -99,7 +100,8 @@ let
       for target in ${concatStringsSep " " deptargets}; do
         touch ''${target}.skip;
       done
-    '' + appendByAttr "preBuild" "\n" pkg
+    ''
+    + appendByAttr "preBuild" "\n" pkg
     ;
 
   makeFlags = "${omtarget}" + appendByAttr "makeFlags" " " pkg;
@@ -123,7 +125,8 @@ stdenv.mkDerivation (pkg // {
   version = "1.18.0";
 
   nativeBuildInputs =
-    getAttrDef "nativeBuildInputs" [ ] pkg ++ [
+    getAttrDef "nativeBuildInputs" [ ] pkg
+    ++ [
       autoconf
       automake
       libtool

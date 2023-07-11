@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
       pcre
       openimageio_1.dev
       openimageio_1.out
-    ] ++ lib.optionals withOpenCL [ ocl-icd ]
+    ]
+    ++ lib.optionals withOpenCL [ ocl-icd ]
     ++ lib.optionals withCuda [ cudatoolkit ]
     ;
 

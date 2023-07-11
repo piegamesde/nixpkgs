@@ -44,18 +44,21 @@ stdenv.mkDerivation rec {
       cargoSetupHook
       rust.cargo
       rust.rustc
-    ] ++ lib.optional sevVariant pkg-config;
+    ]
+    ++ lib.optional sevVariant pkg-config;
 
   buildInputs =
     [ (libkrunfw.override { inherit sevVariant; }) ]
     ++ lib.optionals stdenv.isLinux [
       glibc
       glibc.static
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Hypervisor
       dtc
-    ] ++ lib.optional sevVariant openssl
+    ]
+    ++ lib.optional sevVariant openssl
     ;
 
   makeFlags =

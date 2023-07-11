@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
     [
       libusb1
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ;
 
   meta = with lib; {

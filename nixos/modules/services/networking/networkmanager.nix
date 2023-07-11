@@ -152,7 +152,8 @@ let
     [
       pkgs.modemmanager
       pkgs.networkmanager
-    ] ++ cfg.plugins
+    ]
+    ++ cfg.plugins
     ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ]
     ;
 
@@ -236,7 +237,8 @@ in
               description = "NetworkManager plug-in";
               check =
                 p:
-                lib.assertMsg (types.package.check p && p ? networkManagerPlugin
+                lib.assertMsg (types.package.check p
+                  && p ? networkManagerPlugin
                   && lib.isString p.networkManagerPlugin) ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
@@ -614,7 +616,8 @@ in
     security.polkit.extraConfig = polkitConf;
 
     services.dbus.packages =
-      packages ++ optional cfg.enableStrongSwan pkgs.strongswanNM
+      packages
+      ++ optional cfg.enableStrongSwan pkgs.strongswanNM
       ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq
       ;
 

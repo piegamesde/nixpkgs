@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchFromGitLab {
@@ -59,22 +60,26 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       python3
-    ] ++ lib.optionals withMan [ help2man ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withMan [ help2man ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       gtk-doc
       docbook-xsl-nons
       docbook_xml_dtd_43
-    ] ++ lib.optionals (withIntrospection
-      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
     ]
+    ++ lib.optionals (withIntrospection
+      && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
     ;
 
   buildInputs =
     [
       bash-completion
       libmbim
-    ] ++ lib.optionals withIntrospection [ libgudev ]
+    ]
+    ++ lib.optionals withIntrospection [ libgudev ]
     ;
 
   propagatedBuildInputs =

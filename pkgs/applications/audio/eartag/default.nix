@@ -48,7 +48,8 @@ python3Packages.buildPythonApplication rec {
       gettext
       gobject-introspection
       wrapGAppsHook4
-    ] ++ lib.optional stdenv.isDarwin gtk4
+    ]
+    ++ lib.optional stdenv.isDarwin gtk4
     ; # for gtk4-update-icon-cache
 
   buildInputs = [

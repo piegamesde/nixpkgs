@@ -43,9 +43,11 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ optional stdenv.isDarwin Security
+    [ openssl ]
+    ++ optional stdenv.isDarwin Security
     ++ optional (stdenv.isDarwin && mysqlSupport) libiconv
-    ++ optional sqliteSupport sqlite ++ optional postgresqlSupport postgresql
+    ++ optional sqliteSupport sqlite
+    ++ optional postgresqlSupport postgresql
     ++ optionals mysqlSupport [
       mariadb
       zlib
@@ -54,20 +56,25 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
   buildFeatures =
-    optional sqliteSupport "sqlite" ++ optional postgresqlSupport "postgres"
+    optional sqliteSupport "sqlite"
+    ++ optional postgresqlSupport "postgres"
     ++ optional mysqlSupport "mysql"
     ;
 
   checkPhase =
     ''
       runHook preCheck
-    '' + optionalString sqliteSupport ''
+    ''
+    + optionalString sqliteSupport ''
       cargo check --features sqlite
-    '' + optionalString postgresqlSupport ''
+    ''
+    + optionalString postgresqlSupport ''
       cargo check --features postgres
-    '' + optionalString mysqlSupport ''
+    ''
+    + optionalString mysqlSupport ''
       cargo check --features mysql
-    '' + ''
+    ''
+    + ''
       runHook postCheck
     ''
     ;

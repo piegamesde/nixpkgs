@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       pkg-config
       qttools
       wrapQtAppsHook
-    ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
+    ]
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
     ;
 
   buildInputs =
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
       pcre
       python3
       qtsvg
-    ] ++ lib.optional stdenv.isLinux udev
+    ]
+    ++ lib.optional stdenv.isLinux udev
     ;
 
   patches = [

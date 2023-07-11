@@ -17,7 +17,10 @@ let
 
   configFile = pkgs.writeText "chrony.conf" ''
     ${concatMapStringsSep "\n" (server:
-      "server " + server + " " + cfg.serverOption
+      "server "
+      + server
+      + " "
+      + cfg.serverOption
       + optionalString (cfg.enableNTS) " nts") cfg.servers}
 
     ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
@@ -42,7 +45,8 @@ let
       "chrony"
       "-f"
       "${configFile}"
-    ] ++ cfg.extraFlags
+    ]
+    ++ cfg.extraFlags
     ;
 in
 {

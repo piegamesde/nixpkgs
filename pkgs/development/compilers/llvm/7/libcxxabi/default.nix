@@ -10,8 +10,9 @@
   version,
   fetchpatch,
   standalone ? stdenv.hostPlatform.useLLVM or false,
-  withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm
-    # on musl the shared objects don't build
+  withLibunwind ? !stdenv.isDarwin
+    && !stdenv.hostPlatform.isWasm
+      # on musl the shared objects don't build
   ,
   enableShared ? !stdenv.hostPlatform.isStatic
 }:
@@ -33,11 +34,14 @@ stdenv.mkDerivation {
       unpackFile ${libcxx.src}
       unpackFile ${llvm.src}
       cmakeFlagsArray=($cmakeFlagsArray -DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*) )
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       export TRIPLE=x86_64-apple-darwin
-    '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-    '' + lib.optionalString (!stdenv.cc.isClang) ''
+    ''
+    + lib.optionalString (!stdenv.cc.isClang) ''
       pushd libcxx-*
       patch -p2 < ${
         fetchpatch {
@@ -58,8 +62,9 @@ stdenv.mkDerivation {
   cmakeFlags =
     lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
     ++ lib.optionals (standalone && withLibunwind) [
-      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-    ] ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF"
+        "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
+      ]
+    ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF"
     ;
 
   preInstall = lib.optionalString stdenv.isDarwin ''

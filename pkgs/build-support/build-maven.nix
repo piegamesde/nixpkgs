@@ -55,17 +55,19 @@ let
     lib.optional (url != "") {
       layout = "${layout}/${fetch.name}";
       drv = fetch;
-    } ++ lib.optionals (dep ? metadata) ([ {
+    }
+    ++ lib.optionals (dep ? metadata) ([ {
       layout = "${layout}/maven-metadata-${repository-id}.xml";
       drv = fetchMetadata;
-    } ] ++ lib.optional (fetch != "") {
-      layout =
-        "${layout}/${
-          builtins.replaceStrings [ version ] [ dep.unresolved-version ]
-          fetch.name
-        }";
-      drv = fetch;
-    })
+    } ]
+      ++ lib.optional (fetch != "") {
+        layout =
+          "${layout}/${
+            builtins.replaceStrings [ version ] [ dep.unresolved-version ]
+            fetch.name
+          }";
+        drv = fetch;
+      })
   ) info.dependencies);
 
   repo = linkFarm "maven-repository" (lib.forEach dependencies (dependency: {
@@ -91,8 +93,8 @@ in
     name = "${info.project.artifactId}-${info.project.version}.jar";
 
     src = builtins.filterSource (path: type:
-      (toString path) != (toString (src + "/target")) && (toString path)
-      != (toString (src + "/.git"))) src;
+      (toString path) != (toString (src + "/target"))
+      && (toString path) != (toString (src + "/.git"))) src;
 
     buildInputs = [ maven ];
 

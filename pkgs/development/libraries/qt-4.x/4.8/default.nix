@@ -70,9 +70,10 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.qt-project.org/official_releases/qt/" + "${
-        lib.versions.majorMinor version
-      }/${version}/qt-everywhere-opensource-src-${version}.tar.gz"
+      "http://download.qt-project.org/official_releases/qt/"
+      + "${
+          lib.versions.majorMinor version
+        }/${version}/qt-everywhere-opensource-src-${version}.tar.gz"
       ;
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
@@ -93,12 +94,14 @@ stdenv.mkDerivation rec {
       substituteInPlace src/3rdparty/javascriptcore/JavaScriptCore/jit/JITStubs.cpp \
         --replace 'asm volatile' 'asm'
       sed -e 's@/\(usr\|opt\)/@/var/empty/@g' -i config.tests/*/*.test -i mkspecs/*/*.conf
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # remove impure reference to /usr/lib/libstdc++.6.dylib
       # there might be more references, but this is the only one I could find
       substituteInPlace tools/macdeployqt/tests/tst_deployment_mac.cpp \
         --replace /usr/lib/libstdc++.6.dylib "${stdenv.cc}/lib/libstdc++.6.dylib"
-    '' + lib.optionalString stdenv.cc.isClang ''
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
       substituteInPlace src/3rdparty/webkit/Source/WebCore/html/HTMLImageElement.cpp \
         --replace 'optionalHeight > 0' 'optionalHeight != NULL'
     ''
@@ -159,7 +162,8 @@ stdenv.mkDerivation rec {
         stripLen = 2;
         extraPrefix = "tools/";
       })
-    ] ++ lib.optional gtkStyle (substituteAll ({
+    ]
+    ++ lib.optional gtkStyle (substituteAll ({
       src = ./dlopen-gtkstyle.diff;
         # substituteAll ignores env vars starting with capital letter
       gtk = gtk2.out;
@@ -167,11 +171,13 @@ stdenv.mkDerivation rec {
       gconf = GConf.out;
       libgnomeui = libgnomeui.out;
       gnome_vfs = gnome_vfs.out;
-    })) ++ lib.optional stdenv.isAarch64 (fetchpatch {
+    }))
+    ++ lib.optional stdenv.isAarch64 (fetchpatch {
       url =
         "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
       sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
-    }) ++ lib.optionals stdenv.hostPlatform.isMusl [
+    })
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
       ./qt-musl.patch
       ./qt-musl-iconv-no-bom.patch
       ./patch-qthread-stacksize.diff
@@ -193,10 +199,12 @@ stdenv.mkDerivation rec {
         --jobs=$NIX_BUILD_CORES
       "
       unset LD # Makefile uses gcc for linking; setting LD interferes
-    '' + lib.optionalString stdenv.cc.isClang ''
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
       sed -i 's/QMAKE_CC = gcc/QMAKE_CC = clang/' mkspecs/common/g++-base.conf
       sed -i 's/QMAKE_CXX = g++/QMAKE_CXX = clang++/' mkspecs/common/g++-base.conf
-    '' + lib.optionalString stdenv.hostPlatform.isWindows ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isWindows ''
       sed -i -e 's/ g++/ ${stdenv.cc.targetPrefix}g++/' \
         -e 's/ gcc/ ${stdenv.cc.targetPrefix}gcc/' \
         -e 's/ ar/ ${stdenv.cc.targetPrefix}ar/' \
@@ -282,33 +290,36 @@ stdenv.mkDerivation rec {
         "-no-webkit"
         "-no-multimedia"
         "-audio-backend"
-      ]) ++ [
-        "-${
-          if demos then
-            ""
-          else
-            "no"
-        }make"
-        "demos"
-        "-${
-          if examples then
-            ""
-          else
-            "no"
-        }make"
-        "examples"
-        "-${
-          if docs then
-            ""
-          else
-            "no"
-        }make"
-        "docs"
-      ] ++ lib.optional developerBuild "-developer-build"
+      ])
+    ++ [
+      "-${
+        if demos then
+          ""
+        else
+          "no"
+      }make"
+      "demos"
+      "-${
+        if examples then
+          ""
+        else
+          "no"
+      }make"
+      "examples"
+      "-${
+        if docs then
+          ""
+        else
+          "no"
+      }make"
+      "docs"
+    ]
+    ++ lib.optional developerBuild "-developer-build"
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       platformFlag
       "unsupported/macx-clang-libc++"
-    ] ++ lib.optionals stdenv.hostPlatform.isWindows [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isWindows [
       platformFlag
       "win32-g++-4.6"
     ]
@@ -347,11 +358,13 @@ stdenv.mkDerivation rec {
       libmng
       libtiff
       icu
-    ] ++ lib.optionals (libmysqlclient != null) [ libmysqlclient ]
+    ]
+    ++ lib.optionals (libmysqlclient != null) [ libmysqlclient ]
     ++ lib.optionals gtkStyle [
       gtk2
       gdk-pixbuf
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       OpenGL
       Cocoa
@@ -374,12 +387,14 @@ stdenv.mkDerivation rec {
     [
       "-Wno-expansion-to-defined"
       "-Wno-unused-local-typedefs"
-    ] ++ lib.optional stdenv.isLinux
-    "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
+    ]
+    ++ lib.optional stdenv.isLinux
+      "-std=gnu++98" # gnu++ in (Obj)C flags is no good on Darwin
     ++ lib.optionals (stdenv.isFreeBSD || stdenv.isDarwin) [
       "-I${glib.dev}/include/glib-2.0"
       "-I${glib.out}/lib/glib-2.0/include"
-    ] ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1");
+    ]
+    ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1");
 
   NIX_LDFLAGS =
     lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin) "-lglib-2.0";

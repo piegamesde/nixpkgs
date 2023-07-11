@@ -221,7 +221,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               install -m=755 -D source/sqlite/emacsql-sqlite \
                 $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
             ''
@@ -240,7 +242,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               install -m=755 -D source/sqlite/emacsql-sqlite \
                 $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
             ''
@@ -258,7 +262,8 @@ let
 
         erlang = super.erlang.overrideAttrs (attrs: {
           buildInputs =
-            attrs.buildInputs ++ [
+            attrs.buildInputs
+            ++ [
               pkgs.perl
               pkgs.ncurses
             ]
@@ -294,7 +299,8 @@ let
             pkgs.removeReferencesTo
           ];
           buildInputs =
-            old.buildInputs ++ [
+            old.buildInputs
+            ++ [
               pkgs.libpng
               pkgs.zlib
               pkgs.poppler
@@ -309,7 +315,8 @@ let
                 pkgs.poppler.dev
                 pkgs.zlib.dev
                 pkgs.cairo.dev
-              ] ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc.libc.dev))
+              ]
+                ++ lib.optional pkgs.stdenv.isLinux pkgs.stdenv.cc.libc.dev))
             } server/epdfinfo
           '';
           recipe = pkgs.writeText "recipe" ''
@@ -380,7 +387,9 @@ let
             '';
 
             postInstall =
-              (old.postInstall or "") + "\n" + ''
+              (old.postInstall or "")
+              + "\n"
+              + ''
                 pushd source
                 outd=$(echo $out/share/emacs/site-lisp/elpa/jinx-*)
                 install -m444 --target-directory=$outd jinx-mod${libExt}
@@ -404,7 +413,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               pushd source
               outd=$out/share/emacs/site-lisp/elpa/sqlite3-*
               install -m444 -t $outd sqlite3-api.so
@@ -431,7 +442,9 @@ let
             popd
           '';
           postInstall =
-            (attrs.postInstall or "") + "\n" + ''
+            (attrs.postInstall or "")
+            + "\n"
+            + ''
               outd=$(echo $out/share/emacs/site-lisp/elpa/libgit-**)
               mkdir $outd/build
               install -m444 -t $outd/build ./source/src/libegit2.so
@@ -534,14 +547,16 @@ let
         rime = super.rime.overrideAttrs (old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.librime ];
           preBuild =
-            (old.preBuild or "") + ''
+            (old.preBuild or "")
+            + ''
               make lib
               mkdir -p /build/rime-lib
               cp *.so /build/rime-lib
             ''
             ;
           postInstall =
-            (old.postInstall or "") + ''
+            (old.postInstall or "")
+            + ''
               install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
             ''
             ;
@@ -576,7 +591,9 @@ let
           '';
 
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               mkdir -p $out/bin
               install -m755 -Dt $out/bin ./source/server/telega-server
             ''
@@ -606,7 +623,9 @@ let
             (pkgs.zeromq.override { enableDrafts = true; })
           ];
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
               rm -r $out/share/emacs/site-lisp/elpa/zmq-*/src
               rm $out/share/emacs/site-lisp/elpa/zmq-*/Makefile
@@ -680,7 +699,8 @@ let
 
         racer = super.racer.overrideAttrs (attrs: {
           postPatch =
-            attrs.postPatch or "" + ''
+            attrs.postPatch or ""
+            + ''
               substituteInPlace racer.el \
                 --replace /usr/local/src/rust/src ${pkgs.rustPlatform.rustcSrc}
             ''
@@ -693,7 +713,8 @@ let
         vterm = super.vterm.overrideAttrs (old: {
           nativeBuildInputs = [ pkgs.cmake ];
           buildInputs =
-            old.buildInputs ++ [
+            old.buildInputs
+            ++ [
               self.emacs
               pkgs.libvterm-neovim
             ]
@@ -705,7 +726,9 @@ let
             # we need the proper out directory to exist, so we do this in the
             # postInstall instead of postBuild
           postInstall =
-            (old.postInstall or "") + "\n" + ''
+            (old.postInstall or "")
+            + "\n"
+            + ''
               pushd source/build >/dev/null
               make
               install -m444 -t $out/share/emacs/site-lisp/elpa/vterm-** ../*.so
@@ -735,7 +758,8 @@ let
 
         wordnut = super.wordnut.overrideAttrs (attrs: {
           postPatch =
-            attrs.postPatch or "" + ''
+            attrs.postPatch or ""
+            + ''
               substituteInPlace wordnut.el \
                 --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${
                   lib.getExe pkgs.wordnet
@@ -746,7 +770,8 @@ let
 
         mozc = super.mozc.overrideAttrs (attrs: {
           postPatch =
-            attrs.postPatch or "" + ''
+            attrs.postPatch or ""
+            + ''
               substituteInPlace src/unix/emacs/mozc.el \
                 --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
             ''

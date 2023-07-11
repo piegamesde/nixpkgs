@@ -24,7 +24,8 @@ buildPythonPackage rec {
     [
       setuptools-lint
       xlib
-    ] ++ lib.optionals stdenv.isLinux [ evdev ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ evdev ]
     ;
 
   doCheck = false;

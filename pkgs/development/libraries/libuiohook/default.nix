@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         libX11
         libxkbcommon
         xinput
-      ] ++ (with xorg; [
+      ]
+      ++ (with xorg; [
         libXau
         libXdmcp
         libXi

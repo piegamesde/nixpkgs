@@ -98,7 +98,7 @@ in
             manage = "desktop";
             start =
               d.start
-              # literal newline to ensure d.start's last line is not appended to
+                # literal newline to ensure d.start's last line is not appended to
               + optionalString (needBGCond d) ''
 
                 if [ -e $HOME/.background-image ]; then

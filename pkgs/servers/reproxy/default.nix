@@ -23,7 +23,8 @@ buildGoModule rec {
         --replace "Test_Main" "Skip_Main"
       substituteInPlace app/proxy/proxy_test.go \
         --replace "TestHttp_matchHandler" "SkipHttp_matchHandler"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Fails on Darwin.
       # https://github.com/umputun/reproxy/issues/77
       substituteInPlace app/discovery/provider/file_test.go \

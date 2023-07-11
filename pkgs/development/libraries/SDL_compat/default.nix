@@ -34,16 +34,19 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
     ]
+    ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        autoSignDarwinBinariesHook
+      ]
     ;
 
   propagatedBuildInputs =
-    [ SDL2 ] ++ optionals stdenv.hostPlatform.isDarwin [
+    [ SDL2 ]
+    ++ optionals stdenv.hostPlatform.isDarwin [
       libiconv
       Cocoa
-    ] ++ optionals openglSupport [
+    ]
+    ++ optionals openglSupport [
       libGL
       libGLU
     ]

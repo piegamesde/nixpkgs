@@ -65,7 +65,8 @@ buildPythonPackage rec {
       requests-kerberos
       tzdata
       tzlocal
-    ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
     ;
 
   nativeCheckInputs = [

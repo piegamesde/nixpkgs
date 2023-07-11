@@ -66,7 +66,8 @@ let
           ninja
           pkg-config
           wayland-scanner
-        ] ++ extraNativeBuildInputs
+        ]
+        ++ extraNativeBuildInputs
         ;
 
       buildInputs =
@@ -88,7 +89,9 @@ let
           xorg.xcbutilimage
           xorg.xcbutilrenderutil
           xorg.xcbutilwm
-        ] ++ lib.optional enableXWayland xwayland ++ extraBuildInputs
+        ]
+        ++ lib.optional enableXWayland xwayland
+        ++ extraBuildInputs
         ;
 
       mesonFlags = lib.optional (!enableXWayland) "-Dxwayland=disabled";

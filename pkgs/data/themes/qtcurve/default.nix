@@ -81,7 +81,8 @@ mkDerivation rec {
       libXdmcp
       libX11
       libXau
-    ] ++ lib.optional gtk2Support gtk2
+    ]
+    ++ lib.optional gtk2Support gtk2
     ;
 
   preConfigure = ''

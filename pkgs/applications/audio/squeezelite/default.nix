@@ -50,11 +50,15 @@ stdenv.mkDerivation {
       libmad
       libvorbis
       mpg123
-    ] ++ lib.singleton (if pulseSupport then
+    ]
+    ++ lib.singleton (if pulseSupport then
       libpulseaudio
     else
-      alsa-lib) ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg
-    ++ optional opusSupport opusfile ++ optional resampleSupport soxr
+      alsa-lib)
+    ++ optional faad2Support faad2
+    ++ optional ffmpegSupport ffmpeg
+    ++ optional opusSupport opusfile
+    ++ optional resampleSupport soxr
     ++ optional sslSupport openssl
     ;
 
@@ -71,10 +75,14 @@ stdenv.mkDerivation {
     [
       "-DLINKALL"
       "-DGPIO"
-    ] ++ optional dsdSupport "-DDSD" ++ optional (!faad2Support) "-DNO_FAAD"
-    ++ optional ffmpegSupport "-DFFMPEG" ++ optional opusSupport "-DOPUS"
+    ]
+    ++ optional dsdSupport "-DDSD"
+    ++ optional (!faad2Support) "-DNO_FAAD"
+    ++ optional ffmpegSupport "-DFFMPEG"
+    ++ optional opusSupport "-DOPUS"
     ++ optional pulseSupport "-DPULSEAUDIO"
-    ++ optional resampleSupport "-DRESAMPLE" ++ optional sslSupport "-DUSE_SSL"
+    ++ optional resampleSupport "-DRESAMPLE"
+    ++ optional sslSupport "-DUSE_SSL"
     ;
 
   installPhase = ''

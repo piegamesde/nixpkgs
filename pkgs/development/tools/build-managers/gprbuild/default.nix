@@ -37,9 +37,10 @@ stdenv.mkDerivation {
       # confusingly, for gprbuild --target is autoconf --host
       "TARGET=${stdenv.hostPlatform.config}"
       "prefix=${placeholder "out"}"
-    ] ++ lib.optionals (!stdenv.hostPlatform.isStatic) [
-      "LIBRARY_TYPE=relocatable"
     ]
+    ++ lib.optionals (!stdenv.hostPlatform.isStatic) [
+        "LIBRARY_TYPE=relocatable"
+      ]
     ;
 
     # Fixes gprbuild being linked statically always

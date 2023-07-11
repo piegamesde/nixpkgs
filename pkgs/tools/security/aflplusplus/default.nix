@@ -60,7 +60,8 @@ let
         llvm
         python
         gmp
-      ] ++ lib.optional (wine != null) python.pkgs.wrapPython
+      ]
+      ++ lib.optional (wine != null) python.pkgs.wrapPython
       ;
 
     postPatch = ''
@@ -126,7 +127,8 @@ let
 
         patchShebangs $out/bin
 
-      '' + lib.optionalString (wine != null) ''
+      ''
+      + lib.optionalString (wine != null) ''
         substitute afl-wine-trace $out/bin/afl-wine-trace \
           --replace "qemu_mode/unsigaction" "$out/lib/afl"
         chmod +x $out/bin/afl-wine-trace

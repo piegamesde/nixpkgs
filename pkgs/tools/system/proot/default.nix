@@ -35,13 +35,15 @@ stdenv.mkDerivation rec {
     [
       ncurses
       talloc
-    ] ++ lib.optional enablePython python3
+    ]
+    ++ lib.optional enablePython python3
     ;
   nativeBuildInputs =
     [
       pkg-config
       docutils
-    ] ++ lib.optional enablePython swig
+    ]
+    ++ lib.optional enablePython swig
     ;
 
   enableParallelBuilding = true;

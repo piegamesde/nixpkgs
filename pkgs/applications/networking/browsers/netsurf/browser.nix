@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
       perlPackages.HTMLParser
       pkg-config
       xxd
-    ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
+    ]
+    ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
     ;
 
   buildInputs =
@@ -106,10 +107,13 @@ stdenv.mkDerivation rec {
       libnsutils
       libnspsl
       libutf8proc
-    ] ++ optionals (uilib == "framebuffer") [
+    ]
+    ++ optionals (uilib == "framebuffer") [
       expat
       SDL
-    ] ++ optional (uilib == "gtk2") gtk2 ++ optional (uilib == "gtk3") gtk3
+    ]
+    ++ optional (uilib == "gtk2") gtk2
+    ++ optional (uilib == "gtk3") gtk3
     ;
 
   preConfigure = ''

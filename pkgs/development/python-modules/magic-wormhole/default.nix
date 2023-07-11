@@ -45,7 +45,8 @@ buildPythonPackage rec {
       click
       humanize
       txtorcon
-    ] ++ autobahn.optional-dependencies.twisted
+    ]
+    ++ autobahn.optional-dependencies.twisted
     ++ twisted.optional-dependencies.tls
     ;
 

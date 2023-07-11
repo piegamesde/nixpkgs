@@ -96,7 +96,8 @@ let
           [
             "-DBoost_USE_STATIC_LIBS=OFF"
 
-          ] ++ (if z3Support then
+          ]
+          ++ (if z3Support then
             [ "-DSTRICT_Z3_VERSION=OFF" ]
           else
             [ "-DUSE_Z3=OFF" ])
@@ -105,7 +106,8 @@ let
 
         nativeBuildInputs = [ cmake ];
         buildInputs =
-          [ boost ] ++ lib.optionals z3Support [ z3 ]
+          [ boost ]
+          ++ lib.optionals z3Support [ z3 ]
           ++ lib.optionals cvc4Support [
             cvc4
             cln

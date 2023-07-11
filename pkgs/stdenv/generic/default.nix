@@ -70,7 +70,8 @@ let
 
     let
       defaultNativeBuildInputs =
-        extraNativeBuildInputs ++ [
+        extraNativeBuildInputs
+        ++ [
           ../../build-support/setup-hooks/audit-tmpdir.sh
           ../../build-support/setup-hooks/compress-man-pages.sh
           ../../build-support/setup-hooks/make-symlinks-relative.sh
@@ -84,7 +85,8 @@ let
           ../../build-support/setup-hooks/reproducible-builds.sh
           ../../build-support/setup-hooks/set-source-date-epoch-to-latest.sh
           ../../build-support/setup-hooks/strip.sh
-        ] ++ lib.optionals hasCC [ cc ]
+        ]
+        ++ lib.optionals hasCC [ cc ]
         ;
 
       defaultBuildInputs = extraBuildInputs;
@@ -124,25 +126,27 @@ let
         # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
         # there (yet?) so it goes here until then.
       preHook =
-        preHook + lib.optionalString buildPlatform.isDarwin ''
+        preHook
+        + lib.optionalString buildPlatform.isDarwin ''
           export NIX_DONT_SET_RPATH_FOR_BUILD=1
-        '' + lib.optionalString (hostPlatform.isDarwin
+        ''
+        + lib.optionalString (hostPlatform.isDarwin
           || (hostPlatform.parsed.kernel.execFormat
-            != lib.systems.parse.execFormats.elf
+              != lib.systems.parse.execFormats.elf
             && hostPlatform.parsed.kernel.execFormat
-            != lib.systems.parse.execFormats.macho)) ''
-              export NIX_DONT_SET_RPATH=1
-              export NIX_NO_SELF_RPATH=1
-            ''
+              != lib.systems.parse.execFormats.macho)) ''
+                export NIX_DONT_SET_RPATH=1
+                export NIX_NO_SELF_RPATH=1
+              ''
         + lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS) ''
           export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
         ''
-        # TODO this should be uncommented, but it causes stupid mass rebuilds. I
-        # think the best solution would just be to fixup linux RPATHs so we don't
-        # need to set `-rpath` anywhere.
-        # + lib.optionalString targetPlatform.isDarwin ''
-        #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
-        # ''
+          # TODO this should be uncommented, but it causes stupid mass rebuilds. I
+          # think the best solution would just be to fixup linux RPATHs so we don't
+          # need to set `-rpath` anywhere.
+          # + lib.optionalString targetPlatform.isDarwin ''
+          #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
+          # ''
         ;
 
       inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;

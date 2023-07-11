@@ -62,7 +62,8 @@ else
       [
         unzip
         glibcLocalesUtf8
-      ] ++ nativeBuildInputs
+      ]
+      ++ nativeBuildInputs
       ;
 
     postFetch =
@@ -75,7 +76,8 @@ else
         mv "$downloadedFile" "$renamed"
         unpackFile "$renamed"
         chmod -R +w "$unpackDir"
-      '' + (if stripRoot then
+      ''
+      + (if stripRoot then
         ''
           if [ $(ls -A "$unpackDir" | wc -l) != 1 ]; then
             echo "error: zip file must contain a single file or directory."
@@ -91,11 +93,13 @@ else
       else
         ''
           mv "$unpackDir" "$out"
-        '') + ''
-          ${postFetch}
-        '' + ''
-          ${extraPostFetch}
-        ''
+        '')
+      + ''
+        ${postFetch}
+      ''
+      + ''
+        ${extraPostFetch}
+      ''
 
       # Remove non-owner write permissions
       # Fixes https://github.com/NixOS/nixpkgs/issues/38649

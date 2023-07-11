@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport jack
+    lib.optional alsaSupport alsa-lib
+    ++ lib.optional jackSupport jack
     ++ lib.optionals coremidiSupport [
       CoreMIDI
       CoreAudio

@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       libmspack
       json_c
       check
-    ] ++ lib.optional stdenv.isLinux systemd
+    ]
+    ++ lib.optional stdenv.isLinux systemd
     ++ lib.optional stdenv.isDarwin Foundation
     ;
 

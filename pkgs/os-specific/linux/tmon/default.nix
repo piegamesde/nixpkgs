@@ -18,7 +18,8 @@ stdenv.mkDerivation {
   '';
 
   makeFlags =
-    kernel.makeFlags ++ [
+    kernel.makeFlags
+    ++ [
       ''INSTALL_ROOT="$(out)"''
       "BINDIR=bin"
     ]

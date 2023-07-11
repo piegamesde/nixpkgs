@@ -26,16 +26,19 @@ stdenv.mkDerivation rec {
     [
       bison
       flex
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.apple_sdk.frameworks.DiskArbitration
     ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        darwin.apple_sdk.frameworks.DiskArbitration
+      ]
     ;
 
   buildInputs =
     [
       zlib.dev
       libxcrypt
-    ] ++ lib.optionals useSSL [ openssl ] ++ lib.optionals usePAM [ pam ]
+    ]
+    ++ lib.optionals useSSL [ openssl ]
+    ++ lib.optionals usePAM [ pam ]
     ;
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -43,7 +46,8 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags =
-    [ (lib.withFeature usePAM "pam") ] ++ (if useSSL then
+    [ (lib.withFeature usePAM "pam") ]
+    ++ (if useSSL then
       [
         "--with-ssl-incl-dir=${openssl.dev}/include"
         "--with-ssl-lib-dir=${lib.getLib openssl}/lib"

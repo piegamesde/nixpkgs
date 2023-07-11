@@ -52,7 +52,8 @@ in
         ExecStart = concatStringsSep " " ([
           "${cfg.package}/bin/tp-auto-kbbl"
           "--device ${cfg.device}"
-        ] ++ cfg.arguments);
+        ]
+          ++ cfg.arguments);
         Restart = "always";
         Type = "simple";
       };

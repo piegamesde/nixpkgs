@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       zlib
       gmp
       boost
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
     ]

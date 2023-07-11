@@ -56,50 +56,55 @@ let
       }$(date ${cfg.dateFormat})"
       archiveSuffix="${optionalString cfg.appendFailedSuffix ".failed"}"
       ${cfg.preHook}
-    '' + optionalString cfg.doInit ''
-      # Run borg init if the repo doesn't exist yet
-      if ! borg list $extraArgs > /dev/null; then
-        borg init $extraArgs \
-          --encryption ${cfg.encryption.mode} \
-          $extraInitArgs
-        ${cfg.postInit}
-      fi
-    '' + ''
-      (
-        set -o pipefail
-        ${
-          optionalString (cfg.dumpCommand != null)
-          "${escapeShellArg cfg.dumpCommand} | \\"
-        }
-        borg create $extraArgs \
-          --compression ${cfg.compression} \
-          --exclude-from ${mkExcludeFile cfg} \
-          --patterns-from ${mkPatternsFile cfg} \
-          $extraCreateArgs \
-          "::$archiveName$archiveSuffix" \
+    ''
+      + optionalString cfg.doInit ''
+        # Run borg init if the repo doesn't exist yet
+        if ! borg list $extraArgs > /dev/null; then
+          borg init $extraArgs \
+            --encryption ${cfg.encryption.mode} \
+            $extraInitArgs
+          ${cfg.postInit}
+        fi
+      ''
+      + ''
+        (
+          set -o pipefail
           ${
-            if cfg.paths == null then
-              "-"
-            else
-              escapeShellArgs cfg.paths
+            optionalString (cfg.dumpCommand != null)
+            "${escapeShellArg cfg.dumpCommand} | \\"
           }
-      )
-    '' + optionalString cfg.appendFailedSuffix ''
-      borg rename $extraArgs \
-        "::$archiveName$archiveSuffix" "$archiveName"
-    '' + ''
-      ${cfg.postCreate}
-    '' + optionalString (cfg.prune.keep != { }) ''
-      borg prune $extraArgs \
-        ${mkKeepArgs cfg} \
-        ${
-          optionalString (cfg.prune.prefix != null)
-          "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
-        } \
-        $extraPruneArgs
-      borg compact $extraArgs $extraCompactArgs
-      ${cfg.postPrune}
-    '')
+          borg create $extraArgs \
+            --compression ${cfg.compression} \
+            --exclude-from ${mkExcludeFile cfg} \
+            --patterns-from ${mkPatternsFile cfg} \
+            $extraCreateArgs \
+            "::$archiveName$archiveSuffix" \
+            ${
+              if cfg.paths == null then
+                "-"
+              else
+                escapeShellArgs cfg.paths
+            }
+        )
+      ''
+      + optionalString cfg.appendFailedSuffix ''
+        borg rename $extraArgs \
+          "::$archiveName$archiveSuffix" "$archiveName"
+      ''
+      + ''
+        ${cfg.postCreate}
+      ''
+      + optionalString (cfg.prune.keep != { }) ''
+        borg prune $extraArgs \
+          ${mkKeepArgs cfg} \
+          ${
+            optionalString (cfg.prune.prefix != null)
+            "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
+          } \
+          $extraPruneArgs
+        borg compact $extraArgs $extraCompactArgs
+        ${cfg.postPrune}
+      '')
     ;
 
   mkPassEnv =
@@ -127,13 +132,15 @@ let
         openssh
       ];
       script =
-        "exec " + optionalString cfg.inhibitsSleep ''
+        "exec "
+        + optionalString cfg.inhibitsSleep ''
           \
                   ${pkgs.systemd}/bin/systemd-inhibit \
                       --who="borgbackup" \
                       --what="sleep" \
                       --why="Scheduled backup" \
-        '' + backupScript
+        ''
+        + backupScript
         ;
       serviceConfig = {
         User = cfg.user;
@@ -146,8 +153,9 @@ let
           [
             "${userHome}/.config/borg"
             "${userHome}/.cache/borg"
-          ] ++ cfg.readWritePaths
-          # Borg needs write access to repo if it is not remote
+          ]
+          ++ cfg.readWritePaths
+            # Borg needs write access to repo if it is not remote
           ++ optional (isLocalPath cfg.repo) cfg.repo
           ;
         PrivateTmp = cfg.privateTmp;
@@ -214,9 +222,10 @@ let
       # Create each directory separately to prevent root owned parent dirs
       ${install} -d .config .config/borg
       ${install} -d .cache .cache/borg
-    '' + optionalString (isLocalPath cfg.repo && !cfg.removableDevice) ''
-      ${install} -d ${escapeShellArg cfg.repo}
-    ''))
+    ''
+      + optionalString (isLocalPath cfg.repo && !cfg.removableDevice) ''
+        ${install} -d ${escapeShellArg cfg.repo}
+      ''))
     ;
 
   mkPassAssertion =
@@ -297,7 +306,8 @@ let
         count isNull [
           cfg.dumpCommand
           cfg.paths
-        ] == 1
+        ]
+        == 1
         ;
       message = ''
         Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand

@@ -30,7 +30,8 @@ buildPythonPackage rec {
     [
       configobj
       tabulate
-    ] ++ tabulate.optional-dependencies.widechars
+    ]
+    ++ tabulate.optional-dependencies.widechars
     ;
 
   passthru.optional-dependencies = { styles = [ pygments ]; };
@@ -39,7 +40,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       mock
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   meta = with lib; {

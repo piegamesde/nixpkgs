@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
       pkg-config
       scdoc
       wrapGAppsHook
-    ] ++ lib.optional withMediaPlayer gobject-introspection
+    ]
+    ++ lib.optional withMediaPlayer gobject-introspection
     ;
 
   propagatedBuildInputs = lib.optionals withMediaPlayer [
@@ -92,13 +93,20 @@ stdenv.mkDerivation rec {
       gtk-layer-shell
       howard-hinnant-date
       libxkbcommon
-    ] ++ optional (!stdenv.isLinux) libinotify-kqueue
-    ++ optional evdevSupport libevdev ++ optional inputSupport libinput
-    ++ optional jackSupport libjack2 ++ optional mpdSupport libmpdclient
-    ++ optional mprisSupport playerctl ++ optional nlSupport libnl
-    ++ optional pulseSupport libpulseaudio ++ optional sndioSupport sndio
-    ++ optional swaySupport sway ++ optional traySupport libdbusmenu-gtk3
-    ++ optional udevSupport udev ++ optional upowerSupport upower
+    ]
+    ++ optional (!stdenv.isLinux) libinotify-kqueue
+    ++ optional evdevSupport libevdev
+    ++ optional inputSupport libinput
+    ++ optional jackSupport libjack2
+    ++ optional mpdSupport libmpdclient
+    ++ optional mprisSupport playerctl
+    ++ optional nlSupport libnl
+    ++ optional pulseSupport libpulseaudio
+    ++ optional sndioSupport sndio
+    ++ optional swaySupport sway
+    ++ optional traySupport libdbusmenu-gtk3
+    ++ optional udevSupport udev
+    ++ optional upowerSupport upower
     ++ optional wireplumberSupport wireplumber;
 
   nativeCheckInputs = [ catch2_3 ];
@@ -125,11 +133,12 @@ stdenv.mkDerivation rec {
         tests = runTests;
         upower_glib = upowerSupport;
         wireplumber = wireplumberSupport;
-      }) ++ [
-        "-Dsystemd=disabled"
-        "-Dgtk-layer-shell=enabled"
-        "-Dman-pages=enabled"
-      ]
+      })
+    ++ [
+      "-Dsystemd=disabled"
+      "-Dgtk-layer-shell=enabled"
+      "-Dman-pages=enabled"
+    ]
     ;
 
   preFixup = lib.optionalString withMediaPlayer ''

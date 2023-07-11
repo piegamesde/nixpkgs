@@ -54,7 +54,8 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (stdenv.isLinux && toolset == "clang"
+  (stdenv.isLinux
+    && toolset == "clang"
     && versionAtLeast stdenv.cc.version "8.0.0")
   -> versionAtLeast version "1.69";
 
@@ -101,7 +102,8 @@ let
     ;
 
   needUserConfig =
-    stdenv.hostPlatform != stdenv.buildPlatform || useMpi
+    stdenv.hostPlatform != stdenv.buildPlatform
+    || useMpi
     || (stdenv.isDarwin && enableShared)
     ;
 
@@ -117,50 +119,54 @@ let
     "-sEXPAT_LIBPATH=${expat.out}/lib"
 
     # TODO: make this unconditional
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform ||
-    # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-    (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")) [
-      "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
-      "architecture=${
-        if stdenv.hostPlatform.isMips64 then
-          if lib.versionOlder version "1.78" then
-            "mips1"
+  ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+      ||
+      # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
+      (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")) [
+        "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
+        "architecture=${
+          if stdenv.hostPlatform.isMips64 then
+            if lib.versionOlder version "1.78" then
+              "mips1"
+            else
+              "mips"
+          else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
+            "s390x"
           else
-            "mips"
-        else if stdenv.hostPlatform.parsed.cpu.name == "s390x" then
-          "s390x"
-        else
-          toString stdenv.hostPlatform.parsed.cpu.family
-      }"
-      "binary-format=${
-        toString stdenv.hostPlatform.parsed.kernel.execFormat.name
-      }"
-      "target-os=${toString stdenv.hostPlatform.parsed.kernel.name}"
+            toString stdenv.hostPlatform.parsed.cpu.family
+        }"
+        "binary-format=${
+          toString stdenv.hostPlatform.parsed.kernel.execFormat.name
+        }"
+        "target-os=${toString stdenv.hostPlatform.parsed.kernel.name}"
 
-      # adapted from table in boost manual
-      # https://www.boost.org/doc/libs/1_66_0/libs/context/doc/html/context/architectures.html
-      "abi=${
-        if stdenv.hostPlatform.parsed.cpu.family == "arm" then
-          "aapcs"
-        else if stdenv.hostPlatform.isWindows then
-          "ms"
-        else if stdenv.hostPlatform.isMips32 then
-          "o32"
-        else if stdenv.hostPlatform.isMips64n64 then
-          "n64"
-        else
-          "sysv"
-      }"
-    ] ++ lib.optional (link != "static") "runtime-link=${runtime-link}"
+        # adapted from table in boost manual
+        # https://www.boost.org/doc/libs/1_66_0/libs/context/doc/html/context/architectures.html
+        "abi=${
+          if stdenv.hostPlatform.parsed.cpu.family == "arm" then
+            "aapcs"
+          else if stdenv.hostPlatform.isWindows then
+            "ms"
+          else if stdenv.hostPlatform.isMips32 then
+            "o32"
+          else if stdenv.hostPlatform.isMips64n64 then
+            "n64"
+          else
+            "sysv"
+        }"
+      ]
+    ++ lib.optional (link != "static") "runtime-link=${runtime-link}"
     ++ lib.optional (variant == "release") "debug-symbols=off"
     ++ lib.optional (toolset != null) "toolset=${toolset}"
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
     ++ lib.optional
-    (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
+      (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
-      "threadapi=win32"
-    ] ++ extraB2Args);
+        "threadapi=win32"
+      ]
+    ++ extraB2Args);
 
 in
 stdenv.mkDerivation {
@@ -171,37 +177,40 @@ stdenv.mkDerivation {
   patchFlags = [ ];
 
   patches =
-    patches ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
-    # Fix boost-context segmentation faults on ppc64 due to ABI violation
+    patches
+    ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
+      # Fix boost-context segmentation faults on ppc64 due to ABI violation
     ++ lib.optional
-    (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
-    (fetchpatch {
-      url =
-        "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
-      sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
-      stripLen = 1;
-      extraPrefix = "libs/context/";
-    })
-    # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
+      (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
+      (fetchpatch {
+        url =
+          "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
+        sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
+        stripLen = 1;
+        extraPrefix = "libs/context/";
+      })
+      # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
     ++ lib.optional
-    (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
-    (fetchpatch {
-      url =
-        "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
-      sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
-      stripLen = 1;
-    }) ++ lib.optional
-    (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
-    (fetchpatch {
-      # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
-      url =
-        "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
-      sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
-      stripLen = 1;
-      extraPrefix = "libs/context/";
-    }) ++ lib.optional
-    (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
-    ./cmake-paths.patch
+      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
+      (fetchpatch {
+        url =
+          "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
+        sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
+        stripLen = 1;
+      })
+    ++ lib.optional
+      (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
+      (fetchpatch {
+        # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
+        url =
+          "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
+        sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
+        stripLen = 1;
+        extraPrefix = "libs/context/";
+      })
+    ++ lib.optional
+      (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
+      ./cmake-paths.patch
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (fetchpatch {
       url =
@@ -219,7 +228,8 @@ stdenv.mkDerivation {
     badPlatforms =
       optional (versionOlder version "1.59") "aarch64-linux"
       ++ optional ((versionOlder version "1.57") || version == "1.58")
-      "x86_64-darwin" ++ optionals (versionOlder version "1.73") platforms.riscv
+        "x86_64-darwin"
+      ++ optionals (versionOlder version "1.73") platforms.riscv
       ;
     maintainers = with maintainers; [ hjones2199 ];
 
@@ -227,7 +237,8 @@ stdenv.mkDerivation {
       # boost-context lacks support for the N32 ABI on mips64.  The build
       # will succeed, but packages depending on boost-context will fail with
       # a very cryptic error message.
-      stdenv.hostPlatform.isMips64n32 ||
+      stdenv.hostPlatform.isMips64n32
+      ||
       # the patch above does not apply cleanly to pre-1.65 boost
       (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
       ;
@@ -241,9 +252,9 @@ stdenv.mkDerivation {
       using mpi : ${mpi}/bin/mpiCC ;
       EOF
     ''
-    # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
-    # otherwise the dynamic linker is unable to resolve the reference to @rpath
-    # when the boost libraries want to load each other at runtime.
+      # On darwin we need to add the `$out/lib` to the libraries' rpath explicitly,
+      # otherwise the dynamic linker is unable to resolve the reference to @rpath
+      # when the boost libraries want to load each other at runtime.
     + lib.optionalString (stdenv.isDarwin && enableShared) ''
       cat << EOF >> user-config.jam
       using clang-darwin : : ${stdenv.cc.targetPrefix}c++
@@ -251,12 +262,12 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-    # b2 has trouble finding the correct compiler and tools for cross compilation
-    # since it apparently ignores $CC, $AR etc. Thus we need to set everything
-    # in user-config.jam. To keep things simple we just set everything in an
-    # uniform way for clang and gcc (which works thanks to our cc-wrapper).
-    # We pass toolset later which will make b2 invoke everything in the right
-    # way -- the other toolset in user-config.jam will be ignored.
+      # b2 has trouble finding the correct compiler and tools for cross compilation
+      # since it apparently ignores $CC, $AR etc. Thus we need to set everything
+      # in user-config.jam. To keep things simple we just set everything in an
+      # uniform way for clang and gcc (which works thanks to our cc-wrapper).
+      # We pass toolset later which will make b2 invoke everything in the right
+      # way -- the other toolset in user-config.jam will be ignored.
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       cat << EOF >> user-config.jam
       using gcc : cross : ${stdenv.cc.targetPrefix}c++
@@ -270,7 +281,7 @@ stdenv.mkDerivation {
         ;
       EOF
     ''
-    # b2 needs to be explicitly told how to find Python when cross-compiling
+      # b2 needs to be explicitly told how to find Python when cross-compiling
     + lib.optionalString enablePython ''
       cat << EOF >> user-config.jam
       using python : : ${python.interpreter}
@@ -290,7 +301,8 @@ stdenv.mkDerivation {
     [
       which
       boost-build
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
   buildInputs =
     [
@@ -298,12 +310,15 @@ stdenv.mkDerivation {
       zlib
       bzip2
       libiconv
-    ] ++ lib.optional (lib.versionAtLeast version "1.69") zstd
+    ]
+    ++ lib.optional (lib.versionAtLeast version "1.69") zstd
     ++ lib.optional (lib.versionAtLeast version "1.65") xz
-    ++ lib.optional enableIcu icu ++ lib.optionals enablePython [
+    ++ lib.optional enableIcu icu
+    ++ lib.optionals enablePython [
       libxcrypt
       python
-    ] ++ lib.optional enableNumpy python.pkgs.numpy
+    ]
+    ++ lib.optional enableNumpy python.pkgs.numpy
     ;
 
   configureScript = "./bootstrap.sh";
@@ -315,7 +330,9 @@ stdenv.mkDerivation {
       "--includedir=$(dev)/include"
       "--libdir=$(out)/lib"
       "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
-    ] ++ lib.optional (toolset != null) "--with-toolset=${toolset}" ++ [
+    ]
+    ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
+    ++ [
       (if enableIcu then
         "--with-icu=${icu.dev}"
       else
@@ -347,7 +364,8 @@ stdenv.mkDerivation {
       # Make boost header paths relative so that they are not runtime dependencies
       cd "$dev" && find include \( -name '*.hpp' -or -name '*.h' -or -name '*.ipp' \) \
         -exec sed '1s/^\xef\xbb\xbf//;1i#line 1 "{}"' -i '{}' \;
-    '' + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
       $RANLIB "$out/lib/"*.a
     ''
     ;

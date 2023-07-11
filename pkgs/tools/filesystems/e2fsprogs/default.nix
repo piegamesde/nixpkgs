@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       "out"
       "man"
       "info"
-    ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ "fuse2fs" ]
     ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -43,7 +44,8 @@ stdenv.mkDerivation rec {
     [
       libuuid
       gettext
-    ] ++ lib.optionals stdenv.isLinux [ fuse ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ fuse ]
     ;
 
   patches = [
@@ -87,7 +89,8 @@ stdenv.mkDerivation rec {
       if [ -f $out/lib/${pname}/e2scrub_all_cron ]; then
         mv $out/lib/${pname}/e2scrub_all_cron $bin/bin/
       fi
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mkdir -p $fuse2fs/bin
       mv $bin/bin/fuse2fs $fuse2fs/bin/fuse2fs
     ''

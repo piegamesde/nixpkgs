@@ -36,7 +36,8 @@
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   runtimeDependencies =
-    [ cups ] ++ lib.optionals gtkSupport [
+    [ cups ]
+    ++ lib.optionals gtkSupport [
       cairo
       glib
       gtk3
@@ -71,7 +72,8 @@ let
         xorg.libXrender
         xorg.libXtst
         zlib
-      ] ++ lib.optional stdenv.isAarch32 libffi
+      ]
+      ++ lib.optional stdenv.isAarch32 libffi
       ;
 
     nativeBuildInputs = [

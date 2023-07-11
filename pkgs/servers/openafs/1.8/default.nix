@@ -48,7 +48,8 @@ stdenv.mkDerivation {
       perl
       which
       bison
-    ] ++ optionals withDevdoc [
+    ]
+    ++ optionals withDevdoc [
       doxygen
       dblatex
     ]
@@ -60,7 +61,8 @@ stdenv.mkDerivation {
     [
       ./bosserver.patch
       ./cross-build.patch
-    ] ++ optional withTsm ./tsmbac.patch
+    ]
+    ++ optional withTsm ./tsmbac.patch
     ;
 
   outputs =
@@ -69,7 +71,8 @@ stdenv.mkDerivation {
       "dev"
       "man"
       "doc"
-    ] ++ optional withDevdoc "devdoc"
+    ]
+    ++ optional withDevdoc "devdoc"
     ;
 
   enableParallelBuilding = false;
@@ -108,7 +111,8 @@ stdenv.mkDerivation {
         ${optionalString (!withNcurses) "--disable-gtx"}
         "--disable-linux-d_splice-alias-extra-iput"
       )
-    '' + optionalString withTsm ''
+    ''
+    + optionalString withTsm ''
       export XBSA_CFLAGS="-Dxbsa -DNEW_XBSA -I${tsm-client}/lib64/sample -DXBSA_TSMLIB=\\\"${tsm-client}/lib64/libApiTSM64.so\\\""
     ''
     ;
@@ -120,7 +124,8 @@ stdenv.mkDerivation {
       for d in doc/xml/{AdminGuide,QuickStartUnix,UserGuide}; do
         make -C "''${d}" index.html
       done
-    '' + optionalString withDevdoc ''
+    ''
+    + optionalString withDevdoc ''
       make dox
     ''
     ;
@@ -136,7 +141,8 @@ stdenv.mkDerivation {
       cp src/tools/dumpscan/{afsdump_dirlist,afsdump_extract,afsdump_scan,dumptool} $out/bin
 
       rm -r $out/lib/openafs
-    '' + optionalString withDevdoc ''
+    ''
+    + optionalString withDevdoc ''
       mkdir -p $devdoc/share/devhelp/openafs/doxygen
       cp -r doc/{pdf,protocol} $devdoc/share/devhelp/openafs
       cp -r doc/doxygen/output/html $devdoc/share/devhelp/openafs/doxygen

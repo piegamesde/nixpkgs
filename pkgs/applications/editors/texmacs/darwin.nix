@@ -71,19 +71,23 @@ stdenv.mkDerivation {
 
   postInstall =
     "wrapProgram $out/Applications/TeXmacs-${version}/Contents/MacOS/TeXmacs --suffix PATH : "
-    + "${ghostscript}/bin:" + (if aspell == null then
+    + "${ghostscript}/bin:"
+    + (if aspell == null then
       ""
     else
-      "${aspell}/bin:") + (if tex == null then
-        ""
-      else
-        "${tex}/bin:") + (if netpbm == null then
-          ""
-        else
-          "${lib.getBin netpbm}/bin:") + (if imagemagick == null then
-            ""
-          else
-            "${imagemagick}/bin:")
+      "${aspell}/bin:")
+    + (if tex == null then
+      ""
+    else
+      "${tex}/bin:")
+    + (if netpbm == null then
+      ""
+    else
+      "${lib.getBin netpbm}/bin:")
+    + (if imagemagick == null then
+      ""
+    else
+      "${imagemagick}/bin:")
     ;
 
   enableParallelBuilding = true;

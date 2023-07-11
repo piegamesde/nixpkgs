@@ -91,18 +91,21 @@ mkDerivation rec {
       qtmultimedia
       qscintilla
       cairo
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libGLU
       libGL
       wayland
       wayland-protocols
       qtwayland
-    ] ++ lib.optional stdenv.isDarwin qtmacextras
+    ]
+    ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optional spacenavSupport libspnav
     ;
 
   qmakeFlags =
-    [ "VERSION=${version}" ] ++ lib.optionals spacenavSupport [
+    [ "VERSION=${version}" ]
+    ++ lib.optionals spacenavSupport [
       "ENABLE_SPNAV=1"
       "SPNAV_INCLUDEPATH=${libspnav}/include"
       "SPNAV_LIBPATH=${libspnav}/lib"

@@ -110,7 +110,8 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstall
 
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         mkdir -p $out/Applications
         mv devilutionx.app $out/Applications
@@ -124,10 +125,11 @@ stdenv.mkDerivation rec {
         install -Dm755 ../Packaging/resources/hellfire.png $out/share/icons/hicolor/512x512/apps/devilutionx-hellfire.png
         install -Dm755 ../Packaging/resources/icon_32.png $out/share/icons/hicolor/32x32/apps/devilutionx.png
         install -Dm755 ../Packaging/resources/hellfire_32.png $out/share/icons/hicolor/32x32/apps/devilutionx-hellfire.png
-      '') + ''
+      '')
+    + ''
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

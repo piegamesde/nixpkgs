@@ -94,12 +94,15 @@ let
     (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
 
   fullJvmOptions =
-    cfg.jvmOpts ++ optionals (cfg.jmxRoles != [ ]) [
+    cfg.jvmOpts
+    ++ optionals (cfg.jmxRoles != [ ]) [
       "-Dcom.sun.management.jmxremote.authenticate=true"
       "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
-    ] ++ optionals cfg.remoteJmx [
-      "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
-    ] ++ optionals atLeast4 [
+    ]
+    ++ optionals cfg.remoteJmx [
+        "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
+      ]
+    ++ optionals atLeast4 [
       # Historically, we don't use a log dir, whereas the upstream scripts do
       # expect this. We override those by providing our own -Xlog:gc flag.
       "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
@@ -540,7 +543,8 @@ in
           "${cfg.package}/bin/nodetool"
           "repair"
           "--full"
-        ] ++ cfg.fullRepairOptions);
+        ]
+          ++ cfg.fullRepairOptions);
       };
     };
 
@@ -566,7 +570,8 @@ in
         ExecStart = concatStringsSep " " ([
           "${cfg.package}/bin/nodetool"
           "repair"
-        ] ++ cfg.incrementalRepairOptions);
+        ]
+          ++ cfg.incrementalRepairOptions);
       };
     };
 

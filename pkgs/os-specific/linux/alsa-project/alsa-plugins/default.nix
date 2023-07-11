@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       alsa-lib
       libogg
-    ] ++ lib.optional (libpulseaudio != null) libpulseaudio
+    ]
+    ++ lib.optional (libpulseaudio != null) libpulseaudio
     ++ lib.optional (libjack2 != null) libjack2
     ;
 

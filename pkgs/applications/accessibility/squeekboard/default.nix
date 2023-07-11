@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       glib
       wayland
       wrapGAppsHook
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

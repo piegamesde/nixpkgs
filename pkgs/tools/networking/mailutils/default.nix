@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
       readline
       sasl
       libxcrypt
-    ] ++ lib.optionals stdenv.isLinux [ nettools ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ nettools ]
     ++ lib.optionals pythonSupport [ python3 ]
     ++ lib.optionals guileSupport [ guile ]
     ;
@@ -101,7 +102,8 @@ stdenv.mkDerivation rec {
       "--with-path-sendmail=${system-sendmail}/bin/sendmail"
       "--with-mail-rc=/etc/mail.rc"
       "DEFAULT_CUPS_CONFDIR=${mailcap}/etc" # provides mime.types to mimeview
-    ] ++ lib.optional (!pythonSupport) "--without-python"
+    ]
+    ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional (!guileSupport) "--without-guile"
     ;
 

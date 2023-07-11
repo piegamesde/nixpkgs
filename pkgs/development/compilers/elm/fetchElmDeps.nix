@@ -17,4 +17,5 @@ let
 in
 ''
   export ELM_HOME=`pwd`/.elm
-'' + (makeDotElm elmVersion elmPackages)
+''
++ (makeDotElm elmVersion elmPackages)

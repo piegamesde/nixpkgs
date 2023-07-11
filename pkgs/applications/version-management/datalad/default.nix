@@ -74,7 +74,8 @@ python3.pkgs.buildPythonApplication rec {
 
       # python>=3.8
       distro
-    ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
     ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
 
   postInstall = ''

@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
       libxkbcommon
       pipewire
       systemd
-    ] ++ nativeCheckInputs
+    ]
+    ++ nativeCheckInputs
     ;
 
   nativeCheckInputs = [

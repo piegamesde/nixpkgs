@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       libzip
       gtest
       openssl
-    ] ++ (if stdenv.isDarwin then
+    ]
+    ++ (if stdenv.isDarwin then
       [ libossp_uuid ]
     else
       [ libuuid ])

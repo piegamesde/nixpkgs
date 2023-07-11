@@ -68,10 +68,12 @@ stdenv.mkDerivation (finalAttrs: {
       pulseaudio
       tllist
       udev
-    ] ++ lib.optionals (waylandSupport) [
+    ]
+    ++ lib.optionals (waylandSupport) [
       wayland
       wayland-protocols
-    ] ++ lib.optionals (x11Support) [
+    ]
+    ++ lib.optionals (x11Support) [
       xcbutil
       xcbutilcursor
       xcbutilerrors

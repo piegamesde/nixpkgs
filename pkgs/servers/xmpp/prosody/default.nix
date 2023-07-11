@@ -32,7 +32,9 @@ let
       luabitop
       luadbi-sqlite3
       luaunbound
-    ] ++ lib.optional withLibevent p.luaevent ++ lib.optional withDBI p.luadbi
+    ]
+    ++ lib.optional withLibevent p.luaevent
+    ++ lib.optional withDBI p.luadbi
     ++ withExtraLuaPackages p);
 in
 stdenv.mkDerivation rec {
@@ -67,7 +69,8 @@ stdenv.mkDerivation rec {
       libidn
       openssl
       icu
-    ] ++ withExtraLibs
+    ]
+    ++ withExtraLibs
     ;
 
   configureFlags = [
@@ -84,7 +87,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     ${concatMapStringsSep "\n" (module: ''
       cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-    '') (lib.lists.unique (nixosModuleDeps ++ withCommunityModules
+    '') (lib.lists.unique (nixosModuleDeps
+      ++ withCommunityModules
       ++ withOnlyInstalledCommunityModules))}
     wrapProgram $out/bin/prosodyctl \
       --add-flags '--config "/etc/prosody/prosody.cfg.lua"'

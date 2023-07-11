@@ -85,7 +85,8 @@ gcc10Stdenv.mkDerivation rec {
 
       # avoid reading /proc/cpuinfo for feature detection
       "-DTARGET_ARCHITECTURE=${targetArch}"
-    ] ++ lib.optionals asmOptimizations [
+    ]
+    ++ lib.optionals asmOptimizations [
       "-DASM_OPTIMIZATIONS=ON"
       "-DHAVE_SSE42=${
         if gcc10Stdenv.targetPlatform.sse4_2Support then

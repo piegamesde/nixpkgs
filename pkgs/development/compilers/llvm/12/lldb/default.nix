@@ -54,7 +54,8 @@ stdenv.mkDerivation (rec {
       swig
       lit
       makeWrapper
-    ] ++ lib.optionals enableManpages [
+    ]
+    ++ lib.optionals enableManpages [
       python3.pkgs.sphinx
       python3.pkgs.recommonmark
     ]
@@ -67,7 +68,8 @@ stdenv.mkDerivation (rec {
       libedit
       libxml2
       libllvm
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       xpc
       Foundation
@@ -90,14 +92,17 @@ stdenv.mkDerivation (rec {
       "-DLLVM_ENABLE_RTTI=OFF"
       "-DClang_DIR=${libclang.dev}/lib/cmake"
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    ] ++ lib.optionals enableManpages [
+        "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+      ]
+    ++ lib.optionals enableManpages [
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ]

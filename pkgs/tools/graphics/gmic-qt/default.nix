@@ -82,7 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
       openexr
       graphicsmagick
       curl
-    ] ++ variants.${variant}.extraDeps or [ ]
+    ]
+    ++ variants.${variant}.extraDeps or [ ]
     ;
 
   preConfigure = ''

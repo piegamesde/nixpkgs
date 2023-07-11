@@ -47,7 +47,8 @@ buildPythonPackage rec {
   makeWrapperArgs =
     let
       packagesToBinPath =
-        [ ] ++ lib.optional atomicparsleySupport atomicparsley
+        [ ]
+        ++ lib.optional atomicparsleySupport atomicparsley
         ++ lib.optional ffmpegSupport ffmpeg
         ++ lib.optional rtmpSupport rtmpdump
         ;

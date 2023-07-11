@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd2;
     maintainers =
-      teams.sage.members ++ (with maintainers; [
+      teams.sage.members
+      ++ (with maintainers; [
         abbradar
         AndersonTorres
       ])

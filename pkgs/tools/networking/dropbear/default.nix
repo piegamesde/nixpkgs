@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
           "dbclient"
           "dropbearkey"
           "dropbearconvert"
-        ] ++ lib.optionals enableSCP [ "scp" ])
+        ]
+          ++ lib.optionals enableSCP [ "scp" ])
       }"
     )
   '';
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
     [
       zlib
       libxcrypt
-    ] ++ lib.optionals enableStatic [
+    ]
+    ++ lib.optionals enableStatic [
       glibc.static
       zlib.static
     ]

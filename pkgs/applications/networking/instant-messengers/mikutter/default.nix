@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
     [
       copyDesktopItems
       wrapGAppsHook
-    ] ++ lib.optionals stdenv.isDarwin [ libicns ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libicns ]
     ;
   buildInputs =
     [
@@ -107,14 +108,16 @@ stdenv.mkDerivation rec {
       libnotify
       which # some plugins use it at runtime
       wrappedRuby
-    ] ++ lib.optionals stdenv.isLinux [ alsa-utils ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-utils ]
     ;
 
   scriptPath = lib.makeBinPath ([
     wrappedRuby
     libnotify
     which
-  ] ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
+  ]
+    ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
 
   postUnpack = ''
     rm -rf vendor

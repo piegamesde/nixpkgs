@@ -138,7 +138,8 @@ let
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
     impureEnvVars =
-      lib.fetchers.proxyImpureEnvVars ++ [
+      lib.fetchers.proxyImpureEnvVars
+      ++ [
         "GIT_PROXY_COMMAND"
         "NIX_GIT_SSL_CAINFO"
         "SOCKS_SERVER"

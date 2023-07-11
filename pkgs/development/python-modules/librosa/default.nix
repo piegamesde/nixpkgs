@@ -83,7 +83,8 @@ buildPythonPackage rec {
       pytestCheckHook
       resampy
       samplerate
-    ] ++ passthru.optional-dependencies.matplotlib
+    ]
+    ++ passthru.optional-dependencies.matplotlib
     ;
 
   preCheck = ''

@@ -35,7 +35,8 @@ writeShellApplication {
       python3
       pkgsCross.avr.stdenv.cc
       gnumake
-    ] ++ lib.optionals (boardArch == "avr") [ avrdude ]
+    ]
+    ++ lib.optionals (boardArch == "avr") [ avrdude ]
     ++ lib.optionals (boardArch == "stm32") [ stm32flash ]
     ;
   text = ''

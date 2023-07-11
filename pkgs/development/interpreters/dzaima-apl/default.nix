@@ -34,11 +34,13 @@ stdenv.mkDerivation rec {
       runHook preBuild
 
       ./build
-    '' + lib.optionalString buildNativeImage ''
+    ''
+    + lib.optionalString buildNativeImage ''
       native-image --report-unsupported-elements-at-runtime \
         -H:CLibraryPath=${lib.getLib jdk}/lib -J-Dfile.encoding=UTF-8 \
         -jar APL.jar dapl
-    '' + ''
+    ''
+    + ''
       runHook postBuild
     ''
     ;
@@ -48,7 +50,8 @@ stdenv.mkDerivation rec {
       runHook preInstall
 
       mkdir -p $out/bin
-    '' + (if buildNativeImage then
+    ''
+    + (if buildNativeImage then
       ''
         mv dapl $out/bin
       ''
@@ -59,11 +62,12 @@ stdenv.mkDerivation rec {
 
         makeWrapper "${lib.getBin jdk}/bin/java" "$out/bin/dapl" \
           --add-flags "-jar $out/share/${pname}/APL.jar"
-      '') + ''
-        ln -s $out/bin/dapl $out/bin/apl
+      '')
+    + ''
+      ln -s $out/bin/dapl $out/bin/apl
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = with lib; {

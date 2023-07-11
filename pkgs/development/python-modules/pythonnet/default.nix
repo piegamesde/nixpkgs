@@ -66,7 +66,8 @@ buildPythonPackage rec {
 
       mono
 
-    ] ++ dotnetPkgs
+    ]
+    ++ dotnetPkgs
     ;
 
   buildInputs = [

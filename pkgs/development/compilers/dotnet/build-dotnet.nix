@@ -79,7 +79,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       icu
       libkrb5
       curl
-    ] ++ lib.optional stdenv.isLinux lttng-ust_2_12
+    ]
+    ++ lib.optional stdenv.isLinux lttng-ust_2_12
     ;
 
   src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw

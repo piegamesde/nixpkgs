@@ -40,13 +40,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ nasm ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [
+    lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       AudioToolbox
       Carbon
       CoreMIDI
       AudioUnit
-    ] ++ [
+    ]
+    ++ [
       curl
       freetype
       flac
@@ -75,7 +77,8 @@ stdenv.mkDerivation rec {
   postConfigure =
     ''
       sed -i "s/-c -s/-c -s --strip-program=''${STRIP@Q}/" ports.mk
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace config.mk \
         --replace x86_64-apple-darwin-ranlib ${cctools}/bin/ranlib \
         --replace aarch64-apple-darwin-ranlib ${cctools}/bin/ranlib

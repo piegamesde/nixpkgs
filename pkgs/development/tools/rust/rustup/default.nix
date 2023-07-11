@@ -49,7 +49,8 @@ rustPlatform.buildRustPackage rec {
     [
       (curl.override { inherit openssl; })
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
       libiconv

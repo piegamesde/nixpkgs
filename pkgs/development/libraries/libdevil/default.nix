@@ -41,10 +41,12 @@ stdenv.mkDerivation (finalAttrs: {
       lcms1
       libtiff
       openexr
-    ] ++ lib.optionals withXorg [
+    ]
+    ++ lib.optionals withXorg [
       libX11
       libGL
-    ] ++ lib.optionals stdenv.isDarwin [ OpenGL ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ OpenGL ]
     ;
 
   configureFlags = [
@@ -56,7 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''
       sed -i 's, -std=gnu99,,g' configure
       sed -i 's,malloc.h,stdlib.h,g' src-ILU/ilur/ilur.c
-    '' + lib.optionalString stdenv.cc.isClang ''
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
       sed -i 's/libIL_la_CXXFLAGS = $(AM_CFLAGS)/libIL_la_CXXFLAGS =/g' lib/Makefile.in
     ''
     ;

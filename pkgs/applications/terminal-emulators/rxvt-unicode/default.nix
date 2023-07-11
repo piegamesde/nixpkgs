@@ -79,7 +79,9 @@ stdenv.mkDerivation {
       freetype
       libXrender
       libptytty
-    ] ++ optional perlSupport perl ++ optional gdkPixbufSupport gdk-pixbuf
+    ]
+    ++ optional perlSupport perl
+    ++ optional gdkPixbufSupport gdk-pixbuf
     ;
 
   outputs = [
@@ -117,7 +119,8 @@ stdenv.mkDerivation {
       "--enable-256-color"
       (enableFeature perlSupport "perl")
       (enableFeature unicode3Support "unicode3")
-    ] ++ optional emojiSupport "--enable-wide-glyphs"
+    ]
+    ++ optional emojiSupport "--enable-wide-glyphs"
     ;
 
   LDFLAGS = [
@@ -132,7 +135,8 @@ stdenv.mkDerivation {
       # without this the terminfo won't be compiled by tic, see man tic
       mkdir -p $terminfo/share/terminfo
       export TERMINFO=$terminfo/share/terminfo
-    '' + lib.optionalString perlSupport ''
+    ''
+    + lib.optionalString perlSupport ''
       # make urxvt find its perl file lib/perl5/site_perl
       # is added to PERL5LIB automatically
       mkdir -p $out/$(dirname ${perl.libPrefix})

@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
       menhirSdk
       ppxlib
       utop
-    ] ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses
+    ]
+    ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses
     ;
 
   propagatedBuildInputs = [

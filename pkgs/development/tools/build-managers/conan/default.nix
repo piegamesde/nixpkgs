@@ -37,7 +37,8 @@ python3.pkgs.buildPythonApplication rec {
       requests
       tqdm
       urllib3
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       idna
       cryptography
       pyopenssl
@@ -48,7 +49,8 @@ python3.pkgs.buildPythonApplication rec {
       git
       pkg-config
       zlib
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       mock
       parameterized
       pytest-xdist

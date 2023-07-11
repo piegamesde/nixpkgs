@@ -44,7 +44,8 @@
 let
   libupnp' = libupnp.overrideAttrs (super: rec {
     cmakeFlags =
-      super.cmakeFlags or [ ] ++ [
+      super.cmakeFlags or [ ]
+      ++ [
         "-Dblocking_tcp_connections=OFF"
         "-Dreuseaddr=ON"
       ]
@@ -138,7 +139,8 @@ stdenv.mkDerivation rec {
     [
       # systemd service will be generated alongside the service
       "-DWITH_SYSTEMD=OFF"
-    ] ++ map (e:
+    ]
+    ++ map (e:
       "-DWITH_${e.name}=${
         if e.enable then
           "ON"
@@ -161,8 +163,9 @@ stdenv.mkDerivation rec {
       spdlog
       sqlite
       zlib
-    ] ++ flatten
-    (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options))
+    ]
+    ++ flatten
+      (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options))
     ;
 
   passthru.tests = { inherit (nixosTests) mediatomb; };

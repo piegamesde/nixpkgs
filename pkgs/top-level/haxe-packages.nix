@@ -48,7 +48,8 @@ let
       name = "${libname}-${version}";
 
       buildInputs =
-        (attrs.buildInputs or [ ]) ++ [
+        (attrs.buildInputs or [ ])
+        ++ [
           haxe
           neko
         ]

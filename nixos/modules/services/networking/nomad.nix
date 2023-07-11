@@ -146,7 +146,8 @@ in
       restartTriggers = [ config.environment.etc."nomad.json".source ];
 
       path =
-        cfg.extraPackages ++ (with pkgs; [
+        cfg.extraPackages
+        ++ (with pkgs; [
           # Client mode requires at least the following:
           coreutils
           iproute2
@@ -168,8 +169,8 @@ in
             "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
             + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
             + concatMapStrings
-            (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
-            (lib.attrNames cfg.credentials)
+              (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
+              (lib.attrNames cfg.credentials)
             ;
           KillMode = "process";
           KillSignal = "SIGINT";

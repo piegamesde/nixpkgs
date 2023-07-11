@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       install -m755 -D chromedriver $out/bin/chromedriver
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
       wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
     ''

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libsidplayfp ] ++ lib.optional alsaSupport alsa-lib
+    [ libsidplayfp ]
+    ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optional out123Support mpg123
     ;

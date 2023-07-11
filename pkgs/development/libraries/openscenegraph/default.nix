@@ -93,24 +93,35 @@ stdenv.mkDerivation rec {
       libxml2
       pcre
       zlib
-    ] ++ lib.optional jpegSupport libjpeg ++ lib.optional exrSupport openexr
-    ++ lib.optional gifSupport giflib ++ lib.optional pngSupport libpng
-    ++ lib.optional tiffSupport libtiff ++ lib.optional gdalSupport gdal
-    ++ lib.optional curlSupport curl ++ lib.optional colladaSupport collada-dom
+    ]
+    ++ lib.optional jpegSupport libjpeg
+    ++ lib.optional exrSupport openexr
+    ++ lib.optional gifSupport giflib
+    ++ lib.optional pngSupport libpng
+    ++ lib.optional tiffSupport libtiff
+    ++ lib.optional gdalSupport gdal
+    ++ lib.optional curlSupport curl
+    ++ lib.optional colladaSupport collada-dom
     ++ lib.optional opencascadeSupport opencascade
     ++ lib.optional ffmpegSupport ffmpeg
     ++ lib.optional nvttSupport nvidia-texture-tools
-    ++ lib.optional freetypeSupport freetype ++ lib.optional svgSupport librsvg
-    ++ lib.optional pdfSupport poppler ++ lib.optional vncSupport libvncserver
-    ++ lib.optional lasSupport libLAS ++ lib.optional luaSupport lua
-    ++ lib.optional sdlSupport SDL2 ++ lib.optional restSupport asio
-    ++ lib.optionals withExamples [ fltk ] ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optional freetypeSupport freetype
+    ++ lib.optional svgSupport librsvg
+    ++ lib.optional pdfSupport poppler
+    ++ lib.optional vncSupport libvncserver
+    ++ lib.optional lasSupport libLAS
+    ++ lib.optional luaSupport lua
+    ++ lib.optional sdlSupport SDL2
+    ++ lib.optional restSupport asio
+    ++ lib.optionals withExamples [ fltk ]
+    ++ lib.optionals stdenv.isDarwin [
       AGL
       Accelerate
       Carbon
       Cocoa
       Foundation
-    ] ++ lib.optional (restSupport || colladaSupport) boost
+    ]
+    ++ lib.optional (restSupport || colladaSupport) boost
     ;
 
   cmakeFlags =

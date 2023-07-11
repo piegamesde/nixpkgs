@@ -54,7 +54,8 @@ buildPythonPackage rec {
       numpy
       pytestCheckHook
       python-dateutil
-    ] ++ passthru.optional-dependencies.cli
+    ]
+    ++ passthru.optional-dependencies.cli
     ;
 
   pythonImportsCheck = [ "deepdiff" ];

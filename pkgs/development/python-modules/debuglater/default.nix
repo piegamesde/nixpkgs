@@ -33,7 +33,8 @@ buildPythonPackage rec {
       numpy
       pandas
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   pythonImportsCheck = [ "debuglater" ];

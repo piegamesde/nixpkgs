@@ -31,7 +31,8 @@ buildPythonPackage rec {
       canonicaljson
       unpaddedbase64
       pynacl
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       typing-extensions
     ]

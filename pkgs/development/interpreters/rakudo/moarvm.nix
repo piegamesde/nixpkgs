@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs .
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Configure.pl \
         --replace '`/usr/bin/arch`' '"${stdenv.hostPlatform.darwinArch}"' \
         --replace '/usr/bin/arch' "$(type -P true)" \
@@ -30,7 +31,8 @@ stdenv.mkDerivation rec {
     ;
 
   buildInputs =
-    [ perl ] ++ lib.optionals stdenv.isDarwin [
+    [ perl ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices
     ]

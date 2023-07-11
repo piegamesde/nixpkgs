@@ -59,7 +59,8 @@ buildPythonPackage rec {
       parsel
       requests
       ruamel-yaml
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   preCheck = ''

@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
     [
       xz
       nukeReferences
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
     ;
 
     # Remove CFLAGS from the binaries to avoid closure bloat.

@@ -170,14 +170,17 @@ in
           (lib.escapeShellArg cfg.address)
           "--listen-port"
           (toString cfg.port)
-        ] ++ (lib.optionals (cfg.owner != null) [
-          "--owner"
-          (lib.escapeShellArg cfg.owner)
-        ]) ++ (lib.optionals cfg.identd.enable [
-          "--identd"
-          "--identd-port"
-          (toString cfg.identd.port)
-        ]) ++ [ (lib.escapeShellArg cfg.homeserver) ]
+        ]
+          ++ (lib.optionals (cfg.owner != null) [
+            "--owner"
+            (lib.escapeShellArg cfg.owner)
+          ])
+          ++ (lib.optionals cfg.identd.enable [
+            "--identd"
+            "--identd-port"
+            (toString cfg.identd.port)
+          ])
+          ++ [ (lib.escapeShellArg cfg.homeserver) ]
           ++ (map (lib.escapeShellArg) cfg.extraArgs));
 
           # Hardening options
@@ -208,9 +211,10 @@ in
         UMask = "0077";
 
         CapabilityBoundingSet =
-          [ "CAP_CHOWN" ] ++ optional
-          (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
-          "CAP_NET_BIND_SERVICE"
+          [ "CAP_CHOWN" ]
+          ++ optional
+            (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+            "CAP_NET_BIND_SERVICE"
           ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;

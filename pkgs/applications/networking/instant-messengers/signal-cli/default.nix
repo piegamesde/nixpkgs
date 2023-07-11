@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out/bin
       cp -r lib $out/lib
       cp bin/signal-cli $out/bin/signal-cli
-    '' + (if stdenv.isLinux then
+    ''
+    + (if stdenv.isLinux then
       ''
         makeWrapper ${openjdk17_headless}/bin/java $out/bin/signal-cli \
           --set JAVA_HOME "${openjdk17_headless}" \

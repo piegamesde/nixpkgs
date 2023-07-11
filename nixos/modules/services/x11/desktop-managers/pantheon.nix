@@ -208,7 +208,8 @@ in
           (wingpanel-with-indicators.override {
             indicators = cfg.extraWingpanelIndicators;
           })
-        ]) ++ utils.removePackagesByName ((with pkgs; [
+        ])
+        ++ utils.removePackagesByName ((with pkgs; [
           desktop-file-utils
           glib # for gsettings program
           gnome-menus
@@ -218,24 +219,25 @@ in
           qgnomeplatform
           sound-theme-freedesktop
           xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-        ]) ++ (with pkgs.pantheon; [
-          # Artwork
-          elementary-gtk-theme
-          elementary-icon-theme
-          elementary-sound-theme
-          elementary-wallpapers
+        ])
+          ++ (with pkgs.pantheon; [
+            # Artwork
+            elementary-gtk-theme
+            elementary-icon-theme
+            elementary-sound-theme
+            elementary-wallpapers
 
-          # Desktop
-          elementary-default-settings
-          elementary-dock
-          elementary-shortcut-overlay
+            # Desktop
+            elementary-default-settings
+            elementary-dock
+            elementary-shortcut-overlay
 
-          # Services
-          elementary-capnet-assist
-          elementary-notifications
-          pantheon-agent-geoclue2
-          pantheon-agent-polkit
-        ])) config.environment.pantheon.excludePackages
+            # Services
+            elementary-capnet-assist
+            elementary-notifications
+            pantheon-agent-geoclue2
+            pantheon-agent-polkit
+          ])) config.environment.pantheon.excludePackages
         ;
 
         # Settings from elementary-default-settings
@@ -298,27 +300,29 @@ in
       programs.file-roller.enable = mkDefault true;
 
       environment.systemPackages = utils.removePackagesByName
-        ([ pkgs.gnome.gnome-font-viewer ] ++ (with pkgs.pantheon;
-          [
-            elementary-calculator
-            elementary-calendar
-            elementary-camera
-            elementary-code
-            elementary-files
-            elementary-mail
-            elementary-music
-            elementary-photos
-            elementary-screenshot
-            elementary-tasks
-            elementary-terminal
-            elementary-videos
-            epiphany
-          ] ++ lib.optionals config.services.flatpak.enable [
-            # Only install appcenter if flatpak is enabled before
-            # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
-            appcenter
-            sideload
-          ])) config.environment.pantheon.excludePackages;
+        ([ pkgs.gnome.gnome-font-viewer ]
+          ++ (with pkgs.pantheon;
+            [
+              elementary-calculator
+              elementary-calendar
+              elementary-camera
+              elementary-code
+              elementary-files
+              elementary-mail
+              elementary-music
+              elementary-photos
+              elementary-screenshot
+              elementary-tasks
+              elementary-terminal
+              elementary-videos
+              epiphany
+            ]
+            ++ lib.optionals config.services.flatpak.enable [
+              # Only install appcenter if flatpak is enabled before
+              # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
+              appcenter
+              sideload
+            ])) config.environment.pantheon.excludePackages;
 
         # needed by screenshot
       fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];

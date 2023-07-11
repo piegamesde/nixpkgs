@@ -38,7 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
     ;
 
   configureFlags =
-    [ "--disable-nls" ] ++ (lib.optional (predefinedBuildType != "")
+    [ "--disable-nls" ]
+    ++ (lib.optional (predefinedBuildType != "")
       "--predefined-build-type=${predefinedBuildType}")
     ++ (lib.optional (historyType == "editline") "--enable-editline")
     ++ (lib.optional (historyType == "readline") "--enable-readline")

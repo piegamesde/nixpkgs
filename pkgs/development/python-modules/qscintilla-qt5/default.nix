@@ -47,7 +47,8 @@ buildPythonPackage rec {
       echo '[tool.sip.project]' >> pyproject.toml
       echo 'sip-include-dirs = [ "${pyqt5}/${python.sitePackages}/PyQt5/bindings"]' \
          >> pyproject.toml
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace project.py \
         --replace \
         "if self.project.qsci_external_lib:

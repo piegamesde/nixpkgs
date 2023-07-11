@@ -85,16 +85,18 @@ stdenv.mkDerivation rec {
 
       # intermittent failures on builders, unknown reason
       sed '2i echo Skipping du basic test && exit 77' -i ./tests/du/basic.sh
-    '' + (optionalString (stdenv.hostPlatform.libc == "musl")
+    ''
+    + (optionalString (stdenv.hostPlatform.libc == "musl")
       (concatStringsSep "\n" [ ''
         echo "int main() { return 77; }" > gnulib-tests/test-parse-datetime.c
         echo "int main() { return 77; }" > gnulib-tests/test-getlogin.c
-      '' ])) + (optionalString stdenv.isAarch64 ''
-        sed '2i print "Skipping tail assert test"; exit 77' -i ./tests/tail-2/assert.sh
+      '' ]))
+    + (optionalString stdenv.isAarch64 ''
+      sed '2i print "Skipping tail assert test"; exit 77' -i ./tests/tail-2/assert.sh
 
-        # Sometimes fails: https://github.com/NixOS/nixpkgs/pull/143097#issuecomment-954462584
-        sed '2i echo Skipping cut huge range test && exit 77' -i ./tests/misc/cut-huge-range.sh
-      '')
+      # Sometimes fails: https://github.com/NixOS/nixpkgs/pull/143097#issuecomment-954462584
+      sed '2i echo Skipping cut huge range test && exit 77' -i ./tests/misc/cut-huge-range.sh
+    '')
     ;
 
   outputs = [
@@ -109,15 +111,19 @@ stdenv.mkDerivation rec {
       autoreconfHook
       perl
       xz.bin
-    ] ++ optionals stdenv.hostPlatform.isCygwin [
+    ]
+    ++ optionals stdenv.hostPlatform.isCygwin [
       # due to patch
       texinfo
     ]
     ;
 
   buildInputs =
-    [ ] ++ optional aclSupport acl ++ optional attrSupport attr
-    ++ optional gmpSupport gmp ++ optional withOpenssl openssl
+    [ ]
+    ++ optional aclSupport acl
+    ++ optional attrSupport attr
+    ++ optional gmpSupport gmp
+    ++ optional withOpenssl openssl
     ++ optionals selinuxSupport [
       libselinux
       libsepol
@@ -127,14 +133,14 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlags =
-    [ "--with-packager=https://nixos.org" ] ++ optional (singleBinary != false)
-    ("--enable-single-binary"
+    [ "--with-packager=https://nixos.org" ]
+    ++ optional (singleBinary != false) ("--enable-single-binary"
       + optionalString (isString singleBinary) "=${singleBinary}")
     ++ optional withOpenssl "--with-openssl"
     ++ optional stdenv.hostPlatform.isSunOS "ac_cv_func_inotify_init=no"
     ++ optional withPrefix "--program-prefix=g"
-    # the shipped configure script doesn't enable nls, but using autoreconfHook
-    # does so which breaks the build
+      # the shipped configure script doesn't enable nls, but using autoreconfHook
+      # does so which breaks the build
     ++ optional stdenv.isDarwin "--disable-nls"
     ++ optionals (isCross && stdenv.hostPlatform.libc == "glibc") [
       # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
@@ -155,7 +161,8 @@ stdenv.mkDerivation rec {
     # With non-standard storeDir: https://github.com/NixOS/nix/issues/512
     # On aarch64+musl, test-init.sh fails due to a segfault in diff.
   doCheck =
-    (!isCross) && (stdenv.hostPlatform.libc == "glibc"
+    (!isCross)
+    && (stdenv.hostPlatform.libc == "glibc"
       || stdenv.hostPlatform.libc == "musl")
     && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
     && !stdenv.isAarch32
@@ -189,7 +196,7 @@ stdenv.mkDerivation rec {
       rm $out/share/man/man1/*
       cp ${buildPackages.coreutils-full}/share/man/man1/* $out/share/man/man1
     ''
-    # du: 8.7 M locale + 0.4 M man pages
+      # du: 8.7 M locale + 0.4 M man pages
     + optionalString minimal ''
       rm -r "$out/share"
     ''

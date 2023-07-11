@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ python3.pkgs.python ];
 
   pythonPath =
-    [ libtorrent ] ++ (with python3.pkgs; [
+    [ libtorrent ]
+    ++ (with python3.pkgs; [
       aiohttp
       aiohttp-apispec
       asynctest

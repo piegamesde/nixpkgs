@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
       gtk2-x11
       libXt
       stdenv.cc.cc.lib
-    ] ++ lib.optionals withGTK3 [ gtk3 ]
+    ]
+    ++ lib.optionals withGTK3 [ gtk3 ]
     ;
 
   desktopItems = [

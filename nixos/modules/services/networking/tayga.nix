@@ -34,10 +34,12 @@ let
 
         prefixLength = mkOption {
           type = types.addCheck types.int (n:
-            n >= 0 && n <= (if v == 4 then
-              32
-            else
-              128));
+            n >= 0
+            && n
+              <= (if v == 4 then
+                32
+              else
+                128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix ("${

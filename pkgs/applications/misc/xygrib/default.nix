@@ -42,9 +42,10 @@ stdenv.mkDerivation rec {
       "-DOPENJPEG_INCLUDE_DIR=${openjpeg.dev}/include/openjpeg-${
         lib.versions.majorMinor openjpeg.version
       }"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
     ]
+    ++ lib.optionals stdenv.isDarwin [
+        "-DLIBNOVA_LIBRARY=${libnova}/lib/libnova.dylib"
+      ]
     ;
 
   postInstall =

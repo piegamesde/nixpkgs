@@ -16,7 +16,8 @@ let
     inherit (config.node) specialArgs;
     modules = [ config.defaults ];
     baseModules =
-      (import ../../modules/module-list.nix) ++ [
+      (import ../../modules/module-list.nix)
+      ++ [
         ./nixos-test-base.nix
         {
           key = "nodes";

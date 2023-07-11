@@ -46,7 +46,8 @@ stdenv.mkDerivation {
   ];
 
   hardeningDisable =
-    [ "stackprotector" ] ++ lib.optionals stdenv.isi686 [
+    [ "stackprotector" ]
+    ++ lib.optionals stdenv.isi686 [
       "pic"
       "fortify"
     ]

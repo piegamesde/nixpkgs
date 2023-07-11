@@ -40,7 +40,8 @@ buildPythonPackage rec {
       toml
       h2
       priority
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   nativeCheckInputs =
@@ -48,7 +49,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytest-trio
       pytestCheckHook
-    ] ++ lib.optionals (pythonOlder "3.8") [ mock ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ mock ]
     ;
 
   pythonImportsCheck = [ "hypercorn" ];

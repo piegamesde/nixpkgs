@@ -38,7 +38,8 @@ let
         lpeg
         luabitop
         mpack
-      ] ++ lib.optionals doCheck [
+      ]
+      ++ lib.optionals doCheck [
         nvim-client
         luv
         coxpcall
@@ -108,10 +109,12 @@ stdenv.mkDerivation rec {
       neovimLuaEnv
       tree-sitter
       unibilium
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreServices
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       glibcLocales
       procps
     ]
@@ -155,7 +158,8 @@ stdenv.mkDerivation rec {
       # That's because all dependencies were found and
       # third-party/CMakeLists.txt is not read at all.
       "-DUSE_BUNDLED=OFF"
-    ] ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
+    ]
+    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
     ;
 
   preConfigure =
@@ -164,11 +168,14 @@ stdenv.mkDerivation rec {
         "-DLUAC_PRG=${codegenLua}/bin/luajit -b -s %s -"
         "-DLUA_GEN_PRG=${codegenLua}/bin/luajit"
       )
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/nvim/CMakeLists.txt --replace "    util" ""
-    '' + ''
+    ''
+    + ''
       mkdir -p $out/lib/nvim/parser
-    '' + lib.concatStrings (lib.mapAttrsToList (language: src: ''
+    ''
+    + lib.concatStrings (lib.mapAttrsToList (language: src: ''
       ln -s \
         ${
           tree-sitter.buildGrammar {

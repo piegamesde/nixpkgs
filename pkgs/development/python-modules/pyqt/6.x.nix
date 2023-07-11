@@ -88,9 +88,9 @@ buildPythonPackage rec {
       qtquicktimeline
     ]
     # ++ lib.optional withConnectivity qtconnectivity
-    ++ lib.optional withMultimedia qtmultimedia ++ lib.optional withWebSockets
-    qtwebsockets
-    # ++ lib.optional withLocation qtlocation
+    ++ lib.optional withMultimedia qtmultimedia
+    ++ lib.optional withWebSockets qtwebsockets
+      # ++ lib.optional withLocation qtlocation
     ;
 
   buildInputs = with qt6Packages;
@@ -105,7 +105,7 @@ buildPythonPackage rec {
     ]
     # ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebSockets qtwebsockets
-    # ++ lib.optional withLocation qtlocation
+      # ++ lib.optional withLocation qtlocation
     ;
 
   propagatedBuildInputs =
@@ -137,10 +137,11 @@ buildPythonPackage rec {
       "PyQt6.QtWidgets"
       "PyQt6.QtGui"
       "PyQt6.QtQuick"
-    ] ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
+    ]
+    ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
     ++ lib.optional withMultimedia "PyQt6.QtMultimedia"
-    # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
-    # ++ lib.optional withLocation "PyQt6.QtPositioning"
+      # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
+      # ++ lib.optional withLocation "PyQt6.QtPositioning"
     ;
 
   meta = with lib; {

@@ -87,7 +87,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       pcre
       libiconv
       libintl
-    ] ++ lib.optionals withData [ poppler_data ]
+    ]
+    ++ lib.optionals withData [ poppler_data ]
     ;
 
     # TODO: reduce propagation to necessary libs
@@ -98,12 +99,14 @@ stdenv.mkDerivation (finalAttrs: rec {
       fontconfig
       libjpeg
       openjpeg
-    ] ++ lib.optionals (!minimal) [
+    ]
+    ++ lib.optionals (!minimal) [
       cairo
       lcms
       curl
       nss
-    ] ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
+    ]
+    ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
     ++ lib.optionals introspectionSupport [ gobject-introspection ]
     ;
 
@@ -116,7 +119,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       (mkFlag utils "UTILS")
       (mkFlag qt5Support "QT5")
       (mkFlag qt6Support "QT6")
-    ] ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ]
+    ]
+    ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ]
     ;
   disallowedReferences = lib.optional finalAttrs.doCheck testData;
 

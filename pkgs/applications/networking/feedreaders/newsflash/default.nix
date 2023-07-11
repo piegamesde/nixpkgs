@@ -72,7 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # Provides glib-compile-resources to compile gresources
       glib
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc
@@ -93,7 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       # SVG support for gdk-pixbuf
       librsvg
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       # Audio & video support for webkitgtk WebView
       gstreamer
       gst-plugins-base

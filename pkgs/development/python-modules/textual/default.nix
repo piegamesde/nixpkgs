@@ -53,7 +53,8 @@ buildPythonPackage rec {
       click
       msgpack
       mkdocs-exclude
-    ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
     ;
 
   nativeCheckInputs = [

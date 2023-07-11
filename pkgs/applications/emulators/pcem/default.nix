@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       SDL2
       openal
       gtk3
-    ] ++ lib.optional withALSA alsa-lib
+    ]
+    ++ lib.optional withALSA alsa-lib
     ;
 
   configureFlags =

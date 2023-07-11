@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   doCheck = true;
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
       ffmpeg
       glibcLocales
       perl
-    ] ++ (with perlPackages; [ ListMoreUtils ])
+    ]
+    ++ (with perlPackages; [ ListMoreUtils ])
     ;
 
   checkPhase = ''

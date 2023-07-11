@@ -42,7 +42,8 @@ stdenv.mkDerivation {
     [
       curl
       tzdata
-    ] ++ lib.optionals hostPlatform.isLinux [ glibc ]
+    ]
+    ++ lib.optionals hostPlatform.isLinux [ glibc ]
     ;
 
   installPhase = ''

@@ -78,11 +78,13 @@ stdenv.mkDerivation rec {
           "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff";
         hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
       })
-    ] ++ lib.optionals (!isNixOS) [
+    ]
+    ++ lib.optionals (!isNixOS) [
       # References to /nix/store/... will get GC'ed which causes problems when
       # copying the default configuration:
       ./sway-config-no-nix-store-references.patch
-    ] ++ lib.optionals isNixOS [
+    ]
+    ++ lib.optionals isNixOS [
       # Use /run/current-system/sw/share and /etc instead of /nix/store
       # references:
       ./sway-config-nixos-paths.patch
@@ -117,7 +119,8 @@ stdenv.mkDerivation rec {
       wayland-protocols
       libdrm
       (wlroots_0_16.override { inherit enableXWayland; })
-    ] ++ lib.optionals dbusSupport [ dbus ]
+    ]
+    ++ lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals enableXWayland [ xorg.xcbutilwm ]
     ;
 

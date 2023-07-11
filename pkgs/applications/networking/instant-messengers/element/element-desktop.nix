@@ -48,7 +48,8 @@ stdenv.mkDerivation (finalAttrs:
         fixup_yarn_lock
         nodejs
         makeWrapper
-      ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
       ;
 
     inherit seshat;

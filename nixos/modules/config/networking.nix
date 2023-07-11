@@ -180,7 +180,7 @@ in
       let
         hostnames = # Note: The FQDN (canonical hostname) has to come first:
           optional (cfg.hostName != "" && cfg.domain != null)
-          "${cfg.hostName}.${cfg.domain}"
+            "${cfg.hostName}.${cfg.domain}"
           ++ optional (cfg.hostName != "") cfg.hostName
           ; # Then the hostname (without the domain)
       in

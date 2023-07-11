@@ -23,7 +23,8 @@
 
 let
   platforms =
-    lib.platforms.linux ++ [
+    lib.platforms.linux
+    ++ [
       "x86_64-darwin"
       "aarch64-darwin"
     ]
@@ -84,13 +85,15 @@ let
       };
     }).overrideAttrs (attrs: {
       nativeBuildInputs =
-        (attrs.nativeBuildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
+        (attrs.nativeBuildInputs or [ ])
+        ++ lib.optionals (stdenv.isLinux) [
           autoPatchelfHook
           patchelf
         ]
         ;
       buildInputs =
-        (attrs.buildInputs or [ ]) ++ lib.optionals (stdenv.isLinux) [
+        (attrs.buildInputs or [ ])
+        ++ lib.optionals (stdenv.isLinux) [
           python3
           stdenv.cc.cc
           libdbusmenu
@@ -101,7 +104,8 @@ let
         ;
       dontAutoPatchelf = true;
       postFixup =
-        (attrs.postFixup or "") + lib.optionalString (stdenv.isLinux) ''
+        (attrs.postFixup or "")
+        + lib.optionalString (stdenv.isLinux) ''
           (
             cd $out/clion
             # bundled cmake does not find libc
@@ -205,7 +209,8 @@ let
       };
     }).overrideAttrs (attrs: {
       postFixup =
-        (attrs.postFixup or "") + lib.optionalString stdenv.isLinux ''
+        (attrs.postFixup or "")
+        + lib.optionalString stdenv.isLinux ''
           interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
           patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
@@ -394,15 +399,16 @@ let
         maintainers = with maintainers; [ raphaelr ];
       };
     }).overrideAttrs (attrs: {
-      postPatch = lib.optionalString (!stdenv.isDarwin) (attrs.postPatch + ''
-        interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-        patchelf --set-interpreter $interp \
-          lib/ReSharperHost/linux-x64/Rider.Backend \
-          plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
+      postPatch = lib.optionalString (!stdenv.isDarwin) (attrs.postPatch
+        + ''
+          interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+          patchelf --set-interpreter $interp \
+            lib/ReSharperHost/linux-x64/Rider.Backend \
+            plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
 
-        rm -rf lib/ReSharperHost/linux-x64/dotnet
-        ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
-      '');
+          rm -rf lib/ReSharperHost/linux-x64/dotnet
+          ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
+        '');
     })
     ;
 

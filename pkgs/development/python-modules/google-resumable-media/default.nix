@@ -41,7 +41,8 @@ buildPythonPackage rec {
       mock
       pytest-asyncio
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.requests
+    ]
+    ++ passthru.optional-dependencies.requests
     ;
 
   preCheck = ''

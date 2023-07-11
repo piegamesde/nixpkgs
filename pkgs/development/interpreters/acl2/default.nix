@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
     [
       # ACL2 itself only needs a Common Lisp compiler/interpreter:
       sbcl
-    ] ++ lib.optionals certifyBooks [
+    ]
+    ++ lib.optionals certifyBooks [
       # To build community books, we need Perl and a couple of utilities:
       which
       perl
@@ -96,7 +97,8 @@ stdenv.mkDerivation rec {
     ''
       # When certifying books, ACL2 doesn't like $HOME not existing.
       export HOME=$(pwd)/fake-home
-    '' + lib.optionalString certifyBooks ''
+    ''
+    + lib.optionalString certifyBooks ''
       # Some books also care about $USER being nonempty.
       export USER=nobody
     ''
@@ -125,7 +127,8 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/bin
       ln -s $out/share/${pname}/saved_acl2           $out/bin/${pname}
-    '' + lib.optionalString certifyBooks ''
+    ''
+    + lib.optionalString certifyBooks ''
       ln -s $out/share/${pname}/books/build/cert.pl  $out/bin/${pname}-cert
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     ''
@@ -173,7 +176,8 @@ stdenv.mkDerivation rec {
         build tools cert.pl and clean.pl, renamed to ${pname}-cert and
         ${pname}-clean.
 
-      '' + (if certifyBooks then
+      ''
+      + (if certifyBooks then
         ''
           The community books are also included and certified with the `make
           everything` target.
@@ -189,7 +193,8 @@ stdenv.mkDerivation rec {
       [
         # ACL2 itself is bsd3
         bsd3
-      ] ++ optionals certifyBooks [
+      ]
+      ++ optionals certifyBooks [
         # The community books are mostly bsd3 or mit but with a few
         # other things thrown in.
         mit

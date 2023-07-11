@@ -68,14 +68,18 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional withTTYX libX11 ++ lib.optional withGUI wxGTK32
-    ++ lib.optional withUCD libuchardet ++ lib.optionals withColorer [
+    lib.optional withTTYX libX11
+    ++ lib.optional withGUI wxGTK32
+    ++ lib.optional withUCD libuchardet
+    ++ lib.optionals withColorer [
       spdlog
       xercesc
-    ] ++ lib.optionals withMultiArc [
+    ]
+    ++ lib.optionals withMultiArc [
       libarchive
       pcre
-    ] ++ lib.optionals withNetRocks [
+    ]
+    ++ lib.optionals withNetRocks [
       openssl
       libssh
       libnfs
@@ -87,7 +91,8 @@ stdenv.mkDerivation rec {
       cffi
       debugpy
       pcpp
-    ]) ++ lib.optionals stdenv.isDarwin [
+    ])
+    ++ lib.optionals stdenv.isDarwin [
       IOKit
       Carbon
       Cocoa
@@ -103,7 +108,8 @@ stdenv.mkDerivation rec {
         --replace '"/bin/bash"' '"${bash}/bin/bash"'
       substituteInPlace far2l/src/cfg/config.cpp \
         --replace '"/bin/bash"' '"${bash}/bin/bash"'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace WinPort/src/Backend/WX/CMakeLists.txt \
         --replace "-framework System" -lSystem
     ''

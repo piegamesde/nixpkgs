@@ -74,7 +74,8 @@ else
           inherit lib ruby bundler groups;
           confFiles = basicEnv.confFiles;
           binPaths = [ basicEnv.gems.${pname} ];
-        } + lib.optionalString (postBuild != null) postBuild
+        }
+        + lib.optionalString (postBuild != null) postBuild
         ;
 
       meta = { platforms = ruby.meta.platforms; } // meta;

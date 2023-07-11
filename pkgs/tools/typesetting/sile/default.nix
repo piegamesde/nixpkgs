@@ -40,7 +40,8 @@ let
       luautf8
       penlight
       vstruct
-    ] ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
+    ]
+    ++ lib.optionals (lib.versionOlder lua.luaversion "5.2") [ bit32 ]
     ++ lib.optionals (lib.versionOlder lua.luaversion "5.3") [ compat53 ]);
 
 in
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       icu
       fontconfig
       libiconv
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit
     ;
   passthru = {
     # So it will be easier to inspect this environment, in comparison to others
@@ -96,7 +98,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       patchShebangs build-aux/*.sh
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
     ''
     ;

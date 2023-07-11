@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       boost
       zlib
       openssl
-    ] ++ lib.optional upnpSupport miniupnpc
+    ]
+    ++ lib.optional upnpSupport miniupnpc
     ;
 
   nativeBuildInputs = [ installShellFiles ];
@@ -37,7 +38,9 @@ stdenv.mkDerivation rec {
     let
       ynf =
         a: b:
-        a + "=" + (if b then
+        a
+        + "="
+        + (if b then
           "yes"
         else
           "no")

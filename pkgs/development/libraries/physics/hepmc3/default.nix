@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ lib.optionals withPython [
+    ]
+    ++ lib.optionals withPython [
       "-DHEPMC3_PYTHON_VERSIONS=${
         if python.isPy3k then
           "3.X"

@@ -78,13 +78,15 @@ stdenv.mkDerivation rec {
       taglib
       qtbase
       qtx11extras
-    ] ++ optionals stdenv.isLinux [
+    ]
+    ++ optionals stdenv.isLinux [
       libgpod
       libpulseaudio
       libselinux
       libsepol
       p11-kit
-    ] ++ optionals withGstreamer (with gst_all_1; [
+    ]
+    ++ optionals withGstreamer (with gst_all_1; [
       glib-networking
       gstreamer
       gst-libav
@@ -92,7 +94,8 @@ stdenv.mkDerivation rec {
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ]) ++ lib.optional withVlc libvlc
+    ])
+    ++ lib.optional withVlc libvlc
     ;
 
   nativeBuildInputs =
@@ -102,7 +105,8 @@ stdenv.mkDerivation rec {
       pkg-config
       qttools
       wrapQtAppsHook
-    ] ++ optionals stdenv.isLinux [ util-linux ]
+    ]
+    ++ optionals stdenv.isLinux [ util-linux ]
     ;
 
   postInstall = lib.optionalString withGstreamer ''

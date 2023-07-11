@@ -27,7 +27,8 @@ buildPythonPackage rec {
   nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs =
-    [ tomli ] ++ lib.optionals (pythonOlder "3.8") [
+    [ tomli ]
+    ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       zipp
     ]

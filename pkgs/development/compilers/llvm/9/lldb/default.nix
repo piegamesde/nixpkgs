@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       swig
       lit
       makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # for scripts/generate-vers.pl
       perl
     ]
@@ -72,7 +73,8 @@ stdenv.mkDerivation rec {
       libedit
       libxml2
       libllvm
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.libobjc
       darwin.apple_sdk.libs.xpc
       darwin.apple_sdk.frameworks.Foundation
@@ -97,10 +99,12 @@ stdenv.mkDerivation rec {
       "-DClang_DIR=${libclang.dev}/lib/cmake"
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Building debugserver requires the proprietary libcompression
       "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ]

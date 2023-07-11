@@ -24,7 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals buildTests [ "test" ]
     ;
 
@@ -40,7 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
       cmake
       clang
       hip
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       doxygen
       graphviz
     ]
@@ -71,7 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch =
     ''
       export HIP_DEVICE_LIB_PATH=${rocm-device-libs}/amdgcn/bitcode
-    '' + lib.optionalString (!buildTests) ''
+    ''
+    + lib.optionalString (!buildTests) ''
       substituteInPlace CMakeLists.txt \
         --replace "add_subdirectory(test)" ""
     ''
@@ -83,17 +86,19 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall =
     lib.optionalString buildDocs ''
       mkdir -p $doc
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       mkdir -p $test/bin
       # Not sure why this is an install target
       find $out/test -executable -type f -exec mv {} $test/bin \;
       rm $test/bin/{*.sh,*.py}
       patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath (finalAttrs.buildInputs ++ [
-          hip
-          gcc-unwrapped.lib
-          rocm-runtime
-        ])
+        lib.makeLibraryPath (finalAttrs.buildInputs
+          ++ [
+            hip
+            gcc-unwrapped.lib
+            rocm-runtime
+          ])
       } $test/bin/*
       rm -rf $out/test
     ''

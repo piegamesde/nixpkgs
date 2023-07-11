@@ -161,7 +161,8 @@ buildPythonPackage rec {
     [
       psycopg-c
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
     ;
 
   pythonImportsCheck = [
@@ -182,8 +183,10 @@ buildPythonPackage rec {
       pytest-randomly
       pytestCheckHook
       postgresql
-    ] ++ lib.optional (stdenv.isLinux) postgresqlTestHook
-    ++ passthru.optional-dependencies.c ++ passthru.optional-dependencies.pool
+    ]
+    ++ lib.optional (stdenv.isLinux) postgresqlTestHook
+    ++ passthru.optional-dependencies.c
+    ++ passthru.optional-dependencies.pool
     ;
 
   env = {
@@ -194,7 +197,8 @@ buildPythonPackage rec {
   preCheck =
     ''
       cd ..
-    '' + lib.optionalString (stdenv.isLinux) ''
+    ''
+    + lib.optionalString (stdenv.isLinux) ''
       export PSYCOPG_TEST_DSN="host=127.0.0.1 user=$PGUSER"
     ''
     ;

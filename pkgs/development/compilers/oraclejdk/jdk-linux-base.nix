@@ -105,7 +105,8 @@ let
       [
         file
         makeWrapper
-      ] ++ lib.optional installjce unzip
+      ]
+      ++ lib.optional installjce unzip
       ;
 
       # See: https://github.com/NixOS/patchelf/issues/10
@@ -210,7 +211,8 @@ let
         cairo
         gdk-pixbuf
         atk
-      ] ++ lib.optionals swingSupport [
+      ]
+      ++ lib.optionals swingSupport [
         xorg.libX11
         xorg.libXext
         xorg.libXtst

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       zlib
       libpng
       libtiff
-    ] ++ lib.optionals (subproject != "library") [ jabcode ]
+    ]
+    ++ lib.optionals (subproject != "library") [ jabcode ]
     ;
 
   preConfigure = "cd src/${subdir}";

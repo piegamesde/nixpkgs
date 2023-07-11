@@ -15,7 +15,8 @@
     "9p"
     "9pnet_virtio"
     "crc32c_generic"
-  ] ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
+  ]
+    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
 }:
 
 let
@@ -937,7 +938,8 @@ rec {
           "x86_64"
         ];
         packages =
-          commonFedoraPackages ++ [
+          commonFedoraPackages
+          ++ [
             "cronie"
             "util-linux"
           ]
@@ -966,7 +968,8 @@ rec {
           "x86_64"
         ];
         packages =
-          commonFedoraPackages ++ [
+          commonFedoraPackages
+          ++ [
             "cronie"
             "util-linux"
           ]
@@ -1059,7 +1062,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1082,7 +1086,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1104,7 +1109,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1127,7 +1133,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1149,7 +1156,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1172,7 +1180,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1194,7 +1203,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1216,7 +1226,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1238,7 +1249,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1260,7 +1272,8 @@ rec {
       ];
       urlPrefix = "mirror://ubuntu";
       packages =
-        commonDebPackages ++ [
+        commonDebPackages
+        ++ [
           "diffutils"
           "libc-bin"
         ]
@@ -1439,7 +1452,8 @@ rec {
   ];
 
   commonDebianPackages =
-    commonDebPackages ++ [
+    commonDebPackages
+    ++ [
       "sysvinit"
       "diff"
     ]

@@ -86,7 +86,8 @@ let
         extraConfig =
           ''
             authoritative;
-          '' + flip concatMapStrings vlanIfs (n: ''
+          ''
+          + flip concatMapStrings vlanIfs (n: ''
             subnet6 fd00:1234:5678:${toString n}::/64 {
               range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
                 toString n
@@ -633,7 +634,8 @@ let
           fous = json.loads(machine.succeed("ip -json fou show"))
           assert {"port": 9001, "gue": None, "family": "inet"} in fous, "fou1 exists"
           assert {"port": 9002, "ipproto": 41, "family": "inet"} in fous, "fou2 exists"
-        '' + optionalString (!networkd) ''
+        ''
+        + optionalString (!networkd) ''
           assert {
               "port": 9003,
               "gue": None,
@@ -1298,7 +1300,8 @@ let
                   ipv6Table, targetIPv6Table
               )
 
-        '' + optionalString (!networkd) ''
+        ''
+        + optionalString (!networkd) ''
           with subtest("test clean-up of the tables"):
               machine.succeed("systemctl stop network-addresses-eth0")
               ipv4Residue = machine.succeed("ip -4 route list dev eth0 | head -n-3").strip()

@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       blas
       lapack
       gzip
-    ] ++ (lib.optionals withMPI [ mpi ])
+    ]
+    ++ (lib.optionals withMPI [ mpi ])
     ;
 
   configurePhase = ''

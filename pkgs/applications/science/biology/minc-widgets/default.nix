@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
       perl
       GetoptTabular
       MNI-Perllib
-    ]) ++ [
+    ])
+    ++ [
       octave
       coreutils
       minc_tools

@@ -120,17 +120,20 @@ stdenv.mkDerivation rec {
       libaom
       portmidi
       lua
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       colord
       colord-gtk
       libX11
       ocl-icd
-    ] ++ lib.optional stdenv.isDarwin gtk-mac-integration
+    ]
+    ++ lib.optional stdenv.isDarwin gtk-mac-integration
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
     ;
 
   cmakeFlags =
-    [ "-DBUILD_USERMANUAL=False" ] ++ lib.optionals stdenv.isDarwin [
+    [ "-DBUILD_USERMANUAL=False" ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DUSE_COLORD=OFF"
       "-DUSE_KWALLET=OFF"
     ]

@@ -154,10 +154,11 @@ stdenv.mkDerivation rec {
       xorg.libXScrnSaver
       xorg.libXtst
       zlib
-    ] ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
+    ]
+    ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
     ++ lib.optional (lib.versionAtLeast version "20.10") libpulseaudio
     ++ lib.optional (lib.versionAtLeast version "21.12")
-    llvmPackages_12.libunwind
+      llvmPackages_12.libunwind
     ;
 
   runtimeDependencies = [
@@ -229,7 +230,8 @@ stdenv.mkDerivation rec {
           "util/configmgr"
           "util/conncenter"
           "util/ctx_rehash"
-        ] ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old"
+        ]
+        ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old"
         ;
     in
     ''

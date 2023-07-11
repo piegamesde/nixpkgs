@@ -49,7 +49,8 @@ rustPlatform.buildRustPackage rec {
             libXcursor
             libXi
             libXrandr
-          ] ++ [ vulkan-loader ])
+          ]
+          ++ [ vulkan-loader ])
       }
   '';
 

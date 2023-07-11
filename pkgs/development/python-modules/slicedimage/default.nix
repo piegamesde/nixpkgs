@@ -37,7 +37,8 @@ buildPythonPackage rec {
       scikitimage
       six
       tifffile
-    ] ++ lib.optionals isPy27 [
+    ]
+    ++ lib.optionals isPy27 [
       pathlib
       enum34
     ]

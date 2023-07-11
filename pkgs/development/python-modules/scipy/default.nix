@@ -52,7 +52,8 @@ buildPythonPackage rec {
       numpy.blas
       pybind11
       pooch
-    ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
     ;
 
   propagatedBuildInputs = [ numpy ];

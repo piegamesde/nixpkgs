@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       wrapQtAppsHook
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       doxygen
       qttools.dev
     ]
@@ -38,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DPROJECT_VERSION=${version}"
-    ] ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ]
+    ]
+    ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ]
     ;
 
   propagatedBuildInputs = [ glibmm ];

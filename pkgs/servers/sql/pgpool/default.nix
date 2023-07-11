@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       postgresql
       openssl
       libxcrypt
-    ] ++ lib.optional withPam pam
+    ]
+    ++ lib.optional withPam pam
     ;
 
   configureFlags =
@@ -33,7 +34,8 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--localstatedir=/var"
       "--with-openssl"
-    ] ++ lib.optional withPam "--with-pam"
+    ]
+    ++ lib.optional withPam "--with-pam"
     ;
 
   installFlags = [ "sysconfdir=\${out}/etc" ];

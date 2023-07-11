@@ -173,33 +173,34 @@ in
           fi
           if ! test -e ${cfg.pidFile}; then
               install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
-          fi '' + lib.optionalString cfg.enableAuth ''
+          fi ''
+        + lib.optionalString cfg.enableAuth ''
 
-            if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
-              systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
-                mongoCnf cfg_
+          if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
+            systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
+              mongoCnf cfg_
+            }
+            # wait for mongodb
+            while ! ${mongodb}/bin/mongo --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
+
+          ${mongodb}/bin/mongo <<EOF
+            use admin
+            db.createUser(
+              {
+                user: "root",
+                pwd: "${cfg.initialRootPassword}",
+                roles: [
+                  { role: "userAdminAnyDatabase", db: "admin" },
+                  { role: "dbAdminAnyDatabase", db: "admin" },
+                  { role: "readWriteAnyDatabase", db: "admin" }
+                ]
               }
-              # wait for mongodb
-              while ! ${mongodb}/bin/mongo --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
-
-            ${mongodb}/bin/mongo <<EOF
-              use admin
-              db.createUser(
-                {
-                  user: "root",
-                  pwd: "${cfg.initialRootPassword}",
-                  roles: [
-                    { role: "userAdminAnyDatabase", db: "admin" },
-                    { role: "dbAdminAnyDatabase", db: "admin" },
-                    { role: "readWriteAnyDatabase", db: "admin" }
-                  ]
-                }
-              )
-            EOF
-              touch "${cfg.dbpath}/.auth_setup_complete"
-              systemctl stop mongodb-for-setup
-            fi
-          ''
+            )
+          EOF
+            touch "${cfg.dbpath}/.auth_setup_complete"
+            systemctl stop mongodb-for-setup
+          fi
+        ''
         ;
       postStart = ''
         if test -e "${cfg.dbpath}/.first_startup"; then

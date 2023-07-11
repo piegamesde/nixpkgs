@@ -14,8 +14,10 @@ in
 {
   # Maven needs all of these to function
   mavenMinimal =
-    lib.flatten collections.mavenLibs_2_0_6 ++ collections.mavenLibs_2_0_9
-    ++ collections.mavenLibs_2_2_1 ++ [
+    lib.flatten collections.mavenLibs_2_0_6
+    ++ collections.mavenLibs_2_0_9
+    ++ collections.mavenLibs_2_2_1
+    ++ [
       classworlds_1_1_alpha2
       classworlds_1_1
       commonsCli_1_0
@@ -68,14 +70,16 @@ in
       plexusUtils_3_0_5
       plexusUtils_3_0_8
       xbeanReflect_3_4
-    ] ++ (with plugins; [
+    ]
+    ++ (with plugins; [
       mavenClean_2_5
       mavenCompiler_3_1
       mavenInstall_2_4
       mavenJar_2_4
       mavenResources_2_6
       mavenSurefire_2_12_4
-    ]) ++ (with poms; [
+    ])
+    ++ (with poms; [
       apache_3
       apache_4
       apache_5

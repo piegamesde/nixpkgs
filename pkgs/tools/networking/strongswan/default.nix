@@ -65,16 +65,19 @@ stdenv.mkDerivation rec {
       unbound
       openssl
       pcsclite
-    ] ++ lib.optionals enableTNC [
+    ]
+    ++ lib.optionals enableTNC [
       trousers
       sqlite
       libxml2
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       systemd.dev
       pam
       iptables
-    ] ++ lib.optionals stdenv.isDarwin
-    (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
+    ]
+    ++ lib.optionals stdenv.isDarwin
+      (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
     ++ lib.optionals enableNetworkManager [
       networkmanager
       glib
@@ -119,7 +122,8 @@ stdenv.mkDerivation rec {
       "--enable-unbound"
       "--enable-chapoly"
       "--enable-curl"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-farp"
       "--enable-dhcp"
       "--enable-systemd"
@@ -128,11 +132,14 @@ stdenv.mkDerivation rec {
       "--enable-forecast"
       "--enable-connmark"
       "--enable-af-alg"
-    ] ++ lib.optionals stdenv.isx86_64 [
+    ]
+    ++ lib.optionals stdenv.isx86_64 [
       "--enable-aesni"
       "--enable-rdrand"
-    ] ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
-    "--enable-padlock" ++ lib.optionals enableTNC [
+    ]
+    ++ lib.optional (stdenv.hostPlatform.system == "i686-linux")
+      "--enable-padlock"
+    ++ lib.optionals enableTNC [
       "--disable-gmp"
       "--disable-aes"
       "--disable-md5"
@@ -154,7 +161,8 @@ stdenv.mkDerivation rec {
       "--with-tss=trousers"
       "--enable-aikgen"
       "--enable-sqlite"
-    ] ++ lib.optionals enableNetworkManager [
+    ]
+    ++ lib.optionals enableNetworkManager [
       "--enable-nm"
       "--with-nm-ca-dir=/etc/ssl/certs"
     ]

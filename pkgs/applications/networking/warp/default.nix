@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3
       wrapGAppsHook4
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc

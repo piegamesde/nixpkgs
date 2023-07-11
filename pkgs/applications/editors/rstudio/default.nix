@@ -98,7 +98,8 @@ else
         makeWrapper
         pandoc
         nodejs
-      ] ++ lib.optionals (!server) [ copyDesktopItems ]
+      ]
+      ++ lib.optionals (!server) [ copyDesktopItems ]
       ;
 
     buildInputs =
@@ -111,7 +112,8 @@ else
         yaml-cpp
         soci
         postgresql
-      ] ++ (if server then
+      ]
+      ++ (if server then
         [
           sqlite.dev
           pam

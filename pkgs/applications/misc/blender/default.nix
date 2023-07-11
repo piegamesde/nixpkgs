@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
       makeWrapper
       python310Packages.wrapPython
       llvmPackages.llvm.dev
-    ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
+    ]
+    ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
     ;
   buildInputs =
     [
@@ -129,10 +130,12 @@ stdenv.mkDerivation rec {
       potrace
       libharu
       libepoxy
-    ] ++ lib.optionals (!stdenv.isAarch64) [
+    ]
+    ++ lib.optionals (!stdenv.isAarch64) [
       openimagedenoise
       embree
-    ] ++ (if (!stdenv.isDarwin) then
+    ]
+    ++ (if (!stdenv.isDarwin) then
       [
         libXi
         libX11
@@ -155,7 +158,8 @@ stdenv.mkDerivation rec {
         ForceFeedback
         OpenAL
         OpenGL
-      ]) ++ lib.optional jackaudioSupport libjack2
+      ])
+    ++ lib.optional jackaudioSupport libjack2
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional colladaSupport opencollada
     ++ lib.optional spaceNavSupport libspnav
@@ -169,7 +173,8 @@ stdenv.mkDerivation rec {
     ''
       # allow usage of dynamically linked embree
       rm build_files/cmake/Modules/FindEmbree.cmake
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         : > build_files/cmake/platform/platform_apple_xcode.cmake
         substituteInPlace source/creator/CMakeLists.txt \
@@ -186,10 +191,11 @@ stdenv.mkDerivation rec {
     else
       ''
         substituteInPlace extern/clew/src/clew.c --replace '"libOpenCL.so"' '"${ocl-icd}/lib/libOpenCL.so"'
-      '') + (lib.optionalString hipSupport ''
-        substituteInPlace extern/hipew/src/hipew.c --replace '"/opt/rocm/hip/lib/libamdhip64.so"' '"${hip}/lib/libamdhip64.so"'
-        substituteInPlace extern/hipew/src/hipew.c --replace '"opt/rocm/hip/bin"' '"${hip}/bin"'
       '')
+    + (lib.optionalString hipSupport ''
+      substituteInPlace extern/hipew/src/hipew.c --replace '"/opt/rocm/hip/lib/libamdhip64.so"' '"${hip}/lib/libamdhip64.so"'
+      substituteInPlace extern/hipew/src/hipew.c --replace '"opt/rocm/hip/bin"' '"${hip}/bin"'
+    '')
     ;
 
   cmakeFlags =
@@ -224,9 +230,11 @@ stdenv.mkDerivation rec {
         else
           "OFF"
       }"
-    ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [
-      "-DWITH_CYCLES_EMBREE=OFF"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [
+        "-DWITH_CYCLES_EMBREE=OFF"
+      ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DWITH_CYCLES_OSL=OFF" # requires LLVM
       "-DWITH_OPENVDB=OFF" # OpenVDB currently doesn't build on darwin
 
@@ -250,7 +258,8 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = lib.optionalString cudaSupport "-rpath ${stdenv.cc.cc.lib}/lib";
 
   blenderExecutable =
-    placeholder "out" + (if stdenv.isDarwin then
+    placeholder "out"
+    + (if stdenv.isDarwin then
       "/Applications/Blender.app/Contents/MacOS/Blender"
     else
       "/bin/blender")
@@ -259,7 +268,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       mkdir $out/Applications
       mv $out/Blender.app $out/Applications
-    '' + ''
+    ''
+    + ''
       buildPythonPath "$pythonPath"
       wrapProgram $blenderExecutable \
         --prefix PATH : $program_PATH \

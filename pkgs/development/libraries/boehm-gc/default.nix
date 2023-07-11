@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "--enable-cplusplus"
       "--with-libatomic-ops=none"
-    ] ++ lib.optional enableMmap "--enable-mmap"
+    ]
+    ++ lib.optional enableMmap "--enable-mmap"
     ++ lib.optional enableLargeConfig "--enable-large-config"
     ;
 

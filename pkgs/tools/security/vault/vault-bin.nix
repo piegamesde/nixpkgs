@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
     maintainers = with maintainers;
-      teams.serokell.members ++ [
+      teams.serokell.members
+      ++ [
         offline
         psyanticy
         Chili-Man

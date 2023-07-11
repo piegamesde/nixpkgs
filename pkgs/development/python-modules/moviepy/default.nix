@@ -49,7 +49,8 @@ buildPythonPackage rec {
       tqdm
       requests
       proglog
-    ] ++ lib.optionals advancedProcessing [
+    ]
+    ++ lib.optionals advancedProcessing [
       opencv3
       scikitimage
       scikit-learn

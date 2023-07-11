@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       glib
       gnutls
-    ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
     ;
 
   nativeBuildInputs = [

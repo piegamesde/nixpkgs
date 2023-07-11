@@ -233,7 +233,8 @@ python.pkgs.buildPythonApplication rec {
       zipp
       zope_interface
       zxing_cpp
-    ] ++ redis.optional-dependencies.hiredis
+    ]
+    ++ redis.optional-dependencies.hiredis
     ++ twisted.optional-dependencies.tls
     ++ uvicorn.optional-dependencies.standard;
 

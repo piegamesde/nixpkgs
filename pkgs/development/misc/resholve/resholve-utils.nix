@@ -224,7 +224,8 @@ rec {
         ''
           ${(phraseContextForPWD (phraseInvocation name
             (partialSolution // { scripts = [ "${placeholder "out"}" ]; })))}
-        '' + lib.optionalString (partialSolution.interpreter != "none") ''
+        ''
+        + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out
         ''
         ;
@@ -240,7 +241,8 @@ rec {
         ''
           ${phraseContextForOut (phraseInvocation name
             (partialSolution // { scripts = [ "bin/${name}" ]; }))}
-        '' + lib.optionalString (partialSolution.interpreter != "none") ''
+        ''
+        + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}
         ''
         ;

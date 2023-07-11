@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       "--with-blas-libs=-lblas"
       "--disable-optimization"
-    ] ++ lib.optionals stdenv.isx86_64 [
+    ]
+    ++ lib.optionals stdenv.isx86_64 [
       # disable SIMD instructions (which are enabled *when available* by default)
       "--${
         if stdenv.hostPlatform.sse3Support then
@@ -91,7 +92,8 @@ stdenv.mkDerivation rec {
         else
           "disable"
       }-fma4"
-    ] ++ lib.optionals withSage [ "--enable-sage" ]
+    ]
+    ++ lib.optionals withSage [ "--enable-sage" ]
     ;
 
   doCheck = true;

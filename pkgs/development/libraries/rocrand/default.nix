@@ -17,7 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -50,7 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ]
     ;
 
@@ -58,10 +60,12 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/test_* $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/benchmark_* $benchmark/bin
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rmdir $out/bin
     ''
     ;

@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
     [
       libgit2
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   useNextest = true;

@@ -68,7 +68,8 @@ let
         rm aws-cpp-sdk-core-tests/aws/auth/AWSAuthSignerTest.cpp
         # TestRandomURLMultiThreaded fails
         rm aws-cpp-sdk-core-tests/http/HttpClientTest.cpp
-      '' + lib.optionalString aws-sdk-cpp.stdenv.isi686 ''
+      ''
+      + lib.optionalString aws-sdk-cpp.stdenv.isi686 ''
         # EPSILON is exceeded
         rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
       ''

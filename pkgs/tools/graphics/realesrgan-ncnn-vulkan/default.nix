@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       glslang
       libwebp
       ncnn
-    ] ++ lib.optional (!stdenv.isDarwin) libgcc
+    ]
+    ++ lib.optional (!stdenv.isDarwin) libgcc
     ;
 
   postPatch = ''

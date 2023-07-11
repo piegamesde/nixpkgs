@@ -99,7 +99,8 @@ mkDerivation rec {
       soundtouch
       libzip
       libhdhomerun
-    ] ++ lib.optional withWebKit qtwebkit
+    ]
+    ++ lib.optional withWebKit qtwebkit
     ;
   nativeBuildInputs = [
     pkg-config

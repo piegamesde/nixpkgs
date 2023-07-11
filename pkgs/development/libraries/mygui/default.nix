@@ -48,11 +48,13 @@ stdenv.mkDerivation rec {
       freetype
       libuuid
       ois
-    ] ++ lib.optionals withOgre [ ogre ]
+    ]
+    ++ lib.optionals withOgre [ ogre ]
     ++ lib.optionals (!withOgre && stdenv.isLinux) [
       libGL
       libGLU
-    ] ++ lib.optionals stdenv.isLinux [ libX11 ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libX11 ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 

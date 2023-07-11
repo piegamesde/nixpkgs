@@ -29,7 +29,8 @@ stdenv.mkDerivation {
     [
       pcsclite
       libusb-compat-0_1
-    ] ++ lib.optional stdenv.isDarwin IOKit
+    ]
+    ++ lib.optional stdenv.isDarwin IOKit
     ;
 
   preBuild = ''

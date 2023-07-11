@@ -22,7 +22,8 @@ let
     lib.optionals enableAlsaUtils [
       alsa-utils
       coreutils
-    ] ++ lib.optionals enableNetwork [
+    ]
+    ++ lib.optionals enableNetwork [
       dnsutils
       iproute2
       wirelesstools

@@ -44,7 +44,8 @@ stdenv.mkDerivation {
       "--disable-etc"
       "--disable-uninstall"
       "--disable-sysinstall"
-    ] ++ lib.optional dedicatedServer "--enable-dedicated"
+    ]
+    ++ lib.optional dedicatedServer "--enable-dedicated"
     ;
 
   nativeBuildInputs = [ pkg-config ];
@@ -53,7 +54,8 @@ stdenv.mkDerivation {
     [
       libxml2
       zlib
-    ] ++ lib.optionals (!dedicatedServer) [
+    ]
+    ++ lib.optionals (!dedicatedServer) [
       SDL
       SDL_image
       libxml2

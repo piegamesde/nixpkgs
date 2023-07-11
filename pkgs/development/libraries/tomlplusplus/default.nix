@@ -16,7 +16,8 @@ let
       ...
     }: {
       patches =
-        patches ++ [
+        patches
+        ++ [
           (fetchpatch {
             url =
               "https://github.com/mesonbuild/meson/commit/7c78c2b5a0314078bdabb998ead56925dc8b0fc0.patch";

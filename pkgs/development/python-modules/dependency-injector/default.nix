@@ -49,7 +49,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytestCheckHook
       scipy
-    ] ++ passthru.optional-dependencies.aiohttp
+    ]
+    ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.pydantic
     ++ passthru.optional-dependencies.yaml
     ++ passthru.optional-dependencies.flask

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       boost
       jdk
       python3
-    ] ++ lib.optionals (!stdenv.isDarwin) [ cln ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ cln ]
     ;
   configureFlags =
     [
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
       "--enable-gpl"
       "--with-readline"
       "--with-boost=${boost.dev}"
-    ] ++ lib.optionals (!stdenv.isDarwin) [ "--with-cln" ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "--with-cln" ]
     ;
 
   prePatch = ''

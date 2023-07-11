@@ -54,52 +54,57 @@ let
     "GST_PLUGIN_SYSTEM_PATH_1_0"
     ":"
     "${lib.makeSearchPath "lib/girepository-1.0" unwrapped.gst_packages}"
-  ] ++ lib.optionals unwrapped.kdeIntegration [
-    "--prefix"
-    "QT_PLUGIN_PATH"
-    ":"
-    "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix
-    (builtins.map lib.getBin unwrapped.qtPackages)}"
-    "--prefix"
-    "QML2_IMPORT_PATH"
-    ":"
-    "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix
-    (builtins.map lib.getBin unwrapped.qmlPackages)}"
-  ] ++ [
-    # Add dictionaries from all NIX_PROFILES
-    "--run"
-    (lib.escapeShellArg ''
-      for PROFILE in $NIX_PROFILES; do
-          HDIR="$PROFILE/share/hunspell"
-          if [ -d "$HDIR" ]; then
-              export DICPATH=$DICPATH''${DICPATH:+:}$HDIR
-          fi
-      done
-    '')
-  ] ++ lib.optionals dbusVerify [
-    # If no dbus is running, start a dedicated dbus daemon
-    "--run"
-    (lib.escapeShellArg ''
-      if ! ( test -n "$DBUS_SESSION_BUS_ADDRESS" ); then
-          dbus_tmp_dir="/run/user/$(id -u)/libreoffice-dbus"
-          if ! test -d "$dbus_tmp_dir" && test -d "/run"; then
-                  mkdir -p "$dbus_tmp_dir"
-          fi
-          if ! test -d "$dbus_tmp_dir"; then
-                  dbus_tmp_dir="/tmp/libreoffice-$(id -u)/libreoffice-dbus"
-                  mkdir -p "$dbus_tmp_dir"
-          fi
-          dbus_socket_dir="$(mktemp -d -p "$dbus_tmp_dir")"
-          "${dbus}"/bin/dbus-daemon \
-            --nopidfile \
-            --nofork \
-            --config-file "${dbus}"/share/dbus-1/session.conf \
-            --address "unix:path=$dbus_socket_dir/session"  &> /dev/null &
-          dbus_pid=$!
-          export DBUS_SESSION_BUS_ADDRESS="unix:path=$dbus_socket_dir/session"
-      fi
-    '')
-  ] ++ [ "--inherit-argv0" ] ++ extraMakeWrapperArgs);
+  ]
+    ++ lib.optionals unwrapped.kdeIntegration [
+      "--prefix"
+      "QT_PLUGIN_PATH"
+      ":"
+      "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix
+      (builtins.map lib.getBin unwrapped.qtPackages)}"
+      "--prefix"
+      "QML2_IMPORT_PATH"
+      ":"
+      "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix
+      (builtins.map lib.getBin unwrapped.qmlPackages)}"
+    ]
+    ++ [
+      # Add dictionaries from all NIX_PROFILES
+      "--run"
+      (lib.escapeShellArg ''
+        for PROFILE in $NIX_PROFILES; do
+            HDIR="$PROFILE/share/hunspell"
+            if [ -d "$HDIR" ]; then
+                export DICPATH=$DICPATH''${DICPATH:+:}$HDIR
+            fi
+        done
+      '')
+    ]
+    ++ lib.optionals dbusVerify [
+      # If no dbus is running, start a dedicated dbus daemon
+      "--run"
+      (lib.escapeShellArg ''
+        if ! ( test -n "$DBUS_SESSION_BUS_ADDRESS" ); then
+            dbus_tmp_dir="/run/user/$(id -u)/libreoffice-dbus"
+            if ! test -d "$dbus_tmp_dir" && test -d "/run"; then
+                    mkdir -p "$dbus_tmp_dir"
+            fi
+            if ! test -d "$dbus_tmp_dir"; then
+                    dbus_tmp_dir="/tmp/libreoffice-$(id -u)/libreoffice-dbus"
+                    mkdir -p "$dbus_tmp_dir"
+            fi
+            dbus_socket_dir="$(mktemp -d -p "$dbus_tmp_dir")"
+            "${dbus}"/bin/dbus-daemon \
+              --nopidfile \
+              --nofork \
+              --config-file "${dbus}"/share/dbus-1/session.conf \
+              --address "unix:path=$dbus_socket_dir/session"  &> /dev/null &
+            dbus_pid=$!
+            export DBUS_SESSION_BUS_ADDRESS="unix:path=$dbus_socket_dir/session"
+        fi
+      '')
+    ]
+    ++ [ "--inherit-argv0" ]
+    ++ extraMakeWrapperArgs);
 in
 runCommand "${unwrapped.name}-wrapped" {
   inherit (unwrapped) meta;
@@ -143,15 +148,17 @@ runCommand "${unwrapped.name}-wrapped" {
       ${unwrapped}/lib/libreoffice/program/$i \
       $out/lib/libreoffice/program/$i \
       ${makeWrapperArgs}
-'' + lib.optionalString dbusVerify ''
-  # Delete the dbus socket directory after libreoffice quits
-  sed -i 's/^exec -a "$0" //g' $out/lib/libreoffice/program/$i
-  echo 'code="$?"' >> $out/lib/libreoffice/program/$i
-  echo 'test -n "$dbus_socket_dir" && { rm -rf "$dbus_socket_dir"; kill $dbus_pid; }' >> $out/lib/libreoffice/program/$i
-  echo 'exit "$code"' >> $out/lib/libreoffice/program/$i
-'' + ''
-    ln -s $out/lib/libreoffice/program/$i $out/bin/$i
-  done
-  # A symlink many users rely upon
-  ln -s $out/bin/soffice $out/bin/libreoffice
-'')
+''
+  + lib.optionalString dbusVerify ''
+    # Delete the dbus socket directory after libreoffice quits
+    sed -i 's/^exec -a "$0" //g' $out/lib/libreoffice/program/$i
+    echo 'code="$?"' >> $out/lib/libreoffice/program/$i
+    echo 'test -n "$dbus_socket_dir" && { rm -rf "$dbus_socket_dir"; kill $dbus_pid; }' >> $out/lib/libreoffice/program/$i
+    echo 'exit "$code"' >> $out/lib/libreoffice/program/$i
+  ''
+  + ''
+      ln -s $out/lib/libreoffice/program/$i $out/bin/$i
+    done
+    # A symlink many users rely upon
+    ln -s $out/bin/soffice $out/bin/libreoffice
+  '')

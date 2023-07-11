@@ -88,7 +88,8 @@ rec {
     };
 
     buildInputs =
-      base.buildInputs ++ [
+      base.buildInputs
+      ++ [
         zlib
         libtommath
       ]
@@ -108,7 +109,8 @@ rec {
     };
 
     buildInputs =
-      base.buildInputs ++ [
+      base.buildInputs
+      ++ [
         zlib
         unzip
         libtommath

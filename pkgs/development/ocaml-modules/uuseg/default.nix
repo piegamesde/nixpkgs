@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     [
       topkg
       uutf
-    ] ++ lib.optional cmdlinerSupport cmdliner
+    ]
+    ++ lib.optional cmdlinerSupport cmdliner
     ;
   propagatedBuildInputs = [ uucp ];
 

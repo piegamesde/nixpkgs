@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
       zlib
       freetype
       fontconfig
-    ] ++ lib.optionals withFluidSynth [
+    ]
+    ++ lib.optionals withFluidSynth [
       fluidsynth
       soundfont-fluid
     ]

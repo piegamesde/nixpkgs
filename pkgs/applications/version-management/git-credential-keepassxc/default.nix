@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildFeatures =
-    [ ] ++ lib.optional withNotification "notification"
+    [ ]
+    ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
     ++ lib.optional withAll "all"

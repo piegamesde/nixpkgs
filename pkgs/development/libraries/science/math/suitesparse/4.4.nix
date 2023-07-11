@@ -38,10 +38,12 @@ stdenv.mkDerivation rec {
           -e 's/METIS_PATH .*$/METIS_PATH =/' \
           -e '/CHOLMOD_CONFIG/ s/$/-DNPARTITION -DLONGBLAS=${int_t}/' \
           -e '/UMFPACK_CONFIG/ s/$/-DLONGBLAS=${int_t}/'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
           -e 's/^[[:space:]]*\(LIB = -lm\) -lrt/\1/'
-    '' + lib.optionalString enableCuda ''
+    ''
+    + lib.optionalString enableCuda ''
       sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
           -e 's|^[[:space:]]*\(CUDA_ROOT     =\)|CUDA_ROOT = ${cudatoolkit}|' \
           -e 's|^[[:space:]]*\(GPU_BLAS_PATH =\)|GPU_BLAS_PATH = $(CUDA_ROOT)|' \

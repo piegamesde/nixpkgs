@@ -38,7 +38,8 @@ buildPythonPackage rec {
       cherrypy
       mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.filecache
+    ]
+    ++ passthru.optional-dependencies.filecache
     ;
 
   pythonImportsCheck = [ "cachecontrol" ];

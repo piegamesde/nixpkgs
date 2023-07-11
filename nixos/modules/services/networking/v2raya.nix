@@ -39,7 +39,8 @@ with lib;
             [
               "network.target"
               "nss-lookup.target"
-            ] ++ tableServices
+            ]
+            ++ tableServices
             ;
           Wants = [ "network.target" ];
         };

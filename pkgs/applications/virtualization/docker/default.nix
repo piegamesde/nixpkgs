@@ -140,7 +140,8 @@ rec {
           installShellFiles
         ];
         buildInputs =
-          [ sqlite ] ++ lib.optional withLvm lvm2
+          [ sqlite ]
+          ++ lib.optional withLvm lvm2
           ++ lib.optional withBtrfs btrfs-progs
           ++ lib.optional withSystemd systemd
           ++ lib.optional withSeccomp libseccomp
@@ -258,17 +259,20 @@ rec {
         installShellFiles
       ];
       buildInputs =
-        lib.optional (!clientOnly) sqlite ++ lib.optional withLvm lvm2
+        lib.optional (!clientOnly) sqlite
+        ++ lib.optional withLvm lvm2
         ++ lib.optional withBtrfs btrfs-progs
         ++ lib.optional withSystemd systemd
-        ++ lib.optional withSeccomp libseccomp ++ plugins
+        ++ lib.optional withSeccomp libseccomp
+        ++ plugins
         ;
 
       postPatch =
         ''
           patchShebangs man scripts/build/
           substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
-        '' + lib.optionalString (plugins != [ ]) ''
+        ''
+        + lib.optionalString (plugins != [ ]) ''
           substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
               "${pluginsRef}/libexec/docker/cli-plugins"
         ''
@@ -304,7 +308,8 @@ rec {
 
           makeWrapper $out/libexec/docker/docker $out/bin/docker \
             --prefix PATH : "$out/libexec/docker:$extraPath"
-        '' + lib.optionalString (!clientOnly) ''
+        ''
+        + lib.optionalString (!clientOnly) ''
           # symlink docker daemon to docker cli derivation
           ln -s ${moby}/bin/dockerd $out/bin/dockerd
           ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
@@ -313,18 +318,21 @@ rec {
           mkdir -p $out/etc/systemd/system
           ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
           ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
-        '' + ''
+        ''
+        + ''
           # completion (cli)
           installShellCompletion --bash ./contrib/completion/bash/docker
           installShellCompletion --fish ./contrib/completion/fish/docker.fish
           installShellCompletion --zsh  ./contrib/completion/zsh/_docker
-        '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+        ''
+        + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
           # Generate man pages from cobra commands
           echo "Generate man pages from cobra"
           mkdir -p ./man/man1
           go build -o ./gen-manpages github.com/docker/cli/man
           ./gen-manpages --root . --target ./man/man1
-        '' + ''
+        ''
+        + ''
           # Generate legacy pages from markdown
           echo "Generate legacy manpages"
           ./man/md2man-all.sh -q

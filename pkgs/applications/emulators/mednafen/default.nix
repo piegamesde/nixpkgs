@@ -42,12 +42,14 @@ stdenv.mkDerivation rec {
       libsamplerate
       libsndfile
       zlib
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       libGL
       libGLU
       libX11
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
     ;
 
   hardeningDisable = [

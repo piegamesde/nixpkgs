@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
       pam
       perl
       zlib
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libfontenc # for -DTVNC_SYSTEMX11=1
       libSM
       libX11

@@ -120,7 +120,8 @@ let
       (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
       # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
       # rather than a store path.
-    ] ++ extracted.paths
+    ]
+    ++ extracted.paths
     ;
 in
 rec {
@@ -153,7 +154,8 @@ rec {
             supportedFeatures,
             ...
           }:
-          supportedFeatures == [ "commit" ]) null null scripts != null
+          supportedFeatures == [ "commit" ]) null null scripts
+        != null
         ;
       validateFeatures =
         if hasCommitSupport then
@@ -161,8 +163,8 @@ rec {
               supportedFeatures,
               ...
             }:
-            supportedFeatures == [ "commit" ] || supportedFeatures
-            == [ "silent" ])
+            supportedFeatures == [ "commit" ]
+            || supportedFeatures == [ "silent" ])
         else
           ({
               supportedFeatures,
@@ -178,7 +180,8 @@ rec {
         attrPath ? null,
         ...
       }:
-      attrPath) scripts)) == 1)
+      attrPath) scripts))
+      == 1)
       "Combining update scripts with different attr paths is currently unsupported.";
 
     {

@@ -69,7 +69,8 @@ stdenv.mkDerivation rec {
       CONFIG_ACS=y
       CONFIG_GETRANDOM=y
       CONFIG_SAE=y
-    '' + lib.optionalString (sqlite != null) ''
+    ''
+    + lib.optionalString (sqlite != null) ''
       CONFIG_SQLITE=y
     ''
     ;

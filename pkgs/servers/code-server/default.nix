@@ -138,10 +138,12 @@ stdenv.mkDerivation rec {
     quilt
   ];
   buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ] ++ (with xorg; [
+    lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    ++ (with xorg; [
       libX11
       libxkbfile
-    ]) ++ lib.optionals stdenv.isDarwin [
+    ])
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       CoreServices
@@ -244,7 +246,8 @@ stdenv.mkDerivation rec {
 
       ${patchEsbuild "./lib/vscode/build" "0.12.6"}
       ${patchEsbuild "./lib/vscode/extensions" "0.11.23"}
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
       # (see issue #101229)
       pushd ./lib/vscode/remote/node_modules/@parcel/watcher
@@ -252,7 +255,8 @@ stdenv.mkDerivation rec {
       mv ./prebuilds/darwin-x64/node.napi.glibc.node ./build/Release/watcher.node
       jq "del(.scripts) | .gypfile = false" ./package.json | sponge ./package.json
       popd
-    '' + ''
+    ''
+    + ''
 
       # put ripgrep binary into bin, so postinstall does not try to download it
       find -name ripgrep -type d \

@@ -100,7 +100,8 @@ let
       xml_int.cdr
       xml_int.rpc
       xml_int.scgi
-    ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ]
     ;
 
   enabledModules = (if modules != null then
@@ -165,7 +166,8 @@ stdenv.mkDerivation rec {
       libtiff
       libuuid
       libxcrypt
-    ] ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
+    ]
+    ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
     ;
 

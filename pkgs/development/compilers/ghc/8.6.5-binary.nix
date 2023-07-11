@@ -35,7 +35,8 @@ let
   libPath = lib.makeLibraryPath ([
     ourNcurses
     gmp
-  ] ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
+  ]
+    ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv);
 
   libEnvVar =
     lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
@@ -58,13 +59,14 @@ let
       targetPackages.stdenv.cc
       targetPackages.stdenv.cc.bintools
       coreutils # for cat
-    ] ++ lib.optionals useLLVM [
-      (lib.getBin llvmPackages.llvm)
     ]
-    # On darwin, we need unwrapped bintools as well (for otool)
+    ++ lib.optionals useLLVM [
+        (lib.getBin llvmPackages.llvm)
+      ]
+      # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
-      targetPackages.stdenv.cc.bintools.bintools
-    ]
+        targetPackages.stdenv.cc.bintools.bintools
+      ]
     ;
 
 in
@@ -123,23 +125,47 @@ stdenv.mkDerivation rec {
         ln -fs ${libiconv}/lib/libiconv.dylib $(dirname $exe)/libiconv.dylib
         install_name_tool -change /usr/lib/libiconv.2.dylib @executable_path/libiconv.dylib -change /usr/local/lib/gcc/6/libgcc_s.1.dylib ${gcc.cc.lib}/lib/libgcc_s.1.dylib $exe
       done
-    '' +
-
-    # Some scripts used during the build need to have their shebangs patched
+    ''
+    +
+    # We're kludging a glibc bindist into working with non-glibc...
+    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
+    # to instead use `strdup` since musl doesn't provide __strdup
+    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
+    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
+    # Use objcopy magic to make the change:
     ''
       patchShebangs ghc-${version}/utils/
       patchShebangs ghc-${version}/configure
-    '' +
-
-    # We have to patch the GMP paths for the integer-gmp package.
+    ''
+    +
+    # We're kludging a glibc bindist into working with non-glibc...
+    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
+    # to instead use `strdup` since musl doesn't provide __strdup
+    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
+    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
+    # Use objcopy magic to make the change:
     ''
       find . -name integer-gmp.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${gmp.out}/lib@" {} \;
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    +
+    # We're kludging a glibc bindist into working with non-glibc...
+    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
+    # to instead use `strdup` since musl doesn't provide __strdup
+    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
+    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
+    # Use objcopy magic to make the change:
+    lib.optionalString stdenv.isDarwin ''
       find . -name base.buildinfo \
           -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${libiconv}/lib@" {} \;
-    '' +
-    # Rename needed libraries and binaries, fix interpreter
+    ''
+    +
+    # We're kludging a glibc bindist into working with non-glibc...
+    # Here we patch up the use of `__strdup` (part of glibc binary ABI)
+    # to instead use `strdup` since musl doesn't provide __strdup
+    # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
+    # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
+    # Use objcopy magic to make the change:
     lib.optionalString stdenv.isLinux ''
       find . -type f -perm -0100 \
           -exec patchelf \
@@ -154,7 +180,8 @@ stdenv.mkDerivation rec {
 
       sed -i "s|/usr/bin/perl|perl\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
       sed -i "s|/usr/bin/gcc|gcc\x00        |" ghc-${version}/ghc/stage2/build/tmp/ghc-stage2
-    '' +
+    ''
+    +
     # We're kludging a glibc bindist into working with non-glibc...
     # Here we patch up the use of `__strdup` (part of glibc binary ABI)
     # to instead use `strdup` since musl doesn't provide __strdup
@@ -172,7 +199,8 @@ stdenv.mkDerivation rec {
       "--with-gmp-includes=${lib.getDev gmp}/include"
       # Note `--with-gmp-libraries` does nothing for GHC bindists:
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
-    ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
+    ]
+    ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
     ;
 
@@ -199,7 +227,8 @@ stdenv.mkDerivation rec {
           patchelf --set-rpath "${libPath}:$(patchelf --print-rpath $p)" $p
         fi
       done
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # not enough room in the object files for the full path to libiconv :(
       for exe in $(find "$out" -type f -executable); do
         isScript $exe && continue

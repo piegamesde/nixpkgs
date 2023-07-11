@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       qtserialport
       qtsvg
       qtx11extras
-    ] ++ lib.optional stdenv.isLinux libcec
+    ]
+    ++ lib.optional stdenv.isLinux libcec
     ++ lib.optional withRPiDispmanx libraspberrypi
     ;
 
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       wrapQtAppsHook
-    ] ++ lib.optional stdenv.isDarwin perl
+    ]
+    ++ lib.optional stdenv.isDarwin perl
     ; # for macos bundle
 
   patchPhase = ''
@@ -78,7 +80,8 @@ stdenv.mkDerivation rec {
       "-DUSE_SYSTEM_MBEDTLS_LIBS=ON"
       # "-DUSE_SYSTEM_QMDNS_LIBS=ON"  # qmdnsengine not in nixpkgs yet
       "-DENABLE_TESTS=ON"
-    ] ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF"
+    ]
+    ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF"
     ;
 
   doCheck = true;

@@ -29,7 +29,8 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ zlib ];
 
   propagatedBuildInputs =
-    [ wget ] ++ (with python3Packages; [
+    [ wget ]
+    ++ (with python3Packages; [
       biopython
       psutil
       xlsxwriter

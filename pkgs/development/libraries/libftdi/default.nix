@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ libusb-compat-0_1 ] ++ lib.optionals stdenv.isDarwin [
+    [ libusb-compat-0_1 ]
+    ++ lib.optionals stdenv.isDarwin [
       libobjc
       Security
       IOKit

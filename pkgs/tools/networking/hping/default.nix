@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     ''
       substituteInPlace Makefile.in --replace "gcc" "$CC"
       substituteInPlace version.c --replace "RELEASE_DATE" "\"$version\""
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       sed -i -e 's|#include <net/bpf.h>|#include <pcap/bpf.h>|' \
         libpcap_stuff.c script.c
     ''

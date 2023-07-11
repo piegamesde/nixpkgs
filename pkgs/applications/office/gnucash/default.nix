@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       libxslt
       swig
       webkitgtk
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       JSONParse
       FinanceQuote
       perl

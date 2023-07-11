@@ -40,7 +40,8 @@ buildPythonPackage rec {
     [
       numpy
       packaging
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   passthru.optional-dependencies = rec {
@@ -62,7 +63,8 @@ buildPythonPackage rec {
       pytest-httpserver
       pytest-xdist
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   preCheck = ''

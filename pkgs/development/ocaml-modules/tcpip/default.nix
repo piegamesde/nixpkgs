@@ -73,7 +73,8 @@ buildDunePackage rec {
       metrics
       arp
       mirage-flow
-    ] ++ lib.optionals withFreestanding [ ocaml-freestanding ]
+    ]
+    ++ lib.optionals withFreestanding [ ocaml-freestanding ]
     ;
 
   doCheck = true;

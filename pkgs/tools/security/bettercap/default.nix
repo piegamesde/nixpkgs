@@ -30,7 +30,8 @@ buildGoModule rec {
     [
       libpcap
       libusb1
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libnfnetlink
       libnetfilter_queue
     ]

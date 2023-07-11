@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       protobuf
       icu
       gtest
-    ] ++ lib.optional stdenv.isDarwin Foundation
+    ]
+    ++ lib.optional stdenv.isDarwin Foundation
     ;
 
   cmakeDir = "../cpp";

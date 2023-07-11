@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       openssl
       pcre
       http-parser
-    ] ++ lib.optional stdenv.isDarwin Security
+    ]
+    ++ lib.optional stdenv.isDarwin Security
     ;
 
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;

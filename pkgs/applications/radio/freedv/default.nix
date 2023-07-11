@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [
+    [ cmake ]
+    ++ lib.optionals stdenv.isDarwin [
       macdylibbundler
       makeWrapper
       darwin.autoSignDarwinBinariesHook
@@ -57,15 +58,17 @@ stdenv.mkDerivation rec {
       speexdsp
       hamlib_4
       wxGTK32
-    ] ++ (if pulseSupport then
+    ]
+    ++ (if pulseSupport then
       [ libpulseaudio ]
     else
-      [ portaudio ]) ++ lib.optionals stdenv.isDarwin [
-        AppKit
-        AVFoundation
-        Cocoa
-        CoreMedia
-      ]
+      [ portaudio ])
+    ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      AVFoundation
+      Cocoa
+      CoreMedia
+    ]
     ;
 
   cmakeFlags =
@@ -73,7 +76,8 @@ stdenv.mkDerivation rec {
       "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
       "-DUSE_STATIC_DEPS:BOOL=FALSE"
       "-DUNITTEST=ON"
-    ] ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ]
+    ]
+    ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ]
     ;
 
   env.NIX_CFLAGS_COMPILE = toString

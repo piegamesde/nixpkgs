@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     [
       flex
       bison
-    ] ++ lib.optionals stdenv.isLinux [ pkg-config ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config ]
     ++ lib.optionals withBluez [ bluez.dev ]
     ;
 
@@ -44,11 +45,12 @@ stdenv.mkDerivation rec {
         else
           "bpf"
       }"
-    ] ++ lib.optionals stdenv.isDarwin [ "--disable-universal" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "--disable-universal" ]
     ++ lib.optionals withRemote [ "--enable-remote" ]
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-      "ac_cv_linux_vers=2"
-    ]
+        "ac_cv_linux_vers=2"
+      ]
     ;
 
   postInstall = ''

@@ -34,39 +34,46 @@ stdenv.mkDerivation rec {
       openssl
       zlib
       libxcrypt
-    ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre
+    ]
+    ++ lib.optional useLua lua5_3
+    ++ lib.optional usePcre pcre
     ++ lib.optional stdenv.isLinux systemd
     ;
 
     # TODO: make it work on bsd as well
   makeFlags = [
     "PREFIX=${placeholder "out"}"
-    ("TARGET=" + (if stdenv.isSunOS then
-      "solaris"
-    else if stdenv.isLinux then
-      "linux-glibc"
-    else if stdenv.isDarwin then
-      "osx"
-    else
-      "generic"))
+    ("TARGET="
+      + (if stdenv.isSunOS then
+        "solaris"
+      else if stdenv.isLinux then
+        "linux-glibc"
+      else if stdenv.isDarwin then
+        "osx"
+      else
+        "generic"))
   ];
 
   buildFlags =
     [
       "USE_OPENSSL=yes"
       "USE_ZLIB=yes"
-    ] ++ lib.optionals usePcre [
+    ]
+    ++ lib.optionals usePcre [
       "USE_PCRE=yes"
       "USE_PCRE_JIT=yes"
-    ] ++ lib.optionals useLua [
+    ]
+    ++ lib.optionals useLua [
       "USE_LUA=yes"
       "LUA_LIB_NAME=lua"
       "LUA_LIB=${lua5_3}/lib"
       "LUA_INC=${lua5_3}/include"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "USE_SYSTEMD=yes"
       "USE_GETADDRINFO=1"
-    ] ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
+    ]
+    ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
     ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
     ;
 

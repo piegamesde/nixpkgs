@@ -38,7 +38,8 @@ mkYarnPackage rec {
     [
       copyDesktopItems
       makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
     ;
 
   buildPhase = ''

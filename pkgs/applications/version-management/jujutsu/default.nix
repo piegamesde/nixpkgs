@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       dbus
       sqlite
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       SystemConfiguration
       libiconv

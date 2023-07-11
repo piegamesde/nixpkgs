@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       bison
-    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ;
 
   buildInputs =
@@ -41,7 +42,8 @@ stdenv.mkDerivation rec {
       libmd
       zlib
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [ libossp_uuid ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libossp_uuid ]
     ;
 
   preConfigure = lib.optionalString stdenv.isDarwin ''

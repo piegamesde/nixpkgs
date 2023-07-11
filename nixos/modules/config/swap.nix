@@ -261,7 +261,8 @@ in
               [
                 pkgs.util-linux
                 pkgs.e2fsprogs
-              ] ++ optional sw.randomEncryption.enable pkgs.cryptsetup
+              ]
+              ++ optional sw.randomEncryption.enable pkgs.cryptsetup
               ;
 
             environment.DEVICE = sw.device;

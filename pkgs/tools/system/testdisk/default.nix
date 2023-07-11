@@ -45,8 +45,10 @@ else
         libjpeg
         zlib
         libewf
-      ] ++ lib.optional enableNtfs ntfs3g
-      ++ lib.optional enableExtFs 0.0 fsprogs ++ lib.optionals enableQt [
+      ]
+      ++ lib.optional enableNtfs ntfs3g
+      ++ lib.optional enableExtFs 0.0 fsprogs
+      ++ lib.optionals enableQt [
         qtbase
         qttools
         qwt

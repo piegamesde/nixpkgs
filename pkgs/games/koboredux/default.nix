@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
         rev = "v${version}";
         sha256 = "09h9r65z8bar2z89s09j6px0gdq355kjf38rmd85xb2aqwnm6xig";
       })
-    ] ++ (optional useProprietaryAssets (requireFile {
+    ]
+    ++ (optional useProprietaryAssets (requireFile {
       name = "koboredux-${version}-Linux.tar.bz2";
       sha256 = "11bmicx9i11m4c3dp19jsql0zy4rjf5a28x4hd2wl8h3bf8cdgav";
       message = ''
@@ -75,7 +76,7 @@ stdenv.mkDerivation rec {
     description =
       "A frantic 80's style 2D shooter, similar to XKobo and Kobo Deluxe"
       + optionalString (!useProprietaryAssets)
-      " (built without proprietary assets)"
+        " (built without proprietary assets)"
       ;
     longDescription =
       ''
@@ -83,7 +84,8 @@ stdenv.mkDerivation rec {
         feel of 90's arcade cabinets. The gameplay is fast and unforgiving,
         although with less of the frustrating quirkiness of the actual games
         of the 80's. A true challenge in the spirit of the arcade era!
-      '' + optionalString (!useProprietaryAssets) ''
+      ''
+      + optionalString (!useProprietaryAssets) ''
 
         This version replaces the official proprietary assets with placeholders.
         For the full experience, consider installing "koboredux" instead.

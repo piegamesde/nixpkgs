@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       openssl
       wavpack
       zlib
-    ] ++ lib.optionals stdenv.isLinux [ gnustep.base ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ gnustep.base ]
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
     ;
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ gnustep.make ]
+    [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [ gnustep.make ]
     ++ lib.optionals stdenv.isDarwin [ xcbuildHook ]
     ;
 

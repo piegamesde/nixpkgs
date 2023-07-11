@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
       cracklib
       db4
       libxcrypt
-    ] ++ lib.optional stdenv.buildPlatform.isLinux audit
+    ]
+    ++ lib.optional stdenv.buildPlatform.isLinux audit
     ;
 
   enableParallelBuilding = true;

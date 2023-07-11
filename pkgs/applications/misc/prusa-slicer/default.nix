@@ -82,7 +82,9 @@ stdenv.mkDerivation rec {
       tbb
       wxGTK-prusa
       xorg.libX11
-    ] ++ lib.optionals withSystemd [ systemd ] ++ nativeCheckInputs
+    ]
+    ++ lib.optionals withSystemd [ systemd ]
+    ++ nativeCheckInputs
     ;
 
   patches = [
@@ -148,7 +150,8 @@ stdenv.mkDerivation rec {
       # Fix resources folder location on macOS
       substituteInPlace src/PrusaSlicer.cpp \
         --replace "#ifdef __APPLE__" "#if 0"
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       # Disable segfault tests
       sed -i '/libslic3r/d' tests/CMakeLists.txt
     ''

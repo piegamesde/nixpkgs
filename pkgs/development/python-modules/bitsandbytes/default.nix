@@ -39,7 +39,8 @@ let
       [
         cuda_cudart # cuda_runtime.h cuda_runtime_api.h
         cuda_nvcc
-      ] ++ cuda-common-redist;
+      ]
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -67,7 +68,8 @@ buildPythonPackage {
       substituteInPlace bitsandbytes/cuda_setup/main.py  \
         --replace "binary_path = package_dir / binary_name"  \
                   "binary_path = Path('$out/${python.sitePackages}/${pname}')/binary_name"
-    '' + lib.optionalString torch.cudaSupport ''
+    ''
+    + lib.optionalString torch.cudaSupport ''
       substituteInPlace bitsandbytes/cuda_setup/main.py  \
         --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
     ''

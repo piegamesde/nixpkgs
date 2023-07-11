@@ -584,17 +584,18 @@ let
         (assertValueOneOf "Unmanaged" boolValues)
         (assertInt "Group")
         (assertRange "Group" 0 2147483647)
-        (assertValueOneOf "RequiredForOnline" (boolValues ++ [
-          "missing"
-          "off"
-          "no-carrier"
-          "dormant"
-          "degraded-carrier"
-          "carrier"
-          "degraded"
-          "enslaved"
-          "routable"
-        ]))
+        (assertValueOneOf "RequiredForOnline" (boolValues
+          ++ [
+            "missing"
+            "off"
+            "no-carrier"
+            "dormant"
+            "degraded-carrier"
+            "carrier"
+            "degraded"
+            "enslaved"
+            "routable"
+          ]))
         (assertValueOneOf "RequiredFamilyForOnline" [
           "ipv4"
           "ipv6"
@@ -685,25 +686,29 @@ let
         (assertValueOneOf "DNSOverTLS" (boolValues ++ [ "opportunistic" ]))
         (assertValueOneOf "DNSSEC" (boolValues ++ [ "allow-downgrade" ]))
         (assertValueOneOf "LLDP" (boolValues ++ [ "routers-only" ]))
-        (assertValueOneOf "EmitLLDP" (boolValues ++ [
-          "nearest-bridge"
-          "non-tpmr-bridge"
-          "customer-bridge"
-        ]))
+        (assertValueOneOf "EmitLLDP" (boolValues
+          ++ [
+            "nearest-bridge"
+            "non-tpmr-bridge"
+            "customer-bridge"
+          ]))
         (assertValueOneOf "DNSDefaultRoute" boolValues)
-        (assertValueOneOf "IPForward" (boolValues ++ [
-          "ipv4"
-          "ipv6"
-        ]))
-        (assertValueOneOf "IPMasquerade" (boolValues ++ [
-          "ipv4"
-          "ipv6"
-          "both"
-        ]))
-        (assertValueOneOf "IPv6PrivacyExtensions" (boolValues ++ [
-          "prefer-public"
-          "kernel"
-        ]))
+        (assertValueOneOf "IPForward" (boolValues
+          ++ [
+            "ipv4"
+            "ipv6"
+          ]))
+        (assertValueOneOf "IPMasquerade" (boolValues
+          ++ [
+            "ipv4"
+            "ipv6"
+            "both"
+          ]))
+        (assertValueOneOf "IPv6PrivacyExtensions" (boolValues
+          ++ [
+            "prefer-public"
+            "kernel"
+          ]))
         (assertValueOneOf "IPv6AcceptRA" boolValues)
         (assertInt "IPv6DuplicateAddressDetection")
         (assertMinimum "IPv6DuplicateAddressDetection" 0)
@@ -717,11 +722,12 @@ let
         (assertValueOneOf "ActiveSlave" boolValues)
         (assertValueOneOf "PrimarySlave" boolValues)
         (assertValueOneOf "ConfigureWithoutCarrier" boolValues)
-        (assertValueOneOf "KeepConfiguration" (boolValues ++ [
-          "static"
-          "dhcp-on-stop"
-          "dhcp"
-        ]))
+        (assertValueOneOf "KeepConfiguration" (boolValues
+          ++ [
+            "static"
+            "dhcp-on-stop"
+            "dhcp"
+          ]))
       ];
 
       sectionAddress = checkUnitConfig "Address" [
@@ -3009,10 +3015,12 @@ let
     name: def: {
       inherit (def) enable;
       text =
-        commonMatchText def + ''
+        commonMatchText def
+        + ''
           [Link]
           ${attrsToSection def.linkConfig}
-        '' + def.extraConfig
+        ''
+        + def.extraConfig
         ;
     }
     ;
@@ -3021,58 +3029,76 @@ let
     name: def: {
       inherit (def) enable;
       text =
-        commonMatchText def + ''
+        commonMatchText def
+        + ''
           [NetDev]
           ${attrsToSection def.netdevConfig}
-        '' + optionalString (def.vlanConfig != { }) ''
+        ''
+        + optionalString (def.vlanConfig != { }) ''
           [VLAN]
           ${attrsToSection def.vlanConfig}
-        '' + optionalString (def.macvlanConfig != { }) ''
+        ''
+        + optionalString (def.macvlanConfig != { }) ''
           [MACVLAN]
           ${attrsToSection def.macvlanConfig}
-        '' + optionalString (def.vxlanConfig != { }) ''
+        ''
+        + optionalString (def.vxlanConfig != { }) ''
           [VXLAN]
           ${attrsToSection def.vxlanConfig}
-        '' + optionalString (def.tunnelConfig != { }) ''
+        ''
+        + optionalString (def.tunnelConfig != { }) ''
           [Tunnel]
           ${attrsToSection def.tunnelConfig}
-        '' + optionalString (def.fooOverUDPConfig != { }) ''
+        ''
+        + optionalString (def.fooOverUDPConfig != { }) ''
           [FooOverUDP]
           ${attrsToSection def.fooOverUDPConfig}
-        '' + optionalString (def.peerConfig != { }) ''
+        ''
+        + optionalString (def.peerConfig != { }) ''
           [Peer]
           ${attrsToSection def.peerConfig}
-        '' + optionalString (def.tunConfig != { }) ''
+        ''
+        + optionalString (def.tunConfig != { }) ''
           [Tun]
           ${attrsToSection def.tunConfig}
-        '' + optionalString (def.tapConfig != { }) ''
+        ''
+        + optionalString (def.tapConfig != { }) ''
           [Tap]
           ${attrsToSection def.tapConfig}
-        '' + optionalString (def.l2tpConfig != { }) ''
+        ''
+        + optionalString (def.l2tpConfig != { }) ''
           [L2TP]
           ${attrsToSection def.l2tpConfig}
-        '' + flip concatMapStrings def.l2tpSessions (x: ''
+        ''
+        + flip concatMapStrings def.l2tpSessions (x: ''
           [L2TPSession]
           ${attrsToSection x.l2tpSessionConfig}
-        '') + optionalString (def.wireguardConfig != { }) ''
+        '')
+        + optionalString (def.wireguardConfig != { }) ''
           [WireGuard]
           ${attrsToSection def.wireguardConfig}
-        '' + flip concatMapStrings def.wireguardPeers (x: ''
+        ''
+        + flip concatMapStrings def.wireguardPeers (x: ''
           [WireGuardPeer]
           ${attrsToSection x.wireguardPeerConfig}
-        '') + optionalString (def.bondConfig != { }) ''
+        '')
+        + optionalString (def.bondConfig != { }) ''
           [Bond]
           ${attrsToSection def.bondConfig}
-        '' + optionalString (def.xfrmConfig != { }) ''
+        ''
+        + optionalString (def.xfrmConfig != { }) ''
           [Xfrm]
           ${attrsToSection def.xfrmConfig}
-        '' + optionalString (def.vrfConfig != { }) ''
+        ''
+        + optionalString (def.vrfConfig != { }) ''
           [VRF]
           ${attrsToSection def.vrfConfig}
-        '' + optionalString (def.batmanAdvancedConfig != { }) ''
+        ''
+        + optionalString (def.batmanAdvancedConfig != { }) ''
           [BatmanAdvanced]
           ${attrsToSection def.batmanAdvancedConfig}
-        '' + def.extraConfig
+        ''
+        + def.extraConfig
         ;
     }
     ;
@@ -3083,10 +3109,12 @@ let
         ''
           [Network]
           ${attrsToSection def.networkConfig}
-        '' + optionalString (def.dhcpV4Config != { }) ''
+        ''
+        + optionalString (def.dhcpV4Config != { }) ''
           [DHCPv4]
           ${attrsToSection def.dhcpV4Config}
-        '' + optionalString (def.dhcpV6Config != { }) ''
+        ''
+        + optionalString (def.dhcpV6Config != { }) ''
           [DHCPv6]
           ${attrsToSection def.dhcpV6Config}
         ''
@@ -3098,170 +3126,229 @@ let
     name: def: {
       inherit (def) enable;
       text =
-        commonMatchText def + optionalString (def.linkConfig != { }) ''
+        commonMatchText def
+        + optionalString (def.linkConfig != { }) ''
           [Link]
           ${attrsToSection def.linkConfig}
-        '' + ''
+        ''
+        + ''
           [Network]
-        '' + attrsToSection def.networkConfig
+        ''
+        + attrsToSection def.networkConfig
         + optionalString (def.address != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Address=${s}") def.address)}
-        '' + optionalString (def.gateway != [ ]) ''
+        ''
+        + optionalString (def.gateway != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Gateway=${s}") def.gateway)}
-        '' + optionalString (def.dns != [ ]) ''
+        ''
+        + optionalString (def.dns != [ ]) ''
           ${concatStringsSep "\n" (map (s: "DNS=${s}") def.dns)}
-        '' + optionalString (def.ntp != [ ]) ''
+        ''
+        + optionalString (def.ntp != [ ]) ''
           ${concatStringsSep "\n" (map (s: "NTP=${s}") def.ntp)}
-        '' + optionalString (def.bridge != [ ]) ''
+        ''
+        + optionalString (def.bridge != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Bridge=${s}") def.bridge)}
-        '' + optionalString (def.bond != [ ]) ''
+        ''
+        + optionalString (def.bond != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Bond=${s}") def.bond)}
-        '' + optionalString (def.vrf != [ ]) ''
+        ''
+        + optionalString (def.vrf != [ ]) ''
           ${concatStringsSep "\n" (map (s: "VRF=${s}") def.vrf)}
-        '' + optionalString (def.vlan != [ ]) ''
+        ''
+        + optionalString (def.vlan != [ ]) ''
           ${concatStringsSep "\n" (map (s: "VLAN=${s}") def.vlan)}
-        '' + optionalString (def.macvlan != [ ]) ''
+        ''
+        + optionalString (def.macvlan != [ ]) ''
           ${concatStringsSep "\n" (map (s: "MACVLAN=${s}") def.macvlan)}
-        '' + optionalString (def.vxlan != [ ]) ''
+        ''
+        + optionalString (def.vxlan != [ ]) ''
           ${concatStringsSep "\n" (map (s: "VXLAN=${s}") def.vxlan)}
-        '' + optionalString (def.tunnel != [ ]) ''
+        ''
+        + optionalString (def.tunnel != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Tunnel=${s}") def.tunnel)}
-        '' + optionalString (def.xfrm != [ ]) ''
+        ''
+        + optionalString (def.xfrm != [ ]) ''
           ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
-        '' + "\n" + flip concatMapStrings def.addresses (x: ''
+        ''
+        + "\n"
+        + flip concatMapStrings def.addresses (x: ''
           [Address]
           ${attrsToSection x.addressConfig}
-        '') + flip concatMapStrings def.routingPolicyRules (x: ''
+        '')
+        + flip concatMapStrings def.routingPolicyRules (x: ''
           [RoutingPolicyRule]
           ${attrsToSection x.routingPolicyRuleConfig}
-        '') + flip concatMapStrings def.routes (x: ''
+        '')
+        + flip concatMapStrings def.routes (x: ''
           [Route]
           ${attrsToSection x.routeConfig}
-        '') + optionalString (def.dhcpV4Config != { }) ''
+        '')
+        + optionalString (def.dhcpV4Config != { }) ''
           [DHCPv4]
           ${attrsToSection def.dhcpV4Config}
-        '' + optionalString (def.dhcpV6Config != { }) ''
+        ''
+        + optionalString (def.dhcpV6Config != { }) ''
           [DHCPv6]
           ${attrsToSection def.dhcpV6Config}
-        '' + optionalString (def.dhcpPrefixDelegationConfig != { }) ''
+        ''
+        + optionalString (def.dhcpPrefixDelegationConfig != { }) ''
           [DHCPPrefixDelegation]
           ${attrsToSection def.dhcpPrefixDelegationConfig}
-        '' + optionalString (def.ipv6AcceptRAConfig != { }) ''
+        ''
+        + optionalString (def.ipv6AcceptRAConfig != { }) ''
           [IPv6AcceptRA]
           ${attrsToSection def.ipv6AcceptRAConfig}
-        '' + optionalString (def.dhcpServerConfig != { }) ''
+        ''
+        + optionalString (def.dhcpServerConfig != { }) ''
           [DHCPServer]
           ${attrsToSection def.dhcpServerConfig}
-        '' + optionalString (def.ipv6SendRAConfig != { }) ''
+        ''
+        + optionalString (def.ipv6SendRAConfig != { }) ''
           [IPv6SendRA]
           ${attrsToSection def.ipv6SendRAConfig}
-        '' + flip concatMapStrings def.ipv6Prefixes (x: ''
+        ''
+        + flip concatMapStrings def.ipv6Prefixes (x: ''
           [IPv6Prefix]
           ${attrsToSection x.ipv6PrefixConfig}
-        '') + flip concatMapStrings def.ipv6RoutePrefixes (x: ''
+        '')
+        + flip concatMapStrings def.ipv6RoutePrefixes (x: ''
           [IPv6RoutePrefix]
           ${attrsToSection x.ipv6RoutePrefixConfig}
-        '') + flip concatMapStrings def.dhcpServerStaticLeases (x: ''
+        '')
+        + flip concatMapStrings def.dhcpServerStaticLeases (x: ''
           [DHCPServerStaticLease]
           ${attrsToSection x.dhcpServerStaticLeaseConfig}
-        '') + optionalString (def.bridgeConfig != { }) ''
+        '')
+        + optionalString (def.bridgeConfig != { }) ''
           [Bridge]
           ${attrsToSection def.bridgeConfig}
-        '' + flip concatMapStrings def.bridgeFDBs (x: ''
+        ''
+        + flip concatMapStrings def.bridgeFDBs (x: ''
           [BridgeFDB]
           ${attrsToSection x.bridgeFDBConfig}
-        '') + flip concatMapStrings def.bridgeMDBs (x: ''
+        '')
+        + flip concatMapStrings def.bridgeMDBs (x: ''
           [BridgeMDB]
           ${attrsToSection x.bridgeMDBConfig}
-        '') + optionalString (def.lldpConfig != { }) ''
+        '')
+        + optionalString (def.lldpConfig != { }) ''
           [LLDP]
           ${attrsToSection def.lldpConfig}
-        '' + optionalString (def.canConfig != { }) ''
+        ''
+        + optionalString (def.canConfig != { }) ''
           [CAN]
           ${attrsToSection def.canConfig}
-        '' + optionalString (def.ipoIBConfig != { }) ''
+        ''
+        + optionalString (def.ipoIBConfig != { }) ''
           [IPoIB]
           ${attrsToSection def.ipoIBConfig}
-        '' + optionalString (def.qdiscConfig != { }) ''
+        ''
+        + optionalString (def.qdiscConfig != { }) ''
           [QDisc]
           ${attrsToSection def.qdiscConfig}
-        '' + optionalString (def.networkEmulatorConfig != { }) ''
+        ''
+        + optionalString (def.networkEmulatorConfig != { }) ''
           [NetworkEmulator]
           ${attrsToSection def.networkEmulatorConfig}
-        '' + optionalString (def.tokenBucketFilterConfig != { }) ''
+        ''
+        + optionalString (def.tokenBucketFilterConfig != { }) ''
           [TokenBucketFilter]
           ${attrsToSection def.tockenBucketFilterConfig}
-        '' + optionalString (def.pieConfig != { }) ''
+        ''
+        + optionalString (def.pieConfig != { }) ''
           [PIE]
           ${attrsToSection def.pieConfig}
-        '' + optionalString (def.flowQueuePIEConfig != { }) ''
+        ''
+        + optionalString (def.flowQueuePIEConfig != { }) ''
           [FlowQueuePIE]
           ${attrsToSection def.flowQueuePIEConfig}
-        '' + optionalString (def.stochasticFairBlueConfig != { }) ''
+        ''
+        + optionalString (def.stochasticFairBlueConfig != { }) ''
           [StochasticFairBlue]
           ${attrsToSection def.stochasticFairBlueConfig}
-        '' + optionalString (def.stochasticFairnessQueueingConfig != { }) ''
+        ''
+        + optionalString (def.stochasticFairnessQueueingConfig != { }) ''
           [StochasticFairnessQueueing]
           ${attrsToSection def.stochasticFairnessQueueingConfig}
-        '' + optionalString (def.bfifoConfig != { }) ''
+        ''
+        + optionalString (def.bfifoConfig != { }) ''
           [BFIFO]
           ${attrsToSection def.bfifoConfig}
-        '' + optionalString (def.pfifoConfig != { }) ''
+        ''
+        + optionalString (def.pfifoConfig != { }) ''
           [PFIFO]
           ${attrsToSection def.pfifoConfig}
-        '' + optionalString (def.pfifoHeadDropConfig != { }) ''
+        ''
+        + optionalString (def.pfifoHeadDropConfig != { }) ''
           [PFIFOHeadDrop]
           ${attrsToSection def.pfifoHeadDropConfig}
-        '' + optionalString (def.pfifoFastConfig != { }) ''
+        ''
+        + optionalString (def.pfifoFastConfig != { }) ''
           [PFIFOFast]
           ${attrsToSection def.pfifoFastConfig}
-        '' + optionalString (def.cakeConfig != { }) ''
+        ''
+        + optionalString (def.cakeConfig != { }) ''
           [CAKE]
           ${attrsToSection def.cakeConfig}
-        '' + optionalString (def.controlledDelayConfig != { }) ''
+        ''
+        + optionalString (def.controlledDelayConfig != { }) ''
           [ControlledDelay]
           ${attrsToSection def.controlledDelayConfig}
-        '' + optionalString (def.deficitRoundRobinSchedulerConfig != { }) ''
+        ''
+        + optionalString (def.deficitRoundRobinSchedulerConfig != { }) ''
           [DeficitRoundRobinScheduler]
           ${attrsToSection def.deficitRoundRobinSchedulerConfig}
         ''
         + optionalString (def.deficitRoundRobinSchedulerClassConfig != { }) ''
           [DeficitRoundRobinSchedulerClass]
           ${attrsToSection def.deficitRoundRobinSchedulerClassConfig}
-        '' + optionalString (def.enhancedTransmissionSelectionConfig != { }) ''
+        ''
+        + optionalString (def.enhancedTransmissionSelectionConfig != { }) ''
           [EnhancedTransmissionSelection]
           ${attrsToSection def.enhancedTransmissionSelectionConfig}
-        '' + optionalString (def.genericRandomEarlyDetectionConfig != { }) ''
+        ''
+        + optionalString (def.genericRandomEarlyDetectionConfig != { }) ''
           [GenericRandomEarlyDetection]
           ${attrsToSection def.genericRandomEarlyDetectionConfig}
-        '' + optionalString (def.fairQueueingControlledDelayConfig != { }) ''
+        ''
+        + optionalString (def.fairQueueingControlledDelayConfig != { }) ''
           [FairQueueingControlledDelay]
           ${attrsToSection def.fairQueueingControlledDelayConfig}
-        '' + optionalString (def.fairQueueingConfig != { }) ''
+        ''
+        + optionalString (def.fairQueueingConfig != { }) ''
           [FairQueueing]
           ${attrsToSection def.fairQueueingConfig}
-        '' + optionalString (def.trivialLinkEqualizerConfig != { }) ''
+        ''
+        + optionalString (def.trivialLinkEqualizerConfig != { }) ''
           [TrivialLinkEqualizer]
           ${attrsToSection def.trivialLinkEqualizerConfig}
-        '' + optionalString (def.hierarchyTokenBucketConfig != { }) ''
+        ''
+        + optionalString (def.hierarchyTokenBucketConfig != { }) ''
           [HierarchyTokenBucket]
           ${attrsToSection def.hierarchyTokenBucketConfig}
-        '' + optionalString (def.hierarchyTokenBucketClassConfig != { }) ''
+        ''
+        + optionalString (def.hierarchyTokenBucketClassConfig != { }) ''
           [HierarchyTokenBucketClass]
           ${attrsToSection def.hierarchyTokenBucketClassConfig}
-        '' + optionalString (def.heavyHitterFilterConfig != { }) ''
+        ''
+        + optionalString (def.heavyHitterFilterConfig != { }) ''
           [HeavyHitterFilter]
           ${attrsToSection def.heavyHitterFilterConfig}
-        '' + optionalString (def.quickFairQueueingConfig != { }) ''
+        ''
+        + optionalString (def.quickFairQueueingConfig != { }) ''
           [QuickFairQueueing]
           ${attrsToSection def.quickFairQueueingConfig}
-        '' + optionalString (def.quickFairQueueingConfigClass != { }) ''
+        ''
+        + optionalString (def.quickFairQueueingConfigClass != { }) ''
           [QuickFairQueueingClass]
           ${attrsToSection def.quickFairQueueingConfigClass}
-        '' + flip concatMapStrings def.bridgeVLANs (x: ''
+        ''
+        + flip concatMapStrings def.bridgeVLANs (x: ''
           [BridgeVLAN]
           ${attrsToSection x.bridgeVLANConfig}
-        '') + def.extraConfig
+        '')
+        + def.extraConfig
         ;
     }
     ;

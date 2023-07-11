@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
     [
       SDL2
       SDL2_mixer
-    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ]
+    ++ lib.optional stdenv.isDarwin Cocoa
     ;
 
     # Darwin needs a custom installphase since it is excluded from the cmake install

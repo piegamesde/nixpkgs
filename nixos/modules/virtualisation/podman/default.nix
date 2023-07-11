@@ -14,10 +14,10 @@ let
     (pkgs.podman.override {
       extraPackages =
         cfg.extraPackages
-        # setuid shadow
+          # setuid shadow
         ++ [ "/run/wrappers" ]
         ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-        config.boot.zfs.package
+          config.boot.zfs.package
         ;
     });
 

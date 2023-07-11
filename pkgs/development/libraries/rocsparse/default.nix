@@ -22,7 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
+    [ "out" ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -44,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       rocprim
       git
-    ] ++ lib.optionals (buildTests || buildBenchmarks) [
+    ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [
       gtest
       boost
       python3Packages.python
@@ -60,11 +62,13 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals (buildTests || buildBenchmarks) [
+    ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [
       "-DBUILD_CLIENTS_TESTS=ON"
       "-DCMAKE_MATRICES_DIR=/build/source/matrices"
       "-Dpython=python3"
-    ] ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
+    ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
     ;
 
     # We have to manually generate the matrices
@@ -114,7 +118,8 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $benchmark/bin
       cp -a $out/bin/* $benchmark/bin
       rm $benchmark/bin/rocsparse-test
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       mkdir -p $test/bin
       mv $out/bin/* $test/bin
       rm $test/bin/rocsparse-bench || true

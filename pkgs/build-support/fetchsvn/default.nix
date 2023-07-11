@@ -67,7 +67,8 @@ else
       [
         subversion
         glibcLocales
-      ] ++ lib.optional sshSupport openssh
+      ]
+      ++ lib.optional sshSupport openssh
       ;
 
     SVN_SSH =

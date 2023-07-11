@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       libGL
       libXi
       libXmu
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       GLUT
       Cocoa
     ]

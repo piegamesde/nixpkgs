@@ -58,7 +58,8 @@ buildPythonPackage rec {
       pydantic
       sqlalchemy
       psycopg2
-    ] ++ lib.optionals (pythonOlder "3.8") [
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
     ]
@@ -92,7 +93,8 @@ buildPythonPackage rec {
       httpx
       nest-asyncio
       pytest-asyncio
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   disabledTestPaths = [ "benchmarks/test_benchmark_*.py" ];

@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     [
       pcsclite
       nettle
-    ] ++ lib.optionals stdenv.isDarwin [ PCSC ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ PCSC ]
     ;
 
   passthru = {

@@ -202,7 +202,8 @@ let
           makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
 
           patches =
-            x.patches or [ ] ++ [
+            x.patches or [ ]
+            ++ [
               # Work around crash when opening _any_ URL
               # https://github.com/atlas-engineer/nyxt/issues/1781
               # https://github.com/NixOS/nixpkgs/issues/158005

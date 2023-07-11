@@ -58,7 +58,8 @@ buildPythonPackage rec {
       requests
       setuptools
       xmlschema
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [

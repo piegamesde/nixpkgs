@@ -30,7 +30,8 @@ mkDerivation rec {
     [
       qtbase
       sqlcipher
-    ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
     ;
 
   nativeBuildInputs = [

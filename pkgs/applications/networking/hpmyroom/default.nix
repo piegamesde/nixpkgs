@@ -55,7 +55,8 @@ mkDerivation rec {
       glib # For libgobject
       stdenv.cc.cc # For libstdc++
       xorg.libX11
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
     ])

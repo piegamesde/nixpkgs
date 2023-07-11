@@ -436,11 +436,11 @@ let
             ([ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
               ++ optional (psk != null) ''preshared-key "${psk}"''
               ++ optional (peer.endpoint != null)
-              ''endpoint "${peer.endpoint}"''
+                ''endpoint "${peer.endpoint}"''
               ++ optional (peer.persistentKeepalive != null)
-              ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+                ''persistent-keepalive "${toString peer.persistentKeepalive}"''
               ++ optional (peer.allowedIPs != [ ])
-              ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"'');
+                ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"'');
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes
             (concatMapStringsSep "\n" (allowedIP:
               ''
@@ -486,7 +486,8 @@ let
       mkPeerUnit =
         peer:
         (peerUnitServiceName name peer.publicKey
-          (peer.dynamicEndpointRefreshSeconds != 0)) + ".service"
+          (peer.dynamicEndpointRefreshSeconds != 0))
+        + ".service"
         ;
     in
     nameValuePair "wireguard-${name}" rec {
@@ -557,7 +558,7 @@ let
         ${concatStringsSep " "
         ([ ''${wg} set "${name}" private-key "${privKey}"'' ]
           ++ optional (values.listenPort != null)
-          ''listen-port "${toString values.listenPort}"''
+            ''listen-port "${toString values.listenPort}"''
           ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"'')}
 
         ${ipPostMove} link set up dev "${name}"
@@ -653,11 +654,13 @@ in
           (value.privateKey != null) != (value.privateKeyFile != null);
         message =
           "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
-      }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
+      }) cfg.interfaces))
+      ++ (attrValues (mapAttrs (name: value: {
         assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
         message =
           "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
-      }) cfg.interfaces)) ++ map ({
+      }) cfg.interfaces))
+      ++ map ({
           interfaceName,
           peer,
           ...

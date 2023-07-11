@@ -62,15 +62,18 @@ python3.pkgs.buildPythonApplication rec {
       gnome.adwaita-icon-theme
       gtksourceview4
       glib-networking
-    ] ++ lib.optionals enableJingle [
+    ]
+    ++ lib.optionals enableJingle [
       farstream
       gstreamer
       gst-plugins-base
       gst-libav
       gst-plugins-good
       libnice
-    ] ++ lib.optional enableSecrets libsecret
-    ++ lib.optional enableSpelling gspell ++ lib.optional enableUPnP gupnp-igd
+    ]
+    ++ lib.optional enableSecrets libsecret
+    ++ lib.optional enableSpelling gspell
+    ++ lib.optional enableUPnP gupnp-igd
     ++ lib.optional enableAppIndicator libappindicator-gtk3
     ;
 
@@ -97,14 +100,17 @@ python3.pkgs.buildPythonApplication rec {
       setuptools
       packaging
       gssapi
-    ] ++ lib.optionals enableE2E [
+    ]
+    ++ lib.optionals enableE2E [
       pycrypto
       python-gnupg
-    ] ++ lib.optional enableRST docutils
+    ]
+    ++ lib.optional enableRST docutils
     ++ lib.optionals enableOmemoPluginDependencies [
       python-axolotl
       qrcode
-    ] ++ extraPythonPackages python3.pkgs;
+    ]
+    ++ extraPythonPackages python3.pkgs;
 
   nativeCheckInputs = [
     xvfb-run

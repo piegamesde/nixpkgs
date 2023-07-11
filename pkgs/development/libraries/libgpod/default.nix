@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       "--without-hal"
       "--enable-udev"
       "--with-udev-dir=${placeholder "out"}/lib/udev"
-    ] ++ lib.optionals monoSupport [ "--with-mono" ]
+    ]
+    ++ lib.optionals monoSupport [ "--with-mono" ]
     ;
 
   dontStrip = monoSupport;
@@ -53,10 +54,12 @@ stdenv.mkDerivation rec {
       autoreconfHook
       intltool
       pkg-config
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
-    ]) ++ lib.optional monoSupport mono
+    ])
+    ++ lib.optional monoSupport mono
     ;
 
   buildInputs =
@@ -65,7 +68,8 @@ stdenv.mkDerivation rec {
       sg3_utils
       sqlite
       taglib
-    ] ++ lib.optional monoSupport gtk-sharp-2_0
+    ]
+    ++ lib.optional monoSupport gtk-sharp-2_0
     ;
 
   propagatedBuildInputs = [

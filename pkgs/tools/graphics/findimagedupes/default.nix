@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ perl ] ++ (with perlPackages; [
+    [ perl ]
+    ++ (with perlPackages; [
       DBFile
       FileMimeInfo
       FileBaseDir

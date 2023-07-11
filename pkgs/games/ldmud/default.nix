@@ -52,10 +52,12 @@ stdenv.mkDerivation rec {
       pcre
       json_c
       libxml2
-    ] ++ lib.optional mccpSupport zlib
+    ]
+    ++ lib.optional mccpSupport zlib
     ++ lib.optional mysqlSupport libmysqlclient
     ++ lib.optional postgresSupport postgresql
-    ++ lib.optional sqliteSupport sqlite ++ lib.optional tlsSupport openssl
+    ++ lib.optional sqliteSupport sqlite
+    ++ lib.optional tlsSupport openssl
     ++ lib.optional pythonSupport python310
     ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;

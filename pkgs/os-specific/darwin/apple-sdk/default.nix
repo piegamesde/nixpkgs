@@ -360,7 +360,8 @@ rec {
 
       QuartzCore = lib.overrideDerivation super.QuartzCore (drv: {
         installPhase =
-          drv.installPhase + ''
+          drv.installPhase
+          + ''
             f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
             substituteInPlace "$f" \
               --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
@@ -370,7 +371,8 @@ rec {
 
       MetalKit = lib.overrideDerivation super.MetalKit (drv: {
         installPhase =
-          drv.installPhase + ''
+          drv.installPhase
+          + ''
             mkdir -p $out/include/simd
             cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
           ''

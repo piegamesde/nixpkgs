@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       mkdir -p "$out/Applications"
       mv bin/chatterino.app "$out/Applications/"
-    '' + ''
+    ''
+    + ''
       mkdir -p $out/share/icons/hicolor/256x256/apps
       cp $src/resources/icon.png $out/share/icons/hicolor/256x256/apps/chatterino.png
     ''

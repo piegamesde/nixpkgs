@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       substituteInPlace src/platfdep_mac.mm \
         --replace "appearance.name == NSAppearanceNameDarkAqua" "NO"
-    '' + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
+    ''
+    + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
       substituteInPlace 3rd/CMakeLists.txt \
         --replace "-msse4.2 -maes" ""
     ''
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
       makeWrapper
       pkg-config
       wrapGAppsHook
-    ] ++ lib.optionals stdenv.isLinux [ lsb-release ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ lsb-release ]
     ;
 
   buildInputs =
@@ -55,7 +57,8 @@ stdenv.mkDerivation rec {
       sqlite
       wxGTK32
       gtk3
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
     ;
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [

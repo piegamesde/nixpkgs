@@ -46,7 +46,8 @@ python3.pkgs.buildPythonApplication rec {
       "TestSocketConnection"
       # SyntaxError: invalid syntax, https://github.com/jtpereyda/boofuzz/issues/663
       "test_msg_60_bytes"
-    ] ++ lib.optionals stdenv.isDarwin [ "test_time_repeater" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "test_time_repeater" ]
     ;
 
   pythonImportsCheck = [ "boofuzz" ];

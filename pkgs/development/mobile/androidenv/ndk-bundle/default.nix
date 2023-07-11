@@ -23,7 +23,8 @@ let
       jdk
       python3
       which
-    ]) + ":${platform-tools}/platform-tools"
+    ])
+    + ":${platform-tools}/platform-tools"
     ;
 in
 deployAndroidPackage rec {

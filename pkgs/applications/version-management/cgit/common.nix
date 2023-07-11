@@ -38,13 +38,15 @@ stdenv.mkDerivation {
     [
       pkg-config
       asciidoc
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       python
       wrapPython
     ])
     ;
   buildInputs =
-    buildInputs ++ [
+    buildInputs
+    ++ [
       openssl
       zlib
       libxml2

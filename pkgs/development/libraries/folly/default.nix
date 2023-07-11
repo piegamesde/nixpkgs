@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       libunwind
       fmt_8
       zstd
-    ] ++ lib.optional stdenv.isLinux jemalloc
+    ]
+    ++ lib.optional stdenv.isLinux jemalloc
     ;
 
     # jemalloc headers are required in include/folly/portability/Malloc.h

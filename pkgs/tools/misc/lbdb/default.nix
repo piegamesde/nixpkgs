@@ -36,17 +36,22 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ perl' ] ++ lib.optional (!stdenv.isDarwin) bsd-finger
-    ++ lib.optional withAbook abook ++ lib.optional withGnupg gnupg
-    ++ lib.optional withGoobook goobook ++ lib.optional withKhard khard
+    [ perl' ]
+    ++ lib.optional (!stdenv.isDarwin) bsd-finger
+    ++ lib.optional withAbook abook
+    ++ lib.optional withGnupg gnupg
+    ++ lib.optional withGoobook goobook
+    ++ lib.optional withKhard khard
     ++ lib.optional withMu mu
     ;
 
   configureFlags =
-    [ ] ++ lib.optional withAbook "--with-abook"
+    [ ]
+    ++ lib.optional withAbook "--with-abook"
     ++ lib.optional withGnupg "--with-gpg"
     ++ lib.optional withGoobook "--with-goobook"
-    ++ lib.optional withKhard "--with-khard" ++ lib.optional withMu "--with-mu"
+    ++ lib.optional withKhard "--with-khard"
+    ++ lib.optional withMu "--with-mu"
     ;
 
   patches = [

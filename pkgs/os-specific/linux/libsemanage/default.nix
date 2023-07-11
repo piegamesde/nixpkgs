@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "man"
-    ] ++ optional enablePython "py"
+    ]
+    ++ optional enablePython "py"
     ;
 
   strictDeps = true;
@@ -41,7 +42,8 @@ stdenv.mkDerivation rec {
       bison
       flex
       pkg-config
-    ] ++ optional enablePython swig
+    ]
+    ++ optional enablePython swig
     ;
   buildInputs =
     [
@@ -49,7 +51,8 @@ stdenv.mkDerivation rec {
       libselinux
       bzip2
       audit
-    ] ++ optional enablePython python
+    ]
+    ++ optional enablePython python
     ;
 
   makeFlags = [

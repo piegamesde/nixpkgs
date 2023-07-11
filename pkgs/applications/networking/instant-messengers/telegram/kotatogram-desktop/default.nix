@@ -121,7 +121,8 @@ stdenv.mkDerivation rec {
         --replace '"libasound.so.2"' '"${alsa-lib}/lib/libasound.so.2"'
       substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioPulse.cpp \
         --replace '"libpulse.so.0"' '"${libpulseaudio}/lib/libpulse.so.0"'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       sed -i "13i#import <CoreAudio/CoreAudio.h>" Telegram/lib_webrtc/webrtc/mac/webrtc_media_devices_mac.mm
       substituteInPlace Telegram/CMakeLists.txt \
         --replace 'COMMAND iconutil' 'COMMAND png2icns' \
@@ -139,7 +140,8 @@ stdenv.mkDerivation rec {
       python3
       wrapQtAppsHook
       removeReferencesTo
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       # to build bundled libdispatch
       clang
       extra-cmake-modules
@@ -162,7 +164,8 @@ stdenv.mkDerivation rec {
       rnnoise
       tg_owt
       microsoft_gsl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       kwayland
       alsa-lib
       libpulseaudio
@@ -170,7 +173,8 @@ stdenv.mkDerivation rec {
       glibmm
       jemalloc
       wayland
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       CoreFoundation
       CoreServices

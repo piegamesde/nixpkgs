@@ -226,7 +226,8 @@ let
               (prevStage.gcc-unwrapped.passthru.isXgcc or false) {
                 # This affects only `xgcc` (the compiler which compiles the final compiler).
                 postFixup =
-                  (a.postFixup or "") + ''
+                  (a.postFixup or "")
+                  + ''
                     echo "--sysroot=${
                       lib.getDev (getLibc prevStage)
                     }" >> $out/nix-support/cc-cflags
@@ -290,9 +291,11 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               ''
                 mkdir -p $out
                 ln -s ${bootstrapTools}/lib $out/lib
-              '' + lib.optionalString (localSystem.libc == "glibc") ''
+              ''
+              + lib.optionalString (localSystem.libc == "glibc") ''
                 ln -s ${bootstrapTools}/include-glibc $out/include
-              '' + lib.optionalString (localSystem.libc == "musl") ''
+              ''
+              + lib.optionalString (localSystem.libc == "musl") ''
                 ln -s ${bootstrapTools}/include-libc $out/include
               ''
               ;
@@ -440,7 +443,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
               #
             configureFlags =
-              (a.configureFlags or [ ]) ++ [
+              (a.configureFlags or [ ])
+              ++ [
                 "--with-native-system-header-dir=/include"
                 "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
               ]
@@ -502,7 +506,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # through, so the final package-set uses exactly the same builds.
           libunistring = super.libunistring.overrideAttrs (attrs: {
             postFixup =
-              attrs.postFixup or "" + ''
+              attrs.postFixup or ""
+              + ''
                 ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
               ''
               ;
@@ -513,7 +518,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           });
           libidn2 = super.libidn2.overrideAttrs (attrs: {
             postFixup =
-              attrs.postFixup or "" + ''
+              attrs.postFixup or ""
+              + ''
                 ${self.nukeReferences}/bin/nuke-refs -e '${
                   lib.getLib self.libunistring
                 }' \
@@ -627,10 +633,11 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         }
         ;
       extraNativeBuildInputs =
-        [ prevStage.patchelf ] ++
+        [ prevStage.patchelf ]
+        ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-        prevStage.updateAutotoolsGnuConfigScriptsHook
+          prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
     })
 
@@ -697,10 +704,11 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         [
           prevStage.patchelf
           prevStage.xz
-        ] ++
+        ]
+        ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-        prevStage.updateAutotoolsGnuConfigScriptsHook
+          prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
     })
 
@@ -736,10 +744,11 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ((import ../generic/common-path.nix) { pkgs = prevStage; });
 
         extraNativeBuildInputs =
-          [ prevStage.patchelf ] ++
+          [ prevStage.patchelf ]
+          ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook
+            prevStage.updateAutotoolsGnuConfigScriptsHook
           ;
 
         cc = prevStage.gcc;
@@ -790,13 +799,15 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             pcre
             libidn2
             libunistring
-          ] ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv)
+          ]
+            ++ lib.optional (gawk.libsigsegv != null) gawk.libsigsegv)
           # More complicated cases
           ++ (map (x: getOutput x (getLibc prevStage)) [
             "out"
             "dev"
             "bin"
-          ]) ++ [
+          ])
+          ++ [
             linuxHeaders # propagated from .dev
             binutils
             gcc
@@ -809,7 +820,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ++ lib.optionals (!localSystem.isx86 || localSystem.libc == "musl") [
             prevStage.updateAutotoolsGnuConfigScriptsHook
             prevStage.gnu-config
-          ] ++ (with gcc-unwrapped.passthru; [
+          ]
+          ++ (with gcc-unwrapped.passthru; [
             gmp
             libmpc
             mpfr

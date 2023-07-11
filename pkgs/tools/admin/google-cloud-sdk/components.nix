@@ -186,7 +186,8 @@ let
         [
           python3
           stdenv.cc.cc
-        ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+        ]
+        ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
         ;
       buildInputs = [ libxcrypt-legacy ];
       passthru = { dependencies = filterForSystem dependencies; };

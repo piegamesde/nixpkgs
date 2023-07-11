@@ -44,7 +44,8 @@ rustPlatform.buildRustPackage rec {
       pkg-config
       asciidoctor
       gettext
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       makeWrapper
       ncurses
     ]
@@ -58,7 +59,8 @@ rustPlatform.buildRustPackage rec {
       libxml2
       json_c
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       Foundation
       libiconv
@@ -86,7 +88,8 @@ rustPlatform.buildRustPackage rec {
   postInstall =
     ''
       make -j $NIX_BUILD_CORES prefix="$out" install
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       for prog in $out/bin/*; do
         wrapProgram "$prog" --prefix DYLD_LIBRARY_PATH : "${stfl}/lib"
       done

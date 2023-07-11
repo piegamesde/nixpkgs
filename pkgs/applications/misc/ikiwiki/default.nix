@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     [
       which
       highlight
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       TextMarkdown
       URI
@@ -65,16 +66,20 @@ stdenv.mkDerivation rec {
       NetOpenIDConsumer
       LWPxParanoidAgent
       CryptSSLeay
-    ]) ++ lib.optionals docutilsSupport [
+    ])
+    ++ lib.optionals docutilsSupport [
       (python.withPackages (pp: with pp; [ pygments ]))
       docutils
-    ] ++ lib.optionals gitSupport [ git ]
+    ]
+    ++ lib.optionals gitSupport [ git ]
     ++ lib.optionals monotoneSupport [ monotone ]
-    ++ lib.optionals bazaarSupport [ breezy ] ++ lib.optionals cvsSupport [
+    ++ lib.optionals bazaarSupport [ breezy ]
+    ++ lib.optionals cvsSupport [
       cvs
       cvsps
       perlPackages.Filechdir
-    ] ++ lib.optionals subversionSupport [ subversion ]
+    ]
+    ++ lib.optionals subversionSupport [ subversion ]
     ++ lib.optionals mercurialSupport [ mercurial ]
     ;
 

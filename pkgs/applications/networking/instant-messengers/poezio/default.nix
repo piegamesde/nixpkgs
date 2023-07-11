@@ -42,7 +42,8 @@ buildPythonApplication rec {
       pyinotify
       setuptools
       slixmpp
-    ] ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
     ;
 
   nativeCheckInputs = [ pytestCheckHook ];

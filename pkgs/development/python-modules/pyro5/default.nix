@@ -33,7 +33,8 @@ buildPythonPackage rec {
       "GetIP"
       "TestNameServer"
       "TestBCSetup"
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ]
     ;
 
   pythonImportsCheck = [ "Pyro5" ];

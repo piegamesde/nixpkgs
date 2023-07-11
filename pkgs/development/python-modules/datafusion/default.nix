@@ -56,7 +56,8 @@ buildPythonPackage rec {
   ];
 
   buildInputs =
-    [ protobuf ] ++ lib.optionals stdenv.isDarwin [
+    [ protobuf ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ]

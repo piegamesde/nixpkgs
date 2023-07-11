@@ -470,7 +470,8 @@ in
           message =
             ''
               services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
-        }) eachSite) ++ (mapAttrsToList (hostName: cfg: {
+        }) eachSite)
+        ++ (mapAttrsToList (hostName: cfg: {
           assertion =
             cfg.database.createLocally -> cfg.database.passwordFile == null;
           message =

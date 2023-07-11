@@ -67,7 +67,8 @@ in
           all.imagick
         ])).overrideAttrs (attrs: {
           postInstall =
-            attrs.postInstall or "" + ''
+            attrs.postInstall or ""
+            + ''
               touch "$out/oApee-was-here"
             ''
             ;
@@ -95,7 +96,8 @@ in
         (pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
-              attrs.postInstall or "" + ''
+              attrs.postInstall or ""
+              + ''
                 touch "$out/oAs-first"
               ''
               ;
@@ -104,7 +106,8 @@ in
         (pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
-              attrs.postInstall or "" + ''
+              attrs.postInstall or ""
+              + ''
                 touch "$out/oAs-second"
               ''
               ;
@@ -126,7 +129,8 @@ in
         (pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
-              attrs.postInstall or "" + ''
+              attrs.postInstall or ""
+              + ''
                 touch "$out/oAs-first"
               ''
               ;
@@ -135,7 +139,8 @@ in
         (pkg:
           pkg.overrideAttrs (attrs: {
             postInstall =
-              attrs.postInstall or "" + ''
+              attrs.postInstall or ""
+              + ''
                 touch "$out/oAs-second"
               ''
               ;

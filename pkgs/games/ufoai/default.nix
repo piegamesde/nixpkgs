@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-release"
       "--enable-sse"
-    ] ++ lib.optional enableEditor "--enable-uforadiant"
+    ]
+    ++ lib.optional enableEditor "--enable-uforadiant"
     ;
 
   buildInputs = [

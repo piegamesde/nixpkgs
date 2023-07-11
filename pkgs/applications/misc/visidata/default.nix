@@ -109,10 +109,12 @@ buildPythonApplication rec {
 
       setuptools
       importlib-metadata
-    ] ++ lib.optionals withPcap [
+    ]
+    ++ lib.optionals withPcap [
       dpkt
       dnslib
-    ] ++ lib.optional withXclip xclip
+    ]
+    ++ lib.optional withXclip xclip
     ;
 
   nativeCheckInputs = [ git ];

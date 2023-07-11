@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
         src = ./fix-paths.patch;
         utillinux = util-linux;
       })
-    ] ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
+    ]
+    ++ lib.optionals (withEspeak && espeak.mbrolaSupport) [
       # Replace FHS paths.
       (substituteAll {
         src = ./fix-mbrola-paths.patch;
@@ -79,11 +80,14 @@ stdenv.mkDerivation rec {
       libpulseaudio
       alsa-lib
       python
-    ] ++ lib.optionals withEspeak [
+    ]
+    ++ lib.optionals withEspeak [
       espeak
       sonic
       pcaudiolib
-    ] ++ lib.optionals withFlite [ flite ] ++ lib.optionals withPico [ svox ]
+    ]
+    ++ lib.optionals withFlite [ flite ]
+    ++ lib.optionals withPico [ svox ]
     ;
 
   pythonPath = [ pyxdg ];
@@ -93,7 +97,8 @@ stdenv.mkDerivation rec {
       # Audio method falls back from left to right.
       ''--with-default-audio-method="libao,pulse,alsa,oss"''
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    ] ++ lib.optionals withPulse [ "--with-pulse" ]
+    ]
+    ++ lib.optionals withPulse [ "--with-pulse" ]
     ++ lib.optionals withAlsa [ "--with-alsa" ]
     ++ lib.optionals withLibao [ "--with-libao" ]
     ++ lib.optionals withOss [ "--with-oss" ]

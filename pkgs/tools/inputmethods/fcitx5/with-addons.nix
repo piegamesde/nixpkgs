@@ -18,7 +18,8 @@ symlinkJoin {
       fcitx5-configtool
       fcitx5-qt
       fcitx5-gtk
-    ] ++ addons
+    ]
+    ++ addons
     ;
 
   nativeBuildInputs = [ makeWrapper ];

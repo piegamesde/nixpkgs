@@ -27,7 +27,8 @@ mkDerivation (args // {
   patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 
   nativeBuildInputs =
-    (args.nativeBuildInputs or [ ]) ++ [
+    (args.nativeBuildInputs or [ ])
+    ++ [
       perl
       self.qmake
     ]
@@ -51,24 +52,25 @@ mkDerivation (args // {
       ${args.preConfigure or ""}
 
       fixQtBuiltinPaths . '*.pr?'
-    '' + lib.optionalString (builtins.compareVersions "5.15.0" version <= 0)
+    ''
+    + lib.optionalString (builtins.compareVersions "5.15.0" version <= 0)
     # Note: We use ${version%%-*} to remove any tag from the end of the version
     # string. Version tags are added by Nixpkgs maintainers and not reflected in
     # the source version.
-    ''
-      if [[ -z "$dontCheckQtModuleVersion" ]] \
-          && grep -q '^MODULE_VERSION' .qmake.conf 2>/dev/null \
-          && ! grep -q -F "''${version%%-*}" .qmake.conf 2>/dev/null
-      then
-        echo >&2 "error: could not find version ''${version%%-*} in .qmake.conf"
-        echo >&2 "hint: check .qmake.conf and update the package version in Nixpkgs"
-        exit 1
-      fi
+      ''
+        if [[ -z "$dontCheckQtModuleVersion" ]] \
+            && grep -q '^MODULE_VERSION' .qmake.conf 2>/dev/null \
+            && ! grep -q -F "''${version%%-*}" .qmake.conf 2>/dev/null
+        then
+          echo >&2 "error: could not find version ''${version%%-*} in .qmake.conf"
+          echo >&2 "hint: check .qmake.conf and update the package version in Nixpkgs"
+          exit 1
+        fi
 
-      if [[ -z "$dontSyncQt" && -f sync.profile ]]; then
-        syncqt.pl -version "''${version%%-*}"
-      fi
-    ''
+        if [[ -z "$dontSyncQt" && -f sync.profile ]]; then
+          syncqt.pl -version "''${version%%-*}"
+        fi
+      ''
     ;
 
   dontWrapQtApps = args.dontWrapQtApps or true;

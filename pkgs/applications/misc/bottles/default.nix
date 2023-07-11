@@ -86,7 +86,8 @@ python3Packages.buildPythonApplication rec {
       idna
       orjson
       icoextract
-    ] ++ [
+    ]
+    ++ [
       cabextract
       p7zip
       xdpyinfo

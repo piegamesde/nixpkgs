@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       zlib
       pcre
       gnutls
-    ] ++ lib.optionals (stdenv.system == "x86_64-darwin") [
+    ]
+    ++ lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook
       memstreamHook
     ]

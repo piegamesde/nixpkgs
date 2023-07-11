@@ -29,7 +29,8 @@ let
     # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
-    "XMPP_PASSWORD_" + stringAsChars (c:
+    "XMPP_PASSWORD_"
+    + stringAsChars (c:
       if builtins.match "[A-Za-z0-9]" c != null then
         c
       else
@@ -88,7 +89,8 @@ let
         "--enabled"
         "--disable-infobars"
         "--autoplay-policy=no-user-gesture-required"
-      ] ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors"
+      ]
+      ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors"
       ;
 
     stats.enable-stats-d = true;
@@ -318,7 +320,7 @@ in
               nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
                 (config.networking.hostName
                   + optionalString (config.networking.domain != null)
-                  ".${config.networking.domain}"));
+                    ".${config.networking.domain}"));
             in
             {
               call.login.username = nick;
@@ -422,7 +424,8 @@ in
           export ${
             toVarName "${name}_call"
           }=$(cat ${env.call.login.passwordFile})
-        '') cfg.xmppEnvironments)) + ''
+        '') cfg.xmppEnvironments))
+        + ''
           ${pkgs.jdk11_headless}/bin/java -Djava.util.logging.config.file=${
             ./logging.properties-journal
           } -Dconfig.file=${configFile} -jar ${pkgs.jibri}/opt/jitsi/jibri/jibri.jar --config /var/lib/jibri/jibri.json

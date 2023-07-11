@@ -95,13 +95,15 @@ stdenv.mkDerivation rec {
       SDL2_ttf
       sqlite
       qtbase
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libpulseaudio
       libXinerama
       libXi
       fontconfig
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libpcap
       CoreAudioKit
       ForceFeedback

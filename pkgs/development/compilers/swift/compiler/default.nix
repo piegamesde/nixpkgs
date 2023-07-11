@@ -234,7 +234,8 @@ stdenv.mkDerivation {
       makeWrapper
       makeClangWrapper
       makeSwiftcWrapper
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       xcbuild
       sigtool # codesign
       DarwinTools # sw_vers
@@ -248,7 +249,8 @@ stdenv.mkDerivation {
       python3
       swig
       libxml2
-    ] ++ lib.optionals stdenv.isLinux [ libuuid ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libuuid ]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Foundation
@@ -459,7 +461,8 @@ stdenv.mkDerivation {
       "
       buildProject llvm llvm-project/llvm
 
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Add appleSwiftCore to the search paths. We can't simply add it to
       # buildInputs, because it is potentially an older stdlib than the one we're
       # building. We have to remove it again after the main Swift build, or later
@@ -469,7 +472,8 @@ stdenv.mkDerivation {
       OLD_NIX_LDFLAGS="$NIX_LDFLAGS"
       export NIX_SWIFTFLAGS_COMPILE+=" -I ${appleSwiftCore}/lib/swift"
       export NIX_LDFLAGS+=" -L ${appleSwiftCore}/lib/swift"
-    '' + ''
+    ''
+    + ''
 
       # Some notes:
       # - BOOTSTRAPPING_MODE defaults to OFF in CMake, but is enabled in standard
@@ -510,11 +514,13 @@ stdenv.mkDerivation {
       "
       buildProject swift
 
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Restore search paths to remove appleSwiftCore.
       export NIX_SWIFTFLAGS_COMPILE="$OLD_NIX_SWIFTFLAGS_COMPILE"
       export NIX_LDFLAGS="$OLD_NIX_LDFLAGS"
-    '' + ''
+    ''
+    + ''
 
       # These are based on flags in `utils/build-script-impl`.
       #

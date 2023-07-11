@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       cairo
       SDL
       sqlite
-    ] ++ lib.optional emacsSupport emacs
+    ]
+    ++ lib.optional emacsSupport emacs
     ;
 
   configureFlags = lib.optional (!emacsSupport) "--without-emacs";

@@ -71,7 +71,8 @@ buildPythonApplication rec {
     lib.optionalString withManpage ''
       mkdir -p $out/man
       cp -r docs/build/man $out/man
-    '' + ''
+    ''
+    + ''
       mkdir -p $out/share/{applications,alot}
       cp -r extra/themes $out/share/alot
 

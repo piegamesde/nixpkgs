@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals (python != null) [
+    [ cmake ]
+    ++ lib.optionals (python != null) [
       python
       swig
     ]

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     [
       blas
       lapack
-    ] ++ lib.optionals useMpi [
+    ]
+    ++ lib.optionals useMpi [
       mpi
       scalapack
     ]
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
       makeFlagsArray=(
           FFLAGS="-fallow-argument-mismatch"
       )
-    '' + (if useMpi then
+    ''
+    + (if useMpi then
       ''
         makeFlagsArray+=(
             CC="mpicc" FC="mpifort"

@@ -58,7 +58,8 @@ let
       atLeast32 = lib.versionAtLeast ver.majMin "3.2";
         # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
       yjitSupported =
-        atLeast32 && (stdenv.hostPlatform.isx86_64
+        atLeast32
+        && (stdenv.hostPlatform.isx86_64
           || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64))
         ;
       self = lib.makeOverridable ({
@@ -151,24 +152,32 @@ let
             [
               autoreconfHook
               bison
-            ] ++ (op docSupport groff)
+            ]
+            ++ (op docSupport groff)
             ++ (ops (dtraceSupport && stdenv.isLinux) [
               systemtap
               libsystemtap
-            ]) ++ ops yjitSupport [
+            ])
+            ++ ops yjitSupport [
               rustPlatform.cargoSetupHook
               rustPlatform.rust.cargo
               rustPlatform.rust.rustc
-            ] ++ op useBaseRuby baseRuby
+            ]
+            ++ op useBaseRuby baseRuby
             ;
           buildInputs =
-            [ autoconf ] ++ (op fiddleSupport libffi) ++ (ops cursesSupport [
+            [ autoconf ]
+            ++ (op fiddleSupport libffi)
+            ++ (ops cursesSupport [
               ncurses
               readline
-            ]) ++ (op zlibSupport zlib)
+            ])
+            ++ (op zlibSupport zlib)
             ++ (op (lib.versionOlder ver.majMin "3.0" && opensslSupport)
-              openssl_1_1) ++ (op (atLeast30 && opensslSupport) openssl_1_1)
-            ++ (op gdbmSupport gdbm) ++ (op yamlSupport libyaml)
+              openssl_1_1)
+            ++ (op (atLeast30 && opensslSupport) openssl_1_1)
+            ++ (op gdbmSupport gdbm)
+            ++ (op yamlSupport libyaml)
             # Looks like ruby fails to build on darwin without readline even if curses
             # support is not enabled, so add readline to the build inputs if curses
             # support is disabled (if it's enabled, we already have it) and we're
@@ -191,19 +200,20 @@ let
 
           patches =
             op (lib.versionOlder ver.majMin "3.1")
-            ./do-not-regenerate-revision.h.patch
+              ./do-not-regenerate-revision.h.patch
             ++ op (atLeast30 && useBaseRuby) (if atLeast32 then
               ./do-not-update-gems-baseruby-3.2.patch
             else
-              ./do-not-update-gems-baseruby.patch) ++ ops (ver.majMin == "3.0")
-            [
+              ./do-not-update-gems-baseruby.patch)
+            ++ ops (ver.majMin == "3.0") [
               # Ruby 3.0 adds `-fdeclspec` to $CC instead of $CFLAGS. Fixed in later versions.
               (fetchpatch {
                 url =
                   "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch";
                 sha256 = "sha256-43hI9L6bXfeujgmgKFVmiWhg7OXvshPCCtQ4TxqK1zk=";
               })
-            ] ++ ops (!atLeast30 && rubygemsSupport) [
+            ]
+            ++ ops (!atLeast30 && rubygemsSupport) [
               # We upgrade rubygems to a version that isn't compatible with the
               # ruby 2.7 installer. Backport the upstream fix.
               ./rbinstall-new-rubygems-compat.patch
@@ -218,7 +228,8 @@ let
                   "https://github.com/ruby/ruby/commit/261d8dd20afd26feb05f00a560abd99227269c1c.patch";
                 sha256 = "0wrii25cxcz2v8bgkrf7ibcanjlxwclzhayin578bf0qydxdm9qy";
               })
-            ] ++ ops atLeast31 [
+            ]
+            ++ ops atLeast31 [
               # When using a baseruby, ruby always sets "libdir" to the build
               # directory, which nix rejects due to a reference in to /build/ in
               # the final product. Removing this reference doesn't seem to break
@@ -251,7 +262,8 @@ let
               sed -i configure.ac -e '/config.guess/d'
               cp --remove-destination ${config}/config.guess tool/
               cp --remove-destination ${config}/config.sub tool/
-            '' + opString (!atLeast30) ''
+            ''
+            + opString (!atLeast30) ''
               # Make the build reproducible for ruby <= 2.7
               # See https://github.com/ruby/io-console/commit/679a941d05d869f5e575730f6581c027203b7b26#diff-d8422f096931c58d4463e2489f62a228b0f24f0492950ba88c8c89a0d741cfe6
               sed -i ext/io/console/io-console.gemspec -e '/s\.date/d'
@@ -274,7 +286,9 @@ let
               # ruby enables -O3 for gcc, however our compiler hardening wrapper
               # overrides that by enabling `-O2` which is the minimum optimization
               # needed for `_FORTIFY_SOURCE`.
-            ] ++ lib.optional stdenv.cc.isGNU "CFLAGS=-O3" ++ [ ]
+            ]
+            ++ lib.optional stdenv.cc.isGNU "CFLAGS=-O3"
+            ++ [ ]
             ++ ops stdenv.isDarwin [
               # on darwin, we have /usr/include/tk.h -- so the configure script detects
               # that tk is installed
@@ -346,7 +360,8 @@ let
               addEnvHooks "$hostOffset" addGemPath
               addEnvHooks "$hostOffset" addRubyLibPath
               EOF
-            '' + opString docSupport ''
+            ''
+            + opString docSupport ''
               # Prevent the docs from being included in the closure
               sed -i "s|\$(DESTDIR)$devdoc|\$(datarootdir)/\$(RI_BASE_NAME)|" $rbConfig
               sed -i "s|'--with-ridir=$devdoc/share/ri'||" $rbConfig
@@ -354,7 +369,8 @@ let
               # Add rbconfig shim so ri can find docs
               mkdir -p $devdoc/lib/ruby/site_ruby
               cp ${./rbconfig.rb} $devdoc/lib/ruby/site_ruby/rbconfig.rb
-            '' + opString useBaseRuby ''
+            ''
+            + opString useBaseRuby ''
               # Prevent the baseruby from being included in the closure.
               ${removeReferencesTo}/bin/remove-references-to \
                 -t ${baseRuby} \

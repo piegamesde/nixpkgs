@@ -78,7 +78,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/doc/apvlv/
       cp ../Startup.pdf $out/share/doc/apvlv/Startup.pdf
       cp ../main_menubar.glade $out/share/doc/apvlv/main_menubar.glade
-    '' + lib.optionalString (!stdenv.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.isDarwin) ''
       install -D ../apvlv.desktop $out/share/applications/apvlv.desktop
     ''
     ;

@@ -73,7 +73,8 @@ in
           modules: [${lib.concatStringsSep "," imcfg.kime.daemonModules}]
         indicator:
           icon_color: ${imcfg.kime.iconColor}
-      '' + imcfg.kime.extraConfig
+      ''
+      + imcfg.kime.extraConfig
       ;
   };
 

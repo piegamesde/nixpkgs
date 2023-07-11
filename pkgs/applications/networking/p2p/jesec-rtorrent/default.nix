@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       curl
       libtorrent
       ncurses
-    ] ++ lib.optional jsonRpcSupport nlohmann_json
+    ]
+    ++ lib.optional jsonRpcSupport nlohmann_json
     ++ lib.optional xmlRpcSupport xmlrpc_c
     ;
 

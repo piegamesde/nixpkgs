@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       wxGTK
       wxsqlite3
       sqlite
-    ] ++ lib.optional stdenv.isDarwin Cocoa
+    ]
+    ++ lib.optional stdenv.isDarwin Cocoa
     ;
 
   makeFlags =
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
       install -D ${
         lib.optionalString stdenv.isDarwin "wxsqliteplus.app/Contents/MacOS/"
       }wxsqliteplus $out/bin/wxsqliteplus
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       mv wxsqliteplus.app $out/Applications/
     ''

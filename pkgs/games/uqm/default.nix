@@ -22,8 +22,8 @@
   useRemixPacks ? false
 }:
 
-assert use3DOVideos -> requireFile != null && writeText != null
-  && haskellPackages != null;
+assert use3DOVideos
+  -> requireFile != null && writeText != null && haskellPackages != null;
 
 let
   videos = import ./3dovideo.nix {
@@ -85,9 +85,11 @@ stdenv.mkDerivation rec {
       ln -s "$content" "uqm-${version}/content/packages/uqm-${version}-content.uqm"
       ln -s "$music" "uqm-${version}/content/addons/uqm-${version}-3domusic.uqm"
       ln -s "$voice" "uqm-${version}/content/addons/uqm-${version}-voice.uqm"
-    '' + lib.optionalString useRemixPacks (lib.concatMapStrings (disc: ''
+    ''
+    + lib.optionalString useRemixPacks (lib.concatMapStrings (disc: ''
       ln -s "${disc}" "uqm-$version/content/addons/${disc.name}"
-    '') remixPacks) + lib.optionalString use3DOVideos ''
+    '') remixPacks)
+    + lib.optionalString use3DOVideos ''
       ln -s "${videos}" "uqm-${version}/content/addons/3dovideo"
     ''
     ;

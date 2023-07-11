@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       libedit
       libxml2
       libllvm
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.libobjc
       darwin.apple_sdk.libs.xpc
       darwin.apple_sdk.frameworks.Foundation
@@ -87,7 +88,8 @@ stdenv.mkDerivation rec {
           "NO"
       }"
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    ] ++ lib.optionals doCheck [
+    ]
+    ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
     ]

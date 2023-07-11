@@ -1854,10 +1854,10 @@ in
       in
       (optional (doesntUseFileProvider cfg.settings.database.password ""
         || doesntUseFileProvider cfg.settings.security.admin_password
-        "admin") ''
-          Grafana passwords will be stored as plaintext in the Nix store!
-          Use file provider or an env-var instead.
-        '')
+          "admin") ''
+            Grafana passwords will be stored as plaintext in the Nix store!
+            Use file provider or an env-var instead.
+          '')
       # Warn about deprecated notifiers.
       ++ (optional (cfg.provision.notifiers != [ ]) ''
         Notifiers are deprecated upstream and will be removed in Grafana 10.
@@ -1910,8 +1910,9 @@ in
                 type == "prometheus" -> access != "direct") opt
               ;
           in
-          cfg.provision.datasources.settings == null || prometheusIsNotDirect
-          cfg.provision.datasources.settings.datasources
+          cfg.provision.datasources.settings == null
+          || prometheusIsNotDirect
+            cfg.provision.datasources.settings.datasources
           ;
         message =
           "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
@@ -2020,9 +2021,10 @@ in
           [
             "@system-service"
             "~@privileged"
-          ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [
-            "@chown"
           ]
+          ++ lib.optionals (cfg.settings.server.protocol == "socket") [
+              "@chown"
+            ]
           ;
         UMask = "0027";
       };

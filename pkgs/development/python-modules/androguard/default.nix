@@ -58,7 +58,8 @@ buildPythonPackage rec {
       networkx
       pydot
       pygments
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       pyqt5
       pyperclip
     ]

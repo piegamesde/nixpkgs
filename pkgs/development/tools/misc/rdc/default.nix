@@ -48,7 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.2";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
     ++ lib.optionals buildTests [ "test" ]
     ;
 
@@ -63,7 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       cmake
       protobuf
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       doxygen
       graphviz
       latex
@@ -77,7 +79,8 @@ stdenv.mkDerivation (finalAttrs: {
       libcap
       grpc
       openssl
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ;
 
   cmakeFlags =
@@ -95,7 +98,8 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
       "-DCMAKE_INSTALL_LIBEXECDIR=libexec"
       "-DCMAKE_INSTALL_DOCDIR=doc"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
     ;
 
   postPatch = ''
@@ -107,7 +111,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''
       find $out/bin -executable -type f -exec \
         patchelf {} --shrink-rpath --allowed-rpath-prefixes /nix/store \;
-    '' + lib.optionalString buildTests ''
+    ''
+    + lib.optionalString buildTests ''
       mkdir -p $test
       mv $out/bin/rdctst_tests $test/bin
     ''

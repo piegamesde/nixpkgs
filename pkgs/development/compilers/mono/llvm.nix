@@ -33,7 +33,8 @@ stdenv.mkDerivation {
       libxml2
       python2
       libffi
-    ] ++ lib.optional stdenv.isLinux valgrind
+    ]
+    ++ lib.optional stdenv.isLinux valgrind
     ;
 
   propagatedBuildInputs = [
@@ -52,7 +53,8 @@ stdenv.mkDerivation {
     [
       "-DLLVM_ENABLE_FFI=ON"
       "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-    ] ++ lib.optional (!isDarwin) "-DBUILD_SHARED_LIBS=ON";
+    ]
+    ++ lib.optional (!isDarwin) "-DBUILD_SHARED_LIBS=ON";
 
   meta = {
     description =

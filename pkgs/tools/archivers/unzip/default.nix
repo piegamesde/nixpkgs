@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
         ];
         sha256 = "sha256-on79jElQ+z2ULWAq14RpluAqr9d6itHiZwDkKubBzTc=";
       })
-    ] ++ lib.optional enableNLS (fetchurl {
+    ]
+    ++ lib.optional enableNLS (fetchurl {
       url =
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-arch/unzip/files/unzip-6.0-natspec.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d";
       name = "unzip-6.0-natspec.patch";

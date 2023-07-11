@@ -8,8 +8,10 @@
 
 let
   enableLibGccOutput =
-    (with stdenv; targetPlatform == hostPlatform) && !langJit
-    && !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isStatic
+    (with stdenv; targetPlatform == hostPlatform)
+    && !langJit
+    && !stdenv.hostPlatform.isDarwin
+    && !stdenv.hostPlatform.isStatic
     ;
 in
 (pkg:
@@ -23,8 +25,8 @@ in
       preFixupPhases =
         (previousAttrs.preFixupPhases or [ ])
         ++ lib.optionals ((!langC) || enableLibGccOutput) [
-          "preFixupLibGccPhase"
-        ]
+            "preFixupLibGccPhase"
+          ]
         ;
       preFixupLibGccPhase =
         # delete extra/unused builds of libgcc_s in non-langC builds
@@ -33,14 +35,14 @@ in
           rm -f $out/lib/libgcc_s.so*
         ''
 
-        # TODO(amjoseph): remove the `libgcc_s.so` symlinks below and replace them
-        # with a `-L${gccForLibs.libgcc}/lib` in cc-wrapper's
-        # `$out/nix-support/cc-flags`.  See also:
-        # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130614895
-        # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130635982
-        # - https://github.com/NixOS/nixpkgs/commit/404155c6acfa59456aebe6156b22fe385e7dec6f
-        #
-        # move `libgcc_s.so` into its own output, `$libgcc`
+          # TODO(amjoseph): remove the `libgcc_s.so` symlinks below and replace them
+          # with a `-L${gccForLibs.libgcc}/lib` in cc-wrapper's
+          # `$out/nix-support/cc-flags`.  See also:
+          # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130614895
+          # - https://github.com/NixOS/nixpkgs/pull/209870#discussion_r1130635982
+          # - https://github.com/NixOS/nixpkgs/commit/404155c6acfa59456aebe6156b22fe385e7dec6f
+          #
+          # move `libgcc_s.so` into its own output, `$libgcc`
         + lib.optionalString enableLibGccOutput (''
           # move libgcc from lib to its own output (libgcc)
           mkdir -p $libgcc/lib

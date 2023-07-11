@@ -42,7 +42,8 @@ buildPythonPackage rec {
       torch
       tqdm
       typer
-    ] ++ typer.passthru.optional-dependencies.all
+    ]
+    ++ typer.passthru.optional-dependencies.all
     ;
 
   nativeCheckInputs = [
@@ -54,7 +55,8 @@ buildPythonPackage rec {
     [
       # tries to download models:
       "test_load_all"
-    ] ++ lib.optionals stdenv.isAarch64 [
+    ]
+    ++ lib.optionals stdenv.isAarch64 [
       # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
       "test_queue_multiprocessing"
     ]

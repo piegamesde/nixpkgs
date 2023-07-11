@@ -53,8 +53,11 @@ stdenv.mkDerivation rec {
       ncurses
       which
       perl
-    ] ++ lib.optional headerCache gdbm ++ lib.optional sslSupport openssl
-    ++ lib.optional gssSupport libkrb5 ++ lib.optional saslSupport cyrus_sasl
+    ]
+    ++ lib.optional headerCache gdbm
+    ++ lib.optional sslSupport openssl
+    ++ lib.optional gssSupport libkrb5
+    ++ lib.optional saslSupport cyrus_sasl
     ++ lib.optional gpgmeSupport gpgme
     ;
 
@@ -78,7 +81,8 @@ stdenv.mkDerivation rec {
       # set by the installer, and removing the need for the group 'mail'
       # I set the value 'mailbox' because it is a default in the configure script
       "--with-homespool=mailbox"
-    ] ++ lib.optional sslSupport "--with-ssl"
+    ]
+    ++ lib.optional sslSupport "--with-ssl"
     ++ lib.optional gssSupport "--with-gss"
     ++ lib.optional saslSupport "--with-sasl"
     ;
@@ -93,7 +97,8 @@ stdenv.mkDerivation rec {
       cp contrib/smime.rc $out/etc/smime.rc
       sed -i 's#openssl#${openssl}/bin/openssl#' $out/etc/smime.rc
       echo "source $out/etc/smime.rc" >> $out/etc/Muttrc
-    '' + lib.optionalString gpgSupport ''
+    ''
+    + lib.optionalString gpgSupport ''
       # GnuPG setup
       cp contrib/gpg.rc $out/etc/gpg.rc
       sed -i 's#\(command="\)gpg #\1${gnupg}/bin/gpg #' $out/etc/gpg.rc

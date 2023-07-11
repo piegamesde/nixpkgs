@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
       systemd
       tracker
       shared-mime-info
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-editing-services
       gst-plugins-base

@@ -47,10 +47,12 @@ stdenv.mkDerivation rec {
     [
       libuv
       speexdsp
-    ] ++ lib.optional openfecSupport openfec
+    ]
+    ++ lib.optional openfecSupport openfec
     ++ lib.optional libunwindSupport libunwind
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional opensslSupport openssl ++ lib.optional soxSupport sox
+    ++ lib.optional opensslSupport openssl
+    ++ lib.optional soxSupport sox
     ;
 
   sconsFlags =
@@ -58,7 +60,8 @@ stdenv.mkDerivation rec {
       "--build=${stdenv.buildPlatform.config}"
       "--host=${stdenv.hostPlatform.config}"
       "--prefix=${placeholder "out"}"
-    ] ++ lib.optional (!opensslSupport) "--disable-openssl"
+    ]
+    ++ lib.optional (!opensslSupport) "--disable-openssl"
     ++ lib.optional (!soxSupport) "--disable-sox"
     ++ lib.optional (!libunwindSupport) "--disable-libunwind"
     ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio"

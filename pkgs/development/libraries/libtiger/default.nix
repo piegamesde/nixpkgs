@@ -35,8 +35,9 @@ stdenv.mkDerivation rec {
       libkate
       pango
       cairo
-    ] ++ lib.optional stdenv.isDarwin
-    darwin.apple_sdk.frameworks.ApplicationServices
+    ]
+    ++ lib.optional stdenv.isDarwin
+      darwin.apple_sdk.frameworks.ApplicationServices
     ;
 
   meta = {

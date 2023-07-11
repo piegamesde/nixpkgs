@@ -62,7 +62,8 @@ buildPythonPackage rec {
     [
       attrs
       sortedcontainers
-    ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ;
 
   nativeCheckInputs =
@@ -70,7 +71,8 @@ buildPythonPackage rec {
       pexpect
       pytest-xdist
       pytestCheckHook
-    ] ++ lib.optionals (isPyPy) [ tzdata ]
+    ]
+    ++ lib.optionals (isPyPy) [ tzdata ]
     ;
 
   inherit

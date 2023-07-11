@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       meson
       ninja
       python3
-    ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
     ;
   propagatedBuildInputs = [
     pango

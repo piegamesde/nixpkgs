@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
       cairo
       gtk3-x11
       pcre
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXtst
       libXrandr

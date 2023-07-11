@@ -40,7 +40,8 @@ buildPythonPackage rec {
       babel
       jupyter-server
       tomli
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;
 
   nativeCheckInputs = [

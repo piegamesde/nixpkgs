@@ -27,7 +27,8 @@ buildPythonPackage rec {
       libxml2.dev
       libxslt.dev
       cython
-    ] ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
     ;
   buildInputs = [
     libxml2

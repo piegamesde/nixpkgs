@@ -56,7 +56,8 @@ stdenv.mkDerivation {
       libusb-compat-0_1
       libusb1
       libconfuse
-    ] ++ lib.optional (gccCross != null) gccCross
+    ]
+    ++ lib.optional (gccCross != null) gccCross
     ;
 
   meta = {

@@ -40,8 +40,8 @@
   networkmanager,
   enableLibetpan ? true,
   libetpan,
-  enableValgrind ? !stdenv.isDarwin
-    && lib.meta.availableOn stdenv.hostPlatform valgrind,
+  enableValgrind ?
+    !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
   valgrind,
   enableSvg ? true,
   librsvg
@@ -328,8 +328,9 @@ stdenv.mkDerivation rec {
       gsettings-desktop-schemas
       glib-networking
       gtk3
-    ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
-    (lib.filter (f: f ? deps) features)
+    ]
+    ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
+      (lib.filter (f: f ? deps) features)
     ;
 
   configureFlags =
@@ -339,7 +340,8 @@ stdenv.mkDerivation rec {
       "--disable-jpilot" # Missing jpilot library
 
       "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
-    ] ++ (map (feature:
+    ]
+    ++ (map (feature:
       map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
       features)
     ;

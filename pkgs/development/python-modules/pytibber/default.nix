@@ -34,7 +34,8 @@ buildPythonPackage rec {
       gql
       graphql-subscription-manager
       python-dateutil
-    ] ++ gql.optional-dependencies.websockets
+    ]
+    ++ gql.optional-dependencies.websockets
     ;
 
   nativeCheckInputs = [

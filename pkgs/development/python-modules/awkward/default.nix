@@ -35,7 +35,8 @@ buildPythonPackage rec {
       awkward-cpp
       numpy
       packaging
-    ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
     ;
 
   dontUseCmakeConfigure = true;

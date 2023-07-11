@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
     [
       "--with-apr=${apr.dev}"
       "--with-expat=${expat.dev}"
-    ] ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
+    ]
+    ++ lib.optional (!stdenv.isCygwin) "--with-crypto"
     ++ lib.optional sslSupport "--with-openssl=${openssl.dev}"
     ++ lib.optional bdbSupport "--with-berkeley-db=${db.dev}"
     ++ lib.optional ldapSupport "--with-ldap=ldap"
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
   postConfigure =
     ''
       echo '#define APR_HAVE_CRYPT_H 1' >> confdefs.h
-    '' +
+    ''
+    +
     # For some reason, db version 6.9 is selected when cross-compiling.
     # It's unclear as to why, it requires someone with more autotools / configure knowledge to go deeper into that.
     # Always replacing the link flag with a generic link flag seems to help though, so let's do that for now.
@@ -86,7 +88,9 @@ stdenv.mkDerivation rec {
       expat
       libiconv
       libxcrypt
-    ] ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db
+    ]
+    ++ lib.optional sslSupport openssl
+    ++ lib.optional bdbSupport db
     ++ lib.optional ldapSupport openldap
     ++ lib.optional stdenv.isFreeBSD cyrus_sasl
     ;

@@ -97,10 +97,12 @@ in
           "--logfile=STDOUT"
           "--loglevel=${cfg.logLevel}"
           "--sqlite=${libDir}/clients.db"
-        ] ++ cfg.extraArgs ++ [
-          cfg.listenAddress
-          (toString cfg.port)
-        ]);
+        ]
+          ++ cfg.extraArgs
+          ++ [
+            cfg.listenAddress
+            (toString cfg.port)
+          ]);
         ProtectHome = "tmpfs";
         WorkingDirectory = libDir;
         SyslogIdentifier = "pykms";

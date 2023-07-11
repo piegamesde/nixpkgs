@@ -94,24 +94,35 @@ clangStdenv.mkDerivation {
     [
       jansson
       swift-corelibs-libdispatch
-    ] ++ optionals gtk2Support [ gtk2 ] ++ optionals gtk3Support [
+    ]
+    ++ optionals gtk2Support [ gtk2 ]
+    ++ optionals gtk3Support [
       gtk3
       gsettings-desktop-schemas
-    ] ++ optionals vorbisSupport [ libvorbis ]
-    ++ optionals mp123Support [ libmad ] ++ optionals flacSupport [ flac ]
-    ++ optionals wavSupport [ libsndfile ] ++ optionals cdaSupport [
+    ]
+    ++ optionals vorbisSupport [ libvorbis ]
+    ++ optionals mp123Support [ libmad ]
+    ++ optionals flacSupport [ flac ]
+    ++ optionals wavSupport [ libsndfile ]
+    ++ optionals cdaSupport [
       libcdio
       libcddb
-    ] ++ optionals aacSupport [ faad2 ] ++ optionals opusSupport [ opusfile ]
-    ++ optionals zipSupport [ libzip ] ++ optionals ffmpegSupport [ ffmpeg ]
-    ++ optionals apeSupport [ yasm ] ++ optionals artworkSupport [ imlib2 ]
-    ++ optionals hotkeysSupport [ libX11 ] ++ optionals osdSupport [ dbus ]
+    ]
+    ++ optionals aacSupport [ faad2 ]
+    ++ optionals opusSupport [ opusfile ]
+    ++ optionals zipSupport [ libzip ]
+    ++ optionals ffmpegSupport [ ffmpeg ]
+    ++ optionals apeSupport [ yasm ]
+    ++ optionals artworkSupport [ imlib2 ]
+    ++ optionals hotkeysSupport [ libX11 ]
+    ++ optionals osdSupport [ dbus ]
     ++ optionals alsaSupport [ alsa-lib ]
     ++ optionals pulseSupport [ libpulseaudio ]
     ++ optionals pipewireSupport [ pipewire ]
     ++ optionals resamplerSupport [ libsamplerate ]
     ++ optionals overloadSupport [ zlib ]
-    ++ optionals wavpackSupport [ wavpack ] ++ optionals remoteSupport [ curl ]
+    ++ optionals wavpackSupport [ wavpack ]
+    ++ optionals remoteSupport [ curl ]
     ;
 
   nativeBuildInputs =
@@ -121,7 +132,8 @@ clangStdenv.mkDerivation {
       intltool
       libtool
       pkg-config
-    ] ++ optionals gtk3Support [ wrapGAppsHook ]
+    ]
+    ++ optionals gtk3Support [ wrapGAppsHook ]
     ;
 
   enableParallelBuilding = true;

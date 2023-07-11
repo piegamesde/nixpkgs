@@ -89,7 +89,8 @@ let
 
       pluginPython3Packages = getDeps "python3Dependencies" requiredPlugins;
       python3Env = python3Packages.python.withPackages (ps:
-        [ ps.pynvim ] ++ (extraPython3Packages ps)
+        [ ps.pynvim ]
+        ++ (extraPython3Packages ps)
         ++ (lib.concatMap (f: f ps) pluginPython3Packages));
 
       luaEnv = neovim-unwrapped.lua.withPackages (extraLuaPackages);
@@ -105,16 +106,19 @@ let
           binPath = lib.makeBinPath (lib.optionals withRuby [ rubyEnv ]
             ++ lib.optionals withNodeJs [ nodejs ]);
         in
-        [ "--inherit-argv0" ] ++ lib.optionals withRuby [
+        [ "--inherit-argv0" ]
+        ++ lib.optionals withRuby [
           "--set"
           "GEM_HOME"
           "${rubyEnv}/${rubyEnv.ruby.gemPath}"
-        ] ++ lib.optionals (binPath != "") [
+        ]
+        ++ lib.optionals (binPath != "") [
           "--suffix"
           "PATH"
           ":"
           binPath
-        ] ++ lib.optionals (luaEnv != null) [
+        ]
+        ++ lib.optionals (luaEnv != null) [
           "--prefix"
           "LUA_PATH"
           ";"
@@ -184,7 +188,8 @@ let
           start ? [ ],
           opt ? [ ]
         }:
-        start ++ (map (p: {
+        start
+        ++ (map (p: {
           plugin = p;
           optional = true;
         }) opt)

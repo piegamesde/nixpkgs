@@ -150,7 +150,8 @@ python3Packages.buildPythonApplication rec {
       xz
       zip
       zstd
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       argcomplete
       debian
       defusedxml
@@ -161,13 +162,15 @@ python3Packages.buildPythonApplication rec {
       progressbar33
       pypdf2
       tlsh
-    ]) ++ lib.optionals stdenv.isLinux [
+    ])
+    ++ lib.optionals stdenv.isLinux [
       python3Packages.pyxattr
       python3Packages.rpm
       acl
       cdrkit
       dtc
-    ] ++ lib.optionals enableBloat ([
+    ]
+    ++ lib.optionals enableBloat ([
       abootimg
       apksigcopier
       apksigner
@@ -202,13 +205,14 @@ python3Packages.buildPythonApplication rec {
       wabt
       radare2
       xmlbeans
-    ] ++ (with python3Packages; [
-      androguard
-      binwalk
-      guestfs
-      h5py
-      pdfminer-six
-    ]))
+    ]
+      ++ (with python3Packages; [
+        androguard
+        binwalk
+        guestfs
+        h5py
+        pdfminer-six
+      ]))
     ;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
@@ -232,7 +236,8 @@ python3Packages.buildPythonApplication rec {
 
       # fails because it fails to determine llvm version
       "test_item3_deflate_llvm_bitcode"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Disable flaky tests on Darwin
       "test_non_unicode_filename"
       "test_listing"

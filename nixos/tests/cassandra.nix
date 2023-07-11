@@ -119,7 +119,8 @@ import ./make-test-python.nix ({
                 "nodetool -p ${jmxPortStr} ${jmxAuthArgs} status | egrep -c '^UN' | grep 2"
             )
             cass0.succeed("nodetool status -p ${jmxPortStr} --resolve-ip | egrep '^UN[[:space:]]+cass1'")
-      '' + lib.optionalString testRemoteAuth ''
+      ''
+      + lib.optionalString testRemoteAuth ''
         with subtest("Remote authenticated jmx"):
             # Doesn't work if not enabled
             cass0.wait_until_succeeds("nc -z localhost ${jmxPortStr}")
@@ -129,7 +130,8 @@ import ./make-test-python.nix ({
             # Works if enabled
             cass1.wait_until_succeeds("nc -z localhost ${jmxPortStr}")
             cass0.succeed("nodetool -p ${jmxPortStr} -h 192.168.1.2 ${jmxAuthArgs} status")
-      '' + ''
+      ''
+      + ''
         with subtest("Break and fix node"):
             cass1.block()
             cass0.wait_until_succeeds(

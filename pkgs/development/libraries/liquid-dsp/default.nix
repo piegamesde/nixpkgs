@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.isDarwin [ "LIBTOOL=${cctools}/bin/libtool" ];
 
   nativeBuildInputs =
-    [ autoreconfHook ] ++ lib.optionals stdenv.isDarwin [
+    [ autoreconfHook ]
+    ++ lib.optionals stdenv.isDarwin [
       cctools
       autoSignDarwinBinariesHook
       fixDarwinDylibNames

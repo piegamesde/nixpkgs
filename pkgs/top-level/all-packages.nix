@@ -864,8 +864,9 @@ with pkgs;
 
   fetchcvs =
     if
-      stdenv.buildPlatform != stdenv.hostPlatform
-      # hack around splicing being crummy with things that (correctly) don't eval.
+      stdenv.buildPlatform
+      != stdenv.hostPlatform
+        # hack around splicing being crummy with things that (correctly) don't eval.
     then
       buildPackages.fetchcvs
     else
@@ -987,8 +988,9 @@ with pkgs;
 
   fetchsvn =
     if
-      stdenv.buildPlatform != stdenv.hostPlatform
-      # hack around splicing being crummy with things that (correctly) don't eval.
+      stdenv.buildPlatform
+      != stdenv.hostPlatform
+        # hack around splicing being crummy with things that (correctly) don't eval.
     then
       buildPackages.fetchsvn
     else
@@ -14785,7 +14787,8 @@ with pkgs;
     xorgserver = xorg.xorgserver.overrideAttrs (old: {
       buildInputs = lib.filter (pkg: lib.getName pkg != "mesa") old.buildInputs;
       configureFlags =
-        old.configureFlags ++ [
+        old.configureFlags
+        ++ [
           "--disable-glamor"
           "--disable-glx"
           "--disable-dri"
@@ -16130,8 +16133,8 @@ with pkgs;
       # If we are cross-compiling GNAT, we may as well do the same.
     gnat-bootstrap =
       if
-        stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform
-        == stdenv.hostPlatform
+        stdenv.hostPlatform == stdenv.targetPlatform
+        && stdenv.buildPlatform == stdenv.hostPlatform
       then
         buildPackages.gnat-bootstrap11
       else
@@ -16150,8 +16153,8 @@ with pkgs;
       # If we are cross-compiling GNAT, we may as well do the same.
     gnat-bootstrap =
       if
-        stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform
-        == stdenv.hostPlatform
+        stdenv.hostPlatform == stdenv.targetPlatform
+        && stdenv.buildPlatform == stdenv.hostPlatform
       then
         buildPackages.gnat-bootstrap12
       else
@@ -16159,8 +16162,9 @@ with pkgs;
       ;
     stdenv =
       if
-        stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform
-        == stdenv.hostPlatform && stdenv.buildPlatform.isDarwin
+        stdenv.hostPlatform == stdenv.targetPlatform
+        && stdenv.buildPlatform == stdenv.hostPlatform
+        && stdenv.buildPlatform.isDarwin
         && stdenv.buildPlatform.isx86_64
       then
         overrideCC stdenv gnat-bootstrap12
@@ -19398,8 +19402,8 @@ with pkgs;
     if
       stdenv.targetPlatform == stdenv.hostPlatform
       && targetPackages.stdenv.cc.isGNU
-      # Can only do this is in the native case, otherwise we might get infinite
-      # recursion if `targetPackages.stdenv.cc.cc` itself uses `gccForLibs`.
+        # Can only do this is in the native case, otherwise we might get infinite
+        # recursion if `targetPackages.stdenv.cc.cc` itself uses `gccForLibs`.
     then
       targetPackages.stdenv.cc.cc
     else
@@ -24817,7 +24821,8 @@ with pkgs;
         [
           libnvidia-container
           nvidia-container-toolkit
-        ] ++ additionalPaths
+        ]
+        ++ additionalPaths
         ;
     }
     ;
@@ -28694,7 +28699,8 @@ with pkgs;
       # musl roadmap has RISC-V support projected for 1.1.20
       busybox =
         if
-          !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isLoongArch64
+          !stdenv.hostPlatform.isRiscV
+          && !stdenv.hostPlatform.isLoongArch64
           && stdenv.hostPlatform.libc != "bionic"
         then
           pkgsStatic.busybox
@@ -42117,7 +42123,8 @@ with pkgs;
                 config.nixpkgs.pkgs = lib.mkDefault pkgs;
                 config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
               })
-          ] ++ (if builtins.isList configuration then
+          ]
+          ++ (if builtins.isList configuration then
             configuration
           else
             [ configuration ])

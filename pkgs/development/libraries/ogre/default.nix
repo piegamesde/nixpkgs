@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       ois
       pugixml
       zziplib
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       freeglut
       libGL
       libGLU
@@ -79,7 +80,8 @@ stdenv.mkDerivation rec {
       libXt
       libXxf86vm
       xorgproto
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
     ;
 

@@ -44,8 +44,8 @@
   numactl,
   seccompSupport ? stdenv.isLinux,
   libseccomp,
-  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system
-    && !nixosTestRunner,
+  alsaSupport ?
+    lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner,
   pulseSupport ? !stdenv.isDarwin && !nixosTestRunner,
   libpulseaudio,
   sdlSupport ? !stdenv.isDarwin && !nixosTestRunner,
@@ -111,7 +111,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname =
-    "qemu" + lib.optionalString xenSupport "-xen"
+    "qemu"
+    + lib.optionalString xenSupport "-xen"
     + lib.optionalString hostCpuOnly "-host-cpu-only"
     + lib.optionalString nixosTestRunner "-for-vm-tests"
     ;
@@ -139,7 +140,8 @@ stdenv.mkDerivation rec {
       python3Packages.python
       python3Packages.sphinx
       python3Packages.sphinx-rtd-theme
-    ] ++ lib.optionals gtkSupport [ wrapGAppsHook ]
+    ]
+    ++ lib.optionals gtkSupport [ wrapGAppsHook ]
     ++ lib.optionals hexagonSupport [ glib ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ]
     ;
@@ -158,7 +160,8 @@ stdenv.mkDerivation rec {
       nettle
       curl
       libslirp
-    ] ++ lib.optionals ncursesSupport [ ncurses ]
+    ]
+    ++ lib.optionals ncursesSupport [ ncurses ]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Cocoa
@@ -166,39 +169,49 @@ stdenv.mkDerivation rec {
       rez
       setfile
       vmnet
-    ] ++ lib.optionals seccompSupport [ libseccomp ]
+    ]
+    ++ lib.optionals seccompSupport [ libseccomp ]
     ++ lib.optionals numaSupport [ numactl ]
     ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals pulseSupport [ libpulseaudio ]
     ++ lib.optionals sdlSupport [
       SDL2
       SDL2_image
-    ] ++ lib.optionals jackSupport [ libjack2 ] ++ lib.optionals gtkSupport [
+    ]
+    ++ lib.optionals jackSupport [ libjack2 ]
+    ++ lib.optionals gtkSupport [
       gtk3
       gettext
       vte
-    ] ++ lib.optionals vncSupport [
+    ]
+    ++ lib.optionals vncSupport [
       libjpeg
       libpng
-    ] ++ lib.optionals smartcardSupport [ libcacard ]
+    ]
+    ++ lib.optionals smartcardSupport [ libcacard ]
     ++ lib.optionals spiceSupport [
       spice-protocol
       spice
-    ] ++ lib.optionals usbredirSupport [ usbredir ]
+    ]
+    ++ lib.optionals usbredirSupport [ usbredir ]
     ++ lib.optionals stdenv.isLinux [
       libaio
       libcap_ng
       libcap
       attr
-    ] ++ lib.optionals xenSupport [ xen ] ++ lib.optionals cephSupport [ ceph ]
+    ]
+    ++ lib.optionals xenSupport [ xen ]
+    ++ lib.optionals cephSupport [ ceph ]
     ++ lib.optionals glusterfsSupport [
       glusterfs
       libuuid
-    ] ++ lib.optionals openGLSupport [
+    ]
+    ++ lib.optionals openGLSupport [
       mesa
       libepoxy
       libdrm
-    ] ++ lib.optionals virglSupport [ virglrenderer ]
+    ]
+    ++ lib.optionals virglSupport [ virglrenderer ]
     ++ lib.optionals libiscsiSupport [ libiscsi ]
     ++ lib.optionals smbdSupport [ samba ]
     ++ lib.optionals uringSupport [ liburing ]
@@ -239,7 +252,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-oC+bRjEHixv1QEFO9XAm4HHOwoiT+NkhknKGPydnZ5E=";
         revert = true;
       })
-    ] ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch
+    ]
+    ++ lib.optional nixosTestRunner ./force-uid0-on-9p.patch
     ;
 
   postPatch = ''
@@ -273,17 +287,19 @@ stdenv.mkDerivation rec {
       "--meson=meson"
       "--cross-prefix=${stdenv.cc.targetPrefix}"
       (lib.enableFeature guestAgentSupport "guest-agent")
-    ] ++ lib.optional numaSupport "--enable-numa"
+    ]
+    ++ lib.optional numaSupport "--enable-numa"
     ++ lib.optional seccompSupport "--enable-seccomp"
     ++ lib.optional smartcardSupport "--enable-smartcard"
     ++ lib.optional spiceSupport "--enable-spice"
     ++ lib.optional usbredirSupport "--enable-usb-redir"
     ++ lib.optional (hostCpuTargets != null)
-    "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
+      "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
     ++ lib.optionals stdenv.isDarwin [
       "--enable-cocoa"
       "--enable-hvf"
-    ] ++ lib.optional stdenv.isLinux "--enable-linux-aio"
+    ]
+    ++ lib.optional stdenv.isLinux "--enable-linux-aio"
     ++ lib.optional gtkSupport "--enable-gtk"
     ++ lib.optional xenSupport "--enable-xen"
     ++ lib.optional cephSupport "--enable-rbd"
@@ -309,13 +325,15 @@ stdenv.mkDerivation rec {
     ''
       # the .desktop is both invalid and pointless
       rm -f $out/share/applications/qemu.desktop
-    '' + lib.optionalString guestAgentSupport ''
+    ''
+    + lib.optionalString guestAgentSupport ''
       # move qemu-ga (guest agent) to separate output
       mkdir -p $ga/bin
       mv $out/bin/qemu-ga $ga/bin/
       ln -s $ga/bin/qemu-ga $out/bin
       remove-references-to -t $out $ga/bin/qemu-ga
-    '' + lib.optionalString gtkSupport ''
+    ''
+    + lib.optionalString gtkSupport ''
       # wrap GTK Binaries
       for f in $out/bin/qemu-system-*; do
         wrapGApp $f
@@ -352,7 +370,8 @@ stdenv.mkDerivation rec {
       # get-fsinfo attempts to access block devices, disallowed by sandbox
       sed -i -e '/\/qga\/get-fsinfo/d' -e '/\/qga\/blacklist/d' \
         ../tests/unit/test-qga.c
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # skip test that stalls on darwin, perhaps due to subtle differences
       # in fifo behaviour
       substituteInPlace ../tests/unit/meson.build \

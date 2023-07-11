@@ -150,7 +150,8 @@ let
 in
 python3.pkgs.buildPythonApplication rec {
   pname =
-    "asciidoc" + lib.optionalString enableStandardFeatures "-full"
+    "asciidoc"
+    + lib.optionalString enableStandardFeatures "-full"
     + lib.optionalString enableExtraPlugins "-with-plugins"
     ;
   version = "10.2.0";
@@ -173,17 +174,20 @@ python3.pkgs.buildPythonApplication rec {
     ''
       mkdir -p "$out/etc/asciidoc/filters"
       mkdir -p "$out/etc/asciidoc/backends"
-    '' + optionalString _enableDitaaFilter ''
+    ''
+    + optionalString _enableDitaaFilter ''
       echo "Extracting ditaa filter"
       unzip -d "$out/etc/asciidoc/filters/ditaa" "${ditaaFilterSrc}"
       sed -i -e "s|java -jar|${jre}/bin/java -jar|" \
           "$out/etc/asciidoc/filters/ditaa/ditaa2img.py"
-    '' + optionalString _enableMscgenFilter ''
+    ''
+    + optionalString _enableMscgenFilter ''
       echo "Extracting mscgen filter"
       unzip -d "$out/etc/asciidoc/filters/mscgen" "${mscgenFilterSrc}"
       sed -i -e "s|filter-wrapper.py mscgen|filter-wrapper.py ${mscgen}/bin/mscgen|" \
           "$out/etc/asciidoc/filters/mscgen/mscgen-filter.conf"
-    '' + optionalString _enableDiagFilter ''
+    ''
+    + optionalString _enableDiagFilter ''
       echo "Extracting diag filter"
       unzip -d "$out/etc/asciidoc/filters/diag" "${diagFilterSrc}"
       sed -i \
@@ -193,12 +197,14 @@ python3.pkgs.buildPythonApplication rec {
           -e "s|filter='nwdiag|filter=\'${nwdiag}/bin/nwdiag|" \
           -e "s|filter='packetdiag|filter=\'${nwdiag}/bin/packetdiag|" \
           "$out/etc/asciidoc/filters/diag/diag-filter.conf"
-    '' + optionalString _enableQrcodeFilter ''
+    ''
+    + optionalString _enableQrcodeFilter ''
       echo "Extracting qrcode filter"
       unzip -d "$out/etc/asciidoc/filters/qrcode" "${qrcodeFilterSrc}"
       sed -i -e "s|systemcmd('qrencode|systemcmd('${qrencode}/bin/qrencode|" \
           "$out/etc/asciidoc/filters/qrcode/qrcode2img.py"
-    '' + optionalString _enableMatplotlibFilter ''
+    ''
+    + optionalString _enableMatplotlibFilter ''
       echo "Extracting mpl (matplotlib) filter"
       mkdir -p "$out/etc/asciidoc/filters/mpl"
       tar xvf "${matplotlibFilterSrc}" -C "$out/etc/asciidoc/filters/mpl" --strip-components=1
@@ -209,7 +215,8 @@ python3.pkgs.buildPythonApplication rec {
       numpy_path="$(toPythonPath ${numpy})"
       sed -i "/^import.*sys/asys.path.append(\"$matplotlib_path\"); sys.path.append(\"$numpy_path\");" \
           "$out/etc/asciidoc/filters/mpl/mplw.py"
-    '' + optionalString _enableAafigureFilter ''
+    ''
+    + optionalString _enableAafigureFilter ''
       echo "Extracting aafigure filter"
       unzip -d "$out/etc/asciidoc/filters/aafigure" "${aafigureFilterSrc}"
       # Add aafigure to sys.path (and it needs recursive-pth-loader)
@@ -217,10 +224,12 @@ python3.pkgs.buildPythonApplication rec {
       aafigure_path="$(toPythonPath ${aafigure})"
       sed -i "/^import.*sys/asys.path.append(\"$pth_loader_path\"); sys.path.append(\"$aafigure_path\"); import sitecustomize" \
           "$out/etc/asciidoc/filters/aafigure/aafig2img.py"
-    '' + optionalString _enableDeckjsBackend ''
+    ''
+    + optionalString _enableDeckjsBackend ''
       echo "Extracting deckjs backend"
       unzip -d "$out/etc/asciidoc/backends/deckjs" "${deckjsBackendSrc}"
-    '' + optionalString _enableOdfBackend ''
+    ''
+    + optionalString _enableOdfBackend ''
       echo "Extracting odf backend (odt + odp)"
       unzip -d "$out/etc/asciidoc/backends/odt" "${odtBackendSrc}"
       unzip -d "$out/etc/asciidoc/backends/odp" "${odpBackendSrc}"
@@ -228,7 +237,8 @@ python3.pkgs.buildPythonApplication rec {
       # the odp backend already has that fix. Copy it here until fixed upstream.
       sed -i "s|'/etc/asciidoc/backends/odt/asciidoc.ott'|os.path.dirname(__file__),'asciidoc.ott'|" \
           "$out/etc/asciidoc/backends/odt/a2x-backend.py"
-    '' + (if enableStandardFeatures then
+    ''
+    + (if enableStandardFeatures then
       ''
         sed -e "s|dot|${graphviz}/bin/dot|g" \
             -e "s|neato|${graphviz}/bin/neato|g" \
@@ -283,17 +293,19 @@ python3.pkgs.buildPythonApplication rec {
             -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
             -e "s|^XMLLINT =.*|XMLLINT = '${libxml2.bin}/bin/xmllint'|" \
             -i asciidoc/a2x.py
-      '') + ''
-        # Fix tests
-        for f in $(grep -R --files-with-matches "2002-11-25") ; do
-          substituteInPlace $f --replace "2002-11-25" "1980-01-02"
-          substituteInPlace $f --replace "00:37:42" "00:00:00"
-        done
-      '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-        # We want to use asciidoc from the build platform to build the documentation.
-        substituteInPlace Makefile.in \
-          --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
-      '';
+      '')
+    + ''
+      # Fix tests
+      for f in $(grep -R --files-with-matches "2002-11-25") ; do
+        substituteInPlace $f --replace "2002-11-25" "1980-01-02"
+        substituteInPlace $f --replace "00:37:42" "00:00:00"
+      done
+    ''
+    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      # We want to use asciidoc from the build platform to build the documentation.
+      substituteInPlace Makefile.in \
+        --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
+    '';
 
   postBuild = ''
     make manpages

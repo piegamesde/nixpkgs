@@ -75,7 +75,8 @@ import ./make-test-python.nix ({
               )
             ''
             # check that all greetings arrived on all clients
-          ] ++ builtins.map (other: ''
+          ]
+          ++ builtins.map (other: ''
             ${client}.succeed(
                 "grep '${msg other}$' ${iiDir}/${server}/#${channel}/out"
             )
@@ -93,7 +94,8 @@ import ./make-test-python.nix ({
         # run clientScript for all clients so that every list
         # entry is executed by every client before advancing
         # to the next one.
-      '' + lib.concatStrings (reduce (lib.zipListsWith (cs: c: cs + c))
+      ''
+      + lib.concatStrings (reduce (lib.zipListsWith (cs: c: cs + c))
         (builtins.map clientScript clients))
       ;
   })

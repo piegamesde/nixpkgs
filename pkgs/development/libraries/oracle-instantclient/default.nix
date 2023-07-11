@@ -25,7 +25,8 @@ let
       "sdk"
       "sqlplus"
       "tools"
-    ] ++ optional odbcSupport "odbc"
+    ]
+    ++ optional odbcSupport "odbc"
     ;
 
     # determine the version number, there might be different ones per architecture
@@ -96,7 +97,8 @@ let
   srcFilename =
     component: arch: version: rel:
     "instantclient-${component}-${arch}-${version}"
-    + (optionalString (rel != "") "-${rel}") + "dbru.zip"
+    + (optionalString (rel != "") "-${rel}")
+    + "dbru.zip"
     ; # ¯\_(ツ)_/¯
 
     # fetcher for the non clickthrough artifacts
@@ -121,7 +123,8 @@ stdenv.mkDerivation {
   inherit pname version srcs;
 
   buildInputs =
-    [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
+    [ stdenv.cc.cc.lib ]
+    ++ optional stdenv.isLinux libaio
     ++ optional odbcSupport unixODBC
     ;
 
@@ -129,7 +132,8 @@ stdenv.mkDerivation {
     [
       makeWrapper
       unzip
-    ] ++ optional stdenv.isLinux autoPatchelfHook
+    ]
+    ++ optional stdenv.isLinux autoPatchelfHook
     ++ optional stdenv.isDarwin fixDarwinDylibNames
     ;
 

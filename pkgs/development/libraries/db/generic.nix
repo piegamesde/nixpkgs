@@ -42,7 +42,8 @@ stdenv.mkDerivation (rec {
         "--enable-compat185"
       else
         "--disable-compat185")
-    ] ++ lib.optional dbmSupport "--enable-dbm"
+    ]
+    ++ lib.optional dbmSupport "--enable-dbm"
     ++ lib.optional stdenv.isFreeBSD "--with-pic"
     ;
 

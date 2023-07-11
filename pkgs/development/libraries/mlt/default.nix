@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       jack2
       ladspa-sdk
       rubberband
-    ] ++ lib.optional enablePython ncurses
+    ]
+    ++ lib.optional enablePython ncurses
     ;
 
   nativeBuildInputs =
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       pkg-config
       makeWrapper
       which
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       python3
       swig
     ]
@@ -87,7 +89,8 @@ stdenv.mkDerivation rec {
       "--enable-gpl"
       "--enable-gpl3"
       "--enable-opengl"
-    ] ++ lib.optional enablePython "--swig-languages=python"
+    ]
+    ++ lib.optional enablePython "--swig-languages=python"
     ;
 
   enableParallelBuilding = true;
@@ -101,7 +104,8 @@ stdenv.mkDerivation rec {
       s=${movit.dev}/include
       t=$(for ((i = 0; i < ''${#s}; i++)); do echo -n X; done)
       sed -i $out/lib/mlt/libmltopengl.so -e "s|$s|$t|g"
-    '' + lib.optionalString enablePython ''
+    ''
+    + lib.optionalString enablePython ''
       mkdir -p ${outPythonPath}/mlt
       cp -a src/swig/python/_mlt.so ${outPythonPath}/mlt/
       cp -a src/swig/python/mlt.py ${outPythonPath}/mlt/__init__.py

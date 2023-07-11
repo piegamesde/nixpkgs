@@ -120,9 +120,11 @@ let
       dn: ${dn}
       ${lib.concatStringsSep "\n"
       (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
-    '' ] ++ (map (path: ''
+    '' ]
+    ++ (map (path: ''
       include: file://${path}
-    '') includes) ++ (lib.flatten
+    '') includes)
+    ++ (lib.flatten
       (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
         children))
     ;
@@ -327,7 +329,8 @@ in
             }) are not
             supported with user-managed configuration.
           '';
-        } ] ++ (map (dn: {
+        } ]
+        ++ (map (dn: {
           assertion =
             (getAttr dn dbSettings) ? "olcDbDirectory"
             ;
@@ -336,7 +339,8 @@ in
             Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
             `olcDbDirectory` configured.
           '';
-        }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn:
+        }) (attrNames cfg.declarativeContents))
+        ++ (mapAttrsToList (dn:
           {
             olcDbDirectory ? null,
             ...
@@ -384,7 +388,8 @@ in
             [
               "!${pkgs.coreutils}/bin/mkdir -p ${configDir}"
               "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
-            ] ++ (lib.optional (cfg.configDir == null) writeConfig)
+            ]
+            ++ (lib.optional (cfg.configDir == null) writeConfig)
             ++ (mapAttrsToList (dn: content:
               lib.escapeShellArgs [
                 writeContents
@@ -410,7 +415,8 @@ in
           NotifyAccess = "all";
           RuntimeDirectory = "openldap";
           StateDirectory =
-            [ "openldap" ] ++ (map ({
+            [ "openldap" ]
+            ++ (map ({
                 olcDbDirectory,
                 ...
               }:

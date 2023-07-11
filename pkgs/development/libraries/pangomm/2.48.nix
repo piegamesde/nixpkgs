@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       meson
       ninja
       python3
-    ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
     ;
 
   propagatedBuildInputs = [
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pango.org/";
     license = licenses.lgpl21Plus;
     maintainers =
-      teams.gnome.members ++ (with maintainers; [
+      teams.gnome.members
+      ++ (with maintainers; [
         lovek323
         raskin
       ])

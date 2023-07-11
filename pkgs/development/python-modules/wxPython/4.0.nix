@@ -49,7 +49,8 @@ buildPythonPackage rec {
     [
       ncurses
       libintl
-    ] ++ (if stdenv.isDarwin then
+    ]
+    ++ (if stdenv.isDarwin then
       [
         AudioToolbox
         Carbon
@@ -80,7 +81,8 @@ buildPythonPackage rec {
           ("pangocairo", "${pango.out}/lib/libpangocairo-1.0.so"),
           ("appsvc",     None)
         ]}'
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       # Remove the OSX-Only wx.webkit module
       sed -i "s/makeETGRule(.*'WXWEBKIT')/pass/" wscript
     ''

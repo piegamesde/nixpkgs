@@ -102,7 +102,8 @@ buildPythonPackage rec {
     ];
 
     rllib-deps =
-      tune-deps ++ [
+      tune-deps
+      ++ [
         dm-tree
         gym
         lz4

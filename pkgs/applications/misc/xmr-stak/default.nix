@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       libmicrohttpd
       openssl
       hwloc
-    ] ++ lib.optionals openclSupport [
+    ]
+    ++ lib.optionals openclSupport [
       opencl-headers
       ocl-icd
     ]

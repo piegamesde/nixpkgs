@@ -23,7 +23,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   propagatedBuildInputs =
-    [ six ] ++ lib.optionals (pythonOlder "3.4") [
+    [ six ]
+    ++ lib.optionals (pythonOlder "3.4") [
       enum34
       pathlib
     ]

@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
       cairo
       gtk3
       webkitgtk
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
     ]

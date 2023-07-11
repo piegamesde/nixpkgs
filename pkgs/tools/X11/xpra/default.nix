@@ -93,7 +93,8 @@ buildPythonApplication rec {
       pkg-config
       wrapGAppsHook
       pandoc
-    ] ++ lib.optional withNvenc cudatoolkit
+    ]
+    ++ lib.optional withNvenc cudatoolkit
     ;
 
   buildInputs = with xorg;
@@ -109,13 +110,15 @@ buildPythonApplication rec {
       libXres
       libXtst
       xorgproto
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gst-libav
       gst-plugins-bad
       gst-plugins-base
       gst-plugins-good
       gstreamer
-    ]) ++ [
+    ])
+    ++ [
       atk.out
       cairo
       cython
@@ -131,7 +134,8 @@ buildPythonApplication rec {
       pango
       x264
       x265
-    ] ++ lib.optional withNvenc nvencHeaders;
+    ]
+    ++ lib.optional withNvenc nvencHeaders;
 
   propagatedBuildInputs = with python3.pkgs;
     ([
@@ -156,10 +160,11 @@ buildPythonApplication rec {
       pyxdg
       rencode
       invoke
-    ] ++ lib.optionals withNvenc [
-      pycuda
-      pynvml
-    ]);
+    ]
+      ++ lib.optionals withNvenc [
+        pycuda
+        pynvml
+      ]);
 
     # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
@@ -173,7 +178,8 @@ buildPythonApplication rec {
       # Override these, setup.py checks for headers in /usr/* paths
       "--with-pam"
       "--with-vsock"
-    ] ++ lib.optional withNvenc "--with-nvenc"
+    ]
+    ++ lib.optional withNvenc "--with-nvenc"
     ;
 
   dontWrapGApps = true;
@@ -197,9 +203,11 @@ buildPythonApplication rec {
             pulseaudio
           ]
         }
-    '' + lib.optionalString withNvenc ''
+    ''
+    + lib.optionalString withNvenc ''
       --prefix LD_LIBRARY_PATH : ${nvidia_x11}/lib
-    '' + ''
+    ''
+    + ''
       )
     ''
     ;

@@ -164,7 +164,8 @@ let
     # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
     plugin:
-    [ plugin ] ++ (lib.unique
+    [ plugin ]
+    ++ (lib.unique
       (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])))
     ;
 
@@ -289,7 +290,8 @@ let
           source ${vimPlugins.vim-plug}/plug.vim
           silent! call plug#begin('/dev/null')
 
-        '' + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg}'") plug.plugins)
+        ''
+        + (lib.concatMapStringsSep "\n" (pkg: "Plug '${pkg}'") plug.plugins)
         + ''
 
           call plug#end()
@@ -312,12 +314,16 @@ let
         ;
 
       entries =
-        [ beforePlugins ] ++ lib.optional (vam != null) (lib.warn
+        [ beforePlugins ]
+        ++ lib.optional (vam != null) (lib.warn
           "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
-          vamImpl) ++ lib.optional (packages != null && packages != [ ])
-        (nativeImpl packages) ++ lib.optional (pathogen != null) (throw
+          vamImpl)
+        ++ lib.optional (packages != null && packages != [ ])
+          (nativeImpl packages)
+        ++ lib.optional (pathogen != null) (throw
           "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`")
-        ++ lib.optional (plug != null) plugImpl ++ [ customRC ]
+        ++ lib.optional (plug != null) plugImpl
+        ++ [ customRC ]
         ;
 
     in

@@ -79,8 +79,10 @@ stdenv.mkDerivation rec {
       wxSVG
       wxGTK32
       xine-ui
-    ] ++ optionals dvdisasterSupport [ dvdisaster ]
-    ++ optionals udevSupport [ udev ] ++ optionals dbusSupport [ dbus ]
+    ]
+    ++ optionals dvdisasterSupport [ dvdisaster ]
+    ++ optionals udevSupport [ udev ]
+    ++ optionals dbusSupport [ dbus ]
     ++ optionals thumbnailSupport [ libgnomeui ]
     ;
 
@@ -92,7 +94,8 @@ stdenv.mkDerivation rec {
         cdrtools
         dvdauthor
         dvdplusrwtools
-      ] ++ optionals dvdisasterSupport [ dvdisaster ]);
+      ]
+        ++ optionals dvdisasterSupport [ dvdisaster ]);
     in
     ''
       gappsWrapperArgs+=(

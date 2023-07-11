@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       libdbi
       sqlite
       postgresql
-    ] ++ lib.optional (libmysqlclient != null) libmysqlclient
+    ]
+    ++ lib.optional (libmysqlclient != null) libmysqlclient
     ;
 
   postPatch = ''
@@ -40,15 +41,18 @@ stdenv.mkDerivation rec {
       "--enable-libdbi"
       "--with-dbi-incdir=${libdbi}/include"
       "--with-dbi-libdir=${libdbi}/lib"
-    ] ++ lib.optionals (libmysqlclient != null) [
+    ]
+    ++ lib.optionals (libmysqlclient != null) [
       "--with-mysql"
       "--with-mysql-incdir=${lib.getDev libmysqlclient}/include/mysql"
       "--with-mysql-libdir=${libmysqlclient}/lib/mysql"
-    ] ++ lib.optionals (sqlite != null) [
+    ]
+    ++ lib.optionals (sqlite != null) [
       "--with-sqlite3"
       "--with-sqlite3-incdir=${sqlite.dev}/include/sqlite"
       "--with-sqlite3-libdir=${sqlite.out}/lib/sqlite"
-    ] ++ lib.optionals (postgresql != null) [
+    ]
+    ++ lib.optionals (postgresql != null) [
       "--with-pgsql"
       "--with-pgsql_incdir=${postgresql}/include"
       "--with-pgsql_libdir=${postgresql.lib}/lib"

@@ -31,7 +31,8 @@ let
       xorg.libXcursor
       xorg.libXrandr
       xorg.libXi
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
     ]
@@ -54,7 +55,9 @@ rustPlatform.buildRustPackage rec {
     fontconfig
   ];
   buildInputs =
-    rpathLibs ++ [ xorg.libxcb.dev ] ++ lib.optionals stdenv.isDarwin [
+    rpathLibs
+    ++ [ xorg.libxcb.dev ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       CoreGraphics
       CoreServices

@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
         substituteInPlace  ../tests/bash_tests/testcases.py \
           --replace "def io_test(self):" "def io_disabled(self):"
       ''}
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       export LC_ALL=C
     ''
     ;

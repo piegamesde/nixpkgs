@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
       gtk3
       openssl
       libgee
-    ] ++ lib.optionals mysqlSupport [ libmysqlclient ]
+    ]
+    ++ lib.optionals mysqlSupport [ libmysqlclient ]
     ++ lib.optionals postgresSupport [ postgresql ]
     ;
 

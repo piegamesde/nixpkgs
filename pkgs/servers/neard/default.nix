@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       glib
       dbus
       libnl
-    ] ++ (with python2Packages; [ python ])
+    ]
+    ++ (with python2Packages; [ python ])
     ;
 
   pythonPath = with python2Packages; [

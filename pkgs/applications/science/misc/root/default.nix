@@ -60,7 +60,8 @@ let
 
   _llvm_9 = llvm_9.overrideAttrs (prev: {
     patches =
-      (prev.patches or [ ]) ++ [
+      (prev.patches or [ ])
+      ++ [
         (fetchpatch {
           url =
             "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
@@ -120,14 +121,16 @@ stdenv.mkDerivation rec {
       python.pkgs.numpy
       tbb
       xrootd
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       libX11
       libXpm
       libXft
       libXext
       libGLU
       libGL
-    ] ++ lib.optionals (stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [
       Cocoa
       CoreSymbolication
       OpenGL
@@ -158,13 +161,16 @@ stdenv.mkDerivation rec {
         -e '1iset(nlohmann_json_DIR "${nlohmann_json}/lib/cmake/nlohmann_json/")'
 
       patchShebangs build/unix/
-    '' + lib.optionalString noSplash ''
+    ''
+    + lib.optionalString noSplash ''
       substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Eliminate impure reference to /System/Library/PrivateFrameworks
       substituteInPlace core/CMakeLists.txt \
         --replace "-F/System/Library/PrivateFrameworks" ""
-    '' + lib.optionalString (stdenv.isDarwin
+    ''
+    + lib.optionalString (stdenv.isDarwin
       && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
@@ -215,8 +221,9 @@ stdenv.mkDerivation rec {
       "-Dwebgui=OFF"
       "-Dxml=ON"
       "-Dxrootd=ON"
-    ] ++ lib.optional (stdenv.cc.libc != null)
-    "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
+    ]
+    ++ lib.optional (stdenv.cc.libc != null)
+      "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
     ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
       "-DCMAKE_DISABLE_FIND_PACKAGE_Python2=TRUE"

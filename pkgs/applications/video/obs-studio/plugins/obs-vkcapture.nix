@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       vulkan-headers
       vulkan-loader
       wayland
-    ] ++ lib.optionals (!stdenv.isi686) [ obs-studio ]
+    ]
+    ++ lib.optionals (!stdenv.isi686) [ obs-studio ]
     ;
 
     # Support 32bit Vulkan applications by linking in the 32bit Vulkan layer

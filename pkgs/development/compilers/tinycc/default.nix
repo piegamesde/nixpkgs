@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
       "--libpaths=${lib.getLib stdenv.cc.libc}/lib"
       # build cross compilers
       "--enable-cross"
-    ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ]
     ;
 
   preConfigure = ''

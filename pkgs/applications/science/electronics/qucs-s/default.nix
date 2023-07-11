@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       libX11
       gperf
       adms
-    ] ++ kernels
+    ]
+    ++ kernels
     ;
 
   preConfigure = ''

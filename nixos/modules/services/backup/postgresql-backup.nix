@@ -174,9 +174,12 @@ in
         }
         {
           assertion =
-            cfg.compression == "none" || (cfg.compression == "gzip"
-              && cfg.compressionLevel >= 1 && cfg.compressionLevel <= 9)
-            || (cfg.compression == "zstd" && cfg.compressionLevel >= 1
+            cfg.compression == "none"
+            || (cfg.compression == "gzip"
+              && cfg.compressionLevel >= 1
+              && cfg.compressionLevel <= 9)
+            || (cfg.compression == "zstd"
+              && cfg.compressionLevel >= 1
               && cfg.compressionLevel <= 19)
             ;
           message =

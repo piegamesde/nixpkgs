@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
       substituteInPlace build/makeinit \
         --replace '$+$(%__CYEAR__)$-' "$(date -ud "@$SOURCE_DATE_EPOCH" +'%Y')"
-    '' + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    ''
+    + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       substituteInPlace build/mif/local.mif \
         --replace '-static' ""
     ''
@@ -132,7 +133,8 @@ stdenv.mkDerivation rec {
         - Broken C++ compiler pre-compiled header template support is fixed
         - Many C++ compiler crashes are fixed
         - Debugger has no length limit for any used environment variable
-      '' + lib.optionalString (!withDocs) ''
+      ''
+      + lib.optionalString (!withDocs) ''
 
         The documentation has been excluded from this build for build time reasons. It can be found here:
         https://github.com/open-watcom/open-watcom-v2/wiki/Open-Watcom-Documentation
@@ -142,7 +144,8 @@ stdenv.mkDerivation rec {
     license = licenses.watcom;
     platforms = with platforms; windows ++ unix;
     badPlatforms =
-      platforms.riscv ++ [
+      platforms.riscv
+      ++ [
         "powerpc64-linux"
         "powerpc64le-linux"
         "mips64el-linux"

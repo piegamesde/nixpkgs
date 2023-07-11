@@ -90,10 +90,12 @@ backendStdenv.mkDerivation {
       cp -a include $out/include
       [ -d "lib/" ] && cp -a lib $out/lib
       [ -d "lib64/" ] && cp -a lib64 $out/lib64
-    '' + strings.optionalString removeStatic ''
+    ''
+    + strings.optionalString removeStatic ''
       rm -f $out/lib/*.a
       rm -f $out/lib64/*.a
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

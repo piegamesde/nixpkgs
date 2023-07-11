@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       libiconv
       libksba
       npth
-    ] ++ lib.optionals (!enableMinimal) [
+    ]
+    ++ lib.optionals (!enableMinimal) [
       adns
       bzip2
       gnutls
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
       readline
       sqlite
       zlib
-    ] ++ lib.optionals withTpm2Tss [ tpm2-tss ]
+    ]
+    ++ lib.optionals withTpm2Tss [ tpm2-tss ]
     ;
 
   patches = [
@@ -78,7 +80,8 @@ stdenv.mkDerivation rec {
   postPatch =
     ''
       sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
-    '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+    ''
+    + lib.optionalString (stdenv.isLinux && withPcsc) ''
       sed -i 's,"libpcsclite\.so[^"]*","${
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
@@ -93,8 +96,9 @@ stdenv.mkDerivation rec {
       "--with-libassuan-prefix=${libassuan.dev}"
       "--with-ksba-prefix=${libksba.dev}"
       "--with-npth-prefix=${npth}"
-    ] ++ lib.optional guiSupport
-    "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+    ]
+    ++ lib.optional guiSupport
+      "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
     ;

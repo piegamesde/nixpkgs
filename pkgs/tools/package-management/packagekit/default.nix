@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       gtk3
       sqlite
       boost
-    ] ++ lib.optional enableSystemd systemd
+    ]
+    ++ lib.optional enableSystemd systemd
     ++ lib.optional enableBashCompletion bash-completion
     ;
   nativeBuildInputs = [
@@ -89,7 +90,8 @@ stdenv.mkDerivation rec {
       "-Dgtk_doc=true"
       "--sysconfdir=/etc"
       "--localstatedir=/var"
-    ] ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false"
+    ]
+    ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false"
     ++ lib.optional (!enableCommandNotFound) "-Dbash_command_not_found=false"
     ;
 

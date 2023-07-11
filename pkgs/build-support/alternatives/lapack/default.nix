@@ -78,11 +78,13 @@ stdenv.mkDerivation {
       cp -L "$liblapack" $out/lib/liblapack${canonicalExtension}
       chmod +w $out/lib/liblapack${canonicalExtension}
 
-    '' + (lib.optionalString
-      (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
-        patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
-      '') + ''
+    ''
+      + (lib.optionalString
+        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
+          patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
+        '')
+      + ''
 
           if [ "$out/lib/liblapack${canonicalExtension}" != "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}" ]; then
             ln -s $out/lib/liblapack${canonicalExtension} "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}"
@@ -112,35 +114,38 @@ stdenv.mkDerivation {
           cp -L "$liblapacke" $out/lib/liblapacke${canonicalExtension}
           chmod +w $out/lib/liblapacke${canonicalExtension}
 
-      '' + (lib.optionalString
+      ''
+      + (lib.optionalString
         (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
           patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
           patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
             lib.getLib lapackProvider'
           }/lib" $out/lib/liblapacke${canonicalExtension}
-        '') + ''
+        '')
+      + ''
 
-            if [ -f "$out/lib/liblapacke.so.3" ]; then
-              ln -s $out/lib/liblapacke.so.3 $out/lib/liblapacke.so
-            fi
+          if [ -f "$out/lib/liblapacke.so.3" ]; then
+            ln -s $out/lib/liblapacke.so.3 $out/lib/liblapacke.so
+          fi
 
-            cp ${
-              lib.getDev lapack-reference
-            }/include/lapacke{,_mangling,_config,_utils}.h $dev/include
+          cp ${
+            lib.getDev lapack-reference
+          }/include/lapacke{,_mangling,_config,_utils}.h $dev/include
 
-            cat <<EOF > $dev/lib/pkgconfig/lapacke.pc
-          Name: lapacke
-          Version: ${version}
-          Description: LAPACK C implementation
-          Cflags: -I$dev/include
-          Libs: -L$out/lib -llapacke
-          EOF
-        '' + lib.optionalString (lapackImplementation == "mkl") ''
-          mkdir -p $out/nix-support
-          echo 'export MKL_INTERFACE_LAYER=${
-            lib.optionalString isILP64 "I"
-          }LP64,GNU' > $out/nix-support/setup-hook
-          ln -s $out/lib/liblapack${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
-          ln -sf ${lapackProvider'}/include/* $dev/include
-        '');
+          cat <<EOF > $dev/lib/pkgconfig/lapacke.pc
+        Name: lapacke
+        Version: ${version}
+        Description: LAPACK C implementation
+        Cflags: -I$dev/include
+        Libs: -L$out/lib -llapacke
+        EOF
+      ''
+      + lib.optionalString (lapackImplementation == "mkl") ''
+        mkdir -p $out/nix-support
+        echo 'export MKL_INTERFACE_LAYER=${
+          lib.optionalString isILP64 "I"
+        }LP64,GNU' > $out/nix-support/setup-hook
+        ln -s $out/lib/liblapack${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
+        ln -sf ${lapackProvider'}/include/* $dev/include
+      '');
 }

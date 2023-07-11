@@ -94,7 +94,8 @@ stdenv.mkDerivation rec {
         # needed for gio executable to be able to delete files
         --prefix "PATH" : "${lib.makeBinPath [ glib ]}"
       )
-    '' + lib.optionalString useHunspell ''
+    ''
+    + lib.optionalString useHunspell ''
       # On all platforms, we must inject our dictionnaries
       ${hunspellCopyCommands}
     ''
@@ -118,7 +119,8 @@ stdenv.mkDerivation rec {
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         $opt/resources/app.asar.unpacked/node_modules/symbols-view/vendor/ctags-linux
 
-    '' + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
       # Replace the bundled git with the one from nixpkgs
       dugite=$opt/resources/app.asar.unpacked/node_modules/dugite
       rm -f $dugite/git/bin/git
@@ -131,7 +133,8 @@ stdenv.mkDerivation rec {
 
       rm $opt/resources/app.asar.unpacked/node_modules/tree-sitter-bash/build/node_gyp_bins/python3
       ln -s ${python3}/bin/python3 $opt/resources/app.asar.unpacked/node_modules/tree-sitter-bash/build/node_gyp_bins/python3
-    '' + ''
+    ''
+    + ''
       # Patch the bundled node executables
       find $opt -name "*.node" -exec patchelf --set-rpath "${newLibpath}:$opt" {} \;
       # Also patch the node executable for apm
@@ -156,7 +159,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/icons/hicolor/scalable/apps $out/share/icons/hicolor/1024x1024/apps
       cp $opt/resources/pulsar.svg $out/share/icons/hicolor/scalable/apps/pulsar.svg
       cp $opt/resources/pulsar.png $out/share/icons/hicolor/1024x1024/apps/pulsar.png
-    '' + lib.optionalString withNemoAction ''
+    ''
+    + lib.optionalString withNemoAction ''
       # Copy the nemo action file
       mkdir -p $out/share/nemo/actions
       cp ${./pulsar.nemo_action} $out/share/nemo/actions/pulsar.nemo_action

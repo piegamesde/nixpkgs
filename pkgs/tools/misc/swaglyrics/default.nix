@@ -38,7 +38,8 @@ python3.pkgs.buildPythonApplication rec {
       flask-testing
       mock
       pytestCheckHook
-    ] ++ [ ncurses ];
+    ]
+    ++ [ ncurses ];
 
   preBuild = ''
     export HOME=$(mktemp -d)

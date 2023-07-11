@@ -39,7 +39,8 @@ pythonPackages.buildPythonApplication rec {
       # Our Python infrastructure runs test in installCheckPhase so we need
       # to make the testing code stop assuming it is run from the source directory.
       ./use-installed-scripts-in-test.patch
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       # Broken on Linux in Nix' build environment
       ./linux-disable-timezone-test.patch
     ]
@@ -87,9 +88,11 @@ pythonPackages.buildPythonApplication rec {
       gnutar # Add 'tar' to PATH.
       librsync # Add 'rdiff' to PATH.
       par2cmdline # Add 'par2' to PATH.
-    ] ++ lib.optionals stdenv.isLinux [
-      util-linux # Add 'setsid' to PATH.
-    ] ++ (with pythonPackages; [
+    ]
+    ++ lib.optionals stdenv.isLinux [
+        util-linux # Add 'setsid' to PATH.
+      ]
+    ++ (with pythonPackages; [
       lockfile
       mock
       pexpect
@@ -126,7 +129,8 @@ pythonPackages.buildPythonApplication rec {
 
       # check version string
       duplicity --version | grep ${version}
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # Work around the following error when running tests:
       # > Max open files of 256 is too low, should be >= 1024.
       # > Use 'ulimit -n 1024' or higher to correct.

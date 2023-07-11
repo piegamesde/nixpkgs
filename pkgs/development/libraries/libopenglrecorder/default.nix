@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       libjpeg
       libvpx
       openh264
-    ] ++ lib.optionals withPulse [
+    ]
+    ++ lib.optionals withPulse [
       libpulseaudio
       libvorbis
     ]

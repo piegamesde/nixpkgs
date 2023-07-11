@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       libgpg-error
       libksba
       zlib
-    ] ++ lib.optional stdenv.isDarwin gettext
+    ]
+    ++ lib.optional stdenv.isDarwin gettext
     ;
 
   postInstall = ''

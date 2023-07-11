@@ -32,7 +32,8 @@ perl.pkgs.toPerlModule (stdenv.mkDerivation rec {
       pango
       cairo
       groff
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       tcl-8_5
       darwin.apple_sdk.frameworks.ApplicationServices
     ]

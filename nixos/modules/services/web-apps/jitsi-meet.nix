@@ -302,7 +302,8 @@ in
         [
           "jicofo.service"
           "jitsi-videobridge2.service"
-        ] ++ (optional cfg.prosody.enable "prosody.service")
+        ]
+        ++ (optional cfg.prosody.enable "prosody.service")
         ;
       serviceConfig = { Type = "oneshot"; };
 
@@ -314,7 +315,8 @@ in
               "jicofo-user-secret"
               "jibri-auth-secret"
               "jibri-recorder-secret"
-            ] ++ (optional (cfg.videobridge.passwordFile == null)
+            ]
+            ++ (optional (cfg.videobridge.passwordFile == null)
               "videobridge-secret")
             ;
         in
@@ -332,7 +334,8 @@ in
           echo "JICOFO_COMPONENT_SECRET=$(cat jicofo-component-secret)" > secrets-env
           chown root:jitsi-meet secrets-env
           chmod 640 secrets-env
-        '' + optionalString cfg.prosody.enable ''
+        ''
+        + optionalString cfg.prosody.enable ''
           # generate self-signed certificates
           if [ ! -f /var/lib/jitsi-meet.crt ]; then
             ${getBin pkgs.openssl}/bin/openssl req \

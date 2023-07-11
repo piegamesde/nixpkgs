@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       gfortran.cc.lib
       gmp
       mpfr
-    ] ++ lib.optional enableCuda cudatoolkit
+    ]
+    ++ lib.optional enableCuda cudatoolkit
     ;
 
   preConfigure = ''
@@ -58,12 +59,14 @@ stdenv.mkDerivation rec {
       "INSTALL_INCLUDE=${placeholder "dev"}/include"
       "JOBS=$(NIX_BUILD_CORES)"
       "MY_METIS_LIB=-lmetis"
-    ] ++ lib.optionals blas.isILP64 [ "CFLAGS=-DBLAS64" ]
+    ]
+    ++ lib.optionals blas.isILP64 [ "CFLAGS=-DBLAS64" ]
     ++ lib.optionals enableCuda [
       "CUDA_PATH=${cudatoolkit}"
       "CUDART_LIB=${cudatoolkit.lib}/lib/libcudart.so"
       "CUBLAS_LIB=${cudatoolkit}/lib/libcublas.so"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Unless these are set, the build will attempt to use `Accelerate` on darwin, see:
       # https://github.com/DrTimothyAldenDavis/SuiteSparse/blob/v5.13.0/SuiteSparse_config/SuiteSparse_config.mk#L368
       "BLAS=-lblas"

@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals withPython [
+    ]
+    ++ lib.optionals withPython [
       swig
       python3.pkgs.setuptools
     ]
@@ -66,7 +67,8 @@ stdenv.mkDerivation rec {
       proj
       protobufc
       zlib
-    ] ++ lib.optional withPython python3
+    ]
+    ++ lib.optional withPython python3
     ;
 
   cmakeFlags =
@@ -80,7 +82,8 @@ stdenv.mkDerivation rec {
 
       # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ] ++ lib.optional withPython "-DWITH_PYTHON=ON"
+    ]
+    ++ lib.optional withPython "-DWITH_PYTHON=ON"
     ;
 
   meta = with lib; {

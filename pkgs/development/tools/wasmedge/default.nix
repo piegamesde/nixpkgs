@@ -37,14 +37,16 @@ stdenv.mkDerivation rec {
       llvmPackages.llvm
       libxml2
       libffi
-    ] ++ lib.optionals stdenv.isDarwin [ Foundation ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ]
     ;
 
   cmakeFlags =
     [
       "-DCMAKE_BUILD_TYPE=Release"
       "-DWASMEDGE_BUILD_TESTS=OFF" # Tests are downloaded using git
-    ] ++ lib.optionals stdenv.isDarwin [ "-DWASMEDGE_FORCE_DISABLE_LTO=ON" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "-DWASMEDGE_FORCE_DISABLE_LTO=ON" ]
     ;
 
   meta = with lib; {

@@ -51,7 +51,8 @@
         sha256 = "sha256-ouJSFz/5shNR9puVjrZRJq90DHTeSx7hAnDpuhkBsDo=";
       };
     in
-    thunderbird-unwrapped.extraPostPatch or "" + # bash
+    thunderbird-unwrapped.extraPostPatch or ""
+    + # bash
     ''
       PATH=$PATH:${lib.makeBinPath [ git ]}
       patches=$(mktemp -d)
@@ -116,7 +117,8 @@
     false; # console.warn: feeds: "downloadFeed: network connection unavailable"
 }).overrideAttrs (oldAttrs: {
   postInstall =
-    oldAttrs.postInstall or "" + ''
+    oldAttrs.postInstall or ""
+    + ''
       mv $out/lib/thunderbird/* $out/lib/betterbird
       rmdir $out/lib/thunderbird/
       rm $out/bin/thunderbird

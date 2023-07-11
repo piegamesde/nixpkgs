@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       libusb1
       portaudio
       libv4l
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good

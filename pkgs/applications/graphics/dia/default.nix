@@ -50,7 +50,8 @@ stdenv.mkDerivation {
       libxml2
       python3
       poppler
-    ] ++ lib.optionals withDocs [ libxslt ]
+    ]
+    ++ lib.optionals withDocs [ libxslt ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ]
     ;
 
@@ -62,7 +63,8 @@ stdenv.mkDerivation {
       meson
       ninja
       pkg-config
-    ] ++ lib.optionals withDocs [ dblatex ]
+    ]
+    ++ lib.optionals withDocs [ dblatex ]
     ;
 
   meta = with lib; {

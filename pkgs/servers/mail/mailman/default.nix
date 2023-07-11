@@ -36,7 +36,8 @@ let
             [
               mailman
               ps.psycopg2
-            ] ++ lib.optional withHyperkitty mailman-hyperkitty
+            ]
+            ++ lib.optional withHyperkitty mailman-hyperkitty
             ++ lib.optionals withLDAP [
               ps.python-ldap
               ps.django-auth-ldap
@@ -45,7 +46,8 @@ let
             [
               web
               ps.psycopg2
-            ] ++ lib.optionals withLDAP [
+            ]
+            ++ lib.optionals withLDAP [
               ps.python-ldap
               ps.django-auth-ldap
             ]);

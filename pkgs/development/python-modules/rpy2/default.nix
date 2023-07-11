@@ -53,7 +53,8 @@ buildPythonPackage rec {
       bzip2
       zlib
       icu
-    ] ++ (with rPackages; [
+    ]
+    ++ (with rPackages; [
       # packages expected by the test framework
       ggplot2
       dplyr
@@ -65,7 +66,9 @@ buildPythonPackage rec {
       lazyeval
       lme4
       tidyr
-    ]) ++ extraRPackages ++ rWrapper.recommendedPackages
+    ])
+    ++ extraRPackages
+    ++ rWrapper.recommendedPackages
     ;
 
   nativeBuildInputs = [

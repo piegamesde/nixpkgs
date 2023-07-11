@@ -41,7 +41,7 @@ let
       if
         srvMatch == null # Include sections shared by all services
         || head srvMatch
-        == srv # Include sections for the service being configured
+          == srv # Include sections for the service being configured
       then
         v
         # Enable Web links and integrations between services.
@@ -927,7 +927,8 @@ in
               }:/usr/bin/buildsrht-keys"
               "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
               "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
-            ] ++ optionals cfg.git.enable [
+            ]
+            ++ optionals cfg.git.enable [
               # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
               # or [git.sr.ht] shell= if set.
               "${
@@ -967,7 +968,8 @@ in
                   fi
                 ''
               }:/usr/bin/gitsrht-update-hook"
-            ] ++ optionals cfg.hg.enable [
+            ]
+            ++ optionals cfg.hg.enable [
               # /path/to/hgsrht-keys calls /path/to/hgsrht-shell,
               # or [hg.sr.ht] shell= if set.
               "${
@@ -1438,13 +1440,15 @@ in
         preStart =
           ''
             set -x
-          '' + concatStringsSep "\n\n" (attrValues (mapAttrs (k: s:
+          ''
+          + concatStringsSep "\n\n" (attrValues (mapAttrs (k: s:
             let
               srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
               srv = head srvMatch;
               # Configure client(s) as "preauthorized"
             in
-            optionalString (srvMatch != null && cfg.${srv}.enable
+            optionalString (srvMatch != null
+              && cfg.${srv}.enable
               && ((s.oauth-client-id or null) != null)) ''
                 # Configure ${srv}'s OAuth client as "preauthorized"
                 ${postgresql.package}/bin/psql '${

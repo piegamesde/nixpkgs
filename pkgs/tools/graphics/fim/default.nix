@@ -53,9 +53,13 @@ gcc9Stdenv.mkDerivation rec {
       bison
       readline
       libexif
-    ] ++ optional x11Support SDL ++ optional svgSupport inkscape
-    ++ optional asciiArtSupport aalib ++ optional gifSupport giflib
-    ++ optional tiffSupport libtiff ++ optional jpegSupport libjpeg
+    ]
+    ++ optional x11Support SDL
+    ++ optional svgSupport inkscape
+    ++ optional asciiArtSupport aalib
+    ++ optional gifSupport giflib
+    ++ optional tiffSupport libtiff
+    ++ optional jpegSupport libjpeg
     ++ optional pngSupport libpng;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString x11Support "-lSDL";

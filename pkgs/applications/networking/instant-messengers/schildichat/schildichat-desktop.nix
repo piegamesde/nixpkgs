@@ -137,7 +137,8 @@ stdenv.mkDerivation rec {
     homepage = "https://schildi.chat/";
     changelog = "https://github.com/SchildiChat/schildichat-desktop/releases";
     maintainers =
-      teams.matrix.members ++ (with maintainers; [
+      teams.matrix.members
+      ++ (with maintainers; [
         kloenk
         yuka
       ])

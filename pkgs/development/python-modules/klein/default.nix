@@ -40,7 +40,8 @@ buildPythonPackage rec {
       tubes
       werkzeug
       zope_interface
-    ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ;
 
   nativeCheckInputs = [

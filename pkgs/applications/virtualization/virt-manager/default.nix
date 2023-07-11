@@ -58,7 +58,8 @@ python3.pkgs.buildPythonApplication rec {
       gsettings-desktop-schemas
       libosinfo
       gtksourceview4
-    ] ++ lib.optional spiceSupport spice-gtk
+    ]
+    ++ lib.optional spiceSupport spice-gtk
     ;
 
   propagatedBuildInputs = with python3.pkgs; [

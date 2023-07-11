@@ -51,7 +51,8 @@ let
       "--set DEVICE_LIB_PATH ${rocm-device-libs}/amdgcn/bitcode"
       "--set HSA_PATH ${rocm-runtime}"
       "--set ROCM_PATH $out"
-    ] ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ]
+    ]
+    ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ]
     ;
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -90,7 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
       perl
       python3Packages.python
       python3Packages.cppheaderparser
-    ] ++ lib.optionals buildDocs [
+    ]
+    ++ lib.optionals buildDocs [
       doxygen
       graphviz
       fontconfig
@@ -114,7 +116,8 @@ stdenv.mkDerivation (finalAttrs: {
       rocm-device-libs
       rocm-runtime
       rocm-opencl-runtime
-    ] ++ lib.optionals useNVIDIA [ cudatoolkit ]
+    ]
+    ++ lib.optionals useNVIDIA [ cudatoolkit ]
     ;
 
   cmakeFlags =
@@ -132,14 +135,16 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
       "-DCMAKE_INSTALL_LIBDIR=lib"
-    ] ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ]
+    ]
+    ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ]
     ;
 
   postPatch =
     ''
       export HIP_CLANG_PATH=${stdenv.cc}/bin
       patchShebangs src
-    '' + lib.optionalString buildDocs ''
+    ''
+    + lib.optionalString buildDocs ''
       export HOME=$(mktemp -d)
       export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
     ''

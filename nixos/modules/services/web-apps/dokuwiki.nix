@@ -279,7 +279,8 @@ let
                 "dokuwiki"
                 "sites"
                 name
-              ] ++ suffix)
+              ]
+                ++ suffix)
               ;
             replaceExtraConfig =
               "Please use `${
@@ -324,8 +325,8 @@ let
               }
               {
                 assertion =
-                  config.usersFile != null -> config.mergedConfig.useacl
-                  != false
+                  config.usersFile != null
+                  -> config.mergedConfig.useacl != false
                   ;
                 message =
                   "${
@@ -682,14 +683,15 @@ in
           "d ${cfg.stateDir}/meta 0750 ${user} ${webserver.group} - -"
           "d ${cfg.stateDir}/pages 0750 ${user} ${webserver.group} - -"
           "d ${cfg.stateDir}/tmp 0750 ${user} ${webserver.group} - -"
-        ] ++ lib.optional (cfg.aclFile != null)
-        "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${
-          pkg hostName cfg
-        }/share/dokuwiki/conf/acl.auth.php.dist"
+        ]
+        ++ lib.optional (cfg.aclFile != null)
+          "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${
+            pkg hostName cfg
+          }/share/dokuwiki/conf/acl.auth.php.dist"
         ++ lib.optional (cfg.usersFile != null)
-        "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${
-          pkg hostName cfg
-        }/share/dokuwiki/conf/users.auth.php.dist") eachSite);
+          "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${
+            pkg hostName cfg
+          }/share/dokuwiki/conf/users.auth.php.dist") eachSite);
 
       users.users.${user} = {
         group = webserver.group;

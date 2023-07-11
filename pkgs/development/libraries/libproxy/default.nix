@@ -8,8 +8,8 @@
   zlib,
   dbus,
   networkmanager,
-  enableJavaScript ? stdenv.isDarwin
-    || lib.meta.availableOn stdenv.hostPlatform duktape,
+  enableJavaScript ?
+    stdenv.isDarwin || lib.meta.availableOn stdenv.hostPlatform duktape,
   duktape,
   pcre,
   gsettings-desktop-schemas,
@@ -58,12 +58,14 @@ stdenv.mkDerivation rec {
       pcre
       python3
       zlib
-    ] ++ lib.optionals enableJavaScript [
-      (if stdenv.hostPlatform.isDarwin then
-        JavaScriptCore
-      else
-        duktape)
-    ] ++ (if stdenv.hostPlatform.isDarwin then
+    ]
+    ++ lib.optionals enableJavaScript [
+        (if stdenv.hostPlatform.isDarwin then
+          JavaScriptCore
+        else
+          duktape)
+      ]
+    ++ (if stdenv.hostPlatform.isDarwin then
       [
         SystemConfiguration
         CoreFoundation
@@ -80,8 +82,9 @@ stdenv.mkDerivation rec {
     [
       "-DWITH_PYTHON2=OFF"
       "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
-    ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
-    "-DWITH_MOZJS=ON"
+    ]
+    ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
+      "-DWITH_MOZJS=ON"
     ;
 
   postFixup = lib.optionalString stdenv.isLinux ''

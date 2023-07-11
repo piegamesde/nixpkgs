@@ -25,7 +25,8 @@ buildPythonPackage rec {
       substituteInPlace pyfakefs/tests/fake_os_test.py \
         --replace "test_path_links_not_resolved" "notest_path_links_not_resolved" \
         --replace "test_append_mode_tell_linux_windows" "notest_append_mode_tell_linux_windows"
-    '' + (lib.optionalString stdenv.isDarwin ''
+    ''
+    + (lib.optionalString stdenv.isDarwin ''
       # this test fails on darwin due to case-insensitive file system
       substituteInPlace pyfakefs/tests/fake_os_test.py \
         --replace "test_rename_dir_to_existing_dir" "notest_rename_dir_to_existing_dir"

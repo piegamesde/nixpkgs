@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       openmp
       zlib
       bzip2
-    ] ++ lib.optional enableMpi mpi
+    ]
+    ++ lib.optional enableMpi mpi
     ;
 
   postInstall = ''

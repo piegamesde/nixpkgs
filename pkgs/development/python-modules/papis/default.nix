@@ -97,7 +97,8 @@ buildPythonPackage rec {
       "test_get_data"
       "test_validate_arxivid"
       "test_yaml"
-    ] ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ]
     ;
 
   pythonImportsCheck = [ "papis" ];

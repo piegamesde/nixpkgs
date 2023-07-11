@@ -84,7 +84,8 @@ stdenv.mkDerivation rec {
     libbsd
   ];
   propagatedBuildInputs =
-    [ protobufc ] ++ (with python3.pkgs; [
+    [ protobufc ]
+    ++ (with python3.pkgs; [
       python
       python3.pkgs.protobuf
     ])
@@ -117,7 +118,8 @@ stdenv.mkDerivation rec {
       "PREFIX=$(out)"
       "ASCIIDOC=${buildPackages.asciidoc}/bin/asciidoc"
       "XMLTO=${buildPackages.xmlto}/bin/xmlto"
-    ] ++ (lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
+    ]
+    ++ (lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
       "ARCH=${linuxArchMapping."${stdenv.targetPlatform.linuxArch}"}"
       "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
     ])

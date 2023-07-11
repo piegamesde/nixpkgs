@@ -45,7 +45,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libXrandr
       xorg.libxcb
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       ApplicationServices
       CoreFoundation

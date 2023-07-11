@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    rpathLibs ++ [
+    rpathLibs
+    ++ [
       alsa-lib
       freetype
       libGL

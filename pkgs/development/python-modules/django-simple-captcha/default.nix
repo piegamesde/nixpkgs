@@ -32,7 +32,8 @@ buildPythonPackage rec {
       django
       django-ranged-response
       pillow
-    ] ++ lib.optional withTTS flite
+    ]
+    ++ lib.optional withTTS flite
     ;
 
   meta = with lib; {

@@ -42,16 +42,17 @@ stdenv.mkDerivation rec {
         EOF
       ''
     else
-      ''cp "${targetsDat}" TARGETS.dat'') + (if variantsDat == null then
-        ''
-          cat << EOF > VARIANTS.dat
-          COPYTO AccStress PApostropheAscii
-          COPYTO PAmComma AccGraveAscii
-          COPYTO Digit0Slashed Digit0
-          EOF
-        ''
-      else
-        ''cp "${variantsDat}" VARIANTS.dat'')
+      ''cp "${targetsDat}" TARGETS.dat'')
+    + (if variantsDat == null then
+      ''
+        cat << EOF > VARIANTS.dat
+        COPYTO AccStress PApostropheAscii
+        COPYTO PAmComma AccGraveAscii
+        COPYTO Digit0Slashed Digit0
+        EOF
+      ''
+    else
+      ''cp "${variantsDat}" VARIANTS.dat'')
     ;
 
   postBuild = ''

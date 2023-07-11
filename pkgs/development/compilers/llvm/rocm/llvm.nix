@@ -68,7 +68,9 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.4";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildMan [
+    [ "out" ]
+    ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildMan [
       "man"
       "info" # Avoid `attribute 'info' missing` when using with wrapCC
     ]
@@ -90,11 +92,13 @@ stdenv.mkDerivation (finalAttrs: {
       ninja
       git
       python3Packages.python
-    ] ++ lib.optionals (buildDocs || buildMan) [
+    ]
+    ++ lib.optionals (buildDocs || buildMan) [
       doxygen
       sphinx
       python3Packages.recommonmark
-    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
+    ]
+    ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
     ++ extraNativeBuildInputs
     ;
 
@@ -105,7 +109,8 @@ stdenv.mkDerivation (finalAttrs: {
       libedit
       libffi
       mpfr
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
 
   propagatedBuildInputs = lib.optionals finalAttrs.passthru.isLLVM [
@@ -120,16 +125,20 @@ stdenv.mkDerivation (finalAttrs: {
       "-DLLVM_TARGETS_TO_BUILD=${
         builtins.concatStringsSep ";" llvmTargetsToBuild'
       }"
-    ] ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
-      "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
-    ] ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
+    ]
+    ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
+        "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
+      ]
+    ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
       && targetRuntimes != [ ]) [
-      "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
-    ] ++ lib.optionals
-    (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
-      "-DLLVM_ENABLE_RTTI=ON"
-      "-DLLVM_ENABLE_EH=ON"
-    ] ++ lib.optionals (buildDocs || buildMan) [
+        "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
+      ]
+    ++ lib.optionals
+      (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
+        "-DLLVM_ENABLE_RTTI=ON"
+        "-DLLVM_ENABLE_EH=ON"
+      ]
+    ++ lib.optionals (buildDocs || buildMan) [
       "-DLLVM_INCLUDE_DOCS=ON"
       "-DLLVM_BUILD_DOCS=ON"
       # "-DLLVM_ENABLE_DOXYGEN=ON" Way too slow, only uses one core
@@ -138,25 +147,30 @@ stdenv.mkDerivation (finalAttrs: {
       "-DSPHINX_OUTPUT_HTML=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ lib.optionals buildTests [
+    ]
+    ++ lib.optionals buildTests [
       "-DLLVM_INCLUDE_TESTS=ON"
       "-DLLVM_BUILD_TESTS=ON"
-    ] ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
-      "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
-    ] ++ extraCMakeFlags
+    ]
+    ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
+        "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
+      ]
+    ++ extraCMakeFlags
     ;
 
   postPatch =
     lib.optionalString finalAttrs.passthru.isLLVM ''
       patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh
-    '' + lib.optionalString (buildTests && finalAttrs.passthru.isLLVM) ''
+    ''
+    + lib.optionalString (buildTests && finalAttrs.passthru.isLLVM) ''
       # FileSystem permissions tests fail with various special bits
       rm test/tools/llvm-objcopy/ELF/mirror-permissions-unix.test
       rm unittests/Support/Path.cpp
 
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "Path.cpp" ""
-    '' + extraPostPatch
+    ''
+    + extraPostPatch
     ;
 
   doCheck = buildTests;
@@ -166,9 +180,11 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString finalAttrs.passthru.isLLVM ''
       # `lit` expects these for some test suites
       mv bin/{FileCheck,not,count,yaml2obj,obj2yaml} $out/bin
-    '' + lib.optionalString buildMan ''
+    ''
+    + lib.optionalString buildMan ''
       mkdir -p $info
-    '' + extraPostInstall
+    ''
+    + extraPostInstall
     ;
 
   passthru = {
@@ -190,7 +206,8 @@ stdenv.mkDerivation (finalAttrs: {
       [
         acowley
         lovesegfault
-      ] ++ teams.rocm.members;
+      ]
+      ++ teams.rocm.members;
     platforms = platforms.linux;
     broken = isBroken;
   };

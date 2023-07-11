@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs =
-    [ libxcrypt ] ++ lib.optionals freeipmiSupport [ freeipmi ]
+    [ libxcrypt ]
+    ++ lib.optionals freeipmiSupport [ freeipmi ]
     ++ lib.optionals gssapiSupport [ libkrb5 ]
     ++ lib.optionals opensslSupport [ openssl ]
     ;
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
     [
       "--with-ccffile=/dev/null"
       "--with-cffile=/dev/null"
-    ] ++ lib.optionals freeipmiSupport [ "--with-freeipmi=${freeipmi}/include" ]
+    ]
+    ++ lib.optionals freeipmiSupport [ "--with-freeipmi=${freeipmi}/include" ]
     ++ lib.optionals gssapiSupport [ "--with-gssapi=${libkrb5.dev}/include" ]
     ++ lib.optionals ipv6Support [ "--with-ipv6" ]
     ++ lib.optionals opensslSupport [ "--with-openssl=${openssl.dev}/include" ]

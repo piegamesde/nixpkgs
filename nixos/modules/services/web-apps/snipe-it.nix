@@ -17,7 +17,9 @@ let
   group = cfg.group;
 
   tlsEnabled =
-    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
+    cfg.nginx.addSSL
+    || cfg.nginx.forceSSL
+    || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
     ;
 
@@ -382,9 +384,10 @@ in
         cfg.nginx
         {
           root = mkForce "${snipe-it}/public";
-          extraConfig = optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL
-            || cfg.nginx.onlySSL || cfg.nginx.enableACME)
-            "fastcgi_param HTTPS on;";
+          extraConfig = optionalString (cfg.nginx.addSSL
+            || cfg.nginx.forceSSL
+            || cfg.nginx.onlySSL
+            || cfg.nginx.enableACME) "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
               index = "index.php";
@@ -399,9 +402,10 @@ in
                 fastcgi_pass unix:${
                   config.services.phpfpm.pools."snipe-it".socket
                 };
-                ${optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL
-                  || cfg.nginx.onlySSL || cfg.nginx.enableACME)
-                "fastcgi_param HTTPS on;"}
+                ${optionalString (cfg.nginx.addSSL
+                  || cfg.nginx.forceSSL
+                  || cfg.nginx.onlySSL
+                  || cfg.nginx.enableACME) "fastcgi_param HTTPS on;"}
               '';
             };
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
@@ -430,7 +434,8 @@ in
         let
           isSecret =
             v:
-            isAttrs v && v ? _secret
+            isAttrs v
+            && v ? _secret
             && (isString v._secret || builtins.isPath v._secret)
             ;
           snipeITEnvVars = lib.generators.toKeyValue {

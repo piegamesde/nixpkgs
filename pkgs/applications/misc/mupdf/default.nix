@@ -75,12 +75,14 @@ stdenv.mkDerivation rec {
       "prefix=$(out)"
       "USE_SYSTEM_LIBS=yes"
       "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-    ] ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
+    ]
+    ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
     ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ]
     ;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optional (enableGL || enableX11) copyDesktopItems
+    [ pkg-config ]
+    ++ lib.optional (enableGL || enableX11) copyDesktopItems
     ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
     ;
 
@@ -92,15 +94,19 @@ stdenv.mkDerivation rec {
       jbig2dec
       libjpeg
       gumbo
-    ] ++ lib.optional stdenv.isDarwin xcbuild ++ lib.optionals enableX11 [
+    ]
+    ++ lib.optional stdenv.isDarwin xcbuild
+    ++ lib.optionals enableX11 [
       libX11
       libXext
       libXi
       libXrandr
-    ] ++ lib.optionals enableCurl [
+    ]
+    ++ lib.optionals enableCurl [
       curl
       openssl
-    ] ++ lib.optionals enableGL (if stdenv.isDarwin then
+    ]
+    ++ lib.optionals enableGL (if stdenv.isDarwin then
       with darwin.apple_sdk.frameworks; [
         GLUT
         OpenGL
@@ -175,10 +181,12 @@ stdenv.mkDerivation rec {
       EOF
 
       moveToOutput "bin" "$bin"
-    '' + lib.optionalString (enableX11 || enableGL) ''
+    ''
+    + lib.optionalString (enableX11 || enableGL) ''
       mkdir -p $bin/share/icons/hicolor/48x48/apps
       cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
-    '' + (if enableGL then
+    ''
+    + (if enableGL then
       ''
         ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
       ''

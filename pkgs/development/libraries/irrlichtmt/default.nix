@@ -42,10 +42,12 @@ stdenv.mkDerivation rec {
       libjpeg
       libGL
       libX11
-    ] ++ lib.optionals withTouchSupport [
+    ]
+    ++ lib.optionals withTouchSupport [
       libXi
       libXext
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Kernel
     ]

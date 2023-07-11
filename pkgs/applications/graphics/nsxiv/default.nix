@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       libXft
       libexif
       libwebp
-    ] ++ lib.optional stdenv.isDarwin libinotify-kqueue
+    ]
+    ++ lib.optional stdenv.isDarwin libinotify-kqueue
     ;
 
   preBuild = lib.optionalString (conf != null) ''

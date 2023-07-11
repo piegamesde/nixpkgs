@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       serd
       sord
       sratom
-    ] ++ lib.optionals withQt5 (with qt5; [
+    ]
+    ++ lib.optionals withQt5 (with qt5; [
       qtbase
       qttools
     ])

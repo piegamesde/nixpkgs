@@ -148,7 +148,7 @@ in
       wants =
         [ "network-online.target" ]
         ++ optional config.services.matrix-synapse.enable
-        "matrix-synapse.service"
+          "matrix-synapse.service"
         ++ optional cfg.configurePostgresql "postgresql.service"
         ;
       after = wants;

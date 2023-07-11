@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       "PLATFORM=${platform}"
       "PREFIX=$(out)"
-    ] ++ (lib.optionals stdenv.isDarwin [
+    ]
+    ++ (lib.optionals stdenv.isDarwin [
       "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
       "C_COMPILER=$(CC)"
       "CXX_COMPILER=$(CXX)"
@@ -51,9 +52,10 @@ stdenv.mkDerivation rec {
     ;
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      darwin.autoSignDarwinBinariesHook
-    ]
+    [ makeWrapper ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+        darwin.autoSignDarwinBinariesHook
+      ]
     ;
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];

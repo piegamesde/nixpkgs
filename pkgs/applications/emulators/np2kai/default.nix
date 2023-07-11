@@ -46,8 +46,9 @@ assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"
   "2"
 ];
-assert enableHAXM -> (lib.assertMsg enableX11
-  "Must enable X11 graphics interface for HAXM build.");
+assert enableHAXM
+  -> (lib.assertMsg enableX11
+    "Must enable X11 graphics interface for HAXM build.");
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
@@ -100,7 +101,8 @@ let
   else if enable32Bit then
     [ "--enable-ia32" ]
   else
-    [ ]) ++ optionals (!isSDL2) [
+    [ ])
+    ++ optionals (!isSDL2) [
       "--enable-sdl"
       "--enable-sdlmixer"
       "--enable-sdlttf"
@@ -135,7 +137,8 @@ stdenv.mkDerivation rec {
     ''
       export GIT_VERSION=${builtins.substring 0 7 src.rev}
       buildFlags="$buildFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
-    '' + optionalString enableX11 ''
+    ''
+    + optionalString enableX11 ''
       cd x11
       substituteInPlace Makefile.am \
         --replace 'GIT_VERSION :=' 'GIT_VERSION ?='
@@ -146,7 +149,8 @@ stdenv.mkDerivation rec {
     ;
 
   nativeBuildInputs =
-    sdlDepsBuildonly ++ optionals enableX11 [
+    sdlDepsBuildonly
+    ++ optionals enableX11 [
       automake
       autoconf
       autoconf-archive
@@ -158,7 +162,8 @@ stdenv.mkDerivation rec {
     ;
 
   buildInputs =
-    sdlDepsTarget ++ optionals enableX11 [
+    sdlDepsTarget
+    ++ optionals enableX11 [
       gtk2
       libICE
       libSM
@@ -184,7 +189,8 @@ stdenv.mkDerivation rec {
         make -f $mkfile $buildFlags ${sdlBuildFlags}
       done
       cd ..
-    '' + optionalString enableX11 ''
+    ''
+    + optionalString enableX11 ''
       cd x11
       make $buildFlags ${x11BuildFlags}
       cd ..
@@ -198,7 +204,8 @@ stdenv.mkDerivation rec {
         install -D -m 755 $emu $out/bin/$emu
       done
       cd ..
-    '' + optionalString enableX11 ''
+    ''
+    + optionalString enableX11 ''
       cd x11
       for emu in ${x11Bins}; do
         install -D -m 755 $emu $out/bin/$emu

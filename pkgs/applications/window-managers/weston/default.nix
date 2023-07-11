@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
       vaapi
       wayland
       wayland-protocols
-    ] ++ lib.optionals buildRemoting [
+    ]
+    ++ lib.optionals buildRemoting [
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
     ]
@@ -104,9 +105,10 @@ stdenv.mkDerivation rec {
       (lib.mesonBool "demo-clients" buildDemo)
       "-Dsimple-clients="
       "-Dtest-junit-xml=false"
-    ] ++ lib.optionals (xwayland != null) [
-      "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
     ]
+    ++ lib.optionals (xwayland != null) [
+        "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
+      ]
     ;
 
   passthru.providedSessions = [ "weston" ];

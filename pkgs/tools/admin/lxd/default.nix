@@ -101,20 +101,22 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/lxd --prefix PATH : ${
-      lib.makeBinPath ([ iptables ] ++ [
-        acl
-        rsync
-        gnutar
-        xz
-        btrfs-progs
-        gzip
-        dnsmasq
-        squashfsTools
-        iproute2
-        bash
-        criu
-        attr
-      ] ++ [
+      lib.makeBinPath ([ iptables ]
+        ++ [
+          acl
+          rsync
+          gnutar
+          xz
+          btrfs-progs
+          gzip
+          dnsmasq
+          squashfsTools
+          iproute2
+          bash
+          criu
+          attr
+        ]
+        ++ [
           (writeShellScriptBin "apparmor_parser" ''
             exec '${apparmor-parser}/bin/apparmor_parser' -I '${apparmor-profiles}/etc/apparmor.d' "$@"
           '')

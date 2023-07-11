@@ -54,7 +54,8 @@ stdenv.mkDerivation {
     [
       "static"
       "CC=${stdenv.cc.targetPrefix}cc"
-    ] ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE"
+    ]
+    ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE"
     ;
 
   installPhase = ''

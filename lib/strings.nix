@@ -1111,12 +1111,14 @@ rec {
     */
   isConvertibleWithToString =
     x:
-    isStringLike x || elem (typeOf x) [
+    isStringLike x
+    || elem (typeOf x) [
       "null"
       "int"
       "float"
       "bool"
-    ] || (isList x && lib.all isConvertibleWithToString x)
+    ]
+    || (isList x && lib.all isConvertibleWithToString x)
     ;
 
     /* Check whether a value can be coerced to a string.
@@ -1494,16 +1496,19 @@ rec {
           # Example: "abcdef" -> "bcde"
         in
         if diff == 2 then
-          xinfix == y
-          # A length difference of 1 can only be gotten with a deletion on the
-          # right and a replacement on the left or vice versa.
-          # Example: "abcdef" -> "bcdez" or "zbcde"
+          xinfix
+          == y
+            # A length difference of 1 can only be gotten with a deletion on the
+            # right and a replacement on the left or vice versa.
+            # Example: "abcdef" -> "bcdez" or "zbcde"
         else if diff == 1 then
-          xinfix == ydelr || xinfix == ydell
-          # No length difference can either happen through replacements on both
-          # sides, or a deletion on the left and an insertion on the right or
-          # vice versa
-          # Example: "abcdef" -> "zbcdez" or "bcdefz" or "zabcde"
+          xinfix == ydelr
+          || xinfix
+            == ydell
+              # No length difference can either happen through replacements on both
+              # sides, or a deletion on the left and an insertion on the right or
+              # vice versa
+              # Example: "abcdef" -> "zbcdez" or "bcdefz" or "zabcde"
         else
           xinfix == yinfix || xdelr == ydell || xdell == ydelr
         ;

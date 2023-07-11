@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       lua5
       qtbase
       zlib
-    ] ++ (lib.optionals withTeXLive [ texlive ])
+    ]
+    ++ (lib.optionals withTeXLive [ texlive ])
     ;
 
   makeFlags = [

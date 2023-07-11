@@ -51,17 +51,19 @@ let
       src = fetchurl {
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
-          + optionalString stdenv.isAarch64 "-aarch64" + ".tar.gz"
+          + optionalString stdenv.isAarch64 "-aarch64"
+          + ".tar.gz"
           ;
         inherit (platformAttrs.${stdenv.system}) hash;
       };
       doCheck = true;
 
       nativeBuildInputs =
-        [ makeWrapper ] ++ optionals
-        (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
-          autoPatchelfHook
-        ]
+        [ makeWrapper ]
+        ++ optionals
+          (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
+            autoPatchelfHook
+          ]
         ;
       buildInputs = [ openssl ] ++ nativeLibs;
 
@@ -69,10 +71,12 @@ let
         ''
           mkdir -p $out/{lib/${untarDir}/conf,bin,lib}
           mv * $out/lib/${untarDir}
-        '' + optionalString stdenv.isLinux ''
+        ''
+        + optionalString stdenv.isLinux ''
           # All versions need container-executor, but some versions can't use autoPatchelf because of broken SSL versions
           patchelf --set-interpreter ${glibc.out}/lib64/ld-linux-x86-64.so.2 $out/lib/${untarDir}/bin/container-executor
-        '' + ''
+        ''
+        + ''
           for n in $(find $out/lib/${untarDir}/bin -type f ! -name "*.*"); do
             makeWrapper "$n" "$out/bin/$(basename $n)"\
               --set-default JAVA_HOME ${jdk.home}\
@@ -88,10 +92,12 @@ let
               }"\
               --prefix JAVA_LIBRARY_PATH : "${makeLibraryPath buildInputs}"
           done
-        '' + optionalString sparkSupport ''
+        ''
+        + optionalString sparkSupport ''
           # Add the spark shuffle service jar to YARN
           cp ${spark.src}/yarn/spark-${spark.version}-yarn-shuffle.jar $out/lib/${untarDir}/share/hadoop/yarn/
-        '' + libPatches
+        ''
+        + libPatches
         ;
 
       passthru = { inherit tests; };
@@ -167,7 +173,8 @@ in
         ln -s ${getLib zlib}/lib/libz.so.1 $out/lib/${untarDir}/lib/native/
         ln -s ${getLib zstd}/lib/libzstd.so.1 $out/lib/${untarDir}/lib/native/
         ln -s ${getLib bzip2}/lib/libbz2.so.1 $out/lib/${untarDir}/lib/native/
-      '' + optionalString stdenv.isLinux ''
+      ''
+      + optionalString stdenv.isLinux ''
         # libjvm.so for Java >=11
         patchelf --add-rpath ${jdk.home}/lib/server $out/lib/${untarDir}/lib/native/libnativetask.so.1.0.0
         # Java 8 has libjvm.so at a different path

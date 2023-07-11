@@ -159,13 +159,15 @@ let
     ;
 
   expand-response-params = lib.optionalString (buildPackages ? stdenv
-    && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
+    && buildPackages.stdenv.hasCC
+    && buildPackages.stdenv.cc != "/dev/null")
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
 in
 stdenv.mkDerivation {
   pname =
-    targetPrefix + (if name != "" then
+    targetPrefix
+    + (if name != "" then
       name
     else
       "${bintoolsName}-wrapper")
@@ -262,7 +264,7 @@ stdenv.mkDerivation {
       fi
     ''
 
-    # Create symlinks for rest of the binaries.
+      # Create symlinks for rest of the binaries.
     + ''
       for binary in objdump objcopy size strings as ar nm gprof dwp c++filt addr2line \
           ranlib readelf elfedit dlltool dllwrap windmc windres; do
@@ -271,7 +273,8 @@ stdenv.mkDerivation {
         fi
       done
 
-    '' + (if !useMacosReexportHack then
+    ''
+    + (if !useMacosReexportHack then
       ''
         if [ -e ''${ld:-$ldPath/${targetPrefix}ld} ]; then
           wrap ${targetPrefix}ld ${
@@ -287,13 +290,14 @@ stdenv.mkDerivation {
         } ''${ld:-$ldPath/${targetPrefix}ld}
         wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
         unset ldInner
-      '') + ''
+      '')
+    + ''
 
-        for variant in $ldPath/${targetPrefix}ld.*; do
-          basename=$(basename "$variant")
-          wrap $basename ${./ld-wrapper.sh} $variant
-        done
-      ''
+      for variant in $ldPath/${targetPrefix}ld.*; do
+        basename=$(basename "$variant")
+        wrap $basename ${./ld-wrapper.sh} $variant
+      done
+    ''
     ;
 
   strictDeps = true;
@@ -328,7 +332,7 @@ stdenv.mkDerivation {
         fi
       ''
 
-      # Expand globs to fill array of options
+        # Expand globs to fill array of options
       + ''
         dynamicLinker=($dynamicLinker)
 
@@ -373,14 +377,15 @@ stdenv.mkDerivation {
       } > $out/nix-support/propagated-user-env-packages
     ''
 
-    ##
-    ## Man page and info support
-    ##
+      ##
+      ## Man page and info support
+      ##
     + optionalString propagateDoc (''
       ln -s ${bintools.man} $man
-    '' + optionalString (bintools ? info) ''
-      ln -s ${bintools.info} $info
-    '')
+    ''
+      + optionalString (bintools ? info) ''
+        ln -s ${bintools.info} $info
+      '')
 
     ##
     ## Hardening support
@@ -415,23 +420,23 @@ stdenv.mkDerivation {
       echo "-arch ${targetPlatform.darwinArch}" >> $out/nix-support/libc-ldflags
     ''
 
-    ##
-    ## GNU specific extra strip flags
-    ##
+      ##
+      ## GNU specific extra strip flags
+      ##
 
-    # TODO(@sternenseemann): make a generic strip wrapper?
+      # TODO(@sternenseemann): make a generic strip wrapper?
     + optionalString (bintools.isGNU or false) ''
       wrap ${targetPrefix}strip ${./gnu-binutils-strip-wrapper.sh} \
         "${bintools_bin}/bin/${targetPrefix}strip"
     ''
 
-    ###
-    ### Remove LC_UUID
-    ###
+      ###
+      ### Remove LC_UUID
+      ###
     + optionalString
-    (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
-      echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
-    ''
+      (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
+        echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
+      ''
 
     + ''
       for flags in "$out/nix-support"/*flags*; do
@@ -483,9 +488,9 @@ stdenv.mkDerivation {
         "${bintools_bin}/bin/${targetPrefix}strip"
     ''
 
-    ##
-    ## Extra custom steps
-    ##
+      ##
+      ## Extra custom steps
+      ##
     + extraBuildCommands
     ;
 
@@ -522,7 +527,8 @@ stdenv.mkDerivation {
           lib.attrByPath [
             "meta"
             "description"
-          ] "System binary utilities" bintools_ + " (wrapper script)"
+          ] "System binary utilities" bintools_
+          + " (wrapper script)"
           ;
         priority = 10;
       }

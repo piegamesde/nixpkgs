@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     [
       perlPackages.perl
       beancount
-    ] ++ perlDeps
+    ]
+    ++ perlDeps
     ;
 
   makeFlags = [ "prefix=$(out)" ];

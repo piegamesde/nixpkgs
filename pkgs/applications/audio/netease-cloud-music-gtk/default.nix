@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       desktop-file-utils # update-desktop-database
       libxml2 # xmllint
       wrapGAppsHook4
-    ] ++ (with rustPlatform; [
+    ]
+    ++ (with rustPlatform; [
       cargoSetupHook
       rust.cargo
       rust.rustc
@@ -62,13 +63,15 @@ stdenv.mkDerivation rec {
       openssl
       dbus
       libadwaita
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ]) ++ lib.optionals stdenv.isDarwin [
+    ])
+    ++ lib.optionals stdenv.isDarwin [
       Foundation
       SystemConfiguration
     ]

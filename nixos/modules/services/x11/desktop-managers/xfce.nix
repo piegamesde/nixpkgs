@@ -185,13 +185,16 @@ in
           xfce4-volumed-pulse
         else
           xfce4-pulseaudio-plugin)
-      ] ++ optionals cfg.enableXfwm [
+      ]
+      ++ optionals cfg.enableXfwm [
         xfwm4
         xfwm4-themes
-      ] ++ optionals (!cfg.noDesktop) [
+      ]
+      ++ optionals (!cfg.noDesktop) [
         xfce4-panel
         xfdesktop
-      ] ++ optional cfg.enableScreensaver xfce4-screensaver;
+      ]
+      ++ optional cfg.enableScreensaver xfce4-screensaver;
 
     programs.xfconf.enable = true;
     programs.thunar.enable = true;

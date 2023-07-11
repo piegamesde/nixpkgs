@@ -27,7 +27,8 @@ buildLinux (args // rec {
   };
 
   kernelPatches =
-    args.kernelPatches ++ [ {
+    args.kernelPatches
+    ++ [ {
       name = "usbip-tools-fno-common";
       patch = fetchurl {
         url =
@@ -48,7 +49,8 @@ buildLinux (args // rec {
       # This attempted fix applies correctly but does not fix the build.
       #GATOR_MALI_MIDGARD_PATH ${src}/drivers/gpu/arm/midgard
 
-    '' + (args.extraConfig or "")
+    ''
+    + (args.extraConfig or "")
     ;
 
   extraMeta.platforms = [ "armv7l-linux" ];

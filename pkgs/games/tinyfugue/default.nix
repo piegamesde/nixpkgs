@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       ncurses
       zlib
-    ] ++ optional sslSupport openssl
+    ]
+    ++ optional sslSupport openssl
     ;
 
     # Workaround build failure on -fno-common toolchains like upstream

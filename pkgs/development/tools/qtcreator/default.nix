@@ -50,7 +50,8 @@ mkDerivation rec {
       qtquickcontrols
       qtdeclarative
       elfutils.dev
-    ] ++ lib.optionals withClangPlugins [
+    ]
+    ++ lib.optionals withClangPlugins [
       llvmPackages_8.libclang
       clang_qt_vendor
       llvmPackages_8.llvm
@@ -86,7 +87,8 @@ mkDerivation rec {
         --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
       substituteInPlace src/libs/libs.pro \
         --replace '$$[QT_INSTALL_QML]/QtQuick/Controls' '${qtquickcontrols}/${qtbase.qtQmlPrefix}/QtQuick/Controls'
-    '' + lib.optionalString withClangPlugins ''
+    ''
+    + lib.optionalString withClangPlugins ''
       # Fix paths for llvm/clang includes directories.
       substituteInPlace src/shared/clang/clang_defines.pri \
         --replace '$$clean_path($''${LLVM_LIBDIR}/clang/$''${LLVM_VERSION}/include)' '${clang_qt_vendor}/lib/clang/8.0.0/include' \

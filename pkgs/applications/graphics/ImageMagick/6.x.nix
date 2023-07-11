@@ -55,8 +55,8 @@ let
     if stdenv.hostPlatform.system == "i686-linux" then
       "i686"
     else if
-      stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system
-      == "x86_64-darwin"
+      stdenv.hostPlatform.system == "x86_64-linux"
+      || stdenv.hostPlatform.system == "x86_64-darwin"
     then
       "x86-64"
     else if stdenv.hostPlatform.system == "armv7l-linux" then
@@ -102,7 +102,8 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.withFeatureAs ghostscriptSupport "gs-font-dir"
         "${ghostscript}/share/ghostscript/fonts")
       (lib.withFeature ghostscriptSupport "gslib")
-    ] ++ lib.optionals stdenv.hostPlatform.isMinGW [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMinGW [
       # due to libxml2 being without DLLs ATM
       "--enable-static"
       "--disable-shared"
@@ -115,10 +116,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ ] ++ lib.optional zlibSupport zlib
+    [ ]
+    ++ lib.optional zlibSupport zlib
     ++ lib.optional fontconfigSupport fontconfig
     ++ lib.optional ghostscriptSupport ghostscript
-    ++ lib.optional liblqr1Support liblqr1 ++ lib.optional libpngSupport libpng
+    ++ lib.optional liblqr1Support liblqr1
+    ++ lib.optional libpngSupport libpng
     ++ lib.optional libtiffSupport libtiff
     ++ lib.optional libxml2Support libxml2
     ++ lib.optional libheifSupport libheif
@@ -126,17 +129,21 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional djvulibreSupport djvulibre
     ++ lib.optional openexrSupport openexr
     ++ lib.optional librsvgSupport librsvg
-    ++ lib.optional openjpegSupport openjpeg ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optional openjpegSupport openjpeg
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Foundation
     ]
     ;
 
   propagatedBuildInputs =
-    [ fftw ] ++ lib.optional bzip2Support bzip2
+    [ fftw ]
+    ++ lib.optional bzip2Support bzip2
     ++ lib.optional freetypeSupport freetype
-    ++ lib.optional libjpegSupport libjpeg ++ lib.optional lcms2Support lcms2
-    ++ lib.optional libX11Support libX11 ++ lib.optional libXtSupport libXt
+    ++ lib.optional libjpegSupport libjpeg
+    ++ lib.optional lcms2Support lcms2
+    ++ lib.optional libX11Support libX11
+    ++ lib.optional libXtSupport libXt
     ++ lib.optional libwebpSupport libwebp
     ;
 
@@ -153,7 +160,8 @@ stdenv.mkDerivation (finalAttrs: {
         substituteInPlace "$file" --replace ${pkg-config}/bin/pkg-config \
           "PKG_CONFIG_PATH='$dev/lib/pkgconfig' '${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config'"
       done
-    '' + lib.optionalString ghostscriptSupport ''
+    ''
+    + lib.optionalString ghostscriptSupport ''
       for la in $out/lib/*.la; do
         sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
       done

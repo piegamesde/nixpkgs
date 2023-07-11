@@ -30,7 +30,8 @@ mkCoqDerivation {
   mlPlugin = true;
   nativeBuildInputs = [ coq.ocamlPackages.cppo ];
   propagatedBuildInputs =
-    [ coq-ext-lib ] ++ (with coq.ocamlPackages; [
+    [ coq-ext-lib ]
+    ++ (with coq.ocamlPackages; [
       ocaml
       findlib
       ocamlbuild

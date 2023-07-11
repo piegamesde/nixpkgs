@@ -22,7 +22,8 @@ rofi-unwrapped.overrideAttrs (oldAttrs: rec {
 
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ wayland-scanner ];
   buildInputs =
-    oldAttrs.buildInputs ++ [
+    oldAttrs.buildInputs
+    ++ [
       wayland
       wayland-protocols
     ]

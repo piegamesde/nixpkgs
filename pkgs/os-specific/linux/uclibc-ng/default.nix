@@ -47,9 +47,11 @@ let
       UCLIBC_SUSV4_LEGACY y
       UCLIBC_HAS_THREADS_NATIVE y
       KERNEL_HEADERS "${linuxHeaders}/include"
-    '' + lib.optionalString (stdenv.hostPlatform.gcc.float or "" == "soft") ''
+    ''
+    + lib.optionalString (stdenv.hostPlatform.gcc.float or "" == "soft") ''
       UCLIBC_HAS_FPU n
-    '' + lib.optionalString (stdenv.isAarch32 && isCross) ''
+    ''
+    + lib.optionalString (stdenv.isAarch32 && isCross) ''
       CONFIG_ARM_EABI y
       ARCH_WANTS_BIG_ENDIAN n
       ARCH_BIG_ENDIAN n
@@ -93,7 +95,8 @@ stdenv.mkDerivation rec {
       "ARCH=${stdenv.hostPlatform.linuxArch}"
       "TARGET_ARCH=${stdenv.hostPlatform.linuxArch}"
       "VERBOSE=1"
-    ] ++ lib.optionals (isCross) [ "CROSS=${stdenv.cc.targetPrefix}" ]
+    ]
+    ++ lib.optionals (isCross) [ "CROSS=${stdenv.cc.targetPrefix}" ]
     ;
 
     # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:

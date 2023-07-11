@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
     [
       "--with-ntl=${ntl}"
       "--disable-pyobject-module"
-    ] ++ lib.optionals enableDocs [ "--enable-doc-build" ]
+    ]
+    ++ lib.optionals enableDocs [ "--enable-doc-build" ]
     ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ]
     ;
 
@@ -82,7 +83,8 @@ stdenv.mkDerivation rec {
       flint
       lrcalc
       gfan
-    ] ++ lib.optionals enableGfanlib [ cddlib ]
+    ]
+    ++ lib.optionals enableGfanlib [ cddlib ]
     ;
 
   nativeBuildInputs =
@@ -92,13 +94,15 @@ stdenv.mkDerivation rec {
       pkg-config
       autoreconfHook
       sharutils # needed for regress.cmd install checks
-    ] ++ lib.optionals enableDocs [
+    ]
+    ++ lib.optionals enableDocs [
       doxygen
       graphviz
       latex2html
       texinfo4
       texlive.combined.scheme-small
-    ] ++ lib.optionals stdenv.isDarwin [ getconf ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ getconf ]
     ;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -117,11 +121,13 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       make install
-    '' + lib.optionalString enableDocs ''
+    ''
+    + lib.optionalString enableDocs ''
       # Sage uses singular.info, which is not installed by default
       mkdir -p $out/share/info
       cp doc/singular.info $out/share/info
-    '' + ''
+    ''
+    + ''
       # Make sure patchelf picks up the right libraries
       rm -rf libpolys factory resources omalloc Singular
     ''
@@ -136,7 +142,8 @@ stdenv.mkDerivation rec {
       "Buch/buch.lst"
       "Plural/short.lst"
       "Old/factor.tst"
-    ] ++ lib.optionals enableGfanlib [
+    ]
+    ++ lib.optionals enableGfanlib [
       # tests that require gfanlib
       "Short/ok_s.lst"
     ]

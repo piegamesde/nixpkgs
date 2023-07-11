@@ -45,7 +45,8 @@ in
     services.udev.packages = [ cfg.package ];
 
     boot.kernelModules =
-      [ "i2c-dev" ] ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
+      [ "i2c-dev" ]
+      ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
       ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ]
       ;
 

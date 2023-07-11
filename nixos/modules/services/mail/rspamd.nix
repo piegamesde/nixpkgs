@@ -173,7 +173,9 @@ let
             ;
         };
       };
-      config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
+      config = mkIf (name == "normal"
+        || name == "controller"
+        || name == "fuzzy"
         || name == "rspamd_proxy") {
           type = mkDefault name;
           includes = mkDefault [
@@ -284,16 +286,19 @@ let
   rspamdDir = pkgs.linkFarm "etc-rspamd-dir" ((mapAttrsToList (name: file: {
     name = "local.d/${name}";
     path = file.source;
-  }) (filterFiles cfg.locals)) ++ (mapAttrsToList (name: file: {
-    name = "override.d/${name}";
-    path = file.source;
-  }) (filterFiles cfg.overrides)) ++ (optional (cfg.localLuaRules != null) {
-    name = "rspamd.local.lua";
-    path = cfg.localLuaRules;
-  }) ++ [ {
-    name = "rspamd.conf";
-    path = rspamdConfFile;
-  } ]);
+  }) (filterFiles cfg.locals))
+    ++ (mapAttrsToList (name: file: {
+      name = "override.d/${name}";
+      path = file.source;
+    }) (filterFiles cfg.overrides))
+    ++ (optional (cfg.localLuaRules != null) {
+      name = "rspamd.local.lua";
+      path = cfg.localLuaRules;
+    })
+    ++ [ {
+      name = "rspamd.conf";
+      path = rspamdConfFile;
+    } ]);
 
   configFileModule =
     prefix:

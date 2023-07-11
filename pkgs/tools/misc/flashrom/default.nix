@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       libftdi1
       libusb1
       pciutils
-    ] ++ lib.optional jlinkSupport libjaylink
+    ]
+    ++ lib.optional jlinkSupport libjaylink
     ;
 
   postPatch = ''
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       "PREFIX=$(out)"
       "libinstall"
-    ] ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes"
+    ]
+    ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes"
     ;
 
   postInstall = ''

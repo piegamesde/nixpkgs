@@ -60,7 +60,8 @@ buildPythonApplication rec {
       tomlkit
       unearth
       virtualenv
-    ] ++ cachecontrol.optional-dependencies.filecache
+    ]
+    ++ cachecontrol.optional-dependencies.filecache
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;

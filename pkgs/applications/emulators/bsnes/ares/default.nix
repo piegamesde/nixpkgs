@@ -47,14 +47,16 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       which
       wrapGAppsHook
-    ] ++ lib.optionals stdenv.isDarwin [ libicns ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libicns ]
     ;
 
   buildInputs =
     [
       SDL2
       libao
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       gtk3
       gtksourceview3
@@ -65,7 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
       libpulseaudio
       openal
       udev
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenAL
     ]
@@ -79,7 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
       "hiro=cocoa"
       "lto=false"
       "vulkan=false"
-    ] ++ [
+    ]
+    ++ [
       "local=false"
       "openmp=true"
       "prefix=$(out)"

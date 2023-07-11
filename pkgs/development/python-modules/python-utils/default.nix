@@ -36,7 +36,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytest-mypy
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.loguru
+    ]
+    ++ passthru.optional-dependencies.loguru
     ;
 
   pythonImportsCheck = [ "python_utils" ];

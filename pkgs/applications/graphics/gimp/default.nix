@@ -94,7 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
       gettext
       makeWrapper
       gtk-doc
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
     ;
 
   buildInputs =
@@ -134,11 +135,14 @@ stdenv.mkDerivation (finalAttrs: {
       glib-networking
       libmypaint
       mypaint-brushes1
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       gtk-mac-integration-gtk2
-    ] ++ lib.optionals stdenv.isLinux [ libgudev ] ++ lib.optionals withPython [
+    ]
+    ++ lib.optionals stdenv.isLinux [ libgudev ]
+    ++ lib.optionals withPython [
       python
       # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
       python2.pkgs.pygtk
@@ -156,9 +160,10 @@ stdenv.mkDerivation (finalAttrs: {
       "--with-icc-directory=/run/current-system/sw/share/color/icc"
       # fix libdir in pc files (${exec_prefix} needs to be passed verbatim)
       "--libdir=\${exec_prefix}/lib"
-    ] ++ lib.optionals (!withPython) [
-      "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
     ]
+    ++ lib.optionals (!withPython) [
+        "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
+      ]
     ;
 
   enableParallelBuilding = true;

@@ -46,7 +46,8 @@ mkDerivation rec {
       qtkeychain
       qtmultimedia
       qtquickcontrols2
-    ] ++ pythonPath
+    ]
+    ++ pythonPath
     ;
 
   pythonPath = with python3Packages;
@@ -70,7 +71,8 @@ mkDerivation rec {
       watchgod
       dbus-python
       matrix-nio
-    ] ++ matrix-nio.optional-dependencies.e2e;
+    ]
+    ++ matrix-nio.optional-dependencies.e2e;
 
   qmakeFlags = [
     "PREFIX=${placeholder "out"}"

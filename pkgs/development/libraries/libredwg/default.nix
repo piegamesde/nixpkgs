@@ -50,14 +50,16 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
       texinfo
-    ] ++ lib.optional enablePython swig
+    ]
+    ++ lib.optional enablePython swig
     ;
 
   buildInputs =
-    [ pcre2 ] ++ lib.optionals enablePython [
-      python
-    ]
-    # configurePhase fails with python 3 when ncurses is missing
+    [ pcre2 ]
+    ++ lib.optionals enablePython [
+        python
+      ]
+      # configurePhase fails with python 3 when ncurses is missing
     ++ lib.optional isPython3 ncurses
     ;
 

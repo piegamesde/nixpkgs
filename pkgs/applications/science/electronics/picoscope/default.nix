@@ -35,7 +35,8 @@ let
         [
           expipiplus1
           wirew0rm
-        ] ++ teams.lumiguide.members;
+        ]
+        ++ teams.lumiguide.members;
       platforms = [ "x86_64-linux" ];
       license = licenses.unfree;
     }
@@ -133,14 +134,16 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
   scopeLibs = lib.attrVals (map (x: "lib${x}") scopes) scopePkgs;
   MONO_PATH =
-    "${gtk-sharp-3_0}/lib/mono/gtk-sharp-3.0:" + (lib.makeLibraryPath ([
+    "${gtk-sharp-3_0}/lib/mono/gtk-sharp-3.0:"
+    + (lib.makeLibraryPath ([
       glib
       gtk3-x11
       gtk-sharp-3_0
       libusb1
       zlib
       libpicoipp
-    ] ++ scopeLibs))
+    ]
+      ++ scopeLibs))
     ;
 
   installPhase = ''

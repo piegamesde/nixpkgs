@@ -51,7 +51,8 @@ stdenv.mkDerivation (rec {
       unpackFile $src
       mv llvm-${version}* llvm
       sourceRoot=$PWD/llvm
-    '' + optionalString enablePolly ''
+    ''
+    + optionalString enablePolly ''
       unpackFile $polly_src
       mv polly-* $sourceRoot/tools/polly
     ''
@@ -68,7 +69,8 @@ stdenv.mkDerivation (rec {
     [
       cmake
       python3
-    ] ++ optional enableManpages python3.pkgs.sphinx
+    ]
+    ++ optional enableManpages python3.pkgs.sphinx
     ;
 
   buildInputs = [
@@ -112,7 +114,8 @@ stdenv.mkDerivation (rec {
         sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
         stripLen = 1;
       })
-    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+    ]
+    ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
     ;
 
   postPatch =
@@ -120,7 +123,8 @@ stdenv.mkDerivation (rec {
       substituteInPlace cmake/modules/AddLLVM.cmake \
         --replace 'set(_install_name_dir INSTALL_NAME_DIR "@rpath")' "set(_install_name_dir)" \
         --replace 'set(_install_rpath "@loader_path/../''${CMAKE_INSTALL_LIBDIR}" ''${extra_libdir})' ""
-    '' + ''
+    ''
+    + ''
       # FileSystem permissions tests fail with various special bits
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "Path.cpp" ""
@@ -128,14 +132,17 @@ stdenv.mkDerivation (rec {
 
       # llvm-5 does not support dwarf-5 style info, fails on gcc-11.
       rm test/tools/llvm-symbolizer/print_context.c
-    '' + optionalString stdenv.isAarch64 ''
+    ''
+    + optionalString stdenv.isAarch64 ''
       patch -p0 < ${../../aarch64.patch}
-    '' + optionalString stdenv.hostPlatform.isMusl ''
+    ''
+    + optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -i ${../../TLI-musl.patch}
       substituteInPlace unittests/Support/CMakeLists.txt \
         --replace "add_subdirectory(DynamicLibrary)" ""
       rm unittests/Support/DynamicLibrary/DynamicLibraryTest.cpp
-    '' + ''
+    ''
+    + ''
       # Tweak tests to ignore namespace part of type to support
       # gcc-12: https://gcc.gnu.org/PR103598.
       # The change below mangles strings like:
@@ -185,10 +192,12 @@ stdenv.mkDerivation (rec {
         [
           "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
           "-DLLVM_ENABLE_RTTI=ON"
-        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
+        ]
+        ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
         ;
     in
-    flagsForLlvmConfig ++ [
+    flagsForLlvmConfig
+    ++ [
       "-DCMAKE_BUILD_TYPE=${
         if debugVersion then
           "Debug"
@@ -207,18 +216,22 @@ stdenv.mkDerivation (rec {
       "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
       "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
       "-DTARGET_TRIPLE=${stdenv.hostPlatform.config}"
-    ] ++ lib.optionals enableManpages [
+    ]
+    ++ lib.optionals enableManpages [
       "-DLLVM_BUILD_DOCS=ON"
       "-DLLVM_ENABLE_SPHINX=ON"
       "-DSPHINX_OUTPUT_MAN=ON"
       "-DSPHINX_OUTPUT_HTML=OFF"
       "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ lib.optionals (enableGoldPlugin) [
-      "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-    ] ++ lib.optionals (isDarwin) [
+    ]
+    ++ lib.optionals (enableGoldPlugin) [
+        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
+      ]
+    ++ lib.optionals (isDarwin) [
       "-DLLVM_ENABLE_LIBCXX=ON"
       "-DCAN_TARGET_i386=false"
-    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-DCMAKE_CROSSCOMPILING=True"
       "-DLLVM_TABLEGEN=${buildLlvmTools.llvm}/bin/llvm-tblgen"
       (let
@@ -241,8 +254,8 @@ stdenv.mkDerivation (rec {
           "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "lib"}/libexec"
         ];
       in
-      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=" + lib.concatStringsSep ";"
-      (lib.concatLists [
+      "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
+      + lib.concatStringsSep ";" (lib.concatLists [
         flagsForLlvmConfig
         nativeToolchainFlags
         nativeInstallFlags
@@ -274,17 +287,20 @@ stdenv.mkDerivation (rec {
         --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
       substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
         --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-    '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+    ''
+    + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
       ${lib.concatMapStringsSep "\n" (v: ''
         ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
       '') versionSuffixes}
-    '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    ''
+    + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
     ''
     ;
 
   doCheck =
-    stdenv.isLinux && (!stdenv.isi686)
+    stdenv.isLinux
+    && (!stdenv.isi686)
     && (stdenv.hostPlatform == stdenv.buildPlatform)
     ;
 

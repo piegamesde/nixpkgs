@@ -343,10 +343,12 @@ rec {
           set -o errexit
           set -o nounset
           set -o pipefail
-        '' + lib.optionalString (runtimeInputs != [ ]) ''
+        ''
+        + lib.optionalString (runtimeInputs != [ ]) ''
 
           export PATH="${lib.makeBinPath runtimeInputs}:$PATH"
-        '' + ''
+        ''
+        + ''
 
           ${text}
         ''
@@ -653,7 +655,8 @@ rec {
         }" (lib.warnIf (deps != [ ])
           "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
             toString deps
-          }" propagatedBuildInputs ++ (if lib.isList deps then
+          }" propagatedBuildInputs
+          ++ (if lib.isList deps then
             deps
           else
             [ deps ]));
@@ -668,9 +671,10 @@ rec {
       mkdir -p $out/nix-support
       cp ${script} $out/nix-support/setup-hook
       recordPropagatedDependencies
-    '' + lib.optionalString (substitutions != { }) ''
-      substituteAll ${script} $out/nix-support/setup-hook
-    '')
+    ''
+      + lib.optionalString (substitutions != { }) ''
+        substituteAll ${script} $out/nix-support/setup-hook
+      '')
     ;
 
     # Write the references (i.e. the runtime dependencies in the Nix store) of `path' to a file.
@@ -777,7 +781,8 @@ rec {
       outputPaths = lib.flatten (lib.mapAttrsToList (name: value:
         if lib.elem "out" value.outputs then
           lib.filter (x:
-            lib.isList x &&
+            lib.isList x
+            &&
             # If the matched path is in `namedOutputPaths`,
             # it's a partial match of an output path where
             # the output name isn't `out`

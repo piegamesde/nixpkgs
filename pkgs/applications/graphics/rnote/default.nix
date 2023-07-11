@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
       libadwaita
       libxml2
       poppler
-    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ AudioUnit ]
     ;
 

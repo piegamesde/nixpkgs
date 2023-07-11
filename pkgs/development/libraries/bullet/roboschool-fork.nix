@@ -31,7 +31,8 @@ stdenv.mkDerivation {
       libGLU
       libGL
       freeglut
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
     ]
@@ -49,7 +50,8 @@ stdenv.mkDerivation {
       "-DBUILD_SHARED_LIBS=ON"
       "-DBUILD_CPU_DEMOS=OFF"
       "-DINSTALL_EXTRA_LIBS=ON"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_FOUND=true"
       "-DOPENGL_LIBRARIES=${OpenGL}/Library/Frameworks/OpenGL.framework"
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks/OpenGL.framework"

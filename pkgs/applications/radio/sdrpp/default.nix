@@ -91,20 +91,27 @@ stdenv.mkDerivation rec {
       glew
       fftwFloat
       volk
-    ] ++ lib.optional stdenv.isDarwin AppKit
-    ++ lib.optional stdenv.isLinux libX11 ++ lib.optional airspy_source airspy
+    ]
+    ++ lib.optional stdenv.isDarwin AppKit
+    ++ lib.optional stdenv.isLinux libX11
+    ++ lib.optional airspy_source airspy
     ++ lib.optional airspyhf_source airspyhf
     ++ lib.optional bladerf_source libbladeRF
     ++ lib.optional hackrf_source hackrf
-    ++ lib.optional limesdr_source limesuite ++ lib.optionals rtl_sdr_source [
+    ++ lib.optional limesdr_source limesuite
+    ++ lib.optionals rtl_sdr_source [
       rtl-sdr
       libusb1
-    ] ++ lib.optional sdrplay_source sdrplay
-    ++ lib.optional soapy_source soapysdr ++ lib.optionals plutosdr_source [
+    ]
+    ++ lib.optional sdrplay_source sdrplay
+    ++ lib.optional soapy_source soapysdr
+    ++ lib.optionals plutosdr_source [
       libiio
       libad9361
-    ] ++ lib.optional audio_sink rtaudio
-    ++ lib.optional portaudio_sink portaudio ++ lib.optional m17_decoder codec2
+    ]
+    ++ lib.optional audio_sink rtaudio
+    ++ lib.optional portaudio_sink portaudio
+    ++ lib.optional m17_decoder codec2
     ;
 
   cmakeFlags = lib.mapAttrsToList (k: v:

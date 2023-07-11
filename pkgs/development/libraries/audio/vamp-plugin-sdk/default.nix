@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     [
       "AR:=$(AR)"
       "RANLIB:=$(RANLIB)"
-    ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-o test"
+    ]
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-o test"
     ;
 
   meta = with lib; {

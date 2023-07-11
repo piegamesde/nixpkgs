@@ -202,13 +202,14 @@ let
     third_party = map (x:
       ((fetchurl { inherit (x) url sha256 name; }) // {
         inherit (x) md5name md5;
-      })) (importVariant "download.nix" ++ [ (rec {
-        name = "unowinreg.dll";
-        url = "https://dev-www.libreoffice.org/extern/${md5name}";
-        sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-        md5 = "185d60944ea767075d27247c3162b3bc";
-        md5name = "${md5}-${name}";
-      }) ]);
+      })) (importVariant "download.nix"
+        ++ [ (rec {
+          name = "unowinreg.dll";
+          url = "https://dev-www.libreoffice.org/extern/${md5name}";
+          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+          md5 = "185d60944ea767075d27247c3162b3bc";
+          md5name = "${md5}-${name}";
+        }) ]);
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -241,19 +242,22 @@ in
   env.NIX_CFLAGS_COMPILE = toString ([
     "-I${librdf_rasqal}/include/rasqal" # librdf_redland refers to rasqal.h instead of rasqal/rasqal.h
     "-fno-visibility-inlines-hidden" # https://bugs.documentfoundation.org/show_bug.cgi?id=78174#c10
-  ] ++ optionals (stdenv.isLinux && stdenv.isAarch64 && variant == "still") [
-      "-O2" # https://bugs.gentoo.org/727188
-    ]);
+  ]
+    ++ optionals (stdenv.isLinux && stdenv.isAarch64 && variant == "still") [
+        "-O2" # https://bugs.gentoo.org/727188
+      ]);
 
   tarballPath = "external/tarballs";
 
   postUnpack =
     ''
       mkdir -v $sourceRoot/${tarballPath}
-    '' + (flip concatMapStrings srcs.third_party (f: ''
+    ''
+    + (flip concatMapStrings srcs.third_party (f: ''
       ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
       ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
-    '')) + ''
+    ''))
+    + ''
       ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
       ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}
       tar -xf ${srcs.help}
@@ -295,7 +299,8 @@ in
       substituteInPlace configure.ac --replace \
         'GPGMEPP_CFLAGS=-I/usr/include/gpgme++' \
         'GPGMEPP_CFLAGS=-I${gpgme.dev}/include/gpgme++'
-    '' + optionalString kdeIntegration ''
+    ''
+    + optionalString kdeIntegration ''
       substituteInPlace configure.ac \
         --replace '$QT5INC ' '$QT5INC ${kdeDeps}/include ' \
         --replace '$QT5LIB ' '$QT5LIB ${kdeDeps}/lib ' \
@@ -544,7 +549,8 @@ in
       "--without-system-xmlsec"
       "--without-system-cuckoo"
       "--without-system-zxing"
-    ] ++ optionals kdeIntegration [
+    ]
+    ++ optionals kdeIntegration [
       "--enable-kf5"
       "--enable-qt5"
       "--enable-gtk3-kde5"
@@ -657,15 +663,17 @@ in
       which
       zip
       zlib
-    ] ++ passthru.gst_packages ++ optionals kdeIntegration [
+    ]
+    ++ passthru.gst_packages
+    ++ optionals kdeIntegration [
       qtbase
       qtx11extras
       kcoreaddons
       kio
     ]
     ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [
-      libwebp
-    ];
+        libwebp
+      ];
 
   passthru = {
     inherit srcs;

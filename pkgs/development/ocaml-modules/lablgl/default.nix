@@ -36,7 +36,8 @@ else
       [
         libGLU
         libGL
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.GLUT
         darwin.apple_sdk.libs.Xplugin
       ]

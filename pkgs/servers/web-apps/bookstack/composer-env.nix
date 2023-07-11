@@ -16,8 +16,10 @@ let
   filterSrc =
     src:
     builtins.filterSource (path: type:
-      type != "directory" || (baseNameOf path != ".git" && baseNameOf path
-        != ".git" && baseNameOf path != ".svn")) src
+      type != "directory"
+      || (baseNameOf path != ".git"
+        && baseNameOf path != ".git"
+        && baseNameOf path != ".svn")) src
     ;
 
   buildZipPackage =
@@ -178,7 +180,8 @@ let
         [
           php
           composer
-        ] ++ buildInputs
+        ]
+        ++ buildInputs
         ;
 
       inherit unpackPhase buildPhase;

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ]
     ;
 
   buildInputs =
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
       rtmidi
       SDL2
       zlib
-    ] ++ lib.optionals withJACK [ libjack2 ]
+    ]
+    ++ lib.optionals withJACK [ libjack2 ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ;
 

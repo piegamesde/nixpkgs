@@ -48,7 +48,8 @@ buildPythonPackage rec {
       pytest-xdist
       pytestCheckHook
       wsgidav
-    ] ++ passthru.optional-dependencies.fsspec
+    ]
+    ++ passthru.optional-dependencies.fsspec
     ;
 
   passthru.optional-dependencies = {

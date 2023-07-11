@@ -44,7 +44,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       pytest-rerunfailures
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
     # Disabling OpenMP support on Darwin.

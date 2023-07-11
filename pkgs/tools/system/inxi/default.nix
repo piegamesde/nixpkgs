@@ -61,7 +61,8 @@ let
       ps
       dnsutils
     ] # Core programs
-    ++ recommendedSystemPrograms ++ recommendedDisplayInformationPrograms
+    ++ recommendedSystemPrograms
+    ++ recommendedDisplayInformationPrograms
     ;
 in
 stdenv.mkDerivation rec {

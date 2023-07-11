@@ -36,7 +36,8 @@ buildPythonPackage rec {
       protobuf
       six
       typing-extensions
-    ] ++ lib.optionals cudaSupport [ cupy ]
+    ]
+    ++ lib.optionals cudaSupport [ cupy ]
     ;
 
   nativeCheckInputs = [

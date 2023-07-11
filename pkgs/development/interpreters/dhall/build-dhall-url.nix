@@ -98,6 +98,7 @@ runCommand name { } (''
   cp ${downloadedEncodedFile} $out/${cacheDhall}/$HASH_FILE
 
   echo "missing $SHA_HASH" > $out/binary.dhall
-'' + lib.optionalString source ''
-  ${dhallNoHTTP}/bin/dhall decode --file ${downloadedEncodedFile} > $out/${sourceFile}
-'')
+''
+  + lib.optionalString source ''
+    ${dhallNoHTTP}/bin/dhall decode --file ${downloadedEncodedFile} > $out/${sourceFile}
+  '')

@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       ninja
       pkg-config
       glib
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gobject-introspection
       vala
     ]
@@ -57,7 +58,8 @@ stdenv.mkDerivation rec {
       libpsl
       glib.out
       brotli
-    ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
     ;
 
   propagatedBuildInputs = [
@@ -83,7 +85,8 @@ stdenv.mkDerivation rec {
       }"
       "-Dgnome=${lib.boolToString gnomeSupport}"
       "-Dntlm=disabled"
-    ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsysprof=disabled" ]
+    ]
+    ++ lib.optionals (!stdenv.isLinux) [ "-Dsysprof=disabled" ]
     ;
 
   env.NIX_CFLAGS_COMPILE = "-lpthread";

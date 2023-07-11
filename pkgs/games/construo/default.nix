@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       libX11
       zlib
       xorgproto
-    ] ++ lib.optional (libGL != null) libGL
+    ]
+    ++ lib.optional (libGL != null) libGL
     ++ lib.optional (libGLU != null) libGLU
     ++ lib.optional (freeglut != null) freeglut
     ;

@@ -39,7 +39,8 @@ python3Packages.buildPythonApplication rec {
     [
       "qtpy/"
       "contrib/win32"
-    ] ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ]
     ;
 
   preFixup = ''

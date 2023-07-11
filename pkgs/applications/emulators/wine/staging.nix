@@ -30,13 +30,15 @@ assert lib.getVersion wineUnstable == patch.version;
       hexdump
       perl
       python3
-    ] ++ self.nativeBuildInputs
+    ]
+    ++ self.nativeBuildInputs
     ;
 
   name = "${self.name}-staging";
 
   prePatch =
-    self.prePatch or "" + ''
+    self.prePatch or ""
+    + ''
       patchShebangs tools
       cp -r ${patch}/patches ${patch}/staging .
       chmod +w patches

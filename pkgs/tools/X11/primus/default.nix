@@ -34,10 +34,11 @@ let
   ldPath = lib.makeLibraryPath (lib.filter (x: x != null) ([
     primus
     primus.glvnd
-  ] ++ lib.optionals (primusLib_i686 != null) [
-    primus_i686
-    primus_i686.glvnd
-  ]));
+  ]
+    ++ lib.optionals (primusLib_i686 != null) [
+      primus_i686
+      primus_i686.glvnd
+    ]));
 
 in
 writeScriptBin "primusrun" ''

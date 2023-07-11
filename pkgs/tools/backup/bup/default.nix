@@ -35,7 +35,8 @@ stdenv.mkDerivation {
       [
         setuptools
         tornado
-      ] ++ lib.optionals (!stdenv.isDarwin) [
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [
         pyxattr
         pylibacl
         fuse
@@ -51,7 +52,8 @@ stdenv.mkDerivation {
     ''
       patchShebangs .
       substituteInPlace Makefile --replace "-Werror" ""
-    '' + lib.optionalString par2Support ''
+    ''
+    + lib.optionalString par2Support ''
       substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
     ''
     ;

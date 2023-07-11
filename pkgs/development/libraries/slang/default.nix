@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       pcre
       readline
       zlib
-    ] ++ lib.optionals (stdenv.isDarwin) [ libiconv ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [ libiconv ]
     ;
 
   propagatedBuildInputs = [ ncurses ];

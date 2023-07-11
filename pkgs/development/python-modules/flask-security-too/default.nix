@@ -108,7 +108,8 @@ buildPythonPackage rec {
       pytestCheckHook
       python-dateutil
       zxcvbn
-    ] ++ passthru.optional-dependencies.babel
+    ]
+    ++ passthru.optional-dependencies.babel
     ++ passthru.optional-dependencies.common
     ++ passthru.optional-dependencies.fsqla
     ++ passthru.optional-dependencies.mfa

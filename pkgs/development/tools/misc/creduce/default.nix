@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       libclang
       flex
       zlib
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       ExporterLite
       FileWhich

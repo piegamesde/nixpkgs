@@ -50,16 +50,18 @@ let
       # electron based launchers need newer versions of these libraries than what runtime provides
       mesa
       sqlite
-    ] ++ extraPkgs pkgs
+    ]
+    ++ extraPkgs pkgs
     ;
 
   ldPath =
-    lib.optionals stdenv.is64bit [ "/lib64" ] ++ [ "/lib32" ]
+    lib.optionals stdenv.is64bit [ "/lib64" ]
+    ++ [ "/lib32" ]
     ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
-    steam-runtime-wrapped.libs
+      steam-runtime-wrapped.libs
     ++ lib.optionals (steam-runtime-wrapped-i686 != null)
-    (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
-      steam-runtime-wrapped-i686.libs)
+      (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
+        steam-runtime-wrapped-i686.libs)
     ;
 
     # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
@@ -91,7 +93,8 @@ buildFHSEnv rec {
       steamPackages.steam
       # License agreement
       gnome.zenity
-    ] ++ commonTargetPkgs pkgs
+    ]
+    ++ commonTargetPkgs pkgs
     ;
 
   multiPkgs =
@@ -197,7 +200,8 @@ buildFHSEnv rec {
       librsvg
       xorg.libXft
       libvdpau
-    ] ++ lib.optionals withGameSpecificLibraries [
+    ]
+    ++ lib.optionals withGameSpecificLibraries [
       # Not formally in runtime but needed by some games
       at-spi2-atk
       at-spi2-core # CrossCode
@@ -237,7 +241,9 @@ buildFHSEnv rec {
       nghttp2.lib
       openssl_1_1
       rtmpdump
-    ] ++ steamPackages.steam-runtime-wrapped.overridePkgs ++ extraLibraries pkgs
+    ]
+    ++ steamPackages.steam-runtime-wrapped.overridePkgs
+    ++ extraLibraries pkgs
     ;
 
   extraInstallCommands = ''
@@ -265,7 +271,8 @@ buildFHSEnv rec {
       #
       # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
       export SDL_JOYSTICK_DISABLE_UDEV=1
-    '' + extraProfile
+    ''
+    + extraProfile
     ;
 
   runScript = writeShellScript "steam-wrapper.sh" ''

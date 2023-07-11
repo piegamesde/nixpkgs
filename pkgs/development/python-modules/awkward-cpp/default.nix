@@ -27,7 +27,8 @@ buildPythonPackage rec {
       cmake
       pybind11
       scikit-build-core
-    ] ++ scikit-build-core.optional-dependencies.pyproject
+    ]
+    ++ scikit-build-core.optional-dependencies.pyproject
     ;
 
   propagatedBuildInputs = [ numpy ];

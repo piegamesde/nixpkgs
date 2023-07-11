@@ -101,7 +101,8 @@ stdenv.mkDerivation (finalAttrs: {
       tcl
       tk
       jdk
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Foundation
       libobjc
@@ -157,13 +158,15 @@ stdenv.mkDerivation (finalAttrs: {
         RANLIB=$(type -p ranlib)
         r_cv_have_curl728=yes
         R_SHELL="${stdenv.shell}"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       --disable-R-framework
       --without-x
       OBJC="clang"
       CPPFLAGS="-isystem ${lib.getDev libcxx}/include/c++/v1"
       LDFLAGS="-L${lib.getLib libcxx}/lib"
-    '' + ''
+    ''
+    + ''
       )
       echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
       echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"

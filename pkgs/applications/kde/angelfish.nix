@@ -50,7 +50,8 @@ else
         cmake
         corrosion
         extra-cmake-modules
-      ] ++ (with rustPlatform; [
+      ]
+      ++ (with rustPlatform; [
         cargoSetupHook
         rust.cargo
         rust.rustc

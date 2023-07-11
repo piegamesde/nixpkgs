@@ -30,7 +30,8 @@ python3Packages.buildPythonApplication rec {
     [
       less
       file
-    ] ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
+    ]
+    ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
     ++ lib.optionals neoVimSupport [ python3Packages.pynvim ]
     ++ lib.optionals improvedEncodingDetection [ python3Packages.chardet ]
     ++ lib.optionals rightToLeftTextSupport [ python3Packages.python-bidi ]
@@ -52,7 +53,8 @@ python3Packages.buildPythonApplication rec {
       substituteInPlace ranger/config/rc.conf \
         --replace /usr/share $out/share \
         --replace "#set preview_script ~/.config/ranger/scope.sh" "set preview_script $out/share/doc/ranger/config/scope.sh"
-    '' + lib.optionalString imagePreviewSupport ''
+    ''
+    + lib.optionalString imagePreviewSupport ''
       substituteInPlace ranger/ext/img_display.py \
         --replace /usr/lib/w3m ${w3m}/libexec/w3m
 

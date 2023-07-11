@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
       systemd
       lua
       luajit
-    ] ++ lib.optional enableProtoBuf protobuf
+    ]
+    ++ lib.optional enableProtoBuf protobuf
     ;
 
   configureFlags = [

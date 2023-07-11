@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
       gnome.adwaita-icon-theme
       python
       pygobject3
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       XMLParser
     ])

@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
   ];
 
   patches =
-    [ ./sixel-256.support.patch ] ++ lib.optional stdenv.hostPlatform.isMusl
-    (fetchpatch {
+    [ ./sixel-256.support.patch ]
+    ++ lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "posix-ptys.patch";
       url =
         "https://git.alpinelinux.org/aports/plain/community/xterm/posix-ptys.patch?id=3aa532e77875fa1db18c7fcb938b16647031bcc1";
@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
       "--enable-mini-luit"
       "--with-tty-group=tty"
       "--with-app-defaults=$(out)/lib/X11/app-defaults"
-    ] ++ lib.optional enableDecLocator "--enable-dec-locator"
+    ]
+    ++ lib.optional enableDecLocator "--enable-dec-locator"
     ;
 
   env = {

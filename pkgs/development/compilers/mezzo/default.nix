@@ -62,7 +62,7 @@ else
         substituteInPlace myocamlbuild.pre.ml \
         --replace '@1..3' '@1..2+3'
       ''
-      # Compatibility with PPrint ≥ 20220103
+        # Compatibility with PPrint ≥ 20220103
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
       ''

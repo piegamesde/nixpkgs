@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
       buildPackages.stdenv.cc
     ];
   buildInputs =
-    [ libxcrypt ] ++ optionals stdenv.isDarwin [ libiconv ]
+    [ libxcrypt ]
+    ++ optionals stdenv.isDarwin [ libiconv ]
     ++ optionals (enableStatic && stdenv.cc.libc ? static) [
       stdenv.cc.libc
       stdenv.cc.libc.static

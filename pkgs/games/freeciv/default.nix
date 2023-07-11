@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
     [
       autoreconfHook
       pkg-config
-    ] ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
+    ]
+    ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
     ++ lib.optionals gtkClient [ wrapGAppsHook ]
     ;
 
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
       gettext
       libiconv
       icu
-    ] ++ [
+    ]
+    ++ [
       SDL2
       SDL2_mixer
       SDL2_image
@@ -76,8 +78,10 @@ stdenv.mkDerivation rec {
       SDL2_gfx
       freetype
       fluidsynth
-    ] ++ lib.optionals gtkClient [ gtk3 ]
-    ++ lib.optionals qtClient [ qt5.qtbase ] ++ lib.optional server readline
+    ]
+    ++ lib.optionals gtkClient [ gtk3 ]
+    ++ lib.optionals qtClient [ qt5.qtbase ]
+    ++ lib.optional server readline
     ++ lib.optional enableSqlite sqlite
     ;
 
@@ -90,13 +94,16 @@ stdenv.mkDerivation rec {
     export CPPFLAGS="$(echo $SDL2_PATH | sed 's#/nix/store/#-I/nix/store/#g')"
   '';
   configureFlags =
-    [ "--enable-shared" ] ++ lib.optionals sdl2Client [
+    [ "--enable-shared" ]
+    ++ lib.optionals sdl2Client [
       "--enable-client=sdl2"
       "--enable-sdl-mixer=sdl2"
-    ] ++ lib.optionals qtClient [
+    ]
+    ++ lib.optionals qtClient [
       "--enable-client=qt"
       "--with-qt5-includes=${qt5.qtbase.dev}/include"
-    ] ++ lib.optionals gtkClient [ "--enable-client=gtk3.22" ]
+    ]
+    ++ lib.optionals gtkClient [ "--enable-client=gtk3.22" ]
     ++ lib.optional enableSqlite "--enable-fcdb=sqlite3"
     ++ lib.optional (!gtkClient) "--enable-fcmp=cli"
     ++ lib.optional (!server) "--disable-server"
@@ -105,7 +112,8 @@ stdenv.mkDerivation rec {
   postFixup =
     lib.optionalString qtClient ''
       wrapQtApp $out/bin/freeciv-qt
-    '' + lib.optionalString gtkClient ''
+    ''
+    + lib.optionalString gtkClient ''
       wrapGApp $out/bin/freeciv-gtk3.22
     ''
     ;

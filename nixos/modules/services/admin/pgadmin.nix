@@ -20,7 +20,8 @@ let
     oneOf ([
       (listOf (oneOf _base))
       (attrsOf (oneOf _base))
-    ] ++ _base);
+    ]
+      ++ _base);
 
   formatAttrset =
     attr:
@@ -219,7 +220,8 @@ in
           with open("${cfg.emailServer.passwordFile}") as f:
             pw = f.read()
           MAIL_PASSWORD = pw
-        '' + formatPy cfg.settings
+        ''
+        + formatPy cfg.settings
         ;
       mode = "0600";
       user = "pgadmin";

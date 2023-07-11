@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
       python3
       libxslt
       tex
-    ] ++ lib.optionals enableAllFeatures [
+    ]
+    ++ lib.optionals enableAllFeatures [
       imagemagick
       fig2dev
     ]
@@ -79,7 +80,8 @@ stdenv.mkDerivation rec {
   preConfigure =
     ''
       sed -i 's|self.install_layout == "deb"|False|' setup.py
-    '' + lib.optionalString enableAllFeatures ''
+    ''
+    + lib.optionalString enableAllFeatures ''
       for file in $(find -name "*.py"); do
           sed -e 's|cmd = \["xsltproc|cmd = \["${libxslt.bin}/bin/xsltproc|g' \
               -e 's|Popen(\["xsltproc|Popen(\["${libxslt.bin}/bin/xsltproc|g' \

@@ -60,7 +60,9 @@ stdenv.mkDerivation ({
     [
       emacs
       texinfo
-    ] ++ packageRequires ++ buildInputs
+    ]
+    ++ packageRequires
+    ++ buildInputs
     ;
   propagatedBuildInputs = packageRequires;
   propagatedUserEnvPkgs = packageRequires;

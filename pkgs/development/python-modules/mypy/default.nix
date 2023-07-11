@@ -74,14 +74,16 @@ buildPythonPackage rec {
       types-setuptools
       types-typed-ast
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   propagatedBuildInputs =
     [
       mypy-extensions
       typing-extensions
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ;
 
   passthru.optional-dependencies = {
@@ -105,7 +107,8 @@ buildPythonPackage rec {
       "mypy.types"
       "mypyc"
       "mypyc.analysis"
-    ] ++ lib.optionals (!stdenv.hostPlatform.isi686) [
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isi686) [
       # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
       "mypy.report"
     ]
@@ -122,7 +125,8 @@ buildPythonPackage rec {
       setuptools
       six
       tomli
-    ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
     ;
 
   disabledTestPaths = [

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       curl
       gdk-pixbuf
-    ] ++ lib.optional libnotifySupport libnotify
+    ]
+    ++ lib.optional libnotifySupport libnotify
     ;
 
   meta = with lib; {

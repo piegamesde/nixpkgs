@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.isLinux [ icoutils ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ icoutils ]
     ;
 
   buildInputs =
@@ -66,10 +67,12 @@ stdenv.mkDerivation rec {
       zlib
       freetype
       wavpack
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libX11
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
     ]
@@ -83,7 +86,8 @@ stdenv.mkDerivation rec {
 
       # Install menu item
       install -D $src/other/teeworlds.desktop $out/share/applications/teeworlds.desktop
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p "$out/Applications/teeworlds.app/Contents/MacOS"
       mkdir -p "$out/Applications/teeworlds.app/Contents/Resources"
 

@@ -110,9 +110,8 @@ stdenv.mkDerivation (finalAttrs: {
       runHook preInstall
 
       install -Dm755 -T qemu-system-i386 $out/bin/xemu
-    '' +
-    # Generate code to install the icons
-    (lib.concatMapStringsSep ''
+    ''
+    + (lib.concatMapStringsSep ''
       ;
     '' (res:
       "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png") [
@@ -123,10 +122,11 @@ stdenv.mkDerivation (finalAttrs: {
         "128x128"
         "256x256"
         "512x512"
-      ]) + ''
+      ])
+    + ''
 
-        runHook postInstall
-      ''
+      runHook postInstall
+    ''
     ;
 
   meta = {

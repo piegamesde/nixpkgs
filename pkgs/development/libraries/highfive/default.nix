@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       "-DHIGHFIVE_EXAMPLES=OFF"
       "-DHIGHFIVE_UNIT_TESTS=OFF"
       "-DHIGHFIVE_USE_INSTALL_DEPS=ON"
-    ] ++ (lib.optionals mpiSupport [ "-DHIGHFIVE_PARALLEL_HDF5=ON" ])
+    ]
+    ++ (lib.optionals mpiSupport [ "-DHIGHFIVE_PARALLEL_HDF5=ON" ])
     ;
 
   meta = with lib; {

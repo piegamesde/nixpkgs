@@ -57,7 +57,8 @@ let
       "regex_tre"
       "sqlite3"
       "ssl_gnutls"
-    ] ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules
+    ]
+    ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules
     ;
 
 in
@@ -216,14 +217,15 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A modular C++ IRC server";
     license =
-      [ lib.licenses.gpl2Only ] ++ lib.concatMap getLicenses extraInputs
+      [ lib.licenses.gpl2Only ]
+      ++ lib.concatMap getLicenses extraInputs
       ++ lib.optionals (anyMembers extraModules libcModules)
-      (getLicenses stdenv.cc.libc)
-      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
+        (getLicenses stdenv.cc.libc)
+        # FIXME(sternenseemann): get license of used lib(std)c++ somehow
       ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
-      # Hack: Definitely prevent a hydra from building this package on
-      # a GPL 2 incompatibility even if it is not in a top-level attribute,
-      # but pulled in indirectly somehow.
+        # Hack: Definitely prevent a hydra from building this package on
+        # a GPL 2 incompatibility even if it is not in a top-level attribute,
+        # but pulled in indirectly somehow.
       ++ lib.optional gpl2Conflict lib.licenses.unfree
       ;
     maintainers = [ lib.maintainers.sternenseemann ];

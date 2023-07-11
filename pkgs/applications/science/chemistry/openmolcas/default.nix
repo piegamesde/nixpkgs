@@ -75,7 +75,8 @@ stdenv.mkDerivation {
       python
       armadillo
       libxc
-    ] ++ lib.optionals enableMpi [
+    ]
+    ++ lib.optionals enableMpi [
       mpi
       globalarrays
     ]
@@ -91,13 +92,16 @@ stdenv.mkDerivation {
       "-DHDF5=ON"
       "-DFDE=ON"
       "-DEXTERNAL_LIBXC=${libxc}"
-    ] ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
+    ]
+    ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
       "-DOPENBLASROOT=${blas-ilp64.passthru.provider.dev}"
       "-DLINALG=OpenBLAS"
-    ] ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
+    ]
+    ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
       "-DMKLROOT=${blas-ilp64.passthru.provider}"
       "-DLINALG=MKL"
-    ] ++ lib.optionals enableMpi [
+    ]
+    ++ lib.optionals enableMpi [
       "-DGA=ON"
       "-DMPI=ON"
     ]

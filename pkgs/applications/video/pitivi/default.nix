@@ -60,7 +60,8 @@ python3.pkgs.buildPythonApplication rec {
       gsound
       gsettings-desktop-schemas
       libnotify
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-editing-services
       gst-plugins-base

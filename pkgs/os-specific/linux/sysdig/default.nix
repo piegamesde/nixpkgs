@@ -83,7 +83,8 @@ stdenv.mkDerivation rec {
       jsoncpp
       nlohmann_json
       zstd
-    ] ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies
+    ]
+    ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies
     ;
 
   hardeningDisable = [ "pic" ];
@@ -115,7 +116,8 @@ stdenv.mkDerivation rec {
       "-DUSE_BUNDLED_TBB=OFF"
       "-DUSE_BUNDLED_RE2=OFF"
       "-DCREATE_TEST_TARGETS=OFF"
-    ] ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
+    ]
+    ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
     ;
 
     # needed since luajit-2.1.0-beta3
@@ -129,7 +131,8 @@ stdenv.mkDerivation rec {
         exit 1
       fi
       cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl -lzstd -labsl_synchronization")
-    '' + lib.optionalString (kernel != null) ''
+    ''
+    + lib.optionalString (kernel != null) ''
       export INSTALL_MOD_PATH="$out"
       export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ''
@@ -142,7 +145,8 @@ stdenv.mkDerivation rec {
       rm $out/etc/bash_completion.d/sysdig
       rmdir $out/etc/bash_completion.d
       rmdir $out/etc
-    '' + lib.optionalString (kernel != null) ''
+    ''
+    + lib.optionalString (kernel != null) ''
       make install_driver
       kernel_dev=${kernel.dev}
       kernel_dev=''${kernel_dev#${builtins.storeDir}/}

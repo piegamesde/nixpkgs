@@ -34,7 +34,8 @@ stdenv.mkDerivation {
     [
       libgcrypt
       perl
-    ] ++ (if opensslSupport then
+    ]
+    ++ (if opensslSupport then
       [ openssl ]
     else
       [ gnutls ])
@@ -45,7 +46,8 @@ stdenv.mkDerivation {
       "PREFIX=$(out)"
       "ETCDIR=$(out)/etc/vpnc"
       "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
-    ] ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes"
+    ]
+    ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes"
     ;
 
   postPatch = ''

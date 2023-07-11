@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
     [
       libpng
       libtiff
-    ] ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
+    ]
+    ++ optionals enableQt (if lib.versionOlder majorVersion "9" then
       [
         qtbase
         qtx11extras
@@ -80,29 +81,33 @@ stdenv.mkDerivation rec {
           qttools
           qtdeclarative
         ])
-      ]) ++ optionals stdenv.isLinux [
-        libGLU
-        xorgproto
-        libXt
-      ] ++ optionals stdenv.isDarwin [
-        xpc
-        AGL
-        Cocoa
-        CoreServices
-        DiskArbitration
-        IOKit
-        CFNetwork
-        Security
-        ApplicationServices
-        CoreText
-        IOSurface
-        ImageIO
-        OpenGL
-        GLUT
-      ] ++ optionals enablePython [ python ]
+      ])
+    ++ optionals stdenv.isLinux [
+      libGLU
+      xorgproto
+      libXt
+    ]
+    ++ optionals stdenv.isDarwin [
+      xpc
+      AGL
+      Cocoa
+      CoreServices
+      DiskArbitration
+      IOKit
+      CFNetwork
+      Security
+      ApplicationServices
+      CoreText
+      IOSurface
+      ImageIO
+      OpenGL
+      GLUT
+    ]
+    ++ optionals enablePython [ python ]
     ;
   propagatedBuildInputs =
-    optionals stdenv.isDarwin [ libobjc ] ++ optionals stdenv.isLinux [
+    optionals stdenv.isDarwin [ libobjc ]
+    ++ optionals stdenv.isLinux [
       libX11
       libGL
     ]
@@ -139,18 +144,22 @@ stdenv.mkDerivation rec {
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DVTK_VERSIONED_INSTALL=OFF"
-    ] ++ optionals enableQt [
-      "-D${
-        if lib.versionOlder version "9.0" then
-          "VTK_Group_Qt:BOOL=ON"
-        else
-          "VTK_GROUP_ENABLE_Qt:STRING=YES"
-      }"
-    ] ++ optionals (enableQt && lib.versionOlder version "8.0") [
-      "-DVTK_QT_VERSION=5"
-    ] ++ optionals stdenv.isDarwin [
-      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    ] ++ optionals enablePython [
+    ]
+    ++ optionals enableQt [
+        "-D${
+          if lib.versionOlder version "9.0" then
+            "VTK_Group_Qt:BOOL=ON"
+          else
+            "VTK_GROUP_ENABLE_Qt:STRING=YES"
+        }"
+      ]
+    ++ optionals (enableQt && lib.versionOlder version "8.0") [
+        "-DVTK_QT_VERSION=5"
+      ]
+    ++ optionals stdenv.isDarwin [
+        "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+      ]
+    ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"
     ]

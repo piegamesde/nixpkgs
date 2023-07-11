@@ -37,7 +37,8 @@ mkDerivation rec {
       seafile-shared
       jansson
       libsearpc
-    ] ++ lib.optional withShibboleth qtwebengine
+    ]
+    ++ lib.optional withShibboleth qtwebengine
     ;
 
   cmakeFlags =

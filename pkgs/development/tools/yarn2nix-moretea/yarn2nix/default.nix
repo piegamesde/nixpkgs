@@ -154,7 +154,8 @@ rec {
           yarn
           nodejs
           git
-        ] ++ extraNativeBuildInputs
+        ]
+        ++ extraNativeBuildInputs
         ;
       buildInputs = extraBuildInputs;
 
@@ -164,7 +165,8 @@ rec {
             echo "yarn.lock changed, you need to update the fetchYarnDeps hash"
             exit 1
           fi
-        '' + ''
+        ''
+        + ''
           # Yarn writes cache directories etc to $HOME.
           export HOME=$PWD/yarn_home
         ''
@@ -188,7 +190,8 @@ rec {
 
         yarn install ${
           lib.escapeShellArgs (defaultYarnFlags
-            ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags)
+            ++ lib.optional ignoreScripts "--ignore-scripts"
+            ++ yarnFlags)
         }
 
         ${lib.concatStringsSep "\n" postInstall}
@@ -412,7 +415,8 @@ rec {
           yarn
           nodejs
           rsync
-        ] ++ extraBuildInputs
+        ]
+        ++ extraBuildInputs
         ;
 
       node_modules = deps + "/node_modules";
@@ -552,7 +556,8 @@ rec {
     packageJSON = ./package.json;
 
     yarnFlags =
-      defaultYarnFlags ++ [
+      defaultYarnFlags
+      ++ [
         "--ignore-scripts"
         "--production=true"
       ]

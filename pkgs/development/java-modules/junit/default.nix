@@ -92,7 +92,9 @@ rec {
         mavenEnforcer_1_3_1
         mavenReplacer_1_5_3
         mavenSurefire_2_17
-      ]) ++ collections.mavenLibs_2_0_1 ++ [
+      ])
+      ++ collections.mavenLibs_2_0_1
+      ++ [
         aetherUtil_0_9_0_M2
         ant_1_8_2
         antLauncher_1_8_2
@@ -137,7 +139,8 @@ rec {
         sisuInjectPlexus_2_1_1
         xercesImpl_2_8_0
         xmlApis_1_3_03
-      ] ++ (with poms; [
+      ]
+      ++ (with poms; [
         aether_0_9_0_M2
         animalSnifferParent_1_11
         antParent_1_8_2

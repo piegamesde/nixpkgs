@@ -76,14 +76,16 @@ buildPythonPackage rec {
       gtk3
       pkg-config
       setuptools
-    ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ;
 
   buildInputs =
     [
       gtk3
       ncurses
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libXinerama
       libSM
       libXxf86vm
@@ -96,7 +98,8 @@ buildPythonPackage rec {
       libglvnd
       mesa
       webkitgtk
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AGL
       AudioToolbox
       AVFoundation

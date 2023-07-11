@@ -82,7 +82,8 @@ let
               "/run/booted-system"
               "/run/current-system"
               "/run/systemd"
-            ] ++ optional cfg.postgresql.enable "/run/postgresql"
+            ]
+            ++ optional cfg.postgresql.enable "/run/postgresql"
             ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}"
             ;
             # LoadCredential= are unfortunately not available in ExecStartPre=
@@ -90,14 +91,15 @@ let
             # to reach credentials wherever they are.
             # Note that each systemd service gets its own ${runDir}/config.ini file.
           ExecStartPre = mkBefore [
-              ("+" + pkgs.writeShellScript "${serviceName}-credentials" ''
-                set -x
-                # Replace values beginning with a '<' by the content of the file whose name is after.
-                gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
-                ${optionalString (!allowStripe)
-                "gawk '!/^stripe-secret-key=/' |"}
-                install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
-              '')
+              ("+"
+                + pkgs.writeShellScript "${serviceName}-credentials" ''
+                  set -x
+                  # Replace values beginning with a '<' by the content of the file whose name is after.
+                  gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
+                  ${optionalString (!allowStripe)
+                  "gawk '!/^stripe-secret-key=/' |"}
+                  install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
+                '')
             ];
             # The following options are only for optimizing:
             # systemd-analyze security
@@ -251,13 +253,14 @@ in
         };
         groups = {
           "${srvCfg.group}" = { };
-        } // optionalAttrs (cfg.postgresql.enable && hasSuffix "0"
-          (postgresql.settings.unix_socket_permissions or "")) {
-            "postgres".members = [ srvCfg.user ];
-          } // optionalAttrs (cfg.redis.enable
-            && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
-              "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
-            };
+        } // optionalAttrs (cfg.postgresql.enable
+          && hasSuffix "0"
+            (postgresql.settings.unix_socket_permissions or "")) {
+              "postgres".members = [ srvCfg.user ];
+            } // optionalAttrs (cfg.redis.enable
+              && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
+                "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
+              };
       };
 
       services.nginx = mkIf cfg.nginx.enable {
@@ -362,8 +365,9 @@ in
                   StateDirectoryMode = "2750";
                   ExecStart =
                     "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
-                      toString srvCfg.port
-                    } " + concatStringsSep " " srvCfg.gunicorn.extraArgs
+                        toString srvCfg.port
+                      } "
+                    + concatStringsSep " " srvCfg.gunicorn.extraArgs
                     ;
                 };
                 preStart =

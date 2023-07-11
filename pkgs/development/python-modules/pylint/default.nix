@@ -45,7 +45,8 @@ buildPythonPackage rec {
       mccabe
       platformdirs
       tomlkit
-    ] ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
     ;
 
@@ -97,7 +98,8 @@ buildPythonPackage rec {
       "test_truncated_compare"
       # AssertionError: assert [('specializa..., 'Ancestor')] == [('aggregatio..., 'Ancestor')]
       "test_functional_relation_extraction"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "test_parallel_execution"
       "test_py3k_jobs_option"
     ]

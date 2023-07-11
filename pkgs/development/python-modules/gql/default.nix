@@ -56,7 +56,8 @@ buildPythonPackage rec {
       pytest-console-scripts
       pytestCheckHook
       vcrpy
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   passthru.optional-dependencies = {

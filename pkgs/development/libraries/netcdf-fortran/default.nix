@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       netcdf
       hdf5
       curl
-    ] ++ lib.optional stdenv.isDarwin CoreFoundation
+    ]
+    ++ lib.optional stdenv.isDarwin CoreFoundation
     ;
   doCheck = true;
 

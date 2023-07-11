@@ -26,17 +26,23 @@ let
   snmpGlobalDefs = with cfg.snmp;
     optionalString enable (optionalString (socket != null) ''
       snmp_socket ${socket}
-    '' + optionalString enableKeepalived ''
-      enable_snmp_keepalived
-    '' + optionalString enableChecker ''
-      enable_snmp_checker
-    '' + optionalString enableRfc ''
-      enable_snmp_rfc
-    '' + optionalString enableRfcV2 ''
-      enable_snmp_rfcv2
-    '' + optionalString enableRfcV3 ''
-      enable_snmp_rfcv3
-    '' + optionalString enableTraps "enable_traps");
+    ''
+      + optionalString enableKeepalived ''
+        enable_snmp_keepalived
+      ''
+      + optionalString enableChecker ''
+        enable_snmp_checker
+      ''
+      + optionalString enableRfc ''
+        enable_snmp_rfc
+      ''
+      + optionalString enableRfcV2 ''
+        enable_snmp_rfcv2
+      ''
+      + optionalString enableRfcV3 ''
+        enable_snmp_rfcv3
+      ''
+      + optionalString enableTraps "enable_traps");
 
   vrrpScriptStr = concatStringsSep "\n" (map (s: ''
     vrrp_script ${s.name} {
@@ -100,7 +106,8 @@ let
 
   virtualIpLine =
     ip:
-    ip.addr + optionalString (notNullOrEmpty ip.brd) " brd ${ip.brd}"
+    ip.addr
+    + optionalString (notNullOrEmpty ip.brd) " brd ${ip.brd}"
     + optionalString (notNullOrEmpty ip.dev) " dev ${ip.dev}"
     + optionalString (notNullOrEmpty ip.scope) " scope ${ip.scope}"
     + optionalString (notNullOrEmpty ip.label) " label ${ip.label}"
@@ -142,7 +149,8 @@ let
         message =
           "services.keepalived.vrrpInstances.${i.name}.vmacXmitBase has no effect when services.keepalived.vrrpInstances.${i.name}.useVmac is not set.";
       }
-    ] ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
+    ]
+    ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
     ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
     ;
 
@@ -354,8 +362,10 @@ in
               ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
             '');
           ExecStart =
-            "${pkgs.keepalived}/sbin/keepalived" + " -f ${finalConfigFile}"
-            + " -p ${pidFile}" + optionalString cfg.snmp.enable " --snmp"
+            "${pkgs.keepalived}/sbin/keepalived"
+            + " -f ${finalConfigFile}"
+            + " -p ${pidFile}"
+            + optionalString cfg.snmp.enable " --snmp"
             ;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "always";

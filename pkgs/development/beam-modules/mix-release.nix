@@ -50,7 +50,8 @@ assert stripDebug -> !enableDebugInfo;
 stdenv.mkDerivation (overridable // {
   # rg is used as a better grep to search for erlang references in the final release
   nativeBuildInputs =
-    nativeBuildInputs ++ [
+    nativeBuildInputs
+    ++ [
       erlang
       hex
       elixir
@@ -97,7 +98,8 @@ stdenv.mkDerivation (overridable // {
         cp --no-preserve=mode -R "${mixFodDeps}" "$MIX_DEPS_PATH"
       ''}
 
-    '' + (attrs.postUnpack or "")
+    ''
+    + (attrs.postUnpack or "")
     ;
 
   configurePhase =
@@ -161,7 +163,8 @@ stdenv.mkDerivation (overridable // {
           substituteInPlace "$file" --replace "${erlang}/lib/erlang" "$out"
         done
       fi
-    '' + lib.optionalString stripDebug ''
+    ''
+    + lib.optionalString stripDebug ''
       # strip debug symbols to avoid hardreferences to "foreign" closures actually
       # not needed at runtime, while at the same time reduce size of BEAM files.
       erl -noinput -eval 'lists:foreach(fun(F) -> io:format("Stripping ~p.~n", [F]), beam_lib:strip(F) end, filelib:wildcard("'"$out"'/**/*.beam"))' -s init stop

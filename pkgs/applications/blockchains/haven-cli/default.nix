@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
       protobuf
       readline
       easyloggingpp
-    ] ++ lib.optionals trezorSupport [
+    ]
+    ++ lib.optionals trezorSupport [
       libusb1
       protobuf
       python3
@@ -85,7 +86,8 @@ stdenv.mkDerivation rec {
       "-DReadline_ROOT_DIR=${readline.dev}"
       "-DReadline_INCLUDE_DIR=${readline.dev}/include/readline"
       "-DRandomX_ROOT_DIR=${randomx}"
-    ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
+    ]
+    ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
     ;
 
   outputs = [

@@ -32,7 +32,8 @@ let
       libXrandr
       libXxf86vm
       libxcb
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
     ]
@@ -59,7 +60,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    rpathLibs ++ lib.optionals stdenv.isDarwin [
+    rpathLibs
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       CoreGraphics
       CoreServices

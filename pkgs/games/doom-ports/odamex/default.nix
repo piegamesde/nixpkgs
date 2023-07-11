@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       runHook preInstall
-    '' + (if stdenv.isDarwin then
+    ''
+    + (if stdenv.isDarwin then
       ''
         mkdir -p $out/{Applications,bin}
         mv odalaunch/odalaunch.app $out/Applications
@@ -45,9 +46,10 @@ stdenv.mkDerivation rec {
     else
       ''
         make install
-      '') + ''
-        runHook postInstall
-      ''
+      '')
+    + ''
+      runHook postInstall
+    ''
     ;
 
   meta = {

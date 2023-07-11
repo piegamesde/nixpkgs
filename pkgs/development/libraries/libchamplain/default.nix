@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       pkg-config
       gobject-introspection
       vala
-    ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
       gtk-doc
       docbook_xsl
       docbook_xml_dtd_412

@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
     [ "-Dgtk_doc=true" ] ++ lib.optionals (!doCheck) [ "-Dtests=false" ];
 
   buildInputs =
-    [ fribidi ] ++ lib.optionals stdenv.isDarwin [
+    [ fribidi ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Foundation
     ]

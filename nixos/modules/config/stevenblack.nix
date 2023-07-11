@@ -21,14 +21,16 @@ let
 
     # needs to be in a specific order
   activatedHosts = with cfg;
-    [ ] ++ optionals (elem "fakenews" block) [ "fakenews" ]
+    [ ]
+    ++ optionals (elem "fakenews" block) [ "fakenews" ]
     ++ optionals (elem "gambling" block) [ "gambling" ]
     ++ optionals (elem "porn" block) [ "porn" ]
     ++ optionals (elem "social" block) [ "social" ];
 
   hostsPath =
     "${pkgs.stevenblack-blocklist}/alternates/"
-    + concatStringsSep "-" activatedHosts + "/hosts"
+    + concatStringsSep "-" activatedHosts
+    + "/hosts"
     ;
 in
 {
@@ -50,10 +52,11 @@ in
 
   config = mkIf cfg.enable {
     networking.hostFiles =
-      [ ] ++ optionals (activatedHosts != [ ]) [ hostsPath ]
+      [ ]
+      ++ optionals (activatedHosts != [ ]) [ hostsPath ]
       ++ optionals (activatedHosts == [ ]) [
-        "${pkgs.stevenblack-blocklist}/hosts"
-      ]
+          "${pkgs.stevenblack-blocklist}/hosts"
+        ]
       ;
   };
 

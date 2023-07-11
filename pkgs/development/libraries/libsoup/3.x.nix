@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ lib.optional withIntrospection "devdoc"
+    ]
+    ++ lib.optional withIntrospection "devdoc"
     ;
 
   src = fetchurl {
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
       pkg-config
       glib
       python3
-    ] ++ lib.optionals withIntrospection [
+    ]
+    ++ lib.optionals withIntrospection [
       gi-docgen
       gobject-introspection
       vala
@@ -63,7 +65,8 @@ stdenv.mkDerivation rec {
       glib.out
       brotli
       libnghttp2
-    ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
     ;
 
   propagatedBuildInputs = [ glib ];

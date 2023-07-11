@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     [
       eigen
       glog
-    ] ++ lib.optionals withBlas [
+    ]
+    ++ lib.optionals withBlas [
       blas
       suitesparse
       metis

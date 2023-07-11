@@ -227,8 +227,11 @@ let
   zoneConfigs' =
     parent: name: zone:
     if
-      !(zone ? children) || zone.children == null || zone.children == { }
-      # leaf -> actual zone
+      !(zone ? children)
+      || zone.children == null
+      || zone.children
+        == { }
+          # leaf -> actual zone
     then
       listToAttrs [
         (nameValuePair name (parent // zone))

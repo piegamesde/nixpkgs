@@ -62,9 +62,9 @@ stdenv.mkDerivation (rec {
     lib.optionalString stdenv.isSunOS ''
       ${stdenv.shell} config.status
     ''
-    # ./configure errorneous decides to use weak symbols on pkgsStatic,
-    # which, together with other defines results in locking functions in
-    # src/posix-lock.c to be no-op, causing tests/t-lock.c to fail.
+      # ./configure errorneous decides to use weak symbols on pkgsStatic,
+      # which, together with other defines results in locking functions in
+      # src/posix-lock.c to be no-op, causing tests/t-lock.c to fail.
     + lib.optionalString stdenv.hostPlatform.isStatic ''
       sed '/USE_POSIX_THREADS_WEAK/ d' config.h
       echo '#undef USE_POSIX_THREADS_WEAK' >> config.h

@@ -6,7 +6,8 @@
 }:
 sgx-azure-dcap-client.overrideAttrs (oldAttrs: {
   nativeBuildInputs =
-    oldAttrs.nativeBuildInputs ++ [
+    oldAttrs.nativeBuildInputs
+    ++ [
       makeWrapper
       gtest
     ]

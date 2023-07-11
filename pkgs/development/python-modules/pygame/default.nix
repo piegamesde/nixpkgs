@@ -78,7 +78,8 @@ buildPythonPackage rec {
       portmidi
       libX11
       freetype
-    ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ;
 
   preConfigure = ''

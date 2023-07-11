@@ -165,7 +165,8 @@ in
       [
         cfg.package
         cfg.package.run
-      ] ++ lib.optional cfg.gamescopeSession.enable steam-gamescope
+      ]
+      ++ lib.optional cfg.gamescopeSession.enable steam-gamescope
       ;
 
     networking.firewall = lib.mkMerge [

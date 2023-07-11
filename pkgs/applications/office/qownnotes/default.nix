@@ -33,7 +33,8 @@ stdenv.mkDerivation {
       qmake
       qttools
       wrapQtAppsHook
-    ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
     ;
 
   buildInputs =
@@ -43,7 +44,8 @@ stdenv.mkDerivation {
       qtsvg
       qtwebsockets
       qt5compat
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   postInstall =
@@ -51,7 +53,7 @@ stdenv.mkDerivation {
     lib.optionalString stdenv.isLinux ''
       ln -s $out/bin/${appname} $out/bin/${pname}
     ''
-    # Wrap application for macOS as lowercase binary
+      # Wrap application for macOS as lowercase binary
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       mv $out/bin/${appname}.app $out/Applications

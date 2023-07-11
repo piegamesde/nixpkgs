@@ -210,28 +210,28 @@ in
               -e 's|^\(ShowMiscStats\)=.*$|\1=0|' \
               -e 's|^\(ShowHTTPErrorsStats\)=.*$|\1=0|' \
               -e 's|^\(ShowSMTPErrorsStats\)=.*$|\1=1|' \
-            '' +
-            # common options
             ''
+            + ''
               -e 's|^\(DirData\)=.*$|\1="${cfg.dataDir}/${name}"|' \
               -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
               -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
               -e 's|^\(SiteDomain\)=.*$|\1="${name}"|' \
               -e 's|^\(LogFile\)=.*$|\1="${opts.logFile}"|' \
               -e 's|^\(LogFormat\)=.*$|\1="${opts.logFormat}"|' \
-            '' +
-            # extra config
-            concatStringsSep "\n" (mapAttrsToList (n: v: ''
+            ''
+            + concatStringsSep "\n" (mapAttrsToList (n: v: ''
               -e 's|^\(${n}\)=.*$|\1="${v}"|' \
-            '') opts.extraConfig) + ''
+            '') opts.extraConfig)
+            + ''
               < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
             '');
       }) cfg.configs;
 
       # create data directory with the correct permissions
     systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 755 root root - -" ] ++ mapAttrsToList
-      (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
+      [ "d '${cfg.dataDir}' 755 root root - -" ]
+      ++ mapAttrsToList
+        (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
       ;
 
@@ -275,7 +275,8 @@ in
             if [ -n "$NEW_CURSOR" ]; then
               echo -n "$NEW_CURSOR" > ${cfg.dataDir}/${name}-cursor
             fi
-          '' + ''
+          ''
+          + ''
             ${package.out}/share/awstats/tools/awstats_buildstaticpages.pl \
               -config=${name} -update -dir=${cfg.dataDir}/${name} \
               -awstatsprog=${package.bin}/bin/awstats

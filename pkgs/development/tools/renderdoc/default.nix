@@ -57,11 +57,13 @@ mkDerivation rec {
       qtx11extras
       vulkan-loader
       python3
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       pyside2
       pyside2-tools
       shiboken2
-    ]) ++ lib.optional waylandSupport wayland
+    ])
+    ++ lib.optional waylandSupport wayland
     ;
 
   nativeBuildInputs = [

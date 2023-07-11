@@ -27,7 +27,8 @@ buildPecl {
       snappy
       zlib
       pcre2
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security
     ;
 
   meta = with lib; {

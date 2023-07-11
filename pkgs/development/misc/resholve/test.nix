@@ -193,7 +193,8 @@ rec {
         else
           cat test.ansi && exit 1
         fi
-      '' + lib.optionalString runDemo ''
+      ''
+      + lib.optionalString runDemo ''
         printf "\033[33m============================= resholve demo ===================================\033[0m\n" > demo.ansi
         if ./demo &>> demo.ansi; then
           cat demo.ansi

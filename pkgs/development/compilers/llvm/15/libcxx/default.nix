@@ -59,9 +59,10 @@ stdenv.mkDerivation rec {
   '';
 
   patches =
-    [ ./gnu-install-dirs.patch ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
-    ]
+    [ ./gnu-install-dirs.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+        ../../libcxx-0001-musl-hacks.patch
+      ]
     ;
 
   postPatch = ''
@@ -77,7 +78,8 @@ stdenv.mkDerivation rec {
       cmake
       ninja
       python3
-    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ;
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
@@ -101,18 +103,21 @@ stdenv.mkDerivation rec {
         else
           libcxx_cxx_abi_opt
       }"
-    ] ++ lib.optional (!headersOnly && cxxabi.libName == "c++abi")
-    "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
+    ]
+    ++ lib.optional (!headersOnly && cxxabi.libName == "c++abi")
+      "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-    "-DLIBCXX_HAS_MUSL_LIBC=1"
+      "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
-    "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXX_USE_COMPILER_RT=ON"
+    ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
-    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-    # If we're only building the headers we don't actually *need* a functioning
-    # C/C++ compiler:
+    ]
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+      # If we're only building the headers we don't actually *need* a functioning
+      # C/C++ compiler:
     ++ lib.optionals (headersOnly) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"

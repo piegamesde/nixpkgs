@@ -32,7 +32,8 @@ python3.pkgs.buildPythonApplication rec {
       pyyaml
       pyzmq
       requests
-    ] ++ extraInputs;
+    ]
+    ++ extraInputs;
 
   patches = [ ./fix-libcrypto-loading.patch ];
 

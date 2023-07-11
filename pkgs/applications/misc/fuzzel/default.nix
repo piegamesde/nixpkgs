@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
       libxkbcommon
       tllist
       fcft
-    ] ++ lib.optional enableCairo cairo ++ lib.optional pngSupport libpng
+    ]
+    ++ lib.optional enableCairo cairo
+    ++ lib.optional pngSupport libpng
     ;
 
   mesonBuildType = "release";

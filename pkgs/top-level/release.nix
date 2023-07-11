@@ -160,7 +160,8 @@ let
              jobs.tests.stdenv-inputs.x86_64-linux
              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
           */
-        ] ++ lib.collect lib.isDerivation jobs.stdenvBootstrapTools
+        ]
+        ++ lib.collect lib.isDerivation jobs.stdenvBootstrapTools
         ++ lib.optionals supportDarwin.x86_64 [
           jobs.stdenv.x86_64-darwin
           jobs.cargo.x86_64-darwin

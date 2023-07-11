@@ -253,7 +253,8 @@ let
               one.wait_until_succeeds(expect_hits("flowers"))
               one.wait_until_succeeds(expect_no_hits("dragons"))
 
-        '' + lib.optionalString (elk ? journalbeat) ''
+        ''
+        + lib.optionalString (elk ? journalbeat) ''
           with subtest(
               "A message logged to the journal is ingested by elasticsearch via journalbeat"
           ):
@@ -262,7 +263,8 @@ let
               one.wait_until_succeeds(
                   expect_hits("Supercalifragilisticexpialidocious")
               )
-        '' + lib.optionalString (elk ? filebeat) ''
+        ''
+        + lib.optionalString (elk ? filebeat) ''
           with subtest(
               "A message logged to the journal is ingested by elasticsearch via filebeat"
           ):
@@ -277,7 +279,8 @@ let
               one.wait_until_succeeds(
                   expect_hits("SuperdupercalifragilisticexpialidociousIndeed")
               )
-        '' + ''
+        ''
+        + ''
           with subtest("Elasticsearch-curator works"):
               one.systemctl("stop logstash")
               one.systemctl("start elasticsearch-curator")

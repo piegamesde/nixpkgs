@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
       ndn-cxx
       openssl
       websocketpp
-    ] ++ lib.optional withSystemd systemd
+    ]
+    ++ lib.optional withSystemd systemd
     ;
 
   wafConfigureFlags =
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
       "--boost-includes=${boost.dev}/include"
       "--boost-libs=${boost.out}/lib"
       "--with-tests"
-    ] ++ lib.optional (!withWebSocket) "--without-websocket"
+    ]
+    ++ lib.optional (!withWebSocket) "--without-websocket"
     ;
 
   doCheck = true;

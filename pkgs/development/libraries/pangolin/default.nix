@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
       libpng
       libtiff
       eigen
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
     ]

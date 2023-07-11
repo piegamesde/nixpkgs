@@ -55,7 +55,8 @@ let
 
     $CFG->wwwroot   = '${
       if
-        cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
+        cfg.virtualHost.addSSL
+        || cfg.virtualHost.forceSSL
         || cfg.virtualHost.onlySSL
       then
         "https"

@@ -32,7 +32,8 @@ rustPlatform.buildRustPackage rec {
       installShellFiles
       pkg-config
       ronn
-    ] ++ lib.optionals stdenv.isDarwin [ curl ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ curl ]
     ;
 
   buildInputs =
@@ -41,7 +42,8 @@ rustPlatform.buildRustPackage rec {
       libssh2
       openssl
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       curl
       darwin.apple_sdk.frameworks.Security
     ]

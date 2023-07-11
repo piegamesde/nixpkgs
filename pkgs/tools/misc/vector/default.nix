@@ -85,7 +85,8 @@ rustPlatform.buildRustPackage {
       protobuf
       rdkafka
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
       coreutils

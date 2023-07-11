@@ -210,61 +210,62 @@ runCommand "make-wrapper-test" {
   # --argv0 works
   mkTest "test-argv0" "argv0=foo"
 
-  # --set works
+    # --set works
   + mkTest "test-set" "VAR=abc"
-  # --set overwrites the variable
+    # --set overwrites the variable
   + mkTest "VAR=foo test-set" "VAR=abc"
-  # --set-default works
+    # --set-default works
   + mkTest "test-set-default" "VAR=abc"
-  # --set-default doesn"t overwrite the variable
+    # --set-default doesn"t overwrite the variable
   + mkTest "VAR=foo test-set-default" "VAR=foo"
-  # --unset works
+    # --unset works
   + mkTest "VAR=foo test-unset" "VAR="
 
-  # --add-flags and --append-flags work
+    # --add-flags and --append-flags work
   + mkTest "test-args" "abc xyz"
-  # given flags are kept
+    # given flags are kept
   + mkTest "test-args foo" "abc foo xyz"
 
-  # --run works
+    # --run works
   + mkTest "test-run" ''
     bar
     VAR=''
-  # --run & --set works
+    # --run & --set works
   + mkTest "test-run-and-set" "VAR=bar"
 
-  # --prefix works
+    # --prefix works
   + mkTest "VAR=foo test-prefix" "VAR=abc:foo"
-  # sets variable if not set yet
+    # sets variable if not set yet
   + mkTest "test-prefix" "VAR=abc"
-  # prepends value only once
+    # prepends value only once
   + mkTest "VAR=abc test-prefix" "VAR=abc"
-  # Moves value to the front if it already existed
+    # Moves value to the front if it already existed
   + mkTest "VAR=foo:abc test-prefix" "VAR=abc:foo"
   + mkTest "VAR=abc:foo:bar test-prefix-multi" "VAR=abc:foo:bar"
-  # Doesn't overwrite parts of the string
+    # Doesn't overwrite parts of the string
   + mkTest "VAR=test:abcde:test test-prefix" "VAR=abc:test:abcde:test"
-  # Only append the value once when given multiple times in a parameter
-  # to makeWrapper
+    # Only append the value once when given multiple times in a parameter
+    # to makeWrapper
   + mkTest "test-prefix" "VAR=abc"
-  # --prefix doesn't expand globs
+    # --prefix doesn't expand globs
   + mkTest "VAR=f?oo test-prefix-noglob" "VAR=./*:f?oo"
 
-  # --suffix works
+    # --suffix works
   + mkTest "VAR=foo test-suffix" "VAR=foo:abc"
-  # sets variable if not set yet
+    # sets variable if not set yet
   + mkTest "test-suffix" "VAR=abc"
-  # adds the same value only once
-  + mkTest "VAR=abc test-suffix" "VAR=abc" + mkTest "VAR=abc:foo test-suffix"
-  "VAR=abc:foo"
-  # --prefix in combination with --suffix
+    # adds the same value only once
+  + mkTest "VAR=abc test-suffix" "VAR=abc"
+  + mkTest "VAR=abc:foo test-suffix" "VAR=abc:foo"
+    # --prefix in combination with --suffix
   + mkTest "VAR=abc test-prefix-and-suffix" "VAR=foo:abc:bar"
 
-  # --suffix-each works
+    # --suffix-each works
   + mkTest "VAR=abc test-suffix-each" "VAR=abc:foo:bar:def"
-  # --prefix-each works
+    # --prefix-each works
   + mkTest "VAR=abc test-prefix-each" "VAR=bar:def:foo:abc"
-  # --suffix-contents works
+    # --suffix-contents works
   + mkTest "VAR=abc test-suffix-contents" "VAR=abc:foo:bar"
-  # --prefix-contents works
-  + mkTest "VAR=abc test-prefix-contents" "VAR=bar:foo:abc" + "touch $out")
+    # --prefix-contents works
+  + mkTest "VAR=abc test-prefix-contents" "VAR=bar:foo:abc"
+  + "touch $out")

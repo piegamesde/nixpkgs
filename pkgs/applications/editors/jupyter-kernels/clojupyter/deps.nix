@@ -22,7 +22,8 @@ rec {
       if builtins.hasAttr "jar" dep.path then
         dep.path.jar
       else
-        dep.path) packages) ++ extraClasspaths
+        dep.path) packages)
+    ++ extraClasspaths
     ;
   makeClasspaths =
     {

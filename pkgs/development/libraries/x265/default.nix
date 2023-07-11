@@ -27,8 +27,9 @@
   ,
   ppaSupport ? false # PPA profiling instrumentation
   ,
-  unittestsSupport ? (stdenv.is64bit && !(stdenv.isDarwin
-    && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
+  unittestsSupport ? (stdenv.is64bit
+    && !(stdenv.isDarwin
+      && stdenv.isAarch64)) # Unit tests - only testing x64 assembly
   ,
   vtuneSupport ? false # Vtune profiling instrumentation
   ,
@@ -55,8 +56,9 @@ let
       (mkFlag vtuneSupport "ENABLE_VTUNE")
       (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
       # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
-    ] ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
-    "-DENABLE_ASSEMBLY=OFF"
+    ]
+    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
+      "-DENABLE_ASSEMBLY=OFF"
     ;
 
   cmakeStaticLibFlags =
@@ -65,9 +67,10 @@ let
       "-DENABLE_CLI=OFF"
       "-DENABLE_SHARED=OFF"
       "-DEXPORT_C_API=OFF"
-    ] ++ lib.optionals stdenv.hostPlatform.isPower [
-      "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
     ]
+    ++ lib.optionals stdenv.hostPlatform.isPower [
+        "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
+      ]
     ;
 
 in
@@ -129,7 +132,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       nasm
-    ] ++ lib.optionals (numaSupport) [ numactl ]
+    ]
+    ++ lib.optionals (numaSupport) [ numactl ]
     ;
 
     # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
@@ -148,7 +152,8 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    cmakeCommonFlags ++ [
+    cmakeCommonFlags
+    ++ [
       "-DGIT_ARCHETYPE=1" # https://bugs.gentoo.org/814116
       "-DENABLE_SHARED=${
         if stdenv.hostPlatform.isStatic then
@@ -161,7 +166,8 @@ stdenv.mkDerivation rec {
       (mkFlag (isCross && stdenv.hostPlatform.isAarch) "CROSS_COMPILE_ARM")
       (mkFlag cliSupport "ENABLE_CLI")
       (mkFlag unittestsSupport "ENABLE_TESTS")
-    ] ++ lib.optionals (multibitdepthSupport) [
+    ]
+    ++ lib.optionals (multibitdepthSupport) [
       "-DEXTRA_LIB=x265-10.a;x265-12.a"
       "-DEXTRA_LINK_FLAGS=-L."
       "-DLINKED_10BIT=ON"

@@ -150,7 +150,8 @@ in
       libuuid
       openssl
       squashfsTools # Required at build time by SingularityCE
-    ] ++ lib.optional enableNvidiaContainerCli nvidia-docker
+    ]
+    ++ lib.optional enableNvidiaContainerCli nvidia-docker
     ++ lib.optional enableSeccomp libseccomp
     ;
 
@@ -160,11 +161,13 @@ in
     [
       "--localstatedir=/var/lib"
       "--runstatedir=/var/run"
-    ] ++ lib.optional (!enableSeccomp) "--without-seccomp"
+    ]
+    ++ lib.optional (!enableSeccomp) "--without-seccomp"
     ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then
       "--with-suid"
     else
-      "--without-suid") ++ extraConfigureFlags
+      "--without-suid")
+    ++ extraConfigureFlags
     ;
 
     # Packages to prefix to the Apptainer/Singularity container runtime default PATH
@@ -180,7 +183,8 @@ in
       privileged-un-utils
       squashfsTools # mksquashfs unsquashfs # Make / unpack squashfs image
       squashfuse # squashfuse_ll squashfuse # Mount (without unpacking) a squashfs image without privileges
-    ] ++ lib.optional enableNvidiaContainerCli nvidia-docker
+    ]
+    ++ lib.optional enableNvidiaContainerCli nvidia-docker
     ;
 
   postPatch = ''

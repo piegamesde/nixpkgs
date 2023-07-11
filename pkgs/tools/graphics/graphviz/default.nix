@@ -59,11 +59,13 @@ stdenv.mkDerivation rec {
       libdevil
       pango
       bash
-    ] ++ optionals withXorg (with xorg; [
+    ]
+    ++ optionals withXorg (with xorg; [
       libXrender
       libXaw
       libXpm
-    ]) ++ optionals stdenv.isDarwin [ ApplicationServices ]
+    ])
+    ++ optionals stdenv.isDarwin [ ApplicationServices ]
     ;
 
   hardeningDisable = [ "fortify" ];
@@ -72,7 +74,8 @@ stdenv.mkDerivation rec {
     [
       "--with-ltdl-lib=${libtool.lib}/lib"
       "--with-ltdl-include=${libtool}/include"
-    ] ++ optional (xorg == null) "--without-x"
+    ]
+    ++ optional (xorg == null) "--without-x"
     ;
 
   enableParallelBuilding = true;

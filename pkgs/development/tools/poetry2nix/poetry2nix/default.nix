@@ -106,10 +106,10 @@ let
         ;
       checkInputs' =
         getDeps
-        (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
-        # >=poetry-1.2.0 dependency groups
-        ++ lib.flatten
-        (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
+          (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
+          # >=poetry-1.2.0 dependency groups
+        ++ lib.flatten (map
+          (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
           checkGroups)
         ;
     in
@@ -119,14 +119,15 @@ let
       else
         [ ]);
       propagatedBuildInputs = mkInput "propagatedBuildInputs"
-        (getDeps allRawDeps ++ (
-          # >=poetry-1.2.0 dependency groups
-          if pyProject.tool.poetry.group or { } != { } then
-            lib.flatten
-            (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
-              groups)
-          else
-            [ ]));
+        (getDeps allRawDeps
+          ++ (
+            # >=poetry-1.2.0 dependency groups
+            if pyProject.tool.poetry.group or { } != { } then
+              lib.flatten
+              (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies)
+                groups)
+            else
+              [ ]));
       nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
       checkInputs = mkInput "checkInputs" checkInputs';
       nativeCheckInputs = mkInput "nativeCheckInputs" checkInputs';
@@ -254,8 +255,9 @@ lib.makeScope pkgs.newScope (self: {
             if pkgMeta ? marker then
               (evalPep508 pkgMeta.marker)
             else
-              true && isCompatible (poetryLib.getPythonVersion python)
-              pkgMeta.python-versions
+              true
+              && isCompatible (poetryLib.getPythonVersion python)
+                pkgMeta.python-versions
             ;
         in
         lib.partition supportsPythonVersion poetryLock.package
@@ -317,7 +319,8 @@ lib.makeScope pkgs.newScope (self: {
         (self: super:
           lib.attrsets.mapAttrs (name: value:
             if
-              lib.isDerivation value && self.hasPythonModule value
+              lib.isDerivation value
+              && self.hasPythonModule value
               && (normalizePackageName name) != name
             then
               null
@@ -359,7 +362,8 @@ lib.makeScope pkgs.newScope (self: {
         # Create poetry2nix layer
         baseOverlay
 
-      ] ++ # User provided overrides
+      ]
+        ++ # User provided overrides
         (if builtins.typeOf overrides == "list" then
           overrides
         else
@@ -388,7 +392,8 @@ lib.makeScope pkgs.newScope (self: {
     {
       python = py;
       poetryPackages =
-        storePackages ++ lib.optional hasScripts scriptsPackage
+        storePackages
+        ++ lib.optional hasScripts scriptsPackage
         ++ lib.optional hasEditable editablePackage
         ;
       poetryLock = poetryLock;
@@ -540,7 +545,8 @@ lib.makeScope pkgs.newScope (self: {
 
       app = py.pkgs.buildPythonPackage (passedAttrs // inputAttrs // {
         nativeBuildInputs =
-          inputAttrs.nativeBuildInputs ++ [
+          inputAttrs.nativeBuildInputs
+          ++ [
             hooks.removePathDependenciesHook
             hooks.removeGitDependenciesHook
           ]

@@ -56,7 +56,8 @@ buildPythonPackage rec {
     [
       pytest-django
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.all_filter_dependencies
+    ]
+    ++ passthru.optional-dependencies.all_filter_dependencies
     ;
 
   env.DJANGO_SETTINGS_MODULE = "django_markup.tests";

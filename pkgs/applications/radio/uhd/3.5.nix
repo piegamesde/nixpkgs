@@ -100,10 +100,12 @@ stdenv.mkDerivation rec {
     # Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnv = python3.withPackages (ps:
     with ps;
-    [ mako ] ++ optionals (enableLibuhd_Python_api) [
+    [ mako ]
+    ++ optionals (enableLibuhd_Python_api) [
       numpy
       setuptools
-    ] ++ optionals (enableUtils) [
+    ]
+    ++ optionals (enableUtils) [
       requests
       six
     ]);
@@ -127,7 +129,8 @@ stdenv.mkDerivation rec {
     # pythonEnv for runtime as well. The utilities' runtime dependencies are
     # handled at the environment
     ++ optionals (enableLibuhd_Python_api || enableUtils) [ pythonEnv ]
-    ++ optionals (enableLiberio) [ liberio ] ++ optionals (enableDpdk) [ dpdk ]
+    ++ optionals (enableLiberio) [ liberio ]
+    ++ optionals (enableDpdk) [ dpdk ]
     ;
 
   doCheck = true;
@@ -147,7 +150,8 @@ stdenv.mkDerivation rec {
     [
       "installFirmware"
       "removeInstalledTests"
-    ] ++ optionals (enableUtils) [ "moveUdevRules" ]
+    ]
+    ++ optionals (enableUtils) [ "moveUdevRules" ]
     ;
 
     # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`

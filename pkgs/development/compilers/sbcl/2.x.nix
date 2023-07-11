@@ -8,9 +8,9 @@
   zstd,
   sbclBootstrapHost ?
     "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
-  threadSupport ? (stdenv.hostPlatform.isx86 || "aarch64-linux"
-    == stdenv.hostPlatform.system || "aarch64-darwin"
-    == stdenv.hostPlatform.system),
+  threadSupport ? (stdenv.hostPlatform.isx86
+    || "aarch64-linux" == stdenv.hostPlatform.system
+    || "aarch64-darwin" == stdenv.hostPlatform.system),
   linkableRuntime ? stdenv.hostPlatform.isx86,
   disableImmobileSpace ? false
     # Meant for sbcl used for creating binaries portable to non-NixOS via save-lisp-and-die.
@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
       # Fix the tests
       sed -e '5,$d' -i contrib/sb-bsd-sockets/tests.lisp
       sed -e '5,$d' -i contrib/sb-simple-streams/*test*.lisp
-    '' + (if
+    ''
+    + (if
       purgeNixReferences
     then
     # This is the default location to look for the core; by default in $out/lib/sbcl
@@ -109,7 +110,8 @@ stdenv.mkDerivation rec {
     ++ optional stdenv.isAarch32 "arm";
 
   disableFeatures = with lib;
-    optional (!threadSupport) "sb-thread" ++ optionals disableImmobileSpace [
+    optional (!threadSupport) "sb-thread"
+    ++ optionals disableImmobileSpace [
       "immobile-space"
       "immobile-code"
       "compact-instance-header"
@@ -148,7 +150,8 @@ stdenv.mkDerivation rec {
       INSTALL_ROOT=$out sh install.sh
 
       runHook postInstall
-    '' + lib.optionalString (!purgeNixReferences) ''
+    ''
+    + lib.optionalString (!purgeNixReferences) ''
       cp -r src $out/lib/sbcl
       cp -r contrib $out/lib/sbcl
       cat >$out/lib/sbcl/sbclrc <<EOF

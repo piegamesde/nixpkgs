@@ -45,7 +45,8 @@ buildGoModule rec {
       "-s"
       "-w"
       "-X github.com/werf/werf/pkg/werf.Version=${src.rev}"
-    ] ++ lib.optionals (CGO_ENABLED == 1) [
+    ]
+    ++ lib.optionals (CGO_ENABLED == 1) [
       "-extldflags=-static"
       "-linkmode external"
     ]
@@ -58,7 +59,8 @@ buildGoModule rec {
       "dfrunnetwork"
       "dfrunsecurity"
       "dfssh"
-    ] ++ lib.optionals (CGO_ENABLED == 1) [
+    ]
+    ++ lib.optionals (CGO_ENABLED == 1) [
       "exclude_graphdriver_devicemapper"
       "netgo"
       "no_devmapper"
@@ -81,7 +83,8 @@ buildGoModule rec {
       # Remove failing tests.
       rm -rf \
         cmd/werf/docs/replacers/kubectl/kubectl_test.go
-    '' + lib.optionalString (CGO_ENABLED == 0) ''
+    ''
+    + lib.optionalString (CGO_ENABLED == 0) ''
       # A workaround for osusergo.
       export USER=nixbld
     ''

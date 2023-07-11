@@ -54,7 +54,8 @@ python3Packages.buildPythonApplication rec {
       skytemple-icons
       skytemple-ssb-debugger
       tilequant
-    ] ++ skytemple-files.optional-dependencies.spritecollab;
+    ]
+    ++ skytemple-files.optional-dependencies.spritecollab;
 
   doCheck = false; # there are no tests
 

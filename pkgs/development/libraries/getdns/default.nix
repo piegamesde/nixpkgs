@@ -112,7 +112,8 @@ rec {
         libyaml
         openssl
         systemd
-      ] ++ lib.optionals stdenv.isDarwin [ darwin.Security ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ darwin.Security ]
       ;
 
     postInstall = ''

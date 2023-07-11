@@ -115,7 +115,8 @@ buildPythonPackage rec {
       # Varius integration tests fail every once in a while when we
       # upgrade depencies, so don't bother testing them.
       "tests/integrations/"
-    ] ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux") [
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux") [
       # test crashes on aarch64
       "tests/test_transport.py"
     ]

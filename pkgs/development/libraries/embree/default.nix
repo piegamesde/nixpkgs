@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
       libpng
       libX11
       libpthreadstubs
-    ] ++ lib.optionals stdenv.isDarwin [ glib ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ glib ]
     ;
 
   meta = with lib; {

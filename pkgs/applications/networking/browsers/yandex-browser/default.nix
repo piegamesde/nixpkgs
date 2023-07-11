@@ -130,7 +130,8 @@ stdenv.mkDerivation rec {
       libpulseaudio
       curl
       systemd
-    ] ++ buildInputs
+    ]
+    ++ buildInputs
     ;
 
   meta = with lib; {

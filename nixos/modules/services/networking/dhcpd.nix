@@ -55,7 +55,9 @@ let
           configFile
           "-lf"
           leaseFile
-        ] ++ cfg.extraFlags ++ cfg.interfaces
+        ]
+        ++ cfg.extraFlags
+        ++ cfg.interfaces
         ;
     in
     optionalAttrs cfg.enable {
@@ -222,7 +224,8 @@ in
         "services"
         "dhcpd4"
       ])
-    ] ++ flip map [
+    ]
+    ++ flip map [
       "4"
       "6"
     ] (postfix:

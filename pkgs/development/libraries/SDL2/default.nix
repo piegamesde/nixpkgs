@@ -10,8 +10,8 @@
   libGL,
   alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   alsa-lib,
-  x11Support ? !stdenv.targetPlatform.isWindows
-    && !stdenv.hostPlatform.isAndroid,
+  x11Support ?
+    !stdenv.targetPlatform.isWindows && !stdenv.hostPlatform.isAndroid,
   libX11,
   xorgproto,
   libICE,
@@ -41,8 +41,8 @@
   pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   pipewire # NOTE: must be built with SDL2 without pipewire support
   ,
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
-    && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ?
+    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   AudioUnit,
   Cocoa,
@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals waylandSupport [
+    [ pkg-config ]
+    ++ lib.optionals waylandSupport [
       wayland
       wayland-scanner
     ]
@@ -107,9 +108,9 @@ stdenv.mkDerivation rec {
 
   dlopenPropagatedBuildInputs =
     [ ]
-    # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
+      # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional openglSupport libGL
-    # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
+      # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ lib.optionals x11Support [ libX11 ]
     ;
 
@@ -120,13 +121,17 @@ stdenv.mkDerivation rec {
     lib.optionals alsaSupport [
       alsa-lib
       audiofile
-    ] ++ lib.optional dbusSupport dbus ++ lib.optional libdecorSupport libdecor
+    ]
+    ++ lib.optional dbusSupport dbus
+    ++ lib.optional libdecorSupport libdecor
     ++ lib.optional pipewireSupport pipewire
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional udevSupport udev ++ lib.optionals waylandSupport [
+    ++ lib.optional udevSupport udev
+    ++ lib.optionals waylandSupport [
       wayland
       libxkbcommon
-    ] ++ lib.optionals x11Support [
+    ]
+    ++ lib.optionals x11Support [
       libICE
       libXi
       libXScrnSaver
@@ -135,14 +140,17 @@ stdenv.mkDerivation rec {
       libXext
       libXrandr
       libXxf86vm
-    ] ++ lib.optionals drmSupport [
+    ]
+    ++ lib.optionals drmSupport [
       libdrm
       mesa
     ]
     ;
 
   buildInputs =
-    [ libiconv ] ++ dlopenBuildInputs ++ lib.optional ibusSupport ibus
+    [ libiconv ]
+    ++ dlopenBuildInputs
+    ++ lib.optional ibusSupport ibus
     ++ lib.optionals waylandSupport [ wayland-protocols ]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
@@ -157,7 +165,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ "--disable-oss" ] ++ lib.optional (!x11Support) "--without-x"
+    [ "--disable-oss" ]
+    ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
     ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
     ++ lib.optional stdenv.isDarwin "--disable-sdltest"

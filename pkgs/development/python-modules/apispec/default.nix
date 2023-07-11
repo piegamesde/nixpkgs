@@ -33,7 +33,8 @@ buildPythonPackage rec {
       [
         openapi-spec-validator
         prance
-      ] ++ prance.optional-dependencies.osv
+      ]
+      ++ prance.optional-dependencies.osv
       ;
   };
 
@@ -41,7 +42,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   pythonImportsCheck = [ "apispec" ];

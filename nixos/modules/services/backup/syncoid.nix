@@ -390,10 +390,13 @@ in
               ;
             ExecStart = lib.escapeShellArgs ([ "${cfg.package}/bin/syncoid" ]
               ++ optionals c.useCommonArgs cfg.commonArgs
-              ++ optional c.recursive "-r" ++ optionals (c.sshKey != null) [
+              ++ optional c.recursive "-r"
+              ++ optionals (c.sshKey != null) [
                 "--sshkey"
                 c.sshKey
-              ] ++ c.extraArgs ++ [
+              ]
+              ++ c.extraArgs
+              ++ [
                 "--sendoptions"
                 c.sendOptions
                 "--recvoptions"

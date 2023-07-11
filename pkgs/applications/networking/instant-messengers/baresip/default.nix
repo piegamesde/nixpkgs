@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       spandsp3
       libuuid
       libvpx
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-libav
       gst-plugins-base
@@ -125,7 +126,8 @@ stdenv.mkDerivation rec {
       "USE_ILBC="
       "USE_OPUS="
       "USE_SILK="
-    ] ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
+    ]
+    ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
     ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}"
     ;
 

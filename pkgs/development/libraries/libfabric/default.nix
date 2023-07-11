@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     lib.optionals enableOpx [
       libuuid
       numactl
-    ] ++ lib.optionals enablePsm2 [ libpsm2 ]
+    ]
+    ++ lib.optionals enablePsm2 [ libpsm2 ]
     ;
 
   configureFlags = [

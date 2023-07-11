@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       bzip2
       readline
       libiconv
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       acl
       attr
     ]

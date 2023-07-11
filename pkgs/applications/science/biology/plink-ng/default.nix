@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ zlib ] ++ (if stdenv.isDarwin then
+    [ zlib ]
+    ++ (if stdenv.isDarwin then
       [ darwin.apple_sdk.frameworks.Accelerate ]
     else
       [

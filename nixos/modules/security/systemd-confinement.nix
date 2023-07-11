@@ -209,8 +209,8 @@ in
       }
       {
         assertion =
-          cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem
-          == false
+          cfg.serviceConfig ? ProtectSystem
+          -> cfg.serviceConfig.ProtectSystem == false
           ;
         message =
           "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible"

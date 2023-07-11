@@ -85,7 +85,8 @@ buildPythonPackage rec {
 
       # extra plugins which are otherwise not found by sphinx-build
       sphinxcontrib-apidoc
-    ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ;
 
   nativeCheckInputs =
@@ -93,7 +94,8 @@ buildPythonPackage rec {
       cython
       html5lib
       pytestCheckHook
-    ] ++ lib.optionals (pythonOlder "3.8") [ typed-ast ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ typed-ast ]
     ;
 
   preCheck = ''
@@ -126,7 +128,8 @@ buildPythonPackage rec {
       # Likely due to pygments 2.14 update
       #  AssertionError: assert '5:11:17\u202fAM' == '5:11:17 AM'
       "test_format_date"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Due to lack of network sandboxing can't guarantee port 7777 isn't bound
       "test_inspect_main_url"
       "test_auth_header_uses_first_match"

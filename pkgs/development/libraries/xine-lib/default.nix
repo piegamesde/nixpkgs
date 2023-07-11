@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       speex
       vcdimager
       zlib
-    ] ++ (with xorg; [
+    ]
+    ++ (with xorg; [
       libX11
       libXext
       libXinerama

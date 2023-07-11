@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     [
       which
       zlib
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [ kmod ]
     ;
 

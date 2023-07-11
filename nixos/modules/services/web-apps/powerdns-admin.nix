@@ -13,10 +13,12 @@ let
   configText =
     ''
       ${cfg.config}
-    '' + optionalString (cfg.secretKeyFile != null) ''
+    ''
+    + optionalString (cfg.secretKeyFile != null) ''
       with open('${cfg.secretKeyFile}') as file:
         SECRET_KEY = file.read()
-    '' + optionalString (cfg.saltFile != null) ''
+    ''
+    + optionalString (cfg.saltFile != null) ''
       with open('${cfg.saltFile}') as file:
         SALT = file.read()
     ''
@@ -104,7 +106,8 @@ in
             "-/etc/nsswitch.conf"
             "-/etc/hosts"
             "-/etc/localtime"
-          ] ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile)
+          ]
+          ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile)
           ++ (optional (cfg.saltFile != null) cfg.saltFile)
           ;
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";

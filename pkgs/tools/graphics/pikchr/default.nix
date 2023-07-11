@@ -38,9 +38,11 @@ stdenv.mkDerivation {
       install -Dm755 pikchr $out/bin/pikchr
       install -Dm755 pikchr.out $out/lib/pikchr.o
       install -Dm644 pikchr.h $out/include/pikchr.h
-    '' + lib.optionalString enableTcl ''
+    ''
+    + lib.optionalString enableTcl ''
       cp -r piktcl $out/lib/piktcl
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

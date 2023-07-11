@@ -40,10 +40,12 @@ buildPythonPackage rec {
       expat
       neon
       openssl
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       0.0
       fsprogs
-    ] ++ lib.optionals stdenv.isDarwin [ gcc ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ gcc ]
     ;
 
   preConfigure = ''

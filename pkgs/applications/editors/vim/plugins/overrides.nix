@@ -169,12 +169,14 @@ self: super:
     preFixup =
       ''
         substituteInPlace "$out"/plugin/clang_complete.vim \
-          --replace "let g:clang_library_path = '' + "''" + ''
-          " "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
+          --replace "let g:clang_library_path = ''
+      + "''"
+      + ''
+        " "let g:clang_library_path='${llvmPackages.libclang.lib}/lib/libclang.so'"
 
-                substituteInPlace "$out"/plugin/libclang.py \
-                  --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
-        ''
+              substituteInPlace "$out"/plugin/libclang.py \
+                --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
+      ''
       ;
   });
 
@@ -474,7 +476,8 @@ self: super:
 
   direnv-vim = super.direnv-vim.overrideAttrs (old: {
     preFixup =
-      old.preFixup or "" + ''
+      old.preFixup or ""
+      + ''
         substituteInPlace $out/autoload/direnv.vim \
           --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
             "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
@@ -922,9 +925,10 @@ self: super:
         nativeBuildInputs = [ pkg-config ];
 
         buildInputs =
-          [ openssl ] ++ lib.optionals stdenv.isDarwin [
-            darwin.apple_sdk.frameworks.Security
-          ]
+          [ openssl ]
+          ++ lib.optionals stdenv.isDarwin [
+              darwin.apple_sdk.frameworks.Security
+            ]
           ;
 
         cargoBuildFlags = [ "--workspace" ];
@@ -1310,7 +1314,8 @@ self: super:
   vim-colorschemes = super.vim-colorschemes.overrideAttrs (old: {
     src = old.src.overrideAttrs (srcOld: {
       postFetch =
-        (srcOld.postFetch or "") + lib.optionalString (!stdenv.isDarwin) ''
+        (srcOld.postFetch or "")
+        + lib.optionalString (!stdenv.isDarwin) ''
           rm $out/colors/darkBlue.vim
         ''
         ;
@@ -1456,7 +1461,8 @@ self: super:
 
   vim-stylish-haskell = super.vim-stylish-haskell.overrideAttrs (old: {
     postPatch =
-      old.postPatch or "" + ''
+      old.postPatch or ""
+      + ''
         substituteInPlace ftplugin/haskell/stylish-haskell.vim --replace \
           'g:stylish_haskell_command = "stylish-haskell"' \
           'g:stylish_haskell_command = "${stylish-haskell}/bin/stylish-haskell"'

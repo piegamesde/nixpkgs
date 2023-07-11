@@ -57,7 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "OFF"
       }"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # missing header file
       "-DMZ_LIBCOMP=OFF"
     ]

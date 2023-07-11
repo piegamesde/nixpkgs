@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ gmpxx ];
 
   configureFlags =
-    [ "--disable-optimization" ] ++ lib.optionals stdenv.isx86_64 [
+    [ "--disable-optimization" ]
+    ++ lib.optionals stdenv.isx86_64 [
       # disable SIMD instructions (which are enabled *when available* by default)
       "--${
         if stdenv.hostPlatform.sse3Support then

@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       "out"
       "man"
       "dev"
-    ] ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ]
     ;
 
   src = fetchFromGitHub {
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       ninja
       docbook-xsl-nons
       gobject-introspection
-    ] ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ]
     ;
 
   buildInputs =
@@ -102,7 +104,8 @@ stdenv.mkDerivation rec {
       libjxl
       openslide
       libheif
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Foundation
     ]
@@ -117,7 +120,8 @@ stdenv.mkDerivation rec {
       "-Dspng=disabled"
       "-Dpdfium=disabled"
       "-Dnifti=disabled"
-    ] ++ lib.optionals (!stdenv.isDarwin) [ "-Dgtk_doc=true" ]
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "-Dgtk_doc=true" ]
     ;
 
   meta = with lib; {

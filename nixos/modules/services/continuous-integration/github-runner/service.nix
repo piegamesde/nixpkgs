@@ -58,7 +58,9 @@ in
       git
       gnutar
       gzip
-    ]) ++ [ config.nix.package ] ++ cfg.extraPackages
+    ])
+    ++ [ config.nix.package ]
+    ++ cfg.extraPackages
     ;
 
   serviceConfig = mkMerge [

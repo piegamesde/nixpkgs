@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
     SDL
     SDL_ttf
     SDL_gfx
-  ] ++ [ "-I${libxml2.dev}/include/libxml2" ]);
+  ]
+    ++ [ "-I${libxml2.dev}/include/libxml2" ]);
 
   hardeningDisable = [ "format" ];
 

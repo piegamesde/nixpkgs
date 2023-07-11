@@ -93,13 +93,15 @@ stdenv.mkDerivation rec {
       else
         "-DBUILD_python=OFF")
       "-DBLAS=open"
-    ] ++ (if cudaSupport then
+    ]
+    ++ (if cudaSupport then
       [
         "-DCUDA_ARCH_NAME=All"
         "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
       ]
     else
-      [ "-DCPU_ONLY=ON" ]) ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
+      [ "-DCPU_ONLY=ON" ])
+    ++ [ "-DUSE_NCCL=${toggle ncclSupport}" ]
     ++ [ "-DUSE_LEVELDB=${toggle leveldbSupport}" ]
     ++ [ "-DUSE_LMDB=${toggle lmdbSupport}" ]
     ;
@@ -113,15 +115,20 @@ stdenv.mkDerivation rec {
       hdf5-cpp
       opencv3
       blas
-    ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn
-    ++ lib.optional lmdbSupport lmdb ++ lib.optional ncclSupport nccl
+    ]
+    ++ lib.optional cudaSupport cudatoolkit
+    ++ lib.optional cudnnSupport cudnn
+    ++ lib.optional lmdbSupport lmdb
+    ++ lib.optional ncclSupport nccl
     ++ lib.optionals leveldbSupport [
       leveldb
       snappy
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       python
       numpy
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreGraphics
       CoreVideo
@@ -149,7 +156,8 @@ stdenv.mkDerivation rec {
       pp.pyyaml
       pp.pillow
       pp.six
-    ] ++ lib.optional leveldbSupport pp.leveldb)
+    ]
+      ++ lib.optional leveldbSupport pp.leveldb)
   );
 
   outputs = [
@@ -159,7 +167,8 @@ stdenv.mkDerivation rec {
   propagatedBuildOutputs = [ ]; # otherwise propagates out -> bin cycle
 
   patches =
-    [ ./darwin.patch ] ++ lib.optional pythonSupport (substituteAll {
+    [ ./darwin.patch ]
+    ++ lib.optional pythonSupport (substituteAll {
       src = ./python.patch;
       inherit (python.sourceVersion)
         major
@@ -173,11 +182,12 @@ stdenv.mkDerivation rec {
       substituteInPlace src/caffe/util/io.cpp --replace \
         'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
-    '' + lib.optionalString
-    (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
-      # CUDA 9.0 doesn't support sm_20
-      sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
     ''
+    + lib.optionalString
+      (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
+        # CUDA 9.0 doesn't support sm_20
+        sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
+      ''
     ;
 
   preConfigure = lib.optionalString pythonSupport ''
@@ -194,7 +204,8 @@ stdenv.mkDerivation rec {
       cp -a ../models $out/share/Caffe/models
 
       moveToOutput "bin" "$bin"
-    '' + lib.optionalString pythonSupport ''
+    ''
+    + lib.optionalString pythonSupport ''
       mkdir -p $out/${python.sitePackages}
       mv $out/python/caffe $out/${python.sitePackages}
       rm -rf $out/python

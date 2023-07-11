@@ -52,7 +52,8 @@ buildPythonPackage rec {
     [
       httpretty
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.all
+    ]
+    ++ passthru.optional-dependencies.all
     ;
 
   pythonImportsCheck = [ "trino" ];

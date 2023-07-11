@@ -17,7 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -46,21 +47,24 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
+    ]
+    ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARKS=ON" ]
     ++ lib.optionals (buildTests || buildBenchmarks) [
-      "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
-    ]
+        "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
+      ]
     ;
 
   postInstall =
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/{test_*,*.hip} $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/benchmark_* $benchmark/bin
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rm -rf $out/bin
     ''
     ;

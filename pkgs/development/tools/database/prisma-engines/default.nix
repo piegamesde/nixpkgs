@@ -53,7 +53,8 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
       protobuf
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   preBuild = ''

@@ -99,7 +99,8 @@ let
 
       [rpc_startup]
       { "command": "log_level", "severity": "${cfg.logLevel}" }
-    '' + cfg.extraConfig
+    ''
+    + cfg.extraConfig
     ;
 
   portOptions =

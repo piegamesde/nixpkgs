@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       hamlib
       perl
       python3
-    ] ++ (optionals stdenv.isLinux [
+    ]
+    ++ (optionals stdenv.isLinux [
       alsa-lib
       udev
     ])

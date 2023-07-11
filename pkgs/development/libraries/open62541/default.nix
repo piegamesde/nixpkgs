@@ -78,9 +78,10 @@ stdenv.mkDerivation (finalAttrs: {
         else
           "OFF"
       }"
-    ] ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
+    ]
+    ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
     ++ lib.optional (withEncryption != false)
-    "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
+      "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
     ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
     ;
 
@@ -89,7 +90,8 @@ stdenv.mkDerivation (finalAttrs: {
       cmake
       pkg-config
       python3Packages.python
-    ] ++ lib.optionals withDoc (with python3Packages; [
+    ]
+    ++ lib.optionals withDoc (with python3Packages; [
       sphinx
       sphinx_rtd_theme
       graphviz-nox
@@ -114,8 +116,9 @@ stdenv.mkDerivation (finalAttrs: {
     let
       disabledTests =
         lib.optionals (withEncryption == "mbedtls") [
-          "encryption_basic128rsa15"
-        ] ++ lib.optionals withPubSub [
+            "encryption_basic128rsa15"
+          ]
+        ++ lib.optionals withPubSub [
           # "Cannot set socket option IP_ADD_MEMBERSHIP"
           "pubsub_publish"
           "check_pubsub_get_state"
@@ -140,7 +143,8 @@ stdenv.mkDerivation (finalAttrs: {
       # doc is not installed automatically
       mkdir -p $out/share/doc/open62541
       cp -r doc/ $out/share/doc/open62541/html
-    '' + lib.optionalString withExamples ''
+    ''
+    + lib.optionalString withExamples ''
       # install sources of examples
       mkdir -p $out/share/open62541
       cp -r ../examples $out/share/open62541

@@ -34,7 +34,8 @@ python3Packages.buildPythonApplication rec {
   disabled = python3Packages.pythonOlder "3.7";
 
   propagatedBuildInputs =
-    [ lark080 ] ++ (with python3Packages; [
+    [ lark080 ]
+    ++ (with python3Packages; [
       docopt
       pyyaml
       setuptools

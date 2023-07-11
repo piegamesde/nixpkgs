@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
     [
       pkg-config
       cmake
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       autoconf
       automake
     ]

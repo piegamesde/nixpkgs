@@ -237,7 +237,8 @@ let
           _40ants-doc
           parachute
           osicat
-        ] ++ [ cl-tar-file ];
+        ]
+        ++ [ cl-tar-file ];
       systems = [
         "tar"
         "tar/common-extract"
@@ -284,7 +285,8 @@ let
         [
           lessp
           rollback
-        ] ++ [ ql.local-time ]
+        ]
+        ++ [ ql.local-time ]
         ;
     };
 
@@ -344,7 +346,8 @@ let
       version = "2.2.4";
 
       lispLibs =
-        ql.nyxt.lispLibs ++ (with ql; [
+        ql.nyxt.lispLibs
+        ++ (with ql; [
           cl-cffi-gtk
           cl-webkit2
           mk-string-metrics
@@ -378,7 +381,8 @@ let
 
         # Run with WEBKIT_FORCE_SANDBOX=0 if getting a runtime error in webkitgtk-2.34.4
       installPhase =
-        ql.nyxt.installPhase + ''
+        ql.nyxt.installPhase
+        + ''
           rm -v $out/nyxt
           mkdir -p $out/bin
           cp -v nyxt $out/bin

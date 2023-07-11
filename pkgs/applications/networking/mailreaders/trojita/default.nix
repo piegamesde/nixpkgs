@@ -70,7 +70,8 @@ mkDerivation rec {
   ];
 
   postPatch =
-    "echo ${version} > src/trojita-version" + lib.optionalString withI18n ''
+    "echo ${version} > src/trojita-version"
+    + lib.optionalString withI18n ''
       mkdir -p po
       for f in `find ${l10n} -name "trojita_common.po"`; do
         cp $f po/trojita_common_$(echo $f | cut -d/ -f5).po

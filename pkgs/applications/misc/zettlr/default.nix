@@ -24,7 +24,8 @@ appimageTools.wrapType2 rec {
   multiPkgs = null; # no 32bit needed
   extraPkgs =
     pkgs:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [
+    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs)
+    ++ [
       texlive
       pandoc
     ]

@@ -37,8 +37,9 @@ stdenv.mkDerivation rec {
     [ openssl ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
 
   configureFlags =
-    [ "--sysconfdir=/etc" ] ++ lib.optional withSystemd
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    [ "--sysconfdir=/etc" ]
+    ++ lib.optional withSystemd
+      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd"
     ;
 

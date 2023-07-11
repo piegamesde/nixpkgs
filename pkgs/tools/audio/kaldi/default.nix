@@ -81,7 +81,8 @@ stdenv.mkDerivation {
       openblas
       openfst
       icu
-    ] ++ lib.optionals stdenv.isDarwin [ Accelerate ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate ]
     ;
 
   nativeBuildInputs = [

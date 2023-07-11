@@ -54,7 +54,8 @@ buildPythonPackage rec {
       redis
       requests
       sure
-    ] ++ passthru.optional-dependencies.pook
+    ]
+    ++ passthru.optional-dependencies.pook
     ;
 
     # Skip http tests

@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
     [
       "-DBUILD_SHARED_LIBS=ON"
       "-DUSE_LINGELING=YES"
-    ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES")
+    ]
+    ++ (lib.optional (gmp != null) "-DUSE_GMP=YES")
     ;
 
   nativeCheckInputs = [ python3 ];
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isDarwin ''
       cp -r bin bin.back
       install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-    '' + ''
+    ''
+    + ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..
     ''

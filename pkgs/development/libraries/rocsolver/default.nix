@@ -21,7 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.4";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ;
 
@@ -37,14 +38,16 @@ stdenv.mkDerivation (finalAttrs: {
       cmake
       rocm-cmake
       hip
-    ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ]
+    ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ]
     ;
 
   buildInputs =
     [
       rocblas
       fmt
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ]
     ;
 
@@ -56,9 +59,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals (gpuTargets != [ ]) [
-      "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals (gpuTargets != [ ]) [
+        "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
+      ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
     ;
 
@@ -66,10 +71,12 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/rocsolver-test $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/rocsolver-bench $benchmark/bin
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rmdir $out/bin
     ''
     ;

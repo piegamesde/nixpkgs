@@ -24,7 +24,8 @@ buildPythonPackage rec {
     [
       rdkafka
       requests
-    ] ++ (if isPy3k then
+    ]
+    ++ (if isPy3k then
       [ avro3k ]
     else
       [

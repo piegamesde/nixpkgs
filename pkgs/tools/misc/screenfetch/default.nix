@@ -27,16 +27,18 @@ let
     ncurses
     bc
     pciutils
-  ] ++ lib.optionals stdenv.isLinux [
-    procps
-    xdpyinfo
-    xprop
-  ] ++ lib.optionals stdenv.isDarwin (with darwin; [
-    adv_cmds
-    DarwinTools
-    system_cmds
-    "/usr" # some commands like defaults is not available to us
-  ]));
+  ]
+    ++ lib.optionals stdenv.isLinux [
+      procps
+      xdpyinfo
+      xprop
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin; [
+      adv_cmds
+      DarwinTools
+      system_cmds
+      "/usr" # some commands like defaults is not available to us
+    ]));
 
 in
 stdenv.mkDerivation rec {

@@ -73,7 +73,8 @@ let
       "ctrl_interface=/run/wpa_supplicant"
       "ctrl_interface_group=${cfg.userControlled.group}"
       "update_config=1"
-    ]) ++ [ "pmf=1" ]
+    ])
+    ++ [ "pmf=1" ]
     ++ optional cfg.scanOnLowSignal ''bgscan="simple:30:-70:3600"''
     ++ optional (cfg.extraConfig != "") cfg.extraConfig);
 
@@ -111,10 +112,11 @@ let
             "key_mgmt=${concatStringsSep " " opts.authProtocols}"
           else
             "key_mgmt=NONE")
-        ] ++ optional opts.hidden "scan_ssid=1"
+        ]
+        ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
         ++ optionals (opts.auth != null)
-        (filter (x: x != "") (splitString "\n" opts.auth))
+          (filter (x: x != "") (splitString "\n" opts.auth))
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig
         ;
@@ -554,11 +556,13 @@ in
             psk
             pskRaw
             auth
-          ] <= 1;
+          ]
+          <= 1;
         message =
           ''
             options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
-      }) ++ [ {
+      })
+      ++ [ {
         assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
         message =
           let
@@ -576,7 +580,8 @@ in
             It's not possible to run multiple wpa_supplicant instances with DBus support.
             Note: you're seeing this error because `networking.wireless.interfaces` has
             ${n} entries, implying an equal number of wpa_supplicant instances.
-          '' + optionalString (daemon != null) ''
+          ''
+          + optionalString (daemon != null) ''
             You don't need to change `networking.wireless.interfaces` when using ${daemon}:
             in this case the interfaces will be configured automatically for you.
           ''
@@ -602,7 +607,7 @@ in
       (optional (cfg.interfaces == [ ])
         "${systemctl} try-restart wpa_supplicant"
         ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}")
-        cfg.interfaces);
+          cfg.interfaces);
 
       # Restart wpa_supplicant when a wlan device appears or disappears. This is
       # only needed when an interface hasn't been specified by the user.

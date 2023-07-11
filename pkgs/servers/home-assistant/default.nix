@@ -474,7 +474,8 @@ python.pkgs.buildPythonApplication rec {
       pyotp
       # Sneakily imported in tests/conftest.py
       paho-mqtt
-    ] ++ lib.concatMap (component: getPackages component python.pkgs) [
+    ]
+    ++ lib.concatMap (component: getPackages component python.pkgs) [
       # some components are needed even if tests in tests/components are disabled
       "default_config"
       "hue"

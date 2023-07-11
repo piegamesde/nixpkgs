@@ -38,7 +38,8 @@ stdenv.mkDerivation (rec {
       libtasn1
       nettle
       gnutls
-    ] ++ lib.optional enableCredssp krb5
+    ]
+    ++ lib.optional enableCredssp krb5
     ++ lib.optional stdenv.isDarwin libiconv
     ;
 
@@ -47,7 +48,8 @@ stdenv.mkDerivation (rec {
       "--with-ipv6"
       "--with-openssl=${openssl.dev}"
       "--disable-smartcard"
-    ] ++ lib.optional (!enableCredssp) "--disable-credssp"
+    ]
+    ++ lib.optional (!enableCredssp) "--disable-credssp"
     ;
 
   meta = {

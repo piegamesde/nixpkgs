@@ -651,7 +651,8 @@ rec {
       if len < 2 then
         list
       else
-        (sort strictLess pivot.left) ++ [ first ]
+        (sort strictLess pivot.left)
+        ++ [ first ]
         ++ (sort strictLess pivot.right)
     );
 

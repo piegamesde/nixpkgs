@@ -61,8 +61,12 @@
   buildPackages,
 }:
 
-assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
-  != null && perl != null; # for `--enable-java-home'
+assert langJava
+  -> zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -102,9 +106,11 @@ let
           "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96";
         sha256 = "0b32sb4psv5lq0ij9fwhi1b4pjbwdjnv24nqprsk14dsc6xmi1g0";
       })
-    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+    ]
+    ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
-    ++ optional langFortran ../gfortran-driving.patch ++ [
+    ++ optional langFortran ../gfortran-driving.patch
+    ++ [
       ../struct-ucontext.patch
       ../struct-sigaltstack-4.9.patch
     ] # glibc-2.26
@@ -307,10 +313,13 @@ let
 
   # We need all these X libraries when building AWT with GTK.
 in
-assert x11Support -> (filter (x: x == null) ([
-  gtk2
-  libart_lgpl
-] ++ xlibs)) == [ ];
+assert x11Support
+  -> (filter (x: x == null) ([
+    gtk2
+    libart_lgpl
+  ]
+    ++ xlibs))
+    == [ ];
 
 stdenv.mkDerivation ({
   pname = "${crossNameAddon}${name}";
@@ -456,16 +465,21 @@ stdenv.mkDerivation ({
     # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
+    (makeSearchPathOutput "dev" "include" ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
       ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
-    ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+    ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
+      ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
@@ -497,8 +511,9 @@ stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

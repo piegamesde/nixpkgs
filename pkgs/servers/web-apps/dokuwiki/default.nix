@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
           ;
 
         postInstall =
-          prev.postInstall or "" + ''
+          prev.postInstall or ""
+          + ''
             ${lib.concatMapStringsSep "\n" (tpl:
               "cp -r ${toString tpl} $out/share/dokuwiki/lib/tpl/${tpl.name}")
             templates}

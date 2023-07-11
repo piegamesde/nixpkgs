@@ -22,7 +22,8 @@ buildDunePackage rec {
   };
 
   buildInputs =
-    [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
+    [ dune-configurator ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreAudio
     ]

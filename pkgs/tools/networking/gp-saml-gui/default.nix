@@ -35,7 +35,8 @@ buildPythonPackage rec {
       requests
       pygobject3
       openconnect
-    ] ++ lib.optional stdenv.isLinux webkitgtk
+    ]
+    ++ lib.optional stdenv.isLinux webkitgtk
     ;
 
   preFixup = ''

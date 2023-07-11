@@ -65,7 +65,8 @@ stdenv.mkDerivation {
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.raskin ];
     platforms =
-      lib.platforms.linux ++ [
+      lib.platforms.linux
+      ++ [
         "x86_64-darwin"
         "aarch64-darwin"
       ]

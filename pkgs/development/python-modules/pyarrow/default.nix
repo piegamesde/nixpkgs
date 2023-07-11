@@ -124,7 +124,8 @@ buildPythonPackage rec {
       "--deselect=pyarrow/tests/test_csv.py::TestThreadedCSVTableRead::test_cancellation"
       # expects arrow-cpp headers to be bundled
       "--deselect=pyarrow/tests/test_cpp_internals.py::test_pyarrow_include"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Requires loopback networking
       "--deselect=pyarrow/tests/test_ipc.py::test_socket_"
       "--deselect=pyarrow/tests/test_flight.py::test_never_sends_data"
@@ -133,10 +134,12 @@ buildPythonPackage rec {
       "--deselect=pyarrow/tests/test_flight.py::test_none_action_side_effect"
       # fails to compile
       "--deselect=pyarrow/tests/test_cython.py::test_cython_api"
-    ] ++ lib.optionals (pythonAtLeast "3.11") [
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11") [
       # Repr output is printing number instead of enum name so these tests fail
       "--deselect=pyarrow/tests/test_fs.py::test_get_file_info"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       # this test requires local networking
       "--deselect=pyarrow/tests/test_fs.py::test_filesystem_from_uri_gcs"
     ]
@@ -152,14 +155,16 @@ buildPythonPackage rec {
       rm -r pyarrow/!(conftest.py|tests)
       mv pyarrow/conftest.py pyarrow/tests/parent_conftest.py
       substituteInPlace pyarrow/tests/conftest.py --replace ..conftest .parent_conftest
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # OSError: [Errno 24] Too many open files
       ulimit -n 1024
     ''
     ;
 
   pythonImportsCheck =
-    [ "pyarrow" ] ++ map (module: "pyarrow.${module}") [
+    [ "pyarrow" ]
+    ++ map (module: "pyarrow.${module}") [
       "compute"
       "csv"
       "dataset"

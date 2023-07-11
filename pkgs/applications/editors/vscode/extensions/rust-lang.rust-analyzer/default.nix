@@ -51,7 +51,8 @@ let
         # Required by `keytar`, which is a dependency of `vsce`.
         pkg-config
         libsecret
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
       ]

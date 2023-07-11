@@ -521,8 +521,9 @@ in
 
     isoImage.squashfsCompression = mkOption {
       default = with pkgs.stdenv.targetPlatform;
-        "xz -Xdict-size 100% " + lib.optionalString isx86 "-Xbcj x86"
-        # Untested but should also reduce size for these platforms
+        "xz -Xdict-size 100% "
+        + lib.optionalString isx86 "-Xbcj x86"
+          # Untested but should also reduce size for these platforms
         + lib.optionalString isAarch "-Xbcj arm"
         + lib.optionalString (isPower && is32bit && isBigEndian) "-Xbcj powerpc"
         + lib.optionalString (isSparc) "-Xbcj sparc";
@@ -757,8 +758,9 @@ in
       [
         grubPkgs.grub2
         grubPkgs.grub2_efi
-      ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
-      pkgs.syslinux
+      ]
+      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
+        pkgs.syslinux
       ;
 
       # In stage 1 of the boot, mount the CD as the root FS by label so
@@ -793,7 +795,7 @@ in
     isoImage.storeContents =
       [ config.system.build.toplevel ]
       ++ optional config.isoImage.includeSystemBuildDependencies
-      config.system.build.toplevel.drvPath
+        config.system.build.toplevel.drvPath
       ;
 
       # Create the squashfs image that contains the Nix store.
@@ -809,14 +811,16 @@ in
       [
         {
           source =
-            config.boot.kernelPackages.kernel + "/"
+            config.boot.kernelPackages.kernel
+            + "/"
             + config.system.boot.loader.kernelFile
             ;
           target = "/boot/" + config.system.boot.loader.kernelFile;
         }
         {
           source =
-            config.system.build.initialRamdisk + "/"
+            config.system.build.initialRamdisk
+            + "/"
             + config.system.boot.loader.initrdFile
             ;
           target = "/boot/" + config.system.boot.loader.initrdFile;
@@ -829,7 +833,8 @@ in
           source = pkgs.writeText "version" config.system.nixos.label;
           target = "/version.txt";
         }
-      ] ++ optionals (config.isoImage.makeBiosBootable && canx86BiosBoot) [
+      ]
+      ++ optionals (config.isoImage.makeBiosBootable && canx86BiosBoot) [
         {
           source = config.isoImage.splashImage;
           target = "/isolinux/background.png";
@@ -846,7 +851,8 @@ in
           source = "${pkgs.syslinux}/share/syslinux";
           target = "/isolinux";
         }
-      ] ++ optionals config.isoImage.makeEfiBootable [
+      ]
+      ++ optionals config.isoImage.makeEfiBootable [
         {
           source = efiImg;
           target = "/boot/efi.img";
@@ -866,14 +872,17 @@ in
           source = config.isoImage.efiSplashImage;
           target = "/EFI/boot/efi-background.png";
         }
-      ] ++ optionals (config.boot.loader.grub.memtest86.enable
-        && config.isoImage.makeBiosBootable && canx86BiosBoot) [ {
+      ]
+      ++ optionals (config.boot.loader.grub.memtest86.enable
+        && config.isoImage.makeBiosBootable
+        && canx86BiosBoot) [ {
           source = "${pkgs.memtest86plus}/memtest.bin";
           target = "/boot/memtest.bin";
-        } ] ++ optionals (config.isoImage.grubTheme != null) [ {
-          source = config.isoImage.grubTheme;
-          target = "/EFI/boot/grub-theme";
         } ]
+      ++ optionals (config.isoImage.grubTheme != null) [ {
+        source = config.isoImage.grubTheme;
+        target = "/EFI/boot/grub-theme";
+      } ]
       ;
 
     boot.loader.timeout = 10;
@@ -891,7 +900,8 @@ in
             null
           ;
       } // optionalAttrs (config.isoImage.makeUsbBootable
-        && config.isoImage.makeBiosBootable && canx86BiosBoot) {
+        && config.isoImage.makeBiosBootable
+        && canx86BiosBoot) {
           usbBootable = true;
           isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
         } // optionalAttrs config.isoImage.makeEfiBootable {

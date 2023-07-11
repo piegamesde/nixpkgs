@@ -31,7 +31,8 @@ buildPythonPackage rec {
       google-cloud-logging
       proto-plus
       protobuf
-    ] ++ google-api-core.optional-dependencies.grpc
+    ]
+    ++ google-api-core.optional-dependencies.grpc
     ;
 
   nativeCheckInputs = [

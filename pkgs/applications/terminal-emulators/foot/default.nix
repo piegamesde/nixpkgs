@@ -85,19 +85,21 @@ let
 
     # ar with lto support
   ar =
-    stdenv.cc.bintools.targetPrefix + {
+    stdenv.cc.bintools.targetPrefix
+    + {
       "clang" = "llvm-ar";
       "gcc" = "gcc-ar";
       "unknown" = "ar";
     }
-    ."${compilerName}"
+      ."${compilerName}"
     ;
 
     # PGO only makes sense if we are not cross compiling and
     # using a compiler which foot's PGO build supports (clang or gcc)
   doPgo =
-    allowPgo && (stdenv.hostPlatform == stdenv.buildPlatform) && compilerName
-    != "unknown"
+    allowPgo
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+    && compilerName != "unknown"
     ;
 
   terminfoDir = "${placeholder "terminfo"}/share/terminfo";
@@ -124,7 +126,8 @@ stdenv.mkDerivation rec {
       ncurses
       scdoc
       pkg-config
-    ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ]
+    ]
+    ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ]
     ;
 
   buildInputs = [
@@ -183,7 +186,8 @@ stdenv.mkDerivation rec {
       # generate pgo data of wayland independent code
       ./pgo ${stimuliFile} ${stimuliFile} ${stimuliFile}
       meson configure -Db_pgo=use
-    '' + lib.optionalString (doPgo && compilerName == "clang") ''
+    ''
+    + lib.optionalString (doPgo && compilerName == "clang") ''
       llvm-profdata merge default_*profraw --output=default.profdata
     ''
     ;

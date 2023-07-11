@@ -46,7 +46,8 @@ rustPlatform.buildRustPackage rec {
     [
       openssl
       fontconfig
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libGL
       libX11
       libXcursor
@@ -56,7 +57,8 @@ rustPlatform.buildRustPackage rec {
 
       libxkbcommon
       wayland
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
     ;
 
   postFixup = lib.optionalString stdenv.isLinux ''

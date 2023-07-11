@@ -20,7 +20,8 @@ python3Packages.buildPythonApplication rec {
     # crun patchelf proot runc fakechroot
     # are download statistically linked during runtime
   buildInputs =
-    [ singularity ] ++ (with python3Packages; [
+    [ singularity ]
+    ++ (with python3Packages; [
       pytest-runner
       pycurl
     ])

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   preConfigure =
     ''
       cd ./INCHI_API/libinchi/gcc
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace makefile \
         --replace ",--version-script=libinchi.map" "" \
         --replace "LINUX_Z_RELRO = ,-z,relro" "" \

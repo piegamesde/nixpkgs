@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     ''
       sed -i CMakeLists.txt \
         -e 's@^project.*@project(Zeal VERSION ${version})@'
-    '' + lib.optionalString (!isQt5) ''
+    ''
+    + lib.optionalString (!isQt5) ''
       substituteInPlace src/app/CMakeLists.txt \
         --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
     ''
@@ -62,7 +63,8 @@ stdenv.mkDerivation rec {
       libXdmcp
       libpthreadstubs
       xcbutilkeysyms
-    ] ++ lib.optionals isQt5 [ qtx11extras ]
+    ]
+    ++ lib.optionals isQt5 [ qtx11extras ]
     ;
 
   meta = with lib; {

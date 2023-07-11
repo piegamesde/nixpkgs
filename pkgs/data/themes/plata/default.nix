@@ -58,10 +58,12 @@ stdenv.mkDerivation rec {
       inkscape
       libxml2
       glib
-    ] ++ lib.optionals mateSupport [
+    ]
+    ++ lib.optionals mateSupport [
       gtk3
       marco
-    ] ++ lib.optional telegramSupport zip
+    ]
+    ++ lib.optional telegramSupport zip
     ;
 
   buildInputs = [ gtk_engines ];
@@ -89,7 +91,8 @@ stdenv.mkDerivation rec {
       (enableFeature steamSupport "airforsteam")
       (enableFeature telegramSupport "telegram")
       (enableFeature tweetdeckSupport "tweetdeck")
-    ] ++ (withOptional selectionColor "selection_color")
+    ]
+    ++ (withOptional selectionColor "selection_color")
     ++ (withOptional accentColor "accent_color")
     ++ (withOptional suggestionColor "suggestion_color")
     ++ (withOptional destructionColor "destruction_color")

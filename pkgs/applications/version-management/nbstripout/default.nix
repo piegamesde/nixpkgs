@@ -31,7 +31,8 @@ python3.pkgs.buildPythonApplication rec {
       coreutils
       git
       mercurial
-    ] ++ (with python3.pkgs; [
+    ]
+    ++ (with python3.pkgs; [
       pytest-cram
       pytestCheckHook
     ])

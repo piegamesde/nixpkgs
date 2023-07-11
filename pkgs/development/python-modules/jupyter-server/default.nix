@@ -89,7 +89,8 @@ buildPythonPackage rec {
   '';
 
   disabledTests =
-    [ "test_cull_idle" ] ++ lib.optionals stdenv.isDarwin [
+    [ "test_cull_idle" ]
+    ++ lib.optionals stdenv.isDarwin [
       # attempts to use trashcan, build env doesn't allow this
       "test_delete"
       # test is presumable broken in sandbox

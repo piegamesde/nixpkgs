@@ -54,17 +54,20 @@ rustPlatform.buildRustPackage rec {
         --bash <($out/bin/rbw gen-completions bash) \
         --fish <($out/bin/rbw gen-completions fish) \
         --zsh <($out/bin/rbw gen-completions zsh)
-    '' + lib.optionalString withFzf ''
+    ''
+    + lib.optionalString withFzf ''
       install -Dm755 -t $out/bin bin/rbw-fzf
       substituteInPlace $out/bin/rbw-fzf \
         --replace fzf ${fzf}/bin/fzf \
         --replace perl ${perl}/bin/perl
-    '' + lib.optionalString withRofi ''
+    ''
+    + lib.optionalString withRofi ''
       install -Dm755 -t $out/bin bin/rbw-rofi
       substituteInPlace $out/bin/rbw-rofi \
         --replace rofi ${rofi}/bin/rofi \
         --replace xclip ${xclip}/bin/xclip
-    '' + lib.optionalString withPass ''
+    ''
+    + lib.optionalString withPass ''
       install -Dm755 -t $out/bin bin/pass-import
       substituteInPlace $out/bin/pass-import \
         --replace pass ${pass}/bin/pass

@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       gtk3
       libsoup
       keybinder3
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-base
       gst-plugins-good

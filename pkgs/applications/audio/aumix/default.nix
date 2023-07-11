@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     [
       gettext
       ncurses
-    ] ++ lib.optionals gtkGUI [ gtk2 ]
+    ]
+    ++ lib.optionals gtkGUI [ gtk2 ]
     ;
 
   configureFlags = lib.optionals (!gtkGUI) [ "--without-gtk" ];

@@ -53,9 +53,10 @@ stdenv.mkDerivation rec {
       "-DCMAKE_BUILD_TYPE=Release"
       "-DBUILD_TESTING=ON"
       "-DUSE_LIBUDEV_OVER_LIBSYSTEMD=ON"
-    ] ++ optional nvidia "-DNVML_INCLUDE_DIRS=${cudatoolkit}/include"
+    ]
+    ++ optional nvidia "-DNVML_INCLUDE_DIRS=${cudatoolkit}/include"
     ++ optional nvidia
-    "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
+      "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
     ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
@@ -63,13 +64,16 @@ stdenv.mkDerivation rec {
     [
       cmake
       gtest
-    ] ++ lib.optional nvidia addOpenGLRunpath
+    ]
+    ++ lib.optional nvidia addOpenGLRunpath
     ;
   buildInputs = with lib;
     [
       ncurses
       udev
-    ] ++ optional nvidia cudatoolkit ++ optional amd libdrm;
+    ]
+    ++ optional nvidia cudatoolkit
+    ++ optional amd libdrm;
 
     # ordering of fixups is important
   postFixup =

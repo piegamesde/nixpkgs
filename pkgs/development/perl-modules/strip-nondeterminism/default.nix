@@ -50,7 +50,8 @@ buildPerlPackage rec {
       # we don’t need the debhelper script
       rm $out/bin/dh_strip_nondeterminism
       rm $out/share/man/man1/dh_strip_nondeterminism.1
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/strip-nondeterminism
     ''
     ;

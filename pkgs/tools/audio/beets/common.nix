@@ -88,7 +88,8 @@ python3Packages.buildPythonApplication rec {
       pyyaml
       reflink
       unidecode
-    ] ++ (concatMap (p: p.propagatedBuildInputs) (attrValues enabledPlugins));
+    ]
+    ++ (concatMap (p: p.propagatedBuildInputs) (attrValues enabledPlugins));
 
   nativeBuildInputs = [
     gobject-introspection
@@ -96,7 +97,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   buildInputs =
-    [ ] ++ (with gst_all_1; [
+    [ ]
+    ++ (with gst_all_1; [
       gst-plugins-base
       gst-plugins-good
       gst-plugins-ugly
@@ -150,7 +152,8 @@ python3Packages.buildPythonApplication rec {
       mock
       rarfile
       responses
-    ] ++ pluginWrapperBins;
+    ]
+    ++ pluginWrapperBins;
 
   disabledTestPaths = lib.flatten (attrValues
     (lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ])

@@ -31,7 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       cmake
       llvm.dev
-    ] ++ lib.optionals (withManual || withHTML) [ sphinx ]
+    ]
+    ++ lib.optionals (withManual || withHTML) [ sphinx ]
     ;
 
   buildInputs = [

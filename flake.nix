@@ -23,7 +23,8 @@
           args:
           import ./nixos/lib/eval-config.nix (args // {
             modules =
-              args.modules ++ [ {
+              args.modules
+              ++ [ {
                 system.nixos.versionSuffix =
                   ".${
                     final.substring 0 8

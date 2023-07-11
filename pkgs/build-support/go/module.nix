@@ -116,7 +116,8 @@ let
           name = "${name}-go-modules";
 
           nativeBuildInputs =
-            (args.nativeBuildInputs or [ ]) ++ [
+            (args.nativeBuildInputs or [ ])
+            ++ [
               go
               git
               cacert
@@ -144,7 +145,8 @@ let
           GO111MODULE = "on";
 
           impureEnvVars =
-            lib.fetchers.proxyImpureEnvVars ++ [
+            lib.fetchers.proxyImpureEnvVars
+            ++ [
               "GIT_PROXY_COMMAND"
               "SOCKS_SERVER"
               "GOPROXY"
@@ -163,36 +165,38 @@ let
           buildPhase =
             args.modBuildPhase or (''
               runHook preBuild
-            '' + lib.optionalString deleteVendor ''
-              if [ ! -d vendor ]; then
-                echo "vendor folder does not exist, 'deleteVendor' is not needed"
-                exit 10
-              else
-                rm -rf vendor
-              fi
-            '' + ''
-                if [ -d vendor ]; then
-                  echo "vendor folder exists, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
+            ''
+              + lib.optionalString deleteVendor ''
+                if [ ! -d vendor ]; then
+                  echo "vendor folder does not exist, 'deleteVendor' is not needed"
                   exit 10
+                else
+                  rm -rf vendor
                 fi
-
-              ${if proxyVendor then
-                ''
-                  mkdir -p "''${GOPATH}/pkg/mod/cache/download"
-                  go mod download
-                ''
-              else
-                ''
-                  if (( "''${NIX_DEBUG:-0}" >= 1 )); then
-                    goModVendorFlags+=(-v)
+              ''
+              + ''
+                  if [ -d vendor ]; then
+                    echo "vendor folder exists, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
+                    exit 10
                   fi
-                  go mod vendor "''${goModVendorFlags[@]}"
-                ''}
 
-                mkdir -p vendor
+                ${if proxyVendor then
+                  ''
+                    mkdir -p "''${GOPATH}/pkg/mod/cache/download"
+                    go mod download
+                  ''
+                else
+                  ''
+                    if (( "''${NIX_DEBUG:-0}" >= 1 )); then
+                      goModVendorFlags+=(-v)
+                    fi
+                    go mod vendor "''${goModVendorFlags[@]}"
+                  ''}
 
-                runHook postBuild
-            '');
+                  mkdir -p vendor
+
+                  runHook postBuild
+              '');
 
           installPhase =
             args.modInstallPhase or ''
@@ -257,26 +261,28 @@ let
         export GOPROXY=off
         export GOSUMDB=off
         cd "$modRoot"
-      '' + lib.optionalString hasAnyVendorHash ''
-        ${if proxyVendor then
-          ''
-            export GOPROXY=file://${go-modules}
-          ''
-        else
-          ''
-            rm -rf vendor
-            cp -r --reflink=auto ${go-modules} vendor
-          ''}
-      '' + ''
+      ''
+        + lib.optionalString hasAnyVendorHash ''
+          ${if proxyVendor then
+            ''
+              export GOPROXY=file://${go-modules}
+            ''
+          else
+            ''
+              rm -rf vendor
+              cp -r --reflink=auto ${go-modules} vendor
+            ''}
+        ''
+        + ''
 
-        # currently pie is only enabled by default in pkgsMusl
-        # this will respect the `hardening{Disable,Enable}` flags if set
-        if [[ $NIX_HARDENING_ENABLE =~ "pie" ]]; then
-          export GOFLAGS="-buildmode=pie $GOFLAGS"
-        fi
+          # currently pie is only enabled by default in pkgsMusl
+          # this will respect the `hardening{Disable,Enable}` flags if set
+          if [[ $NIX_HARDENING_ENABLE =~ "pie" ]]; then
+            export GOFLAGS="-buildmode=pie $GOFLAGS"
+          fi
 
-        runHook postConfigure
-      '');
+          runHook postConfigure
+        '');
 
     buildPhase =
       args.buildPhase or (''
@@ -346,20 +352,22 @@ let
           echo "Building subPackage $pkg"
           buildGoDir install "$pkg"
         done
-      '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        # normalize cross-compiled builds w.r.t. native builds
-        (
-          dir=$GOPATH/bin/${go.GOOS}_${go.GOARCH}
-          if [[ -n "$(shopt -s nullglob; echo $dir/*)" ]]; then
-            mv $dir/* $dir/..
-          fi
-          if [[ -d $dir ]]; then
-            rmdir $dir
-          fi
-        )
-      '' + ''
-        runHook postBuild
-      '');
+      ''
+        + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+          # normalize cross-compiled builds w.r.t. native builds
+          (
+            dir=$GOPATH/bin/${go.GOOS}_${go.GOARCH}
+            if [[ -n "$(shopt -s nullglob; echo $dir/*)" ]]; then
+              mv $dir/* $dir/..
+            fi
+            if [[ -d $dir ]]; then
+              rmdir $dir
+            fi
+          )
+        ''
+        + ''
+          runHook postBuild
+        '');
 
     doCheck = args.doCheck or true;
     checkPhase =

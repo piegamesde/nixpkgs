@@ -101,9 +101,9 @@ in
         ]
         ++ optional pkgs.stdenv.hostPlatform.isAarch raspberrypiWirelessFirmware
         ++ optionals
-        (versionOlder config.boot.kernelPackages.kernel.version "4.13") [
-          rtl8723bs-firmware
-        ];
+          (versionOlder config.boot.kernelPackages.kernel.version "4.13") [
+            rtl8723bs-firmware
+          ];
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {
@@ -121,7 +121,8 @@ in
           b43Firmware_5_1_138
           b43Firmware_6_30_163_46
           xow_dongle-firmware
-        ] ++ optionals pkgs.stdenv.hostPlatform.isx86 [
+        ]
+        ++ optionals pkgs.stdenv.hostPlatform.isx86 [
           facetimehd-calibration
           facetimehd-firmware
         ];

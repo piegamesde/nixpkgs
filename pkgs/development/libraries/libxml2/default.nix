@@ -15,13 +15,15 @@
   # Python limits cross-compilation to an allowlist of host OSes.
   # https://github.com/python/cpython/blob/dfad678d7024ab86d265d84ed45999e031a03691/configure.ac#L534-L562
   ,
-  pythonSupport ? enableShared && (stdenv.hostPlatform == stdenv.buildPlatform
-    || stdenv.hostPlatform.isCygwin || stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isWasi),
+  pythonSupport ? enableShared
+    && (stdenv.hostPlatform == stdenv.buildPlatform
+      || stdenv.hostPlatform.isCygwin
+      || stdenv.hostPlatform.isLinux
+      || stdenv.hostPlatform.isWasi),
   icuSupport ? false,
   icu,
-  enableShared ? stdenv.hostPlatform.libc != "msvcrt"
-    && !stdenv.hostPlatform.isStatic,
+  enableShared ?
+    stdenv.hostPlatform.libc != "msvcrt" && !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
   gnome,
 }:
@@ -47,7 +49,8 @@ let
         "dev"
         "out"
         "doc"
-      ] ++ lib.optional pythonSupport "py"
+      ]
+      ++ lib.optional pythonSupport "py"
       ++ lib.optional (enableStatic && enableShared) "static"
       ;
     outputMan = "bin";
@@ -86,13 +89,16 @@ let
     buildInputs =
       lib.optionals pythonSupport [ python ]
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [
-        gettext
-      ] ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
-        ncurses
-      ] ++ lib.optionals
-      (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [
-        libintl
-      ] ++ lib.optionals stdenv.isFreeBSD [
+          gettext
+        ]
+      ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
+          ncurses
+        ]
+      ++ lib.optionals
+        (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [
+          libintl
+        ]
+      ++ lib.optionals stdenv.isFreeBSD [
         # Libxml2 has an optional dependency on liblzma.  However, on impure
         # platforms, it may end up using that from /usr/lib, and thus lack a
         # RUNPATH for that, leading to undefined references for its users.
@@ -104,7 +110,8 @@ let
       [
         zlib
         findXMLCatalogs
-      ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ libiconv ]
       ++ lib.optionals icuSupport [ icu ]
       ;
 
@@ -126,8 +133,8 @@ let
     enableParallelBuilding = true;
 
     doCheck =
-      (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc
-      != "musl"
+      (stdenv.hostPlatform == stdenv.buildPlatform)
+      && stdenv.hostPlatform.libc != "musl"
       ;
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
@@ -146,7 +153,8 @@ let
       ''
         moveToOutput bin/xml2-config "$dev"
         moveToOutput lib/xml2Conf.sh "$dev"
-      '' + lib.optionalString (enableStatic && enableShared) ''
+      ''
+      + lib.optionalString (enableStatic && enableShared) ''
         moveToOutput lib/libxml2.a "$static"
       ''
       ;

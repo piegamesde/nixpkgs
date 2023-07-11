@@ -76,15 +76,16 @@ stdenv.mkDerivation rec {
   EXECUTABLES_PATHS = lib.makeBinPath ([
     xfsprogs
     thin-provisioning-tools
-  ] ++ lib.optionals clevisSupport [
-    clevis
-    jose
-    jq
-    cryptsetup
-    curl
-    tpm2-tools
-    coreutils
-  ]);
+  ]
+    ++ lib.optionals clevisSupport [
+      clevis
+      jose
+      jq
+      cryptsetup
+      curl
+      tpm2-tools
+      coreutils
+    ]);
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

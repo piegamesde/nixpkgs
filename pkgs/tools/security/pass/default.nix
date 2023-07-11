@@ -42,8 +42,8 @@ assert waylandSupport -> wl-clipboard != null;
 
 assert dmenuSupport -> x11Support || waylandSupport;
 assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
-assert dmenuSupport && waylandSupport -> dmenu-wayland != null && ydotool
-  != null;
+assert dmenuSupport && waylandSupport
+  -> dmenu-wayland != null && ydotool != null;
 
 let
   passExtensions = import ./extensions { inherit pkgs; };
@@ -52,7 +52,8 @@ let
     extensions:
     let
       selected =
-        [ pass ] ++ extensions passExtensions
+        [ pass ]
+        ++ extensions passExtensions
         ++ lib.optional tombPluginSupport passExtensions.tomb
         ;
     in
@@ -97,7 +98,8 @@ stdenv.mkDerivation rec {
     [
       ./set-correct-program-name-for-sleep.patch
       ./extension-dir.patch
-    ] ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch
+    ]
+    ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch
     ;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -113,7 +115,8 @@ stdenv.mkDerivation rec {
       # dependencies (s.el) here. The user has to do this themselves.
       mkdir -p "$out/share/emacs/site-lisp"
       cp "contrib/emacs/password-store.el" "$out/share/emacs/site-lisp/"
-    '' + lib.optionalString dmenuSupport ''
+    ''
+    + lib.optionalString dmenuSupport ''
       cp "contrib/dmenu/passmenu" "$out/bin/"
     ''
     ;
@@ -132,12 +135,15 @@ stdenv.mkDerivation rec {
       openssh
       procps
       qrencode
-    ] ++ optional stdenv.isDarwin openssl ++ optional x11Support xclip
+    ]
+      ++ optional stdenv.isDarwin openssl
+      ++ optional x11Support xclip
       ++ optional waylandSupport wl-clipboard
       ++ optionals (waylandSupport && dmenuSupport) [
         ydotool
         dmenu-wayland
-      ] ++ optionals (x11Support && dmenuSupport) [
+      ]
+      ++ optionals (x11Support && dmenuSupport) [
         xdotool
         dmenu
       ]);
@@ -151,7 +157,8 @@ stdenv.mkDerivation rec {
       # Ensure all dependencies are in PATH
       wrapProgram $out/bin/pass \
         --prefix PATH : "${wrapperPath}"
-    '' + lib.optionalString dmenuSupport ''
+    ''
+    + lib.optionalString dmenuSupport ''
       # We just wrap passmenu with the same PATH as pass. It doesn't
       # need all the tools in there but it doesn't hurt either.
       wrapProgram $out/bin/passmenu \
@@ -173,7 +180,8 @@ stdenv.mkDerivation rec {
              -e 's@^GPGS=.*$@GPG=${gnupg}/bin/gpg2@' \
              -e '/which gpg/ d' \
         tests/setup.sh
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       # 'pass edit' uses hdid, which is not available from the sandbox.
       rm -f tests/t0200-edit-tests.sh
       rm -f tests/t0010-generate-tests.sh

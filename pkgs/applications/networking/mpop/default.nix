@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
       gnutls
       gsasl
       libidn
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   configureFlags = lib.optionals stdenv.isDarwin [ "--with-macosx-keyring" ];

@@ -24,7 +24,8 @@ let
     [
       "${cfg.package}/libexec/netdata/plugins.d"
       "${wrappedPlugins}/libexec/netdata/plugins.d"
-    ] ++ cfg.extraPluginPaths
+    ]
+    ++ cfg.extraPluginPaths
     ;
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
@@ -209,10 +210,11 @@ in
           which
           procps
           bash
-        ]) ++ lib.optional cfg.python.enable
-        (pkgs.python3.withPackages cfg.python.extraPackages)
+        ])
+        ++ lib.optional cfg.python.enable
+          (pkgs.python3.withPackages cfg.python.extraPackages)
         ++ lib.optional config.virtualisation.libvirtd.enable
-        (config.virtualisation.libvirtd.package)
+          (config.virtualisation.libvirtd.package)
         ;
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";

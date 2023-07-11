@@ -121,7 +121,8 @@ in
     systemd.services.vikunja-api = {
       description = "vikunja-api";
       after =
-        [ "network.target" ] ++ lib.optional usePostgresql "postgresql.service"
+        [ "network.target" ]
+        ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service"
         ;
       wantedBy = [ "multi-user.target" ];

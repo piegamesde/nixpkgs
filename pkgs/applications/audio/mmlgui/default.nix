@@ -42,11 +42,13 @@ stdenv.mkDerivation rec {
     [
       glfw
       libvgm
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libX11
       libXau
       libXdmcp
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       Cocoa
     ]

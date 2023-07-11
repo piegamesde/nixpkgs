@@ -45,11 +45,13 @@ stdenv.mkDerivation rec {
     [
       libusb1
       gcc.cc.lib
-    ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
+    ]
+    ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optionals enablePython (with pythonPackages; [
       python
       pybind11
-    ]) ++ lib.optionals enableGUI [
+    ])
+    ++ lib.optionals enableGUI [
       mesa
       gtk3
       glfw
@@ -88,12 +90,14 @@ stdenv.mkDerivation rec {
       "-DBUILD_GRAPHICAL_EXAMPLES=${lib.boolToString enableGUI}"
       "-DBUILD_GLSL_EXTENSIONS=${lib.boolToString enableGUI}"
       "-DCHECK_FOR_UPDATES=OFF" # activated by BUILD_GRAPHICAL_EXAMPLES, will make it download and compile libcurl
-    ] ++ lib.optionals enablePython [
+    ]
+    ++ lib.optionals enablePython [
       "-DBUILD_PYTHON_BINDINGS:bool=true"
       "-DXXNIX_PYTHON_SITEPACKAGES=${
         placeholder "out"
       }/${pythonPackages.python.sitePackages}"
-    ] ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true"
+    ]
+    ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true"
     ;
 
     # ensure python package contains its __init__.py. for some reason the install

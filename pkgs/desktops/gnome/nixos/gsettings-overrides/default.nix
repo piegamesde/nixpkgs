@@ -22,7 +22,8 @@ let
     [
       gsettings-desktop-schemas
       gnome-shell
-    ] ++ lib.optionals flashbackEnabled [ gnome-flashback ]
+    ]
+    ++ lib.optionals flashbackEnabled [ gnome-flashback ]
     ++ extraGSettingsOverridePackages
     ;
 

@@ -32,7 +32,8 @@ mkDerivation rec {
       qtbase
       xorg.libXt
       libtiff
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL
     ;
 
   configureFlags =
@@ -42,7 +43,8 @@ mkDerivation rec {
       "--with-x"
       "--with-tiff"
       # NOTE: 2019-09-19: experimental "--enable-npdjvu" fails
-    ] ++ lib.optional stdenv.isDarwin "--enable-mac"
+    ]
+    ++ lib.optional stdenv.isDarwin "--enable-mac"
     ;
 
   passthru = { mozillaPlugin = "/lib/mozilla/plugins"; };

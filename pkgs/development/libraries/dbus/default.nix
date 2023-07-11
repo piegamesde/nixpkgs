@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       substituteInPlace tools/Makefile.am \
         --replace 'install-data-local:' 'disabled:' \
         --replace 'installcheck-local:' 'disabled:'
-    '' + # cleanup of runtime references
+    ''
+    + # cleanup of runtime references
     ''
       substituteInPlace ./dbus/dbus-sysdeps-unix.c \
         --replace 'DBUS_BINDIR "/dbus-launch"' "\"$lib/bin/dbus-launch\""
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
       libX11
       libICE
       libSM
-    ]) ++ lib.optional enableSystemd systemdMinimal
+    ])
+    ++ lib.optional enableSystemd systemdMinimal
     ++ lib.optionals stdenv.isLinux [
       audit
       libapparmor
@@ -93,13 +95,15 @@ stdenv.mkDerivation rec {
       "--with-system-socket=/run/dbus/system_bus_socket"
       "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
-    ] ++ lib.optional (!x11Support) "--without-x"
+    ]
+    ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optionals stdenv.isLinux [
       "--enable-apparmor"
       "--enable-libaudit"
-    ] ++ lib.optionals enableSystemd [
-      "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
     ]
+    ++ lib.optionals enableSystemd [
+        "SYSTEMCTL=${systemdMinimal}/bin/systemctl"
+      ]
     ;
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";

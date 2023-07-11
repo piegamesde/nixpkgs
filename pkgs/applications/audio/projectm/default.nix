@@ -48,7 +48,8 @@ mkDerivation rec {
       for entry in $out/bin/* ; do
         patchelf --set-rpath "$(patchelf --print-rpath $entry | tr ':' '\n' | grep -v 'src/libprojectM' | tr '\n' ':')" "$entry"
       done
-    '' + ''
+    ''
+    + ''
       wrapQtApp $out/bin/projectM-pulseaudio
       rm $out/bin/projectM-unittest
     ''

@@ -59,7 +59,8 @@ self: super:
     preCheck =
       ''
         export TRAVIS=true
-      '' + (drv.preCheck or "")
+      ''
+      + (drv.preCheck or "")
       ;
   }) super.mockery;
 
@@ -104,7 +105,8 @@ self: super:
       postPatch =
         ''
           substituteInPlace System/X509/MacOS.hs --replace security /usr/bin/security
-        '' + (drv.postPatch or "")
+        ''
+        + (drv.postPatch or "")
         ;
     }) super.x509-system;
 
@@ -121,7 +123,8 @@ self: super:
     preCompileBuildDriver =
       ''
         substituteInPlace Setup.hs --replace "addToLdLibraryPath libDir" "pure ()"
-      '' + (oldAttrs.preCompileBuildDriver or "")
+      ''
+      + (oldAttrs.preCompileBuildDriver or "")
       ;
   }) super.llvm-hs;
 
@@ -146,7 +149,8 @@ self: super:
         frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
         frameworkPaths=$(IFS=, ; echo "''${frameworkPaths[@]}")
         configureFlags+=$(if [ -n "$frameworkPaths" ]; then echo -n "--ghc-options=-optl=$frameworkPaths"; fi)
-      '' + (drv.preConfigure or "")
+      ''
+      + (drv.preConfigure or "")
       ;
   }) super.OpenGLRaw;
   GLURaw = overrideCabal (drv: {
@@ -157,7 +161,8 @@ self: super:
   bindings-GLFW = overrideCabal (drv: {
     librarySystemDepends = [ ];
     libraryHaskellDepends =
-      drv.libraryHaskellDepends ++ [
+      drv.libraryHaskellDepends
+      ++ [
         darwin.apple_sdk.frameworks.AGL
         darwin.apple_sdk.frameworks.Cocoa
         darwin.apple_sdk.frameworks.OpenGL
@@ -188,7 +193,8 @@ self: super:
       [
         darwin.libobjc
         darwin.apple_sdk.frameworks.AppKit
-      ] ++ (drv.librarySystemDepends or [ ])
+      ]
+      ++ (drv.librarySystemDepends or [ ])
       ;
   }) super.FractalArt;
 
@@ -198,7 +204,8 @@ self: super:
         darwin.apple_sdk.frameworks.Foundation
         darwin.apple_sdk.frameworks.Carbon
         darwin.apple_sdk.frameworks.IOKit
-      ] ++ (drv.librarySystemDepends or [ ])
+      ]
+      ++ (drv.librarySystemDepends or [ ])
       ;
   }) super.arbtt;
 
@@ -207,7 +214,8 @@ self: super:
     postPatch =
       ''
         substituteInPlace scripts/local-htfpp --replace "find=gfind" "find=find"
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
   }) super.HTF;
 
@@ -240,7 +248,8 @@ self: super:
     postPatch =
       ''
         substituteInPlace GLHUI.cabal --replace " rt" ""
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
   }) super.GLHUI;
 
@@ -250,7 +259,8 @@ self: super:
     postPatch =
       ''
         substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
     patches =
       [
@@ -265,7 +275,8 @@ self: super:
     postPatch =
       ''
         substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
-      '' + (drv.postPatch or "")
+      ''
+      + (drv.postPatch or "")
       ;
   }) super.SDL-mixer;
 
@@ -298,7 +309,8 @@ self: super:
         # This workaround can be removed upon the next darwin stdenv rebuild,
         # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
         # full haskellPackages rebuild.
-      '' + drv.postPatch or ""
+      ''
+      + drv.postPatch or ""
       ;
   }) super.http-client-tls;
 
@@ -312,7 +324,8 @@ self: super:
         # This workaround can be removed upon the next darwin stdenv rebuild,
         # presumably https://github.com/NixOS/nixpkgs/pull/152850 or the next
         # full haskellPackages rebuild.
-      '' + drv.postPatch or ""
+      ''
+      + drv.postPatch or ""
       ;
   }) super.foldl;
 

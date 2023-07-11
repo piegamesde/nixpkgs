@@ -110,7 +110,8 @@ rec {
     inherit passthruFun;
 
     patches =
-      lib.optional stdenv.isDarwin ./5.4.darwin.patch ++ [
+      lib.optional stdenv.isDarwin ./5.4.darwin.patch
+      ++ [
         (fetchpatch {
           name = "CVE-2022-28805.patch";
           url =

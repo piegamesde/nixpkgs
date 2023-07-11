@@ -53,10 +53,12 @@ stdenv.mkDerivation rec {
       mesa
       proj
       wxGTK32
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       Cocoa
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       libICE
       libX11
     ]

@@ -114,9 +114,10 @@ stdenv.mkDerivation {
     ##
     + optionalString propagateDoc (''
       ln -s ${pkg-config.man} $man
-    '' + optionalString (pkg-config ? doc) ''
-      ln -s ${pkg-config.doc} $doc
-    '')
+    ''
+      + optionalString (pkg-config ? doc) ''
+        ln -s ${pkg-config.doc} $doc
+      '')
 
     + ''
       substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
@@ -152,7 +153,8 @@ stdenv.mkDerivation {
           lib.attrByPath [
             "meta"
             "description"
-          ] "pkg-config" pkg-config_ + " (wrapper script)"
+          ] "pkg-config" pkg-config_
+          + " (wrapper script)"
           ;
         priority = 10;
       }

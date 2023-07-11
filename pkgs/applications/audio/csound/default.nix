@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
     ++ lib.optional stdenv.isDarwin
-    "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
+      "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
     ++ lib.optional (libjack2 != null)
-    "-DJACK_HEADER=${libjack2}/include/jack/jack.h"
+      "-DJACK_HEADER=${libjack2}/include/jack/jack.h"
     ;
 
   nativeBuildInputs = [
@@ -60,25 +60,27 @@ stdenv.mkDerivation rec {
       libsndfile
       libsamplerate
       boost
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Accelerate
       AudioUnit
       CoreAudio
       CoreMIDI
       portaudio
-    ] ++ lib.optionals stdenv.isLinux
-    (builtins.filter (optional: optional != null) [
-      alsa-lib
-      libpulseaudio
-      libjack2
-      liblo
-      ladspa-sdk
-      fluidsynth
-      eigen
-      curl
-      tcltk
-      fltk
-    ])
+    ]
+    ++ lib.optionals stdenv.isLinux
+      (builtins.filter (optional: optional != null) [
+        alsa-lib
+        libpulseaudio
+        libjack2
+        liblo
+        ladspa-sdk
+        fluidsynth
+        eigen
+        curl
+        tcltk
+        fltk
+      ])
     ;
 
   postInstall = lib.optional stdenv.isDarwin ''

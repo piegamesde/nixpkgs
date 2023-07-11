@@ -34,16 +34,19 @@ stdenv.mkDerivation rec {
       makeWrapper
       perlPackages.perl
       pkg-config
-    ] ++ (with ocamlPackages; [
+    ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
     ])
     ;
   buildInputs =
-    [ libxml2 ] ++ (with perlPackages; [
+    [ libxml2 ]
+    ++ (with perlPackages; [
       perl
       IOStringy
-    ]) ++ lib.optionals stdenv.isDarwin [ libintl ]
+    ])
+    ++ lib.optionals stdenv.isDarwin [ libintl ]
     ;
 
   enableParallelBuilding = true;

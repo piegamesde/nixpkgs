@@ -65,7 +65,8 @@ stdenv.mkDerivation rec {
       libpciaccess
       intel-gmmlib
       libdrm
-    ] ++ lib.optional enableX11 libX11
+    ]
+    ++ lib.optional enableX11 libX11
     ;
 
   postFixup = lib.optionalString enableX11 ''

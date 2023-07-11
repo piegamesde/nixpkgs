@@ -31,7 +31,8 @@ rustPackages.rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ openssl ] ++ lib.optional withALSA alsa-lib
+    [ openssl ]
+    ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPulseAudio libpulseaudio
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional (withMpris || withKeyring) dbus

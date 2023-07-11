@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
       libXcursor
       freetype
       alsa-lib
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Cocoa
       WebKit
       CoreServices
@@ -103,10 +104,12 @@ stdenv.mkDerivation rec {
       mkdir -p ${vst3Dir}
       # Exact path of the build artefact depends on used CMAKE_BUILD_TYPE
       cp -R Fire_artefacts/*/VST3/* ${vst3Dir}/
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p ${auDir}
       cp -R Fire_artefacts/*/AU/* ${auDir}/
-    '' + ''
+    ''
+    + ''
 
       runHook postInstall
     ''

@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
       perl
       ninja
       (buildPackages.python3.withPackages (ps: with ps; [ gyp ]))
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.cctools
       fixDarwinDylibNames
     ]
@@ -74,7 +75,8 @@ stdenv.mkDerivation rec {
       done
 
       substituteInPlace nss/coreconf/config.gypi --replace "/usr/bin/grep" "${buildPackages.coreutils}/bin/env grep"
-    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace nss/coreconf/Darwin.mk --replace '@executable_path/$(notdir $@)' "$out/lib/\$(notdir \$@)"
       substituteInPlace nss/coreconf/config.gypi --replace "'DYLIB_INSTALL_NAME_BASE': '@executable_path'" "'DYLIB_INSTALL_NAME_BASE': '$out/lib'"
     ''
@@ -139,10 +141,11 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString ([
     "-Wno-error"
     ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
-  ] ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
+  ]
+    ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
     ++ lib.optionals stdenv.hostPlatform.isILP32 [
-      "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
-    ]);
+        "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
+      ]);
 
   installPhase = ''
     runHook preInstall
@@ -203,17 +206,19 @@ stdenv.mkDerivation rec {
       else
         ''
           LD_LIBRARY_PATH=$out/lib:${nspr.out}/lib \
-        '') + ''
-              ${nss}/bin/shlibsign -v -i "$libfile"
-          done
-        '')) + ''
-          moveToOutput bin "$tools"
-          moveToOutput bin/nss-config "$dev"
-          moveToOutput lib/libcrmf.a "$dev" # needed by firefox, for example
-          rm -f "$out"/lib/*.a
+        '')
+      + ''
+            ${nss}/bin/shlibsign -v -i "$libfile"
+        done
+      ''))
+    + ''
+      moveToOutput bin "$tools"
+      moveToOutput bin/nss-config "$dev"
+      moveToOutput lib/libcrmf.a "$dev" # needed by firefox, for example
+      rm -f "$out"/lib/*.a
 
-          runHook postInstall
-        ''
+      runHook postInstall
+    ''
     ;
 
   passthru.updateScript = ./update.sh;

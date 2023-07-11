@@ -56,13 +56,14 @@ let
         for f in $out/bin/Pianoteq*; do
           if [ -x "$f" ] && [ -f "$f" ]; then
             wrapProgram "$f" --prefix LD_LIBRARY_PATH : ${
-              lib.makeLibraryPath (buildInputs ++ [
-                xorg.libXcursor
-                xorg.libXinerama
-                xorg.libXrandr
-                libjack2
-                zlib
-              ])
+              lib.makeLibraryPath (buildInputs
+                ++ [
+                  xorg.libXcursor
+                  xorg.libXinerama
+                  xorg.libXrandr
+                  libjack2
+                  zlib
+                ])
             }
           fi
         done
@@ -120,7 +121,9 @@ let
       outputHash = sha256;
 
       impureEnvVars =
-        lib.fetchers.proxyImpureEnvVars ++ impureEnvVars ++ [
+        lib.fetchers.proxyImpureEnvVars
+        ++ impureEnvVars
+        ++ [
           # This variable allows the user to pass additional options to curl
           "NIX_CURL_FLAGS"
         ]

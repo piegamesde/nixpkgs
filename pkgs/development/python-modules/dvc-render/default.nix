@@ -45,7 +45,8 @@ buildPythonPackage rec {
       pytestCheckHook
       pytest-mock
       pytest-test-utils
-    ] ++ passthru.optional-dependencies.table
+    ]
+    ++ passthru.optional-dependencies.table
     ++ passthru.optional-dependencies.markdown
     ;
 

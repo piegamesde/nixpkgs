@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
       networkmanager
       ppp
       glib
-    ] ++ lib.optionals withGnome [
+    ]
+    ++ lib.optionals withGnome [
       gtk3
       gtk4
       libsecret

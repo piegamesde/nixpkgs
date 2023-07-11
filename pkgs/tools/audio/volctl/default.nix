@@ -41,7 +41,8 @@ python3Packages.buildPythonApplication rec {
     [
       pango
       gtk3
-    ] ++ (with python3Packages; [
+    ]
+    ++ (with python3Packages; [
       pulsectl
       click
       pycairo

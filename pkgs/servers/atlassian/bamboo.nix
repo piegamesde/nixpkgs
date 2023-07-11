@@ -24,7 +24,8 @@ stdenvNoCC.mkDerivation rec {
       rm -r logs; ln -sf /run/atlassian-bamboo/logs/ .
       rm -r temp; ln -sf /run/atlassian-bamboo/temp/ .
       rm -r work; ln -sf /run/atlassian-bamboo/work/ .
-    '' + lib.optionalString withMysql ''
+    ''
+    + lib.optionalString withMysql ''
       cp -v ${mysql_jdbc}/share/java/*jar atlassian-bamboo/lib/
     ''
     ;

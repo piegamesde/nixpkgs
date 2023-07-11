@@ -33,7 +33,8 @@ buildPythonPackage rec {
     [
       mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.pil
+    ]
+    ++ passthru.optional-dependencies.pil
     ;
 
   meta = with lib; {

@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
       xz
       zstd
       scrypt
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libseccomp
       systemd
       libcap
@@ -84,8 +85,9 @@ stdenv.mkDerivation rec {
   configureFlags =
     # cross compiles correctly but needs the following
     lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "--disable-tool-name-check"
-    ] ++
+        "--disable-tool-name-check"
+      ]
+    ++
     # sandbox is broken on aarch64-linux https://gitlab.torproject.org/tpo/core/tor/-/issues/40599
     lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "--disable-seccomp" ]
     ;

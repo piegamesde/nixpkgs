@@ -68,9 +68,11 @@ let
       testScript =
         optionalString withX11 ''
           machine.wait_for_x()
-        '' + optionalString (preTestScript != "") ''
+        ''
+        + optionalString (preTestScript != "") ''
           ${preTestScript}
-        '' + ''
+        ''
+        + ''
           machine.succeed(
               "gnome-desktop-testing-runner ${
                 escapeShellArgs testRunnerFlags

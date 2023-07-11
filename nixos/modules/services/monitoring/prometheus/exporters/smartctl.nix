@@ -13,7 +13,8 @@ let
     "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
     "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
     "--smartctl.interval=${cfg.maxInterval}"
-  ] ++ map (device: "--smartctl.device=${device}") cfg.devices
+  ]
+    ++ map (device: "--smartctl.device=${device}") cfg.devices
     ++ cfg.extraFlags);
 in
 {

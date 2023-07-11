@@ -7,9 +7,10 @@
   file,
   docbook_xsl,
   gtk-doc ? null,
-  buildDevDoc ? gtk-doc != null
+  buildDevDoc ? gtk-doc
+    != null
 
-    # for passthru.tests
+      # for passthru.tests
   ,
   gnuradio,
   gst_all_1,
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
     lib.optionalString stdenv.isAarch32 ''
       # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/20
       sed -i '/exec_opcodes_sys/d' testsuite/meson.build
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+    ''
+    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       # This benchmark times out on Hydra.nixos.org
       sed -i '/memcpy_speed/d' testsuite/meson.build
     ''
@@ -45,7 +47,8 @@ stdenv.mkDerivation rec {
     [
       "out"
       "dev"
-    ] ++ optional buildDevDoc "devdoc"
+    ]
+    ++ optional buildDevDoc "devdoc"
     ;
   outputBin = "dev"; # compilation tools
 
@@ -55,7 +58,8 @@ stdenv.mkDerivation rec {
     [
       meson
       ninja
-    ] ++ optionals buildDevDoc [
+    ]
+    ++ optionals buildDevDoc [
       gtk-doc
       file
       docbook_xsl
@@ -64,7 +68,9 @@ stdenv.mkDerivation rec {
 
     # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/41
   doCheck =
-    !(stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU
+    !(stdenv.isLinux
+      && stdenv.isAarch64
+      && stdenv.cc.isGNU
       && lib.versionAtLeast stdenv.cc.version "12")
     ;
 

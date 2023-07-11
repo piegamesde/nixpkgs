@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
       boost
       openssl
       systemd
-    ] ++ lib.optional withPostgresql postgresql
+    ]
+    ++ lib.optional withPostgresql postgresql
     ;
 
   nativeBuildInputs = [

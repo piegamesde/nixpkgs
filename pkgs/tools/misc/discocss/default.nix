@@ -25,7 +25,8 @@ stdenvNoCC.mkDerivation rec {
   installPhase =
     ''
       install -Dm755 discocss $out/bin/discocss
-    '' + lib.optionalString discordAlias ''
+    ''
+    + lib.optionalString discordAlias ''
       wrapProgram $out/bin/discocss --set DISCOCSS_DISCORD_BIN ${discord}/bin/Discord
       ln -s $out/bin/discocss $out/bin/Discord
       ln -s $out/bin/discocss $out/bin/discord

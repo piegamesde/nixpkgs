@@ -69,7 +69,8 @@ buildPythonPackage rec {
       pyjwt
       pytz
       typer
-    ] ++ typer.optional-dependencies.all
+    ]
+    ++ typer.optional-dependencies.all
     ;
 
   passthru.optional-dependencies = {

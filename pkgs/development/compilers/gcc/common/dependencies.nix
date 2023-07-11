@@ -49,14 +49,16 @@ in
       texinfo
       which
       gettext
-    ] ++ optionals (perl != null) [ perl ]
-    ++ optionals javaAwtGtk [ pkg-config ] ++ optionals
-    (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [ flex ]
-    ++ optionals langAda [
-      gnat-bootstrap
     ]
-    # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
-    # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
+    ++ optionals (perl != null) [ perl ]
+    ++ optionals javaAwtGtk [ pkg-config ]
+    ++ optionals
+      (with stdenv.targetPlatform; isVc4 || isRedox && flex != null) [ flex ]
+    ++ optionals langAda [
+        gnat-bootstrap
+      ]
+      # The builder relies on GNU sed (for instance, Darwin's `sed' fails with
+      # "-i may not be used with stdin"), and `stdenvNative' doesn't provide it.
     ++ optionals buildPlatform.isDarwin [ gnused ]
     ;
 
@@ -72,7 +74,8 @@ in
       [
         # build != host == target
         stdenv.cc
-      ]) ++ optionals targetPlatform.isLinux [ patchelf ]
+      ])
+    ++ optionals targetPlatform.isLinux [ patchelf ]
     ;
 
   buildInputs =
@@ -80,18 +83,24 @@ in
       gmp
       mpfr
       libmpc
-    ] ++ optionals (lib.versionAtLeast version "10") [ libxcrypt ] ++ [
+    ]
+    ++ optionals (lib.versionAtLeast version "10") [ libxcrypt ]
+    ++ [
       targetPackages.stdenv.cc.bintools # For linking code at run-time
-    ] ++ optionals (lib.versionOlder version "5" && cloog != null) [ cloog ]
-    ++ optionals (isl != null) [ isl ] ++ optionals (zlib != null) [ zlib ]
+    ]
+    ++ optionals (lib.versionOlder version "5" && cloog != null) [ cloog ]
+    ++ optionals (isl != null) [ isl ]
+    ++ optionals (zlib != null) [ zlib ]
     ++ optionals langJava [
       boehmgc
       zip
       unzip
-    ] ++ optionals javaAwtGtk ([
+    ]
+    ++ optionals javaAwtGtk ([
       gtk2
       libart_lgpl
-    ] ++ xlibs)
+    ]
+      ++ xlibs)
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ]
     ;
 

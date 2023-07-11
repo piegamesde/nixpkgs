@@ -271,13 +271,14 @@ let
   } (''
     mkdir -p $out
     cp -v ${udev}/lib/systemd/network/*.link $out/
-  '' + (let
-    links =
-      filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
-    files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
-  in
-  concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
-  ));
+  ''
+    + (let
+      links =
+        filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
+      files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
+    in
+    concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
+    ));
 
   udevRules = pkgs.runCommand "udev-rules" {
     allowedReferences = [ extraUtils ];
@@ -361,8 +362,9 @@ let
         sd.device
       else
         "/dev/disk/by-label/${sd.label}") (filter (sd:
-          hasPrefix "/dev/" sd.device && !sd.randomEncryption.enable
-          # Don't include zram devices
+          hasPrefix "/dev/" sd.device
+          && !sd.randomEncryption.enable
+            # Don't include zram devices
           && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
 
     fsInfo =
@@ -431,7 +433,8 @@ let
           object = pkgs.kmod-debian-aliases;
           symlink = "/etc/modprobe.d/debian.conf";
         }
-      ] ++ lib.optionals config.services.multipath.enable [ {
+      ]
+      ++ lib.optionals config.services.multipath.enable [ {
         object = pkgs.runCommand "multipath.conf" {
           src = config.environment.etc."multipath.conf".text;
           preferLocalBuild = true;
@@ -442,7 +445,8 @@ let
             --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
         '';
         symlink = "/etc/multipath.conf";
-      } ] ++ (lib.mapAttrsToList (symlink: options: {
+      } ]
+      ++ (lib.mapAttrsToList (symlink: options: {
         inherit symlink;
         object = options.source;
       }) config.boot.initrd.extraFiles)
@@ -768,10 +772,11 @@ in
       # TODO: remove when #85000 is fixed
       {
         assertion =
-          !config.boot.loader.supportsInitrdSecrets -> all (source:
+          !config.boot.loader.supportsInitrdSecrets
+          -> all (source:
             builtins.isPath source
             || (builtins.isString source && hasPrefix builtins.storeDir source))
-          (attrValues config.boot.initrd.secrets)
+            (attrValues config.boot.initrd.secrets)
           ;
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when

@@ -31,12 +31,13 @@ stdenv.mkDerivation rec {
       libedit
       zlib
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
+    ]
+    ++ lib.optionals stdenv.isDarwin ([ Accelerate ]
       ++ lib.optionals stdenv.isx86_64 # && isDarwin
-      [
-        CoreGraphics
-        CoreVideo
-      ])
+        [
+          CoreGraphics
+          CoreVideo
+        ])
     ;
 
   nativeCheckInputs = [ expect ];
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
     "implicit-function-declaration"
     "gnu-variable-sized-type-not-at-end"
     "unused-result"
-  ] ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]);
+  ]
+    ++ lib.optionals stdenv.isDarwin [ "-fcommon" ]);
 
   patchPhase = ''
     substituteInPlace ./Makefile \

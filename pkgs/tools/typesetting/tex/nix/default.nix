@@ -48,7 +48,8 @@ rec {
         [
           tex
           pkgs.perl
-        ] ++ packages
+        ]
+        ++ packages
         ;
     }
     ;

@@ -48,7 +48,8 @@ mkDerivation rec {
       qtbase
       qtsvg
       qttools
-    ] ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ VideoDecodeAcceleration ]
     ;
 
   meta = with lib; {

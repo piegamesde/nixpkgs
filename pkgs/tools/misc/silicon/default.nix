@@ -46,7 +46,8 @@ rustPlatform.buildRustPackage rec {
       fira-code
       fontconfig
       harfbuzz
-    ] ++ lib.optionals stdenv.isLinux [ libxcb ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libxcb ]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       AppKit
@@ -59,7 +60,8 @@ rustPlatform.buildRustPackage rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.isLinux [ python3 ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ python3 ]
     ;
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";

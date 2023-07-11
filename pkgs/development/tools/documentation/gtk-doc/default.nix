@@ -57,7 +57,8 @@ python3.pkgs.buildPythonApplication rec {
       docbook_xml_dtd_43
       docbook-xsl-nons
       libxslt
-    ] ++ lib.optionals withDblatex [ dblatex ]
+    ]
+    ++ lib.optionals withDblatex [ dblatex ]
     ;
 
   pythonPath = with python3.pkgs; [

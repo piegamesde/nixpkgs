@@ -24,7 +24,8 @@ let
     [
       gettext
       ncurses
-    ] ++ optionals stdenv.isDarwin [ CoreFoundation ]
+    ]
+    ++ optionals stdenv.isDarwin [ CoreFoundation ]
     ;
 
   tilesDeps =
@@ -34,7 +35,8 @@ let
       SDL2_mixer
       SDL2_ttf
       freetype
-    ] ++ optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   patchDesktopFile = ''
@@ -75,10 +77,13 @@ stdenv.mkDerivation {
         "USE_XDG_DIR=1"
       else
         "USE_HOME_DIR=1")
-    ] ++ optionals (!debug) [ "RELEASE=1" ] ++ optionals tiles [
+    ]
+    ++ optionals (!debug) [ "RELEASE=1" ]
+    ++ optionals tiles [
       "TILES=1"
       "SOUND=1"
-    ] ++ optionals stdenv.isDarwin [
+    ]
+    ++ optionals stdenv.isDarwin [
       "NATIVE=osx"
       "CLANG=1"
       "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"

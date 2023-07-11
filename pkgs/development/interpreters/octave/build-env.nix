@@ -73,7 +73,8 @@ buildEnv {
       addPkgLocalList $out ${octave}
 
       wrapOctavePrograms "${lib.concatStringsSep " " packages}"
-    '' + postBuild
+    ''
+    + postBuild
     ;
 
   inherit (octave) meta;

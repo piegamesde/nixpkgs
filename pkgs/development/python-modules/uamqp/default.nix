@@ -52,7 +52,8 @@ buildPythonPackage rec {
   ];
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       CFNetwork
       Security

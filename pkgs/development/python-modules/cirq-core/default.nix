@@ -79,7 +79,8 @@ buildPythonPackage rec {
       sympy
       tqdm
       typing-extensions
-    ] ++ lib.optionals withContribRequires [
+    ]
+    ++ lib.optionals withContribRequires [
       autoray
       opt-einsum
       ply

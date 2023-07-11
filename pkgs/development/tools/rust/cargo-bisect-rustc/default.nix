@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
           --subst-var libPath
       '';
     in
-    lib.optionals stdenv.isLinux [ patchelfPatch ] ++ [
+    lib.optionals stdenv.isLinux [ patchelfPatch ]
+    ++ [
       (fetchpatch {
         name = "fix-cli-date-bounds-checking.patch";
         url =

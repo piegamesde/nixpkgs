@@ -91,16 +91,23 @@ stdenv.mkDerivation rec {
       m17n_lib
       m17n_db
       expat
-    ] ++ lib.optional withAnthy anthy ++ lib.optional withGtk2 gtk2
-    ++ lib.optional withGtk3 gtk3 ++ lib.optional withQt4 qt4
+    ]
+    ++ lib.optional withAnthy anthy
+    ++ lib.optional withGtk2 gtk2
+    ++ lib.optional withGtk3 gtk3
+    ++ lib.optional withQt4 qt4
     ++ lib.optionals withQt5 [
       qt5.qtbase.bin
       qt5.qtbase.dev
-    ] ++ lib.optional withLibnotify libnotify ++ lib.optional withSqlite sqlite
+    ]
+    ++ lib.optional withLibnotify libnotify
+    ++ lib.optional withSqlite sqlite
     ++ lib.optionals withNetworking [
       curl
       openssl
-    ] ++ lib.optional withFFI libffi ++ lib.optional withMisc libeb
+    ]
+    ++ lib.optional withFFI libffi
+    ++ lib.optional withMisc libeb
     ;
 
   prePatch = ''
@@ -145,20 +152,26 @@ stdenv.mkDerivation rec {
       "--with-x"
       "--with-xft"
       "--with-expat=${expat.dev}"
-    ] ++ lib.optional withAnthy "--with-anthy-utf8"
+    ]
+    ++ lib.optional withAnthy "--with-anthy-utf8"
     ++ lib.optional withGtk2 "--with-gtk2"
-    ++ lib.optional withGtk3 "--with-gtk3" ++ lib.optionals withQt4 [
+    ++ lib.optional withGtk3 "--with-gtk3"
+    ++ lib.optionals withQt4 [
       "--with-qt4"
       "--with-qt4-immodule"
-    ] ++ lib.optionals withQt5 [
+    ]
+    ++ lib.optionals withQt5 [
       "--with-qt5"
       "--with-qt5-immodule"
-    ] ++ lib.optional withLibnotify "--enable-notify=libnotify"
+    ]
+    ++ lib.optional withLibnotify "--enable-notify=libnotify"
     ++ lib.optional withSqlite "--with-sqlite3"
     ++ lib.optionals withNetworking [
       "--with-curl"
       "--with-openssl-dir=${openssl.dev}"
-    ] ++ lib.optional withFFI "--with-ffi" ++ lib.optional withMisc "--with-eb"
+    ]
+    ++ lib.optional withFFI "--with-ffi"
+    ++ lib.optional withMisc "--with-eb"
     ;
 
     # TODO: things in `./configure --help`, but not in nixpkgs

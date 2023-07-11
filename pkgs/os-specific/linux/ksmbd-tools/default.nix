@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     [
       glib
       libnl
-    ] ++ lib.optional withKerberos libkrb5
+    ]
+    ++ lib.optional withKerberos libkrb5
     ;
 
   nativeBuildInputs = [

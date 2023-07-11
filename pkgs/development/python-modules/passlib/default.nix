@@ -32,7 +32,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       pytest-xdist
-    ] ++ passthru.optional-dependencies.argon2
+    ]
+    ++ passthru.optional-dependencies.argon2
     ++ passthru.optional-dependencies.bcrypt
     ++ passthru.optional-dependencies.totp
     ;

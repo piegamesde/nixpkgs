@@ -86,7 +86,8 @@ buildPythonPackage rec {
       trove-classifiers
       urllib3
       virtualenv
-    ] ++ lib.optionals (stdenv.isDarwin) [ xattr ]
+    ]
+    ++ lib.optionals (stdenv.isDarwin) [ xattr ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
     ++ cachecontrol.optional-dependencies.filecache
@@ -112,10 +113,11 @@ buildPythonPackage rec {
   preCheck =
     (''
       export HOME=$TMPDIR
-    '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-      # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
-      export no_proxy='*';
-    '');
+    ''
+      + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+        # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
+        export no_proxy='*';
+      '');
 
   postCheck = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     unset no_proxy
@@ -141,7 +143,8 @@ buildPythonPackage rec {
       "test_prepare_directory"
       "test_prepare_directory_with_extensions"
       "test_prepare_directory_editable"
-    ] ++ lib.optionals (pythonAtLeast "3.10") [
+    ]
+    ++ lib.optionals (pythonAtLeast "3.10") [
       # RuntimeError: 'auto_spec' might be a typo; use unsafe=True if this is intended
       "test_info_setup_complex_pep517_error"
     ]

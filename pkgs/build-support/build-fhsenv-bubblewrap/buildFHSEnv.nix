@@ -48,7 +48,8 @@ let
     # list of packages (usually programs) which are only be installed for the
     # host's architecture
   targetPaths =
-    targetPkgs pkgs ++ (if multiPkgs == null then
+    targetPkgs pkgs
+    ++ (if multiPkgs == null then
       [ ]
     else
       multiPkgs pkgs)
@@ -137,14 +138,17 @@ let
       [
         etcPkg
         ldconfig
-      ] ++ basePkgs ++ targetPaths
+      ]
+      ++ basePkgs
+      ++ targetPaths
       ;
     extraOutputsToInstall =
       [
         "out"
         "lib"
         "bin"
-      ] ++ extraOutputsToInstall
+      ]
+      ++ extraOutputsToInstall
       ;
     ignoreCollisions = true;
     postBuild = ''
@@ -185,7 +189,8 @@ let
       [
         "out"
         "lib"
-      ] ++ extraOutputsToInstall
+      ]
+      ++ extraOutputsToInstall
       ;
     ignoreCollisions = true;
   };

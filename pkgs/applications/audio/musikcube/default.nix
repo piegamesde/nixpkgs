@@ -73,14 +73,17 @@ stdenv.mkDerivation rec {
       ncurses
       portaudio
       taglib
-    ] ++ lib.optionals systemdSupport [ systemd ]
+    ]
+    ++ lib.optionals systemdSupport [ systemd ]
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       pulseaudio
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       SystemConfiguration
-    ] ++ lib.optionals coreaudioSupport [ CoreAudio ]
+    ]
+    ++ lib.optionals coreaudioSupport [ CoreAudio ]
     ++ lib.optionals sndioSupport [ sndio ]
     ++ lib.optionals pipewireSupport [ pipewire ]
     ;

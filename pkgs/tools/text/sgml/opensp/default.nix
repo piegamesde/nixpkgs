@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       xmlto
       docbook_xml_dtd_412
       docbook_xsl
-    ] ++ lib.optionals stdenv.isCygwin [
+    ]
+    ++ lib.optionals stdenv.isCygwin [
       autoconf
       automake
       libtool

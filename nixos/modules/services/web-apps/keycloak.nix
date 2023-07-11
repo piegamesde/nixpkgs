@@ -466,7 +466,8 @@ in
       createLocalPostgreSQL =
         databaseActuallyCreateLocally && cfg.database.type == "postgresql";
       createLocalMySQL =
-        databaseActuallyCreateLocally && elem cfg.database.type [
+        databaseActuallyCreateLocally
+        && elem cfg.database.type [
           "mysql"
           "mariadb"
         ]
@@ -576,7 +577,8 @@ in
               "useSSL=true"
               "requireSSL=true"
               "verifyServerCertificate=true"
-            ] ++ optionals (cfg.database.caCert != null) [
+            ]
+            ++ optionals (cfg.database.caCert != null) [
               "trustCertificateKeyStoreUrl=file:${mySqlCaKeystore}"
               "trustCertificateKeyStorePassword=notsosecretpassword"
             ]);
@@ -727,11 +729,12 @@ in
           };
           serviceConfig = {
             LoadCredential =
-              map (p: "${baseNameOf p}:${p}") secretPaths ++ optionals
-              (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
-                "ssl_cert:${cfg.sslCertificate}"
-                "ssl_key:${cfg.sslCertificateKey}"
-              ]
+              map (p: "${baseNameOf p}:${p}") secretPaths
+              ++ optionals
+                (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
+                  "ssl_cert:${cfg.sslCertificate}"
+                  "ssl_key:${cfg.sslCertificateKey}"
+                ]
               ;
             User = "keycloak";
             Group = "keycloak";
@@ -759,11 +762,13 @@ in
               # sequences.
               sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
-            '' + optionalString
-            (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
-              mkdir -p /run/keycloak/ssl
-              cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-            '' + ''
+            ''
+            + optionalString
+              (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
+                mkdir -p /run/keycloak/ssl
+                cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+              ''
+            + ''
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${
                 escapeShellArg cfg.initialAdminPassword

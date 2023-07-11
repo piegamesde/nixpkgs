@@ -24,7 +24,8 @@ in
     programs.bash.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
         source ${cfg.package}/share/skim/completion.bash
-      '' + optionalString cfg.keybindings ''
+      ''
+      + optionalString cfg.keybindings ''
         source ${cfg.package}/share/skim/key-bindings.bash
       ''
       ;
@@ -32,7 +33,8 @@ in
     programs.zsh.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
         source ${cfg.package}/share/skim/completion.zsh
-      '' + optionalString cfg.keybindings ''
+      ''
+      + optionalString cfg.keybindings ''
         source ${cfg.package}/share/skim/key-bindings.zsh
       ''
       ;

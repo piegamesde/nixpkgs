@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       pkg-config
       python3Packages.wrapPython
       scons
-    ] ++ lib.optionals guiSupport [
+    ]
+    ++ lib.optionals guiSupport [
       gobject-introspection
       wrapGAppsHook
     ]
@@ -64,7 +65,8 @@ stdenv.mkDerivation rec {
       ncurses
       pps-tools
       python3Packages.python
-    ] ++ lib.optionals guiSupport [
+    ]
+    ++ lib.optionals guiSupport [
       atk
       dbus-glib
       gdk-pixbuf

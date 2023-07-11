@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
       gmime2
       libnotify
       gnutls
-    ] ++ lib.optional spellChecking gtkspell3 ++ lib.optionals gnomeSupport [
+    ]
+    ++ lib.optional spellChecking gtkspell3
+    ++ lib.optionals gnomeSupport [
       libsecret
       gcr
     ]
@@ -63,7 +65,8 @@ stdenv.mkDerivation rec {
       "--with-gtk3"
       "--with-gnutls"
       "--enable-libnotify"
-    ] ++ lib.optional spellChecking "--with-gtkspell"
+    ]
+    ++ lib.optional spellChecking "--with-gtkspell"
     ++ lib.optional gnomeSupport "--enable-gkr"
     ;
 

@@ -60,7 +60,8 @@ let
       xcbutilkeysyms
       systemd
       libGL
-    ] + ":${stdenv.cc.cc.lib}/lib64"
+    ]
+    + ":${stdenv.cc.cc.lib}/lib64"
     ;
 in
 stdenv.mkDerivation {

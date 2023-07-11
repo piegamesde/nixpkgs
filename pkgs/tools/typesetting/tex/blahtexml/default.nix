@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ xercesc ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   buildFlags =
-    [ "doc" ] ++ (if stdenv.isDarwin then
+    [ "doc" ]
+    ++ (if stdenv.isDarwin then
       [
         "blahtex-mac"
         "blahtexml-mac"

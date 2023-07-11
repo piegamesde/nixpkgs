@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       mkdir -p $out/share/emacs $out/share/doc
       ln -s ../maxima/${version}/emacs $out/share/emacs/site-lisp
       ln -s ../maxima/${version}/doc $out/share/doc/maxima
-    '' + (lib.optionalString (lisp-compiler.pname == "ecl") ''
+    ''
+    + (lib.optionalString (lisp-compiler.pname == "ecl") ''
       cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
     '')
     ;

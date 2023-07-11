@@ -35,7 +35,8 @@ let
       [
         cmake
         python3
-      ] ++ lib.optional enableManpages python3.pkgs.sphinx
+      ]
+      ++ lib.optional enableManpages python3.pkgs.sphinx
       ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
       ;
 
@@ -52,16 +53,19 @@ let
           lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
           "-native"
         }"
-      ] ++ lib.optionals enableManpages [
+      ]
+      ++ lib.optionals enableManpages [
         "-DCLANG_INCLUDE_DOCS=ON"
         "-DLLVM_ENABLE_SPHINX=ON"
         "-DSPHINX_OUTPUT_MAN=ON"
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
         "-DCLANG_TABLEGEN=${buildLlvmTools.libclang.dev}/bin/clang-tblgen"
-      ] ++ lib.optionals enablePolly [
+      ]
+      ++ lib.optionals enablePolly [
         "-DWITH_POLLY=ON"
         "-DLINK_POLLY_INTO_TOOLS=ON"
       ]
@@ -86,9 +90,11 @@ let
         sed -i -e 's/DriverArgs.hasArg(options::OPT_nostdlibinc)/true/' \
                -e 's/Args.hasArg(options::OPT_nostdlibinc)/true/' \
                lib/Driver/ToolChains/*.cpp
-      '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+      ''
+      + lib.optionalString stdenv.hostPlatform.isMusl ''
         sed -i -e 's/lgcc_s/lgcc_eh/' lib/Driver/ToolChains/*.cpp
-      '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
         substituteInPlace tools/extra/clangd/CMakeLists.txt \
           --replace "NOT HAVE_CXX_ATOMICS64_WITHOUT_LIB" FALSE
       ''

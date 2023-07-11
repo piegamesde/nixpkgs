@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     [
       "--enable-shared"
       "--with-lhapdf6=${lhapdf}"
-    ] ++ (if lib.versions.major hepmc.version == "3" then
+    ]
+    ++ (if lib.versions.major hepmc.version == "3" then
       [ "--with-hepmc3=${hepmc}" ]
     else
       [ "--with-hepmc2=${hepmc}" ])

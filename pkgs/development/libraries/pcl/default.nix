@@ -52,10 +52,12 @@ stdenv.mkDerivation rec {
       libpcap
       qtbase
       libXt
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       AGL
-    ] ++ lib.optionals withCuda [ cudatoolkit ]
+    ]
+    ++ lib.optionals withCuda [ cudatoolkit ]
     ;
 
   propagatedBuildInputs = [
@@ -69,8 +71,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     lib.optionals stdenv.isDarwin [
-      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    ] ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ]
+        "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+      ]
+    ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ]
     ;
 
   meta = {

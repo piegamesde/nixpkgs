@@ -17,7 +17,8 @@ let
         "-p info"
         "-o cat"
         "-n1"
-      ] ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
+      ]
+        ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
       backend =
         if config.networking.nftables.enable then
           "sshg-fw-nft-sets"
@@ -154,22 +155,24 @@ in
         optionalString config.networking.firewall.enable ''
           ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard4 hash:net family inet
           ${pkgs.iptables}/bin/iptables  -I INPUT -m set --match-set sshguard4 src -j DROP
-        '' + optionalString
-        (config.networking.firewall.enable && config.networking.enableIPv6) ''
-          ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard6 hash:net family inet6
-          ${pkgs.iptables}/bin/ip6tables -I INPUT -m set --match-set sshguard6 src -j DROP
         ''
+        + optionalString
+          (config.networking.firewall.enable && config.networking.enableIPv6) ''
+            ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard6 hash:net family inet6
+            ${pkgs.iptables}/bin/ip6tables -I INPUT -m set --match-set sshguard6 src -j DROP
+          ''
         ;
 
       postStop =
         optionalString config.networking.firewall.enable ''
           ${pkgs.iptables}/bin/iptables  -D INPUT -m set --match-set sshguard4 src -j DROP
           ${pkgs.ipset}/bin/ipset -quiet destroy sshguard4
-        '' + optionalString
-        (config.networking.firewall.enable && config.networking.enableIPv6) ''
-          ${pkgs.iptables}/bin/ip6tables -D INPUT -m set --match-set sshguard6 src -j DROP
-          ${pkgs.ipset}/bin/ipset -quiet destroy sshguard6
         ''
+        + optionalString
+          (config.networking.firewall.enable && config.networking.enableIPv6) ''
+            ${pkgs.iptables}/bin/ip6tables -D INPUT -m set --match-set sshguard6 src -j DROP
+            ${pkgs.ipset}/bin/ipset -quiet destroy sshguard6
+          ''
         ;
 
       unitConfig.Documentation = "man:sshguard(8)";
@@ -184,7 +187,8 @@ in
               "-s ${toString cfg.detection_time}"
               (optionalString (cfg.blacklist_threshold != null)
                 "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
-            ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
+            ]
+              ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
           in
           "${pkgs.sshguard}/bin/sshguard ${args}"
           ;

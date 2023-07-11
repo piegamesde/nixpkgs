@@ -90,7 +90,8 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   configureFlags =
-    configureFlags ++ [
+    configureFlags
+    ++ [
       "--enable-absolute-paths"
       # We assume every nix-based cross target has urandom.
       # This might not hold for e.g. BSD.
@@ -141,7 +142,8 @@ stdenv.mkDerivation {
         pmahoney
         Profpatsch
         qyliss
-      ] ++ maintainers;
+      ]
+      ++ maintainers;
   };
 
   inherit passthru;

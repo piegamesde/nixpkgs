@@ -64,7 +64,8 @@ let
         [
           ssl
           boost
-        ] ++ lib.optionals (lib.versionAtLeast version "7.1.0") [
+        ]
+        ++ lib.optionals (lib.versionAtLeast version "7.1.0") [
           msgpack
           toml11
         ]
@@ -78,7 +79,8 @@ let
           python3
           openjdk
           mono
-        ] ++ lib.optionals useClang [ llvmPackages.lld ]
+        ]
+        ++ lib.optionals useClang [ llvmPackages.lld ]
         ;
 
       separateDebugInfo = true;
@@ -108,15 +110,17 @@ let
           # Same with LLD when Clang is available.
           (lib.optionalString useClang "-DUSE_LD=LLD")
           (lib.optionalString (!useClang) "-DUSE_LD=GOLD")
-        ] ++ lib.optionals (lib.versionOlder version
+        ]
+        ++ lib.optionals (lib.versionOlder version
           "7.0.0") [ # FIXME: why can't libressl be found automatically?
             "-DLIBRESSL_USE_STATIC_LIBS=FALSE"
             "-DLIBRESSL_INCLUDE_DIR=${ssl.dev}"
             "-DLIBRESSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
             "-DLIBRESSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
             "-DLIBRESSL_TLS_LIBRARY=${ssl.out}/lib/libtls.so"
-          ] ++ lib.optionals (lib.versionAtLeast version "7.1.0"
-            && lib.versionOlder version
+          ]
+        ++ lib.optionals (lib.versionAtLeast version "7.1.0"
+          && lib.versionOlder version
             "7.2.0") [ # FIXME: why can't openssl be found automatically?
               "-DOPENSSL_USE_STATIC_LIBS=FALSE"
               "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
@@ -149,10 +153,12 @@ let
           rm -rf $out/lib/foundationdb/
           mkdir $out/include/foundationdb && \
             mv $out/include/*.h $out/include/*.options $out/include/foundationdb
-        '' + lib.optionalString (lib.versionAtLeast version "7.0.0") ''
+        ''
+        + lib.optionalString (lib.versionAtLeast version "7.0.0") ''
           mv $out/sbin/fdbmonitor $out/bin/fdbmonitor
           mkdir $out/libexec && mv $out/usr/lib/foundationdb/backup_agent/backup_agent $out/libexec/backup_agent
-        '' + ''
+        ''
+        + ''
           mv $out/sbin/fdbserver $out/bin/fdbserver
 
           rm -rf $out/etc $out/lib/foundationdb $out/lib/systemd $out/log $out/sbin $out/usr $out/var
@@ -192,10 +198,11 @@ let
         homepage = "https://www.foundationdb.org";
         license = licenses.asl20;
         platforms =
-          [ "x86_64-linux" ] ++ lib.optionals
-          (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
-            "aarch64-linux"
-          ]
+          [ "x86_64-linux" ]
+          ++ lib.optionals
+            (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
+              "aarch64-linux"
+            ]
           ;
         maintainers = with maintainers; [
           thoughtpolice

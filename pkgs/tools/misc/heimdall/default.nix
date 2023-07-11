@@ -25,7 +25,8 @@ mkDerivation rec {
     [
       zlib
       libusb1
-    ] ++ lib.optional enableGUI qtbase
+    ]
+    ++ lib.optional enableGUI qtbase
     ;
   nativeBuildInputs = [ cmake ];
 
@@ -43,7 +44,8 @@ mkDerivation rec {
     ''
       # Give ownership of the Galaxy S USB device to the logged in user.
       substituteInPlace heimdall/60-heimdall.rules --replace 'MODE="0666"' 'TAG+="uaccess"'
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       substituteInPlace libpit/CMakeLists.txt --replace "-std=gnu++11" ""
     ''
     ;
@@ -53,7 +55,8 @@ mkDerivation rec {
       mkdir -p $out/Applications
       mv bin/heimdall-frontend.app $out/Applications/heimdall-frontend.app
       wrapQtApp $out/Applications/heimdall-frontend.app/Contents/MacOS/heimdall-frontend
-    '' + ''
+    ''
+    + ''
       mkdir -p $out/{bin,share/doc/heimdall,lib/udev/rules.d}
       install -m755 -t $out/bin                bin/*
       install -m644 -t $out/lib/udev/rules.d   ../heimdall/60-heimdall.rules

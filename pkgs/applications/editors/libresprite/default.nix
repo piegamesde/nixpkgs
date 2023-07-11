@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
       SDL2_image
       lua
       # no v8 due to missing libplatform and libbase
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa
       Foundation

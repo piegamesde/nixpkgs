@@ -1,7 +1,8 @@
 let
   withGold =
     platform:
-    platform.parsed.kernel.execFormat.name == "elf" && !platform.isRiscV
+    platform.parsed.kernel.execFormat.name == "elf"
+    && !platform.isRiscV
     && !platform.isLoongArch64
     ;
 
@@ -98,28 +99,29 @@ stdenv.mkDerivation (finalAttrs: {
       # not need to know binutils' BINDIR at all. It's an absolute path
       # where libraries are stored.
       ./plugins-no-BINDIR.patch
-    ] ++ lib.optional targetPlatform.isiOS ./support-ios.patch
-    # Adds AVR-specific options to "size" for compatibility with Atmel's downstream distribution
-    # Patch from arch-community
-    # https://github.com/archlinux/svntogit-community/blob/c8d53dd1734df7ab15931f7fad0c9acb8386904c/trunk/avr-size.patch
+    ]
+    ++ lib.optional targetPlatform.isiOS ./support-ios.patch
+      # Adds AVR-specific options to "size" for compatibility with Atmel's downstream distribution
+      # Patch from arch-community
+      # https://github.com/archlinux/svntogit-community/blob/c8d53dd1734df7ab15931f7fad0c9acb8386904c/trunk/avr-size.patch
     ++ lib.optional targetPlatform.isAvr ./avr-size.patch
     ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
     ++ lib.optional stdenv.targetPlatform.isMips64n64
-    # this patch is from debian:
-    # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-    (if stdenv.targetPlatform.isMusl then
-      substitute {
-        src = ./mips64-default-n64.patch;
-        replacements = [
-          "--replace"
-          "gnuabi64"
-          "muslabi64"
-        ];
-      }
-    else
-      ./mips64-default-n64.patch)
-    # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
-    # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
+      # this patch is from debian:
+      # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
+      (if stdenv.targetPlatform.isMusl then
+        substitute {
+          src = ./mips64-default-n64.patch;
+          replacements = [
+            "--replace"
+            "gnuabi64"
+            "muslabi64"
+          ];
+        }
+      else
+        ./mips64-default-n64.patch)
+      # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
+      # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
     ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
     ;
 
@@ -149,13 +151,15 @@ stdenv.mkDerivation (finalAttrs: {
     [
       bison
       perl
-    ] ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
+    ]
+    ++ lib.optionals targetPlatform.isiOS [ autoreconfHook ]
     ++ lib.optionals buildPlatform.isDarwin [
       autoconf269
       automake
       gettext
       libtool
-    ] ++ lib.optionals targetPlatform.isVc4 [ flex ]
+    ]
+    ++ lib.optionals targetPlatform.isVc4 [ flex ]
     ;
 
   buildInputs = [
@@ -175,7 +179,8 @@ stdenv.mkDerivation (finalAttrs: {
         autoconf
         popd
       done
-    '') + ''
+    '')
+    + ''
       # Clear the default library search path.
       if test "$noSysDirs" = "1"; then
           echo 'NATIVE_LIB_DIRS=' >> ld/configure.tgt
@@ -254,11 +259,13 @@ stdenv.mkDerivation (finalAttrs: {
       # libbfd and libopcodes into a default visibility. Drop default lib
       # path to force users to declare their use of these libraries.
       "--with-lib-path=:"
-    ] ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
+    ]
+    ++ lib.optionals withAllTargets [ "--enable-targets=all" ]
     ++ lib.optionals enableGold [
       "--enable-gold"
       "--enable-plugins"
-    ] ++ (if enableShared then
+    ]
+    ++ (if enableShared then
       [
         "--enable-shared"
         "--disable-static"

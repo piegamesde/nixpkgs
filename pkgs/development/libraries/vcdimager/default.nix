@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       libxml2
       popt
       libiconv
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       IOKit
       DiskArbitration
     ])

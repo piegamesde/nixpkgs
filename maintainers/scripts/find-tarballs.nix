@@ -28,7 +28,8 @@ let
   }) fetchurlDependencies;
 
   fetchurlDependencies = filter (drv:
-    drv.outputHash or "" != "" && drv.outputHashMode or "flat" == "flat"
+    drv.outputHash or "" != ""
+    && drv.outputHashMode or "flat" == "flat"
     && (drv ? url || drv ? urls)) dependencies;
 
   dependencies = map (x: x.value) (genericClosure {
@@ -74,7 +75,8 @@ let
     concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv ([
       "meta"
       "passthru"
-    ] ++ optionals (drv ? passthru) (attrNames drv.passthru))))
+    ]
+      ++ optionals (drv ? passthru) (attrNames drv.passthru))))
     ;
 
   derivationsIn =

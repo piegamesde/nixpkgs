@@ -30,7 +30,8 @@ buildPythonPackage rec {
     [
       cryptography
       idna
-    ] ++ lib.optionals (!isPy3k) [ futures ]
+    ]
+    ++ lib.optionals (!isPy3k) [ futures ]
     ;
 
     # Some of the tests use localhost networking.

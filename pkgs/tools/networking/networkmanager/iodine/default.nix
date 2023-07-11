@@ -50,7 +50,8 @@ stdenv.mkDerivation {
       iodine
       networkmanager
       glib
-    ] ++ lib.optionals withGnome [
+    ]
+    ++ lib.optionals withGnome [
       gtk3
       libsecret
       libnma

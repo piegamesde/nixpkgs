@@ -44,16 +44,19 @@
       "svga" # VMWare virtualized GPU
       "virgl" # QEMU virtualized GPU (aka VirGL)
       "zink" # generic OpenGL over Vulkan, experimental
-    ] ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
+    ]
+    ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
       "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
       "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
       "lima" # ARM Mali 4xx
       "panfrost" # ARM Mali Midgard and up (T/G series)
       "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
-    ] ++ lib.optionals stdenv.isAarch64 [
+    ]
+    ++ lib.optionals stdenv.isAarch64 [
       "tegra" # Nvidia Tegra SoCs
       "v3d" # Broadcom VC5 (Raspberry Pi 4)
-    ] ++ lib.optionals stdenv.hostPlatform.isx86 [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [
       "iris" # new Intel, could work on non-x86 with PCIe cards, but doesn't build as of 22.3.4
       "crocus" # Intel legacy, x86 only
     ]
@@ -64,20 +67,23 @@
       "amd" # AMD (aka RADV)
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
       "swrast" # software renderer (aka Lavapipe)
-    ] ++ lib.optionals (stdenv.hostPlatform.isAarch
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isAarch
       -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6") [
         # QEMU virtualized GPU (aka VirGL)
         # Requires ATOMIC_INT_LOCK_FREE == 2.
         "virtio-experimental"
-      ] ++ lib.optionals stdenv.isAarch64 [
-        "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
-        "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
-        "imagination-experimental" # PowerVR Rogue (currently N/A)
-        "panfrost" # ARM Mali Midgard and up (T/G series)
-      ] ++ lib.optionals stdenv.hostPlatform.isx86 [
-        "intel" # Intel (aka ANV), could work on non-x86 with PCIe cards, but doesn't build
-        "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
       ]
+    ++ lib.optionals stdenv.isAarch64 [
+      "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
+      "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
+      "imagination-experimental" # PowerVR Rogue (currently N/A)
+      "panfrost" # ARM Mali Midgard and up (T/G series)
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "intel" # Intel (aka ANV), could work on non-x86 with PCIe cards, but doesn't build
+      "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
+    ]
   else
     [ "auto" ],
   eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
@@ -191,12 +197,13 @@ let
         "out"
         "dev"
         "drivers"
-      ] ++ lib.optional enableOSMesa "osmesa"
-      ++ lib.optional stdenv.isLinux "driversdev" ++ lib.optional enableOpenCL
-      "opencl"
-      # the Dozen drivers depend on libspirv2dxil, but link it statically, and
-      # libspirv2dxil itself is pretty chonky, so relocate it to its own output
-      # in case anything wants to use it at some point
+      ]
+      ++ lib.optional enableOSMesa "osmesa"
+      ++ lib.optional stdenv.isLinux "driversdev"
+      ++ lib.optional enableOpenCL "opencl"
+        # the Dozen drivers depend on libspirv2dxil, but link it statically, and
+        # libspirv2dxil itself is pretty chonky, so relocate it to its own output
+        # in case anything wants to use it at some point
       ++ lib.optional haveDozen "spirv2dxil"
       ;
 
@@ -241,12 +248,14 @@ let
         "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${
           placeholder "out"
         }/lib/gbm"
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         "-Dglvnd=true"
 
         # Enable RT for Intel hardware
         "-Dintel-clc=enabled"
-      ] ++ lib.optionals enableOpenCL [
+      ]
+      ++ lib.optionals enableOpenCL [
         # Clover, old OpenCL frontend
         "-Dgallium-opencl=icd"
         "-Dopencl-spirv=true"
@@ -255,10 +264,11 @@ let
         "-Dgallium-rusticl=true"
         "-Drust_std=2021"
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
-      ] ++ lib.optional enablePatentEncumberedCodecs
-      "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
+      ]
+      ++ lib.optional enablePatentEncumberedCodecs
+        "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++ lib.optional (vulkanLayers != [ ])
-      "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}"
+        "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}"
       ;
 
     buildInputs = with xorg;
@@ -281,14 +291,17 @@ let
         libpthreadstubs
         openssl # or another sha1 provider
         zstd
-      ] ++ lib.optionals haveWayland [
+      ]
+      ++ lib.optionals haveWayland [
         wayland
         wayland-protocols
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         libomxil-bellagio
         libva-minimal
         udev
-      ] ++ lib.optionals stdenv.isDarwin [ libunwind ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ libunwind ]
       ++ lib.optionals enableOpenCL [
         libclc
         llvmPackages.clang
@@ -296,7 +309,8 @@ let
         rustc
         rust-bindgen'
         spirv-llvm-translator'
-      ] ++ lib.optional withValgrind valgrind-light
+      ]
+      ++ lib.optional withValgrind valgrind-light
       ++ lib.optional haveZink vulkan-loader
       ++ lib.optional haveDozen directx-headers;
 
@@ -316,14 +330,17 @@ let
         python3Packages.ply
         jdupes
         glslang
-      ] ++ lib.optional haveWayland wayland-scanner
+      ]
+      ++ lib.optional haveWayland wayland-scanner
       ;
 
     propagatedBuildInputs = with xorg;
       [
         libXdamage
         libXxf86vm
-      ] ++ lib.optional withLibdrm libdrm ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optional withLibdrm libdrm
+      ++ lib.optionals stdenv.isDarwin [
         OpenGL
         Xplugin
       ];
@@ -334,7 +351,8 @@ let
       ''
         # Some installs don't have any drivers so this directory is never created.
         mkdir -p $drivers $osmesa
-      '' + lib.optionalString stdenv.isLinux ''
+      ''
+      + lib.optionalString stdenv.isLinux ''
         mkdir -p $drivers/lib
 
         if [ -n "$(shopt -s nullglob; echo "$out/lib/libxatracker"*)" -o -n "$(shopt -s nullglob; echo "$out/lib/libvulkan_"*)" ]; then
@@ -359,7 +377,8 @@ let
         for js in $drivers/share/vulkan/icd.d/*.json; do
           substituteInPlace "$js" --replace "$out" "$drivers"
         done
-      '' + lib.optionalString enableOpenCL ''
+      ''
+      + lib.optionalString enableOpenCL ''
         # Move OpenCL stuff
         mkdir -p $opencl/lib
         mv -t "$opencl/lib/"     \
@@ -370,16 +389,19 @@ let
         mkdir -p $opencl/etc/OpenCL/vendors/
         echo $opencl/lib/libMesaOpenCL.so > $opencl/etc/OpenCL/vendors/mesa.icd
         echo $opencl/lib/libRusticlOpenCL.so > $opencl/etc/OpenCL/vendors/rusticl.icd
-      '' + lib.optionalString enableOSMesa ''
+      ''
+      + lib.optionalString enableOSMesa ''
         # move libOSMesa to $osmesa, as it's relatively big
         mkdir -p $osmesa/lib
         mv -t $osmesa/lib/ $out/lib/libOSMesa*
-      '' + lib.optionalString (vulkanLayers != [ ]) ''
+      ''
+      + lib.optionalString (vulkanLayers != [ ]) ''
         mv -t $drivers/lib $out/lib/libVkLayer*
         for js in $drivers/share/vulkan/{im,ex}plicit_layer.d/*.json; do
           substituteInPlace "$js" --replace '"libVkLayer_' '"'"$drivers/lib/libVkLayer_"
         done
-      '' + lib.optionalString haveDozen ''
+      ''
+      + lib.optionalString haveDozen ''
         mkdir -p $spirv2dxil/{bin,lib}
         mv -t $spirv2dxil/lib $out/lib/libspirv_to_dxil*
         mv -t $spirv2dxil/bin $out/bin/spirv2dxil

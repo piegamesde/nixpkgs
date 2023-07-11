@@ -86,7 +86,8 @@ stdenv.mkDerivation rec {
       p11-kit
       sqlite
       webkitgtk_6_0
-    ] ++ lib.optionals withPantheon [ pantheon.granite7 ]
+    ]
+    ++ lib.optionals withPantheon [ pantheon.granite7 ]
     ;
 
     # Tests need an X display

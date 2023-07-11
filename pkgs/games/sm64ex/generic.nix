@@ -48,20 +48,23 @@ stdenv.mkDerivation rec {
       python3
       pkg-config
       hexdump
-    ] ++ extraNativeBuildInputs
+    ]
+    ++ extraNativeBuildInputs
     ;
 
   buildInputs =
     [
       audiofile
       SDL2
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
 
   enableParallelBuilding = true;
 
   makeFlags =
-    [ "VERSION=${region}" ] ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ]
+    [ "VERSION=${region}" ]
+    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ]
     ++ compileFlags
     ;
 
@@ -83,7 +86,8 @@ stdenv.mkDerivation rec {
     {
       longDescription =
         extraMeta.description or "Super Mario 64 port based off of decompilation"
-        + "\n" + ''
+        + "\n"
+        + ''
           Note that you must supply a baserom yourself to extract assets from.
           If you are not using an US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
           If you would like to use patches sm64ex distributes as makeflags, add them to the "compileFlags" attribute.

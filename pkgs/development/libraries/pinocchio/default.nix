@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   propagatedBuildInputs =
-    [ urdfdom ] ++ lib.optionals (!pythonSupport) [
+    [ urdfdom ]
+    ++ lib.optionals (!pythonSupport) [
       boost
       eigen
-    ] ++ lib.optionals pythonSupport [
+    ]
+    ++ lib.optionals pythonSupport [
       python3Packages.boost
       python3Packages.eigenpy
     ]

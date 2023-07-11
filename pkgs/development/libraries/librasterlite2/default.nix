@@ -74,7 +74,8 @@ stdenv.mkDerivation rec {
       proj
       sqlite
       zstd
-    ] ++ lib.optional stdenv.isDarwin ApplicationServices
+    ]
+    ++ lib.optional stdenv.isDarwin ApplicationServices
     ;
 
   enableParallelBuilding = true;

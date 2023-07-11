@@ -51,7 +51,8 @@ let
         "-/etc/hosts"
         "-/etc/localtime"
         "-/run/postgresql"
-      ] ++ (optional enableRedis redisServer.unixSocket)
+      ]
+      ++ (optional enableRedis redisServer.unixSocket)
       ;
     BindPaths = [
       cfg.consumptionDir
@@ -287,7 +288,8 @@ in
 
             echo ${pkg.version} > "$versionFile"
           fi
-        '' + optionalString (cfg.passwordFile != null) ''
+        ''
+        + optionalString (cfg.passwordFile != null) ''
           export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
           export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
           superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"

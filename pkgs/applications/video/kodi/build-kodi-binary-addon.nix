@@ -29,7 +29,8 @@ toKodiAddon (stdenv.mkDerivation ({
       kodi
       kodi-platform
       libcec_platform
-    ] ++ extraBuildInputs
+    ]
+    ++ extraBuildInputs
     ;
 
   inherit

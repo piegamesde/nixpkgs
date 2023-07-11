@@ -17,7 +17,8 @@ let
       # Doesn't work with latest ihaskell versions missing an unrelated change
       # https://github.com/IHaskell/IHaskell/issues/1378
       # self.ihaskell-diagrams
-    ] ++ packages self);
+    ]
+    ++ packages self);
   ihaskellSh = writeScriptBin "ihaskell-notebook" ''
     #! ${stdenv.shell}
     export GHC_PACKAGE_PATH="$(echo ${ihaskellEnv}/lib/*/package.conf.d| tr ' ' ':'):$GHC_PACKAGE_PATH"

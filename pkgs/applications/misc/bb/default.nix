@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
       xorg.libXau
       xorg.libXdmcp
       xorg.libX11
-    ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudio
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreAudio
     ;
 
   postPatch = lib.optionalString stdenv.isDarwin ''

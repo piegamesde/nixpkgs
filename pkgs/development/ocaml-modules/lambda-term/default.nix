@@ -50,7 +50,8 @@ buildDunePackage rec {
       lwt_log
       lwt_react
       mew_vi
-    ] ++ lib.optionals (lib.versionAtLeast version "3.3.1") [
+    ]
+    ++ lib.optionals (lib.versionAtLeast version "3.3.1") [
       uucp
       logs
     ]

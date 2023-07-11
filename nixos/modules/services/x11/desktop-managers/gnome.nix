@@ -70,7 +70,8 @@ let
       wmLabel = "Metacity";
       wmCommand = "${pkgs.gnome.metacity}/bin/metacity";
       enableGnomePanel = true;
-    } ++ cfg.flashback.customSessions
+    }
+    ++ cfg.flashback.customSessions
     ;
 
   notExcluded =
@@ -527,8 +528,9 @@ in
           mandatoryPackages = [ pkgs.gnome.gnome-shell ];
           optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
         in
-        mandatoryPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.gnome.excludePackages
+        mandatoryPackages
+        ++ utils.removePackagesByName optionalPackages
+          config.environment.gnome.excludePackages
         ;
 
       services.colord.enable = mkDefault true;
@@ -605,8 +607,9 @@ in
             pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
           ];
         in
-        mandatoryPackages ++ utils.removePackagesByName optionalPackages
-        config.environment.gnome.excludePackages
+        mandatoryPackages
+        ++ utils.removePackagesByName optionalPackages
+          config.environment.gnome.excludePackages
         ;
     })
 
@@ -637,11 +640,12 @@ in
           simple-scan
           totem
           yelp
-        ] ++ lib.optionals config.services.flatpak.enable [
-          # Since PackageKit Nix support is not there yet,
-          # only install gnome-software if flatpak is enabled.
-          gnome-software
-        ]) config.environment.gnome.excludePackages;
+        ]
+          ++ lib.optionals config.services.flatpak.enable [
+            # Since PackageKit Nix support is not there yet,
+            # only install gnome-software if flatpak is enabled.
+            gnome-software
+          ]) config.environment.gnome.excludePackages;
 
         # Enable default program modules
         # Since some of these have a corresponding package, we only

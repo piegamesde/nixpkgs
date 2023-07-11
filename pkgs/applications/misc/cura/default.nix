@@ -46,7 +46,8 @@ mkDerivation rec {
       sentry-sdk
       trimesh
       keyring
-    ] ++ plugins;
+    ]
+    ++ plugins;
   nativeBuildInputs = [
     cmake
     python3.pkgs.wrapPython

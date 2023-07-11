@@ -27,7 +27,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ libjack2 ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    [ libjack2 ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [
       CoreAudio
       CoreMIDI

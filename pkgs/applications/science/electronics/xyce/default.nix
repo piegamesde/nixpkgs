@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
       "--enable-shared"
       "--enable-stokhos"
       "--enable-amesos2"
-    ] ++ lib.optionals withMPI [
+    ]
+    ++ lib.optionals withMPI [
       "--enable-mpi"
       "CXX=mpicxx"
       "CC=mpicc"
@@ -82,19 +83,20 @@ stdenv.mkDerivation rec {
       automake
       gfortran
       libtool_2
-    ] ++ lib.optionals enableDocs [
-      (texlive.combine {
-        inherit (texlive)
-          scheme-medium
-          koma-script
-          optional
-          framed
-          enumitem
-          multirow
-          preprint
-          ;
-      })
     ]
+    ++ lib.optionals enableDocs [
+        (texlive.combine {
+          inherit (texlive)
+            scheme-medium
+            koma-script
+            optional
+            framed
+            enumitem
+            multirow
+            preprint
+            ;
+        })
+      ]
     ;
 
   buildInputs =
@@ -106,7 +108,8 @@ stdenv.mkDerivation rec {
       lapack
       suitesparse
       trilinos
-    ] ++ lib.optionals withMPI [ mpi ]
+    ]
+    ++ lib.optionals withMPI [ mpi ]
     ;
 
   doCheck = enableTests;
@@ -135,7 +138,8 @@ stdenv.mkDerivation rec {
           numpy
           scipy
         ]))
-    ] ++ lib.optionals withMPI [
+    ]
+    ++ lib.optionals withMPI [
       mpi
       openssh
     ]

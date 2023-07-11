@@ -35,7 +35,8 @@ pythonPackages.buildPythonApplication rec {
       gettext
       qt5.wrapQtAppsHook
       qt5.qtbase
-    ] ++ lib.optionals (pyqt5.multimediaEnabled) [
+    ]
+    ++ lib.optionals (pyqt5.multimediaEnabled) [
       qt5.qtmultimedia.bin
       gst_all_1.gst-libav
       gst_all_1.gst-plugins-base
@@ -61,7 +62,8 @@ pythonPackages.buildPythonApplication rec {
   preFixup =
     ''
       makeWrapperArgs+=("''${qtWrapperArgs[@]}")
-    '' + lib.optionalString (pyqt5.multimediaEnabled) ''
+    ''
+    + lib.optionalString (pyqt5.multimediaEnabled) ''
       makeWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
     ''
     ;

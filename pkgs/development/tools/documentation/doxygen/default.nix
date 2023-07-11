@@ -30,10 +30,12 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libiconv ] ++ lib.optionals (qt5 != null) (with qt5; [
+    [ libiconv ]
+    ++ lib.optionals (qt5 != null) (with qt5; [
       qtbase
       wrapQtAppsHook
-    ]) ++ lib.optionals stdenv.isDarwin [ CoreServices ]
+    ])
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
     ;
 
   cmakeFlags =

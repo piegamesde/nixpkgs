@@ -26,7 +26,8 @@ let
     let
       share = getAttr name cfg.shares;
     in
-    "[${name}]\n " + (smbToString (map (key: ''
+    "[${name}]\n "
+    + (smbToString (map (key: ''
       ${key} = ${smbToString (getAttr key share)}
     '') (attrNames share)))
     ;

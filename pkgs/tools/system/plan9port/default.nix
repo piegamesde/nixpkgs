@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
     [
       perl
       which
-    ] ++ (if !stdenv.isDarwin then
+    ]
+    ++ (if !stdenv.isDarwin then
       [
         fontconfig
         freetype # fontsrv uses these

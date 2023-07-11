@@ -17,9 +17,11 @@ stdenv.mkDerivation {
   installPhase =
     ''
       export RUSTC_SRC=${rustPlatform.rustLibSrc.override { }}
-    '' + lib.optionalString (originalCargoToml != null) ''
+    ''
+    + lib.optionalString (originalCargoToml != null) ''
       export ORIG_CARGO=${originalCargoToml}
-    '' + ''
+    ''
+    + ''
       ${
         buildPackages.python3.withPackages (ps: with ps; [ toml ])
       }/bin/python3 ${./cargo.py}

@@ -25,7 +25,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ aiohttp ] ++ lib.optionals withVoice [
+    [ aiohttp ]
+    ++ lib.optionals withVoice [
       libopus
       pynacl
       ffmpeg
@@ -36,7 +37,8 @@ buildPythonPackage rec {
     ''
       substituteInPlace "discord/opus.py" \
         --replace "ctypes.util.find_library('opus')" "'${libopus}/lib/libopus.so.0'"
-    '' + lib.optionalString withVoice ''
+    ''
+    + lib.optionalString withVoice ''
       substituteInPlace "discord/player.py" \
         --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
     ''

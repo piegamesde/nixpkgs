@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     [
       libxml2
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ curl ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ curl ]
     ;
 
     # Tests require network access to a test server

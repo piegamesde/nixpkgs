@@ -45,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       readline
       ncurses
-    ] ++ lib.optional stdenv.hostPlatform.isMusl musl-fts
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl musl-fts
     ;
 
   env.NIX_CFLAGS_COMPILE =
@@ -53,7 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-lfts";
 
   makeFlags =
-    [ "PREFIX=$(out)" ] ++ lib.optionals withIcons [ "O_ICONS=1" ]
+    [ "PREFIX=$(out)" ]
+    ++ lib.optionals withIcons [ "O_ICONS=1" ]
     ++ lib.optionals withNerdIcons [ "O_NERD=1" ]
     ;
 

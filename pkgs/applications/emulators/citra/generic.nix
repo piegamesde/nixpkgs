@@ -44,21 +44,25 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals enableQt [ wrapQtAppsHook ]
+    ]
+    ++ lib.optionals enableQt [ wrapQtAppsHook ]
     ;
 
   buildInputs =
     [
       boost17x
       libusb1
-    ] ++ lib.optionals enableQt [
+    ]
+    ++ lib.optionals enableQt [
       qtbase
       qtmultimedia
-    ] ++ lib.optional enableSdl2 SDL2
+    ]
+    ++ lib.optional enableSdl2 SDL2
     ++ lib.optional enableQtTranslation qttools
     ++ lib.optional enableCubeb libpulseaudio
     ++ lib.optional (enableFfmpegAudioDecoder || enableFfmpegVideoDumper)
-    ffmpeg_4 ++ lib.optional useDiscordRichPresence rapidjson
+      ffmpeg_4
+    ++ lib.optional useDiscordRichPresence rapidjson
     ++ lib.optional enableFdk fdk_aac
     ;
 
@@ -72,7 +76,8 @@ stdenv.mkDerivation rec {
       # We dont want to bother upstream with potentially outdated compat reports
       "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON"
       "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
-    ] ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
+    ]
+    ++ lib.optional (!enableSdl2) "-DENABLE_SDL2=OFF"
     ++ lib.optional (!enableQt) "-DENABLE_QT=OFF"
     ++ lib.optional enableQtTranslation "-DENABLE_QT_TRANSLATION=ON"
     ++ lib.optional (!enableWebService) "-DENABLE_WEB_SERVICE=OFF"

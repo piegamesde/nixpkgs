@@ -74,7 +74,8 @@ stdenv.mkDerivation (drvAttrs // {
         pluginPkgs = checkPlugins;
         functionDirs = checkFunctionDirs;
       })
-    ] ++ nativeCheckInputs
+    ]
+    ++ nativeCheckInputs
     ;
 
   checkPhase = ''

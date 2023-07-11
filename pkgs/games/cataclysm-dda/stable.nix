@@ -35,7 +35,8 @@ let
       ];
 
     makeFlags =
-      common.makeFlags ++ [
+      common.makeFlags
+      ++ [
         # Makefile declares version as 0.F, with no minor release number
         "VERSION=${version}"
       ]

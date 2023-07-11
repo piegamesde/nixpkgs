@@ -56,7 +56,8 @@ stdenv.mkDerivation {
       libXdmcp
       libXScrnSaver
       libXtst
-    ] ++ [
+    ]
+    ++ [
       alsa-lib
       gtk3
       nss

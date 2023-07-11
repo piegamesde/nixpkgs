@@ -35,12 +35,14 @@ stdenv.mkDerivation rec {
           "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";
         sha256 = "17l2qhn8sh4jy6ryy5si6ll6dndcm0r537rlmk4a6a8vkn852vad";
       })
-    ] ++ [
+    ]
+    ++ [
       # Has to come after darwin patches
       ./fix_private_keyword.patch
       # Order does not matter
       ./configure.patch
-    ] ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch
+    ]
+    ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch
     ;
 
   nativeBuildInputs = [

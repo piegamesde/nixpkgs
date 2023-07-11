@@ -68,7 +68,8 @@ with lib;
         If you need a wireless connection, type
         `sudo systemctl start wpa_supplicant` and configure a
         network using `wpa_cli`. See the NixOS manual for details.
-      '' + optionalString config.services.xserver.enable ''
+      ''
+      + optionalString config.services.xserver.enable ''
 
         Type `sudo systemctl start display-manager' to
         start the graphical user interface.

@@ -67,8 +67,12 @@
   buildPackages,
 }:
 
-assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
-  != null && perl != null; # for `--enable-java-home'
+assert langJava
+  -> zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;
@@ -107,25 +111,27 @@ let
           "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
         sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
       })
-    ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
+    ]
+    ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optional noSysDirs ../no-sys-dirs.patch
     ++ optional langAda ../gnat-cflags.patch
     ++ optional langAda ./gnat-glibc234.patch
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional (targetPlatform.libc == "musl")
-    ../libgomp-dont-force-initial-exec.patch ++ optional langGo
-    ./gogcc-workaround-glibc-2.36.patch
+      ../libgomp-dont-force-initial-exec.patch
+    ++ optional langGo ./gogcc-workaround-glibc-2.36.patch
 
-    # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional
-    (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-    ./Added-mcf-thread-model-support-from-mcfgthread.patch
+      # Obtain latest patch with ../update-mcfgthread-patches.sh
+    ++ optional (!crossStageStatic
+      && targetPlatform.isMinGW
+      && threadsCross.model == "mcf")
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32)
-    (fetchpatch {
-      url =
-        "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
-      sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
-    })
+      (fetchpatch {
+        url =
+          "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
+        sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
+      })
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ]
     ;
@@ -257,10 +263,13 @@ let
 
   # We need all these X libraries when building AWT with GTK.
 in
-assert x11Support -> (filter (x: x == null) ([
-  gtk2
-  libart_lgpl
-] ++ xlibs)) == [ ];
+assert x11Support
+  -> (filter (x: x == null) ([
+    gtk2
+    libart_lgpl
+  ]
+    ++ xlibs))
+    == [ ];
 
 stdenv.mkDerivation ({
   pname = "${crossNameAddon}${name}";
@@ -329,7 +338,8 @@ stdenv.mkDerivation ({
 
       substituteInPlace libgfortran/configure \
         --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
-    '' + (lib.optionalString
+    ''
+    + (lib.optionalString
       (targetPlatform != hostPlatform || stdenv.cc.libc != null)
       # On NixOS, use the right path to the dynamic linker instead of
       # `/lib/ld*.so'.
@@ -351,9 +361,10 @@ stdenv.mkDerivation ({
                         -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g' \
                         -e 's|define[[:blank:]]*MUSL_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define MUSL_DYNAMIC_LINKER\1 "${libc.out}\2"|g'
                   done
-      '' + lib.optionalString (targetPlatform.libc == "musl") ''
-        sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
-      '')
+      ''
+        + lib.optionalString (targetPlatform.libc == "musl") ''
+          sed -i gcc/config/linux.h -e '1i#undef LOCAL_INCLUDE_DIR'
+        '')
       ))
     ;
 
@@ -434,16 +445,21 @@ stdenv.mkDerivation ({
     # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
-    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
+    (makeSearchPathOutput "dev" "include" ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
       ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
-    ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+    ([ ]
+      ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs
+      ++ optionals javaAwtGtk [
         gmp
         mpfr
       ]));
@@ -475,8 +491,9 @@ stdenv.mkDerivation ({
   };
 }
 
-  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt" && crossStageStatic) {
+  // optionalAttrs (targetPlatform != hostPlatform
+    && targetPlatform.libc == "msvcrt"
+    && crossStageStatic) {
       makeFlags = [
         "all-gcc"
         "all-target-libgcc"

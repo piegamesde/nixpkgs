@@ -44,7 +44,8 @@ buildGoModule rec {
         --bash <($out/bin/${p} completion bash) \
         --fish <($out/bin/${p} completion fish) \
         --zsh <($out/bin/${p} completion zsh)
-    '') components + lib.optionalString isFull ''
+    '') components
+    + lib.optionalString isFull ''
       ln -sLf ${coredns}/bin/coredns $out/bin
     ''
     ;

@@ -24,7 +24,8 @@ tcl.mkTclDerivation {
       })
       # Remove duplicated definition of XLowerWindow
       ./duplicated-xlowerwindow.patch
-    ] ++ lib.optional (tcl.release == "8.6") (fetchpatch {
+    ]
+    ++ lib.optional (tcl.release == "8.6") (fetchpatch {
       name = "tix-8.4.3-tcl8.6.patch";
       url =
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.6.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d";

@@ -52,7 +52,8 @@ buildPythonPackage rec {
         requests
         requests-toolbelt
         rich
-      ] ++ dissect-target.optional-dependencies.full
+      ]
+      ++ dissect-target.optional-dependencies.full
       ;
   };
 

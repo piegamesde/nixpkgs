@@ -34,7 +34,8 @@ buildPythonPackage rec {
       asttokens
       littleutils
       pytestCheckHook
-    ] ++ lib.optionals (pythonAtLeast "3.11") [ rich ]
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11") [ rich ]
     ;
 
   pythonImportsCheck = [ "executing" ];

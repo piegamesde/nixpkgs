@@ -89,12 +89,14 @@ stdenv.mkDerivation rec {
       orc
       libshout
       glib
-    ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ]
+    ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals qt5Support (with qt5; [ qtbase ])
     ++ lib.optionals qt6Support (with qt6; [
       qtbase
       qttools
-    ]) ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
+    ])
+    ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
     ;
 
   buildInputs =
@@ -124,20 +126,24 @@ stdenv.mkDerivation rec {
       xorg.libXfixes
       xorg.libXdamage
       wavpack
-    ] ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
+    ]
+    ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
     ++ lib.optionals gtkSupport [
       # for gtksink
       gtk3
-    ] ++ lib.optionals qt5Support (with qt5; [
+    ]
+    ++ lib.optionals qt5Support (with qt5; [
       qtbase
       qtdeclarative
       qtwayland
       qtx11extras
-    ]) ++ lib.optionals qt6Support (with qt6; [
+    ])
+    ++ lib.optionals qt6Support (with qt6; [
       qtbase
       qtdeclarative
       qtwayland
-    ]) ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ])
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.isLinux [
       libv4l
       libpulseaudio
@@ -145,7 +151,8 @@ stdenv.mkDerivation rec {
       libiec61883
       libgudev
       wayland
-    ] ++ lib.optionals enableJack [ libjack2 ]
+    ]
+    ++ lib.optionals enableJack [ libjack2 ]
     ;
 
   mesonFlags =
@@ -153,7 +160,8 @@ stdenv.mkDerivation rec {
       "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
       "-Dglib-asserts=disabled" # asserts should be disabled on stable releases
       (lib.mesonEnable "doc" enableDocumentation)
-    ] ++ lib.optionals (!qt5Support) [ "-Dqt5=disabled" ]
+    ]
+    ++ lib.optionals (!qt5Support) [ "-Dqt5=disabled" ]
     ++ lib.optionals (!qt6Support) [ "-Dqt6=disabled" ]
     ++ lib.optionals (!gtkSupport) [ "-Dgtk3=disabled" ]
     ++ lib.optionals (!enableJack) [ "-Djack=disabled" ]
@@ -165,7 +173,8 @@ stdenv.mkDerivation rec {
       "-Dv4l2-gudev=disabled" # Linux-only
       "-Dv4l2=disabled" # Linux-only
       "-Dximagesrc=disabled" # Linux-only
-    ] ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ]
+    ]
+    ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ]
     ;
 
   postPatch = ''

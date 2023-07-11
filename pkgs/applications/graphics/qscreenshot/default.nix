@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
       dos2unix
       which
       qt
-    ] ++ lib.optional stdenv.isDarwin Carbon
+    ]
+    ++ lib.optional stdenv.isDarwin Carbon
     ;
 
     # Remove carriage returns that cause /bin/sh to abort

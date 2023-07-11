@@ -44,7 +44,8 @@ in
 
       # Apparently --bindir is not respected.
       makeFlagsArray+=("bindir=$bin/bin" "sbindir=$bin/sbin" "rootsbindir=$bin/sbin")
-    '' + lib.optionalString stdenv.buildPlatform.isDarwin ''
+    ''
+    + lib.optionalString stdenv.buildPlatform.isDarwin ''
       # ld-wrapper will otherwise attempt to inject CoreFoundation into ld-linux's RUNPATH
       export NIX_COREFOUNDATION_RPATH=
     ''
@@ -61,8 +62,8 @@ in
 
   env = (previousAttrs.env or { }) // {
     NIX_CFLAGS_COMPILE =
-      (previousAttrs.env.NIX_CFLAGS_COMPILE or "") + lib.concatStringsSep " "
-      (builtins.concatLists [
+      (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
+      + lib.concatStringsSep " " (builtins.concatLists [
         (lib.optionals withGd gdCflags)
         # Fix -Werror build failure when building glibc with musl with GCC >= 8, see:
         # https://github.com/NixOS/nixpkgs/pull/68244#issuecomment-544307798
@@ -101,9 +102,10 @@ in
     # gcc.libgcc, since the path will be embedded in the resulting binary.
     #
   makeFlags =
-    (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc ? libgcc) [
-      "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
-    ]
+    (previousAttrs.makeFlags or [ ])
+    ++ lib.optionals (stdenv.cc.cc ? libgcc) [
+        "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib"
+      ]
     ;
 
   postInstall =
@@ -137,51 +139,52 @@ in
           C.UTF-8
         cp -r $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale $out/lib
         popd
-      '') + ''
+      '')
+    + ''
 
-        test -f $out/etc/ld.so.cache && rm $out/etc/ld.so.cache
+      test -f $out/etc/ld.so.cache && rm $out/etc/ld.so.cache
 
-        if test -n "$linuxHeaders"; then
-            # Include the Linux kernel headers in Glibc, except the `scsi'
-            # subdirectory, which Glibc provides itself.
-            (cd $dev/include && \
-             ln -sv $(ls -d $linuxHeaders/include/* | grep -v scsi\$) .)
-        fi
+      if test -n "$linuxHeaders"; then
+          # Include the Linux kernel headers in Glibc, except the `scsi'
+          # subdirectory, which Glibc provides itself.
+          (cd $dev/include && \
+           ln -sv $(ls -d $linuxHeaders/include/* | grep -v scsi\$) .)
+      fi
 
-        # Fix for NIXOS-54 (ldd not working on x86_64).  Make a symlink
-        # "lib64" to "lib".
-        if test -n "$is64bit"; then
-            ln -s lib $out/lib64
-        fi
+      # Fix for NIXOS-54 (ldd not working on x86_64).  Make a symlink
+      # "lib64" to "lib".
+      if test -n "$is64bit"; then
+          ln -s lib $out/lib64
+      fi
 
-        # Get rid of more unnecessary stuff.
-        rm -rf $out/var $bin/bin/sln
+      # Get rid of more unnecessary stuff.
+      rm -rf $out/var $bin/bin/sln
 
-        # Backwards-compatibility to fix e.g.
-        # "configure: error: Pthreads are required to build libgomp" during `gcc`-build
-        # because it's not actually needed anymore to link against `pthreads` since
-        # it's now part of `libc.so.6` itself, but the gcc build breaks if
-        # this doesn't work.
-        ln -sf $out/lib/libpthread.so.0 $out/lib/libpthread.so
-        ln -sf $out/lib/librt.so.1 $out/lib/librt.so
-        ln -sf $out/lib/libdl.so.2 $out/lib/libdl.so
-        ln -sf $out/lib/libutil.so.1 $out/lib/libutil.so
-        touch $out/lib/libpthread.a
+      # Backwards-compatibility to fix e.g.
+      # "configure: error: Pthreads are required to build libgomp" during `gcc`-build
+      # because it's not actually needed anymore to link against `pthreads` since
+      # it's now part of `libc.so.6` itself, but the gcc build breaks if
+      # this doesn't work.
+      ln -sf $out/lib/libpthread.so.0 $out/lib/libpthread.so
+      ln -sf $out/lib/librt.so.1 $out/lib/librt.so
+      ln -sf $out/lib/libdl.so.2 $out/lib/libdl.so
+      ln -sf $out/lib/libutil.so.1 $out/lib/libutil.so
+      touch $out/lib/libpthread.a
 
-        # Put libraries for static linking in a separate output.  Note
-        # that libc_nonshared.a and libpthread_nonshared.a are required
-        # for dynamically-linked applications.
-        mkdir -p $static/lib
-        mv $out/lib/*.a $static/lib
-        mv $static/lib/lib*_nonshared.a $out/lib
-        # Some of *.a files are linker scripts where moving broke the paths.
-        sed "/^GROUP/s|$out/lib/lib|$static/lib/lib|g" \
-          -i "$static"/lib/*.a
+      # Put libraries for static linking in a separate output.  Note
+      # that libc_nonshared.a and libpthread_nonshared.a are required
+      # for dynamically-linked applications.
+      mkdir -p $static/lib
+      mv $out/lib/*.a $static/lib
+      mv $static/lib/lib*_nonshared.a $out/lib
+      # Some of *.a files are linker scripts where moving broke the paths.
+      sed "/^GROUP/s|$out/lib/lib|$static/lib/lib|g" \
+        -i "$static"/lib/*.a
 
-        # Work around a Nix bug: hard links across outputs cause a build failure.
-        cp $bin/bin/getconf $bin/bin/getconf_
-        mv $bin/bin/getconf_ $bin/bin/getconf
-      ''
+      # Work around a Nix bug: hard links across outputs cause a build failure.
+      cp $bin/bin/getconf $bin/bin/getconf_
+      mv $bin/bin/getconf_ $bin/bin/getconf
+    ''
     ;
 
   separateDebugInfo = true;

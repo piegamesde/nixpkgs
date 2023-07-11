@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
     [
       intltool
       pkg-config
-    ] ++ lib.optionals (useGtk) [ wrapGAppsHook ]
+    ]
+    ++ lib.optionals (useGtk) [ wrapGAppsHook ]
     ++ lib.optionals (useQt) [ wrapQtAppsHook ]
     ;
 
@@ -59,11 +60,14 @@ stdenv.mkDerivation rec {
       gsl
       libpng
       sfml
-    ] ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
-    ++ lib.optionals (useGtk) [ gtk3 ] ++ lib.optionals (useQt) [ qtbase ]
+    ]
+    ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
+    ++ lib.optionals (useGtk) [ gtk3 ]
+    ++ lib.optionals (useQt) [ qtbase ]
     ;
   configureFlags =
-    [ "--enable-sfml" ] ++ lib.optionals (useGtk) [ "--enable-gtk3" ]
+    [ "--enable-sfml" ]
+    ++ lib.optionals (useGtk) [ "--enable-gtk3" ]
     ++ lib.optionals (useQt) [ "--enable-qt5" ]
     ;
 

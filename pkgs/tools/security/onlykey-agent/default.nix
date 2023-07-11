@@ -26,7 +26,8 @@ let
         sha256 = "sha256-MwtufyJVPWuK7bbX+9Kv6wEi/zq4ftXrfjrMOYpcIfc=";
       };
       propagatedBuildInputs =
-        oa.propagatedBuildInputs or [ ] ++ [
+        oa.propagatedBuildInputs or [ ]
+        ++ [
           bech32
           cryptography
           docutils

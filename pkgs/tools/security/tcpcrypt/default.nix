@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     [
       openssl
       libpcap
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libcap
       libnfnetlink
       libnetfilter_conntrack

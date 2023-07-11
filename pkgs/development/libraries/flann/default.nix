@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
           "https://salsa.debian.org/science-team/flann/-/raw/debian/1.9.1+dfsg-9/debian/patches/0001-src-cpp-fix-cmake-3.11-build.patch";
         sha256 = "REsBnbe6vlrZ+iCcw43kR5wy2o6q10RM73xjW5kBsr4=";
       })
-    ] ++ lib.optionals (!stdenv.cc.isClang) [
+    ]
+    ++ lib.optionals (!stdenv.cc.isClang) [
       # Avoid the bundled version of LZ4 and instead use the system one.
       (fetchpatch {
         url =

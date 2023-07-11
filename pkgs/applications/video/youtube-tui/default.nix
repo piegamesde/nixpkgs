@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
       openssl
       xorg.libxcb
       libsixel
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
       AppKit

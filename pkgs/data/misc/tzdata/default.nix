@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
       ''CFLAGS+=-DZIC_BLOAT_DEFAULT=\"fat\"''
       "cc=${stdenv.cc.targetPrefix}cc"
       "AR=${stdenv.cc.targetPrefix}ar"
-    ] ++ lib.optionals stdenv.hostPlatform.isWindows [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isWindows [
       "CFLAGS+=-DHAVE_DIRECT_H"
       "CFLAGS+=-DHAVE_SETENV=0"
       "CFLAGS+=-DHAVE_SYMLINK=0"

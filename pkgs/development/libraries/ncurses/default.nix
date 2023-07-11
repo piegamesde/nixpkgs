@@ -39,27 +39,29 @@ stdenv.mkDerivation (finalAttrs: {
       "--with-manpage-format=normal"
       "--disable-stripping"
       "--with-versioned-syms"
-    ] ++ lib.optional unicodeSupport "--enable-widec"
+    ]
+    ++ lib.optional unicodeSupport "--enable-widec"
     ++ lib.optional (!withCxx) "--without-cxx"
     ++ lib.optional (abiVersion == "5") "--with-abi-version=5"
     ++ lib.optional stdenv.hostPlatform.isNetBSD "--enable-rpath"
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "--enable-sp-funcs"
       "--enable-term-driver"
-    ] ++ lib.optionals
-    (stdenv.hostPlatform.isUnix && stdenv.hostPlatform.isStatic) [
-      # For static binaries, the point is to have a standalone binary with
-      # minimum dependencies. So here we make sure that binaries using this
-      # package won't depend on a terminfo database located in the Nix store.
-      "--with-terminfo-dirs=${
-        lib.concatStringsSep ":" [
-          "/etc/terminfo" # Debian, Fedora, Gentoo
-          "/lib/terminfo" # Debian
-          "/usr/share/terminfo" # upstream default, probably all FHS-based distros
-          "/run/current-system/sw/share/terminfo" # NixOS
-        ]
-      }"
     ]
+    ++ lib.optionals
+      (stdenv.hostPlatform.isUnix && stdenv.hostPlatform.isStatic) [
+        # For static binaries, the point is to have a standalone binary with
+        # minimum dependencies. So here we make sure that binaries using this
+        # package won't depend on a terminfo database located in the Nix store.
+        "--with-terminfo-dirs=${
+          lib.concatStringsSep ":" [
+            "/etc/terminfo" # Debian, Fedora, Gentoo
+            "/lib/terminfo" # Debian
+            "/usr/share/terminfo" # upstream default, probably all FHS-based distros
+            "/run/current-system/sw/share/terminfo" # NixOS
+          ]
+        }"
+      ]
     ;
 
     # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
@@ -71,8 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      buildPackages.ncurses
-    ]
+        buildPackages.ncurses
+      ]
     ;
 
   buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
@@ -88,7 +90,8 @@ stdenv.mkDerivation (finalAttrs: {
         "--mandir=$man/share/man"
         "--with-pkg-config-libdir=$PKG_CONFIG_LIBDIR"
       )
-    '' + lib.optionalString stdenv.isSunOS ''
+    ''
+    + lib.optionalString stdenv.isSunOS ''
       sed -i -e '/-D__EXTENSIONS__/ s/-D_XOPEN_SOURCE=\$cf_XOPEN_SOURCE//' \
              -e '/CPPFLAGS="$CPPFLAGS/s/ -D_XOPEN_SOURCE_EXTENDED//' \
           configure
@@ -200,7 +203,8 @@ stdenv.mkDerivation (finalAttrs: {
             "menu"
             "ncurses"
             "panel"
-          ] ++ lib.optional withCxx "ncurses++"
+          ]
+          ++ lib.optional withCxx "ncurses++"
           ;
       in
       base ++ lib.optionals unicodeSupport (map (p: p + "w") base)

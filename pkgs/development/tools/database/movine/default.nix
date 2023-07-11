@@ -29,7 +29,8 @@ rustPlatform.buildRustPackage rec {
     [
       postgresql
       sqlite
-    ] ++ (if !stdenv.isDarwin then
+    ]
+    ++ (if !stdenv.isDarwin then
       [ openssl ]
     else
       [

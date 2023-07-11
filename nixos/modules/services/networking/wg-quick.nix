@@ -257,11 +257,12 @@ let
         ;
       postUp =
         optional (values.privateKeyFile != null)
-        "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+          "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap (peer:
           optional (peer.presharedKeyFile != null)
           "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
-          values.peers) ++ optional (values.postUp != "") values.postUp
+          values.peers)
+        ++ optional (values.postUp != "") values.postUp
         ;
       postUpFile =
         if postUp != [ ] then
@@ -292,37 +293,51 @@ let
             ${concatMapStringsSep "\n" (address: "Address = ${address}")
             values.address}
             ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
-          '' + optionalString (values.table != null) ''
+          ''
+          + optionalString (values.table != null) ''
             Table = ${values.table}
-          '' + optionalString (values.mtu != null) ''
+          ''
+          + optionalString (values.mtu != null) ''
             MTU = ${toString values.mtu}
-          '' + optionalString (values.privateKey != null) ''
+          ''
+          + optionalString (values.privateKey != null) ''
             PrivateKey = ${values.privateKey}
-          '' + optionalString (values.listenPort != null) ''
+          ''
+          + optionalString (values.listenPort != null) ''
             ListenPort = ${toString values.listenPort}
-          '' + optionalString (preUpFile != null) ''
+          ''
+          + optionalString (preUpFile != null) ''
             PreUp = ${preUpFile}
-          '' + optionalString (postUpFile != null) ''
+          ''
+          + optionalString (postUpFile != null) ''
             PostUp = ${postUpFile}
-          '' + optionalString (preDownFile != null) ''
+          ''
+          + optionalString (preDownFile != null) ''
             PreDown = ${preDownFile}
-          '' + optionalString (postDownFile != null) ''
+          ''
+          + optionalString (postDownFile != null) ''
             PostDown = ${postDownFile}
-          '' + concatMapStringsSep "\n" (peer:
+          ''
+          + concatMapStringsSep "\n" (peer:
             assert assertMsg (!((peer.presharedKeyFile != null)
               && (peer.presharedKey != null)))
               "Only one of presharedKey or presharedKeyFile may be set";
             ''
               [Peer]
-            '' + ''
+            ''
+            + ''
               PublicKey = ${peer.publicKey}
-            '' + optionalString (peer.presharedKey != null) ''
+            ''
+            + optionalString (peer.presharedKey != null) ''
               PresharedKey = ${peer.presharedKey}
-            '' + optionalString (peer.endpoint != null) ''
+            ''
+            + optionalString (peer.endpoint != null) ''
               Endpoint = ${peer.endpoint}
-            '' + optionalString (peer.persistentKeepalive != null) ''
+            ''
+            + optionalString (peer.persistentKeepalive != null) ''
               PersistentKeepalive = ${toString peer.persistentKeepalive}
-            '' + optionalString (peer.allowedIPs != [ ]) ''
+            ''
+            + optionalString (peer.allowedIPs != [ ]) ''
               AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
             '') values.peers
           ;

@@ -75,7 +75,8 @@ buildGoPackage rec {
           --replace '"script"' '"${util-linux}/bin/script"'
 
       echo "${version}" > VERSION
-    '' + lib.optionalString overrideEtc ''
+    ''
+    + lib.optionalString overrideEtc ''
       substituteInPlace agent/appconfig/constants_unix.go \
         --replace '"/etc/amazon/ssm/"' '"${placeholder "out"}/etc/amazon/ssm/"'
     ''

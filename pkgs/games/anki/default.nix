@@ -147,7 +147,8 @@ python3.pkgs.buildPythonApplication {
       ninja
       qt6.wrapQtAppsHook
       rsync
-    ] ++ lib.optional stdenv.isDarwin swift
+    ]
+    ++ lib.optional stdenv.isDarwin swift
     ;
   nativeCheckInputs = with python3.pkgs; [
     pytest
@@ -199,7 +200,8 @@ python3.pkgs.buildPythonApplication {
       waitress
       werkzeug
       zipp
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       AVKit
       CoreAudio
     ];

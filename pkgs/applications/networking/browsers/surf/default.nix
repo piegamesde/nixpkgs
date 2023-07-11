@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       gtk
       libsoup
       webkitgtk
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       # Audio & video support for webkitgtk WebView
       gstreamer
       gst-plugins-base

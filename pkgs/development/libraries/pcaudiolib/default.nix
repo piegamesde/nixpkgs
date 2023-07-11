@@ -34,7 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ portaudio ] ++ lib.optional stdenv.isLinux alsa-lib
+    [ portaudio ]
+    ++ lib.optional stdenv.isLinux alsa-lib
     ++ lib.optional pulseaudioSupport libpulseaudio
     ;
 

@@ -87,14 +87,15 @@ stdenv.mkDerivation rec {
     "-framework CoreAudioKit"
     "-framework QuartzCore"
     "-framework AudioToolbox"
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    # JUCE dlopen's these at runtime
-    "-lX11"
-    "-lXext"
-    "-lXcursor"
-    "-lXinerama"
-    "-lXrandr"
-  ]);
+  ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # JUCE dlopen's these at runtime
+      "-lX11"
+      "-lXext"
+      "-lXcursor"
+      "-lXinerama"
+      "-lXrandr"
+    ]);
 
   nativeBuildInputs = [
     cmake
@@ -105,7 +106,8 @@ stdenv.mkDerivation rec {
     [
       fmt
       liblo
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       freetype
       libX11
@@ -113,7 +115,8 @@ stdenv.mkDerivation rec {
       libXinerama
       libXext
       libXcursor
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Foundation
       Cocoa
       Carbon
@@ -130,7 +133,8 @@ stdenv.mkDerivation rec {
       WebKit
       DiscRecording
       CoreAudioKit
-    ] ++ lib.optional withJack jack
+    ]
+    ++ lib.optional withJack jack
     ;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''

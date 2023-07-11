@@ -52,7 +52,8 @@ let
           dbus-python
           pycairo
           librsvg
-        ] ++ optionals withGUI [
+        ]
+        ++ optionals withGUI [
           gtk3
           gobject-introspection
           pygobject3
@@ -62,7 +63,8 @@ let
         [
           intltool
           glib
-        ] ++ optionals withGUI [
+        ]
+        ++ optionals withGUI [
           gobject-introspection
           wrapGAppsHook
         ]
@@ -82,7 +84,8 @@ let
       postInstall =
         ''
           install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
-        '' + (if withGUI then
+        ''
+        + (if withGUI then
           ''
             mkdir -p $out/share
             cp -R deluge/ui/data/{icons,pixmaps} $out/share/

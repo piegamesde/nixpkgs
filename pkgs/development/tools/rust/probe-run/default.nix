@@ -26,7 +26,8 @@ rustPlatform.buildRustPackage rec {
     [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
   buildInputs =
-    [ libusb1 ] ++ lib.optionals stdenv.isDarwin [
+    [ libusb1 ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       AppKit
       IOKit

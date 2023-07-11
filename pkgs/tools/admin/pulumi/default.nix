@@ -43,7 +43,8 @@ buildGoModule rec {
       "-s"
       # Omit the DWARF symbol table.
       "-w"
-    ] ++ importpathFlags
+    ]
+    ++ importpathFlags
     ;
 
   importpathFlags = [
@@ -80,7 +81,8 @@ buildGoModule rec {
 
       # Only run tests not marked as disabled
       buildFlagsArray+=("-run" "[^(${lib.concatStringsSep "|" disabledTests})]")
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       export PULUMI_HOME=$(mktemp -d)
     ''
     ;

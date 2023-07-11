@@ -39,7 +39,9 @@ stdenv.mkDerivation rec {
   ];
     # TODO: doxygen (currently only HTML and not build by default).
   buildInputs =
-    [ xxHash ] ++ lib.optional withExamples SDL2 ++ lib.optionals useVulkan [
+    [ xxHash ]
+    ++ lib.optional withExamples SDL2
+    ++ lib.optionals useVulkan [
       libplacebo
       vulkan-loader
       vulkan-headers

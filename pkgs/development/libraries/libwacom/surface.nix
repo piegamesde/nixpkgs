@@ -18,7 +18,8 @@ libwacom.overrideAttrs (old: {
     # These patches will not be included upstream:
     # https://github.com/linux-surface/libwacom/issues/2
   patches =
-    old.patches or [ ] ++ map (p: "${libwacom-surface}/patches/v2/${p}") [
+    old.patches or [ ]
+    ++ map (p: "${libwacom-surface}/patches/v2/${p}") [
       "0001-Add-support-for-BUS_VIRTUAL.patch"
       "0002-Add-support-for-Intel-Management-Engine-bus.patch"
       "0003-data-Add-Microsoft-Surface-Pro-3.patch"

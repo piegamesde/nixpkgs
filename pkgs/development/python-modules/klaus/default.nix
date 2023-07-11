@@ -43,7 +43,8 @@ buildPythonPackage rec {
       pytest
       requests
       python-ctags3
-    ] ++ lib.optional (!isPy3k) mock
+    ]
+    ++ lib.optional (!isPy3k) mock
     ;
 
   checkPhase = ''

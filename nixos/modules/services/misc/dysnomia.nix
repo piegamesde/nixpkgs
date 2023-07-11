@@ -237,20 +237,21 @@ in
           "systemd-unit"
           "sysvinit-script"
           "nixos-configuration"
-        ] ++ optional (dysnomiaFlags.enableApacheWebApplication)
-        "apache-webapplication"
+        ]
+        ++ optional (dysnomiaFlags.enableApacheWebApplication)
+          "apache-webapplication"
         ++ optional (dysnomiaFlags.enableAxis2WebService) "axis2-webservice"
         ++ optional (dysnomiaFlags.enableDockerContainer) "docker-container"
         ++ optional (dysnomiaFlags.enableEjabberdDump) "ejabberd-dump"
         ++ optional (dysnomiaFlags.enableInfluxDatabase) "influx-database"
         ++ optional (dysnomiaFlags.enableMySQLDatabase) "mysql-database"
         ++ optional (dysnomiaFlags.enablePostgreSQLDatabase)
-        "postgresql-database"
+          "postgresql-database"
         ++ optional (dysnomiaFlags.enableTomcatWebApplication)
-        "tomcat-webapplication"
+          "tomcat-webapplication"
         ++ optional (dysnomiaFlags.enableMongoDatabase) "mongo-database"
         ++ optional (dysnomiaFlags.enableSubversionRepository)
-        "subversion-repository"
+          "subversion-repository"
         ;
     };
 

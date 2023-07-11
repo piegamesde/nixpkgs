@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ kmod ] ++ lib.optionals enablePython [
+    [ kmod ]
+    ++ lib.optionals enablePython [
       python3
       ncurses
     ]
@@ -51,7 +52,8 @@ stdenv.mkDerivation rec {
       }"
       "--enable-bindings-cxx"
       "--prefix=${placeholder "out"}"
-    ] ++ lib.optional enablePython "--enable-bindings-python"
+    ]
+    ++ lib.optional enablePython "--enable-bindings-python"
     ;
 
   meta = with lib; {

@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
       xz
       zlib
       zstd
-    ] ++ lib.optional sslSupport openssl
+    ]
+    ++ lib.optional sslSupport openssl
     ;
 
     # TODO: include translation files

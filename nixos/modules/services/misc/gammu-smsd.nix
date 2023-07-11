@@ -253,9 +253,10 @@ in
       wantedBy = [ "multi-user.target" ];
 
       wants = with cfg.backend;
-        [ ] ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
-          "postgresql.service"
-        ];
+        [ ]
+        ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
+            "postgresql.service"
+          ];
 
       preStart = with cfg.backend;
 
@@ -265,10 +266,12 @@ in
           chown ${cfg.user} -R ${outboxPath}
           chown ${cfg.user} -R ${sentSMSPath}
           chown ${cfg.user} -R ${errorSMSPath}
-        '') + optionalString (service == "sql" && sql.driver == "sqlite") ''
+        '')
+        + optionalString (service == "sql" && sql.driver == "sqlite") ''
           cat "${gammuPackage}/${initDBDir}/sqlite.sql" \
           | ${pkgs.sqlite.bin}/bin/sqlite3 ${sql.database}
-        '' + (let
+        ''
+        + (let
           execPsql =
             extraArgs:
             concatStringsSep " " [

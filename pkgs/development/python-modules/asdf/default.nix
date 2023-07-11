@@ -66,7 +66,8 @@ buildPythonPackage rec {
       packaging
       pyyaml
       semantic-version
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ;
 
   nativeCheckInputs = [

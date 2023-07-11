@@ -23,7 +23,8 @@ buildPythonPackage rec {
     [
       pyjwt
       requests
-    ] ++ pyjwt.optional-dependencies.crypto
+    ]
+    ++ pyjwt.optional-dependencies.crypto
     ;
 
     # Tests assume Network Connectivity:

@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
       bind
       libpwquality
       jansson
-    ] ++ pythonInputs
+    ]
+    ++ pythonInputs
     ;
 
   postPatch = ''

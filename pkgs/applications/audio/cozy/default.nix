@@ -52,7 +52,8 @@ python3Packages.buildPythonApplication rec {
       libdazzle
       libhandy
       pantheon.granite
-    ] ++ (with gst_all_1; [
+    ]
+    ++ (with gst_all_1; [
       gstreamer
       gst-plugins-good
       gst-plugins-ugly

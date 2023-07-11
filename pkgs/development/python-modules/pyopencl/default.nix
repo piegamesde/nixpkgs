@@ -35,7 +35,8 @@ buildPythonPackage rec {
     [
       opencl-headers
       pybind11
-    ] ++ os-specific-buildInputs
+    ]
+    ++ os-specific-buildInputs
     ;
 
   propagatedBuildInputs = [

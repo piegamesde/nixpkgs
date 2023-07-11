@@ -144,7 +144,8 @@ rustPlatform.buildRustPackage rec {
       glib
       gtk3
       openssl
-    ] ++ lib.optionals stdenv.isLinux [ fontconfig ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ fontconfig ]
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       Security

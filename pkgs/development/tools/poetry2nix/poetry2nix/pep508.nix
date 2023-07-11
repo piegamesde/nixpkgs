@@ -125,7 +125,8 @@ let
         ;
     in
     builtins.foldl' (acc: v:
-      acc ++ (if builtins.typeOf v == "string" then
+      acc
+      ++ (if builtins.typeOf v == "string" then
         parse v
       else
         [ (parseExpressions v) ])) [ ] exprs

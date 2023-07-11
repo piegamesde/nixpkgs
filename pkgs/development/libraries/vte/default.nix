@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
       pcre2
       zlib
       icu
-    ] ++ lib.optionals systemdSupport [ systemd ]
+    ]
+    ++ lib.optionals systemdSupport [ systemd ]
     ;
 
   propagatedBuildInputs =
@@ -96,11 +97,13 @@ stdenv.mkDerivation rec {
     ;
 
   mesonFlags =
-    [ "-Ddocs=true" ] ++ lib.optionals (!systemdSupport) [ "-D_systemd=false" ]
+    [ "-Ddocs=true" ]
+    ++ lib.optionals (!systemdSupport) [ "-D_systemd=false" ]
     ++ lib.optionals (gtkVersion == "4") [
       "-Dgtk3=false"
       "-Dgtk4=true"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # -Bsymbolic-functions is not supported on darwin
       "-D_b_symbolic_functions=false"
     ]
@@ -158,7 +161,8 @@ stdenv.mkDerivation rec {
       [
         astsmtl
         antono
-      ] ++ teams.gnome.members;
+      ]
+      ++ teams.gnome.members;
     platforms = platforms.unix;
   };
 }

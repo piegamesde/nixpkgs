@@ -32,7 +32,8 @@ rec {
       last (last ([ [
         true
         true
-      ] ] ++ (filter head matched)))
+      ] ]
+        ++ (filter head matched)))
     )
     ;
 
@@ -76,7 +77,8 @@ rec {
             let
               recurse =
                 str:
-                [ (substring 0 1 str) ] ++ (if str == "" then
+                [ (substring 0 1 str) ]
+                ++ (if str == "" then
                   [ ]
                 else
                   (recurse (substring 1 (stringLength (str)) str)))
@@ -87,17 +89,21 @@ rec {
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
         in
-        replaceStrings ((chars special) ++ (escape escs) ++ [
-          "**/"
-          "**"
-          "*"
-          "?"
-        ]) ((escape special) ++ (escape escs) ++ [
-          "(.*/)?"
-          ".*"
-          "[^/]*"
-          "[^/]"
-        ])
+        replaceStrings ((chars special)
+          ++ (escape escs)
+          ++ [
+            "**/"
+            "**"
+            "*"
+            "?"
+          ]) ((escape special)
+            ++ (escape escs)
+            ++ [
+              "(.*/)?"
+              ".*"
+              "[^/]*"
+              "[^/]"
+            ])
         ;
 
         # (regex -> regex) -> regex -> regex
@@ -130,7 +136,8 @@ rec {
         (if (elemAt split 0) == "/" || hasSlash then
           "^"
         else
-          "(^|.*/)") + (elemAt split 1)
+          "(^|.*/)")
+        + (elemAt split 1)
         ;
 
         # regex -> regex

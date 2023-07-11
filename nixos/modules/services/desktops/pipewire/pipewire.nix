@@ -11,8 +11,9 @@ with lib;
 let
   cfg = config.services.pipewire;
   enable32BitAlsaPlugins =
-    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.pipewire
-    != null
+    cfg.alsa.support32Bit
+    && pkgs.stdenv.isx86_64
+    && pkgs.pkgsi686Linux.pipewire != null
     ;
 
     # The package doesn't output to $out/lib/pipewire directly so that the
@@ -202,7 +203,8 @@ in
           [
             "audio"
             "video"
-          ] ++ lib.optional config.security.rtkit.enable "rtkit"
+          ]
+          ++ lib.optional config.security.rtkit.enable "rtkit"
           ;
         description = "Pipewire system service user";
         isSystemUser = true;

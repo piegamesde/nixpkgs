@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     [
       vulkan-loader
       wayland
-    ] ++ lib.lists.optionals withX11 [ qtx11extras ]
+    ]
+    ++ lib.lists.optionals withX11 [ qtx11extras ]
     ;
 
   patchPhase = ''

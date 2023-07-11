@@ -225,7 +225,9 @@ in
 
     ###### implementation
 
-  config = mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable
+  config = mkIf (cfg.client.enable
+    || cfg.master.enable
+    || cfg.metalogger.enable
     || cfg.chunkserver.enable) {
 
       warnings = [
@@ -255,15 +257,17 @@ in
       };
 
         # Create system user account for daemons
-      users = mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable
-        || cfg.chunkserver.enable)) {
-          users.moosefs = {
-            isSystemUser = true;
-            description = "moosefs daemon user";
-            group = "moosefs";
+      users = mkIf (cfg.runAsUser
+        && (cfg.master.enable
+          || cfg.metalogger.enable
+          || cfg.chunkserver.enable)) {
+            users.moosefs = {
+              isSystemUser = true;
+              description = "moosefs daemon user";
+              group = "moosefs";
+            };
+            groups.moosefs = { };
           };
-          groups.moosefs = { };
-        };
 
       environment.systemPackages =
         (lib.optional cfg.client.enable pkgs.moosefs)
@@ -275,17 +279,18 @@ in
           9419
           9420
           9421
-        ]) ++ (lib.optional cfg.chunkserver.openFirewall 9422)
+        ])
+        ++ (lib.optional cfg.chunkserver.openFirewall 9422)
         ;
 
         # Ensure storage directories exist
       systemd.tmpfiles.rules =
         optional cfg.master.enable
-        "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional cfg.metalogger.enable
-        "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ++ optional cfg.chunkserver.enable
-        "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
         ;
 
         # Service definitions

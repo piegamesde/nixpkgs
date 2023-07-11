@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
       mbelib
       libsndfile
       itpp
-    ] ++ lib.optionals portaudioSupport [ portaudio ]
+    ]
+    ++ lib.optionals portaudioSupport [ portaudio ]
     ;
 
   doCheck = true;

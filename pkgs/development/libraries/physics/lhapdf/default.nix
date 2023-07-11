@@ -41,10 +41,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optionals
-    (python != null && lib.versionAtLeast python.version "3.10") [
-      python.pkgs.cython
-    ]
+    [ makeWrapper ]
+    ++ lib.optionals
+      (python != null && lib.versionAtLeast python.version "3.10") [
+        python.pkgs.cython
+      ]
     ;
   buildInputs = [ python ];
 

@@ -60,7 +60,8 @@ buildPythonPackage rec {
       aioresponses
       pytest-asyncio
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.async
+    ]
+    ++ passthru.optional-dependencies.async
     ++ passthru.optional-dependencies.encrypted
     ;
 

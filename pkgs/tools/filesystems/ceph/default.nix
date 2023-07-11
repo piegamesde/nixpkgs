@@ -220,7 +220,8 @@ let
           nativeCheckInputs =
             oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
           disabledTestPaths =
-            (oldAttrs.disabledTestPaths or [ ]) ++ [
+            (oldAttrs.disabledTestPaths or [ ])
+            ++ [
               "test/aaa_profiling"
               "test/ext/mypy"
             ]
@@ -306,7 +307,8 @@ rec {
     enableParallelBuilding = true;
 
     buildInputs =
-      cryptoLibsMap.${cryptoStr} ++ [
+      cryptoLibsMap.${cryptoStr}
+      ++ [
         arrow-cpp
         babeltrace
         boost
@@ -338,7 +340,8 @@ rec {
         utf8proc
         zlib
         zstd
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         keyutils
         liburing
         libuuid
@@ -350,7 +353,8 @@ rec {
         rdma-core
         udev
         util-linux
-      ] ++ lib.optionals hasRadosgw [
+      ]
+      ++ lib.optionals hasRadosgw [
         optCurl
         optExpat
         optFuse
@@ -404,7 +408,8 @@ rec {
           else
             "OFF"
         }"
-      ] ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
+      ]
+      ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
       ;
 
     postFixup = ''

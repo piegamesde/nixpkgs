@@ -70,7 +70,8 @@ buildPythonPackage rec {
       requests-mock
       rich
       timeout-decorator
-    ] ++ passthru.optional-dependencies.json
+    ]
+    ++ passthru.optional-dependencies.json
     ++ passthru.optional-dependencies.security
     ;
 

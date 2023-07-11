@@ -102,7 +102,8 @@ in
           in
           lib.optionalString (dbPass != "") ''
             export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
-          '' + ''
+          ''
+          + ''
             export DATABASE_URL="${dbUrl}"
             ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
           ''

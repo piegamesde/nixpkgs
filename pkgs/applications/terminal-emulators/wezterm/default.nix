@@ -64,14 +64,16 @@ rustPlatform.buildRustPackage rec {
       ncurses # tic for terminfo
       pkg-config
       python3
-    ] ++ lib.optional stdenv.isDarwin perl
+    ]
+    ++ lib.optional stdenv.isDarwin perl
     ;
 
   buildInputs =
     [
       fontconfig
       zlib
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       libX11
       libxcb
       libxkbcommon
@@ -81,7 +83,8 @@ rustPlatform.buildRustPackage rec {
       xcbutilimage
       xcbutilkeysyms
       xcbutilwm # contains xcb-ewmh among others
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Cocoa
       CoreGraphics
       Foundation
@@ -115,7 +118,8 @@ rustPlatform.buildRustPackage rec {
         --add-needed "${libGL}/lib/libEGL.so.1" \
         --add-needed "${vulkan-loader}/lib/libvulkan.so.1" \
         $out/bin/wezterm-gui
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p "$out/Applications"
       OUT_APP="$out/Applications/WezTerm.app"
       cp -r assets/macos/WezTerm.app "$OUT_APP"

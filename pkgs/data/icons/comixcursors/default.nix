@@ -109,7 +109,8 @@ stdenvNoCC.mkDerivation rec {
       # Even with outputsToInstall=[], the default/first still has an effect on
       # some Nix tools (e.g. nix-build).
     in
-    [ default ] ++ (lib.remove default variants)
+    [ default ]
+    ++ (lib.remove default variants)
     # Need a dummy "out" output to prevent the builder scripts from breaking.
     ++ [ "out" ]
     ;

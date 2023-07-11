@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
     [
       pkg-config
       autoreconfHook
-    ] ++ lib.optionals withGui [ wrapQtAppsHook ]
+    ]
+    ++ lib.optionals withGui [ wrapQtAppsHook ]
     ;
 
   buildInputs =
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
       miniupnpc
       protobuf
       util-linux
-    ] ++ lib.optionals withGui [
+    ]
+    ++ lib.optionals withGui [
       qtbase
       qttools
       qrencode
@@ -67,7 +69,8 @@ stdenv.mkDerivation rec {
     [ "--with-boost-libdir=${boost.out}/lib" ]
     ++ lib.optional enableUpnp "--enable-upnp-default"
     ++ lib.optional disableWallet "--disable-wallet"
-    ++ lib.optional disableDaemon "--disable-daemon" ++ lib.optionals withGui [
+    ++ lib.optional disableDaemon "--disable-daemon"
+    ++ lib.optionals withGui [
       "--with-gui=yes"
       "--with-qt-bindir=${lib.getDev qtbase}/bin:${lib.getDev qttools}/bin"
     ]

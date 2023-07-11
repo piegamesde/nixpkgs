@@ -411,7 +411,8 @@ in
         "${config.boot.initrd.systemd.package}/lib/udev/cdrom_id"
         "${config.boot.initrd.systemd.package}/lib/udev/scsi_id"
         "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
-      ] ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages
+      ]
+      ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages
       ;
 
       # Generate the udev rules for the initrd

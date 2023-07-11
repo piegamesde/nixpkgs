@@ -41,10 +41,12 @@ stdenv.mkDerivation rec {
     [
       openal
       alure
-    ] ++ optionals (legacy) [
+    ]
+    ++ optionals (legacy) [
       libXtst
       libX11
-    ] ++ optionals (!legacy) [ libinput ]
+    ]
+    ++ optionals (!legacy) [ libinput ]
     ;
 
   makeFlags = optionals (!legacy) [ "libinput=1" ];

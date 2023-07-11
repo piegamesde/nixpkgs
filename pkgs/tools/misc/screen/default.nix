@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
     [
       ncurses
       libxcrypt
-    ] ++ lib.optional stdenv.isLinux pam ++ lib.optional stdenv.isDarwin utmp
+    ]
+    ++ lib.optional stdenv.isLinux pam
+    ++ lib.optional stdenv.isDarwin utmp
     ;
 
   doCheck = true;

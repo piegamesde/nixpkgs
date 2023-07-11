@@ -58,7 +58,8 @@ in
         [
           pkgs.bash
           pkgs.interception-tools
-        ] ++ cfg.plugins
+        ]
+        ++ cfg.plugins
         ;
       serviceConfig = {
         ExecStart = ''

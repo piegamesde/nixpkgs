@@ -69,7 +69,8 @@ let
   useComponent =
     component:
     hasAttrByPath (splitString "." component) cfg.config
-    || useComponentPlatform component || useExplicitComponent component
+    || useComponentPlatform component
+    || useExplicitComponent component
     || builtins.elem component cfg.extraComponents
     ;
 
@@ -140,7 +141,8 @@ in
           "default_config"
           "met"
           "esphome"
-        ] ++ optionals pkgs.stdenv.hostPlatform.isAarch [
+        ]
+        ++ optionals pkgs.stdenv.hostPlatform.isAarch [
           # Use the platform as an indicator that we might be running on a RaspberryPi and include
           # relevant components
           "rpi_power"
@@ -490,17 +492,20 @@ in
             # Empty string first, so we will never accidentally have an empty capability bounding set
             # https://github.com/NixOS/nixpkgs/issues/120617#issuecomment-830685115
             ""
-          ] ++ lib.optionals
-            (builtins.any useComponent componentsUsingBluetooth) [
-              # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
-              # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
-              "CAP_NET_ADMIN"
-              "CAP_NET_RAW"
-            ] ++ lib.optionals (useComponent "emulated_hue") [
+          ]
+            ++ lib.optionals
+              (builtins.any useComponent componentsUsingBluetooth) [
+                # Required for interaction with hci devices and bluetooth sockets, identified by bluetooth-adapters dependency
+                # https://www.home-assistant.io/integrations/bluetooth_le_tracker/#rootless-setup-on-core-installs
+                "CAP_NET_ADMIN"
+                "CAP_NET_RAW"
+              ]
+            ++ lib.optionals (useComponent "emulated_hue") [
               # Alexa looks for the service on port 80
               # https://www.home-assistant.io/integrations/emulated_hue
               "CAP_NET_BIND_SERVICE"
-            ] ++ lib.optionals (useComponent "nmap_tracker") [
+            ]
+            ++ lib.optionals (useComponent "nmap_tracker") [
               # https://www.home-assistant.io/integrations/nmap_tracker#linux-capabilities
               "CAP_NET_ADMIN"
               "CAP_NET_BIND_SERVICE"
@@ -658,9 +663,10 @@ in
               "AF_INET6"
               "AF_NETLINK"
               "AF_UNIX"
-            ] ++ optionals (any useComponent componentsUsingBluetooth) [
-              "AF_BLUETOOTH"
             ]
+            ++ optionals (any useComponent componentsUsingBluetooth) [
+                "AF_BLUETOOTH"
+              ]
             ;
           RestrictNamespaces = true;
           RestrictRealtime = true;
@@ -674,7 +680,8 @@ in
             [
               "@system-service"
               "~@privileged"
-            ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ]
+            ]
+            ++ optionals (any useComponent componentsUsingPing) [ "capset" ]
             ;
           UMask = "0077";
         }

@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       libdv
       libjpeg
       libpng
-    ] ++ lib.optionals (!withMinimal) [
+    ]
+    ++ lib.optionals (!withMinimal) [
       gtk2
       libX11
       SDL

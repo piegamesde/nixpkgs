@@ -26,7 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.4.3";
 
   outputs =
-    [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    [ "out" ]
+    ++ lib.optionals buildTests [ "test" ]
     ++ lib.optionals buildBenchmarks [ "benchmark" ]
     ++ lib.optionals buildSamples [ "sample" ]
     ;
@@ -53,7 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
       rocrand
       openmp
       openmpi
-    ] ++ lib.optionals buildTests [ gtest ]
+    ]
+    ++ lib.optionals buildTests [ gtest ]
     ;
 
   cmakeFlags =
@@ -75,9 +77,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals (gpuTargets != [ ]) [
-      "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
-    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ]
+    ++ lib.optionals (gpuTargets != [ ]) [
+        "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
+      ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
     ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
     ;
 
@@ -85,10 +89,12 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString buildTests ''
       mkdir -p $test/bin
       mv $out/bin/rocalution-test $test/bin
-    '' + lib.optionalString buildBenchmarks ''
+    ''
+    + lib.optionalString buildBenchmarks ''
       mkdir -p $benchmark/bin
       mv $out/bin/rocalution-bench $benchmark/bin
-    '' + lib.optionalString buildSamples ''
+    ''
+    + lib.optionalString buildSamples ''
       mkdir -p $sample/bin
       mv clients/staging/* $sample/bin
       rm $sample/bin/rocalution-test || true
@@ -97,7 +103,8 @@ stdenv.mkDerivation (finalAttrs: {
       patchelf --set-rpath \
         $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++ [ hip ])} \
         $sample/bin/*
-    '' + lib.optionalString (buildTests || buildBenchmarks) ''
+    ''
+    + lib.optionalString (buildTests || buildBenchmarks) ''
       rmdir $out/bin
     ''
     ;

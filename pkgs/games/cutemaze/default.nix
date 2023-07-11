@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     [
       qtbase
       qtsvg
-    ] ++ lib.optionals stdenv.isLinux [ qtwayland ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ qtwayland ]
     ;
 
   installPhase =

@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zstd ] ++ lib.optionals stdenv.isLinux [
+    [ zstd ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libxkbcommon
       udev
@@ -52,7 +53,8 @@ rustPlatform.buildRustPackage rec {
       xorg.libXcursor
       xorg.libXi
       xorg.libXrandr
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.Cocoa
       rustPlatform.bindgenHook
     ]

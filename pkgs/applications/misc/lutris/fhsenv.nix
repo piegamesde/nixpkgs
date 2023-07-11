@@ -172,7 +172,10 @@ buildFHSEnv {
       soundfont-fluid
       bzip2
       game-music-emu
-    ] ++ qt5Deps pkgs ++ gnomeDeps pkgs ++ lib.optional steamSupport pkgs.steam
+    ]
+    ++ qt5Deps pkgs
+    ++ gnomeDeps pkgs
+    ++ lib.optional steamSupport pkgs.steam
     ++ extraPkgs pkgs
     ;
 
@@ -266,7 +269,9 @@ buildFHSEnv {
 
       # Winetricks
       fribidi
-    ] ++ xorgDeps pkgs ++ extraLibraries pkgs
+    ]
+    ++ xorgDeps pkgs
+    ++ extraLibraries pkgs
     ;
 
   extraInstallCommands = ''

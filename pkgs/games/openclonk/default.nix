@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       mv -v $out/games/openclonk $out/bin/
-    '' + lib.optionalString enableSoundtrack ''
+    ''
+    + lib.optionalString enableSoundtrack ''
       ln -sv ${soundtrack_src} $out/share/games/openclonk/Music.ocg
     ''
     ;

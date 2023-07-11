@@ -72,10 +72,12 @@ buildPythonPackage rec {
       substituteInPlace theano/configdefaults.py \
         --replace 'StrParam(param, is_valid=warn_cxx)' 'StrParam('\'''${cxx_compiler}'\''', is_valid=warn_cxx)' \
         --replace 'rc == 0 and config.cxx != ""' 'config.cxx != ""'
-    '' + lib.optionalString cudaSupport ''
+    ''
+    + lib.optionalString cudaSupport ''
       substituteInPlace theano/configdefaults.py \
         --replace 'StrParam(get_cuda_root)' 'StrParam('\'''${cudatoolkit}'\''')'
-    '' + lib.optionalString cudnnSupport ''
+    ''
+    + lib.optionalString cudnnSupport ''
       substituteInPlace theano/configdefaults.py \
         --replace 'StrParam(default_dnn_base_path)' 'StrParam('\'''${cudnn}'\''')'
     ''

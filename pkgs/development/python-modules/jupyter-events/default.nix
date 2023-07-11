@@ -46,7 +46,8 @@ buildPythonPackage rec {
       python-json-logger
       pyyaml
       traitlets
-    ] ++ jsonschema.optional-dependencies.format
+    ]
+    ++ jsonschema.optional-dependencies.format
     ++ jsonschema.optional-dependencies.format-nongpl
     ;
 
@@ -62,7 +63,8 @@ buildPythonPackage rec {
       pytest-asyncio
       pytest-console-scripts
       pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
     ;
 
   preCheck = ''

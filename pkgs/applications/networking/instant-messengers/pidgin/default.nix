@@ -85,24 +85,30 @@ let
         cyrus_sasl
         libgnt
         ncurses # optional: build finch - the console UI
-      ] ++ lib.optional withOpenssl openssl ++ lib.optionals withGnutls [
+      ]
+      ++ lib.optional withOpenssl openssl
+      ++ lib.optionals withGnutls [
         gnutls
         libgcrypt
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         gtk2
         gtkspell2
         farstream
-      ] ++ lib.optional stdenv.isDarwin gtk2-x11
+      ]
+      ++ lib.optional stdenv.isDarwin gtk2-x11
       ;
 
     propagatedBuildInputs =
       [
         pkg-config
         gettext
-      ] ++ (with perlPackages; [
+      ]
+      ++ (with perlPackages; [
         perl
         XMLParser
-      ]) ++ lib.optional stdenv.isLinux gtk2
+      ])
+      ++ lib.optional stdenv.isLinux gtk2
       ++ lib.optional stdenv.isDarwin gtk2-x11
       ;
 
@@ -123,11 +129,13 @@ let
         "--disable-nm"
         "--disable-tcl"
         "--disable-gevolution"
-      ] ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
+      ]
+      ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
       ++ lib.optionals withGnutls [
         "--enable-gnutls=yes"
         "--enable-nss=no"
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         "--disable-gtkspell"
         "--disable-vv"
       ]

@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
       pkg-config
       perl
       xa
-    ] ++ lib.optionals docSupport [
+    ]
+    ++ lib.optionals docSupport [
       doxygen
       graphviz
     ]
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
       "--enable-hardsid"
       "--with-gcrypt"
       "--with-exsid"
-    ] ++ lib.optional doCheck "--enable-tests"
+    ]
+    ++ lib.optional doCheck "--enable-tests"
     ;
 
   postInstall = lib.optionalString docSupport ''

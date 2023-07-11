@@ -22,10 +22,12 @@ buildPythonPackage rec {
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
 
   propagatedBuildInputs =
-    [ cython ] ++ lib.optionals stdenv.isLinux [
+    [ cython ]
+    ++ lib.optionals stdenv.isLinux [
       libusb1
       udev
-    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+    ]
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
       AppKit
       CoreFoundation
       IOKit

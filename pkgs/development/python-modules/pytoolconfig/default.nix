@@ -62,7 +62,8 @@ buildPythonPackage rec {
       sphinx-autodoc-typehints
       sphinx-rtd-theme
       sphinxHook
-    ] ++ passthru.optional-dependencies.doc
+    ]
+    ++ passthru.optional-dependencies.doc
     ;
 
   postPatch = ''

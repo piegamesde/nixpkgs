@@ -82,11 +82,13 @@ let
           wget
           curl
           iksemel
-        ] ++ lib.optionals withOpus [
+        ]
+        ++ lib.optionals withOpus [
           libopus
           opusfile
           libogg
-        ] ++ lib.optionals ldapSupport [ openldap ]
+        ]
+        ++ lib.optionals ldapSupport [ openldap ]
         ;
       nativeBuildInputs = [
         util-linux
@@ -103,7 +105,8 @@ let
           # This patch changes the runtime behavior to look for state
           # directories in /var rather than ${out}/var.
           ./runtime-vardirs.patch
-        ] ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch"
+        ]
+        ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch"
         ;
 
       postPatch = ''

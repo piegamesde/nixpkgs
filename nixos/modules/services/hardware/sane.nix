@@ -41,7 +41,8 @@ let
     [
       pkg
       netConf
-    ] ++ optional config.services.saned.enable sanedConf
+    ]
+    ++ optional config.services.saned.enable sanedConf
     ++ config.hardware.sane.extraBackends
     ;
   saneConfig = pkgs.mkSaneConfig {

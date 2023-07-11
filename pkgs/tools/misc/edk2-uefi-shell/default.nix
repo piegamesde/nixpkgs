@@ -16,7 +16,8 @@ edk2.mkDerivation "ShellPkg/ShellPkg.dsc" (finalAttrs: {
       util-linux
       nasm
       python3
-    ] ++ lib.optionals stdenv.cc.isClang [
+    ]
+    ++ lib.optionals stdenv.cc.isClang [
       llvmPackages.bintools
       llvmPackages.llvm
     ]

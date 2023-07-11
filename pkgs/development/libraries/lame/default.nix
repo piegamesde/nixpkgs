@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ ]
-    #++ optional efenceSupport libefence
-    #++ optional mp3xSupport gtk1
+      #++ optional efenceSupport libefence
+      #++ optional mp3xSupport gtk1
     ++ lib.optional sndfileFileIOSupport libsndfile
     ;
 

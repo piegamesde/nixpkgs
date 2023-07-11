@@ -57,7 +57,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zlib ] ++ lib.optionals stdenv.isDarwin [
+    [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ]

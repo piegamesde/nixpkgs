@@ -60,7 +60,8 @@ buildPythonPackage rec {
     [
       pytestCheckHook
       pytz
-    ] ++ passthru.optional-dependencies.s3
+    ]
+    ++ passthru.optional-dependencies.s3
     ;
 
   preCheck = ''

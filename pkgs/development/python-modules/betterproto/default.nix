@@ -52,7 +52,8 @@ buildPythonPackage rec {
       pytest-mock
       tomlkit
       grpcio-tools
-    ] ++ passthru.optional-dependencies.compiler
+    ]
+    ++ passthru.optional-dependencies.compiler
     ;
 
     # The tests require the generation of code before execution. This requires

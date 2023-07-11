@@ -57,7 +57,8 @@ else
           ];
           hash = "sha256-+2daRTvxtyrCPimOEAmVbiVm1Bso9hxGbaAbd03E+ws=";
         })
-      ] ++ lib.optionals (pythonAtLeast "3.11") [
+      ]
+      ++ lib.optionals (pythonAtLeast "3.11") [
         # Fix test that failed because python seems to have changed the exception format in the
         # final release. This patch should be included in the next version and can be removed when
         # it is released.

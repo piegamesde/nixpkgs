@@ -33,13 +33,15 @@ wrapDerivation ({
       [
         emscripten
         python3
-      ] ++ buildInputs
+      ]
+      ++ buildInputs
       ;
     nativeBuildInputs =
       [
         emscripten
         python3
-      ] ++ nativeBuildInputs
+      ]
+      ++ nativeBuildInputs
       ;
 
       # fake conftest results with emscripten's python magic

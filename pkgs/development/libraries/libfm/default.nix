@@ -47,11 +47,13 @@ stdenv.mkDerivation rec {
       glib
       gtk
       pango
-    ] ++ optional (!extraOnly) menu-cache
+    ]
+    ++ optional (!extraOnly) menu-cache
     ;
 
   configureFlags =
-    [ "--sysconfdir=/etc" ] ++ optional extraOnly "--with-extra-only"
+    [ "--sysconfdir=/etc" ]
+    ++ optional extraOnly "--with-extra-only"
     ++ optional withGtk3 "--with-gtk=3"
     ;
 

@@ -47,9 +47,11 @@ rec {
           mkdir -p .build/checkouts
           ln -sf ${pinFile} ./Package.resolved
           install -m 0600 ${workspaceStateFile} ./.build/workspace-state.json
-        '' + concatStrings (mapAttrsToList (name: src: ''
+        ''
+        + concatStrings (mapAttrsToList (name: src: ''
           ln -s '${src}' '.build/checkouts/${name}'
-        '') sources) + ''
+        '') sources)
+        + ''
           # Helper that makes a swiftpm dependency mutable by copying the source.
           swiftpmMakeMutable() {
             local orig="$(readlink .build/checkouts/$1)"

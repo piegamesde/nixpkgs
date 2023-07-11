@@ -93,7 +93,8 @@ stdenv.mkDerivation rec {
       libdmapsharing # for daap support
       libsecret
       libnotify
-    ] ++ gst_plugins
+    ]
+    ++ gst_plugins
     ;
 
   nativeCheckInputs = [ check ];

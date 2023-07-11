@@ -87,12 +87,14 @@ stdenv.mkDerivation {
 
       # Store the original hash
       md5sum $exe | awk '{ print $1 }' > $out/hash.md5.orig
-    '' + optionalString stdenv.isLinux ''
+    ''
+    + optionalString stdenv.isLinux ''
       patchelf \
         --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
         --set-rpath "${libpath}" \
         $exe
-    '' + optionalString stdenv.isDarwin ''
+    ''
+    + optionalString stdenv.isDarwin ''
       # My custom unfucked dwarfort.exe for macOS. Can't use
       # absolute paths because original doesn't have enough
       # header space. Someone plz break into Tarn's house & put
@@ -108,7 +110,8 @@ stdenv.mkDerivation {
         -change /usr/local/lib/x86_64/libstdc++.6.dylib \
                 @executable_path/libs/libstdc++.6.dylib \
         $exe
-    '' + ''
+    ''
+    + ''
       # Store the new hash
       md5sum $exe | awk '{ print $1 }' > $out/hash.md5
     ''

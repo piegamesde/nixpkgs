@@ -599,11 +599,13 @@ in
             }
             rm -f "${cfg.dataDir}/.first_startup"
           fi
-        '' + optionalString (cfg.ensureDatabases != [ ]) ''
+        ''
+        + optionalString (cfg.ensureDatabases != [ ]) ''
           ${concatMapStrings (database: ''
             $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
           '') cfg.ensureDatabases}
-        '' + ''
+        ''
+        + ''
           ${concatMapStrings (user:
             let
               userPermissions = concatStringsSep "\n" (mapAttrsToList

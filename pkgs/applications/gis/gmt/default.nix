@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
       pcre
       dcw-gmt
       gshhg-gmt
-    ] ++ (if stdenv.isDarwin then
+    ]
+    ++ (if stdenv.isDarwin then
       [
         Accelerate
         CoreGraphics
@@ -76,7 +77,8 @@ stdenv.mkDerivation rec {
       "-DGMT_ENABLE_OPENMP:BOOL=TRUE"
       "-DGMT_INSTALL_MODULE_LINKS:BOOL=FALSE"
       "-DLICENSE_RESTRICTED=LGPL" # "GPL" and "no" also valid
-    ] ++ (with stdenv;
+    ]
+    ++ (with stdenv;
       lib.optionals (!isDarwin) [
         "-DFFTW3_ROOT=${fftwSinglePrec.dev}"
         "-DLAPACK_LIBRARY=${lapack}/lib/liblapack.so"

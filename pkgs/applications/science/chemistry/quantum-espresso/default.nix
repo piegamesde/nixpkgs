@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
       fftw
       blas
       lapack
-    ] ++ (lib.optionals useMpi [ mpi ])
+    ]
+    ++ (lib.optionals useMpi [ mpi ])
     ;
 
   configureFlags =

@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optionals stdenv.isLinux [ lsb-release ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ lsb-release ]
     ++ lib.optionals stdenv.isDarwin [
       DarwinTools
       makeWrapper
@@ -83,10 +84,12 @@ stdenv.mkDerivation rec {
       curl
       dbus
       flac
-    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+    ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       # gtk3 propagates AppKit from the 10.12 SDK
       AppKit
-    ] ++ [
+    ]
+    ++ [
       gtk3
       jasper
       libGLU
@@ -109,7 +112,8 @@ stdenv.mkDerivation rec {
       sqlite
       tinyxml
       wxGTK32
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       alsa-utils
       libselinux
       libsepol

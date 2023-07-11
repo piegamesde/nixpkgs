@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     [
       flex
       bison
-    ] ++ lib.optional stdenv.isDarwin darwin.cctools
+    ]
+    ++ lib.optional stdenv.isDarwin darwin.cctools
     ;
   buildInputs = [
     zlib
@@ -38,9 +39,10 @@ stdenv.mkDerivation rec {
       "CC:=$(CC)"
       "RANLIB:=$(RANLIB)"
       "prefix=$(out)"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      "AR:=$(AR)" # libtool is used for darwin
     ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+        "AR:=$(AR)" # libtool is used for darwin
+      ]
     ;
 
   patchPhase = ''

@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
       "out"
       "dev"
       "man"
-    ] ++ lib.optional withConplay "conplay"
+    ]
+    ++ lib.optional withConplay "conplay"
     ;
 
   nativeBuildInputs = lib.optionals (!libOnly)
@@ -48,17 +49,21 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withCoreAudio [
       AudioUnit
       AudioToolbox
-    ] ++ lib.optionals withJack [ jack ]);
+    ]
+    ++ lib.optionals withJack [ jack ]);
 
   configureFlags =
     lib.optionals (!libOnly) [
-      "--with-audio=${
-        lib.strings.concatStringsSep "," (lib.optional withJack "jack"
-          ++ lib.optional withPulse "pulse" ++ lib.optional withAlsa "alsa"
-          ++ lib.optional withCoreAudio "coreaudio" ++ [ "dummy" ])
-      }"
-    ] ++ lib.optional (stdenv.hostPlatform ? mpg123)
-    "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"
+        "--with-audio=${
+          lib.strings.concatStringsSep "," (lib.optional withJack "jack"
+            ++ lib.optional withPulse "pulse"
+            ++ lib.optional withAlsa "alsa"
+            ++ lib.optional withCoreAudio "coreaudio"
+            ++ [ "dummy" ])
+        }"
+      ]
+    ++ lib.optional (stdenv.hostPlatform ? mpg123)
+      "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"
     ;
 
   enableParallelBuilding = true;

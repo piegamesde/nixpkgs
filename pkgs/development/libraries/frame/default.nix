@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    [ stdenv ] ++ lib.optionals enableX11 [
+    [ stdenv ]
+    ++ lib.optionals enableX11 [
       xorg.xorgserver
       xorg.libX11
       xorg.libXext

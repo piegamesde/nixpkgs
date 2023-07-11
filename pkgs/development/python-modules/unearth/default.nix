@@ -32,7 +32,8 @@ buildPythonPackage rec {
     [
       packaging
       requests
-    ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ cached-property ]
     ;
 
   nativeCheckInputs = [

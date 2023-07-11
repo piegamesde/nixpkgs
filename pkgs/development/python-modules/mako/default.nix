@@ -43,7 +43,8 @@ buildPythonPackage rec {
       lingua
       mock
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.babel
+    ]
+    ++ passthru.optional-dependencies.babel
     ;
 
   disabledTests = lib.optionals isPyPy [

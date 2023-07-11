@@ -126,7 +126,9 @@ let
       xorg.libxcb
       zlib
       snappy
-    ] ++ optional pulseSupport libpulseaudio ++ optional libvaSupport libva
+    ]
+    ++ optional pulseSupport libpulseaudio
+    ++ optional libvaSupport libva
     ;
 
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
@@ -136,7 +138,8 @@ let
     optionals enableVideoAcceleration [
       "VaapiVideoDecoder"
       "VaapiVideoEncoder"
-    ] ++ optional enableVulkan "Vulkan"
+    ]
+    ++ optional enableVulkan "Vulkan"
     ;
 
     # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935

@@ -251,7 +251,9 @@ in
         UMask = "0077";
       };
     in
-    mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable
+    mkIf (cfg.ctrl-agent.enable
+      || cfg.dhcp4.enable
+      || cfg.dhcp6.enable
       || cfg.dhcp-ddns.enable) (mkMerge [
         { environment.systemPackages = [ package ]; }
 

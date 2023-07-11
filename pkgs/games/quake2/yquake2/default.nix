@@ -42,7 +42,8 @@ let
       ''
         substituteInPlace src/client/curl/qcurl.c \
           --replace "\"libcurl.so.3\", \"libcurl.so.4\"" "\"${curl.out}/lib/libcurl.so\", \"libcurl.so.3\", \"libcurl.so.4\""
-      '' + lib.optionalString (openalSupport && !stdenv.isDarwin) ''
+      ''
+      + lib.optionalString (openalSupport && !stdenv.isDarwin) ''
         substituteInPlace Makefile \
           --replace "\"libopenal.so.1\"" "\"${openal}/lib/libopenal.so.1\""
       ''
@@ -53,10 +54,12 @@ let
         SDL2
         libGL
         curl
-      ] ++ lib.optionals stdenv.isDarwin [
+      ]
+      ++ lib.optionals stdenv.isDarwin [
         Cocoa
         OpenAL
-      ] ++ lib.optional openalSupport openal
+      ]
+      ++ lib.optional openalSupport openal
       ;
 
     makeFlags = [

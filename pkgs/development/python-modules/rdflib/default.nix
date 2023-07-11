@@ -47,7 +47,8 @@ buildPythonPackage rec {
       isodate
       html5lib
       pyparsing
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
   passthru.optional-dependencies = {
@@ -59,7 +60,8 @@ buildPythonPackage rec {
     [
       pytest-cov
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.networkx
+    ]
+    ++ passthru.optional-dependencies.networkx
     ++ passthru.optional-dependencies.html
     ;
 
@@ -78,7 +80,8 @@ buildPythonPackage rec {
       "test_context"
       "test_guess_format_for_parse"
       "rdflib.extras.infixowl"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       # Require loopback network access
       "TestGraphHTTP"
     ]

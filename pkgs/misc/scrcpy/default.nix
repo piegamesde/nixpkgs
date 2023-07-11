@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
 
       # runtime dep on `adb` to push the server
       wrapProgram "$out/bin/scrcpy" --prefix PATH : "${platform-tools}/bin"
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace $out/share/applications/scrcpy-console.desktop \
         --replace "/bin/bash" "${runtimeShell}"
     ''

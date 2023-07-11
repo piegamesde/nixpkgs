@@ -28,7 +28,9 @@ let
   '';
 
   tlsEnabled =
-    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
+    cfg.nginx.addSSL
+    || cfg.nginx.forceSSL
+    || cfg.nginx.onlySSL
     || cfg.nginx.enableACME
     ;
 

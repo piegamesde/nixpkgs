@@ -62,10 +62,12 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
       wrapGAppsHook
-    ] ++ lib.optionals withDoc [
+    ]
+    ++ lib.optionals withDoc [
       sphinx
       graphviz
-    ] ++ lib.optionals withAravis [ meson ]
+    ]
+    ++ lib.optionals withAravis [ meson ]
     ++ lib.optionals withGui [ qt5.wrapQtAppsHook ]
     ;
 
@@ -88,7 +90,8 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-good
       gst_all_1.gst-plugins-bad
       gst_all_1.gst-plugins-ugly
-    ] ++ lib.optionals withAravis [ aravis ]
+    ]
+    ++ lib.optionals withAravis [ aravis ]
     ++ lib.optionals withGui [ qt5.qtbase ]
     ;
 

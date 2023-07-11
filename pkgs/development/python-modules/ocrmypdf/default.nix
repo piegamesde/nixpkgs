@@ -80,7 +80,8 @@ buildPythonPackage rec {
       pluggy
       reportlab
       tqdm
-    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
     ;
 

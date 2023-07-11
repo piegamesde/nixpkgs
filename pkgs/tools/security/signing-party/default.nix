@@ -169,7 +169,8 @@ stdenv.mkDerivation rec {
               MailTools
               TimeDate
               NetIDNEncode
-            ] ++ GnuPGInterfaceRuntimeDependencies)
+            ]
+              ++ GnuPGInterfaceRuntimeDependencies)
           } \
           --prefix PATH ":" \
           "${

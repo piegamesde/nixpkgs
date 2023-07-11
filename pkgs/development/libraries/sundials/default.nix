@@ -33,14 +33,15 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ python ] ++ lib.optionals (lapackSupport)
+    [ python ]
+    ++ lib.optionals (lapackSupport)
     # Check that the same index size is used for both libraries
-    (assert (blas.isILP64 == lapack.isILP64); [
-      blas
-      lapack
-    ])
-    # KLU support is based on Suitesparse. It is tested upstream according to the
-    # section 1.1.4.2 of INSTALL_GUIDE.pdf found in the source tarball.
+      (assert (blas.isILP64 == lapack.isILP64); [
+        blas
+        lapack
+      ])
+      # KLU support is based on Suitesparse. It is tested upstream according to the
+      # section 1.1.4.2 of INSTALL_GUIDE.pdf found in the source tarball.
     ++ lib.optionals (kluSupport) [ suitesparse ]
     ;
 
@@ -49,11 +50,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (lapackSupport) [
       "-DENABLE_LAPACK=ON"
       "-DLAPACK_LIBRARIES=${lapack}/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ] ++ lib.optionals (kluSupport) [
+    ]
+    ++ lib.optionals (kluSupport) [
       "-DENABLE_KLU=ON"
       "-DKLU_INCLUDE_DIR=${suitesparse.dev}/include"
       "-DKLU_LIBRARY_DIR=${suitesparse}/lib"
-    ] ++ [
+    ]
+    ++ [
       (
         # Use the correct index type according to lapack and blas used. They are
         # already supposed to be compatible but we check both for extra safety. 64

@@ -87,7 +87,8 @@ let
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
     iptables.buildInputs =
-      [ libpcap ] ++ lib.optionals stdenv.isLinux [
+      [ libpcap ]
+      ++ lib.optionals stdenv.isLinux [
         iptables
         libmnl
       ]
@@ -153,7 +154,8 @@ let
         libvirt
         libxml2
         yajl
-      ] ++ lib.optionals stdenv.isLinux [
+      ]
+      ++ lib.optionals stdenv.isLinux [
         lvm2
         udev
       ]

@@ -97,7 +97,8 @@ buildPythonPackage rec {
       textdistance
       three-merge
       watchdog
-    ] ++ python-lsp-server.optional-dependencies.all
+    ]
+    ++ python-lsp-server.optional-dependencies.all
     ;
 
     # There is no test for spyder

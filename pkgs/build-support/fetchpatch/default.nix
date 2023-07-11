@@ -106,10 +106,12 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
         cat "$tmpfile" 1>&2
         exit 1
       fi
-    '' + lib.optionalString revert ''
+    ''
+    + lib.optionalString revert ''
       ${patchutils}/bin/interdiff "$out" /dev/null > "$tmpfile"
       mv "$tmpfile" "$out"
-    '' + postFetch
+    ''
+    + postFetch
     ;
 } // builtins.removeAttrs args [
   "relative"

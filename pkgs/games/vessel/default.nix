@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
     lib.makeLibraryPath [
       stdenv.cc.cc
       stdenv.cc.libc
-    ] + ":" + lib.makeLibraryPath [
+    ]
+    + ":"
+    + lib.makeLibraryPath [
       SDL
       libpulseaudio
       alsa-lib

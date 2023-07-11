@@ -80,7 +80,8 @@ import ./make-test-python.nix ({
             server.wait_for_unit("pdns-recursor")
             server.wait_for_open_port(53)
             server.succeed("host -t DNSKEY bit")
-      '') + ''
+      '')
+      + ''
         with subtest("can resolve a .bit name"):
             server.wait_for_unit("namecoind")
             server.wait_for_unit("ncdns")

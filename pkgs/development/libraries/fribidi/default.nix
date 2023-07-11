@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       meson
       ninja
       pkg-config
-    ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+    ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
     ;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];

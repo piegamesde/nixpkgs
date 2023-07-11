@@ -69,7 +69,8 @@ buildPythonPackage rec {
       web3
       eth-hash
       pyyaml
-    ] ++ eth-hash.optional-dependencies.pycryptodome
+    ]
+    ++ eth-hash.optional-dependencies.pycryptodome
     ;
 
   nativeCheckInputs = [

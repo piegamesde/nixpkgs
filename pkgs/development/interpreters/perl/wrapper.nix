@@ -47,7 +47,8 @@ let
               done
             fi
           done
-        '' + postBuild
+        ''
+        + postBuild
         ;
 
       meta = perl.meta // {

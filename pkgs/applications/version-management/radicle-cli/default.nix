@@ -50,11 +50,13 @@ rustPlatform.buildRustPackage rec {
       cmake
       installShellFiles
       asciidoctor
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ]
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ]
     ;
 
   buildInputs =
-    [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    [ openssl ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libusb1
       AppKit
     ]

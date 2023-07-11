@@ -33,7 +33,8 @@ appimageTools.wrapType2 rec {
   multiPkgs = null; # no 32bit needed
   extraPkgs =
     p:
-    (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [
+    (appimageTools.defaultFhsEnvArgs.multiPkgs p)
+    ++ [
       p.at-spi2-atk
       p.at-spi2-core
     ]

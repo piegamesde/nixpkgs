@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ autoreconfHook ] ++ lib.optionals doCheck [
+    [ autoreconfHook ]
+    ++ lib.optionals doCheck [
       strace
       which
     ]

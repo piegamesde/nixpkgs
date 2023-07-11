@@ -67,7 +67,8 @@ buildDunePackage rec {
     [
       gen
       ppxlib
-    ] ++ lib.optionals (!atLeast31) [ uchar ]
+    ]
+    ++ lib.optionals (!atLeast31) [ uchar ]
     ;
 
   preBuild = ''

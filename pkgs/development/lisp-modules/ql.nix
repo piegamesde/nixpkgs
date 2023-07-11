@@ -182,7 +182,8 @@ let
       });
       mcclim-fonts = super.mcclim-fonts.overrideLispAttrs (o: {
         lispLibs =
-          o.lispLibs ++ [
+          o.lispLibs
+          ++ [
             super.cl-dejavu
             super.zpb-ttf
             super.cl-vectors

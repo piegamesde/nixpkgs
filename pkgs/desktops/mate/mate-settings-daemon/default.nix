@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       mate.mate-desktop
       mate.libmatekbd
       mate.libmatemixer
-    ] ++ lib.optional pulseaudioSupport libpulseaudio
+    ]
+    ++ lib.optional pulseaudioSupport libpulseaudio
     ;
 
   configureFlags = lib.optional pulseaudioSupport "--enable-pulse";

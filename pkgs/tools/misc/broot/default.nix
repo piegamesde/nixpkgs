@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
       libgit2
       oniguruma
       xorg.libxcb
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
       zlib
@@ -75,7 +76,8 @@ rustPlatform.buildRustPackage rec {
       } $out/bin/broot --print-shell-function fish > br.fish
       install -Dm0444 -t $out/share/fish/vendor_functions.d br.fish
 
-    '' + ''
+    ''
+    + ''
       # install shell completion files
       OUT_DIR=$releaseDir/build/broot-*/out
 

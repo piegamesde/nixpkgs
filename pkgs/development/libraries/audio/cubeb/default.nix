@@ -44,7 +44,8 @@ stdenv.mkDerivation {
   ];
 
   buildInputs =
-    [ speexdsp ] ++ (if stdenv.isDarwin then
+    [ speexdsp ]
+    ++ (if stdenv.isDarwin then
       [
         AudioUnit
         CoreAudio

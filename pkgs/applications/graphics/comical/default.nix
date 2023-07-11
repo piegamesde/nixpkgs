@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
       wxGTK32
       util-linux
       zlib
-    ] ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ;
 
   makeFlags = [

@@ -30,7 +30,8 @@ let
       fontconfig
       libxml2
       gnome2.gtksourceview
-    ] + ":${stdenv.cc.cc.lib}/lib64:$out/libexec"
+    ]
+    + ":${stdenv.cc.cc.lib}/lib64:$out/libexec"
     ;
 
   patchExe =

@@ -26,7 +26,8 @@ buildPythonPackage rec {
     [
       python-dateutil
       pytz
-    ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
     ;
 
   nativeCheckInputs = [

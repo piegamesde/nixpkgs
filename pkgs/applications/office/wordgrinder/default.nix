@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
       ncurses
       readline
       zlib
-    ] ++ lib.optionals stdenv.isLinux [ libXft ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ libXft ]
     ;
 
     # To be able to find <Xft.h>
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
   postInstall =
     ''
       wrapProgram $out/bin/wordgrinder --set LUA_CPATH "${lua52Packages.luafilesystem}/lib/lua/5.2/lfs.so";
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/xwordgrinder --set LUA_CPATH "${lua52Packages.luafilesystem}/lib/lua/5.2/lfs.so";
     ''
     ;

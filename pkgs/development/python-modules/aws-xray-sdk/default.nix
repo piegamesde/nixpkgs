@@ -27,7 +27,8 @@ buildPythonPackage rec {
       requests
       future
       botocore
-    ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
     ;
 
   meta = {

@@ -324,7 +324,8 @@ in
       [
         {
           assertion =
-            cfg.ipmi.enable -> (cfg.ipmi.configFile != null)
+            cfg.ipmi.enable
+            -> (cfg.ipmi.configFile != null)
             -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile))
             ;
           message = ''
@@ -334,7 +335,8 @@ in
         }
         {
           assertion =
-            cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null)
+            cfg.ipmi.enable
+            -> (cfg.ipmi.webConfigFile != null)
             -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile))
             ;
           message = ''
@@ -344,7 +346,8 @@ in
         }
         {
           assertion =
-            cfg.snmp.enable -> ((cfg.snmp.configurationPath == null)
+            cfg.snmp.enable
+            -> ((cfg.snmp.configurationPath == null)
               != (cfg.snmp.configuration == null))
             ;
           message = ''
@@ -354,7 +357,8 @@ in
         }
         {
           assertion =
-            cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null)
+            cfg.mikrotik.enable
+            -> ((cfg.mikrotik.configFile == null)
               != (cfg.mikrotik.configuration == null))
             ;
           message = ''
@@ -364,7 +368,8 @@ in
         }
         {
           assertion =
-            cfg.mail.enable -> ((cfg.mail.configFile == null)
+            cfg.mail.enable
+            -> ((cfg.mail.configFile == null)
               != (cfg.mail.configuration == null))
             ;
           message = ''
@@ -382,7 +387,8 @@ in
               'services.prometheus.exporters.sql.configFile'
           '';
         }
-      ] ++ (flip map (attrNames exporterOpts) (exporter: {
+      ]
+      ++ (flip map (attrNames exporterOpts) (exporter: {
         assertion =
           cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall
           ;
@@ -390,10 +396,12 @@ in
           The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
           `openFirewall' is set to `true'!
         '';
-      })) ++ config.services.prometheus.exporters.assertions
+      }))
+      ++ config.services.prometheus.exporters.assertions
       ;
     warnings = config.services.prometheus.exporters.warnings;
-  } ] ++ [
+  } ]
+    ++ [
       (mkIf config.services.minio.enable {
         services.prometheus.exporters.minio.minioAddress =
           mkDefault "http://localhost:9000";
@@ -402,16 +410,19 @@ in
         services.prometheus.exporters.minio.minioAccessSecret =
           mkDefault config.services.minio.secretKey;
       })
-    ] ++ [
+    ]
+    ++ [
       (mkIf config.services.prometheus.exporters.rtl_433.enable {
         hardware.rtl-sdr.enable = mkDefault true;
       })
-    ] ++ [
+    ]
+    ++ [
       (mkIf config.services.postfix.enable {
         services.prometheus.exporters.postfix.group =
           mkDefault config.services.postfix.setgidGroup;
       })
-    ] ++ (mapAttrsToList (name: conf:
+    ]
+    ++ (mapAttrsToList (name: conf:
       mkExporterConf {
         inherit name;
         inherit (conf) serviceOpts;

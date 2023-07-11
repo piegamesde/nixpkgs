@@ -42,11 +42,12 @@ stdenv.mkDerivation rec {
       [
         libopcodes_2_38
         libbfd_2_38
-      ]) ++ [
-        elfutils
-        zlib
-        readline
-      ]
+      ])
+    ++ [
+      elfutils
+      zlib
+      readline
+    ]
     ;
 
   preConfigure = ''

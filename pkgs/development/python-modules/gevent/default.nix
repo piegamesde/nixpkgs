@@ -32,7 +32,8 @@ buildPythonPackage rec {
     [
       zope_event
       zope_interface
-    ] ++ lib.optionals (!isPyPy) [ greenlet ]
+    ]
+    ++ lib.optionals (!isPyPy) [ greenlet ]
     ;
 
     # Bunch of failures.

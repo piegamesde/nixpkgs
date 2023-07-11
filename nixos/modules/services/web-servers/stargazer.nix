@@ -26,13 +26,14 @@ let
   '';
   genINI = lib.generators.toINI { };
   configFile = pkgs.writeText "config.ini" (lib.strings.concatStrings
-    ([ globalSection ] ++ (lib.lists.forEach cfg.routes (section:
-      let
-        name = section.route;
-        params = builtins.removeAttrs section [ "route" ];
-      in
-      genINI { "${name}" = params; } + "\n"
-    ))));
+    ([ globalSection ]
+      ++ (lib.lists.forEach cfg.routes (section:
+        let
+          name = section.route;
+          params = builtins.removeAttrs section [ "route" ];
+        in
+        genINI { "${name}" = params; } + "\n"
+      ))));
 in
 {
   options.services.stargazer = {

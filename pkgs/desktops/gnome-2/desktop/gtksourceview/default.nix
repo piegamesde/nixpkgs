@@ -56,7 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     [
       pkg-config
       intltool
-    ] ++ lib.optionals stdenv.isDarwin [ autoreconfHook ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ autoreconfHook ]
     ;
   buildInputs =
     [
@@ -68,7 +69,8 @@ stdenv.mkDerivation (finalAttrs: {
       libxml2Python
       perl
       gettext
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       gnome-common
       gtk-mac-integration-gtk2
     ]

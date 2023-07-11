@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     [
       libjack2
       ncurses
-    ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
     ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
     ;
 
@@ -35,12 +36,14 @@ stdenv.mkDerivation rec {
       "--enable-ncurses"
       "lib_cv_va_copy=yes"
       "lib_cv___va_copy=yes"
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals stdenv.isLinux [
       "--enable-audio=oss,alsa,jack"
       "--enable-alsaseq"
       "--with-default-output=alsa"
       "lib_cv_va_val_copy=yes"
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       "--enable-audio=darwin,jack"
       "lib_cv_va_val_copy=no"
     ]

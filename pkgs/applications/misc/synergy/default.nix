@@ -54,19 +54,21 @@ stdenv.mkDerivation rec {
     [
       # Without this OpenSSL from nixpkgs is not detected
       ./darwin-non-static-openssl.patch
-    ] ++ lib.optionals
-    (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)) [
-      # We cannot include UserNotifications because of a build failure in the Apple SDK.
-      # The functions used from it are already implicitly included anyways.
-      ./darwin-no-UserNotifications-includes.patch
     ]
+    ++ lib.optionals
+      (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)) [
+        # We cannot include UserNotifications because of a build failure in the Apple SDK.
+        # The functions used from it are already implicitly included anyways.
+        ./darwin-no-UserNotifications-includes.patch
+      ]
     ;
 
   postPatch =
     ''
       substituteInPlace src/gui/src/SslCertificate.cpp \
         --replace 'kUnixOpenSslCommand[] = "openssl";' 'kUnixOpenSslCommand[] = "${openssl}/bin/openssl";'
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       substituteInPlace src/lib/synergy/unix/AppUtilUnix.cpp \
         --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
     ''
@@ -76,7 +78,8 @@ stdenv.mkDerivation rec {
     [
       cmake
       pkg-config
-    ] ++ lib.optional withGUI wrapQtAppsHook
+    ]
+    ++ lib.optional withGUI wrapQtAppsHook
     ;
 
   buildInputs =
@@ -84,16 +87,19 @@ stdenv.mkDerivation rec {
       qttools # Used for translations even when not building the GUI
       openssl
       pcre
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Carbon
       Cocoa
       CoreServices
       ScreenSaver
-    ] ++ lib.optionals
-    (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
-      darwin.apple_sdk.frameworks.UserNotifications
-    ] ++ lib.optionals stdenv.isLinux [
+    ]
+    ++ lib.optionals
+      (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
+        darwin.apple_sdk.frameworks.UserNotifications
+      ]
+    ++ lib.optionals stdenv.isLinux [
       util-linux
       libselinux
       libsepol
@@ -118,13 +124,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
-    # NSFilenamesPboardType is deprecated in 10.14+
+      # NSFilenamesPboardType is deprecated in 10.14+
     ++ lib.optional stdenv.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
-      if stdenv.isAarch64 then
-        "10.13"
-      else
-        stdenv.targetPlatform.darwinSdkVersion
-    }"
+        if stdenv.isAarch64 then
+          "10.13"
+        else
+          stdenv.targetPlatform.darwinSdkVersion
+      }"
     ;
 
   doCheck = true;
@@ -141,18 +147,22 @@ stdenv.mkDerivation rec {
 
       mkdir -p $out/bin
       cp bin/{synergyc,synergys,synergyd,syntool} $out/bin/
-    '' + lib.optionalString withGUI ''
+    ''
+    + lib.optionalString withGUI ''
       cp bin/synergy $out/bin/
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       mkdir -p $out/share/{applications,icons/hicolor/scalable/apps}
       cp ../res/synergy.svg $out/share/icons/hicolor/scalable/apps/
       substitute ../res/synergy.desktop $out/share/applications/synergy.desktop \
         --replace "/usr/bin" "$out/bin"
-    '' + lib.optionalString stdenv.isDarwin ''
+    ''
+    + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       cp -r bundle/Synergy.app $out/Applications
       ln -s $out/bin $out/Applications/Synergy.app/Contents/MacOS
-    '' + ''
+    ''
+    + ''
       runHook postInstall
     ''
     ;

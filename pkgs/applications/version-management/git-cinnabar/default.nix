@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       curl
       zlib
       zstd
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreServices
     ]

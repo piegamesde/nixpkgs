@@ -61,9 +61,13 @@ stdenv.mkDerivation rec {
       gtk3
       json-glib
       libxml2
-    ] ++ lib.optional withGeoClue geoclue2 ++ lib.optional withGeoTag gexiv2
-    ++ lib.optional withMagic file ++ lib.optional withMapnik mapnik
-    ++ lib.optional withMBTiles sqlite ++ lib.optional withMd5Hash nettle
+    ]
+    ++ lib.optional withGeoClue geoclue2
+    ++ lib.optional withGeoTag gexiv2
+    ++ lib.optional withMagic file
+    ++ lib.optional withMapnik mapnik
+    ++ lib.optional withMBTiles sqlite
+    ++ lib.optional withMd5Hash nettle
     ++ lib.optional withOAuth liboauth
     ++ lib.optional withRealtimeGPSTracking gpsd
     ;

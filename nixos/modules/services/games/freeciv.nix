@@ -162,12 +162,16 @@ in
         ExecStart = pkgs.writeShellScript "freeciv-server" (''
           set -eux
           savedir=$(date +%Y-%m-%d_%H-%M-%S)
-        '' + "${pkgs.freeciv}/bin/freeciv-server" + " "
+        ''
+          + "${pkgs.freeciv}/bin/freeciv-server"
+          + " "
           + optionalString (cfg.settings.saves != null) (concatStringsSep " " [
             "--saves"
             "${escapeShellArg cfg.settings.saves}/$savedir"
-          ]) + " " + argsFormat.generate "freeciv-server"
-          (cfg.settings // { saves = null; }));
+          ])
+          + " "
+          + argsFormat.generate "freeciv-server"
+            (cfg.settings // { saves = null; }));
         DynamicUser = true;
           # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];

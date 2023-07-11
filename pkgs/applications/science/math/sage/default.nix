@@ -120,7 +120,8 @@ let
       rpy2
       sphinx
       pillow
-    ] ++ extraPythonPackages python3.pkgs;
+    ]
+    ++ extraPythonPackages python3.pkgs;
 
   pythonEnv = python3.buildEnv.override {
     extraLibs = pythonRuntimeDeps;

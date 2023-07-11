@@ -23,7 +23,8 @@ nimPackages.buildNimPackage rec {
     [
       termbox
       pcre
-    ] ++ (with nimPackages; [
+    ]
+    ++ (with nimPackages; [
       noise
       nimbox
       lscolors

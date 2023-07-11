@@ -53,7 +53,8 @@ let
         [
           jupyter-server
           nbformat
-        ] ++ client
+        ]
+        ++ client
         ;
     };
 
@@ -63,7 +64,8 @@ let
       [
         pytest-timeout
         pytestCheckHook
-      ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+      ]
+      ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
       ;
 
     passthru.tests = {

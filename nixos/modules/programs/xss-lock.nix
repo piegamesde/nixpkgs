@@ -42,10 +42,12 @@ in
         strings.concatStringsSep " " ([
           "${pkgs.xss-lock}/bin/xss-lock"
           "--session \${XDG_SESSION_ID}"
-        ] ++ (map escapeShellArg cfg.extraOptions) ++ [
-          "--"
-          cfg.lockerCommand
-        ]);
+        ]
+          ++ (map escapeShellArg cfg.extraOptions)
+          ++ [
+            "--"
+            cfg.lockerCommand
+          ]);
     };
   };
 }

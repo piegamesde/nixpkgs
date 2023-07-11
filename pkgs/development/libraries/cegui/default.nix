@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
       freetype
       boost
       expat
-    ] ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
     ;
 
   cmakeFlags = lib.optional (stdenv.isDarwin && stdenv.isAarch64)

@@ -63,7 +63,8 @@ let
         makeWrapper
         nspr
         nss
-      ] ++ (with xorg; [
+      ]
+      ++ (with xorg; [
         libICE
         libSM
         libX11

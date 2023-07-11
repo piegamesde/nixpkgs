@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     [
       python3
       zlib
-    ] ++ lib.optional (!stdenv.isDarwin) libaio
+    ]
+    ++ lib.optional (!stdenv.isDarwin) libaio
     ;
 
   nativeBuildInputs = [

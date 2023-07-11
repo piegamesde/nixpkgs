@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ (with ocamlPackages; [
+    [ pkg-config ]
+    ++ (with ocamlPackages; [
       ocaml
       findlib
       camlp5

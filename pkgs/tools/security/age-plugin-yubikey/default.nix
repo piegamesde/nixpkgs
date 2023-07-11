@@ -27,7 +27,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs =
-    [ openssl ] ++ lib.optional stdenv.isLinux pcsclite
+    [ openssl ]
+    ++ lib.optional stdenv.isLinux pcsclite
     ++ lib.optionals stdenv.isDarwin [
       IOKit
       Foundation

@@ -67,7 +67,8 @@ python3.pkgs.buildPythonApplication rec {
       rm -r "${sitePackages}/etc"
 
       installManPage man/*.[1-9]
-    '' + lib.optionalString stdenv.isLinux ''
+    ''
+    + lib.optionalString stdenv.isLinux ''
       # see https://github.com/NixOS/nixpkgs/issues/4968
       rm -r "${sitePackages}/usr"
     ''

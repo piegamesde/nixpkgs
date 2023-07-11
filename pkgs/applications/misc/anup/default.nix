@@ -23,7 +23,8 @@ rustPlatform.buildRustPackage rec {
     [
       sqlite
       xdg-utils
-    ] ++ lib.optionals stdenv.isDarwin [ Security ]
+    ]
+    ++ lib.optionals stdenv.isDarwin [ Security ]
     ;
 
   cargoLock = {

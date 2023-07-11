@@ -310,7 +310,8 @@ let
         machine.shutdown()
 
         # Tests for validating clone configuration entries in grub menu
-      '' + optionalString testSpecialisationConfig ''
+      ''
+      + optionalString testSpecialisationConfig ''
         # Reboot Machine
         machine = create_machine_named("clone-default-config")
         ${preBootCommands}
@@ -464,7 +465,8 @@ let
                 # add curl so that rather than seeing the test attempt to download
                 # curl's tarball, we see what it's trying to download
                 curl
-              ] ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
+              ]
+              ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
               ++ optionals (bootLoader == "grub" && grubVersion == 2) (let
                 zfsSupport = lib.any (x: x == "zfs")
                   (extraInstallerConfig.boot.supportedFilesystems or [ ]);

@@ -32,7 +32,9 @@ stdenv.mkDerivation rec {
       libXaw
       libX11
       libXext
-    ] ++ optional libDSKSupport libdsk ++ optional motifSupport lesstif
+    ]
+    ++ optional libDSKSupport libdsk
+    ++ optional motifSupport lesstif
     ;
 
   meta = {

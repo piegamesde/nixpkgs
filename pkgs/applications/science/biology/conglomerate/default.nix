@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     [
       coreutils
       minc_tools
-    ] ++ (with perlPackages; [
+    ]
+    ++ (with perlPackages; [
       perl
       GetoptTabular
       MNI-Perllib

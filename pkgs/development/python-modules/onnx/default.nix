@@ -75,7 +75,8 @@ buildPythonPackage rec {
       # Set CMAKE_INSTALL_LIBDIR to lib explicitly, because otherwise it gets set
       # to lib64 and cmake incorrectly looks for the protobuf library in lib64
       export CMAKE_ARGS="-DCMAKE_INSTALL_LIBDIR=lib -DONNX_USE_PROTOBUF_SHARED_LIBS=ON"
-    '' + lib.optionalString doCheck ''
+    ''
+    + lib.optionalString doCheck ''
       export CMAKE_ARGS+=" -Dgoogletest_STATIC_LIBRARIES=${gtestStatic}/lib/libgtest.a -Dgoogletest_INCLUDE_DIRS=${
         lib.getDev gtestStatic
       }/include"

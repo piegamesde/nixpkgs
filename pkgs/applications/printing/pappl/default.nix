@@ -49,12 +49,14 @@ stdenv.mkDerivation rec {
       libpng
       libusb1
       zlib
-    ] ++ lib.optionals (!stdenv.isDarwin) [
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
       # upstream mentions these are not needed for Mac
       # see: https://github.com/michaelrsweet/pappl#requirements
       avahi
       gnutls
-    ] ++ lib.optionals withPAMSupport [ pam ]
+    ]
+    ++ lib.optionals withPAMSupport [ pam ]
     ;
 
     # testing requires some networking

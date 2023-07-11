@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
       libcddb
       libiconv
       ncurses
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       IOKit
     ]

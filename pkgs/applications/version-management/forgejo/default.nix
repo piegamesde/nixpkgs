@@ -67,7 +67,8 @@ buildGoModule rec {
   '';
 
   tags =
-    lib.optional pamSupport "pam" ++ lib.optionals sqliteSupport [
+    lib.optional pamSupport "pam"
+    ++ lib.optionals sqliteSupport [
       "sqlite"
       "sqlite_unlock_notify"
     ]

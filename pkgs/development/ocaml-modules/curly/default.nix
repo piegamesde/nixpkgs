@@ -36,8 +36,8 @@ buildDunePackage rec {
     # https://github.com/mirage/ca-certs/issues/16
   doCheck =
     lib.versionAtLeast ocaml.version "4.08"
-    # Some test fails in macOS sandbox
-    # > Fatal error: exception Unix.Unix_error(Unix.EPERM, "bind", "")
+      # Some test fails in macOS sandbox
+      # > Fatal error: exception Unix.Unix_error(Unix.EPERM, "bind", "")
     && !stdenv.isDarwin
     ;
 

@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       libXtst
       libsecret
       zlib
-    ] ++ lib.optional (webkitgtk != null) webkitgtk
+    ]
+    ++ lib.optional (webkitgtk != null) webkitgtk
     ;
 
   buildCommand = ''
@@ -93,7 +94,8 @@ stdenv.mkDerivation rec {
           gtk
           libXtst
           libsecret
-        ] ++ lib.optional (webkitgtk != null) webkitgtk)
+        ]
+          ++ lib.optional (webkitgtk != null) webkitgtk)
       } \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \

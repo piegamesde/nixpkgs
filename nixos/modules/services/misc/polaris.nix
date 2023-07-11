@@ -104,10 +104,11 @@ in
           "/var/lib/${StateDirectory}/db.sqlite"
           "--cache"
           "/var/cache/${CacheDirectory}"
-        ] ++ optionals (cfg.settings != { }) [
-          "--config"
-          (settingsFormat.generate "polaris-config.toml" cfg.settings)
-        ]);
+        ]
+          ++ optionals (cfg.settings != { }) [
+            "--config"
+            (settingsFormat.generate "polaris-config.toml" cfg.settings)
+          ]);
         Restart = "on-failure";
 
           # Security options:

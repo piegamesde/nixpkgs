@@ -23,7 +23,8 @@ let
     (if stableBranch then
       "."
     else
-      "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
+      "pre")
+    + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
     ;
 
     # Run the tests for each platform.  You can run a test by doing

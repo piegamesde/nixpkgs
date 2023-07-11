@@ -483,7 +483,8 @@ in
         "e  ${dataDir}/static_content/*  0711 ${user} ${group} - -"
 
         "d  /run/sympa                   0755 ${user} ${group} - -"
-      ] ++ (flip concatMap fqdns (fqdn: [
+      ]
+      ++ (flip concatMap fqdns (fqdn: [
         "d  ${dataDir}/etc/${fqdn}       0700 ${user} ${group} - -"
         "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
       ]))

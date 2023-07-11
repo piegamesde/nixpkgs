@@ -67,7 +67,8 @@ let
       # Closure notes: we explicitly avoid specifying --shared-*-includes,
       #  as that would put the paths into bin/nodejs.
       #  Including pkg-config in build inputs would also have the same effect!
-    ]) (builtins.attrNames sharedLibDeps) ++ [ "--with-intl=system-icu" ]
+    ]) (builtins.attrNames sharedLibDeps)
+    ++ [ "--with-intl=system-icu" ]
     ;
 
   copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*")
@@ -95,7 +96,8 @@ let
       lib.optionals stdenv.isDarwin [
         CoreServices
         ApplicationServices
-      ] ++ [
+      ]
+      ++ [
         zlib
         libuv
         openssl
@@ -109,7 +111,8 @@ let
         which
         pkg-config
         python
-      ] ++ lib.optionals stdenv.isDarwin [ xcbuild ]
+      ]
+      ++ lib.optionals stdenv.isDarwin [ xcbuild ]
       ;
 
     outputs = [
@@ -159,12 +162,14 @@ let
           else
             throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
         }"
-      ]) ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [
+      ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [
           "--with-arm-fpu=${gcc.fpu}"
         ])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
           "--with-arm-float-abi=${gcc.float-abi}"
-        ]) ++ extraConfigFlags
+        ])
+      ++ extraConfigFlags
       ;
 
     configurePlatforms = [ ];
@@ -205,7 +210,8 @@ let
           substituteInPlace $a \
             --replace "/usr/bin/env" "${coreutils}/bin/env"
         done
-      '' + lib.optionalString stdenv.isDarwin ''
+      ''
+      + lib.optionalString stdenv.isDarwin ''
         sed -i -e "s|tr1/type_traits|type_traits|g" \
                -e "s|std::tr1|std|" src/util.h
       ''

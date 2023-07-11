@@ -35,7 +35,8 @@ buildPythonPackage rec {
       jinja2
       pygments
       markupsafe
-    ] ++ lib.optional (pythonOlder "3.9") astunparse
+    ]
+    ++ lib.optional (pythonOlder "3.9") astunparse
     ;
 
   nativeCheckInputs = [

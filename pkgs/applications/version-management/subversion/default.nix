@@ -87,10 +87,14 @@ let
           openssl
           lz4
           utf8proc
-        ] ++ lib.optional httpSupport serf ++ lib.optionals pythonBindings [
+        ]
+        ++ lib.optional httpSupport serf
+        ++ lib.optionals pythonBindings [
           python3
           py3c
-        ] ++ lib.optional perlBindings perl ++ lib.optional saslSupport sasl
+        ]
+        ++ lib.optional perlBindings perl
+        ++ lib.optional saslSupport sasl
         ++ lib.optionals stdenv.hostPlatform.isDarwin [
           CoreServices
           Security
@@ -121,7 +125,8 @@ let
           "--with-sqlite=${sqlite.dev}"
           "--with-apr=${apr.dev}"
           "--with-apr-util=${aprutil.dev}"
-        ] ++ lib.optionals javahlBindings [
+        ]
+        ++ lib.optionals javahlBindings [
           "--enable-javahl"
           "--with-jdk=${jdk}"
         ]

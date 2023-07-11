@@ -45,7 +45,8 @@ buildPythonPackage rec {
     [
       pytest-regressions
       pytestCheckHook
-    ] ++ passthru.optional-dependencies.linkify
+    ]
+    ++ passthru.optional-dependencies.linkify
     ;
 
     # disable and remove benchmark tests

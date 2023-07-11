@@ -29,7 +29,8 @@ buildPythonPackage rec {
     [
       google-api-core
       protobuf
-    ] ++ google-api-core.optional-dependencies.grpc
+    ]
+    ++ google-api-core.optional-dependencies.grpc
     ;
 
   passthru.optional-dependencies = {

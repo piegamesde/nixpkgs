@@ -412,15 +412,20 @@ in
             else
               "0"
           }
-        '' + optionalString (cfg.pam.cryptDefault != null) ''
+        ''
+        + optionalString (cfg.pam.cryptDefault != null) ''
           users.use_${cfg.pam.cryptDefault}=1
-        '' + optionalString (cfg.pam.where != null) ''
+        ''
+        + optionalString (cfg.pam.where != null) ''
           users.where_clause=${cfg.pam.where}
-        '' + optionalString (cfg.pam.statusColumn != null) ''
+        ''
+        + optionalString (cfg.pam.statusColumn != null) ''
           users.status_column=${cfg.pam.statusColumn}
-        '' + optionalString (cfg.pam.updateTable != null) ''
+        ''
+        + optionalString (cfg.pam.updateTable != null) ''
           users.update_table=${cfg.pam.updateTable}
-        '' + optionalString cfg.pam.logging.enable ''
+        ''
+        + optionalString cfg.pam.logging.enable ''
           log.enabled=true
           log.table=${cfg.pam.logging.table}
           log.message_column=${cfg.pam.logging.msgColumn}
@@ -440,25 +445,35 @@ in
       text =
         optionalString (cfg.nss.getpwnam != null) ''
           getpwnam ${cfg.nss.getpwnam}
-        '' + optionalString (cfg.nss.getpwuid != null) ''
+        ''
+        + optionalString (cfg.nss.getpwuid != null) ''
           getpwuid ${cfg.nss.getpwuid}
-        '' + optionalString (cfg.nss.getspnam != null) ''
+        ''
+        + optionalString (cfg.nss.getspnam != null) ''
           getspnam ${cfg.nss.getspnam}
-        '' + optionalString (cfg.nss.getpwent != null) ''
+        ''
+        + optionalString (cfg.nss.getpwent != null) ''
           getpwent ${cfg.nss.getpwent}
-        '' + optionalString (cfg.nss.getspent != null) ''
+        ''
+        + optionalString (cfg.nss.getspent != null) ''
           getspent ${cfg.nss.getspent}
-        '' + optionalString (cfg.nss.getgrnam != null) ''
+        ''
+        + optionalString (cfg.nss.getgrnam != null) ''
           getgrnam ${cfg.nss.getgrnam}
-        '' + optionalString (cfg.nss.getgrgid != null) ''
+        ''
+        + optionalString (cfg.nss.getgrgid != null) ''
           getgrgid ${cfg.nss.getgrgid}
-        '' + optionalString (cfg.nss.getgrent != null) ''
+        ''
+        + optionalString (cfg.nss.getgrent != null) ''
           getgrent ${cfg.nss.getgrent}
-        '' + optionalString (cfg.nss.memsbygid != null) ''
+        ''
+        + optionalString (cfg.nss.memsbygid != null) ''
           memsbygid ${cfg.nss.memsbygid}
-        '' + optionalString (cfg.nss.gidsbymem != null) ''
+        ''
+        + optionalString (cfg.nss.gidsbymem != null) ''
           gidsbymem ${cfg.nss.gidsbymem}
-        '' + ''
+        ''
+        + ''
           host ${cfg.host}
           database ${cfg.database}
         ''

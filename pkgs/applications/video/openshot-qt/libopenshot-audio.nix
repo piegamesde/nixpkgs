@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ] ++ (if stdenv.isDarwin then
+    lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ (if stdenv.isDarwin then
       [
         Accelerate
         AGL

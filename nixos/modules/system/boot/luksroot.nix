@@ -155,7 +155,7 @@ let
         "cryptsetup luksOpen ${dev.device} ${dev.name}"
         + optionalString dev.allowDiscards " --allow-discards"
         + optionalString dev.bypassWorkqueues
-        " --perf-no_read_workqueue --perf-no_write_workqueue"
+          " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}"
         ;
       cschange =
@@ -622,17 +622,19 @@ let
     (lib.mapAttrsToList (n: v:
       let
         opts =
-          v.crypttabExtraOpts ++ optional v.allowDiscards "discard"
+          v.crypttabExtraOpts
+          ++ optional v.allowDiscards "discard"
           ++ optionals v.bypassWorkqueues [
             "no-read-workqueue"
             "no-write-workqueue"
-          ] ++ optional (v.header != null) "header=${v.header}"
+          ]
+          ++ optional (v.header != null) "header=${v.header}"
           ++ optional (v.keyFileOffset != null)
-          "keyfile-offset=${toString v.keyFileOffset}"
+            "keyfile-offset=${toString v.keyFileOffset}"
           ++ optional (v.keyFileSize != null)
-          "keyfile-size=${toString v.keyFileSize}"
+            "keyfile-size=${toString v.keyFileSize}"
           ++ optional (v.keyFileTimeout != null)
-          "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
+            "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
           ++ optional (v.tryEmptyPassphrase) "try-empty-password=true"
           ;
       in
@@ -1148,7 +1150,7 @@ in
         assertion =
           config.boot.initrd.systemd.enable
           -> options.boot.initrd.luks.reusePassphrases.highestPrio
-          == defaultPrio
+            == defaultPrio
           ;
         message =
           "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
@@ -1157,7 +1159,7 @@ in
         assertion =
           config.boot.initrd.systemd.enable
           -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "")
-          (attrValues luks.devices)
+            (attrValues luks.devices)
           ;
         message =
           "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
@@ -1195,9 +1197,10 @@ in
         "dm_crypt"
         "cryptd"
         "input_leds"
-      ] ++ luks.cryptoModules
-      # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
-      # remove once 'modprobe --show-depends xts' shows ecb as a dependency
+      ]
+      ++ luks.cryptoModules
+        # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
+        # remove once 'modprobe --show-depends xts' shows ecb as a dependency
       ++ (if builtins.elem "xts" luks.cryptoModules then
         [ "ecb" ]
       else
@@ -1299,11 +1302,15 @@ in
     boot.initrd.preFailCommands =
       mkIf (!config.boot.initrd.systemd.enable) postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
-      (commonFunctions + preCommands
-        + concatStrings (mapAttrsToList openCommand preLVM) + postCommands);
+      (commonFunctions
+        + preCommands
+        + concatStrings (mapAttrsToList openCommand preLVM)
+        + postCommands);
     boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable)
-      (commonFunctions + preCommands
-        + concatStrings (mapAttrsToList openCommand postLVM) + postCommands);
+      (commonFunctions
+        + preCommands
+        + concatStrings (mapAttrsToList openCommand postLVM)
+        + postCommands);
 
     environment.systemPackages = [ pkgs.cryptsetup ];
   };

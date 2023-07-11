@@ -52,7 +52,8 @@ stdenv.mkDerivation {
       fltk
       rapidjson
       gtest
-    ] ++ lib.optionals stdenv.isDarwin [
+    ]
+    ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
     ]

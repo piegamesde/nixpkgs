@@ -13,7 +13,7 @@ let
     extraPackages =
       cfg.extraPackages
       ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-      config.boot.zfs.package
+        config.boot.zfs.package
       ;
   };
 

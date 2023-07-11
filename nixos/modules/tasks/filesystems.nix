@@ -22,7 +22,8 @@ let
     s:
     (builtins.match ''
       [ 	
-      ]*'' s) == null
+      ]*'' s)
+    == null
     ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 
@@ -233,7 +234,8 @@ let
           "cifs"
           "prl_fs"
           "vmhgfs"
-        ] ++ lib.optionals (!config.boot.initrd.checkJournalingFS) [
+        ]
+        ++ lib.optionals (!config.boot.initrd.checkJournalingFS) [
           "ext3"
           "ext4"
           "reiserfs"
@@ -245,8 +247,10 @@ let
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
         fs:
-        fs.noCheck || fs.device == "none"
-        || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs
+        fs.noCheck
+        || fs.device == "none"
+        || builtins.elem fs.fsType fsToSkipCheck
+        || isBindMount fs
         ;
         # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
@@ -272,15 +276,21 @@ let
       else if fs.label != null then
         "/dev/disk/by-label/${escape fs.label}"
       else
-        throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
-      + escape fs.mountPoint + " " + fs.fsType + " "
+        throw "No device specified for mount point ‘${fs.mountPoint}’.")
+      + " "
+      + escape fs.mountPoint
+      + " "
+      + fs.fsType
+      + " "
       + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
-      + " 0 " + (if skipCheck fs then
+      + " 0 "
+      + (if skipCheck fs then
         "0"
       else if fs.mountPoint == "/" then
         "1"
       else
-        "2") + "\n") fstabFileSystems
+        "2")
+      + "\n") fstabFileSystems
     ;
 
   initrdFstab = pkgs.writeText "initrd-fstab"
@@ -438,7 +448,8 @@ in
       [
         fuse3
         fuse
-      ] ++ config.system.fsPackages;
+      ]
+      ++ config.system.fsPackages;
 
     environment.etc.fstab.text =
       let
@@ -447,9 +458,9 @@ in
           concatStringsSep "," (sw.options
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++ optional (sw.discardPolicy != null) "discard${
-              optionalString (sw.discardPolicy != "both")
-              "=${toString sw.discardPolicy}"
-            }")
+                optionalString (sw.discardPolicy != "both")
+                "=${toString sw.discardPolicy}"
+              }")
           ;
       in
       ''

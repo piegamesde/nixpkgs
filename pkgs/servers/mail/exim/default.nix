@@ -44,11 +44,16 @@ stdenv.mkDerivation rec {
       openssl
       perl
       pcre2
-    ] ++ lib.optional enableLDAP openldap ++ lib.optionals enableMySQL [
+    ]
+    ++ lib.optional enableLDAP openldap
+    ++ lib.optionals enableMySQL [
       libmysqlclient
       zlib
-    ] ++ lib.optional enableAuthDovecot dovecot ++ lib.optional enablePAM pam
-    ++ lib.optional enableSPF libspf2 ++ lib.optional enableDMARC opendmarc
+    ]
+    ++ lib.optional enableAuthDovecot dovecot
+    ++ lib.optional enablePAM pam
+    ++ lib.optional enableSPF libspf2
+    ++ lib.optional enableDMARC opendmarc
     ++ lib.optional enableRedis hiredis
     ;
 

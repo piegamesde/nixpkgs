@@ -51,7 +51,8 @@ let
       inherit version;
 
       buildInputs =
-        buildInputs ++ [
+        buildInputs
+        ++ [
           erlang
           rebar3
           openssl
@@ -76,7 +77,8 @@ let
       postPatch =
         ''
           rm -f rebar rebar3
-        '' + postPatch
+        ''
+        + postPatch
         ;
 
       buildPhase = ''
