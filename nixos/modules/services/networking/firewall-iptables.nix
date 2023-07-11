@@ -170,11 +170,13 @@ let
       concatMapStrings (rangeAttr:
         let
           range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-        in ''
+        in
+        ''
           ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
             optionalString (iface != "default") "-i ${iface}"
           }
-        '' ) cfg.allowedTCPPortRanges) cfg.allInterfaces)}
+        ''
+      ) cfg.allowedTCPPortRanges) cfg.allInterfaces)}
 
     # Accept packets on the allowed UDP ports.
     ${concatStrings (mapAttrsToList (iface: cfg:
@@ -191,11 +193,13 @@ let
       concatMapStrings (rangeAttr:
         let
           range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-        in ''
+        in
+        ''
           ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
             optionalString (iface != "default") "-i ${iface}"
           }
-        '' ) cfg.allowedUDPPortRanges) cfg.allInterfaces)}
+        ''
+      ) cfg.allowedUDPPortRanges) cfg.allInterfaces)}
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''
@@ -266,7 +270,8 @@ let
     fi
   '';
 
-in {
+in
+{
 
   options = {
 

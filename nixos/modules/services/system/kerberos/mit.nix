@@ -41,9 +41,11 @@ let
       }:
       let
         access_code = map (a: aclMap.${a}) (toList access);
-      in ''
+      in
+      ''
         ${principal} ${concatStrings access_code} ${target}
-      '' ) acl))) cfg.realms;
+      ''
+    ) acl))) cfg.realms;
   kdcConfigs = mapAttrsToList (name: value: ''
     ${name} = {
       acl_file = ${value}
@@ -58,7 +60,8 @@ let
     KRB5_KDC_PROFILE = "/etc/krb5kdc/kdc.conf";
   };
 
-in {
+in
+{
   config = mkIf (cfg.enable && kerberos == pkgs.krb5) {
     systemd.services.kadmind = {
       description = "Kerberos Administration Daemon";

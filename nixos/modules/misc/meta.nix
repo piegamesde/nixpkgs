@@ -38,7 +38,8 @@ let
     merge = loc: defs: defs;
   };
 
-in {
+in
+{
   options = {
     meta = {
 

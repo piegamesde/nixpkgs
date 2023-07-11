@@ -8,7 +8,8 @@ import ../make-test-python.nix ({
     private_key =
       pkgs.runCommand "matrix_key.pem" { buildInputs = [ pkgs.dendrite ]; }
       "generate-keys --private-key $out";
-  in {
+  in
+  {
     name = "dendrite";
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
@@ -105,4 +106,5 @@ import ../make-test-python.nix ({
           client.succeed("do_test")
     '';
 
-  } )
+  }
+)

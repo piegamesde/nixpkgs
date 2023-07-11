@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.programs.spacefm;
 
-in {
+in
+{
   ###### interface
 
   options = {

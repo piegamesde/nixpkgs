@@ -7,7 +7,8 @@
 }:
 let
   inherit (lib) mkForce;
-in {
+in
+{
   imports = [
     ../../modules/virtualisation/qemu-vm.nix
     ../../modules/testing/test-instrumentation.nix # !!! should only get added for automated test runs

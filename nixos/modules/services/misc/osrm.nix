@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.osrm;
 
-in {
+in
+{
   options.services.osrm = {
     enable = mkOption {
       type = types.bool;

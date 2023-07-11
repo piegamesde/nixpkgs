@@ -10,7 +10,8 @@ let
   cfg = config.services.freshrss;
 
   poolName = "freshrss";
-in {
+in
+{
   meta.maintainers = with maintainers; [
     etu
     stunkymonkey
@@ -282,7 +283,8 @@ in {
                   null
               } = ''"${cfg.database.host}:${toString cfg.database.port}"'';
             });
-        in {
+        in
+        {
           description = "Set up the state directory for FreshRSS before use";
           wantedBy = [ "multi-user.target" ];
           serviceConfig = defaultServiceConfig // {

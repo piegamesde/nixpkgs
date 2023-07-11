@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.gocd-agent;
   opt = options.services.gocd-agent;
-in {
+in
+{
   options = {
     services.gocd-agent = {
       enable = mkEnableOption (lib.mdDoc "gocd-agent");

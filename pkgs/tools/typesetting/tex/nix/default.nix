@@ -105,7 +105,8 @@ rec {
                 ;
               fn = pkgs.lib.findFirst (fn: builtins.pathExists fn) null
                 (map (ext: dirOf key + ("/" + dep.name + ext)) exts);
-            in if fn != null then
+            in
+            if fn != null then
               [ { key = fn; } ] ++ xs
             else
               xs

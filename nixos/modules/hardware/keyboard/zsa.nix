@@ -9,7 +9,8 @@ let
   cfg = config.hardware.keyboard.zsa;
   inherit (lib) mkEnableOption mkIf mdDoc;
 
-in {
+in
+{
   options.hardware.keyboard.zsa = {
     enable = mkEnableOption (mdDoc ''
       udev rules for keyboards from ZSA like the ErgoDox EZ, Planck EZ and Moonlander Mark I.

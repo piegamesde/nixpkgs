@@ -26,7 +26,8 @@ let
     (childName: childConfig: childConfig.configuration.system.build.toplevel)
     config.specialisation;
 
-in {
+in
+{
   options = {
 
     specialisation = mkOption {
@@ -56,7 +57,8 @@ in {
             else
               noUserModules.extendModules
             ;
-        in {
+        in
+        {
           options.inheritParentConfig = mkOption {
             type = types.bool;
             default = true;
@@ -77,7 +79,8 @@ in {
             visible = "shallow";
             inherit (extend { modules = [ ./no-clone.nix ]; }) type;
           };
-        } ));
+        }
+      ));
     };
 
   };

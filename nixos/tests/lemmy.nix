@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     uiPort = 1234;
     backendPort = 5678;
     lemmyNodeName = "server";
-  in {
+  in
+  {
     name = "lemmy";
     meta = with lib.maintainers; { maintainers = [ mightyiam ]; };
 
@@ -91,4 +92,5 @@ import ./make-test-python.nix ({
           assert_http_code("${lemmyNodeName}/some-other-path", 404, "-H 'Accept: application/activity+json'")
           assert_http_code("${lemmyNodeName}/some-other-path", 404, "-H 'Accept: application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"'")
     '';
-  } )
+  }
+)

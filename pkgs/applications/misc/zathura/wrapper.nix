@@ -21,7 +21,8 @@ symlinkJoin {
   postBuild =
     let
       fishCompletion = "share/fish/vendor_completions.d/zathura.fish";
-    in ''
+    in
+    ''
       makeWrapper ${zathura_core.bin}/bin/zathura $out/bin/zathura \
         --prefix PATH ":" "${lib.makeBinPath [ file ]}" \
         --prefix ZATHURA_PLUGINS_PATH : "$out/lib/zathura"

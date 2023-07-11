@@ -47,7 +47,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
     services.gogs = {
       enable = mkOption {
@@ -216,7 +217,8 @@ in {
         let
           runConfig = "${cfg.stateDir}/custom/conf/app.ini";
           secretKey = "${cfg.stateDir}/custom/conf/secret_key";
-        in ''
+        in
+        ''
           mkdir -p ${cfg.stateDir}
 
           # copy custom configuration and generate a random secret key if needed

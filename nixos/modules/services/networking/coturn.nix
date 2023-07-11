@@ -45,7 +45,8 @@ let
     ("cli-password=${cfg.cli-password}")}
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   options = {
     services.coturn = {
       enable = mkEnableOption (lib.mdDoc "coturn TURN server");
@@ -340,7 +341,8 @@ in {
       systemd.services.coturn =
         let
           runConfig = "/run/coturn/turnserver.cfg";
-        in {
+        in
+        {
           description = "coturn TURN server";
           after = [ "network-online.target" ];
           wants = [ "network-online.target" ];

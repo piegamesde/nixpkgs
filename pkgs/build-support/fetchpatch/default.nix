@@ -32,7 +32,8 @@ let
     else
       { inherit stripLen extraPrefix; }
     ;
-in let
+in
+let
   inherit (args') stripLen extraPrefix;
 in
 lib.throwIfNot (excludes == [ ] || includes == [ ])

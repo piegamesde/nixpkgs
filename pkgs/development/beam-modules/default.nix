@@ -19,7 +19,8 @@ let
     let
       defaultScope = mkScope self;
       callPackage = drv: args: callPackageWithScope defaultScope drv args;
-    in rec {
+    in
+    rec {
       inherit callPackage erlang;
       beamPackages = self;
 

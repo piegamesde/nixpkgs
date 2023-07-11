@@ -144,7 +144,8 @@ let
       '';
     };
   };
-in {
+in
+{
   port = 9225;
   extraOpts = {
     environmentFile = mkOption {

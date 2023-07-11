@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) types;
-in {
+in
+{
   imports = [
 
     # fun.<function-body>.a

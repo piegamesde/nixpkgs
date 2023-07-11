@@ -5,7 +5,8 @@
 let
   forwardedPort = 19000;
   internalPort = 9000;
-in {
+in
+{
   name = "webhook";
 
   nodes = {

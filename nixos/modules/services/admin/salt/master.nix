@@ -20,7 +20,8 @@ let
     pki_dir = "/var/lib/salt/pki/master";
   } cfg.configuration;
 
-in {
+in
+{
   options = {
     services.salt.master = {
       enable = mkEnableOption (lib.mdDoc "Salt master service");

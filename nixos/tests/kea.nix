@@ -135,7 +135,8 @@ import ./make-test-python.nix ({
                 name = "knot-zones";
                 paths = [ zone ];
               };
-            in {
+            in
+            {
               enable = true;
               extraArgs = [ "-v" ];
               extraConfig = ''

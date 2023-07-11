@@ -15,7 +15,8 @@ let
       drivers = config.services.xserver.videoDrivers;
       isDeprecated = str: (hasPrefix "nvidia" str) && (str != "nvidia");
       hasDeprecated = drivers: any isDeprecated drivers;
-    in if (hasDeprecated drivers) then
+    in
+    if (hasDeprecated drivers) then
       throw ''
         Selecting an nvidia driver has been modified for NixOS 19.03. The version is now set using `hardware.nvidia.package`.
       ''
@@ -40,7 +41,8 @@ let
 
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "hardware"

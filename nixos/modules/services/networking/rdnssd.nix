@@ -14,7 +14,8 @@ let
     #! ${pkgs.runtimeShell} -e
     ${pkgs.openresolv}/bin/resolvconf -u
   '';
-in {
+in
+{
 
   ###### interface
 

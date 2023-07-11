@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.corosync;
-in {
+in
+{
   # interface
   options.services.corosync = {
     enable = mkEnableOption (lib.mdDoc "corosync");

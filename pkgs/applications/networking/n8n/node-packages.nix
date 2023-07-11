@@ -13736,7 +13736,8 @@ let
       };
     };
   };
-in {
+in
+{
   n8n = nodeEnv.buildNodePackage {
     name = "n8n";
     packageName = "n8n";

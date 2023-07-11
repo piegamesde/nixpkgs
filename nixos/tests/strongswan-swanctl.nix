@@ -32,7 +32,8 @@ import ./make-test-python.nix ({
     secret = "0sFpZAZqEN6Ti9sqt4ZP5EWcqx";
     esp_proposals = [ "aes128gcm128-x25519" ];
     proposals = [ "aes128-sha256-x25519" ];
-  in {
+  in
+  {
     name = "strongswan-swanctl";
     meta.maintainers = with pkgs.lib.maintainers; [ basvandijk ];
     nodes = {
@@ -56,7 +57,8 @@ import ./make-test-python.nix ({
         }:
         let
           strongswan = config.services.strongswan-swanctl.package;
-        in {
+        in
+        {
           virtualisation.vlans = [
             0
             1
@@ -116,7 +118,8 @@ import ./make-test-python.nix ({
         }:
         let
           strongswan = config.services.strongswan-swanctl.package;
-        in {
+        in
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             dhcpcd.enable = false;
@@ -166,4 +169,5 @@ import ./make-test-python.nix ({
       start_all()
       carol.wait_until_succeeds("ping -c 1 alice")
     '';
-  } )
+  }
+)

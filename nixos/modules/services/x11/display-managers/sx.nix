@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.displayManager.sx;
 
-in {
+in
+{
   options = {
     services.xserver.displayManager.sx = {
       enable = mkEnableOption (lib.mdDoc "sx pseudo-display manager") // {

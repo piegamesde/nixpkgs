@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.hackedbox;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.hackedbox.enable =

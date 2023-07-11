@@ -41,7 +41,8 @@ let
     }
     ;
 
-in {
+in
+{
   pretendard = mkPretendard {
     pname = "pretendard";
     typeface = "Pretendard";

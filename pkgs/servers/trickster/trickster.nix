@@ -33,7 +33,8 @@ buildGoModule rec {
           GoVersion = "$(go env GOVERSION)";
           GoArch = "$(go env GOARCH)";
         }));
-    in ''
+    in
+    ''
       buildFlagsArray+=("-ldflags=${ldflags}")
     ''
     ;

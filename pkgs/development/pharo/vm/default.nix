@@ -9,7 +9,8 @@ let
   i686 = pkgsi686Linux.callPackage ./vms.nix { };
   native = callPackage ./vms.nix { };
 
-in rec {
+in
+rec {
   cog32 = i686.cog;
   spur32 = i686.spur;
   spur64 =

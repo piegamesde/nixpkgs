@@ -198,7 +198,8 @@ python3Packages.buildPythonApplication {
   makeFlags =
     let
       out = placeholder "out";
-    in [
+    in
+    [
       "halpredir=${out}/share/hal/fdi/preprobe/10osvendor"
       "rulesdir=${out}/etc/udev/rules.d"
       "policykit_dir=${out}/share/polkit-1/actions"

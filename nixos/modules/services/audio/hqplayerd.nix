@@ -13,7 +13,8 @@ let
     # XXX: This is hard-coded in the distributed binary, don't try to change it.
   stateDir = "/var/lib/hqplayer";
   configDir = "/etc/hqplayer";
-in {
+in
+{
   options = {
     services.hqplayerd = {
       enable = mkEnableOption (lib.mdDoc "HQPlayer Embedded");

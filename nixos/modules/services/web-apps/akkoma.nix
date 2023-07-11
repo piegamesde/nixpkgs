@@ -208,7 +208,8 @@ let
         liveview-salt = web.live_view.signing_salt;
         vapid-private = ex.":web_push_encryption".":vapid_details".private_key;
         vapid-public = ex.":web_push_encryption".":vapid_details".public_key;
-      in ''
+      in
+      ''
         secret() {
           # Generate default secret if non‐existent
           test -e "$2" || install -D -m 0600 <(tr -dc 'A-Za-z-._~' </dev/urandom | head -c "$1") "$2"
@@ -271,7 +272,8 @@ let
         ":"
         "\\"
       ];
-    in if (cfg.initDb.password != null) then
+    in
+    if (cfg.initDb.password != null) then
       pkgs.writeText "pgpass.conf" ''
         *:*:*${esc cfg.initDb.username}:${
           esc (sha256 cfg.initDb.password._secret)
@@ -462,7 +464,8 @@ let
         ln -s ${escapeShellArg val} $out/${escapeShellArg key}
       '') cfg.extraStatic))}
   '';
-in {
+in
+{
   options = {
     services.akkoma = {
       enable = mkEnableOption (mdDoc "Akkoma");
@@ -1119,7 +1122,8 @@ in {
             gawk
             gnused
           ] ++ cfg.extraPackages;
-      in {
+      in
+      {
         description = "Akkoma social network";
         documentation = [ "https://docs.akkoma.dev/stable/" ];
 

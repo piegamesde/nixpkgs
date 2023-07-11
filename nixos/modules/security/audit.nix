@@ -62,7 +62,8 @@ let
     # Disable auditing
     auditctl -e 0
   '';
-in {
+in
+{
   options = {
     security.audit = {
       enable = mkOption {

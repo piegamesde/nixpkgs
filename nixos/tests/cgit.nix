@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
       User-agent: *
       Disallow: /
     '';
-  in {
+  in
+  {
     name = "cgit";
     meta = with pkgs.lib.maintainers; { maintainers = [ schnusch ]; };
 
@@ -85,4 +86,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  } )
+  }
+)

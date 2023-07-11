@@ -19,7 +19,8 @@ let
       cfg.configPath
     ;
 
-in {
+in
+{
   options = {
     services.matterbridge = {
       enable = mkEnableOption (lib.mdDoc "Matterbridge chat platform bridge");

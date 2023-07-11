@@ -13,7 +13,8 @@ let
     symlink = "none";
   });
 
-in {
+in
+{
   # Docker image config.
   imports = [
     ../installer/cd-dvd/channel.nix

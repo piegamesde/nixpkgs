@@ -19,7 +19,8 @@ let
           "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${srcPlatform}_v${version}.${extension}";
         inherit sha256;
       } // lib.optionalAttrs (extension == "zip") { stripRoot = false; };
-    in if extension == "zip" then
+    in
+    if extension == "zip" then
       fetchzip args
     else
       fetchurl args

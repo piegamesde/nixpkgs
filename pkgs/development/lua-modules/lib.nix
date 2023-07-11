@@ -31,7 +31,8 @@ let
       }
     ;
 
-in rec {
+in
+rec {
   inherit overrideLuarocks;
   inherit hasLuaModule requiredLuaModules;
 

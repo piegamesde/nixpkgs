@@ -79,7 +79,8 @@ let
         wrapped = f.wrapped.typeMerge f'.wrapped.functor;
         payload = f.binOp f.payload f'.payload;
         # cannot merge different types
-      in if f.name != f'.name then
+      in
+      if f.name != f'.name then
         null
         # simple types
       else if
@@ -359,7 +360,8 @@ let
             "${toString bit} bit signed integer"
             ;
 
-        in {
+        in
+        {
           # An int with a fixed range.
           #
           # Example:
@@ -413,7 +415,8 @@ let
               builtins.toJSON highest
             } (both inclusive)"
             ;
-        in {
+        in
+        {
           between =
             lowest: highest:
             assert lib.assertMsg (lowest <= highest)
@@ -564,7 +567,8 @@ let
           loc: defs:
           let
             res = mergeOneOption loc defs;
-          in if
+          in
+          if
             builtins.isPath res
             || (builtins.isString res && !builtins.hasContext res)
           then
@@ -767,7 +771,8 @@ let
             loc: defs:
             let
               nrNulls = count (def: def.value == null) defs;
-            in if nrNulls == length defs then
+            in
+            if nrNulls == length defs then
               null
             else if nrNulls != 0 then
               throw "The option `${
@@ -1004,7 +1009,8 @@ let
                   let
                     intersecting =
                       builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-                  in if intersecting == { } then
+                  in
+                  if intersecting == { } then
                     lhs.specialArgs // rhs.specialArgs
                   else
                     throw ''
@@ -1108,7 +1114,8 @@ let
             loc: defs:
             let
               defList = map (d: d.value) defs;
-            in if all (x: t1.check x) defList then
+            in
+            if all (x: t1.check x) defList then
               t1.merge loc defs
             else if all (x: t2.check x) defList then
               t2.merge loc defs
@@ -1120,7 +1127,8 @@ let
             let
               mt1 = t1.typeMerge (elemAt f'.wrapped 0).functor;
               mt2 = t2.typeMerge (elemAt f'.wrapped 1).functor;
-            in if (name == f'.name) && (mt1 != null) && (mt2 != null) then
+            in
+            if (name == f'.name) && (mt1 != null) && (mt2 != null) then
               functor.type mt1 mt2
             else
               null

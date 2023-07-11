@@ -64,7 +64,8 @@ stdenv.mkDerivation {
         libGLU
         libGL
       ];
-    in ''
+    in
+    ''
       ${patchelf}/bin/patchelf \
         --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         $out/bin/aliza

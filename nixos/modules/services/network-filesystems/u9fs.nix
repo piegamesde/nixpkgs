@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.u9fs;
-in {
+in
+{
 
   options = {
 

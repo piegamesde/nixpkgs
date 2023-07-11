@@ -64,7 +64,8 @@ let
       "https://downloads.python.org/pypy/pypy${pythonVersion}-v${version}-macos_x86_64.tar.bz2";
   };
 
-in with passthru;
+in
+with passthru;
 stdenv.mkDerivation {
   inherit pname version;
 
@@ -152,7 +153,8 @@ stdenv.mkDerivation {
       ] ++ lib.optionals (!isPy3k) [ "Tkinter" ]
         ++ lib.optionals isPy3k [ "tkinter" ];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
-    in ''
+    in
+    ''
       echo "Testing whether we can import modules"
       $out/bin/${executable} -c '${imports}'
     ''

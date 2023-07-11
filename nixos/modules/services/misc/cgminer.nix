@@ -56,7 +56,8 @@ let
     }]
     }
   '';
-in {
+in
+{
   ###### interface
   options = {
 

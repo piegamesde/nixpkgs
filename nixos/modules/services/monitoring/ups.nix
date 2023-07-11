@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.power.ups;
 
-in let
+in
+let
   upsOptions =
     {
       name,
@@ -102,7 +103,8 @@ in let
     }
     ;
 
-in {
+in
+{
   options = {
     # powerManagement.powerDownCommands
 

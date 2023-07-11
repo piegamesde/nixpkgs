@@ -137,7 +137,8 @@ let
       };
     };
   };
-in {
+in
+{
   ###### interface
   options = {
     services.listmonk = {

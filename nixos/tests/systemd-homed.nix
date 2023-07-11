@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   let
     password = "foobar";
     newPass = "barfoo";
-  in {
+  in
+  {
     name = "systemd-homed";
     nodes.machine =
       {
@@ -105,4 +106,5 @@ import ./make-test-python.nix ({
       with subtest("homed user should be in wheel according to NSS"):
         machine.succeed("userdbctl group wheel -s io.systemd.NameServiceSwitch | grep test-homed-user")
     '';
-  } )
+  }
+)

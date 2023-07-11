@@ -11,7 +11,8 @@ with lib;
 let
   # Type for a valid systemd unit option. Needed for correctly passing "timerConfig" to "systemd.timers"
   inherit (utils.systemdUtils.unitOptions) unitOption;
-in {
+in
+{
   options.services.restic.backups = mkOption {
     description = lib.mdDoc ''
       Periodic backups to create with Restic.

@@ -46,7 +46,8 @@ let
       throw
       "don't know what platform suffix for ${stdenv.hostPlatform.system} will be"
     ;
-in rec {
+in
+rec {
 
   # work around https://bugs.eclipse.org/bugs/show_bug.cgi?id=476075#c3
   buildEclipseUnversioned = callPackage ./build-eclipse.nix {

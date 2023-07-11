@@ -24,7 +24,8 @@ let
       } "=";
     } tlpConfig
     ;
-in {
+in
+{
   ###### interface
   options = {
     services.tlp = {
@@ -94,7 +95,8 @@ in {
       let
         cfg = config.powerManagement;
         maybeDefault = val: lib.mkIf (val != null) (lib.mkDefault val);
-      in {
+      in
+      {
         CPU_SCALING_GOVERNOR_ON_AC = maybeDefault cfg.cpuFreqGovernor;
         CPU_SCALING_GOVERNOR_ON_BAT = maybeDefault cfg.cpuFreqGovernor;
         CPU_SCALING_MIN_FREQ_ON_AC = maybeDefault cfg.cpufreq.min;

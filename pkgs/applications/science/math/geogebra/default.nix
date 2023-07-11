@@ -114,7 +114,8 @@ let
       unzip $src -d $out/Applications
     '';
   };
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   darwinPkg
 else
   linuxPkg

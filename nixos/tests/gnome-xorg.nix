@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
       let
         user = nodes.machine.config.users.users.alice;
 
-      in {
+      in
+      {
         imports = [ ./common/user-account.nix ];
 
         services.xserver.enable = true;
@@ -82,7 +83,8 @@ import ./make-test-python.nix ({
 
           # Hopefully Console's wm class
         wmClass = su "${gdbus} ${eval} global.display.focus_window.wm_class";
-      in ''
+      in
+      ''
         with subtest("Login to GNOME Xorg with GDM"):
             machine.wait_for_x()
             # Wait for alice to be logged in"

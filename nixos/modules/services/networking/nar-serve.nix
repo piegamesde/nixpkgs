@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.nar-serve;
-in {
+in
+{
   meta = { maintainers = [ maintainers.rizary ]; };
   options = {
     services.nar-serve = {

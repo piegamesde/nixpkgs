@@ -219,7 +219,8 @@ let
       };
     }
     ;
-in {
+in
+{
   # interface
 
   options = {
@@ -249,7 +250,8 @@ in {
               message_queue_binding = "${cfg.messageQueueBinding}";
             } // cfg.extraConfig))
           ;
-      in {
+      in
+      {
         description = "blockbook-frontend-${blockbookName} daemon";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
@@ -295,7 +297,8 @@ in {
           WorkingDirectory = cfg.dataDir;
           LimitNOFILE = 65536;
         };
-      } ))) eachBlockbook;
+      }
+      ))) eachBlockbook;
 
     systemd.tmpfiles.rules = flatten (mapAttrsToList (blockbookName: cfg: [
       "d ${cfg.dataDir} 0750 ${cfg.user} ${cfg.group} - -"

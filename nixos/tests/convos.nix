@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
   with lib;
   let
     port = 3333;
-  in {
+  in
+  {
     name = "convos";
     meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
 
@@ -33,4 +34,5 @@ import ./make-test-python.nix ({
       }'")
       machine.succeed("curl -f http://localhost:${toString port}/")
     '';
-  } )
+  }
+)

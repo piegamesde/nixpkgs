@@ -55,7 +55,8 @@ buildPythonPackage rec {
         include_directories(${h3}/include/h3)
         link_directories(${h3}/lib)
       '';
-    in ''
+    in
+    ''
       rm -r src/h3lib
       substituteInPlace CMakeLists.txt --replace "add_subdirectory(src/h3lib)" "${cmakeCommands}"
     ''

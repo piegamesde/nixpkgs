@@ -13,7 +13,8 @@ let
       expected = lib.sort lib.lessThan y;
     }
     ;
-in with lib.systems.doubles;
+in
+with lib.systems.doubles;
 lib.runTests {
   testall = mseteq all (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd
     ++ illumos ++ wasi ++ windows ++ embedded ++ mmix ++ js ++ genode ++ redox);

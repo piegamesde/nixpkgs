@@ -13,7 +13,8 @@ let
 
   pkg = pkgs.xmr-stak.override { inherit (cfg) openclSupport cudaSupport; };
 
-in {
+in
+{
   options = {
     services.xmr-stak = {
       enable = mkEnableOption (lib.mdDoc "xmr-stak miner");
@@ -83,7 +84,8 @@ in {
       serviceConfig =
         let
           rootRequired = cfg.openclSupport || cfg.cudaSupport;
-        in {
+        in
+        {
           ExecStart =
             "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
             # xmr-stak generates cpu and/or gpu configuration files

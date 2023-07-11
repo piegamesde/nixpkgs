@@ -27,7 +27,8 @@ let
       "curses"
     ;
 
-in {
+in
+{
 
   options.programs.gnupg = {
     package = mkOption {

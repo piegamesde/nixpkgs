@@ -168,7 +168,8 @@ stdenv.mkDerivation rec {
         xorg.libICE
         xorg.libSM
       ];
-    in ''
+    in
+    ''
       # Install in working directory and then copy
       make install-squeak install-plugins prefix=$(pwd)/products
 

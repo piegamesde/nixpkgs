@@ -19,7 +19,8 @@ let
   };
   fhsEnvExecutable = "${fhsEnv}/bin/${fhsEnv.name}";
 
-in {
+in
+{
   options.services.boinc = {
     enable = mkOption {
       type = types.bool;

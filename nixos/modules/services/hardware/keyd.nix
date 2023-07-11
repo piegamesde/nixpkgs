@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.keyd;
   settingsFormat = pkgs.formats.ini { };
-in {
+in
+{
   options = {
     services.keyd = {
       enable = mkEnableOption (lib.mdDoc "keyd, a key remapping daemon");

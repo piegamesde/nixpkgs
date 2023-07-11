@@ -85,7 +85,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options.services.strongswan = {
     enable = mkEnableOption (lib.mdDoc "strongSwan");
 

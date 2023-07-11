@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.security.please;
   ini = pkgs.formats.ini { };
-in {
+in
+{
   options.security.please = {
     enable = mkEnableOption (mdDoc ''
       please, a Sudo clone which allows a users to execute a command or edit a
@@ -70,7 +71,8 @@ in {
         owner = "root";
         group = "root";
         setuid = true;
-      in {
+      in
+      {
         please = {
           source = "${cfg.package}/bin/please";
           inherit owner group setuid;

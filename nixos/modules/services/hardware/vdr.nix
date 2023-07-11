@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.vdr;
   libDir = "/var/lib/vdr";
-in {
+in
+{
 
   ###### interface
 

@@ -70,7 +70,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
 
     hardware.sane.brscan4.enable =

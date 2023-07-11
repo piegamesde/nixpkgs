@@ -55,7 +55,8 @@ let
   completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
   envFeatures = lib.concatStringsSep " "
     (map (f: lib.replaceStrings [ "-" ] [ "_" ] (lib.toUpper f)) crateFeatures);
-in ''
+in
+''
   ${echo_colored colors}
   ${noisily colors verbose}
   source ${./lib.sh}

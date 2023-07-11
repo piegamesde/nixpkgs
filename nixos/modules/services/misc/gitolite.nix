@@ -13,7 +13,8 @@ let
   pubkeyFile = (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
     + "/gitolite-admin.pub";
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
-in {
+in
+{
   options = {
     services.gitolite = {
       enable = mkOption {
@@ -151,7 +152,8 @@ in {
         ''
       } >>"$out/gitolite.rc"
     '';
-  in {
+  in
+  {
     services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
       # Enable git-annex support:
       push( @{$RC{ENABLE}}, 'git-annex-shell ua');
@@ -259,5 +261,6 @@ in {
       pkgs.gitolite
       pkgs.git
     ] ++ optional cfg.enableGitAnnex pkgs.git-annex;
-  } );
+  }
+  );
 }

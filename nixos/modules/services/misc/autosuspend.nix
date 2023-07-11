@@ -115,7 +115,8 @@ let
       '';
     };
   };
-in {
+in
+{
   options = {
     services.autosuspend = {
       enable = mkEnableOption (mdDoc "the autosuspend daemon");

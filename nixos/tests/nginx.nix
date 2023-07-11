@@ -96,7 +96,8 @@ import ./make-test-python.nix ({
           "${nodes.webserver.system.build.toplevel}/specialisation/reloadRestartSystem";
         reloadWithErrorsSystem =
           "${nodes.webserver.system.build.toplevel}/specialisation/reloadWithErrorsSystem";
-      in ''
+      in
+      ''
         url = "http://localhost/index.html"
 
 

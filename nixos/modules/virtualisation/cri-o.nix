@@ -18,7 +18,8 @@ let
   format = pkgs.formats.toml { };
 
   cfgFile = format.generate "00-default.conf" cfg.settings;
-in {
+in
+{
   meta = { maintainers = teams.podman.members; };
 
   options.virtualisation.cri-o = {

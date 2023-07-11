@@ -27,7 +27,8 @@ let
     exec ${pkgs.jre}/bin/java -Xmx512M -Xms20M -XX:+UseG1GC -XX:GCTimeRatio=1 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 $JAVA_OPTS -classpath "$SERVIIO_CLASS_PATH" org.serviio.MediaServer "$@"
   '';
 
-in {
+in
+{
 
   ###### interface
   options = {

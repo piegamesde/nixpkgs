@@ -98,7 +98,8 @@ import ./make-test-python.nix ({
       ;
 
     titleFile = pkgs.writeText "dokuwiki-title" "DokuWiki on site2";
-  in {
+  in
+  {
     name = "dokuwiki";
     meta = with pkgs.lib; {
       maintainers = with maintainers; [
@@ -174,4 +175,5 @@ import ./make-test-python.nix ({
               "curl -sSfL http://site1.local/rewrite-test | grep 'Hello, NixOS!'",
             )
     '';
-  } )
+  }
+)

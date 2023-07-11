@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
           inherit sha256;
         }
         ;
-    in [
+    in
+    [
       (fetchpatch {
         name = "no_static_buffers.patch";
         url =

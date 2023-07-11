@@ -14,7 +14,8 @@ let
     intersectLists
     ;
 
-in rec {
+in
+rec {
   bundlerFiles =
     {
       gemfile ? null,

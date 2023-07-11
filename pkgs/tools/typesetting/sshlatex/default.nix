@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
         bash
         inotify-tools
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       cp sshlatex $out/bin
       wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"

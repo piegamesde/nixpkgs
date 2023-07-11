@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.zsh.syntaxHighlighting;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "programs"

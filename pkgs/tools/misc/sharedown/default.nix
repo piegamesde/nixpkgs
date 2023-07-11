@@ -92,7 +92,8 @@ stdenvNoCC.mkDerivation rec {
         yarnLock = ./yarn.lock;
         yarnNix = ./yarndeps.nix;
       };
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p "$out/bin" "$out/share/Sharedown" "$out/share/applications" "$out/share/icons/hicolor/512x512/apps"

@@ -48,11 +48,13 @@ stdenv.mkDerivation rec {
     let
       sys = last (splitString "-" stdenv.hostPlatform.system);
       arch = head (splitString "-" stdenv.hostPlatform.system);
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       find .
       mv ezquake-${sys}-${arch} $out/bin/ezquake
-    '' ;
+    ''
+    ;
 
   enableParallelBuilding = true;
 

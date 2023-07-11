@@ -51,7 +51,8 @@ let
         else
           [ contents ]
         ;
-    in ''
+    in
+    ''
       echo "Generating the nix database..."
       echo "Warning: only the database of the deepest Nix layer is loaded."
       echo "         If you want to use nix commands in the container, it would"
@@ -79,7 +80,8 @@ let
     # mapping from the go package.
   defaultArchitecture = go.GOARCH;
 
-in rec {
+in
+rec {
   examples = callPackage ./examples.nix {
     inherit
       buildImage
@@ -624,7 +626,8 @@ in rec {
           } ''
             jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
           '';
-        in if created == "now" then
+        in
+        if created == "now" then
           impure
         else
           pure
@@ -1243,10 +1246,12 @@ in rec {
       drvEnv = lib.mapAttrs' (name: value:
         let
           str = stringValue value;
-        in if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
+        in
+        if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
           lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
         else
-          lib.nameValuePair name str) drv.drvAttrs //
+          lib.nameValuePair name str
+      ) drv.drvAttrs //
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
         lib.genAttrs drv.outputs

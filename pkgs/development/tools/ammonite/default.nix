@@ -96,7 +96,8 @@ let
       };
     }
     ;
-in {
+in
+{
   ammonite_2_12 = common {
     scalaVersion = "2.12";
     sha256 = "sha256-Iov55ohFjcGhur5UEng7aAZJPVua1H/JaKKW6OKS6Zg=";

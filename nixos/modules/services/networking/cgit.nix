@@ -121,7 +121,8 @@ let
       ''
     ;
 
-in {
+in
+{
   options = {
     services.cgit = mkOption {
       description = mdDoc "Configure cgit instances.";

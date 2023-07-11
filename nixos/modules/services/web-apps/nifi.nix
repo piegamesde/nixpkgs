@@ -30,7 +30,8 @@ let
     eval -- "\$@"
   '';
 
-in {
+in
+{
   options = {
     services.nifi = {
       enable = lib.mkEnableOption (lib.mdDoc "Apache NiFi");

@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
                 mkdir "$out"
                 echo hello world > "$out/index.html"
               '';
-            in {
+            in
+            {
               enable = true;
 
               virtualHosts.lockedroot = {

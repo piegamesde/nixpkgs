@@ -11,7 +11,8 @@ let
 
   cfg = config.services.safeeyes;
 
-in {
+in
+{
 
   ###### interface
 

@@ -11,7 +11,8 @@ let
 
   cfg = config.programs.mosh;
 
-in {
+in
+{
   options.programs.mosh = {
     enable = mkOption {
       description = lib.mdDoc ''

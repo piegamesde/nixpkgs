@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
       let
         ip = builtins.elemAt nodesIps index
           ; # since we already use IPs to identify servers
-      in {
+      in
+      {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
           prefixLength = 16;
@@ -99,7 +100,8 @@ import ./make-test-python.nix ({
         systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
       }
       ;
-  in {
+  in
+  {
     name = "patroni";
 
     nodes = {
@@ -227,4 +229,5 @@ import ./make-test-python.nix ({
               # Execute some queries with the node back up.
               run_dummy_queries()
     '';
-  } )
+  }
+)

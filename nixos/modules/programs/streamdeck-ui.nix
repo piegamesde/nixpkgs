@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.streamdeck-ui;
-in {
+in
+{
   options.programs.streamdeck-ui = {
     enable = mkEnableOption (lib.mdDoc "streamdeck-ui");
 

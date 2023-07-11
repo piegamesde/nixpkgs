@@ -11,7 +11,8 @@ let
 
   cfg = config.services.plantuml-server;
 
-in {
+in
+{
   options = {
     services.plantuml-server = {
       enable = mkEnableOption (lib.mdDoc "PlantUML server");

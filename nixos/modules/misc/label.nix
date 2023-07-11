@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.system.nixos;
 
-in {
+in
+{
 
   options.system = {
 

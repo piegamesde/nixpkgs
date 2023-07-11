@@ -158,7 +158,8 @@ let
   enabledNylons = filter (p: p.enable == true) anyNylons;
   nylonUnits = map (nylon: mkNamedNylon nylon) enabledNylons;
 
-in {
+in
+{
 
   ###### interface
 

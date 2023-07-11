@@ -104,7 +104,8 @@ let
               else
                 builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1)
               ;
-          in ''
+          in
+          ''
             # Allow connections to ${loopbackip}:${
               toString fwd.sourcePort
             } from the host itself
@@ -125,7 +126,8 @@ let
               -d ${destinationIP} -p ${fwd.proto} \
               --dport ${destinationPorts} \
               -j SNAT --to-source ${loopbackip}
-          '' ) fwd.loopbackIPs}
+          ''
+        ) fwd.loopbackIPs}
       '') forwardPorts}
     ''
     ;
@@ -165,7 +167,8 @@ let
     ip46tables -w -t nat -A OUTPUT -j nixos-nat-out
   '';
 
-in {
+in
+{
 
   options = {
 

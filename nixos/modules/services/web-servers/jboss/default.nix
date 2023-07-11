@@ -18,7 +18,8 @@ let
     inherit (cfg) tempDir logDir libUrl deployDir serverDir user useJK;
   };
 
-in {
+in
+{
 
   ###### interface
 

@@ -20,7 +20,8 @@ let
   mk = path: inputs: { inherit path inputs; };
 
   # TODO: many of these are untested and missing required inputs
-in {
+in
+{
   applications = {
     abstraction = mk "applications/mod_abstraction" [ ];
     av = mk "applications/mod_av" [ ffmpeg ];

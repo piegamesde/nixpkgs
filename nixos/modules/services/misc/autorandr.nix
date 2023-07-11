@@ -273,7 +273,8 @@ let
       ''
     ;
 
-in {
+in
+{
 
   options = {
 

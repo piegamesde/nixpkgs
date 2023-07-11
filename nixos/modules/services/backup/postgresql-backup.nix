@@ -32,7 +32,8 @@ let
       prevFile = mkSqlPath ".prev" compressSuffix;
       prevFiles = map (mkSqlPath ".prev") (attrValues compressSuffixes);
       inProgressFile = mkSqlPath ".in-progress" compressSuffix;
-    in {
+    in
+    {
       enable = true;
 
       description = "Backup of ${db} database(s)";
@@ -70,7 +71,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   imports = [
       (mkRemovedOptionModule [
@@ -191,10 +193,12 @@ in {
       systemd.services = listToAttrs (map (db:
         let
           cmd = "pg_dump ${cfg.pgdumpOptions} ${db}";
-        in {
+        in
+        {
           name = "postgresqlBackup-${db}";
           value = postgresqlBackupService db cmd;
-        } ) cfg.databases);
+        }
+      ) cfg.databases);
     })
   ];
 

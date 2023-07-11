@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.alps;
-in {
+in
+{
   options.services.alps = {
     enable = mkEnableOption (lib.mdDoc "alps");
 

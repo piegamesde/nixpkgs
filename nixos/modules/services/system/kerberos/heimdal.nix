@@ -42,7 +42,8 @@ let
     ${concatStringsSep "\n" kdcConfigs}
   '';
 
-in {
+in
+{
   # No documentation about correct triggers, so guessing at them.
 
   config = mkIf (cfg.enable && kerberos == pkgs.heimdal) {

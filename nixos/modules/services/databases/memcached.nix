@@ -13,7 +13,8 @@ let
 
   memcached = pkgs.memcached;
 
-in {
+in
+{
 
   ###### interface
 

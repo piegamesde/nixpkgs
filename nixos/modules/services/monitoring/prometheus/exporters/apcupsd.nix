@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.apcupsd;
-in {
+in
+{
   port = 9162;
   extraOpts = {
     apcupsdAddress = mkOption {

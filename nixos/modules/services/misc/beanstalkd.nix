@@ -11,7 +11,8 @@ let
   cfg = config.services.beanstalkd;
   pkg = pkgs.beanstalkd;
 
-in {
+in
+{
   # interface
 
   options = {

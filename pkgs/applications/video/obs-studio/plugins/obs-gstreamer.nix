@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
           lib.getLib package
         }/lib/gstreamer-1.0"
         ;
-    in with gst_all_1;
+    in
+    with gst_all_1;
     builtins.map gstreamerHook [
       gstreamer
       gst-plugins-base

@@ -64,7 +64,8 @@ buildPythonPackage {
   meta =
     let
       inherit (lib) licenses platforms maintainers;
-    in {
+    in
+    {
       homepage = "https://kannibalox.github.io/pyrosimple/";
       description = "A rTorrent client and Python 3 fork of the pyrocore tools";
       license = licenses.gpl3Plus;

@@ -14,7 +14,8 @@ let
   tests =
     let
       callTest = p: args: import p ({ inherit system pkgs; } // args);
-    in {
+    in
+    {
       basic = callTest ./basic.nix;
       namespaces = callTest ./namespaces.nix;
       wg-quick = callTest ./wg-quick.nix;

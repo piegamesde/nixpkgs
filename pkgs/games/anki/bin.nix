@@ -101,7 +101,8 @@ let
     inherit meta passthru;
   });
 
-in if stdenv.isLinux then
+in
+if stdenv.isLinux then
   fhsEnvAnki
 else
   stdenv.mkDerivation {

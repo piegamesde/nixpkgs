@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
           '';
         }
         ;
-    in {
+    in
+    {
       # a selection of test projects that build with the FPGA tools in
       # nixpkgs
       audio_sdcard_streamer = testProject "audio_sdcard_streamer";

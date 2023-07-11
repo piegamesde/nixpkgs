@@ -37,7 +37,8 @@ let
     else
       "nok"
     ;
-in {
+in
+{
   withExtensions-enables-previously-disabled-extensions =
     runTest "php-test-withExtensions-enables-previously-disabled-extensions" ''
       php="${php}"

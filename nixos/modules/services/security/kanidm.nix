@@ -92,7 +92,8 @@ let
       #UMask = "0066";
   };
 
-in {
+in
+{
   options.services.kanidm = {
     enableClient = lib.mkEnableOption (lib.mdDoc "the Kanidm client");
     enableServer = lib.mkEnableOption (lib.mdDoc "the Kanidm server");

@@ -49,7 +49,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   matomo = matomoTest pkgs.matomo // {
     name = "matomo";
     meta.maintainers = with maintainers; [

@@ -37,7 +37,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     services.rippleDataApi = {
       enable = mkEnableOption (lib.mdDoc "ripple data api");
@@ -189,7 +190,8 @@ in {
             else
               cfg.importMode
             ;
-        in {
+        in
+        {
           ExecStart =
             "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
           Restart = "always";

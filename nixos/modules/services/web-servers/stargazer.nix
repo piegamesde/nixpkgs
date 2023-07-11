@@ -33,7 +33,8 @@ let
       in
       genINI { "${name}" = params; } + "\n"
     ))));
-in {
+in
+{
   options.services.stargazer = {
     enable = lib.mkEnableOption (lib.mdDoc "Stargazer Gemini server");
 

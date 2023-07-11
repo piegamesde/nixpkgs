@@ -40,7 +40,8 @@ let
         EOF
         ln -sv /var/lib/uptime/runtime.json $out/runtime.json
       '');
-in {
+in
+{
   options.services.uptime = {
     configFile = mkOption {
       description = lib.mdDoc ''

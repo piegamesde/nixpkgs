@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.lirc;
-in {
+in
+{
 
   ###### interface
 
@@ -69,7 +70,8 @@ in {
       let
         configFile = pkgs.writeText "lircd.conf"
           (builtins.concatStringsSep "\n" cfg.configs);
-      in {
+      in
+      {
         description = "LIRC daemon service";
         after = [ "network.target" ];
 

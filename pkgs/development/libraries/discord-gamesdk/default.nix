@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
     let
       processor = stdenv.hostPlatform.uname.processor;
       sharedLibrary = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       runHook preInstall
 
       install -Dm555 lib/${processor}/discord_game_sdk${sharedLibrary} $out/lib/discord_game_sdk${sharedLibrary}

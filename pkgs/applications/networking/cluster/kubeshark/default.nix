@@ -25,7 +25,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/kubeshark/kubeshark";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}/misc.GitCommitHash=${src.rev}"

@@ -88,7 +88,8 @@ let
       };
     };
   };
-in {
+in
+{
   options.boot.bootspec = {
     enable = lib.mkEnableOption (lib.mdDoc
       "the generation of RFC-0125 bootspec in $system/boot.json, e.g. /run/current-system/boot.json")

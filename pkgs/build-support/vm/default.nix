@@ -36,7 +36,8 @@ let
     writeText
     runCommand
     ;
-in rec {
+in
+rec {
   qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
 
   qemu = buildPackages.qemu_kvm;
@@ -919,7 +920,8 @@ in rec {
     fedora26x86_64 =
       let
         version = "26";
-      in {
+      in
+      {
         name = "fedora-${version}-x86_64";
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
@@ -945,7 +947,8 @@ in rec {
     fedora27x86_64 =
       let
         version = "27";
-      in {
+      in
+      {
         name = "fedora-${version}-x86_64";
         fullName = "Fedora ${version} (x86_64)";
         packagesList = fetchurl rec {
@@ -971,7 +974,8 @@ in rec {
     centos6i386 =
       let
         version = "6.9";
-      in rec {
+      in
+      rec {
         name = "centos-${version}-i386";
         fullName = "CentOS ${version} (i386)";
         urlPrefix = "mirror://centos/${version}/os/i386";
@@ -991,7 +995,8 @@ in rec {
     centos6x86_64 =
       let
         version = "6.9";
-      in rec {
+      in
+      rec {
         name = "centos-${version}-x86_64";
         fullName = "CentOS ${version} (x86_64)";
         urlPrefix = "mirror://centos/${version}/os/x86_64";
@@ -1012,7 +1017,8 @@ in rec {
     centos7x86_64 =
       let
         version = "7.4.1708";
-      in rec {
+      in
+      rec {
         name = "centos-${version}-x86_64";
         fullName = "CentOS ${version} (x86_64)";
         urlPrefix = "mirror://centos/${version}/os/x86_64";

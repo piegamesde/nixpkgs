@@ -29,7 +29,8 @@ assert lib.versionAtLeast perl.version "5.30.3";
 let
   inherit (lib) maintainers teams;
 
-in with self;
+in
+with self;
 {
 
   inherit perl;
@@ -31738,9 +31739,11 @@ in with self;
         host_self = perl.perlOnBuild.pkgs.TermReadKey;
         perl_lib = "${host_perl}/lib/perl5/${host_perl.version}";
         self_lib = "${host_self}/lib/perl5/site_perl/${host_perl.version}";
-      in ''
+      in
+      ''
         sed -ie 's|"-I$(INST_ARCHLIB)"|"-I${perl_lib}" "-I${self_lib}"|g' Makefile
-      '' );
+      ''
+      );
 
         # TermReadKey uses itself in the build process
       nativeBuildInputs =

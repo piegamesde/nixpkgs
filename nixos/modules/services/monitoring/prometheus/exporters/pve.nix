@@ -21,7 +21,8 @@ let
     else
       cfg.configFile
     ;
-in {
+in
+{
   port = 9221;
   extraOpts = {
     package = mkOption {

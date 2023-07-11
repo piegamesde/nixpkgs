@@ -124,7 +124,8 @@ let
     }
     ;
 
-in {
+in
+{
   antlr4_12 = (mkAntlr {
     version = "4.12.0";
     sourceSha256 = "sha256-0JMG8UYFT+IAWvARY2KnuXSr5X6LlVZN4LJHy5d4x08=";

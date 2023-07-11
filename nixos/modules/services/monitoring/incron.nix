@@ -11,7 +11,8 @@ let
 
   cfg = config.services.incron;
 
-in {
+in
+{
   options = {
 
     services.incron = {

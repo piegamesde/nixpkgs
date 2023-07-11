@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
         libglvnd
         libnotify
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/{bin,lib}

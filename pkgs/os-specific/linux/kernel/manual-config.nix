@@ -82,7 +82,8 @@ lib.makeOverridable ({
   let
     config_ = config;
 
-  in let
+  in
+  let
     inherit (lib)
       hasAttr
       getAttr
@@ -358,7 +359,8 @@ lib.makeOverridable ({
           cp -av $2 $4
           cp -av $3 $4
         '';
-      in ''
+      in
+      ''
         installFlagsArray+=("-j$NIX_BUILD_CORES")
         export HOME=${installkernel}
       ''

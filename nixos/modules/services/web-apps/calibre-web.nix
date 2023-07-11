@@ -17,7 +17,8 @@ let
     optionalString
     types
     ;
-in {
+in
+{
   options = {
     services.calibre-web = {
       enable = mkEnableOption (lib.mdDoc "Calibre-Web");
@@ -141,7 +142,8 @@ in {
           "config_calibre_dir = '${cfg.options.calibreLibrary}'"
           ++ optional cfg.options.enableBookConversion
           "config_converterpath = '${pkgs.calibre}/bin/ebook-convert'");
-      in {
+      in
+      {
         description =
           "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
         after = [ "network.target" ];

@@ -31,7 +31,8 @@ let
     cfg.configFile
   ];
 
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

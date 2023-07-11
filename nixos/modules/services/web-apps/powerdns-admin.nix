@@ -19,7 +19,8 @@ let
     with open('${cfg.saltFile}') as file:
       SALT = file.read()
   '';
-in {
+in
+{
   options.services.powerdns-admin = {
     enable = mkEnableOption (lib.mdDoc "the PowerDNS web interface");
 

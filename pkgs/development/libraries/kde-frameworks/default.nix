@@ -129,7 +129,8 @@ let
 
       };
 
-    in {
+    in
+    {
       extra-cmake-modules = callPackage ./extra-cmake-modules { };
 
         # TIER 1

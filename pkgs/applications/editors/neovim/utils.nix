@@ -247,7 +247,8 @@ let
     lib.concatStringsSep ";" hostProviderLua
     ;
 
-in {
+in
+{
   inherit makeNeovimConfig;
   inherit generateProviderRc;
   inherit legacyWrapper;

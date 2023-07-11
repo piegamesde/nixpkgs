@@ -49,7 +49,8 @@ let
 
   enabled = config.hardware.sane.enable || config.services.saned.enable;
 
-in {
+in
+{
 
   ###### interface
 

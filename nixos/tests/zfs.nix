@@ -36,7 +36,8 @@ let
         }:
         let
           usersharePath = "/var/lib/samba/usershares";
-        in {
+        in
+        {
           virtualisation = {
             emptyDiskImages = [
               4096
@@ -205,7 +206,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   stable = makeZfsTest "stable" { };
 

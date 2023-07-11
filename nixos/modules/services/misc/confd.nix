@@ -20,7 +20,8 @@ let
     watch = ${boolToString cfg.watch}
   '';
 
-in {
+in
+{
   options.services.confd = {
     enable = mkEnableOption (lib.mdDoc "confd service");
 

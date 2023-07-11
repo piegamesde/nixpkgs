@@ -10,7 +10,8 @@ let
     name = "io.calamares.calamares";
     package = pkgs.calamares-nixos;
   };
-in {
+in
+{
   imports = [ ./installation-cd-graphical-base.nix ];
 
   environment.systemPackages = with pkgs; [

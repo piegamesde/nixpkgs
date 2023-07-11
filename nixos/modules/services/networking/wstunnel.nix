@@ -347,7 +347,8 @@ let
         serviceConfig =
           let
             certConfig = config.security.acme.certs."${serverCfg.useACMEHost}";
-          in {
+          in
+          {
             Type = "simple";
             ExecStart = with serverCfg;
               let
@@ -363,7 +364,8 @@ let
                   else
                     tlsKey
                   ;
-              in ''
+              in
+              ''
                 ${package}/bin/wstunnel \
                   --server \
                   ${
@@ -391,7 +393,8 @@ let
                         "ws"
                     }://${hostPortToString listen}"
                   }
-              '' ;
+              ''
+              ;
             EnvironmentFile = optional (serverCfg.environmentFile != null)
               serverCfg.environmentFile;
             DynamicUser = true;
@@ -505,7 +508,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options.services.wstunnel = {
     enable = mkEnableOption (mdDoc "wstunnel");
 

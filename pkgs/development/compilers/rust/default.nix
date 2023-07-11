@@ -31,7 +31,8 @@
 let
   # Use `import` to make sure no packages sneak in here.
   lib' = import ../../../build-support/rust/lib { inherit lib; };
-in {
+in
+{
   lib = lib';
 
     # Backwards compat before `lib` was factored out.
@@ -68,7 +69,8 @@ in {
           lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
           (selectRustPackage buildPackages).packages.prebuilt);
         bootRustPlatform = makeRustPlatform bootstrapRustPackages;
-      in {
+      in
+      {
         # Packages suitable for build-time, e.g. `build.rs`-type stuff.
         buildRustPackages = (selectRustPackage buildPackages).packages.stable;
           # Analogous to stdenv
@@ -118,6 +120,7 @@ in {
           rustPlatform = makeRustPlatform self;
           inherit Security;
         };
-      } );
+      }
+    );
   };
 }

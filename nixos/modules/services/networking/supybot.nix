@@ -13,7 +13,8 @@ let
   isStateDirVar = cfg.stateDir == "/var/lib/supybot";
   pyEnv =
     pkgs.python3.withPackages (p: [ p.limnoria ] ++ (cfg.extraPackages p));
-in {
+in
+{
   options = {
 
     services.supybot = {

@@ -11,7 +11,8 @@ let
 
   cfg = config.services.xserver.windowManager.dwm;
 
-in {
+in
+{
 
   ###### interface
 

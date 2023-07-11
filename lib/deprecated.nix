@@ -4,7 +4,8 @@
 let
   inherit (builtins) head tail isList isAttrs isInt attrNames;
 
-in with lib.lists;
+in
+with lib.lists;
 with lib.attrsets;
 with lib.strings;
 
@@ -15,7 +16,8 @@ rec {
     name: default:
     let
       value = builtins.getEnv name;
-    in if value == "" then
+    in
+    if value == "" then
       default
     else
       value
@@ -97,10 +99,12 @@ rec {
     else
       let
         x = builtins.head argList;
-      in if (head x) == name then
+      in
+      if (head x) == name then
         (head (tail x))
       else
-        (getValue attrSet (tail argList) name)) attrSet)
+        (getValue attrSet (tail argList) name)
+    ) attrSet)
     ;
 
     # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
@@ -197,7 +201,8 @@ rec {
           let
             x = head list;
             key = x.key;
-          in if elem key doneKeys then
+          in
+          if elem key doneKeys then
             work (tail list) doneKeys result
           else
             work (tail list ++ operator x) ([ key ] ++ doneKeys)
@@ -224,7 +229,8 @@ rec {
       let
         y = head xs;
         ys = tail xs;
-      in if !isAttrs y then
+      in
+      if !isAttrs y then
         innerClosePropagation acc ys
       else
         let

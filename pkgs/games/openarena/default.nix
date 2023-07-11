@@ -45,7 +45,8 @@ stdenv.mkDerivation {
         "x86_64-linux" = "x86_64";
         "i386-linux" = "i386";
       }.${stdenv.hostPlatform.system};
-    in ''
+    in
+    ''
       mkdir -pv $out/bin
       cd $out
       unzip $src

@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.woodpecker-server;
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [
     janik
     ambroisie

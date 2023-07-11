@@ -11,7 +11,8 @@ let
   cfg = config.services.zfs.autoReplication;
   recursive = optionalString cfg.recursive " --recursive";
   followDelete = optionalString cfg.followDelete " --follow-delete";
-in {
+in
+{
   options = {
     services.zfs.autoReplication = {
       enable = mkEnableOption (lib.mdDoc "ZFS snapshot replication");

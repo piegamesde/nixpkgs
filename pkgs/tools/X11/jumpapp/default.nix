@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       runtimePath = lib.makeBinPath buildInputs;
-    in ''
+    in
+    ''
       sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp
       sed -i "2 i export PATH=${perl}/bin:\$PATH" $out/bin/jumpappify-desktop-entry
     ''

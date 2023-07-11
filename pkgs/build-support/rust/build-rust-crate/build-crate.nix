@@ -62,7 +62,8 @@ let
     else
       "build_bin"
     ;
-in ''
+in
+''
   runHook preBuild
 
   # configure & source common build functions
@@ -99,7 +100,8 @@ in ''
           else
             true
           ;
-      in if haveRequiredFeature then
+      in
+      if haveRequiredFeature then
         ''
           mkdir -p target/bin
           BIN_NAME='${bin.name or crateName}'
@@ -121,7 +123,8 @@ in ''
           } not compiled due to not having all of the required features -- ${
             lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
           } -- enabled.
-        '') crateBin)}
+        ''
+    ) crateBin)}
 
   ${lib.optionalString buildTests ''
     # When tests are enabled build all the files in the `tests` directory as

@@ -51,7 +51,8 @@ let
     ''resource = "${config.resource}"''}
   '') cfg.transports);
 
-in {
+in
+{
   options.services.icingaweb2.modules.monitoring = with types; {
     enable = mkOption {
       type = bool;

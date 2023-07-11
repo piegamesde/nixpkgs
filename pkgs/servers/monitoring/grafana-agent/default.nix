@@ -26,7 +26,8 @@ buildGoModule rec {
   ldflags =
     let
       prefix = "github.com/grafana/agent/pkg/build";
-    in [
+    in
+    [
       "-s"
       "-w"
       # https://github.com/grafana/agent/blob/d672eba4ca8cb010ad8a9caef4f8b66ea6ee3ef2/Makefile#L125

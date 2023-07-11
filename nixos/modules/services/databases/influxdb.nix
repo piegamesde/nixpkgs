@@ -100,7 +100,8 @@ let
       < ${pkgs.writeText "config.json" (builtins.toJSON configOptions)} \
       > $out
   '';
-in {
+in
+{
 
   ###### interface
 

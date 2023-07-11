@@ -20,7 +20,8 @@ let
     vcrpy
     toml
   ];
-in with python3.pkgs;
+in
+with python3.pkgs;
 buildPythonApplication rec {
   version = "4.8";
   pname = "buku";

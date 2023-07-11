@@ -95,7 +95,8 @@ mkDerivation {
         flac
       ];
       libraryPath = lib.makeLibraryPath [ cdparanoia ];
-    in ''
+    in
+    ''
       wrapProgram "$out/bin/k3b"     \
         --prefix PATH : "${binPath}" \
         --prefix LD_LIBRARY_PATH : ${libraryPath}

@@ -15,7 +15,8 @@ let
   format = pkgs.formats.yaml { };
 
   nameToId = netName: "nebula-${netName}";
-in {
+in
+{
   # Interface
 
   options = {
@@ -210,7 +211,8 @@ in {
           };
         } netCfg.settings;
         configFile = format.generate "nebula-config-${netName}.yml" settings;
-      in {
+      in
+      {
         # Create the systemd service for Nebula.
         "nebula@${netName}" = {
           description = "Nebula VPN service for ${netName}";
@@ -253,7 +255,8 @@ in {
           unitConfig.StartLimitIntervalSec =
             0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
         };
-      } ) enabledNetworks);
+      }
+    ) enabledNetworks);
 
       # Open the chosen ports for UDP.
     networking.firewall.allowedUDPPorts = unique

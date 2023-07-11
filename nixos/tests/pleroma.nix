@@ -180,7 +180,8 @@ import ./make-test-python.nix ({
         ${nodes.client.networking.primaryIPAddress} client.nixos.test
       ''
       ;
-  in {
+  in
+  {
     name = "pleroma";
     nodes = {
       client =
@@ -272,4 +273,5 @@ import ./make-test-python.nix ({
         client.succeed("send-toot")
       ''
       ;
-  } )
+  }
+)

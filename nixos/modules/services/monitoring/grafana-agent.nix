@@ -10,7 +10,8 @@ let
   cfg = config.services.grafana-agent;
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "grafana-agent.yaml" cfg.settings;
-in {
+in
+{
   meta = {
     maintainers = with maintainers; [
       flokli

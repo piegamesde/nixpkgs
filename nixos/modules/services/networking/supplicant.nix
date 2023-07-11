@@ -60,7 +60,8 @@ let
           ${optionalString suppl.configFile.writable "update_config=1"}
           ${suppl.extraConf}
         '';
-    in {
+    in
+    {
       description = "Supplicant ${iface}${
           optionalString (iface == "WLAN" || iface == "LAN") " %I"
         }";
@@ -96,7 +97,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
 

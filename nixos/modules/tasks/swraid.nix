@@ -8,7 +8,8 @@ let
 
   cfg = config.boot.initrd.services.swraid;
 
-in {
+in
+{
 
   options.boot.initrd.services.swraid = {
     enable = (lib.mkEnableOption (lib.mdDoc "swraid support using mdadm")) // {

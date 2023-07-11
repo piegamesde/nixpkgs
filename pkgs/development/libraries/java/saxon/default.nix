@@ -39,7 +39,8 @@ let
             else
               jar
             ;
-        in ''
+        in
+        ''
           unzip $src -d $out
           mkdir -p $out/bin $out/share $out/share/java
           cp -s "$out"/*.jar "$out/share/java/"  # */
@@ -64,7 +65,8 @@ let
     }
     ;
 
-in {
+in
+{
   saxon = common {
     pname = "saxon";
     version = "6.5.3";

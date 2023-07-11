@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
             (builtins.toJSON { Username = "jellyfin"; });
           empty = pkgs.writeText "empty.json" (builtins.toJSON { });
         };
-      in ''
+      in
+      ''
         import json
         from urllib.parse import urlencode
 

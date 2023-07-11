@@ -158,7 +158,8 @@ let
 
                     driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
                   '';
-                in [
+                in
+                [
                   pkgs.firefox-unwrapped
                   pkgs.geckodriver
                   testRunner

@@ -6,7 +6,8 @@ let
   pythonSitePackages = super.python.sitePackages;
   pythonCheckInterpreter = super.python.interpreter;
   setuppy = ../run_setup.py;
-in {
+in
+{
   makePythonHook =
     args:
     pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args)

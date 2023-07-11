@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.etesync-dav;
-in {
+in
+{
   options.services.etesync-dav = {
     enable = mkEnableOption (lib.mdDoc "etesync-dav");
 

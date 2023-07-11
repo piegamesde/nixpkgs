@@ -80,7 +80,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options = {
     services.tayga = {
       enable = mkEnableOption (lib.mdDoc "Tayga");

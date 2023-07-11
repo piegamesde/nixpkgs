@@ -76,10 +76,12 @@ let
             pkg = py.pkgs."${normalizePackageName dep}";
             constraints = depSet.${dep}.python or "";
             isCompat = compat constraints;
-          in if isCompat then
+          in
+          if isCompat then
             pkg
           else
-            null) depAttrs)
+            null
+        ) depAttrs)
         ;
 
       buildSystemPkgs = poetryLib.getBuildSystemPkgs {
@@ -108,7 +110,8 @@ let
         ++ lib.flatten
         (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
           checkGroups);
-    in {
+    in
+    {
       buildInputs = mkInput "buildInputs" (if includeBuildSystem then
         buildSystemPkgs
       else
@@ -268,7 +271,8 @@ lib.makeScope pkgs.newScope (self: {
           lockPkgs = builtins.listToAttrs (builtins.map (pkgMeta:
             let
               normalizedName = normalizePackageName pkgMeta.name;
-            in {
+            in
+            {
               name = normalizedName;
               value = self.mkPoetryDep (pkgMeta // {
                 inherit pwd preferWheels;
@@ -284,7 +288,8 @@ lib.makeScope pkgs.newScope (self: {
                       pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
                   or { });
               });
-            } ) (lib.reverseList compatible));
+            }
+          ) (lib.reverseList compatible));
           buildSystems = builtins.listToAttrs (builtins.map (x: {
             name = x;
             value = super.${x};
@@ -373,7 +378,8 @@ lib.makeScope pkgs.newScope (self: {
         */
       storePackages = requiredPythonModules
         (builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs));
-    in {
+    in
+    {
       python = py;
       poetryPackages = storePackages ++ lib.optional hasScripts scriptsPackage
         ++ lib.optional hasEditable editablePackage;

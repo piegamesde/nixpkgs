@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
             "OFF"
         }"
         ;
-    in [
+    in
+    [
       # Paths
       "-DCMAKE_INSTALL_SYSCONFDIR=etc"
       "-DCMAKE_INSTALL_LOCALSTATEDIR=/var"

@@ -13,7 +13,8 @@ let
       name = builtins.replaceStrings [ "/" ] [ "__" ] res;
     }
     ;
-in [
+in
+[
   (fetchTestInput {
     res = "osm/lon1.osm.gz";
     sha256 = "1r8sl67hayjgybxy9crqwp7f1w0ljxvxh0apqcvr888yhsbb8drv";

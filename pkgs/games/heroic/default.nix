@@ -32,7 +32,8 @@ mkYarnPackage rec {
     let
       yarnCmd =
         "yarn --offline --frozen-lockfile --ignore-engines --ignore-scripts --lockfile ${yarnLock}";
-    in ''
+    in
+    ''
       rm deps/heroic/node_modules
       ln -s ../../node_modules deps/heroic/
       ${yarnCmd} vite build
@@ -47,7 +48,8 @@ mkYarnPackage rec {
   postInstall =
     let
       deps = "$out/libexec/heroic/deps/heroic";
-    in ''
+    in
+    ''
       rm -rf "${deps}/public/bin" "${deps}/build/bin"
       mkdir -p "${deps}/build/bin/linux"
       ln -s "${gogdl}/bin/gogdl" "${legendary-gl}/bin/legendary" "${deps}/build/bin/linux"

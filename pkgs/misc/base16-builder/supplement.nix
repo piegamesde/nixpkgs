@@ -657,7 +657,8 @@ let
       };
     };
   };
-in {
+in
+{
   node-pre-gyp = nodeEnv.buildNodePackage {
     name = "node-pre-gyp";
     packageName = "node-pre-gyp";

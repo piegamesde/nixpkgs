@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.routedns;
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
   options.services.routedns = {
     enable = mkEnableOption
       (lib.mdDoc "RouteDNS - DNS stub resolver, proxy and router");

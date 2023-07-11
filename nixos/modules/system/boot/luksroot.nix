@@ -161,7 +161,8 @@ let
         }";
       fido2luksCredentials = dev.fido2.credentials
         ++ optional (dev.fido2.credential != null) dev.fido2.credential;
-    in ''
+    in
+    ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
       # if on a USB drive.
       wait_target "device" ${dev.device} || die "${dev.device} is unavailable"
@@ -636,7 +637,8 @@ let
       } ${lib.concatStringsSep "," opts}"
     ) luks.devices));
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "boot"

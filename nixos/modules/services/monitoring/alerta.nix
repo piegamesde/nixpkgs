@@ -35,7 +35,8 @@ let
       ${cfg.extraConfig}
     '';
   };
-in {
+in
+{
   options.services.alerta = {
     enable = mkEnableOption (lib.mdDoc "alerta");
 

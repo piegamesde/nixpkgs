@@ -50,7 +50,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   # Simple hello world compiles, runs and outputs as expected
   hello-world = testCompileAndRun {
     testName = "hello-world";

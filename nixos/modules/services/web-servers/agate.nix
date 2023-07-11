@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.agate;
-in {
+in
+{
   options = {
     services.agate = {
       enable = mkEnableOption (lib.mdDoc "Agate Server");
@@ -98,7 +99,8 @@ in {
             ;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;
-        in ''
+        in
+        ''
           exec ${cfg.package}/bin/agate ${
             escapeShellArgs ([
               "--content"

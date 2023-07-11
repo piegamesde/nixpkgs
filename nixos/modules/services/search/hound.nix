@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.hound;
-in {
+in
+{
   options = {
     services.hound = {
       enable = mkOption {

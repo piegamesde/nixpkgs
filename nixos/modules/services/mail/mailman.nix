@@ -78,7 +78,8 @@ let
     api_key: @API_KEY@
   '';
 
-in {
+in
+{
 
   ###### interface
 
@@ -414,7 +415,8 @@ in {
           let
             expected = "hash:/var/lib/mailman/data/${dataFile}";
             value = attrByPath optionPath [ ] postfix;
-          in {
+          in
+          {
             assertion = postfix.enable -> isList value && elem expected value;
             message = ''
               services.postfix.${concatStringsSep "." optionPath} must contain
@@ -684,7 +686,8 @@ in {
           });
         uwsgiConfigFile =
           pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
-      in {
+      in
+      {
         wantedBy = [ "multi-user.target" ];
         after = optional withPostgresql "postgresql.service";
         requires = [
@@ -705,7 +708,8 @@ in {
           Group = "mailman";
           RuntimeDirectory = "mailman-uwsgi";
         };
-      } );
+      }
+      );
 
       mailman-daily = {
         description = "Trigger daily Mailman events";

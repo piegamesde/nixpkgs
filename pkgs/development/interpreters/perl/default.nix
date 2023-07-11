@@ -56,7 +56,8 @@ let
           in
           makeScopeWithSplicing otherSplices keep extra perlPackagesFun
         ) { perl = self; };
-    in rec {
+    in
+    rec {
       buildEnv = callPackage ./wrapper.nix {
         perl = self;
         inherit (pkgs) requiredPerlModules;
@@ -72,7 +73,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
   # Maint version
   perl534 = callPackage ./intepreter.nix {
     self = perl534;

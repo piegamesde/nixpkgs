@@ -57,7 +57,8 @@ import ./make-test-python.nix ({
         systemd.services.musicService = musicService;
       }
       ;
-  in {
+  in
+  {
     name = "mpd";
     meta = with pkgs.lib.maintainers; { maintainers = [ emmanuelrosa ]; };
 
@@ -159,4 +160,5 @@ import ./make-test-python.nix ({
       # to perform the following test:
       client.fail(f"{mpc} -h serverPulseAudio status")
     '';
-  } )
+  }
+)

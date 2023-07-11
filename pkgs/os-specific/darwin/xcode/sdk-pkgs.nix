@@ -17,7 +17,8 @@ let
 
   minSdkVersion = stdenv.targetPlatform.minSdkVersion or "9.0";
 
-in rec {
+in
+rec {
   sdk = rec {
     name = "ios-sdk";
     type = "derivation";

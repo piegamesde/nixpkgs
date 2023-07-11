@@ -12,7 +12,8 @@
 
 let
   src = lib.getAttr wineRelease (callPackage ./sources.nix { });
-in with src; {
+in
+with src; {
   wine32 = pkgsi686Linux.callPackage ./base.nix {
     pname = "wine";
     inherit src version supportFlags patches moltenvk;

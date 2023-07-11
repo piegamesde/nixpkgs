@@ -96,7 +96,8 @@ import ./make-test-python.nix ({
           "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs";
         jenkinsPort = nodes.master.config.services.jenkins.port;
         jenkinsUrl = "http://localhost:${toString jenkinsPort}";
-      in ''
+      in
+      ''
         start_all()
 
         master.wait_for_unit("default.target")

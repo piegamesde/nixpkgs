@@ -57,7 +57,8 @@ let
     }:
     let
       poolOpts = cfg.pools.${name};
-    in {
+    in
+    {
       options = {
         socket = mkOption {
           type = types.str;
@@ -179,7 +180,8 @@ let
     }
     ;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -308,7 +310,8 @@ in {
           let
             cfgFile = fpmCfgFile pool poolOpts;
             iniFile = phpIni poolOpts;
-          in {
+          in
+          {
             Slice = "phpfpm.slice";
             PrivateDevices = true;
             PrivateTmp = true;

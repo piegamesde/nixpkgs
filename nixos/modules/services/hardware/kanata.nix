@@ -155,7 +155,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options.services.kanata = {
     enable = mkEnableOption (mdDoc "kanata");
     package = mkOption {

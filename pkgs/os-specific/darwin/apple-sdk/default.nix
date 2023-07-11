@@ -248,7 +248,8 @@ let
       '';
     }
     ;
-in rec {
+in
+rec {
   libs = {
     xpc = stdenv.mkDerivation {
       name = "apple-lib-xpc";

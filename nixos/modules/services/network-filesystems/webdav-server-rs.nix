@@ -13,7 +13,8 @@ let
     server.uid = config.users.users."${cfg.user}".uid;
     server.gid = config.users.groups."${cfg.group}".gid;
   } cfg.settings;
-in {
+in
+{
   options = {
     services.webdav-server-rs = {
       enable = mkEnableOption (lib.mdDoc "WebDAV server");

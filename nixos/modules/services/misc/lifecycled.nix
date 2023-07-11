@@ -31,7 +31,8 @@ let
     "LIFECYCLED_SNS_TOPIC=${cfg.snsTopic}"}
     ${lib.optionalString (cfg.awsRegion != null) "AWS_REGION=${cfg.awsRegion}"}
   '';
-in {
+in
+{
   meta.maintainers = with maintainers; [
     cole-h
     grahamc

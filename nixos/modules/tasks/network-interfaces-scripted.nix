@@ -76,9 +76,8 @@ let
         bondName: optName: _:
         "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions"
         ;
-    in {
-      warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds);
-    }
+    in
+    { warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds); }
     ;
 
   normalConfig = {
@@ -258,7 +257,8 @@ let
               ${flip concatMapStrings ips (ip:
                 let
                   cidr = "${ip.address}/${toString ip.prefixLength}";
-                in ''
+                in
+                ''
                   echo "${cidr}" >> $state
                   echo -n "adding address ${cidr}... "
                   if out=$(ip addr add "${cidr}" dev "${i.name}" 2>&1); then
@@ -267,7 +267,8 @@ let
                     echo "'ip addr add "${cidr}" dev "${i.name}"' failed: $out"
                     exit 1
                   fi
-                '' )}
+                ''
+              )}
 
               state="/run/nixos/network/routes/${i.name}"
               mkdir -p $(dirname "$state")
@@ -281,7 +282,8 @@ let
                     (mapAttrsToList (name: val: "${name} ${val} ")
                       route.options);
                   type = toString route.type;
-                in ''
+                in
+                ''
                   echo "${cidr}" >> $state
                   echo -n "adding route ${cidr}... "
                   if out=$(ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}" proto static 2>&1); then
@@ -290,7 +292,8 @@ let
                     echo "'ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}"' failed: $out"
                     exit 1
                   fi
-                '' )}
+                ''
+              )}
             '';
             preStop = ''
               state="/run/nixos/network/routes/${i.name}"
@@ -345,7 +348,8 @@ let
           n: v:
           nameValuePair "${n}-netdev" (let
             deps = concatLists (map deviceDependency v.interfaces);
-          in {
+          in
+          {
             description = "Bridge Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -437,7 +441,8 @@ let
               } > /sys/class/net/${n}/bridge/stp_state
             '';
             reloadIfChanged = true;
-          } )
+          }
+          )
           ;
 
         createVswitchDevice =
@@ -451,7 +456,8 @@ let
                 v.interfaces));
             ofRules =
               pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
-          in {
+          in
+          {
             description = "Open vSwitch Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -523,14 +529,16 @@ let
               echo "Deleting Open vSwitch ${n}"
               ovs-vsctl --if-exists del-br ${n} || true
             '';
-          } )
+          }
+          )
           ;
 
         createBondDevice =
           n: v:
           nameValuePair "${n}-netdev" (let
             deps = concatLists (map deviceDependency v.interfaces);
-          in {
+          in
+          {
             description = "Bond Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -572,14 +580,16 @@ let
               '')}
             '';
             postStop = destroyBond n;
-          } )
+          }
+          )
           ;
 
         createMacvlanDevice =
           n: v:
           nameValuePair "${n}-netdev" (let
             deps = deviceDependency v.interface;
-          in {
+          in
+          {
             description = "Vlan Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -602,7 +612,8 @@ let
             postStop = ''
               ip link delete "${n}" || true
             '';
-          } )
+          }
+          )
           ;
 
         createFouEncapsulation =
@@ -625,7 +636,8 @@ let
                   "dev ${escapeShellArg v.local.dev}"
                 }"
               }";
-          in {
+          in
+          {
             description = "FOU endpoint ${n}";
             wantedBy = [
               "network-setup.service"
@@ -646,14 +658,16 @@ let
             postStop = ''
               ip fou del ${fouSpec} || true
             '';
-          } )
+          }
+          )
           ;
 
         createSitDevice =
           n: v:
           nameValuePair "${n}-netdev" (let
             deps = deviceDependency v.dev;
-          in {
+          in
+          {
             description = "6-to-4 Tunnel Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -688,7 +702,8 @@ let
             postStop = ''
               ip link delete "${n}" || true
             '';
-          } )
+          }
+          )
           ;
 
         createGreDevice =
@@ -701,7 +716,8 @@ let
               else
                 "ttl"
               ;
-          in {
+          in
+          {
             description = "GRE Tunnel Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -729,14 +745,16 @@ let
             postStop = ''
               ip link delete "${n}" || true
             '';
-          } )
+          }
+          )
           ;
 
         createVlanDevice =
           n: v:
           nameValuePair "${n}-netdev" (let
             deps = deviceDependency v.interface;
-          in {
+          in
+          {
             description = "Vlan Interface ${n}";
             wantedBy = [
               "network-setup.service"
@@ -765,7 +783,8 @@ let
             postStop = ''
               ip link delete "${n}" || true
             '';
-          } )
+          }
+          )
           ;
 
       in
@@ -790,7 +809,8 @@ let
 
   };
 
-in {
+in
+{
   config = mkMerge [
     bondWarnings
     (mkIf (!cfg.useNetworkd) normalConfig)

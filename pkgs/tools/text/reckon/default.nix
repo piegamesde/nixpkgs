@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
         gemdir = ./.;
       };
-    in ''
+    in
+    ''
       runHook preInstall
       mkdir -p $out/bin
       makeWrapper ${env}/bin/reckon $out/bin/reckon

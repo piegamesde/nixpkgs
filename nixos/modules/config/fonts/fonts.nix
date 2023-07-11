@@ -18,7 +18,8 @@ let
     pkgs.unifont
     pkgs.noto-fonts-emoji
   ];
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "fonts"

@@ -50,7 +50,8 @@ let
         } // args))
     ;
 
-in rec {
+in
+rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given
   # and to provide defaults for those that are optional.
   buildOpenRAEngine =
@@ -71,7 +72,8 @@ in rec {
           engine = engine // { inherit name installExperimental; };
         })
         ;
-    in if name == null then
+    in
+    if name == null then
       builder
     else
       builder name
@@ -101,10 +103,12 @@ in rec {
             engine = engine // { inherit mods; };
           })
           ;
-      in if name == null then
+      in
+      if name == null then
         builder
       else
-        builder name) engine
+        builder name
+    ) engine
     ;
 
     # See `buildOpenRASet`.

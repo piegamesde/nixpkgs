@@ -23,7 +23,8 @@ let
       throw "Unrecognized type ${typeOf value} in htop settings"
     ;
 
-in {
+in
+{
 
   options.programs.htop = {
     package = mkOption {

@@ -11,7 +11,8 @@ let
 
   cfg = config.services.shairport-sync;
 
-in {
+in
+{
 
   ###### interface
 

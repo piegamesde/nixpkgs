@@ -12,7 +12,8 @@ let
 
   cfg = config.services.felix;
 
-in {
+in
+{
 
   ###### interface
 

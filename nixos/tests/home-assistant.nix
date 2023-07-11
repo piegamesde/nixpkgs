@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
   let
     configDir = "/var/lib/foobar";
-  in {
+  in
+  {
     name = "home-assistant";
     meta.maintainers = lib.teams.home-assistant.members;
 
@@ -127,7 +128,8 @@ import ./make-test-python.nix ({
       }:
       let
         system = nodes.hass.system.build.toplevel;
-      in ''
+      in
+      ''
         import json
 
         start_all()
@@ -216,4 +218,5 @@ import ./make-test-python.nix ({
             hass.log(hass.succeed("systemd-analyze security home-assistant.service"))
       ''
       ;
-  } )
+  }
+)

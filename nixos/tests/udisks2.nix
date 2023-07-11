@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       sha256 = "0was1xgjkjad91nipzclaz5biv3m4b2nk029ga6nk7iklwi19l8b";
     };
 
-  in {
+  in
+  {
     name = "udisks2";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -66,4 +67,5 @@ import ./make-test-python.nix ({
       machine.fail("[ -e /dev/sda ]")
     '';
 
-  } )
+  }
+)

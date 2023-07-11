@@ -23,7 +23,8 @@ let
         ${toString wrapperArgs}
     ''
     ;
-in {
+in
+{
   options.programs.gamescope = {
     enable = mkEnableOption (mdDoc "gamescope");
 

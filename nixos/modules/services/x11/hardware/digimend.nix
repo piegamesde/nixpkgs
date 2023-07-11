@@ -13,7 +13,8 @@ let
 
   pkg = config.boot.kernelPackages.digimend;
 
-in {
+in
+{
 
   options = {
 

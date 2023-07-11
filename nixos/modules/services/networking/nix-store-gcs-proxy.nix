@@ -41,7 +41,8 @@ let
     function:
     lib.mkMerge (lib.mapAttrsToList function enabledProxies)
     ;
-in {
+in
+{
   options.services.nix-store-gcs-proxy = mkOption {
     type = types.attrsOf (types.submodule opts);
     default = { };

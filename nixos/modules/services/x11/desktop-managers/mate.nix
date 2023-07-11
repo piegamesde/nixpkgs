@@ -13,7 +13,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.mate;
 
-in {
+in
+{
   options = {
 
     services.xserver.desktopManager.mate = {

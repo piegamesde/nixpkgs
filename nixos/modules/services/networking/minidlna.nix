@@ -12,7 +12,8 @@ let
   settingsFormat = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
   settingsFile = settingsFormat.generate "minidlna.conf" cfg.settings;
 
-in {
+in
+{
   ###### interface
   options.services.minidlna.enable = mkOption {
     type = types.bool;

@@ -6,7 +6,8 @@
 let
   inherit (lib.strings) hasPrefix;
 
-in {
+in
+{
   /* A map of all haskell packages defined in the given path,
      identified by having a cabal file with the same name as the
      directory itself.
@@ -50,7 +51,8 @@ in {
           files = builtins.attrNames (builtins.readDir path);
           matches = builtins.filter (match: match != null)
             (map (builtins.match pattern) files);
-        in if builtins.length matches != 0 then
+        in
+        if builtins.length matches != 0 then
           { inherit path matches; }
         else if path == /. then
           null

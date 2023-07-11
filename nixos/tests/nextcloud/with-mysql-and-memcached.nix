@@ -11,7 +11,8 @@ args@{
   let
     adminpass = "hunter2";
     adminuser = "root";
-  in {
+  in
+  {
     name = "nextcloud-with-mysql-and-memcached";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
@@ -81,7 +82,8 @@ args@{
           #!${pkgs.runtimeShell}
           diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
         '';
-      in ''
+      in
+      ''
         start_all()
         nextcloud.wait_for_unit("multi-user.target")
         nextcloud.succeed("${configureMemcached}")
@@ -95,4 +97,5 @@ args@{
         )
       ''
       ;
-  } )) args
+  }
+)) args

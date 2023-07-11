@@ -9,6 +9,7 @@ let
     ;
   brokenDeps = lib.subtractLists (getEvaluating pkgs.haskellPackages)
     (getEvaluating (nixpkgs { config.allowBroken = true; }).haskellPackages);
-in ''
+in
+''
   ${lib.concatMapStringsSep "\n" (x: " - ${x}") brokenDeps}
 ''

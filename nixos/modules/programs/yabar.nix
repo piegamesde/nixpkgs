@@ -51,7 +51,8 @@ let
       ${concatStringsSep "\n" bars}
     ''
     ;
-in {
+in
+{
   options.programs.yabar = {
     enable = mkEnableOption (lib.mdDoc "yabar");
 

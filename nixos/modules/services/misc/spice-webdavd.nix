@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.spice-webdavd;
-in {
+in
+{
   options = {
     services.spice-webdavd = {
       enable = mkEnableOption (lib.mdDoc "the spice guest webdav proxy daemon");

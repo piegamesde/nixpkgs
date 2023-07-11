@@ -158,7 +158,8 @@ stdenv.mkDerivation rec {
         else
           "OFF"
         ;
-    in [
+    in
+    [
       "-DBUILD_META_EXAMPLES=ON"
       "-DCMAKE_DISABLE_FIND_PACKAGE_ARPACK=ON"
       "-DCMAKE_DISABLE_FIND_PACKAGE_ARPREC=ON"

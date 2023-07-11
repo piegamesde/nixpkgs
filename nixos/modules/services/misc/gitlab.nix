@@ -39,7 +39,8 @@ let
         encoding = "utf8";
         pool = cfg.databasePool;
       } // cfg.extraDatabaseConfig;
-    in if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
+    in
+    if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
       { production.main = val; }
     else
       { production = val; }
@@ -274,7 +275,8 @@ let
     end
   '';
 
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [

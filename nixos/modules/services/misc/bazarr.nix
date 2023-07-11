@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.bazarr;
-in {
+in
+{
   options = {
     services.bazarr = {
       enable = mkEnableOption

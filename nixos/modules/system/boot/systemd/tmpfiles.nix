@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.systemd.tmpfiles;
   systemd = config.systemd.package;
-in {
+in
+{
   options = {
     systemd.tmpfiles.rules = mkOption {
       type = types.listOf types.str;

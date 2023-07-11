@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
   let
     port = toString 4321;
-  in {
+  in
+  {
     name = "mpv";
     meta.maintainers = with maintainers; [ zopieux ];
 
@@ -30,4 +31,5 @@ import ./make-test-python.nix ({
       machine.wait_for_open_port(${port})
       assert "<title>simple-mpv-webui" in machine.succeed("curl -s localhost:${port}")
     '';
-  } )
+  }
+)

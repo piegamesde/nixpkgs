@@ -10,7 +10,8 @@ let
     python3 =
       let
         env = (python3.withPackages (ps: with ps; [ ipykernel ]));
-      in {
+      in
+      {
         displayName = "Python 3";
         argv = [
           env.interpreter
@@ -28,7 +29,8 @@ let
       ;
   };
 
-in {
+in
+{
   inherit
     default
     ;
@@ -85,11 +87,13 @@ in {
             linkExtraPaths = lib.mapAttrsToList
               (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
               extraPaths;
-          in ''
+          in
+          ''
             mkdir 'kernels/${kernelName}';
             echo '${config}' > 'kernels/${kernelName}/kernel.json';
             ${lib.concatStringsSep "\n" linkExtraPaths}
-          '' ) definitions)}
+          ''
+        ) definitions)}
 
         mkdir $out
         cp -r kernels $out

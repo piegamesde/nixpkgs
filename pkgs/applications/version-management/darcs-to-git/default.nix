@@ -23,7 +23,8 @@ stdenv.mkDerivation {
   patchPhase =
     let
       matchExecution = ''(\<(output_of|system|run)\([^"%]*("|%w\()|^[^"`]*`)'';
-    in ''
+    in
+    ''
       sed -r -i \
         -e '1s|^#!.*|#!${ruby}/bin/ruby|' \
         -e 's!${matchExecution}git\>!\1${git}/bin/git!' \

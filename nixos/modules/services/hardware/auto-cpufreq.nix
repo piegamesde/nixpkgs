@@ -11,7 +11,8 @@ let
   cfgFile = format.generate cfgFilename cfg.settings;
 
   format = pkgs.formats.ini { };
-in {
+in
+{
   options = {
     services.auto-cpufreq = {
       enable = mkEnableOption (lib.mdDoc "auto-cpufreq daemon");

@@ -227,7 +227,8 @@ let
     allowedTCPPorts = [ cfg.port ];
   };
 
-in {
+in
+{
 
   ###### interface
 

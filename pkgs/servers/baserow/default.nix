@@ -34,7 +34,8 @@ let
       ;
   };
 
-in with python.pkgs;
+in
+with python.pkgs;
 buildPythonApplication rec {
   pname = "baserow";
   version = "1.12.1";

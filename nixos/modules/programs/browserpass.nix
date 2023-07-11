@@ -17,7 +17,8 @@ with lib;
       let
         appId = "com.github.browserpass.native.json";
         source = part: "${pkgs.browserpass}/lib/browserpass/${part}/${appId}";
-      in {
+      in
+      {
         # chromium
         "chromium/native-messaging-hosts/${appId}".source =
           source "hosts/chromium";

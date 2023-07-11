@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
         commit:
         "https://code.videolan.org/videolan/${pname}/-/commit/${commit}.diff"
         ;
-    in [
+    in
+    [
       (fetchpatch {
         name = "make-cli-pipes-work-1.patch";
         url = url "0425184dbf3fdaf59854af5f530da88b2196a57b";

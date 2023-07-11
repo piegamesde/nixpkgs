@@ -10,7 +10,8 @@ let
   pkg = pkgs.nixops-dns;
   cfg = config.services.nixops-dns;
 
-in {
+in
+{
   options = {
     services.nixops-dns = {
       enable = mkOption {

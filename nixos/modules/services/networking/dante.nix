@@ -16,7 +16,8 @@ let
     ${cfg.config}
   '';
 
-in {
+in
+{
   meta = { maintainers = with maintainers; [ arobyn ]; };
 
   options = {

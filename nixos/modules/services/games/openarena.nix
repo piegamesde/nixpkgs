@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.openarena;
-in {
+in
+{
   options = {
     services.openarena = {
       enable = mkEnableOption (lib.mdDoc "OpenArena");

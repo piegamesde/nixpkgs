@@ -32,9 +32,11 @@
 }@args:
 let
   lib' = lib;
-in let
+in
+let
   lib = import ../../../../build-support/coq/extra-lib.nix { lib = lib'; };
-in with builtins;
+in
+with builtins;
 with lib;
 let
   release = {
@@ -309,7 +311,8 @@ let
       mainProgram = "coqide";
     };
   };
-in if coqAtLeast "8.17" then
+in
+if coqAtLeast "8.17" then
   self.overrideAttrs (_: {
     buildPhase = ''
       runHook preBuild

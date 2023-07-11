@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   let
     port = 8000;
     baseUrl = "http://server:${toString port}";
-  in {
+  in
+  {
     name = "pinnwand";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
@@ -96,4 +97,5 @@ import ./make-test-python.nix ({
 
       server.log(server.execute("systemd-analyze security pinnwand | grep '✗'")[1])
     '';
-  } )
+  }
+)

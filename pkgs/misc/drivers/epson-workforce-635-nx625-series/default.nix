@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
           throw
           "other platforms than i686_linux and x86_64-linux are not yet supported"
         ;
-    in ''
+    in
+    ''
       mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
       cp src/epson_inkjet_printer_filter "${filterdir}"
 

@@ -28,7 +28,8 @@ appimageTools.wrapType2 {
   extraInstallCommands =
     let
       appimageContents = appimageTools.extractType2 { inherit name src; };
-    in ''
+    in
+    ''
       mkdir -p $out/etc/udev/rules.d
       cp ${appimageContents}/resources/linux/99-SaleaeLogic.rules $out/etc/udev/rules.d/
       mkdir -p $out/share/pixmaps

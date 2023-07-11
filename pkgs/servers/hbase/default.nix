@@ -45,7 +45,8 @@ let
       };
     }
     ;
-in {
+in
+{
   hbase_2_4 = common {
     version = "2.4.16";
     hash = "sha256-vMuTqS2bXFRcCsZ7bOaNLVGyOG38HhL8WlCq2MFmAaE=";

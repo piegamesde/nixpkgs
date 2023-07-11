@@ -20,7 +20,8 @@ let
     ;
 
   domain = config.networking.domain;
-in {
+in
+{
   options.services.tmate-ssh-server = {
     enable = mkEnableOption (mdDoc "tmate ssh server");
 
@@ -85,7 +86,8 @@ in {
           set -g tmate-server-ed25519-fingerprint "@ed25519_fingerprint@"
           set -g tmate-server-rsa-fingerprint "@rsa_fingerprint@"
         '';
-      in [
+      in
+      [
         (pkgs.writeShellApplication {
           name = "tmate-client-config";
           runtimeInputs = with pkgs; [

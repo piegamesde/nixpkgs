@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       ${pkgs.step-cli}/bin/step certificate create "Example Root CA" $out/root_ca.crt $out/root_ca.key --password-file=$out/root-password-file --profile root-ca
       ${pkgs.step-cli}/bin/step certificate create "Example Intermediate CA 1" $out/intermediate_ca.crt $out/intermediate_ca.key --password-file=$out/intermediate-password-file --ca-password-file=$out/root-password-file --profile intermediate-ca --ca $out/root_ca.crt --ca-key $out/root_ca.key
     '';
-  in {
+  in
+  {
     name = "step-ca";
     nodes = {
       caserver =
@@ -97,4 +98,5 @@ import ./make-test-python.nix ({
       caclient.wait_for_unit("acme-finished-caclient.target")
       catester.succeed("curl https://caclient/ | grep \"Welcome to nginx!\"")
     '';
-  } )
+  }
+)

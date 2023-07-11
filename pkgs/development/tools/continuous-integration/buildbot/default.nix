@@ -30,7 +30,8 @@ let
   };
   buildbot-plugins =
     recurseIntoAttrs (callPackage ./plugins.nix { inherit buildbot-pkg; });
-in {
+in
+{
   inherit buildbot buildbot-plugins buildbot-worker;
   buildbot-ui = buildbot.withPlugins (with buildbot-plugins; [ www ]);
   buildbot-full = buildbot.withPlugins (with buildbot-plugins; [

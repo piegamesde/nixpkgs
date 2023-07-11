@@ -179,7 +179,8 @@ let
     '';
   };
 
-in rec {
+in
+rec {
   xonotic-data = fetchzip {
     name = "xonotic-data";
     url = "https://dl.xonotic.org/xonotic-${version}.zip";

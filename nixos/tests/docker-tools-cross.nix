@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
       contents = remoteCrossPkgs.hello;
     };
 
-  in {
+  in
+  {
     name = "docker-tools";
     meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
 
@@ -84,4 +85,5 @@ import ./make-test-python.nix ({
               "docker rmi ${hello2.imageName}",
           )
     '';
-  } )
+  }
+)

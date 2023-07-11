@@ -22,7 +22,8 @@ buildGoModule rec {
   ldflags =
     let
       PKG = "sigs.k8s.io/aws-iam-authenticator";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${PKG}/pkg.Version=${version}"

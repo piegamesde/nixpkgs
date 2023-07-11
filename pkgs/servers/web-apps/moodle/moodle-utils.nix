@@ -34,6 +34,5 @@ let
       '';
     })
     ;
-in {
-  inherit buildMoodlePlugin;
-}
+in
+{ inherit buildMoodlePlugin; }

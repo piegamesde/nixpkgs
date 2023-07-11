@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.convos;
-in {
+in
+{
   options.services.convos = {
     enable = mkEnableOption (lib.mdDoc "Convos");
     listenPort = mkOption {

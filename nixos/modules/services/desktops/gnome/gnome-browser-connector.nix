@@ -8,7 +8,8 @@
 let
   inherit (lib) mdDoc mkEnableOption mkIf mkRenamedOptionModule teams;
 
-in {
+in
+{
   meta = { maintainers = teams.gnome.members; };
 
   imports = [

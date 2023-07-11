@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
           # expects Gemfile, Gemfile.lock and gemset.nix in the same directory
         gemdir = ./.;
       };
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       ln -s ${env}/bin/watson $out/bin/watson
     ''

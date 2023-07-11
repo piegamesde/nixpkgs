@@ -39,7 +39,8 @@ import ./make-test-python.nix ({
             };
           }
           ;
-      in {
+      in
+      {
         pomerium =
           {
             pkgs,

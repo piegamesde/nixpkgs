@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.hardware.xone;
-in {
+in
+{
   options.hardware.xone = {
     enable = mkEnableOption (lib.mdDoc
       "the xone driver for Xbox One and Xbobx Series X|S accessories");

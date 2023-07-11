@@ -94,7 +94,8 @@ stdenv.mkDerivation rec {
         lz4
         lzip
       ];
-    in ''
+    in
+    ''
       echo 'export PATH=${
         lib.makeBinPath compressionTools
       }:$PATH' >> scripts/libmakepkg/util/compress.sh.in

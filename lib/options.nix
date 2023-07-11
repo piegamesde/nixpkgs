@@ -34,7 +34,8 @@ let
   prioritySuggestion = ''
     Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
   '';
-in rec {
+in
+rec {
 
   /* Returns true when the given argument is an option
 
@@ -241,7 +242,8 @@ in rec {
     loc: defs:
     let
       list = getValues defs;
-    in if length list == 1 then
+    in
+    if length list == 1 then
       head list
     else if all isFunction list then
       x: mergeDefaultOption loc (map (f: f x) list)
@@ -366,7 +368,8 @@ in rec {
         subOptions =
           let
             ss = opt.type.getSubOptions opt.loc;
-          in if ss != { } then
+          in
+          if ss != { } then
             optionAttrSetToDocList' opt.loc ss
           else
             [ ]
@@ -514,7 +517,8 @@ in rec {
             "*" # listOf (submodule {})
             "<function body>" # functionTo
           ];
-        in if builtins.elem part specialIdentifiers then
+        in
+        if builtins.elem part specialIdentifiers then
           part
         else
           lib.strings.escapeNixIdentifier part
@@ -549,9 +553,11 @@ in rec {
           else
             ": " + value
           ;
-      in ''
+      in
+      ''
 
-        - In `${def.file}'${result}'' ) defs
+        - In `${def.file}'${result}''
+    ) defs
     ;
 
   showOptionWithDefLocs =

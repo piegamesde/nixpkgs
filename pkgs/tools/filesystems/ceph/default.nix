@@ -276,7 +276,8 @@ let
     url = "http://download.ceph.com/tarballs/ceph-${version}.tar.gz";
     hash = "sha256-NiJpwUeROvh0siSaRoRrDm+C0s61CvRiIrbd7JmRspo=";
   };
-in rec {
+in
+rec {
   ceph = stdenv.mkDerivation {
     pname = "ceph";
     inherit src version;

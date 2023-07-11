@@ -14,7 +14,8 @@ let
 
   daemon = "g15daemon";
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "hardware"

@@ -143,7 +143,8 @@ buildGoModule rec {
         else
           "${buildPackages.tinygo}/bin/tinygo"
         ;
-    in ''
+    in
+    ''
       # Move binary
       mkdir -p build
       mv $GOPATH/bin/tinygo build/tinygo

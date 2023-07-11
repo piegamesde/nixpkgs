@@ -11,7 +11,8 @@
 let
   inherit (lib) optionalAttrs warn;
 
-in rec {
+in
+rec {
 
   /* Run the shell command `buildCommand' to produce a store path named
      `name'.  The attributes in `env' are added to the environment
@@ -786,7 +787,8 @@ in rec {
       allPaths = lib.concatStringsSep "\n"
         (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
-    in if builtins ? getContext then
+    in
+    if builtins ? getContext then
       writeText "string-references" allPathsWithContext
     else
       writeDirectReferencesToFile (writeText "string-file" string)

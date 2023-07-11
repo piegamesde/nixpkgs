@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.openbox;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.openbox.enable =
       mkEnableOption (lib.mdDoc "openbox");

@@ -40,7 +40,8 @@ import ./make-test-python.nix ({
           healthchecks = pkgs.writeText "healthchecks.conf" ''
             /status /tmp/ats.status text/plain 200 500
           '';
-        in {
+        in
+        {
           services.trafficserver.enable = true;
 
           services.trafficserver.records = {
@@ -96,7 +97,8 @@ import ./make-test-python.nix ({
               gunicorn
               gevent
             ]);
-        in {
+        in
+        {
           systemd.services.httpbin = {
             enable = true;
             after = [ "network.target" ];
@@ -131,7 +133,8 @@ import ./make-test-python.nix ({
         sampleFile = pkgs.writeText "sample.txt" ''
           It's the season of White Album.
         '';
-      in ''
+      in
+      ''
         import json
         import re
 

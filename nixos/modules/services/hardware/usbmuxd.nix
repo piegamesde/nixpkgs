@@ -14,7 +14,8 @@ let
 
   cfg = config.services.usbmuxd;
 
-in {
+in
+{
   options.services.usbmuxd = {
 
     enable = mkOption {

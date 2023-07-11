@@ -13,7 +13,8 @@ let
       inherit sha256;
     })
     ;
-in {
+in
+{
   # 4.5
   XSA_190 = (xsaPatch {
     name = "190-4.5";

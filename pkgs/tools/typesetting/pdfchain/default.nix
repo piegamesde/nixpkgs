@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
           inherit name sha256;
         }
         ;
-    in [
+    in
+    [
       (fetchDebianPatch {
         name = "fix_crash_on_startup";
         sha256 = "sha256-1UyMHHGrmUIFhY53ILdMMsyocSIbcV6CKQ7sLVNhNQw=";

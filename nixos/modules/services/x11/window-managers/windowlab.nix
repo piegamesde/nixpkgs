@@ -8,7 +8,8 @@
 let
   cfg = config.services.xserver.windowManager.windowlab;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.windowlab.enable =
       lib.mkEnableOption (lib.mdDoc "windowlab");

@@ -249,7 +249,8 @@ let
     let
       dependsOn = map (x: "${cfg.backend}-${x}.service") container.dependsOn;
       escapedName = escapeShellArg name;
-    in {
+    in
+    {
       wantedBy = [ ] ++ optional (container.autoStart) "multi-user.target";
       after = lib.optionals (cfg.backend == "docker") [
         "docker.service"
@@ -355,7 +356,8 @@ let
     }
     ;
 
-in {
+in
+{
   imports = [
       (lib.mkChangedOptionModule [ "docker-containers" ] [
         "virtualisation"

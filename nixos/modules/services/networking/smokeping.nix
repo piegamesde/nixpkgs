@@ -51,7 +51,8 @@ let
     ${cfg.package}/bin/smokeping_cgi /etc/smokeping.conf
   '';
 
-in {
+in
+{
   options = {
     services.smokeping = {
       enable = mkEnableOption (lib.mdDoc "smokeping service");

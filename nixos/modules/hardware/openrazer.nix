@@ -57,7 +57,8 @@ let
     "razermug"
     "razercore"
   ];
-in {
+in
+{
   options = {
     hardware.openrazer = {
       enable = mkEnableOption (lib.mdDoc ''

@@ -8,7 +8,8 @@
 let
   cfg = config.services.hadoop;
   opt = options.services.hadoop;
-in with lib; {
+in
+with lib; {
   imports = [
     ./yarn.nix
     ./hdfs.nix

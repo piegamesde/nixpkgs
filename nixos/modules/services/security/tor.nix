@@ -27,7 +27,8 @@ let
         else
           p0
         ;
-    in if p1 == "auto" then
+    in
+    if p1 == "auto" then
       false
     else
       let
@@ -177,7 +178,8 @@ let
         "UseIPv6Cache"
         "WorldWritable"
       ] ++ isolateFlags;
-    in with types;
+    in
+    with types;
     oneOf [
       port
       (submodule ({
@@ -234,7 +236,8 @@ let
                   "NoAdvertise"
                   "NoListen"
                 ];
-              in {
+              in
+              {
                 options = {
                   addr = optionAddress;
                   port = optionPort;
@@ -247,7 +250,8 @@ let
                 config = {
                   flags = filter (name: config.${name} == true) flags;
                 };
-              } ))
+              }
+            ))
           ]))
         ];
       description = lib.mdDoc (descriptionGeneric optionName);
@@ -321,7 +325,8 @@ let
       ''
         HiddenServiceDir ${onion.path}
       '' + genTorrc onion.settings) cfg.relay.onionServices));
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -1034,7 +1039,8 @@ in {
                         "RelaxDirModeCheck"
                         "WorldWritable"
                       ];
-                    in {
+                    in
+                    {
                       options = {
                         unix = optionUnix;
                         flags = optionFlags;
@@ -1048,7 +1054,8 @@ in {
                       config = {
                         flags = filter (name: config.${name} == true) flags;
                       };
-                    } ))
+                    }
+                  ))
                 ]))
               ];
           };
@@ -1481,7 +1488,8 @@ in {
                 imap0 (i: prvKeyPath:
                   let
                     hostname = removeSuffix ".onion" name;
-                  in ''
+                  in
+                  ''
                     printf "%s:" ${escapeShellArg hostname} | cat - ${
                       escapeShellArg prvKeyPath
                     } |
@@ -1489,7 +1497,8 @@ in {
                      ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
                        toString i
                      }.auth_private
-                  '' ) onion.clientAuthorizations) cfg.client.onionServices))))
+                  ''
+                ) onion.clientAuthorizations) cfg.client.onionServices))))
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

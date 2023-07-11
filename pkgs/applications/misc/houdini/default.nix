@@ -56,7 +56,8 @@ buildFHSEnv rec {
         "bin/hkey"
         "houdini/sbin/sesinetd"
       ];
-    in ''
+    in
+    ''
       WRAPPER=$out/bin/${name}
       EXECUTABLES="${lib.concatStringsSep " " executables}"
       for executable in $EXECUTABLES; do

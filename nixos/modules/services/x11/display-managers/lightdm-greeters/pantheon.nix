@@ -13,7 +13,8 @@ let
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.pantheon;
 
-in {
+in
+{
   meta = with lib; {
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
   };

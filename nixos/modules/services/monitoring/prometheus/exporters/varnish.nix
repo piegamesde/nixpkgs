@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.varnish;
-in {
+in
+{
   port = 9131;
   extraOpts = {
     noExit = mkOption {

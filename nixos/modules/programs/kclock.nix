@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.programs.kclock;
   kclockPkg = pkgs.libsForQt5.kclock;
-in {
+in
+{
   options.programs.kclock = { enable = mkEnableOption (lib.mdDoc "KClock"); };
 
   config = mkIf cfg.enable {

@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
         isExecutable = true;
         src = ./eid-nssdb.in;
       };
-    in ''
+    in
+    ''
       install -D ${eid-nssdb-in} $out/bin/eid-nssdb
       substituteInPlace $out/bin/eid-nssdb \
         --replace "modutil" "${nssTools}/bin/modutil"

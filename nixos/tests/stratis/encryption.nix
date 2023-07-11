@@ -20,7 +20,8 @@ import ../make-test-python.nix ({
       let
         testkey1 = pkgs.writeText "testkey1" "supersecret1";
         testkey2 = pkgs.writeText "testkey2" "supersecret2";
-      in ''
+      in
+      ''
         machine.wait_for_unit("stratisd")
         # test creation of encrypted pool and filesystem
         machine.succeed("stratis key  set    testkey1  --keyfile-path ${testkey1}")

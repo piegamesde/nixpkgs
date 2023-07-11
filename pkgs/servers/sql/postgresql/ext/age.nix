@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     buildPhase =
       let
         postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
-      in ''
+      in
+      ''
         # The regression tests need to be run in the order specified in the Makefile.
         echo -e "include Makefile\nfiles:\n\t@echo \$(REGRESS)" > Makefile.regress
         REGRESS_TESTS=$(make -f Makefile.regress files)

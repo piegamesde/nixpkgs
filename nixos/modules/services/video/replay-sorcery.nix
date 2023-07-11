@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.replay-sorcery;
   configFile = generators.toKeyValue { } cfg.settings;
-in {
+in
+{
   options = with types; {
     services.replay-sorcery = {
       enable = mkEnableOption

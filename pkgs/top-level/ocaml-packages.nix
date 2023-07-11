@@ -510,10 +510,12 @@ let
             else
               ppxlib
             ;
-        in {
+        in
+        {
           ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
           inherit ppxlib_0_15;
-        } );
+        }
+        );
 
         emile = callPackage ../development/ocaml-modules/emile { };
 
@@ -2088,9 +2090,11 @@ let
       })).overrideScope' liftJaneStreet
     ;
 
-in let
+in
+let
   inherit (pkgs) callPackage;
-in rec {
+in
+rec {
   inherit mkOcamlPackages;
 
   ocamlPackages_4_00_1 =

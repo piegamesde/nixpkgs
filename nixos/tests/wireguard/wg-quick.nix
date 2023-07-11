@@ -14,7 +14,8 @@ import ../make-test-python.nix ({
         # Make sure iptables doesn't work with nftables enabled
       boot.blacklistedKernelModules = lib.mkIf nftables [ "nft_compat" ];
     };
-  in {
+  in
+  {
     name = "wg-quick";
     meta = with pkgs.lib.maintainers; { maintainers = [ d-xo ]; };
 
@@ -99,4 +100,5 @@ import ../make-test-python.nix ({
       peer1.succeed("ping -c5 fc00::1")
       peer1.succeed("ping -c5 10.23.42.1")
     '';
-  } )
+  }
+)

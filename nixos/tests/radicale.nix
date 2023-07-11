@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
 
     cli =
       "${pkgs.calendar-cli}/bin/calendar-cli --caldav-user ${user} --caldav-pass ${password}";
-  in {
+  in
+  {
     name = "radicale3";
     meta.maintainers = with lib.maintainers; [ dotlambda ];
 
@@ -106,4 +107,5 @@ import ./make-test-python.nix ({
           machine.log(output)
           assert output[-9:-1] == "SAFE :-}"
     '';
-  } )
+  }
+)

@@ -17,7 +17,8 @@ let
       all,
     }:
     [ all.pspell ] ++ enabled);
-in {
+in
+{
   options.services.roundcube = {
     enable = mkOption {
       type = types.bool;
@@ -290,7 +291,8 @@ in {
                 lib.optionalString (!localDB)
                 "-h ${cfg.database.host} -U ${cfg.database.username} "
               } ${cfg.database.dbname}";
-          in ''
+          in
+          ''
             version="$(${psql} -t <<< "select value from system where name = 'roundcube-version';" || true)"
             if ! (grep -E '[a-zA-Z0-9]' <<< "$version"); then
               ${psql} -f ${cfg.package}/SQL/postgres.initial.sql

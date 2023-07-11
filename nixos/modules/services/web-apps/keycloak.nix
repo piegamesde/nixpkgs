@@ -40,7 +40,8 @@ let
     prefix: string:
     optionalString (string != "") "${prefix}${string}"
     ;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -114,7 +115,8 @@ in {
         else
           value
         ;
-    in {
+    in
+    {
       enable = mkOption {
         type = bool;
         default = false;
@@ -707,7 +709,8 @@ in {
             ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement secretPaths;
-        in {
+        in
+        {
           after = databaseServices;
           bindsTo = databaseServices;
           wantedBy = [ "multi-user.target" ];

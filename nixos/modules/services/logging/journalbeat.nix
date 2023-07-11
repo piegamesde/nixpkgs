@@ -17,7 +17,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
 
     services.journalbeat = {

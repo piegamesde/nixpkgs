@@ -1599,7 +1599,8 @@ let
       };
     };
   };
-in {
+in
+{
   base16-builder = nodeEnv.buildNodePackage {
     name = "base16-builder";
     packageName = "base16-builder";

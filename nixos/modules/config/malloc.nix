@@ -37,7 +37,8 @@ let
         systemPlatform =
           platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
             "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
-      in {
+      in
+      {
         libPath =
           "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
         description = ''
@@ -75,7 +76,8 @@ let
     # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
 
-in {
+in
+{
   meta = { maintainers = [ maintainers.joachifm ]; };
 
   options = {

@@ -20,7 +20,8 @@ import ../make-test-python.nix ({
     hashedAlicePassword =
       "$6$MsMrE1q.1HrCgTS$Vq2e/uILzYjSN836TobAyN9xh9oi7EmCmucnZID25qgPoibkw8qTCugiAPnn4eCGvn1A.7oEBFJaaGUaJsQQY.";
 
-  in {
+  in
+  {
     name = "pam-oath-login";
 
     nodes.machine =
@@ -106,4 +107,5 @@ import ../make-test-python.nix ({
           machine.send_chars("touch  done4\n")
           machine.wait_for_file("/home/alice/done4")
     '';
-  } )
+  }
+)

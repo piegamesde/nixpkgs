@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.qemuGuest;
-in {
+in
+{
 
   options.services.qemuGuest = {
     enable = mkOption {

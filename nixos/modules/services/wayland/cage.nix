@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cage;
-in {
+in
+{
   options.services.cage.enable =
     mkEnableOption (lib.mdDoc "cage kiosk service");
 

@@ -10,7 +10,8 @@ import ../make-test-python.nix ({
       mkdir -p $out
       cp key.pem cert.pem $out
     '';
-  in {
+  in
+  {
     name = "monica";
 
     nodes = {
@@ -40,4 +41,5 @@ import ../make-test-python.nix ({
       machine.wait_for_open_port(443)
       machine.succeed("curl -k --fail https://localhost", timeout=10)
     '';
-  } )
+  }
+)

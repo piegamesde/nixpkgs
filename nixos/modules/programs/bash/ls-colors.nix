@@ -9,7 +9,8 @@ with lib;
 
 let
   enable = config.programs.bash.enableLsColors;
-in {
+in
+{
   options = {
     programs.bash.enableLsColors =
       mkEnableOption (lib.mdDoc "extra colors in directory listings") // {

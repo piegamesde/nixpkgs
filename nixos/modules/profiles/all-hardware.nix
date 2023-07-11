@@ -10,7 +10,8 @@
 }:
 let
   platform = pkgs.stdenv.hostPlatform;
-in {
+in
+{
 
   # The initrd has to contain any module that might be necessary for
   # supporting the most important parts of HW like drives.

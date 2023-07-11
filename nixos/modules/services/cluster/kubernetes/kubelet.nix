@@ -72,7 +72,8 @@ let
 
   taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}")
     (mapAttrsToList (n: v: v) cfg.taints);
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

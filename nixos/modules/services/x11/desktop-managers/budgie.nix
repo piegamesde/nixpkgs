@@ -54,7 +54,8 @@ let
     '';
     destination = "/share/gnome-background-properties/nixos.xml";
   };
-in {
+in
+{
   options = {
     services.xserver.desktopManager.budgie = {
       enable = mkEnableOption (mdDoc "the Budgie desktop");

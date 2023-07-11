@@ -12,7 +12,8 @@ let
   inSystem = lib.any (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
     config.boot.supportedFilesystems;
 
-in {
+in
+{
   config = {
 
     system.fsPackages =

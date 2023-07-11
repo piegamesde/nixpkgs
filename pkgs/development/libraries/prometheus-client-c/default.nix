@@ -66,7 +66,8 @@ let
       };
     }
     ;
-in rec {
+in
+rec {
   libprom = build {
     pname = "libprom";
     subdir = "prom";

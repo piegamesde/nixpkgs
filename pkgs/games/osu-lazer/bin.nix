@@ -40,7 +40,8 @@ let
     extraInstallCommands =
       let
         contents = appimageTools.extract { inherit pname version src; };
-      in ''
+      in
+      ''
         mv -v $out/bin/${pname}-${version} $out/bin/osu\!
         install -m 444 -D ${contents}/osu\!.desktop -t $out/share/applications
         for i in 16 32 48 64 96 128 256 512 1024; do
@@ -90,7 +91,8 @@ let
   };
 
   passthru.updateScript = ./update-bin.sh;
-in if stdenv.isDarwin then
+in
+if stdenv.isDarwin then
   darwin
 else
   linux

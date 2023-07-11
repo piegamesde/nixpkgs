@@ -41,7 +41,8 @@ let
         attr: attrName:
         lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr
         ;
-    in {
+    in
+    {
       "Name" = name;
       "Description" = description;
       "URL" = url;

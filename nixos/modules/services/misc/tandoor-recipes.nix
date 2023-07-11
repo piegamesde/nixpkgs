@@ -29,7 +29,8 @@ let
       exec ${pkg}/bin/tandoor-recipes "$@"
     ''
     ;
-in {
+in
+{
   meta.maintainers = with maintainers; [ ambroisie ];
 
   options.services.tandoor-recipes = {

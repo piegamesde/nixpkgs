@@ -57,7 +57,8 @@ let
       };
     } // attrs')
     ;
-in rec {
+in
+rec {
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled
   # with different versions we pin Go for all versions.

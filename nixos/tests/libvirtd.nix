@@ -36,7 +36,8 @@ import ./make-test-python.nix ({
           else
             "destroy"
           ;
-      in ''
+      in
+      ''
         start_all()
 
         virthost.wait_for_unit("multi-user.target")

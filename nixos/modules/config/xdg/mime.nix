@@ -14,7 +14,8 @@ let
     (coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x))
       str);
 
-in {
+in
+{
   meta = {
     maintainers = teams.freedesktop.members ++ (with maintainers; [ figsoda ]);
   };

@@ -142,7 +142,8 @@ let
     attrsOf (either confAtom (listOf confAtom))
     ;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModuleWith {
       sinceRelease = 2003;
@@ -831,16 +832,20 @@ in {
           (toString machine.speedFactor)
           (let
             res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-          in if (res == [ ]) then
+          in
+          if (res == [ ]) then
             "-"
           else
-            (concatStringsSep "," res))
+            (concatStringsSep "," res)
+          )
           (let
             res = machine.mandatoryFeatures;
-          in if (res == [ ]) then
+          in
+          if (res == [ ]) then
             "-"
           else
-            (concatStringsSep "," machine.mandatoryFeatures))
+            (concatStringsSep "," machine.mandatoryFeatures)
+          )
         ] ++ optional (isNixAtLeast "2.4pre")
           (if machine.publicHostKey != null then
             machine.publicHostKey
@@ -851,7 +856,8 @@ in {
     assertions =
       let
         badMachine = m: m.system == null && m.systems == [ ];
-      in [ {
+      in
+      [ {
         assertion = !(any badMachine cfg.buildMachines);
         message = ''
           At least one system type (via <varname>system</varname> or

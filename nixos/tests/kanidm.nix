@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   let
     certs = import ./common/acme/server/snakeoil-certs.nix;
     serverDomain = certs.domain;
-  in {
+  in
+  {
     name = "kanidm";
     meta.maintainers = with pkgs.lib.maintainers; [
       erictapen
@@ -87,7 +88,8 @@ import ./make-test-python.nix ({
         serverConfigFile =
           (pkgs.formats.toml { }).generate "server.toml" filteredConfig;
 
-      in ''
+      in
+      ''
         start_all()
         server.wait_for_unit("kanidm.service")
         server.wait_until_succeeds("curl -sf https://${serverDomain} | grep Kanidm")
@@ -99,4 +101,5 @@ import ./make-test-python.nix ({
         client.succeed("kanidm_unixd_status | grep working!")
       ''
       ;
-  } )
+  }
+)

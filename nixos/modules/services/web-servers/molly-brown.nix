@@ -11,7 +11,8 @@ let
   cfg = config.services.molly-brown;
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "molly-brown.toml" cfg.settings;
-in {
+in
+{
 
   options.services.molly-brown = {
 
@@ -81,7 +82,8 @@ in {
     services.molly-brown.settings =
       let
         logDir = "/var/log/molly-brown";
-      in {
+      in
+      {
         Port = cfg.port;
         Hostname = cfg.hostName;
         CertPath = cfg.certPath;

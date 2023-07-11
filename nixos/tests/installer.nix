@@ -115,7 +115,8 @@ let
         else
           "OVMF.fd"
         ;
-    in if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
+    in
+    if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
       ''
         machine.succeed("true")
       ''
@@ -466,10 +467,12 @@ let
               ++ optionals (bootLoader == "grub" && grubVersion == 2) (let
                 zfsSupport = lib.any (x: x == "zfs")
                   (extraInstallerConfig.boot.supportedFilesystems or [ ]);
-              in [
+              in
+              [
                 (pkgs.grub2.override { inherit zfsSupport; })
                 (pkgs.grub2_efi.override { inherit zfsSupport; })
-              ] );
+              ]
+              );
 
             nix.settings = {
               substituters = mkForce [ ];
@@ -596,7 +599,8 @@ let
         })
       ];
   };
-in {
+in
+{
 
   # !!! `parted mkpart' seems to silently create overlapping partitions.
 

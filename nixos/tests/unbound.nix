@@ -48,7 +48,8 @@ import ./make-test-python.nix ({
         mkdir -p $out
         cp key.pem cert.pem $out
       '';
-  in {
+  in
+  {
     name = "unbound";
     meta = with pkgs.lib.maintainers; { maintainers = [ andir ]; };
 
@@ -409,4 +410,5 @@ import ./make-test-python.nix ({
             test(local_resolver, ["::1", "127.0.0.1"], zone="something.local.", records=r)
       ''
       ;
-  } )
+  }
+)

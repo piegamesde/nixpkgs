@@ -8,7 +8,8 @@
 
 let
   cfg = config.services.urserver;
-in {
+in
+{
 
   options.services.urserver.enable = lib.mkEnableOption (lib.mdDoc "urserver");
 

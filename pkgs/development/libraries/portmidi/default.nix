@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   postInstall =
     let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
     ''
     ;

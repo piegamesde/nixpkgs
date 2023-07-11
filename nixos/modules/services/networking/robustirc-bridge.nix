@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.robustirc-bridge;
-in {
+in
+{
   options = {
     services.robustirc-bridge = {
       enable = mkEnableOption (lib.mdDoc "RobustIRC bridge");

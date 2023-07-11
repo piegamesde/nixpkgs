@@ -45,7 +45,8 @@ import ./make-test-python.nix ({
             server.serve_forever()
       '';
 
-  in {
+  in
+  {
     name = "switch-test";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -523,7 +524,8 @@ import ./make-test-python.nix ({
           exec env -i "$@" | tee /dev/stderr
         '';
         # python
-      in ''
+      in
+      ''
         def switch_to_specialisation(system, name, action="test", fail=False):
             if name == "":
                 stc = f"{system}/bin/switch-to-configuration"
@@ -1112,4 +1114,5 @@ import ./make-test-python.nix ({
             machine.succeed("echo 1 > /proc/sys/vm/panic_on_oom")  # disallow OOMing
       ''
       ;
-  } )
+  }
+)

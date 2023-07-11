@@ -15,7 +15,8 @@ let
       "k3s"
     ] ++ config) instruction
     ;
-in {
+in
+{
   imports = [
       (removeOption [ "docker" ] "k3s docker option is no longer supported.")
     ];

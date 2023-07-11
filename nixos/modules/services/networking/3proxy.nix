@@ -15,7 +15,8 @@ let
     else
       concatMapStringsSep "," toString list
     ;
-in {
+in
+{
   options.services._3proxy = {
     enable = mkEnableOption (lib.mdDoc "3proxy");
     confFile = mkOption {

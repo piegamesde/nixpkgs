@@ -13,7 +13,8 @@
 
 let
   lib = import ../../lib;
-in with lib;
+in
+with lib;
 
 rec {
 
@@ -101,7 +102,8 @@ rec {
     crossSystem:
     let
       candidate = examplesByConfig.${crossSystem.config} or null;
-    in if crossSystem == null then
+    in
+    if crossSystem == null then
       native
     else if
       candidate != null && lib.matchAttrs crossSystem candidate.crossSystem

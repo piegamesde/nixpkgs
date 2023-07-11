@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.fluxbox;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.fluxbox.enable =

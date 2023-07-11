@@ -79,7 +79,8 @@ let
       } // attrs.meta;
     })
     ;
-in {
+in
+{
   format = buildHaxeLib {
     libname = "format";
     version = "3.5.0";

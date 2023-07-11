@@ -100,7 +100,8 @@ let
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
     ;
 
-in {
+in
+{
 
   options = {
     services.uwsgi = {

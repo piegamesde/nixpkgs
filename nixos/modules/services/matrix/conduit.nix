@@ -12,7 +12,8 @@ let
 
   format = pkgs.formats.toml { };
   configFile = format.generate "conduit.toml" cfg.settings;
-in {
+in
+{
   meta.maintainers = with maintainers; [
     pstn
     piegames

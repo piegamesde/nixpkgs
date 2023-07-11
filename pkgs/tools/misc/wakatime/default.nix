@@ -38,7 +38,8 @@ buildGoModule rec {
         # Flaky tests
         "TestLoadParams_ApiKey_FromVault_Err_Darwin"
       ];
-    in ''
+    in
+    ''
       # Disable tests
       buildFlagsArray+=("-run" "[^(${
         builtins.concatStringsSep "|" skippedTests

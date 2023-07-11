@@ -132,7 +132,8 @@ let
       name = "kubernetes-${attrs.name}-singlenode";
     })
     ;
-in {
+in
+{
   inherit
     mkKubernetesBaseTest
     mkKubernetesSingleNodeTest

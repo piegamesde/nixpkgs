@@ -23,7 +23,8 @@ let
   };
 
   nodeDependencies = (nodePackages.shell.override (old: { })).nodeDependencies;
-in with python3Packages;
+in
+with python3Packages;
 buildPythonApplication rec {
 
   pname = "isso";

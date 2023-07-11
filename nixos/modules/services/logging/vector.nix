@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.vector;
 
-in {
+in
+{
   options.services.vector = {
     enable = mkEnableOption (lib.mdDoc "Vector");
 
@@ -52,7 +53,8 @@ in {
               ln -s "${file}" "$out"
             ''
             ;
-        in {
+        in
+        {
           ExecStart =
             "${pkgs.vector}/bin/vector --config ${validateConfig conf}";
           DynamicUser = true;

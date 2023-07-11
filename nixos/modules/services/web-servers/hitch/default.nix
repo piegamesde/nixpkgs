@@ -23,7 +23,8 @@ let
       ''group = "${cfg.group}"''
       cfg.extraConfig
     ]);
-in with lib; {
+in
+with lib; {
   options = {
     services.hitch = {
       enable = mkEnableOption (lib.mdDoc "Hitch Server");

@@ -9,7 +9,8 @@ let
   settingsFormat = pkgs.formats.yaml { };
   configurationYaml = settingsFormat.generate "dendrite.yaml" cfg.settings;
   workingDir = "/var/lib/dendrite";
-in {
+in
+{
   options.services.dendrite = {
     enable = lib.mkEnableOption (lib.mdDoc "matrix.org dendrite");
     httpPort = lib.mkOption {

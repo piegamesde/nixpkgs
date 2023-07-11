@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.tahoe;
-in {
+in
+{
   options.services.tahoe = {
     introducers = mkOption {
       default = { };

@@ -88,7 +88,8 @@ mkDerivation {
     let
       initialPath =
         import ../../stdenv/generic/common-path.nix { inherit pkgs; };
-    in ''
+    in
+    ''
       set -x
       mkdir -p "$out/dev-envs" "$out/nix-support" "$out/bin"
       s="$out/nix-support/setup-new-modified"

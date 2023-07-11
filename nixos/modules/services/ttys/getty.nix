@@ -26,7 +26,8 @@ let
     "@${pkgs.util-linux}/sbin/agetty agetty ${escapeShellArgs baseArgs} ${args}"
     ;
 
-in {
+in
+{
 
   ###### interface
 

@@ -193,7 +193,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
 

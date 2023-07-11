@@ -36,7 +36,8 @@ let
             stdenv
           ;
       });
-    in {
+    in
+    {
 
       inherit callPackage srcs;
 

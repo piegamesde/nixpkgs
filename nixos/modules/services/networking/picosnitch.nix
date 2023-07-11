@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.picosnitch;
-in {
+in
+{
   options.services.picosnitch = {
     enable = mkEnableOption (lib.mdDoc "picosnitch daemon");
   };

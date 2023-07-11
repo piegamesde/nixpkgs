@@ -43,7 +43,8 @@ let
     (_: mkDerivationSuper: args: f (mkDerivationSuper args))
     ;
 
-in rec {
+in
+rec {
 
   # Override the compiler in stdenv for specific packages.
   overrideCC =

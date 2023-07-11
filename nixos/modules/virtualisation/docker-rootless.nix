@@ -15,7 +15,8 @@ let
   daemonSettingsFile =
     settingsFormat.generate "daemon.json" cfg.daemon.settings;
 
-in {
+in
+{
   ###### interface
 
   options.virtualisation.docker.rootless = {

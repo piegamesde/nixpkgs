@@ -25,7 +25,8 @@ let
 
   cfg = config.services.nfs;
 
-in {
+in
+{
   ###### interface
 
   options = {

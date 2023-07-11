@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.clamsmtp;
   clamdSocket = "/run/clamav/clamd.ctl"; # See services/security/clamav.nix
-in {
+in
+{
   ##### interface
   options = {
     services.clamsmtp = {

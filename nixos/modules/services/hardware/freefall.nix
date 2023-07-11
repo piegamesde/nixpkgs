@@ -12,7 +12,8 @@ let
 
   cfg = config.services.freefall;
 
-in {
+in
+{
 
   options.services.freefall = {
 

@@ -22,7 +22,8 @@ let
     (lib.concatStringsSep "\n" (storePaths ++ contents))
     ;
 
-in {
+in
+{
   options.systemd.shutdownRamfs = {
     enable = lib.mkEnableOption
       (lib.mdDoc "pivoting back to an initramfs for shutdown") // {

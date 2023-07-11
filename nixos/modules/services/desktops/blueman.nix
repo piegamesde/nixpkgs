@@ -10,7 +10,8 @@ with lib;
 
 let
   cfg = config.services.blueman;
-in {
+in
+{
   ###### interface
   options = {
     services.blueman = { enable = mkEnableOption (lib.mdDoc "blueman"); };

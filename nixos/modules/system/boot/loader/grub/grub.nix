@@ -166,7 +166,8 @@ let
   defaultSplash =
     pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
 
-in {
+in
+{
 
   ###### interface
 

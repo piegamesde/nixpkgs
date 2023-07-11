@@ -126,7 +126,8 @@ stdenv.mkDerivation rec {
   postConfigure =
     let
       inherit (builtins) storeDir;
-    in ''
+    in
+    ''
       sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
     ''
     ;

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.goeland;
   tomlFormat = pkgs.formats.toml { };
-in {
+in
+{
   options.services.goeland = {
     enable = mkEnableOption (mdDoc "goeland");
 

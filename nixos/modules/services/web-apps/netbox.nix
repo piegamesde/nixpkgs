@@ -37,7 +37,8 @@ let
       sudo -u netbox ${pkg}/bin/netbox "$@"
     '');
 
-in {
+in
+{
   options.services.netbox = {
     enable = mkOption {
       type = lib.types.bool;
@@ -278,7 +279,8 @@ in {
           StateDirectoryMode = "0750";
           Restart = "on-failure";
         };
-      in {
+      in
+      {
         netbox-migration = {
           description = "NetBox migrations";
           wantedBy = [ "netbox.target" ];

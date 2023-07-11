@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
           set -x
           echo "$@"  >> /tmp/notifications
         '';
-      in {
+      in
+      {
         # tested service
         services.sshd.enable = true;
           # nagios

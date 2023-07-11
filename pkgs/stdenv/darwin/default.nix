@@ -23,7 +23,8 @@
           inherit sha256 executable;
         }
         ;
-    in {
+    in
+    {
       sh = fetch {
         file = "sh";
         sha256 = "17m3xrlbl99j3vm7rzz3ghb47094dyddrbvs2a6jalczvmx7spnj";
@@ -61,7 +62,8 @@
           inherit sha256 executable;
         }
         ;
-    in {
+    in
+    {
       sh = fetch {
         file = "sh";
         sha256 = "sha256-igMAVEfumFv/LUNTGfNi2nSehgTNIP4Sg+f3L7u6SMA=";
@@ -104,7 +106,8 @@ let
     "/usr/lib/system/libunc.dylib" # This dependency is "hidden", so our scanning code doesn't pick it up
   ];
 
-in rec {
+in
+rec {
   commonPreHook = ''
     export NIX_ENFORCE_NO_NATIVE=''${NIX_ENFORCE_NO_NATIVE-1}
     export NIX_ENFORCE_PURITY=''${NIX_ENFORCE_PURITY-1}
@@ -289,7 +292,8 @@ in rec {
           ;
       };
 
-    in {
+    in
+    {
       inherit config overlays;
       stdenv = thisStdenv;
     }
@@ -510,7 +514,8 @@ in rec {
           });
         }
         ;
-    in with prevStage;
+    in
+    with prevStage;
     stageFun 1 prevStage {
       extraPreHook = ''
         export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
@@ -642,7 +647,8 @@ in rec {
           });
         }
         ;
-    in with prevStage;
+    in
+    with prevStage;
     stageFun 2 prevStage {
       extraPreHook = ''
         export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
@@ -763,7 +769,8 @@ in rec {
           });
         }
         ;
-    in with prevStage;
+    in
+    with prevStage;
     stageFun 3 prevStage {
       shell = "${pkgs.bash}/bin/bash";
 
@@ -903,7 +910,8 @@ in rec {
           });
         }
         ;
-    in with prevStage;
+    in
+    with prevStage;
     stageFun 4 prevStage {
       shell = "${pkgs.bash}/bin/bash";
       extraNativeBuildInputs = with pkgs; [ xz ];

@@ -120,7 +120,8 @@ let
     };
   };
 
-in {
+in
+{
   options.services.ndppd = {
     enable = mkEnableOption (lib.mdDoc
       "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces")

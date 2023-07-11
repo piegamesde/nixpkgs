@@ -25,7 +25,8 @@ let
     with pkgs.lib;
     let
       vlanIfs = range 1 (length config.virtualisation.vlans);
-    in {
+    in
+    {
       environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
       virtualisation.vlans = [
         1
@@ -400,7 +401,8 @@ let
             };
           }
           ;
-      in {
+      in
+      {
         name = "Bond";
         nodes.client1 = node "192.168.1.1";
         nodes.client2 = node "192.168.1.2";
@@ -451,7 +453,8 @@ let
             };
           }
           ;
-      in {
+      in
+      {
         name = "Bridge";
         nodes.client1 = node {
           address = "192.168.1.2";
@@ -678,7 +681,8 @@ let
             };
           }
           ;
-      in {
+      in
+      {
         name = "Sit";
           # note on firewalling: the two nodes are explicitly asymmetric.
           # client1 sends SIT packets in UDP, but accepts only proto-41 incoming.
@@ -768,7 +772,8 @@ let
             };
           }
           ;
-      in {
+      in
+      {
         name = "GRE";
         nodes.client1 =
           args@{
@@ -932,7 +937,8 @@ let
             };
           }
           ;
-      in {
+      in
+      {
         name = "vlan";
         nodes.client1 = node "192.168.1.1";
         nodes.client2 = node "192.168.1.2";
@@ -989,7 +995,8 @@ let
         serverNodeNum = "1";
         clientNodeNum = "2";
 
-      in {
+      in
+      {
         name = "vlan-ping";
         nodes.server = node serverNodeNum;
         nodes.client = node clientNodeNum;
@@ -1365,7 +1372,8 @@ let
     wlanInterface =
       let
         testMac = "06:00:00:00:02:00";
-      in {
+      in
+      {
         name = "WlanInterface";
         nodes.machine =
           {

@@ -66,7 +66,8 @@ let
       null
     ;
 
-in {
+in
+{
   options = {
     services.minecraft-server = {
 

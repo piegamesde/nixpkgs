@@ -28,7 +28,8 @@ import ../make-test-python.nix ({
         -CAcreateserial -out $out \
         -days 365
     '';
-  in {
+  in
+  {
     name = "mjolnir";
     meta = with pkgs.lib; {
       maintainers = teams.matrix.members;
@@ -184,4 +185,5 @@ import ../make-test-python.nix ({
 
         mjolnir.wait_for_console_text("Startup complete. Now monitoring rooms")
     '';
-  } )
+  }
+)

@@ -55,7 +55,8 @@ let
       };
     }
     ;
-in {
+in
+{
   sans = makePackage {
     family = "sans";
     description = "sans-serif";

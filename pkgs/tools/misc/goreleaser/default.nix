@@ -34,7 +34,8 @@ buildGoModule rec {
   postInstall =
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    in
+    ''
       ${emulator} $out/bin/goreleaser man > goreleaser.1
       installManPage ./goreleaser.1
       installShellCompletion --cmd goreleaser \

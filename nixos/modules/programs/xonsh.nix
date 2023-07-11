@@ -13,7 +13,8 @@ let
 
   cfg = config.programs.xonsh;
 
-in {
+in
+{
 
   options = {
 

@@ -42,7 +42,8 @@ let
       description = "JSON value";
     };
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

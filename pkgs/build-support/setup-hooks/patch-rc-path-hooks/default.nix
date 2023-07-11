@@ -6,7 +6,8 @@
 }:
 let
   tests = import ./test { inherit callPackage; };
-in {
+in
+{
   patchRcPathBash = makeSetupHook {
     name = "patch-rc-path-bash";
     meta = with lib; {

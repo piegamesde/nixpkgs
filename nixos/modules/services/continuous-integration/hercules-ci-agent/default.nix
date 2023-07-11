@@ -17,7 +17,8 @@ let
   command = "${cfg.package}/bin/hercules-ci-agent --config ${cfg.tomlFile}";
   testCommand = "${command} --test-configuration";
 
-in {
+in
+{
   imports = [
     ./common.nix
     (lib.mkRenamedOptionModule [
@@ -93,7 +94,8 @@ in {
         labels =
           let
             mkIfNotNull = x: mkIf (x != null) x;
-          in {
+          in
+          {
             nixos.configurationRevision =
               mkIfNotNull config.system.configurationRevision;
             nixos.release = config.system.nixos.release;

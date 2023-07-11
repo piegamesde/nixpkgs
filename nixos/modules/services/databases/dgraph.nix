@@ -62,7 +62,8 @@ let
       "~@setuid"
     ];
   };
-in {
+in
+{
   options = {
     services.dgraph = {
       enable = mkEnableOption

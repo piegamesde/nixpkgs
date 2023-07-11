@@ -13,7 +13,8 @@ let
   cfg = config.services.rtorrent;
   opt = options.services.rtorrent;
 
-in {
+in
+{
   options.services.rtorrent = {
     enable = mkEnableOption (lib.mdDoc "rtorrent");
 
@@ -200,7 +201,8 @@ in {
         rtorrent =
           let
             rtorrentConfigFile = pkgs.writeText "rtorrent.rc" cfg.configText;
-          in {
+          in
+          {
             description = "rTorrent system service";
             after = [ "network.target" ];
             path = [

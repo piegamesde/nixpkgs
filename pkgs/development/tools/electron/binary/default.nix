@@ -23,7 +23,8 @@
 
 let
   mkElectron = import ./generic.nix args;
-in rec {
+in
+rec {
 
   electron-bin = electron_24-bin;
 

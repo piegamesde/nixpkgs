@@ -13,7 +13,8 @@ let
     ;
 
   inherit (import ssh-keys pkgs) snakeOilPrivateKey snakeOilPublicKey;
-in {
+in
+{
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")
     (modulesPath + "/testing/test-instrumentation.nix")

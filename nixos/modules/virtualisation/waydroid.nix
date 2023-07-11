@@ -23,7 +23,8 @@ let
     /dev/hwbinder = hidl
   '';
 
-in {
+in
+{
 
   options.virtualisation.waydroid = {
     enable = mkEnableOption (lib.mdDoc "Waydroid");

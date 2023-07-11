@@ -16,7 +16,8 @@ let
     # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
   needBGCond = d: !(d ? bgSupport && d.bgSupport) && xcfg.enable;
 
-in {
+in
+{
   # Note: the order in which desktop manager modules are imported here
   # determines the default: later modules (if enabled) are preferred.
   # E.g., if Plasma 5 is enabled, it supersedes xterm.

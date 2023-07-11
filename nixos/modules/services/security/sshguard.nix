@@ -31,7 +31,8 @@ let
     ''
     ;
 
-in {
+in
+{
 
   ###### interface
 

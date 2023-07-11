@@ -17,7 +17,8 @@ let
     hostOpts:
     let
       sslCertDir = config.security.acme.certs.${hostOpts.useACMEHost}.directory;
-    in ''
+    in
+    ''
       ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
         bind ${concatStringsSep " " hostOpts.listenAddresses}
         ${
@@ -62,7 +63,8 @@ let
 
   mkCertOwnershipAssertion =
     import ../../../security/acme/mk-cert-ownership-assertion.nix;
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

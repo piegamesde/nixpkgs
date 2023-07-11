@@ -12,7 +12,8 @@ with lib;
 let
   cfg = config.programs.atop;
 
-in {
+in
+{
   ###### interface
 
   options = {
@@ -114,7 +115,8 @@ in {
       else
         cfg.package
       ;
-  in {
+  in
+  {
     environment.etc = mkIf (cfg.settings != { }) {
       atoprc.text = concatStrings (mapAttrsToList (n: v: ''
         ${n} ${toString v}
@@ -146,7 +148,8 @@ in {
           ;
         mkService = mkSystemd "services";
         mkTimer = mkSystemd "timers";
-      in {
+      in
+      {
         packages = [
           atop
           (lib.mkIf cfg.netatop.enable cfg.netatop.package)
@@ -188,5 +191,6 @@ in {
         source = "${atop}/bin/atop";
       };
     };
-  } );
+  }
+  );
 }

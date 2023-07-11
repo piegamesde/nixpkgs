@@ -200,7 +200,8 @@ stdenv.mkDerivation (finalAttrs: {
   passthru =
     let
       useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
-    in {
+    in
+    {
       inherit opensslSupport openssl;
       tests = {
         withCheck =

@@ -51,7 +51,8 @@ let
     ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
   '';
 
-in {
+in
+{
   options = {
     services.journalwatch = {
       enable = mkOption {

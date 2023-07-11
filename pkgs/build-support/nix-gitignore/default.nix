@@ -15,7 +15,8 @@ with builtins;
 let
   debug = a: trace a a;
   last = l: elemAt l ((length l) - 1);
-in rec {
+in
+rec {
   # [["good/relative/source/file" true] ["bad.tmpfile" false]] -> root -> path
   filterPattern =
     patterns: root:
@@ -50,7 +51,8 @@ in rec {
         l:
         let
           split = match "^(!?)(.*)" l;
-        in [
+        in
+        [
           (elemAt split 1)
           (head split == "!")
         ]
@@ -136,7 +138,8 @@ in rec {
         l:
         let
           split = (match "^(.*)/$" l);
-        in if split != null then
+        in
+        if split != null then
           (elemAt split 0) + "($|/.*)"
         else
           l
@@ -268,7 +271,8 @@ in rec {
     patterns:
     let
       type = typeOf patterns;
-    in if (type == "string" && pathExists patterns) || type == "path" then
+    in
+    if (type == "string" && pathExists patterns) || type == "path" then
       throw "type error in gitignoreSource(patterns -> source -> path), "
       ''use [] or "" if there are no additional patterns''
     else

@@ -31,10 +31,12 @@ let
           cp -r * $out
         '';
       };
-    in ''
+    in
+    ''
       mkdir -p .elm/${ver}/packages/${name}
       cp -R ${pkg} .elm/${ver}/packages/${name}/${info.version}
-    '' ) deps;
+    ''
+  ) deps;
 in
 (lib.concatStrings cmds) + ''
   mkdir -p .elm/${ver}/packages;

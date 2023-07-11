@@ -220,7 +220,8 @@ in
         + ''
           s/^#! #! /#! /;
         '');
-    in ''
+    in
+    ''
       mkdir -p "$TEXMFSYSVAR/tex/generic/config"
       for fname in tex/generic/config/language.{dat,def}; do
         [[ -e "$TEXMFDIST/$fname" ]] && sed -E -n -f '${script}' "$TEXMFDIST/$fname" > "$TEXMFSYSVAR/$fname"
@@ -231,7 +232,8 @@ in
 
       # make new files visible to kpathsea
       perl "$TEXMFDIST"/scripts/texlive/mktexlsr.pl --sort "$TEXMFSYSVAR"
-    '' ) +
+    ''
+    ) +
 
     # function to wrap created executables with required env vars
     ''

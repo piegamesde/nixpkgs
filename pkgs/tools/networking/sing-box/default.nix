@@ -45,7 +45,8 @@ buildGoModule rec {
   postInstall =
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
+    in
+    ''
       installShellCompletion --cmd sing-box \
         --bash <(${emulator} $out/bin/sing-box completion bash) \
         --fish <(${emulator} $out/bin/sing-box completion fish) \

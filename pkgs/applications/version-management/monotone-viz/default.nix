@@ -41,9 +41,11 @@ let
       libwebp
       ;
   };
-in let
+in
+let
   inherit (gnome2) libgnomecanvas;
-in let
+in
+let
   inherit (ocamlPackages) ocaml lablgtk camlp4;
 in
 stdenv.mkDerivation rec {

@@ -17,7 +17,8 @@ let
     destination = "/kmscon.conf";
     text = cfg.extraConfig;
   };
-in {
+in
+{
   options = {
     services.kmscon = {
       enable = mkOption {

@@ -36,7 +36,8 @@ import ../make-test-python.nix ({
           imagePullPolicy: Never
           command: ["sh", "-c", "sleep inf"]
     '';
-  in {
+  in
+  {
     name = "${k3s.name}-single-node";
     meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
 
@@ -108,4 +109,5 @@ import ../make-test-python.nix ({
 
         machine.shutdown()
       '';
-  } )
+  }
+)

@@ -37,7 +37,8 @@ import ../make-test-python.nix ({
       openssl x509 -req -days 365 -sha256 -in client-2.csr -CA ca-2.pem -CAkey ca-2-key.pem -CAcreateserial -out client-2-cert.pem -extfile extfile-client.cnf
 
     '';
-  in {
+  in
+  {
     name = "podman-tls-ghostunnel";
     meta = {
       maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];
@@ -149,4 +150,5 @@ import ../make-test-python.nix ({
           client.fail("docker version")
 
     '';
-  } )
+  }
+)

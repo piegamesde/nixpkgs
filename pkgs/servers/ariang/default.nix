@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
           # Error: Cannot find module '/nix/store/...-node-dependencies
         dontNpmInstall = true;
       })).nodeDependencies;
-    in ''
+    in
+    ''
       runHook preBuild
 
       ln -s ${nodeDependencies}/lib/node_modules ./node_modules

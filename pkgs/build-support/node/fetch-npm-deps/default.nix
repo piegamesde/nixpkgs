@@ -76,7 +76,8 @@
             src = makeTestSrc { inherit name src; };
           }
           ;
-      in {
+      in
+      {
         lockfileV1 = makeTest {
           name = "lockfile-v1";
 

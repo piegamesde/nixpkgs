@@ -11,7 +11,8 @@ let
   cfg = config.services.create_ap;
   configFile =
     pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
-in {
+in
+{
   options = {
     services.create_ap = {
       enable = mkEnableOption (lib.mdDoc "setup wifi hotspots using create_ap");

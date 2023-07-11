@@ -4,7 +4,8 @@
 }:
 let
   inherit (lib) mkOption types;
-in {
+in
+{
   options = {
 
     system.build = mkOption {

@@ -246,7 +246,8 @@ let
             ''}
           ''
         ;
-    in ''
+    in
+    ''
       if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
          [ -n "$HOST_ADDRESS6" ] || [ -n "$LOCAL_ADDRESS6" ]; then
         if [ -z "$HOST_BRIDGE" ]; then
@@ -260,7 +261,8 @@ let
         fi
       fi
       ${concatStringsSep "\n" (mapAttrsToList renderExtraVeth cfg.extraVeths)}
-    '' );
+    ''
+  );
 
   serviceDirectives =
     cfg: {
@@ -489,7 +491,8 @@ let
     tmpfs = null;
   };
 
-in {
+in
+{
   options = {
 
     boot.isContainer = mkOption {
@@ -808,7 +811,8 @@ in {
                 else
                   null
                 ;
-            in {
+            in
+            {
               path = builtins.seq checkAssertion mkIf options.config.isDefined
                 config.config.system.build.toplevel;
             }
@@ -866,7 +870,8 @@ in {
 
       serviceConfig = serviceDirectives dummyConfig;
     };
-  in {
+  in
+  {
     warnings = (optional (config.virtualisation.containers.enable
       && versionOlder config.system.stateVersion "22.05") ''
         Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
@@ -1003,5 +1008,6 @@ in {
       "tap"
       "tun"
     ];
-  } );
+  }
+  );
 }

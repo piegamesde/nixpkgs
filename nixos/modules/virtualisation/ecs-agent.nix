@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.ecs-agent;
-in {
+in
+{
   options.services.ecs-agent = {
     enable = mkEnableOption (lib.mdDoc "Amazon ECS agent");
 

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
         stdenv.cc.cc.lib
         gcc
       ];
-    in ''
+    in
+    ''
       patchelf \
           --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 \
           --set-rpath $out/lib:"${libPath}" \

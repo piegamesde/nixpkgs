@@ -11,7 +11,8 @@ let
 
   cfg = config.services.xserver.windowManager."2bwm";
 
-in {
+in
+{
 
   ###### interface
 

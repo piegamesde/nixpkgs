@@ -22,7 +22,8 @@ import ./make-test-python.nix ({
       fullName = "Alice Admin";
       passwordFile = "${pkgs.writeText "admin-pass" adminPassword}";
     };
-  in {
+  in
+  {
     name = "discourse";
     meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
@@ -161,9 +162,8 @@ import ./make-test-python.nix ({
                   smtp.send_message(reply)
                   smtp.quit()
             '';
-          in [
-            replyToEmail
-          ]
+          in
+          [ replyToEmail ]
           ;
 
         networking.firewall.allowedTCPPorts = [ 25 ];
@@ -181,7 +181,8 @@ import ./make-test-python.nix ({
           target_usernames = admin.username;
           archetype = "private_message";
         };
-      in ''
+      in
+      ''
         discourse.start()
         client.start()
 
@@ -212,4 +213,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  } )
+  }
+)

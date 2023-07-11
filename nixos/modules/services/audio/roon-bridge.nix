@@ -10,7 +10,8 @@ with lib;
 let
   name = "roon-bridge";
   cfg = config.services.roon-bridge;
-in {
+in
+{
   options = {
     services.roon-bridge = {
       enable = mkEnableOption (lib.mdDoc "Roon Bridge");

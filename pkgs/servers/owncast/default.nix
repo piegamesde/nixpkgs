@@ -48,7 +48,8 @@ buildGoModule rec {
           ${coreutils}/bin/ln -s "${placeholder "out"}/static" "$PWD"
         )
       '';
-    in ''
+    in
+    ''
       wrapProgram $out/bin/owncast \
         --run '${setupScript}' \
         --prefix PATH : ${

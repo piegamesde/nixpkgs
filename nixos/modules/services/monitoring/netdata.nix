@@ -56,7 +56,8 @@ let
 
   defaultUser = "netdata";
 
-in {
+in
+{
   options = {
     services.netdata = {
       enable = mkEnableOption (lib.mdDoc "netdata");

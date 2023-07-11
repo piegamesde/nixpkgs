@@ -7,7 +7,8 @@
 # $(nix-build -E 'with import ./. {}; jupyter.override { definitions = { wolfram = wolfram-for-jupyter-kernel.definition; }; }')/bin/jupyter-notebook
 let
   kernel = callPackage ./kernel.nix { };
-in {
+in
+{
   definition = {
     displayName = "Wolfram Language ${wolfram-engine.version}";
     argv = [

@@ -27,7 +27,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "sigs.k8s.io/cluster-api/version";
-    in [
+    in
+    [
       "-X ${t}.gitMajor=${lib.versions.major version}"
       "-X ${t}.gitMinor=${lib.versions.minor version}"
       "-X ${t}.gitVersion=v${version}"

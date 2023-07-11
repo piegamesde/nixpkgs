@@ -38,7 +38,8 @@ let
     }" > $out/cacheinfo
   '';
 
-in {
+in
+{
   ###### interface
 
   options = {

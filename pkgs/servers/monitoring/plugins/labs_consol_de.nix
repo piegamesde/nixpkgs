@@ -73,7 +73,8 @@ let
     }
     ;
 
-in {
+in
+{
   check-mssql-health = generic {
     pname = "check_mssql_health";
     version = "2.6.4.15";

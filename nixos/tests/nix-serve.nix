@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
       let
         pkgHash = builtins.head (builtins.match "${builtins.storeDir}/([^-]+).+"
           (toString pkgs.hello));
-      in ''
+      in
+      ''
         start_all()
         machine.wait_for_unit("nix-serve.service")
         machine.wait_for_open_port(5000)

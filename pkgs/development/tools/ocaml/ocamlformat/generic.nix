@@ -24,7 +24,8 @@ let
   };
   ocamlPackages = ocaml-ng.ocamlPackages;
 
-in with ocamlPackages;
+in
+with ocamlPackages;
 
 buildDunePackage {
   pname = "ocamlformat";

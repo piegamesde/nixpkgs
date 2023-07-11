@@ -34,7 +34,8 @@ import ./make-test-python.nix ({
                 set $Mod = Mod1
                 bindsym $Mod+Return exec ${pkgs.xterm}/bin/xterm -cm -pc
               '';
-            in ''
+            in
+            ''
               mkdir -p $HOME/.config/wmderland
               cp ${config} $HOME/.config/wmderland/config
             ''

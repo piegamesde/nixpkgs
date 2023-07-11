@@ -751,7 +751,8 @@ stdenv.mkDerivation (finalAttrs: {
         ++ optional buildPostproc "libpostproc"
         ++ optional buildSwresample "libswresample"
         ++ optional buildSwscale "libswscale";
-    in ''
+    in
+    ''
       ${ldLibraryPathEnv}="${
         lib.concatStringsSep ":" libsToLink
       }" make check -j$NIX_BUILD_CORES

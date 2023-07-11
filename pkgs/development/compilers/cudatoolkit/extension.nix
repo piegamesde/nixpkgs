@@ -40,6 +40,5 @@ let
 
   cudaFlags = final.callPackage ./flags.nix { };
 
-in {
-  inherit backendStdenv cudatoolkit cudaFlags;
-}
+in
+{ inherit backendStdenv cudatoolkit cudaFlags; }

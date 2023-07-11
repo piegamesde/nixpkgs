@@ -14,7 +14,8 @@ let
   efiSupport = config.boot.loader.grub.efiSupport;
   cfg = config.boot.loader.grub.memtest86;
 
-in {
+in
+{
   options = {
 
     boot.loader.grub.memtest86 = {

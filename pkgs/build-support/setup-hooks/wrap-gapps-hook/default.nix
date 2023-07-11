@@ -55,7 +55,8 @@ makeSetupHook {
 
         testLib = callPackage ./tests/lib.nix { };
         inherit (testLib) expectSomeLineContainingYInFileXToMentionZ;
-      in rec {
+      in
+      rec {
         # Simple derivation containing a program and a daemon.
         basic = stdenv.mkDerivation {
           name = "basic";

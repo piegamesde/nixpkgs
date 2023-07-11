@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }:
   let
     pin = "1234";
-  in {
+  in
+  {
     name = "phosh";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -81,4 +82,5 @@ import ./make-test-python.nix ({
           phone.wait_for_text("123") # A button on the OSK
           phone.screenshot("04osk")
     '';
-  } )
+  }
+)

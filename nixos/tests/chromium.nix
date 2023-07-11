@@ -80,7 +80,8 @@ mapAttrs (channel: chromiumPkg:
           in
           "${pkgs.xdotool}/bin/xdotool ${xdoScript}"
           ;
-      in ''
+      in
+      ''
         import shlex
         import re
         from contextlib import contextmanager

@@ -17,7 +17,8 @@ let
     ExtensionInstallForcelist = cfg.extensions;
   };
 
-in {
+in
+{
   ###### interface
 
   options = {

@@ -23,7 +23,8 @@ let
     "suspend-then-hibernate"
     "lock"
   ];
-in {
+in
+{
   options = {
     services.logind.extraConfig = mkOption {
       default = "";

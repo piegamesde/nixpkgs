@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.boot.loader.external;
-in {
+in
+{
   meta = {
     maintainers = with maintainers; [
       cole-h

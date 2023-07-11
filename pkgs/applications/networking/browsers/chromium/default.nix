@@ -157,7 +157,8 @@ let
           else
             throw "Unknown chromium channel."
           ;
-      in ''
+      in
+      ''
         # Extract just WidevineCdm from upstream's .deb file
         ar p "$src" data.tar.xz | tar xJ "${widevineCdmPath}"
 
@@ -214,7 +215,8 @@ let
   chromiumWV =
     let
       browser = chromium.browser;
-    in if enableWideVine then
+    in
+    if enableWideVine then
       runCommand (browser.name + "-wv") { version = browser.version; } ''
         mkdir -p $out
         cp -a ${browser}/* $out/
@@ -266,7 +268,8 @@ stdenv.mkDerivation {
         libkrb5
       ];
 
-    in with lib;
+    in
+    with lib;
     ''
       mkdir -p "$out/bin"
 

@@ -11,7 +11,8 @@ let
     x: def:
     let
       res = builtins.tryEval x;
-    in if res.success then
+    in
+    if res.success then
       res.value
     else
       def
@@ -37,7 +38,8 @@ in
     configFile = builtins.getEnv "NIXPKGS_CONFIG";
     configFile2 = homeDir + "/.config/nixpkgs/config.nix";
     configFile3 = homeDir + "/.nixpkgs/config.nix"; # obsolete
-  in if configFile != "" && builtins.pathExists configFile then
+  in
+  if configFile != "" && builtins.pathExists configFile then
     import configFile
   else if homeDir != "" && builtins.pathExists configFile2 then
     import configFile2
@@ -74,7 +76,8 @@ in
       # it's a file, so the result is the contents of the file itself
         import path
       ;
-  in if pathOverlays != "" && builtins.pathExists pathOverlays then
+  in
+  if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays
   else if
     builtins.pathExists homeOverlaysFile && builtins.pathExists homeOverlaysDir

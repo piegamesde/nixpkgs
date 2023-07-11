@@ -7,7 +7,8 @@
 let
   cfg = config.boot.uvesafb;
   inherit (lib) mkIf mkEnableOption mkOption mdDoc types;
-in {
+in
+{
   options = {
     boot.uvesafb = {
       enable = mkEnableOption (mdDoc "uvesafb");

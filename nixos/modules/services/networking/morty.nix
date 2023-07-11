@@ -11,7 +11,8 @@ let
 
   cfg = config.services.morty;
 
-in {
+in
+{
 
   ###### interface
 

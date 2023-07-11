@@ -34,7 +34,8 @@ let
               pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
             }
             ;
-        in rec {
+        in
+        rec {
           python = (simplePlugin "python") // {
             extraEnv = ''
               export PATH="${python3Packages.python}/bin:$PATH"

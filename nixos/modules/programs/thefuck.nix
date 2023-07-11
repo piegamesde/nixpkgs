@@ -17,7 +17,8 @@ let
   fishInitScript = ''
     ${pkgs.thefuck}/bin/thefuck --alias ${cfg.alias} | source
   '';
-in {
+in
+{
   options = {
     programs.thefuck = {
       enable = mkEnableOption (lib.mdDoc "thefuck");

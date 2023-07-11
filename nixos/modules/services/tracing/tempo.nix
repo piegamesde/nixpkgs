@@ -11,7 +11,8 @@ let
   cfg = config.services.tempo;
 
   settingsFormat = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.tempo = {
     enable = mkEnableOption (lib.mdDoc "Grafana Tempo");
 
@@ -59,7 +60,8 @@ in {
             else
               cfg.configFile
             ;
-        in {
+        in
+        {
           ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf}";
           DynamicUser = true;
           Restart = "always";

@@ -30,7 +30,8 @@ let
       }
       ;
   };
-in with py.pkgs;
+in
+with py.pkgs;
 
 buildPythonPackage rec {
   pname = "turses";

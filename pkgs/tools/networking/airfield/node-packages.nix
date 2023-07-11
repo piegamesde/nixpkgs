@@ -683,7 +683,8 @@ let
       };
     };
   };
-in {
+in
+{
   "express-3.0.5" = nodeEnv.buildNodePackage {
     name = "express";
     packageName = "express";

@@ -13,7 +13,8 @@ let
 
   kernelPackages = config.boot.kernelPackages;
 
-in {
+in
+{
 
   options.hardware.facetimehd.enable =
     mkEnableOption (lib.mdDoc "facetimehd kernel module");

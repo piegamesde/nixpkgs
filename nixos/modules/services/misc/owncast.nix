@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.owncast;
-in {
+in
+{
 
   options.services.owncast = {
 

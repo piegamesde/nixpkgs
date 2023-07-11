@@ -159,7 +159,8 @@ let
     base // { unit = makeUnit name base; }
     ;
 
-in {
+in
+{
 
   options = {
 

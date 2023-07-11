@@ -40,7 +40,8 @@ let
     (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
     cfg.hooksTemplated;
 
-in {
+in
+{
   options = {
     services.webhook = {
       enable = mkEnableOption (mdDoc ''
@@ -177,7 +178,8 @@ in {
     assertions =
       let
         overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
-      in [
+      in
+      [
         {
           assertion = hookFiles != [ ];
           message =
@@ -226,7 +228,8 @@ in {
             hook
           ]) hookFiles ++ optional cfg.enableTemplates "-template"
             ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
-        in ''
+        in
+        ''
           ${cfg.package}/bin/webhook ${escapeShellArgs args}
         ''
         ;

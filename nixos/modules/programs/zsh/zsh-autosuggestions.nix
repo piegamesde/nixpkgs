@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.zsh.autosuggestions;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "programs"

@@ -55,7 +55,8 @@ import ./make-test-python.nix {
         }
         ;
 
-    in {
+    in
+    {
       imports = lib.imap1 mkTestStep [
         {
           config.confinement.mode = "chroot-only";
@@ -102,7 +103,8 @@ import ./make-test-python.nix {
               got me
             '';
           } ''ln -s "$target" "$out"'';
-        in {
+        in
+        {
           config.confinement.packages = lib.singleton symlink;
           testScript = ''
             with subtest("check if symlinks are properly bind-mounted"):
@@ -110,7 +112,8 @@ import ./make-test-python.nix {
                 text = machine.succeed('chroot-exec cat ${symlink}').strip()
                 assert_eq(text, "got me")
           '';
-        } )
+        }
+        )
         {
           config.serviceConfig.User = "chroot-testuser";
           config.serviceConfig.Group = "chroot-testgroup";

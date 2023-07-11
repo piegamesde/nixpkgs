@@ -233,7 +233,8 @@ let
     };
   };
 
-in {
+in
+{
   imports = [
       (lib.mkRenamedOptionModule [
         "boot"
@@ -407,7 +408,8 @@ in {
             let
               wrapperName = "qemu-${qemuArch}-binfmt-P";
               wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-            in if preserveArgvZero then
+            in
+            if preserveArgvZero then
               "${wrapper}/bin/${wrapperName}"
             else
               interpreter

@@ -30,7 +30,8 @@ let
     sha256 = "sha256-ZtLYWHi6l5DxFvDm8RFGUD0BiAfJXCZr/ggrP3Uw7/0=";
   };
 
-in rec {
+in
+rec {
   taler-exchange = stdenv.mkDerivation rec {
     pname = "taler-exchange";
     version = "unstable-2022-07-17";

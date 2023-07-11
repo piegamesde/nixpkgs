@@ -13,7 +13,8 @@ let
       config = { enable = true; };
     }
     ;
-in {
+in
+{
   imports = [ ./declare-enable.nix ];
   disabledModules = [ { } ];
 }

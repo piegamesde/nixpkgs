@@ -72,7 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
         (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
         (lib.concatStringsSep "\n")
       ];
-    in ''
+    in
+    ''
       mkdir -p toolchain/dl
       ${make-links}
     ''

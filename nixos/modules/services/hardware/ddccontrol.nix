@@ -8,7 +8,8 @@
 let
   cfg = config.services.ddccontrol;
 
-in {
+in
+{
   ###### interface
 
   options = {

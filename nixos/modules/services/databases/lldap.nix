@@ -9,7 +9,8 @@
 let
   cfg = config.services.lldap;
   format = pkgs.formats.toml { };
-in {
+in
+{
   options.services.lldap = with lib; {
     enable = mkEnableOption (mdDoc "lldap");
 

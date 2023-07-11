@@ -71,7 +71,8 @@ let
         ''
         ;
 
-    in {
+    in
+    {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
@@ -133,14 +134,16 @@ let
       lld = callPackage ./lld { inherit llvm_meta; };
 
       lldb = callPackage ./lldb { inherit llvm_meta; };
-    } );
+    }
+  );
 
   libraries = lib.makeExtensible (libraries:
     let
       callPackage = newScope (libraries // buildLlvmTools // {
         inherit stdenv cmake libxml2 python3 isl release_version version fetch;
       });
-    in {
+    in
+    {
 
       compiler-rt = callPackage ./compiler-rt { inherit llvm_meta; };
 
@@ -153,7 +156,8 @@ let
       libcxxabi = callPackage ./libcxxabi { inherit llvm_meta; };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    } );
+    }
+  );
 
 in
 { inherit tools libraries release_version; } // libraries // tools

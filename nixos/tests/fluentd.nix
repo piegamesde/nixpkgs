@@ -41,7 +41,8 @@ import ./make-test-python.nix ({
 
         payload = pkgs.writeText "test-message.json"
           (builtins.toJSON { inherit testMessage; });
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("fluentd.service")
         machine.wait_for_open_port(9880)

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.zfs;
-in {
+in
+{
   port = 9134;
 
   extraOpts = {

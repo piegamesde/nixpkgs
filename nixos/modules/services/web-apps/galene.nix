@@ -14,7 +14,8 @@ let
   defaultrecordingsDir = "${cfg.stateDir}/recordings";
   defaultgroupsDir = "${cfg.stateDir}/groups";
   defaultdataDir = "${cfg.stateDir}/data";
-in {
+in
+{
   options = {
     services.galene = {
       enable = mkEnableOption (lib.mdDoc "Galene Service");

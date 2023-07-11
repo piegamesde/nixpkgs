@@ -50,7 +50,8 @@ pkgs.lib.listToAttrs (builtins.map ({
               exit 1
             fi
           '';
-        in {
+        in
+        {
           networking.usePredictableInterfaceNames = lib.mkForce predictable;
           networking.useNetworkd = withNetworkd;
           networking.dhcpcd.enable = !withNetworkd;

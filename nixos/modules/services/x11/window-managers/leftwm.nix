@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.leftwm;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.leftwm.enable =

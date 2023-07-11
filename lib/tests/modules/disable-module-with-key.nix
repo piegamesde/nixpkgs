@@ -9,7 +9,8 @@ let
     key = "disable-module-with-key.nix#moduleWithKey";
     config = { enable = true; };
   };
-in {
+in
+{
   options = {
     positive = mkOption {
       type = types.submodule {

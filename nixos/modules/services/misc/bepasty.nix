@@ -15,7 +15,8 @@ let
   user = "bepasty";
   group = "bepasty";
   default_home = "/var/lib/bepasty";
-in {
+in
+{
   options.services.bepasty = {
     enable = mkEnableOption (lib.mdDoc "Bepasty servers");
 
@@ -145,7 +146,8 @@ in {
                 gevent
               ];
             };
-          in {
+          in
+          {
             BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
             PYTHONPATH = "${penv}/${python.sitePackages}/";
           }

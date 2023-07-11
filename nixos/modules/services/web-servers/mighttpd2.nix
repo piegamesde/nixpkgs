@@ -11,7 +11,8 @@ let
   cfg = config.services.mighttpd2;
   configFile = pkgs.writeText "mighty-config" cfg.config;
   routingFile = pkgs.writeText "mighty-routing" cfg.routing;
-in {
+in
+{
   options.services.mighttpd2 = {
     enable = mkEnableOption (lib.mdDoc "Mighttpd2 web server");
 

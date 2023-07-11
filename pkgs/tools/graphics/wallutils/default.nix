@@ -55,7 +55,8 @@ buildGoModule rec {
         "TestEveryMinute" # Blocking
         "TestNewSimpleEvent" # Blocking
       ];
-    in ''
+    in
+    ''
       export XDG_RUNTIME_DIR=`mktemp -d`
 
       buildFlagsArray+=("-run" "[^(${

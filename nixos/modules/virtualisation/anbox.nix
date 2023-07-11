@@ -41,7 +41,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   options.virtualisation.anbox = {
 
@@ -105,7 +106,8 @@ in {
     systemd.services.anbox-container-manager =
       let
         anboxloc = "/var/lib/anbox";
-      in {
+      in
+      {
         description = "Anbox Container Management Daemon";
 
         environment.XDG_RUNTIME_DIR = "${anboxloc}";
@@ -126,7 +128,8 @@ in {
             '' + cfg.extraInit);
             initshloc =
               "${anboxloc}/rootfs-overlay/system/etc/init.goldfish.sh";
-          in ''
+          in
+          ''
             mkdir -p ${anboxloc}
             mkdir -p $(dirname ${initshloc})
             [ -f ${initshloc} ] && rm ${initshloc}

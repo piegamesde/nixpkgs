@@ -47,7 +47,8 @@
 let
   blas64_ = blas64;
 
-in let
+in
+let
   setTarget =
     x:
     if target == null then
@@ -140,11 +141,13 @@ in let
     };
   };
 
-in let
+in
+let
   config = configs.${stdenv.hostPlatform.system} or (throw
     "unsupported system: ${stdenv.hostPlatform.system}");
 
-in let
+in
+let
   blas64 =
     if blas64_ != null then
       blas64_

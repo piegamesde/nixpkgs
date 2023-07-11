@@ -12,7 +12,8 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" cfg.config;
-in {
+in
+{
   options.services.go-neb = {
     enable = mkEnableOption (lib.mdDoc "Extensible matrix bot written in Go");
 
@@ -60,7 +61,8 @@ in {
           else
             "/var/run/go-neb/config.yaml"
           ;
-      in {
+      in
+      {
         description = "Extensible matrix bot written in Go";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];

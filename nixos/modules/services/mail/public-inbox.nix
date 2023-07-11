@@ -63,7 +63,8 @@ let
     let
       proto = removeSuffix "d" srv;
       needNetwork = builtins.hasAttr proto cfg && cfg.${proto}.port == null;
-    in {
+    in
+    {
       serviceConfig = {
         # Enable JIT-compiled C (via Inline::C)
         Environment = [
@@ -165,7 +166,8 @@ let
     }
     ;
 
-in {
+in
+{
   options.services.public-inbox = {
     enable = mkEnableOption (lib.mdDoc "the public-inbox mail archiver");
     package = mkOption {

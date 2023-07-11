@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.client.config.users.users.alice;
-      in ''
+      in
+      ''
         start_all()
 
         client.wait_for_x()

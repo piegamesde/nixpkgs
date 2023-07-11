@@ -15,7 +15,8 @@ let
 
   cfg = config.networking.nat;
 
-in {
+in
+{
 
   options = {
 

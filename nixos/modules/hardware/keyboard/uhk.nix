@@ -9,7 +9,8 @@ let
   cfg = config.hardware.keyboard.uhk;
   inherit (lib) mdDoc mkEnableOption mkIf;
 
-in {
+in
+{
   options.hardware.keyboard.uhk = {
     enable = mkEnableOption (mdDoc ''
       non-root access to the firmware of UHK keyboards.

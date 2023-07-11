@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.hardware.acpilight;
-in {
+in
+{
   options = {
     hardware.acpilight = {
       enable = mkOption {

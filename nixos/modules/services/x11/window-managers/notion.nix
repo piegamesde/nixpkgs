@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.notion;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.notion.enable =
       mkEnableOption (lib.mdDoc "notion");

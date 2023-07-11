@@ -20,7 +20,8 @@ import ../make-test-python.nix ({
           virtualHosts."phpfpm" =
             let
               testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
-            in {
+            in
+            {
               documentRoot = "${testdir}/web";
               locations."/" = { index = "index.php index.html"; };
             }

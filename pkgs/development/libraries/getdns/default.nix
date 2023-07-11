@@ -24,7 +24,8 @@ let
     license = licenses.bsd3;
     platforms = platforms.all;
   };
-in rec {
+in
+rec {
 
   getdns = stdenv.mkDerivation rec {
     pname = "getdns";

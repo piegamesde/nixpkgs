@@ -57,7 +57,8 @@ import ../make-test-python.nix ({
       ];
     } ];
 
-  in {
+  in
+  {
 
     name = "matrix-synapse";
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
@@ -72,7 +73,8 @@ import ../make-test-python.nix ({
         }:
         let
           mailserverIP = nodes.mailserver.config.networking.primaryIPAddress;
-        in {
+        in
+        {
           services.matrix-synapse = {
             enable = true;
             settings = {
@@ -155,7 +157,8 @@ import ../make-test-python.nix ({
                   curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
                 ''
                 ;
-            in [
+            in
+            [
               sendTestMailStarttls
               pkgs.matrix-synapse
               obtainTokenAndRegisterEmail
@@ -168,7 +171,8 @@ import ../make-test-python.nix ({
       mailserver =
         args:
         let
-        in {
+        in
+        {
           security.pki.certificateFiles = [ mailerCerts.ca.cert ];
 
           networking.firewall.enable = false;
@@ -240,4 +244,5 @@ import ../make-test-python.nix ({
       serversqlite.succeed("[ -e /var/lib/matrix-synapse/homeserver.db ]")
     '';
 
-  } )
+  }
+)

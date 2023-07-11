@@ -189,7 +189,8 @@ let
       };
     }
     ;
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

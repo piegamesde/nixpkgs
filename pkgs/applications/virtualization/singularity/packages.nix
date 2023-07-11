@@ -80,7 +80,8 @@ let
       };
     })
     ;
-in {
+in
+{
   inherit apptainer singularity;
 
   apptainer-overriden-nixos = genOverridenNixos apptainer "apptainer";

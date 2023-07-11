@@ -16,7 +16,8 @@ let
 
   mavenfod = callPackage ../development/java-modules/maven-fod.nix { };
 
-in {
+in
+{
   inherit
     mavenbuild
     mavenfod
@@ -49,7 +50,8 @@ in {
             else
               package-darwin
             ;
-        in {
+        in
+        {
           inherit package-linux package-darwin;
 
           jdk-hotspot = callPackage package.jdk-hotspot { };
@@ -93,7 +95,8 @@ in {
         openjdk // { headless = openjdk.override { headless = true; }; }
         ;
 
-    in rec {
+    in
+    rec {
       adoptopenjdk-8 =
         mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix
         ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;

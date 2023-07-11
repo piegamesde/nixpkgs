@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     let
       modDestDir =
         "$out/lib/modules/${kernel.modDirVersion}/kernel"; # TODO: longer path?
-    in ''
+    in
+    ''
       runHook preInstall
       mkdir -p "${modDestDir}"
       cp *.ko "${modDestDir}/"

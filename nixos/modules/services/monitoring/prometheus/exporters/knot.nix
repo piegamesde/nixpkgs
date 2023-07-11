@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.knot;
-in {
+in
+{
   port = 9433;
   extraOpts = {
     knotLibraryPath = mkOption {

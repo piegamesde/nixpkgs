@@ -25,7 +25,8 @@ let
         )
       '';
     });
-in {
+in
+{
   opensearch = opensearchTest { };
   opensearchCustomPathAndUser = opensearchTest {
     extraSettings = {

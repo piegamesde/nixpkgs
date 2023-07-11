@@ -12,7 +12,8 @@ let
 
   cfg = config.services.svnserve;
 
-in {
+in
+{
 
   ###### interface
 

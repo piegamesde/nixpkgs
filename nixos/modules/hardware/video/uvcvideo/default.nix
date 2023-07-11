@@ -19,7 +19,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   options = {
     services.uvcvideo.dynctrl = {

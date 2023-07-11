@@ -9,7 +9,8 @@ with pkgs.lib;
 
 let
   common_meta = { maintainers = [ maintainers.viraptor ]; };
-in {
+in
+{
   gemstash_works = makeTest {
     name = "gemstash-works";
     meta = common_meta;

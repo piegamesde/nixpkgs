@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
         environment.systemPackages = [ pkgs.upterm ];
       }
       ;
-  in {
+  in
+  {
     name = "uptermd";
     meta = with pkgs.lib.maintainers; { maintainers = [ fleaz ]; };
 
@@ -71,4 +72,5 @@ import ./make-test-python.nix ({
 
       assert output.strip() == "client1"
     '';
-  } )
+  }
+)

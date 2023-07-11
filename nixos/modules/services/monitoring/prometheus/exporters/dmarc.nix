@@ -25,7 +25,8 @@ let
       disable_existing_loggers = false;
     };
   };
-in {
+in
+{
   port = 9797;
   extraOpts = {
     imap = {

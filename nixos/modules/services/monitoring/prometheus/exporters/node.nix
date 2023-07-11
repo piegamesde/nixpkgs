@@ -17,7 +17,8 @@ let
     final:
     any (collector: (final == collector)) cfg.disabledCollectors
     ;
-in {
+in
+{
   port = 9100;
   extraOpts = {
     enabledCollectors = mkOption {

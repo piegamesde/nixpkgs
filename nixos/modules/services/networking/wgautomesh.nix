@@ -23,7 +23,8 @@ let
     else
       configFile
     ;
-in {
+in
+{
   options.services.wgautomesh = {
     enable = mkEnableOption (mdDoc "the wgautomesh daemon");
     logLevel = mkOption {

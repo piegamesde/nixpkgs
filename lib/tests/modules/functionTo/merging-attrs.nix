@@ -5,7 +5,8 @@
 }:
 let
   inherit (lib) types;
-in {
+in
+{
   options = {
     fun = lib.mkOption { type = types.functionTo (types.attrsOf types.str); };
 

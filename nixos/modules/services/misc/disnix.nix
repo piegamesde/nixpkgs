@@ -12,7 +12,8 @@ let
 
   cfg = config.services.disnix;
 
-in {
+in
+{
 
   ###### interface
 

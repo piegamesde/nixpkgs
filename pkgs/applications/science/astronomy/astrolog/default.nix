@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
         url = "http://astrolog.org/ftp/atlas/atlasbig.as";
         sha256 = "001bmqyldsbk4bdliqfl4a9ydrh1ff13wccvfniwaxlmvkridx2q";
       };
-    in ''
+    in
+    ''
       mkdir -p $out/bin $out/astrolog
       cp *.as $out/astrolog
       install astrolog $out/bin

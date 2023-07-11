@@ -84,7 +84,8 @@ stdenv.mkDerivation {
           )
         ''
         ;
-    in ''
+    in
+    ''
       runHook preInstall
       mkdir -p $out
       mv * $out

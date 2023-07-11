@@ -11,7 +11,8 @@ let
 
   inInitrd = any (fs: fs == "apfs") config.boot.initrd.supportedFilesystems;
 
-in {
+in
+{
   config = mkIf (any (fs: fs == "apfs") config.boot.supportedFilesystems) {
 
     system.fsPackages = [ pkgs.apfsprogs ];

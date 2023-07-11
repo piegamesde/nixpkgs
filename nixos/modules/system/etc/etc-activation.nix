@@ -5,7 +5,8 @@
 }:
 let
   inherit (lib) stringAfter;
-in {
+in
+{
 
   imports = [ ./etc.nix ];
 

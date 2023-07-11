@@ -35,7 +35,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.config.users.users.alice;
-      in ''
+      in
+      ''
         with subtest("Wait for login"):
             start_all()
             machine.wait_for_file("${user.home}/.Xauthority")

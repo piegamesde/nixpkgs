@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
       MINIO_ROOT_USER=${accessKey}
       MINIO_ROOT_PASSWORD=${secretKey}
     '';
-  in {
+  in
+  {
     name = "minio";
     meta = with pkgs.lib.maintainers; { maintainers = [ bachp ]; };
 
@@ -74,4 +75,5 @@ import ./make-test-python.nix ({
       assert "Test from Python" in machine.succeed("mc cat minio/test-bucket/test.txt")
       machine.shutdown()
     '';
-  } )
+  }
+)

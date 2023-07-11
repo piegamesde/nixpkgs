@@ -62,7 +62,8 @@ import ./make-test-python.nix ({
         ${nodes.client.networking.primaryIPAddress} client.nixos.test
       ''
       ;
-  in {
+  in
+  {
     name = "akkoma";
     nodes = {
       client =
@@ -137,5 +138,6 @@ import ./make-test-python.nix ({
         client.succeed('${checkFe}/bin/checkFe')
       ''
       ;
-  } )
+  }
+)
 

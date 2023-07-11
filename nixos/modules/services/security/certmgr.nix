@@ -42,7 +42,8 @@ let
     ${concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map escapeShellArg specPaths)}
     ${cfg.package}/bin/certmgr -f ${certmgrYaml} check
   '';
-in {
+in
+{
   options.services.certmgr = {
     enable = mkEnableOption (lib.mdDoc "certmgr");
 

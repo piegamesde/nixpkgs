@@ -13,7 +13,8 @@ let
 
   cfg = config.services.lshd;
 
-in {
+in
+{
 
   ###### interface
 

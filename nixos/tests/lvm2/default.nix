@@ -17,7 +17,8 @@ let
   tests =
     let
       callTest = p: lib.flip (import p) { inherit system pkgs; };
-    in {
+    in
+    {
       thinpool = {
         test = callTest ./thinpool.nix;
         kernelFilter = lib.id;

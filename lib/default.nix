@@ -9,7 +9,8 @@ let
   lib = makeExtensible (self:
     let
       callLibs = file: import file { lib = self; };
-    in {
+    in
+    {
 
       # often used, or depending on very little
       trivial = callLibs ./trivial.nix;
@@ -471,6 +472,7 @@ let
         imap
         ;
       inherit (self.versions) splitVersion;
-    } );
+    }
+  );
 in
 lib

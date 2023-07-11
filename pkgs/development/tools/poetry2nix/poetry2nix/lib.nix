@@ -77,7 +77,8 @@ let
             else
               acc.operator
             ;
-        in if isOperator then
+        in
+        if isOperator then
           (acc // { inherit operator; })
         else
           {
@@ -90,7 +91,8 @@ let
         operator = "&&";
         state = true;
       };
-    in if expr == "" then
+    in
+    if expr == "" then
       true
     else
       (builtins.foldl' combine initial tokens).state
@@ -119,7 +121,8 @@ let
     f:
     let
       ml = pkgs.pythonManylinuxPackages;
-    in if lib.strings.hasInfix "manylinux1" f then
+    in
+    if lib.strings.hasInfix "manylinux1" f then
       {
         pkg = [ ml.manylinux1 ];
         str = "1";
@@ -332,7 +335,8 @@ let
     manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null
     ;
 
-in {
+in
+{
   inherit
     fetchFromPypi
     fetchFromLegacy

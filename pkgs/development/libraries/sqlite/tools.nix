@@ -46,7 +46,8 @@ let
       };
     }
     ;
-in {
+in
+{
   sqldiff = mkTool {
     pname = "sqldiff";
     makeTarget = "sqldiff";

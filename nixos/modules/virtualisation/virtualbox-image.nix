@@ -11,7 +11,8 @@ let
 
   cfg = config.virtualbox;
 
-in {
+in
+{
 
   options = {
     virtualbox = {

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.xwayland;
 
-in {
+in
+{
   options.programs.xwayland = {
 
     enable = mkEnableOption (lib.mdDoc

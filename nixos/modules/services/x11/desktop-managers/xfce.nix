@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.desktopManager.xfce;
 
-in {
+in
+{
   meta = { maintainers = teams.xfce.members; };
 
   imports = [

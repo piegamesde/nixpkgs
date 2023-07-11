@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.bind;
-in {
+in
+{
   port = 9119;
   extraOpts = {
     bindURI = mkOption {

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.hardware.tuxedo-keyboard;
   tuxedo-keyboard = config.boot.kernelPackages.tuxedo-keyboard;
-in {
+in
+{
   options.hardware.tuxedo-keyboard = {
     enable = mkEnableOption (lib.mdDoc ''
       Enables the tuxedo-keyboard driver.

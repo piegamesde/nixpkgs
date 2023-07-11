@@ -105,7 +105,8 @@ let
     nixStatic = linux; # no need for buildPlatform=*-darwin
   };
 
-in {
+in
+{
   # These derivations from a cross package set's `buildPackages` should be
   # identical to their vanilla equivalents --- none of these package should
   # observe the target platform which is the only difference between those

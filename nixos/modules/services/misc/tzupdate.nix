@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.tzupdate;
-in {
+in
+{
   options.services.tzupdate = {
     enable = mkOption {
       type = types.bool;

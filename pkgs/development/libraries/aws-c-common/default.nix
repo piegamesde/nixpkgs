@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
         ++ lib.optionals stdenv.hostPlatform.isMusl [
           "sba_metrics" # https://github.com/awslabs/aws-c-common/issues/839
         ];
-    in ''
+    in
+    ''
       cat <<EOW >CTestCustom.cmake
       SET(CTEST_CUSTOM_TESTS_IGNORE ${toString ignoreTests})
       EOW

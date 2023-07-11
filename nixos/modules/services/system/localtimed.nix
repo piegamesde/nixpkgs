@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.localtimed;
-in {
+in
+{
   imports = [
       (lib.mkRenamedOptionModule [
         "services"

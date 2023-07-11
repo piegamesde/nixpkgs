@@ -71,7 +71,8 @@ buildPythonPackage rec {
     let
       pythonEnv = python.withPackages
         (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
-    in ''
+    in
+    ''
       export PYTHONPATH=${pythonEnv}/${python.sitePackages}
     ''
     ;

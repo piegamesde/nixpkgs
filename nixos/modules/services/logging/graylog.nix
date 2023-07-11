@@ -29,7 +29,8 @@ let
     paths = cfg.plugins;
   };
 
-in {
+in
+{
   ###### interface
 
   options = {

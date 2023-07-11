@@ -55,7 +55,8 @@ let
   configFile = pkgs.writeText "docker-registry-config.yml"
     (builtins.toJSON (recursiveUpdate registryConfig cfg.extraConfig));
 
-in {
+in
+{
   options.services.dockerRegistry = {
     enable = mkEnableOption (lib.mdDoc "Docker Registry");
 

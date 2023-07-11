@@ -83,7 +83,8 @@ let
     }
     ;
 
-in {
+in
+{
   charles4 = (generic {
     version = "4.6.2";
     sha256 = "0r5rann7cq665ih0pa66k52081gylk85ashrwq1khbv2jf80yy52";

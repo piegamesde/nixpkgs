@@ -12,7 +12,8 @@ let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.scheduler;
-in {
+in
+{
   ###### interface
   options.services.kubernetes.scheduler = with lib.types; {
 

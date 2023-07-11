@@ -6,7 +6,8 @@
 
 let
   username = "azurenixosuser";
-in {
+in
+{
   imports = [
     "${modulesPath}/virtualisation/azure-common.nix"
     "${modulesPath}/virtualisation/azure-image.nix"

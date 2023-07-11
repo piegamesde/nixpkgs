@@ -27,7 +27,8 @@ import ./make-test-python.nix ({
             networking.firewall.allowedUDPPorts = [ 8285 ];
           }
           ;
-      in {
+      in
+      {
         etcd =
           {
             ...

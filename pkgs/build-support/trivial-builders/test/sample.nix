@@ -6,7 +6,8 @@
 }:
 let
   inherit (pkgs) figlet zlib hello writeText runCommand;
-in {
+in
+{
   hello = hello;
   figlet = figlet;
   zlib = zlib;

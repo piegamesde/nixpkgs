@@ -30,7 +30,8 @@ let
       }
     ;
 
-in let
+in
+let
   unicodeVersion = "15.0.0";
   baseUrl = "https://www.unicode.org/Public/${unicodeVersion}";
 

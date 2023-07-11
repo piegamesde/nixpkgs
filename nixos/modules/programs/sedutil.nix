@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.sedutil;
 
-in {
+in
+{
   options.programs.sedutil.enable = mkEnableOption (lib.mdDoc "sedutil");
 
   config = mkIf cfg.enable {

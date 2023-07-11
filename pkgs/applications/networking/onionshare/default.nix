@@ -62,7 +62,8 @@ let
     # TODO: package meek https://support.torproject.org/glossary/meek/
   meek = "/meek-not-available";
 
-in rec {
+in
+rec {
   onionshare = buildPythonApplication {
     pname = "onionshare-cli";
     inherit version meta;

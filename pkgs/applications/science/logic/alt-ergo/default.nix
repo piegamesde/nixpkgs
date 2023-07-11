@@ -19,7 +19,8 @@ let
     hash = "sha256-8pJ/1UAbheQaLFs5Uubmmf5D0oFJiPxF6e2WTZgRyAc=";
   };
 
-in let
+in
+let
   alt-ergo-lib = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-lib";
     inherit version src configureScript;
@@ -38,7 +39,8 @@ in let
     '';
   };
 
-in let
+in
+let
   alt-ergo-parsers = ocamlPackages.buildDunePackage rec {
     pname = "alt-ergo-parsers";
     inherit version src configureScript;

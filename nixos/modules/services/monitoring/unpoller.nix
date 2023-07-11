@@ -14,7 +14,8 @@ let
     inherit (cfg) poller influxdb loki prometheus unifi;
   });
 
-in {
+in
+{
   imports = [
       (lib.mkRenamedOptionModule [
         "services"
@@ -289,7 +290,8 @@ in {
           };
         };
 
-      in {
+      in
+      {
         dynamic = mkOption {
           type = types.bool;
           default = false;

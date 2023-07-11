@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
         sysctl
         openssl
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       install checksec $out/bin
       substituteInPlace $out/bin/checksec --replace /lib/libc.so.6 ${glibc.out}/lib/libc.so.6

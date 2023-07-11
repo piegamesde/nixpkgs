@@ -116,7 +116,8 @@ let
       }
   '';
 
-in {
+in
+{
   options = {
 
     driver = mkOption {

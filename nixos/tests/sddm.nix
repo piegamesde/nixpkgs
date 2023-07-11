@@ -34,7 +34,8 @@ let
         }:
         let
           user = nodes.machine.config.users.users.alice;
-        in ''
+        in
+        ''
           start_all()
           machine.wait_for_text("(?i)select your user")
           machine.screenshot("sddm")
@@ -75,7 +76,8 @@ let
         }:
         let
           user = nodes.machine.config.users.users.alice;
-        in ''
+        in
+        ''
           start_all()
           machine.wait_for_file("${user.home}/.Xauthority")
           machine.succeed("xauth merge ${user.home}/.Xauthority")

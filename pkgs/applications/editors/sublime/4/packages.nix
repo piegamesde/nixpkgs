@@ -4,7 +4,8 @@
 
 let
   common = opts: callPackage (import ./common.nix opts);
-in {
+in
+{
   sublime4 = common {
     buildVersion = "4143";
     x64sha256 = "fehiw40ZNnQUEXEQMo3e11SscJ/tVMjMXLBzfIlMBzw=";

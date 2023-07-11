@@ -21,7 +21,8 @@ let
     pki_dir = "/var/lib/salt/pki/minion";
   } cfg.configuration;
 
-in {
+in
+{
   options = {
     services.salt.minion = {
       enable = mkEnableOption (lib.mdDoc "Salt minion service");

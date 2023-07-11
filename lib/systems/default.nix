@@ -4,7 +4,8 @@
 let
   inherit (lib.attrsets) mapAttrs;
 
-in rec {
+in
+rec {
   doubles = import ./doubles.nix { inherit lib; };
   parse = import ./parse.nix { inherit lib; };
   inspect = import ./inspect.nix { inherit lib; };
@@ -282,7 +283,8 @@ in rec {
             };
             wine = (pkgs.winePackagesFor
               "wine${toString final.parsed.cpu.bits}").minimal;
-          in if
+          in
+          if
             final.parsed.kernel.name
             == pkgs.stdenv.hostPlatform.parsed.kernel.name
             && pkgs.stdenv.hostPlatform.canExecute final
@@ -304,7 +306,8 @@ in rec {
           else
             null
           ;
-      in {
+      in
+      {
         emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
 
         emulator =
@@ -315,7 +318,8 @@ in rec {
             throw "Don't know how to run ${final.config} executables."
           ;
 
-      } ) // mapAttrs (n: v: v final.parsed) inspect.predicates
+      }
+      ) // mapAttrs (n: v: v final.parsed) inspect.predicates
         // mapAttrs (n: v: v final.gcc.arch or "default")
         architectures.predicates // args;
     in

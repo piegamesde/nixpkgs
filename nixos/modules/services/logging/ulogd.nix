@@ -10,7 +10,8 @@ let
   cfg = config.services.ulogd;
   settingsFormat = pkgs.formats.ini { };
   settingsFile = settingsFormat.generate "ulogd.conf" cfg.settings;
-in {
+in
+{
   options = {
     services.ulogd = {
       enable = mkEnableOption (lib.mdDoc "ulogd");

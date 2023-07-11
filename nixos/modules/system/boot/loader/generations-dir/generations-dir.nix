@@ -21,7 +21,8 @@ let
     inherit (config.boot.loader.generationsDir) copyKernels;
   };
 
-in {
+in
+{
   options = {
 
     boot.loader.generationsDir = {

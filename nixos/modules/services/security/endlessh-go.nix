@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.endlessh-go;
-in {
+in
+{
   options.services.endlessh-go = {
     enable = mkEnableOption (mdDoc "endlessh-go service");
 
@@ -90,7 +91,8 @@ in {
           capabilities =
             [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
           rootDirectory = "/run/endlessh-go";
-        in {
+        in
+        {
           Restart = "always";
           ExecStart = with cfg;
             concatStringsSep " " ([

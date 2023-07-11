@@ -41,7 +41,8 @@ let
   ] ++ (optional (cfg.webExternalUrl != null)
     "--web.external-url ${cfg.webExternalUrl}")
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}");
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

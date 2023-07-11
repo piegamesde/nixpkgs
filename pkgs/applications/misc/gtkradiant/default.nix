@@ -131,7 +131,8 @@ stdenv.mkDerivation rec {
           exit 1
         fi
       '';
-    in [
+    in
+    [
       scons
       pkg-config
       python

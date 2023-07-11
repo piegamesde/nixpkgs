@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.polaris;
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
   options = {
     services.polaris = {
       enable = mkEnableOption (lib.mdDoc "Polaris Music Server");

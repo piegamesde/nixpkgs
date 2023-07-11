@@ -59,7 +59,8 @@ mkDerivation rec {
         libX11 # libX11.so.6
         libXi # libXi.so.6
       ];
-    in ''
+    in
+    ''
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${libPath}" \

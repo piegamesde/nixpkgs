@@ -96,9 +96,9 @@ stdenv.mkDerivation rec {
         (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)
       }'
     '';
-  in [
-    "--cross-file=${crossFile}"
-  ] ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
+  in
+  [ "--cross-file=${crossFile}" ]
+  ) ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd_user_services=false" ];
 
   doCheck =
     # https://gitlab.gnome.org/GNOME/tracker/-/issues/397
@@ -121,7 +121,8 @@ stdenv.mkDerivation rec {
       linuxDot0 = lib.optionalString stdenv.isLinux ".0";
       darwinDot0 = lib.optionalString stdenv.isDarwin ".0";
       extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       # (tracker-store:6194): Tracker-CRITICAL **: 09:34:07.722: Cannot initialize database: Could not open sqlite3 database:'/homeless-shelter/.cache/tracker/meta.db': unable to open database file
       export HOME=$(mktemp -d)
 

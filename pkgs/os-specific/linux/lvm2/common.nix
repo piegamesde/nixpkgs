@@ -101,14 +101,16 @@ stdenv.mkDerivation rec {
         else
           "/run/current-system/sw"
         ;
-    in {
+    in
+    {
       src = ./fix-blkdeactivate.patch;
       inherit coreutils;
       util_linux = optionalTool enableUtilLinux util-linux;
       mdadm = optionalTool enableMdadm mdadm;
       multipath_tools = optionalTool enableMultipath multipath-tools;
       vdo = optionalTool enableVDO vdo;
-    } ))
+    }
+    ))
     # Musl fix from Alpine
     ./fix-stdio-usage.patch
   ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ];

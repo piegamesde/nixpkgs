@@ -12,7 +12,8 @@ let
 
   format = pkgs.formats.yaml { };
   configFile = format.generate "config.yaml" cfg.settings;
-in {
+in
+{
   options.services.blocky = {
     enable = mkEnableOption (lib.mdDoc
       "blocky, a fast and lightweight DNS proxy as ad-blocker for local network with many features")

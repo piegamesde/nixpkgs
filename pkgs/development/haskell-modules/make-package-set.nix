@@ -355,7 +355,8 @@ package-set { inherit pkgs lib callPackage; } self // {
       drv = (extensible-self.extend (pkgs.lib.composeExtensions
         (self.packageSourceOverrides source-overrides)
         overrides)).callCabal2nixWithOptions name root cabal2nixOptions { };
-    in if returnShellEnv then
+    in
+    if returnShellEnv then
       (modifier drv).envFunc { inherit withHoogle; }
     else
       modifier drv

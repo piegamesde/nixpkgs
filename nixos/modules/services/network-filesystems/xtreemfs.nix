@@ -104,7 +104,8 @@ let
     wantedBy = [ "multi-user.target" ] ++ optionalDir;
   };
 
-in {
+in
+{
 
   ###### interface
 

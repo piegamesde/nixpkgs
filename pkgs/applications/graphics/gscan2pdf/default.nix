@@ -74,7 +74,8 @@ perlPackages.buildPerlPackage rec {
     let
       fontSubstitute =
         "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
-    in ''
+    in
+    ''
       # Required for the program to properly load its SVG assets
       substituteInPlace bin/gscan2pdf \
         --replace "/usr/share" "$out/share"

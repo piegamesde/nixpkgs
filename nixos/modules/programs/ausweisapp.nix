@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.ausweisapp;
-in {
+in
+{
   options.programs.ausweisapp = {
     enable = mkEnableOption (lib.mdDoc "AusweisApp2");
 

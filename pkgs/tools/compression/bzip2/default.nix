@@ -15,7 +15,8 @@
 stdenv.mkDerivation (finalAttrs:
   let
     inherit (finalAttrs) version;
-  in {
+  in
+  {
     pname = "bzip2";
     version = "1.0.8";
 
@@ -81,4 +82,5 @@ stdenv.mkDerivation (finalAttrs:
       platforms = platforms.all;
       maintainers = with maintainers; [ mic92 ];
     };
-  } )
+  }
+)

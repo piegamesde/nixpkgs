@@ -16,13 +16,15 @@ let
           ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
         ''
         ;
-    in [
+    in
+    [
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
     ]
     ;
-in {
+in
+{
   options = with lib; {
     virtualisation.vmware.host = {
       enable = mkEnableOption (lib.mdDoc "VMware") // {

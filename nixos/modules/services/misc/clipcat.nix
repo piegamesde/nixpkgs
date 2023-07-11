@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.clipcat;
-in {
+in
+{
 
   options.services.clipcat = {
     enable = mkEnableOption (lib.mdDoc "Clipcat clipboard daemon");

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.shelly;
-in {
+in
+{
   port = 9784;
   extraOpts = {
     metrics-file = mkOption {

@@ -44,7 +44,8 @@ let
     else
       ''echo "$@"''
     ;
-in {
+in
+{
   echo_colored =
     colors: ''
       echo_colored() {

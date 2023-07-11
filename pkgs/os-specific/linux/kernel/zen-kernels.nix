@@ -59,7 +59,8 @@ let
 
     } // (args.argsOverride or { }))
     ;
-in {
+in
+{
   zen = zenKernelsFor zenVariant;
   lqx = zenKernelsFor lqxVariant;
 }

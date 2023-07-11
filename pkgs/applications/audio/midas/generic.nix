@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
         freetype # libfreetype.so.6
         stdenv.cc.cc.lib # libstdc++.so.6
       ];
-    in ''
+    in
+    ''
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${libPath}" \

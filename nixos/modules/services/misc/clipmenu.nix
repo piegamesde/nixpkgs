@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.clipmenu;
-in {
+in
+{
 
   options.services.clipmenu = {
     enable =

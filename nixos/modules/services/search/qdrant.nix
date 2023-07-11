@@ -12,7 +12,8 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" cfg.settings;
-in {
+in
+{
 
   options = {
     services.qdrant = {

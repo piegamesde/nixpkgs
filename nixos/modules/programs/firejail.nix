@@ -34,7 +34,8 @@ let
         args = lib.escapeShellArgs (opts.extraArgs
           ++ (optional (opts.profile != null)
             "--profile=${toString opts.profile}"));
-      in ''
+      in
+      ''
         cat <<_EOF >$out/bin/${command}
         #! ${pkgs.runtimeShell} -e
         exec /run/wrappers/bin/firejail ${args} -- ${
@@ -47,10 +48,12 @@ let
           substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
             --replace ${opts.executable} $out/bin/${command}
         ''}
-      '' ) cfg.wrappedBinaries)}
+      ''
+    ) cfg.wrappedBinaries)}
   '';
 
-in {
+in
+{
   options.programs.firejail = {
     enable = mkEnableOption (lib.mdDoc "firejail");
 

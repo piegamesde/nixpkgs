@@ -25,7 +25,8 @@ let
     cat $(find ${pkgs.xorg.fontalias}/ -name fonts.alias) >fonts.alias
   '';
 
-in {
+in
+{
 
   options = {
     fonts.fontDir = {

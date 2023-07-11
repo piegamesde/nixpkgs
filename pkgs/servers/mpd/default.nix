@@ -187,12 +187,14 @@ let
         else
           let
             unknown = lib.subtractLists knownFeatures features;
-          in if (unknown != [ ]) then
+          in
+          if (unknown != [ ]) then
             throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
           else
             let
               unsupported = lib.subtractLists platformFeatures features;
-            in if (unsupported != [ ]) then
+            in
+            if (unsupported != [ ]) then
               throw "Feature(s) ${
                 lib.concatStringsSep " " unsupported
               } are not supported on ${stdenv.hostPlatform.system}"
@@ -291,7 +293,8 @@ let
       };
     }
     ;
-in {
+in
+{
   mpd = run { };
   mpd-small = run {
     features = [

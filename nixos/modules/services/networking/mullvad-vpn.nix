@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.mullvad-vpn;
-in with lib; {
+in
+with lib; {
   options.services.mullvad-vpn = {
     enable = mkOption {
       type = types.bool;

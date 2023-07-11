@@ -49,7 +49,8 @@ let
 
   udhcpcArgs = toString cfg.udhcpc.extraArgs;
 
-in {
+in
+{
 
   options = {
 

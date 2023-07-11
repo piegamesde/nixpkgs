@@ -11,7 +11,8 @@ let
 
   cfg = config.services.postsrsd;
 
-in {
+in
+{
 
   ###### interface
 

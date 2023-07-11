@@ -63,7 +63,8 @@ let
     let
       message = "You need to define a resolver for the acme test module.";
       firstNS = lib.head config.networking.nameservers;
-    in if config.networking.nameservers == [ ] then
+    in
+    if config.networking.nameservers == [ ] then
       throw message
     else
       firstNS
@@ -83,7 +84,8 @@ let
 
   pebbleConfFile = pkgs.writeText "pebble.conf" (builtins.toJSON pebbleConf);
 
-in {
+in
+{
   imports = [ ../../resolver.nix ];
 
   options.test-support.acme = with lib; {

@@ -66,7 +66,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   cxx11SGXDemo = buildSample "Cxx11SGXDemo";
   localAttestation = (buildSample "LocalAttestation").overrideAttrs (oldAttrs: {
     installPhase = ''

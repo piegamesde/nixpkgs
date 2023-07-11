@@ -44,7 +44,8 @@ let
         "${toCommandOptionsString command.options}${command.command}") commands)
     ;
 
-in {
+in
+{
 
   ###### interface
 
@@ -282,7 +283,8 @@ in {
           else
             "u+rx,g+x,o+x"
           ;
-      in {
+      in
+      {
         sudo = {
           source = "${cfg.package.out}/bin/sudo";
           inherit owner group setuid permissions;

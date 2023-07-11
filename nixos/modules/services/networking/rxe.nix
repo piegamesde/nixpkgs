@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.networking.rxe;
 
-in {
+in
+{
   ###### interface
 
   options = {

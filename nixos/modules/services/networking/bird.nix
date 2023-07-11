@@ -14,7 +14,8 @@ let
     "CAP_NET_BIND_SERVICE"
     "CAP_NET_RAW"
   ];
-in {
+in
+{
   ###### interface
   options = {
     services.bird2 = {

@@ -59,7 +59,8 @@ let
       };
     }
     ;
-in {
+in
+{
   nextcloud24 = throw ''
     Nextcloud v24 has been removed from `nixpkgs` as the support for is dropped
     by upstream in 2023-04. Please upgrade to at least Nextcloud v25 by declaring

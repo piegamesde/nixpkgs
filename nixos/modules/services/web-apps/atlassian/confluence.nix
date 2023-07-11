@@ -35,7 +35,8 @@ let
     session.lastvalidation                  session.lastvalidation
   '';
 
-in {
+in
+{
   options = {
     services.confluence = {
       enable = mkEnableOption (lib.mdDoc "Atlassian Confluence service");

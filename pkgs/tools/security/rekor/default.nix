@@ -73,7 +73,8 @@ let
       };
     }
     ;
-in {
+in
+{
   rekor-cli = generic {
     pname = "rekor-cli";
     packageToBuild = "cmd/rekor-cli";

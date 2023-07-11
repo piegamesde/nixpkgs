@@ -87,7 +87,8 @@ let
     layouts = config.services.xserver.extraLayouts;
   };
 
-in {
+in
+{
 
   ###### interface
 

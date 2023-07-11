@@ -29,7 +29,8 @@ let
   } // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
     uuid = config.sdImage.rootPartitionUUID;
   });
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "sdImage"

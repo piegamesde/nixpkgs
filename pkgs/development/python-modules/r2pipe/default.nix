@@ -21,7 +21,8 @@ buildPythonPackage rec {
       r2lib = "${lib.getOutput "lib" radare2}/lib";
       libr_core =
         "${r2lib}/libr_core${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in ''
+    in
+    ''
       # Fix find_library, can be removed after
       # https://github.com/NixOS/nixpkgs/issues/7307 is resolved.
       substituteInPlace r2pipe/native.py --replace 'find_library("r_core")' "'${libr_core}'"

@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     let
       libSuff = stdenv.hostPlatform.extensions.sharedLibrary;
       soVersion = "3";
-    in ''
+    in
+    ''
       runHook preInstall
 
       install -D libsvm.so.${soVersion} $out/lib/libsvm.${soVersion}${libSuff}

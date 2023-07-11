@@ -32,7 +32,8 @@ let
     optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
     ++ config.services.cron.cronFiles;
 
-in {
+in
+{
 
   ###### interface
 

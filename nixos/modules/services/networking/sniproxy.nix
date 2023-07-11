@@ -17,7 +17,8 @@ let
     ${cfg.config}
   '';
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

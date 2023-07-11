@@ -37,7 +37,8 @@ buildPythonPackage rec {
   postPatch =
     let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       cat > pyglet/lib.py <<EOF
       import ctypes
       def load_library(*names, **kwargs):

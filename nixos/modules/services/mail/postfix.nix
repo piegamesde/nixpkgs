@@ -199,13 +199,15 @@ let
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue = toString config.wakeup + optionalString
                 (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
-            in if wakeupDefined then
+            in
+            if wakeupDefined then
               finalValue
             else
               "-"
             ;
 
-        in [
+        in
+        [
           config.name
           config.type
           (maybeOption mkBool "private")
@@ -352,7 +354,8 @@ let
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
   headerChecksFile = pkgs.writeText "postfix-header-checks" headerChecks;
 
-in {
+in
+{
 
   ###### interface
 

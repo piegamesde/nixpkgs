@@ -11,7 +11,8 @@ with lib;
 let
   inherit (libretro) genesis-plus-gx mgba snes9x;
 
-in let
+in
+let
   self = rec {
 
     addonDir = "/share/kodi/addons";

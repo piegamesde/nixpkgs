@@ -64,7 +64,8 @@ let
         }"}
       '';
 
-    in {
+    in
+    {
       description = "OpenVPN instance ‘${name}’";
 
       wantedBy = optional cfg.autoStart "multi-user.target";
@@ -94,7 +95,8 @@ let
     };
   };
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

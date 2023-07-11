@@ -66,7 +66,8 @@ import ./make-test-python.nix ({
                   --outfile "$out/alice.cert"
     '';
 
-  in {
+  in
+  {
     name = "taskserver";
 
     nodes = rec {
@@ -142,7 +143,8 @@ import ./make-test-python.nix ({
         newServerSystem = nodes.newServer.config.system.build.toplevel;
         switchToNewServer =
           "${newServerSystem}/bin/switch-to-configuration test";
-      in ''
+      in
+      ''
         from shlex import quote
 
 
@@ -318,4 +320,5 @@ import ./make-test-python.nix ({
             test_sync("alice")
       ''
       ;
-  } )
+  }
+)

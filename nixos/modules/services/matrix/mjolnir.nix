@@ -51,7 +51,8 @@ let
     yqEvalStr = concatImapStringsSep " * "
       (pos: _: "select(fileIndex == ${toString (pos - 1)})") configFiles;
     yqEvalArgs = concatStringsSep " " configFiles;
-  in ''
+  in
+  ''
     set -euo pipefail
 
     umask 077
@@ -70,8 +71,10 @@ let
     ${optionalString (cfg.pantalaimon.passwordFile != null) ''
       ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
     ''}
-  '' );
-in {
+  ''
+  );
+in
+{
   options.services.mjolnir = {
     enable = mkEnableOption (lib.mdDoc "Mjolnir, a moderation tool for Matrix");
 

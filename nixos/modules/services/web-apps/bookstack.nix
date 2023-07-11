@@ -30,7 +30,8 @@ let
   tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
     || cfg.nginx.enableACME;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -444,7 +445,8 @@ in {
             ])) cfg.config;
           bookstackEnv =
             pkgs.writeText "bookstack.env" (bookstackEnvVars filteredConfig);
-        in ''
+        in
+        ''
           # error handling
           set -euo pipefail
 

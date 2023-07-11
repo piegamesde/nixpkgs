@@ -217,7 +217,8 @@ let
     } // args)
     ;
 
-in rec {
+in
+rec {
 
   ### Languages
 

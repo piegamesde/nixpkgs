@@ -6,7 +6,8 @@
 
 let
   cfg = config.services.userdbd;
-in {
+in
+{
   options.services.userdbd.enable = lib.mkEnableOption (lib.mdDoc ''
     Enables the systemd JSON user/group record lookup service
   '');

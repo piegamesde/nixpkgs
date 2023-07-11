@@ -11,7 +11,8 @@ args@{
   let
     adminpass = "notproduction";
     adminuser = "root";
-  in {
+  in
+  {
     name = "nextcloud-basic";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -39,7 +40,8 @@ args@{
                 let
                   davfs2Conf = (pkgs.writeText "davfs2.conf"
                     "secrets /tmp/davfs2-secrets");
-                in [
+                in
+                [
                   "conf=${davfs2Conf}"
                   "x-systemd.automount"
                   "noauto"
@@ -58,7 +60,8 @@ args@{
         }:
         let
           cfg = config;
-        in {
+        in
+        {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
           systemd.tmpfiles.rules = [
@@ -146,7 +149,8 @@ args@{
           findInClosure "imagick" nodes.nextcloud.config.system.build.vm;
         nextcloudWithoutDoesntUseIt = findInClosure "imagick"
           nodes.nextcloudWithoutMagick.config.system.build.vm;
-      in ''
+      in
+      ''
         assert open("${nextcloudUsesImagick}").read() != ""
         assert open("${nextcloudWithoutDoesntUseIt}").read() == ""
 
@@ -172,4 +176,5 @@ args@{
         nextcloud.succeed("grep -vE '^HBEGIN:oc_encryption_module' /var/lib/nextcloud-data/data/root/files/test-shared-file")
       ''
       ;
-  } )) args
+  }
+)) args

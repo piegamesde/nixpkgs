@@ -18,7 +18,8 @@ let
     ;
   bin = "${pkg}/bin/${pkg.pname}";
 
-in {
+in
+{
 
   ###### interface
 

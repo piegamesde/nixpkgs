@@ -90,7 +90,8 @@ buildGoModule rec {
         "TestSnapshotCommon"
         "TestContainerTestSuite"
       ];
-    in ''
+    in
+    ''
       # Disable tests requiring local operations
       buildFlagsArray+=("-run" "[^(${
         builtins.concatStringsSep "|" skippedTests

@@ -12,7 +12,8 @@ let
 
   format = pkgs.formats.toml { };
   plikdCfg = format.generate "plikd.cfg" cfg.settings;
-in {
+in
+{
   options = {
     services.plikd = {
       enable = mkEnableOption (lib.mdDoc "the plikd server");

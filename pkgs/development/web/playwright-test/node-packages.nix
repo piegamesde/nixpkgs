@@ -44,7 +44,8 @@ let
       };
     };
   };
-in {
+in
+{
   "@playwright/test-1.31.1" = nodeEnv.buildNodePackage {
     name = "_at_playwright_slash_test";
     packageName = "@playwright/test";

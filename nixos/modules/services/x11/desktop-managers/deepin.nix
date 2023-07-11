@@ -16,7 +16,8 @@ let
     extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
     extraGSettingsOverrides = cfg.extraGSettingsOverrides;
   };
-in {
+in
+{
   options = {
 
     services.xserver.desktopManager.deepin = {

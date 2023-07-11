@@ -60,9 +60,8 @@ let
               cudaMajorVersion
           }";
       };
-    in {
-      inherit cutensor;
-    }
+    in
+    { inherit cutensor; }
     ;
 
   extraPackagesExtension =

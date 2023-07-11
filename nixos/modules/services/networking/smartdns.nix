@@ -28,7 +28,8 @@ let
       listsAsDuplicateKeys =
         true; # Allowing duplications because we need to deal with multiple entries with the same key.
     } cfg.settings);
-in {
+in
+{
   options.services.smartdns = {
     enable = mkEnableOption (lib.mdDoc "SmartDNS DNS server");
 

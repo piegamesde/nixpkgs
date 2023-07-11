@@ -55,7 +55,8 @@ let
         --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
     '';
 
-in {
+in
+{
 
   ###### interface
 

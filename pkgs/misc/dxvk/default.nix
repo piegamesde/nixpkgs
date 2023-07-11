@@ -21,7 +21,8 @@ stdenvNoCC.mkDerivation (finalAttrs:
       else
         pkgsCross.mingwW64.dxvk_2
       ;
-  in {
+  in
+  {
     pname = "dxvk";
     inherit (dxvk64) version;
 
@@ -63,4 +64,5 @@ stdenvNoCC.mkDerivation (finalAttrs:
         "x86_64-linux"
       ];
     };
-  } )
+  }
+)

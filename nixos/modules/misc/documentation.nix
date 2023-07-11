@@ -33,7 +33,8 @@ let
   docModules =
     let
       p = partition canCacheDocs (baseModules ++ cfg.nixos.extraModules);
-    in {
+    in
+    {
       lazy = p.right;
       eager = p.wrong
         ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
@@ -65,14 +66,16 @@ let
               guard = lib.warn
                 "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead."
                 ;
-            in if isAttrs value then
+            in
+            if isAttrs value then
               scrubDerivations wholeName value
               // optionalAttrs (isDerivation value) {
                 outPath = guard "\${${wholeName}}";
                 drvPath = guard drvPath;
               }
             else
-              value) pkgSet
+              value
+          ) pkgSet
           ;
       in
       scrubbedEval.options
@@ -162,7 +165,8 @@ let
     }
     ;
 
-in {
+in
+{
   imports = [
     ./man-db.nix
     ./mandoc.nix

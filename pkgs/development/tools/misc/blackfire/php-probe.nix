@@ -149,7 +149,8 @@ let
               # The path will be either [«system» sha256], or [«system» sha256 «phpMajor» «zts»],
               # Let’s skip the sha256.
               rest = builtins.tail (builtins.tail path);
-            in {
+            in
+            {
               system = builtins.head path;
               phpMajor =
                 if builtins.length rest == 0 then

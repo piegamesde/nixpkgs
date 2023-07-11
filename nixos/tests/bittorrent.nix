@@ -39,7 +39,8 @@ import ./make-test-python.nix ({
       }
       ;
 
-  in {
+  in
+  {
     name = "bittorrent";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -207,4 +208,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  } )
+  }
+)

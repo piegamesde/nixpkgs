@@ -48,7 +48,8 @@ let
     (toString cfg.logLevel)
   ];
 
-in {
+in
+{
 
   ###### interface
 

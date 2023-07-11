@@ -14,7 +14,8 @@ let
       } | sed '{ /^\s*$/d; s/^\s\+//; s/\s\+$// }' | sort | uniq > $out
     ''
     ;
-in {
+in
+{
   options = {
     environment.wordlist = {
       enable =

@@ -44,7 +44,8 @@ import ./make-test-python.nix ({
             };
           }
           ;
-      in {
+      in
+      {
         node1 = node 1;
         node2 = node 2;
         node3 = node 3;
@@ -66,7 +67,8 @@ import ./make-test-python.nix ({
             </primitive>
           </resources>
         '';
-      in ''
+      in
+      ''
         import re
         import time
 

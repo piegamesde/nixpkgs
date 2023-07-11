@@ -17,7 +17,8 @@ let
     (flag cfg.logPath "logfile")
     (flag cfg.port "port")
   ];
-in {
+in
+{
   options = {
     services.minetest-server = {
       enable = mkOption {

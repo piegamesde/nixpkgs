@@ -17,7 +17,8 @@ let
     sha256 = "sha256-UGzevhZDfQBoFgPZQIs5Ftgz1cUHGfY/IRSEWQHFVSQ=";
   };
 
-in {
+in
+{
 
   inherit (programs) plik plikd-unwrapped;
 

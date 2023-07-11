@@ -50,7 +50,8 @@ import ../make-test-python.nix ({
         user = nodes.machine.users.users.alice;
         xauth = "${user.home}/.Xauthority";
         fcitx_confdir = "${user.home}/.config/fcitx5";
-      in ''
+      in
+      ''
         # We need config files before login session
         # So copy first thing
 

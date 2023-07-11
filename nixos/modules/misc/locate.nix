@@ -13,7 +13,8 @@ let
   isPLocate = hasPrefix "plocate" cfg.locate.name;
   isMorPLocate = (isMLocate || isPLocate);
   isFindutils = hasPrefix "findutils" cfg.locate.name;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -309,7 +310,8 @@ in {
               "pruneNames"
               "prunePaths"
             ]);
-          in ''
+          in
+          ''
             exec ${cfg.locate}/bin/updatedb \
               --output ${toString cfg.output} ${concatStringsSep " " args} \
               --prune-bind-mounts ${

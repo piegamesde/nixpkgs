@@ -42,7 +42,8 @@ let
             let
               address = "192.168.1.${toString id}";
               isFirstClusterNode = id == 1 || id == 4;
-            in {
+            in
+            {
               users = {
                 users.testuser = {
                   isSystemUser = true;
@@ -125,7 +126,8 @@ let
               };
             }
             ;
-        in {
+        in
+        {
           galera_01 = mkGaleraNode {
             id = 1;
             method = "mariabackup";

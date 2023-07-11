@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.xautolock;
-in {
+in
+{
   options = {
     services.xserver.xautolock = {
       enable = mkEnableOption (lib.mdDoc "xautolock");

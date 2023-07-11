@@ -75,7 +75,8 @@ let
           nyanloutre
         ];
       };
-    in {
+    in
+    {
       akonadi = callPackage ./akonadi { };
       akonadi-calendar = callPackage ./akonadi-calendar.nix { };
       akonadi-calendar-tools = callPackage ./akonadi-calendar-tools.nix { };

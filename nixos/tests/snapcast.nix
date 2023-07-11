@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     httpPort = 10080;
     tcpStreamPort = 10006;
     bufferSize = 742;
-  in {
+  in
+  {
     name = "snapcast";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
@@ -98,4 +99,5 @@ import ./make-test-python.nix ({
             toString bufferSize
           }'")
     '';
-  } )
+  }
+)

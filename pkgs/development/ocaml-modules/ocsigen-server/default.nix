@@ -33,7 +33,8 @@
 let
   mkpath = p: "${p}/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 
-in let
+in
+let
   caml_ld_library_path = lib.concatMapStringsSep ":" mkpath [
     bigstringaf
     lwt

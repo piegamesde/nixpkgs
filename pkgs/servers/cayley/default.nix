@@ -23,7 +23,8 @@ buildGoModule rec {
   ldflags =
     let
       basename = "github.com/cayleygraph/cayley/version";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${basename}.Version=${src.rev}"

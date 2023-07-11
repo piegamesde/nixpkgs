@@ -32,7 +32,8 @@ let
   enabledServers =
     filterAttrs (name: conf: conf.enable) config.services.redis.servers;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -668,7 +669,8 @@ in {
               redisConfVar = "/var/lib/${redisName name}/redis.conf";
               redisConfRun = "/run/${redisName name}/nixos.conf";
               redisConfStore = redisConfig conf.settings;
-            in ''
+            in
+            ''
               touch "${redisConfVar}" "${redisConfRun}"
               chown '${conf.user}' "${redisConfVar}" "${redisConfRun}"
               chmod 0600 "${redisConfVar}" "${redisConfRun}"
@@ -682,7 +684,8 @@ in {
                   cat ${escapeShellArg conf.requirePassFile}
                 } >> "${redisConfRun}"
               ''}
-            '' );
+            ''
+            );
           Type = "notify";
             # User and group
           User = conf.user;

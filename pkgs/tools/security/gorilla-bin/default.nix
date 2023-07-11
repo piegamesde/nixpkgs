@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
         libXScrnSaver
         libXext
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/opt/password-gorilla
       mkdir -p $out/bin
       cp gorilla-${version} $out/opt/password-gorilla

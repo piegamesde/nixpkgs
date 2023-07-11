@@ -154,7 +154,8 @@ let
   ] ++ cfg.plugins
     ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 
-in {
+in
+{
 
   meta = { maintainers = teams.freedesktop.members; };
 

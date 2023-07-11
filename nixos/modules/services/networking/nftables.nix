@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.networking.nftables;
-in {
+in
+{
   ###### interface
 
   options = {
@@ -154,7 +155,8 @@ in {
                 ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf
             '';
           };
-        in {
+        in
+        {
           Type = "oneshot";
           RemainAfterExit = true;
           ExecStart = rulesScript;

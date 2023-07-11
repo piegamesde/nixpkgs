@@ -25,7 +25,8 @@ let
     "streamOptimized"
   ];
 
-in {
+in
+{
   options = {
     vmware = {
       baseImageSize = mkOption {

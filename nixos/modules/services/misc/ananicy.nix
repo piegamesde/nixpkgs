@@ -18,7 +18,8 @@ let
     else
       "ananicy"
     ;
-in {
+in
+{
   options = {
     services.ananicy = {
       enable = mkEnableOption (lib.mdDoc "Ananicy, an auto nice daemon");

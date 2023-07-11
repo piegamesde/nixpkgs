@@ -53,7 +53,8 @@ python3Packages.buildPythonApplication rec {
       udevRules = ''
         SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
       '';
-    in ''
+    in
+    ''
       mkdir -p "$out/etc/udev/rules.d"
       cp ${
         writeText "70-streamdeck.rules" udevRules

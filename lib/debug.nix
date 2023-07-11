@@ -37,7 +37,8 @@ let
     trace
     ;
 
-in rec {
+in
+rec {
 
   # -- TRACING --
 
@@ -280,7 +281,8 @@ in rec {
           else
             [ ]
           ;
-      in if
+      in
+      if
         (substring 0 4 name == "test" || elem name testsToRun)
         && ((testsToRun == [ ]) || elem name tests.tests)
         && (test.expr != test.expected)
@@ -292,7 +294,8 @@ in rec {
           result = test.expr;
         } ]
       else
-        [ ]) tests))
+        [ ]
+    ) tests))
     ;
 
     /* Create a test assuming that list elements are `true`.

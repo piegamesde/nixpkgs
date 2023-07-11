@@ -50,7 +50,8 @@ let
     };
   };
 
-in {
+in
+{
 
   ###### interface
 

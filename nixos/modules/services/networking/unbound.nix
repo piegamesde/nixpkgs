@@ -53,7 +53,8 @@ let
 
   rootTrustAnchorFile = "${cfg.stateDir}/root.key";
 
-in {
+in
+{
 
   ###### interface
 

@@ -65,7 +65,8 @@ stdenv.mkDerivation {
         ipu6 = "Tiger Lake";
         ipu6ep = "Alder Lake";
       }.${ipuVersion};
-    in with lib; {
+    in
+    with lib; {
       description =
         "${generation} IPU firmware and proprietary image processing libraries";
       homepage = "https://github.com/intel/ipu6-camera-bins";

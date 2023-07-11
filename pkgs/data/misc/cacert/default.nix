@@ -145,7 +145,8 @@ stdenv.mkDerivation rec {
             return 1
           }
         '';
-      in {
+      in
+      {
         # Test that building this derivation with a blacklist works, and that UTF-8 is supported.
         blacklist-utf8 =
           let

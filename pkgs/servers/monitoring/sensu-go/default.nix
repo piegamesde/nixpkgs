@@ -33,7 +33,8 @@ let
       ldflags =
         let
           versionPkg = "github.com/sensu/sensu-go/version";
-        in [
+        in
+        [
           "-X ${versionPkg}.Version=${version}"
           "-X ${versionPkg}.BuildSHA=${shortRev}"
         ]
@@ -49,7 +50,8 @@ let
       };
     }
     ;
-in {
+in
+{
   sensu-go-cli = generic {
     pname = "sensu-go-cli";
     subPackages = [ "cmd/sensuctl" ];

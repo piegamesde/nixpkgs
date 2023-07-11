@@ -38,7 +38,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

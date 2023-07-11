@@ -87,7 +87,8 @@ let
           ;
       };
 
-    in {
+    in
+    {
       key = "ip-address";
       config = networkConfig // {
         # Expose the networkConfig items for tests like nixops
@@ -140,7 +141,8 @@ let
       };
     });
 
-in {
+in
+{
   config = {
     extraBaseModules = {
       imports = [

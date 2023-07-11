@@ -42,7 +42,8 @@ let
             # arise from flipping an overlay's parameters in some cases.
             let
               x = f0 super;
-            in if
+            in
+            if
               builtins.isFunction x
             then
             # Can't reuse `x`, because `self` comes first.
@@ -76,7 +77,8 @@ let
           self: super:
           let
             x = f0 super;
-          in if builtins.isFunction x then
+          in
+          if builtins.isFunction x then
             f0 self super
           else
             x
@@ -271,7 +273,8 @@ let
           # not ready for this by default
           supportedHardeningFlags' =
             lib.remove "fortify3" supportedHardeningFlags;
-        in if
+        in
+        if
           stdenv.hostPlatform.isMusl &&
           # Except when:
           #    - static aarch64, where compilation works, but produces segfaulting dynamically linked binaries.
@@ -310,7 +313,8 @@ let
               ([ index ] ++ positions)
             }${name} for ${attrs.name or attrs.pname}")
         ;
-    in if builtins.length erroneousHardeningFlags != 0 then
+    in
+    if builtins.length erroneousHardeningFlags != 0 then
       abort ("mkDerivation was called with unsupported hardening flags: "
         + lib.generators.toPretty { } {
           inherit

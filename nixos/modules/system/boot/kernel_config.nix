@@ -72,7 +72,8 @@ let
         ]
         ;
 
-    in if (val == "") then
+    in
+    if (val == "") then
       ''""''
     else if val == "y" || val == "m" || val == "n" then
       val
@@ -81,7 +82,8 @@ let
     else if substring 0 2 val == "0x" then
       val
     else
-      val; # FIXME: fix quoting one day
+      val
+    ; # FIXME: fix quoting one day
 
     # generate nix intermediate kernel config file of the form
     #
@@ -106,7 +108,8 @@ let
             else
               item.tristate
             ;
-        in if val == null then
+        in
+        if val == null then
           ""
         else if (item.optional) then
           ''
@@ -123,7 +126,8 @@ let
     mkConf exprs
     ;
 
-in {
+in
+{
 
   options = {
 

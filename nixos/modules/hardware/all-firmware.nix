@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.hardware;
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [

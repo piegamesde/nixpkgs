@@ -112,7 +112,8 @@ let
 
   filterDoubles = f: map parse.doubleFromSystem (lists.filter f allParsed);
 
-in {
+in
+{
   inherit all;
 
   none = [ ];

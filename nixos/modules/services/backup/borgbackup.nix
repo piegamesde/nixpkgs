@@ -304,7 +304,8 @@ let
     }
     ;
 
-in {
+in
+{
   meta.maintainers = with maintainers; [ dotlambda ];
   meta.doc = ./borgbackup.md;
 

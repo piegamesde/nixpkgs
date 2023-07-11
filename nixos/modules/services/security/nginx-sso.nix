@@ -12,7 +12,8 @@ let
   pkg = getBin cfg.package;
   configYml =
     pkgs.writeText "nginx-sso.yml" (builtins.toJSON cfg.configuration);
-in {
+in
+{
   options.services.nginx.sso = {
     enable = mkEnableOption (lib.mdDoc "nginx-sso service");
 

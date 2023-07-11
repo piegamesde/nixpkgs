@@ -11,7 +11,8 @@ let
 
   inInitrd = any (fs: fs == "xfs") config.boot.initrd.supportedFilesystems;
 
-in {
+in
+{
   config = mkIf (any (fs: fs == "xfs") config.boot.supportedFilesystems) {
 
     system.fsPackages = [ pkgs.xfsprogs.bin ];

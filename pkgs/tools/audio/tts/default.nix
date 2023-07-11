@@ -45,7 +45,8 @@ python.pkgs.buildPythonApplication rec {
         "unidic-lite"
         "trainer"
       ];
-    in ''
+    in
+    ''
       sed -r -i \
         ${
           lib.concatStringsSep "\n"

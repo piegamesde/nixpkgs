@@ -960,7 +960,8 @@ self: super:
             inherit sha256;
           } // lib.optionalAttrs (name != null) { name = name + ".patch"; })
           ;
-      in if (!isDarwin) then
+      in
+      if (!isDarwin) then
         {
           outputs = [
             "out"
@@ -1100,7 +1101,8 @@ self: super:
             cp ${darwinOtherX}/share/man -rT $out/share/man
           '';
           passthru.version = version;
-        })
+        }
+      )
     );
 
   lndir = super.lndir.overrideAttrs (attrs: {

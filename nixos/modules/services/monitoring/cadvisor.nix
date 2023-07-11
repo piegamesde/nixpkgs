@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.cadvisor;
 
-in {
+in
+{
   options = {
     services.cadvisor = {
       enable = mkEnableOption (lib.mdDoc "Cadvisor service");

@@ -29,7 +29,8 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   lib ? import ../../lib,
   extraModules ? let
     e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
-  in if e == "" then
+  in
+  if e == "" then
     [ ]
   else
     [ (import e) ]
@@ -38,7 +39,8 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
 let
   pkgs_ = pkgs;
 
-in let
+in
+let
   evalModulesMinimal = (import ./default.nix {
     inherit
       lib

@@ -12,7 +12,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lumina;
 
-in {
+in
+{
   meta = { maintainers = teams.lumina.members; };
 
   options = {

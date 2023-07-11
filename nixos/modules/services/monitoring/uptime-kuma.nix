@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.uptime-kuma;
-in {
+in
+{
 
   meta.maintainers = [ lib.maintainers.julienmalka ];
 

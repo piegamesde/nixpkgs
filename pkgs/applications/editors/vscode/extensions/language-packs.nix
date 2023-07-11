@@ -24,7 +24,8 @@ let
     ;
 
   # See list of core language packs at https://github.com/Microsoft/vscode-loc
-in {
+in
+{
   # French
   vscode-language-pack-fr = buildVscodeLanguagePack {
     language = "fr";

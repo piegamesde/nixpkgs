@@ -10,7 +10,8 @@ let
   n = lib.mapAttrsToList (_: v: v.version) (lib.filterAttrs (k: v:
     builtins.match "nextcloud[0-9]+" k != null
     && (builtins.tryEval v.version).success) pkgs);
-in {
+in
+{
   inherit n;
   e = lib.concatStringsSep "," n;
 }

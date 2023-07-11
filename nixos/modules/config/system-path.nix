@@ -61,7 +61,8 @@ let
   defaultPackagesText =
     "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
 
-in {
+in
+{
   options = {
 
     environment = {

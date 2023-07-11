@@ -619,7 +619,8 @@ let
   configFile =
     pkgs.writeText "mosquitto.conf" (concatStringsSep "\n" (formatGlobal cfg));
 
-in {
+in
+{
 
   ###### Interface
 

@@ -464,7 +464,8 @@ let
           ;
         targets = extraAttrs.buildTargets or [ ];
         commands = map buildCommand targets;
-      in ''
+      in
+      ''
         runHook preBuild
         ${lib.concatStringsSep "\n" commands}
         runHook postBuild

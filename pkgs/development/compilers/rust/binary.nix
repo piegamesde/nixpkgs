@@ -23,7 +23,8 @@ let
   installComponents =
     "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
 
-in rec {
+in
+rec {
   rustc = stdenv.mkDerivation {
     pname = "rustc-${versionType}";
 

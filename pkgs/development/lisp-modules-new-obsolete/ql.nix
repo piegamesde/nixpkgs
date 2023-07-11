@@ -94,9 +94,8 @@ let
                 "--enable-double-precision"
               ];
             });
-          in [
-            ode'
-          ]
+          in
+          [ ode' ]
           ;
       }
       ;

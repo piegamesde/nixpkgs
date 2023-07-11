@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.desktopManager.kodi;
 
-in {
+in
+{
   options = {
     services.xserver.desktopManager.kodi = {
       enable = mkOption {

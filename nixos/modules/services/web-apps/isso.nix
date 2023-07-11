@@ -12,7 +12,8 @@ let
 
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "isso.conf" cfg.settings;
-in {
+in
+{
 
   options = {
     services.isso = {

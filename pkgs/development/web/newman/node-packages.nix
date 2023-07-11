@@ -5550,7 +5550,8 @@ let
       };
     };
   };
-in {
+in
+{
   newman = nodeEnv.buildNodePackage {
     name = "newman";
     packageName = "newman";

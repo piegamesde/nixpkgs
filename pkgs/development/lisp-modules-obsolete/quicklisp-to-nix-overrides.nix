@@ -34,7 +34,8 @@ let
       (x: { })
     ;
   extraLispDeps = l: x: { deps = x.deps ++ l; };
-in {
+in
+{
   stumpwm =
     x: {
       overrides =

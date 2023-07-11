@@ -67,7 +67,8 @@ let
       platforms = platforms.unix;
     };
   };
-in if stdenv.isLinux then
+in
+if stdenv.isLinux then
   buildFHSEnv {
     name = "nextflow";
     targetPkgs = pkgs: [ nextflow ];

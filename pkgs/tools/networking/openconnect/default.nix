@@ -11,7 +11,8 @@ let
       inherit (darwin.apple_sdk.frameworks) PCSC;
     }
     ;
-in rec {
+in
+rec {
   openconnect = common rec {
     version = "9.01";
     src = fetchurl {

@@ -14,7 +14,8 @@ let
   predefinedRules = flip mapAttrs cfg.rules
     (name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); });
 
-in {
+in
+{
   options = {
     services.opensnitch = {
       enable = mkEnableOption (mdDoc "Opensnitch application firewall");
@@ -187,7 +188,8 @@ in {
         inherit (content) file;
         local = "/var/lib/opensnitch/rules/${file}.json";
       });
-    in ''
+    in
+    ''
       # Remove all firewall rules from `/var/lib/opensnitch/rules` that are symlinks to a store-path,
       # but aren't declared in `cfg.rules` (i.e. all networks that were "removed" from
       # `cfg.rules`).
@@ -208,7 +210,8 @@ in {
         }: ''
           ln -sf '${file}' "${local}"
         '') rules}
-    '' );
+    ''
+    );
 
     environment.etc."opensnitchd/default-config.json".source =
       format.generate "default-config.json" cfg.settings;

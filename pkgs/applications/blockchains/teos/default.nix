@@ -26,7 +26,8 @@ let
     maintainers = with maintainers; [ seberm ];
   };
   updateScript = ./update.sh;
-in {
+in
+{
   teos = rustPlatform.buildRustPackage {
     pname = "teos";
     inherit version src;

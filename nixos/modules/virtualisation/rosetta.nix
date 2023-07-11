@@ -8,7 +8,8 @@
 let
   cfg = config.virtualisation.rosetta;
   inherit (lib) types;
-in {
+in
+{
   options = {
     virtualisation.rosetta.enable = lib.mkOption {
       type = types.bool;

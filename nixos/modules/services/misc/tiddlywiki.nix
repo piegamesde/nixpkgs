@@ -16,7 +16,8 @@ let
   name = "tiddlywiki";
   dataDir = "/var/lib/" + name;
 
-in {
+in
+{
 
   options.services.tiddlywiki = {
 

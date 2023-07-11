@@ -51,7 +51,8 @@ let
     }/bin/tmux -S ${cfg.dataDir}/terraria.sock send-keys Enter exit Enter
     ${getBin pkgs.coreutils}/bin/tail --pid="$1" -f /dev/null
   '';
-in {
+in
+{
   options = {
     services.terraria = {
       enable = mkOption {

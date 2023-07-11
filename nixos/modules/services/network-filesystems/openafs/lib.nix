@@ -7,7 +7,8 @@
 let
   inherit (lib) concatStringsSep mkOption types optionalString;
 
-in {
+in
+{
 
   mkCellServDB =
     cellName: db:

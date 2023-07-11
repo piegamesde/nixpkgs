@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.hardware.i2c;
 
-in {
+in
+{
   options.hardware.i2c = {
     enable = mkEnableOption (lib.mdDoc ''
       i2c devices support. By default access is granted to users in the "i2c"

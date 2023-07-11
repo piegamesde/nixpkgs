@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.geary;
 
-in {
+in
+{
   meta = { maintainers = teams.gnome.members; };
 
   options = {

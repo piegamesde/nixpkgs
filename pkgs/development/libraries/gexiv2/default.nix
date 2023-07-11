@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
         else
           "so.2"
         ;
-    in ''
+    in
+    ''
       # Our gobject-introspection patches make the shared library paths absolute
       # in the GIR files. When running unit tests, the library is not yet installed,
       # though, so we need to replace the absolute path with a local one during build.

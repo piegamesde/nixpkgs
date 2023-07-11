@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.services.redsocks;
-in {
+in
+{
   ##### interface
   options = {
     services.redsocks = {
@@ -196,7 +197,8 @@ in {
       redsocks_blocks = concatMapStrings (block:
         let
           proxy = splitString ":" block.proxy;
-        in ''
+        in
+        ''
           redsocks {
             local_ip = ${block.ip};
             local_port = ${toString block.port};
@@ -215,7 +217,8 @@ in {
 
             disclose_src = ${block.disclose_src};
           }
-        '' ) cfg.redsocks;
+        ''
+      ) cfg.redsocks;
       configfile = pkgs.writeText "redsocks.conf" ''
         base {
           log_debug = ${

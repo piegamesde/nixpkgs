@@ -86,7 +86,8 @@ let
       in
       builtins.toFile "config.yaml" (builtins.toJSON configuration)
     ;
-in {
+in
+{
   extraOpts = {
     configFile = mkOption {
       type = with types; nullOr path;

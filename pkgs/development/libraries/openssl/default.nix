@@ -260,7 +260,8 @@ let
     })
     ;
 
-in {
+in
+{
 
   openssl_1_1 = common {
     version = "1.1.1t";

@@ -13,7 +13,8 @@ let
 
   inherit (pkgs) at;
 
-in {
+in
+{
 
   ###### interface
 

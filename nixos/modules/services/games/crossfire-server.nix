@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.crossfire-server;
   serverPort = 13327;
-in {
+in
+{
   options.services.crossfire-server = {
     enable = mkOption {
       type = types.bool;

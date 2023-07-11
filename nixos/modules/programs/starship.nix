@@ -21,7 +21,8 @@ let
       "shellInit"
     ;
 
-in {
+in
+{
   options.programs.starship = {
     enable = mkEnableOption (lib.mdDoc "the Starship shell prompt");
 

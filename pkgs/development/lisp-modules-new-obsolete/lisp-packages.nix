@@ -96,7 +96,8 @@ let
         else
           newArgs)
         ;
-    in if builtins.isAttrs ff then
+    in
+    if builtins.isAttrs ff then
       (ff // {
         overrideLispAttrs =
           newArgs:
@@ -280,7 +281,8 @@ let
               "[+]"
             ]) systems
             ;
-        in ''
+        in
+        ''
           mkdir -pv $out
           cp -r * $out
 

@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.programs.nix-index;
-in {
+in
+{
   options.programs.nix-index = with lib; {
     enable =
       mkEnableOption (lib.mdDoc "nix-index, a file database for nixpkgs");
@@ -41,7 +42,8 @@ in {
             '';
           }
           ;
-      in [
+      in
+      [
         (checkOpt "enableBashIntegration")
         (checkOpt "enableZshIntegration")
       ]

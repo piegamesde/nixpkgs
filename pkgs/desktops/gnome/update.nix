@@ -30,7 +30,8 @@ let
       nextMinor = builtins.fromJSON minorVersion + 1;
       upperBound =
         "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
-    in if builtins.isBool freeze then
+    in
+    if builtins.isBool freeze then
       lib.optionals (freeze && minorAvailable) [ upperBound ]
     else if builtins.isString freeze then
       [ freeze ]
@@ -96,7 +97,8 @@ let
 
     print(json.dumps(report))
   '';
-in {
+in
+{
   name = "gnome-update-script";
   command = [
     updateScript

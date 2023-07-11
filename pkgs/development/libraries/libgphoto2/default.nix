@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
         else
           buildPackages.libgphoto2
         ;
-    in ''
+    in
+    ''
       mkdir -p $out/lib/udev/{rules.d,hwdb.d}
       ${executablePrefix}/lib/libgphoto2/print-camera-list \
           udev-rules version 201 group camera \

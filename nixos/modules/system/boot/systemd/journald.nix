@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.journald;
-in {
+in
+{
   options = {
     services.journald.console = mkOption {
       default = "";

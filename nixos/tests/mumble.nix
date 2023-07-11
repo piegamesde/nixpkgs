@@ -19,7 +19,8 @@ import ./make-test-python.nix ({
       MURMURD_PASSWORD=testpassword
     '';
 
-  in {
+  in
+  {
     name = "mumble";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -97,4 +98,5 @@ import ./make-test-python.nix ({
       client1.screenshot("screen1")
       client2.screenshot("screen2")
     '';
-  } )
+  }
+)

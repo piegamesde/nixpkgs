@@ -74,7 +74,8 @@ import ./make-test-python.nix ({
           level = 5;
           facility = "Test";
         });
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("graylog.service")
         machine.wait_for_open_port(9000)

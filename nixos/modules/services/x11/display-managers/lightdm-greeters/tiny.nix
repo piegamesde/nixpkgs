@@ -13,7 +13,8 @@ let
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.tiny;
 
-in {
+in
+{
   options = {
 
     services.xserver.displayManager.lightdm.greeters.tiny = {

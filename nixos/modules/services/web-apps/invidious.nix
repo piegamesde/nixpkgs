@@ -30,7 +30,8 @@ let
           jqFiles = [ settingsFile ]
             ++ lib.optional (cfg.extraSettingsFile != null)
             cfg.extraSettingsFile;
-        in ''
+        in
+        ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
             lib.escapeShellArgs jqFiles
           })"
@@ -170,7 +171,8 @@ let
         "To use services.invidious.nginx, you need to set services.invidious.domain";
     } ];
   };
-in {
+in
+{
   options.services.invidious = {
     enable = lib.mkEnableOption (lib.mdDoc "Invidious");
 

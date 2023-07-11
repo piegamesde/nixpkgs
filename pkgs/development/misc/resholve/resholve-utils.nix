@@ -142,7 +142,8 @@ rec {
     value:
     let
       hasUnresholved = builtins.hasAttr "unresholved" value;
-    in {
+    in
+    {
       drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
       strip =
         if hasUnresholved then

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.lnd;
-in {
+in
+{
   port = 9092;
   extraOpts = {
     lndHost = mkOption {

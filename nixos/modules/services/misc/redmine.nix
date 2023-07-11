@@ -67,7 +67,8 @@ let
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

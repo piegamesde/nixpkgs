@@ -32,7 +32,8 @@ let
 
       ${cfg.extraConfig}
   '';
-in {
+in
+{
   options.services.jirafeau = {
     adminPasswordSha256 = mkOption {
       type = types.str;
@@ -154,7 +155,8 @@ in {
                   else
                     "${cfg.maxUploadSizeMegabytes}m"
                   ;
-              in ''
+              in
+              ''
                 index index.php;
                 client_max_body_size ${clientMaxBodySize};
                 client_body_timeout ${cfg.maxUploadTimeout};

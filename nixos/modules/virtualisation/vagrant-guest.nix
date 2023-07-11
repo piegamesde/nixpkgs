@@ -19,7 +19,8 @@ let
       chmod 0600 ~/.ssh/authorized_keys
     fi
   '';
-in {
+in
+{
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 

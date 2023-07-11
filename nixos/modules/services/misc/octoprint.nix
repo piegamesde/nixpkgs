@@ -28,7 +28,8 @@ let
 
   package = pkgs.octoprint;
 
-in {
+in
+{
   ##### interface
 
   options = {

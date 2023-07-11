@@ -26,7 +26,8 @@ let
     else
       v
     ;
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

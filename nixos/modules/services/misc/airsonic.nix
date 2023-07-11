@@ -11,7 +11,8 @@ with lib;
 let
   cfg = config.services.airsonic;
   opt = options.services.airsonic;
-in {
+in
+{
   options = {
 
     services.airsonic = {

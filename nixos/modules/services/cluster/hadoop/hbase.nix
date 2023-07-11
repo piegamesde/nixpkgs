@@ -103,7 +103,8 @@ let
 
     })
     ;
-in {
+in
+{
   options.services.hadoop = {
 
     gatewayRole.enableHbaseCli = mkEnableOption (mdDoc "HBase CLI tools");

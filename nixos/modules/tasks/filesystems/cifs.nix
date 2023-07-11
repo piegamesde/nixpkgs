@@ -11,7 +11,8 @@ let
 
   inInitrd = any (fs: fs == "cifs") config.boot.initrd.supportedFilesystems;
 
-in {
+in
+{
   config = {
 
     system.fsPackages =

@@ -16,7 +16,8 @@ let
 
     # is this path made unreadable by ProtectHome = true ?
   isProtected = x: hasPrefix "/root" x || hasPrefix "/home" x;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

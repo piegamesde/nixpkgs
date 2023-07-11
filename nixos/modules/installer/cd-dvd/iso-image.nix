@@ -492,7 +492,8 @@ let
     # Syslinux (and isolinux) only supports x86-based architectures.
   canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
 
-in {
+in
+{
   options = {
 
     isoImage.isoName = mkOption {

@@ -43,7 +43,8 @@ let
       touch "$out"
     ''
     ;
-in {
+in
+{
   basic = mkTest {
     name = "basic";
     src = ./fixtures/example-project;

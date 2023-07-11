@@ -73,7 +73,8 @@ let
     "libcrypt.so.1" = libxcrypt;
   }));
 
-in {
+in
+{
   # List of libraries that are needed for manylinux compatibility.
   # When using a wheel that is manylinux1 compatible, just extend
   # the `buildInputs` with one of these `manylinux` lists.

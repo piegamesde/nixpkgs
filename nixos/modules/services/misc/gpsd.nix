@@ -14,7 +14,8 @@ let
   gid = config.ids.gids.gpsd;
   cfg = config.services.gpsd;
 
-in {
+in
+{
 
   ###### interface
 
@@ -127,7 +128,8 @@ in {
         ExecStart =
           let
             devices = utils.escapeSystemdExecArgs cfg.devices;
-          in ''
+          in
+          ''
             ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
               -S "${toString cfg.port}"                             \
               ${optionalString cfg.readonly "-b"}                   \

@@ -128,7 +128,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
     systemd.services =
       mkOption { type = with types; attrsOf (submodule opts); };

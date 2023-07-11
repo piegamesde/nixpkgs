@@ -20,7 +20,8 @@ let
       -r) echo "${config.system.nixos.version}";;
     esac
   '';
-in {
+in
+{
   options.services.ssm-agent = {
     enable = mkEnableOption (lib.mdDoc "AWS SSM agent");
 

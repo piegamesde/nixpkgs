@@ -81,7 +81,8 @@ buildDunePackage rec {
       };
 
       get = key: ''$(cat "${runtime}/${path}/${key}")'';
-    in ''
+    in
+    ''
       for prog in "$out"/bin/*
       do
 

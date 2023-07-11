@@ -104,7 +104,8 @@ let
     self
     ;
 
-in {
+in
+{
 
   docbook-xsl-nons = common {
     pname = "docbook-xsl-nons";

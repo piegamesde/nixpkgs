@@ -93,7 +93,8 @@ let
       "epgstation"
     ] ++ config) instruction
     ;
-in {
+in
+{
   meta.maintainers = with lib.maintainers; [ midchildan ];
 
   imports = [

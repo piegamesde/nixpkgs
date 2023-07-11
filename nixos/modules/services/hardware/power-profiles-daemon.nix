@@ -11,7 +11,8 @@ let
   cfg = config.services.power-profiles-daemon;
   package = pkgs.power-profiles-daemon;
 
-in {
+in
+{
 
   ###### interface
 

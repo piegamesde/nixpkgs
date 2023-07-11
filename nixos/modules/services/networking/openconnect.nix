@@ -142,7 +142,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options.networking.openconnect = {
     package = mkPackageOptionMD pkgs "openconnect" { };
 

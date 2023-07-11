@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.iftop;
-in {
+in
+{
   options = {
     programs.iftop.enable = mkEnableOption (lib.mdDoc "iftop + setcap wrapper");
   };

@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
 
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
-  in {
+  in
+  {
     name = "openssh";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -153,4 +154,5 @@ import ./make-test-python.nix ({
           server_localhost_only.succeed("ss -nlt | grep '127.0.0.1:22'")
           server_localhost_only_lazy.succeed("ss -nlt | grep '127.0.0.1:22'")
     '';
-  } )
+  }
+)

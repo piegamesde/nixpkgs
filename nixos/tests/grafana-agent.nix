@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
   let
     nodes = { machine = { services.grafana-agent = { enable = true; }; }; };
-  in {
+  in
+  {
     name = "grafana-agent";
 
     meta = with lib.maintainers; { maintainers = [ zimbatm ]; };
@@ -24,4 +25,5 @@ import ./make-test-python.nix ({
           )
           machine.shutdown()
     '';
-  } )
+  }
+)

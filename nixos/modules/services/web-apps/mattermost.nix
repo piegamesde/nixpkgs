@@ -111,7 +111,8 @@ let
   mattermostConfJSON =
     pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
 
-in {
+in
+{
   options = {
     services.mattermost = {
       enable = mkEnableOption (lib.mdDoc "Mattermost chat server");

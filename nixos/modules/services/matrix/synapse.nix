@@ -66,7 +66,8 @@ let
         }:${builtins.toString listener.port}/"
     ''
     ;
-in {
+in
+{
 
   imports = [
 

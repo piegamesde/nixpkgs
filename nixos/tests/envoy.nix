@@ -52,7 +52,8 @@ import ./make-test-python.nix ({
       let
         specialisations =
           "${nodes.machine.system.build.toplevel}/specialisation";
-      in ''
+      in
+      ''
         machine.start()
 
         with subtest("envoy.service starts and responds with ready"):

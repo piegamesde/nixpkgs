@@ -20,7 +20,8 @@ let
     (mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}")
       (filterAttrs (k: v: v != null) cfg.shellAliases));
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "programs"

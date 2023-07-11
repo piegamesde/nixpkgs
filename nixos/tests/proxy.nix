@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
         networking.firewall.allowedTCPPorts = [ 80 ];
       }
       ;
-  in {
+  in
+  {
     name = "proxy";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -107,4 +108,5 @@ import ./make-test-python.nix ({
       backend2.unblock()
       client.succeed("curl --fail http://proxy/")
     '';
-  } )
+  }
+)

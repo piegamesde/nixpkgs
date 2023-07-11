@@ -25,7 +25,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
     services.pdnsd = {
       enable = mkEnableOption (lib.mdDoc "pdnsd");

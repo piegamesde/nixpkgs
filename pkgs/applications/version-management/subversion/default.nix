@@ -180,7 +180,8 @@ let
     })
     ;
 
-in {
+in
+{
   subversion = common {
     version = "1.14.2";
     sha256 = "sha256-yRMOjQt1copm8OcDj8dwUuZxgw14W1YWqtU7SBDTzCg=";

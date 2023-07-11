@@ -10,7 +10,8 @@ let
       };
     }
     ;
-in [
+in
+[
   (mkAwsPackage "")
   (mkAwsPackage "aws/session")
   (mkAwsPackage "aws/sns")

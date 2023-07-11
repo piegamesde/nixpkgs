@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) literalExpression mkOption nameValuePair types;
-in {
+in
+{
   options = {
 
     hostName = mkOption {

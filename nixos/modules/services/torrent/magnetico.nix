@@ -47,7 +47,8 @@ let
       "--addr=${address}:${toString port}"
     ] ++ extraOptions);
 
-in {
+in
+{
 
   ###### interface
 

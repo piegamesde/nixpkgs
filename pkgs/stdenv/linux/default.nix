@@ -243,7 +243,8 @@ let
           ;
       };
 
-    in {
+    in
+    {
       inherit config overlays;
       stdenv = thisStdenv;
     }

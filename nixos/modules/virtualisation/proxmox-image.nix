@@ -186,7 +186,8 @@ with lib;
         partitionTableType == "efi" || partitionTableType == "hybrid";
       hasNoFsPartition =
         partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
-    in {
+    in
+    {
       assertions = [
         {
           assertion = config.boot.loader.systemd-boot.enable
@@ -255,7 +256,8 @@ with lib;
               buildInputs = super.buildInputs ++ [ pkgs.libuuid ];
 
             });
-          in ''
+          in
+          ''
             ${vma}/bin/vma create "vzdump-qemu-${cfg.filenameSuffix}.vma" \
               -c ${
                 cfgFile "qemu-server.conf" (cfg.qemuConf // cfg.qemuExtraConf)

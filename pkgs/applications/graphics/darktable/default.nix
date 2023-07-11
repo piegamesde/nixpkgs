@@ -146,7 +146,8 @@ stdenv.mkDerivation rec {
         ;
       libPathPrefix = "$out/lib/darktable"
         + lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
-    in ''
+    in
+    ''
       for f in $out/share/darktable/kernels/*.cl; do
         sed -r "s|#include \"(.*)\"|#include \"$out/share/darktable/kernels/\1\"|g" -i "$f"
       done

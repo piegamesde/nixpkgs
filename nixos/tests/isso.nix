@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
     testScript =
       let
         port = 8080;
-      in ''
+      in
+      ''
         machine.wait_for_unit("isso.service")
 
         machine.wait_for_open_port(${toString port})

@@ -150,7 +150,8 @@ let
       '') (attrValues cfg.zones)}
   '';
 
-in {
+in
+{
 
   ###### interface
 

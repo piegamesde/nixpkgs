@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.boot.iscsi-initiator;
-in {
+in
+{
   # If you're booting entirely off another machine you may want to add
   # this snippet to always boot the latest "system" version. It is not
   # enabled by default in case you have an initrd on a local disk:
@@ -144,7 +145,8 @@ in {
               echo "Warning: boot.iscsi-initiator.extraConfigFile ${cfg.extraConfigFile} does not exist!" >&2
             fi
           '';
-        in ''
+        in
+        ''
           ${optionalString (!config.boot.initrd.network.ssh.enable) ''
             # stolen from initrd-ssh.nix
             echo 'root:x:0:0:root:/root:/bin/ash' > /etc/passwd

@@ -21,7 +21,8 @@ let
     cfg.certDir
   ];
 
-in {
+in
+{
   options = {
     services.syncplay = {
       enable = mkOption {

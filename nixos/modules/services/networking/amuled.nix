@@ -18,7 +18,8 @@ let
       "amule"
     ;
 
-in {
+in
+{
 
   ###### interface
 

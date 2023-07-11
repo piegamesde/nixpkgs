@@ -15,7 +15,8 @@ let
     optionalString
     types
     ;
-in {
+in
+{
   options.programs.iay = {
     enable = mkEnableOption (lib.mdDoc "iay");
     package = mkPackageOptionMD pkgs "iay" { };

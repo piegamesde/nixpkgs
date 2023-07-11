@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.vnstat;
-in {
+in
+{
   options.services.vnstat = {
     enable = mkEnableOption
       (lib.mdDoc "update of network usage statistics via vnstatd");

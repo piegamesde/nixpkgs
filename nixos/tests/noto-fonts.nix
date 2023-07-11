@@ -51,7 +51,8 @@ import ./make-test-python.nix ({
           다람쥐 헌 쳇바퀴에 타고파
           中国智造，慧及全球
         '';
-      in ''
+      in
+      ''
         machine.wait_for_x()
         machine.succeed("gedit ${testText} >&2 &")
         machine.wait_for_window(".* - gedit")

@@ -18,7 +18,8 @@ let
   };
   caBundle = "${cacertPackage}/etc/ssl/certs/ca-bundle.crt";
 
-in {
+in
+{
 
   options = {
 

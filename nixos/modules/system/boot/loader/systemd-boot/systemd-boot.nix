@@ -94,7 +94,8 @@ let
     ${checkedSystemdBootBuilder} "$@"
     ${cfg.extraInstallCommands}
   '';
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

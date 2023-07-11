@@ -27,7 +27,8 @@ buildPythonPackage {
     let
       libPath =
         "${xgboost}/lib/libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in ''
+    in
+    ''
       echo 'find_lib_path = lambda: ["${libPath}"]' > python-package/xgboost/libpath.py
     ''
     ;

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
   }:
   let
     testPath = pkgs.hello;
-  in {
+  in
+  {
     name = "varnish";
     meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
 
@@ -63,4 +64,5 @@ import ./make-test-python.nix ({
       client.wait_until_succeeds("nix-store -r ${testPath}");
       client.succeed("${testPath}/bin/hello");
     '';
-  } )
+  }
+)

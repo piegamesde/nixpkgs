@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.collectd;
-in {
+in
+{
   port = 9103;
   extraOpts = {
     collectdBinary = {
@@ -84,7 +85,8 @@ in {
         } \
         --collectd.security-level ${cfg.collectdBinary.securityLevel} \
       '';
-    in {
+    in
+    {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.prometheus-collectd-exporter}/bin/collectd_exporter \

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.infnoise;
-in {
+in
+{
   options = {
     services.infnoise = {
       enable = mkEnableOption (lib.mdDoc "the Infinite Noise TRNG driver");

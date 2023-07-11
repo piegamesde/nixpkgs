@@ -90,7 +90,8 @@ let
       };
     }
     ;
-in {
+in
+{
   basic = makeTest {
     name = "systemd-repart";
     meta.maintainers = with maintainers; [ nikstur ];

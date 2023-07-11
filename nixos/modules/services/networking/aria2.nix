@@ -26,7 +26,8 @@ let
     rpc-secret=${cfg.rpcSecret}
   '';
 
-in {
+in
+{
   options = {
     services.aria2 = {
       enable = mkOption {

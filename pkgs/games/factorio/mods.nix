@@ -13,7 +13,8 @@ with lib;
 let
   modDrv =
     factorio-utils.modDrv { inherit allRecommendedMods allOptionalMods; };
-in rec {
+in
+rec {
 
   bobassembly = modDrv {
     src = fetchurl {

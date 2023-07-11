@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
         };
       }.${system} or (throw "Unsopported system: ${system}");
 
-    in ''
+    in
+    ''
       chmod +x ${path.bin}
       ./${path.bin} ${path.asm} fasmg
     ''

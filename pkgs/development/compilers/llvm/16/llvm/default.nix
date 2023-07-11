@@ -295,7 +295,8 @@ stdenv.mkDerivation (rec {
       major = v.major release_version;
       minor = v.minor release_version;
       patch = v.patch release_version;
-    in ''
+    in
+    ''
       # $1: part, $2: expected
       check_version() {
         part="''${1^^}"

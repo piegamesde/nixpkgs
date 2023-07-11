@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.hardware.brillo;
-in {
+in
+{
   options = {
     hardware.brillo = {
       enable = mkEnableOption (lib.mdDoc ''

@@ -108,7 +108,8 @@ let
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 
-in {
+in
+{
 
   textures-editor = mkEditorProject rec {
     version = "1.7";

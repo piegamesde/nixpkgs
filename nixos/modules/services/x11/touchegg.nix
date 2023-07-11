@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.touchegg;
 
-in {
+in
+{
   meta = { maintainers = teams.pantheon.members; };
 
     ###### interface

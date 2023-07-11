@@ -83,13 +83,15 @@ import ./make-test-python.nix {
             "${nodes.machine.config.system.build.toplevel}/specialisation/gen${
               toString gen
             }/bin/switch-to-configuration test";
-        in ''
+        in
+        ''
           with machine.nested("switch to generation ${toString gen}"):
             machine.succeed("${switchCmd}")
         ''
         ;
 
-    in ''
+    in
+    ''
       import re
 
 

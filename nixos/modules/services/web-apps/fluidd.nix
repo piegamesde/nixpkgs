@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.fluidd;
   moonraker = config.services.moonraker;
-in {
+in
+{
   options.services.fluidd = {
     enable = mkEnableOption
       (lib.mdDoc "Fluidd, a Klipper web interface for managing your 3d printer")

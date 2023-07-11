@@ -11,7 +11,8 @@ let
 
   cfg = config.networking.tcpcrypt;
 
-in {
+in
+{
 
   ###### interface
 

@@ -32,7 +32,8 @@ let
   ############################
 
   # adding a plugin for another printer shouldn't be too difficult, but you need the firmware to test...
-in let
+in
+let
   plugins = {
     v330 = stdenv.mkDerivation rec {
       name = "iscan-v330-bundle";
@@ -357,12 +358,14 @@ in let
       meta = common_meta // { description = "iscan network plugin"; };
     };
   };
-in let
+in
+let
   fwdir = symlinkJoin {
     name = "esci-firmware-dir";
     paths = lib.mapAttrsToList (name: value: value + /share/esci) plugins;
   };
-in let
+in
+let
   iscan-data = stdenv.mkDerivation rec {
     pname = "iscan-data";
     version = "1.39.2-1";

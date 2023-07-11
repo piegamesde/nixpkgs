@@ -6,7 +6,8 @@
 self:
 let
   inherit (self) callPackage;
-in {
+in
+{
   acm = callPackage ./manual-packages/acm { };
 
   acm-terminal = callPackage ./manual-packages/acm-terminal { };

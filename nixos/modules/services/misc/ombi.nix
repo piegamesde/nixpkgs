@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.ombi;
 
-in {
+in
+{
   options = {
     services.ombi = {
       enable = mkEnableOption (lib.mdDoc ''

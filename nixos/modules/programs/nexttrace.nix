@@ -8,7 +8,8 @@
 let
   cfg = config.programs.nexttrace;
 
-in {
+in
+{
   options = {
     programs.nexttrace = {
       enable = lib.mkEnableOption (lib.mdDoc

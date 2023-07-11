@@ -28,7 +28,8 @@ let
     ;
 
   configFile = pkgs.writeText "jicofo.conf" (toHOCON cfg.config);
-in {
+in
+{
   options.services.jicofo = with types; {
     enable = mkEnableOption
       (lib.mdDoc "Jitsi Conference Focus - component of Jitsi Meet");
@@ -138,7 +139,8 @@ in {
             "/etc/jitsi/jicofo/logging.properties";
           "-Dconfig.file" = configFile;
         };
-      in {
+      in
+      {
         description = "JItsi COnference FOcus";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];

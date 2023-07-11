@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
       export LD_PRELOAD=${pkgs.libredirect}/lib/libredirect.so
       exec getent $@
     '';
-  in {
+  in
+  {
     name = "nscd";
 
     nodes.machine =
@@ -73,7 +74,8 @@ import ./make-test-python.nix ({
       let
         specialisations =
           "${nodes.machine.system.build.toplevel}/specialisation";
-      in ''
+      in
+      ''
         # Regression test for https://github.com/NixOS/nixpkgs/issues/50273
         def test_dynamic_user():
             with subtest("DynamicUser actually allocates a user"):
@@ -159,4 +161,5 @@ import ./make-test-python.nix ({
             # test_nss_myhostname()
       ''
       ;
-  } )
+  }
+)

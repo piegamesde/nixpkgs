@@ -51,7 +51,8 @@ let
             archive = "linux-${arch}-flutter-gtk.zip";
             buildInputs = [ gtk3 ];
           };
-        in {
+        in
+        {
           base = [
             ({
               archive = "artifacts.zip";
@@ -79,7 +80,8 @@ let
             "profile"
             "release"
           ] (variant: [ linux-flutter-gtk ]);
-        } );
+        }
+      );
     };
   };
 

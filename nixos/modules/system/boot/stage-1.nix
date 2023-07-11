@@ -184,13 +184,15 @@ let
           else
             source
           ;
-      in ''
+      in
+      ''
         mkdir -p $(dirname "$out/secrets/${dest}")
         # Some programs (e.g. ssh) doesn't like secrets to be
         # symlinks, so we use `cp -L` here to match the
         # behaviour when secrets are natively supported.
         cp -Lr ${source'} "$out/secrets/${dest}"
-      '' ) config.boot.initrd.secrets))}
+      ''
+    ) config.boot.initrd.secrets))}
 
     ${config.boot.initrd.extraUtilsCommands}
 
@@ -486,10 +488,12 @@ let
             else
               toString source
             ;
-        in ''
+        in
+        ''
           mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
           cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-        '' ) config.boot.initrd.secrets)}
+        ''
+      ) config.boot.initrd.secrets)}
 
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
@@ -499,7 +503,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options = {
 
     boot.resumeDevice = mkOption {

@@ -150,7 +150,8 @@ stdenv.mkDerivation rec {
           "MessageTest"
           "UnisonTest"
         ];
-    in ''
+    in
+    ''
       runHook preCheck
       ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
       runHook postCheck

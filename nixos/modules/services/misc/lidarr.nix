@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.lidarr;
-in {
+in
+{
   options = {
     services.lidarr = {
       enable = mkEnableOption (lib.mdDoc "Lidarr");

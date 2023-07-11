@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
       FllUkMD5oqjOR/YcboxG8Z3B5sJuvTP9llsF+gnuveWih9dpbBr7AgEC
     '';
 
-  in {
+  in
+  {
     name = "systemd-initrd-luks-keyfile";
 
     nodes.machine =
@@ -60,4 +61,5 @@ import ./make-test-python.nix ({
       machine.wait_for_unit("multi-user.target")
       assert "/dev/mapper/cryptroot on / type ext4" in machine.succeed("mount")
     '';
-  } )
+  }
+)

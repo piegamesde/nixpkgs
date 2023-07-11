@@ -32,7 +32,8 @@ let
     listen = cfg.listenAddress;
     cachetimeout = cfg.cacheTimeoutSeconds;
   });
-in {
+in
+{
   options = {
     services.hologram-server = {
       enable = mkOption {

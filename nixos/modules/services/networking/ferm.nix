@@ -19,7 +19,8 @@ let
       ${cfg.package}/bin/ferm --noexec $out
     '';
   };
-in {
+in
+{
   options = {
     services.ferm = {
       enable = mkOption {

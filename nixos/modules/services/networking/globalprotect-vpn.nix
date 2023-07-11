@@ -17,7 +17,8 @@ let
       "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}"
     ;
 
-in {
+in
+{
   options.services.globalprotect = {
     enable = mkEnableOption (lib.mdDoc "globalprotect");
 

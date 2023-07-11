@@ -24,7 +24,8 @@ let
       inherit (cfg) loki;
     });
 
-in {
+in
+{
   port = 9130;
 
   extraOpts = {

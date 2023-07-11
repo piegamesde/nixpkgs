@@ -277,7 +277,8 @@ stdenv.mkDerivation {
   unpackPhase =
     let
       copySource = repo: "cp -r ${sources.${repo}} ${repo}";
-    in ''
+    in
+    ''
       mkdir src
       cd src
 

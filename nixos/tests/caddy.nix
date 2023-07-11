@@ -76,7 +76,8 @@ import ./make-test-python.nix ({
           "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload";
         multipleConfigs =
           "${nodes.webserver.config.system.build.toplevel}/specialisation/multiple-configs";
-      in ''
+      in
+      ''
         url = "http://localhost/example.html"
         webserver.wait_for_unit("caddy")
         webserver.wait_for_open_port(80)

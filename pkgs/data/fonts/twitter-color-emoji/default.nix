@@ -72,7 +72,8 @@ stdenv.mkDerivation rec {
         "s#.*is licensed under.*#      Creative Commons Attribution 4.0 International#"
         "s#http://scripts.sil.org/OFL#http://creativecommons.org/licenses/by/4.0/#"
       ];
-    in ''
+    in
+    ''
       ${noto-fonts-emoji.postPatch}
 
       sed '${templateSubstitutions}' NotoColorEmoji.tmpl.ttx.tmpl > TwitterColorEmoji.tmpl.ttx.tmpl

@@ -25,7 +25,8 @@ let
         else
           cfg.package
         ;
-    in if cfg.extraPlugins == [ ] then
+    in
+    if cfg.extraPlugins == [ ] then
       base
     else
       base.withPackages (_: cfg.extraPlugins)
@@ -54,7 +55,8 @@ let
 
   groupAccessAvailable = versionAtLeast postgresql.version "11.0";
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"
@@ -231,7 +233,8 @@ in {
                     defaultText = lib.literalMD ''
                       `null`: do not set. For newly created roles, use PostgreSQL's default. For existing roles, do not touch this clause.
                     '';
-                  in {
+                  in
+                  {
                     superuser = mkOption {
                       type = types.nullOr types.bool;
                       description = lib.mdDoc ''
@@ -621,11 +624,13 @@ in {
               $PSQL -tAc 'ALTER ROLE "${user.name}" ${
                 concatStringsSep " " clauseSqlStatements
               }' '';
-          in ''
+          in
+          ''
             $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
             ${userPermissions}
             ${userClauses}
-          '' ) cfg.ensureUsers}
+          ''
+        ) cfg.ensureUsers}
       '';
 
       serviceConfig = mkMerge [

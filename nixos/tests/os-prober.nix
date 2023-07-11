@@ -67,7 +67,8 @@ import ./make-test-python.nix ({
         pkgs.writeText "simpleConfig.json" (builtins.toJSON simpleConfig)
       })
     '';
-  in {
+  in
+  {
     name = "os-prober";
 
     nodes.machine =
@@ -142,4 +143,5 @@ import ./make-test-python.nix ({
 
       machine.succeed("egrep 'menuentry.*debian' /boot/grub/grub.cfg")
     '';
-  } )
+  }
+)

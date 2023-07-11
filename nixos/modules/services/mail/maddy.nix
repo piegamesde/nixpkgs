@@ -139,7 +139,8 @@ let
     }
   '';
 
-in {
+in
+{
   options = {
     services.maddy = {
 

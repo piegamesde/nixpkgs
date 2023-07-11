@@ -74,7 +74,8 @@ let
 
     # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jvbConfig = recursiveUpdate defaultJvbConfig cfg.config;
-in {
+in
+{
   options.services.jitsi-videobridge = with types; {
     enable = mkEnableOption
       (lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router");
@@ -253,7 +254,8 @@ in {
             # Mitigate CVE-2021-44228
           "-Dlog4j2.formatMsgNoLookups" = true;
         } // (mapAttrs' (k: v: nameValuePair "-D${k}" v) cfg.extraProperties);
-      in {
+      in
+      {
         aliases = [ "jitsi-videobridge.service" ];
         description = "Jitsi Videobridge";
         after = [ "network.target" ];

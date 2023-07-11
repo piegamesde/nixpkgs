@@ -81,7 +81,8 @@
                   matched = builtins.match "[ 	]+(${reHost})(.*)" str;
                   continue = lib.singleton (lib.head matched)
                     ++ matchAliases (lib.last matched);
-                in if matched == null then
+                in
+                if matched == null then
                   [ ]
                 else
                   continue
@@ -92,7 +93,8 @@
                 let
                   result =
                     builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
-                in if result == null then
+                in
+                if result == null then
                   null
                 else
                   {
@@ -109,7 +111,8 @@
                     [^
                     ]*
                     (.*)'' str;
-                in if rest == null then
+                in
+                if rest == null then
                   ""
                 else
                   lib.head rest
@@ -127,7 +130,8 @@
                     else
                       next newEntry
                     ;
-                in if str == "" then
+                in
+                if str == "" then
                   acc
                 else
                   continue

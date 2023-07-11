@@ -13,7 +13,8 @@ let
 
   dataDir = "/var/lib/metabase";
 
-in {
+in
+{
 
   options = {
 

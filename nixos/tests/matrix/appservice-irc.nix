@@ -4,7 +4,8 @@ import ../make-test-python.nix ({
   }:
   let
     homeserverUrl = "http://homeserver:8008";
-  in {
+  in
+  {
     name = "matrix-appservice-irc";
     meta = { maintainers = pkgs.matrix-appservice-irc.meta.maintainers; };
 
@@ -241,4 +242,5 @@ import ../make-test-python.nix ({
       with subtest("ensure messages can be exchanged"):
           client.succeed("do_test ${homeserverUrl} >&2")
     '';
-  } )
+  }
+)

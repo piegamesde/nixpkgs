@@ -10,7 +10,8 @@ let
 
   cfg = config.documentation.man.mandoc;
 
-in {
+in
+{
   meta.maintainers = [ lib.maintainers.sternenseemann ];
 
   options = {

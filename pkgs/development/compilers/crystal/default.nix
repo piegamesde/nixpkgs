@@ -300,7 +300,8 @@ let
         };
       })));
 
-in rec {
+in
+rec {
   binaryCrystal_1_2 = genericBinary {
     version = "1.2.2";
     sha256s = {

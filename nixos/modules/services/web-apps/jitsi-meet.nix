@@ -50,7 +50,8 @@ let
     liveStreamingEnabled = true;
     hiddenDomain = "recorder.${cfg.hostName}";
   };
-in {
+in
+{
   options.services.jitsi-meet = with types; {
     enable = mkEnableOption
       (lib.mdDoc "Jitsi Meet - Secure, Simple and Scalable Video Conferences");
@@ -274,7 +275,8 @@ in {
             else
               "/var/lib/jitsi-meet/videobridge-secret"
             ;
-        in ''
+        in
+        ''
           ${config.services.prosody.package}/bin/prosodyctl register focus auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jicofo-user-secret)"
           ${config.services.prosody.package}/bin/prosodyctl register jvb auth.${cfg.hostName} "$(cat ${videobridgeSecret})"
           ${config.services.prosody.package}/bin/prosodyctl mod_roster_command subscribe focus.${cfg.hostName} focus@auth.${cfg.hostName}
@@ -405,7 +407,8 @@ in {
               } $out/interface_config.js
               cp ./libs/external_api.min.js $out/external_api.js
             '';
-          in ''
+          in
+          ''
             handle /http-bind {
               header Host ${cfg.hostName}
               reverse_proxy 127.0.0.1:5280

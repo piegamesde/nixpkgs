@@ -41,12 +41,14 @@ let
       # also, implement automatic waiting for the constituent devices when that happens
       # bcachefs does not support mounting devices with colons in the path, ergo we don't (see #49671)
       firstDevice = head (splitString ":" fs.device);
-    in ''
+    in
+    ''
       tryUnlock ${name} ${firstDevice}
     ''
     ;
 
-in {
+in
+{
   config = mkIf (elem "bcachefs" config.boot.supportedFilesystems) (mkMerge [
     {
       # We do not want to include bachefs in the fsPackages for systemd-initrd

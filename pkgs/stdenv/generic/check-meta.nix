@@ -28,7 +28,8 @@ let
   allowNonSource =
     let
       envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
-    in if envVar != "" then
+    in
+    if envVar != "" then
       envVar != "0"
     else
       config.allowNonSource or true
@@ -262,7 +263,8 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
         expectedOutputs;
-    in ''
+    in
+    ''
       The package ${getName attrs} has set meta.outputsToInstall to: ${
         builtins.concatStringsSep ", " expectedOutputs
       }
@@ -333,7 +335,8 @@ let
             ${remediationMsg}'')
         ;
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
-    in if isEnabled != null then
+    in
+    if isEnabled != null then
       builtins.trace msg true
     else
       true
@@ -449,7 +452,8 @@ let
       missingOutputs =
         builtins.filter (output: !builtins.elem output actualOutputs)
         expectedOutputs;
-    in if config.checkMeta then
+    in
+    if config.checkMeta then
       builtins.length missingOutputs > 0
     else
       false
@@ -469,7 +473,8 @@ let
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
     let
       res = checkMeta (attrs.meta or { });
-    in if res != [ ] then
+    in
+    if res != [ ] then
       {
         valid = "no";
         reason = "unknown-meta";
@@ -537,7 +542,8 @@ let
               allowPrettyValues = true;
               indent = "  ";
             };
-          in {
+          in
+          {
             valid = "no";
             reason = "unsupported";
             errormsg = ''
@@ -655,6 +661,5 @@ let
     }
     ;
 
-in {
-  inherit assertValidity commonMeta;
-}
+in
+{ inherit assertValidity commonMeta; }

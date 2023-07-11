@@ -13,7 +13,8 @@ let
   kernelParams = concatStringsSep " " crashdump.kernelParams;
 
   ###### interface
-in {
+in
+{
   options = {
     boot = {
       crashDump = {

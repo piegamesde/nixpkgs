@@ -13,7 +13,8 @@ let
   settingsFile = "${dataDir}/sssd.conf";
   settingsFileUnsubstituted =
     pkgs.writeText "${dataDir}/sssd-unsubstituted.conf" cfg.config;
-in {
+in
+{
   options = {
     services.sssd = {
       enable = mkEnableOption (lib.mdDoc "the System Security Services Daemon");

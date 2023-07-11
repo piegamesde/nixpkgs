@@ -11,7 +11,8 @@ let
 
   cfg = config.security.polkit;
 
-in {
+in
+{
 
   options = {
 

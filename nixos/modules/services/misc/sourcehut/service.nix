@@ -143,7 +143,8 @@ let
       }
     ]
     ;
-in {
+in
+{
   options.services.sourcehut.${srv} = {
     enable = mkEnableOption (lib.mdDoc "${srv} service");
 

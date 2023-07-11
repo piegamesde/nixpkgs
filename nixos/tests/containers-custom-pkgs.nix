@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
         })
       ];
 
-  in {
+  in
+  {
     name = "containers-custom-pkgs";
     meta = {
       maintainers = with lib.maintainers; [
@@ -29,7 +30,8 @@ import ./make-test-python.nix ({
           let
             helloName = (builtins.head
               config.containers.test.config.system.extraDependencies).name;
-          in [ {
+          in
+          [ {
             assertion = helloName == "custom-hello";
             message = "Unexpected value: ${helloName}";
           } ]
@@ -53,4 +55,5 @@ import ./make-test-python.nix ({
 
       # This test only consists of evaluating the test machine
     testScript = "pass";
-  } )
+  }
+)

@@ -52,7 +52,8 @@ let
       };
     }
     ;
-in {
+in
+{
   modules15 = common {
     version = "0.15.1";
     sha256 = "1lwgjhgr5yw0d17kbqwlaj5pkn70wvaqqjpa1i0n459nx5cf5pqj";

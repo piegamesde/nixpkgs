@@ -30,7 +30,8 @@ import ../make-test-python.nix ({
                 preg_match('/(${testString})/', '${testString}', $result);
                 var_dump($result);
               '';
-            in ''
+            in
+            ''
               Alias / ${testRoot}/
 
               <Directory ${testRoot}>
@@ -52,7 +53,8 @@ import ../make-test-python.nix ({
           $pid = pcntl_fork();
           pcntl_wait($pid);
         '';
-      in ''
+      in
+      ''
         machine.wait_for_unit("httpd.service")
         # Ensure php evaluation by matching on the var_dump syntax
         response = machine.succeed("curl -fvvv -s http://127.0.0.1:80/index.php")

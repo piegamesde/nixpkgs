@@ -4,7 +4,8 @@
 
 let
   inherit (lib) throwIfNot;
-in {
+in
+{
   /* Restrict a derivation to a predictable set of attribute names, so
      that the returned attrset is not strict in the actual derivation,
      saving a lot of computation when the derivation is non-trivial.

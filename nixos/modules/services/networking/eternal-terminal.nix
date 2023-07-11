@@ -11,7 +11,8 @@ let
 
   cfg = config.services.eternal-terminal;
 
-in {
+in
+{
 
   ###### interface
 

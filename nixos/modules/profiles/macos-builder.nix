@@ -14,7 +14,8 @@ let
 
   cfg = config.virtualisation.darwin-builder;
 
-in {
+in
+{
   imports = [
     ../virtualisation/qemu-vm.nix
 

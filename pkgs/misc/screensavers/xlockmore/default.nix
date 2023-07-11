@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     let
       makePath = p: lib.concatMapStringsSep " " (x: x + "/" + p) buildInputs;
       inputs = "${makePath "lib"} ${makePath "include"}";
-    in ''
+    in
+    ''
       sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
       sed -i 's,/usr/,/no-such-dir/,g' configure.ac
       configureFlags+=" --enable-appdefaultdir=$out/share/X11/app-defaults"

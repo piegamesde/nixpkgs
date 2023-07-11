@@ -38,10 +38,12 @@ rec {
         # `target-family` is a list instead of single value.
         let
           f = platform.rustc.platform.target-family;
-        in if builtins.isList f then
+        in
+        if builtins.isList f then
           f
         else
-          [ f ])
+          [ f ]
+      )
     else
       lib.optional platform.isUnix "unix"
       ++ lib.optional platform.isWindows "windows"

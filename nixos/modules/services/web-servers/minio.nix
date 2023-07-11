@@ -17,7 +17,8 @@ let
       MINIO_ROOT_PASSWORD=${cfg.secretKey}
     ''
     ;
-in {
+in
+{
   meta.maintainers = [ maintainers.bachp ];
 
   options.services.minio = {

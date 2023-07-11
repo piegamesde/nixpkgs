@@ -31,7 +31,8 @@ let
     ;
   broken = old: { meta = old.meta // { broken = true; }; };
   brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
-in {
+in
+{
   allegro = addToBuildInputsWithPkgConfig ([
     pkgs.allegro5
     pkgs.libglvnd

@@ -444,7 +444,8 @@ let
               ''
                 ${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs);
-        in ''
+        in
+        ''
           ${wg_setup}
           ${route_setup}
 
@@ -467,7 +468,8 @@ let
               ''
                 ${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs);
-        in ''
+        in
+        ''
           ${wg} set "${interfaceName}" peer "${peer.publicKey}" remove
           ${route_destroy}
         ''
@@ -576,13 +578,15 @@ let
         dst
       ];
       ns = last nsList;
-    in if (length nsList > 0 && ns != "init") then
+    in
+    if (length nsList > 0 && ns != "init") then
       ''ip netns exec "${ns}" "${cmd}"''
     else
       cmd
     ;
 
-in {
+in
+{
 
   ###### interface
 
@@ -638,7 +642,8 @@ in {
     all_peers = flatten (mapAttrsToList (interfaceName: interfaceCfg:
       map (peer: { inherit interfaceName interfaceCfg peer; })
       interfaceCfg.peers) cfg.interfaces);
-  in {
+  in
+  {
 
     assertions = (attrValues (mapAttrs (name: value: {
       assertion = (value.privateKey != null) != (value.privateKeyFile != null);
@@ -670,6 +675,7 @@ in {
           cfg.interfaces));
 
     systemd.targets = mapAttrs' generateInterfaceTarget cfg.interfaces;
-  } );
+  }
+  );
 
 }

@@ -14,7 +14,8 @@ let
 
   configFile =
     format.generate "grafana-image-renderer-config.json" cfg.settings;
-in {
+in
+{
   options.services.grafana-image-renderer = {
     enable = mkEnableOption (lib.mdDoc "grafana-image-renderer");
 

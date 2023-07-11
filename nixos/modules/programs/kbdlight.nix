@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.kbdlight;
 
-in {
+in
+{
   options.programs.kbdlight.enable = mkEnableOption (lib.mdDoc "kbdlight");
 
   config = mkIf cfg.enable {

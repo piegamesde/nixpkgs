@@ -58,7 +58,8 @@ let
       inherit lib stdenv core src version makeWrapper retroarch zlib;
     } // args)
     ;
-in {
+in
+{
   inherit mkLibretroCore;
 
   atari800 = mkLibretroCore {
@@ -261,7 +262,8 @@ in {
           else
             "linux"
           ;
-      in [
+      in
+      [
         "-C"
         "bsnes"
         "target=libretro"

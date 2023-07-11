@@ -52,7 +52,8 @@
         }:
         let
           src = patch;
-        in {
+        in
+        {
           name = lib.removeSuffix ".patch" src.name;
           patch = fetchurl (lib.filterAttrs (k: v: k != "extra") src);
           extra = src.extra;

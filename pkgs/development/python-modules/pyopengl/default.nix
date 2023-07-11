@@ -22,7 +22,8 @@ buildPythonPackage rec {
   patchPhase =
     let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       # Theses lines are patching the name of dynamic libraries
       # so pyopengl can find them at runtime.
       substituteInPlace OpenGL/platform/glx.py \

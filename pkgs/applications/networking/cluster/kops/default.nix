@@ -69,7 +69,8 @@ let
       };
     } // attrs'
     ;
-in rec {
+in
+rec {
   mkKops = generic;
 
   kops_1_24 = mkKops rec {

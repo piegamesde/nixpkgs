@@ -53,7 +53,8 @@ let
       p
     ]) allConfigPaths));
 
-in {
+in
+{
   options = {
     services.vault = {
       enable = mkEnableOption (lib.mdDoc "Vault daemon");

@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       escape C-t
       bind t exec env DISPLAY=:0 ${pkgs.xterm}/bin/xterm -cm -pc
     '';
-  in {
+  in
+  {
     name = "cagebreak";
     meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
 
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
       }:
       let
         alice = config.users.users.alice;
-      in {
+      in
+      {
         # Automatically login on tty1 as a normal user:
         imports = [ ./common/user-account.nix ];
         services.getty.autologinUser = "alice";
@@ -59,7 +61,8 @@ import ./make-test-python.nix ({
       let
         user = nodes.machine.config.users.users.alice;
         XDG_RUNTIME_DIR = "/run/user/${toString user.uid}";
-      in ''
+      in
+      ''
         start_all()
         machine.wait_for_unit("multi-user.target")
         machine.wait_for_file("${XDG_RUNTIME_DIR}/wayland-0")
@@ -77,4 +80,5 @@ import ./make-test-python.nix ({
         #     machine.send_key("ctrl-d")
       ''
       ;
-  } )
+  }
+)

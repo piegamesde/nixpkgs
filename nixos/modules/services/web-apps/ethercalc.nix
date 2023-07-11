@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.ethercalc;
-in {
+in
+{
   options = {
     services.ethercalc = {
       enable = mkOption {

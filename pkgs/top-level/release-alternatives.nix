@@ -150,7 +150,8 @@ let
     }) xs)
     ;
 
-in {
+in
+{
   blas = mapListToAttrs supportedSystems (system':
     let
       system = lib.systems.elaborate { system = system'; };

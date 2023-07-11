@@ -103,7 +103,8 @@ let
     }
     ;
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "services"

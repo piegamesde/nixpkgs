@@ -48,7 +48,8 @@ let
     d: l:
     let
       ctlDir = listCtl d l;
-    in ''
+    in
+    ''
       for DIR in incoming queue queue/discarded archive text subconf unsubconf \
                  bounce control moderation subscribers.d digesters.d requeue \
                  nomailsubs.d
@@ -68,7 +69,8 @@ let
     ''
     ;
 
-in {
+in
+{
 
   ###### interface
 

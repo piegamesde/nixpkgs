@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.cwm;
-in {
+in
+{
   options = {
     services.xserver.windowManager.cwm.enable =
       mkEnableOption (lib.mdDoc "cwm");

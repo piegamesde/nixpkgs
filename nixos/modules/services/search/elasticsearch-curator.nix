@@ -38,7 +38,8 @@ let
     name = "action.yaml";
     text = cfg.actionYAML;
   };
-in {
+in
+{
 
   options.services.elasticsearch-curator = {
 

@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.jackett;
 
-in {
+in
+{
   options = {
     services.jackett = {
       enable = mkEnableOption (lib.mdDoc "Jackett");

@@ -12,7 +12,8 @@ let
     name: args:
     let
       override = overrides.${name} or { };
-    in {
+    in
+    {
       version = override.version or version;
       src = override.src or fetchgit {
         inherit (args) url rev sha256;
@@ -69,7 +70,8 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
     let
       branchName = "5.15.13";
       rev = "v${branchName}-lts";
-    in {
+    in
+    {
       version = branchName;
 
       src = fetchgit {

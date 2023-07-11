@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.fcgiwrap;
-in {
+in
+{
 
   options = {
     services.fcgiwrap = {

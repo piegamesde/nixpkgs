@@ -13,7 +13,8 @@ let
     lib.hasAttrByPath path config && (lib.attrByPath path { } config) != { };
 
   inherit (config.nixops) enableDeprecatedAutoLuks;
-in {
+in
+{
   options.nixops.enableDeprecatedAutoLuks = lib.mkEnableOption
     (lib.mdDoc "Enable the deprecated NixOps AutoLuks module");
 

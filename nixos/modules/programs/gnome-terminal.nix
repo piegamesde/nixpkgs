@@ -13,7 +13,8 @@ let
 
   cfg = config.programs.gnome-terminal;
 
-in {
+in
+{
 
   meta = { maintainers = teams.gnome.members; };
 

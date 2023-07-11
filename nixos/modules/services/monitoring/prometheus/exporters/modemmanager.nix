@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.modemmanager;
-in {
+in
+{
   port = 9539;
   extraOpts = {
     refreshRate = mkOption {

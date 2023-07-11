@@ -23,7 +23,8 @@ in
   cuda_nvcc = prev.cuda_nvcc.overrideAttrs (oldAttrs:
     let
       inherit (prev.backendStdenv) cc;
-    in {
+    in
+    {
       # Point NVCC at a compatible compiler
       # FIXME: non-redist cudatoolkit copy-pastes this code
 
@@ -53,7 +54,8 @@ in
         export NVCC_PREPEND_FLAGS+=' --compiler-bindir=${cc}/bin -Xfatbin=-compress-all'
         EOF
       '';
-    } );
+    }
+  );
 
   cuda_nvprof = prev.cuda_nvprof.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.addOpenGLRunpath ];

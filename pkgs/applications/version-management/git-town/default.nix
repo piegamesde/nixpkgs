@@ -44,7 +44,8 @@ buildGoModule rec {
     let
       modulePath =
         "github.com/git-town/git-town/v${lib.versions.major version}";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${modulePath}/src/cmd.version=v${version}"
@@ -62,7 +63,8 @@ buildGoModule rec {
         "TestMockingShell_MockCommand"
         "TestShellRunner_RunStringWith_Input"
       ];
-    in ''
+    in
+    ''
       HOME=$(mktemp -d)
       # Disable tests requiring local operations
       buildFlagsArray+=("-run" "[^(${

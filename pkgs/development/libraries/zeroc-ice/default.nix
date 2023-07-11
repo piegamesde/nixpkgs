@@ -92,13 +92,15 @@ stdenv.mkDerivation rec {
       ];
         # matches CONFIGS flag in makeFlagsArray
       configFlag = optionalString cpp11 "--config=cpp11-shared";
-    in ''
+    in
+    ''
       runHook preCheck
       ${python3.interpreter} ./cpp/allTests.py ${configFlag} --rfilter='${
         concatStringsSep "|" brokenTests
       }'
       runHook postCheck
-    '' ;
+    ''
+    ;
 
   postInstall = ''
     mkdir -p $bin $dev/share

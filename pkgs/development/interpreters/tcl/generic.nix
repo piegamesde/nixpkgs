@@ -43,7 +43,8 @@ let
     postInstall =
       let
         dllExtension = stdenv.hostPlatform.extensions.sharedLibrary;
-      in ''
+      in
+      ''
         make install-private-headers
         ln -s $out/bin/tclsh${release} $out/bin/tclsh
         ln -s $out/lib/libtcl${release}${dllExtension} $out/lib/libtcl${dllExtension}

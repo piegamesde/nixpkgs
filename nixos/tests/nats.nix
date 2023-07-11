@@ -24,7 +24,8 @@ import ./make-test-python.nix ({
             environment.systemPackages = with pkgs; [ natscli ];
           }
           ;
-      in {
+      in
+      {
         server =
           {
             pkgs,
@@ -54,7 +55,8 @@ import ./make-test-python.nix ({
     testScript =
       let
         file = "/tmp/msg";
-      in ''
+      in
+      ''
         def nats_cmd(*args):
             return (
                 "nats "

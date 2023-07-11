@@ -55,7 +55,8 @@ let
     "features" = "-mmx,-sse,+soft-float";
   };
 
-in {
+in
+{
   blogOS-targetByFile = mkBlogOsTest
     (builtins.toFile "x86_64-blog_os.json" (builtins.toJSON targetContents));
   blogOS-targetByNix =

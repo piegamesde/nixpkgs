@@ -80,7 +80,8 @@ rec {
           };
           varDefs = concatStringsSep "\n" (map (x: "  --set ${x} \\")
             ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs));
-        in ''
+        in
+        ''
           mkdir -pv $out/lib/gradle/
           cp -rv lib/ $out/lib/gradle/
 
@@ -89,7 +90,8 @@ rec {
           makeWrapper ${java}/bin/java $out/bin/gradle \
             ${varDefs}
             --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain${toolchain.property}"
-        '' ;
+        ''
+        ;
 
       dontFixup = !stdenv.isLinux;
 
@@ -101,7 +103,8 @@ rec {
             else
               "i386"
             ;
-        in ''
+        in
+        ''
           for variant in "" "-ncurses5" "-ncurses6"; do
             mkdir "patching$variant"
             pushd "patching$variant"

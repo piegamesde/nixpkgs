@@ -135,7 +135,8 @@ let
       let
         keys = filter (x: datasetToPool x == pool)
           cfgZfs.requestEncryptionCredentials;
-      in {
+      in
+      {
         hasKeys = keys != [ ];
         command =
           "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
@@ -246,7 +247,8 @@ let
     } "=";
   } cfgZED.settings;
 
-in {
+in
+{
 
   imports = [
       (mkRemovedOptionModule [
@@ -781,7 +783,8 @@ in {
       systemd.targets.zfs-import =
         let
           services = map (pool: "zfs-import-${pool}.service") dataPools;
-        in {
+        in
+        {
           requires = services;
           after = services;
           wantedBy = [ "zfs.target" ];
@@ -826,7 +829,8 @@ in {
             else
               lib.escapeShellArgs cfgExpandOnBoot
             ;
-        in {
+        in
+        {
           description = "Expand specified ZFS pools";
           wantedBy = [ "default.target" ];
           after = [ "zfs.target" ];

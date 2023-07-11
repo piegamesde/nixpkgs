@@ -7,7 +7,8 @@
 }:
 let
   cfg = config.services.ergochat;
-in {
+in
+{
   options = {
     services.ergochat = {
 

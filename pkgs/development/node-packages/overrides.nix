@@ -400,7 +400,8 @@ final: prev: {
             hash = "sha256-pe8Xm4mjPh9oKXugoMY6pRl8YYgtdw0sRXN+TienalU=";
           })
         ];
-      in ''
+      in
+      ''
         ${lib.concatStringsSep "\n"
         (map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
           patches)}
@@ -431,7 +432,8 @@ final: prev: {
           nodejs.passthru.python
           nodejs
         ];
-      in ''
+      in
+      ''
         for prog in $out/bin/*; do
           wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
         done

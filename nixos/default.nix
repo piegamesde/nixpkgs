@@ -10,7 +10,8 @@ let
     modules = [ configuration ];
   };
 
-in {
+in
+{
   inherit (eval) pkgs config options;
 
   system = eval.config.system.build.toplevel;

@@ -23,10 +23,12 @@ let
       hash = "sha256-vNR7WeiSvg+763GcovoZBFDfncekJMeqNegP4fVw06I=";
     };
   });
-in let
+in
+let
   why3 = why3_1_5;
 
-in let
+in
+let
   mkocamlpath = p: "${p}/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib";
   runtimeDeps = with ocamlPackages; [
     apron.dev

@@ -11,7 +11,8 @@ with lib;
 
 let
   cfg = config.virtualisation.lxc.lxcfs;
-in {
+in
+{
   meta.maintainers = [ maintainers.mic92 ];
 
     ###### interface

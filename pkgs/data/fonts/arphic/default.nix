@@ -8,7 +8,8 @@
 
 let
   version = "0.2.20080216.2";
-in {
+in
+{
   arphic-ukai = stdenvNoCC.mkDerivation rec {
     pname = "arphic-ukai";
     inherit version;

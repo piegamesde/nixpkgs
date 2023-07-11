@@ -50,7 +50,8 @@ let
     '';
 
   };
-in rec {
+in
+rec {
 
   firebird_2_5 = stdenv.mkDerivation (base // rec {
     version = "2.5.9";

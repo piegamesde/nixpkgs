@@ -10,7 +10,8 @@ let
   toplevelConfig = config;
   inherit (lib) types;
   inherit (utils.systemdUtils.lib) mkPathSafeName;
-in {
+in
+{
   options.systemd.services = lib.mkOption {
     type = types.attrsOf (types.submodule ({
         name,

@@ -8,11 +8,13 @@
 let
   cfg = config.services.tts;
 
-in {
+in
+{
   options.services.tts =
     let
       inherit (lib) literalExpression mkOption mdDoc mkEnableOption types;
-    in {
+    in
+    {
       servers = mkOption {
         type = types.attrsOf (types.submodule ({
             ...

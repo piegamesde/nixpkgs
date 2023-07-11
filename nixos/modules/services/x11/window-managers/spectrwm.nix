@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.spectrwm;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.spectrwm.enable =
       mkEnableOption (lib.mdDoc "spectrwm");

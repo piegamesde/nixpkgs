@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
       }
       ;
 
-  in {
+  in
+  {
     name = "openarena";
     meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
 
@@ -78,4 +79,5 @@ import ./make-test-python.nix ({
       client2.screenshot("screen_client2_3")
     '';
 
-  } )
+  }
+)

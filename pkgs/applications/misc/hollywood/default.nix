@@ -75,7 +75,8 @@ stdenv.mkDerivation {
         findutils
         ccze
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out

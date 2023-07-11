@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.services.webdav;
   format = pkgs.formats.yaml { };
-in {
+in
+{
   options = {
     services.webdav = {
       enable = mkEnableOption (lib.mdDoc "WebDAV server");

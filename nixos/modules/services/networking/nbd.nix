@@ -53,7 +53,8 @@ let
     path) cfg.server.exports);
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
-in {
+in
+{
   options = {
     services.nbd = {
       server = {

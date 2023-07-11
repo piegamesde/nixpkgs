@@ -22,7 +22,8 @@ buildPythonPackage rec {
   postPatch =
     let
       libext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       # Use the $PYENCHANT_LIBRARY_PATH envvar lookup line to hard-code the
       # location of the nix enchant-2 library into _enchant.py.
       #

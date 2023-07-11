@@ -17,7 +17,8 @@ let
     escapeShellArgs
     ;
   cfg = config.services.mtr-exporter;
-in {
+in
+{
   options = {
     services = {
       mtr-exporter = {

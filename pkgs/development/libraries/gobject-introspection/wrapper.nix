@@ -34,7 +34,8 @@ let
     ;
 
   # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
-in if
+in
+if
   (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
   && stdenv.targetPlatform.emulatorAvailable buildPackages
 then

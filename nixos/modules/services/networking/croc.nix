@@ -8,7 +8,8 @@ let
   inherit (lib) types;
   cfg = config.services.croc;
   rootDir = "/run/croc";
-in {
+in
+{
   options.services.croc = {
     enable = lib.mkEnableOption (lib.mdDoc "croc relay");
     ports = lib.mkOption {

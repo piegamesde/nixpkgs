@@ -27,7 +27,8 @@
 let
   inherit (pkgs) lib;
 
-in with haskellLib;
+in
+with haskellLib;
 
 self: super:
 {

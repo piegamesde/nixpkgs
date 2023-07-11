@@ -9,7 +9,8 @@ with lib;
 let
 
   cfg = config.services.lighthouse;
-in {
+in
+{
 
   options = {
     services.lighthouse = {

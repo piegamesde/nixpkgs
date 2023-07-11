@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.spiped;
-in {
+in
+{
   options = {
     services.spiped = {
       enable = mkOption {

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.restic.server;
-in {
+in
+{
   meta.maintainers = [ maintainers.bachp ];
 
   options.services.restic.server = {

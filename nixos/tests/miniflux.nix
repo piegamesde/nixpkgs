@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
       ADMIN_PASSWORD=${password}
     '';
 
-  in with lib; {
+  in
+  with lib; {
     name = "miniflux";
     meta.maintainers = with pkgs.lib.maintainers; [ ];
 
@@ -99,4 +100,5 @@ import ./make-test-python.nix ({
           }/v1/me' -u '${username}:${password}' -H Content-Type:application/json | grep '\"is_admin\":true'"
       )
     '';
-  })
+  }
+)

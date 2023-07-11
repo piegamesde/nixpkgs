@@ -55,7 +55,8 @@ let
     }
     ;
 
-in with lib;
+in
+with lib;
 
 stdenv.mkDerivation {
   name = "${pname}-unwrapped-${version}";

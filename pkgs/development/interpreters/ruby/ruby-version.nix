@@ -44,7 +44,8 @@ let
               ""
             ] num)
             ;
-        in if lib.hasPrefix "p" tail && isPosInt p then
+        in
+        if lib.hasPrefix "p" tail && isPosInt p then
           p
         else
           null
@@ -71,7 +72,8 @@ let
       gitTag =
         let
           base = "v${major}_${minor}_${tiny}";
-        in if patchLevel != null then
+        in
+        if patchLevel != null then
           "${base}_${patchLevel}"
         else if tail != "" then
           "${base}_${tail}"

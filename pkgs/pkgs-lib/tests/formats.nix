@@ -3,7 +3,8 @@
 }:
 let
   inherit (pkgs) lib formats;
-in with lib;
+in
+with lib;
 let
 
   evalFormat =

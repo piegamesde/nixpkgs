@@ -26,7 +26,8 @@ let
   optPam = shouldUsePkg pam;
   optLibidn = shouldUsePkg libidn;
   optGnutls = shouldUsePkg gnutls;
-in with lib;
+in
+with lib;
 stdenv.mkDerivation rec {
   pname = "shishi";
   version = "1.0.2";

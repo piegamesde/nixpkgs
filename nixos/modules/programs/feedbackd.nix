@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.feedbackd;
-in {
+in
+{
   options = {
     programs.feedbackd = {
       enable = mkEnableOption (lib.mdDoc ''

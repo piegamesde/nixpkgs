@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.trickster;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

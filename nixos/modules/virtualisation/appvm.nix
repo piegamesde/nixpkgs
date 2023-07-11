@@ -11,7 +11,8 @@ let
 
   cfg = config.virtualisation.appvm;
 
-in {
+in
+{
 
   options = {
     virtualisation.appvm = {

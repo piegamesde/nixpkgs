@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
 
   let
     testString = "NixOS Gemini test successful";
-  in {
+  in
+  {
 
     name = "molly-brown";
     meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
         let
           inherit (config.networking) hostName;
           cfg = config.services.molly-brown;
-        in {
+        in
+        {
 
           environment.systemPackages = [
               (pkgs.writeScriptBin "test-gemini" ''
@@ -78,4 +80,5 @@ import ./make-test-python.nix ({
       geminiServer.succeed("test-gemini")
     '';
 
-  } )
+  }
+)

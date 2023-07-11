@@ -115,12 +115,14 @@ let
     linkFarm "grammars" (map (drv:
       let
         name = lib.strings.getName drv;
-      in {
+      in
+      {
         name = (lib.strings.replaceStrings [ "-" ] [ "_" ]
           (lib.strings.removePrefix "tree-sitter-"
             (lib.strings.removeSuffix "-grammar" name))) + ".so";
         path = "${drv}/parser";
-      } ) grammars)
+      }
+    ) grammars)
     ;
 
   allGrammars = builtins.attrValues builtGrammars;

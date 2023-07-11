@@ -112,7 +112,8 @@ let
     v:
     let
       isHasAttr = s: isAttrs v && hasAttr s v;
-    in if isString v then
+    in
+    if isString v then
       escapeShellArg v
       # NOTE: If any value contains a , (comma) this will not get escaped
     else if isList v && any lib.strings.isCoercibleToString v then
@@ -424,7 +425,8 @@ let
       config.virtualHost.hostName = mkDefault name;
     }
     ;
-in {
+in
+{
   # interface
   options = {
     services.wordpress = {

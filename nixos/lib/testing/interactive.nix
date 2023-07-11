@@ -7,7 +7,8 @@
 }:
 let
   inherit (lib) mkOption types mdDoc;
-in {
+in
+{
   options = {
     interactive = mkOption {
       description = mdDoc ''

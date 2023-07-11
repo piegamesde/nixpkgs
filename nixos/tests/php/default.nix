@@ -16,7 +16,8 @@ let
       enabled ++ [ apcu ]
       ;
   };
-in {
+in
+{
   fpm = import ./fpm.nix {
     inherit system pkgs;
     php = php';

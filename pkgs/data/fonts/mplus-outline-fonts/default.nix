@@ -7,7 +7,8 @@
 
 let
   pname = "mplus-outline-fonts";
-in {
+in
+{
   osdnRelease = stdenvNoCC.mkDerivation {
     pname = "${pname}-osdn";
     version = "063a";

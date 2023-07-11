@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
         rlwrap
         jdk
       ];
-    in ''
+    in
+    ''
       runHook preInstall
 
       clojure_lib_dir=$out

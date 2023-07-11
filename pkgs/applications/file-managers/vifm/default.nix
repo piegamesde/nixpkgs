@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
 
       wrapVifmMedia =
         "wrapProgram $out/share/vifm/vifm-media --prefix PATH : ${path}";
-    in ''
+    in
+    ''
       ${lib.optionalString mediaSupport wrapVifmMedia}
     ''
     ;

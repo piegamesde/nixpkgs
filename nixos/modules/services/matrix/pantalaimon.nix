@@ -56,7 +56,8 @@ let
       };
     }
     ;
-in {
+in
+{
   options.services.pantalaimon-headless.instances = mkOption {
     default = { };
     type = types.attrsOf (types.submodule (import ./pantalaimon-options.nix));

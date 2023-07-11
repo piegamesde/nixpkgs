@@ -133,7 +133,8 @@ let
       };
     }
     ;
-in {
+in
+{
   inherit makeLinuxHeaders;
 
   linuxHeaders =

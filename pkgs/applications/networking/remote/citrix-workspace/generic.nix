@@ -227,7 +227,8 @@ stdenv.mkDerivation rec {
         "util/conncenter"
         "util/ctx_rehash"
       ] ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old";
-    in ''
+    in
+    ''
       runHook preInstall
 
       mkdir -p $out/{bin,share/applications}

@@ -309,7 +309,8 @@ stdenv.mkDerivation (finalAttrs: {
         bubblewrap
         tpm2-tools
       ];
-    in ''
+    in
+    ''
       gappsWrapperArgs+=(
         --prefix XDG_DATA_DIRS : "${shared-mime-info}/share"
         # See programs reached with fu_common_find_program_in_path in source
@@ -372,7 +373,8 @@ stdenv.mkDerivation (finalAttrs: {
     tests =
       let
         listToPy = list: "[${lib.concatMapStringsSep ", " (f: "'${f}'") list}]";
-      in {
+      in
+      {
         installedTests = nixosTests.installed-tests.fwupd;
 
         passthruMatches = runPythonCommand "fwupd-test-passthru-matches" ''

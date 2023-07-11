@@ -6,7 +6,8 @@
 with lib;
 let
   json = formats.json { };
-in rec {
+in
+rec {
 
   # Derive a pin file from workspace state.
   mkPinFile =
@@ -29,7 +30,8 @@ in rec {
       inherit (import generated) workspaceStateFile hashes;
       workspaceState = builtins.fromJSON (builtins.readFile workspaceStateFile);
       pinFile = mkPinFile workspaceState;
-    in rec {
+    in
+    rec {
 
       # Create fetch expressions for dependencies.
       sources = listToAttrs (map (dep:

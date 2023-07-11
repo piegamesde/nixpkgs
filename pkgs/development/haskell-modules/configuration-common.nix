@@ -18,7 +18,8 @@ let
   inherit (pkgs) fetchpatch fetchpatch2 lib;
   inherit (lib) throwIfNot versionOlder versions;
 
-in with haskellLib;
+in
+with haskellLib;
 
 self: super:
 {
@@ -79,7 +80,8 @@ self: super:
         vector = dontCheck csuper.vector;
       }
       ;
-  in {
+  in
+  {
     cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
     cabal-install-solver =
       super.cabal-install-solver.overrideScope cabalInstallOverlay;
@@ -96,7 +98,8 @@ self: super:
           # May as well…
           (self.generateOptparseApplicativeCompletions [ "guardian" ])
         ];
-  } )
+  }
+  )
     cabal-install
     cabal-install-solver
     guardian
@@ -2640,7 +2643,8 @@ self: super:
         language-javascript = self.language-javascript_0_7_0_0;
       }
       ;
-  in {
+  in
+  {
     purescript = lib.pipe (super.purescript.overrideScope purescriptOverlay) ([
       # PureScript uses nodejs to run tests, so the tests have been disabled
       # for now.  If someone is interested in figuring out how to get this
@@ -2655,7 +2659,8 @@ self: super:
     ]);
 
     purenix = super.purenix.overrideScope purescriptOverlay;
-  } )
+  }
+  )
     purescript
     purenix
     ;

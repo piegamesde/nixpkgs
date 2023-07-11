@@ -25,7 +25,8 @@ stdenvNoCC.mkDerivation rec {
         aarch64-linux = "ARM/Linux";
       };
       platform = platforms.${system} or (throw "unsupported system: ${system}");
-    in ''
+    in
+    ''
       rpmextract $src/${platform}/storcli-00${version}00.0000-1.*.rpm
     ''
     ;

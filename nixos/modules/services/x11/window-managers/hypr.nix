@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.hypr;
-in {
+in
+{
   ###### interface
   options = {
     services.xserver.windowManager.hypr.enable =

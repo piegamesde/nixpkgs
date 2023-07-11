@@ -12,7 +12,8 @@ let
   poms = import ../poms.nix { inherit fetchMaven; };
   mavenbuild-jdk8 =
     mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
-in rec {
+in
+rec {
   mavenHelloRec =
     {
       mavenDeps,

@@ -91,7 +91,8 @@ let
     };
   };
 
-in {
+in
+{
 
   options = {
     services.znc = {
@@ -250,7 +251,8 @@ in {
         c = cfg.confOptions;
           # defaults here should override defaults set in the non-legacy part
         mkDefault = mkOverride 900;
-      in {
+      in
+      {
         LoadModule = mkDefault c.modules;
         Listener.l = {
           Port = mkDefault c.port;

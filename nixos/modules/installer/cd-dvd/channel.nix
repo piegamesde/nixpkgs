@@ -39,7 +39,8 @@ let
     echo ${config.system.nixos.versionSuffix} | sed -e s/pre// > $out/nixos/svn-revision
   '';
 
-in {
+in
+{
   # Pin the nixpkgs flake in the installer to our cleaned up nixpkgs source.
   # FIXME: this might be surprising and is really only needed for offline installations,
   # see discussion in https://github.com/NixOS/nixpkgs/pull/204178#issuecomment-1336289021

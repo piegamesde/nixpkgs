@@ -17,7 +17,8 @@ let
     mkPackageOptionMD
     ;
   settingsFormat = pkgs.formats.ini { };
-in {
+in
+{
   options = {
     services.cockpit = {
       enable = mkEnableOption (mdDoc "Cockpit");

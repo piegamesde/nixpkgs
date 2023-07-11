@@ -171,7 +171,8 @@ stdenv.mkDerivation rec {
         # NixOS helper script to consistently use the same NodeJS version the package was built with.
         ${nodejs-slim}/bin/node ./streaming
       '';
-    in ''
+    in
+    ''
       mkdir -p $out
       cp -r * $out/
       ln -s ${run-streaming} $out/run-streaming.sh

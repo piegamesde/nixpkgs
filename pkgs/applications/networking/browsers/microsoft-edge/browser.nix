@@ -156,7 +156,8 @@ stdenv.mkDerivation rec {
           xorg.libX11
         ];
       };
-    in ''
+    in
+    ''
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${libPath.msedge}" \

@@ -10,7 +10,8 @@ with lib;
 let
   logPrefix = "services.prometheus.exporter.ipmi";
   cfg = config.services.prometheus.exporters.ipmi;
-in {
+in
+{
   port = 9290;
 
   extraOpts = {

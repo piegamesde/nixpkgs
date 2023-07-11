@@ -248,7 +248,8 @@ rec {
               (builtins.readDir base));
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null) children;
-        in if globElems == [ ] then
+        in
+        if globElems == [ ] then
           [ base ]
         else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
@@ -290,7 +291,8 @@ rec {
             getWorkspaceDependencies packages allDependencies;
 
           name = reformatPackageName package.name;
-        in {
+        in
+        {
           inherit name;
           value = mkYarnPackage
             (builtins.removeAttrs attrs [ "packageOverrides" ] // {
@@ -304,7 +306,8 @@ rec {
                 workspaceDependencies
                 ;
             } // lib.attrByPath [ name ] { } packageOverrides);
-        } ) packagePaths);
+        }
+      ) packagePaths);
     in
     packages
     ;

@@ -19,7 +19,8 @@ buildPythonPackage rec {
       libstdcpp = "${
           lib.getLib gcc-unwrapped
         }/lib/libstdc++${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in ''
+    in
+    ''
       substituteInPlace cxxfilt/__init__.py \
         --replace "find_any_library('stdc++', 'c++')" '"${libstdcpp}"'
     ''

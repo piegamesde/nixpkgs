@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
         else
           throw "Unsupported system: ${system}"
         ;
-    in ''
+    in
+    ''
       ${myPatchElf "opt/brother/scanner/brscan5/brsaneconfig5"}
       ${myPatchElf "opt/brother/scanner/brscan5/brscan_cnetconfig"}
       ${myPatchElf "opt/brother/scanner/brscan5/brscan_gnetconfig"}

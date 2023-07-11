@@ -95,7 +95,8 @@ stdenv.mkDerivation rec {
         else
           "OFF"
         ;
-    in [
+    in
+    [
       "-DCMAKE_BUILD_TYPE=${
         if debug then
           "Debug"

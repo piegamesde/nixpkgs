@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.offlineimap;
-in {
+in
+{
 
   options.services.offlineimap = {
     enable = mkEnableOption (lib.mdDoc

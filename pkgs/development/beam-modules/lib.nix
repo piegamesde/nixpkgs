@@ -5,7 +5,8 @@
 
 let
   pkgs = __splicedPackages;
-in rec {
+in
+rec {
 
   # Similar to callPackageWith/callPackage, but without makeOverridable
   callPackageWith =

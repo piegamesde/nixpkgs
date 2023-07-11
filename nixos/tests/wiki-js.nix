@@ -120,7 +120,8 @@ import ./make-test-python.nix ({
             title = "Hello world";
           };
         } ]);
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("multi-user.target")
         machine.wait_for_open_port(3000)

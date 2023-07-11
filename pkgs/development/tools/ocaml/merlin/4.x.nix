@@ -35,7 +35,8 @@ let
 
   version = "${merlinVersion}-${ocamlVersionShorthand}";
 
-in if !lib.hasAttr version hashes then
+in
+if !lib.hasAttr version hashes then
   builtins.throw
   "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
 else

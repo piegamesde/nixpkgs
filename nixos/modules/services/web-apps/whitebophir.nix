@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.whitebophir;
-in {
+in
+{
   options = {
     services.whitebophir = {
       enable = mkEnableOption (lib.mdDoc

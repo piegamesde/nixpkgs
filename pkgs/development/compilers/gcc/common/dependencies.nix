@@ -39,7 +39,8 @@ let
   inherit (lib) optionals;
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
-in {
+in
+{
   # same for all gcc's
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

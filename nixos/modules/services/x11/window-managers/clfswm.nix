@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.windowManager.clfswm;
 
-in {
+in
+{
   options = {
     services.xserver.windowManager.clfswm = {
       enable = mkEnableOption (lib.mdDoc "clfswm");

@@ -100,6 +100,5 @@ let
     }
     ;
 
-in {
-  inherit withPackages gems buildGems;
-}
+in
+{ inherit withPackages gems buildGems; }

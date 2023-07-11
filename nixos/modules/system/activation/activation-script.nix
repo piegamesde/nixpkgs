@@ -125,7 +125,8 @@ let
     either str (submodule { options = scriptOptions; })
     ;
 
-in {
+in
+{
 
   ###### interface
 

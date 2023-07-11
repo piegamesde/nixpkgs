@@ -115,7 +115,8 @@ let
           "${neovim}/bin/nvim"
           "${placeholder "out"}/bin/nvim-wrapper"
         ] ++ commonWrapperArgs;
-      in ''
+      in
+      ''
         echo "Generating remote plugin manifest"
         export NVIM_RPLUGIN_MANIFEST=$out/rplugin.vim
         makeWrapper ${lib.escapeShellArgs manifestWrapperArgs} ${wrapperArgsStr}
@@ -145,7 +146,8 @@ let
           exit 1
         fi
         rm "${placeholder "out"}/bin/nvim-wrapper"
-      '' ) + ''
+      ''
+      ) + ''
         rm $out/bin/nvim
         touch $out/rplugin.vim
         makeWrapper ${

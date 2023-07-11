@@ -28,7 +28,8 @@ let
     target: excluded:
     let
       only = pkgs.haskell.lib.compose.setBuildTarget target drv;
-    in ''
+    in
+    ''
       if [[ ! -f "${only}/bin/${target}" ]]; then
         echo "${target} was not built"
         exit 1

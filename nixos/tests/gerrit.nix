@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
       sha256 = "023b0kd8djm3cn1lf1xl67yv3j12yl8bxccn42lkfmwxjwjfqw6h";
     };
 
-  in {
+  in
+  {
     name = "gerrit";
 
     meta = with pkgs.lib.maintainers; {
@@ -71,4 +72,5 @@ import ./make-test-python.nix ({
       server.wait_for_open_port(2222)
       client.succeed("nc -z server 2222")
     '';
-  } )
+  }
+)

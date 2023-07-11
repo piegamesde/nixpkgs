@@ -54,7 +54,8 @@ let
     ''
     ;
 
-in {
+in
+{
 
   ###### interface
 

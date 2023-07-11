@@ -64,7 +64,8 @@ let
       isHardened = true;
     }
     ;
-in {
+in
+{
   kernelPatches = callPackage ../os-specific/linux/kernel/patches.nix { };
 
   kernels = recurseIntoAttrs (lib.makeExtensible (self:
@@ -219,7 +220,8 @@ in {
             ];
           };
           latest = packageAliases.linux_latest.kernel;
-        in if latest.kernelAtLeast testing.baseVersion then
+        in
+        if latest.kernelAtLeast testing.baseVersion then
           latest
         else
           testing

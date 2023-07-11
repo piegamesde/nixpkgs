@@ -9,7 +9,8 @@ let
   cfg = config.programs.nano;
   LF = "\n";
 
-in {
+in
+{
   ###### interface
 
   options = {

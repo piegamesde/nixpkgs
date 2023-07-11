@@ -129,7 +129,8 @@ let
       ''
     ;
 
-in {
+in
+{
 
   options = {
 

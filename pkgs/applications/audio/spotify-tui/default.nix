@@ -73,7 +73,8 @@ rustPlatform.buildRustPackage rec {
           ./0001-Add-Collection-SearchType.patch
         ];
       };
-    in ''
+    in
+    ''
       ln -s ${rspotify} ./rspotify-${rspotify.version}
     ''
     ;

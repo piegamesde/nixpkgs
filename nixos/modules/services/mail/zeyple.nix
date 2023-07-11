@@ -19,7 +19,8 @@ let
     # Remove socket files
     rm -f $out/S.*
   '';
-in {
+in
+{
   options.services.zeyple = {
     enable = mkEnableOption (lib.mdDoc
       "Zeyple, an utility program to automatically encrypt outgoing emails with GPG")

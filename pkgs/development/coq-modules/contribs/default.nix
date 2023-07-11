@@ -29,7 +29,8 @@ let
     in
     lib.makeOverridable contribVersion { }
     ;
-in {
+in
+{
   aac-tactics = mkContrib "aac-tactics" [
     "8.7"
     "8.8"

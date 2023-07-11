@@ -136,7 +136,8 @@ let
         ''
       ;
   };
-in {
+in
+{
   justThePackage = makeTest {
     name = "atop-justThePackage";
     nodes.machine = { environment.systemPackages = [ pkgs.atop ]; };

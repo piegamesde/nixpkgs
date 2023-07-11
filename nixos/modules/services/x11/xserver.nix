@@ -181,14 +181,17 @@ let
       # Note: the XLFD font size is in decipoints.
       size = 2.39583 * cfg.dpi;
       sizeString = builtins.head (builtins.split "\\." (toString size));
-    in {
+    in
+    {
       postInstall = ''
         alias='cursor -xfree86-cursor-medium-r-normal--0-${sizeString}-0-0-p-0-adobe-fontspecific'
         echo "$alias" > $out/lib/X11/fonts/Type1/fonts.alias
       '';
-    } );
+    }
+  );
 
-in {
+in
+{
 
   imports = [
     ./display-managers/default.nix
@@ -531,7 +534,8 @@ in {
             hasPrimary = any (x: x.primary) heads;
             firstPrimary = head heads // { primary = true; };
             newHeads = singleton firstPrimary ++ tail heads;
-          in if heads != [ ] && !hasPrimary then
+          in
+          if heads != [ ] && !hasPrimary then
             newHeads
           else
             heads
@@ -749,13 +753,15 @@ in {
     assertions = [
       (let
         primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
-      in {
+      in
+      {
         assertion = length primaryHeads < 2;
         message = "Only one head is allowed to be primary in "
           + "‘services.xserver.xrandrHeads’, but there are "
           + "${toString (length primaryHeads)} heads set to primary: "
           + concatMapStringsSep ", " (x: x.output) primaryHeads;
-      } )
+      }
+      )
       {
         assertion = cfg.upscaleDefaultCursor -> cfg.dpi != null;
         message =
@@ -784,9 +790,9 @@ in {
       # Needed since 1.18; see https://bugs.freedesktop.org/show_bug.cgi?id=89023#c5
       // (let
         cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
-      in {
-        ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
-      } );
+      in
+      { ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath; }
+      );
 
     environment.systemPackages = utils.removePackagesByName [
       xorg.xorgserver.out

@@ -15,7 +15,8 @@ let
 
   confFile = pkgs.writeText "radvd.conf" cfg.config;
 
-in {
+in
+{
 
   ###### interface
 

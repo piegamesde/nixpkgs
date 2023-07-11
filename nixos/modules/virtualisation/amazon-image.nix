@@ -16,7 +16,8 @@ with lib;
 let
   cfg = config.ec2;
 
-in {
+in
+{
   imports = [
     ../profiles/headless.nix
     # Note: While we do use the headless profile, we also explicitly

@@ -31,7 +31,8 @@ let
       };
     })
     ;
-in {
+in
+{
   aggregates = glPlugin rec {
     name = "graylog-aggregates-${version}";
     pluginName = "graylog-plugin-aggregates";

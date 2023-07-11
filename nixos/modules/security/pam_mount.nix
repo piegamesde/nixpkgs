@@ -21,7 +21,8 @@ let
   anyPamMount = any (attrByPath [ "pamMount" ] false)
     (attrValues config.security.pam.services);
 
-in {
+in
+{
   options = {
 
     security.pam.mount = {
@@ -148,7 +149,8 @@ in {
                 path = user.cryptHomeLuks;
                 mountpoint = user.home;
               } // user.pamMount;
-            in ''
+            in
+            ''
               <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
             ''
             ;

@@ -11,7 +11,8 @@ let
   cfg = config.services.xserver.displayManager.xpra;
   dmcfg = config.services.xserver.displayManager;
 
-in {
+in
+{
   ###### interface
 
   options = {

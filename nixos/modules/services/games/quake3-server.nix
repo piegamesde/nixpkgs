@@ -39,7 +39,8 @@ let
 
     ln -s ${configFile} $out/.q3a/baseq3/nix.cfg
   '';
-in {
+in
+{
   options = {
     services.quake3-server = {
       enable = mkEnableOption (lib.mdDoc "Quake 3 dedicated server");

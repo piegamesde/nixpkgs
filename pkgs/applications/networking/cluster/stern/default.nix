@@ -38,7 +38,8 @@ buildGoModule rec {
         else
           buildPackages.stern
         ;
-    in ''
+    in
+    ''
       for shell in bash zsh; do
         ${stern}/bin/stern --completion $shell > stern.$shell
         installShellCompletion stern.$shell

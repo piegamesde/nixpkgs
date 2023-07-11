@@ -53,7 +53,8 @@ rustPlatform.buildRustPackage rec {
             --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
         ''
         ;
-    in ''
+    in
+    ''
       ${wrap "evcxr"}
       ${wrap "evcxr_jupyter"}
       rm $out/bin/testing_runtime

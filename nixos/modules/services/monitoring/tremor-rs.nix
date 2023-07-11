@@ -13,7 +13,8 @@ let
   loggerSettingsFormat = pkgs.formats.yaml { };
   loggerConfigFile =
     loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
-in {
+in
+{
 
   options = {
     services.tremor-rs = {

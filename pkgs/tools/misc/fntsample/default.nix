@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
           PDFAPI2
           libintl-perl
         ];
-    in ''
+    in
+    ''
       for cmd in pdfoutline pdf-extract-outline; do
         wrapProgram "$out/bin/$cmd" --prefix PERL5LIB : "${perlPath}"
       done

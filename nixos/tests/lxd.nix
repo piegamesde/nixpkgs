@@ -18,7 +18,8 @@ import ./make-test-python.nix ({
     lxd-image-metadata = lxd-image.lxdMeta.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs = lxd-image.lxdImage.${pkgs.stdenv.hostPlatform.system};
 
-  in {
+  in
+  {
     name = "lxd";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
@@ -118,4 +119,5 @@ import ./make-test-python.nix ({
 
           machine.succeed("lxc delete -f container")
     '';
-  } )
+  }
+)

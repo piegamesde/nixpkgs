@@ -10,7 +10,8 @@ import ../make-test-python.nix ({
     passFile = toString (pkgs.writeText "pass-file" ''
       ${pass}
     '');
-  in {
+  in
+  {
     name = "nextcloud-with-declarative-redis";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
@@ -116,7 +117,8 @@ import ../make-test-python.nix ({
           #!${pkgs.runtimeShell}
           diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
         '';
-      in ''
+      in
+      ''
         start_all()
         nextcloud.wait_for_unit("multi-user.target")
         nextcloud.succeed("curl -sSf http://nextcloud/login")
@@ -132,4 +134,5 @@ import ../make-test-python.nix ({
         nextcloud.fail("redis-cli KEYS * | grep -q 'empty array'")
       ''
       ;
-  } )
+  }
+)

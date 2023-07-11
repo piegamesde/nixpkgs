@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       rpathSDL = lib.makeLibraryPath [ SDL ];
-    in if stdenv.hostPlatform.isDarwin then
+    in
+    if stdenv.hostPlatform.isDarwin then
       ''
         install_name_tool -add_rpath ${rpathSDL} $out/bin/ccutter
       ''

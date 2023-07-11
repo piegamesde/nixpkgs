@@ -271,7 +271,8 @@ let
       ]);
     }
     ;
-in {
+in
+{
 
   imports = (lib.forEach [
     "blackboxExporter"

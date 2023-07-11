@@ -320,7 +320,8 @@ let
       };
     };
   };
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

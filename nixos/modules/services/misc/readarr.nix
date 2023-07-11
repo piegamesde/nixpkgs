@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.readarr;
-in {
+in
+{
   options = {
     services.readarr = {
       enable = mkEnableOption (lib.mdDoc "Readarr");

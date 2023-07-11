@@ -69,7 +69,8 @@ stdenv.mkDerivation (finalAttrs: rec {
         else
           "LD_LIBRARY_PATH"
         ;
-    in ''
+    in
+    ''
       export HOME=$TMPDIR
       export TMP=$TMPDIR
       export ${libPathEnvVar}=$PWD/lib

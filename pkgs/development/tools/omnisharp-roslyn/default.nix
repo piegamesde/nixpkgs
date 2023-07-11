@@ -9,7 +9,8 @@
 }:
 let
   inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
-in let
+in
+let
   finalPackage = buildDotnetModule rec {
     pname = "omnisharp-roslyn";
     version = "1.39.6";
@@ -110,7 +111,8 @@ in let
             touch $out
           ''
           ;
-      in {
+      in
+      {
         # Make sure we can run OmniSharp with any supported SDK version, as well as without
         with-net6-sdk = with-sdk sdk_6_0;
         with-net7-sdk = with-sdk dotnetCorePackages.sdk_7_0;

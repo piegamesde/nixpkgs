@@ -23,7 +23,8 @@ let
     "--global-rate=${toString cfg.globalRateBps}"
     ++ optional (cfg.perSessionRateBps != null)
     "--per-session-rate=${toString cfg.perSessionRateBps}" ++ cfg.extraOptions;
-in {
+in
+{
   ###### interface
 
   options.services.syncthing.relay = {

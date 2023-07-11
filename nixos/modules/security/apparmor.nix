@@ -21,7 +21,8 @@ let
     ;
   enabledPolicies = filterAttrs (n: p: p.enable) cfg.policies;
 
-in {
+in
+{
   imports = [
     (mkRemovedOptionModule [
       "security"
@@ -227,7 +228,8 @@ in {
               optionalString (!p.enforce) "--complain "
             }${p.profile}"
             ;
-        in {
+        in
+        {
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";

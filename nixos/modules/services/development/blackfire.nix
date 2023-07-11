@@ -11,7 +11,8 @@ let
   agentConfigFile = lib.generators.toINI { } { blackfire = cfg.settings; };
 
   agentSock = "blackfire/agent.sock";
-in {
+in
+{
   meta = {
     maintainers = pkgs.blackfire.meta.maintainers;
     doc = ./blackfire.md;

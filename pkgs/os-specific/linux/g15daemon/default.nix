@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
           inherit sha256;
         }
         ;
-    in [
+    in
+    [
       (patch "uinput" "1misfff7a1vg0qgfk3n25y7drnm86a4gq96iflpcwr5x3lw7q0h7")
       (patch "config-write"
         "0jkrbqvzqrvxr14h5qi17cb4d32caq7vw9kzlz3qwpxdgxjrjvy2")

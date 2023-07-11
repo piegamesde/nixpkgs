@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xserver.desktopManager.retroarch;
 
-in {
+in
+{
   options.services.xserver.desktopManager.retroarch = {
     enable = mkEnableOption (lib.mdDoc "RetroArch");
 

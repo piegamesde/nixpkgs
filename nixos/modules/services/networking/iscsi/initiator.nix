@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.openiscsi;
-in {
+in
+{
   options.services.openiscsi = with types; {
     enable = mkEnableOption (lib.mdDoc "the openiscsi iscsi daemon");
     enableAutoLoginOut = mkEnableOption (lib.mdDoc ''
@@ -69,7 +70,8 @@ in {
             echo "Warning: services.openiscsi.extraConfigFile ${cfg.extraConfigFile} does not exist!" >&2
           fi
         '';
-      in ''
+      in
+      ''
         (
           cat ${config.environment.etc."iscsi/iscsid.conf.fragment".source}
           ${extraCfgDumper}

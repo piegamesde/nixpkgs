@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.xserver.imwheel;
-in {
+in
+{
   options = {
     services.xserver.imwheel = {
       enable = mkEnableOption (lib.mdDoc "IMWheel service");

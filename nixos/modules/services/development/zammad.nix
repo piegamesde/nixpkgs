@@ -28,7 +28,8 @@ let
     RAILS_LOG_TO_STDOUT = "true";
   };
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
-in {
+in
+{
 
   options = {
     services.zammad = {

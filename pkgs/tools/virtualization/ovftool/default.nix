@@ -36,7 +36,8 @@ let
   ovftoolSystems =
     let
       baseUrl = "https://vdc-download.vmware.com/vmwb-repository/dcr-public";
-    in {
+    in
+    {
       "i686-linux" = rec {
         filename = "VMware-ovftool-${version}-lin.i386.zip";
         url =

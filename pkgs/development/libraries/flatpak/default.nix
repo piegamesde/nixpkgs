@@ -182,7 +182,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch =
     let
       vsc-py = python3.withPackages (pp: [ pp.pyparsing ]);
-    in ''
+    in
+    ''
       patchShebangs buildutil
       patchShebangs tests
       PATH=${

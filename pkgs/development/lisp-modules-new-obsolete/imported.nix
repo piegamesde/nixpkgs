@@ -34,7 +34,8 @@ let
 
   getAttr = builtins.getAttr;
 
-in {
+in
+{
   _1am = {
     pname = "1am";
     version = "20141106-git";

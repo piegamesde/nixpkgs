@@ -50,7 +50,8 @@ let
       "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible."
     ;
 
-in {
+in
+{
   meta.maintainers = [ maintainers.romildo ];
 
   imports = [
@@ -169,7 +170,8 @@ in {
           qt5
           qt6
         ];
-      in {
+      in
+      {
         QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
         QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
       }

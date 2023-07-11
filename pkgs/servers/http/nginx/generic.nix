@@ -61,12 +61,14 @@ let
     lib.flip lib.concatMap modules (mod:
       let
         supports = mod.supports or (_: true);
-      in if supports nginxVersion then
+      in
+      if supports nginxVersion then
         mod.${attrPath} or [ ]
       else
         throw "Module at ${
           toString mod.src
-        } does not support nginx version ${nginxVersion}!")
+        } does not support nginx version ${nginxVersion}!"
+    )
     ;
 
 in

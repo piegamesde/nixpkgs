@@ -18,7 +18,8 @@ let
       null
     ;
 
-in {
+in
+{
   options.services.duplicity = {
     enable = mkEnableOption (lib.mdDoc "backups with duplicity");
 
@@ -158,7 +159,8 @@ in {
               stateDirectory
             ] ++ cfg.extraFlags);
             dup = "${pkgs.duplicity}/bin/duplicity";
-          in ''
+          in
+          ''
             set -x
             ${dup} cleanup ${target} --force ${extra}
             ${lib.optionalString (cfg.cleanup.maxAge != null)

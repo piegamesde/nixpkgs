@@ -53,7 +53,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   simple = simple "simple" true;
   ipv4only = simple "ipv4only" false;
   deprecated = makeTest {

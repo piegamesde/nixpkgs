@@ -101,7 +101,8 @@ with lib;
               --set NIX_REDIRECTS "/etc/ppp=/etc/ppp-pptpd"
           '';
         };
-      in {
+      in
+      {
         description = "pptpd server";
 
         requires = [ "network-online.target" ];

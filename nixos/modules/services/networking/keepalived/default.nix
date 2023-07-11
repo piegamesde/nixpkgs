@@ -164,7 +164,8 @@ let
 
   pidFile = "/run/keepalived.pid";
 
-in {
+in
+{
 
   options = {
     services.keepalived = {
@@ -331,7 +332,8 @@ in {
           else
             "/run/keepalived/keepalived.conf"
           ;
-      in {
+      in
+      {
         description = "Keepalive Daemon (LVS and VRRP)";
         after = [
           "network.target"

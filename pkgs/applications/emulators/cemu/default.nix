@@ -95,11 +95,13 @@ stdenv.mkDerivation rec {
   preConfigure = with lib;
     let
       tag = last (splitString "-" version);
-    in ''
+    in
+    ''
       rm -rf dependencies/imgui
       ln -s ${imgui}/include/imgui dependencies/imgui
       sed 's/\(EMULATOR_VERSION_SUFFIX\).*experimental.*/\1 "-${tag} (experimental)"/' -i src/Common/version.h
-    '' ;
+    ''
+    ;
 
   installPhase = ''
     runHook preInstall
@@ -120,7 +122,8 @@ stdenv.mkDerivation rec {
   preFixup =
     let
       libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
-    in ''
+    in
+    ''
       gappsWrapperArgs+=(
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
       )

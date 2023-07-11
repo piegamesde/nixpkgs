@@ -48,7 +48,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
   beethoven = olpFont {
     fontName = "beethoven";
     rev = "669f400";

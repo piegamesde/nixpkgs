@@ -7,7 +7,8 @@
 
 let
   cfg = config.virtualisation.multipass;
-in {
+in
+{
   options = {
     virtualisation.multipass = {
       enable = lib.mkEnableOption (lib.mdDoc ''

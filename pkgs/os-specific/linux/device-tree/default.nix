@@ -12,7 +12,8 @@ with lib; {
       buildCommand =
         let
           overlays = toList overlays';
-        in ''
+        in
+        ''
           mkdir -p $out
           cd "${base}"
           find . -type f -name '*.dtb' -print0 \

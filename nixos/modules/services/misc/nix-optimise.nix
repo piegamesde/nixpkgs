@@ -9,7 +9,8 @@ with lib;
 let
   cfg = config.nix.optimise;
 
-in {
+in
+{
 
   ###### interface
 

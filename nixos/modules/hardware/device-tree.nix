@@ -125,7 +125,8 @@ let
       })
     ;
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "hardware"

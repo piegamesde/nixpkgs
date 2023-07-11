@@ -144,7 +144,8 @@ let
       '';
     };
   };
-in {
+in
+{
   options.services.cloudflared = {
     enable = mkEnableOption
       (lib.mdDoc "Cloudflare Tunnel client daemon (formerly Argo Tunnel)");

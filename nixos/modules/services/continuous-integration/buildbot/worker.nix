@@ -49,7 +49,8 @@ let
     s.setServiceParent(application)
   '';
 
-in {
+in
+{
   options = {
     services.buildbot-worker = {
 

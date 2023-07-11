@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }:
   let
     port = 5000;
-  in {
+  in
+  {
     name = "osrm-backend";
     meta.maintainers = [ lib.maintainers.erictapen ];
 
@@ -62,7 +63,8 @@ import ./make-test-python.nix ({
         query = "http://localhost:${
             toString port
           }/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
-      in ''
+      in
+      ''
         machine.wait_for_unit("osrm.service")
         machine.wait_for_open_port(${toString port})
         assert "Boulevard Rainier III" in machine.succeed(
@@ -73,4 +75,5 @@ import ./make-test-python.nix ({
         )
       ''
       ;
-  } )
+  }
+)

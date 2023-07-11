@@ -26,7 +26,8 @@ let
     ]);
   };
 
-in {
+in
+{
   options.programs.command-not-found = {
 
     enable = mkOption {

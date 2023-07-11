@@ -31,7 +31,8 @@ import ./make-test-python.nix ({
 
         insertBookmarkJSON =
           pkgs.writeText "insertBookmark.json" (builtins.toJSON insertBookmark);
-      in ''
+      in
+      ''
         import json
 
         machine.wait_for_unit("shiori.service")

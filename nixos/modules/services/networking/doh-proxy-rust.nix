@@ -11,7 +11,8 @@ let
 
   cfg = config.services.doh-proxy-rust;
 
-in {
+in
+{
 
   options.services.doh-proxy-rust = {
 

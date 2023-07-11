@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.odoo;
   format = pkgs.formats.ini { };
-in {
+in
+{
   options = {
     services.odoo = {
       enable = mkEnableOption (lib.mdDoc "odoo");
@@ -47,7 +48,8 @@ in {
 
   config = mkIf (cfg.enable) (let
     cfgFile = format.generate "odoo.cfg" cfg.settings;
-  in {
+  in
+  {
     services.nginx = mkIf (cfg.domain != null) {
       upstreams = {
         odoo.servers = { "127.0.0.1:8069" = { }; };
@@ -120,5 +122,6 @@ in {
       } ];
       ensureDatabases = [ "odoo" ];
     };
-  } );
+  }
+  );
 }

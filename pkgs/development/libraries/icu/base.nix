@@ -107,13 +107,15 @@ let
           to = "${placeholder "dev"}/lib/icu/pkgdata.inc";
         } # --incpkgdatafile
       ];
-    in ''
+    in
+    ''
       substituteInPlace "$dev/bin/icu-config" \
         ${
           lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
           replacements
         }
-    '' );
+    ''
+    );
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
   };

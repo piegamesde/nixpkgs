@@ -4,7 +4,8 @@ import ../make-test-python.nix ({
   }:
   let
     name = "conduit";
-  in {
+  in
+  {
     name = "matrix-conduit";
 
     nodes = {
@@ -100,4 +101,5 @@ import ../make-test-python.nix ({
       with subtest("ensure messages can be exchanged"):
             client.succeed("do_test")
     '';
-  } )
+  }
+)

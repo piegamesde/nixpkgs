@@ -11,7 +11,8 @@ let
   cfg = config.services.fakeroute;
   routeConf = pkgs.writeText "route.conf" (concatStringsSep "\n" cfg.route);
 
-in {
+in
+{
 
   ###### interface
 

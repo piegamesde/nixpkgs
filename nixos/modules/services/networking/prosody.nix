@@ -537,7 +537,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   ###### interface
 
@@ -868,7 +869,8 @@ in {
             description = "${muc.domain} MUC endpoint";
           } ] ++ acc) [ ] cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
-      in ''
+      in
+      ''
 
         pidfile = "/run/prosody/prosody.pid"
 

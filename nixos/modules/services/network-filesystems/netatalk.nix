@@ -11,7 +11,8 @@ let
   cfg = config.services.netatalk;
   settingsFormat = pkgs.formats.ini { };
   afpConfFile = settingsFormat.generate "afp.conf" cfg.settings;
-in {
+in
+{
   options = {
     services.netatalk = {
 

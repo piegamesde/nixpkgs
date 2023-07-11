@@ -61,7 +61,8 @@ let
         else
           file
         ;
-    in if cfg.mainConfigFile == null then
+    in
+    if cfg.mainConfigFile == null then
       defaultCfgFile
     else
       cfg.mainConfigFile
@@ -92,7 +93,8 @@ let
     </Directory>
   '';
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

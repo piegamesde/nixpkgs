@@ -35,7 +35,8 @@ let
 
   cfg = config.services.glusterfs;
 
-in {
+in
+{
 
   ###### interface
 

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     getPath = lib: type: "${lib}/share/lua/${pkgs.lua.luaversion}/?.${type}";
     getLuaPath = lib: getPath lib "lua";
     luaPath = lib.concatStringsSep ";" (map getLuaPath lualibs);
-  in {
+  in
+  {
     name = "openresty-lua";
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
 
@@ -61,4 +62,5 @@ import ./make-test-python.nix ({
         assert http_code.split("\n")[-1] == "200"
       ''
       ;
-  } )
+  }
+)

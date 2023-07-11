@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.atuin;
-in {
+in
+{
   options = {
     services.atuin = {
       enable =

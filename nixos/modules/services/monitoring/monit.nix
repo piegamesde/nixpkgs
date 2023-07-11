@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.monit;
 
-in {
+in
+{
   options.services.monit = {
 
     enable = mkEnableOption (lib.mdDoc "Monit");

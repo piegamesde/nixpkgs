@@ -8,7 +8,8 @@ let
     self:
     let
       inherit (self) callPackage;
-    in {
+    in
+    {
       #### LIBRARIES
       dtkcommon = callPackage ./library/dtkcommon { };
       dtkcore = callPackage ./library/dtkcore { };

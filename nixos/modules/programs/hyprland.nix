@@ -13,7 +13,8 @@ let
     hidpiXWayland = cfg.xwayland.hidpi;
     nvidiaPatches = cfg.nvidiaPatches;
   };
-in {
+in
+{
   options.programs.hyprland = {
     enable = mkEnableOption null // {
       description = mdDoc ''

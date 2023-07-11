@@ -19,7 +19,8 @@ tcl.mkTclDerivation rec {
   postInstall =
     let
       majorMinorVersion = lib.versions.majorMinor version;
-    in ''
+    in
+    ''
       ln -s $prefix/lib/tclx${majorMinorVersion} $prefix/lib/tclx${majorMinorVersion}/tclx${majorMinorVersion}
     ''
     ;

@@ -90,7 +90,8 @@ let
     runTestOn
     ;
 
-in {
+in
+{
   _3proxy = runTest ./3proxy.nix;
   aaaaxy = runTest ./aaaaxy.nix;
   acme = runTest ./acme.nix;

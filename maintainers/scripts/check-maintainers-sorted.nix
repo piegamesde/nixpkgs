@@ -51,16 +51,19 @@ let
       lim =
         let
           t = before a;
-        in if t == null then
+        in
+        if t == null then
           "the initial {"
         else
           t.name
         ;
-    in if a.line >= b.line then
+    in
+    if a.line >= b.line then
       trace ("maintainer ${a.name} (line ${toString a.line}) should be listed "
         + "after ${lim}, not after ${b.name} (line ${toString b.line})") 1
     else
-      0) (genList (i: i) (length namesSorted - 1)));
+      0
+  ) (genList (i: i) (length namesSorted - 1)));
 in
 assert errors == 0;
 "all good!"

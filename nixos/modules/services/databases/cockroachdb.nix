@@ -54,7 +54,8 @@ let
     }
     ;
 
-in {
+in
+{
   options = {
     services.cockroachdb = {
       enable = mkEnableOption (lib.mdDoc "CockroachDB Server");

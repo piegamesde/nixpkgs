@@ -56,7 +56,8 @@ let
     };
   };
 
-in {
+in
+{
   imports = [
     ./mit.nix
     ./heimdal.nix

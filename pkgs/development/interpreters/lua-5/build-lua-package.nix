@@ -154,7 +154,8 @@ let
                 (self.nativeBuildInputs ++ self.propagatedBuildInputs));
             inherit (self) extraVariables rocksSubdir;
           };
-        in ''
+        in
+        ''
           ${generatedConfig}
           ${extraConfig}
         ''

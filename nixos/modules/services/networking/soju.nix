@@ -26,7 +26,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in {
+in
+{
   ###### interface
 
   options.services.soju = {

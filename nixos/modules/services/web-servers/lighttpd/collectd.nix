@@ -27,7 +27,8 @@ let
         cp contrib/collection.cgi $out
       '';
     });
-in {
+in
+{
 
   options.services.lighttpd.collectd = {
 

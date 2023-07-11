@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.onlyoffice;
-in {
+in
+{
   options.services.onlyoffice = {
     enable = mkEnableOption (lib.mdDoc "OnlyOffice DocumentServer");
 
@@ -288,7 +289,8 @@ in {
               psql -f ${cfg.package}/var/www/onlyoffice/documentserver/server/schema/postgresql/createdb.sql
             fi
           '';
-        in {
+        in
+        {
           description = "onlyoffice documentserver";
           after = [
             "network.target"

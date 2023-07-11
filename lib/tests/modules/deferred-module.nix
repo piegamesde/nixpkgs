@@ -5,7 +5,8 @@
 let
   inherit (lib) types mkOption setDefaultModuleLocation;
   inherit (types) deferredModule lazyAttrsOf submodule str raw enum;
-in {
+in
+{
   imports = [
     # generic module, declaring submodules:
     #   - nodes.<name>

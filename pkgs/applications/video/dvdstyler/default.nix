@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
         dvdauthor
         dvdplusrwtools
       ] ++ optionals dvdisasterSupport [ dvdisaster ]);
-    in ''
+    in
+    ''
       gappsWrapperArgs+=(
         --prefix PATH : "${binPath}"
       )

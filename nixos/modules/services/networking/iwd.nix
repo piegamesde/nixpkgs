@@ -18,7 +18,8 @@ let
   };
   configFile = ini.generate "main.conf" (recursiveUpdate defaults cfg.settings);
 
-in {
+in
+{
   options.networking.wireless.iwd = {
     enable = mkEnableOption (lib.mdDoc "iwd");
 

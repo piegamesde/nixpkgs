@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.nginxlog;
-in {
+in
+{
   port = 9117;
   extraOpts = {
     settings = mkOption {
@@ -46,7 +47,8 @@ in {
       };
       completeConfig = pkgs.writeText "nginxlog-exporter.yaml"
         (builtins.toJSON (lib.recursiveUpdate listenConfig cfg.settings));
-    in {
+    in
+    {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.prometheus-nginxlog-exporter}/bin/prometheus-nginxlog-exporter -config-file ${completeConfig}

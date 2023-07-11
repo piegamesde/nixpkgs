@@ -57,7 +57,8 @@ import ./make-test-python.nix ({
     ];
 
     newConfig = pkgs.writeText "xmonad.hs" (mkConfig "newXMonad" newKeys);
-  in {
+  in
+  {
     name = "xmonad";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -95,7 +96,8 @@ import ./make-test-python.nix ({
       }:
       let
         user = nodes.machine.config.users.users.alice;
-      in ''
+      in
+      ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")
@@ -137,4 +139,5 @@ import ./make-test-python.nix ({
         machine.wait_for_file("/tmp/somefile")
       ''
       ;
-  } )
+  }
+)

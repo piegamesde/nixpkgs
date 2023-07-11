@@ -23,7 +23,8 @@ let
     else
       warnConfig (pkgs.writeText "spotifyd.conf" cfg.config)
     ;
-in {
+in
+{
   options = {
     services.spotifyd = {
       enable = mkEnableOption (lib.mdDoc "spotifyd, a Spotify playing daemon");

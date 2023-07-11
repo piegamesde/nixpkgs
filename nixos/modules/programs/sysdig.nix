@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.sysdig;
-in {
+in
+{
   options.programs.sysdig.enable = mkEnableOption (lib.mdDoc "sysdig");
 
   config = mkIf cfg.enable {

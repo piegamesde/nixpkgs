@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.powerManagement.powertop;
-in {
+in
+{
   ###### interface
 
   options.powerManagement.powertop.enable =

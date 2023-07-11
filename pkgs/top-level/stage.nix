@@ -123,7 +123,8 @@ let
             recurseForDerivations = false;
           }
         ;
-    in {
+    in
+    {
       # Here are package sets of from related stages. They are all in the form
       # `pkgs{theirHost}{theirTarget}`. For example, `pkgsBuildHost` means their
       # host platform is our build platform, and their target platform is our host

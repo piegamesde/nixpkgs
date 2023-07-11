@@ -12,7 +12,8 @@ let
   cfgC = config.services.synergy.client;
   cfgS = config.services.synergy.server;
 
-in {
+in
+{
   ###### interface
 
   options = {

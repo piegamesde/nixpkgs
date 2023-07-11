@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.usbrelayd;
-in {
+in
+{
   options.services.usbrelayd = with types; {
     enable = mkEnableOption (lib.mdDoc "USB Relay MQTT daemon");
 

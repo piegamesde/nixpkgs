@@ -27,7 +27,8 @@ let
     ++ (optional cfg.ignoreIfState "--ignoreifstate")
     ++ (optional cfg.noMcast "--nomcast")
     ++ (optional (cfg.extraParam != null) "--xparam=${cfg.extraParam}"));
-in {
+in
+{
   options.networking.ucarp = {
     enable =
       mkEnableOption (lib.mdDoc "ucarp, userspace implementation of CARP");

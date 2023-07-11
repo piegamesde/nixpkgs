@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
           inherit name sha256;
         }
         ;
-    in [
+    in
+    [
       (dp {
         pname = "20_no_Werror";
         sha256 = "08z4s2ifiqyaacjpd9pzr59w8m4j3548kkaq1bwvp2gjn29m680x";

@@ -136,7 +136,8 @@ import ./make-test-python.nix {
                 print("===> content:", content)
                 assert b"An error has occurred while attempting to deliver a message" in content
             '';
-          in [
+          in
+          [
             sendTestMail
             checkMailBounced
           ]

@@ -37,7 +37,8 @@ let
       done
     '';
 
-in {
+in
+{
   imports = [
     (lib.mkRemovedOptionModule [
       "virtualisation"

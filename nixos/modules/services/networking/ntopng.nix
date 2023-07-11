@@ -37,7 +37,8 @@ let
       ''
     ;
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

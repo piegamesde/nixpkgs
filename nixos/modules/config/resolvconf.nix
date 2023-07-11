@@ -34,7 +34,8 @@ let
     name_servers='127.0.0.1'
   '' + cfg.extraConfig;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "networking"

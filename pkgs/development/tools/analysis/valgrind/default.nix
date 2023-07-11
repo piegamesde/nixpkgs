@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
     OSRELEASE = ''
       $(awk -F '"' '/#define OSRELEASE/{ print $2 }' \
       <${xnu}/Library/Frameworks/Kernel.framework/Headers/libkern/version.h)'';
-  in ''
+  in
+  ''
     echo "Don't derive our xnu version using uname -r."
     substituteInPlace configure --replace "uname -r" "echo ${OSRELEASE}"
 
@@ -107,7 +108,8 @@ stdenv.mkDerivation rec {
     echo "substitute hardcoded /usr/bin/ld with ${cctools}/bin/ld"
     substituteInPlace coregrind/link_tool_exe_darwin.in \
       --replace /usr/bin/ld ${cctools}/bin/ld
-  '' );
+  ''
+  );
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"

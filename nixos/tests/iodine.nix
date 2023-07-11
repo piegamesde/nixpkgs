@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   let
     domain = "whatever.example.com";
     password = "false;foo;exit;withspecialcharacters";
-  in {
+  in
+  {
     name = "iodine";
     nodes = {
       server =
@@ -66,4 +67,5 @@ import ./make-test-python.nix ({
 
       client.succeed("check_ssh -H 10.53.53.1")
     '';
-  } )
+  }
+)

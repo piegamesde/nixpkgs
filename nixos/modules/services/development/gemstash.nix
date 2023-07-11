@@ -29,7 +29,8 @@ let
   parseBindPort = bind: strings.toInt (last (strings.splitString ":" bind));
 
   cfg = config.services.gemstash;
-in {
+in
+{
   options.services.gemstash = {
     enable = mkEnableOption (lib.mdDoc "gemstash service");
 

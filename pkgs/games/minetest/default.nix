@@ -195,7 +195,8 @@ let
       buildServer = true;
     })
     ;
-in {
+in
+{
   minetestclient_5 = mkClient v5;
   minetestserver_5 = mkServer v5;
 }

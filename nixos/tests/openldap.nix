@@ -52,7 +52,8 @@ import ./make-test-python.nix ({
       base = "dc=example";
     };
 
-  in {
+  in
+  {
     name = "openldap";
 
     nodes.machine =
@@ -156,7 +157,8 @@ import ./make-test-python.nix ({
           replace: olcRootPW
           olcRootPW: foobar
         '';
-      in ''
+      in
+      ''
         # Test startup with empty DB
         machine.wait_for_unit("openldap.service")
 
@@ -195,4 +197,5 @@ import ./make-test-python.nix ({
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
       ''
       ;
-  } )
+  }
+)

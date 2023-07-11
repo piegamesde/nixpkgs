@@ -8,7 +8,8 @@
 }:
 let
   cfg = config.services.pleroma;
-in {
+in
+{
   options = {
     services.pleroma = with lib; {
       enable = mkEnableOption (lib.mdDoc "pleroma");

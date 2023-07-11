@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.antennas;
 
-in {
+in
+{
   options = {
     services.antennas = {
       enable = mkEnableOption (lib.mdDoc "Antennas");

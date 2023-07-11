@@ -48,7 +48,8 @@ let
       })
     ;
 
-in {
+in
+{
   options = {
     services.gvpe = {
       enable = lib.mkEnableOption (lib.mdDoc "gvpe");

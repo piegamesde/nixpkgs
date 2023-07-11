@@ -252,7 +252,8 @@ let
                 sysstat
               ]
             }:$PATH";
-        in ''
+        in
+        ''
           for i in $out/libexec/zfs/zpool.d/*; do
             sed -i '2i${path}' $i
           done
@@ -300,7 +301,8 @@ let
       };
     }
     ;
-in {
+in
+{
   # also check if kernel version constraints in
   # ./nixos/modules/tasks/filesystems/zfs.nix needs
   # to be adapted

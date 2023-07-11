@@ -28,7 +28,8 @@ let
   snakeOilPrivateKeyFile = pkgs.writeText "private-key" snakeOilPrivateKey;
   snakeOilPublicKey = sshKeys.snakeOilPublicKey;
 
-in {
+in
+{
   metadata = makeEc2Test {
     name = "openstack-ec2-metadata";
     inherit image;

@@ -7,7 +7,8 @@
 
 let
   cfg = config.programs.rog-control-center;
-in {
+in
+{
   options = {
     programs.rog-control-center = {
       enable =

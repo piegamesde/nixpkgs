@@ -44,7 +44,8 @@ import ../make-test-python.nix ({
           "yarn.resourcemanager.webapp.address.rm1" = "rm1:8088";
           "yarn.resourcemanager.webapp.address.rm2" = "rm2:8088";
         };
-      in {
+      in
+      {
         zk1 =
           {
             ...

@@ -54,7 +54,8 @@ python3.pkgs.buildPythonApplication rec {
   nativeCheckInputs =
     let
       ps = python3.pkgs;
-    in [
+    in
+    [
       dbus
       gnupg
       ps.pytest

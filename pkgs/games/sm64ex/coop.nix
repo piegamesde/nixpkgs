@@ -24,7 +24,8 @@ callPackage ./generic.nix {
   postInstall =
     let
       sharedLib = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
-    in ''
+    in
+    ''
       mkdir -p $out/lib
       cp $src/lib/bass/libbass{,_fx}${sharedLib} $out/lib
       cp $src/lib/discordsdk/libdiscord_game_sdk${sharedLib} $out/lib

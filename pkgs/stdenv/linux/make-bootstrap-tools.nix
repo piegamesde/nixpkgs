@@ -14,7 +14,8 @@ let
       "-static-libstdc++"
     ];
   });
-in with pkgs; rec {
+in
+with pkgs; rec {
 
   coreutilsMinimal = coreutils.override (args: {
     # We want coreutils without ACL/attr support.
@@ -256,7 +257,8 @@ in with pkgs; rec {
         outputHashAlgo = "sha256";
         outputHashMode = "recursive";
       };
-    in if (stdenv.hostPlatform.libc == "glibc") then
+    in
+    if (stdenv.hostPlatform.libc == "glibc") then
       import ./bootstrap-tools {
         inherit (stdenv.buildPlatform)
           system

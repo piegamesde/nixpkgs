@@ -46,7 +46,8 @@ import ./make-test-python.nix ({
             fi
           ''
           ;
-      in ''
+      in
+      ''
         start_all()
 
         couchdb3.wait_for_unit("couchdb.service")

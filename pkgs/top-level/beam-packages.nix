@@ -35,7 +35,8 @@ let
   packagesAliases = versionLoop
     (version: { "erlangR${version}" = self.packages."erlang_${version}"; });
 
-in {
+in
+{
   beamLib = callPackage ../development/beam-modules/lib.nix { };
 
   latestVersion = "erlang_25";

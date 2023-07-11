@@ -22,7 +22,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options.security.tpm2 = {
     enable = lib.mkEnableOption (lib.mdDoc "Trusted Platform Module 2 support");
 

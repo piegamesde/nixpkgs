@@ -362,7 +362,8 @@ stdenv.mkDerivation ({
           else
             stdenv.cc.libc
           ;
-      in ''
+      in
+      ''
         echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
                   for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
                   do

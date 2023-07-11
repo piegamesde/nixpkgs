@@ -8,7 +8,8 @@
 let
   cfg = config.services.supergfxd;
   json = pkgs.formats.json { };
-in {
+in
+{
   options = {
     services.supergfxd = {
       enable = lib.mkEnableOption (lib.mdDoc "Enable the supergfxd service");

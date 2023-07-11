@@ -31,7 +31,8 @@ let
       }
       ;
   };
-in with python.pkgs;
+in
+with python.pkgs;
 recurseIntoAttrs ({
   inherit python;
   coresrht = toPythonApplication srht;

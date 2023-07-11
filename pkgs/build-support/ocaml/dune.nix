@@ -31,7 +31,8 @@ let
     }."${dune-version}"
     ;
 
-in if
+in
+if
   (args ? minimumOCamlVersion
     && lib.versionOlder ocaml.version args.minimumOCamlVersion) || (args
       ? minimalOCamlVersion

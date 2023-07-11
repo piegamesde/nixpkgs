@@ -99,7 +99,8 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
         xorg.libXrandr
         xorg.libXi
       ] ++ lib.optionals enableWayland [ wayland ]);
-    in ''
+    in
+    ''
       # library skia embeds the path to its sources
       remove-references-to -t "$SKIA_SOURCE_DIR" \
         $out/bin/neovide

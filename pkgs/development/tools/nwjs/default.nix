@@ -129,7 +129,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       ccPath = lib.makeLibraryPath [ stdenv.cc.cc ];
-    in ''
+    in
+    ''
       mkdir -p $out/share/nwjs
       cp -R * $out/share/nwjs
       find $out/share/nwjs

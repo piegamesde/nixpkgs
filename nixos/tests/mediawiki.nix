@@ -25,7 +25,8 @@ let
     inherit system pkgs;
     extraConfigurations = [ shared ];
   };
-in {
+in
+{
   mysql = testLib.makeTest {
     name = "mediawiki-mysql";
     nodes.machine = { services.mediawiki.database.type = "mysql"; };

@@ -10,7 +10,8 @@ with lib;
 
 let
   cfg = config.services.cfssl;
-in {
+in
+{
   options.services.cfssl = {
     enable = mkEnableOption (lib.mdDoc "the CFSSL CA api-server");
 

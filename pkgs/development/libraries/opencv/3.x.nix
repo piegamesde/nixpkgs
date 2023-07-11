@@ -117,7 +117,8 @@ let
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
-      in if stdenv.hostPlatform.system == "x86_64-linux" then
+      in
+      if stdenv.hostPlatform.system == "x86_64-linux" then
         { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
       else if stdenv.hostPlatform.system == "i686-linux" then
         { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }

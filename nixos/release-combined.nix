@@ -35,7 +35,8 @@ let
       set
     ;
 
-in rec {
+in
+rec {
 
   nixos = removeMaintainers (import ./release.nix {
     inherit stableBranch;

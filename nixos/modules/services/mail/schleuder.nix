@@ -26,7 +26,8 @@ let
       > /etc/schleuder/schleuder.yml
     chown schleuder: /etc/schleuder/schleuder.yml
   '';
-in {
+in
+{
   options.services.schleuder = {
     enable = lib.mkEnableOption (lib.mdDoc "Schleuder secure remailer");
     enablePostfix =
@@ -138,7 +139,8 @@ in {
           StateDirectory = "schleuder";
           StateDirectoryMode = "0700";
         };
-      in {
+      in
+      {
         schleuder-init = {
           serviceConfig = commonServiceConfig // {
             ExecStartPre =

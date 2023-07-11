@@ -108,7 +108,8 @@
             python = self;
           })
         ;
-    in rec {
+    in
+    rec {
       isPy27 = pythonVersion == "2.7";
       isPy37 = pythonVersion == "3.7";
       isPy38 = pythonVersion == "3.8";
@@ -171,7 +172,8 @@
     };
   };
 
-in {
+in
+{
 
   python27 = callPackage ./cpython/2.7 {
     self = __splicedPackages.python27;
@@ -352,4 +354,5 @@ in {
     inherit (darwin.apple_sdk_11_0.frameworks) SystemConfiguration;
   };
 
-} )
+}
+)

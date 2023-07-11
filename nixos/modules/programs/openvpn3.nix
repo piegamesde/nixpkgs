@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.openvpn3;
-in {
+in
+{
   options.programs.openvpn3 = {
     enable = mkEnableOption (lib.mdDoc "the openvpn3 client");
   };

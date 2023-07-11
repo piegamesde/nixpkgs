@@ -31,7 +31,8 @@ buildGoModule rec {
   ldflags =
     let
       constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
-    in [
+    in
+    [
       "-X ${constants}.Version=${version}"
       "-X ${constants}.Revision=${src.rev}"
       "-X ${constants}.buildTime=unknown"

@@ -42,7 +42,8 @@ let
     "-f"
     "${configFile}"
   ] ++ cfg.extraFlags;
-in {
+in
+{
   options = {
     services.chrony = {
       enable = mkOption {

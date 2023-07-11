@@ -26,7 +26,8 @@ import ./make-test-python.nix ({
               }
               ;
 
-          in {
+          in
+          {
             first = container "1";
             second = container "2";
             really-long-name = container "3";

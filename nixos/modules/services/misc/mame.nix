@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.mame;
   mame = "mame${lib.optionalString pkgs.stdenv.is64bit "64"}";
-in {
+in
+{
   options = {
     services.mame = {
       enable = mkOption {

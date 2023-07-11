@@ -5,7 +5,8 @@
 let
   inherit (lib) types;
   inherit (types) attrsOf oneOf coercedTo str bool int float package;
-in {
+in
+{
   javaProperties =
     {
       comment ? "Generated with Nix",

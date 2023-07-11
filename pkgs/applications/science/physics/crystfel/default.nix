@@ -70,7 +70,8 @@ let
             "https://wrapdb.mesonbuild.com/v2/libccp4c_8.0.0-1/get_patch#somefile.zip";
           hash = "sha256-ohskfKh+972Pl56KtwAeWwHtAaAFNpCzz5vZBAI/vdU=";
         };
-      in ''
+      in
+      ''
         cp ${mesonPatch}/meson.build .
       ''
       ;

@@ -35,16 +35,19 @@ let
     concatMap (name:
       let
         value = attrs.${name};
-      in if isAttrs value then
+      in
+      if isAttrs value then
         map (line: name + "." + line) (linesForAttrs value)
       else
-        [ "${name}=${toStr value}" ]) (attrNames attrs)
+        [ "${name}=${toStr value}" ]
+    ) (attrNames attrs)
     ;
 
   configFile = pkgs.writeText "davmail.properties"
     (concatStringsSep "\n" (linesForAttrs cfg.config));
 
-in {
+in
+{
   options.services.davmail = {
     enable = mkEnableOption (lib.mdDoc "davmail, an MS Exchange gateway");
 

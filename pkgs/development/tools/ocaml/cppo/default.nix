@@ -21,7 +21,8 @@ let
     license = licenses.bsd3;
   };
 
-in if lib.versionAtLeast ocaml.version "4.02" then
+in
+if lib.versionAtLeast ocaml.version "4.02" then
 
   buildDunePackage rec {
     inherit pname;

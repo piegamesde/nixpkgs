@@ -20,7 +20,8 @@ openvpn.overrideAttrs (oldAttrs:
         inherit sha256;
       }
       ;
-  in rec {
+  in
+  rec {
     pname = "openvpn-mullvad";
     version = "2.5.3";
 
@@ -89,4 +90,5 @@ openvpn.overrideAttrs (oldAttrs:
       homepage = "https://github.com/mullvad/openvpn";
       maintainers = with lib; [ maintainers.cole-h ];
     };
-  } )
+  }
+)

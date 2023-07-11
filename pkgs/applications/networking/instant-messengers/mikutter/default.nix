@@ -82,7 +82,8 @@ let
     ;
 
   inherit (gems) wrappedRuby;
-in with mikutterPaths;
+in
+with mikutterPaths;
 stdenv.mkDerivation rec {
   pname = "mikutter";
   version = "4.1.4";

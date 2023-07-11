@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.karma;
   yaml = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.karma = {
     enable = mkEnableOption (mdDoc "the Karma dashboard service");
 

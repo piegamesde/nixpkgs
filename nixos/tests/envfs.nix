@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
       #!/usr/bin/bash
       echo "OK"
     '';
-  in {
+  in
+  {
     name = "envfs";
     nodes.machine.services.envfs.enable = true;
 
@@ -42,4 +43,5 @@ import ./make-test-python.nix ({
       print(out)
       assert out == "OK\n"
     '';
-  } )
+  }
+)

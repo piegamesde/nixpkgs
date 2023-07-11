@@ -99,7 +99,8 @@ stdenv.mkDerivation rec {
         # Skip slow RVD test
         "RVD"
       ];
-    in ''
+    in
+    ''
       runHook preCheck
 
       ln -s ${testdata} ../tests/data

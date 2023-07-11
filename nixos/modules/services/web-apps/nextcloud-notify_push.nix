@@ -8,7 +8,8 @@
 
 let
   cfg = config.services.nextcloud.notify_push;
-in {
+in
+{
   options.services.nextcloud.notify_push = {
     enable = lib.mkEnableOption (lib.mdDoc "Notify push");
 
@@ -56,7 +57,8 @@ in {
         nextcloudUrl = "http${
             lib.optionalString config.services.nextcloud.https "s"
           }://${config.services.nextcloud.hostName}";
-      in {
+      in
+      {
         description = "Push daemon for Nextcloud clients";
         documentation = [ "https://github.com/nextcloud/notify_push" ];
         after = [ "phpfpm-nextcloud.service" ];

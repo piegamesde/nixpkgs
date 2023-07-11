@@ -35,7 +35,8 @@ import ./make-test-python.nix ({
             };
           }
           ;
-      in {
+      in
+      {
         basic =
           {
             ...

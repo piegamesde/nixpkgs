@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.podgrab;
-in {
+in
+{
   options.services.podgrab = with lib; {
     enable =
       mkEnableOption (lib.mdDoc "Podgrab, a self-hosted podcast manager");

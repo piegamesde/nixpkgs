@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.traceroute;
-in {
+in
+{
   options = {
     programs.traceroute = {
       enable = mkOption {

@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
         else
           "fingerd"
         ;
-    in ''
+    in
+    ''
       cd ${srcdir}
     ''
     ;
@@ -49,7 +50,8 @@ stdenv.mkDerivation rec {
         else
           "man/man8"
         ;
-    in ''
+    in
+    ''
       mkdir -p $out/${bindir} $out/${mandir}
     ''
     ;

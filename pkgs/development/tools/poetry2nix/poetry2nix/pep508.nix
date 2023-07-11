@@ -186,7 +186,8 @@ let
           substituteVar
         ]
         ;
-    in if builtins.typeOf exprs == "set" then
+    in
+    if builtins.typeOf exprs == "set" then
       (if exprs.type == "expr" then
         (let
           mVal = ''[a-zA-Z0-9\'"_\. \-]+'';
@@ -199,7 +200,8 @@ let
             builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e);
           m0 = processVar (builtins.elemAt m 0);
           m2 = processVar (builtins.elemAt m 2);
-        in {
+        in
+        {
           type = "expr";
           value = {
             # HACK: We don't know extra at eval time, so we assume the expression is always true
@@ -214,7 +216,8 @@ let
               m2
             ];
           };
-        } )
+        }
+        )
       else
         exprs)
     else
@@ -272,16 +275,19 @@ let
           builtins.elem (unmarshal x) values
           ;
       };
-    in if builtins.typeOf exprs == "set" then
+    in
+    if builtins.typeOf exprs == "set" then
       (if exprs.type == "expr" then
         (let
           expr = exprs;
           result = (op."${expr.value.op}") (builtins.elemAt expr.value.values 0)
             (builtins.elemAt expr.value.values 1);
-        in {
+        in
+        {
           type = "value";
           value = result;
-        } )
+        }
+        )
       else
         exprs)
     else

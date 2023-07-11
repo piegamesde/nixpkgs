@@ -23,7 +23,8 @@ let
   };
   reldir = "opt/brother/Printers/${model}/";
 
-in rec {
+in
+rec {
   driver = pkgsi686Linux.stdenv.mkDerivation rec {
     inherit src version;
     name = "${model}drv-${version}";

@@ -6,7 +6,8 @@
 with lib;
 let
   cfg = config.services.oauth2_proxy.nginx;
-in {
+in
+{
   options.services.oauth2_proxy.nginx = {
     proxy = mkOption {
       type = types.str;

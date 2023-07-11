@@ -378,7 +378,8 @@ let
     }
     ;
 
-in rec {
+in
+rec {
 
   # ENGLISH
 

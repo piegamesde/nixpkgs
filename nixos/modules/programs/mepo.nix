@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.programs.mepo;
-in {
+in
+{
   options.programs.mepo = {
     enable = mkEnableOption (mdDoc "Mepo");
 

@@ -16,7 +16,8 @@ let
 
   webPkg = cfg.package;
 
-in {
+in
+{
 
   options = {
 
@@ -68,7 +69,8 @@ in {
     services.nginx.virtualHosts =
       let
         hkpPort = builtins.toString cfg.hkpPort;
-      in {
+      in
+      {
         ${cfg.hostname} = {
           root = webPkg;
           locations = {

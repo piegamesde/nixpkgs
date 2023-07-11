@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.keylight;
-in {
+in
+{
   port = 9288;
   serviceOpts = {
     serviceConfig = {

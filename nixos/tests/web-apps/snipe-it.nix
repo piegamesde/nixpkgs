@@ -13,7 +13,8 @@
 }:
 let
   siteName = "NixOS Snipe-IT Test Instance";
-in {
+in
+{
   name = "snipe-it";
 
   meta.maintainers = with pkgs.lib.maintainers; [ yayayayaka ];
@@ -67,7 +68,8 @@ in {
           }("""curl http://localhost/login | grep '${siteName}'""")
         ''
         ;
-    in ''
+    in
+    ''
       start_all()
 
       snipeit.wait_for_unit("nginx.service")

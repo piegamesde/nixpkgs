@@ -23,7 +23,8 @@ let
       "jetbrains.youtrack.disableBrowser" = "true";
     }
   ];
-in {
+in
+{
   options.services.youtrack = {
 
     enable = mkEnableOption (lib.mdDoc "YouTrack service");

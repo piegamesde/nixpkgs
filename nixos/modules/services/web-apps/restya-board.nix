@@ -20,7 +20,8 @@ let
 
   poolName = "restya-board";
 
-in {
+in
+{
 
   ###### interface
 

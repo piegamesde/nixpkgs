@@ -10,7 +10,8 @@ with lib;
 let
   name = "roon-server";
   cfg = config.services.roon-server;
-in {
+in
+{
   options = {
     services.roon-server = {
       enable = mkEnableOption (lib.mdDoc "Roon Server");

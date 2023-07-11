@@ -13,7 +13,8 @@ let
       lib.toHexString n)
     ;
 
-in rec {
+in
+rec {
   qemuNicMac = net: machine: "52:54:00:12:${zeroPad net}:${zeroPad machine}";
 
   qemuNICFlags =
@@ -82,7 +83,8 @@ in rec {
           lib.concatStringsSep ", " (lib.attrNames guestMap)
         }"
         ;
-    in if hostStdenv.isLinux then
+    in
+    if hostStdenv.isLinux then
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"
     else
       let

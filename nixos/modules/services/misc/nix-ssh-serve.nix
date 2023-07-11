@@ -13,7 +13,8 @@ let
     else
       "nix-daemon --stdio"
     ;
-in {
+in
+{
   options = {
 
     nix.sshServe = {

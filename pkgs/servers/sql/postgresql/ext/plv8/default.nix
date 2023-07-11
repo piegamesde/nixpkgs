@@ -73,7 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
       let
         postgresqlWithSelf =
           postgresql.withPackages (_: [ finalAttrs.finalPackage ]);
-      in {
+      in
+      {
         smoke = runCommand "plv8-smoke-test" { } ''
           export PATH=${
             lib.makeBinPath [

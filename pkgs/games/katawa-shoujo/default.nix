@@ -121,7 +121,8 @@ stdenv.mkDerivation rec {
             bin = "${installDir}/'Katawa Shoujo'.sh";
           };
       libDir = with platformDetails; "${dataDir}/lib/${arch}";
-    in with platformDetails;
+    in
+    with platformDetails;
     ''
       runHook preInstall
 

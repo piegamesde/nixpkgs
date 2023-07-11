@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.networking.iproute2;
-in {
+in
+{
   options.networking.iproute2 = {
     enable = mkEnableOption (lib.mdDoc "copy IP route configuration files");
     rttablesExtraConfig = mkOption {

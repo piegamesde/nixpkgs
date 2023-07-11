@@ -109,7 +109,8 @@ let
             key: val:
             let
               newPath = path ++ singleton key;
-            in if isOption val then
+            in
+            if isOption val then
               attrByPath newPath (notFound newPath) cfg.pki.manual
             else
               findPkiDefinitions newPath val
@@ -188,7 +189,8 @@ let
       propagatedBuildInputs = [ click ];
     };
 
-in {
+in
+{
   options = {
     services.taskserver = {
       enable = mkOption {
@@ -440,7 +442,8 @@ in {
                       else
                         toString val
                       ;
-                  in if isAttrs val then
+                  in
+                  if isAttrs val then
                     recurse newPath val
                   else
                     [ "${mkKey newPath}=${scalar}" ]

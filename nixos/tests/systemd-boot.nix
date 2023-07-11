@@ -15,7 +15,8 @@ let
     boot.loader.efi.canTouchEfiVariables = true;
     environment.systemPackages = [ pkgs.efibootmgr ];
   };
-in {
+in
+{
   basic = makeTest {
     name = "systemd-boot";
     meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
@@ -283,7 +284,8 @@ in {
         originalSystem = nodes.machine.config.system.build.toplevel;
         baseSystem = nodes.common.config.system.build.toplevel;
         finalSystem = nodes.with_netbootxyz.config.system.build.toplevel;
-      in ''
+      in
+      ''
         machine.succeed("test -e /boot/efi/fruits/tomato.efi")
         machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
 

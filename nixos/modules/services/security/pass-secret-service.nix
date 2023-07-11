@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.passSecretService;
-in {
+in
+{
   options.services.passSecretService = {
     enable = mkEnableOption (lib.mdDoc "pass secret service");
 

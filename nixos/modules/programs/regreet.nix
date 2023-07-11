@@ -7,7 +7,8 @@
 let
   cfg = config.programs.regreet;
   settingsFormat = pkgs.formats.toml { };
-in {
+in
+{
   options.programs.regreet = {
     enable = lib.mkEnableOption null // {
       description = lib.mdDoc ''
@@ -78,7 +79,8 @@ in {
     systemd.tmpfiles.rules =
       let
         user = config.services.greetd.settings.default_session.user;
-      in [
+      in
+      [
         "d /var/log/regreet 0755 greeter ${user} - -"
         "d /var/cache/regreet 0755 greeter ${user} - -"
       ]

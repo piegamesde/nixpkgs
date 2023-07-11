@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.xbanish;
 
-in {
+in
+{
   options.services.xbanish = {
 
     enable = mkEnableOption (lib.mdDoc "xbanish");

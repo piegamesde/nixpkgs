@@ -9,7 +9,8 @@ let
 
   cfg = config.services.gitDaemon;
 
-in {
+in
+{
 
   ###### interface
 

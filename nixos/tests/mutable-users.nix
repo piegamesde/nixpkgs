@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
       let
         immutableSystem = nodes.machine.config.system.build.toplevel;
         mutableSystem = nodes.mutable.config.system.build.toplevel;
-      in ''
+      in
+      ''
         machine.start()
         machine.wait_for_unit("default.target")
 

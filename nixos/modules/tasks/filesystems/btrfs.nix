@@ -18,7 +18,8 @@ let
   enableAutoScrub = cfgScrub.enable;
   enableBtrfs = inInitrd || inSystem || enableAutoScrub;
 
-in {
+in
+{
   options = {
     # One could also do regular btrfs balances, but that shouldn't be necessary
     # during normal usage and as long as the filesystems aren't filled near capacity

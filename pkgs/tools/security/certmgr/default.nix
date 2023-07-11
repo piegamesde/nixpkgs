@@ -37,7 +37,8 @@ let
       };
     }
     ;
-in {
+in
+{
   certmgr = generic { };
 
   certmgr-selfsigned = generic {

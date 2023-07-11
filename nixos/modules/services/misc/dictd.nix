@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.dictd;
 
-in {
+in
+{
 
   ###### interface
 

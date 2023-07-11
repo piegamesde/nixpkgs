@@ -98,7 +98,8 @@ let
   '';
 
   enabledFiles = filterAttrs (n: v: v.enable) cfg.settingsFile;
-in {
+in
+{
 
   ###### interface
   options.services.sympa = with types; {

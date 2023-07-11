@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.stratis;
-in {
+in
+{
   options.services.stratis = {
     enable = lib.mkEnableOption (lib.mdDoc
       "Stratis Storage - Easy to use local storage management for Linux");

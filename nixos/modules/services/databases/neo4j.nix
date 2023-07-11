@@ -108,7 +108,8 @@ let
     ${cfg.extraServerConfig}
   '';
 
-in {
+in
+{
 
   imports = [
     (mkRenamedOptionModule [

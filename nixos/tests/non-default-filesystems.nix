@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
       }:
       let
         disk = config.virtualisation.rootDevice;
-      in {
+      in
+      {
         virtualisation.rootDevice = "/dev/vda";
         virtualisation.useDefaultFilesystems = false;
 

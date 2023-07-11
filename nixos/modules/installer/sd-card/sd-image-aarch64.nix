@@ -68,7 +68,8 @@
           # when attempting to show low-voltage or overtemperature warnings.
           avoid_warnings=1
         '';
-      in ''
+      in
+      ''
         (cd ${pkgs.raspberrypifw}/share/raspberrypi/boot && cp bootcode.bin fixup*.dat start*.elf $NIX_BUILD_TOP/firmware/)
 
         # Add the config

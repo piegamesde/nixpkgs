@@ -111,7 +111,8 @@ stdenv.mkDerivation rec {
           -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss
           -ljpeg -ltiff -lpng -lssl ;
       '';
-    in ''
+    in
+    ''
       cp ${jamTop} Jamtop
       substituteInPlace Makefile --replace "-j 3" "-j $NIX_BUILD_CORES"
       # Remove tiff, jpg and png to be sure the nixpkgs-provided ones are used

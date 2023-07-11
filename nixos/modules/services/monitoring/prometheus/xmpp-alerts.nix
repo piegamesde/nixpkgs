@@ -12,7 +12,8 @@ let
   settingsFormat = pkgs.formats.yaml { };
   configFile =
     settingsFormat.generate "prometheus-xmpp-alerts.yml" cfg.settings;
-in {
+in
+{
   imports = [
       (mkRenamedOptionModule [
         "services"

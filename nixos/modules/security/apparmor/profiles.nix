@@ -6,7 +6,8 @@
 }:
 let
   apparmor = config.security.apparmor;
-in {
+in
+{
   config.security.apparmor.packages = [ pkgs.apparmor-profiles ];
   config.security.apparmor.policies."bin.ping".profile =
     lib.mkIf apparmor.policies."bin.ping".enable ''

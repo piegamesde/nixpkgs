@@ -47,7 +47,8 @@ let
         builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
-    in if parts == null then
+    in
+    if parts == null then
       null
     else
       {
@@ -89,7 +90,8 @@ let
     pkg:
     let
       gitParts = parseGit pkg.source;
-    in {
+    in
+    {
       name = "${pkg.name}-${pkg.version}";
       value = gitParts.sha;
     }
@@ -109,10 +111,12 @@ let
         "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
         ;
       rev = namesGitShas.${nameVer} or unusedHash;
-    in {
+    in
+    {
       name = rev;
       value = hash;
-    } ) outputHashes;
+    }
+  ) outputHashes;
 
     # We can't use the existing fetchCrate function, since it uses a
     # recursive hash of the unpacked crate.
@@ -152,7 +156,8 @@ let
     let
       gitParts = parseGit pkg.source;
       registryIndexUrl = lib.removePrefix "registry+" pkg.source;
-    in if
+    in
+    if
       lib.hasPrefix "registry+" pkg.source
       && builtins.hasAttr registryIndexUrl registries
     then

@@ -30,7 +30,8 @@ import ../make-test-python.nix ({
         -CAcreateserial -out $out \
         -days 365
     '';
-  in {
+  in
+  {
     name = "pantalaimon";
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
@@ -86,4 +87,5 @@ import ../make-test-python.nix ({
           "curl --fail -L http://localhost:8888/"
       )
     '';
-  } )
+  }
+)

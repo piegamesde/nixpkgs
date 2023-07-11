@@ -50,7 +50,8 @@ let
     ${cfg.extraConfig}
   '';
 
-in {
+in
+{
   options = {
 
     services.xserver.displayManager.lightdm.greeters.mini = {

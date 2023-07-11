@@ -130,7 +130,8 @@ let
           [ output.modeline ]
         ;
       renderModeline = l: "modeline = ${l}";
-    in ''
+    in
+    ''
       [output:${name}]
       ${concatStringsSep "\n" (map renderModeline modelines)}
       ${optionalKV "mode" output.mode}
@@ -143,7 +144,8 @@ let
     phoc:
     let
       outputs = mapAttrsToList renderPhocOutput phoc.outputs;
-    in ''
+    in
+    ''
       [core]
       xwayland = ${phoc.xwayland}
       ${concatStringsSep "\n" outputs}
@@ -152,7 +154,8 @@ let
     ''
     ;
 
-in {
+in
+{
   options = {
     services.xserver.desktopManager.phosh = {
       enable = mkOption {

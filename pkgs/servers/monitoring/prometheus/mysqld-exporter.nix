@@ -20,7 +20,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/prometheus/common/version";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${t}.Version=${version}"

@@ -22,7 +22,8 @@ let
           (key: value: "${key}=${builtins.toJSON value}") attrs))
       ;
   };
-in {
+in
+{
   options = {
 
     services.uhub = mkOption {
@@ -86,7 +87,8 @@ in {
   config =
     let
       hubs = lib.attrsets.filterAttrs (_: cfg: cfg.enable) config.services.uhub;
-    in {
+    in
+    {
 
       environment.etc = lib.attrsets.mapAttrs' (name: cfg:
         let
@@ -104,17 +106,20 @@ in {
                       settings)
                   }"'') cfg.plugins));
           };
-        in {
+        in
+        {
           name = "uhub/${name}.conf";
           value.source = settingsFormat.generate "uhub-${name}.conf" settings';
-        } ) hubs;
+        }
+      ) hubs;
 
       systemd.services = lib.attrsets.mapAttrs' (name: cfg: {
         name = "uhub-${name}";
         value =
           let
             pkg = pkgs.uhub.override { tlsSupport = cfg.enableTLS; };
-          in {
+          in
+          {
             description =
               "high performance peer-to-peer hub for the ADC network";
             after = [ "network.target" ];

@@ -9,7 +9,8 @@ let
 
   riscv = bits: { config = "riscv${bits}-unknown-linux-gnu"; };
 
-in rec {
+in
+rec {
   #
   # Linux
   #

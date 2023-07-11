@@ -13,7 +13,8 @@ let
   configFile = format.generate "config.yaml" cfg.settings;
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
-in {
+in
+{
   options.services.vikunja = with lib; {
     enable = mkEnableOption (lib.mdDoc "vikunja service");
     package-api = mkOption {

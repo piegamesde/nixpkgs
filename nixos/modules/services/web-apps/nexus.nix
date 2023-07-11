@@ -11,7 +11,8 @@ let
 
   cfg = config.services.nexus;
 
-in {
+in
+{
   options = {
     services.nexus = {
       enable = mkEnableOption (lib.mdDoc "Sonatype Nexus3 OSS service");

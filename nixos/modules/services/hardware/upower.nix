@@ -13,7 +13,8 @@ let
 
   cfg = config.services.upower;
 
-in {
+in
+{
 
   ###### interface
 

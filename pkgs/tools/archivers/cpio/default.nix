@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
           inherit sha256;
         }
         ;
-    in [
+    in
+    [
       (fp "1" "dd96882877721703e19272fe25034560b794061b"
         "0vmr0qjwj2ldnzsvccl105ckwgx3ssvn9mp3f27ss0kiyigrzz32")
       (fp "2" "dfc801c44a93bed7b3951905b188823d6a0432c8"

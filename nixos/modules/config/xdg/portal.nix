@@ -8,7 +8,8 @@
 let
   inherit (lib) mkEnableOption mkIf mkOption mkRenamedOptionModule teams types;
 
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"
@@ -33,13 +34,15 @@ in {
           "gtkUsePortal"
         ];
         fromOpt = lib.getAttrFromPath from options;
-      in {
+      in
+      {
         warnings = lib.mkIf config.xdg.portal.gtkUsePortal [
             "The option `${lib.showOption from}' defined in ${
               lib.showFiles fromOpt.files
             } has been deprecated. Setting the variable globally with `environment.sessionVariables' NixOS option can have unforseen side-effects."
           ];
-      } )
+      }
+    )
   ];
 
   meta = { maintainers = teams.freedesktop.members; };

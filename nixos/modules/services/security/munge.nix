@@ -11,7 +11,8 @@ let
 
   cfg = config.services.munge;
 
-in {
+in
+{
 
   ###### interface
 

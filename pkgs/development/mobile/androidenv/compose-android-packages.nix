@@ -152,7 +152,8 @@ let
     # The list of all license names we're accepting. Put android-sdk-license there
     # by default.
   licenseNames = lib.lists.unique ([ "android-sdk-license" ] ++ extraLicenses);
-in rec {
+in
+rec {
   deployAndroidPackages =
     callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
   deployAndroidPackage = ({
@@ -506,11 +507,13 @@ in rec {
                 inherit os;
                 package = addons.extras.${identifier};
               };
-            in ''
+            in
+            ''
               targetDir=$(dirname ${path})
               mkdir -p $targetDir
               ln -s ${addon}/libexec/android-sdk/${path} $targetDir
-            '' ) includeExtras}
+            ''
+          ) includeExtras}
 
           # Expose common executables in bin/
           mkdir -p $out/bin
@@ -535,9 +538,11 @@ in rec {
                 builtins.concatStringsSep "\n" (mkLicenseHashes licenseName);
               licenseHashFile =
                 writeText "androidenv-${licenseName}" licenseHashes;
-            in ''
+            in
+            ''
               ln -s ${licenseHashFile} licenses/${licenseName}
-            '' ) licenseNames}
+            ''
+          ) licenseNames}
         '';
       }
     ;

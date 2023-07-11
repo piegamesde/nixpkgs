@@ -76,7 +76,8 @@ import ./make-test-python.nix ({
 
           # Hopefully Console's wm class
         wmClass = su "${gdbus} ${eval} global.display.focus_window.wm_class";
-      in ''
+      in
+      ''
         with subtest("Login to GNOME with GDM"):
             # wait for gdm to start
             machine.wait_for_unit("display-manager.service")

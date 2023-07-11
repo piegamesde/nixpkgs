@@ -447,7 +447,8 @@ let
     })
     ;
 
-in {
+in
+{
   # Sorted alphabetically
 
   clion = buildClion rec {

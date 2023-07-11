@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       interpreter = ''$(< "$NIX_CC/nix-support/dynamic-linker")'';
-    in ''
+    in
+    ''
       mkdir -p $out/bin
       cp zrok $out/bin/
       chmod +x $out/bin/zrok

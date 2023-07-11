@@ -47,7 +47,8 @@ let
     } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
     ;
 
-in {
+in
+{
 
   options = {
 

@@ -11,7 +11,8 @@ let
 
   cfg = config.services.canto-daemon;
 
-in {
+in
+{
 
   ##### interface
 

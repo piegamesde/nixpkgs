@@ -25,7 +25,8 @@ let
       riemann.bin ${cfg.configFile}
   '';
 
-in {
+in
+{
 
   options = {
 

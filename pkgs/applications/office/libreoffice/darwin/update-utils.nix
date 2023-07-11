@@ -11,7 +11,8 @@ let
         builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
       stableVersions = builtins.concatLists
         (builtins.filter (e: builtins.isList e) splittedVersions);
-    in if stableVersions == [ ] then
+    in
+    if stableVersions == [ ] then
       abort "Failed to extract versions from html."
     else
       lib.last (builtins.sort builtins.lessThan stableVersions)
@@ -32,7 +33,8 @@ let
     htmlString:
     let
       sha256 = (builtins.match ".*([0-9a-fA-F]{64}).*" htmlString);
-    in if sha256 == [ ] then
+    in
+    if sha256 == [ ] then
       abort "Failed to extract sha256 from html."
     else
       builtins.head sha256
@@ -50,7 +52,8 @@ let
     (builtins.replaceStrings [ oldVersion ] [ newVersion ] dmgUrl) + ".sha256"
     ;
 
-in {
+in
+{
   inherit
     extractLatestVersionFromHtml
     getHtml

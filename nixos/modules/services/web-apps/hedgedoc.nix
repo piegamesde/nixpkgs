@@ -33,7 +33,8 @@ let
         > $out
     ''
     ;
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "services"

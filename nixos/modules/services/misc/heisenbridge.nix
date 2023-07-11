@@ -26,7 +26,8 @@ let
       sender_localpart = "heisenbridge";
       namespaces = cfg.namespaces;
     });
-in {
+in
+{
   options.services.heisenbridge = {
     enable = mkEnableOption (lib.mdDoc "the Matrix to IRC bridge");
 

@@ -84,7 +84,8 @@ let
     # Use this rather than `rec { ... }` below for sake of overlays.
   inherit (pkgs.haskell) compiler packages;
 
-in {
+in
+{
   lib = haskellLibUncomposable;
 
   package-list =
@@ -513,7 +514,8 @@ in {
   packages =
     let
       bh = buildPackages.haskell;
-    in rec {
+    in
+    rec {
 
       ghc865Binary = callPackage ../development/haskell-modules {
         buildHaskellPackages = bh.packages.ghc865Binary;

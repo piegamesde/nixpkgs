@@ -16,7 +16,8 @@
 let
   inherit (lib) optional;
 
-in let
+in
+let
   self = stdenv.mkDerivation rec {
     pname = "gmp${lib.optionalString cxx "-with-cxx"}";
     version = "6.2.1";

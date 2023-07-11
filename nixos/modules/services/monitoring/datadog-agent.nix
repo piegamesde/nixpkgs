@@ -60,7 +60,8 @@ let
   datadogPkg = cfg.package.override {
     pythonPackages = pkgs.datadog-integrations-core cfg.extraIntegrations;
   };
-in {
+in
+{
   options.services.datadog-agent = {
     enable = mkEnableOption (lib.mdDoc "Datadog-agent v7 monitoring service");
 
@@ -285,7 +286,8 @@ in {
               [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
           } attrs
           ;
-      in {
+      in
+      {
         datadog-agent = makeService {
           description = "Datadog agent monitor";
           preStart = ''

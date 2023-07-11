@@ -133,7 +133,8 @@ stdenv.mkDerivation rec {
           else
             "\\$HOME/higan"
           ;
-      in ''
+      in
+      ''
         mkdir -p ${placeholder "out"}/bin
         cat <<EOF > ${placeholder "out"}/bin/higan-init.sh
         #!${runtimeShell}
@@ -145,10 +146,11 @@ stdenv.mkDerivation rec {
         EOF
 
         chmod +x ${placeholder "out"}/bin/higan-init.sh
-      '' ) + ''
+      ''
+    ) + ''
 
-        runHook postInstall
-      '';
+      runHook postInstall
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/higan-emu/higan";

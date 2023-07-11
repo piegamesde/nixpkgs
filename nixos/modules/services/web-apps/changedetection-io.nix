@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.changedetection-io;
-in {
+in
+{
   options.services.changedetection-io = {
     enable = mkEnableOption (lib.mdDoc "changedetection-io");
 
@@ -130,7 +131,8 @@ in {
     systemd =
       let
         defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
-      in {
+      in
+      {
         services.changedetection-io = {
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];

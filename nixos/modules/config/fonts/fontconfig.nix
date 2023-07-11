@@ -253,7 +253,8 @@ let
 
   fontconfigNote =
     "Consider manually configuring fonts.fontconfig according to personal preference.";
-in {
+in
+{
   imports = [
     (mkRenamedOptionModule [
       "fonts"

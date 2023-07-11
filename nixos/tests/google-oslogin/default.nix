@@ -14,7 +14,8 @@ import ../make-test-python.nix ({
       StrictHostKeyChecking=no
       IdentityFile=~/.ssh/id_snakeoil
     '';
-  in {
+  in
+  {
     name = "google-oslogin";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -83,5 +84,6 @@ import ../make-test-python.nix ({
           f"ssh {MOCKADMIN}@server '/run/wrappers/bin/sudo /run/current-system/sw/bin/id' | grep -q 'root'"
       )
     '';
-  } )
+  }
+)
 

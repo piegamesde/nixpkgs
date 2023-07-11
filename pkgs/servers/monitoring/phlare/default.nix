@@ -22,7 +22,8 @@ buildGoModule rec {
   ldflags =
     let
       prefix = "github.com/grafana/phlare/pkg/util/build";
-    in [
+    in
+    [
       "-s"
       "-w"
       # https://github.com/grafana/phlare/blob/v0.5.1/Makefile#L32

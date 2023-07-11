@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.wireshark;
   wireshark = cfg.package;
-in {
+in
+{
   options = {
     programs.wireshark = {
       enable = mkOption {

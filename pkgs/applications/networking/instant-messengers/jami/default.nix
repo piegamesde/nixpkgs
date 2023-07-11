@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
   pjsip-jami = pjsip.overrideAttrs (old:
     let
       patch-src = src + "/daemon/contrib/src/pjproject/";
-    in rec {
+    in
+    rec {
       version = "3b78ef1c48732d238ba284cdccb04dc6de79c54f";
 
       src = fetchFromGitHub {
@@ -105,7 +106,8 @@ stdenv.mkDerivation rec {
       configureFlags = (readLinesToList ./config/pjsip_args_common)
         ++ lib.optionals stdenv.isLinux
         (readLinesToList ./config/pjsip_args_linux);
-    } );
+    }
+  );
 
   opendht-jami = opendht.override {
     enableProxyServerAndClient = true;

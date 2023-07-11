@@ -160,7 +160,8 @@ let
     ln -s ${llvm}/bin/llvm-strip $out/bin/strip
     ln -s ${lld}/bin/lld $out/bin/ld
   '';
-in rec {
+in
+rec {
   inherit
     llvm
     clang-unwrapped

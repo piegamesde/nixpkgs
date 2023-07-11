@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.zsh.zsh-autoenv;
-in {
+in
+{
   options = {
     programs.zsh.zsh-autoenv = {
       enable = mkEnableOption (lib.mdDoc "zsh-autoenv");

@@ -307,7 +307,8 @@ let
       ("--tunconf=" + tunnelConf)
     ]);
 
-in {
+in
+{
 
   imports = [
       (mkRenamedOptionModule [

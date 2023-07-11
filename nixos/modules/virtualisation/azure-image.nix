@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.virtualisation.azureImage;
-in {
+in
+{
   imports = [ ./azure-common.nix ];
 
   options = {

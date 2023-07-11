@@ -53,7 +53,8 @@ let
       meta.maintainers = [ maintainers.aanderse ];
     }
     ;
-in {
+in
+{
   mysql = redmineTest {
     name = "mysql";
     type = "mysql2";

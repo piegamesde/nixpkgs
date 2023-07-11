@@ -7,7 +7,8 @@ with lib;
 let
   cfg = config.hardware.cpu.amd.sev;
   defaultGroup = "sev";
-in with lib; {
+in
+with lib; {
   options.hardware.cpu.amd.sev = {
     enable = mkEnableOption (lib.mdDoc "access to the AMD SEV device");
     user = mkOption {

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.corectrl;
-in {
+in
+{
   options.programs.corectrl = {
     enable = mkEnableOption (lib.mdDoc ''
       A tool to overclock amd graphics cards and processors.

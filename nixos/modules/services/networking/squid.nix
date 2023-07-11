@@ -102,7 +102,8 @@ let
       refresh_pattern .               0       20%     4320
     '');
 
-in {
+in
+{
 
   options = {
 

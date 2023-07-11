@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
   let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
     peer = (import ./make-peer.nix) { inherit lib; };
-  in {
+  in
+  {
     name = "wireguard";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
@@ -68,7 +69,8 @@ import ../make-test-python.nix ({
             postSetup =
               let
                 inherit (pkgs) iproute2;
-              in ''
+              in
+              ''
                 ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
                 ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
               ''
@@ -87,4 +89,5 @@ import ../make-test-python.nix ({
       peer1.succeed("ping -c5 fc00::1")
       peer1.succeed("ping -c5 10.23.42.1")
     '';
-  } )
+  }
+)

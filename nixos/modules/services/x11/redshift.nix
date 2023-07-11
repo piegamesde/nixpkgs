@@ -12,7 +12,8 @@ let
   cfg = config.services.redshift;
   lcfg = config.location;
 
-in {
+in
+{
 
   imports = [
     (mkChangedOptionModule [
@@ -29,10 +30,12 @@ in {
           "redshift"
           "latitude"
         ] config;
-      in if value == null then
+      in
+      if value == null then
         throw "services.redshift.latitude is set to null, you can remove this"
       else
-        builtins.fromJSON value))
+        builtins.fromJSON value
+    ))
     (mkChangedOptionModule [
       "services"
       "redshift"
@@ -47,10 +50,12 @@ in {
           "redshift"
           "longitude"
         ] config;
-      in if value == null then
+      in
+      if value == null then
         throw "services.redshift.longitude is set to null, you can remove this"
       else
-        builtins.fromJSON value))
+        builtins.fromJSON value
+    ))
     (mkRenamedOptionModule [
       "services"
       "redshift"
@@ -158,7 +163,8 @@ in {
           else
             lcfg.provider
           ;
-      in {
+      in
+      {
         description = "Redshift colour temperature adjuster";
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];

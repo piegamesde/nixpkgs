@@ -11,7 +11,8 @@ let
   cfg = config.services.rethinkdb;
   rethinkdb = cfg.package;
 
-in {
+in
+{
 
   ###### interface
 

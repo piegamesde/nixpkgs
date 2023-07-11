@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
     bobUserId = "3";
     bobPassword = "XwkkBbl2SiIwabQzgcoaTbhsotijEEtF";
     bobProjectId = "3";
-  in {
+  in
+  {
     name = "gitlab";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -462,4 +463,5 @@ import ./make-test-python.nix ({
         gitlab.systemctl("start gitlab.target")
       '' + waitForServices + test false
       ;
-  } )
+  }
+)

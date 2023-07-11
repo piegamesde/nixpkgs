@@ -93,9 +93,11 @@ stdenv.mkDerivation rec {
   preBuild = with lib;
     let
       items = concatMapStringsSep " " (x: "-rpath ${getLib x}/lib") sharedLibs;
-    in ''
+    in
+    ''
       export NIX_LDFLAGS="$NIX_LDFLAGS ${items}"
-    '' ;
+    ''
+    ;
 
     # dlopened libgcc requires the rpath not to be shrinked
   dontPatchELF = true;

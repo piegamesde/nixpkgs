@@ -7,7 +7,8 @@
 with lib;
 let
   cfg = config.services.xe-guest-utilities;
-in {
+in
+{
   options = {
     services.xe-guest-utilities = {
       enable = mkEnableOption (lib.mdDoc "the Xen guest utilities daemon");

@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
         cdrkit
         syslinux
       ]);
-    in ''
+    in
+    ''
       for prog in $out/bin/*; do
         wrapProgram $prog --prefix PATH : ${path}
       done

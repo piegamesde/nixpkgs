@@ -7,7 +7,8 @@
 
 let
   cfg = config.services.hardware.argonone;
-in {
+in
+{
   options.services.hardware.argonone = {
     enable = lib.mkEnableOption (lib.mdDoc
       "the driver for Argon One Raspberry Pi case fan and power button");

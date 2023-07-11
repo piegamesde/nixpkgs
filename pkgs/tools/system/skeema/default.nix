@@ -38,7 +38,8 @@ buildGoModule rec {
         # Flaky tests
         "TestShellOutTimeout"
       ];
-    in ''
+    in
+    ''
       buildFlagsArray+=("-run" "[^(${
         builtins.concatStringsSep "|" skippedTests
       })]")

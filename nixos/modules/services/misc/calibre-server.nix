@@ -11,7 +11,8 @@ let
 
   cfg = config.services.calibre-server;
 
-in {
+in
+{
   imports = [
       (mkChangedOptionModule [
         "services"
@@ -28,9 +29,9 @@ in {
             "calibre-server"
             "libraryDir"
           ] config;
-        in [
-          libraryDir
-        ] ))
+        in
+        [ libraryDir ]
+      ))
     ];
 
     ###### interface

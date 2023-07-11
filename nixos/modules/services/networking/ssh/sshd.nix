@@ -118,7 +118,8 @@ let
     listToAttrs (map mkAuthKeyFile usersWithKeys)
     ;
 
-in {
+in
+{
   imports = [
     (mkAliasOptionModuleMD [
       "services"
@@ -693,7 +694,8 @@ in {
 
         };
 
-      in if cfg.startWhenNeeded then
+      in
+      if cfg.startWhenNeeded then
         {
 
           sockets.sshd = {

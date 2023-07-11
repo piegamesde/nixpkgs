@@ -86,7 +86,8 @@ stdenv.mkDerivation rec {
           "https://github.com/oneapi-src/oneTBB/raw/478de5b1887c928e52f029d706af6ea640a877be/integration/pkg-config/tbb.pc.in";
         sha256 = "2pCad9txSpNbzac0vp/VY3x7HNySaYkbH3Rx8LK53pI=";
       };
-    in ''
+    in
+    ''
       # Generate pkg-config file based on upstream template.
       # It should not be necessary with tbb after 2021.2.
       mkdir -p "$out/lib/pkgconfig"

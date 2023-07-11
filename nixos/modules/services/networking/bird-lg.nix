@@ -21,7 +21,8 @@ let
   frontend_args =
     let
       fe = cfg.frontend;
-    in {
+    in
+    {
       "--servers" = concatStringsSep "," fe.servers;
       "--domain" = fe.domain;
       "--listen" = fe.listenAddress;
@@ -42,7 +43,8 @@ let
   proxy_args =
     let
       px = cfg.proxy;
-    in {
+    in
+    {
       "--allowed" = concatStringsSep "," px.allowedIPs;
       "--bird" = px.birdSocket;
       "--listen" = px.listenAddress;
@@ -69,7 +71,8 @@ let
     mapAttrsToList (name: value: "${name} " + mkArgValue value)
     (filterNull args)
     ;
-in {
+in
+{
   options = {
     services.bird-lg = {
       package = mkOption {

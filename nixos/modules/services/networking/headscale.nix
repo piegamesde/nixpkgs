@@ -13,7 +13,8 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "headscale.yaml" cfg.settings;
-in {
+in
+{
   options = {
     services.headscale = {
       enable = mkEnableOption
@@ -794,7 +795,8 @@ in {
         let
           capabilityBoundingSet = [ "CAP_CHOWN" ]
             ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
-        in {
+        in
+        {
           Restart = "always";
           Type = "simple";
           User = cfg.user;

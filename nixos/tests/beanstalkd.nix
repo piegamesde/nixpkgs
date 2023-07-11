@@ -27,7 +27,8 @@ import ./make-test-python.nix ({
       job.delete()
     '';
 
-  in {
+  in
+  {
     name = "beanstalkd";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
@@ -52,4 +53,5 @@ import ./make-test-python.nix ({
           "${consume}"
       )
     '';
-  } )
+  }
+)

@@ -27,7 +27,8 @@ let
       }
     '') cfg.plugins}
   '';
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "services"

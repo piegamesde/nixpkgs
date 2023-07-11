@@ -69,7 +69,8 @@ let
 
   withAllGrammars = withPlugins (_: allGrammars);
 
-in {
+in
+{
   postPatch = ''
     rm -r parser
   '';

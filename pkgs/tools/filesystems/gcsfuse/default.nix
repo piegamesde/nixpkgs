@@ -34,7 +34,8 @@ buildGoModule rec {
         "Test_Main"
         "TestFlags"
       ];
-    in ''
+    in
+    ''
       # Disable flaky tests
       buildFlagsArray+=("-run" "[^(${
         builtins.concatStringsSep "|" skippedTests

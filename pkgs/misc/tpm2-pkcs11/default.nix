@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
         glibc
         libyaml
       ]);
-    in ''
+    in
+    ''
       patchelf \
         --set-rpath ${rpath} \
         ${

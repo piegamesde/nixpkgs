@@ -25,7 +25,8 @@ let
     sha256Hash = "sha256-Wy5iifscL1Ko7ZInx/uAvyJyM4cS6LfTYWxdJbZk6po=";
   };
   latestVersion = betaVersion;
-in {
+in
+{
   # Attributes are named by their corresponding release channels
 
   stable = mkStudio (stableVersion // {

@@ -12,7 +12,8 @@ let
     extraLoaders = lib.unique (cfg.modulePackages);
   };
 
-in {
+in
+{
   options = {
     services.xserver.gdk-pixbuf.modulePackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;

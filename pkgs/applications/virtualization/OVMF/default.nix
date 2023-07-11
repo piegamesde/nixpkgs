@@ -117,7 +117,8 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
       suffix = suffixes."${cpuName}" or (throw
         "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
       prefix = "${finalAttrs.finalPackage.fd}/${suffix}";
-    in {
+    in
+    {
       firmware = "${prefix}_CODE.fd";
       variables = "${prefix}_VARS.fd";
         # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.

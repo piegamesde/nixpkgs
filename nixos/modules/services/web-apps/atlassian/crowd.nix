@@ -43,7 +43,8 @@ let
     session.lastvalidation                  session.lastvalidation
   '';
 
-in {
+in
+{
   options = {
     services.crowd = {
       enable = mkEnableOption (lib.mdDoc "Atlassian Crowd service");

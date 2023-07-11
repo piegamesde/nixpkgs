@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
 
       main = run {0ℓ} (putStrLn "Hello World!")
     '';
-  in {
+  in
+  {
     name = "agda";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -58,4 +59,5 @@ import ./make-test-python.nix ({
           "./HelloWorld"
       ), "HelloWorld does not run properly"
     '';
-  } )
+  }
+)

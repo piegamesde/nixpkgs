@@ -9,7 +9,8 @@ let
     key = 123;
     config = { enable = true; };
   };
-in {
+in
+{
   options = {
     positive = mkOption {
       type = types.submodule {

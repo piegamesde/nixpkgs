@@ -7,7 +7,8 @@ let
   inherit (lib.strings) toInt;
   inherit (lib.trivial) compare min;
   inherit (lib.attrsets) mapAttrs;
-in rec {
+in
+rec {
 
   inherit (builtins)
     head
@@ -219,7 +220,8 @@ in rec {
     let
       found = filter pred list;
       len = length found;
-    in if len == 0 then
+    in
+    if len == 0 then
       default
     else if len != 1 then
       multiple
@@ -247,7 +249,8 @@ in rec {
     list:
     let
       found = filter pred list;
-    in if found == [ ] then
+    in
+    if found == [ ] then
       default
     else
       head found
@@ -537,7 +540,8 @@ in rec {
         let
           c = filter (x: before x us) visited;
           b = partition (x: before x us) rest;
-        in if stopOnCycles && (length c > 0) then
+        in
+        if stopOnCycles && (length c > 0) then
           {
             cycle = us;
             loops = c;
@@ -581,7 +585,8 @@ in rec {
     let
       dfsthis = listDfs true before list;
       toporest = toposort before (dfsthis.visited ++ dfsthis.rest);
-    in if length list < 2 then # finish
+    in
+    if length list < 2 then # finish
       { result = list; }
     else if
       dfsthis ? cycle
@@ -621,7 +626,8 @@ in rec {
         let
           el = elemAt list n;
           next = pivot' (n + 1);
-        in if n == len then
+        in
+        if n == len then
           acc
         else if strictLess first el then
           next {
@@ -638,11 +644,12 @@ in rec {
         left = [ ];
         right = [ ];
       };
-    in if len < 2 then
+    in
+    if len < 2 then
       list
     else
-      (sort strictLess pivot.left) ++ [ first ]
-      ++ (sort strictLess pivot.right));
+      (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
+  );
 
     /* Compare two lists element-by-element.
 
@@ -668,7 +675,8 @@ in rec {
     else
       let
         rel = cmp (head a) (head b);
-      in if rel == 0 then
+      in
+      if rel == 0 then
         compareLists cmp (tail a) (tail b)
       else
         rel

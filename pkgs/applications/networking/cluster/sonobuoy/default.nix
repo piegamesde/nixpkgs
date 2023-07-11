@@ -15,7 +15,8 @@ buildGoModule rec {
   ldflags =
     let
       t = "github.com/vmware-tanzu/sonobuoy";
-    in [
+    in
+    [
       "-s"
       "-X ${t}/pkg/buildinfo.Version=v${version}"
       "-X ${t}/pkg/buildinfo.GitSHA=${rev}"

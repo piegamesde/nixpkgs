@@ -39,7 +39,8 @@ in
 stdenv.mkDerivation (finalAttrs:
   let
     inherit (finalAttrs) pname version;
-  in {
+  in
+  {
     pname = "cairo";
     version = "1.16.0";
 
@@ -209,4 +210,5 @@ stdenv.mkDerivation (finalAttrs:
         ++ lib.optional pdfSupport "cairo-pdf";
       platforms = platforms.all;
     };
-  } )
+  }
+)

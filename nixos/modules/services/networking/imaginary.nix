@@ -10,7 +10,8 @@ let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;
 
   cfg = config.services.imaginary;
-in {
+in
+{
   options.services.imaginary = {
     enable = mkEnableOption (mdDoc "imaginary image processing microservice");
 

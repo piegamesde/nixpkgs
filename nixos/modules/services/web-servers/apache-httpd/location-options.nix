@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) mkOption types;
-in {
+in
+{
   options = {
 
     proxyPass = mkOption {

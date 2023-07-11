@@ -6,7 +6,8 @@
 }:
 let
   cfg = config.services.victoriametrics;
-in {
+in
+{
   options.services.victoriametrics = with lib; {
     enable = mkEnableOption (lib.mdDoc "victoriametrics");
     package = mkOption {

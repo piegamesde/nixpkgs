@@ -7,10 +7,12 @@ with lib.lists;
 
 let
   abis_ = abis;
-in let
+in
+let
   abis = lib.mapAttrs (_: abi: builtins.removeAttrs abi [ "assertions" ]) abis_;
 
-in rec {
+in
+rec {
   # these patterns are to be matched against {host,build,target}Platform.parsed
   patterns = rec {
     # The patterns below are lists in sum-of-products form.

@@ -56,7 +56,8 @@ let
       }
       ;
   };
-in with localPython.pkgs;
+in
+with localPython.pkgs;
 buildPythonApplication rec {
   pname = "awsebcli";
   version = "3.20.6";

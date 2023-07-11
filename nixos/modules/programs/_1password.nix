@@ -11,7 +11,8 @@ let
 
   cfg = config.programs._1password;
 
-in {
+in
+{
   imports = [
       (mkRemovedOptionModule [
         "programs"

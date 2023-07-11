@@ -40,7 +40,8 @@
       homeDir = "/home/nixos/";
       desktopDir = homeDir + "Desktop/";
 
-    in ''
+    in
+    ''
       mkdir -p ${desktopDir}
       chown nixos ${homeDir} ${desktopDir}
 

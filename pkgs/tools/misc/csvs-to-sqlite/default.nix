@@ -23,7 +23,8 @@ let
       }
       ;
   };
-in with python.pkgs;
+in
+with python.pkgs;
 buildPythonApplication rec {
   pname = "csvs-to-sqlite";
   version = "1.2";

@@ -10,7 +10,8 @@
 let
   inherit (lib) optional;
 
-in let
+in
+let
   self = stdenv.mkDerivation rec {
     pname = "gmp";
     version = "5.1.3";

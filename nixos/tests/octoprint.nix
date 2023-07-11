@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
   let
     apikey = "testapikey";
-  in {
+  in
+  {
     name = "octoprint";
     meta.maintainers = with lib.maintainers; [ gador ];
 
@@ -68,4 +69,5 @@ import ./make-test-python.nix ({
               assert version["server"] == str("${pkgs.octoprint.version}")
               assert server["safemode"] == None
     '';
-  } )
+  }
+)

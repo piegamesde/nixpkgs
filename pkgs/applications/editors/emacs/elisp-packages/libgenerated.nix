@@ -70,7 +70,8 @@ let
     }
     ;
 
-in {
+in
+{
 
   melpaDerivation =
     variant:
@@ -89,7 +90,8 @@ in {
       hasSource = lib.hasAttr variant args;
       pname = builtins.replaceStrings [ "@" ] [ "at" ] ename;
       broken = error != null;
-    in if hasSource then
+    in
+    if hasSource then
       lib.nameValuePair ename (self.callPackage ({
           melpaBuild,
           fetchurl,

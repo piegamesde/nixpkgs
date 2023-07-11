@@ -128,7 +128,8 @@ let
       (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
         children))
     ;
-in {
+in
+{
   options = {
     services.openldap = {
       enable = mkOption {

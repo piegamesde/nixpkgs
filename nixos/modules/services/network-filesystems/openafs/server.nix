@@ -92,7 +92,8 @@ let
     k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
   } // cfg.roles.backup.fabsExtraConfig));
 
-in {
+in
+{
 
   options = {
 

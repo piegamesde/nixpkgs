@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   installCheckPhase =
     let
       riscvPkgs = pkgsCross.riscv64-embedded;
-    in ''
+    in
+    ''
       runHook preInstallCheck
 
       echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c

@@ -40,7 +40,8 @@ buildGoModule rec {
         "mongostat"
         "mongotop"
       ];
-    in ''
+    in
+    ''
       # move vendored codes so nixpkgs go builder could find it
       runHook preBuild
 

@@ -46,7 +46,8 @@ let
       '';
     }
     ;
-in {
+in
+{
   sqlite = writefreelyTest {
     name = "sqlite";
     type = "sqlite3";

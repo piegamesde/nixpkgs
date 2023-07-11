@@ -8,7 +8,8 @@
 with lib;
 let
   cfg = config.programs.ccache;
-in {
+in
+{
   options.programs.ccache = {
     # host configuration
     enable = mkEnableOption (lib.mdDoc "CCache");

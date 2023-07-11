@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.skydns;
 
-in {
+in
+{
   options.services.skydns = {
     enable = mkEnableOption (lib.mdDoc "skydns service");
 

@@ -11,7 +11,8 @@ let
 
   cfg = config.hardware.steam-hardware;
 
-in {
+in
+{
   options.hardware.steam-hardware = {
     enable = mkOption {
       type = types.bool;

@@ -71,7 +71,8 @@ let
     GRAPHITE_STORAGE_DIR = dataDir;
   };
 
-in {
+in
+{
 
   imports = [
     (mkRemovedOptionModule [
@@ -312,7 +313,8 @@ in {
       systemd.services.carbonCache =
         let
           name = "carbon-cache";
-        in {
+        in
+        {
           description = "Graphite Data Storage Backend";
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];
@@ -338,7 +340,8 @@ in {
       systemd.services.carbonAggregator =
         let
           name = "carbon-aggregator";
-        in {
+        in
+        {
           enable = cfg.carbon.enableAggregator;
           description = "Carbon Data Aggregator";
           wantedBy = [ "multi-user.target" ];
@@ -360,7 +363,8 @@ in {
       systemd.services.carbonRelay =
         let
           name = "carbon-relay";
-        in {
+        in
+        {
           description = "Carbon Data Relay";
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];

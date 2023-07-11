@@ -93,7 +93,8 @@ stdenv.mkDerivation {
         (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
         + (copy_vioserial arch)
         ;
-    in ''
+    in
+    ''
       runHook preInstall
       ${(copy "amd64" "w10") + (copy "x86" "w10")}
       runHook postInstall

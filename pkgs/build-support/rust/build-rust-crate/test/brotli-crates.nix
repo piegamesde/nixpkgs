@@ -31,7 +31,8 @@ let
       else
         features) [ ] (builtins.attrNames feat)
     ;
-in rec {
+in
+rec {
   alloc_no_stdlib_1_3_0_ =
     {
       dependencies ? [ ],

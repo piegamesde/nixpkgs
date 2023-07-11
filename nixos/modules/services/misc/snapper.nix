@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.snapper;
 
-in {
+in
+{
   options.services.snapper = {
 
     snapshotRootOnBoot = mkOption {
@@ -108,7 +109,8 @@ in {
       "man:snapper(8)"
       "man:snapper-configs(5)"
     ];
-  in {
+  in
+  {
 
     environment = {
 
@@ -193,5 +195,6 @@ in {
       unitConfig.ConditionPathExists = "/etc/snapper/configs/root";
     };
 
-  } );
+  }
+  );
 }

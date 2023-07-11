@@ -238,13 +238,15 @@ let
             else
               toString (/. + "${base}/${path}")
             ;
-        in if
+        in
+        if
           pathIsRegularFile path
           # Resolve git worktrees. See gitrepository-layout(5)
         then
           let
             m = match "^gitdir: (.*)$" (lib.fileContents path);
-          in if m == null then
+          in
+          if m == null then
             { error = "File contains no gitdir reference: " + path; }
           else
             let
@@ -269,7 +271,8 @@ let
           let
             fileContent = lib.fileContents fileName;
             matchRef = match "^ref: (.*)$" fileContent;
-          in if matchRef == null then
+          in
+          if matchRef == null then
             { value = fileContent; }
           else
             readCommitFromFile (lib.head matchRef) path
@@ -289,7 +292,8 @@ let
               # there is a bug in libstdc++ leading to stackoverflow for long strings:
               # https://github.com/NixOS/nix/issues/2147#issuecomment-659868795
             refs = filter isRef (split "\n" fileContent);
-          in if refs == [ ] then
+          in
+          if refs == [ ] then
             { error = "Could not find " + file + " in " + packedRefsName; }
           else
             { value = lib.head (matchRef (lib.head refs)); }
@@ -323,7 +327,8 @@ let
     src:
     let
       isFiltered = src ? _isLibCleanSourceWith;
-    in {
+    in
+    {
       # The original path
       origSrc =
         if isFiltered then
@@ -364,7 +369,8 @@ let
     }
     ;
 
-in {
+in
+{
   inherit
     pathType
     pathIsDirectory

@@ -52,7 +52,8 @@ let
     (mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config)}
   '';
 
-in {
+in
+{
   # interface
   options = {
     services.automysqlbackup = {

@@ -70,7 +70,8 @@ let
     pkg
     ;
 
-in rec {
+in
+rec {
 
   dracula = mkNixBackground {
     name = "dracula-2020-07-02";

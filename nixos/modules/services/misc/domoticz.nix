@@ -12,7 +12,8 @@ let
   cfg = config.services.domoticz;
   pkgDesc = "Domoticz home automation";
 
-in {
+in
+{
 
   options = {
 

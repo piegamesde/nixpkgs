@@ -233,7 +233,8 @@ with lib;
 
 let
   format' = format;
-in let
+in
+let
 
   format =
     if format' == "qcow2-compressed" then
@@ -679,7 +680,8 @@ in let
       ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
     ''}
   '');
-in if onlyNixStore then
+in
+if onlyNixStore then
   pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)
 else
   buildImage

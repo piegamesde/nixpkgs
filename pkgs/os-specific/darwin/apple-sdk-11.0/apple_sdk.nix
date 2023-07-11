@@ -139,7 +139,8 @@ let
       private = true;
     }
     ;
-in rec {
+in
+rec {
   libs = {
     xpc = stdenv.mkDerivation {
       name = "apple-lib-xpc";
@@ -234,7 +235,8 @@ in rec {
         let
           inherit (pkgs.darwin.apple_sdk_11_0) libnetwork;
           libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
-        in {
+        in
+        {
           # Below this comment are entries migrated from before the generator was
           # added. If, for a given framework, you are able to reverify the extra
           # deps are really necessary on top of the generator deps, move it above
@@ -291,7 +293,8 @@ in rec {
           TWAIN = { inherit Carbon; };
           VideoDecodeAcceleration = { inherit CoreVideo; };
           WebKit = { inherit ApplicationServices Carbon libobjc; };
-        } ;
+        }
+        ;
 
         # Overrides for framework derivations.
       overrides =

@@ -21,7 +21,8 @@ let
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
-in {
+in
+{
   meta.maintainers = teams.freedesktop.members ++ [ lib.maintainers.k900 ];
 
     ###### interface

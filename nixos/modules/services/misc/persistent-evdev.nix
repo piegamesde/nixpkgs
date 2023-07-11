@@ -13,7 +13,8 @@ let
     cache = "/var/cache/persistent-evdev";
     devices = lib.mapAttrs (virt: phys: "/dev/input/by-id/${phys}") cfg.devices;
   };
-in {
+in
+{
   options.services.persistent-evdev = {
     enable = lib.mkEnableOption (lib.mdDoc
       "virtual input devices that persist even if the backing device is hotplugged")

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
           # npm run build:production runs the same command
         dontNpmInstall = true;
       }));
-    in ''
+    in
+    ''
       runHook preBuild
 
       ln -s ${nodeDependencies}/lib/node_modules ./node_modules

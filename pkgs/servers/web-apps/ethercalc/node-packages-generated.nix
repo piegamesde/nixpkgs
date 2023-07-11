@@ -1849,7 +1849,8 @@ let
       };
     };
   };
-in {
+in
+{
   "whitebophir-git+https://github.com/audreyt/ethercalc.git#b196277081d677be991d104e454a52d242ef0189" =
     nodeEnv.buildNodePackage {
       name = "ethercalc";

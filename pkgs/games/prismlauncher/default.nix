@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
           openal
           stdenv.cc.cc.lib
         ] ++ lib.optional gamemodeSupport gamemode.lib);
-    in [
+    in
+    [
       "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${libpath}"
       "--prefix PRISMLAUNCHER_JAVA_PATHS : ${
         lib.makeSearchPath "bin/java" jdks

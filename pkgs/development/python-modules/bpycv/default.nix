@@ -47,7 +47,8 @@ buildPythonPackage rec {
         hash = "sha256-dGb6KvbXTGTu5f4AqhA+i4AwTqBoR5SdXk0vsMEcD3Q=";
         rev = "6ce0e65c107d572011394da16ffdf851e988dbb4";
       };
-    in ''
+    in
+    ''
       TEMPDIR=$(mktemp -d)
       pushd $TEMPDIR
         cp -r ${bpycv_example_data} example_data

@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
       4.2
       23
     ];
-  in {
+  in
+  {
     name = "systemd-escaping";
 
     nodes.machine =
@@ -63,4 +64,5 @@ import ./make-test-python.nix ({
       assert "4.2" in logs[5] # toString produces extra fractional digits!
       assert "23" == logs[6]
     '';
-  } )
+  }
+)

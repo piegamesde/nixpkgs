@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.prometheus.exporters.buildkite-agent;
-in {
+in
+{
   port = 9876;
   extraOpts = {
     tokenPath = mkOption {
@@ -56,7 +57,8 @@ in {
     script =
       let
         queues = concatStringsSep " " (map (q: "-queue ${q}") cfg.queues);
-      in ''
+      in
+      ''
         export BUILDKITE_AGENT_TOKEN="$(cat ${toString cfg.tokenPath})"
         exec ${pkgs.buildkite-agent-metrics}/bin/buildkite-agent-metrics \
           -backend prometheus \

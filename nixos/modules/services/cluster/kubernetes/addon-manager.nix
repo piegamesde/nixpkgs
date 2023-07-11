@@ -20,7 +20,8 @@ let
       (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon))
       (cfg.addons))}
   '';
-in {
+in
+{
   ###### interface
   options.services.kubernetes.addonManager = with lib.types; {
 
@@ -95,7 +96,8 @@ in {
     services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled (let
       name = "system:kube-addon-manager";
       namespace = "kube-system";
-    in {
+    in
+    {
 
       kube-addon-manager-r = {
         apiVersion = "rbac.authorization.k8s.io/v1";
@@ -149,7 +151,8 @@ in {
           inherit name;
         } ];
       };
-    } );
+    }
+    );
 
     services.kubernetes.pki.certs = {
       addonManager = top.lib.mkCert {

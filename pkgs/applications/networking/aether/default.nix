@@ -153,7 +153,8 @@ stdenv.mkDerivation rec {
         libappindicator-gtk3
         libdbusmenu
       ];
-    in ''
+    in
+    ''
       mkdir -p $out/{bin,opt/${binaryName},share/icons/hicolor/512x512/apps}
       mv * $out/opt/${binaryName}
 

@@ -30,7 +30,8 @@ let
     session.lastvalidation                  session.lastvalidation
   '';
 
-in {
+in
+{
   options = {
     services.jira = {
       enable = mkEnableOption (lib.mdDoc "Atlassian JIRA service");

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.programs.iotop;
-in {
+in
+{
   options = {
     programs.iotop.enable = mkEnableOption (lib.mdDoc "iotop + setcap wrapper");
   };

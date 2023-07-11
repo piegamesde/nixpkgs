@@ -4,7 +4,8 @@ in
 builtins.listToAttrs (builtins.filter (x: x != null) (map (name:
   let
     match = builtins.match "(.*)\\.patch" name;
-  in if match == null then
+  in
+  if match == null then
     null
   else
     {
@@ -13,4 +14,5 @@ builtins.listToAttrs (builtins.filter (x: x != null) (map (name:
         name = "cpu-cgroup-v2-${name}";
         patch = ./. + "/${name}";
       };
-    }) (builtins.attrNames ents)))
+    }
+) (builtins.attrNames ents)))

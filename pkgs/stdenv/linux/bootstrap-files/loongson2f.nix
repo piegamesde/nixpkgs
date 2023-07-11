@@ -12,7 +12,8 @@ let
     }
     ;
 
-in {
+in
+{
   sh = fetch {
     file = "sh";
     sha256 = "02jjl49wdq85pgh61aqf78yaknn9mi3rcspbpk7hs9c4mida2rhf";

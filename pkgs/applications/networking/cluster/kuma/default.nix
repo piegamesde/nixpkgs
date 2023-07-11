@@ -50,7 +50,8 @@ buildGoModule rec {
   ldflags =
     let
       prefix = "github.com/kumahq/kuma/pkg/version";
-    in [
+    in
+    [
       "-s"
       "-w"
       "-X ${prefix}.version=${version}"

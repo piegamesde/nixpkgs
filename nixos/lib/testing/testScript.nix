@@ -9,7 +9,8 @@ testModuleArgs@{
 let
   inherit (lib) mkOption types mdDoc;
   inherit (types) either str functionTo;
-in {
+in
+{
   options = {
     testScript = mkOption {
       type = either str (functionTo str);

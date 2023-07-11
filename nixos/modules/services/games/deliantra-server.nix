@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.deliantra-server;
   serverPort = 13327;
-in {
+in
+{
   options.services.deliantra-server = {
     enable = mkOption {
       type = types.bool;

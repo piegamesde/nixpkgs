@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) mkIf mkOption types;
-in {
+in
+{
   # This needs options.warnings and options.assertions, which we don't have (yet?).
   # imports = [
   #   (lib.mkRenamedOptionModule [ "machine" ] [ "nodes" "machine" ])

@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.cachix-watch-store;
-in {
+in
+{
   meta.maintainers = [
     lib.maintainers.jfroche
     lib.maintainers.domenkozar
@@ -99,7 +100,8 @@ in {
               "--jobs"
               (toString cfg.jobs)
             ]) ++ [ cfg.cacheName ];
-        in ''
+        in
+        ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
           ${lib.escapeShellArgs command}
         ''

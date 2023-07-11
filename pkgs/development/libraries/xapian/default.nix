@@ -63,7 +63,8 @@ let
       };
     }
     ;
-in {
+in
+{
   # Don't forget to change the hashes in xapian-omega and
   # python3Packages.xapian. They inherit the version from this package, and
   # should always be built with the equivalent xapian version.

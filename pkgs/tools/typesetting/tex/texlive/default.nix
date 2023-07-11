@@ -135,7 +135,8 @@ let
         in
         mkPkg pkg
         ;
-    in {
+    in
+    {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
         # tarball of a collection/scheme itself only contains a tlobj file

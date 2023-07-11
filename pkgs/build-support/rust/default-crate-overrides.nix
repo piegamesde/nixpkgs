@@ -46,7 +46,8 @@
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
-in {
+in
+{
   alsa-sys =
     attrs: {
       nativeBuildInputs = [ pkg-config ];

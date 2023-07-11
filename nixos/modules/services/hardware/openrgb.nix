@@ -9,7 +9,8 @@ with lib;
 
 let
   cfg = config.services.hardware.openrgb;
-in {
+in
+{
   options.services.hardware.openrgb = {
     enable = mkEnableOption (lib.mdDoc "OpenRGB server");
 

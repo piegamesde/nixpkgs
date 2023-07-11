@@ -57,6 +57,5 @@ let
       '';
     })
     ;
-in {
-  inherit patchBinwrap patchNpmElm;
-}
+in
+{ inherit patchBinwrap patchNpmElm; }

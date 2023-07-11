@@ -19,7 +19,8 @@ let
       ++ map (x: "${toString x.from}-${toString x.to}") portRanges)
     ;
 
-in {
+in
+{
 
   options = {
 
@@ -154,12 +155,14 @@ in {
                   portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
                 udpSet =
                   portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
-              in ''
+              in
+              ''
                 ${optionalString (tcpSet != "")
                 "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
                 ${optionalString (udpSet != "")
                 "${ifaceExpr} udp dport { ${udpSet} } accept"}
-              '' ) cfg.allInterfaces)
+              ''
+            ) cfg.allInterfaces)
           }
 
           ${

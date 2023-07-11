@@ -8,7 +8,8 @@ with lib;
 let
   cfg = config.services.jenkins;
   jenkinsUrl = "http://${cfg.listenAddress}:${toString cfg.port}${cfg.prefix}";
-in {
+in
+{
   options = {
     services.jenkins = {
       enable = mkOption {
@@ -231,13 +232,15 @@ in {
               let
                 pluginCmds = lib.attrsets.mapAttrsToList
                   (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
-              in ''
+              in
+              ''
                 rm -r ${cfg.home}/plugins || true
                 mkdir -p ${cfg.home}/plugins
                 ${lib.strings.concatStringsSep "\n" pluginCmds}
               ''
             ;
-        in ''
+        in
+        ''
           rm -rf ${cfg.home}/war
           ${replacePlugins}
         ''

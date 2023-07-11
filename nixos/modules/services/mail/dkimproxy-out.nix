@@ -11,7 +11,8 @@ let
   keydir = "/var/lib/dkimproxy-out";
   privkey = "${keydir}/private.key";
   pubkey = "${keydir}/public.key";
-in {
+in
+{
   ##### interface
   options = {
     services.dkimproxy-out = {

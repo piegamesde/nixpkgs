@@ -105,7 +105,8 @@ let
     });
   };
 
-in {
+in
+{
 
   imports = [ ./options.nix ];
 
