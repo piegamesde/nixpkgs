@@ -47,7 +47,8 @@ stdenvNoCC.mkDerivation (args // rec {
           mod = "mods";
           soundpack = "sound";
           tileset = "gfx";
-        }.${type};
+        }
+        .${type};
     in
     args.installPhase or ''
       runHook preInstall

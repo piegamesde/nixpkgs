@@ -19,13 +19,15 @@ let
     {
       "x86_64-linux" = "1rcidar97nnpjb163x9snnnhw1z1ld4asgbd5dxpzdh8hikh66ll";
       "i686-linux" = "1jll4i0j9kh78kl10s596xxs60gy7cnlafgpk89861yihj0i73a5";
-    }."${system}" or throwSystem;
+    }
+    ."${system}" or throwSystem;
 
   arch =
     {
       "x86_64-linux" = "amd64";
       "i686-linux" = "i386";
-    }."${system}" or throwSystem;
+    }
+    ."${system}" or throwSystem;
 
 in
 stdenv.mkDerivation rec {

@@ -57,9 +57,8 @@ let
     (rec {
       doRunTest =
         arg:
-        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
-          imports = [ arg ];
-        }).config.result
+        ((import ../lib/testing-python.nix { inherit system pkgs; })
+          .evalTest { imports = [ arg ]; }).config.result
         ;
       findTests =
         tree:

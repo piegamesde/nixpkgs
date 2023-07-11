@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
           ;
         sha256 = "06f96vkf593aasyfw458fa4x3rnai2k83vpgzc83hlwr0rw70qfn";
       };
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [ makeWrapper ];

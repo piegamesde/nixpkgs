@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
           "https://download.brother.com/welcome/dlf006645/${pname}-${version}.amd64.deb";
         sha256 = "sha256-Gpr5456MCNpyam3g2qPo7S3aEZFMaUGR8bu7YmRY8xk=";
       };
-    }."${stdenv.hostPlatform.system}";
+    }
+    ."${stdenv.hostPlatform.system}";
 
   unpackPhase = ''
     ar x $src

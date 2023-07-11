@@ -22,7 +22,8 @@ let
     {
       "3.7" = "2.0.0";
       "3.8" = "3.0.1";
-    }.${gnuradio.versionAttr.major};
+    }
+    .${gnuradio.versionAttr.major};
   src = fetchFromGitHub {
     owner = "myriadrf";
     repo = "gr-limesdr";
@@ -31,7 +32,8 @@ let
       {
         "3.7" = "0ldqvfwl0gil89l9s31fjf9d7ki0dk572i8vna336igfaz348ypq";
         "3.8" = "ffs+8TU0yr6IW1xZJ/abQ1CQWGZM+zYqPRJxy3ZvM9U=";
-      }.${gnuradio.versionAttr.major};
+      }
+      .${gnuradio.versionAttr.major};
   };
 in
 mkDerivation {

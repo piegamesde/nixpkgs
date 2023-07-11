@@ -33,7 +33,8 @@ let
       {
         mysql = "mariadb";
         pgsql = "pgsql";
-      }.${cfg.database.type}
+      }
+      .${cfg.database.type}
     }';
     $CFG->dblibrary = 'native';
     $CFG->dbhost    = '${cfg.database.host}';
@@ -168,7 +169,8 @@ in
           {
             mysql = 3306;
             pgsql = 5432;
-          }.${cfg.database.type};
+          }
+          .${cfg.database.type};
         defaultText = literalExpression "3306";
       };
 

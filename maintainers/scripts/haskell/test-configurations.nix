@@ -113,7 +113,8 @@ let
       "nix" = defaultSets;
       "arm" = defaultSets;
       "darwin" = defaultSets;
-    }.${configName} or setsForVersion
+    }
+    .${configName} or setsForVersion
     ;
 
     # attribute set that has all the attributes of haskellPackages set to null

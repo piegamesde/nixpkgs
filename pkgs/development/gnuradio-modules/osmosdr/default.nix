@@ -32,7 +32,8 @@ let
       "3.8" = "0.2.3";
       "3.9" = "0.2.4";
       "3.10" = "0.2.4";
-    }.${gnuradio.versionAttr.major};
+    }
+    .${gnuradio.versionAttr.major};
   src = fetchgit {
     url = "git://git.osmocom.org/gr-osmosdr";
     rev = "v${version}";
@@ -42,7 +43,8 @@ let
         "3.8" = "sha256-ZfI8MshhZOdJ1U5FlnZKXsg2Rsvb6oKg943ZVYd/IWo=";
         "3.9" = "sha256-d0hbiJ44lEu8V4XX7JpZVSTQwwykwKPUfiqetRBI6uI=";
         "3.10" = "sha256-d0hbiJ44lEu8V4XX7JpZVSTQwwykwKPUfiqetRBI6uI=";
-      }.${gnuradio.versionAttr.major};
+      }
+      .${gnuradio.versionAttr.major};
   };
 in
 mkDerivation {

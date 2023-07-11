@@ -84,7 +84,8 @@ buildPythonPackage rec {
               "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_x86.dylib";
             "aarch64-darwin" =
               "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_arm64.dylib";
-          }.${stdenv.hostPlatform.system} or (throw
+          }
+          .${stdenv.hostPlatform.system} or (throw
             "Unsupported system: ${stdenv.hostPlatform.system}")
         }
       )'';

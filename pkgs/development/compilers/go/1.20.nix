@@ -45,7 +45,8 @@ let
       "riscv64" = "riscv64";
       "s390x" = "s390x";
       "x86_64" = "amd64";
-    }.${platform.parsed.cpu.name} or (throw
+    }
+    .${platform.parsed.cpu.name} or (throw
       "Unsupported system: ${platform.parsed.cpu.name}")
     ;
 

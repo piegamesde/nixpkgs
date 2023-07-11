@@ -55,4 +55,5 @@ else # misc special cases
     i686-cygwin = stagesNative;
     x86_64-cygwin = stagesNative;
     x86_64-freebsd = stagesFreeBSD;
-  }.${localSystem.system} or stagesNative
+  }
+  .${localSystem.system} or stagesNative

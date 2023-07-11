@@ -17,14 +17,16 @@ let
       x86_64-linux = "linux64";
       i686-linux = "linux";
       x86_64-darwin = "macosx64";
-    }."${stdenv.hostPlatform.system}" or throwSystem;
+    }
+    ."${stdenv.hostPlatform.system}" or throwSystem;
 
   gwnum =
     {
       x86_64-linux = "make64";
       i686-linux = "makefile";
       x86_64-darwin = "makemac";
-    }."${stdenv.hostPlatform.system}" or throwSystem;
+    }
+    ."${stdenv.hostPlatform.system}" or throwSystem;
 
 in
 stdenv.mkDerivation rec {

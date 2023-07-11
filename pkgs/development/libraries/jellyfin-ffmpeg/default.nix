@@ -6,9 +6,8 @@
   lib,
 }:
 
-(ffmpeg_5-full.override {
-  nv-codec-headers = nv-codec-headers-11;
-}).overrideAttrs (old: rec {
+(ffmpeg_5-full.override { nv-codec-headers = nv-codec-headers-11; })
+.overrideAttrs (old: rec {
   pname = "jellyfin-ffmpeg";
   version = "5.1.2-8";
 

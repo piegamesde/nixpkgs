@@ -60,7 +60,8 @@ let
       x86_64-darwin = x86_64-darwin-version;
       x86_64-linux = x86_64-linux-version;
       aarch64-darwin = aarch64-darwin-version;
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   src =
     let
@@ -82,7 +83,8 @@ let
           "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
         sha256 = aarch64-darwin-sha256;
       };
-    }.${system} or throwSystem
+    }
+    .${system} or throwSystem
     ;
 
   meta = with lib; {

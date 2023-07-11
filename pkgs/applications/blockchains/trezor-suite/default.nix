@@ -16,7 +16,8 @@ let
     {
       aarch64-linux = "linux-arm64";
       x86_64-linux = "linux-x86_64";
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
@@ -28,7 +29,8 @@ let
           "sha512-cZZFc1Ij7KrF0Kc1Xmtg/73ASv56a6SFWFy3Miwl3P5u8ieZGXVDlSQyv84CsuYMbE0Vga3X0XS/BiF7nKNcnA==";
         x86_64-linux =
           "sha512-X/IEZGs43riUn6vC5bPyj4DS/VK+s7C10PbBnvwieaclBSVJyQ8H8hbn4eKi0kMVNEl0A9o8W09gXBxAhdNR9g==";
-      }.${stdenv.hostPlatform.system} or (throw
+      }
+      .${stdenv.hostPlatform.system} or (throw
         "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 

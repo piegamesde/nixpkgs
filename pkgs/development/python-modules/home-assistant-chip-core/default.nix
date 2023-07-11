@@ -45,7 +45,8 @@ buildPythonPackage rec {
             name = "x86_64";
             hash = "sha256-15olERnpfe4PbDsDfw47vsYsqjFe8P8IDmSSGxGLtx8=";
           };
-        }.${stdenv.system} or (throw "Unsupported system");
+        }
+        .${stdenv.system} or (throw "Unsupported system");
     in
     fetchPypi {
       pname = "home_assistant_chip_core";

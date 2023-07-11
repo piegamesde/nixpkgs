@@ -26,7 +26,8 @@ let
           aarch64-linux = "linux-arm64";
           x86_64-darwin = "mac";
           aarch64-darwin = "mac-arm64";
-        }.${system} or throwSystem;
+        }
+        .${system} or throwSystem;
       filename = "playwright-${finalAttrs.version}-${suffix}.zip";
     in
     {
@@ -45,7 +46,8 @@ let
               "1zd0dz8jazymcpa1im5yzxb7rwl6wn4xz19lpz83bnpd1njq01b3";
             aarch64-darwin =
               "0hcn80zm9aki8hzsf1cljzcmi4iaw7fascs8ajj0qcwqkkm4jnw0";
-          }.${system} or throwSystem;
+          }
+          .${system} or throwSystem;
       };
 
       sourceRoot = ".";
@@ -82,7 +84,8 @@ let
             aarch64-linux = browsers-linux { };
             x86_64-darwin = browsers-mac;
             aarch64-darwin = browsers-mac;
-          }.${system} or throwSystem;
+          }
+          .${system} or throwSystem;
         browsers-chromium = browsers-linux { };
       };
     }

@@ -42,7 +42,8 @@ let
         urlSuffix = "%5bmac%5d%5b1DFC84A6%5d.dmg";
         hash = "sha256-Sc5BAlpJsffjcNrZ8+VU3n7G10DoqDKQn/leHDW32Y8=";
       };
-    }.${stdenv.hostPlatform.system} or (throw
+    }
+    .${stdenv.hostPlatform.system} or (throw
       "Don't know how to fetch source for ${stdenv.hostPlatform.system}!");
 in
 stdenv.mkDerivation rec {

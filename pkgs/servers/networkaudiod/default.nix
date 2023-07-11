@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
           "https://www.signalyst.eu/bins/naa/linux/buster/${pname}_${version}_arm64.deb";
         sha256 = "sha256-fjSCWX9VYhVJ43N2kSqd5gfTtDJ1UiH4j5PJ9I5Skag=";
       };
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   unpackPhase = ''
     dpkg -x $src .

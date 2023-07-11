@@ -226,7 +226,8 @@ let
               powerpcle = "ppcle";
               powerpc64 = "ppc64";
               powerpc64le = "ppc64le";
-            }.${parsed.cpu.name} or parsed.cpu.name;
+            }
+            .${parsed.cpu.name} or parsed.cpu.name;
         in
         "${parsed.kernel.name}-${cpu}"
         ;
@@ -397,7 +398,8 @@ stdenv.mkDerivation {
       lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) ({
         "glibc" = "-lgcc_s";
         "musl" = "-lgcc_eh";
-      }."${stdenv.hostPlatform.libc}" or "");
+      }
+        ."${stdenv.hostPlatform.libc}" or "");
       # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };

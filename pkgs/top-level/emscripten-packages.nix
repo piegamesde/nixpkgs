@@ -8,9 +8,8 @@ with pkgs;
 # https://github.com/NixOS/nixpkgs/pull/16208
 
 rec {
-  json_c =
-    (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs
-    (old: {
+  json_c = (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; })
+    .overrideAttrs (old: {
       nativeBuildInputs = [
         pkg-config
         cmake

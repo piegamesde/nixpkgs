@@ -79,7 +79,8 @@ let
       };
 
       aarch64-darwin = x86_64-darwin;
-    }.${system} or {
+    }
+    .${system} or {
       src = throw "Unsupported system: ${system}";
     };
 in

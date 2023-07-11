@@ -156,9 +156,11 @@ import ./make-test-python.nix ({
                 name = ".";
                 forward-addr = [
                   (lib.head
-                    nodes.authoritative.config.networking.interfaces.eth1.ipv6.addresses).address
+                    nodes.authoritative.config.networking.interfaces.eth1.ipv6.addresses)
+                  .address
                   (lib.head
-                    nodes.authoritative.config.networking.interfaces.eth1.ipv4.addresses).address
+                    nodes.authoritative.config.networking.interfaces.eth1.ipv4.addresses)
+                  .address
                 ];
               } ];
             };
@@ -233,11 +235,13 @@ import ./make-test-python.nix ({
               name: "example.local."
               forward-addr: ${
                 (lib.head
-                  nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
+                  nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses)
+                .address
               }
               forward-addr: ${
                 (lib.head
-                  nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
+                  nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses)
+                .address
               }
             '';
             "unbound-extra2.conf".text = ''
@@ -264,9 +268,11 @@ import ./make-test-python.nix ({
           imports = [ common ];
           networking.nameservers = [
             (lib.head
-              nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
+              nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses)
+            .address
             (lib.head
-              nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
+              nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses)
+            .address
           ];
           networking.interfaces.eth1.ipv4.addresses = [ {
             address = "192.168.0.10";
@@ -363,10 +369,12 @@ import ./make-test-python.nix ({
         with subtest("client should be able to query the resolver"):
             test(client, ["${
               (lib.head
-                nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
+                nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses)
+              .address
             }", "${
               (lib.head
-                nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
+                nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses)
+              .address
             }"], doh=True)
 
         # discard the client we do not need anymore
@@ -391,10 +399,12 @@ import ./make-test-python.nix ({
             # Thank you black! Can't really break this line into a readable version.
             expected = "example.local. IN forward ${
               (lib.head
-                nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
+                nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses)
+              .address
             } ${
               (lib.head
-                nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
+                nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses)
+              .address
             }"
             assert out == expected, f"Expected `{expected}` but got `{out}` instead."
             local_resolver.fail("sudo -u unauthorizeduser -- unbound-control list_forwards")

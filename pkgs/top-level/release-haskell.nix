@@ -257,8 +257,8 @@ let
           # ghcjs attribute in their bootstrap package set (exposed via passthru) which
           # would otherwise be ignored by Hydra.
           bootGhcjs =
-            (packagePlatforms
-              pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
+            (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru)
+            .bootGhcjs;
         }));
 
       tests.haskell = packagePlatforms pkgs.tests.haskell;

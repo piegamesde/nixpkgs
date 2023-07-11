@@ -1334,7 +1334,8 @@ in
                   tap = "gretap";
                   tun6 = "ip6gre";
                   tap6 = "ip6gretap";
-                }.${v}
+                }
+                .${v}
                 ;
               description = lib.mdDoc ''
                 Whether the tunnel routes layer 2 (tap) or layer 3 (tun) traffic.

@@ -34,7 +34,8 @@ let
         sha256 = "1bmgbav52pcb5p7cgq9756512fzfqhjybyr0dv538plkqx47mpv7";
         vendorSha256 = "0j393va4jrg9q3wlc9mgkbpgnn2w2s3k2hcn8phzj8d5fl4n4v2h";
       };
-    }.${version};
+    }
+    .${version};
 
 in
 buildGoModule {

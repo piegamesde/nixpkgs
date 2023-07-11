@@ -64,7 +64,8 @@ let
       "fltk" = "FLTK";
       "ntk" = "NTK";
       "zest" = "Zyn-Fusion";
-    }.${guiModule};
+    }
+    .${guiModule};
 
   mruby-zest = callPackage ./mruby-zest { };
 in

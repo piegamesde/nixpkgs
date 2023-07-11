@@ -22,8 +22,8 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   extraArgs ? { }, # !!! See comment about args in lib/modules.nix
   specialArgs ? { },
   modules,
-  modulesLocation ? (builtins.unsafeGetAttrPos "modules"
-    evalConfigArgs).file or null, # !!! See comment about check in lib/modules.nix
+  modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs)
+    .file or null, # !!! See comment about check in lib/modules.nix
   check ? true,
   prefix ? [ ],
   lib ? import ../../lib,

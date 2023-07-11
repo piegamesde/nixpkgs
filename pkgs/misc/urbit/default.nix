@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
         aarch64-linux = "sha256-QRarT+BtVPX7yURsqABZXcYyzqMGweIzo/MGpC2HhEo=";
         x86_64-darwin = "sha256-JuMjYwmcArPEjcUapdkSu9FEFKK4ZfxJxmvRVOJ3w34=";
         aarch64-darwin = "sha256-5lpBhmdDpNVFHZ7P6TRBoFWFWKvwbJNO6ohiuoKMc6E=";
-      }.${stdenv.hostPlatform.system} or (throw
+      }
+      .${stdenv.hostPlatform.system} or (throw
         "unsupported system ${stdenv.hostPlatform.system}");
   };
 

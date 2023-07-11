@@ -71,7 +71,8 @@ let
               ++ map (line: "	${line}") (toLines value.${subname})
               ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
 
-        }.${builtins.typeOf value}
+        }
+        .${builtins.typeOf value}
         ;
 
         # One level "above" encode, acts upon a set and uses encode on each name,value pair

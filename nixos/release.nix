@@ -282,7 +282,8 @@ rec {
             ./modules/installer/sd-card/sd-image-armv7l-multiplatform-installer.nix;
           aarch64-linux =
             ./modules/installer/sd-card/sd-image-aarch64-installer.nix;
-        }.${system};
+        }
+        .${system};
       inherit system;
     });
 
@@ -292,7 +293,8 @@ rec {
         {
           aarch64-linux =
             ./modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix;
-        }.${system};
+        }
+        .${system};
       type = "minimal-new-kernel";
       inherit system;
     });
@@ -303,7 +305,8 @@ rec {
         {
           aarch64-linux =
             ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix;
-        }.${system};
+        }
+        .${system};
       type = "minimal-new-kernel-no-zfs";
       inherit system;
     });

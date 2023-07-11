@@ -140,5 +140,6 @@ in
     meta =
       _meta // { sourceProvenance = with lib.sourceTypes; [ fromSource ]; };
   };
-}.${stdenv.hostPlatform.system} or (throw
+}
+.${stdenv.hostPlatform.system} or (throw
   "Unsupported platform ${stdenv.hostPlatform.system}")

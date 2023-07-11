@@ -83,7 +83,8 @@ buildBazelPackage rec {
       {
         x86_64-linux = "sha256-H2s8sTbmKF+yRfSzLsZAT2ckFuunFwh/FMSKj+GYyPM=";
         aarch64-linux = "sha256-1/z7sZYMiuB4Re2itDZydsFVEel2NOYmi6vRmBGVO/4=";
-      }.${stdenv.system} or (throw "unsupported system ${stdenv.system}");
+      }
+      .${stdenv.system} or (throw "unsupported system ${stdenv.system}");
     dontUseCmakeConfigure = true;
     dontUseGnConfigure = true;
     preInstall = ''

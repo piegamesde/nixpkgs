@@ -29,7 +29,8 @@ stdenv.mkDerivation ({
       {
         aarch64-linux = "TARGET_ARCH=aarch64";
         x86_64-linux = "TARGET_ARCH=x86_64";
-      }.${stdenv.hostPlatform.system}
+      }
+      .${stdenv.hostPlatform.system}
     ]
     ;
 

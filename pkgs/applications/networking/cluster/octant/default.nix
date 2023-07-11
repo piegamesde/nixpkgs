@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
           aarch64-linux = "Linux-arm64";
           x86_64-darwin = "macOS-64bit";
           aarch64-darwin = "macOS-arm64";
-        }.${system} or (throw "Unsupported system: ${system}");
+        }
+        .${system} or (throw "Unsupported system: ${system}");
       fetchsrc =
         version: sha256:
         fetchzip {

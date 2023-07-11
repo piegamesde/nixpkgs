@@ -21,8 +21,8 @@ let
     hash = "sha256-OZe5dV50xq99olImbo7JQxPjRd7hGyBIVwFvtR9cIVc=";
   };
 
-  appimageContents =
-    (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
+  appimageContents = (appimageTools.extract { inherit pname version src; })
+    .overrideAttrs (oA: {
       buildCommand = ''
         ${oA.buildCommand}
 

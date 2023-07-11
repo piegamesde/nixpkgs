@@ -28,7 +28,8 @@ let
         mysql = "MYSQL";
         pgsql = "POSTGRESQL";
         oracle = "ORACLE";
-      }.${cfg.database.type}
+      }
+      .${cfg.database.type}
     }';
     $DB['SERVER'] = '${cfg.database.host}';
     $DB['PORT'] = '${toString cfg.database.port}';

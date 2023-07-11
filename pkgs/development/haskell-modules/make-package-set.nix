@@ -354,8 +354,8 @@ package-set { inherit pkgs lib callPackage; } self // {
     }:
     let
       drv = (extensible-self.extend (pkgs.lib.composeExtensions
-        (self.packageSourceOverrides source-overrides)
-        overrides)).callCabal2nixWithOptions name root cabal2nixOptions { };
+        (self.packageSourceOverrides source-overrides) overrides))
+        .callCabal2nixWithOptions name root cabal2nixOptions { };
     in
     if returnShellEnv then
       (modifier drv).envFunc { inherit withHoogle; }

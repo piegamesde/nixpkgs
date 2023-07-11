@@ -18,7 +18,8 @@ let
       aarch64-linux = "linux-arm64";
       aarch64-darwin = "darwin-arm64";
       armv7l-linux = "linux-armhf";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   archive_fmt =
     if stdenv.isDarwin then
@@ -34,7 +35,8 @@ let
       aarch64-linux = "1gff1ildisczwb0dx7a0jvhj8rgn60n93rzcj1d7lihkgd00zjg6";
       aarch64-darwin = "1zmfg1lv6izv1dmhawmnjs108pg99kq37pi6adyqnfw9yssn0ar5";
       armv7l-linux = "10gr9p5vf0wcc9dgyc79p20vip12ja15qas4i3kwdp9lp4hzh1ss";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 in
 callPackage ./generic.nix rec {
   # Please backport all compatible updates to the stable release.

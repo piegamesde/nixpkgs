@@ -251,7 +251,8 @@ let
       vdi = "vdi";
       vpc = "vhd";
       raw = "img";
-    }.${format} or format
+    }
+    .${format} or format
     ;
 
   rootPartition =
@@ -260,7 +261,8 @@ let
       "legacy+gpt" = "2";
       efi = "2";
       hybrid = "3";
-    }.${partitionTableType};
+    }
+    .${partitionTableType};
 
   partitionDiskScript =
     { # switch-case
@@ -319,7 +321,8 @@ let
         ''}
       '';
       none = "";
-    }.${partitionTableType};
+    }
+    .${partitionTableType};
 
   useEFIBoot = touchEFIVars;
 

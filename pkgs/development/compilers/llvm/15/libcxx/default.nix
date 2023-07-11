@@ -89,7 +89,8 @@ stdenv.mkDerivation rec {
         {
           "c++abi" = "system-libcxxabi";
           "cxxrt" = "libcxxrt";
-        }.${cxxabi.libName} or (throw
+        }
+        .${cxxabi.libName} or (throw
           "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [

@@ -23,7 +23,8 @@ let
   sha256 =
     {
       x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "The simplest way to keep notes";

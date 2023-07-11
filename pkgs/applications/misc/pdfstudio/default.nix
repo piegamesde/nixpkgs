@@ -82,4 +82,5 @@ in
       ];
     jdk = jdk17;
   };
-}.${pname}
+}
+.${pname}

@@ -16,7 +16,8 @@ let
     {
       x86_64-linux = "shimx64.efi";
       aarch64-linux = "shimaa64.efi";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 in
 stdenv.mkDerivation rec {
   pname = "shim";

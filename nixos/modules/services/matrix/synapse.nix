@@ -761,7 +761,8 @@ in
                   {
                     sqlite3 = "${cfg.dataDir}/homeserver.db";
                     psycopg2 = "matrix-synapse";
-                  }.${cfg.settings.database.name};
+                  }
+                  .${cfg.settings.database.name};
                 defaultText = literalExpression ''
                   {
                     sqlite3 = "''${${options.services.matrix-synapse.dataDir}}/homeserver.db";
@@ -780,7 +781,8 @@ in
                   {
                     sqlite3 = null;
                     psycopg2 = "matrix-synapse";
-                  }.${cfg.settings.database.name};
+                  }
+                  .${cfg.settings.database.name};
                 defaultText = lib.literalExpression ''
                   {
                     sqlite3 = null;

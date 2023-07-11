@@ -96,7 +96,8 @@ stdenv.mkDerivation {
         x86_64-linux = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
         i686-linux =
           "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
-      }.${stdenv.hostPlatform.system} or (throw
+      }
+      .${stdenv.hostPlatform.system} or (throw
         "unsupported system ${stdenv.hostPlatform.system}")
     } $out/lib
 

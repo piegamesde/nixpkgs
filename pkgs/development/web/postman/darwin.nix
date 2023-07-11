@@ -20,7 +20,8 @@ let
         arch = "64";
         sha256 = "sha256-36T7S/F35hRCmXXYA8DWwwLsuJiUVU9UBY7eAXjzx1s=";
       };
-    }.${stdenvNoCC.hostPlatform.system} or (throw
+    }
+    .${stdenvNoCC.hostPlatform.system} or (throw
       "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
 in

@@ -45,4 +45,5 @@ in
 
     inherit branch compat-list;
   };
-}.${branch}
+}
+.${branch}

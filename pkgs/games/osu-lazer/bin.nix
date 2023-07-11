@@ -28,7 +28,8 @@ let
           "https://github.com/ppy/osu/releases/download/${version}/osu.AppImage";
         sha256 = "sha256-v+p+IOaHhb/wgqmeSO78rqLQLPGtCOEZBj+I3oZH9N0=";
       };
-    }.${stdenv.system} or (throw
+    }
+    .${stdenv.system} or (throw
       "${pname}-${version}: ${stdenv.system} is unsupported.");
 
   linux = appimageTools.wrapType2 rec {

@@ -34,7 +34,8 @@ let
             "1i0bcjx3acb5dhslf6cabdcnd6mrz9728vxw9hb4al5y3f5fll4w"
           ;
       };
-    }."${stdenv.hostPlatform.system}";
+    }
+    ."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
     url =

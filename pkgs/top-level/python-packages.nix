@@ -6247,8 +6247,8 @@ with self; {
   libtmux = callPackage ../development/python-modules/libtmux { };
 
   libtorrent-rasterbar =
-    (toPythonModule
-      (pkgs.libtorrent-rasterbar.override { inherit python; })).python;
+    (toPythonModule (pkgs.libtorrent-rasterbar.override { inherit python; }))
+    .python;
 
   libusb1 = callPackage ../development/python-modules/libusb1 {
     inherit (pkgs) libusb1;
@@ -6733,11 +6733,11 @@ with self; {
 
   meshtastic = callPackage ../development/python-modules/meshtastic { };
 
-  meson = toPythonModule
-    ((pkgs.meson.override { python3 = python; }).overrideAttrs
-      (oldAttrs: { # We do not want the setup hook in Python packages because the build is performed differently.
-        setupHook = null;
-      }));
+  meson = toPythonModule ((pkgs.meson.override { python3 = python; })
+    .overrideAttrs
+    (oldAttrs: { # We do not want the setup hook in Python packages because the build is performed differently.
+      setupHook = null;
+    }));
 
   mesonpep517 = callPackage ../development/python-modules/mesonpep517 { };
 

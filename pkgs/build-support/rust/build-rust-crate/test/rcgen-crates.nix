@@ -4348,9 +4348,8 @@ rec {
                 buildRustCrateForPkgs
               else
                 pkgs:
-                (buildRustCrateForPkgs pkgs).override {
-                  defaultCrateOverrides = crateOverrides;
-                })
+                (buildRustCrateForPkgs pkgs)
+                .override { defaultCrateOverrides = crateOverrides; })
             ;
           builtRustCrates = builtRustCratesWithFeatures {
             inherit packageId features;

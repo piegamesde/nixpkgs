@@ -151,7 +151,8 @@ rec {
               wasi = "Wasi";
               redox = "Redox";
               genode = "Genode";
-            }.${final.parsed.kernel.name} or null;
+            }
+            .${final.parsed.kernel.name} or null;
 
             # uname -m
           processor =
@@ -243,7 +244,8 @@ rec {
           {
             armv7a = "armv7";
             aarch64 = "arm64";
-          }.${final.parsed.cpu.name} or final.parsed.cpu.name;
+          }
+          .${final.parsed.cpu.name} or final.parsed.cpu.name;
 
         darwinPlatform =
           if final.isMacOS then
@@ -288,8 +290,8 @@ rec {
               hostCpuTargets = [ "${final.qemuArch}-linux-user" ];
             };
             wine =
-              (pkgs.winePackagesFor
-                "wine${toString final.parsed.cpu.bits}").minimal;
+              (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}")
+              .minimal;
           in
           if
             final.parsed.kernel.name

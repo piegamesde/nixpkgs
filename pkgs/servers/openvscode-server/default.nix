@@ -39,7 +39,8 @@ let
       aarch64-linux = "linux-arm64";
       x86_64-darwin = "darwin-x64";
       aarch64-darwin = "darwin-arm64";
-    }.${system} or (throw "Unsupported system ${system}");
+    }
+    .${system} or (throw "Unsupported system ${system}");
 
   esbuild' = esbuild.override {
     buildGoModule =

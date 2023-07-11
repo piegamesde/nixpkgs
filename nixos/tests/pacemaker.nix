@@ -23,7 +23,8 @@ import ./make-test-python.nix ({
                 inherit name;
                 ring_addrs = [
                     (builtins.head
-                      nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address
+                      nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
+                    .address
                   ];
               }) (builtins.attrNames nodes);
             };

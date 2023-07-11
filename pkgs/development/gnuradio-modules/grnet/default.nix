@@ -39,7 +39,8 @@ let
         name = "unstable-2020-12-30";
         gitHash = "e6dfd140cfda715de9bcef4c1116fcacfeb0c606";
       };
-    }.${gnuradio.versionAttr.major};
+    }
+    .${gnuradio.versionAttr.major};
   src = fetchFromGitHub {
     owner = "ghostop14";
     repo = "gr-grnet";
@@ -49,7 +50,8 @@ let
         "3.7" = "LLQ0Jf0Oapecu9gj4IgxOdK7O/OSbHnwNk000GlODxk=";
         "3.8" = "vO8l8nV1/yEQf7pKqBbzIg4KkyCyWu+OkKgISyI3PaQ=";
         "3.9" = "NsL7HCOQmGyexzpH2qbzv8Bq4bsfiDTNEUi96QDOA/g=";
-      }.${gnuradio.versionAttr.major};
+      }
+      .${gnuradio.versionAttr.major};
   };
 in
 mkDerivation {

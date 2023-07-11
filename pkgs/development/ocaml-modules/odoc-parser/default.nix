@@ -27,7 +27,8 @@ let
         sha256 = "sha256-3w2tG605v03mvmZsS2O5c71y66O3W+n3JjFxIbXwvXk=";
         extraBuildInputs = [ ];
       };
-    }."${version}";
+    }
+    ."${version}";
 
 in
 let

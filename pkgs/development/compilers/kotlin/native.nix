@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
           "aarch64-darwin" = "macos-aarch64";
           "x86_64-darwin" = "macos-x86_64";
           "x86_64-linux" = "linux-x86_64";
-        }.${stdenv.system} or (throw
+        }
+        .${stdenv.system} or (throw
           "${pname}-${version}: ${stdenv.system} is unsupported.");
 
       getUrl =
@@ -34,7 +35,8 @@ stdenv.mkDerivation rec {
             "1mkzcwya5mjn0hjxmx8givmx9y1v4hy0cqayya20rvk10jngsfz7";
           "linux-x86_64" =
             "1kv81ilp2dzhxx0kbqkl0i43b44vr5dvni607k78vn6n3mj59j0g";
-        }.${arch}
+        }
+        .${arch}
         ;
     in
     fetchurl {

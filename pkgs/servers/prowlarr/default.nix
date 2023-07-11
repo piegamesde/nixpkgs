@@ -35,7 +35,8 @@ let
       aarch64-linux = "arm64";
       x86_64-darwin = "x64";
       x86_64-linux = "x64";
-    }.${stdenv.hostPlatform.system} or unsupported;
+    }
+    .${stdenv.hostPlatform.system} or unsupported;
 
   hash =
     {
@@ -43,7 +44,8 @@ let
       aarch64-linux = "sha256-gNq2Cial4oSVNlPnFu7U7LSMpAhK5skdbYazob7kQuI=";
       x86_64-darwin = "sha256-6QTBJacl/1/NAmbu0kBLung2KPfR/cuICHeIVpTmu6Y=";
       x86_64-linux = "sha256-T7WQmKuvKB9B61Ku7vZ/fV+DlzA5KVlOOPmZzRpUvgY=";
-    }.${stdenv.hostPlatform.system} or unsupported;
+    }
+    .${stdenv.hostPlatform.system} or unsupported;
 
 in
 stdenv.mkDerivation rec {

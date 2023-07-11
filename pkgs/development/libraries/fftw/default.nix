@@ -89,7 +89,8 @@ stdenv.mkDerivation (finalAttrs: {
           "double" = "fftw3";
           "long-double" = "fftw3l";
           "quad-precision" = "fftw3q";
-        }.${precision}
+        }
+        .${precision}
       ];
     platforms = platforms.unix;
   };

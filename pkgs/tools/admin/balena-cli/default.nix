@@ -14,14 +14,16 @@ let
       x86_64-darwin = "macOS-x64";
         # Balena only packages for x86 so we rely on Rosetta for Apple Silicon
       aarch64-darwin = "macOS-x64";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   sha256 =
     {
       x86_64-linux = "sha256-zuSrNworUCbR4xlDyK7vk4g9V1zaPGXTHr/+D6CRk1s=";
       x86_64-darwin = "sha256-6Fa3ltQXnsIP59lKBPoEwjDWlusu/EkoymZxZVE1I+w=";
       aarch64-darwin = "sha256-6Fa3ltQXnsIP59lKBPoEwjDWlusu/EkoymZxZVE1I+w=";
-    }.${system} or throwSystem;
+    }
+    .${system} or throwSystem;
 
   version = "15.2.2";
   src = fetchzip {

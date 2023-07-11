@@ -80,7 +80,8 @@ let
     {
       "clang" = "-O3 -Wno-ignored-optimization-argument";
       "gcc" = "-O3";
-    }."${compilerName}";
+    }
+    ."${compilerName}";
 
     # ar with lto support
   ar =
@@ -88,7 +89,8 @@ let
       "clang" = "llvm-ar";
       "gcc" = "gcc-ar";
       "unknown" = "ar";
-    }."${compilerName}"
+    }
+    ."${compilerName}"
     ;
 
     # PGO only makes sense if we are not cross compiling and

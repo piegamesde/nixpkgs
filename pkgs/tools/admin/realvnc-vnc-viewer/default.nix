@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
           "https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-${version}-Linux-x64.rpm";
         sha256 = "sha256-Mn4K2HICK7owHcXH85IJUncnpPZ56zNybkHZNiqYkHY=";
       };
-    }.${stdenv.system} or (throw
+    }
+    .${stdenv.system} or (throw
       "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [

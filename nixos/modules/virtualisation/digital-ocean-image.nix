@@ -62,7 +62,8 @@ in
             {
               "gzip" = "${pkgs.gzip}/bin/gzip";
               "bzip2" = "${pkgs.bzip2}/bin/bzip2";
-            }.${cfg.compressionMethod};
+            }
+            .${cfg.compressionMethod};
         in
         ''
           ${compress} $diskImage

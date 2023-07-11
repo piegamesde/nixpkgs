@@ -27,7 +27,8 @@ let
       aarch64-linux = "../../cmpl_gcc_arm64.mak";
       i686-linux = "../../cmpl_gcc_x86.mak";
       x86_64-linux = "../../cmpl_gcc_x64.mak";
-    }.${stdenv.hostPlatform.system} or "../../cmpl_gcc.mak"; # generic build
+    }
+    .${stdenv.hostPlatform.system} or "../../cmpl_gcc.mak"; # generic build
 in
 stdenv.mkDerivation rec {
   pname = "7zz";
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
       {
         free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";
         unfree = "sha256-OTCYcwxwBCOSr4CJF+dllF3CQ33ueq48/MSWbrkg+8U=";
-      }.${
+      }
+      .${
         if enableUnfree then
           "unfree"
         else
